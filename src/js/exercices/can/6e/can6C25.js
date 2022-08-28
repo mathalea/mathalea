@@ -10,6 +10,8 @@ export const interactifType = 'mathLive'
  * Référence can6C25
  * Date de publication 18/10/2021
 */
+export const uuid = '81a00'
+export const ref = 'can6C25'
 export default function RecherchePrix () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

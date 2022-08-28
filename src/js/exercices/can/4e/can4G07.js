@@ -14,6 +14,8 @@ export const interactifType = 'mathLive'
  * Référence can4G07
  * Date de publication septembre 2021
 */
+export const uuid = 'ae712'
+export const ref = 'can4G07'
 export default function CalculLongueurThalesMilieu () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

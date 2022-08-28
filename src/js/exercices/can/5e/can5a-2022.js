@@ -1,8 +1,8 @@
 import Exercice from '../../Exercice.js'
-import { mathalea2d } from '../../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  point, labelPoint, droiteGraduee2, grille, segment, milieu, arc, droite, texteParPosition, tracePoint, polygone, codageAngleDroit, fixeBordures, pointSurSegment, angleModulo, rotation, rapporteur, codageAngle
+  point, labelPoint, droiteGraduee, grille, segment, milieu, arc, droite, texteParPosition, tracePoint, polygone, codageAngleDroit, pointSurSegment, angleModulo, rotation, rapporteur, codageAngle
 } from '../../../modules/2d.js'
 import { round, min, max } from 'mathjs'
 import Grandeur from '../../../modules/Grandeur.js'
@@ -27,6 +27,8 @@ export const dateDePublication = '02/05/2022' // La date de publication initiale
 function compareNombres (a, b) {
   return a - b
 }
+export const uuid = '1fdf7'
+export const ref = 'can5a-2022'
 export default function SujetCAN2022cinquieme () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -536,7 +538,7 @@ export default function SujetCAN2022cinquieme () {
             a = randint(21, 28)
             k = randint(1, 9)
             reponse = arrondi(a + k / 10, 1)
-            texte = 'Détermine l\'abscisse du point A  :<br> ' + mathalea2d({ xmin: -0.8, ymin: -1, xmax: 15, ymax: 1.5, scale: 0.7, style: 'margin: auto' }, droiteGraduee2({
+            texte = 'Détermine l\'abscisse du point A  :<br> ' + mathalea2d({ xmin: -0.8, ymin: -1, xmax: 15, ymax: 1.5, scale: 0.7, style: 'margin: auto' }, droiteGraduee({
               Unite: 10,
               Min: a - 0.2,
               Max: a + 1.2,
@@ -559,7 +561,7 @@ export default function SujetCAN2022cinquieme () {
             a = randint(21, 28)
             k = randint(1, 4)
             reponse = arrondi(a + k / 5, 1)
-            texte = 'Determine l\'abscisse du point A  :<br> ' + mathalea2d({ xmin: -0.8, ymin: -1, xmax: 15, ymax: 1.5, scale: 0.7, style: 'margin: auto' }, droiteGraduee2({
+            texte = 'Determine l\'abscisse du point A  :<br> ' + mathalea2d({ xmin: -0.8, ymin: -1, xmax: 15, ymax: 1.5, scale: 0.7, style: 'margin: auto' }, droiteGraduee({
               Unite: 10,
               Min: a - 0.2,
               Max: a + 1.2,

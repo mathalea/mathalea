@@ -14,6 +14,8 @@ export const interactifType = 'mathLive'
 * @author Rémi Angot
 * 3P10-1
 */
+export const uuid = '4ce2d'
+export const ref = '3P10-1'
 export default function CoefficientEvolution () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

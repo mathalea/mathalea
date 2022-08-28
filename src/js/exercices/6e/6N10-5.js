@@ -15,6 +15,8 @@ export const dateDeModifImportante = '13/01/2022' // Labyrinthe moins évident +
  * Sortir du labyrinthe en utilisant la numération décimale.
  * Ajout AMC et remaniement du code pour moins d'évidence dans la solution : Janvier 2022 par EE
  */
+export const uuid = '80645'
+export const ref = '6N10-5'
 export default function ExerciceLabyrintheNumeration () {
   Exercice.call(this)
   this.consigne = ''
@@ -68,8 +70,7 @@ export default function ExerciceLabyrintheNumeration () {
     }
 
     const chiffre = randint(0, 9)
-    // texte = `${texteEnCouleurEtGras(`Trouve la sortie en ne passant que par les cases contenant un nombre dont le chiffre des ${positions[rang]} est un `, 'black')}$${miseEnEvidence(chiffre, 'black')}$.<br>`
-    texte = `Trouve la sortie en ne passant que par les cases contenant un nombre dont le chiffre des ${positions[rang]} est un $${miseEnEvidence(chiffre, 'black')}$.<br>`
+    texte = `Trouver la sortie en ne passant que par les cases contenant un nombre dont le chiffre des ${positions[rang]} est un $${miseEnEvidence(chiffre, 'black')}$.<br>`
     texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`
 
     const nombreLaby = []

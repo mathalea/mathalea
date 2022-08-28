@@ -17,6 +17,8 @@ export const dateDeModificationImportante = '04/04/2022'
  * @author Sébastien Lozano
  */
 
+export const uuid = 'a6b5b'
+export const ref = '4P10-2'
 export default function TableauxEtQuatriemeProportionnelle () {
   EqResolvantesThales.call(this)
   this.exo = '4P10-2'

@@ -15,6 +15,8 @@ export const titre = 'Tracer des parallèles et des perpendiculaires'
  * @author Jean-Claude Lhote  (AMC par Eric Elter en septembre 2021, ES6 par Loïc Geeraerts
  */
 
+export const uuid = 'd14bc'
+export const ref = '6G12-1'
 export default class ParalleleEtPerpendiculaires extends Exercice {
 //  'use strict'
   constructor () {

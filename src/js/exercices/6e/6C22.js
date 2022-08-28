@@ -18,6 +18,8 @@ export const dateDePublication = '10/07/2021'
  * Référence 6C22
  * Relecture : Novembre 2021 par EE
 */
+export const uuid = '99522'
+export const ref = '6C22'
 export default function ProblemesDePlusEtDeMoins () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Résoudre les problèmes suivants au brouillon et écrire les réponses dans les cases, ne pas préciser "€" ni "euros" ...'

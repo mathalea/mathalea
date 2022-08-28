@@ -1,8 +1,8 @@
 import Exercice from '../Exercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, choice } from '../../modules/outils.js'
-import { labelPoint, texteSurArc, homothetie, point, rotation, fixeBordures, droite, translation, vecteur, arcPointPointAngle } from '../../modules/2d.js'
+import { labelPoint, texteSurArc, homothetie, point, rotation, droite, translation, vecteur, arcPointPointAngle } from '../../modules/2d.js'
 import { pickRandom } from 'mathjs'
 import { aleaVariables } from '../../modules/outilsMathjs.js'
 export const titre = 'Angles et parallèles'
@@ -60,6 +60,8 @@ function anglesSecantes (A, rot = { O: 60, A: 0 }) {
  * @author Frédéric PIOU
  * Référence
 */
+export const uuid = '19812'
+export const ref = '5G30-2'
 export default function exercicesAnglesAIC () {
   Exercice.call(this)
   const formulaire = [

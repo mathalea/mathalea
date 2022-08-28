@@ -11,6 +11,8 @@ import ProblemesAdditifsFractionsBis from '../4e/4C25-0.js'
  *
  * @author Sébastien LOZANO
  */
+export const uuid = 'd0fdc'
+export const ref = '2N30-7'
 export default function ProblemesAdditifsFractionsBis2nde () {
   ProblemesAdditifsFractionsBis.call(this)
 }

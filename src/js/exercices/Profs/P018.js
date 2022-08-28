@@ -1,7 +1,6 @@
 import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { fixeBordures } from '../../modules/2d.js'
 import Pyramide from '../../modules/pyramide.js'
 export const titre = 'Générateur de pyramides'
 

@@ -6,6 +6,8 @@ export const titre = 'Alignement de 3 points.'
  * @author Stéphane Guyon
  * Référence 2G33-1
 */
+export const uuid = 'b1777'
+export const ref = '2G33-1'
 export default function alignementdetroispoints () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

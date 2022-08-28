@@ -19,6 +19,8 @@ export const dateDePublication = '26/04/2022'
  * @author Eric Elter
  * Publié le 27/04/2022
  */
+export const uuid = 'ff2cc'
+export const ref = '6G23-4'
 export default function MesurerUnAngleAvecRapporteur () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

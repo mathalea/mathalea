@@ -22,6 +22,8 @@ export const dateDePublication = '20/01/2022'
  * Référence 6N10-6
  */
 
+export const uuid = 'c5438'
+export const ref = '6N10-6'
 export default function sommmeFractionsDecimales () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 6

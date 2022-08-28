@@ -18,6 +18,8 @@ export const dateDeModificationImportante = '04/04/2022'
  * * correctif le 27/03/2022
  * @author Sébastien Lozano
  */
+export const uuid = '6516e'
+export const ref = '3L13-2'
 export default function EqResolvantesThales () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

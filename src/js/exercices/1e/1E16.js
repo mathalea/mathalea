@@ -9,6 +9,8 @@ export const titre = 'Résoudre une inéquation du second degré'
  * @author Stéphane Guyon
  * Référence 1E11
 */
+export const uuid = '77bcc'
+export const ref = '1E16'
 export default function ResoudreEquationDegre2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

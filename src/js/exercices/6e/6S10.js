@@ -12,12 +12,14 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
- * Lire un diagramme en barre
+ * Lire un diagramme en barres
  * @author Erwan Duplessy
  * Conversion Amc et interactif par Jean-Claude Lhote
  * Référence 6S10
  */
 
+export const uuid = '17bce'
+export const ref = '6S10'
 export default function LectureDiagrammeBarre () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = "Répondre aux questions à l'aide du graphique."
@@ -34,7 +36,7 @@ export default function LectureDiagrammeBarre () {
     this.listeCorrections = [] // vide la liste de questions corrigées
     this.autoCorrection = []
     const bornesinf = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90]
-    const lstAnimaux = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes', 'lycaons', 'servals', 'phacochères']
+    const lstAnimaux = ['Girafes', 'Zèbres', 'Gnous', 'Buffles', 'Gazelles', 'Crocodiles', 'Rhinocéros', 'Léopards', 'Guépards', 'Hyènes', 'Lycaons', 'Servals', 'Phacochères']
     let nbAnimaux = 4 // nombre d'animaux différents dans l'énoncé
     switch (parseInt(this.sup)) {
       case 1: nbAnimaux = 4; break

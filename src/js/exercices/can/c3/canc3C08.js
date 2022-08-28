@@ -11,6 +11,8 @@ export const dateDePublication = '24/07/2022'
  * @author Gilles Mora
  *
  */
+export const uuid = '080f9'
+export const ref = 'canc3C08'
 export default function PlusOuMoins2 () {
   Exercice.call(this)
   this.typeExercice = 'simple'

@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
  * Publié le 15/09/2021
  * Référence can6C24
  */
+export const uuid = '53034'
+export const ref = 'can6C24'
 export default function MultiplierParPuissanceDixNeg () {
   Exercice.call(this)
   this.typeExercice = 'simple'

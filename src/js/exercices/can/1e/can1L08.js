@@ -10,6 +10,8 @@ export const dateDePublication = '11/06/2022'
  * @author Gilles Mora
  * Référence can1L07
 */
+export const uuid = 'cbbbb'
+export const ref = 'can1L08'
 export default function DeveloppementCoeff2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

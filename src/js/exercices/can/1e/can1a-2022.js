@@ -1,8 +1,8 @@
 import Exercice from '../../Exercice.js'
-import { mathalea2d } from '../../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
 import FractionX from '../../../modules/FractionEtendue.js'
 import { Arbre } from '../../../modules/arbres.js'
-import { pave, point, repere, tracePoint, courbe, droite, labelPoint, segment, milieu, texteParPosition, plot, fixeBordures } from '../../../modules/2d.js'
+import { pave, point, repere, tracePoint, courbe, droite, labelPoint, segment, milieu, texteParPosition, plot } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { listeQuestionsToContenu, arrondi, randint, ecritureParentheseSiNegatif, ecritureAlgebrique, texPrix, rienSi1, texNombre, arcenciel, miseEnEvidence, printlatex, shuffle, reduirePolynomeDegre3, choice, reduireAxPlusB, sp, ecritureAlgebriqueSauf1 } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
@@ -24,6 +24,8 @@ export const dateDePublication = '09/07/2022' // La date de publication initiale
 function compareNombres (a, b) {
   return a - b
 }
+export const uuid = '99a59'
+export const ref = 'can1a-2022'
 export default function SujetCAN2022Premiere () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -538,7 +540,6 @@ export default function SujetCAN2022Premiere () {
           texteCorr = `Multiplier par $${texNombre(a, 2)}$ revient à multiplier par $1-\\dfrac{${texNombre(100 - a * 100, 0)}}{100}$. <br>
           Cela revient donc à baisser de $${texNombre(100 - a * 100)} \\%$. `
           reponse = new Decimal(a).mul(-1).add(1).mul(100)
-          console.log(reponse)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '$\\%$' } else { texte += ' $\\ldots$ $\\%$' }
           nbChamps = 1

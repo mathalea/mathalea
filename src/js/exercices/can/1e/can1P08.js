@@ -16,6 +16,8 @@ export const amcType = 'AMCNum'
  * @author Gilles Mora
 
 */
+export const uuid = '0f776'
+export const ref = 'can1P08'
 export default function ProbaLoiVA () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = true

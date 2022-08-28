@@ -7,6 +7,8 @@ export const titre = 'Connaître les propriétés calculatoires des racines carr
  * 2N32-2, ex 2N10-1
  * @author Stéphane Guyon
  */
+export const uuid = '99b29'
+export const ref = '2N32-2'
 export default function proprietesracinecarree () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

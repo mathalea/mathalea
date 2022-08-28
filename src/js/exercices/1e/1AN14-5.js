@@ -16,6 +16,8 @@ export const interactifType = 'mathLive'
  * Référence 1AN14-5
  */
 
+export const uuid = 'b32f2'
+export const ref = '1AN14-5'
 export default function DeriveeQuotient () {
   Exercice.call(this)
   this.titre = titre

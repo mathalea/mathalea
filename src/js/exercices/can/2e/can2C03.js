@@ -12,6 +12,8 @@ export const amcType = 'AMCNum'
  * Référence can2C03
  * Date de publication
 */
+export const uuid = 'b1517'
+export const ref = 'can2C03'
 export default function CalculPuissance1 () {
   Exercice.call(this)
   this.typeExercice = 'simple'

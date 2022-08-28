@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { point, similitude, longueur, polygone, rotation, codageAngleDroit, nommePolygone, segment, texteSurSegment, droite, projectionOrtho, pointSurSegment, texteParPoint, afficheMesureAngle, fixeBordures } from '../../modules/2d.js'
+import { point, similitude, longueur, polygone, rotation, codageAngleDroit, nommePolygone, segment, texteSurSegment, droite, projectionOrtho, pointSurSegment, texteParPoint, afficheMesureAngle } from '../../modules/2d.js'
 import { listeQuestionsToContenu, randint, creerNomDePolygone, choice, numAlpha } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -23,6 +23,8 @@ export const interactifType = 'mathLive'
  * janvier 2021
  * Rendu interactif et AMC par EE (Mars 2022)
  */
+export const uuid = '0d1f7'
+export const ref = '3G30-1'
 export default function ExprimerCosSinTan () {
   Exercice.call(this)
   this.titre = titre

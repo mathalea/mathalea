@@ -9,6 +9,8 @@ export { interactifReady, interactifType, amcReady, amcType } from '../6e/_Table
  *
  * @author Jean-Claude Lhote
  */
+export const uuid = '4e27f'
+export const ref = 'c3C10-1'
 export default class TablesDeMultiplicationsCM extends TablesDeMultiplications {
   constructor () {
     super()

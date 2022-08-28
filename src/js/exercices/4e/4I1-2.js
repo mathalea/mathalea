@@ -18,6 +18,8 @@ export const titre = 'Tortue Scratch avec répétitions'
  * @author Jean-Claude Lhote
  * Géné
  */
+export const uuid = '8ded2'
+export const ref = '4I1-2'
 export default function AlgoTortue () { // ça c'est la classe qui permet de créer cet exercice
   'use strict'
   Exercice.call(this) // la classe parente qui définit les attributs commun à tous les exercices
@@ -541,7 +543,6 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     texteCorr += `La bonne figure est la figure ${this.indiceBonneFigure + 1}`
     if (this.interactif && context.isHtml) {
       texte += `<span id="resultatCheckEx${this.numeroExercice}Q0"></span>`
-      console.log(this.numeroExercice)
     }
     this.figures[0] = [{ id: `figure0Ex${this.numeroExercice}Q0`, solution: (ordreLutins.indexOf(bonneReponse) === 0) },
       { id: `figure1Ex${numeroExercice}Q0`, solution: (ordreLutins.indexOf(bonneReponse) === 1) },

@@ -15,6 +15,8 @@ export const amcType = 'AMCNum'
  * publié le 24/10/2021
  * Référence can5A01
  */
+export const uuid = 'af3c8'
+export const ref = 'can5A01'
 export default function RepetitionScratch () {
   Exercice.call(this)
   this.listeQuestions = []

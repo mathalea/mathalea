@@ -13,6 +13,8 @@ export const titre = 'Compléter une représentation en perspective cavalière'
  * référence : 6G41
  * @author Mireille Gain, s'inspirant fortement de Jean-Claude Lhote
  */
+export const uuid = 'a8e0f'
+export const ref = '6G41'
 export default function RepresenterUnSolide () {
   Exercice.call(this) // Héritage de la classe Exercice ()
   this.titre = titre

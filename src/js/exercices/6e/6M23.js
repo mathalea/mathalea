@@ -7,6 +7,8 @@ export { amcReady, interactifReady, amcType, interactifType } from './_Exercice_
  * référence 6M23
  *
 */
+export const uuid = '6225c'
+export const ref = '6M23'
 export default function Reglages6M23 () {
   ExerciceConversionsAires.call(this)
   this.titre = titre

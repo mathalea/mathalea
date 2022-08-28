@@ -2,7 +2,7 @@ import Exercice from '../../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  point, droiteGraduee2, segment, milieu, texteParPosition, codageSegment, polygone, grille
+  point, droiteGraduee, segment, milieu, texteParPosition, codageSegment, polygone, grille
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { listeQuestionsToContenu, miseEnEvidence, randint, texNombre, shuffle, choice, sp, arrondi } from '../../../modules/outils.js'
@@ -25,6 +25,8 @@ export const dateDePublication = '11/04/2022' // La date de publication initiale
 function compareNombres (a, b) {
   return a - b
 }
+export const uuid = '90c8c'
+export const ref = 'can6a-2021'
 export default function SujetCAN2021Sixieme () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -110,7 +112,7 @@ export default function SujetCAN2021Sixieme () {
           for (let i = 0; i < 2; i++) {
             maListe.push([c + a * i, c + a * i])
           }
-          d = droiteGraduee2({
+          d = droiteGraduee({
             Unite: 3 / a,
             Min: c - 2 * a,
             Max: c + 2 * a,
@@ -311,7 +313,7 @@ export default function SujetCAN2021Sixieme () {
         case 15:
           a = choice(listeFractions15)
           b = fraction(a[0], a[1])
-          d = droiteGraduee2(
+          d = droiteGraduee(
             {
               Unite: 6, // nombre de cm pour une unité
               Min: 0, // Là où commence la droite
@@ -593,7 +595,7 @@ export default function SujetCAN2021Sixieme () {
           b = choice([a + 1, 2 * a - 1])
           reponse = fraction(b, a)// .simplifie()
           texte = "Quelle est la fraction repérée par le point d'interrogation ?<br>" +
-           mathalea2d({ xmin: -0.5, ymin: -1, xmax: 10, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee2({
+           mathalea2d({ xmin: -0.5, ymin: -1, xmax: 10, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee({
              Unite: 8,
              Min: 1,
              Max: 2,

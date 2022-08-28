@@ -7,6 +7,8 @@ export const titre = 'Rendre entier le dénominateur d\'une fraction.'
  * 2N32-3, ex 2N11
  * @author Stéphane Guyon
  */
+export const uuid = '4771d'
+export const ref = '2N32-7'
 export default function Rendreentier () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = 'Rendre entier le dénominateur d\'une fraction.'

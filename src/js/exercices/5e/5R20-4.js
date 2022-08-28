@@ -9,6 +9,8 @@ export const titre = 'Résoudre un problème en utilisant une somme algébrique 
  * @author Sébastien Lozano
  */
 
+export const uuid = '6667e'
+export const ref = '5R20-4'
 export default function ProblemesAdditifsRelatifs5e () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

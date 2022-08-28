@@ -14,6 +14,8 @@ export const dateDeModifImportante = '' // Une date de modification importante a
  * @author Guillaume Valmont
  * Référence 4L12
 */
+export const uuid = '501f9'
+export const ref = '4L12'
 export default function NomExercice () {
   Exercice.call(this)
   this.nbQuestions = 1

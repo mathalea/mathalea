@@ -8,6 +8,8 @@ export const titre = 'Factoriser avec les identités remarquables (niveau II)'
 * @author Stéphane Guyon
 * 2L11-1
 */
+export const uuid = '874e8'
+export const ref = '2N41-7'
 export default function FactoriserIdentitesremarquables2 () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

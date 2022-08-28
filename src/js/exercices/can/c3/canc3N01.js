@@ -13,6 +13,8 @@ export const amcType = 'qcmMono'
  * Date de publication septembre 2021
  * Référence canc3N01
  */
+export const uuid = 'f7ad2'
+export const ref = 'canc3N01'
 export default function EcritureDeNombreEntier () {
   Exercice.call(this)
   this.nbQuestions = 1

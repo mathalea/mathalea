@@ -1,4 +1,4 @@
-import { droiteGraduee2 } from '../../../modules/2d.js'
+import { droiteGraduee } from '../../../modules/2d.js'
 import FractionX from '../../../modules/FractionEtendue.js'
 import { randint, choice, texteCentre, choisitLettresDifferentes } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
@@ -13,6 +13,8 @@ export const amcType = 'AMCHybride'
  * @author Gilles Mora
  */
 export const dateDePublication = '22/06/2022'
+export const uuid = 'c0d5f'
+export const ref = 'can2G16'
 export default function VecteursCol () {
   Exercice.call(this)
   this.typeExercice = 'simple'
@@ -36,7 +38,7 @@ export default function VecteursCol () {
         this.reponse = f1
         this.question = `Compléter l’égalité vectorielle :<br>
     ${texteCentre(`$\\overrightarrow{${noms[0]}${noms[1]}}= ....\\overrightarrow{${noms[0]}${noms[2]}}$`)}  ` +
-     mathalea2d({ xmin: -1, ymin: -1, xmax: 15.5, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, droiteGraduee2({
+     mathalea2d({ xmin: -1, ymin: -1, xmax: 15.5, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, droiteGraduee({
        Unite: 1.5,
        Min: 0,
        Max: a,
@@ -63,7 +65,7 @@ export default function VecteursCol () {
         this.reponse = f2
         this.question = `Compléter l’égalité vectorielle :<br>
     ${texteCentre(`$\\overrightarrow{${noms[0]}${noms[2]}}= ....\\overrightarrow{${noms[0]}${noms[1]}}$`)}  ` +
-     mathalea2d({ xmin: -1, ymin: -1, xmax: 15.5, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, droiteGraduee2({
+     mathalea2d({ xmin: -1, ymin: -1, xmax: 15.5, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, droiteGraduee({
        Unite: 1.5,
        Min: 0,
        Max: a,
@@ -90,7 +92,7 @@ export default function VecteursCol () {
         this.reponse = f3
         this.question = `Compléter l’égalité vectorielle :<br>
       ${texteCentre(`$\\overrightarrow{${noms[0]}${noms[1]}}= ....\\overrightarrow{${noms[2]}${noms[0]}}$`)}  ` +
-       mathalea2d({ xmin: -1, ymin: -1, xmax: 15.5, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, droiteGraduee2({
+       mathalea2d({ xmin: -1, ymin: -1, xmax: 15.5, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, droiteGraduee({
          Unite: 1.5,
          Min: 0,
          Max: a,
@@ -116,7 +118,7 @@ export default function VecteursCol () {
         this.reponse = f4
         this.question = `Compléter l’égalité vectorielle :<br>
         ${texteCentre(`$\\overrightarrow{${noms[0]}${noms[2]}}= ....\\overrightarrow{${noms[1]}${noms[0]}}$`)}  ` +
-         mathalea2d({ xmin: -1, ymin: -1, xmax: 15.5, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, droiteGraduee2({
+         mathalea2d({ xmin: -1, ymin: -1, xmax: 15.5, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, droiteGraduee({
            Unite: 1.5,
            Min: 0,
            Max: a,

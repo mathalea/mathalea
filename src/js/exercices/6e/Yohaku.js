@@ -1,10 +1,10 @@
-import { fixeBordures, segment, point, texteParPosition, tracePoint, latexParCoordonnees } from '../../modules/2d.js'
+import { segment, point, texteParPosition, tracePoint, latexParCoordonnees } from '../../modules/2d.js'
 import { choice, contraindreValeur, lettreMinusculeDepuisChiffre, listeQuestionsToContenu, randint, sp, stringNombre } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { calculer } from '../../modules/outilsMathjs.js'
 import { create, all } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 export const titre = 'Générateur de Yohaku'
 export const interactifReady = true
 export const interactifType = 'custom'
@@ -21,8 +21,6 @@ export class Yohaku {
     this.solution = solution
     this.type = type
     this.cellulesPreremplies = cellulesPreremplies
-    console.log(this.type, this.valeurMax)
-
     // Si les cellules ne sont pas données, on en calcule le contenu aléatoirement.
     if (cellules === undefined || cellules.length === 0) {
       const den = randint(2, this.valeurMax)
@@ -200,6 +198,8 @@ export class Yohaku {
   }
 }
 
+export const uuid = '3a377'
+export const ref = 'Yohaku'
 export default function FabriqueAYohaku () {
   Exercice.call(this)
   this.nbQuestions = 3

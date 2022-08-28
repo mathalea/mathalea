@@ -11,6 +11,8 @@ export const amcType = 'AMCHybride'
  * Publié le 11 / 09 / 2021
  * Référence can6N06
  */
+export const uuid = 'ad44e'
+export const ref = 'can6N06'
 export default function ArrondiDixiemeCentième () {
   Exercice.call(this)
   this.typeExercice = 'simple'

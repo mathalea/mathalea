@@ -12,6 +12,8 @@ export const dateDePublication = '08/07/2022'
  * Référence can1G08
  *
 */
+export const uuid = 'e7919'
+export const ref = 'can1G08'
 export default function VecteurNormEqCart () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1

@@ -1,4 +1,4 @@
-import { droiteGraduee2 } from '../../../modules/2d.js'
+import { droiteGraduee } from '../../../modules/2d.js'
 import { randint, texNombre, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
@@ -13,6 +13,8 @@ export const amcType = 'AMCNum'
  * Date de publication septembre 2021
  * Référence can6N01
  */
+export const uuid = 'fc190'
+export const ref = 'canc3N02'
 export default function SuiteSurDroiteGraduee () {
   Exercice.call(this)
   this.typeExercice = 'simple'
@@ -26,7 +28,7 @@ export default function SuiteSurDroiteGraduee () {
     for (let i = 0; i < 3; i++) {
       maListe.push([c + a * i, texNombre(c + a * i)])
     }
-    const d = droiteGraduee2({
+    const d = droiteGraduee({
       Unite: 3 / a,
       Min: c - a,
       Max: c + 3 * a,

@@ -11,6 +11,8 @@ export const dateDePublication = '08/02/2022' // La date de publication initiale
 /*!
  * @author Gilles Mora
  */
+export const uuid = '5430f'
+export const ref = 'can5D03'
 export default function HeuresFractionHeuresMinutes2 () {
   Exercice.call(this)
   this.nbQuestions = 1

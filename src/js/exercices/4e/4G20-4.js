@@ -16,6 +16,8 @@ export const titre = 'Arrondir une racine carrée'
  * @author Mireille Gain, 27 juin 2021
  */
 
+export const uuid = '41187'
+export const ref = '4G20-4'
 export default function ArrondirUneValeur () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

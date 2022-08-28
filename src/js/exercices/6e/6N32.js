@@ -12,6 +12,8 @@ export const titre = 'Représenter une fraction de l\'unité'
  * 6N32
  */
 
+export const uuid = 'c28e5'
+export const ref = '6N32'
 export default function FractionsDunite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 5

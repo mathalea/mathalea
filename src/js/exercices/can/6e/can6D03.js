@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6D03
  */
+export const uuid = '05b2e'
+export const ref = 'can6D03'
 export default function CalculDureeMinutes () {
   Exercice.call(this)
   this.nbQuestions = 1

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { point, segmentAvecExtremites, labelPoint, arcPointPointAngle, fixeBordures, texteSurSegment, texteSurArc, rotation, homothetie } from '../../modules/2d.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
+import { point, segmentAvecExtremites, labelPoint, arcPointPointAngle, texteSurSegment, texteSurArc, rotation, homothetie } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { choice, randint, listeQuestionsToContenu, choisitLettresDifferentes, texNum, combinaisonListes } from '../../modules/outils.js'
 import { fraction, abs, multiply, evaluate, divide, isInteger, pow, round, subtract, max } from 'mathjs'
@@ -15,10 +15,12 @@ export const dateDePublication = '28/11/2021' // La date de publication initiale
  * @author Frédéric PIOU
  * Référence
 */
+export const uuid = '6f383'
+export const ref = '3G13'
 export default function calculsHomothetie () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
-  this.nbQuestions = 11 // Nombre de questions par défaut
+  this.nbQuestions = 4 // Nombre de questions par défaut
   this.nbCols = 0 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 0 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 1 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte

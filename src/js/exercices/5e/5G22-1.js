@@ -10,6 +10,8 @@ export const titre = 'Utiliser les propriétés de la médiatrice'
  * Référence 5G22-1
  * Date de publication 05/08/2021
 */
+export const uuid = '3acc1'
+export const ref = '5G22-1'
 export default function ProprietesMediatrice () {
   Exercice.call(this)
   this.nbQuestions = 4

@@ -16,6 +16,8 @@ export const amcType = 'qcmMono'
  * 5A12-1
  * @author Sébastien Lozano
  */
+export const uuid = '36074'
+export const ref = '5A12-1'
 export default function PremierOuPas5e () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

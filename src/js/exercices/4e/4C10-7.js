@@ -13,6 +13,8 @@ export const interactifType = 'mathLive'
 * @author Mickael Guironnet - Rémi Angot
 * 4C10-7
 */
+export const uuid = '0b020'
+export const ref = '4C10-7'
 export default function ExerciceOperationsRelatifs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = false // écriture simplifiée

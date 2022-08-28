@@ -22,6 +22,8 @@ export const dateDeModifImportante = '11/05/2022'
 * Ajout de la possibilité de ne pas poser de question sur l'inverse d'un nombre par Guillaume Valmont le 11/05/2022
 * 5L10
 */
+export const uuid = '3c1f7'
+export const ref = '5L10'
 export default function EcrireUneExpressionLitterale () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

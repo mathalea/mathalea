@@ -16,6 +16,8 @@ export const interactifType = 'mathLive'
  * Référence 6N10-0 (anciennement 6N10)
  */
 
+export const uuid = '6babf'
+export const ref = '6N10-0'
 export default function EcrireNombresEntiers () {
   Exercice.call(this)
   this.nbQuestions = 5

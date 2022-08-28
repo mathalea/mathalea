@@ -12,6 +12,8 @@ export const titre = 'Construire l\'image d\'un point par une homothetie avec ci
 * @author Jean-Claude Lhote
 * Publié le 30/11/2020
 */
+export const uuid = '18e25'
+export const ref = '3G11'
 export default function ConstruireHomothetiePoint3e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

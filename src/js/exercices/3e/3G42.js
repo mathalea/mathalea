@@ -20,6 +20,8 @@ export const titre = 'Volume d\'une boule'
 * date : 2021/02/09
 */
 
+export const uuid = '8c803'
+export const ref = '3G42'
 export default function VolumeBoule () {
   Exercice.call(this)
   this.titre = titre

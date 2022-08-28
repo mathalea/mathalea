@@ -17,6 +17,8 @@ export const dateDeModifImportante = '17/03/2022'
  * Référence 5N11-3
  * 2021-02-06
 */
+export const uuid = '0e58f'
+export const ref = '5N11-3'
 export default function FractionVersPourcentage () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

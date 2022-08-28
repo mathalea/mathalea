@@ -21,6 +21,8 @@ export const interactifType = 'mathLive'
 * @author Rémi Angot
 * 4C21
 */
+export const uuid = '5f429'
+export const ref = '4C21'
 export default function ExerciceAdditionnerOuSoustraireDesFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 2 // Niveau de difficulté

@@ -14,6 +14,8 @@ export const titre = "Étudier la parité d'une fonction"
 * @author Stéphane Guyon
 * 2F25-2
 */
+export const uuid = '1e362'
+export const ref = '2F25-2'
 export default function EtudierPariteFonction () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

@@ -17,6 +17,8 @@ export const amcType = 'AMCOpenNum'
 * @author Rémi Angot modifications par Jean-Claude Lhote
 * Référence 5R22
 */
+export const uuid = 'f6ea7'
+export const ref = '5R22'
 export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = max

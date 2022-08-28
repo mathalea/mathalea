@@ -10,6 +10,8 @@ export const titre = 'Nommer et coder des polygones'
  * Placer les sommets et les égalités de longueur...
  * Référence 6G20
  */
+export const uuid = '90e1a'
+export const ref = '6G20'
 export default function NommerEtCoderDesPolygones () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

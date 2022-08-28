@@ -16,6 +16,8 @@ export const titre = 'Utiliser tables de multiplication pour effectuer produits 
  * @author Rémi Angot
 * Référence 6C10-2
  */
+export const uuid = '23bc8'
+export const ref = '6C10-2'
 export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
   tablesParDefaut = '2-3-4-5-6-7-8-9'
 ) {

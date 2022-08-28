@@ -1010,10 +1010,14 @@ export default {
     }
   },
   "2N10-2": {
-    "titre": "Placer un point d\\",
+    "titre": "Placer un point d'abscisse décimale",
     "url": "/exercices/2e/2N10-2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "custom",
     "name": "2N10-2",
     "newEx": {
       "isNew": false,
@@ -2572,7 +2576,7 @@ export default {
     }
   },
   "3F12": {
-    "titre": "Fonctions : Calculs d'images",
+    "titre": "Calculer, de manières différentes, des images par une fonction",
     "url": "/exercices/3e/3F12.js",
     "amcReady": false,
     "interactifReady": false,
@@ -3360,7 +3364,7 @@ export default {
     }
   },
   "3L11-8": {
-    "titre": "Yahoku multiplicatif expressions littérales niveau 1",
+    "titre": "Yoh ku multiplicatif expressions littérales niveau 1",
     "url": "/exercices/3e/3L11-8.js",
     "amcReady": false,
     "interactifReady": true,
@@ -3823,6 +3827,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "4C10-10": {
+    "titre": "Multiplication à trou de deux entiers relatifs",
+    "url": "/exercices/4e/4C10-10.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "4C10-10",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "4C10-2": {
     "titre": "Signe d'un quotient de nombres relatifs",
     "url": "/exercices/4e/4C10-2.js",
@@ -3925,7 +3948,7 @@ export default {
     }
   },
   "4C10-8": {
-    "titre": "Yahoku multiplicatif nombres relatifs niveau 1",
+    "titre": "Yohaku multiplicatif nombres relatifs niveau 1",
     "url": "/exercices/4e/4C10-8.js",
     "amcReady": false,
     "interactifReady": true,
@@ -4045,7 +4068,7 @@ export default {
     }
   },
   "4C21-2": {
-    "titre": "Yahoku additif fractions niveau 1",
+    "titre": "Yohaku additif fractions niveau 1",
     "url": "/exercices/4e/4C21-2.js",
     "amcReady": false,
     "interactifReady": true,
@@ -4131,7 +4154,7 @@ export default {
     }
   },
   "4C22-3": {
-    "titre": "Yahoku multiplicatif fractions niveau 1",
+    "titre": "Yohaku multiplicatif fractions niveau 1",
     "url": "/exercices/4e/4C22-3.js",
     "amcReady": false,
     "interactifReady": true,
@@ -5089,7 +5112,7 @@ export default {
     }
   },
   "4L10-3": {
-    "titre": "Yahoku additif expressions littérales niveau 1",
+    "titre": "Yohaku additif expressions littérales niveau 1",
     "url": "/exercices/4e/4L10-3.js",
     "amcReady": false,
     "interactifReady": true,
@@ -7041,7 +7064,7 @@ export default {
     }
   },
   "5R20-6": {
-    "titre": "Yahoku additif nombres relatifs niveau 1",
+    "titre": "Yohaku additif nombres relatifs niveau 1",
     "url": "/exercices/5e/5R20-6.js",
     "amcReady": false,
     "interactifReady": true,
@@ -7163,7 +7186,7 @@ export default {
     }
   },
   "5S11": {
-    "titre": "Lire un diagramme en barre",
+    "titre": "Lire un diagramme en barres",
     "url": "/exercices/5e/5S11.js",
     "amcReady": true,
     "amcType": {
@@ -7454,7 +7477,7 @@ export default {
     }
   },
   "6C10-7a": {
-    "titre": "Yahoku additif niveau 1",
+    "titre": "Yohaku additif niveau 1",
     "url": "/exercices/6e/6C10-7a.js",
     "amcReady": false,
     "interactifReady": true,
@@ -7470,7 +7493,7 @@ export default {
     }
   },
   "6C10-7b": {
-    "titre": "Yahoku multiplicatif niveau 1",
+    "titre": "Yohaku multiplicatif niveau 1",
     "url": "/exercices/6e/6C10-7b.js",
     "amcReady": false,
     "interactifReady": true,
@@ -9187,7 +9210,7 @@ export default {
     }
   },
   "6N10-7": {
-    "titre": "Recomposer un entier",
+    "titre": "Recomposer un décimal ou un entier",
     "url": "/exercices/6e/6N10-7.js",
     "amcReady": true,
     "amcType": {
@@ -10242,7 +10265,7 @@ export default {
     }
   },
   "6S10": {
-    "titre": "Lire un diagramme en barre",
+    "titre": "Lire un diagramme en barres",
     "url": "/exercices/6e/6S10.js",
     "amcReady": true,
     "amcType": {
@@ -16968,7 +16991,7 @@ export default {
     }
   },
   "can6C27": {
-    "titre": "Résoudre un problème concret",
+    "titre": "Résoudre un problème de rendu de monnaie",
     "url": "/exercices/can/6e/can6C27.js",
     "amcReady": false,
     "interactifReady": true,
@@ -16979,7 +17002,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -17124,7 +17147,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can6C35",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -17609,6 +17632,25 @@ export default {
     "name": "can6M11",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can6M12": {
+    "titre": "Calculer une longueur/un périmètre (avec des décimaux)",
+    "url": "/exercices/can/6e/can6M12.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6M12",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -18242,7 +18284,7 @@ export default {
     "interactifType": "mathLive",
     "name": "canc3C07",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -18261,7 +18303,7 @@ export default {
     "interactifType": "mathLive",
     "name": "canc3C08",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -18370,6 +18412,25 @@ export default {
     "name": "canc3M01",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "canc3M02": {
+    "titre": "Calculer une longueur/un périmètre/une aire (avec des entiers)",
+    "url": "/exercices/can/c3/canc3M02.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "canc3M02",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

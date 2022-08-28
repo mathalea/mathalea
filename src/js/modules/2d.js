@@ -18,8 +18,8 @@ import { colorToLatexOrHTML, ObjetMathalea2D, vide2d } from './2dGeneralites.js'
  * A = point(x,y) //ses coordonnées
  * A = point(x,y,'A') //ses coordonnées et son nom
  * A = point(x,y,'A',below') //ses coordonnées,son nom et la position de son label
- *
  * @author Rémi Angot
+ * @class
  */
 function Point (arg1, arg2, arg3, positionLabel = 'above') {
   this.typeObjet = 'point'
@@ -48,31 +48,35 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
     this.nom = ' ' // Le nom d'un point est par défaut un espace
     // On pourra chercher tous les objets qui ont ce nom pour les nommer automatiquement
   }
+
   /**
- * Permet de déterminer si le point sur lequel la méthode est appliquée appartient au polygone passé en argument
- * fonctionne avec tout type de polygone
- * la fonction utilise une triangulation du polygone réalisée par la librairie earcut Copyright (c) 2016, Mapbox.
- *
- * @param {Polygone} lePolygone
- * @return {boolean} true si le Point est à l'intérieur de lePolygone
- * @author Jean-Claude Lhote
- */
-  this.estDansPolygoneNonConvexe = function (lePolygone) {
-    const listeTriangles = earcut(polygoneToFlatArray(lePolygone))
+   * Teste l'appartenance d'un point à tout type de polygone (non convexe ou convexe). Pour info, la fonction utilise une triangulation du polygone réalisée par la librairie earcut Copyright (c) 2016, Mapbox.
+   * @memberof Point
+   * @param {Polygone} p Polygone dont on veut tester l'appartenance avec le point
+   * @example M.estDansPolygone(p1) // Renvoie true si M appartient au polygone p1, false sinon
+   * @author Jean-Claude Lhote
+   * @return {boolean}
+   */
+  // JSDOC Validee par EE Aout 2022
+  this.estDansPolygone = function (p) {
+    const listeTriangles = earcut(polygoneToFlatArray(p))
     for (let i = 0; i < listeTriangles.length; i += 3) {
-      if (this.estDansTriangle(lePolygone.listePoints[listeTriangles[i]], lePolygone.listePoints[listeTriangles[i + 1]], lePolygone.listePoints[listeTriangles[i + 2]])) return true
+      if (this.estDansTriangle(p.listePoints[listeTriangles[i]], p.listePoints[listeTriangles[i + 1]], p.listePoints[listeTriangles[i + 2]])) return true
     }
     return false
   }
 
   /**
- * fonction qui teste l'appartenance à un triangle
- * @param {Point} A
- * @param {Point} B
- * @param {Point} C
- * @returns true si le point est dans le triangle ABC
- * @author Eric Elter et Jean-Claude Lhote
- */
+   * Teste l'appartenance d'un point dans un triangle
+   * @memberof Point
+   * @param {Point} A Premier sommet du triangle
+   * @param {Point} B Deuxième sommet du triangle
+   * @param {Point} C Troisième sommet du triangle
+   * @example M.estDansTriangle(V, S, T) // Renvoie true si M appartient au triangle VST, false sinon
+   * @author Eric Elter
+   * @return {boolean}
+   */
+  // JSDOC Validee par EE Aout 2022
   this.estDansTriangle = function (A, B, C) {
     const vMA = vecteur(this, A)
     const vMB = vecteur(this, B)
@@ -82,37 +86,54 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
     const x3 = vMA.x * vMB.y - vMA.y * vMB.x
     return (superieurouegal(x1, 0) && superieurouegal(x2, 0) && superieurouegal(x3, 0)) || (inferieurouegal(x1, 0) && inferieurouegal(x2, 0) && inferieurouegal(x3, 0))
   }
+
   /**
-   * fonction qui teste l'appartenance à un polygone convexe
-   * @param {Polygone} P
-   * @returns true si le point appartient au polygone
+   * Teste l'appartenance d'un point à un polygone convexe
+   * @memberof Point
+   * @param {Polygone} p Polygone dont on veut tester l'appartenance avec le point
+   * @example M.estDansPolygoneConvexe(p1) // Renvoie true si M appartient au polygone convexe p1, false sinon
    * @author Jean-Claude Lhote
+   * @return {boolean}
    */
-  this.estDansPolygoneConvexe = function (P) {
-    const l = P.listePoints.length
+  // JSDOC Validee par EE Aout 2022
+  this.estDansPolygoneConvexe = function (p) {
+    const l = p.listePoints.length
     if (l === 3) {
-      return this.estDansTriangle(...P.listePoints)
+      return this.estDansTriangle(...p.listePoints)
     } else {
-      const A = P.listePoints[0]
-      const B = P.listePoints[1]
-      const C = P.listePoints[l - 1]
-      const P2 = polygone(...P.listePoints.slice(1))
+      const A = p.listePoints[0]
+      const B = p.listePoints[1]
+      const C = p.listePoints[l - 1]
+      const p2 = polygone(...p.listePoints.slice(1))
       if (this.estDansTriangle(A, B, C)) return true
-      else return this.estDansPolygoneConvexe(P2)
+      else return this.estDansPolygoneConvexe(p2)
     }
   }
+
   /**
- * @author Eric Elter
- * @returns {boolean}
- */
+   * Teste l'appartenance d'un point dans un quadrilatère
+   * @memberof Point
+   * @param {Point} A Premier sommet du quadrilatère
+   * @param {Point} B Deuxième sommet du quadrilatère
+   * @param {Point} C Troisième sommet du quadrilatère
+   * @param {Point} D Quatrième sommet du quadrilatère
+   * @example M.estDansQuadrilatere(F, G, H, I) // Renvoie true si M appartient au quadrilatère FGHI, false sinon
+   * @author Eric Elter
+   * @return {boolean}
+   */
+  // JSDOC Validee par EE Aout 2022
   this.estDansQuadrilatere = function (A, B, C, D) {
     return this.estDansTriangle(A, B, C) || this.estDansTriangle(A, C, D)
   }
+
   /**
- *
- * @param {Segment | Cercle | Droite | DemiDroite} objet
- * @returns {boolean} true si le point est sur l'objet
- */
+   * Teste l'appartenance d'un point sur un segment, un cercle, une droite ou une demi-droite
+   * @memberof Point
+   * @param {Segment | Cercle | Droite | DemiDroite} objet Objet géométrique dont on veut tester si le point en fait partie
+   * @example M.estSur(s) // Renvoie true si M appartient au segment s (au préalablement défini), false sinon
+   * @return {boolean}
+   */
+  // JSDOC Validee par EE Aout 2022
   this.estSur = function (objet) {
     if (objet instanceof Droite) return (egal(objet.a * this.x + objet.b * this.y + objet.c, 0, 0.000001))
     if (objet instanceof Segment) {
@@ -136,11 +157,11 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
  * @param {number} x abscisse
  * @param {number} y ordonnée
  * @param {string} A son nom qui apparaîtra
- * @param {string} labelPosition Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
- * @returns {Point}
+ * @param {string} positionLabel Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
+ * @return {Point}
  */
-export function point (x, y, A, labelPosition = 'above') {
-  return new Point(x, y, A, labelPosition)
+export function point (x, y, A, positionLabel = 'above') {
+  return new Point(x, y, A, positionLabel)
 }
 /**
  * @author Jean-Claude Lhote
@@ -364,7 +385,7 @@ function TracePoint (...points) {
 }
 /**
  * @param  {Point} args Points précédemment créés. Si le dernier argument est une chaîne de caractère, définit la couleur des points tracés.
- * @returns  {TracePoint} TracePoint
+ * @return  {TracePoint} TracePoint
  * @example tracePoint(A,B,C,'red) // Trace les points A,B,C précédemment créés en rouge
  * @example tracePoint(A).style = '|' // Le style du point A sera '|' et non 'x' par défaut.
  * @example tracePoint(A).epaisseur = 5 // L'épaisseur du style du point sera 5 et non 1 par défaut.
@@ -629,7 +650,7 @@ function LabelPoint (...points) {
  * Nomme les points passés en argument, le nombre d'arguments n'est pas limité.
  * @param  {...any} args Points
  * @param {string} [color='black']
- * @returns {LabelPoint} LabelPoint
+ * @return {LabelPoint} LabelPoint
  * @example labelPoint(A,B,C) // Retourne le nom des points A, B et C en noir
  * @example labelPoint(A,B,C,'red') // Retourne le nom des points A, B et C en rouge
  * @example labelPoint(A,B,C,'#f15929') // Retourne le nom des points A, B et C en orange (code couleur HTML : #f15929)
@@ -723,7 +744,7 @@ function LabelLatexPoint ({ points = [], color = 'black', taille = 8, largeur = 
  * largeur: la largeur en pixels du label (par défaut 10) a des fins de centrage
  * hauteur: la hauteur en pixels du label à des fins de centrage
  * background: transparent si '' sinon une couleur
- * @returns {LabelLatexPoint} LabelLatexPoint
+ * @return {LabelLatexPoint} LabelLatexPoint
  * @author Rémi Angot et Jean-Claude Lhote
  */
 export function labelLatexPoint ({ points, color = 'black', taille = 8, largeur = 10, hauteur = 10, background = '' }) {
@@ -767,9 +788,36 @@ export function barycentre (p, nom = '', positionLabel = 'above') {
  * d = droite(a,b,c,'(d)') // La droite définie par les coefficients de ax +by + c=0 (équation de la droite (a,b)!==(0,0))
  * d = droite(A,B,'(d)','blue') //La droite passant par A et B se nommant (d) et de couleur bleue
  *
- * @author Jean-Claude Lhote
+ * @author
  */
-function Droite (arg1, arg2, arg3, arg4) {
+
+/**  Trace la demi-droite d'origine A passant par B
+ * @param {Point | number} arg1 Premier point de la droite OU BIEN coefficient a de l'équation de la droite ax+by+c=0
+ * @param {Point | number} arg2 Deuxième point de la droite OU BIEN coefficient b de l'équation de la droite ax+by+c=0
+ * @param {string | number} arg3 Nom affichée de la droite OU BIEN coefficient c de l'équation de la droite ax+by+c=0
+ * @param {string} arg4 Couleur de la droite : du type 'blue' ou du type '#f15929' OU BIEN nom affichée de la droite si arg1 est un nombre
+ * @param {string} arg5 Couleur de la droite : du type 'blue' ou du type '#f15929' si arg1 est un nombre
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml Sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {number} a Coefficient a de l'équation de la droite ax+by+c=0
+ * @property {number} b Coefficient b de l'équation de la droite ax+by+c=0
+ * @property {number} c Coefficient c de l'équation de la droite ax+by+c=0
+ * @property {number} x1 Abscisse de arg1 (si ce point existe)
+ * @property {number} y1 Ordonnée de arg1 (si ce point existe)
+ * @property {number} x2 Abscisse de arg2 (si ce point existe)
+ * @property {number} y2 Ordonnée de arg2 (si ce point existe)
+ * @property {string} nom Nom affichée de la droite
+ * @property {string} color Couleur de la droite. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {Vecteur} normal Vecteur normal de la droite
+ * @property {Vecteur} directeur Vecteur directeur de la droite
+ * @property {number} angleAvecHorizontale Valeur de l'angle orienté entre la droite et l'horizontale
+ * @author Jean-Claude Lhote
+ * @class
+ */
+// JSDOC Validee par EE Aout 2022
+function Droite (arg1, arg2, arg3, arg4, arg5) {
   let a, b, c
 
   ObjetMathalea2D.call(this, { })
@@ -859,6 +907,32 @@ function Droite (arg1, arg2, arg3, arg4) {
       this.c = (this.x1 - this.x2) * this.y1 + (this.y2 - this.y1) * this.x1
       this.nom = arg3
       this.color = colorToLatexOrHTML(arg4)
+    }
+  } else { // arguments.length === 5
+    if (isNaN(arg1) || isNaN(arg2) || isNaN(arg3)) window.notify('Droite : (attendus : a, b, c et "nom") les arguments de sont pas des nombres valides', { arg1, arg2, arg3 })
+    this.a = arg1
+    this.b = arg2
+    this.c = arg3
+    a = arg1
+    b = arg2
+    c = arg3
+    this.nom = arg4
+    this.color = colorToLatexOrHTML(arg5)
+    if (egal(a, 0)) {
+      this.x1 = 0
+      this.x2 = 1
+      this.y1 = -c / b
+      this.y2 = -c / b
+    } else if (egal(b, 0)) {
+      this.y1 = 0
+      this.y2 = 1
+      this.x1 = -c / a
+      this.x2 = -c / a
+    } else {
+      this.x1 = 0
+      this.y1 = -c / b
+      this.x2 = 1
+      this.y2 = (-c - a) / b
     }
   }
   if (this.b !== 0) this.pente = -this.a / this.b
@@ -1015,25 +1089,34 @@ function Droite (arg1, arg2, arg3, arg4) {
     return s.tikzml(amp) + leNom.tikz()
   }
 }
-/**
- * @param  {...any} args Deux points ou les coefficients a, b, c de ax + by + c = 0 où (a,b) !== (0,0)
- * @param {string} nom Facultatif
- * @param {string} color Facultatif
- * @returns {Droite} Droite
- * @example droite(A,B,'(d)') // La droite passant par A et B se nommant (d)
- * @example droite(a,b,c,'(d)') // La droite définie par les coefficients de ax +by + c = 0 (équation de la droite (a,b)!==(0,0))
- * @example droite(A,B,'(d)','blue') // La droite passant par A et B se nommant (d) et de couleur bleue
+
+/**  Trace une droite définie par 2 points OU BIEN par les coefficients de son équation
+ * @param {Point | number} arg1 Premier point de la droite OU BIEN coefficient a de l'équation de la droite ax+by+c=0 avec (a,b)!=(0,0)
+ * @param {Point | number} arg2 Deuxième point de la droite OU BIEN coefficient b de l'équation de la droite ax+by+c=0 avec (a,b)!=(0,0)
+ * @param {string | number} arg3 Nom affichée de la droite OU BIEN coefficient c de l'équation de la droite ax+by+c=0
+ * @param {string} arg4 Couleur de la droite : du type 'blue' ou du type '#f15929' OU BIEN nom affichée de la droite si arg1 est un nombre
+ * @param {string} arg5 Couleur de la droite : du type 'blue' ou du type '#f15929' si arg1 est un nombre
+ * @example droite(M, N, '(d1)') // Trace la droite passant par M et N se nommant (d1) et de couleur noire
+ * @example droite(M, N, '(d1)','blue') // Trace la droite passant par M et N se nommant (d1) et de couleur bleue
+ * @example droite(m, n, p) // Trace la droite définie par les coefficients de mx+ny+p=0 et de couleur noire
+ * @example droite(m, n, p, '(d1)', 'red') // Trace la droite définie par les coefficients de mx+ny+p=0, se nommant (d1) et de couleur rouge
  * @author Jean-Claude Lhote
+ * @return {Droite}
  */
 export function droite (...args) {
   return new Droite(...args)
 }
-/**
- * fonction qui analyse si le point A est au-dessus ou en dessous de la droite d
- * retourne 'sur', 'dessus', 'dessous' ou 'gauche' ou 'droite" si la droite est verticale.
+
+/**  Donne la position du point A par rapport à la droite d
  * @param {droite} d
  * @param {point} A
+ * @param {number} [tolerance = 0.0001] Seuil de tolérance pour évaluer la proximité entre d et A.
+ * @example dessousDessus(d1, M) // Renvoie la position de M par rapport à d1 parmi ces 5 possibilités : 'sur', 'droite', 'gauche', 'dessous', 'dessus'
+ * @example dessousDessus(d1, M, 0.005) // Renvoie la position de M par rapport à d1 parmi ces 5 possibilités : 'sur', 'droite', 'gauche', 'dessous', 'dessus' (avec une tolérance de 0,005)
+ * @return {'sur' | 'droite' | 'gauche' | 'dessous' | 'dessus'}
  */
+// JSDOC Validee par EE Aout 2022
+
 export function dessousDessus (d, A, tolerance = 0.0001) {
   if (egal(d.a * A.x + d.b * A.y + d.c, 0, tolerance)) return 'sur'
   if (egal(d.b, 0)) {
@@ -1046,42 +1129,10 @@ export function dessousDessus (d, A, tolerance = 0.0001) {
 }
 
 /**
- * @param {number} rxmin marge à gauche 0.5 par défaut (peut être fixée à 0 si on veut)
- * @param {number} rxmax marge à droite 0.5 par défaut
- * @param {number} rymin marge en bas 0.5 par défaut (peut être fixée à 0 si on veut)
- * @param {number} rymax marge en haut 0.5 par défaut
- * @param {number} rzoom facteur multiplicatif des marges... implémenté en cas de problème avec le zoom ?
- * @param {object} objets // tableau contenant les objets à afficher
- * Les objets affichables doivent avoir un attribut this.bordures = [xmin, ymin, xmax, ymax] 4 nombres dans cet ordre.
- * Si this.bordures n'est pas défini ou n'est pas un tableau de 4 éléments, l'objet est ignoré
- * Si aucun objet passé en argument n'a de "bordures" alors la fonction retourne une zone inaffichable et un message d'erreur est créé
- * @returns {object} {xmin, ymin, xmax, ymax}
- */
-export function fixeBordures (objets, { rxmin = undefined, rymin = undefined, rxmax = undefined, rymax = undefined, rzoom = 1 } = {}) {
-  let xmin = 1000; let ymin = 1000; let xmax = -1000; let ymax = -1000
-  let bordures = false
-  rxmin = rxmin !== undefined ? rxmin : -0.5
-  rymin = rymin !== undefined ? rymin : -0.5
-  rxmax = rxmax !== undefined ? rxmax : 0.5
-  rymax = rymax !== undefined ? rymax : 0.5
-  for (const objet of objets) {
-    if (Array.isArray(objet.bordures) && objet.bordures.length === 4) {
-      xmin = Math.min(xmin, objet.bordures[0])
-      xmax = Math.max(xmax, objet.bordures[2])
-      ymin = Math.min(ymin, objet.bordures[1])
-      ymax = Math.max(ymax, objet.bordures[3])
-      bordures = true
-    }
-  }
-  if (!bordures) window.notify('fixeBordures : aucun objet ne définit de bordures valides', { ...objets })
-  return { xmin: xmin + rxmin * rzoom, xmax: xmax + rxmax * rzoom, ymin: ymin + rymin * rzoom, ymax: ymax + rymax * rzoom }
-}
-
-/**
  *
  * @param {droite} d
  * @param {number} param1 les bordures de la fenêtre
- * @returns {Point} le point qui servira à placer le label.
+ * @return {Point} le point qui servira à placer le label.
  */
 export function positionLabelDroite (d, { xmin = 0, ymin = 0, xmax = 10, ymax = 10 }) {
   let xLab, yLab
@@ -1121,56 +1172,95 @@ export function positionLabelDroite (d, { xmin = 0, ymin = 0, xmax = 10, ymax = 
   const position = translation(point(xLab, yLab), homothetie(vecteur(d.a, d.b), point(0, 0), 0.5 / norme(vecteur(d.a, d.b))))
   return position
 }
-/**
- * d = droiteParPointEtVecteur(A,v,'d1',red') //Droite passant par A, de vecteur directeur v et de couleur rouge
+
+/**  Trace la droite passant par le point A et de vecteur directeur v
+ * @param {Point} A Point de la droite
+ * @param {Vecteur} v Vecteur directeur de la droite
+ * @param {string} [nom = ''] Nom affichée de la droite
+ * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
+ * @example droiteParPointEtVecteur(M, v1) // Trace la droite passant par le point M et de vecteur directeur v1
+ * @example droiteParPointEtVecteur(M, v1, 'd1', 'red') // Trace, en rouge, la droite d1 passant par le point M et de vecteur directeur v1
  * @author Jean-Claude Lhote
+ * @return {Droite}
  */
+// JSDOC Validee par EE Aout 2022
 export function droiteParPointEtVecteur (A, v, nom = '', color = 'black') {
   const B = point(A.x + v.x, A.y + v.y)
-  return droite(A, B, nom, color)
+  return new Droite(A, B, nom, color)
 }
-/**
- * Trace en color la droite nom parallèle à d passant par A
- * @param {Point} A
- * @param {Droite} d
- * @param {string} [nom=''] Facultatif, vide par défaut
- * @param {string} [color='black'] Facultatif, 'black' par défaut
- * @return {Droite}
- * @example droiteParPointEtParallele(A,d,'d1',red') // Trace en rouge la droite d1 parallèle à la droite d passant par A
+
+/**  Trace la droite parallèle à d passant par le point A
+ * @param {Point} A Point de la droite
+ * @param {Droite} d Droite
+ * @param {string} [nom = ''] Nom affichée de la droite
+ * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
+ * @example droiteParPointEtParallele(M, d2) // Trace la droite parallèle à d2 passant par le point M
+ * @example droiteParPointEtParallele(M, d2, 'd1', 'red') // Trace, en rouge, la droite d1 parallèle à d2 passant par le point M
  * @author Jean-Claude Lhote
+ * @return {droiteParPointEtVecteur}
  */
+// JSDOC Validee par EE Aout 2022
 export function droiteParPointEtParallele (A, d, nom = '', color = 'black') {
   return droiteParPointEtVecteur(A, d.directeur, nom, color)
 }
-/**
- * d = droiteParPointEtPerpendiculaire(A,d,'d1',red') // Trace en rouge la perpendiculaire à la droite (d) passant par A
+
+/**  Trace la droite perpendiculaire à d passant par le point A
+ * @param {Point} A Point de la droite
+ * @param {Droite} d Droite
+ * @param {string} [nom = ''] Nom affichée de la droite
+ * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
+ * @example droiteParPointEtPerpendiculaire(M, d2) // Trace la droite perpendiculaire à d2 passant par le point M
+ * @example droiteParPointEtPerpendiculaire(M, d2, 'd1', 'red') // Trace, en rouge, la droite d1 perpendiculaire à d2 passant par le point M
  * @author Jean-Claude Lhote
+ * @return {droiteParPointEtVecteur}
  */
+// JSDOC Validee par EE Aout 2022
 export function droiteParPointEtPerpendiculaire (A, d, nom = '', color = 'black') {
   return droiteParPointEtVecteur(A, d.normal, nom, color)
 }
-/**
- * d = droiteHorizontaleParPoint(A,'d1',red') // Trace en rouge la droite horizontale passant par A
+
+/**  Trace la droite horizontale passant par le point A
+ * @param {Point} A Point de la droite
+ * @param {string} [nom = ''] Nom affichée de la droite
+ * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
+ * @example droiteHorizontaleParPoint(M) // Trace la droite horizontale passant par le point M
+ * @example droiteHorizontaleParPoint(M, 'd1', 'red') // Trace, en rouge, la droite horizontale d1 passant par le point M
  * @author Jean-Claude Lhote
+ * @return {droiteParPointEtPente}
  */
+// JSDOC Validee par EE Aout 2022
 export function droiteHorizontaleParPoint (A, nom = '', color = 'black') {
   return droiteParPointEtPente(A, 0, nom, color)
 }
-/**
- * d = droiteVerticaleParPoint(A,'d1',red') // Trace en rouge la droite verticale passant par A
+
+/**  Trace la droite verticale passant par le point A
+ * @param {Point} A Point de la droite
+ * @param {string} [nom = ''] Nom affichée de la droite
+ * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
+ * @example droiteVerticaleParPoint(M) // Trace la droite verticale passant par le point M
+ * @example droiteVerticaleParPoint(M, 'd1', 'red') // Trace, en rouge, la droite verticale d1 passant par le point M
  * @author Jean-Claude Lhote
+ * @return {droiteParPointEtVecteur}
  */
-export function droiteVerticaleParPoint (A, nom = '', color) {
+// JSDOC Validee par EE Aout 2022
+export function droiteVerticaleParPoint (A, nom = '', color = 'black') {
   return droiteParPointEtVecteur(A, vecteur(0, 1), nom, color)
 }
 
-/**
- * d = droiteParPointEtPente(A,p,'d1',red') //Droite passant par A, de pente p et de couleur rouge
- *@author Jean-Claude Lhote
+/**  Trace la droite passant par le point A et de pente k
+ * @param {Point} A Point de la droite
+ * @param {number} k Pente de la droite
+ * @param {string} [nom = ''] Nom affichée de la droite
+ * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
+ * @example droiteParPointEtPente(M, p) // Trace la droite passant par le point M et de pente p
+ * @example droiteParPointEtPente(M, p, 'd1', 'red') // Trace, en rouge, la droite d1 passant par le point M et de pente p
+ * @author Jean-Claude Lhote
+ * @return {Droite}
  */
+// JSDOC Validee par EE Aout 2022
 export function droiteParPointEtPente (A, k, nom = '', color = 'black') {
   const B = point(A.x + 1, A.y + k)
-  return droite(A, B, nom, color)
+  return new Droite(A, B, nom, color)
 }
 
 /*
@@ -1235,7 +1325,7 @@ export function codageMilieu (A, B, color = 'black', mark = '×', mil = true) {
  * Trace la médiatrice d'un segment, en laissant éventuellement apparents les traits de construction au compas
  * @param {Point} A Première extrémité du segment
  * @param {Point} B Seconde extrémité du segment
- * @param {string} [nom = ''] Nom de la droite qui s'affiche
+ * @param {string} [nom = ''] Nom affichée de la droite
  * @param {string} [couleurMediatrice = 'red'] Couleur de la médiatrice : du type 'blue' ou du type '#f15929'
  * @param {string} [color='blue'] Couleur du codage : du type 'blue' ou du type '#f15929'.
  * @param {string} [couleurConstruction = 'black'] Couleur des traits de construction : du type 'blue' ou du type '#f15929'.
@@ -1359,7 +1449,7 @@ function Mediatrice (
  * Trace la médiatrice d'un segment, en laissant éventuellement apparents les traits de construction au compas
  * @param {Point} A Première extrémité du segment
  * @param {Point} B Seconde extrémité du segment
- * @param {string} [nom=''] Nom de la droite qui s'affiche
+ * @param {string} [nom=''] Nom affichée de la droite
  * @param {string} [couleurMediatrice = 'red'] Couleur de la médiatrice : du type 'blue' ou du type '#f15929'
  * @param {string} [color='blue'] Couleur du codage : du type 'blue' ou du type '#f15929'.
  * @param {string} [couleurConstruction='black'] Couleur des traits de construction : du type 'blue' ou du type '#f15929'.
@@ -1674,10 +1764,10 @@ function Polyline (...points) {
   let ymax = -1000
   for (const unPoint of this.listePoints) {
     if (unPoint.typeObjet !== 'point') window.notify('Polyline : argument invalide', { ...points })
-    xmin = Math.min(xmin, unPoint.x - this.taille / context.pixelsParCm)
-    xmax = Math.max(xmax, unPoint.x + this.taille / context.pixelsParCm)
-    ymin = Math.min(ymin, unPoint.y - this.taille / context.pixelsParCm)
-    ymax = Math.max(ymax, unPoint.y + this.taille / context.pixelsParCm)
+    xmin = Math.min(xmin, unPoint.x)
+    xmax = Math.max(xmax, unPoint.x)
+    ymin = Math.min(ymin, unPoint.y)
+    ymax = Math.max(ymax, unPoint.y)
   }
   this.bordures = [xmin, ymin, xmax, ymax]
   this.nom = ''
@@ -1994,17 +2084,21 @@ export function nomVecteurParPosition (nom, x, y, taille = 1, angle = 0, color =
  * s = segment(A,B,'blue') //Segment d'extrémités A et B et de couleur bleue
  * s = segment(x1,y1,x2,y2) //Segment défini par les coordonnées des deux extrémités
  * s = segment(x1,y1,x2,y2,'blue') //Segment défini par les coordonnées des deux extrémités et de couleur bleue
- *
+ * @class
  * @author Rémi Angot
  */
 function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
   ObjetMathalea2D.call(this, { })
+
   /**
- * Détermine si un segment sur lequel est appliqué la méthode coupe l'objet passé en argument (dont le type est parmi ceux qui suivent)
- * @param {Segment | Droite | DemiDroite | Cercle} objet
- * @return {boolean} true si les segments sont sécants
- * @author Jean-Claude Lhote
- */
+   * Teste si un segment coupe un cercle, une droite, une demi-cercle ou un autre segment
+   * @memberof Segment
+   * @param {Segment | Droite | DemiDroite | Cercle} objet Objet géométrique dont on veut tester l'intersection avec le segment
+   * @example s1.estSecant(d1) // Renvoie true si s1 est sécant avec d1, false sinon
+   * @author Jean-Claude Lhote
+   * @return {boolean}
+   */
+  // JSDOC Validee par EE Aout 2022
   this.estSecant = function (objet) {
     const ab = droite(this.extremite1, this.extremite2)
     if (objet instanceof Cercle) {
@@ -2345,6 +2439,7 @@ function DemiDroite (A, B, color = 'black', extremites = false) {
  * @param {Point} A
  * @param {Point} B
  * @param {string} [color='black'] Facultatif, 'black' par défaut
+ * @param {boolean} [extremites = false] Trace (ou pas) l'origine de la demi-droite
  * @example demiDroite(M, N) // Trace la demi-droite d'origine M passant par N et de couleur noire
  * @example demiDroite(M, N, 'blue', true) // Trace la demi-droite d'origine M passant par N et de couleur bleue, en traçant le trait signifiant l'origine de la demi-droite
  * @author Rémi Angot
@@ -2364,7 +2459,8 @@ export function demiDroite (A, B, color = 'black', extremites = false) {
  * polygone(A,B,C,D,E) //Trace ABCDE
  * polygone([A,B,C,D],"blue") // Trace ABCD en bleu
  * polygone([A,B,C,D],"blue","red","green") // Trace ABCD en bleu, rempli en rouge et hachuré en vert.
- * @author Rémi Angot
+ * @author Rémi Angot*
+ * @class
  */
 function Polygone (...points) {
   ObjetMathalea2D.call(this, { })
@@ -2575,7 +2671,7 @@ function Polygone (...points) {
 }
 /**
  * Propriétés possibles : .color, .opacite, .epaisseur, .couleurDeRemplissage, .opaciteDeRemplissage, .hachures (true or false), .distanceDesHachures, .epaisseurDesHachures,.couleurDesHachures
- * @returns {Polygone} objet Polygone
+ * @return {Polygone} objet Polygone
  * @example polygone(A,B,C,D,E) //Trace ABCDE
  * @example polygone([A,B,C,D],"blue") // Trace ABCD en bleu
  * @example polygone([A,B,C,D],"#f15929") // Trace ABCD en orange (code couleur HTML : #f15929)
@@ -2587,7 +2683,7 @@ export function polygone (...args) {
 /**
  * Crée un groupe d'objets contenant le polygone et ses sommets
  * @param  {...any} args
- * @returns {array} [p, p.sommets]
+ * @return {array} [p, p.sommets]
  */
 export function polygoneAvecNom (...args) {
   const p = polygone(...args)
@@ -2791,7 +2887,7 @@ export function boite ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black'
 
 /**
  * @param {Polygone} P
- * @returns {number[]} retourne la liste des coordonnées des sommets de P dans un seul tableau.
+ * @return {number[]} retourne la liste des coordonnées des sommets de P dans un seul tableau.
  * @author Jean-Claude Lhote
  */
 export function polygoneToFlatArray (P) {
@@ -2800,27 +2896,6 @@ export function polygoneToFlatArray (P) {
     flatArray.push(P.listePoints[i].x, P.listePoints[i].y)
   }
   return flatArray
-}
-
-/**
- * Cette fonction permet de créer un polygone rapidement à partir d'une liste des coordonnées de ses sommets et éventuellement de leur noms
- * @param {array} flat
- * @param {string} noms
- * @returns {Polygone}
- * @author Jean-Claude Lhote
- */
-export function flatArrayToPolygone (flat, noms) {
-  const sommets = []
-  for (let i = 0; i < flat.length; i += 2) {
-    sommets.push(point(flat[i], flat[i + 1]))
-  }
-  const pol = polygone(...sommets)
-  if (typeof noms === 'string') {
-    if (noms.length >= sommets.length) {
-      nommePolygone(pol, noms)
-    }
-  }
-  return pol
 }
 
 function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', couleurDeRemplissage = 'blue', couleurDeFond = 'white' }) {
@@ -2905,7 +2980,7 @@ function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', co
  * @param {string} color est la couleur des bords
  * @param {string} couleurDeRemplissage est la couleur de la surface
  * @param {string} couleurDeFond est la couleur de remplissage des trous
- * @returns {ObjetMathalea2D} un polygone à trous (ou pas : il peut ne pas y avoir de trou !)
+ * @return {ObjetMathalea2D} un polygone à trous (ou pas : il peut ne pas y avoir de trou !)
  */
 export function polygoneATrous ({ data = [], holes = [], noms = '', color = 'black', couleurDeRemplissage = 'blue', couleurDeFond = 'white' }) {
   return new PolygoneATrous({ data, holes, noms, color, couleurDeRemplissage, couleurDeFond })
@@ -2922,7 +2997,7 @@ export function polygoneATrous ({ data = [], holes = [], noms = '', color = 'bla
  * @param {number} d valeur algébrique de AH où H est le pied de la hauteur
  * @param {*} n = 1 ou 2 permet de choisir le côté pour C.
  * @author Jean-Claude Lhote
- * @returns {objet} {triangle, pied}
+ * @return {objet} {triangle, pied}
  */
 export function triangle2points1hauteur (A, B, h, d, n = 1, color = 'black') {
   if (d === undefined) {
@@ -2939,7 +3014,7 @@ export function triangle2points1hauteur (A, B, h, d, n = 1, color = 'black') {
  * @param {number} l1
  * @param {number} l2
  * @param {number} [n=1] Si n = 1 (défaut), C a la plus grande ordonnée possible, si n = 2, C a la plus petite ordonnée possible
- * @returns {Polygone} objet Polygone ABC
+ * @return {Polygone} objet Polygone ABC
  * @example t = triangle2points2longueurs(A,B,4,7,2) // Récupère t le triangle ABC tel que AC = 4 cm et BC = 7 cm avec C qui a l'ordonnée la plus petite possible
  * @example C = t.listePoints[2] // Récupère le 3e sommet dans la variable C
  * @author Rémi Angot
@@ -3041,7 +3116,7 @@ export function triangle2points1angle1longueurOppose (A, B, a, l, n = 1, color =
  * @param {objet} A
  * @param {objet} B
  * @param {objet} C
- * @returns {polygoneAvecNom}
+ * @return {polygoneAvecNom}
  */
 export function parallelogramme3points (NOM, A, B, C, color = 'black') {
   const D = translation(A, vecteur(B, C), NOM[3])
@@ -3058,7 +3133,7 @@ export function parallelogramme3points (NOM, A, B, C, color = 'black') {
  * @param {objet} A
  * @param {objet} B
  * @param {number} h
- * @returns {polygoneAvecNom}
+ * @return {polygoneAvecNom}
  */
 export function parallelogramme2points1hauteur (NOM, A, B, h, color = 'black') {
   if (typeof B === 'number') {
@@ -3111,10 +3186,15 @@ export function nommePolygone (...args) {
   return new NommePolygone(...args)
 }
 
-/**
- * deplaceLabel(p1,'AB','below') // S'il y a un point nommé 'A' ou 'B' dans le polygone, son nom sera mis en dessous du point.
+/**  Déplace les labels des sommets d'un polygone s'ils sont mal placés nativement
+ * @param {Polygone} p Polygone sur lequel les labels de ses sommets sont mal placés
+ * @param {string} nom Points mal placés sous la forme, par exemple, 'AB'. Chaque point doit être représenté par un SEUL caractère.
+ * @param {string} positionLabel Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
+ * @example deplaceLabel(p1,'MNP','below') // S'il y a des points nommés 'M', 'N' ou 'P' dans le polygone p1, leur nom sera mis en dessous du point.
+ * // Ne fonctionne pas avec les points du type A1 ou A_1.
  * @author Rémi Angot
  */
+// JSDOC Validee par EE Aout 2022
 export function deplaceLabel (p, nom, positionLabel) {
   for (let i = 0; i < p.listePoints.length; i++) {
     for (const lettre in nom) {
@@ -3366,7 +3446,7 @@ function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDe
  * // Construit un disque de centre A et de rayon 5, de bord rouge à 30 % d'opacité et en pointillés, rempli en bleu à 80 % d'opacité, et avec des hachures orange de 1 d'épaisseur et avec 10 d'écart entre deux hachures
  * @example cercle (A,5,'red','blue','#f15929',3,2,0.3,0.8,2,12)
  * // Construit un disque de centre A et de rayon 5, de bord rouge à 30 % d'opacité et en pointillés, rempli en bleu à 80 % d'opacité, et avec des hachures orange de 2 d'épaisseur et avec 12 d'écart entre deux hachures
- * @returns {Cercle}
+ * @return {Cercle}
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
@@ -3374,10 +3454,26 @@ export function cercle (O, r, color = 'black', couleurDeRemplissage = 'none', co
   return new Cercle(O, r, color, couleurDeRemplissage, couleurDesHachures, epaisseur, pointilles, opacite, opaciteDeRemplissage, epaisseurDesHachures, distanceDesHachures)
 }
 
-/**
- * c = ellipse(O,rx,ry) //Ellipse de centre O et de rayon rx et ry
+/**  Trace l'ellipse de centre O et de rayon rx et ry (la construction, dite “par réduction d’ordonnée”, montre que l'ellipse est la transformée de Newton de 2 cercles concentriques)
+ * @param {Point} O Centre de l'ellipse
+ * @param {number} rx Premier rayon de l'ellipse
+ * @param {number} ry Second rayon de l'ellipse
+ * @param {string} [color = 'black'] Couleur de l'ellipse : du type 'blue' ou du type '#f15929'
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml Sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {Point} centre Centre du cercle
+ * @property {number} rx Premier rayon de l'ellipse
+ * @property {number} ry Second rayon de l'ellipse
+ * @property {string} color Couleur de l'ellipse. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {string} couleurDeRemplissage Couleur de remplissage. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {number} opaciteDeRemplissage Opacité de l'ellipse si couleur de remplissage choisie.
+ * @property {number[]} bordures Coordonnées de la fenêtre d'affichage du genre [-2,-2,5,5]
  * @author Rémi Angot
+ * @class
  */
+// JSDOC Validee par EE Aout 2022
 function Ellipse (O, rx, ry, color = 'black') {
   ObjetMathalea2D.call(this, { })
   this.color = colorToLatexOrHTML(color)
@@ -3502,8 +3598,20 @@ function Ellipse (O, rx, ry, color = 'black') {
     return code
   }
 }
-export function ellipse (...args) {
-  return new Ellipse(...args)
+
+/**  Trace l'ellipse de centre O et de rayon rx et ry (la construction, dite “par réduction d’ordonnée”, montre que l'ellipse est la transformée de Newton de 2 cercles concentriques)
+ * @param {Point} O Centre de l'ellipse
+ * @param {number} rx Premier rayon de l'ellipse
+ * @param {number} ry Second rayon de l'ellipse
+ * @param {string} [color = 'black'] Couleur de l'ellipse : du type 'blue' ou du type '#f15929'
+ * @example ellipse(M, 1, 3) // Trace, en noir, l'ellipse de centre M et de rayons 1 et 3
+ * @example ellipse(M, 1, 3, 'red') // Trace, en rouge, l'ellipse de centre M et de rayons 1 et 3
+ * @author Rémi Angot
+ * @return {Ellipse}
+ */
+// JSDOC Validee par EE Aout 2022
+export function ellipse (O, rx, ry, color = 'black') {
+  return new Ellipse(O, rx, ry, color)
 }
 
 /**
@@ -3657,7 +3765,7 @@ export function pointIntersectionCC (c1, c2, nom = '', n = 1) {
  * // Construit un disque de centre A, passant par B, de bord rouge à 30 % d'opacité et en pointillés, rempli en bleu à 80 % d'opacité, et avec des hachures orange de 1 d'épaisseur et avec 10 d'écart entre deux hachures
  * @example cercleCentrePoint (A,B,'red','blue','#f15929',3,2,0.3,0.8,2,12)
  * // Construit un disque de centre A, passant par B, de bord rouge à 30 % d'opacité et en pointillés, rempli en bleu à 80 % d'opacité, et avec des hachures orange de 2 d'épaisseur et avec 12 d'écart entre deux hachures
- * @returns {Cercle}
+ * @return {Cercle}
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
@@ -4777,7 +4885,7 @@ function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecN
  * @param {number} stepGraduation est un multiple de 10 qui divise 180 (c'est mieux) donc 10 (par défaut), ou 20, ou 30, ou 60 ou 90.
  * @param {boolean} rayonsVisibles = false permet de supprimer les rayons et le cercle central
  * @param {object} param0 = {x: 'number', y: 'number', taille: 'number', semi: boolean, avecNombre: string}
- * @returns {Rapporteur} // crée un instance de l'objet 2d Rapporteur
+ * @return {Rapporteur} // crée un instance de l'objet 2d Rapporteur
  */
 export function rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecNombre = 'deuxSens', precisionAuDegre = 1, stepGraduation = 10, rayonsVisibles = true, color = 'gray' }) {
   return new Rapporteur({ x, y, taille, depart, semi, avecNombre, precisionAuDegre, stepGraduation, rayonsVisibles, color })
@@ -5060,19 +5168,19 @@ export function symetrieAxiale (A, d, nom = '', positionLabel = 'above', color =
   }
 }
 
-/**
- * Calcule la distance entre un point et une droite.
- * 1ere version utilisant la projection orthogonale
- * 2eme version utilisant la symétrie axiale (abandonnée)
+/**  Donne la distance entre le point A et la droite d
+ * @param {point} A
+ * @param {droite} d
+ * @example distancePointDroite (M, d1) // Retourne la distance entre le point M et la droite d1
  * @author Jean-Claude Lhote
- * @param {Point} A
- * @param {Droite} d
- * @returns {number} longueur
+ * @return {longueur}
  */
+// JSDOC Validee par EE Aout 2022
 export function distancePointDroite (A, d) {
   const M = projectionOrtho(A, d)
   return longueur(A, M, 9)
 }
+
 /**
  * N = projectionOrtho(M,d,'N','below left')
  *@author Jean-Claude Lhote
@@ -5752,7 +5860,7 @@ function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, o
  * // Trace un codage d'angle droit pour l'angle direct AJT, de couleur noire, de taille 0,4, d'épaisseur 0,5 avec une opacité de 100 %, sans remplissage
  * @example codageAngleDroit(A,J,T,'pink',1,0.2,0.6,'blue',0.2)
  * // Trace un codage d'angle droit pour l'angle direct AJT, de couleur rose, de taille 1, d'épaisseur 0,2 avec une opacité de 60 %, rempli en bleu avec une opacité de 20%.
- * @returns {CodageAngleDroit}
+ * @return {CodageAngleDroit}
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
@@ -5815,7 +5923,7 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm', h
  * // Affiche la longueur du segment [AB] (en noir, à 0,5 "cm" du segment, complétée par l'unité cm et parallèlement au segment).
  * @example  afficheLongueurSegment(A,B,'blue',1,'mm',true)
  * // Affiche la longueur du segment [AB], en bleu, à 1 "cm" du segment, complétée par l'unité mm et horizontalement.
- * @returns {AfficheLongueurSegment}
+ * @return {AfficheLongueurSegment}
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
@@ -6039,7 +6147,7 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
  * // Affiche la mesure de l'angle MNO (en noir, avec un arc de rayon 1,5 "cm").
  * @example afficheMesureAngle(M,N,O,'red',2,'pop',{ecart:1,saillant:false,colorArc:'blue',rayon:true,couleurDeRemplissage:'#f15929',opaciteDeRemplissage:0.8,arcEpaisseur:2,mesureEnGras:true})
  * // Affiche le label pop en gras et rouge, sur l'angle rentrant MNO, avec un arc bleu, epais de 2 et de rayon 2 "cm", à 1 "cm" de l'arc rempli en orange avec une opacité de 80%, cerné par ses rayons.
- * @returns {AfficheMesureAngle}
+ * @return {AfficheMesureAngle}
  */
 // JSDOC Validee par EE Juin 2022
 export function afficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '', { ecart = 0.5, mesureEnGras = false, saillant = true, colorArc = 'black', rayon = false, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.5, arcEpaisseur = 1 } = {}) {
@@ -6149,7 +6257,7 @@ function AfficheCoteSegment (
  * // Affiche la côte du segment s (avec une flèche noire d\'épaisseur 1 "cm", placée 0.5 "cm" sous le segment, avec la longueur du segment, en cm, écrite en noir, 0,5 "cm" au-dessus, et parallèle au segment.
  * @example afficheCoteSegment(s,'x',-1,'red',2,1,'blue',true)
  * // Affiche la côte du segment s, avec une flèche rouge d\'épaisseur 2 "cm", placée 1 "cm" sous le segment, avec le texte 'x' écrit en bleu, 1 "cm" au-dessus, et horizontalement.
- * @returns {AfficheCoteSegment}
+ * @return {AfficheCoteSegment}
  * @author Jean-Claude Lhote
  */
 // JSDOC Validee par EE Juin 2022
@@ -6167,7 +6275,7 @@ export function afficheCoteSegment (s, Cote = '', positionCote = 0.5, couleurCot
  * @example codageSegment(H,K) // Code le segment [HK] avec la marque noire '||'
  * @example codageAngle(H,K,'x','green') // Code le segment [HK] avec la marque verte 'x'
  * @author Rémi Angot
- * @returns {TexteParPoint}
+ * @return {TexteParPoint}
  */
 // JSDOC Validee par EE Juin 2022
 export function codageSegment (A, B, mark = '||', color = 'black') {
@@ -6273,7 +6381,7 @@ function CodageSegments (mark = '||', color = 'black', ...args) {
  * @example codageSegments('×','blue',s1,s2,s3) // Code les segments s1, s2 et s3 avec une croix bleue
  * @example codageSegments('×','blue',p.listePoints) // Code tous les segments du polygone avec une croix bleue
  * @author Rémi Angot
- * @returns {CodageSegments}
+ * @return {CodageSegments}
  */
 // JSDOC Validee par EE Juin 2022
 export function codageSegments (mark = '||', color = 'black', ...args) {
@@ -6449,7 +6557,7 @@ function CodageAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'bl
  * // Code l'angle HKG, en rouge, avec une épaisseur de 0.5 et une opacité de 20 %, rempli en bleu avec une opacité de 80 %
  * // avec un arc de cercle de rayon 2, avec une marque 'x' sur l'angle, en affichant le texte '?' d'une taille de 2 et sans faire apparaître d'angle droit le cas échéant.
  * @author Jean-Claude Lhote
- * @returns {CodageAngle|CodageAngleDroit}
+ * @return {CodageAngle|CodageAngleDroit}
  */
 // JSDOC Validee par EE Juin 2022
 export function codageAngle (A, O, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, noAngleDroit = false, texteACote = '', tailleTexte = 1) {
@@ -6496,138 +6604,63 @@ export function nomAngleRentrantParPosition (nom, x, y, color) {
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
 
-// (Xorig,Yorig,'H' ou 'V', 'dd' ou 'd', longueur Unité, nombre de part, longueur totale, valeur origine, valeur première grosse graduation, label origine, label première grosse graduation, graduer ?, [Points à placer]...
-/**
- *
- * @param {number} [x=0] Place le début en (x,y).
- * @param {number} [y=0]
- * @param {string} [position='H'] pour horizontale 'V' pour verticale
- * @param {string} [type='dd'] pour demi-droite 'd' ou n'importe quoi pour droite
- * @param {number} [longueurUnite=10] longueur en cm de la taille d import { ObjetMathalea2D } from '/modules/mathalea2d.js';
- * @param {number} [division=10] nombre de parts à faire entre deux grosses graduations
- * @param {number} [longueurTotale=15] longueur totale en cm utilisable
- * @param {number} [origin=0] valeur de la première graduation
- * @param {number} [unite=1] valeur de la deuxième graduation
- * @param {string} [labelGauche='O'] Ce qu'on écrit sous la première graduation
- * @param {string} [labelUnite='I'] Ce qu'on écrit sous la deuxième graduation
- * @param {boolean} gradue Si true, alors les grosses graduation à partir de la troisième auront l'abscisse renseignée
- * @param  {...any} args des points à placer au format ['M',xM]
- */
-function DroiteGraduee (x = 0, y = 0, position = 'H', type = 'dd', longueurUnite = 10, division = 10, longueurTotale = 15, origin = 0, unite = 1, labelGauche = 'O', labelUnite = 'I', gradue = true, ...args) {
-  ObjetMathalea2D.call(this, { })
-  let absord = [1, 0]; let S; let M; let k; let g; let fleche
-  const pasprincipal = unite - origin
-  if (position !== 'H') absord = [0, 1]
-  const objets = []
-  for (let j = 0; j < args.length; j++) {
-    objets.push(texteParPosition(args[j][0], x + (-origin + args[j][1]) * absord[0] * longueurUnite / pasprincipal + 0.8 * absord[1], y + (-origin + args[j][1]) * absord[1] * longueurUnite / pasprincipal + 0.8 * absord[0]))
-    objets.push(texteParPosition('X', x + (-origin + args[j][1]) * absord[0] * longueurUnite / pasprincipal, y + (-origin + args[j][1]) * absord[1] * longueurUnite / pasprincipal, 'milieu', 'blue'))
-  }
-  fleche = segment(point(x + longueurTotale * absord[0], y + longueurTotale * absord[1]), point(x + (longueurTotale - 0.3) * absord[0] + 0.3 * absord[1], y + (longueurTotale - 0.3) * absord[1] + 0.3 * absord[0]))
-  fleche.epaisseur = 2
-  objets.push(fleche)
-  fleche = segment(point(x + longueurTotale * absord[0], y + longueurTotale * absord[1]), point(x + (longueurTotale - 0.3) * absord[0] - 0.3 * absord[1], y + (longueurTotale - 0.3) * absord[1] - 0.3 * absord[0]))
-  fleche.epaisseur = 2
-  objets.push(fleche)
-  const pas = longueurUnite / division
-  if (type === 'dd') {
-    S = segment(point(x, y), point(x + longueurTotale * absord[0], y + longueurTotale * absord[1]))
-  } else {
-    S = segment(point(x - 0.5 * absord[0], y - 0.5 * absord[1]), point(x + longueurTotale * absord[0], y + longueurTotale * absord[1]))
-  }
-  const O = texteParPosition(labelGauche, x - 0.8 * absord[1], y - 0.8 * absord[0])
-  const I = texteParPosition(labelUnite, x - 0.8 * absord[1] + longueurUnite * absord[0], y - 0.8 * absord[0] + longueurUnite * absord[1])
-  //  M=texteParPosition(labelPoint,x-0.8*absord[1]+abscissePoint*absord[0]*longueurUnite,y-0.8*absord[0]+abscissePoint*absord[1]*longueurUnite)
-  k = 0
-  for (let i = 0; i < longueurTotale; i += pas) {
-    if (k % division === 0) {
-      g = segment(point(x + i * absord[0] - 0.3 * absord[1], y - 0.3 * absord[0] + i * absord[1]), point(x + i * absord[0] + 0.3 * absord[1], y + 0.3 * absord[0] + i * absord[1]))
-      g.epaisseur = 2
-      objets.push(g)
-      if (gradue && k !== 0 && k !== division) {
-        objets.push(texteParPosition(nombreAvecEspace(arrondi(origin + i / longueurUnite * pasprincipal, 3)), x + i * absord[0] - 0.8 * absord[1], y + i * absord[1] - 0.8 * absord[0]))
-      }
-    } else {
-      g = segment(point(x + i * absord[0] - 0.2 * absord[1], y - 0.2 * absord[0] + i * absord[1]), point(x + i * absord[0] + 0.2 * absord[1], y + 0.2 * absord[0] + i * absord[1]))
-      objets.push(g)
-    }
-    k++
-  }
-  objets.push(S, O, I, M)
-
-  this.svg = function (coeff) {
-    let code = ''
-    for (const objet of objets) {
-      code += '\n\t' + objet.svg(coeff)
-    }
-    return code
-  }
-  this.tikz = function () {
-    let code = ''
-    for (const objet of objets) {
-      code += '\n\t' + objet.tikz()
-    }
-    return code
-  }
-  this.svgml = function (coeff, amp) {
-    let code = ''
-    for (const objet of objets) {
-      if (!context.mainlevee || typeof (objet.svgml) === 'undefined') code += '\t' + objet.svg(coeff) + '\n'
-      else code += '\t' + objet.svgml(coeff, amp) + '\n'
-    }
-    return code
-  }
-  this.tikzml = function (amp) {
-    let code = ''
-    for (const objet of objets) {
-      if (!context.mainlevee || typeof (objet.tikzml) === 'undefined') code += '\t' + objet.tikz() + '\n'
-      else code += '\t' + objet.tikzml(amp) + '\n'
-    }
-    return code
-  }
-}
-
-export function droiteGraduee (...args) {
-  return new DroiteGraduee(...args)
-}
-/**
+/**  Trace un axe gradué
+ * @param {Object} parametres À saisir entre accolades
+ * @param {number} [parametres.Unite = 10] Nombre de cm par unité
+ * @param {number} [parametres.Min = 10] Valeur minimum labelisée sur l'axe (les graduations commencent un peu avant)
+ * @param {number} [parametres.Max = 10] Valeur maximum labelisée sur l'axe (les graduations finissent un peu après)
+ * @param {number} [parametres.x = 0] Abscisse du point de départ du tracé
+ * @param {number} [parametres.y = 0] Ordonnée du point de départ du tracé
+ * @param {number} [parametres.axeEpaisseur = 2] Épaisseur de l'axe gradué
+ * @param {string} [parametres.axeCouleur = 'black'] Couleur de l'axe gradué : du type 'blue' ou du type '#f15929'
+ * @param {string} [parametres.axeStyle = '->'] Style final de l'axe gradué
+ * @param {number} [parametres.axeHauteur = 4] Définit la "largeur" de l'axe, celle des graduations et du style final
+ * @param {string} [parametres.axePosition = 'H'] Position de l'axe : 'H' pour horizontal, 'V' pour vertical
+ * @param {number} [parametres.thickEpaisseur = 2] Épaisseur des graduations
+ * @param {string} [parametres.thickCouleur = axeCouleur] Couleur des graduations : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.thickDistance = 1] Distance entre deux graduations principales
+ * @param {number} [parametres.thickOffset = 0] Décalage de toutes les graduations sur l'axe (pour, par exemple, faire coïncider le début de l'axe avec une graduation)
+ * @param {boolean} [parametres.thickSec = false] Affichage (ou pas) des graduations secondaires
+ * @param {number} [parametres.thickSecDist = 0.1] Distance entre deux graduations secondaires
+ * @param {boolean} [parametres.thickTer = false] Affichage (ou pas) des graduations secondaires
+ * @param {number} [parametres.thickTerDist = 0.1] Distance entre deux graduations tertiaires, false sinon
+ * @param {Array} [parametres.pointListe = []] Liste de points à mettre sur l'axe comme, par exemple, [[3.4,'A'],[3.8,'B']]. Les noms se placent au-dessus de l'axe.
+ * @param {number} [parametres.labelPointTaille = 10] Taille (hauteur) de la police des points (de la liste des points pointListe) utilisée de 5 = \small à 20=\huge...
+ * @param {number} [parametres.labelPointLargeur = 20] Largeur de la boîte où sont affichés les points (de la liste des points pointListe) utilisée de 5 = \small à 20=\huge...
+ * @param {string} [parametres.pointCouleur = 'blue'] Couleur des points de la liste pointListe : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.pointTaille = 4] Taille en pixels des points de la liste  pointListe
+ * @param {string} [parametres.pointStyle = '+'] Style des points de la liste pointListe
+ * @param {number} [parametres.pointOpacite = 0.8] Opacité des points de la liste pointListe
+ * @param {number} [parametres.pointEpaisseur = 2] Épaisseur des points de la liste pointListe
+ * @param {boolean} [parametres.labelsPrincipaux = true] Présence (ou non) des labels numériques principaux
+ * @param {boolean} [parametres.labelsSecondaires = false] Présence (ou non) des labels numériques secondaires
+ * @param {number} [parametres.step1 = 1] Pas des labels numériques principaux
+ * @param {number} [parametres.step2 = 1] Pas des labels numériques secondaires
+ * @param {number} [parametres.labelDistance = (axeHauteur + 10) / context.pixelsParCm] Distance entre les labels et l'axe
+ * @param {Array} [parametres.labelListe = []] Liste de labels à mettre sous l'axe comme, par exemple, [[2.8,'x'],[3.1,'y']]. Les noms se placent en-dessous de l'axe.
+ * @param {string} [parametres.Legende = ''] Légende de l'axe
+ * @param {number} [parametres.LegendePosition = (Max - Min) * Unite + 1.5] Position de la légende
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml Sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {number} Unite Nombre de cm par unité
+ * @property {number} Min Valeur minimum labelisée sur l'axe (les graduations commencent un peu avant)
+ * @property {number} Max Valeur maximum labelisée sur l'axe (les graduations finissent un peu après)
  * @author Jean-Claude Lhote
- * Paramètres :
- * Unite : Nombre de cm par Unité
- * Min,Max : Valeur minimum et maximum labelisées sur l'axe (les graduations commencent un peu avant et finissent un peu après)
- * x,y : coordonnées du point de départ du tracé
- * axeEpaisseur,axeCouleur, axeStyle : épaisseur, couleur et syle de l'axe
- * axeHauteur : définit la "largeur" de l'axe, celle des graduations et de la flèche
- * axePosition : 'H' pour horizontal, 'V' pour vertical
- * thickEpaisseur,thickCouleur : grosseur et couleur des graduations
- * thickDistance : distance entre deux graduations principales
- * thickSecDist : distance entre deux graduations secondaires
- * thickTerDist : distance entre deux graduations tertiaires
- * thickSec : true si besoin de graduations secondaires, false sinon
- * thickTer : true si besoin de graduations tertiaires, false sinon
- * pointListe : Liste de points à mettre sur l'axe. Exemple [[3.4,'A'],[3.8,'B],....]. Les noms se placent au dessus de l'axe.
- * pointTaille, pointOpacite, pointCouleur : taille en pixels, opacité et couleurs des points de la pointListe
- * labelListe : pour ajouter des labels. Exemple [[2.8,'x'],[3.1,'y']] les labels se placent sous l'axe.
- * Legende : texte à écrire en bout de droite graduée
- * LegendePosition : position de la légende
+ * @class
  */
-
-function DroiteGraduee2 ({
-  Unite = 10, // nombre de cm pour une unité
-  Min = 0, // Là où commence la droite
-  Max = 2, // Là où finit la droite prévoir 0,5cm pour la flèche
-  x = 0, y = 0, // les coordonnées du début du tracé dans le SVG
-  axeEpaisseur = 2, axeCouleur = 'black', axeStyle = '->', axeHauteur = 4, axePosition = 'H', // Les caractéristiques de l'axe
-  thickEpaisseur = 2, thickCouleur = axeCouleur, thickDistance = 1, thickOffset = 0, // Les caractéristiques des graduations principales
-  thickSecDist = 0.1, thickSec = false, // Les caractéristiques des graduations secondaires. Pas de couleur, on joue sur l'opacité
-  thickTerDist = 0.01, thickTer = false, // Les caractéristiques des graduations tertiaires. Pas de couleur, on joue sur l'opacité
-  pointListe = false, labelPointTaille = 10, labelPointLargeur = 20, pointCouleur = 'blue', pointTaille = 4, pointStyle = '+', pointOpacite = 0.8, pointEpaisseur = 2, // Liste de points et caractéristiques des points de ces points
+// JSDOC Validee par EE Aout 2022
+function DroiteGraduee ({
+  Unite = 10, Min = 0, Max = 2, x = 0, y = 0, axeEpaisseur = 2, axeCouleur = 'black', axeStyle = '->', axeHauteur = 4, axePosition = 'H',
+  thickEpaisseur = 2, thickCouleur = axeCouleur, thickDistance = 1, thickOffset = 0,
+  thickSecDist = 0.1, thickSec = false, thickTerDist = 0.01, thickTer = false,
+  pointListe = [], labelPointTaille = 10, labelPointLargeur = 20, pointCouleur = 'blue', pointTaille = 4,
+  pointStyle = '+', pointOpacite = 0.8, pointEpaisseur = 2,
   labelsPrincipaux = true, labelsSecondaires = false, step1 = 1, step2 = 1,
   labelDistance = (axeHauteur + 10) / context.pixelsParCm,
-  labelListe = false,
-  Legende = '',
-  LegendePosition = (Max - Min) * Unite + 1.5
-} = {}) {
+  labelListe = [], Legende = '', LegendePosition = (Max - Min) * Unite + 1.5
+}) {
   ObjetMathalea2D.call(this, { })
 
   // Les propriétés exportables
@@ -6701,7 +6734,7 @@ function DroiteGraduee2 ({
   }
   // Les labels facultatifs
   let t
-  if (labelListe) {
+  if (labelListe.length !== 0) {
     for (const p of labelListe) {
       t = texteParPosition(p[1], x - labelDistance * absord[1] + (p[0] - Min) * absord[0] * Unite, y - labelDistance * absord[0] + (p[0] - Min) * absord[1] * Unite)
       objets.push(t)
@@ -6710,7 +6743,7 @@ function DroiteGraduee2 ({
   if (Legende !== '') {
     objets.push(texteParPosition(Legende, x + LegendePosition * absord[0], y + LegendePosition * absord[1]))
   }
-  if (pointListe) {
+  if (pointListe.length !== 0) {
     let lab
     for (const p of pointListe) {
       P = point(x + (p[0] - Min) * absord[0] * Unite, y + (p[0] - Min) * absord[1] * Unite, p[1])
@@ -6755,8 +6788,111 @@ function DroiteGraduee2 ({
     return code
   }
 }
-export function droiteGraduee2 (...args) {
-  return new DroiteGraduee2(...args)
+/**  Trace un axe gradué
+ * @param {Object} parametres À saisir entre accolades
+ * @param {number} [parametres.Unite = 10] Nombre de cm par unité
+ * @param {number} [parametres.Min = 10] Valeur minimum labelisée sur l'axe (les graduations commencent un peu avant)
+ * @param {number} [parametres.Max = 10] Valeur maximum labelisée sur l'axe (les graduations finissent un peu après)
+ * @param {number} [parametres.x = 0] Abscisse du point de départ du tracé
+ * @param {number} [parametres.y = 0] Ordonnée du point de départ du tracé
+ * @param {number} [parametres.axeEpaisseur = 2] Épaisseur de l'axe gradué
+ * @param {string} [parametres.axeCouleur = 'black'] Couleur de l'axe gradué : du type 'blue' ou du type '#f15929'
+ * @param {string} [parametres.axeStyle = '->'] Style final de l'axe gradué
+ * @param {number} [parametres.axeHauteur = 4] Définit la "largeur" de l'axe, celle des graduations et du style final
+ * @param {string} [parametres.axePosition = 'H'] Position de l'axe : 'H' pour horizontal, 'V' pour vertical
+ * @param {number} [parametres.thickEpaisseur = 2] Épaisseur des graduations
+ * @param {string} [parametres.thickCouleur = axeCouleur] Couleur des graduations : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.thickDistance = 1] Distance entre deux graduations principales
+ * @param {number} [parametres.thickOffset = 0] Décalage de toutes les graduations sur l'axe (pour, par exemple, faire coïncider le début de l'axe avec une graduation)
+ * @param {boolean} [parametres.thickSec = false] Affichage (ou pas) des graduations secondaires
+ * @param {number} [parametres.thickSecDist = 0.1] Distance entre deux graduations secondaires
+ * @param {boolean} [parametres.thickTer = false] Affichage (ou pas) des graduations secondaires
+ * @param {number} [parametres.thickTerDist = 0.1] Distance entre deux graduations tertiaires, false sinon
+ * @param {Array} [parametres.pointListe = []] Liste de points à mettre sur l'axe comme, par exemple, [[3.4,'A'],[3.8,'B']]. Les noms se placent au-dessus de l'axe.
+ * @param {number} [parametres.labelPointTaille = 10] Taille (hauteur) de la police des points (de la liste des points pointListe) utilisée de 5 = \small à 20=\huge...
+ * @param {number} [parametres.labelPointLargeur = 20] Largeur de la boîte où sont affichés les points (de la liste des points pointListe) utilisée de 5 = \small à 20=\huge...
+ * @param {string} [parametres.pointCouleur = 'blue'] Couleur des points de la liste pointListe : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.pointTaille = 4] Taille en pixels des points de la liste  pointListe
+ * @param {string} [parametres.pointStyle = '+'] Style des points de la liste pointListe
+ * @param {number} [parametres.pointOpacite = 0.8] Opacité des points de la liste pointListe
+ * @param {number} [parametres.pointEpaisseur = 2] Épaisseur des points de la liste pointListe
+ * @param {boolean} [parametres.labelsPrincipaux = true] Présence (ou non) des labels numériques principaux
+ * @param {boolean} [parametres.labelsSecondaires = false] Présence (ou non) des labels numériques secondaires
+ * @param {number} [parametres.step1 = 1] Pas des labels numériques principaux
+ * @param {number} [parametres.step2 = 1] Pas des labels numériques secondaires
+ * @param {number} [parametres.labelDistance = (axeHauteur + 10) / context.pixelsParCm] Distance entre les labels et l'axe
+ * @param {Array} [parametres.labelListe = []] Liste de labels à mettre sous l'axe comme, par exemple, [[2.8,'x'],[3.1,'y']]. Les noms se placent en-dessous de l'axe.
+ * @param {string} [parametres.Legende = ''] Légende de l'axe
+ * @param {number} [parametres.LegendePosition = (Max - Min) * Unite + 1.5] Position de la légende
+ * @example droiteGraduee({
+        x: 0,
+        y: 3,
+        Min: -2.7,
+        Max: 12 + 0.2,
+        thickSec: true,
+        Unite: 3,
+        thickCouleur: 'red',
+        axeCouleur: 'blue',
+        axeHauteur: 4,
+        labelsPrincipaux: false,
+        labelListe: [[0, 'O'], [1, 'I']],
+        pointListe: [[-1, 'A'], [5, 'B'], [7.2, 'C']],
+        pointTaille: 6,
+        pointCouleur: 'gray',
+        pointStyle: '|',
+        pointEpaisseur: 3
+      })
+  // Trace une droite graduée avec différentes options
+ * @author Jean-Claude Lhote
+ * @return {DroiteGraduee}
+ */
+// JSDOC Validee par EE Aout 2022
+export function droiteGraduee ({
+  Unite = 10, Min = 0, Max = 2, x = 0, y = 0, axeEpaisseur = 2, axeCouleur = 'black', axeStyle = '->', axeHauteur = 4, axePosition = 'H',
+  thickEpaisseur = 2, thickCouleur = axeCouleur, thickDistance = 1, thickOffset = 0,
+  thickSecDist = 0.1, thickSec = false, thickTerDist = 0.01, thickTer = false,
+  pointListe = [], labelPointTaille = 10, labelPointLargeur = 20, pointCouleur = 'blue', pointTaille = 4,
+  pointStyle = '+', pointOpacite = 0.8, pointEpaisseur = 2,
+  labelsPrincipaux = true, labelsSecondaires = false, step1 = 1, step2 = 1,
+  labelDistance = (axeHauteur + 10) / context.pixelsParCm,
+  labelListe = [], Legende = '', LegendePosition = (Max - Min) * Unite + 1.5
+}) {
+  return new DroiteGraduee({
+    Unite: Unite,
+    Min: Min,
+    Max: Max,
+    x: x,
+    y: y,
+    axeEpaisseur: axeEpaisseur,
+    axeCouleur: axeCouleur,
+    axeStyle: axeStyle,
+    axeHauteur: axeHauteur,
+    axePosition: axePosition,
+    thickEpaisseur: thickEpaisseur,
+    thickCouleur: thickCouleur,
+    thickDistance: thickDistance,
+    thickOffset: thickOffset,
+    thickSecDist: thickSecDist,
+    thickSec: thickSec,
+    thickTerDist: thickTerDist,
+    thickTer: thickTer,
+    pointListe: pointListe,
+    labelPointTaille: labelPointTaille,
+    labelPointLargeur: labelPointLargeur,
+    pointCouleur: pointCouleur,
+    pointTaille: pointTaille,
+    pointStyle: pointStyle,
+    pointOpacite: pointOpacite,
+    pointEpaisseur: pointEpaisseur,
+    labelsPrincipaux: labelsPrincipaux,
+    labelsSecondaires: labelsSecondaires,
+    step1: step1,
+    step2: step2,
+    labelDistance: labelDistance,
+    labelListe: labelListe,
+    Legende: Legende,
+    LegendePosition: LegendePosition
+  })
 }
 
 /**
@@ -6847,7 +6983,7 @@ function Axes (
  * @example axes(-10,-5,20,3,0.25,2,0.5,1,'red')
  * // Trace un repère orthonormé rouge dont les axes des abscisses et des ordonnées ont pour épaisseur 1 et dont le tiret de chaque graduation mesure 0,5.
  * // L'axe des abscisses va de -10 à 20 avec un pas de 2. L'axe des ordonnées va de -5 à 3 avec un pas de 0,5.
- * @returns {Axes}
+ * @return {Axes}
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
@@ -6946,7 +7082,7 @@ function AxeY (
  * @example axeY(0,10,0.25,2,1,'red',5,'titre')
  * // Trace un axe rouge vertical gradué de 0 à 10, de 2 en 2, avec quatre petites graduations entre deux graduations principales (de longueur 0.25 et d'épaisseur 1), et avec comme titre de l'axe : titre
  * @author Frédéric Piou
- * @returns {AxeY}
+ * @return {AxeY}
 */
 // JSDOC Validee par EE Juin 2022
 export function axeY (
@@ -7492,7 +7628,7 @@ function Repere ({
   grilleSecondaireYMax = false,
   grilleSecondaireYCouleur = grilleSecondaireCouleur,
   grilleSecondaireYOpacite = grilleSecondaireOpacite
-} = {}) {
+}) {
   ObjetMathalea2D.call(this, { })
 
   // Les propriétés exportables
@@ -7503,15 +7639,17 @@ function Repere ({
   this.yMin = yMin
   this.yMax = yMax
 
-  this.bordures = [this.xMin * this.xUnite - 1, this.yMin * this.yUnite - 1, this.xMax * this.xUnite + 1, this.yMax * this.yUnite + 1]
+  this.bordures = [xMin * xUnite - 1, yMin * yUnite - 1, xMax * xUnite + 1 + xLegende.length / 3, yMax * yUnite + 1]
 
   const objets = []
   // LES AXES
-  const OrdonneeAxe = Math.max(0, yMin)
-  const axeX = segment(xMin * xUnite, OrdonneeAxe * yUnite, xMax * xUnite, OrdonneeAxe * yUnite, axesCouleur)
+  const ordonneeAxe = Math.max(0, yMin)
+  xLegendePosition = [xMax * xUnite + 0.5, 0.5 + ordonneeAxe]
+  const axeX = segment(xMin * xUnite, ordonneeAxe * yUnite, xMax * xUnite, ordonneeAxe * yUnite, axesCouleur)
   axeX.epaisseur = axesEpaisseur
   axeX.styleExtremites = axeXStyle
   const abscisseAxe = Math.max(0, xMin)
+  yLegendePosition = [0.5 + abscisseAxe, yMax * yUnite + 0.5]
   const axeY = segment(abscisseAxe * xUnite, yMin * yUnite, abscisseAxe * xUnite, yMax * yUnite, axesCouleur)
   axeY.epaisseur = axesEpaisseur
   axeY.styleExtremites = axeYStyle
@@ -7643,7 +7781,7 @@ function Repere ({
       xThickListe = rangeMinMax(xThickMin, xThickMax, [0], xThickDistance)
     }
     for (const x of xThickListe) {
-      const thick = segment(x * xUnite, OrdonneeAxe * yUnite - thickHauteur, x * xUnite, OrdonneeAxe * yUnite + thickHauteur, thickCouleur)
+      const thick = segment(x * xUnite, ordonneeAxe * yUnite - thickHauteur, x * xUnite, ordonneeAxe * yUnite + thickHauteur, thickCouleur)
       thick.isVisible = false
       thick.epaisseur = thickEpaisseur
       objets.push(thick)
@@ -7666,7 +7804,7 @@ function Repere ({
       xLabelListe = rangeMinMax(xLabelMin, xLabelMax, [0], xLabelDistance)
     }
     for (const x of xLabelListe) {
-      const l = texteParPosition(`${stringNombre(x, precisionLabelX)}`, x * xUnite, OrdonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', 1, 'middle', true)
+      const l = texteParPosition(`${stringNombre(x, precisionLabelX)}`, x * xUnite, ordonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', 1, 'middle', true)
       l.isVisible = false
       objets.push(l)
     }
@@ -7724,7 +7862,7 @@ function Repere ({
 /**
  *
  * @param {object} param0
- * @returns {object}
+ * @return {object}
  */
 export function repere ({
   xUnite = 1,
@@ -7907,7 +8045,7 @@ export function pointDansRepere (x, y, repere = { xUnite: 1, yUnite: 1 }) {
  * @param {object} repere
  * @author Rémi Angot
  */
-function TraceGraphiqueCartesien (data, repere, {
+function TraceGraphiqueCartesien (data, repere = {}, {
   couleurDesPoints = 'red',
   couleurDuTrait = 'blue',
   styleDuTrait = '', // plein par défaut
@@ -8922,7 +9060,25 @@ export function traceBarreHorizontale (...args) {
   return new TraceBarreHorizontale(...args)
 }
 
-function DiagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille = false, couleurDeRemplissage = 'blue', titreAxeVertical = '', titre = '', hauteurDiagramme = 5, coeff = 2, axeVertical = false, etiquetteValeur = true, labelAxeVert = false } = {}) {
+/** Trace un diagramme en barres
+ * @param {number[]} hauteursBarres Tableau des effectifs
+ * @param {string[]} etiquettes Tableau des labels pour chaque effectif
+ * @param {Object} parametres À saisir entre accolades
+ * @param {boolean} [parametres.reperageTraitPointille = false] Présence (ou non) du trait en pointillés, reliant le haut de chaque barre à l'axe des ordonnées
+ * @param {string} [parametres.couleurDeRemplissage = 'blue'] Couleur de remplissage de toutes les barres : du type 'blue' ou du type '#f15929'.
+ * @param {number} [parametres.titreAxeVertical = ''] Titre de l'axe des ordonnées
+ * @param {boolean} [parametres.titre = ''] Titre du diagramme
+ * @param {boolean} [parametres.hauteurDiagramme = 5] Hauteur du diagramme
+ * @param {string[]} [parametres.coeff = 2] Largeur entre deux barres
+ * @param {string} [parametres.axeVertical = true] Présence (ou non) de l'axe vertical
+ * @param {boolean[]} [parametres.etiquetteValeur = true] Présence (ou non) de l'effectif sur chaque barre
+ * @param {boolean[]} [parametres.labelAxeVert = true] Présence (ou non) des labels numériques sur l'axe vertical
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {number[]} bordures Coordonnées de la fenêtre d'affichage du genre [-2,-2,5,5]
+ * @class
+ */
+function DiagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille = false, couleurDeRemplissage = 'blue', titreAxeVertical = '', titre = '', hauteurDiagramme = 5, coeff = 2, axeVertical = false, etiquetteValeur = true, labelAxeVert = false }) {
   ObjetMathalea2D.call(this, { })
   const diagramme = []
   for (let j = 0; j < hauteursBarres.length; j++) {
@@ -8980,11 +9136,55 @@ function DiagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille =
     return code
   }
 }
-export function diagrammeBarres (...args) {
-  return new DiagrammeBarres(...args)
+/** Trace un diagramme en barres
+ * @param {number[]} hauteursBarres Tableau des effectifs
+ * @param {string[]} etiquettes Tableau des labels pour chaque effectif
+ * @param {Object} parametres À saisir entre accolades
+ * @param {boolean} [parametres.reperageTraitPointille = false] Présence (ou non) du trait en pointillés, reliant le haut de chaque barre à l'axe des ordonnées
+ * @param {string} [parametres.couleurDeRemplissage = 'blue'] Couleur de remplissage de toutes les barres : du type 'blue' ou du type '#f15929'.
+ * @param {number} [parametres.titreAxeVertical = ''] Titre de l'axe des ordonnées
+ * @param {boolean} [parametres.titre = ''] Titre du diagramme
+ * @param {boolean} [parametres.hauteurDiagramme = 5] Hauteur du diagramme
+ * @param {string[]} [parametres.coeff = 2] Largeur entre deux barres
+ * @param {string} [parametres.axeVertical = true] Présence (ou non) de l'axe vertical
+ * @param {boolean[]} [parametres.etiquetteValeur = true] Présence (ou non) de l'effectif sur chaque barre
+ * @param {boolean[]} [parametres.labelAxeVert = true] Présence (ou non) des labels numériques sur l'axe vertical
+ * @example diagrammeBarres([15, 25, 30, 10, 20], ['Compas', 'Rapporteur', 'Règle', 'Crayon', 'Gomme'])
+ * // Trace un diagramme en barres avec les options par défaut
+ * @example diagrammeBarres([15, 25, 30, 10, 20], ['Compas', 'Rapporteur', 'Règle', 'Crayon', 'Gomme'],{
+ * reperageTraitPointille: true, couleurDeRemplissage: 'red', titreAxeVertical: 'Nombre de réponses',
+ * titre = 'Matériel mathématique dans sa trousse', * hauteurDiagramme: 10, coeff: 3, etiquetteValeur: false }})
+ * // Trace un diagramme en barres avec modification de quelques options par défaut
+ * @return {DiagrammeBarres}
+ */
+export function diagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille = false, couleurDeRemplissage = 'blue', titreAxeVertical = '', titre = '', hauteurDiagramme = 5, coeff = 2, axeVertical = false, etiquetteValeur = true, labelAxeVert = false }) {
+  return new DiagrammeBarres(hauteursBarres, etiquettes, { reperageTraitPointille: reperageTraitPointille, couleurDeRemplissage: couleurDeRemplissage, titreAxeVertical: titreAxeVertical, titre: titre, hauteurDiagramme: hauteurDiagramme, coeff: coeff, axeVertical: axeVertical, etiquetteValeur: etiquetteValeur, labelAxeVert: labelAxeVert })
 }
 
-function DiagrammeCirculaire ({ effectifs = [], x = 0, y = 0, rayon = 4, modalites = [], semi = false, legende = true, legendePosition = 'droite', mesures = [], visibles = [], pourcents = [], valeurs = [], hachures = [], remplissage = [] }) {
+/** Trace un diagramme circulaire
+ * @param {Object} parametres À saisir entre accolades
+ * @param {number[]} parametres.effectifs Liste des effectifs à donner impérativement
+ * @param {number} [parametres.x = 0] Abscisse du point en bas à gauche
+ * @param {number} [parametres.y = 0] Ordonnée du point en bas à gauche
+ * @param {number} [parametres.rayon = 4] Rayon du diagramme circulaire
+ * @param {boolean} [parametres.semi = false] True pour un semi-circulaire, false pour un circulaire
+ * @param {boolean} [parametres.legendeAffichage = true] Présence (ou non) de la légende (ensemble des labels)
+ * @param {string[]} [parametres.labels = []] Labels associés aux effectifs respectifs. Tableau de même taille que effectifs.
+ * @param {string} [parametres.legendePosition = 'droite'] Position de la légende à choisir parmi : 'droite', 'dessus' ou 'dessous'
+ * @param {boolean[]} [parametres.mesures = []] Présence (ou non) de la mesure de chaque secteur. Tableau de même taille que effectifs.
+ * @param {boolean[]} [parametres.visibles = []] Découpe (ou non) du secteur (pour créer des diagrammes à compléter). Tableau de même taille que effectifs.
+ * @param {boolean[]} [parametres.pourcents = []] Présence (ou non) du pourcentage de l'effectif total associé au secteur. Tableau de même taille que effectifs.
+ * @param {boolean[]} [parametres.valeurs = []] Présence (ou non) de des valeurs de l'effectif. Tableau de même taille que effectifs.
+ * @param {boolean[]} [parametres.hachures = []] Présence (ou non) de hachures dans le secteur associé. Tableau de même taille que effectifs.
+ * @param {boolean[]} [parametres.remplissage = []] Présence (ou non) d'une couleur de remplissage dans le secteur associé. Tableau de même taille que effectifs.
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {number} x Abscisse du point en bas à gauche
+ * @property {number} y Ordonnée du point en bas à gauche
+ * @property {number[]} bordures Coordonnées de la fenêtre d'affichage du genre [-2,-2,5,5]
+ * @class
+ */
+function DiagrammeCirculaire ({ effectifs, x = 0, y = 0, rayon = 4, labels = [], semi = false, legendeAffichage = true, legendePosition = 'droite', mesures = [], visibles = [], pourcents = [], valeurs = [], hachures = [], remplissage = [] }) {
   ObjetMathalea2D.call(this, { })
   const objets = []
   const listeHachuresDisponibles = [0, 1, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -9048,14 +9248,14 @@ function DiagrammeCirculaire ({ effectifs = [], x = 0, y = 0, rayon = 4, modalit
     switch (legendePosition) {
       case 'droite':
         legende = carre(translation(T, vecteur(0, 1.5 * i)), translation(T, vecteur(1, 1.5 * i)), 'black')
-        textelegende = texteParPoint(modalites[i], translation(T, vecteur(1.2, i * 1.5 + 0.5)), 0, 'black', 1.5, 'gauche', false)
-        legendeMax = Math.max(legendeMax, modalites[i].length * 0.6)
+        textelegende = texteParPoint(labels[i], translation(T, vecteur(1.2, i * 1.5 + 0.5)), 0, 'black', 1.5, 'gauche', false)
+        legendeMax = Math.max(legendeMax, labels[i].length * 0.6)
         break
       default:
         legende = carre(T, translation(T, vecteur(1, 0)), 'black')
-        textelegende = texteParPoint(modalites[i], translation(T, vecteur(1.2, 0.5)), 0, 'black', 1.5, 'gauche', false)
-        T = translation(T, vecteur(modalites[i].length * 0.6 + 1, 0))
-        legendeMax = legendeMax + modalites[i].length * 0.6 + 2.2
+        textelegende = texteParPoint(labels[i], translation(T, vecteur(1.2, 0.5)), 0, 'black', 1.5, 'gauche', false)
+        T = translation(T, vecteur(labels[i].length * 0.6 + 1, 0))
+        legendeMax = legendeMax + labels[i].length * 0.6 + 2.2
         break
     }
 
@@ -9067,13 +9267,13 @@ function DiagrammeCirculaire ({ effectifs = [], x = 0, y = 0, rayon = 4, modalit
   }
   objets.push(contour)
   objets.push(...secteurs)
-  if (legende) objets.push(...legendes)
+  if (legendeAffichage) objets.push(...legendes)
   objets.push(...etiquettes, ...etiquettes2, ...etiquettes3)
   // calcul des bordures
   this.bordures[0] = this.x - 0.5
-  this.bordures[1] = this.y - 0.5 - (legende ? (legendePosition === 'dessous' ? 2 : 0) : 0)
-  this.bordures[2] = this.x + rayon * 2 + 1 + (legende ? (legendePosition === 'droite' ? legendeMax : (Math.max(legendeMax, this.x + rayon * 2 + 1) - (this.x + rayon * 2 + 1))) : 0)
-  this.bordures[3] = this.y + (semi ? rayon : rayon * 2) + (legende ? (legendePosition === 'dessus' ? 2 : (legendePosition === 'droite' ? Math.max(this.y + (semi ? rayon : rayon * 2), effectifs.length * 1.5) - (this.y + (semi ? rayon : rayon * 2)) : 0)) : 0)
+  this.bordures[1] = this.y - 0.5 - (legendeAffichage ? (legendePosition === 'dessous' ? 2 : 0) : 0)
+  this.bordures[2] = this.x + rayon * 2 + 1 + (legendeAffichage ? (legendePosition === 'droite' ? legendeMax : (Math.max(legendeMax, this.x + rayon * 2 + 1) - (this.x + rayon * 2 + 1))) : 0)
+  this.bordures[3] = this.y + (semi ? rayon : rayon * 2) + (legendeAffichage ? (legendePosition === 'dessus' ? 2 : (legendePosition === 'droite' ? Math.max(this.y + (semi ? rayon : rayon * 2), effectifs.length * 1.5) - (this.y + (semi ? rayon : rayon * 2)) : 0)) : 0)
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
@@ -9089,25 +9289,37 @@ function DiagrammeCirculaire ({ effectifs = [], x = 0, y = 0, rayon = 4, modalit
     return code
   }
 }
-/**
- *
- * @param {number[]} effectifs liste des effectifs à donner impérativement
- * @param {number} x abscisse du point en bas à gauche (défaut 0)
- * @param {number} y ordonnée du point en bas à gauche (defaut 0)
- * @param {number} rayon 4 par défaut
- * @param {string[]} modalites les modalités associées aux effectifs respectifs
- * @param {boolean} semi true pour un semi-circulaire, false pour un circulaire false par défaut
- * @param {boolean} legende true pour présence de la légende
- * @param {string} legendePosition 'droite' (défaut) 'dessus' ou 'dessous'
- * @param {boolean[]} mesures présence ou non de la mesure de chaque secteur
- * @param {boolean[]} visibles découpe ou non du secteur (pour créer des diagrammes à compléter)
- * @param {boolean[]} pourcents présence ou non du pourcentage de l'effectif total associé au secteur
- * @param {boolean[]} valeurs présence ou non de l'effectif
- * @param {boolean[]} présence ou non de hachures dans le secteur associé
- * @param {boolean[]} présence ou non d'une couleur de remplissage dans le secteur associé
+
+/** Trace un diagramme circulaire
+ * @param {Object} parametres À saisir entre accolades
+ * @param {number[]} parametres.effectifs Liste des effectifs à donner impérativement
+ * @param {number} [parametres.x = 0] Abscisse du point en bas à gauche
+ * @param {number} [parametres.y = 0] Ordonnée du point en bas à gauche
+ * @param {number} [parametres.rayon = 4] Rayon du diagramme circulaire
+ * @param {boolean} [parametres.semi = false] True pour un semi-circulaire, false pour un circulaire
+ * @param {boolean} [parametres.legendeAffichage = true] Présence (ou non) de la légende (ensemble des labels)
+ * @param {string[]} [parametres.labels = []] Labels associés aux effectifs respectifs. Tableau de même taille que effectifs.
+ * @param {string} [parametres.legendePosition = 'droite'] Position de la légende à choisir parmi : 'droite', 'dessus' ou 'dessous'
+ * @param {boolean[]} [parametres.mesures = []] Présence (ou non) de la mesure de chaque secteur. Tableau de même taille que effectifs.
+ * @param {boolean[]} [parametres.visibles = []] Découpe (ou non) du secteur (pour créer des diagrammes à compléter). Tableau de même taille que effectifs.
+ * @param {boolean[]} [parametres.pourcents = []] Présence (ou non) du pourcentage de l'effectif total associé au secteur. Tableau de même taille que effectifs.
+ * @param {boolean[]} [parametres.valeurs = []] Présence (ou non) de des valeurs de l'effectif. Tableau de même taille que effectifs.
+ * @param {boolean[]} [parametres.hachures = []] Présence (ou non) de hachures dans le secteur associé. Tableau de même taille que effectifs.
+ * @param {boolean[]} [parametres.remplissage = []] Présence (ou non) d'une couleur de remplissage dans le secteur associé. Tableau de même taille que effectifs.
+ * @example diagrammeCirculaire({ rayon: 7, semi: false, legendePosition: 'dessous',
+ * effectifs: [15, 25, 30, 10, 20],
+ * labels: ['Compas', 'Rapporteur', 'Règle', 'Crayon', 'Gomme'],
+ * mesures: [true, true, true, false, true],
+ * visibles: [true, false, true, true, true],
+ * pourcents: [true, true, true, false, true],
+ * valeurs: [true, false, true, true, false],
+ * hachures: [true, true, true, false, true],
+ * remplissage: [false, true, true, true, true] })
+ * // Trace un diagramme semi-circulaire de rayon 7 avec différentes options
+ * @return {DiagrammeCirculaire}
  */
-export function diagrammeCirculaire ({ effectifs = [100], x = 0, y = 0, rayon = 4, modalites = ['tout'], semi = false, legende = true, legendePosition = 'droite', mesures = [false], visibles = [true], pourcents = [true], valeurs = [false], hachures = [true], remplissage = [false] }) {
-  return new DiagrammeCirculaire({ effectifs, x, y, rayon, modalites, semi, legende, legendePosition, mesures, visibles, pourcents, valeurs, hachures, remplissage })
+export function diagrammeCirculaire ({ effectifs, x = 0, y = 0, rayon = 4, labels = [], semi = false, legendeAffichage = true, legendePosition = 'droite', mesures = [], visibles = [], pourcents = [], valeurs = [], hachures = [], remplissage = [] }) {
+  return new DiagrammeCirculaire({ effectifs: effectifs, x: x, y: y, rayon: rayon, labels: labels, semi: semi, legendeAffichage: legendeAffichage, legendePosition: legendePosition, mesures: mesures, visibles: visibles, pourcents: pourcents, valeurs: valeurs, hachures: hachures, remplissage: remplissage })
 }
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -9266,9 +9478,9 @@ export function lectureAntecedent (...args) {
  * Trace la courbe d'une fonction dans un repère
  * @param {function} f fonction à tracer comme par exemple : const f = x => a * x ** 2 + b * x + c
  * @param {Object} parametres À saisir entre accolades
- * @param {Repere} parametres.repere Repère dans lequel le tracé de la fonction se fait
- * @param {string} [parametres.color='black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
- * @param {number} [parametres.epaisseur=2]  Epaisseur du tracé de la courbe
+ * @param {Repere} [parametres.repere  = {}]  Repère dans lequel le tracé de la fonction se fait
+ * @param {string} [parametres.color = 'black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.epaisseur = 2]  Epaisseur du tracé de la courbe
  * @param {number} [parametres.xMin = repere.xMin]  Abscisse minimale du tracé de la courbe
  * @param {number} [parametres.xMax = repere.xMax]  Abscisse maximale du tracé de la courbe
  * @param {number} [parametres.yMin = repere.yMin]  Ordonnée minimale du tracé de la courbe
@@ -9286,7 +9498,7 @@ export function lectureAntecedent (...args) {
  */
 // JSDOC Validee par EE Juin 2022
 function Courbe (f, {
-  repere,
+  repere = {},
   color = 'black',
   epaisseur = 2,
   step = false,
@@ -9369,9 +9581,9 @@ function Courbe (f, {
  * Trace la courbe d'une fonction dans un repère
  * @param {function} f Fonction à tracer comme par exemple : const f = x => a * x ** 2 + b * x + c
  * @param {Object} parametres À saisir entre accolades
- * @param {Repere} parametres.repere Repère dans lequel le tracé de la fonction se fait
- * @param {string} [parametres.color='black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
- * @param {number} [parametres.epaisseur=2]  Epaisseur du tracé de la courbe
+ * @param {Repere} [parametres.repere = {}] Repère dans lequel le tracé de la fonction se fait
+ * @param {string} [parametres.color = 'black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.epaisseur = 2]  Epaisseur du tracé de la courbe
  * @param {number} [parametres.xMin = repere.xMin]  Abscisse minimale du tracé de la courbe
  * @param {number} [parametres.xMax = repere.xMax]  Abscisse maximale du tracé de la courbe
  * @param {number} [parametres.yMin = repere.yMin]  Ordonnée minimale du tracé de la courbe
@@ -9387,7 +9599,7 @@ function Courbe (f, {
  * @return {Courbe}
  */
 // JSDOC Validee par EE Juin 2022
-export function courbe (f, { repere, color = 'black', epaisseur = 2, step = false, xMin, xMax, yMin, yMax, xUnite = 1, yUnite = 1 }) {
+export function courbe (f, { repere = {}, color = 'black', epaisseur = 2, step = false, xMin, xMax, yMin, yMax, xUnite = 1, yUnite = 1 }) {
   return new Courbe(f, { repere: repere, color: color, epaisseur: epaisseur, step: step, xMin: xMin, xMax: xMax, yMin: yMin, yMax: yMax, xUnite: xUnite, yUnite: yUnite })
 }
 
@@ -9486,9 +9698,9 @@ export function integrale (...args) {
  * Trace la courbe d'une fonction, précédemment définie comme Spline, dans un repère
  * @param {function} f fonction à tracer défine, au préalable, avec splineCatmullRom()
  * @param {Object} parametres À saisir entre accolades
- * @param {Repere} parametres.repere Repère dans lequel le tracé de la fonction se fait
- * @param {string} [parametres.color='black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
- * @param {number} [parametres.epaisseur=2]  Epaisseur du tracé de la courbe
+ * @param {Repere} [parametres.repere  = {}] Repère dans lequel le tracé de la fonction se fait
+ * @param {string} [parametres.color = 'black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.epaisseur = 2]  Epaisseur du tracé de la courbe
  * @param {number} [parametres.xMin = repere.xMin]  Abscisse minimale du tracé de la courbe
  * @param {number} [parametres.xMax = repere.xMax]  Abscisse maximale du tracé de la courbe
  * @param {number} [parametres.yMin = repere.yMin]  Ordonnée minimale du tracé de la courbe
@@ -9496,7 +9708,7 @@ export function integrale (...args) {
  * @param {boolean|number} [parametres.step = false] Si false, le pas entre deux abscisses du tracé de la fonction est 0.2/xUnite. Sinon, ce pas vaut la valeur indiquée.
  * @param {number} [parametres.xUnite = 1]  Abscisse minimale du tracé de la courbe
  * @param {number} [parametres.yUnite = 1]  Abscisse maximale du tracé de la courbe
- * @param {boolean} [parametres.traceNoeuds = true]  Place (ou pas ?) les points définis dans le paramètre f.
+ * @param {boolean} [parametres.traceNoeuds = true]  Place (ou non) les points définis dans le paramètre f.
  * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @property {string} color Couleur du tracé de la courbe. À associer obligatoirement à colorToLatexOrHTML().
@@ -9504,7 +9716,7 @@ export function integrale (...args) {
  * @class
  */
 // JSDOC Validee par EE Juin 2022
-function CourbeSpline (f, { repere, color = 'black', epaisseur = 2, step = false, xMin = repere.xMin, xMax = repere.xMax, yMin = repere.yMin, yMax = repere.yMax, xUnite = 1, yUnite = 1, traceNoeuds = true }) {
+function CourbeSpline (f, { repere = {}, color = 'black', epaisseur = 2, step = false, xMin = repere.xMin, xMax = repere.xMax, yMin = repere.yMin, yMax = repere.yMax, xUnite = 1, yUnite = 1, traceNoeuds = true }) {
   ObjetMathalea2D.call(this, { })
   this.color = color
   const noeuds = []
@@ -9574,9 +9786,9 @@ function CourbeSpline (f, { repere, color = 'black', epaisseur = 2, step = false
  * Trace la courbe d'une fonction, précédemment définie comme Spline, dans un repère
  * @param {function} f fonction à tracer défine, au préalable, avec splineCatmullRom()
  * @param {Object} parametres À saisir entre accolades
- * @param {Repere} parametres.repere Repère dans lequel le tracé de la fonction se fait
- * @param {string} [parametres.color='black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
- * @param {number} [parametres.epaisseur=2]  Epaisseur du tracé de la courbe
+ * @param {Repere} [parametres.repere  = {}] Repère dans lequel le tracé de la fonction se fait
+ * @param {string} [parametres.color = 'black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.epaisseur = 2]  Epaisseur du tracé de la courbe
  * @param {number} [parametres.xMin = repere.xMin]  Abscisse minimale du tracé de la courbe
  * @param {number} [parametres.xMax = repere.xMax]  Abscisse maximale du tracé de la courbe
  * @param {number} [parametres.yMin = repere.yMin]  Ordonnée minimale du tracé de la courbe
@@ -9584,7 +9796,7 @@ function CourbeSpline (f, { repere, color = 'black', epaisseur = 2, step = false
  * @param {boolean|number} [parametres.step = false] Si false, le pas entre deux abscisses du tracé de la fonction est 0.2/xUnite. Sinon, ce pas vaut la valeur indiquée.
  * @param {number} [parametres.xUnite = 1]  Abscisse minimale du tracé de la courbe
  * @param {number} [parametres.yUnite = 1]  Abscisse maximale du tracé de la courbe
- * @param {boolean} [parametres.traceNoeuds = true]  Place (ou pas ?) les points définis dans le paramètre f.
+ * @param {boolean} [parametres.traceNoeuds = true]  Place (ou non) les points définis dans le paramètre f.
  * @example courbeSpline(g, {repere: r})
  * // Trace, en noir avec une épaisseur de 2, la courbe spline g dans le repère r, tous deux précédemment définis.
  * @example courbeSpline(g, {repere: r, epaisseur: 5, color: 'blue'})
@@ -9593,7 +9805,7 @@ function CourbeSpline (f, { repere, color = 'black', epaisseur = 2, step = false
  * @return {CourbeSpline}
  */
 // JSDOC Validee par EE Juin 2022
-export function courbeSpline (f, { repere, color = 'black', epaisseur = 2, step = false, xMin = repere.xMin, xMax = repere.xMax, yMin = repere.yMin, yMax = repere.yMax, xUnite = 1, yUnite = 1, traceNoeuds = true }) {
+export function courbeSpline (f, { repere = {}, color = 'black', epaisseur = 2, step = false, xMin = repere.xMin, xMax = repere.xMax, yMin = repere.yMin, yMax = repere.yMax, xUnite = 1, yUnite = 1, traceNoeuds = true }) {
   return new CourbeSpline(f, { repere: repere, color: color, epaisseur: epaisseur, step: step, xMin: xMin, xMax: xMax, yMin: yMin, yMax: yMax, xUnite: xUnite, yUnite: yUnite, traceNoeuds: traceNoeuds })
 }
 
@@ -9614,7 +9826,7 @@ const cosineInterpolate = (y1, y2, mu) => {
  * Trace la courbe d'une fonction interpolée, linéaire par parties, dans un repère
  * @param {Array.number[]} tableau Ce tableau de tableaux contient les coordonnées des points à rejoindre comme par exemple : [[-5,2],[-1,-7],[2,5],[3,-1]]
  * @param {Object} parametres À saisir entre accolades
- * @param {Repere} parametres.repere Repère dans lequel le tracé de la fonction se fait
+ * @param {Repere} [parametres.repere  = { xMin: -1, yMin: 1 }] Repère dans lequel le tracé de la fonction se fait
  * @param {string} [parametres.color = 'black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
  * @param {number} [parametres.epaisseur = 2]  Epaisseur du tracé de la courbe
  * @param {number} [parametres.xMin = repere.xMin]  Abscisse minimale du tracé de la courbe
@@ -9667,9 +9879,9 @@ function CourbeInterpolee (
  * Trace la courbe d'une fonction interpolée, linéaire par parties, dans un repère
  * @param {Array.number[]} tableau Ce tableau de tableaux contient les coordonnées des points à rejoindre comme par exemple : [[-5,2],[-1,-7],[2,5],[3,-1]]
  * @param {Object} parametres À saisir entre accolades
- * @param {Repere} parametres.repere Repère dans lequel le tracé de la fonction se fait
- * @param {string} [parametres.color='black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
- * @param {number} [parametres.epaisseur=2]  Epaisseur du tracé de la courbe
+ * @param {Repere} [parametres.repere  = {}]  Repère dans lequel le tracé de la fonction se fait
+ * @param {string} [parametres.color = 'black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.epaisseur = 2]  Epaisseur du tracé de la courbe
  * @param {number} [parametres.xMin = repere.xMin]  Abscisse minimale du tracé de la courbe
  * @param {number} [parametres.xMax = repere.xMax]  Abscisse maximale du tracé de la courbe
  * @example courbeInterpolee(tab, {repere: r})
@@ -9680,7 +9892,7 @@ function CourbeInterpolee (
  * @return {CourbeInterpolee}
  */
 // JSDOC Validee par EE Juin 2022
-export function courbeInterpolee (tableau, { color = 'black', epaisseur = 1, repere, xMin = -10, xMax = 10 }) {
+export function courbeInterpolee (tableau, { color = 'black', epaisseur = 1, repere = {}, xMin = -10, xMax = 10 }) {
   return new CourbeInterpolee(tableau, { color: color, epaisseur: epaisseur, repere: repere, xMin: xMin, xMax: xMax })
 }
 
@@ -9688,7 +9900,7 @@ function GraphiqueInterpole (
   tableau, {
     color = 'black',
     epaisseur = 1,
-    repere = {},
+    repere = {}, // repère par défaut : le laisser...
     step = 0.2
   } = {}
 
@@ -9704,7 +9916,7 @@ function GraphiqueInterpole (
     let depart, fin
     repere.xMin > x0 ? (depart = repere.xMin) : (depart = x0)
     repere.xMax < x1 ? (fin = repere.xMax) : (fin = x1)
-    const c = courbe(f, { step: step, xMin: depart, xMax: fin, color: color, epaisseur: epaisseur, xUnite: repere.xUnite, yUnite: repere.yUnite, yMin: repere.yMin, yMax: repere.yMax })
+    const c = courbe(f, { repere: repere, step: step, xMin: depart, xMax: fin, color: color, epaisseur: epaisseur, xUnite: repere.xUnite, yUnite: repere.yUnite, yMin: repere.yMin, yMax: repere.yMax })
     mesCourbes.push(c)
   }
   this.svg = function (coeff) {
@@ -10261,57 +10473,6 @@ function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, colorBackgro
 export function latexParCoordonnees (texte, x, y, color = 'black', largeur = 50, hauteurLigne = 20, colorBackground = 'white', tailleCaracteres = 8) {
   if (texte === '') return vide2d()
   else return new LatexParCoordonnees(texte, x, y, color, largeur, hauteurLigne, colorBackground, tailleCaracteres)
-}
-
-/**
- * Fonction dépréciée depuis que latexParCoordonnees() est au point.
- * x,y sont les coordonnées du début du trait de fraction, 0;0 par défaut
- * num et den sont les numérateurs et dénominateurs (1 et 2) par défaut
- * On peut changer la couleur (noir par défaut)
- * permet d'afficher une fraction à une position donnée en SVG et Latex
- * Les nombres ne sont pas en mode Maths
- *
- * @author Jean-Claude Lhote
- */
-
-function FractionParPosition ({ x = 0, y = 0, fraction = { num: 1, den: 2 }, couleur = 'black' } = {}) {
-  ObjetMathalea2D.call(this, { })
-  const num = Math.abs(fraction.num)
-  const den = Math.abs(fraction.den)
-  const signe = fraction.signe
-  const longueur = Math.max(Math.floor(Math.log10(num)) + 1, Math.floor(Math.log10(den)) + 1) * 10
-  const offset = 10
-
-  this.svg = function (coeff) {
-    const s = segment(x - longueur / coeff / 2, y, x + longueur / coeff / 2, y, couleur)
-    s.isVisible = false
-    let code = s.svg(coeff)
-    if (signe === -1) {
-      code += segment(x - ((longueur + 15) / coeff / 2), y, x - ((longueur + 5) / coeff / 2), y, couleur).svg(coeff)
-    }
-    const t1 = texteParPosition(nombreAvecEspace(num), x, y + offset / coeff, 'milieu', couleur)
-    code += t1.svg(coeff)
-    const t2 = texteParPosition(nombreAvecEspace(den), x, y - offset / coeff, 'milieu', couleur)
-    code += t2.svg(coeff)
-    t1.isVisible = false
-    t2.isVisible = false
-    code = `<g id="${this.id}">${code}</g>`
-    return code
-  }
-
-  this.tikz = function () {
-    let code = segment(x, y, x + longueur / 30 / context.scale, y, couleur).tikz()
-    if (signe === -1) {
-      code += segment(x - ((longueur / 30 + 0.785) / context.scale / 2), y, x - ((longueur / 30 + 0.25) / context.scale / 2), y, couleur).tikz()
-    }
-    code += texteParPosition(nombreAvecEspace(num), x + longueur / 60 / context.scale, y + offset / 30 / context.scale, 'milieu', couleur).tikz()
-    code += texteParPosition(nombreAvecEspace(den), x + longueur / 60 / context.scale, y - offset / 30 / context.scale, 'milieu', couleur).tikz()
-    return code
-  }
-}
-
-export function fractionParPosition (arg) {
-  return new FractionParPosition(arg)
 }
 
 /*
@@ -11261,7 +11422,7 @@ function Labyrinthe (
         } else if (typeof (nombres[a - 1][b]) === 'string') { // écriture mode Maths
           objets.push(texteParPosition(nombres[a - 1][b], -1.5 + a * 3, 2.5 + b * 3, 'milieu', 'black', taille, 0, true))
         } else {
-          objets.push(fractionParPosition({ x: -1.5 + a * 3, y: 2.5 + b * 3, fraction: nombres[a - 1][b] }))
+          objets.push(latexParCoordonnees(nombres[a - 1][b].texFraction, -1.5 + a * 3, 2.5 + b * 3, 'black', 20, 20, 'white', 6))
         }
       }
     }

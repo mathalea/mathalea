@@ -14,6 +14,8 @@ export const interactifType = 'mathLive'
 * @author Lhote Jean-Claude
 * 3L11-6
 */
+export const uuid = '51360'
+export const ref = '3L11-6'
 export default function FactoriserUneExpression3e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

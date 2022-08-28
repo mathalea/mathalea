@@ -19,6 +19,8 @@ export const amcType = 'AMCNum'
  * 6N14-2
  * Relecture : Novembre 2021 par EE
  */
+export const uuid = '6a17f'
+export const ref = '6N22-2'
 export default function AjouterDesFractionsDunite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

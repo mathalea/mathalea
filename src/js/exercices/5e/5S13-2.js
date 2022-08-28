@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice, calcul, shuffle, tableauColonneLigne, texNombre, contraindreValeur, numAlpha, combinaisonListes, arrondi, egalOuApprox } from '../../modules/outils.js'
-import { fixeBordures, diagrammeBarres } from '../../modules/2d.js'
+import { diagrammeBarres } from '../../modules/2d.js'
 import { fraction } from '../../modules/fractions.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -67,7 +67,7 @@ function listeEntiersDepuisSomme (total, nbElements) {
   return valeurs
 }
 
-function graphique (hauteursBarres, etiquettes, { reperageTraitPointille = false, couleurDeRemplissage = 'blue', titreAxeVertical = '', titre = '', hauteurDiagramme = 8, coeff = 2, axeVertical = false, etiquetteValeur = true, labelAxeVert = false } = {}) {
+function graphique (hauteursBarres, etiquettes, { reperageTraitPointille = false, couleurDeRemplissage = 'blue', titreAxeVertical = '', titre = '', hauteurDiagramme = 8, coeff = 2, axeVertical = false, etiquetteValeur = true, labelAxeVert = false }) {
   const diagramme = diagrammeBarres(hauteursBarres, etiquettes, { reperageTraitPointille: reperageTraitPointille, couleurDeRemplissage: couleurDeRemplissage, titreAxeVertical: titreAxeVertical, titre: titre, hauteurDiagramme: hauteurDiagramme, coeff: coeff, axeVertical: axeVertical, etiquetteValeur: etiquetteValeur, labelAxeVert: labelAxeVert })
   return mathalea2d(Object.assign({}, fixeBordures([diagramme], { rxmin: -3, rymin: -3, rymax: 1.5 }), { style: 'inline', scale: 0.5 }), diagramme)
 }
@@ -144,7 +144,7 @@ class Population {
         preambule += 'On a consigné les résultats dans le tableau suivant :<br><br>'
         break
       case 'diagramme' :
-        preambule += 'On a représenté ces données à l\'aide du diagramme ci dessous.<br><br>'
+        preambule += 'On a représenté ces données à l\'aide du diagramme ci-dessous.<br><br>'
         break
       default :
         throw Error("Error : styleExo n'est ni tableau, ni diagramme")
@@ -167,6 +167,8 @@ class Population {
  * @author Eve & Sylvain CHAMBON
  * Référence 5S13-2
 */
+export const uuid = 'ff67d'
+export const ref = '5S13-2'
 export default function CalculerDesFrequences () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

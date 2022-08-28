@@ -11,6 +11,8 @@ export const dateDePublication = '02/12/2021'
  * Publié le 02 / 12 / 2021
  * Référence can6N06
  */
+export const uuid = '73d76'
+export const ref = 'can6N08'
 export default function NombreDeDizaines () {
   Exercice.call(this)
   this.typeExercice = 'simple'

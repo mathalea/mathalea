@@ -1,5 +1,5 @@
 // Export de Mathalea pour Moodle au format GIFT
-// Créé le 22/08/2022
+// Créé le 27/08/2022
 
 $CATEGORY: Mathalea/1e
 
@@ -186,6 +186,17 @@ $CATEGORY: Mathalea/2e
     =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
     #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
     <mathalea-moodle ex\="2N10-1" correction />
+}
+
+$CATEGORY: Mathalea/2e
+
+:: Mathalea - Placer un point d'abscisse décimale (2N10-2) ::
+<script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+<mathalea-moodle ex\="2N10-2" />
+{
+    =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
+    #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+    <mathalea-moodle ex\="2N10-2" correction />
 }
 
 $CATEGORY: Mathalea/2e
@@ -1136,7 +1147,7 @@ $CATEGORY: Mathalea/3e
 
 $CATEGORY: Mathalea/3e
 
-:: Mathalea - Yahoku multiplicatif expressions littérales niveau 1 (3L11-8) ::
+:: Mathalea - Yoh ku multiplicatif expressions littérales niveau 1 (3L11-8) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="3L11-8" />
 {
@@ -1389,6 +1400,17 @@ $CATEGORY: Mathalea/4e
 
 $CATEGORY: Mathalea/4e
 
+:: Mathalea - Multiplication à trou de deux entiers relatifs (4C10-10) ::
+<script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+<mathalea-moodle ex\="4C10-10" />
+{
+    =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
+    #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+    <mathalea-moodle ex\="4C10-10" correction />
+}
+
+$CATEGORY: Mathalea/4e
+
 :: Mathalea - Signe d'un quotient de nombres relatifs (4C10-2) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="4C10-2" />
@@ -1444,7 +1466,7 @@ $CATEGORY: Mathalea/4e
 
 $CATEGORY: Mathalea/4e
 
-:: Mathalea - Yahoku multiplicatif nombres relatifs niveau 1 (4C10-8) ::
+:: Mathalea - Yohaku multiplicatif nombres relatifs niveau 1 (4C10-8) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="4C10-8" />
 {
@@ -1510,7 +1532,7 @@ $CATEGORY: Mathalea/4e
 
 $CATEGORY: Mathalea/4e
 
-:: Mathalea - Yahoku additif fractions niveau 1 (4C21-2) ::
+:: Mathalea - Yohaku additif fractions niveau 1 (4C21-2) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="4C21-2" />
 {
@@ -1565,7 +1587,7 @@ $CATEGORY: Mathalea/4e
 
 $CATEGORY: Mathalea/4e
 
-:: Mathalea - Yahoku multiplicatif fractions niveau 1 (4C22-3) ::
+:: Mathalea - Yohaku multiplicatif fractions niveau 1 (4C22-3) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="4C22-3" />
 {
@@ -1983,7 +2005,7 @@ $CATEGORY: Mathalea/4e
 
 $CATEGORY: Mathalea/4e
 
-:: Mathalea - Yahoku additif expressions littérales niveau 1 (4L10-3) ::
+:: Mathalea - Yohaku additif expressions littérales niveau 1 (4L10-3) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="4L10-3" />
 {
@@ -2533,7 +2555,7 @@ $CATEGORY: Mathalea/5e
 
 $CATEGORY: Mathalea/5e
 
-:: Mathalea - Yahoku additif nombres relatifs niveau 1 (5R20-6) ::
+:: Mathalea - Yohaku additif nombres relatifs niveau 1 (5R20-6) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="5R20-6" />
 {
@@ -2588,7 +2610,7 @@ $CATEGORY: Mathalea/5e
 
 $CATEGORY: Mathalea/5e
 
-:: Mathalea - Lire un diagramme en barre (5S11) ::
+:: Mathalea - Lire un diagramme en barres (5S11) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="5S11" />
 {
@@ -2698,7 +2720,7 @@ $CATEGORY: Mathalea/6e
 
 $CATEGORY: Mathalea/6e
 
-:: Mathalea - Yahoku additif niveau 1 (6C10-7a) ::
+:: Mathalea - Yohaku additif niveau 1 (6C10-7a) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="6C10-7a" />
 {
@@ -2709,7 +2731,7 @@ $CATEGORY: Mathalea/6e
 
 $CATEGORY: Mathalea/6e
 
-:: Mathalea - Yahoku multiplicatif niveau 1 (6C10-7b) ::
+:: Mathalea - Yohaku multiplicatif niveau 1 (6C10-7b) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="6C10-7b" />
 {
@@ -3435,7 +3457,7 @@ $CATEGORY: Mathalea/6e
 
 $CATEGORY: Mathalea/6e
 
-:: Mathalea - Recomposer un entier (6N10-7) ::
+:: Mathalea - Recomposer un décimal ou un entier (6N10-7) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="6N10-7" />
 {
@@ -3941,7 +3963,7 @@ $CATEGORY: Mathalea/6e
 
 $CATEGORY: Mathalea/6e
 
-:: Mathalea - Lire un diagramme en barre (6S10) ::
+:: Mathalea - Lire un diagramme en barres (6S10) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="6S10" />
 {
@@ -7417,7 +7439,7 @@ $CATEGORY: Mathalea/can/6e
 
 $CATEGORY: Mathalea/can/6e
 
-:: Mathalea - Résoudre un problème concret (can6C27) ::
+:: Mathalea - Résoudre un problème de rendu de monnaie (can6C27) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="can6C27" />
 {
@@ -7787,6 +7809,17 @@ $CATEGORY: Mathalea/can/6e
     =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
     #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
     <mathalea-moodle ex\="can6M11" correction />
+}
+
+$CATEGORY: Mathalea/can/6e
+
+:: Mathalea - Calculer une longueur/un périmètre (avec des décimaux) (can6M12) ::
+<script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+<mathalea-moodle ex\="can6M12" />
+{
+    =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
+    #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+    <mathalea-moodle ex\="can6M12" correction />
 }
 
 $CATEGORY: Mathalea/can/6e
@@ -8238,6 +8271,17 @@ $CATEGORY: Mathalea/can/c3
     =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
     #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
     <mathalea-moodle ex\="canc3M01" correction />
+}
+
+$CATEGORY: Mathalea/can/c3
+
+:: Mathalea - Calculer une longueur/un périmètre/une aire (avec des entiers) (canc3M02) ::
+<script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+<mathalea-moodle ex\="canc3M02" />
+{
+    =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
+    #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+    <mathalea-moodle ex\="canc3M02" correction />
 }
 
 $CATEGORY: Mathalea/can/c3

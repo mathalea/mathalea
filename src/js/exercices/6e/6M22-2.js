@@ -16,6 +16,8 @@ export const titre = 'Calculer périmètre et aire de portions de cercles/disque
  * @author Rémi Angot
  * Rééférence 6M22-2
  */
+export const uuid = 'ff386'
+export const ref = '6M22-2'
 export default function Perimetre_aire_et_portions_de_disques (pa = 3) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

@@ -7,6 +7,8 @@ export { amcReady, amcType } from '../6e/_Construire_par_symetrie.js'
  * @author Jean-Claude Lhote
  * Relecture : Novembre 2021 par EE
  */
+export const uuid = '91a00'
+export const ref = '6G24-1'
 export default class SymetrieAxialePoint6e extends ConstruireParSymetrie {
   constructor () {
     super()

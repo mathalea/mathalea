@@ -15,6 +15,8 @@ export const interactifType = 'mathLive'
 * 2021-02-07
 */
 
+export const uuid = 'f4b95'
+export const ref = '3S12'
 export default function calculEffectifFrequence () {
   Exercice.call(this)
   this.titre = titre
@@ -43,7 +45,7 @@ export default function calculEffectifFrequence () {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
     // let listeTypeDeQuestions_disponibles= [];
-    const lstQuadri = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes', 'lycaons', 'servals', 'phacochères']
+    const lstQuadri = ['Girafes', 'Zèbres', 'Gnous', 'Buffles', 'Gazelles', 'Crocodiles', 'Rhinocéros', 'Léopards', 'Guépards', 'Hyènes', 'Lycaons', 'Servals', 'Phacochères']
     const lstOiseaux = ['hérons', 'marabouts', 'flamants roses', 'cigognes', 'grues', 'vautours']
     const nbAnimaux = 4 + parseInt(this.sup) // nombre d'animaux différents dans l'énoncé (entre 5 et 7)
     const nbQuadri = 3

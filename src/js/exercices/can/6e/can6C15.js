@@ -13,6 +13,8 @@ export const amcType = 'AMCHybride'
  * Créé pendant l'été 2021
  * Référence can6C15
  */
+export const uuid = '84b48'
+export const ref = 'can6C15'
 export default function FractionCommeFacteurManquant () {
   Exercice.call(this)
   this.typeExercice = 'simple'
