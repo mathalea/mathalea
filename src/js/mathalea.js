@@ -270,6 +270,7 @@ function contenuExerciceHtml (obj, numeroExercice) {
   // * boutons
   // * formulaires
   // renvoie un objet : { contenu_un_exercice: le html de l'exercice  ,contenu_une_correction: le html de la correction }
+
   let contenuUnExercice = ''
   let contenuUneCorrection = ''
   let paramTooltip = ''
@@ -452,13 +453,14 @@ function contenuExerciceHtml (obj, numeroExercice) {
         }
         // Pour la numérotation de diapCorr, il faut qu'il y ait toujours des listes même s'il n'y a qu'une seule question
         if (obj.nbQuestions === 1 && context.vue !== 'diapCorr') {
-          contenuUneCorrection += obj.correctionIsCachee ? 'Correction masquée' : `<div><div class="correction">${obj.correction}</div></div>`
+          contenuUneCorrection += obj.correctionIsCachee ? 'Correction masquée' : `<div><div class="correction">${obj.contenuCorrection}</div></div>`
         } else {
-          contenuUneCorrection += `<li class="correction">${obj.correctionIsCachee ? 'Correction masquée' : obj.correction}</li>`
+          contenuUneCorrection += `<li class="correction">${obj.correctionIsCachee ? 'Correction masquée' : obj.contenuCorrection}</li>`
         }
         numQuestion++
       }
     }
+
     contenuUnExercice += (obj.nbQuestions !== 1) ? '</ol>' : ''
     contenuUneCorrection += (obj.nbQuestions !== 1) ? '</ol>' : ''
     if (obj.interactif || obj.interactifObligatoire) {
@@ -511,6 +513,7 @@ function contenuExerciceHtml (obj, numeroExercice) {
     }
     contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice}</h3>`
     contenuUneCorrection += obj.correctionIsCachee ? 'Correction masquée' : obj.contenuCorrection
+
     if (obj.typeExercice === 'MG32' && obj.MG32codeBase64corr) {
       contenuUneCorrection += `<div id="MG32divcorr${numeroExercice - 1}" class="MG32"></div>`
     }
@@ -522,7 +525,7 @@ function contenuExerciceHtml (obj, numeroExercice) {
 }
 
 function miseAJourDuCode () {
-  // fonction permettant de mettre à jour la liste des exercices affichées.
+  // fonction permettant de mettre à jour la liste des exercices affichés.
   // puis gère les gestionnaires d'évènements sur les éléments en provenance des exercices (icones pour supprimer/déplacer...)
   // Appelée dès lors que l'on a une modification sur l'affichage d'un ou plusieurs exercices
   //    suppression d'un exercice, nouvelle donnée, changement de paramètre...)
@@ -767,7 +770,7 @@ function miseAJourDuCode () {
         if ($('#liste_des_exercices').is(':visible') || $('#exercices_disponibles').is(':visible') || $('#exo_plein_ecran').is(':visible')) {
           // si on n'a plus la liste des exercices il ne faut plus pouvoir en supprimer (pour v=l)
           if (listeDesExercices.length === 1) {
-            // si on a q'un seul exercice, uniquement l'icone poubelle
+            // si on a qu'un seul exercice, uniquement l'icone poubelle
             contenuDesExercices += `<div id="exercice${i}" style="margin-top: 20px"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i>${contenu.contenu_un_exercice} </div>`
           } else if (i === 0) {
             // si c'est le premier exercice icone poubelle plus fleche vers le bas
