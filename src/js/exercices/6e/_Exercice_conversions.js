@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, arrondi, texNombre, texNombrec, texFraction, texTexte, calcul, texNombre2 } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, arrondi, texNombre, texNombrec, texFraction, texTexte, calcul, texNombre2, contraindreValeur, rangeMinMax, compteOccurences, combinaisonListes } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { format, evaluate } from 'mathjs'
@@ -46,35 +46,37 @@ export default function ExerciceConversions (niveau = 1) {
       ['d', 10],
       ['c', 100],
       ['m', 1000]
-    ] // ['$\\mu{}$',1000000]];
+    ]
+    let listeDesProblemes = []
+    listeDesProblemes[0] = contraindreValeur(1, 5, this.sup, 5)
+    if (compteOccurences(listeDesProblemes, 5) > 0) listeDesProblemes = rangeMinMax(1, 4) // Teste si l'utilisateur a choisi tout
+    listeDesProblemes = combinaisonListes(listeDesProblemes, this.nbQuestions)
+    console.log(listeDesProblemes)
     for (let i = 0,
       a,
       k,
       div,
       resultat,
       unite,
-      typesDeQuestions,
       texte,
       texteCorr,
       listeUniteInfo,
       cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
-      if (this.sup < 5) {
-        typesDeQuestions = this.sup
-      } else {
-        typesDeQuestions = randint(1, 4)
-      }
       k = randint(0, 2) // Choix du préfixe
-      if (typesDeQuestions === 1) {
-        // niveau 1
-        div = false // Il n'y aura pas de division
-      } else if (typesDeQuestions === 2) {
-        // niveau 2
-        div = true // Avec des divisions
-      } else if (typesDeQuestions === 3) {
-        div = choice([true, false]) // Avec des multiplications ou des divisions
-      } else if (typesDeQuestions === 4) {
-        listeUniteInfo = ['o', 'ko', 'Mo', 'Go', 'To']
+      switch (listeDesProblemes[i]) {
+        case 1 :
+          div = false // Il n'y aura pas de division
+          break
+        case 2 :
+          div = true // Avec des divisions
+          break
+        case 3 :
+          div = choice([true, false]) // Avec des multiplications ou des divisions
+          break
+        case 4 :
+          listeUniteInfo = ['o', 'ko', 'Mo', 'Go', 'To']
+          break
       }
 
       if (this.sup2) {
@@ -96,7 +98,7 @@ export default function ExerciceConversions (niveau = 1) {
         // X, X0, X00, XX
       }
 
-      if (!div && typesDeQuestions < 4) {
+      if (!div && listeDesProblemes[i] < 4) {
         // Si il faut multiplier pour convertir
         if (k < 2) {
           // Choix de l'unité
@@ -127,7 +129,7 @@ export default function ExerciceConversions (niveau = 1) {
           texTexte(unite) +
           '$'
       } else if (div &&
-        typesDeQuestions < 4 &&
+        listeDesProblemes[i] < 4 &&
         this.correction_avec_des_fractions) {
         unite = choice(['m', 'L', 'g'])
         resultat = math.evaluate(a / prefixeDiv[k][1])
@@ -147,7 +149,7 @@ export default function ExerciceConversions (niveau = 1) {
           texNombre2(resultat) +
           texTexte(unite) +
           '$'
-      } else if (div && typesDeQuestions < 4) {
+      } else if (div && listeDesProblemes[i] < 4) {
         unite = choice(['m', 'L', 'g'])
         resultat = math.evaluate(a / prefixeDiv[k][1])
         texte =
