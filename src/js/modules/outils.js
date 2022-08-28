@@ -8919,7 +8919,7 @@ export function dataTailleDiaporama (exercice) {
   }
 }
 function dataTaille (taille) {
-  if (context.vue !== 'diap') {
+  if (context.vue !== 'diap' || taille === 1) {
     return ''
   } else if (taille !== 1) {
     return `data-taille = "${taille}"`

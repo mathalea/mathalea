@@ -51,7 +51,6 @@ export default function ExerciceConversions (niveau = 1) {
     listeDesProblemes[0] = contraindreValeur(1, 5, this.sup, 5)
     if (compteOccurences(listeDesProblemes, 5) > 0) listeDesProblemes = rangeMinMax(1, 4) // Teste si l'utilisateur a choisi tout
     listeDesProblemes = combinaisonListes(listeDesProblemes, this.nbQuestions)
-    console.log(listeDesProblemes)
     for (let i = 0,
       a,
       k,
