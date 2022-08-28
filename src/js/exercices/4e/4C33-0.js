@@ -16,6 +16,8 @@ export const dateDePublication = '21/11/2021' // La date de publication initiale
  * @author Guillaume Valmont
  * Référence 4C33-0
 */
+export const uuid = '1d078'
+export const ref = '4C33-0'
 export default function NotationPuissance () {
   Exercice.call(this)
   this.nbQuestions = 4

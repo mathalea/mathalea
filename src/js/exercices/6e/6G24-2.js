@@ -7,6 +7,8 @@ export { amcReady, amcType } from '../6e/_Construire_par_symetrie.js'
  * Référence 6G24-2
  * @author Jean-Claude Lhote   (Ajout AMC par Eric Elter)
  */
+export const uuid = 'adfb5'
+export const ref = '6G24-2'
 export default class SymetrieAxialeFigure6e extends ConstruireParSymetrie {
   constructor () {
     super()

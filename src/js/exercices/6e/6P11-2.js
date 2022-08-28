@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, combinaisonListes, choice, randint, prenom, texPrix, texNombre, texNombrec, miseEnEvidence, texMasse, stringNombre } from '../../modules/outils.js'
-import { mathalea2d, tableau } from '../../modules/2d.js'
+import { tableau } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité'
@@ -11,7 +12,9 @@ export const interactifType = 'mathLive'
  * Résoudre un problème de proportionnalité avec linéarité via tableau
  * @Mireille Gain, 30 mai 2021
  * Référence 6P11-2
-*/export default function ProportionnaliteParLineariteTableau () {
+*/export const uuid = '65288'
+export const ref = '6P11-2'
+export default function ProportionnaliteParLineariteTableau () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'On considère que les situations suivantes, sauf cas flagrant, sont des situations de proportionnalité. <br>On demande de les résoudre à l\'aide d\'un tableau.'
   this.nbQuestions = 5

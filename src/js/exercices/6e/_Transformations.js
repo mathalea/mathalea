@@ -1,5 +1,6 @@
-import { mathalea2d, point, droiteParPointEtPente, droiteHorizontaleParPoint, droiteVerticaleParPoint, tracePoint, segment, vecteur, latexParCoordonnees, afficheMesureAngle, milieu, translation, texteParPositionEchelle, labelLatexPoint, colorToLatexOrHTML, codageSegments } from '../../modules/2d.js'
+import { point, droiteParPointEtPente, droiteHorizontaleParPoint, droiteVerticaleParPoint, tracePoint, segment, vecteur, latexParCoordonnees, afficheMesureAngle, milieu, translation, texteParPositionEchelle, labelLatexPoint, codageSegments } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, choice, combinaisonListes, imagePointParTransformation, texFractionReduite, numAlpha, rangeMinMax, contraindreValeur, lettreDepuisChiffre, enleveElementNo, enleveElementBis, compteOccurences, arrondi, egal } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -181,7 +182,7 @@ export default function Transformations () {
       traceAnt.opacite = 1
       traceIm.opacite = 1
       traceIm.epaisseur = 2
-      traceIm.color = colorToLatexOrHTML('orange')
+      traceIm.color = colorToLatexOrHTML('#f15929')
       traceO = tracePoint(O)
       traceO.epaisseur = 2
       traceO.opacite = 1
@@ -357,7 +358,7 @@ export default function Transformations () {
           (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` L'image du point ${antecedents[i]} par l'homothétie de centre O et de rapport ${k[i]} est le point ${images[i]}.<br>`
           objetsEnonce.push(traceAnt, traceO, labO)
-          objetsCorrection.push(traceAnt, traceIm, traceO, labO, segment(M[i], O, 'blue'), segment(N[i], O, 'orange'))
+          objetsCorrection.push(traceAnt, traceIm, traceO, labO, segment(M[i], O, 'blue'), segment(N[i], O, '#f15929'))
           break
 
         case 10:
@@ -374,7 +375,7 @@ export default function Transformations () {
               k[i]
             )}$ est le point ${images[i]}.<br>`
           objetsEnonce.push(traceAnt, traceO, labO)
-          objetsCorrection.push(traceAnt, traceIm, traceO, labO, segment(M[i], O, 'blue'), segment(N[i], O, 'orange'))
+          objetsCorrection.push(traceAnt, traceIm, traceO, labO, segment(M[i], O, 'blue'), segment(N[i], O, '#f15929'))
           break
       }
 

@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, choice } from '../../modules/outils.js'
-import { point, polygone, grille, texteParPosition, mathalea2d, colorToLatexOrHTML } from '../../modules/2d.js'
+import { point, polygone, grille, texteParPosition } from '../../modules/2d.js'
 
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -13,6 +14,8 @@ export const titre = 'Programmer des déplacements (Scratch)'
  * @author Erwan Duplessy // (Ajout paramètre 3 par EE)
  * Ajout AMC : Janvier 2022 par EE
  */
+export const uuid = 'c8fe9'
+export const ref = '6I10'
 export default function ColorierDeplacement () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'Scratch'

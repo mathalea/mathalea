@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, choice, texNombre } from '../../../modules/outils.js'
 import {
-  mathalea2d, point, labelPoint, afficheLongueurSegment, codageAngleDroit, afficheMesureAngle, codageSegment, pointAdistance, polygone, milieu, segment
+  point, labelPoint, afficheLongueurSegment, codageAngleDroit, afficheMesureAngle, codageSegment, pointAdistance, polygone, milieu, segment
 } from '../../../modules/2d.js'
 import Decimal from 'decimal.js/decimal.mjs'
 import FractionX from '../../../modules/FractionEtendue.js'
@@ -15,6 +16,8 @@ export const dateDePublication = '27/06/2022'
  * Référence can1G06
  *
 */
+export const uuid = 'a394f'
+export const ref = 'can1G06'
 export default function ProduitScalaireFiguresClassiques () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

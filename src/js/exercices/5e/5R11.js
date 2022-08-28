@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, calcul, lettreDepuisChiffre, arrondi, texNombre, sp, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
-import { droiteGraduee2, labelPoint, mathalea2d, point, tracePoint } from '../../modules/2d.js'
+import { droiteGraduee, labelPoint, point, tracePoint } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Lire l\'abscisse relative d\'un point'
@@ -15,6 +16,8 @@ export const amcType = 'AMCHybride'
 * @author Jean-Claude Lhote et Rémi Angot
 * Référence 5R11
 */
+export const uuid = 'cd7ce'
+export const ref = '5R11'
 export default function LireAbscisseRelative () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -71,7 +74,7 @@ export default function LireAbscisseRelative () {
       abs1 = arrondi(abs0 + x1 / pas1 + x11 / pas1 / pas2, typesDeQuestions[i]) // le type de questions est égal au nombre de décimales.
       abs2 = arrondi(abs0 + x2 / pas1 + x22 / pas1 / pas2, typesDeQuestions[i])
       abs3 = arrondi(abs0 + x3 / pas1 + x33 / pas1 / pas2, typesDeQuestions[i])
-      objets.push(droiteGraduee2({
+      objets.push(droiteGraduee({
         Unite: 3 * pas1,
         Min: abs0,
         Max: abs0 + 6.9 / pas1,
@@ -155,7 +158,7 @@ export default function LireAbscisseRelative () {
         }
       }
       texteCorr = mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 },
-        droiteGraduee2({
+        droiteGraduee({
           Unite: 3 * pas1,
           Min: abs0,
           Max: abs0 + 6.9 / pas1,

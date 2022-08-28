@@ -14,6 +14,8 @@ export const amcType = 'AMCOpenNum✖︎3'
 * @author Jean-Claude Lhote
 * 3L11-1
 */
+export const uuid = '4197c'
+export const ref = '3L11-1'
 export default function DoubleDistributivite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

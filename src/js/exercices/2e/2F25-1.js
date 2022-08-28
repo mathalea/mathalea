@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texFractionReduite } from '../../modules/outils.js'
-import { courbe, latexParCoordonnees, mathalea2d, point, repere, segment, tracePoint } from '../../modules/2d.js'
+import { courbe, latexParCoordonnees, point, repere, segment, tracePoint } from '../../modules/2d.js'
 import { abs } from 'mathjs'
 
 export const titre = 'Propriétés graphiques de la parité d\'une fonction.'
@@ -10,6 +11,8 @@ export const titre = 'Propriétés graphiques de la parité d\'une fonction.'
 * @author Stéphane Guyon
 * 2F20
 */
+export const uuid = '6e82d'
+export const ref = '2F25-1'
 export default function EtudierGraphiqueParite () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -40,8 +43,7 @@ export default function EtudierGraphiqueParite () {
           x = randint(-1, 1, [0]) * 2
           f = x => a * x + b
           C = courbe(f, { repere: r, step: 0.25 })
-          // C.color = colorToLatexOrHTML('red')
-          // C.epaisseur = 2
+
           B = point(x, a * x + b)
           A = point(-x, -a * x + b)
 
@@ -73,8 +75,7 @@ export default function EtudierGraphiqueParite () {
           x = randint(2, 3, [0])
           f = x => a * x
           C = courbe(f, { repere: r, step: 0.25 })
-          // C.color = colorToLatexOrHTML('red')
-          // C.epaisseur = 2
+
           B = point(x, a * x)
           A = point(-x, -a * x)
           labA0 = latexParCoordonnees('-x', -x - 0.2, 0.8 * (a > 0 ? 1 : -1), 'red', 20, 10, 'white', 8)
@@ -118,8 +119,7 @@ export default function EtudierGraphiqueParite () {
           x = 1
           f = x => a * x * x + b
           C = courbe(f, { repere: r })
-          // C.color = colorToLatexOrHTML('red')
-          // C.epaisseur = 2
+
           B = point(x, a * x * x + b)
           A = point(-x, a * x * x + b)
           labA0 = latexParCoordonnees('-x', -x - 0.2, -0.8, 'red', 20, 10, 'white', 8)
@@ -162,8 +162,7 @@ export default function EtudierGraphiqueParite () {
           x = 4 - abs(b)
           f = x => a * (x - b) * (x - b) + c
           C = courbe(f, { repere: r, step: 0.25 })
-          // C.color = colorToLatexOrHTML('red')
-          // C.epaisseur = 2
+
           B = point(x, a * (x - b) * (x - b) + c)
           A = point(-x, a * (-x - b) * (-x - b) + c)
           labA0 = latexParCoordonnees(`${abs(b) - 4}`, -x - 0.2, 0.8, 'red', 20, 10, 'white', 8)
@@ -208,8 +207,7 @@ export default function EtudierGraphiqueParite () {
 
           f = x => 1 / (a * x + b)
           C = courbe(f, { repere: r, step: 0.01 })
-          // C.color = colorToLatexOrHTML('red')
-          // C.epaisseur = 2
+
           B = point(x, 1 / (a * x + b))
           A = point(-x, 1 / (-a * x + b))
           labA0 = latexParCoordonnees(`${-x}`, -x - 0.2, 0.8, 'red', 20, 10, 'white', 8)
@@ -251,8 +249,7 @@ export default function EtudierGraphiqueParite () {
           x = 2
           f = x => 1 / (a * x)
           C = courbe(f, { repere: r, step: 0.01 })
-          // C.color = colorToLatexOrHTML('red')
-          // C.epaisseur = 2
+
           B = point(x, 1 / (a * x))
           A = point(-x, -1 / (a * x))
           labA0 = latexParCoordonnees('-x', -x - 0.2, -0.8, 'red', 20, 10, 'white', 8)

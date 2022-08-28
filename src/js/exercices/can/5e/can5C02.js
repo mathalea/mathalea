@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can5C02
  */
+export const uuid = '5ecdc'
+export const ref = 'can5C02'
 export default function SommeEntiers5e () {
   Exercice.call(this)
   this.nbQuestions = 1

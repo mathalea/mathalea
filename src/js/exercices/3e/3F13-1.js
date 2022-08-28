@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { deuxColonnes, randint, texConsigne, numAlpha } from '../../modules/outils.js'
-import { repere, graphiqueInterpole, mathalea2d } from '../../modules/2d.js'
+import { repere, graphiqueInterpole } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Lecture graphique d\'images et d\'antécédents'
@@ -13,6 +14,8 @@ export const interactifType = 'mathLive'
  * @author Rémi Angot
  * Référence 3F13-1
 */
+export const uuid = '4b121'
+export const ref = '3F13-1'
 export default function AntecedentEtImageGraphique () {
   Exercice.call(this)
   this.titre = titre

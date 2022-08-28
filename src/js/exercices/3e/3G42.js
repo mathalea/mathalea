@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { randint, listeQuestionsToContenu, combinaisonListes, nombreDecimal, texteExposant, texteGras, stringNombre, texNombre } from '../../modules/outils.js'
-import { mathalea2d } from '../../modules/2d.js'
+
 import { point3d, vecteur3d, sphere3d, cylindre3d } from '../../modules/3d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -19,6 +20,8 @@ export const titre = 'Volume d\'une boule'
 * date : 2021/02/09
 */
 
+export const uuid = '8c803'
+export const ref = '3G42'
 export default function VolumeBoule () {
   Exercice.call(this)
   this.titre = titre

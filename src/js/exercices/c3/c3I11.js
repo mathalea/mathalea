@@ -1,9 +1,11 @@
 /* eslint-disable camelcase */
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { randint, choice, texteGras, modalUrl, modalPdf, contraindreValeur, listeQuestionsToContenu, stringNombre } from '../../modules/outils.js'
-import { attendre, angleScratchTo2d, clone, orienter, mathalea2d, scratchblock, creerLutin, baisseCrayon, allerA, point, texteParPositionEchelle, tracePoint, colorToLatexOrHTML } from '../../modules/2d.js'
+import { scratchblock, point, texteParPositionEchelle, tracePoint } from '../../modules/2d.js'
 import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur.js'
+import { allerA, angleScratchTo2d, attendre, baisseCrayon, clone, creerLutin, orienter } from '../../modules/2dLutin.js'
 export const titre = 'Note la couleur (scratch)'
 
 /**
@@ -13,6 +15,8 @@ export const titre = 'Note la couleur (scratch)'
  * Publié le 11/04/2021
  * @author Jean-Claude Lhote
  */
+export const uuid = 'e380b'
+export const ref = 'c3I11'
 export default function NoteLaCouleurC3 () {
   'use strict'
   Exercice.call(this)

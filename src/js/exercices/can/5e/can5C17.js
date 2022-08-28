@@ -10,6 +10,8 @@ export const amcType = 'AMCNum'
 /*!
  * @author Gilles Mora
  */
+export const uuid = 'b1881'
+export const ref = 'can5C17'
 export default function EntierPlusFractionVersDecimal () {
   Exercice.call(this)
   this.typeExercice = 'simple'

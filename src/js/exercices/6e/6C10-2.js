@@ -9,13 +9,15 @@ export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 
-export const titre = 'Utiliser tables de multiplications pour effectuer produits avec multiple de 10'
+export const titre = 'Utiliser tables de multiplication pour effectuer produits avec multiple de 10'
 
 /**
  * Les 2 facteurs peuvent terminer par aucun, 1, 2 ou 3 zéros
  * @author Rémi Angot
 * Référence 6C10-2
  */
+export const uuid = '23bc8'
+export const ref = '6C10-2'
 export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
   tablesParDefaut = '2-3-4-5-6-7-8-9'
 ) {

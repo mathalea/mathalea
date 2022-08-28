@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { randint, texNombrec, miseEnEvidence, listeQuestionsToContenu, combinaisonListes, sp, rienSi1, texFractionReduite, reduireAxPlusB, stringNombre } from '../../modules/outils.js'
-import { texteSurSegment, codageSegments, codageAngleDroit, segmentAvecExtremites, milieu, labelPoint, point, segment, texteParPosition, mathalea2d } from '../../modules/2d.js'
+import { texteSurSegment, codageSegments, codageAngleDroit, segmentAvecExtremites, milieu, labelPoint, point, segment, texteParPosition } from '../../modules/2d.js'
 export const titre = 'Modéliser une situation géométrique à l\'aide d\'une équation'
 export const dateDePublication = '16/12/2021'
 /**
@@ -8,6 +9,8 @@ export const dateDePublication = '16/12/2021'
  * @author Gilles Mora
  * Référence
  */
+export const uuid = 'cf5b7'
+export const ref = '2N50-4'
 export default function modeliserEquationsGeometrie () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

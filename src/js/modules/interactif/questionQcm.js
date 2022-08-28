@@ -111,7 +111,7 @@ export function propositionsQcm (exercice, i) {
       texte += '<tr>\n\t'
     }
   } else {
-    texte += `\n\n\\begin{multicols}{${nbCols}}\n\t`
+    texte += nbCols === 1 ? '\t' : `\n\n\\begin{multicols}{${nbCols}}\n\t`
   }
   for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
     if (context.isHtml) {
@@ -131,9 +131,9 @@ export function propositionsQcm (exercice, i) {
         }
       }
       if (exercice.autoCorrection[i].propositions[rep].statut) {
-        texteCorr += `$\\blacksquare\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
+        texteCorr += `$\\blacksquare\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace + '<br>'
       } else {
-        texteCorr += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
+        texteCorr += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace + '<br>'
       }
     } else {
       texte += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
@@ -141,9 +141,9 @@ export function propositionsQcm (exercice, i) {
         texte += '\\\\\n\t'
       }
       if (exercice.autoCorrection[i].propositions[rep].statut) {
-        texteCorr += `$\\blacksquare\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
+        texteCorr += `$\\blacksquare\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace + '<br>'
       } else {
-        texteCorr += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
+        texteCorr += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace + '<br>'
       }
     }
   }
@@ -155,7 +155,7 @@ export function propositionsQcm (exercice, i) {
     texte += `<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
     texte += `\n<div id="feedbackEx${exercice.numeroExercice}Q${i}"></div></form>`
   } else {
-    texte += '\\end{multicols}'
+    texte += nbCols === 1 ? '' : '\\end{multicols}'
   }
   return { texte: texte, texteCorr: texteCorr }
 }

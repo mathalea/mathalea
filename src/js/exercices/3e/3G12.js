@@ -1,7 +1,9 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, egal, randint, choice, shuffle, nombreAvecEspace, arcenciel, texcolors } from '../../modules/outils.js'
-import { pavage, tracePoint, labelPoint, segment, rotation, rotationAnimee, codageAngle, texteParPosition, mathalea2d, colorToLatexOrHTML } from '../../modules/2d.js'
+import { pavage, tracePoint, labelPoint, segment, rotation, codageAngle, texteParPosition } from '../../modules/2d.js'
+import { rotationAnimee } from '../../modules/2dAnimation.js'
 export const titre = 'Trouver l\'image d\'une figure par une rotation dans un pavage'
 
 /**
@@ -10,6 +12,8 @@ export const titre = 'Trouver l\'image d\'une figure par une rotation dans un pa
  * Trouver l'image par sune rotation d'une figure dans un pavage
  * Ref 3G12
  */
+export const uuid = '442e0'
+export const ref = '3G12'
 export default function PavageEtRotation2D () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -143,11 +147,10 @@ export default function PavageEtRotation2D () {
         }
         A.nom = 'A'
         A.positionLabel = 'above left'
-        trace = tracePoint(A) // la trace du centre de symétrie sera rouge et grosse
+        trace = tracePoint(A, 'red') // la trace du centre de symétrie sera rouge et grosse
         label = labelPoint(A)
         trace.epaisseur = 3
         trace.taille = 4
-        trace.color = colorToLatexOrHTML('red')
         alpha = alphas[typeDePavage - 1][randint(0, alphas[typeDePavage - 1].length - 1)]
         sensdirect = choice([1, -1])
         for (let i = 1; i <= monpavage.nb_polygones; i++) { // on crée une liste des couples (antécédents, images)

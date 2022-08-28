@@ -1,6 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, shuffle, calcul, texteEnCouleur, combinaisonListes } from '../../modules/outils.js'
-import { creerLutin, avance, baisseCrayon, leveCrayon, tournerD, allerA, mathalea2d, scratchblock, colorToLatexOrHTML } from '../../modules/2d.js'
+import { scratchblock } from '../../modules/2d.js'
+import { allerA, avance, baisseCrayon, creerLutin, leveCrayon, tournerD } from '../../modules/2dLutin.js'
 
 export const titre = 'Dessiner avec scratch'
 
@@ -13,6 +15,8 @@ export const titre = 'Dessiner avec scratch'
  * la fonction gère la sortie Latex ou html du code scratch
  */
 
+export const uuid = '33c9a'
+export const ref = '4I1'
 export default function TracerAvecScratch () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

@@ -17,6 +17,8 @@ function ecritureParentheseSiNegatif (a, maximumFractionDigits = 15) {
     const result = Intl.NumberFormat('fr-FR', { maximumFractionDigits: maximumFractionDigits }).format(a).replace(',', '{,}')
     return a < 0 ? `(${result})` : result
   }
+export const uuid = '25143'
+export const ref = 'can2F12'
 export default function ComparerAvecFctRef () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1

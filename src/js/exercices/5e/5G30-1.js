@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, arrondi, choisitLettresDifferentes, miseEnEvidence, numAlpha } from '../../modules/outils.js'
-import { point, pointSurSegment, pointIntersectionDD, labelPoint, droite, droiteParPointEtParallele, rotation, similitude, codageAngle, longueur, angle, mathalea2d } from '../../modules/2d.js'
+import { point, pointSurSegment, pointIntersectionDD, labelPoint, droite, droiteParPointEtParallele, rotation, similitude, codageAngle, longueur, angle } from '../../modules/2d.js'
 
 export const titre = 'Déterminer des angles en utilisant les cas d\'égalité'
 
@@ -11,6 +12,8 @@ export const titre = 'Déterminer des angles en utilisant les cas d\'égalité'
  * publié le 14/11/2020
  * @author Jean-Claude Lhote Inspiré d'exercices du manuel sésamath.
  */
+export const uuid = 'd12db'
+export const ref = '5G30-1'
 export default function EgaliteDAngles () {
   'use strict'
   Exercice.call(this)
@@ -56,7 +59,7 @@ export default function EgaliteDAngles () {
       const m2 = codageAngle(A, C, E, 1, '', 'black', 2, 1, 'black', 0.1, true)
       const l1 = labelPoint(A, B, C, D, E)
       const c1 = codageAngle(D, B, A, 1, '', 'blue', 2, 1, 'blue')
-      const c2 = codageAngle(B, D, E, 1, '', 'orange', 2, 1, 'orange')
+      const c2 = codageAngle(B, D, E, 1, '', '#f15929', 2, 1, '#f15929')
       const c3 = codageAngle(D, E, A, 1, '', 'green', 2, 1, 'green')
       const c4 = codageAngle(D, B, C, 1, '', 'pink', 2, 1, 'pink')
       const c5 = codageAngle(C, D, B, 1, '', 'red', 2, 1, 'red')
@@ -103,7 +106,7 @@ export default function EgaliteDAngles () {
       const cD = codageAngle(C, D, B, 1, '', 'red', 2, 1, 'red', 0.2, true)
       const cE = codageAngle(D, E, B, 1, '', 'blue', 2, 1, 'blue', 0.2, true)
       const c4 = codageAngle(A, C, D, 1, '', 'green', 2, 1, 'green', 0.2)
-      const c5 = codageAngle(B, D, E, 1, '', 'orange', 2, 1, 'orange', 0.2)
+      const c5 = codageAngle(B, D, E, 1, '', '#f15929', 2, 1, '#f15929', 0.2)
       const c6 = codageAngle(E, B, D, 1, '', 'pink', 2, 1, 'pink', 0.2)
       const c3 = codageAngle(A, D, C, 1, '', 'gray', 2, 1, 'gray', 0.2)
       const l1 = labelPoint(A, B, C, D, E)

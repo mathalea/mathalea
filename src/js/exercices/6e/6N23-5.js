@@ -16,6 +16,8 @@ export const titre = 'Donner une écriture fractionnaire'
  * Ref 6N23-5
  * Publié le 10/03/2021
  */
+export const uuid = '4d0dd'
+export const ref = '6N23-5'
 export default function SensDeLaFraction () {
   Exercice.call(this)
   this.nbQuestions = 4

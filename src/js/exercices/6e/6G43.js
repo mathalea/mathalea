@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
-import { mathalea2d } from '../../modules/2d.js'
+
 import { cube } from '../../modules/3d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -19,6 +20,8 @@ export const amcReady = true
 * Compter des cubes dans un empilement de cubes
 */
 
+export const uuid = '5f115'
+export const ref = '6G43'
 export default function DenombrerCubes () {
   Exercice.call(this)
   this.titre = titre

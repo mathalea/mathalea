@@ -1,6 +1,7 @@
-import Exercice from '../Exercice.js'
+import { arc, cercle, codageAngle, lignesHorizontales, labelPoint, point, polygone, rapporteur, tracePoint } from '../../modules/2d.js'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { point, mathalea2d, tracePoint, segment, colorToLatexOrHTML, droite, polygone, cercle, labelPoint, codageAngleDroit, codeSegment, texteParPoint, codageMediatrice, codageMilieu, codageAngle, codageBissectrice, nomVecteurParPosition, ellipse, arc, constructionBissectrice, codageHauteurTriangle, codageMedianeTriangle, afficheLongueurSegment, texteSurSegment, vecteur, pointIntersectionLC, texteSurArc, grilleVerticale, grilleHorizontale, lectureImage, constructionMediatrice, rapporteur } from '../../modules/2d.js'
+import Exercice from '../Exercice.js'
 export const titre = 'Calculer un angle, déduit de figures simples'
 export const interactifType = 'mathLive'
 export const interactifReady = true
@@ -14,6 +15,8 @@ export const dateDePublication = '03/05/2022'
  * @author Eric Elter
  * Publié le 03/05/2021
  */
+export const uuid = '8f5f5'
+export const ref = 'FichierDeTests'
 export default function CalculedddrUnAngle () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
@@ -91,7 +94,6 @@ export default function CalculedddrUnAngle () {
       const p25 = texteSurSegment('', D, E, '#f15929', 0.4, true)
       const p26 = texteSurArc('MathALEA', D, E, 70, '#f15929')
       const p27 = constructionMediatrice(D, E, true, '#f15929', 'x')
-      // const p27 = grilleHorizontale(-3, -1, 7, 5, '#f15929')
       const p29 = lectureImage(2, 3, 1, 1, 'blue')
       objetsEnonce.push(p1, p2, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p19, p20, p21, p22)
       // objetsEnonce.push(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11)
@@ -99,6 +101,8 @@ export default function CalculedddrUnAngle () {
       objetsEnonce.push(p23.representant(A, '#f15929'), p24, p16, p19a, p25, p26, p29, p27)
       // objetsEnonce.push(p29)
       */
+      const p27 = lignesHorizontales(-3, -1, 7, 5, '#f15929')
+      objetsEnonce.push(p27)
       texte += 'essai'
       paramsEnonce = { xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1, mainlevee: false, amplitude: 0.5 }
       texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)

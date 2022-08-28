@@ -1,14 +1,19 @@
 import Exercice from '../Exercice.js'
 import { texcolors, choice, lettreDepuisChiffre, listeQuestionsToContenu, texteEnCouleurEtGras, sp, randint, deuxColonnes, contraindreValeur } from '../../modules/outils.js'
-import { grille, mathalea2d, point, segment, tracePoint, homothetie, polygone, symetrieAxiale, translation, droite, vecteur, rotation, milieu, texteParPointEchelle, symetrieAnimee, translationAnimee, rotationAnimee, colorToLatexOrHTML } from '../../modules/2d.js'
+import { grille, point, segment, tracePoint, homothetie, polygone, symetrieAxiale, translation, droite, vecteur, rotation, milieu, texteParPointEchelle } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { choixDeroulant } from '../../modules/interactif/questionListeDeroulante.js'
+import { rotationAnimee, symetrieAnimee, translationAnimee } from '../../modules/2dAnimation.js'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
+
 export const dateDePublication = '3/12/2021'
 export const titre = 'Trouver la transformation'
 export const interactifReady = true // Pour l'instant le listeDeroulante n'est pas au point avec les chaines ???
 export const interactifType = 'listeDeroulante'
 
+export const uuid = '8ac93'
+export const ref = '4G12-1'
 export default function TrouverLaTransformations () {
   Exercice.call(this)
   this.nbQuestions = 1

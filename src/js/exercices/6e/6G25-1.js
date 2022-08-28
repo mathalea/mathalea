@@ -1,8 +1,10 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { choice, combinaisonListes, listeQuestionsToContenu, randint, stringNombre, texteEnCouleur, numAlpha } from '../../modules/outils.js'
-import { centreGraviteTriangle, droite, mathalea2d, point, polygone, rotation, symetrieAnimee, symetrieAxiale, texteParPointEchelle, translation, vecteur } from '../../modules/2d.js'
+import { centreGraviteTriangle, droite, point, polygone, rotation, symetrieAxiale, texteParPointEchelle, translation, vecteur } from '../../modules/2d.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { symetrieAnimee } from '../../modules/2dAnimation.js'
 export const titre = 'Utiliser des symétries axiales en pavage triangulaire'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -14,6 +16,8 @@ export const amcType = 'AMCHybride'
 * Relecture : Novembre 2021 par EE
 */
 
+export const uuid = '49cb2'
+export const ref = '6G25-1'
 export default function SymetrieAxialePavageTriangulaire () {
   'use strict'
   Exercice.call(this)
@@ -143,7 +147,6 @@ export default function SymetrieAxialePavageTriangulaire () {
           antecedent = randint(rangA * 2 + 1 + rangM * 14, rangM * 14 + (rangA + 1) * 2)
         }
         deltaRang = rangA - ((antecedent % 14 - antecedent % 2) >> 1)
-        // console.log('delta : ', deltaRang, ' rangM : ', rangM, ' rangA : ', rangA)
         // l'axe est à droite de l'antécédent
         image = antecedent - 10 * deltaRang - 1 + 12 * (antecedent % 2) // ne me demandez pas d'où je sors ça !!!
         distracteurs.push(image - 1)

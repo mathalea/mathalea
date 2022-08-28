@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, shuffle, cesar } from '../../modules/outils.js'
-import { point, polygoneRegulier, repere, graphiqueInterpole, mathalea2d, colorToLatexOrHTML } from '../../modules/2d.js'
+import { point, polygoneRegulier, repere, graphiqueInterpole } from '../../modules/2d.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Spécial escape game'
 export const interactifReady = true
@@ -12,6 +13,8 @@ export const interactifType = 'mathLive'
  * publié le  15/11/2020
  * ref 3F13-2
  */
+export const uuid = 'be398'
+export const ref = '3F13-2'
 export default function PremierEscapeGameMathalea () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

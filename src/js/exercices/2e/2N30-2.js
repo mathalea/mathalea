@@ -11,6 +11,8 @@ export { amcReady, amcType } from '../4e/4C21.js'
  *
  * @author Sébastien LOZANO
  */
+export const uuid = 'b51ec'
+export const ref = '2N30-2'
 export default function ExerciceAdditionnerOuSoustraireDesFractions2nde () {
   ExerciceAdditionnerOuSoustraireDesFractions.call(this)
 }

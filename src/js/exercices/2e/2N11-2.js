@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
-import { point, segment, crochetD, crochetG, intervalle, mathalea2d } from '../../modules/2d.js'
+import { point, segment, crochetD, crochetG, intervalle } from '../../modules/2d.js'
 
 export const titre = 'Utiliser et comprendre les symboles $\\cup $ et $\\cap $ avec les intervalles de $\\mathbb{R}$'
 
@@ -8,6 +9,8 @@ export const titre = 'Utiliser et comprendre les symboles $\\cup $ et $\\cap $ a
  * 2N11-2, ex 2N25
  * @author Stéphane Guyon
  */
+export const uuid = 'dc2a5'
+export const ref = '2N11-2'
 export default function UnionEtIntersectionIntervallesDeR () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -168,7 +171,7 @@ export default function UnionEtIntersectionIntervallesDeR () {
           int = intervalle(X1, X2, 'black', 0)
           int1 = intervalle(A, B, 'red', 0)
           int2 = intervalle(C, D, 'blue', 0)
-          texte = 'Donner si possible, une écriture simplifiée de Union Union'
+          texte = 'Donner si possible, une écriture simplifiée de '
           if (test === 1) {
             texte += `$I=[${a};${b}]\\cup[${c};${d}]$`
             texteCorr = `<br>On cherche les réels qui sont ou bien dans $[${a};${b}]$ ou bien $[${c};${d}]$, ou dans les deux.`
@@ -462,10 +465,10 @@ export default function UnionEtIntersectionIntervallesDeR () {
           int = intervalle(X1, X2, 'black', 0)
           int1 = intervalle(A, B, 'red', -0.1)
           int2 = intervalle(C, D, 'blue', 0.1)
-          texte = 'Donner si possible, une écriture simplifiée de'
+          texte = 'Donner si possible, une écriture simplifiée de '
 
           if (test === 1) {
-            texte += ` $I=[${a};${b}] \\cap [${c};${d}].$`
+            texte += `$I=[${a};${b}] \\cap [${c};${d}].$`
             texteCorr = `<br>On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $[${c};${d}]$.`
             texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
             texteCorr += `On observe que $[${c};${d}]\\subset [${a};${b}]$ donc $I=[${c};${d}].$`
@@ -557,7 +560,7 @@ export default function UnionEtIntersectionIntervallesDeR () {
           int = intervalle(X1, X2, 'black', 0)
           int1 = intervalle(A, B, 'red', -0.1)
           int2 = intervalle(C, D, 'blue', 0.1)
-          texte = 'Donner si possible, une écriture simplifiée de'
+          texte = 'Donner si possible, une écriture simplifiée de '
 
           if (test === 1) {
             texte += `$I=[${a};${b}]\\cup[${c};${d}]$`
@@ -669,16 +672,16 @@ export default function UnionEtIntersectionIntervallesDeR () {
           int1 = intervalle(A, B, 'red', 0)
           int2 = intervalle(C, D, 'blue', 0)
 
-          texte = 'Donner si possible, une écriture simplifiée de'
+          texte = 'Donner si possible, une écriture simplifiée de '
           if (test === 1) {
-            texte += ` $I=]-\\infty;${b}] \\cap [${c};${d}].$`
+            texte += `$I=]-\\infty;${b}] \\cap [${c};${d}].$`
             texteCorr = `<br>On cherche les réels qui sont à la fois dans $]-\\infty;${b}]$ et dans $[${c};${d}]$.`
             texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
             texteCorr += 'On observe que les deux intervalles sont disjoints donc aucun réel n\'appartient aux deux ensembles.<br>'
             texteCorr += '$I=\\emptyset$'
           }
           if (test === 2) {
-            texte += ` $I=]-\\infty;${b}] \\cap [${c};${d}].$`
+            texte += `$I=]-\\infty;${b}] \\cap [${c};${d}].$`
             texteCorr = `<br>On cherche les réels qui sont à la fois dans $]-\\infty;${b}]$ et dans $[${c};${d}]$.`
             texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
             texteCorr += 'On observe que les deux intervalles sont disjoints donc aucun réel n\'appartient aux deux ensembles.<br>'
@@ -775,16 +778,16 @@ export default function UnionEtIntersectionIntervallesDeR () {
           int = intervalle(X1, X2, 'black', 0)
           int1 = intervalle(A, B, 'red', 0)
           int2 = intervalle(C, D, 'blue', 0)
-          texte = 'Donner si possible, une écriture simplifiée de'
+          texte = 'Donner si possible, une écriture simplifiée de '
           if (test === 1) {
-            texte += ` $I=]-\\infty;${b}] \\cup [${c};${d}].$`
+            texte += `$I=]-\\infty;${b}] \\cup [${c};${d}].$`
             texteCorr = `<br>On cherche les réels qui sont ou bien dans $]-\\infty;${b}]$ ou bien dans $[${c};${d}]$, ou dans les deux.`
             texteCorr += '<br>On donc regarde la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
             texteCorr += 'On observe que les deux intervalles sont disjoints donc <br>'
             texteCorr += `$I=]-\\infty;${b}] \\cup [${c};${d}].$`
           }
           if (test === 2) {
-            texte += ` $I=]-\\infty;${b}] \\cup [${c};${d}].$`
+            texte += `$I=]-\\infty;${b}] \\cup [${c};${d}].$`
             texteCorr = `<br>On cherche les réels qui sont ou bien dans $]-\\infty;${b}]$ ou bien dans $[${c};${d}]$, ou dans les deux.`
             texteCorr += '<br>On donc regarde la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
             texteCorr += 'On observe que les deux intervalles sont disjoints donc <br>'

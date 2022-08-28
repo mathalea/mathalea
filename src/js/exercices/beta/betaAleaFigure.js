@@ -8,7 +8,7 @@ import { GVGrandeur } from '../../modules/aleaFigure/grandeurs.js'
 import { GVLine, GVSegment, GVVector, GVPoint } from '../../modules/aleaFigure/elements.js'
 import { GVAleaThalesConfig } from '../../modules/aleaFigure/outilsThales.js'
 import { circularPermutation, name } from '../../modules/aleaFigure/outils.js'
-import { colorToLatexOrHTML } from '../../modules/2d.js'
+import { colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 
 // eslint-disable-next-line no-debugger
 debugger

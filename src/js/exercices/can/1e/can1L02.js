@@ -13,6 +13,8 @@ export const dateDePublication = '1/11/2021' // La date de publication initiale 
  * @author Gilles Mora
  * Référence can1L02
 */
+export const uuid = 'c74ea'
+export const ref = 'can1L02'
 export default function NombreSolutionsSecondDegre () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

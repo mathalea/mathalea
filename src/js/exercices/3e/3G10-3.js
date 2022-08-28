@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choisitLettresDifferentes, lettreDepuisChiffre, arcenciel } from '../../modules/outils.js'
-import { point, tracePoint, labelPoint, arcPointPointAngle, dansLaCibleCarree, cibleCarree, rotation, longueur, mathalea2d, colorToLatexOrHTML } from '../../modules/2d.js'
+import { point, tracePoint, labelPoint, arcPointPointAngle, dansLaCibleCarree, cibleCarree, rotation, longueur } from '../../modules/2d.js'
 export const titre = 'Construire l\'image d\'un point par une rotation avec cible auto-corrective'
 
 /**
@@ -10,6 +11,8 @@ export const titre = 'Construire l\'image d\'un point par une rotation avec cibl
  * @author Jean-Claude Lhote
  * Publié le 30/11/2020
  */
+export const uuid = '19ce6'
+export const ref = '3G10-3'
 export default function ConstruireRotationPoint3e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -71,9 +74,7 @@ export default function ConstruireRotationPoint3e () {
     for (let i = 0; i < nbpoints; i++) {
       cellules.push(celluleAlea(4))
       result = dansLaCibleCarree(N[i].x, N[i].y, 4, 0.6, cellules[i])
-      cible = cibleCarree({ x: result[0], y: result[1], rang: 4, num: i + 1, taille: 0.6 })
-      cible.taille = 0.6
-      cible.color = colorToLatexOrHTML('orange')
+      cible = cibleCarree({ x: result[0], y: result[1], rang: 4, num: i + 1, taille: 0.6, color: '#f15929' })
       cible.opacite = 0.7
       cibles.push(cible)
     }

@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
-import { repere, courbe, mathalea2d, tracePoint, point, colorToLatexOrHTML } from '../../modules/2d.js'
+import { repere, courbe, tracePoint, point } from '../../modules/2d.js'
 import { calcule } from '../../modules/fonctionsMaths.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -20,6 +21,8 @@ export const interactifType = 'mathLive'
  * @author Jean-Claude Lhote
  * Référence 3F21-2
 */
+export const uuid = 'b8b33'
+export const ref = '3F21-2'
 export default function DeterminerFonctionAffine () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -64,10 +67,9 @@ export default function DeterminerFonctionAffine () {
           texteCorr += `Elle est donc parallèle à l'axe des abscisses. La fonction $f$ est une fonction constante et $f(x)=${b}$.`
           setReponse(this, i, `f(x)=${b}`)
           if (this.correctionDetaillee) {
-            tA = tracePoint(point(x1, y1))
-            tB = tracePoint(point(x2, y2))
-            tA.color = colorToLatexOrHTML('red')
-            tB.color = colorToLatexOrHTML('red')
+            tA = tracePoint(point(x1, y1), 'red')
+            tB = tracePoint(point(x2, y2), 'red')
+
             r = repere({ xMin: -5, yMin: Math.min(-1, b - 1), xMax: 5, yMax: Math.max(b + 1, 2) })
             texteCorr += `<br><br>${mathalea2d({ xmin: -5, ymin: Math.min(-1, b - 1), xmax: 5, ymax: Math.max(b + 1, 2), pixelsParCm: 20, scale: 0.7 }, r, courbe(x => a * x + b, { repere: r, color: 'blue' }), tA, tB)}`
           }
@@ -85,10 +87,9 @@ export default function DeterminerFonctionAffine () {
           texteCorr += `Donc $f(x)=${a}x${ecritureAlgebrique(b)}$.`
           setReponse(this, i, `f(x)=${a}x${ecritureAlgebrique(b)}`)
           if (this.correctionDetaillee) {
-            tA = tracePoint(point(x1, y1))
-            tB = tracePoint(point(x2, y2))
-            tA.color = colorToLatexOrHTML('red')
-            tB.color = colorToLatexOrHTML('red')
+            tA = tracePoint(point(x1, y1), 'red')
+            tB = tracePoint(point(x2, y2), 'red')
+
             r = repere({ xMin: -5, yMin: Math.min(-5 * a + b, 5 * a + b), xMax: 5, yMax: Math.max(-5 * a + b, 5 * a + b) })
             texteCorr += `<br><br>${mathalea2d({ xmin: -5, ymin: Math.min(-5 * a + b, 5 * a + b), xmax: 5, ymax: Math.max(-5 * a + b, 5 * a + b), pixelsParCm: 20, scale: 0.7 }, r, courbe(x => a * x + b, { repere: r, color: 'blue' }), tA, tB)}`
           }
@@ -108,10 +109,9 @@ export default function DeterminerFonctionAffine () {
           texteCorr += `Donc $f(x)=${a}x${ecritureAlgebrique(b)}$.`
           setReponse(this, i, `f(x)=${a}x${ecritureAlgebrique(b)}`)
           if (this.correctionDetaillee) {
-            tA = tracePoint(point(x1, y1))
-            tB = tracePoint(point(x2, y2))
-            tA.color = colorToLatexOrHTML('red')
-            tB.color = colorToLatexOrHTML('red')
+            tA = tracePoint(point(x1, y1), 'red')
+            tB = tracePoint(point(x2, y2), 'red')
+
             r = repere({ xMin: -5, yMin: Math.min(-5 * a + b, 5 * a + b), xMax: 5, yMax: Math.max(-5 * a + b, 5 * a + b) })
             texteCorr += `<br><br>${mathalea2d({ xmin: -5, ymin: Math.min(-5 * a + b, 5 * a + b), xmax: 5, ymax: Math.max(-5 * a + b, 5 * a + b), pixelsParCm: 20, scale: 0.7 }, r, courbe(x => a * x + b, { repere: r, color: 'blue' }), tA, tB)}`
           }
@@ -133,10 +133,9 @@ export default function DeterminerFonctionAffine () {
           texteCorr += `Donc $f(x)=${a}x${ecritureAlgebrique(b)}$.`
           setReponse(this, i, `f(x)=${a}x${ecritureAlgebrique(b)}`)
           if (this.correctionDetaillee) {
-            tA = tracePoint(point(x1, y1))
-            tB = tracePoint(point(x2, y2))
-            tA.color = colorToLatexOrHTML('red')
-            tB.color = colorToLatexOrHTML('red')
+            tA = tracePoint(point(x1, y1), 'red')
+            tB = tracePoint(point(x2, y2), 'red')
+
             r = repere({ xMin: -5, yMin: Math.min(-5 * a + b, 5 * a + b), xMax: 5, yMax: Math.max(-5 * a + b, 5 * a + b) })
             texteCorr += `<br><br>${mathalea2d({ xmin: -5, ymin: Math.min(-5 * a + b, 5 * a + b), xmax: 5, ymax: Math.max(-5 * a + b, 5 * a + b), pixelsParCm: 20, scale: 0.7 }, r, courbe(x => a * x + b, { repere: r, color: 'blue' }), tA, tB)}`
           }
@@ -158,10 +157,9 @@ export default function DeterminerFonctionAffine () {
           texteCorr += `Donc $f(x)=${a.texFractionSimplifiee}x${b.simplifie().texFractionSignee}$.`
           setReponse(this, i, `f(x)=${a.texFractionSimplifiee}x${b.simplifie().texFractionSignee}`)
           if (this.correctionDetaillee) {
-            tA = tracePoint(point(x1, y1))
-            tB = tracePoint(point(x2, y2))
-            tA.color = colorToLatexOrHTML('red')
-            tB.color = colorToLatexOrHTML('red')
+            tA = tracePoint(point(x1, y1), 'red')
+            tB = tracePoint(point(x2, y2), 'red')
+
             a = calcule(a.n / a.d)
             b = calcule(b.n / b.d)
             r = repere({ xMin: -5, yMin: Math.round(Math.min(-5 * a + b, 5 * a + b)), xMax: 5, yMax: Math.round(Math.max(-5 * a + b, 5 * a + b)) })

@@ -1,7 +1,9 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, egal, randint, choice, shuffle, nombreAvecEspace, texcolors } from '../../modules/outils.js'
-import { tracePoint, labelPoint, codageMilieu, segment, rotation, rotationAnimee, texteParPosition, mathalea2d, pavage, colorToLatexOrHTML } from '../../modules/2d.js'
+import { tracePoint, labelPoint, codageMilieu, segment, rotation, texteParPosition, pavage } from '../../modules/2d.js'
+import { rotationAnimee } from '../../modules/2dAnimation.js'
 
 export const titre = 'Trouver l\'image d\'une figure par symétrie centrale dans un pavage'
 
@@ -12,6 +14,8 @@ export const titre = 'Trouver l\'image d\'une figure par symétrie centrale dans
  * @author Jean-Claude Lhote
  * Ref 5G12
  */
+export const uuid = '76ea9'
+export const ref = '5G12'
 export default function PavageEtDemiTour2D () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -140,11 +144,10 @@ export default function PavageEtDemiTour2D () {
         }
         A.nom = 'A'
         A.positionLabel = 'above left'
-        d = tracePoint(A) // la trace du centre de symétrie sera rouge et grosse
+        d = tracePoint(A, 'red') // la trace du centre de symétrie sera rouge et grosse
         B = labelPoint(A)
         d.epaisseur = 3
         d.taille = 4
-        d.color = colorToLatexOrHTML('red')
         for (let i = 1; i <= monpavage.nb_polygones; i++) { // on crée une liste des couples (antécédents, images)
           image = demitour(monpavage, A, i)
           if (image !== -1) { // si l'image du polygone i existe, on ajoute le couple à la liste

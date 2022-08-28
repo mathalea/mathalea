@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { ecritureAlgebrique, listeQuestionsToContenu, randint, rienSi1, texNombre, stringNombre, sp, choice } from '../../modules/outils.js'
-import { mathalea2d, repere, cercle, point, segment, milieu, texteParPoint, droite, colorToLatexOrHTML } from '../../modules/2d.js'
+import { repere, cercle, point, segment, milieu, texteParPoint, droite } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -13,6 +14,8 @@ export const interactifType = 'mathLive'
  * @author Rémi Angot
  * Référence
 */
+export const uuid = '056fa'
+export const ref = '3F21-3'
 export default function PenteEtOrdonneeOrigineDroite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -46,8 +49,7 @@ export default function PenteEtOrdonneeOrigineDroite () {
     const d = droite(a, -1, b)
     d.color = colorToLatexOrHTML('blue')
     d.epaisseur = 2
-    const c = cercle(point(0, b), 0.8)
-    c.color = colorToLatexOrHTML('#f15929')
+    const c = cercle(point(0, b), 0.8, '#f15929')
     c.epaisseur = 2
     let x0 = -7
     while (!Number.isInteger(f(x0)) || f(x0) <= yMin || f(x0) >= yMax || x0 === -2 || x0 === -1 || x0 === 0) {
@@ -56,8 +58,8 @@ export default function PenteEtOrdonneeOrigineDroite () {
     const A = point(x0, f(x0))
     const B = point(x0 + 1, f(x0))
     const C = point(x0 + 1, f(x0 + 1))
-    const s1 = segment(A, B)
-    const s2 = segment(B, C)
+    const s1 = segment(A, B, '#f15929')
+    const s2 = segment(B, C, '#f15929')
     const M1 = milieu(A, B)
     const M2 = milieu(B, C)
     const t1 = texteParPoint('$1$', point(M1.x, M1.y + (a > 0 ? -0.4 : 0.4)))
@@ -67,10 +69,8 @@ export default function PenteEtOrdonneeOrigineDroite () {
 
     s1.epaisseur = 3
     s1.pointilles = 5
-    s1.color = colorToLatexOrHTML('#f15929')
     s2.epaisseur = 3
     s2.pointilles = 5
-    s2.color = colorToLatexOrHTML('#f15929')
 
     const nomFonction = choice(['f', 'g', 'h', 'f_1', 'f_2', 'f_3'])
 

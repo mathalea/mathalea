@@ -1,8 +1,9 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice, texNombre } from '../../../modules/outils.js'
 import Decimal from 'decimal.js/decimal.mjs'
 import { Arbre } from '../../../modules/arbres.js'
-import { mathalea2d } from '../../../modules/2d.js'
+
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Utiliser la formule des probabilités totales dans un arbre'
@@ -17,6 +18,8 @@ export const amcType = 'AMCNum'
  * @author Gilles Mora
 
 */
+export const uuid = 'ee478'
+export const ref = 'can1P05'
 export default function CalculProbaFormuleProbaTotale () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = true

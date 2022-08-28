@@ -19,6 +19,8 @@ export const dateDeModifImportante = '28/10/2021'
 * Date initiale 2021-01-12
 * Ajout de l'alternance entre effectif total pair et impair le 18/08/2021 : Guilllaume Valmont
 */
+export const uuid = '7c068'
+export const ref = '4S11'
 export default function DeterminerDesMedianes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
@@ -314,7 +316,7 @@ export default function DeterminerDesMedianes () {
         for (let j = 0; j < Math.round(temperatures.length / 2); j++) { texte += '|c' }
         texte += '}\\hline  \\text{Jour}'
         for (let j = 0; j < Math.round(temperatures.length / 2); j++) { texte += '&' + texNombre(j + 1) }
-        texte += '\\\\\\hline \\text{Température\\thickspace en} \\thickspace ^\\circ\\text{C}'
+        texte += '\\\\\\hline \\text{Température en}  ^\\circ\\text{C}'
         for (let j = 0; j < Math.round(temperatures.length / 2); j++) { texte += '&' + temperatures[j] }
         texte += '\\\\\\hline\\end{array}$<br><br>'
         texte += '$\\def\\arraystretch{1.5}\\begin{array}{|c' // On construit le tableau des températures
@@ -322,7 +324,7 @@ export default function DeterminerDesMedianes () {
         for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++) { texte += '|c' }
         texte += '}\\hline  \\text{Jour}'
         for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++) { texte += '&' + texNombre(j + 1) }
-        texte += '\\\\\\hline \\text{Température\\thickspace en} \\thickspace ^\\circ\\text{C}'
+        texte += '\\\\\\hline \\text{Température en}  ^\\circ\\text{C}'
         for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++) { texte += '&' + temperatures[j] }
         texte += '\\\\\\hline\\end{array}$'
         texteCorr = ''

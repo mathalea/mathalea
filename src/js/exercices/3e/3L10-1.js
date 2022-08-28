@@ -15,6 +15,8 @@ export const interactifType = 'mathLive'
  * @author Rémi Angot
  * 3L10-1
  */
+export const uuid = '815eb'
+export const ref = '3L10-1'
 export default function ParenthesesPrecedesDeMoinsOuPlus () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

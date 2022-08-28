@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, listeQuestionsToContenu, choice } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import { repere, courbe, mathalea2d, texteParPosition } from '../../../modules/2d.js'
+import { repere, courbe, texteParPosition } from '../../../modules/2d.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Lire graphiquement le signe de $b$ dans $ax^2+bx+c$'
 export const interactifReady = true
@@ -15,6 +16,8 @@ export const dateDePublication = '09/06/2022' // La date de publication initiale
  * @author Gilles Mora
  * Référence can1L04
 */
+export const uuid = '0f0de'
+export const ref = 'can1F04'
 export default function LectureGraphiqueParaboleB () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1

@@ -1,13 +1,16 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, prenom, texteEnCouleur, texteGras, texPrix, numAlpha, premierMultipleSuperieur } from '../../modules/outils.js'
-import { point, segment, mathalea2d, repere, courbe } from '../../modules/2d.js'
+import { point, segment, repere, courbe } from '../../modules/2d.js'
 export const titre = 'Résoudre un problème de proportionnalité à l\'aide d\'un graphique'
 
 /**
  * fork de 4P10-1 par Jean-Claude Lhote
  */
 
+export const uuid = 'c668a'
+export const ref = '4P10-1'
 export default function GraphiquesEtProportionnalite2 () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

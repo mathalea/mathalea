@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, shuffle, combinaisonListes, creerNomDePolygone } from '../../modules/outils.js'
-import { point, pointSurSegment, pointIntersectionDD, pointAdistance, labelPoint, droite, mediatrice, segment, polygone, translation2Points, rotation, affiniteOrtho, similitude, codageAngleDroit, codageSegments, codageAngle, longueur, angleOriente, mathalea2d } from '../../modules/2d.js'
+import { point, pointSurSegment, pointIntersectionDD, pointAdistance, labelPoint, droite, mediatrice, segment, polygone, translation2Points, rotation, affiniteOrtho, similitude, codageAngleDroit, codageSegments, codageAngle, longueur, angleOriente } from '../../modules/2d.js'
 
 export default function UtiliserLeCodagePourDecrire () {
   'use strict'
@@ -105,7 +106,7 @@ export default function UtiliserLeCodagePourDecrire () {
           objetsCorrection.push(codageSegments('||', 'black', D, E, E, B, A, E, E, C, F, C, B, F), codageSegments('O', 'black', A, B, D, C), codageSegments('/', 'black', A, D, B, C))
           texte = `$${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$ est un rectangle. Ses diagonales se coupent en $${sommets[4]}$.<br>`
           texte += `$${sommets[4] + sommets[1] + sommets[5] + sommets[2]}$ est un losange.<br>`
-          texte += 'Représenter cette configuration par un schéma à main levée et ajouter les codages nécssaires.'
+          texte += 'Représenter cette configuration par un schéma à main levée et ajouter les codages nécessaires.'
           texteCorr = 'Voilà ci-dessous un schéma qui pourrait convenir à la situation.<br>'
           break
         case 4:

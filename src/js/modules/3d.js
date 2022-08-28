@@ -1,6 +1,7 @@
-import { point, vecteur, droite, segment, polyline, polygone, colorToLatexOrHTML } from './2d.js'
+import { point, vecteur, droite, segment, polyline, polygone } from './2d.js'
 import { matrix, multiply, norm, cross, dot } from 'mathjs'
 import { context } from './context.js'
+import { colorToLatexOrHTML } from './2dGeneralites.js'
 const math = { matrix: matrix, multiply: multiply, norm: norm, cross: cross, dot: dot }
 
 /*
@@ -294,7 +295,7 @@ export function polygone3d (...args) {
    * @param {string} color
    */
 function Sphere3d (centre, rayon, nbParalleles, nbMeridiens, color) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.centre = centre
   this.rayon = vecteur3d(rayon, 0, 0)
   this.normal = vecteur3d(0, 0, 1)
@@ -339,7 +340,7 @@ export function sphere3d (centre, rayon, nbParalleles, nbMeridiens, color = 'bla
     *
     */
 function Cone3d (centrebase, sommet, normal, rayon, generatrices = 18) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.sommet = sommet
   this.centrebase = centrebase
   this.normal = normal
@@ -406,7 +407,7 @@ export function cone3d (centre, sommet, normal, rayon, generatrices = 18) {
    * @param {Vecteur3d} rayon2
    */
 function Cylindre3d (centrebase1, centrebase2, normal, rayon1, rayon2, color) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.centrebase1 = centrebase1
   this.centrebase2 = centrebase2
   this.normal = normal
@@ -471,7 +472,7 @@ export function cylindre3d (centrebase1, centrebase2, normal, rayon, rayon2, col
    */
 class Prisme3d {
   constructor (base, vecteur, color) {
-    ObjetMathalea2D.call(this)
+    ObjetMathalea2D.call(this, { })
 
     this.color = color
     base.color = color
@@ -504,7 +505,7 @@ export function prisme3d (base, vecteur, color = 'black') {
    */
 class Pyramide3d {
   constructor (base, sommet, color) {
-    ObjetMathalea2D.call(this)
+    ObjetMathalea2D.call(this, { })
 
     this.color = color
     base.color = color
@@ -546,7 +547,7 @@ export function pyramide3d (base, vecteur, color = 'black') {
    */
 class PyramideTronquee3d {
   constructor (base, sommet, coeff = 0.5, color = 'black') {
-    ObjetMathalea2D.call(this)
+    ObjetMathalea2D.call(this, { })
 
     this.color = color
     base.color = color
@@ -582,7 +583,7 @@ export function pyramideTronquee3d (base, sommet, coeff = 0.5, color = 'black') 
 */
 class Cube3d {
   constructor (x, y, z, c, color = 'black', colorAV = 'lightgray', colorTOP = 'white', colorDr = 'darkgray') {
-    ObjetMathalea2D.call(this)
+    ObjetMathalea2D.call(this, { })
     const A = point3d(x, y, z)
     const vx = vecteur3d(c, 0, 0)
     const vy = vecteur3d(0, c, 0)
@@ -613,7 +614,7 @@ export function cube3d (x, y, z, c, color = 'black', colorAV = 'lightgray', colo
  */
 class Barre3d {
   constructor (x, y, z, c, l, color = 'black') {
-    ObjetMathalea2D.call(this)
+    ObjetMathalea2D.call(this, { })
     let B, C, D, E, F, G, H, faceAv, faceTop
     this.c2d = []
     const vx = vecteur3d(c, 0, 0)
@@ -652,7 +653,7 @@ export function barre3d (x, y, z, c, l, color = 'black') {
  */
 class Plaque3d {
   constructor (x, y, z, c, l, p, color = 'black') {
-    ObjetMathalea2D.call(this)
+    ObjetMathalea2D.call(this, { })
     let A, B, C, D, F, G, H, faceAv, faceTop, faceD
     this.c2d = []
     const vx = vecteur3d(c, 0, 0)
@@ -692,7 +693,7 @@ export function plaque3d (x, y, z, c, l, p, color = 'black') {
 
 class PaveLPH3d {
   constructor (x, y, z, c, l, p, h, color = 'black') {
-    ObjetMathalea2D.call(this)
+    ObjetMathalea2D.call(this, { })
     let A, B, C, D, F, G, H, faceAv, faceTop, faceD
     this.c2d = []
     const vx = vecteur3d(c, 0, 0)
@@ -755,7 +756,7 @@ export function paveLPH3d (x, y, z, c, l, p, h, color = 'black') {
  */
 class Cube {
   constructor (x, y, z, alpha, beta, colorD, colorT, colorG) {
-    ObjetMathalea2D.call(this)
+    ObjetMathalea2D.call(this, { })
     this.x = x
     this.y = y
     this.z = z
@@ -809,7 +810,7 @@ export function cube (x = 0, y = 0, z = 0, alpha = 45, beta = -35, { colorD = 'g
 */
 class Pave3d {
   constructor (A, B, D, E, color) {
-    ObjetMathalea2D.call(this)
+    ObjetMathalea2D.call(this, { })
     const v1 = vecteur3d(A, B)
     const v2 = vecteur3d(A, E)
     const v3 = vecteur3d(A, D)
@@ -912,7 +913,7 @@ export function rotation3d (point3D, droite3D, angle, color) {
  * son sens est définit par le vecteur directeur de l'axe (changer le signe de chaque composante de ce vecteur pour changer le sens de rotation)
  */
 function SensDeRotation3d (axe, rayon, angle, epaisseur, color) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.epaisseur = epaisseur
   this.color = color
   this.c2d = []

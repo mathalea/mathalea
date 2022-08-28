@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice } from '../../modules/outils.js'
-import { repere, mathalea2d, point, labelPoint, segment, nomVecteurParPosition, texteParPosition, vecteur, homothetie, longueur, latexParPoint, colorToLatexOrHTML } from '../../modules/2d.js'
+import { repere, point, labelPoint, segment, nomVecteurParPosition, texteParPosition, vecteur, homothetie, longueur, latexParPoint } from '../../modules/2d.js'
 
 export const titre = 'Représenter un vecteur dans un repère, à partir de ses coordonnées.'
 
@@ -9,6 +10,8 @@ export const titre = 'Représenter un vecteur dans un repère, à partir de ses 
  * @author Stéphane Guyon légèrement modifié par Jean-Claude Lhote
  * référence 2G22-1
  */
+export const uuid = '3a3ec'
+export const ref = '2G22-1'
 export default function RepresenterUnVecteur () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

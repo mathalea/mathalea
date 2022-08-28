@@ -1,8 +1,9 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, combinaisonListes, shuffle } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
-import { cercle, cercleCentrePoint, codageAngle, colorToLatexOrHTML, latexParPoint, mathalea2d, point, pointSurCercle, segment } from '../../modules/2d.js'
+import { cercle, cercleCentrePoint, codageAngle, latexParPoint, point, pointSurCercle, segment } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Valeurs remarquables du cosinus et sinus'
 export const interactifReady = true
@@ -17,6 +18,8 @@ export const dateDeModifImportante = '' // Une date de modification importante a
  * Référence 1G10
 */
 
+export const uuid = '4e684'
+export const ref = '1G10'
 export default class CosEtsin extends Exercice { // Héritage de la classe Exercice()
   constructor () {
     super()
@@ -210,12 +213,10 @@ function cercleTrigo (angle, cosOrSin = 'cos') {
   c2.isVisible = false
   const M = pointSurCercle(c, monAngle)
   const M2 = pointSurCercle(c2, monAngle)
-  const sOM = segment(O, M)
-  const sOI = segment(O, I)
+  const sOM = segment(O, M, 'blue')
+  const sOI = segment(O, I, 'blue')
   sOM.epaisseur = 3
-  sOM.color = colorToLatexOrHTML('blue')
   sOI.epaisseur = 3
-  sOI.color = colorToLatexOrHTML('blue')
   const x = point(M.x, 0)
   const y = point(0, M.y)
   const sMx = segment(M, x)

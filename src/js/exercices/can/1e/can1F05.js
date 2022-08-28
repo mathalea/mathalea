@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, listeQuestionsToContenu, choice, sp, texNombre } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import { repere, courbe, mathalea2d, texteParPosition } from '../../../modules/2d.js'
+import { repere, courbe, texteParPosition } from '../../../modules/2d.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { calcule } from '../../../modules/fonctionsMaths.js'
 import Decimal from 'decimal.js/decimal.mjs'
@@ -17,6 +18,8 @@ export const dateDePublication = '08/06/2022' // La date de publication initiale
  * @author Gilles Mora
  * Référence can1L04
 */
+export const uuid = '053d7'
+export const ref = 'can1F05'
 export default function LectureGraphiqueParabolebEtc () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1

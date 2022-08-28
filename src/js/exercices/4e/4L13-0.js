@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, prenom, texteEnCouleur } from '../../modules/outils.js'
-import { point, segment, codageCarre, polygoneRegulierParCentreEtRayon, nommePolygone, afficheCoteSegment, codageSegments, mathalea2d } from '../../modules/2d.js'
+import { point, segment, codageCarre, polygoneRegulierParCentreEtRayon, nommePolygone, afficheCoteSegment, codageSegments } from '../../modules/2d.js'
 export const titre = 'Mettre en équation un problème sans objectif de résolution'
 
 /**
@@ -9,6 +10,8 @@ export const titre = 'Mettre en équation un problème sans objectif de résolut
  * * 4L13-0
  * @author Sébastien Lozano
  */
+export const uuid = '5a6f2'
+export const ref = '4L13-0'
 export default function MettreEnEquationSansResoudre () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

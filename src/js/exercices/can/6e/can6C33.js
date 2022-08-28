@@ -1,6 +1,7 @@
-import { mathalea2d, texteParPosition } from '../../../modules/2d.js'
+import { texteParPosition } from '../../../modules/2d.js'
 import Pyramide from '../../../modules/pyramide.js'
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 export const titre = 'Calculer dans une pyramide multiplicative'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -12,6 +13,8 @@ export const dateDePublication = '09/05/2022'
  *
  *
  */
+export const uuid = 'a905f'
+export const ref = 'can6C33'
 export default function PyramideMul3Etages () {
   Exercice.call(this)
   this.nbQuestions = 1

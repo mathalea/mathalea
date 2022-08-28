@@ -1,7 +1,9 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, egal, randint, shuffle, nombreAvecEspace, texcolors } from '../../modules/outils.js'
-import { tracePoint, vecteur, segment, translation, translationAnimee, codageSegment, texteParPosition, mathalea2d, pavage, colorToLatexOrHTML } from '../../modules/2d.js'
+import { tracePoint, vecteur, segment, translation, codageSegment, texteParPosition, pavage } from '../../modules/2d.js'
+import { translationAnimee } from '../../modules/2dAnimation.js'
 export const titre = 'Trouver l\'image d\'une figure par une translation dans un pavage'
 
 /**
@@ -10,6 +12,8 @@ export const titre = 'Trouver l\'image d\'une figure par une translation dans un
  * Réf : 4G11
  * Trouver une figure image dans un pavage par une translation. 6 pavages différents.
  */
+export const uuid = '3bfb6'
+export const ref = '4G11'
 export default function PavageEtTranslation2d () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -141,9 +145,8 @@ export default function PavageEtTranslation2d () {
           B = monpavage.barycentres[index2]
           v = vecteur(A, B)
         }
-        d = segment(A, B)
+        d = segment(A, B, 'red')
         d.styleExtremites = '->'
-        d.color = colorToLatexOrHTML('red')
         d.epaisseur = 3
         for (let i = 1; i <= monpavage.nb_polygones; i++) { // on crée une liste des couples (antécédents, images)
           image = translacion(monpavage, v, i)

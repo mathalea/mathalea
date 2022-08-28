@@ -1,4 +1,5 @@
-import { cercle, colorToLatexOrHTML, mathalea2d, point, rotation, segment } from '../../../modules/2d.js'
+import { cercle, point, rotation, segment } from '../../../modules/2d.js'
+import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites.js'
 import { context } from '../../../modules/context.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
@@ -14,6 +15,8 @@ export const amcType = 'AMCHybride'
  * Créé le 4/11/2021
  * Référence canc3D01
  */
+export const uuid = '2ce11'
+export const ref = 'canc3D01'
 export default function LireHeure () {
   Exercice.call(this)
   this.nbQuestions = 1

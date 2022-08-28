@@ -1,6 +1,7 @@
-import { longueur, segment, mathalea2d, afficheLongueurSegment, afficheCoteSegment, codageAngleDroit, polygoneAvecNom, triangle2points1hauteur, point, rotation } from '../../modules/2d.js'
+import { longueur, segment, afficheLongueurSegment, afficheCoteSegment, codageAngleDroit, polygoneAvecNom, triangle2points1hauteur, point, rotation } from '../../modules/2d.js'
 import { combinaisonListesSansChangerOrdre, creerNomDePolygone, listeQuestionsToContenu, randint, shuffle, texNombre, calcul, arrondi, combinaisonListes } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -22,6 +23,8 @@ export const dateDeModifImportante = '08/05/2022'
  * Ajout de la possibilité de choisir le nombre de questions par Guillaume Valmont le 08/05/2022
  * Référence 6M20
  */
+export const uuid = '06b1a'
+export const ref = '6M20'
 export default function AireDeTriangles () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.interactifReady = interactifReady

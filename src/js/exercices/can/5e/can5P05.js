@@ -12,6 +12,8 @@ export const dateDePublication = '18/12/2021' // La date de publication initiale
  * @author Gilles Mora
  * Référence
 */
+export const uuid = '6946a'
+export const ref = 'can5P05'
 export default function PoucentageP2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

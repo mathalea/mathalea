@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { arrondi, listeQuestionsToContenu, sp, texNombre, texteEnCouleurEtGras } from '../../modules/outils.js'
-import { cercle, colorToLatexOrHTML, droite, longueur, mathalea2d, point, polygone, symetrieAxiale, translation, vecteur } from '../../modules/2d.js'
+import { cercle, droite, longueur, point, polygone, symetrieAxiale, translation, vecteur } from '../../modules/2d.js'
 import FractionX from '../../modules/FractionEtendue.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Encadrer l\'aire d\'un disque'

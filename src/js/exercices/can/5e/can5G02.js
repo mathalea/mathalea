@@ -1,8 +1,9 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, choice, calcul, creerNomDePolygone, texNombrec } from '../../../modules/outils.js'
 import {
   // eslint-disable-next-line no-unused-vars
-  mathalea2d, point, afficheMesureAngle, codageSegments, longueur, polygoneAvecNom
+  point, afficheMesureAngle, codageSegments, longueur, polygoneAvecNom
 } from '../../../modules/2d.js'
 import { tan } from '../../../modules/fonctionsMaths.js'
 export const titre = 'Calculer un angle dans un triangle isocèle'
@@ -15,6 +16,8 @@ export const interactifType = 'mathLive'
  * Référence
  * Date de publication
 */
+export const uuid = '7b386'
+export const ref = 'can5G02'
 export default function AngleTriangleIsocele () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

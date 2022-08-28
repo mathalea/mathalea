@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, calcul, choisitLettresDifferentes, lettreDepuisChiffre, arcenciel } from '../../modules/outils.js'
-import { point, tracePoint, labelPoint, codageMilieu, segment, traceCompas, dansLaCibleCarree, cibleCarree, rotation, longueur, mathalea2d, colorToLatexOrHTML } from '../../modules/2d.js'
+import { point, tracePoint, labelPoint, codageMilieu, segment, traceCompas, dansLaCibleCarree, cibleCarree, rotation, longueur } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 
 export const titre = 'Construire le symétrique d\'un point avec cible auto-corrective'
@@ -11,6 +12,8 @@ export const titre = 'Construire le symétrique d\'un point avec cible auto-corr
  * @author Jean-Claude Lhote
  * Publié le 30/11/2020
  */
+export const uuid = '34032'
+export const ref = '5G11-3'
 export default function ConstruireSymetriquePoint5e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -70,9 +73,8 @@ export default function ConstruireSymetriquePoint5e () {
     for (let i = 0; i < nbpoints; i++) {
       cellules.push(celluleAlea(4))
       result = dansLaCibleCarree(N[i].x, N[i].y, 4, 0.6, cellules[i])
-      const cible = cibleCarree({ x: result[0], y: result[1], rang: 4, num: i + 1, taille: 0.6 })
+      const cible = cibleCarree({ x: result[0], y: result[1], rang: 4, num: i + 1, taille: 0.6, color: '#f15929' })
       cible.taille = 0.6
-      cible.color = colorToLatexOrHTML('orange')
       cible.opacite = 0.7
       cibles.push(cible)
     }

@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { texcolors, choice, lettreDepuisChiffre, listeQuestionsToContenu, texteEnCouleurEtGras, sp, deuxColonnes, centrage, texteEnCouleur, contraindreValeur, enleveElement, compteOccurences, miseEnEvidence, calcul } from '../../modules/outils.js'
-import { grille, mathalea2d, point, segment, tracePoint, homothetie, polygone, symetrieAxiale, translation, droite, vecteur, rotation, milieu, texteParPointEchelle, colorToLatexOrHTML } from '../../modules/2d.js'
+import { grille, point, segment, tracePoint, homothetie, polygone, symetrieAxiale, translation, droite, vecteur, rotation, milieu, texteParPointEchelle } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -22,6 +23,8 @@ export const dateDePublication = '3/12/2021'
  * publié le 03/12/2021
  */
 
+export const uuid = '4ffdb'
+export const ref = '4G12'
 export default function SerieDeTransformations () {
   Exercice.call(this)
   this.nbQuestions = 1

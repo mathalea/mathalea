@@ -1,12 +1,15 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, texNombre, miseEnEvidence, modalPdf, modalVideo, listeDiviseurs, numAlpha, cribleEratostheneN, tableauColonneLigne } from '../../modules/outils.js'
-export const titre = 'Compter/lister les diviseurs d\'un entier à partir de sa décomposition en facteurs premiers'
+export const titre = 'Compter et lister les diviseurs d\'un entier à partir de sa décomposition en facteurs premiers'
 
 /**
- * 3A11-3 - Lister/Compter les diviseurs d'un entier à partir de sa decomposition en facteurs premiers
+ * Compter et lister les diviseurs d'un entier à partir de sa decomposition en facteurs premiers
  * @author Sébastien Lozano
+ * Référence 3A10-4
  */
+export const uuid = '4117b'
+export const ref = '3A10-4'
 export default function listerDiviseursParDecompositionFacteursPremiers () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -98,7 +101,7 @@ export default function listerDiviseursParDecompositionFacteursPremiers () {
           texte += `\\times ${tabPremiersb[k]}^{${tabMultiplicitesb[k]}}`
         };
       };
-      texte += '$, <br>'
+      texte += '$. <br>'
       texte += numAlpha(0) + ' Compléter le tableau ci-dessous.'
       if (!context.isHtml) {
         texte += '$\\medskip$'
@@ -157,7 +160,7 @@ export default function listerDiviseursParDecompositionFacteursPremiers () {
           texteCorr += `\\times ${tabPremiersb[k]}^{${tabMultiplicitesb[k]}}`
         };
       };
-      texteCorr += '$, <br>'
+      texteCorr += '$ : <br>'
       texteCorr += numAlpha(0) + ' Le tableau donne :'
       // on crée le tableau des entetes de lignes et des colonnes
       let entLignesCorr = []
@@ -205,23 +208,23 @@ export default function listerDiviseursParDecompositionFacteursPremiers () {
       texteCorr += `$(${tabMultiplicitesb[0]}+1)\\times(${tabMultiplicitesb[1]}+1)\\times(${tabMultiplicitesb[2]}+1) = `
       texteCorr += `${tabMultiplicitesb[0] + 1}\\times${tabMultiplicitesb[1] + 1}\\times${tabMultiplicitesb[2] + 1} = `
       texteCorr += `${(tabMultiplicitesb[0] + 1) * (tabMultiplicitesb[1] + 1) * (tabMultiplicitesb[2] + 1)}$ diviseurs.<br>`
-      texteCorr += 'En effet, dans la décomposition apparait : '
+      texteCorr += 'En effet, dans la décomposition apparaît : '
       texteCorr += ` <br> - Le facteur premier $${tabPremiersb[0]}$ avec la multiplicité $${tabMultiplicitesb[0]}$`
-      texteCorr += `, le facteur $${tabPremiersb[0]}$ apparait donc sous les formes : `
+      texteCorr += `, le facteur $${tabPremiersb[0]}$ apparaît donc sous les formes : `
       for (let k = 0; k < tabMultiplicitesb[0]; k++) {
         texteCorr += `$${tabPremiersb[0]}^{` + k + '}$ ou '
       };
       texteCorr += `$${tabPremiersb[0]}^{` + tabMultiplicitesb[0] + `}$ d'où le facteur $(${tabMultiplicitesb[0]}+1)$.`
 
       texteCorr += ` <br> - Le facteur premier $${tabPremiersb[1]}$ avec la multiplicité $${tabMultiplicitesb[1]}$`
-      texteCorr += `, le facteur $${tabPremiersb[1]}$ apparait donc sous les formes : `
+      texteCorr += `, le facteur $${tabPremiersb[1]}$ apparaît donc sous les formes : `
       for (let k = 0; k < tabMultiplicitesb[1]; k++) {
         texteCorr += `$${tabPremiersb[1]}^{` + k + '}$ ou '
       };
       texteCorr += `$${tabPremiersb[1]}^{` + tabMultiplicitesb[1] + `}$ d'où le facteur $(${tabMultiplicitesb[1]}+1)$.`
 
       texteCorr += ` <br> - Le facteur premier $${tabPremiersb[2]}$ avec la multiplicité $${tabMultiplicitesb[2]}$`
-      texteCorr += `, le facteur $${tabPremiersb[2]}$ apparait donc sous les formes : `
+      texteCorr += `, le facteur $${tabPremiersb[2]}$ apparaît donc sous les formes : `
       for (let k = 0; k < tabMultiplicitesb[2]; k++) {
         texteCorr += `$${tabPremiersb[2]}^{` + k + '}$ ou '
       };

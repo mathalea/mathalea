@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleurEtGras, contraindreValeur, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
-import { mathalea2d, labyrinthe } from '../../modules/2d.js'
+import { labyrinthe } from '../../modules/2d.js'
 export const dateDeModifImportante = '14/11/2021'
 
 export const titre = 'Labyrinthe de multiples basé sur les critères de divisibilité'
@@ -11,6 +12,8 @@ export const titre = 'Labyrinthe de multiples basé sur les critères de divisib
  * Ref 5A11-1
  * Sortir du labyrinthe en utilisant les critères de divisibilité.
  */
+export const uuid = 'a3870'
+export const ref = '5A11-1'
 export default function ExerciceLabyrintheDivisibilite () {
   Exercice.call(this)
   this.titre = titre

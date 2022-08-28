@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, reduireAxPlusB, choice, texFractionReduite, itemize, obtenirListeFacteursPremiers, texNombre2 } from '../../modules/outils.js'
 import { resoudre } from '../../modules/outilsMathjs.js'
-import { tableauDeVariation, mathalea2d, labelPoint, point, tracePoint, courbe, repere } from '../../modules/2d.js'
+import { tableauDeVariation, labelPoint, point, tracePoint, courbe, repere } from '../../modules/2d.js'
 import { create, all } from 'mathjs'
 
 export const titre = 'Déterminer le signe d\'une fonction affine'
@@ -10,6 +11,8 @@ export const titre = 'Déterminer le signe d\'une fonction affine'
 * @author Stéphane Guyon
 * 2F10-3
 */
+export const uuid = '03b71'
+export const ref = '2F10-5'
 export default function signefonctionaffine () {
   Exercice.call(this)
   this.titre = titre

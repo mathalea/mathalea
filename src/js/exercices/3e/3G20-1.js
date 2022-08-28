@@ -1,8 +1,9 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import Decimal from 'decimal.js/decimal.mjs'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, creerNomDePolygone, texFraction, texNombre, stringNombre } from '../../modules/outils.js'
-import { point, milieu, pointSurSegment, labelPoint, segment, polygone, codageAngleDroit, texteSurSegment, texteParPoint, longueur, mathalea2d } from '../../modules/2d.js'
+import { point, milieu, pointSurSegment, labelPoint, segment, polygone, codageAngleDroit, texteSurSegment, texteParPoint, longueur } from '../../modules/2d.js'
 export const titre = 'Problèmes avec le théorème de Thalès'
 
 /**
@@ -10,6 +11,8 @@ export const titre = 'Problèmes avec le théorème de Thalès'
 * @author Rémi Angot
 * 3G20-1
 */
+export const uuid = 'eea67'
+export const ref = '3G20-1'
 export default function ProblemesThales () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

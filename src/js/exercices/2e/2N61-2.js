@@ -1,5 +1,6 @@
 import Exercice from '../Exercice.js'
-import { mathalea2d, tableauDeVariation } from '../../modules/2d.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { tableauDeVariation } from '../../modules/2d.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite, miseEnEvidence, texFraction, texSymbole, sp, texteGras, lampeMessage } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 
@@ -23,6 +24,8 @@ export const titre = 'Résoudre une inéquation-produit'
  * 2N61-2, ex 2L14-1
  * 17/07/2021
  */
+export const uuid = '014a4'
+export const ref = '2N61-2'
 export default function ExerciceInequationProduit () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.spacing = 2 // Espace entre deux lignes
@@ -682,7 +685,7 @@ export default function ExerciceInequationProduit () {
         if (i === 0) {
           texte += lampeMessage({
             titre: 'Quelques commandes pratiques pour le clavier : ',
-            texte: `Taper '${texteGras('union')}' pour faire apparaitre $\\bigcup$, '${texteGras('inf')}' pour $\\infty$ et '${texteGras('singleton')}' pour $\\left\\{\\right\\}$.`,
+            texte: `Taper '${texteGras('union')}' pour faire apparaître $\\bigcup$, '${texteGras('inf')}' pour $\\infty$ et '${texteGras('singleton')}' pour $\\left\\{\\right\\}$.`,
             couleur: 'nombres'
           })
         }

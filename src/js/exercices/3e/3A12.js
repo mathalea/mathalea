@@ -1,34 +1,45 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texNombre, modalPdf, numAlpha, premiersEntreBornes, warnMessage, decompositionFacteursPremiersArray } from '../../modules/outils.js'
-export const titre = 'Fractions irréductibles'
+import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texNombre, miseEnEvidence, decompositionFacteursPremiers, modalPdf, katexPopup2, numAlpha, warnMessage, lampeMessage, ppcm, pgcd, choice } from '../../modules/outils.js'
+import { svgEngrenages } from '../../modules/macroSvgJs.js'
+export const titre = 'Résoudre un exercice d\'engrenages'
 
 /**
- * 3A12 - Fractions irreductibles
+ * ppcmEngrenages
+ * les deux on besoin de la def partielle serie : stlX
+ * pb dans la sortie LaTeX, revoir comment user de la fonction katexPopup2() pour affichage d'une note hors texte !
  * @author Sébastien Lozano
+ * Référence 3A12
  */
-export default function FractionsIrreductibles () {
+export const uuid = 'ce352'
+export const ref = '3A12'
+export default function ppcmEngrenages () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   // pas de différence entre la version html et la version latex pour la consigne
-  this.consigne = 'Rendre irréductible une fraction et son inverse à partir des décompositions en produit de facteurs premiers.'
-  // this.consigne += `<br>`;
-  context.isHtml ? this.spacing = 4 : this.spacing = 2
-  context.isHtml ? this.spacingCorr = 4 : this.spacingCorr = 2
-  this.nbQuestions = 1
+  this.consigne = ''
+  context.isHtml ? this.spacing = 2 : this.spacing = 2
+  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+  this.nbQuestions = 4
   // this.correctionDetailleeDisponible = true;
   this.nbCols = 1
   this.nbColsCorr = 1
   this.listePackages = 'bclogo'
-  this.sup = true
+  this.sup = false
 
+  const numEx = '3A12' // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
+
+  if (context.isHtml) {
+    // eslint-disable-next-line no-var
+    var pourcentage = '100%' // pour l'affichage des svg. On a besoin d'une variable globale
+  } else { // sortie LaTeX
+  };
   this.nouvelleVersion = function (numeroExercice) {
     let typesDeQuestions
     if (context.isHtml) { // les boutons d'aide uniquement pour la version html
       // this.boutonAide = '';
-      this.boutonAide = modalPdf(numeroExercice, 'assets/pdf/FicheArithmetique-3A12.pdf', 'Aide mémoire sur les fonctions (Sébastien Lozano)', 'Aide mémoire')
-      // this.boutonAide += modalVideo('conteMathsNombresPremiers','https://coopmaths.fr/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
+      this.boutonAide = modalPdf(numeroExercice, 'assets/pdf/FicheArithmetique-3A13.pdf', 'Aide-mémoire - Arithmétique (Sébastien Lozano)', 'Aide-mémoire')
     } else { // sortie LaTeX
     };
 
@@ -37,226 +48,263 @@ export default function FractionsIrreductibles () {
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
 
-    // let typesDeQuestionsDisponibles = [1,2,3,4];
-    const typesDeQuestionsDisponibles = [1]
+    const typesDeQuestionsDisponibles = [1, 2, 3, 4]
+    // let typesDeQuestionsDisponibles = [1];
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
+    let txtIntro = 'Boîte de vitesse, transmission de vélo, de moto, perceuse électrique, tout cela fonctionne avec des engrenages ! Mais au fait, comment ça fonctionne, les engrenages ?'
+    if (context.isHtml) {
+      const idUnique = `${numEx}_${Date.now()}`
+      const idDivIntro = `divIntro${idUnique}`
+      txtIntro += warnMessage('Attention, les roues ci-dessous ne comportent pas le nombre de dents de l\'énoncé !', 'nombres', 'Coup de pouce')
+      txtIntro += `<div id="${idDivIntro}" style="width: ${pourcentage}; height: 50px; display : table "></div>`
+      svgEngrenages(idDivIntro, 200, 200)
+    };
 
-    this.introduction = warnMessage('À la question ' + numAlpha(3) + ' une observation judicieuse et argumentée pourra faire gagner du temps !', 'nombres', 'Coup de pouce')
+    this.introduction = lampeMessage({
+      titre: 'Arithmétique des engrenages',
+      texte: txtIntro,
+      couleur: 'nombres'
+    })
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, k, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
 
-      let nb1 // nbre 1
-      let nb2 // nbre 2
-
-      // on fixe le tableau de choix
-      const candidatsPremiersCommuns = this.sup ? [2, 3, 5] : premiersEntreBornes(2, 13) // tableau des candidats premiers communs
-      // on fixe le nombre de divisuers premiers communs
-      const nbDivPremCommuns = this.sup ? 3 : 4 // nombre de diviseurs premiers communs
-      // on initialise le tableau des diviseurs premiers communs
-      const premiersCommuns = [] // tableau des diviseurs premiers communs
-      // on initialise le tableau des rangs
-      const r = [] // tableau pour le choix des rangs des diviseurs premiers communs
-      // on initialise le tableau des rangs déjà choisis
-      const rExclus = [] // tableau pour la boucle de creation de r
-      // on complète le tableau des rangs des rangs des diviseurs premiers choisis
-      for (let k = 0; k < nbDivPremCommuns; k++) {
-        for (let m = 0; m < k; m++) {
-          rExclus.push(r[m])
-        };
-        r[k] = randint(0, candidatsPremiersCommuns.length - 1, rExclus)
+      let nbDentsr1
+      let nbDentsr2
+      let txtPopup = '- Définition 1 : Étant donnés deux nombres entiers a et b, lorsque le plus petit multiple commun à $a$ et $b$ vaut $a \\times b$ ( $ppcm(a,b)=a\\times b$ ), on dit que '
+      if (context.isHtml) {
+        txtPopup += '<b>les nombres a et b sont premiers entre eux</b>.'
+      } else {
+        txtPopup += '$\\textbf{les nombres a et b sont premiers entre eux}$.'
       };
-      // on complète le tableau des diviseurs premiers communs
-      for (let k = 0; k < nbDivPremCommuns; k++) {
-        premiersCommuns.push(candidatsPremiersCommuns[r[k]])
+      let txtPopupBis = '- Définition 2 : Étant donnés deux nombres entiers a et b, lorsque le plus grang diviseur commun à $a$ et $b$ vaut $1$ ( $pgcd(a,b)=1$ ), on dit que '
+      if (context.isHtml) {
+        txtPopupBis += '<b>les nombres a et b sont premiers entre eux</b>.'
+      } else {
+        txtPopupBis += '$\\textbf{les nombres a et b sont premiers entre eux}$.'
       };
-      // on initialise et on complète le tableau des multiplicités des diviseurs premiers communs
-      const multiplicitesPremiersCommuns = [] // tableau des multiplicités des diviseurs premiers communs
-      let zeroDejaDonne = false
-      for (let k = 0; k < nbDivPremCommuns; k++) {
-        const multipliciteHAsard = zeroDejaDonne ? randint(1, 2) : randint(0, 2)
-        if (multipliciteHAsard === 0) zeroDejaDonne = true
-        multiplicitesPremiersCommuns.push(multipliciteHAsard)
-      };
-      // on supprime les diviseurs premiers de multiplicité 0 et leur multiplicité
-      let idx = multiplicitesPremiersCommuns.indexOf(0)
-      while (idx !== -1) {
-        premiersCommuns.splice(idx, 1)
-        multiplicitesPremiersCommuns.splice(idx, 1)
-        idx = multiplicitesPremiersCommuns.indexOf(0)
-      };
-      // on initialise le tableau des diviseurs du premier et du second nombre avec les diviseurs premiers communs
-      const tabNb1 = [] // tableau pour les diviseurs de nb1
-      const tabNb2 = [] // tableau pour les diviseurs de nb2
-      for (let k = 0; k < premiersCommuns.length; k++) {
-        tabNb1[k] = premiersCommuns[k]
-        tabNb2[k] = premiersCommuns[k]
-      };
-      // on initialise les tableaux de multiplicité, ils sont les mêmes mais on pourrait vouloir qu'ils soient différents
-      const multiplicitesNb1 = []
-      const multiplicitesNb2 = []
-      for (let k = 0; k < premiersCommuns.length; k++) {
-        multiplicitesNb1[k] = multiplicitesPremiersCommuns[k]
-        multiplicitesNb2[k] = multiplicitesPremiersCommuns[k]
-      };
-      // on ajoute un facteur premier distinct pour chaque nombre plus petit que maBorne
-      const maBorne = this.sup ? 13 : 30
-      const rEx = randint(0, premiersEntreBornes(2, maBorne).length - 1) // pour exlcure le rang de nb1
-      const nb1Dist = premiersEntreBornes(2, maBorne)[rEx] // diviseur unique du premier nombre
-      const nb2Dist = premiersEntreBornes(2, maBorne)[randint(0, premiersEntreBornes(2, maBorne).length - 1, rEx)] // diviseur unique du deuxième nombre
-      // on ajoute nb1_dist, nb2_dist dans les tableaux des diviseurs premiers du premier et du second nombre
-      // nb1
-      let bool = false
-      let n = 0
-      while (n < tabNb1.length && bool !== true) {
-        if (nb1Dist === tabNb1[n]) { // si le diviseur premier est déjà présent on incrémente sa multiplicité
-          multiplicitesNb1[n]++
-          bool = true
-        };
-        n++
-      };
-      // on teste la valeur de sortie de bool et on ajoute la nouvelle valeur si necessaire
-      if (!bool) { // il n'est pas présent on l'ajoute avec la multipplicité 1
-        tabNb1.push(nb1Dist)
-        multiplicitesNb1.push(1)
-        bool = true
-      };
-      // nb2
-      bool = false
-      n = 0
-      while (n < tabNb2.length && !bool) {
-        if (nb2Dist === tabNb2[n]) { // si le diviseur premier est déjà présent on incrémente sa multiplicité
-          multiplicitesNb2[n]++
-          bool = true
-        };
-        n++
-      };
-      // on teste la valeur de sortie de bool et on ajoute la nouvelle valeur si necessaire
-      if (!bool) { // il n'est pas présent on l'ajoute avec la multipplicité 1
-        tabNb2.push(nb2Dist)
-        multiplicitesNb2.push(1)
-        bool = true
-      };
-      // on crée un tableau associatif à partir des deux tableaux tab_ni et multiplicites_ni
-      const tabPremMultNb1 = []
-      for (let k = 0; k < tabNb1.length; k++) {
-        tabPremMultNb1[k] = { prem: tabNb1[k], mult: multiplicitesNb1[k] }
-      };
-      const tabPremMultNb2 = []
-      for (let k = 0; k < tabNb2.length; k++) {
-        tabPremMultNb2[k] = { prem: tabNb2[k], mult: multiplicitesNb2[k] }
-      };
-      // on range selon prem croissant
-      tabPremMultNb1.sort(function (a, b) {
-        return a.prem > b.prem
-      })
-      tabPremMultNb2.sort(function (a, b) {
-        return a.prem > b.prem
-      })
-      // on initialise nb1 et nb2 et on les calcule à partir des tableaux
-      nb1 = 1
-      for (let k = 0; k < tabNb1.length; k++) {
-        nb1 = nb1 * tabPremMultNb1[k].prem ** tabPremMultNb1[k].mult
-      };
-      nb2 = 1
-      for (let k = 0; k < tabNb2.length; k++) {
-        nb2 = nb2 * tabPremMultNb2[k].prem ** tabPremMultNb2[k].mult
+      let txtPopupTer = '- Définition 3 : Étant donnés deux nombres entiers a et b, lorsque $a$ et $b$ n\'ont pas d\'autre diviseur commun que $1$, on dit que '
+      if (context.isHtml) {
+        txtPopupTer += '<b>les nombres a et b sont premiers entre eux</b>.'
+      } else {
+        txtPopupTer += '$\\textbf{les nombres a et b sont premiers entre eux}$.'
       };
 
       switch (typesDeQuestions) {
-        case 1: // décomposition de A
-          texte = numAlpha(0) + ` Décomposer $A = ${texNombre(nb1)}$ en produit de facteurs premiers.`
-          texteCorr = numAlpha(0) + ' La décomposition en produit de facteurs premier de $A = '
-          switch (tabPremMultNb1[0].mult) {
-            case 1:
-              texteCorr += `${tabPremMultNb1[0].prem}`
-              break
-            default:
-              texteCorr += `${tabPremMultNb1[0].prem}^{${tabPremMultNb1[0].mult}}`
-              break
-          };
-          for (let k = 1; k < tabNb1.length; k++) {
-            switch (tabPremMultNb1[k].mult) {
-              case 1:
-                texteCorr += `\\times${tabPremMultNb1[k].prem}`
-                break
-              default:
-                texteCorr += `\\times${tabPremMultNb1[k].prem}^{${tabPremMultNb1[k].mult}}`
-                break
+        case 1:
+          { // avec de petits nombres on calcule les mutliples
+            nbDentsr1 = randint(5, 30)
+            nbDentsr2 = randint(5, 30, nbDentsr1)
+            texte = `La roue n$\\degree$1 possède $${nbDentsr1}$ dents et la roue n$\\degree$2 a $${nbDentsr2}$ dents.`
+            texte += '<br>' + numAlpha(0) + ` Écrire la liste des multiples de $${nbDentsr1}$ et de $${nbDentsr2}$ jusqu'à trouver un multiple commun.`
+            if (ppcm(nbDentsr1, nbDentsr2) === (nbDentsr1 * nbDentsr2)) {
+              texte += `<br>Pourquoi peut-on en déduire que ${nbDentsr1} et ${nbDentsr2} sont des `
+              texte += katexPopup2(
+                numeroExercice + 1,
+                1,
+                'nombres premiers entre eux ?',
+                'Définition : Nombres premiers entre eux',
+                txtPopup
+              )
             };
-          };
-          texteCorr += '$.'
-          // break;
-          // case 2 : // décomposition de B
-          texte += '<br>' + numAlpha(1) + ` Décomposer $B = ${texNombre(nb2)}$ en produit de facteurs premiers.`
-          texteCorr += '<br>' + numAlpha(1) + ' La décomposition en produit de facteurs premier de $B = '
-          switch (tabPremMultNb2[0].mult) {
-            case 1:
-              texteCorr += `${tabPremMultNb2[0].prem}`
-              break
-            default:
-              texteCorr += `${tabPremMultNb2[0].prem}^{${tabPremMultNb2[0].mult}}`
-              break
-          };
-          for (let k = 1; k < tabNb2.length; k++) {
-            switch (tabPremMultNb2[k].mult) {
-              case 1:
-                texteCorr += `\\times${tabPremMultNb2[k].prem}`
-                break
-              default:
-                texteCorr += `\\times${tabPremMultNb2[k].prem}^{${tabPremMultNb2[k].mult}}`
-                break
+            texte += '<br>' + numAlpha(1) + ' En déduire le nombre de tours de chaque roue avant le retour à leur position initiale.'
+            texteCorr = numAlpha(0) + ` Liste des premiers multiples de $${nbDentsr1}$ : <br>`
+            // on va faire en sorte de toujours avoir un nombre de multiples multiple de 5
+            let nbMarge = 5 - (ppcm(nbDentsr1, nbDentsr2) / nbDentsr1) % 5
+            let kMax = (ppcm(nbDentsr1, nbDentsr2) / nbDentsr1 + nbMarge)
+            for (let k = 1; k < kMax + 1; k++) {
+              texteCorr += `$${k}\\times${nbDentsr1} = `
+              if (k === (ppcm(nbDentsr1, nbDentsr2) / nbDentsr1)) {
+                texteCorr += miseEnEvidence(texNombre(k * nbDentsr1))
+                texteCorr += '$ ; '
+              } else {
+                texteCorr += `${texNombre(k * nbDentsr1)}$ ; `
+              };
+              if (k % 5 === 0) {
+                texteCorr += '<br>'
+              }
             };
-          };
-          texteCorr += '$.'
-          // break;
-          // case 3 : // reduction de A sur B
-          texte += '<br>' + numAlpha(2) + ` Rendre la fraction $\\dfrac{A}{B} = \\dfrac{${texNombre(nb1)}}{${texNombre(nb2)}}$ irréductible `
-          if (context.isHtml) {
-            texte += ' à l\'aide des décompositions obtenues au ' + numAlpha(0) + 'et au ' + numAlpha(1) + '.'
+            texteCorr += '$\\ldots$ '
+            texteCorr += '<br>'
+            texteCorr += ` Liste des premiers multiples de $${nbDentsr2}$ : <br>`
+            // on va faire en sorte de toujours avoir un nombre de multiples multiple de 5
+            nbMarge = 5 - (ppcm(nbDentsr1, nbDentsr2) / nbDentsr2) % 5
+            kMax = (ppcm(nbDentsr1, nbDentsr2) / nbDentsr2 + nbMarge)
+            for (let k = 1; k < kMax + 1; k++) {
+              texteCorr += `$${k}\\times${nbDentsr2} = `
+              if (k === (ppcm(nbDentsr1, nbDentsr2) / nbDentsr2)) {
+                texteCorr += miseEnEvidence(texNombre(k * nbDentsr2))
+                texteCorr += '$ ; '
+              } else {
+                texteCorr += `${texNombre(k * nbDentsr2)}$ ; `
+              };
+              if (k % 5 === 0) {
+                texteCorr += '<br>'
+              }
+            };
+            texteCorr += '$\\ldots$ '
+            texteCorr += '<br>'
+            if (ppcm(nbDentsr1, nbDentsr2) === (nbDentsr1 * nbDentsr2)) {
+              texteCorr += '$ppcm(' + nbDentsr1 + ';' + nbDentsr2 + ')=' + nbDentsr1 + '\\times' + nbDentsr2 + `$ donc $${nbDentsr1}$ et $${nbDentsr2}$ sont des `
+              texteCorr += katexPopup2(
+                numeroExercice + 2,
+                1,
+                'nombres premiers entre eux.',
+                'Définition : Nombres premiers entre eux',
+                txtPopup
+              )
+            };
+            texteCorr += '<br>'
+            texteCorr += numAlpha(1) + ` Le plus petit multiple commun à $${nbDentsr1}$ et $${nbDentsr2}$ vaut donc $${ppcm(nbDentsr1, nbDentsr2)}$.<br>
+            Il suffit donc que chaque roue tourne de $${ppcm(nbDentsr1, nbDentsr2)}$ dents pour faire un nombre entier de tours et ainsi revenir dans sa position initiale.<br>
+            En effet, chaque roue doit tourner de façon à ce que le nombre total de dents utilisé soit un multiple de son nombre
+            de dents soit au minimum de $${texNombre(ppcm(nbDentsr1, nbDentsr2))}$ dents.`
+            texteCorr += `<br> Cela correspond à $(${ppcm(nbDentsr1, nbDentsr2)}\\text{ dents})\\div (${nbDentsr1}\\text{ dents/tour}) = ${ppcm(nbDentsr1, nbDentsr2) / nbDentsr1}$`
+            if (ppcm(nbDentsr1, nbDentsr2) / nbDentsr1 === 1) {
+              texteCorr += ' tour '
+            } else {
+              texteCorr += ' tours '
+            };
+            texteCorr += 'pour la roue n$\\degree$1.'
+            texteCorr += `<br>Cela correspond à $(${ppcm(nbDentsr1, nbDentsr2)}\\text{ dents})\\div (${nbDentsr2}\\text{ dents/tour}) = ${ppcm(nbDentsr1, nbDentsr2) / nbDentsr2}$`
+            if (ppcm(nbDentsr1, nbDentsr2) / nbDentsr2 === 1) {
+              texteCorr += ' tour '
+            } else {
+              texteCorr += ' tours '
+            };
+            texteCorr += 'pour la roue n$\\degree$2.'
+          }
+          break
+        case 2: // avec de plus grands nombre, c'est mieux de décomposer en facteurs premiers
+          if (this.sup) {
+            nbDentsr1 = randint(51, 100)
+            nbDentsr2 = randint(51, 100, nbDentsr1)
+            while (nbDentsr2 % nbDentsr1 === 0 || nbDentsr1 % nbDentsr2 === 0) {
+              nbDentsr2 = randint(51, 100, nbDentsr1)
+            }
           } else {
-            texte += ' à l\'aide des questions ' + numAlpha(0) + 'et ' + numAlpha(1) + '.'
+            nbDentsr1 = randint(31, 80)
+            nbDentsr2 = randint(31, 80, nbDentsr1)
+            while (nbDentsr2 % nbDentsr1 === 0 || nbDentsr1 % nbDentsr2 === 0) {
+              nbDentsr2 = randint(51, 100, nbDentsr1)
+            }
+          }
+
+          texte = `La roue n$\\degree$1 possède $${nbDentsr1}$ dents et la roue n$\\degree$2 a $${nbDentsr2}$ dents.`
+          texte += '<br>' + numAlpha(0) + ` Décomposer $${nbDentsr1}$ et $${nbDentsr2}$ en produit de facteurs premiers.`
+          if (ppcm(nbDentsr1, nbDentsr2) === (nbDentsr1 * nbDentsr2)) {
+            texte += `<br>Pourquoi peut-on en déduire que ${nbDentsr1} et ${nbDentsr2} sont des `
+            texte += katexPopup2(
+              numeroExercice + 3,
+              1,
+              'nombres premiers entre eux ?',
+              'Définition : Nombres premiers entre eux',
+              txtPopup + '<br>' + txtPopupBis + '<br>' + txtPopupTer
+            )
           };
-          texteCorr += '<br>' + numAlpha(2) + ` $\\dfrac{A}{B} = \\dfrac{${texNombre(nb1)}}{${texNombre(nb2)}} = `
-          texteCorr += '\\dfrac{'
-          texteCorr += '\\cancel{' + decompositionFacteursPremiersArray(nb1 / nb1Dist)[0] + '}'
-          for (let k = 1; k < decompositionFacteursPremiersArray(nb1 / nb1Dist).length; k++) {
-            texteCorr += '\\times \\cancel{' + decompositionFacteursPremiersArray(nb1 / nb1Dist)[k] + '}'
+          texte += '<br>' + numAlpha(1) + ' En déduire le nombre de tours de chaque roue avant le retour à leur position initiale.'
+          texteCorr = 'Pour un nombre de dents plus élevé, il est plus commode d\'utiliser les décompositions en produit de facteurs premiers.'
+          texteCorr += '<br>' + numAlpha(0) + ` Décomposition de $${nbDentsr1}$ en produit de facteurs premiers :  $${nbDentsr1} = ${decompositionFacteursPremiers(nbDentsr1)}$.`
+          texteCorr += `<br> Décomposition de $${nbDentsr2}$ en produit de facteurs premiers :  $${nbDentsr2} = ${decompositionFacteursPremiers(nbDentsr2)}$.`
+          texteCorr += '<br>'
+          if (ppcm(nbDentsr1, nbDentsr2) === (nbDentsr1 * nbDentsr2)) {
+            texteCorr += '<b>Proposition de trois corrections valables pour la déduction :</b> <br>'
+            texteCorr += '<b>Proposition de correction 1 :</b> <br>'
+
+            texteCorr += `D'après les calculs précédents, $ppcm(${nbDentsr1},${nbDentsr2})= ${decompositionFacteursPremiers(ppcm(nbDentsr1, nbDentsr2))}$.<br>`
+
+            texteCorr += `Donc $${nbDentsr1}$ et $${nbDentsr2}$ sont des `
+            texteCorr += katexPopup2(
+              numeroExercice + 4,
+              1,
+              'nombres premiers entre eux.',
+              'Définition : Nombres premiers entre eux',
+              txtPopup
+            )
           };
-          texteCorr += `\\times ${nb1Dist}}{`
-          texteCorr += '\\cancel{' + decompositionFacteursPremiersArray(nb1 / nb1Dist)[0] + '}'
-          for (let k = 1; k < decompositionFacteursPremiersArray(nb1 / nb1Dist).length; k++) {
-            texteCorr += '\\times \\cancel{' + decompositionFacteursPremiersArray(nb1 / nb1Dist)[k] + '}'
+          if (pgcd(nbDentsr1, nbDentsr2) === 1) {
+            texteCorr += '<br><b>Proposition de correction 2 :</b> <br>'
+
+            texteCorr += `D'après les calculs précédents, $pgcd(${nbDentsr1},${nbDentsr2})= ${pgcd(nbDentsr1, nbDentsr2) === 1 ? 1 : ''} ${decompositionFacteursPremiers(pgcd(nbDentsr1, nbDentsr2))}$.<br>`
+            texteCorr += `Donc $${nbDentsr1}$ et $${nbDentsr2}$ sont des `
+            texteCorr += katexPopup2(
+              numeroExercice + 5,
+              1,
+              'nombres premiers entre eux.',
+              'Définition : Nombres premiers entre eux',
+              txtPopupBis
+            )
           };
-          texteCorr += `\\times ${nb2Dist}} = `
-          texteCorr += `\\dfrac{${nb1Dist}}{${nb2Dist}}$`
-          // break;
-          // case 4 : // reduction de B sur A
-          texte += '<br>' + numAlpha(3) + ` Rendre la fraction $\\dfrac{B}{A} = \\dfrac{${texNombre(nb2)}}{${texNombre(nb1)}}$ irréductible`
-          if (context.isHtml) {
-            texte += ' à l\'aide des décompositions obtenues au ' + numAlpha(0) + 'et au ' + numAlpha(1) + '.'
+          if (pgcd(nbDentsr1, nbDentsr2) === 1) {
+            texteCorr += '<br><b>Proposition de correction 3 :</b> <br>'
+
+            texteCorr += `D'après les calculs précédents, le seul diviseur commun à $${nbDentsr1}$ et $${nbDentsr2}$ vaut $1$.<br> `
+            texteCorr += `Donc $${nbDentsr1}$ et $${nbDentsr2}$ sont des `
+            texteCorr += katexPopup2(
+              numeroExercice + 6,
+              1,
+              'nombres premiers entre eux.',
+              'Définition : Nombres premiers entre eux',
+              txtPopupTer
+            )
+          };
+          texteCorr += '<br>'
+          texteCorr += numAlpha(1) + ` Pour retrouver la position initiale,
+          chaque roue doit tourner de façon à ce que le nombre total de dents utilisé soit un multiple de son nombre
+          de dents.<br>
+          Soit, grâce aux décompositions précédentes, au minimum de $${decompositionFacteursPremiers(ppcm(nbDentsr1, nbDentsr2))} = ${ppcm(nbDentsr1, nbDentsr2)}$ dents.`
+          texteCorr += `<br> Cela correspond à $(${texNombre(ppcm(nbDentsr1, nbDentsr2))}\\text{ dents})\\div (${nbDentsr1}\\text{ dents/tour}) = ${ppcm(nbDentsr1, nbDentsr2) / nbDentsr1}$`
+          if (ppcm(nbDentsr1, nbDentsr2) / nbDentsr1 === 1) {
+            texteCorr += ' tour '
           } else {
-            texte += ' à l\'aide des questions ' + numAlpha(0) + 'et ' + numAlpha(1) + '.'
+            texteCorr += ' tours '
           };
-          texteCorr += '<br>' + numAlpha(3) + ` $\\dfrac{B}{A}$ est l'inverse de $\\dfrac{A}{B}$ donc $\\dfrac{B}{A} = \\dfrac{${texNombre(nb2)}}{${texNombre(nb1)}} = `
-          texteCorr += '\\dfrac{'
-          texteCorr += '\\cancel{' + decompositionFacteursPremiersArray(nb1 / nb1Dist)[0] + '}'
-          for (let k = 1; k < decompositionFacteursPremiersArray(nb1 / nb1Dist).length; k++) {
-            texteCorr += '\\times \\cancel{' + decompositionFacteursPremiersArray(nb1 / nb1Dist)[k] + '}'
+          texteCorr += 'pour la roue n$\\degree$1.'
+          texteCorr += `<br> Cela correspond à $(${texNombre(ppcm(nbDentsr1, nbDentsr2))}\\text{ dents})\\div (${nbDentsr2}\\text{ dents/tour}) = ${ppcm(nbDentsr1, nbDentsr2) / nbDentsr2}$`
+          if (ppcm(nbDentsr1, nbDentsr2) / nbDentsr2 === 1) {
+            texteCorr += ' tour '
+          } else {
+            texteCorr += ' tours '
           };
-          texteCorr += `\\times ${nb2Dist}}{`
-          texteCorr += '\\cancel{' + decompositionFacteursPremiersArray(nb1 / nb1Dist)[0] + '}'
-          for (let k = 1; k < decompositionFacteursPremiersArray(nb1 / nb1Dist).length; k++) {
-            texteCorr += '\\times \\cancel{' + decompositionFacteursPremiersArray(nb1 / nb1Dist)[k] + '}'
+          texteCorr += 'pour la roue n$\\degree$2.'
+          break
+        case 3: // déterminer le nombre de dents d'une roue connaissant l'autre et le nombre de tours necessaires à la re-synchro
+          if (this.sup) k = choice([2, 3, 4, 5, 6])
+          else k = choice([2, 3])
+          nbDentsr1 = randint(5, 15)
+          nbDentsr2 = randint(5, 80, nbDentsr1)
+          nbDentsr1 *= k
+          nbDentsr2 *= k
+          texte = `La roue n$\\degree$2 a maintenant $${nbDentsr2}$ dents.`
+          texte += ` Déterminer le nombre de dents de la roue n$\\degree$1 qui ferait $${ppcm(nbDentsr1, nbDentsr2) / nbDentsr1}$ `
+          if (ppcm(nbDentsr1, nbDentsr2) / nbDentsr1 === 1) {
+            texte += ' tour '
+          } else {
+            texte += ' tours '
           };
-          texteCorr += `\\times ${nb1Dist}} = `
-          texteCorr += `\\dfrac{${nb2Dist}}{${nb1Dist}}$.`
-          // break;
-          // case 5 : // calculer le produit A/B x B/A et réduire. Remarque?
-          // texte += `<br>`+numAlpha(4)+` Combien alculer le produit de $\\dfrac{A}{B} = \\dfrac{${texNombre(nb1)}}{${texNombre(nb2)}}$ et de $\\dfrac{B}{A} = \\dfrac{${texNombre(nb2)}}{${texNombre(nb1)}}$.`;
-          // texte += `<br>Donner le résultat sous forme de fraction irréductible.`
-          // texte += `<br>`+numAlpha(4)+` Remarque ?`
-          // texteCorr += `<br>`+numAlpha(4)+' corr type 5';
+          texte += ` pendant que la roue n$\\degree$2 en fait $${ppcm(nbDentsr1, nbDentsr2) / nbDentsr2}$.`
+          texteCorr = `Puisque la roue n$\\degree$2, qui a $${nbDentsr2}$ dents, fait $${ppcm(nbDentsr1, nbDentsr2) / nbDentsr2}$ `
+          if (ppcm(nbDentsr1, nbDentsr2) / nbDentsr2 === 1) {
+            texteCorr += ' tour '
+          } else {
+            texteCorr += ' tours '
+          };
+          texteCorr += `, cela représente $${texNombre(ppcm(nbDentsr1, nbDentsr2))}$ dents.`
+          texteCorr += `<br>La roue n$\\degree$1 doit donc aussi tourner de $${texNombre(ppcm(nbDentsr1, nbDentsr2))}$ dents, ceci en $${ppcm(nbDentsr1, nbDentsr2) / nbDentsr1}$ `
+          if (ppcm(nbDentsr1, nbDentsr2) / nbDentsr1 === 1) {
+            texteCorr += ' tour '
+          } else {
+            texteCorr += ' tours '
+          };
+          texteCorr += '.'
+          texteCorr += `<br> On obtient donc $(${texNombre(ppcm(nbDentsr1, nbDentsr2))}\\text{ dents})\\div (${ppcm(nbDentsr1, nbDentsr2) / nbDentsr1}\\text{`
+          if (ppcm(nbDentsr1, nbDentsr2) / nbDentsr1 === 1) {
+            texteCorr += ' tour '
+          } else {
+            texteCorr += ' tours '
+          };
+          texteCorr += `}) = ${nbDentsr1} \\text{ dents/tour}.$`
+          texteCorr += `<br>La roue n$\\degree$1 a donc $${nbDentsr1}$ dents.`
           break
       };
 
@@ -264,10 +312,10 @@ export default function FractionsIrreductibles () {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
-      };
+      }
       cpt++
-    };
+    }
+
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = ['Décomposition « simple »']
 }

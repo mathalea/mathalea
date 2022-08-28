@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, reduireAxPlusB, abs, pgcd, texteEnCouleurEtGras, texFraction, miseEnEvidence, ecritureAlgebrique, texFractionReduite } from '../../modules/outils.js'
-import { repere, droite, mathalea2d, point, tracePoint, segment, texteParPosition, latexParPoint, vecteur, translation, homothetie, colorToLatexOrHTML } from '../../modules/2d.js'
+import { repere, droite, point, tracePoint, segment, texteParPosition, latexParPoint, vecteur, translation, homothetie } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -14,6 +15,8 @@ export const amcType = 'AMCHybride'
 /**
 
 */
+export const uuid = '93f13'
+export const ref = '2F10-2'
 export default function lecturefonctionaffine () {
   Exercice.call(this)
   this.titre = titre
@@ -254,7 +257,7 @@ export default function lecturefonctionaffine () {
         t = tracePoint(A, 'red')// Variable qui trace les nom s A et B
         t.taille = 3
         t.epaisseur = 2
-        l.color = colorToLatexOrHTML('red')
+        // l.color = colorToLatexOrHTML('red')
         if (a !== 0) {
           texteCorr += mathalea2d({
             xmin: -8,

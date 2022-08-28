@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif } from '../../modules/outils.js'
 // import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'// import { courbeSpline } from '../../modules/2d.js'
+// import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+// import { courbeSpline } from '../../modules/2d.js'
 // export const interactifReady = true
 // export const interactifType = 'mathLive'
 export const titre = 'Factoriser un polynôme du second degré avec racines entières'
@@ -11,6 +12,8 @@ export const titre = 'Factoriser un polynôme du second degré avec racines enti
  * @author Rémi Angot et Stéphane Guyon
  * Référence 1E14
 */
+export const uuid = 'a8e1b'
+export const ref = '1E14'
 export default function ResoudreEquationDegre2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

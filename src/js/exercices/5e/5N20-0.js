@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, calcul, texteEnCouleur, texteGras, numAlpha } from '../../modules/outils.js'
-import { point, labelPoint, segment, cercleCentrePoint, rotation, codageAngleDroit, codageAngle, mathalea2d } from '../../modules/2d.js'
+import { point, labelPoint, segment, cercleCentrePoint, rotation, codageAngleDroit, codageAngle } from '../../modules/2d.js'
 export const titre = 'Résoudre un problème en utilisant des fractions'
 
 /**
@@ -9,6 +10,8 @@ export const titre = 'Résoudre un problème en utilisant des fractions'
  * * 5N20-0
  * @author Sébastien Lozano
  */
+export const uuid = 'b6250'
+export const ref = '5N20-0'
 export default function ProblemesAdditifsFractions5e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.debug = false

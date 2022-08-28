@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 483 
-- nombre d'exos interactifReady 735 
+- nombre d'exos amcReady 492 
+- nombre d'exos interactifReady 765 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -67,10 +67,10 @@
 |2S20-4|Calculer des étendues|KO|KO|OK|mathLive|
 |2S30-5|Expérience aléatoire à deux épreuves|OK|AMCNum|OK|mathLive|
 |beta2N31-5|Calculer avec des nombres en écriture scientifique|KO|KO|OK|mathLive|
-|3A11-1|Primalité ou pas - Variante avec les critères de divisibilité par 7 et par 11|OK|qcmMono|OK|qcm|
-|3A11-2|Décomposition en facteurs premiers d'un entier|KO|KO|OK|mathLive|
-|3A11|Primalité ou pas|OK|qcmMono|OK|qcm|
-|3A14|Résoudre des problèmes avec recherche de diviseurs communs|OK|AMCHybride|OK|mathLive|
+|3A10-1|Justifier si des nombres sont premiers ou pas|OK|qcmMono|OK|qcm|
+|3A10-2|Justifier si des nombres sont premiers ou pas - Variante avec les critères de divisibilité par 7 et par 11|OK|qcmMono|OK|qcm|
+|3A10-3|Décomposer un entier en facteurs premiers|KO|KO|OK|mathLive|
+|3A12-1|Résoudre des problèmes avec recherche de diviseurs communs|OK|AMCHybride|OK|mathLive|
 |3F10-1|Vocabulaire et notations des fonctions (généralités)|OK|qcmMult|OK|qcm|
 |3F10-2|Fonction : calculs d'images (et d'antécédents)|OK|AMCNum|OK|mathLive|
 |3F10|Lectures d'images et d'antécédents depuis un tableau de valeurs|KO|KO|OK|mathLive|
@@ -109,6 +109,8 @@
 |3L11-5|Calcul mental et calcul littéral|KO|KO|OK|mathLive|
 |3L11-6|Factoriser une expression complexe|KO|KO|OK|mathLive|
 |3L11-7|Développer des carrés avec la double distributivité|KO|KO|OK|mathLive|
+|3L11-8|Yoh ku multiplicatif expressions littérales niveau 1|KO|KO|OK|custom|
+|3L11-9|Rose multiplicative littéraux|KO|KO|OK|custom|
 |3L11|Utiliser la simple distributivité|KO|KO|OK|mathLive|
 |3L12-1|Développer (a-b)(a+b)|KO|KO|OK|mathLive|
 |3L12|Factoriser a²-b²|KO|KO|OK|mathLive|
@@ -127,20 +129,28 @@
 |4A10|Nombre premier ou pas|OK|qcmMono|OK|qcm|
 |4A11-0|Décomposer un nombre entier en produit de (petits) facteurs premiers|KO|KO|OK|mathLive|
 |4A11-1|Décomposer un nombre entier en produit de facteurs premiers|KO|KO|OK|mathLive|
-|4A12|Problèmes d'évenements récurrents|OK|AMCNum|OK|mathLive|
+|4A12|Résoudre des problèmes de conjonction de phénomènes|OK|AMCNum|OK|mathLive|
 |4C10-0|Signe d'un produit ou d'un quotient de nombres relatifs|OK|qcmMono|OK|qcm|
 |4C10-1|Signe d'un produit de nombres relatifs|OK|qcmMono|OK|qcm|
+|4C10-10|Multiplication à trou de deux entiers relatifs|OK|qcmMono|OK|qcm|
 |4C10-2|Signe d'un quotient de nombres relatifs|OK|qcmMono|OK|qcm|
 |4C10-3|Multiplication de deux entiers relatifs|KO|KO|OK|mathLive|
 |4C10-4|Quotient de deux entiers relatifs|KO|KO|OK|mathLive|
 |4C10-6|Multiplications et quotients de relatifs : signe avec une lettre|OK|qcmMono|OK|qcm|
+|4C10-7|Opérations avec deux entiers relatifs|KO|KO|OK|mathLive|
+|4C10-8|Yohaku multiplicatif nombres relatifs niveau 1|KO|KO|OK|custom|
+|4C10-9|Rose multiplicative relatifs|KO|KO|OK|custom|
 |4C11|Calculs utilisant les priorités opératoires|KO|KO|OK|mathLive|
 |4C20-2|Fractions égales et égalité des produits en croix 4e|OK|qcmMono|OK|qcm|
 |4C20|Comparer deux fractions (dénominateurs multiples)|OK|qcmMono|OK|qcm|
 |4C21-1|Additionner deux fractions|OK|AMCNum|OK|mathLive|
+|4C21-2|Yohaku additif fractions niveau 1|KO|KO|OK|custom|
+|4C21-3|Rose additive fractions|KO|KO|OK|custom|
 |4C21|Additionner ou soustraire deux fractions|OK|AMCNum|OK|mathLive|
 |4C22-1|Trouver l'inverse d'un nombre|KO|KO|OK|mathLive|
 |4C22-2|Diviser des fractions|OK|AMCNum|OK|mathLive|
+|4C22-3|Yohaku multiplicatif fractions niveau 1|KO|KO|OK|custom|
+|4C22-4|Rose multiplicative fractions|KO|KO|OK|custom|
 |4C22|Multiplier des fractions|OK|AMCNum|OK|mathLive|
 |4C23-1|Fractions et priorités opératoires|OK|AMCNum|OK|mathLive|
 |4C23|Somme, différence ou produit de fractions|KO|KO|OK|mathLive|
@@ -151,6 +161,7 @@
 |4C30|Puissances de 10 : Le sens des règles de calculs|KO|KO|OK|mathLive|
 |4C32-0|Écriture décimale d'un calcul avec des puissances de 10|KO|KO|OK|mathLive|
 |4C32-1|Calcul avec les puissances de dix|OK|qcmMono|OK|qcm|
+|4C32-4|Calculs avec des multiplications et des puissances de 10|OK|qcmMono|OK|qcm|
 |4C32|Notation scientifique|OK|AMCNum|OK|mathLive|
 |4C33-0|Utiliser la notation puissance|OK|AMCOpen|OK|mathLive|
 |4C33-1|Puissances : Le sens des règles de calculs|OK|AMCNum|OK|mathLive|
@@ -177,6 +188,8 @@
 |4G41|Utiliser le cosinus pour calculer la mesure d'un angle dans un triangle rectangle|OK|AMCOpenNum|OK|mathLive|
 |4G53|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
 |4I1-2|Tortue Scratch avec répétitions|OK|qcmMono|OK|cliqueFigure|
+|4L10-3|Yohaku additif expressions littérales niveau 1|KO|KO|OK|custom|
+|4L10-4|Rose additive littéraux|KO|KO|OK|custom|
 |4L10|Utiliser la simple distributivité|KO|KO|OK|mathLive|
 |4L11|Factoriser une expression littérale|OK|AMCOpen|OK|mathLive|
 |4L13-2|Mettre un problème en équation et le résoudre|OK|AMCNum|OK|mathLive|
@@ -219,23 +232,30 @@
 |5N14|Comparer deux fractions (dénominateurs multiples)|OK|qcmMono|OK|qcm|
 |5N20|Additionner ou soustraire deux fractions (dénominateurs multiples)|OK|qcmMono|OK|mathLive|
 |5P11-1|Problème de vitesse|KO|KO|OK|mathLive|
+|5P13|Utiliser ou trouver des échelles d'un plan|KO|KO|OK|mathLive|
 |5R10|Trouver le terme manquant d'une somme de nombres relatifs|OK|AMCNum|OK|mathLive|
 |5R11-2|Placer un point d'abscisse un nombre relatif|OK|AMCOpen|OK|custom|
 |5R11|Lire l'abscisse relative d'un point|OK|AMCHybride|OK|mathLive|
 |5R20-2|Addition à trou de deux entiers relatifs|OK|qcmMono|OK|qcm|
 |5R20-3|Additions de 5 nombres relatifs|OK|AMCNum|OK|mathLive|
+|5R20-6|Yohaku additif nombres relatifs niveau 1|KO|KO|OK|custom|
+|5R20-7|Rose additive relatifs|KO|KO|OK|custom|
 |5R20|Addition de deux entiers relatifs|OK|qcmMono|OK|qcm,mathLive|
 |5R21|Soustraction de deux entiers relatifs|OK|AMCNum|OK|mathLive|
 |5R22|Additions et soustractions de nombres relatifs|OK|AMCOpenNum|OK|mathLive|
-|5S11|Lire un diagramme en barre|OK|AMCHybride|OK|mathLive|
+|5S11|Lire un diagramme en barres|OK|AMCHybride|OK|mathLive|
 |5S13-2|Calculs de fréquences|OK|AMCHybride|OK|mathLive|
 |5S13|Calculer des fréquences|OK|AMCHybride|OK|mathLive|
 |5S14|Calculer des moyennes|OK|AMCHybride|OK|mathLive|
+|6C10-0|Rose additive|KO|KO|OK|custom|
 |6C10-1|Réviser les tables de multiplication|OK|AMCNum|OK|mathLive|
-|6C10-2|Utiliser tables de multiplications pour effectuer produits avec multiple de 10|OK|qcmMono|OK|qcm,mathLive|
-|6C10-3|Utiliser tables de multiplications pour effectuer produits avec décimaux|OK|qcmMono|OK|qcm|
+|6C10-2|Utiliser tables de multiplication pour effectuer produits avec multiple de 10|OK|qcmMono|OK|qcm,mathLive|
+|6C10-3|Utiliser tables de multiplication pour effectuer produits avec décimaux|OK|qcmMono|OK|qcm|
 |6C10-4|Effectuer addition de deux entiers|OK|AMCNum|OK|mathLive|
 |6C10-5|Parcourir un labyrinthe de multiples|OK|AMCOpen|KO|KO|
+|6C10-6|Rose multiplicative|KO|KO|OK|custom|
+|6C10-7a|Yohaku additif niveau 1|KO|KO|OK|custom|
+|6C10-7b|Yohaku multiplicatif niveau 1|KO|KO|OK|custom|
 |6C10|Poser additions, soustractions et multiplications de nombres entiers|OK|AMCHybride|OK|mathLive|
 |6C11-1|Déterminer reste et quotient d'une division euclidienne à partir d'une égalité|OK|AMCOpenNum✖︎2|OK|mathLive|
 |6C11-2|Trouver le vocabulaire associé aux termes de l'égalité issue de la division euclidienne|OK|AMCOpen|OK|mathLive|
@@ -268,6 +288,7 @@
 |6D12|Calculer des durées ou déterminer un horaire|OK|AMCHybride|KO|KO|
 |6D13|Convertir en min vers h et min ou en s vers min et s|OK|AMCHybride|OK|mathLive|
 |6G10-3|Choisir la bonne figure|OK|qcmMono|OK|cliqueFigure|
+|6G10-4|Connaître le vocabulaire du cercle|KO|KO|OK|qcm,mathLive|
 |6G11|Tracer des perpendiculaires|OK|AMCOpen|KO|KO|
 |6G12-1|Tracer des parallèles et des perpendiculaires|OK|AMCOpen|KO|KO|
 |6G12|Tracer des parallèles|OK|AMCOpen|KO|KO|
@@ -313,6 +334,7 @@
 |6N10-3|Décomposer un nombre entier (nombre de ..., chiffres des ...)|OK|AMCNum|OK|mathLive|
 |6N10-5|Parcourir un labyrinthe de numération décimale|OK|AMCOpen|KO|KO|
 |6N10-6|Donner l'écriture (décimale ou en fraction décimale) d'une somme (ou différence) de nombres avec fractions décimales|OK|AMCNum|OK|mathLive|
+|6N10-7|Recomposer un décimal ou un entier|OK|AMCNum|OK|custom|
 |6N10|Écrire un nombre entier en chiffres ou en lettres|KO|KO|OK|mathLive|
 |6N11-2|Placer un point d'abscisse entière (grands nombres)|OK|AMCOpen|OK|custom|
 |6N11|Lire l'abscisse entière d'un point (grands nombres)|OK|AMCOpen|OK|mathLive|
@@ -358,14 +380,15 @@
 |6P11|Résoudre des problèmes de proportionnalité en utilisant la linéarité simple|OK|AMCHybride|OK|mathLive|
 |6P12|Résoudre des problèmes de proportionnalité en utilisant la proportionnalité simple|OK|AMCNum|OK|mathLive|
 |6P13|Augmenter ou diminuer d'un pourcentage|OK|AMCHybride|OK|mathLive|
-|6P14|Figures à agrandir ou à réduire d'après une situation de proportionnalité|OK|AMCHybride|OK|mathLive|
+|6P14|Agrandir ou réduire des figures, d'après une situation de proportionnalité|OK|AMCHybride|OK|mathLive|
 |6S10-1|Représenter des données par un diagramme|OK|AMCHybride|OK|qcm|
-|6S10|Lire un diagramme en barre|OK|AMCHybride|OK|mathLive|
+|6S10|Lire un diagramme en barres|OK|AMCHybride|OK|mathLive|
 |FichierDeTests|Calculer un angle, déduit de figures simples|KO|KO|OK|mathLive|
+|Yohaku|Générateur de Yohaku|KO|KO|OK|custom|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|mathLive|
 |CM001|Tables de multiplication|OK|AMCNum|OK|mathLive|
 |CM002|Tables de divisions|OK|AMCNum|OK|mathLive|
-|CM003|Tables de multiplications et de divisions|OK|AMCNum|OK|mathLive|
+|CM003|Tables de multiplication et de divisions|OK|AMCNum|OK|mathLive|
 |CM004|Les quatre opérations|OK|AMCNum|OK|mathLive|
 |CM005|Ajouter 9|OK|AMCNum|OK|mathLive|
 |CM006|Soustraire 9|OK|AMCNum|OK|mathLive|
@@ -401,7 +424,7 @@
 |betaTestcanPredef6_10qN1|CAN 6ième 10 questions (niveau 1)|KO|KO|OK|mathLive|
 |betaTestcanPredef6_10qN2|CAN 6ième 10 questions (niveau 2)|KO|KO|OK|mathLive|
 |betaTexNombre|Somme de deux entier|KO|KO|OK|mathLive|
-|c3C10-1|Tables de multiplications|OK|AMCNum|OK|mathLive|
+|c3C10-1|Tables de multiplication|OK|AMCNum|OK|mathLive|
 |c3C10-3|Multiplier un nombre entier (ou décimal) par 10, 100 ou 1 000|OK|AMCNum|OK|mathLive|
 |c3C10-4|Tables d'addition|OK|AMCNum|OK|mathLive|
 |c3C10|Additions, soustractions et multiplications posées de nombres entiers|OK|AMCHybride|OK|mathLive|
@@ -413,6 +436,7 @@
 |c3C30|Additions, soustractions et multiplications posées de nombres entiers|OK|AMCNum|OK|mathLive|
 |c3C31|Problème - Les courses|OK|AMCNum|OK|mathLive|
 |c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
+|c3N10-1|Recomposer un entier|OK|AMCNum|OK|custom|
 |c3N11|Lire l'abscisse entière d'un point (grands nombres)|OK|AMCOpen|OK|mathLive|
 |c3N20|Donner l'écriture décimale à partir d'un somme d'entiers et de fractions décimales|OK|AMCNum|OK|mathLive|
 |c3N22|Lire abscisse décimale sous trois formes|OK|AMCHybride|OK|mathLive|
@@ -675,7 +699,7 @@
 |can6C24|Multiplier par 0,1 ou 0,01 ou 0,001|OK|AMCNum|OK|mathLive|
 |can6C25|Rechercher un prix unitaire|KO|KO|OK|mathLive|
 |can6C26|Multiplier ou diviser par 10, 100,  1000 ou 0,1 ou 0,01|OK|AMCNum|OK|mathLive|
-|can6C27|Résoudre un problème concret|KO|KO|OK|mathLive|
+|can6C27|Résoudre un problème de rendu de monnaie|KO|KO|OK|mathLive|
 |can6C28|Résoudre un problème de fraction|KO|KO|OK|mathLive|
 |can6C29|Résoudre un problème de partage|OK|AMCNum|OK|mathLive|
 |can6C30|Multiplier deux décimaux|OK|AMCNum|OK|mathLive|
@@ -684,6 +708,9 @@
 |can6C33|Calculer dans une pyramide multiplicative|OK|AMCNum|OK|mathLive|
 |can6C34|Calculer dans une pyramide additive inverse|OK|AMCNum|OK|mathLive|
 |can6C35|Résoudre un problème avec "de plus", "de moins"|OK|AMCNum|OK|mathLive|
+|can6C36|Résoudre un problème de partage*|KO|KO|OK|mathLive|
+|can6C38|Addition à trou Yohaku|OK|AMCNum|OK|mathLive|
+|can6C39|Multiplication à trou Yohaku|OK|AMCNum|OK|mathLive|
 |can6D01|Convertir des Heures/minutes en minutes|OK|AMCNum|OK|mathLive|
 |can6D02|Chercher un reste en minutes|OK|AMCNum|OK|mathLive|
 |can6D03|Calculer une durée en minutes|OK|AMCNum|OK|mathLive|
@@ -706,10 +733,11 @@
 |can6M09|Calculer des longueurs à partir des périmètres|KO|KO|OK|mathLive|
 |can6M10|Volume de pavé droit|OK|AMCNum|OK|mathLive|
 |can6M11|Volume de pavé droit par dénombrement de cubes unités|OK|AMCNum|OK|mathLive|
+|can6M12|Calculer une longueur/un périmètre (avec des décimaux)|OK|AMCNum|OK|mathLive|
 |can6N01|Recomposer un entier|OK|AMCNum|OK|mathLive|
 |can6N02|Recomposer un entier (bis)|OK|AMCNum|OK|mathLive|
 |can6N03|Recomposer un entier*|OK|AMCNum|OK|mathLive|
-|can6N04|Trouver une abscisse fractionnaire|OK|AMCHybride|OK|mathLive|
+|can6N04|Lire une abscisse sur une droite graduée|OK|AMCHybride|OK|mathLive|
 |can6N05|Déterminer le chiffre des ...|OK|AMCNum|OK|mathLive|
 |can6N06|Arrondir au dixième ou au centième|OK|AMCHybride|OK|mathLive|
 |can6N07|Lire l'abscisse décimale d'un point sur une droite graduée|OK|AMCNum|OK|mathLive|
@@ -720,6 +748,7 @@
 |can6N12|Passer d’un calcul de fractions décimales à une écriture décimale*|OK|AMCNum|OK|mathLive|
 |can6N13|Passer d’un calcul de fractions décimales à une écriture décimale**|OK|AMCNum|OK|mathLive|
 |can6N14|Déterminer un nombre à partir de son nombre de dixièmes, centièmes, millièmes (QCM)|KO|KO|OK|qcm|
+|can6N15|Lire et écrire des nombres|OK|AMCNum|OK|mathLive|
 |can6P01|Utiliser une proportionnalité|OK|AMCNum|OK|mathLive|
 |can6P02|Utiliser une proportionnalité*|OK|AMCNum|OK|mathLive|
 |can6P03|Déterminer le nombre de km avec une vitesse|OK|AMCNum|OK|mathLive|
@@ -746,6 +775,7 @@
 |canc3D02|Lire une durée|KO|KO|OK|mathLive|
 |canc3D03|Ajouter des durées|KO|KO|OK|mathLive|
 |canc3M01|Trouver la bonne unité|OK|AMCOpen|OK|mathLive|
+|canc3M02|Calculer une longueur/un périmètre/une aire (avec des entiers)|OK|AMCNum|OK|mathLive|
 |canc3N01|Écrire en lettres un nombre entier (QCM)|OK|qcmMono|OK|qcm|
 |canc3N02|Trouver un nombre sur une droite graduée|OK|AMCNum|OK|mathLive|
 |canc3N03|Trouver le plus grand nombre entier|OK|AMCNum|OK|mathLive|

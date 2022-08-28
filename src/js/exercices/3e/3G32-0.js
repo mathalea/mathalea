@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, numAlpha, stringNombre, combinaisonListes, texNombre, arrondi, texFractionReduite, creerNomDePolygone, choice, sp, lettreDepuisChiffre, rangeMinMax, contraindreValeur, compteOccurences, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
-import { texteSurSegment, polygoneAvecNom, afficheMesureAngle, codageAngleDroit, point, segment, texteParPosition, milieu, mathalea2d, tracePoint, labelPoint, pointAdistance, projectionOrtho, droite, longueur, angle, droiteVerticaleParPoint, cercle, pointIntersectionLC, polygone, colorToLatexOrHTML } from '../../modules/2d.js'
+import { texteSurSegment, polygoneAvecNom, afficheMesureAngle, codageAngleDroit, point, segment, texteParPosition, milieu, tracePoint, labelPoint, pointAdistance, projectionOrtho, droite, longueur, angle, droiteVerticaleParPoint, cercle, pointIntersectionLC, polygone } from '../../modules/2d.js'
 import { arete3d, CodageAngleDroit3D, demicercle3d, point3d, rotationV3d, sphere3d, vecteur3d } from '../../modules/3d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -25,6 +26,8 @@ export const dateDePublication = '05/03/2022'
  * Interactivité des exercices, aléatoirisation des figures et des points dans les exos, AMC-isation de tous les exos @author Eric Elter
  * Référence 3G32-0
 */
+export const uuid = '2045e'
+export const ref = '3G32-0'
 export default function problemesTrigoLongueur () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

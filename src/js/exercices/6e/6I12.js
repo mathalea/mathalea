@@ -1,9 +1,11 @@
 // on importe les fonctions nécessaires.
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, combinaisonListesSansChangerOrdre, shuffle, texteGras } from '../../modules/outils.js'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
-import { angleScratchTo2d, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA, leveCrayon, grille, tracePoint, point, segment, texteParPoint, colorToLatexOrHTML } from '../../modules/2d.js'
+import { scratchblock, point, segment, tracePoint, grille, texteParPoint } from '../../modules/2d.js'
+import { allerA, angleScratchTo2d, avance, baisseCrayon, creerLutin, leveCrayon, orienter, tournerD, tournerG } from '../../modules/2dLutin.js'
 import { afficheScore } from '../../modules/gestionInteractif.js'
 export const interactifReady = true
 // il y avait un fonctionnement avec amcType cf commit 3ae7c43
@@ -12,6 +14,8 @@ export const amcReady = true
 export const amcType = 'qcmMono'
 
 export const titre = 'Trouver le bon tracé avec Scratch'
+export const uuid = 'e9cac'
+export const ref = '6I12'
 export default function AlgoTortue () { // ça c'est la classe qui permet de créer cet exercice
   'use strict'
   Exercice.call(this) // la classe parente qui définit les attributs commun à tous les exercices

@@ -10,6 +10,8 @@ export const titre = 'Tracer un triangle dont on connaît une longueur et 2 angl
  * @author Rémi Angot
  * Références 6G23-2 et 5G20-2
  */
+export const uuid = '1ad45'
+export const ref = '6G23-2'
 export default function TracerTriangle2Angles () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

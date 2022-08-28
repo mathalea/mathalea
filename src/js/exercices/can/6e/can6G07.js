@@ -1,6 +1,7 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice, shuffle } from '../../../modules/outils.js'
-import { colorToLatexOrHTML, droite, longueur, mathalea2d, papierPointe, point, symetrieAxiale, tracePoint } from '../../../modules/2d.js'
+import { droite, longueur, papierPointe, point, symetrieAxiale, tracePoint } from '../../../modules/2d.js'
 import { context } from '../../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
@@ -17,6 +18,8 @@ export const amcType = 'AMCNum'
  * @author Jean-Claude Lhote
  * Publié le 18/12/2021
  */
+export const uuid = '85dfb'
+export const ref = 'can6G07'
 export default function CompleterParSymetrieCan () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

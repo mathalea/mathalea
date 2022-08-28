@@ -1,8 +1,9 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import Decimal from 'decimal.js/decimal.mjs'
 import {
-  mathalea2d, point, labelPoint, polygoneAvecNom, milieu, texteParPosition, polygone, codageAngleDroit
+  point, labelPoint, polygoneAvecNom, milieu, texteParPosition, polygone, codageAngleDroit
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { listeQuestionsToContenu, randint, texNombre, shuffle, simplificationDeFractionAvecEtapes, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
@@ -25,6 +26,8 @@ export const dateDePublication = '19/04/2022' // La date de publication initiale
 function compareNombres (a, b) {
   return a - b
 }
+export const uuid = '6a087'
+export const ref = 'can3a-2022'
 export default function SujetCAN2022troisieme () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

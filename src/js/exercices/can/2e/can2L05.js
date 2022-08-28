@@ -11,6 +11,8 @@ export const interactifType = 'qcm'
  * Référence can2L05 // pour l'instant
  * Date de publication 24/10/2021
 */
+export const uuid = '96a78'
+export const ref = 'can2L05'
 export default function SolutionInequationQCM () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1

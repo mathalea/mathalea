@@ -1,6 +1,7 @@
-import { mathalea2d, repere, traceBarreHorizontale } from '../../../modules/2d.js'
+import { repere, traceBarreHorizontale } from '../../../modules/2d.js'
 import { prenom, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 export const titre = 'Lire un diagramme en barres'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -12,6 +13,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6S01
  */
+export const uuid = '1957a'
+export const ref = 'can6S01'
 export default function LectureDiagrammeBarre () {
   Exercice.call(this)
   this.typeExercice = 'simple'

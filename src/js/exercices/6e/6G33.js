@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, choice, shuffle } from '../../modules/outils.js'
-import { point, segment, polygone, codageAngleDroit, codageSegments, mathalea2d } from '../../modules/2d.js'
+import { point, segment, polygone, codageAngleDroit, codageSegments } from '../../modules/2d.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const amcReady = true
 export const amcType = 'qcmMult' // QCM
@@ -15,6 +16,8 @@ export const titre = 'Reconnaître un quadrilatère particulier à partir de ses
  * @author Rémi Angot
  * Référence 6G33
 */
+export const uuid = '4e52e'
+export const ref = '6G33'
 export default function ReconnaitreQuadrilatereParticulier () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

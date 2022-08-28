@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, texNombrec, lettreDepuisChiffre, htmlConsigne, egal } from '../../modules/outils.js'
-import { colorToLatexOrHTML, droiteGraduee2, labelPoint, mathalea2d, point, tracePoint } from '../../modules/2d.js'
+import { droiteGraduee, labelPoint, point, tracePoint } from '../../modules/2d.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 export const interactifReady = true
 export const interactifType = 'custom'
@@ -15,6 +16,8 @@ export const titre = 'Placer un point d\'abscisse un nombre relatif'
 * @author Jean-Claude Lhote et Rémi Angot
 * Référence 5R11-2
 */
+export const uuid = '6d576'
+export const ref = '5R11-2'
 export default function PlacerPointsSurAxeRelatifs () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -89,7 +92,7 @@ export default function PlacerPointsSurAxeRelatifs () {
       A = point(changeCoord(abs1, abs0, pas1), 0, l1, 'above')
       B = point(changeCoord(abs2, abs0, pas1), 0, l2, 'above')
       C = point(changeCoord(abs3, abs0, pas1), 0, l3, 'above')
-      objets.push(droiteGraduee2({
+      objets.push(droiteGraduee({
         Unite: 3 * pas1,
         Min: abs0,
         Max: abs0 + 6.9 / pas1,
@@ -99,8 +102,9 @@ export default function PlacerPointsSurAxeRelatifs () {
         thickSec: true,
         labelsPrincipaux: true,
         thickDistance: 1 / pas1
+        // thickOffset: 2
       }))
-      objetsCorr.push(droiteGraduee2({
+      objetsCorr.push(droiteGraduee({
         Unite: 3 * pas1,
         Min: abs0,
         Max: abs0 + 6.9 / pas1,
@@ -123,7 +127,7 @@ export default function PlacerPointsSurAxeRelatifs () {
           }
         }
       }
-      const axeGradue = droiteGraduee2({
+      const axeGradue = droiteGraduee({
         Unite: 3 * pas1,
         Min: abs0,
         Max: abs0 + 6.9 / pas1,
@@ -135,18 +139,15 @@ export default function PlacerPointsSurAxeRelatifs () {
         thickDistance: 1 / pas1
       })
       objets.push(axeGradue)
-      const t1 = tracePoint(A)
-      const t2 = tracePoint(B)
-      const t3 = tracePoint(C)
+      const t1 = tracePoint(A, 'blue')
+      const t2 = tracePoint(B, 'blue')
+      const t3 = tracePoint(C, 'blue')
       t1.taille = 5
       t1.epaisseur = 2
-      t1.color = colorToLatexOrHTML('blue')
       t2.taille = 5
       t2.epaisseur = 2
-      t2.color = colorToLatexOrHTML('blue')
       t3.taille = 5
       t3.epaisseur = 2
-      t3.color = colorToLatexOrHTML('blue')
 
       texte = `Placer les points : $${l1}(${texNombrec(abs1)}), ${l2}(${texNombrec(abs2)}), ${l3}(${texNombrec(abs3)})$<br>`
       texte += mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 }, objets)

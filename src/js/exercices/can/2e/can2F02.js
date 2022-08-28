@@ -13,6 +13,8 @@ export const interactifType = 'mathLive'
  * Référence can2F02
  * Date de publication septembre 2021
 */
+export const uuid = '8b3a9'
+export const ref = 'can2F02'
 export default function CalculImageQuotient () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

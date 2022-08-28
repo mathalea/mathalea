@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, calcul, creerNomDePolygone, lettreDepuisChiffre, nombreAvecEspace, range1 } from '../../modules/outils.js'
-import { codageSegments, point, pointIntersectionDD, longueur, pointAdistance, droite, droiteParPointEtPerpendiculaire, segmentAvecExtremites, polygoneAvecNom, cercle, pointIntersectionLC, pointIntersectionCC, traceCompas, dansLaCibleRonde, cibleRonde, rotation, similitude, codageAngleDroit, afficheLongueurSegment, afficheMesureAngle, codageAngle, texteParPoint, angle, mathalea2d } from '../../modules/2d.js'
+import { codageSegments, point, pointIntersectionDD, longueur, pointAdistance, droite, droiteParPointEtPerpendiculaire, segmentAvecExtremites, polygoneAvecNom, cercle, pointIntersectionLC, pointIntersectionCC, traceCompas, dansLaCibleRonde, cibleRonde, rotation, similitude, codageAngleDroit, afficheLongueurSegment, afficheMesureAngle, codageAngle, texteParPoint, angle } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
 /**

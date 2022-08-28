@@ -12,6 +12,8 @@ export const amcType = 'AMCNum'
  * Référence
  * Date de publication
 */
+export const uuid = 'bdb11'
+export const ref = 'canc3C03'
 export default function TableMultiplicationTrous () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, texNombrec, lettreMinusculeDepuisChiffre, texNombre, miseEnEvidence, premierMultipleInferieur, premierMultipleSuperieur } from '../../modules/outils.js'
-import { mathalea2d, repere, courbe } from '../../modules/2d.js'
+import { repere, courbe } from '../../modules/2d.js'
 import { calcule } from '../../modules/fonctionsMaths.js'
 
 export const titre = 'Trouver l\'équation d\'une parabole'
@@ -13,6 +14,8 @@ export const titre = 'Trouver l\'équation d\'une parabole'
  * 3) connaissant les deux racines et un autre point de passage à coordonnées entières
  * référence 1E12
  */
+export const uuid = '392b3'
+export const ref = '1E12'
 export default function TrouverEquationParabole () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

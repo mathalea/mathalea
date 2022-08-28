@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { mathalea2d, mediatrice, point, segment } from '../../modules/2d.js'
+import { mediatrice, point, segment } from '../../modules/2d.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 
 export const titre = 'Exo zéro Mathalea2d'
 

@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, calcul, choisitLettresDifferentes, lettreDepuisChiffre } from '../../modules/outils.js'
-import { point, tracePoint, pointAdistance, labelPoint, droite, droiteParPointEtPerpendiculaire, codageMediatrice, segmentAvecExtremites, cercle, pointIntersectionLC, dansLaCibleCarree, cibleCarree, homothetie, similitude, texteParPoint, mathalea2d, positionLabelDroite, fixeBordures, norme, translation, vecteur, symetrieAxiale, colorToLatexOrHTML } from '../../modules/2d.js'
+import { point, tracePoint, pointAdistance, labelPoint, droite, droiteParPointEtPerpendiculaire, codageMediatrice, segmentAvecExtremites, cercle, pointIntersectionLC, dansLaCibleCarree, cibleCarree, homothetie, similitude, texteParPoint, positionLabelDroite, norme, translation, vecteur, symetrieAxiale } from '../../modules/2d.js'
 export const titre = 'Construire des médiatrices avec cible auto-corrective'
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -10,6 +11,8 @@ export const amcType = 'AMCOpen'
  * @author Jean-Claude Lhote (Ajout AMC par Eric Elter)
  * Publié le 30/11/2020
  */
+export const uuid = 'd7052'
+export const ref = '6G25'
 export default function ConstruireMediatrices6e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -66,9 +69,7 @@ export default function ConstruireMediatrices6e () {
 
     const cellule = celluleAlea(6)
     result = dansLaCibleCarree(I.x, I.y, 6, 0.6, cellule)
-    const cible = cibleCarree({ x: result[0], y: result[1], rang: 6, taille: 0.6 })
-    cible.taille = 0.6
-    cible.color = colorToLatexOrHTML('orange')
+    const cible = cibleCarree({ x: result[0], y: result[1], rang: 6, taille: 0.6, color: '#f15929' })
     cible.opacite = 0.7
 
     objetsEnonce.push(cible, sA, sB, nomA1, nomA2, nomB1, nomB2)

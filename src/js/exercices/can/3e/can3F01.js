@@ -1,7 +1,8 @@
-import { courbeSpline, mathalea2d, repere } from '../../../modules/2d.js'
+import { courbeSpline, repere } from '../../../modules/2d.js'
 import { splineCatmullRom } from '../../../modules/fonctionsMaths.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -12,6 +13,8 @@ export const titre = 'Lire une image graphiquement'
   * Créé pendant l'été 2021
  * Référence can3F01
 */
+export const uuid = '966a6'
+export const ref = 'can3F01'
 export default function ImageSpline () {
   Exercice.call(this)
   this.typeExercice = 'simple'
@@ -25,7 +28,7 @@ export default function ImageSpline () {
     }
     const f = splineCatmullRom({ tabY: Y, x0: -6, step: 1 })
     const r = repere({ xMin: -7, xMax: 7, yMin: -6, yMax: 6 })
-    const c = courbeSpline(f, { repere: r, step: 0.1, color: 'red', xMin: -6, xMax: 6, traceNoeuds: true })
+    const c = courbeSpline(f, { repere: r, step: 0.1, color: 'red', xMin: -6, xMax: 6 })
     this.reponse = f.image(X)
     this.question = `Quelle est l'image de $${X}$ ?<br>${mathalea2d({ xmin: -7, xmax: 7, ymin: -6, ymax: 6, pixelsParCm: 17, style: 'margin: auto' }, r, c)}`
     this.correction = `Pour lire l'image de $${X}$, on place la valeur de $${X}$ sur l'axe des abscisses (axe de lecture  des antécédents) et on lit 

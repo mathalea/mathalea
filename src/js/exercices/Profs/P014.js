@@ -1,6 +1,7 @@
-import { courbeSpline, mathalea2d, point, repere, tracePoint } from '../../modules/2d.js'
+import { courbeSpline, point, repere, tracePoint } from '../../modules/2d.js'
 import { splineCatmullRom } from '../../modules/fonctionsMaths.js'
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 export const titre = 'Interpollation de Catmull-Rom'
 
 /**

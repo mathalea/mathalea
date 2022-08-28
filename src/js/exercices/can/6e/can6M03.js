@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6M03
  */
+export const uuid = 'd52aa'
+export const ref = 'can6M03'
 export default function ConvertirEnM () {
   Exercice.call(this)
   this.typeExercice = 'simple'

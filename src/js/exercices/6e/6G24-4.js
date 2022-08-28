@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, contraindreValeur, randint, choice, shuffle } from '../../modules/outils.js'
-import { colorToLatexOrHTML, droite, longueur, mathalea2d, papierPointe, point, symetrieAxiale, tracePoint } from '../../modules/2d.js'
+import { droite, longueur, papierPointe, point, symetrieAxiale, tracePoint } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 export const titre = 'Compléter un nuage de points symétriques'
@@ -16,6 +17,8 @@ export const amcType = 'AMCOpenNum'
  * @author Jean-Claude Lhote
  * Publié le 18/12/2021
  */
+export const uuid = '07f8a'
+export const ref = '6G24-4'
 export default function CompleterParSymetrie6e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

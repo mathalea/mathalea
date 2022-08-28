@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import { randint, texFraction, miseEnEvidence, abs, ecritureAlgebrique, texFractionReduite, egal, calcul, texteCentre } from '../../../modules/outils.js'
-import { mathalea2d, repere, texteParPosition, segment, droite, colorToLatexOrHTML } from '../../../modules/2d.js'
+import { repere, texteParPosition, segment, droite } from '../../../modules/2d.js'
 export const titre = 'Lire graphiquement une fonction affine*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -14,6 +15,8 @@ export const dateDePublication = '25/10/2021' // La date de publication initiale
  * @author Gilles Mora (2F10-02)
  * Référence
 */
+export const uuid = 'f554f'
+export const ref = 'can3F08'
 export default function LectureGraphiqueFonctionAffine2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

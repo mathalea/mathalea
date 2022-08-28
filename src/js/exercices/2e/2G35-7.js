@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, abs, reduireAxPlusB, texFractionReduite, ecritureAlgebrique, pgcd } from '../../modules/outils.js'
-import { repere, droite, segment, tracePoint, labelPoint, point, mathalea2d, colorToLatexOrHTML } from '../../modules/2d.js'
+import { repere, droite, segment, tracePoint, labelPoint, point } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -14,6 +15,8 @@ export const amcType = 'AMCHybride'
  2G35-7, ex 2G50-2
 
 */
+export const uuid = '41e6f'
+export const ref = '2G35-7'
 export default function lecturegraphiquedeaetb (numeroExercice) {
   Exercice.call(this)
 
@@ -83,8 +86,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           s2.epaisseur = 4
           const A = point(0, b, 'A')
           t = tracePoint(A, 'blue') // Variable qui trace les points avec une croix
-          l = labelPoint(A)// Variable qui trace les nom s A et B
-          l.color = colorToLatexOrHTML('blue')
+          l = labelPoint(A, 'blue')// Variable qui trace les nom s A et B
           if (a !== 0) {
             texteCorr += mathalea2d({
               xmin: -8,
@@ -102,8 +104,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           s2.epaisseur = 4
           const A = point(0, b, 'A')
           t = tracePoint(A, 'blue') // Variable qui trace les points avec une croix
-          l = labelPoint(A)// Variable qui trace les nom s A et B
-          l.color = colorToLatexOrHTML('blue')
+          l = labelPoint(A, 'blue')// Variable qui trace les nom s A et B
           if (a !== 0) {
             texteCorr += mathalea2d({
               xmin: -8,
@@ -227,8 +228,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           s2.epaisseur = 4
           const A = point(0, b, 'A')
           t = tracePoint(A, 'red') // Variable qui trace les points avec une croix
-          l = labelPoint(A)// Variable qui trace les nom s A et B
-          l.color = colorToLatexOrHTML('red')
+          l = labelPoint(A, 'red')// Variable qui trace les nom s A et B
           if (a !== 0) {
             texteCorr += mathalea2d({
               xmin: -6,

@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, texteEnCouleur } from '../../modules/outils.js'
-import { mathalea2d } from '../../modules/2d.js'
+
 import { barre3d, cube3d, paveLPH3d, plaque3d } from '../../modules/3d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -11,6 +12,8 @@ export const amcReady = true
 export const interactifType = 'mathLive'
 export const amcType = 'AMCNum'
 
+export const uuid = '0d4be'
+export const ref = '6M30-0'
 export default function VolumesPavesParDenombrement () {
   Exercice.call(this)
   this.nbQuestions = 1 // Ici le nombre de questions

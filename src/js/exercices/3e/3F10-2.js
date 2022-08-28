@@ -16,6 +16,8 @@ export const titre = 'Fonction : calculs d\'images (et d\'antécédents)'
 * @author Jean-Claude Lhote
 * 3F10-1
 */
+export const uuid = 'ba520'
+export const ref = '3F10-2'
 export default function CalculsImagesFonctions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 2

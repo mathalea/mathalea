@@ -1,9 +1,11 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, contraindreValeur, combinaisonListes, arrondi, numAlpha, choice, compteOccurences, rangeMinMax, entreDeux } from '../../modules/outils.js'
-import { afficherTempo, arc, cacherTempo, codageSegment, colorToLatexOrHTML, droite, droiteParPointEtPente, homothetie, longueur, mathalea2d, milieu, ObjetMathalea2D, point, pointIntersectionDD, pointSurSegment, polygone, projectionOrtho, rotation, segment, translation, vecteur } from '../../modules/2d.js'
+import { arc, codageSegment, droite, droiteParPointEtPente, homothetie, longueur, milieu, point, pointIntersectionDD, pointSurSegment, polygone, projectionOrtho, rotation, segment, translation, vecteur } from '../../modules/2d.js'
 import { min, max } from 'mathjs'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { context } from '../../modules/context.js'
+import { afficherTempo, cacherTempo } from '../../modules/2dAnimation.js'
 export const dateDePublication = '08/06/2022'
 export const titre = 'Comparer périmètres et/ou aires de figures'
 export const interactifReady = true
@@ -16,7 +18,7 @@ export const interactifType = 'qcm'
  * Publié le 08/06/2022
  */
 function TranslationPuisRotationAnimee (numId, figure1, v, figure2, O, angle, t1 = 5, t2 = 2) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.svg = function (coeff) {
     afficherTempo(figure2, t1, t1 + t2, 1)
     let code = '<g> '
@@ -64,6 +66,8 @@ function translationPuisRotationAnimees (...args) {
   return new TranslationPuisRotationAnimee(...args)
 }
 
+export const uuid = '95313'
+export const ref = '6M21'
 export default function compareAireEtPerimetreAvecRectangle () {
   Exercice.call(this)
   this.titre = titre
@@ -94,7 +98,7 @@ export default function compareAireEtPerimetreAvecRectangle () {
 
     typesDeProblemes = combinaisonListes(typesDeProblemes, this.nbQuestions)
 
-    const color = combinaisonListes(['red', 'blue', 'green', 'gray', 'pink', 'orange'], this.nbQuestions)
+    const color = combinaisonListes(['red', 'blue', 'green', 'gray', 'pink', '#f15929'], this.nbQuestions)
 
     let aireOuPerimetre = 'Les deux'
     if (this.sup2 === 1) aireOuPerimetre = 'Perimetre'

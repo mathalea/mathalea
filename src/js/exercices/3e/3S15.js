@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, ecritureParentheseSiNegatif, prenom, listeDeNotes, unMoisDeTemperature, nomDuMois, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, ecritureParentheseSiNegatif, prenom, listeDeNotes, unMoisDeTemperature, nomDuMois, texNombre, sp, miseEnEvidence } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Calculer des étendues'
@@ -11,6 +11,8 @@ export const interactifType = 'mathLive'
 * @author Jean-Claude Lhote
 * Référence 3S15
 */
+export const uuid = '36e68'
+export const ref = '3S15'
 export default function CalculerEtendues () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -60,7 +62,7 @@ export default function CalculerEtendues () {
         for (let j = 0; j < Math.round(temperatures.length / 2); j++) { texte += '|c' }
         texte += '}\\hline  \\text{Jour}'
         for (let j = 0; j < Math.round(temperatures.length / 2); j++) { texte += '&' + texNombre(j + 1) }
-        texte += '\\\\\\hline \\text{Température\\thickspace en} \\thickspace ^\\circ\\text{C}'
+        texte += '\\\\\\hline \\text{Température en}  ^\\circ\\text{C}'
         for (let j = 0; j < Math.round(temperatures.length / 2); j++) { // on cherche le minimum et le maximum
           texte += '&' + temperatures[j]
           min = Math.min(temperatures[j], min)
@@ -73,7 +75,7 @@ export default function CalculerEtendues () {
         for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++) { texte += '|c' }
         texte += '}\\hline  \\text{Jour}'
         for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++) { texte += '&' + texNombre(j + 1) }
-        texte += '\\\\\\hline \\text{Température\\thickspace en} \\thickspace ^\\circ\\text{C}'
+        texte += '\\\\\\hline \\text{Température en}  ^\\circ\\text{C}'
         for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++) { // on cherche le minimum et le maximum
           texte += '&' + temperatures[j]
           min = Math.min(temperatures[j], min)
@@ -82,10 +84,10 @@ export default function CalculerEtendues () {
         texte += '\\\\\\hline\\end{array}$<br><br>'
 
         texte += 'Calculer l\'amplitude thermique de ce mois (l\'étendue de la série).'
-        texteCorr = `En ${nomDuMois(mois)} ${annee}, la température minimale est ` + `$${min}^\\circ\\text{C}$.<br>La température maximale est $${max}^\\circ\\text{C}$.<br> L'amplitude thermique est :<br>`
-        texteCorr += `$${texNombre(max)}-${ecritureParentheseSiNegatif(min)}$`
-        if (min < 0) { texteCorr += `$\\thickspace~=${texNombre(max)}+${texNombre(-min)}$` }
-        texteCorr += `$\\thickspace=${texNombre(max - min)}^\\circ\\text{C}$`
+        texteCorr = `En ${nomDuMois(mois)} ${annee}, la température minimale est ` + `$${min}^\\circ\\text{C}$.<br>La température maximale est $${max}^\\circ\\text{C}$.<br> L'amplitude thermique est : `
+        texteCorr += `$${texNombre(max)}^\\circ\\text{C}-${ecritureParentheseSiNegatif(min)}^\\circ\\text{C}$`
+        if (min < 0) { texteCorr += `$${sp(2)}=${texNombre(max)}^\\circ\\text{C}+${texNombre(-min)}^\\circ\\text{C}$` }
+        texteCorr += `$${sp(2)}=${miseEnEvidence(texNombre(max - min) + '^\\circ\\text{C}')}$.`
       }
       setReponse(this, i, max - min)
       texte += ajouteChampTexteMathLive(this, i)

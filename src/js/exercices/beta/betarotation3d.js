@@ -1,5 +1,6 @@
 import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2d.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
+
 import { point3d, polygone3d, rotation3d, droite3d } from '../../modules/3d.js'
 import { texcolors } from '../../modules/outils.js'
 

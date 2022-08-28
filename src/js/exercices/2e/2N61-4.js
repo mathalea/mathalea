@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { mathalea2d, tableauDeVariation } from '../../modules/2d.js'
+import { tableauDeVariation } from '../../modules/2d.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite, miseEnEvidence, texFraction, texSymbole } from '../../modules/outils.js'
 
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -23,6 +24,8 @@ export const titre = 'Résoudre une inéquation quotient'
  * 2N61-4, ex 2L14-2
  * 17/07/2021
  */
+export const uuid = '0716b'
+export const ref = '2N61-4'
 export default function ExerciceInequationQuotient () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.spacing = 2 // Espace entre deux lignes
@@ -53,7 +56,7 @@ export default function ExerciceInequationQuotient () {
     let correctionInteractifDroite // Pour récupérer l'intervalle solution à saisir dans certains cas
     let correctionInteractifGauche // Pour récupérer l'intervalle solution à saisir dans certains cas
     if (this.interactif && !context.isAmc) {
-      this.consigne = `${debutConsigne}<br> Saisir uniquement l'intervalle dans le champ de réponse<br>Taper 'union' pour faire apparaitre $\\bigcup$, 'inf' pour $\\infty$ et 'sauf' pour $\\backslash\\{\\}$`
+      this.consigne = `${debutConsigne}<br> Saisir uniquement l'intervalle dans le champ de réponse<br>Taper 'union' pour faire apparaître $\\bigcup$, 'inf' pour $\\infty$ et 'sauf' pour $\\backslash\\{\\}$`
     } else {
       this.consigne = debutConsigne
     }

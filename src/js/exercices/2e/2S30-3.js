@@ -7,6 +7,8 @@ export const titre = 'Calculer des probabilités simples'
  *
  * @author Sébastien LOZANO
  */
+export const uuid = '0cf54'
+export const ref = '2S30-3'
 export default function ProbabilitesSimples2nde () {
   ProbabilitesSimples.call(this)
 }

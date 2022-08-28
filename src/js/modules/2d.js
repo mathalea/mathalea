@@ -4,102 +4,10 @@ import { context } from './context.js'
 import { fraction, Fraction, max, ceil, isNumeric, floor, random, round, abs } from 'mathjs'
 import earcut from 'earcut'
 import FractionX from './FractionEtendue.js'
+import Decimal from 'decimal.js'
+import { colorToLatexOrHTML, ObjetMathalea2D, vide2d } from './2dGeneralites.js'
+import { apparitionAnimee, translationAnimee } from './2dAnimation.js'
 
-/*
-  MathALEA2D
- @name      mathalea2d.js
- @author    Rémi Angot et Jean-Claude Lhote
- @license   MIT License - CC-BY-SA
- @homepage  https://coopmaths.fr/mathalea2d.html
- */
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%% OBJET PARENT %%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-*/
-
-let numId = 0 // Créer un identifiant numérique unique par objet SVG
-
-/*
- * Classe parente de tous les objets de MathALEA2D
- *
- * @author Rémi Angot
- */
-export function ObjetMathalea2D () {
-  this.positionLabel = 'above'
-  this.isVisible = true
-  this.color = colorToLatexOrHTML('black')
-  this.style = '' // stroke-dasharray="4 3" pour des hachures //stroke-width="2" pour un trait plus épais
-  // this.styleTikz = ''
-  this.epaisseur = 1
-  this.opacite = 1
-  this.pointilles = ''
-  this.id = numId
-  numId++
-  context.objets2D.push(this)
-}
-
-class Vide2d {
-  constructor (x, y) {
-    this.bordures = [x, y, x, y]
-    this.tikz = function () {
-      return ''
-    }
-    this.svg = function () {
-      return ''
-    }
-  }
-}
-export function vide2d (x = 0, y = 0) {
-  return new Vide2d(x, y)
-}
-/**
- *
- * @param {url} url de l'image
- * @param {number} x tous ces nombres sont en pixels
- * @param {number} y Attention à l'orientation de l'axe SVG
- * @param {number} largeur
- * @param {number} hauteur
- */
-function FondEcran (url, x, y, largeur, hauteur) {
-  ObjetMathalea2D.call(this)
-  this.svg = function (coeff) {
-    return `<image xlink:href="${url}" x="${x}" y="${y}" height="${hauteur}" width="${largeur}" />`
-  }
-  this.tikz = function () {
-    return `\\node[inner sep=0pt] at (${x},${y})
-    {\\includegraphics[width= 15 cm]{${url}};`
-  }
-}
-
-export function fondEcran (url, x = 0, y = 0, largeur = context.fenetreMathalea2d.xMax - context.fenetreMathalea2d.xMin, hauteur = context.fenetreMathalea2d.yMax - context.fenetreMathalea2d.yMin) {
-  return new FondEcran(url, x, y, largeur, hauteur)
-}
-/**
- * fork de https://javascript.developpez.com/actu/94357/JavaScript-moins-Realiser-une-copie-parfaite-d-objet/
- * Ne fonctionne pas complètement : ne copie pas les méthodes svg et tikz...
- * @param {ObjetMathalea2D} originalObject
- * @returns {object} copie de cet objet.
- */
-export function clone (obj) {
-  if (obj === null || typeof obj !== 'object') return obj
-  if (obj instanceof Array) {
-    const copy = []
-    for (let i = 0, len = obj.length; i < len; i++) {
-      copy[i] = clone(obj[i])
-    }
-    return copy
-  }
-  if (obj instanceof Object) {
-    const copy = {}
-    for (const attr in obj) {
-      if (Object.prototype.hasOwnProperty.call(obj, attr)) copy[attr] = clone(obj[attr])
-    }
-    return copy
-  }
-  throw new Error('Unable to copy obj this object.')
-}
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%% LES POINTS %%%%%%%%%%%%%%
@@ -111,13 +19,12 @@ export function clone (obj) {
  * A = point(x,y) //ses coordonnées
  * A = point(x,y,'A') //ses coordonnées et son nom
  * A = point(x,y,'A',below') //ses coordonnées,son nom et la position de son label
- *
  * @author Rémi Angot
+ * @class
  */
 function Point (arg1, arg2, arg3, positionLabel = 'above') {
   this.typeObjet = 'point'
-  numId++
-  this.id = numId
+  ObjetMathalea2D.call(this, { classe: false })
   if (arguments.length === 1) {
     this.nom = arg1
   } else if (arguments.length === 2) {
@@ -142,31 +49,35 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
     this.nom = ' ' // Le nom d'un point est par défaut un espace
     // On pourra chercher tous les objets qui ont ce nom pour les nommer automatiquement
   }
+
   /**
- * Permet de déterminer si le point sur lequel la méthode est appliquée appartient au polygone passé en argument
- * fonctionne avec tout type de polygone
- * la fonction utilise une triangulation du polygone réalisée par la librairie earcut Copyright (c) 2016, Mapbox.
- *
- * @param {Polygone} lePolygone
- * @return {boolean} true si le Point est à l'intérieur de lePolygone
- * @author Jean-Claude Lhote
- */
-  this.estDansPolygoneNonConvexe = function (lePolygone) {
-    const listeTriangles = earcut(polygoneToFlatArray(lePolygone))
+   * Teste l'appartenance d'un point à tout type de polygone (non convexe ou convexe). Pour info, la fonction utilise une triangulation du polygone réalisée par la librairie earcut Copyright (c) 2016, Mapbox.
+   * @memberof Point
+   * @param {Polygone} p Polygone dont on veut tester l'appartenance avec le point
+   * @example M.estDansPolygone(p1) // Renvoie true si M appartient au polygone p1, false sinon
+   * @author Jean-Claude Lhote
+   * @return {boolean}
+   */
+  // JSDOC Validee par EE Aout 2022
+  this.estDansPolygone = function (p) {
+    const listeTriangles = earcut(polygoneToFlatArray(p))
     for (let i = 0; i < listeTriangles.length; i += 3) {
-      if (this.estDansTriangle(lePolygone.listePoints[listeTriangles[i]], lePolygone.listePoints[listeTriangles[i + 1]], lePolygone.listePoints[listeTriangles[i + 2]])) return true
+      if (this.estDansTriangle(p.listePoints[listeTriangles[i]], p.listePoints[listeTriangles[i + 1]], p.listePoints[listeTriangles[i + 2]])) return true
     }
     return false
   }
 
   /**
- * fonction qui teste l'appartenance à un triangle
- * @param {Point} A
- * @param {Point} B
- * @param {Point} C
- * @returns true si le point est dans le triangle ABC
- * @author Eric Elter et Jean-Claude Lhote
- */
+   * Teste l'appartenance d'un point dans un triangle
+   * @memberof Point
+   * @param {Point} A Premier sommet du triangle
+   * @param {Point} B Deuxième sommet du triangle
+   * @param {Point} C Troisième sommet du triangle
+   * @example M.estDansTriangle(V, S, T) // Renvoie true si M appartient au triangle VST, false sinon
+   * @author Eric Elter
+   * @return {boolean}
+   */
+  // JSDOC Validee par EE Aout 2022
   this.estDansTriangle = function (A, B, C) {
     const vMA = vecteur(this, A)
     const vMB = vecteur(this, B)
@@ -176,37 +87,54 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
     const x3 = vMA.x * vMB.y - vMA.y * vMB.x
     return (superieurouegal(x1, 0) && superieurouegal(x2, 0) && superieurouegal(x3, 0)) || (inferieurouegal(x1, 0) && inferieurouegal(x2, 0) && inferieurouegal(x3, 0))
   }
+
   /**
-   * fonction qui teste l'appartenance à un polygone convexe
-   * @param {Polygone} P
-   * @returns true si le point appartient au polygone
+   * Teste l'appartenance d'un point à un polygone convexe
+   * @memberof Point
+   * @param {Polygone} p Polygone dont on veut tester l'appartenance avec le point
+   * @example M.estDansPolygoneConvexe(p1) // Renvoie true si M appartient au polygone convexe p1, false sinon
    * @author Jean-Claude Lhote
+   * @return {boolean}
    */
-  this.estDansPolygoneConvexe = function (P) {
-    const l = P.listePoints.length
+  // JSDOC Validee par EE Aout 2022
+  this.estDansPolygoneConvexe = function (p) {
+    const l = p.listePoints.length
     if (l === 3) {
-      return this.estDansTriangle(...P.listePoints)
+      return this.estDansTriangle(...p.listePoints)
     } else {
-      const A = P.listePoints[0]
-      const B = P.listePoints[1]
-      const C = P.listePoints[l - 1]
-      const P2 = polygone(...P.listePoints.slice(1))
+      const A = p.listePoints[0]
+      const B = p.listePoints[1]
+      const C = p.listePoints[l - 1]
+      const p2 = polygone(...p.listePoints.slice(1))
       if (this.estDansTriangle(A, B, C)) return true
-      else return this.estDansPolygoneConvexe(P2)
+      else return this.estDansPolygoneConvexe(p2)
     }
   }
+
   /**
- * @author Eric Elter
- * @returns {boolean}
- */
+   * Teste l'appartenance d'un point dans un quadrilatère
+   * @memberof Point
+   * @param {Point} A Premier sommet du quadrilatère
+   * @param {Point} B Deuxième sommet du quadrilatère
+   * @param {Point} C Troisième sommet du quadrilatère
+   * @param {Point} D Quatrième sommet du quadrilatère
+   * @example M.estDansQuadrilatere(F, G, H, I) // Renvoie true si M appartient au quadrilatère FGHI, false sinon
+   * @author Eric Elter
+   * @return {boolean}
+   */
+  // JSDOC Validee par EE Aout 2022
   this.estDansQuadrilatere = function (A, B, C, D) {
     return this.estDansTriangle(A, B, C) || this.estDansTriangle(A, C, D)
   }
+
   /**
- *
- * @param {Segment | Cercle | Droite | DemiDroite} objet
- * @returns {boolean} true si le point est sur l'objet
- */
+   * Teste l'appartenance d'un point sur un segment, un cercle, une droite ou une demi-droite
+   * @memberof Point
+   * @param {Segment | Cercle | Droite | DemiDroite} objet Objet géométrique dont on veut tester si le point en fait partie
+   * @example M.estSur(s) // Renvoie true si M appartient au segment s (au préalablement défini), false sinon
+   * @return {boolean}
+   */
+  // JSDOC Validee par EE Aout 2022
   this.estSur = function (objet) {
     if (objet instanceof Droite) return (egal(objet.a * this.x + objet.b * this.y + objet.c, 0, 0.000001))
     if (objet instanceof Segment) {
@@ -230,11 +158,11 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
  * @param {number} x abscisse
  * @param {number} y ordonnée
  * @param {string} A son nom qui apparaîtra
- * @param {string} labelPosition Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
- * @returns {Point}
+ * @param {string} positionLabel Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
+ * @return {Point}
  */
-export function point (x, y, A, labelPosition = 'above') {
-  return new Point(x, y, A, labelPosition)
+export function point (x, y, A, positionLabel = 'above') {
+  return new Point(x, y, A, positionLabel)
 }
 /**
  * @author Jean-Claude Lhote
@@ -243,7 +171,7 @@ export function point (x, y, A, labelPosition = 'above') {
  * @param {object} param2 permet de définir le rayon du 'plot', sa couleur, sa couleur de remplissage
  */
 function Plot (x, y, { rayon = 0.05, couleur = 'black', couleurDeRemplissage = 'black', opacite = 1, opaciteDeRemplissage = 1 } = {}) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   if (isNaN(x) || isNaN(y)) window.notify('Plot : les coordonnées ne sont pas valides', { x, y })
   this.color = colorToLatexOrHTML(couleur) // EE : 08/05/2022
   this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
@@ -299,7 +227,7 @@ export function plot (x, y, { rayon = 0.05, couleur = 'black', couleurDeRempliss
  * @author Rémi Angot et Jean-Claude Lhote
  */
 function TracePoint (...points) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.taille = 3
   this.tailleTikz = this.taille / 30
   this.epaisseur = 1
@@ -311,7 +239,7 @@ function TracePoint (...points) {
   let ymax = -1000
   let lePoint
   if (typeof points[points.length - 1] === 'string') {
-    this.color = points[points.length - 1]
+    this.color = colorToLatexOrHTML(points[points.length - 1])
     points.length--
   } else this.color = colorToLatexOrHTML('black')
   for (const unPoint of points) {
@@ -334,9 +262,9 @@ function TracePoint (...points) {
       if (A.constructor === Point) {
         if (this.style === 'x') {
           s1 = segment(point(A.x - this.taille / coeff, A.y + this.taille / coeff),
-            point(A.x + this.taille / coeff, A.y - this.taille / coeff), this.color)
+            point(A.x + this.taille / coeff, A.y - this.taille / coeff), this.color[0])
           s2 = segment(point(A.x - this.taille / coeff, A.y - this.taille / coeff),
-            point(A.x + this.taille / coeff, A.y + this.taille / coeff), this.color)
+            point(A.x + this.taille / coeff, A.y + this.taille / coeff), this.color[0])
           s1.epaisseur = this.epaisseur
           s2.epaisseur = this.epaisseur
           s1.opacite = this.opacite
@@ -346,28 +274,28 @@ function TracePoint (...points) {
           s2.isVisible = false
         } else if (this.style === 'o') {
           p1 = point(A.x, A.y)
-          c = cercle(p1, this.taille / coeff, this.color)
+          c = cercle(p1, this.taille / coeff, this.color[0])
           c.isVisible = false
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
-          c.couleurDeRemplissage = colorToLatexOrHTML(this.color)[0]
+          c.couleurDeRemplissage = this.color[0]
           c.opaciteDeRemplissage = this.opacite / 2
           objetssvg.push(c)
         } else if (this.style === '#') {
           p1 = point(A.x - this.taille / coeff, A.y - this.taille / coeff)
           p2 = point(A.x + this.taille / coeff, A.y - this.taille / coeff)
-          c = carre(p1, p2, this.color)
+          c = carre(p1, p2, this.color[0])
           c.isVisible = false
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
-          c.couleurDeRemplissage = colorToLatexOrHTML(this.color)[0]
+          c.couleurDeRemplissage = this.color[0]
           c.opaciteDeRemplissage = this.opacite / 2
           objetssvg.push(c)
         } else if (this.style === '+') {
           s1 = segment(point(A.x, A.y + this.taille / coeff),
-            point(A.x, A.y - this.taille / coeff), this.color)
+            point(A.x, A.y - this.taille / coeff), this.color[0])
           s2 = segment(point(A.x - this.taille / coeff, A.y),
-            point(A.x + this.taille / coeff, A.y), this.color)
+            point(A.x + this.taille / coeff, A.y), this.color[0])
           s1.epaisseur = this.epaisseur
           s2.epaisseur = this.epaisseur
           s1.opacite = this.opacite
@@ -375,12 +303,12 @@ function TracePoint (...points) {
           objetssvg.push(s1, s2)
         } else if (this.style === '|') {
           s1 = segment(point(A.x, A.y + this.taille / coeff),
-            point(A.x, A.y - this.taille / coeff), this.color)
+            point(A.x, A.y - this.taille / coeff), this.color[0])
           s1.epaisseur = this.epaisseur
           s1.opacite = this.opacite
           objetssvg.push(s1)
         } else if (this.style === '.') {
-          s1 = plot(A.x, A.y, { couleur: this.color, rayon: this.epaisseur * 0.05, couleurDeRemplissage: this.color })
+          s1 = plot(A.x, A.y, { couleur: this.color[0], rayon: this.epaisseur * 0.05, couleurDeRemplissage: this.color[0] })
         }
       }
     }
@@ -403,9 +331,9 @@ function TracePoint (...points) {
       if (A.constructor === Point) {
         if (this.style === 'x') {
           s1 = segment(point(A.x - this.tailleTikz, A.y + this.tailleTikz),
-            point(A.x + this.tailleTikz, A.y - this.tailleTikz), this.color)
+            point(A.x + this.tailleTikz, A.y - this.tailleTikz), this.color[1])
           s2 = segment(point(A.x - this.tailleTikz, A.y - this.tailleTikz),
-            point(A.x + this.tailleTikz, A.y + this.tailleTikz), this.color)
+            point(A.x + this.tailleTikz, A.y + this.tailleTikz), this.color[1])
           s1.epaisseur = this.epaisseur
           s2.epaisseur = this.epaisseur
           s1.opacite = this.opacite
@@ -413,26 +341,26 @@ function TracePoint (...points) {
           objetstikz.push(s1, s2)
         } else if (this.style === 'o') {
           p1 = point(A.x, A.y)
-          c = cercle(p1, this.tailleTikz, this.color)
+          c = cercle(p1, this.tailleTikz, this.color[1])
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
-          c.couleurDeRemplissage = colorToLatexOrHTML(this.color)[1]
+          c.couleurDeRemplissage = this.color[1]
           c.opaciteDeRemplissage = this.opacite / 2
           objetstikz.push(c)
         } else if (this.style === '#') {
           p1 = point(A.x - this.tailleTikz, A.y - this.tailleTikz)
           p2 = point(A.x + this.tailleTikz, A.y - this.tailleTikz)
-          c = carre(p2, p1, this.color)
+          c = carre(p2, p1, this.color[1])
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
-          c.couleurDeRemplissage = colorToLatexOrHTML(this.color)[1]
+          c.couleurDeRemplissage = this.color[1]
           c.opaciteDeRemplissage = this.opacite / 2
           objetstikz.push(c)
         } else if (this.style === '+') {
           s1 = segment(point(A.x, A.y + this.tailleTikz),
-            point(A.x, A.y - this.tailleTikz), this.color)
+            point(A.x, A.y - this.tailleTikz), this.color[1])
           s2 = segment(point(A.x - this.tailleTikz, A.y),
-            point(A.x + this.tailleTikz, A.y), this.color)
+            point(A.x + this.tailleTikz, A.y), this.color[1])
           s1.epaisseur = this.epaisseur
           s2.epaisseur = this.epaisseur
           s1.opacite = this.opacite
@@ -440,12 +368,12 @@ function TracePoint (...points) {
           objetstikz.push(s1, s2)
         } else if (this.style === '|') {
           s1 = segment(point(A.x, A.y + this.tailleTikz),
-            point(A.x, A.y - this.tailleTikz), this.color)
+            point(A.x, A.y - this.tailleTikz), this.color[1])
           s1.epaisseur = this.epaisseur
           s1.opacite = this.opacite
           objetstikz.push(s1)
         } else if (this.style === '.') {
-          s1 = plot(A.x, A.y, { couleur: this.color, rayon: this.epaisseur * 0.05, couleurDeRemplissage: this.color })
+          s1 = plot(A.x, A.y, { couleur: this.color[1], rayon: this.epaisseur * 0.05, couleurDeRemplissage: this.color[1] })
         }
       }
     }
@@ -458,7 +386,7 @@ function TracePoint (...points) {
 }
 /**
  * @param  {Point} args Points précédemment créés. Si le dernier argument est une chaîne de caractère, définit la couleur des points tracés.
- * @returns  {TracePoint} TracePoint
+ * @return  {TracePoint} TracePoint
  * @example tracePoint(A,B,C,'red) // Trace les points A,B,C précédemment créés en rouge
  * @example tracePoint(A).style = '|' // Le style du point A sera '|' et non 'x' par défaut.
  * @example tracePoint(A).epaisseur = 5 // L'épaisseur du style du point sera 5 et non 1 par défaut.
@@ -475,7 +403,7 @@ export function tracePoint (...args) {
  * @author Rémi Angot et Jean-Claude Lhote
  */
 function TracePointSurDroite (A, O, color = 'black') {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.color = color
   this.lieu = A
   this.taille = 0.2
@@ -632,7 +560,7 @@ export function pointAdistance (...args) {
  * @author Rémi Angot
  */
 function LabelPoint (...points) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   if (!this.taille) this.taille = 10
   if (!this.largeur) this.largeur = 10
   if (typeof points[points.length - 1] === 'string') {
@@ -723,7 +651,7 @@ function LabelPoint (...points) {
  * Nomme les points passés en argument, le nombre d'arguments n'est pas limité.
  * @param  {...any} args Points
  * @param {string} [color='black']
- * @returns {LabelPoint} LabelPoint
+ * @return {LabelPoint} LabelPoint
  * @example labelPoint(A,B,C) // Retourne le nom des points A, B et C en noir
  * @example labelPoint(A,B,C,'red') // Retourne le nom des points A, B et C en rouge
  * @example labelPoint(A,B,C,'#f15929') // Retourne le nom des points A, B et C en orange (code couleur HTML : #f15929)
@@ -739,7 +667,7 @@ export function labelPoint (...args) {
  * @author Rémi Angot et Jean-Claude Lhote
  */
 function LabelLatexPoint ({ points = [], color = 'black', taille = 8, largeur = 10, hauteur = 10, background = '' }) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.taille = taille
   this.largeur = largeur
   this.hauteur = hauteur
@@ -817,7 +745,7 @@ function LabelLatexPoint ({ points = [], color = 'black', taille = 8, largeur = 
  * largeur: la largeur en pixels du label (par défaut 10) a des fins de centrage
  * hauteur: la hauteur en pixels du label à des fins de centrage
  * background: transparent si '' sinon une couleur
- * @returns {LabelLatexPoint} LabelLatexPoint
+ * @return {LabelLatexPoint} LabelLatexPoint
  * @author Rémi Angot et Jean-Claude Lhote
  */
 export function labelLatexPoint ({ points, color = 'black', taille = 8, largeur = 10, hauteur = 10, background = '' }) {
@@ -834,7 +762,7 @@ export function labelLatexPoint ({ points, color = 'black', taille = 8, largeur 
  * @author Jean-Claude Lhote
  * @return {Point}
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function barycentre (p, nom = '', positionLabel = 'above') {
   let sommex = 0
   let sommey = 0
@@ -861,12 +789,39 @@ export function barycentre (p, nom = '', positionLabel = 'above') {
  * d = droite(a,b,c,'(d)') // La droite définie par les coefficients de ax +by + c=0 (équation de la droite (a,b)!==(0,0))
  * d = droite(A,B,'(d)','blue') //La droite passant par A et B se nommant (d) et de couleur bleue
  *
- * @author Jean-Claude Lhote
+ * @author
  */
-function Droite (arg1, arg2, arg3, arg4) {
+
+/**  Trace la demi-droite d'origine A passant par B
+ * @param {Point | number} arg1 Premier point de la droite OU BIEN coefficient a de l'équation de la droite ax+by+c=0
+ * @param {Point | number} arg2 Deuxième point de la droite OU BIEN coefficient b de l'équation de la droite ax+by+c=0
+ * @param {string | number} arg3 Nom affichée de la droite OU BIEN coefficient c de l'équation de la droite ax+by+c=0
+ * @param {string} arg4 Couleur de la droite : du type 'blue' ou du type '#f15929' OU BIEN nom affichée de la droite si arg1 est un nombre
+ * @param {string} arg5 Couleur de la droite : du type 'blue' ou du type '#f15929' si arg1 est un nombre
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml Sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {number} a Coefficient a de l'équation de la droite ax+by+c=0
+ * @property {number} b Coefficient b de l'équation de la droite ax+by+c=0
+ * @property {number} c Coefficient c de l'équation de la droite ax+by+c=0
+ * @property {number} x1 Abscisse de arg1 (si ce point existe)
+ * @property {number} y1 Ordonnée de arg1 (si ce point existe)
+ * @property {number} x2 Abscisse de arg2 (si ce point existe)
+ * @property {number} y2 Ordonnée de arg2 (si ce point existe)
+ * @property {string} nom Nom affichée de la droite
+ * @property {string} color Couleur de la droite. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {Vecteur} normal Vecteur normal de la droite
+ * @property {Vecteur} directeur Vecteur directeur de la droite
+ * @property {number} angleAvecHorizontale Valeur de l'angle orienté entre la droite et l'horizontale
+ * @author Jean-Claude Lhote
+ * @class
+ */
+// JSDOC Validee par EE Aout 2022
+function Droite (arg1, arg2, arg3, arg4, arg5) {
   let a, b, c
 
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   if (arguments.length === 2) {
     if (isNaN(arg1.x) || isNaN(arg1.y) || isNaN(arg2.x) || isNaN(arg2.y)) window.notify('Droite : (attendus : A et B) les arguments de sont pas des points valides', { arg1, arg2 })
     this.nom = ''
@@ -953,6 +908,32 @@ function Droite (arg1, arg2, arg3, arg4) {
       this.c = (this.x1 - this.x2) * this.y1 + (this.y2 - this.y1) * this.x1
       this.nom = arg3
       this.color = colorToLatexOrHTML(arg4)
+    }
+  } else { // arguments.length === 5
+    if (isNaN(arg1) || isNaN(arg2) || isNaN(arg3)) window.notify('Droite : (attendus : a, b, c et "nom") les arguments de sont pas des nombres valides', { arg1, arg2, arg3 })
+    this.a = arg1
+    this.b = arg2
+    this.c = arg3
+    a = arg1
+    b = arg2
+    c = arg3
+    this.nom = arg4
+    this.color = colorToLatexOrHTML(arg5)
+    if (egal(a, 0)) {
+      this.x1 = 0
+      this.x2 = 1
+      this.y1 = -c / b
+      this.y2 = -c / b
+    } else if (egal(b, 0)) {
+      this.y1 = 0
+      this.y2 = 1
+      this.x1 = -c / a
+      this.x2 = -c / a
+    } else {
+      this.x1 = 0
+      this.y1 = -c / b
+      this.x2 = 1
+      this.y2 = (-c - a) / b
     }
   }
   if (this.b !== 0) this.pente = -this.a / this.b
@@ -1109,25 +1090,34 @@ function Droite (arg1, arg2, arg3, arg4) {
     return s.tikzml(amp) + leNom.tikz()
   }
 }
-/**
- * @param  {...any} args Deux points ou les coefficients a, b, c de ax + by + c = 0 où (a,b) !== (0,0)
- * @param {string} nom Facultatif
- * @param {string} color Facultatif
- * @returns {Droite} Droite
- * @example droite(A,B,'(d)') // La droite passant par A et B se nommant (d)
- * @example droite(a,b,c,'(d)') // La droite définie par les coefficients de ax +by + c = 0 (équation de la droite (a,b)!==(0,0))
- * @example droite(A,B,'(d)','blue') // La droite passant par A et B se nommant (d) et de couleur bleue
+
+/**  Trace une droite définie par 2 points OU BIEN par les coefficients de son équation
+ * @param {Point | number} arg1 Premier point de la droite OU BIEN coefficient a de l'équation de la droite ax+by+c=0 avec (a,b)!=(0,0)
+ * @param {Point | number} arg2 Deuxième point de la droite OU BIEN coefficient b de l'équation de la droite ax+by+c=0 avec (a,b)!=(0,0)
+ * @param {string | number} arg3 Nom affichée de la droite OU BIEN coefficient c de l'équation de la droite ax+by+c=0
+ * @param {string} arg4 Couleur de la droite : du type 'blue' ou du type '#f15929' OU BIEN nom affichée de la droite si arg1 est un nombre
+ * @param {string} arg5 Couleur de la droite : du type 'blue' ou du type '#f15929' si arg1 est un nombre
+ * @example droite(M, N, '(d1)') // Trace la droite passant par M et N se nommant (d1) et de couleur noire
+ * @example droite(M, N, '(d1)','blue') // Trace la droite passant par M et N se nommant (d1) et de couleur bleue
+ * @example droite(m, n, p) // Trace la droite définie par les coefficients de mx+ny+p=0 et de couleur noire
+ * @example droite(m, n, p, '(d1)', 'red') // Trace la droite définie par les coefficients de mx+ny+p=0, se nommant (d1) et de couleur rouge
  * @author Jean-Claude Lhote
+ * @return {Droite}
  */
 export function droite (...args) {
   return new Droite(...args)
 }
-/**
- * fonction qui analyse si le point A est au-dessus ou en dessous de la droite d
- * retourne 'sur', 'dessus', 'dessous' ou 'gauche' ou 'droite" si la droite est verticale.
+
+/**  Donne la position du point A par rapport à la droite d
  * @param {droite} d
  * @param {point} A
+ * @param {number} [tolerance = 0.0001] Seuil de tolérance pour évaluer la proximité entre d et A.
+ * @example dessousDessus(d1, M) // Renvoie la position de M par rapport à d1 parmi ces 5 possibilités : 'sur', 'droite', 'gauche', 'dessous', 'dessus'
+ * @example dessousDessus(d1, M, 0.005) // Renvoie la position de M par rapport à d1 parmi ces 5 possibilités : 'sur', 'droite', 'gauche', 'dessous', 'dessus' (avec une tolérance de 0,005)
+ * @return {'sur' | 'droite' | 'gauche' | 'dessous' | 'dessus'}
  */
+// JSDOC Validee par EE Aout 2022
+
 export function dessousDessus (d, A, tolerance = 0.0001) {
   if (egal(d.a * A.x + d.b * A.y + d.c, 0, tolerance)) return 'sur'
   if (egal(d.b, 0)) {
@@ -1140,42 +1130,10 @@ export function dessousDessus (d, A, tolerance = 0.0001) {
 }
 
 /**
- * @param {number} rxmin marge à gauche 0.5 par défaut (peut être fixée à 0 si on veut)
- * @param {number} rxmax marge à droite 0.5 par défaut
- * @param {number} rymin marge en bas 0.5 par défaut (peut être fixée à 0 si on veut)
- * @param {number} rymax marge en haut 0.5 par défaut
- * @param {number} rzoom facteur multiplicatif des marges... implémenté en cas de problème avec le zoom ?
- * @param {object} objets // tableau contenant les objets à afficher
- * Les objets affichables doivent avoir un attribut this.bordures = [xmin, ymin, xmax, ymax] 4 nombres dans cet ordre.
- * Si this.bordures n'est pas défini ou n'est pas un tableau de 4 éléments, l'objet est ignoré
- * Si aucun objet passé en argument n'a de "bordures" alors la fonction retourne une zone inaffichable et un message d'erreur est créé
- * @returns {object} {xmin, ymin, xmax, ymax}
- */
-export function fixeBordures (objets, { rxmin = undefined, rymin = undefined, rxmax = undefined, rymax = undefined, rzoom = 1 } = {}) {
-  let xmin = 1000; let ymin = 1000; let xmax = -1000; let ymax = -1000
-  let bordures = false
-  rxmin = rxmin !== undefined ? rxmin : -0.5
-  rymin = rymin !== undefined ? rymin : -0.5
-  rxmax = rxmax !== undefined ? rxmax : 0.5
-  rymax = rymax !== undefined ? rymax : 0.5
-  for (const objet of objets) {
-    if (Array.isArray(objet.bordures) && objet.bordures.length === 4) {
-      xmin = Math.min(xmin, objet.bordures[0])
-      xmax = Math.max(xmax, objet.bordures[2])
-      ymin = Math.min(ymin, objet.bordures[1])
-      ymax = Math.max(ymax, objet.bordures[3])
-      bordures = true
-    }
-  }
-  if (!bordures) window.notify('fixeBordures : aucun objet ne définit de bordures valides', { ...objets })
-  return { xmin: xmin + rxmin * rzoom, xmax: xmax + rxmax * rzoom, ymin: ymin + rymin * rzoom, ymax: ymax + rymax * rzoom }
-}
-
-/**
  *
  * @param {droite} d
  * @param {number} param1 les bordures de la fenêtre
- * @returns {Point} le point qui servira à placer le label.
+ * @return {Point} le point qui servira à placer le label.
  */
 export function positionLabelDroite (d, { xmin = 0, ymin = 0, xmax = 10, ymax = 10 }) {
   let xLab, yLab
@@ -1215,56 +1173,95 @@ export function positionLabelDroite (d, { xmin = 0, ymin = 0, xmax = 10, ymax = 
   const position = translation(point(xLab, yLab), homothetie(vecteur(d.a, d.b), point(0, 0), 0.5 / norme(vecteur(d.a, d.b))))
   return position
 }
-/**
- * d = droiteParPointEtVecteur(A,v,'d1',red') //Droite passant par A, de vecteur directeur v et de couleur rouge
+
+/**  Trace la droite passant par le point A et de vecteur directeur v
+ * @param {Point} A Point de la droite
+ * @param {Vecteur} v Vecteur directeur de la droite
+ * @param {string} [nom = ''] Nom affichée de la droite
+ * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
+ * @example droiteParPointEtVecteur(M, v1) // Trace la droite passant par le point M et de vecteur directeur v1
+ * @example droiteParPointEtVecteur(M, v1, 'd1', 'red') // Trace, en rouge, la droite d1 passant par le point M et de vecteur directeur v1
  * @author Jean-Claude Lhote
+ * @return {Droite}
  */
+// JSDOC Validee par EE Aout 2022
 export function droiteParPointEtVecteur (A, v, nom = '', color = 'black') {
   const B = point(A.x + v.x, A.y + v.y)
-  return droite(A, B, nom, color)
+  return new Droite(A, B, nom, color)
 }
-/**
- * Trace en color la droite nom parallèle à d passant par A
- * @param {Point} A
- * @param {Droite} d
- * @param {string} [nom=''] Facultatif, vide par défaut
- * @param {string} [color='black'] Facultatif, 'black' par défaut
- * @return {Droite}
- * @example droiteParPointEtParallele(A,d,'d1',red') // Trace en rouge la droite d1 parallèle à la droite d passant par A
+
+/**  Trace la droite parallèle à d passant par le point A
+ * @param {Point} A Point de la droite
+ * @param {Droite} d Droite
+ * @param {string} [nom = ''] Nom affichée de la droite
+ * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
+ * @example droiteParPointEtParallele(M, d2) // Trace la droite parallèle à d2 passant par le point M
+ * @example droiteParPointEtParallele(M, d2, 'd1', 'red') // Trace, en rouge, la droite d1 parallèle à d2 passant par le point M
  * @author Jean-Claude Lhote
+ * @return {droiteParPointEtVecteur}
  */
+// JSDOC Validee par EE Aout 2022
 export function droiteParPointEtParallele (A, d, nom = '', color = 'black') {
   return droiteParPointEtVecteur(A, d.directeur, nom, color)
 }
-/**
- * d = droiteParPointEtPerpendiculaire(A,d,'d1',red') // Trace en rouge la perpendiculaire à la droite (d) passant par A
+
+/**  Trace la droite perpendiculaire à d passant par le point A
+ * @param {Point} A Point de la droite
+ * @param {Droite} d Droite
+ * @param {string} [nom = ''] Nom affichée de la droite
+ * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
+ * @example droiteParPointEtPerpendiculaire(M, d2) // Trace la droite perpendiculaire à d2 passant par le point M
+ * @example droiteParPointEtPerpendiculaire(M, d2, 'd1', 'red') // Trace, en rouge, la droite d1 perpendiculaire à d2 passant par le point M
  * @author Jean-Claude Lhote
+ * @return {droiteParPointEtVecteur}
  */
+// JSDOC Validee par EE Aout 2022
 export function droiteParPointEtPerpendiculaire (A, d, nom = '', color = 'black') {
   return droiteParPointEtVecteur(A, d.normal, nom, color)
 }
-/**
- * d = droiteHorizontaleParPoint(A,'d1',red') // Trace en rouge la droite horizontale passant par A
+
+/**  Trace la droite horizontale passant par le point A
+ * @param {Point} A Point de la droite
+ * @param {string} [nom = ''] Nom affichée de la droite
+ * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
+ * @example droiteHorizontaleParPoint(M) // Trace la droite horizontale passant par le point M
+ * @example droiteHorizontaleParPoint(M, 'd1', 'red') // Trace, en rouge, la droite horizontale d1 passant par le point M
  * @author Jean-Claude Lhote
+ * @return {droiteParPointEtPente}
  */
+// JSDOC Validee par EE Aout 2022
 export function droiteHorizontaleParPoint (A, nom = '', color = 'black') {
   return droiteParPointEtPente(A, 0, nom, color)
 }
-/**
- * d = droiteVerticaleParPoint(A,'d1',red') // Trace en rouge la droite verticale passant par A
+
+/**  Trace la droite verticale passant par le point A
+ * @param {Point} A Point de la droite
+ * @param {string} [nom = ''] Nom affichée de la droite
+ * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
+ * @example droiteVerticaleParPoint(M) // Trace la droite verticale passant par le point M
+ * @example droiteVerticaleParPoint(M, 'd1', 'red') // Trace, en rouge, la droite verticale d1 passant par le point M
  * @author Jean-Claude Lhote
+ * @return {droiteParPointEtVecteur}
  */
-export function droiteVerticaleParPoint (A, nom = '', color) {
+// JSDOC Validee par EE Aout 2022
+export function droiteVerticaleParPoint (A, nom = '', color = 'black') {
   return droiteParPointEtVecteur(A, vecteur(0, 1), nom, color)
 }
 
-/**
- * d = droiteParPointEtPente(A,p,'d1',red') //Droite passant par A, de pente p et de couleur rouge
- *@author Jean-Claude Lhote
+/**  Trace la droite passant par le point A et de pente k
+ * @param {Point} A Point de la droite
+ * @param {number} k Pente de la droite
+ * @param {string} [nom = ''] Nom affichée de la droite
+ * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
+ * @example droiteParPointEtPente(M, p) // Trace la droite passant par le point M et de pente p
+ * @example droiteParPointEtPente(M, p, 'd1', 'red') // Trace, en rouge, la droite d1 passant par le point M et de pente p
+ * @author Jean-Claude Lhote
+ * @return {Droite}
  */
+// JSDOC Validee par EE Aout 2022
 export function droiteParPointEtPente (A, k, nom = '', color = 'black') {
   const B = point(A.x + 1, A.y + k)
-  return droite(A, B, nom, color)
+  return new Droite(A, B, nom, color)
 }
 
 /*
@@ -1277,18 +1274,19 @@ export function droiteParPointEtPente (A, k, nom = '', color = 'black') {
  * Code le milieu d'un segment
  * @param {Point} A Première extrémité du segment
  * @param {Point} B Seconde extrémité du segment
- * @param {string} [color='black'] Couleur du codage. Code couleur HTML accepté aussi.
+ * @param {string} [color='black'] Couleur du codage : du type 'blue' ou du type '#f15929'.
  * @param {string} [mark='x'] Symbole posé sur les deux parties du segment
  * @param {boolean} [mil=true] Trace ou nom le point du milieu.
- * @example CodageMilieu(M,N) // Code, en noir, le milieu du segment[MN] avec les marques 'x', en plaçant le milieu
- * @example CodageMilieu(M,N,'red','oo',false) // Code, en rouge, le milieu du segment[MN] avec les marques 'oo', sans placer le milieu.
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} color Couleur du codage. À associer obligatoirement à colorToLatexOrHTML().
  * @author Jean-Claude Lhote
- * @private
+ * @class
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 function CodageMilieu (A, B, color = 'black', mark = '×', mil = true) {
   if (longueur(A, B) < 0.1) window.notify('CodageMilieu : Points trop rapprochés pour créer ce codage', { A, B })
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.color = color
   const O = milieu(A, B)
   const d = droite(A, B)
@@ -1311,15 +1309,15 @@ function CodageMilieu (A, B, color = 'black', mark = '×', mil = true) {
  * Code le milieu d'un segment
  * @param {Point} A Première extrémité du segment
  * @param {Point} B Seconde extrémité du segment
- * @param {string} [color='black'] Couleur du codage. Code couleur HTML accepté aussi.
- * @param {string} [mark='x'] Symbole posé sur les deux parties du segment
- * @param {boolean} [mil=true] Trace ou nom le point du milieu.
+ * @param {string} [color = 'black'] Couleur du codage : du type 'blue' ou du type '#f15929'.
+ * @param {string} [mark = 'x'] Symbole posé de part et d'autre du milieu du segment
+ * @param {boolean} [mil = true] Trace ou nom le point du milieu.
  * @example codageMilieu(M,N) // Code, en noir, le milieu du segment[MN] avec les marques 'x', en plaçant le milieu
  * @example codageMilieu(M,N,'red','oo',false) // Code, en rouge, le milieu du segment[MN] avec les marques 'oo', sans placer le milieu.
  * @author Jean-Claude Lhote
  * @return {CodageMilieu}
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function codageMilieu (A, B, color = 'black', mark = '×', mil = true) {
   return new CodageMilieu(A, B, color, mark, mil)
 }
@@ -1328,28 +1326,30 @@ export function codageMilieu (A, B, color = 'black', mark = '×', mil = true) {
  * Trace la médiatrice d'un segment, en laissant éventuellement apparents les traits de construction au compas
  * @param {Point} A Première extrémité du segment
  * @param {Point} B Seconde extrémité du segment
- * @param {string} [nom=''] Nom de la droite qui s'affiche
- * @param {string} [couleurMediatrice = 'red'] Couleur de la médiatrice. Code couleur HTML acceptée.
- * @param {string} [color='blue'] Couleur du codage. Code couleur HTML accepté aussi.
- * @param {string} [couleurConstruction='black'] Couleur des traits de construction. Code couleur HTML accepté aussi.
- * @param {boolean} [construction=false] Si construction est true, alors on affiche le codage et aussi les coups de compas utiles à la construction.
- * @param {boolean} [detail=false] Si detail est true, alors on affiche aussi en pointillés les rayons utiles à la construction.
- * @param {string} [markmilieu='x'] Symbole posé sur les deux parties du segment
- * @param {string} [markrayons='||'] Symbole posé sur les quatre rayons (si détail est true)
+ * @param {string} [nom = ''] Nom affichée de la droite
+ * @param {string} [couleurMediatrice = 'red'] Couleur de la médiatrice : du type 'blue' ou du type '#f15929'
+ * @param {string} [color='blue'] Couleur du codage : du type 'blue' ou du type '#f15929'.
+ * @param {string} [couleurConstruction = 'black'] Couleur des traits de construction : du type 'blue' ou du type '#f15929'.
+ * @param {boolean} [construction = false] Si construction est true, alors on affiche le codage et aussi les coups de compas utiles à la construction.
+ * @param {boolean} [detail = false] Si detail est true, alors on affiche aussi en pointillés les rayons utiles à la construction.
+ * @param {string} [markmilieu = 'x'] Symbole posé sur les deux parties du segment
+ * @param {string} [markrayons = '||'] Symbole posé sur les quatre rayons (si détail est true)
  * @param {number} [epaisseurMediatrice = 1] Epaisseur de la médiatrice
  * @param {number} [opaciteMediatrice = 1] Taux d'opacité de la médiatrice
  * @param {number} [pointillesMediatrice = 0] Si cette valeur est entre 1 et 5, la médiatrice est en pointillés
- * @example Mediatrice(M,N)
- * // Trace, en rouge, la médiatrice du segment[MN], d'épaisseur 1, avec une opacité de 100 % sans autre option
- * @example Mediatrice(M,N,'d','blue')
- * // Trace, en bleu, la médiatrice du segment[MN], d'épaisseur 1, avec une opacité de 100 % et qui s'appelle 'd'
- * @example Mediatrice(M,N,'','blue','red','green',true,true,'OO','XX',2,0.5,3)
- * // Trace, en bleu, la médiatrice du segment[MN], d'épaisseur 2, avec une opacité de 50 % sans nom
- * // Les traits de construction sont dessinés en vert avec la marque 'OO' pour le segment initial et la marque 'XX' pour les rayons, toutes ces marques étant rouge.
- * @author Rémi Angot {amendée par Eric Elter en juin 2022}
- * @private
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml Sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} color Couleur du codage. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {string} couleurMediatrice Couleur de la médiatrice : du type 'blue' ou du type '#f15929'
+ * @property {number} epaisseurMediatrice Epaisseur de la médiatrice
+ * @property {number} opaciteMediatrice Taux d'opacité de la médiatrice
+ * @property {number} pointillesMediatrice Si cette valeur est entre 1 et 5, la médiatrice est en pointillés
+ * @property {string} couleurConstruction Couleur des traits de construction : du type 'blue' ou du type '#f15929'.
+ * @class
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 function Mediatrice (
   A,
   B,
@@ -1366,7 +1366,7 @@ function Mediatrice (
   pointillesMediatrice = 0
 ) {
   if (longueur(A, B) < 0.1) window.notify('ConstructionMediatrice : Points trop rapprochés pour créer cet objet', { A, B })
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.color = color
   this.couleurMediatrice = couleurMediatrice
   this.epaisseurMediatrice = epaisseurMediatrice
@@ -1450,10 +1450,10 @@ function Mediatrice (
  * Trace la médiatrice d'un segment, en laissant éventuellement apparents les traits de construction au compas
  * @param {Point} A Première extrémité du segment
  * @param {Point} B Seconde extrémité du segment
- * @param {string} [nom=''] Nom de la droite qui s'affiche
- * @param {string} [couleurMediatrice = 'red'] Couleur de la médiatrice. Code couleur HTML acceptée.
- * @param {string} [color='blue'] Couleur du codage. Code couleur HTML accepté aussi.
- * @param {string} [couleurConstruction='black'] Couleur des traits de construction. Code couleur HTML accepté aussi.
+ * @param {string} [nom=''] Nom affichée de la droite
+ * @param {string} [couleurMediatrice = 'red'] Couleur de la médiatrice : du type 'blue' ou du type '#f15929'
+ * @param {string} [color='blue'] Couleur du codage : du type 'blue' ou du type '#f15929'.
+ * @param {string} [couleurConstruction='black'] Couleur des traits de construction : du type 'blue' ou du type '#f15929'.
  * @param {boolean} [construction=false] Si construction est true, alors on affiche le codage et aussi les coups de compas utiles à la construction.
  * @param {boolean} [detail=false] Si detail est true, alors on affiche aussi en pointillés les rayons utiles à la construction.
  * @param {string} [markmilieu='x'] Symbole posé sur les deux parties du segment
@@ -1471,7 +1471,7 @@ function Mediatrice (
  * @author Rémi Angot {amendée par Eric Elter en juin 2022}
  * @return {Mediatrice}
 */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function mediatrice (A, B, nom = '', couleurMediatrice = 'red', color = 'blue', couleurConstruction = 'black', construction = false, detail = false, markmilieu = '×', markrayons = '||', epaisseurMediatrice = 1, opaciteMediatrice = 1, pointillesMediatrice = 0) {
   if (arguments.length < 5) return new Mediatrice(A, B, nom, couleurMediatrice)
   else return new Mediatrice(A, B, nom, couleurMediatrice, color, couleurConstruction, construction, detail, markmilieu, markrayons, epaisseurMediatrice, opaciteMediatrice, pointillesMediatrice)
@@ -1481,17 +1481,20 @@ export function mediatrice (A, B, nom = '', couleurMediatrice = 'red', color = '
  * Code la médiatrice d'un segment
  * @param {Point} A Première extrémité du segment
  * @param {Point} B Seconde extrémité du segment
- * @param {string} [color='black'] Couleur du codage. Code couleur HTML accepté aussi.
+ * @param {string} [color='black'] Couleur du codage : du type 'blue' ou du type '#f15929'.
  * @param {string} [mark='x'] Symbole posé sur les deux parties du segment
- * @example CodageMediatrice(M,N) // Code, en noir, la médiatrice du segment[MN] avec les marques 'x'
- * @example CodageMediatrice(M,N,'red','oo') // Code, en rouge, la médiatrice du segment[MN] avec les marques 'oo'
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml Sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} color Couleur du codage. À associer obligatoirement à colorToLatexOrHTML().
  * @author  Rémi Angot
- * @private
+ * @class
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 function CodageMediatrice (A, B, color = 'black', mark = '×') {
   if (longueur(A, B) < 0.1) window.notify('CodageMediatrice : Points trop rapprochés pour créer ce codage', { A, B })
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.color = color
   const O = milieu(A, B)
   const M = rotation(A, O, 90)
@@ -1518,16 +1521,16 @@ function CodageMediatrice (A, B, color = 'black', mark = '×') {
  * Code la médiatrice d'un segment
  * @param {Point} A Première extrémité du segment
  * @param {Point} B Seconde extrémité du segment
- * @param {string} [color='black'] Couleur du codage. Code couleur HTML accepté aussi.
+ * @param {string} [color='black'] Couleur du codage : du type 'blue' ou du type '#f15929'.
  * @param {string} [mark='x'] Symbole posé sur les deux parties du segment
  * @example codageMediatrice(M,N) // Code, en noir, la médiatrice du segment[MN] avec les marques 'x'
  * @example codageMediatrice(M,N,'red','oo') // Code, en rouge, la médiatrice du segment[MN] avec les marques 'oo'
  * @author  Rémi Angot
  * @return {CodageMediatrice}
  */
-// JSDOC Validee EE Juin 2022
-export function codageMediatrice (...args) {
-  return new CodageMediatrice(...args)
+// JSDOC Validee par EE Juin 2022
+export function codageMediatrice (A, B, color = 'black', mark = '×') {
+  return new CodageMediatrice(A, B, color, mark)
 }
 
 /**
@@ -1535,26 +1538,30 @@ export function codageMediatrice (...args) {
  * @param {Point} A Point sur un côté de l'angle
  * @param {Point} O Sommet de l'angle
  * @param {Point} B Point sur l'autre côté de l'angle
- * @param {string} [couleurBissectrice = 'red'] Couleur de la médiatrice. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
- * @param {string} [color='blue'] Couleur du codage. Code couleur HTML accepté aussi.
- * @param {string} [couleurConstruction = 'black'] Couleur de la médiatrice. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
+ * @param {string} [couleurBissectrice = 'red'] Couleur de la médiatrice : du type 'blue' ou du type '#f15929'. Si 'none' ou '', pas de hachures.
+ * @param {string} [color='blue'] Couleur du codage : du type 'blue' ou du type '#f15929'.
+ * @param {string} [couleurConstruction = 'black'] Couleur de la médiatrice : du type 'blue' ou du type '#f15929'. Si 'none' ou '', pas de hachures.
  * @param {boolean} [construction=false] Si construction est true, alors on affiche le codage et aussi les coups de compas utiles à la construction.
  * @param {boolean} [detail=false] Si detail est true, alors on affiche aussi en pointillés les rayons utiles à la construction.
  * @param {string} [mark='×'] Symbole posé sur les arcs
- * @param {number} [tailleLosange = 5] Longueur d'un côté du losange de construcion
+ * @param {number} [tailleLosange = 5] Longueur d'un côté du losange de construction
  * @param {number} [epaisseurBissectrice = 1] Epaisseur de la bissectrice
  * @param {number} [opaciteBissectrice = 1] Taux d'opacité de la bissectrice
  * @param {number} [pointillesBissectrice = 0] Si cette valeur est entre 1 et 5, la bissectrice est en pointillés
- * @example Bissectrice(N,R,J)
- * // Trace, en rouge, la bissectrice de l'angle NRJ, d'épaisseur 1 et d'opacité 100 %, sans autre option
- * @example Bissectrice(N,R,J,'blue')
- * // Trace, en bleu, la bissectrice de l'angle NRJ, d'épaisseur 1 et d'opacité 100 %, sans autre option
- * @example Bissectrice(N,R,J,'blue','red','green',true,true,'||',6,2,0.5,3)
- * // Trace, en rouge, la bissectrice de l'angle NRJ, d'épaisseur 1 et d'opacité 100 %. Les traits de construction sont dessinés en vert avec les marques '||' en rouge.
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} couleurBissectrice Couleur de la médiatrice : du type 'blue' ou du type '#f15929'. Si 'none' ou '', pas de hachures.
+ * @property {string} color Couleur du codage. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {string} couleurConstruction Couleur de la médiatrice. À associer obligatoirement à colorToLatexOrHTML(). Si 'none' ou '', pas de hachures.
+ * @property {string} mark Symbole posé sur les arcs
+ * @property {number} tailleLosange Longueur d'un côté du losange de construction
+ * @property {number} epaisseurBissectrice Epaisseur de la bissectrice
+ * @property {number} opaciteBissectrice Taux d'opacité de la bissectrice
+ * @property {number} pointillesBissectrice Si cette valeur est entre 1 et 5, la bissectrice est en pointillés
  * @author Rémi Angot (amendée par Eric Elter en juin 2022)
- * @private
+ * @class
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 function Bissectrice (
   A,
   O,
@@ -1570,7 +1577,7 @@ function Bissectrice (
   opaciteBissectrice = 1,
   pointillesBissectrice = ''
 ) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.color = color
   this.tailleLosange = tailleLosange
   this.mark = mark
@@ -1647,13 +1654,13 @@ function Bissectrice (
  * @param {Point} A Point sur un côté de l'angle
  * @param {Point} O Sommet de l'angle
  * @param {Point} B Point sur l'autre côté de l'angle
- * @param {string} [couleurBissectrice = 'red'] Couleur de la médiatrice. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
- * @param {string} [color='blue'] Couleur du codage. Code couleur HTML accepté aussi.
- * @param {string} [couleurConstruction = 'black'] Couleur de la médiatrice. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
+ * @param {string} [couleurBissectrice = 'red'] Couleur de la médiatrice : du type 'blue' ou du type '#f15929' Si 'none' ou '', pas de hachures.
+ * @param {string} [color='blue'] Couleur du codage : du type 'blue' ou du type '#f15929'.
+ * @param {string} [couleurConstruction = 'black'] Couleur de la médiatrice : du type 'blue' ou du type '#f15929' Si 'none' ou '', pas de hachures.
  * @param {boolean} [construction=false] Si construction est true, alors on affiche le codage et aussi les coups de compas utiles à la construction.
  * @param {boolean} [detail=false] Si detail est true, alors on affiche aussi en pointillés les rayons utiles à la construction.
  * @param {string} [mark='×'] Symbole posé sur les arcs
- * @param {number} [tailleLosange = 5] Longueur d'un côté du losange de construcion
+ * @param {number} [tailleLosange = 5] Longueur d'un côté du losange de construction
  * @param {number} [epaisseurBissectrice = 1] Epaisseur de la bissectrice
  * @param {number} [opaciteBissectrice = 1] Taux d'opacité de la bissectrice
  * @param {number} [pointillesBissectrice = 0] Si cette valeur est entre 1 et 5, la bissectrice est en pointillés
@@ -1666,7 +1673,7 @@ function Bissectrice (
  * @author Rémi Angot (amendée par Eric Elter en juin 2022)
  * @return {Bissectrice}
  */
-// JSDOC Validee Eric Elter Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function bissectrice (A, O, B, couleurBissectrice = 'red', color = 'blue', couleurConstruction = 'black', construction = false, detail = false, mark = '×', tailleLosange = 5, epaisseurBissectrice = 1, opaciteBissectrice = 1, pointillesBissectrice = '') {
   return new Bissectrice(A, O, B, couleurBissectrice, color, couleurConstruction, construction, detail, mark, tailleLosange, epaisseurBissectrice, opaciteBissectrice, pointillesBissectrice)
 }
@@ -1676,27 +1683,30 @@ export function bissectrice (A, O, B, couleurBissectrice = 'red', color = 'blue'
  * @param {Point} A Point sur un côté de l'angle
  * @param {Point} O Sommet de l'angle
  * @param {Point} B Point sur l'autre côté de l'angle
- * @param {string} [color = 'black'] Couleur de la bissectrice. Code couleur HTML acceptée.
- * @param {string} [mark='x'] Symbole posé sur les arcs
- * @example Codagebissectrice(M,N,P) // Code, en noir, la bissectrice de l'angle MNP avec les marques 'x'
- * @example Codagebissectrice(M,N,P,'red','oo') // Code, en rouge, la bissectrice de l'angle MNP avec les marques 'oo'
+ * @param {string} [color = 'black'] Couleur de la bissectrice : du type 'blue' ou du type '#f15929'
+ * @param {string} [mark = 'x'] Symbole posé sur les arcs
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} color Couleur de la bissectrice. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {string} mark Symbole posé sur les arcs
+ * @property {Point} centre Sommet de l'angle
+ * @property {Point} depart Point sur un côté de l'angle (équivalent au point A)
  * @author Jean-Claude Lhote
- * @private
+ * @class
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 function CodageBissectrice (A, O, B, color = 'black', mark = 'x') {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.color = color
   this.mark = mark
   this.centre = O
   this.depart = pointSurSegment(O, A, 1.5)
-  this.demiangle = angleOriente(A, O, B) / 2
-  this.lieu = rotation(this.depart, O, this.demiangle)
-  this.arrivee = pointSurSegment(O, B, 1.5)
+  const demiangle = angleOriente(A, O, B) / 2
+  const lieu = rotation(this.depart, O, demiangle)
 
   this.svg = function (coeff) {
-    const a1 = codageAngle(pointSurSegment(this.centre, this.depart, 30 / coeff), O, this.demiangle, 30 / coeff, this.mark, this.color, 1, 1)
-    const a2 = codageAngle(pointSurSegment(this.centre, this.lieu, 30 / coeff), O, this.demiangle, 30 / coeff, this.mark, this.color, 1, 1)
+    const a1 = codageAngle(pointSurSegment(this.centre, this.depart, 30 / coeff), O, demiangle, 30 / coeff, this.mark, this.color, 1, 1)
+    const a2 = codageAngle(pointSurSegment(this.centre, lieu, 30 / coeff), O, demiangle, 30 / coeff, this.mark, this.color, 1, 1)
     return (
       a1.svg(coeff) +
       '\n' +
@@ -1705,8 +1715,8 @@ function CodageBissectrice (A, O, B, color = 'black', mark = 'x') {
     )
   }
   this.tikz = function () {
-    const a1 = codageAngle(pointSurSegment(this.centre, this.depart, 1.5 / context.scale), O, this.demiangle, 1.5 / context.scale, this.mark, this.color, 1, 1)
-    const a2 = codageAngle(pointSurSegment(this.centre, this.lieu, 1.5 / context.scale), O, this.demiangle, 1.5 / context.scale, this.mark, this.color, 1, 1)
+    const a1 = codageAngle(pointSurSegment(this.centre, this.depart, 1.5 / context.scale), O, demiangle, 1.5 / context.scale, this.mark, this.color, 1, 1)
+    const a2 = codageAngle(pointSurSegment(this.centre, lieu, 1.5 / context.scale), O, demiangle, 1.5 / context.scale, this.mark, this.color, 1, 1)
     return a1.tikz() + '\n' + a2.tikz() + '\n'
   }
 }
@@ -1716,14 +1726,14 @@ function CodageBissectrice (A, O, B, color = 'black', mark = 'x') {
  * @param {Point} A Point sur un côté de l'angle
  * @param {Point} O Sommet de l'angle
  * @param {Point} B Point sur l'autre côté de l'angle
- * @param {string} [color = 'black'] Couleur de la bissectrice. Code couleur HTML acceptée.
+ * @param {string} [color = 'black'] Couleur de la bissectrice : du type 'blue' ou du type '#f15929'
  * @param {string} [mark='x'] Symbole posé sur les arcs
  * @example codagebissectrice(M,N,P) // Code, en noir, la bissectrice de l'angle MNP avec les marques 'x'
  * @example codagebissectrice(M,N,P,'red','oo') // Code, en rouge, la bissectrice de l'angle MNP avec les marques 'oo'
  * @author Jean-Claude Lhote
  * @return {CodageBissectrice}
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function codageBissectrice (A, O, B, color = 'black', mark = 'x') {
   return new CodageBissectrice(A, O, B, color, mark)
 }
@@ -1740,7 +1750,7 @@ export function codageBissectrice (A, O, B, color = 'black', mark = 'x') {
  * @author Rémi Angot
  */
 function Polyline (...points) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   if (Array.isArray(points[0])) {
     // Si le premier argument est un tableau
     this.listePoints = points[0]
@@ -1755,10 +1765,10 @@ function Polyline (...points) {
   let ymax = -1000
   for (const unPoint of this.listePoints) {
     if (unPoint.typeObjet !== 'point') window.notify('Polyline : argument invalide', { ...points })
-    xmin = Math.min(xmin, unPoint.x - this.taille / context.pixelsParCm)
-    xmax = Math.max(xmax, unPoint.x + this.taille / context.pixelsParCm)
-    ymin = Math.min(ymin, unPoint.y - this.taille / context.pixelsParCm)
-    ymax = Math.max(ymax, unPoint.y + this.taille / context.pixelsParCm)
+    xmin = Math.min(xmin, unPoint.x)
+    xmax = Math.max(xmax, unPoint.x)
+    ymin = Math.min(ymin, unPoint.y)
+    ymax = Math.max(ymax, unPoint.y)
   }
   this.bordures = [xmin, ymin, xmax, ymax]
   this.nom = ''
@@ -1900,7 +1910,7 @@ export function polyline (...args) {
  *
  */
 function Pave (L = 10, l = 5, h = 5, origine = point(0, 0), cote = true, angleDeFuite = 30, coefficientDeFuite = 0.5) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   const objets = []
   const A = origine; const B = point(A.x + L, A.y); const C = point(B.x, B.y + l); const D = point(A.x, A.y + l)
   const p = polygone(A, B, C, D)
@@ -1963,7 +1973,7 @@ export function pave (...args) {
  * @author Jean-Claude Lhote et Rémi Angot
  */
 function Vecteur (arg1, arg2, nom = '') {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   if (arguments.length === 1) {
     this.nom = arg1
   } else {
@@ -2028,7 +2038,7 @@ export function vecteur (arg1, arg2, nom = '') {
  * (x,y) sont les coordonnées du centre du nom.
  */
 function NomVecteurParPosition (nom, x, y, taille = 1, angle = 0, color = 'black') {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.nom = nom
   this.x = x
   this.y = y
@@ -2071,21 +2081,25 @@ export function nomVecteurParPosition (nom, x, y, taille = 1, angle = 0, color =
 */
 
 /**
- * s = segment(A,B) //Segment d'extrémités A et B
+ * s = segment(A, B) //Segment d'extrémités A et B
  * s = segment(A,B,'blue') //Segment d'extrémités A et B et de couleur bleue
  * s = segment(x1,y1,x2,y2) //Segment défini par les coordonnées des deux extrémités
  * s = segment(x1,y1,x2,y2,'blue') //Segment défini par les coordonnées des deux extrémités et de couleur bleue
- *
+ * @class
  * @author Rémi Angot
  */
 function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
+
   /**
- * Détermine si un segment sur lequel est appliqué la méthode coupe l'objet passé en argument (dont le type est parmi ceux qui suivent)
- * @param {Segment | Droite | DemiDroite | Cercle} objet
- * @return {boolean} true si les segments sont sécants
- * @author Jean-Claude Lhote
- */
+   * Teste si un segment coupe un cercle, une droite, une demi-cercle ou un autre segment
+   * @memberof Segment
+   * @param {Segment | Droite | DemiDroite | Cercle} objet Objet géométrique dont on veut tester l'intersection avec le segment
+   * @example s1.estSecant(d1) // Renvoie true si s1 est sécant avec d1, false sinon
+   * @author Jean-Claude Lhote
+   * @return {boolean}
+   */
+  // JSDOC Validee par EE Aout 2022
   this.estSecant = function (objet) {
     const ab = droite(this.extremite1, this.extremite2)
     if (objet instanceof Cercle) {
@@ -2143,7 +2157,7 @@ function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
     this.x2 = arg3
     this.y2 = arg4
     this.color = colorToLatexOrHTML(color)
-    this.styleExtremites = arg4
+    this.styleExtremites = styleExtremites
   }
   this.bordures = [Math.min(this.x1, this.x2) - 0.2, Math.min(this.y1, this.y2) - 0.2, Math.max(this.x1, this.x2) + 0.2, Math.max(this.y1, this.y2) + 0.2]
   this.extremite1 = point(this.x1, this.y1)
@@ -2276,11 +2290,13 @@ function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
     code += `\n\t<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(coeff)}" x2="${B.xSVG(
       coeff
     )}" y2="${B.ySVG(coeff)}" stroke="${this.color[0]}" ${this.style} />`
+
     if (this.styleExtremites.length > 0) {
       code = `<g id="${this.id}">${code}</g>`
     } else {
       code = code.replace('/>', `id="${this.id}" />`)
     }
+
     return code
   }
 
@@ -2402,38 +2418,37 @@ export function segmentAvecExtremites (...args) {
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
 
-function DemiDroite (A, B, color = 'black') {
-  ObjetMathalea2D.call(this)
+/**  Trace la demi-droite d'origine A passant par B
+ * @param {Point} A Origine de la droite
+ * @param {Point} B Point de la demi-droite, autre que l'origine
+ * @param {string} [color = 'black'] Couleur de la demi-droite : du type 'blue' ou du type '#f15929'
+ * @param {boolean} [extremites = false] Trace (ou pas) l'origine de la demi-droite
+ * @property {string} color Couleur de la demi-droite. À associer obligatoirement à colorToLatexOrHTML().
+ * @author Rémi Angot
+ * @class
+ */
+// JSDOC Validee par EE Aout 2022
+function DemiDroite (A, B, color = 'black', extremites = false) {
+  ObjetMathalea2D.call(this, { })
   const B1 = pointSurSegment(B, A, -10)
   this.color = color
-  return segment(A, B1, this.color)
+  if (extremites) return new Segment(A, B1, this.color, '|-')
+  else return new Segment(A, B1, this.color)
 }
 
-/**
- * Trace la demi-droite d'origine A passant par B et de couleur color
+/**  Trace la demi-droite d'origine A passant par B
  * @param {Point} A
  * @param {Point} B
  * @param {string} [color='black'] Facultatif, 'black' par défaut
- * @example demiDroite(A,B,'blue') // Demi-droite d'origine A passant par B et de couleur bleue
+ * @param {boolean} [extremites = false] Trace (ou pas) l'origine de la demi-droite
+ * @example demiDroite(M, N) // Trace la demi-droite d'origine M passant par N et de couleur noire
+ * @example demiDroite(M, N, 'blue', true) // Trace la demi-droite d'origine M passant par N et de couleur bleue, en traçant le trait signifiant l'origine de la demi-droite
  * @author Rémi Angot
+ * @return {DemiDroite}
  */
-export function demiDroite (A, B, color = 'black') {
-  return new DemiDroite(A, B, color)
-}
-
-/**
- * Trace la demi-droite d'origine A passant par B avec l'origine marquée
- * @param {Point} A
- * @param {Point} B
- * @param {string} [color='black'] Facultatif, 'black' par défaut
- * @example demiDroite(A,B,'blue') // Demi-droite d'origine A passant par B et de couleur bleue
- * @author Rémi Angot
- */
-export function demiDroiteAvecExtremite (A, B, color = 'black') {
-  const B1 = pointSurSegment(B, A, -10)
-  const s = segment(A, B1, color)
-  s.styleExtremites = '|-'
-  return s
+// JSDOC Validee par EE Aout 2022
+export function demiDroite (A, B, color = 'black', extremites = false) {
+  return new DemiDroite(A, B, color, extremites)
 }
 
 /*
@@ -2445,10 +2460,11 @@ export function demiDroiteAvecExtremite (A, B, color = 'black') {
  * polygone(A,B,C,D,E) //Trace ABCDE
  * polygone([A,B,C,D],"blue") // Trace ABCD en bleu
  * polygone([A,B,C,D],"blue","red","green") // Trace ABCD en bleu, rempli en rouge et hachuré en vert.
- * @author Rémi Angot
+ * @author Rémi Angot*
+ * @class
  */
 function Polygone (...points) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.opaciteDeRemplissage = 1.1
   this.epaisseurDesHachures = 1
   this.distanceDesHachures = 10
@@ -2506,7 +2522,7 @@ function Polygone (...points) {
     const trianglesIndices = earcut(flat)
     const triangles = []
     for (let i = 0; i < trianglesIndices.length; i += 3) {
-      triangles.push(polygone(point(flat[trianglesIndices[i] * 2], flat[trianglesIndices[i] * 2 + 1]), point(flat[trianglesIndices[i + 1] * 2], flat[trianglesIndices[i + 1] * 2 + 1]), point(flat[trianglesIndices[i + 2] * 2], flat[trianglesIndices[i + 2] * 2 + 1])))
+      triangles.push(polygone([point(flat[trianglesIndices[i] * 2], flat[trianglesIndices[i] * 2 + 1]), point(flat[trianglesIndices[i + 1] * 2], flat[trianglesIndices[i + 1] * 2 + 1]), point(flat[trianglesIndices[i + 2] * 2], flat[trianglesIndices[i + 2] * 2 + 1])]))
     }
     return triangles
   }
@@ -2656,7 +2672,7 @@ function Polygone (...points) {
 }
 /**
  * Propriétés possibles : .color, .opacite, .epaisseur, .couleurDeRemplissage, .opaciteDeRemplissage, .hachures (true or false), .distanceDesHachures, .epaisseurDesHachures,.couleurDesHachures
- * @returns {Polygone} objet Polygone
+ * @return {Polygone} objet Polygone
  * @example polygone(A,B,C,D,E) //Trace ABCDE
  * @example polygone([A,B,C,D],"blue") // Trace ABCD en bleu
  * @example polygone([A,B,C,D],"#f15929") // Trace ABCD en orange (code couleur HTML : #f15929)
@@ -2668,7 +2684,7 @@ export function polygone (...args) {
 /**
  * Crée un groupe d'objets contenant le polygone et ses sommets
  * @param  {...any} args
- * @returns {array} [p, p.sommets]
+ * @return {array} [p, p.sommets]
  */
 export function polygoneAvecNom (...args) {
   const p = polygone(...args)
@@ -2698,7 +2714,7 @@ export function renommePolygone (p, noms) {
  * @param {Point} A
  * @param {Point} B
  * @param {integer} n Nombre de côtés
- * @param {string} [color = 'black'] Couleur de l'arc ou 'none'. Code couleur HTML acceptée.
+ * @param {string} [color = 'black'] Couleur de l'arc ou 'none' : du type 'blue' ou du type '#f15929'
  * @author Rémi Angot
  **/
 export function polygoneRegulier (A, B, n, color = 'black') {
@@ -2710,14 +2726,14 @@ export function polygoneRegulier (A, B, n, color = 'black') {
       -180 + 360 / n
     )
   }
-  return polygone(listePoints, color)
+  return new Polygone(listePoints, color)
 }
 
 /**
  * Trace un carré
  * @param {Point} A Un sommet du carré
  * @param {Point} B Un sommet du carré, consécutif au précédent
- * @param {string} [color = 'black'] Couleur de l'arc ou 'none'. Code couleur HTML acceptée.
+ * @param {string} [color = 'black'] Couleur de l'arc ou 'none' : du type 'blue' ou du type '#f15929'
  * @example carre(M,N)
  *  // Trace le carré noir de sommets consécutifs M et N dans le sens direct
  * @example carre(N,M)
@@ -2732,6 +2748,16 @@ export function carre (A, B, color = 'black') {
   return polygoneRegulier(A, B, 4, color)
 }
 
+/**
+ * Code un carré
+ * @param {Polygone} c Carré à coder
+ * @param {string} [color = 'black'] Couleur des codages : du type 'blue' ou du type '#f15929'
+ * @param {string} [mark='x'] Symbole posé sur les côtés
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @class
+ */
+// JSDOC Validee par EE Juin 2022
 function CodageCarre (c, color = 'black', mark = '×') {
   const objets = []
   objets.push(codageSegments(mark, color, c.listePoints))
@@ -2784,8 +2810,20 @@ function CodageCarre (c, color = 'black', mark = '×') {
   }
 }
 
-export function codageCarre (...args) {
-  return new CodageCarre(...args)
+/**
+ * Met un codage complet sur un carré
+ * @param {Polygone} c Carré à coder
+ * @param {string} [color = 'black'] Couleur des codages : du type 'blue' ou du type '#f15929'
+ * @param {string} [mark='x'] Symbole posé sur les côtés
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @example codageCarre(carre) // Code, en noir, le carré carre.
+ * @example codageCarre(carre,'red','||') // Code, en rouge, le carré carre avec la marque || sur les côtés
+ * @return {CodageCarre}
+*/
+// JSDOC Validee par EE Juin 2022
+export function codageCarre (c, color = 'black', mark = '×') {
+  return new CodageCarre(c, color, mark)
 }
 
 /**
@@ -2818,7 +2856,7 @@ export function polygoneRegulierParCentreEtRayon (O, r, n, color = 'black') {
  */
 class Boite {
   constructor ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black', colorFill = 'none', opaciteDeRemplissage = 0.7, texteIn = '', tailleTexte = 1, texteColor = 'black', texteOpacite = 0.7, texteMath = false, echelleFigure = 1 } = {}) {
-    ObjetMathalea2D.call(this)
+    ObjetMathalea2D.call(this, { })
     this.forme = polygone([point(Xmin, Ymin), point(Xmax, Ymin), point(Xmax, Ymax), point(Xmin, Ymax)], color)
     this.bordures = this.forme.bordures
     if (colorFill !== 'none') {
@@ -2850,7 +2888,7 @@ export function boite ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black'
 
 /**
  * @param {Polygone} P
- * @returns {number[]} retourne la liste des coordonnées des sommets de P dans un seul tableau.
+ * @return {number[]} retourne la liste des coordonnées des sommets de P dans un seul tableau.
  * @author Jean-Claude Lhote
  */
 export function polygoneToFlatArray (P) {
@@ -2861,34 +2899,13 @@ export function polygoneToFlatArray (P) {
   return flatArray
 }
 
-/**
- * Cette fonction permet de créer un polygone rapidement à partir d'une liste des coordonnées de ses sommets et éventuellement de leur noms
- * @param {array} flat
- * @param {string} noms
- * @returns {Polygone}
- * @author Jean-Claude Lhote
- */
-export function flatArrayToPolygone (flat, noms) {
-  const sommets = []
-  for (let i = 0; i < flat.length; i += 2) {
-    sommets.push(point(flat[i], flat[i + 1]))
-  }
-  const pol = polygone(...sommets)
-  if (typeof noms === 'string') {
-    if (noms.length >= sommets.length) {
-      nommePolygone(pol, noms)
-    }
-  }
-  return pol
-}
-
 function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', couleurDeRemplissage = 'blue', couleurDeFond = 'white' }) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   const triangles = earcut(data, holes) // on crée le pavage de triangles grâce à Mapbox/earcut
   this.triangulation = function () { // retourne la liste de triangles 2d.
     const triangles2d = []
     for (let i = 0, triangle; i < triangles.length; i += 3) {
-      triangle = polygone(point(data[triangles[i] * 2], data[triangles[i] * 2 + 1]), point(data[triangles[i + 1] * 2], data[triangles[i + 1] * 2 + 1]), point(data[triangles[i + 2] * 2], data[triangles[i + 2] * 2 + 1]))
+      triangle = polygone([point(data[triangles[i] * 2], data[triangles[i] * 2 + 1]), point(data[triangles[i + 1] * 2], data[triangles[i + 1] * 2 + 1]), point(data[triangles[i + 2] * 2], data[triangles[i + 2] * 2 + 1])])
       triangle.color = colorToLatexOrHTML(color)
       triangle.couleurDeRemplissage = colorToLatexOrHTML('none')
       triangles2d.push(triangle)
@@ -2964,7 +2981,7 @@ function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', co
  * @param {string} color est la couleur des bords
  * @param {string} couleurDeRemplissage est la couleur de la surface
  * @param {string} couleurDeFond est la couleur de remplissage des trous
- * @returns {ObjetMathalea2D} un polygone à trous (ou pas : il peut ne pas y avoir de trou !)
+ * @return {ObjetMathalea2D} un polygone à trous (ou pas : il peut ne pas y avoir de trou !)
  */
 export function polygoneATrous ({ data = [], holes = [], noms = '', color = 'black', couleurDeRemplissage = 'blue', couleurDeFond = 'white' }) {
   return new PolygoneATrous({ data, holes, noms, color, couleurDeRemplissage, couleurDeFond })
@@ -2981,7 +2998,7 @@ export function polygoneATrous ({ data = [], holes = [], noms = '', color = 'bla
  * @param {number} d valeur algébrique de AH où H est le pied de la hauteur
  * @param {*} n = 1 ou 2 permet de choisir le côté pour C.
  * @author Jean-Claude Lhote
- * @returns {objet} {triangle, pied}
+ * @return {objet} {triangle, pied}
  */
 export function triangle2points1hauteur (A, B, h, d, n = 1, color = 'black') {
   if (d === undefined) {
@@ -2998,7 +3015,7 @@ export function triangle2points1hauteur (A, B, h, d, n = 1, color = 'black') {
  * @param {number} l1
  * @param {number} l2
  * @param {number} [n=1] Si n = 1 (défaut), C a la plus grande ordonnée possible, si n = 2, C a la plus petite ordonnée possible
- * @returns {Polygone} objet Polygone ABC
+ * @return {Polygone} objet Polygone ABC
  * @example t = triangle2points2longueurs(A,B,4,7,2) // Récupère t le triangle ABC tel que AC = 4 cm et BC = 7 cm avec C qui a l'ordonnée la plus petite possible
  * @example C = t.listePoints[2] // Récupère le 3e sommet dans la variable C
  * @author Rémi Angot
@@ -3058,7 +3075,7 @@ export function triangle2points1angle1longueur (A, B, a, l, n = 1, color = 'blac
   }
   const P = pointSurSegment(A, B, l)
   const Q = rotation(P, A, a)
-  return polygone(A, B, Q, color)
+  return polygone([A, B, Q], color)
 }
 /**
  * @param {Point} A Le sommet pour l'angle donné = première extrémité du segment de base du triangle
@@ -3100,7 +3117,7 @@ export function triangle2points1angle1longueurOppose (A, B, a, l, n = 1, color =
  * @param {objet} A
  * @param {objet} B
  * @param {objet} C
- * @returns {polygoneAvecNom}
+ * @return {polygoneAvecNom}
  */
 export function parallelogramme3points (NOM, A, B, C, color = 'black') {
   const D = translation(A, vecteur(B, C), NOM[3])
@@ -3117,7 +3134,7 @@ export function parallelogramme3points (NOM, A, B, C, color = 'black') {
  * @param {objet} A
  * @param {objet} B
  * @param {number} h
- * @returns {polygoneAvecNom}
+ * @return {polygoneAvecNom}
  */
 export function parallelogramme2points1hauteur (NOM, A, B, h, color = 'black') {
   if (typeof B === 'number') {
@@ -3137,7 +3154,7 @@ export function parallelogramme2points1hauteur (NOM, A, B, h, color = 'black') {
  * @author Jean-Claude Lhote
  */
 function NommePolygone (p, nom = '', k = 0.5, color = 'black') {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.poly = p
   this.dist = k
   for (let i = 0; i < p.listePoints.length; i++) {
@@ -3170,10 +3187,15 @@ export function nommePolygone (...args) {
   return new NommePolygone(...args)
 }
 
-/**
- * deplaceLabel(p1,'AB','below') // S'il y a un point nommé 'A' ou 'B' dans le polygone, son nom sera mis en dessous du point.
+/**  Déplace les labels des sommets d'un polygone s'ils sont mal placés nativement
+ * @param {Polygone} p Polygone sur lequel les labels de ses sommets sont mal placés
+ * @param {string} nom Points mal placés sous la forme, par exemple, 'AB'. Chaque point doit être représenté par un SEUL caractère.
+ * @param {string} positionLabel Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
+ * @example deplaceLabel(p1,'MNP','below') // S'il y a des points nommés 'M', 'N' ou 'P' dans le polygone p1, leur nom sera mis en dessous du point.
+ * // Ne fonctionne pas avec les points du type A1 ou A_1.
  * @author Rémi Angot
  */
+// JSDOC Validee par EE Aout 2022
 export function deplaceLabel (p, nom, positionLabel) {
   for (let i = 0; i < p.listePoints.length; i++) {
     for (const lettre in nom) {
@@ -3214,27 +3236,38 @@ export function aireTriangle (p) {
  * Construit le cercle (ou le disque) de centre O, de rayon r
  * @param {Point} O Centre du cercle
  * @param {number} r Rayon du cercle
- * @param {string} [color = 'black'] Couleur du cercle ou 'none'. Code couleur HTML acceptée.
- * @param {string} [couleurDeRemplissage = 'none'] Couleur de remplissage ou 'none'. Code couleur HTML acceptée.
- * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none'. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
+ * @param {string} [color = 'black'] Couleur du cercle ou 'none' : du type 'blue' ou du type '#f15929'
+ * @param {string} [couleurDeRemplissage = 'none'] Couleur de remplissage ou 'none' : du type 'blue' ou du type '#f15929'
+ * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none' : du type 'blue' ou du type '#f15929' Si 'none' ou '', pas de hachures.
  * @param {number} [epaisseur = 1] Epaisseur du cercle
- * @param {number} [pointilles = ''] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de hachures.
+ * @param {number} [pointilles = 0] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de pointillés.
  * @param {number} [opacite = 1] Opacité du cercle
  * @param {number} [opaciteDeRemplissage = 1.1] Opacité du disque si couleur de remplissage choisie.
  * @param {number} [epaisseurDesHachures = 1] Epaisseur des hachures si couleur de hachures choisie.
  * @param {number} [distanceDesHachures = 10] Distance des hachures si couleur de remplissage choisie.
- * @example Cercle (A,5)
- * // Construit un cercle c1 noir de centre A et de rayon 5
- * @example Cercle (A,5,'red','blue','#f15929',3,2,0.3,0.8)
- * // Construit un disque de centre A et de rayon 5, de bord rouge à 30 % d'opacité et en pointillés, rempli en bleu à 80 % d'opacité, et avec des hachures orange de 1 d'épaisseur et avec 10 d'écart entre deux hachures
- * @example Cercle (A,5,'red','blue','#f15929',3,2,0.3,0.8,2,12)
- * // Construit un disque de centre A et de rayon 5, de bord rouge à 30 % d'opacité et en pointillés, rempli en bleu à 80 % d'opacité, et avec des hachures orange de 2 d'épaisseur et avec 12 d'écart entre deux hachures
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml Sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {Point} centre Centre du cercle
+ * @property {number} rayon Rayon du cercle
+ * @property {string} color Couleur du cercle ou 'none'. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {string} couleurDeRemplissage Couleur de remplissage ou 'none'. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {number} epaisseur Epaisseur du cercle
+ * @property {number} pointilles Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de pointillés.
+ * @property {number} opacite Opacité du cercle
+ * @property {number} opaciteDeRemplissage Opacité du disque si couleur de remplissage choisie.
+ * @property {string} hachures Hachures ou pas ?
+ * @property {string} couleurDesHachures Couleur des hachures ou 'none'. À associer obligatoirement à colorToLatexOrHTML(). Si 'none' ou '', pas de hachures.
+ * @property {number} epaisseurDesHachures Epaisseur des hachures si couleur de hachures choisie.
+ * @property {number} distanceDesHachures Distance des hachures si couleur de remplissage choisie.
+ * @property {number[]} bordures Coordonnées de la fenêtre d'affichage du genre [-2,-2,5,5]
  * @author Rémi Angot
- * @private
+ * @class
  */
-// JSDOC Validee EE Juin 2022
-function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDesHachures = 'none', epaisseur = 1, pointilles = '', opacite = 1, opaciteDeRemplissage = 1.1, epaisseurDesHachures = 1, distanceDesHachures = 10) {
-  ObjetMathalea2D.call(this)
+// JSDOC Validee par EE Juin 2022
+function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDesHachures = 'none', epaisseur = 1, pointilles = 0, opacite = 1, opaciteDeRemplissage = 1.1, epaisseurDesHachures = 1, distanceDesHachures = 10) {
+  ObjetMathalea2D.call(this, { })
   this.color = colorToLatexOrHTML(color)
   this.centre = O
   this.rayon = r
@@ -3399,11 +3432,11 @@ function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDe
  * Construit le cercle (ou le disque) de centre O, de rayon r
  * @param {Point} O Centre du cercle
  * @param {number} r Rayon du cercle
- * @param {string} [color = 'black'] Couleur du cercle ou 'none'. Code couleur HTML acceptée.
- * @param {string} [couleurDeRemplissage = 'none'] Couleur de remplissage ou 'none'. Code couleur HTML acceptée.
- * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none'. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
+ * @param {string} [color = 'black'] Couleur du cercle ou 'none' : du type 'blue' ou du type '#f15929'
+ * @param {string} [couleurDeRemplissage = 'none'] Couleur de remplissage ou 'none' : du type 'blue' ou du type '#f15929'
+ * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none' : du type 'blue' ou du type '#f15929' Si 'none' ou '', pas de hachures.
  * @param {number} [epaisseur = 1] Epaisseur du cercle
- * @param {number} [pointilles = ''] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de hachures.
+ * @param {number} [pointilles = 0] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de pointillés.
  * @param {number} [opacite = 1] Opacité du cercle
  * @param {number} [opaciteDeRemplissage = 1.1] Opacité du disque si couleur de remplissage choisie.
  * @param {number} [epaisseurDesHachures = 1] Epaisseur des hachures si couleur de hachures choisie.
@@ -3414,20 +3447,36 @@ function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDe
  * // Construit un disque de centre A et de rayon 5, de bord rouge à 30 % d'opacité et en pointillés, rempli en bleu à 80 % d'opacité, et avec des hachures orange de 1 d'épaisseur et avec 10 d'écart entre deux hachures
  * @example cercle (A,5,'red','blue','#f15929',3,2,0.3,0.8,2,12)
  * // Construit un disque de centre A et de rayon 5, de bord rouge à 30 % d'opacité et en pointillés, rempli en bleu à 80 % d'opacité, et avec des hachures orange de 2 d'épaisseur et avec 12 d'écart entre deux hachures
- * @returns {Cercle}
+ * @return {Cercle}
  * @author Rémi Angot
  */
-// JSDOC Validee EE Juin 2022
-export function cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDesHachures = 'none', epaisseur = 1, pointilles = '', opacite = 1, opaciteDeRemplissage = 1.1, epaisseurDesHachures = 1, distanceDesHachures = 10) {
+// JSDOC Validee par EE Juin 2022
+export function cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDesHachures = 'none', epaisseur = 1, pointilles = 0, opacite = 1, opaciteDeRemplissage = 1.1, epaisseurDesHachures = 1, distanceDesHachures = 10) {
   return new Cercle(O, r, color, couleurDeRemplissage, couleurDesHachures, epaisseur, pointilles, opacite, opaciteDeRemplissage, epaisseurDesHachures, distanceDesHachures)
 }
 
-/**
- * c = ellipse(O,rx,ry) //Ellipse de centre O et de rayon rx et ry
+/**  Trace l'ellipse de centre O et de rayon rx et ry (la construction, dite “par réduction d’ordonnée”, montre que l'ellipse est la transformée de Newton de 2 cercles concentriques)
+ * @param {Point} O Centre de l'ellipse
+ * @param {number} rx Premier rayon de l'ellipse
+ * @param {number} ry Second rayon de l'ellipse
+ * @param {string} [color = 'black'] Couleur de l'ellipse : du type 'blue' ou du type '#f15929'
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml Sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {Point} centre Centre du cercle
+ * @property {number} rx Premier rayon de l'ellipse
+ * @property {number} ry Second rayon de l'ellipse
+ * @property {string} color Couleur de l'ellipse. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {string} couleurDeRemplissage Couleur de remplissage. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {number} opaciteDeRemplissage Opacité de l'ellipse si couleur de remplissage choisie.
+ * @property {number[]} bordures Coordonnées de la fenêtre d'affichage du genre [-2,-2,5,5]
  * @author Rémi Angot
+ * @class
  */
+// JSDOC Validee par EE Aout 2022
 function Ellipse (O, rx, ry, color = 'black') {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.color = colorToLatexOrHTML(color)
   this.centre = O
   this.rx = rx
@@ -3550,8 +3599,20 @@ function Ellipse (O, rx, ry, color = 'black') {
     return code
   }
 }
-export function ellipse (...args) {
-  return new Ellipse(...args)
+
+/**  Trace l'ellipse de centre O et de rayon rx et ry (la construction, dite “par réduction d’ordonnée”, montre que l'ellipse est la transformée de Newton de 2 cercles concentriques)
+ * @param {Point} O Centre de l'ellipse
+ * @param {number} rx Premier rayon de l'ellipse
+ * @param {number} ry Second rayon de l'ellipse
+ * @param {string} [color = 'black'] Couleur de l'ellipse : du type 'blue' ou du type '#f15929'
+ * @example ellipse(M, 1, 3) // Trace, en noir, l'ellipse de centre M et de rayons 1 et 3
+ * @example ellipse(M, 1, 3, 'red') // Trace, en rouge, l'ellipse de centre M et de rayons 1 et 3
+ * @author Rémi Angot
+ * @return {Ellipse}
+ */
+// JSDOC Validee par EE Aout 2022
+export function ellipse (O, rx, ry, color = 'black') {
+  return new Ellipse(O, rx, ry, color)
 }
 
 /**
@@ -3690,38 +3751,11 @@ export function pointIntersectionCC (c1, c2, nom = '', n = 1) {
  * Construit le cercle (ou le disque) de centre O, passant par M
  * @param {Point} O Centre du cercle
  * @param {number} M Point du cercle
- * @param {string} [color = 'black'] Couleur du cercle ou 'none'. Code couleur HTML acceptée.
- * @param {string} [couleurDeRemplissage = 'none'] Couleur de remplissage ou 'none'. Code couleur HTML acceptée.
- * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none'. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
+ * @param {string} [color = 'black'] Couleur du cercle ou 'none' : du type 'blue' ou du type '#f15929'
+ * @param {string} [couleurDeRemplissage = 'none'] Couleur de remplissage ou 'none' : du type 'blue' ou du type '#f15929'
+ * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none' : du type 'blue' ou du type '#f15929' Si 'none' ou '', pas de hachures.
  * @param {number} [epaisseur = 1] Epaisseur du cercle
- * @param {number} [pointilles = ''] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de hachures.
- * @param {number} [opacite = 1] Opacité du cercle
- * @param {number} [opaciteDeRemplissage = 1.1] Opacité du disque si couleur de remplissage choisie.
- * @param {number} [epaisseurDesHachures = 1] Epaisseur des hachures si couleur de hachures choisie.
- * @param {number} [distanceDesHachures = 10] Distance des hachures si couleur de remplissage choisie.
- * @example CercleCentrePoint (A,B)
- * // Construit un cercle c1 noir de centre A, passant par B
- * @example CercleCentrePoint (A,B,'red','blue','#f15929',3,2,0.3,0.8)
- * // Construit un disque de centre A, passant par B, de bord rouge à 30 % d'opacité et en pointillés, rempli en bleu à 80 % d'opacité, et avec des hachures orange de 1 d'épaisseur et avec 10 d'écart entre deux hachures
- * @example CercleCentrePoint (A,B,'red','blue','#f15929',3,2,0.3,0.8,2,12)
- * // Construit un disque de centre A, passant par B, de bord rouge à 30 % d'opacité et en pointillés, rempli en bleu à 80 % d'opacité, et avec des hachures orange de 2 d'épaisseur et avec 12 d'écart entre deux hachures
- * @author Rémi Angot
- * @private
- */
-// JSDOC Validee EE Juin 2022
-function CercleCentrePoint (O, M, color = 'black', couleurDeRemplissage = 'none', couleurDesHachures = 'none', epaisseur = 1, pointilles = '', opacite = 1, opaciteDeRemplissage = 1.1, epaisseurDesHachures = 1, distanceDesHachures = 10) {
-  Cercle.call(this, O, longueur(O, M), color, couleurDeRemplissage, couleurDesHachures, epaisseur, pointilles, opacite, opaciteDeRemplissage, epaisseurDesHachures, distanceDesHachures)
-}
-
-/**
- * Construit le cercle (ou le disque) de centre O, passant par M
- * @param {Point} O Centre du cercle
- * @param {number} M Point du cercle
- * @param {string} [color = 'black'] Couleur du cercle ou 'none'. Code couleur HTML acceptée.
- * @param {string} [couleurDeRemplissage = 'none'] Couleur de remplissage ou 'none'. Code couleur HTML acceptée.
- * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none'. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
- * @param {number} [epaisseur = 1] Epaisseur du cercle
- * @param {number} [pointilles = ''] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de hachures.
+ * @param {number} [pointilles = 0] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de pointillés.
  * @param {number} [opacite = 1] Opacité du cercle
  * @param {number} [opaciteDeRemplissage = 1.1] Opacité du disque si couleur de remplissage choisie.
  * @param {number} [epaisseurDesHachures = 1] Epaisseur des hachures si couleur de hachures choisie.
@@ -3732,12 +3766,12 @@ function CercleCentrePoint (O, M, color = 'black', couleurDeRemplissage = 'none'
  * // Construit un disque de centre A, passant par B, de bord rouge à 30 % d'opacité et en pointillés, rempli en bleu à 80 % d'opacité, et avec des hachures orange de 1 d'épaisseur et avec 10 d'écart entre deux hachures
  * @example cercleCentrePoint (A,B,'red','blue','#f15929',3,2,0.3,0.8,2,12)
  * // Construit un disque de centre A, passant par B, de bord rouge à 30 % d'opacité et en pointillés, rempli en bleu à 80 % d'opacité, et avec des hachures orange de 2 d'épaisseur et avec 12 d'écart entre deux hachures
- * @returns {CercleCentrePoint}
+ * @return {Cercle}
  * @author Rémi Angot
  */
-// JSDOC Validee EE Juin 2022
-export function cercleCentrePoint (O, M, color = 'black', couleurDeRemplissage = 'none', couleurDesHachures = 'none', epaisseur = 1, pointilles = '', opacite = 1, opaciteDeRemplissage = 1.1, epaisseurDesHachures = 1, distanceDesHachures = 10) {
-  return new CercleCentrePoint(O, M, color, couleurDeRemplissage, couleurDesHachures, epaisseur, pointilles, opacite, opaciteDeRemplissage, epaisseurDesHachures, distanceDesHachures)
+// JSDOC Validee par EE Juin 2022
+export function cercleCentrePoint (O, M, color = 'black', couleurDeRemplissage = 'none', couleurDesHachures = 'none', epaisseur = 1, pointilles = 0, opacite = 1, opaciteDeRemplissage = 1.1, epaisseurDesHachures = 1, distanceDesHachures = 10) {
+  return new Cercle(O, longueur(O, M), color, couleurDeRemplissage, couleurDesHachures, epaisseur, pointilles, opacite, opaciteDeRemplissage, epaisseurDesHachures, distanceDesHachures)
 }
 
 /** Trace un arc de cercle, connaissant une extrémité, son centre et la mesure de l'angle
@@ -3745,16 +3779,30 @@ export function cercleCentrePoint (O, M, color = 'black', couleurDeRemplissage =
  * @param {Point} Omega Centre de l'arc
  * @param {number} angle Mesure de l'angle compris entre -360 et 360 (valeur négative = sens indirect)
  * @param {boolean} [rayon = false] Booléen. Si true, les rayons délimitant l'arc sont ajoutés.
- * @param {string} [couleurDeRemplissage = 'none'] Couleur ou 'none'. Code couleur HTML acceptée.
- * @param {string} [color = 'black'] Couleur de l'arc ou 'none'. Code couleur HTML acceptée.
+ * @param {string} [couleurDeRemplissage = 'none'] Couleur ou 'none' : du type 'blue' ou du type '#f15929'
+ * @param {string} [color = 'black'] Couleur de l'arc ou 'none' : du type 'blue' ou du type '#f15929'
  * @param {number} [opaciteDeRemplissage = 0.2] Opacité de remplissage de 0 à 1.
- * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none'. Code couleur HTML acceptée. Si 'none', pas de hachures.
+ * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none' : du type 'blue' ou du type '#f15929' Si 'none', pas de hachures.
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml Sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} color Couleur de l'arc ou 'none'. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {string} couleurDeRemplissage Couleur ou 'none'. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {number} opaciteDeRemplissage Opacité de remplissage de 0 à 1.
+ * @property {string} hachures Hachures ou pas ?
+ * @property {string} couleurDesHachures Couleur des hachures ou 'none'. À associer obligatoirement à colorToLatexOrHTML(). Si 'none' ou '', pas de hachures.
+ * @property {number} [opacite = 1] Opacité du cercle de 0 à 1.
+ * @property {number} [epaisseurDesHachures = 1] Epaisseur des hachures si couleur de hachures choisie.
+ * @property {number} [distanceDesHachures = 10] Distance des hachures si couleur de remplissage choisie.
+ * @property {number} [pointilles = 0] Type de pointillés choisis (entre 1 et 5). Si autre nombre, pas de pointillés.
+ * @property {number[]} bordures Coordonnées de la fenêtre d'affichage du genre [-2,-2,5,5]
  * @author Jean-Claude Lhote
- * @private
+ * @class
  **/
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2, couleurDesHachures = 'none') {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.color = colorToLatexOrHTML(color)
   this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
   this.opaciteDeRemplissage = opaciteDeRemplissage
@@ -3763,7 +3811,7 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
   this.couleurDesHachures = colorToLatexOrHTML(couleurDesHachures)
   this.epaisseurDesHachures = 1
   this.distanceDesHachures = 10
-  this.pointilles = ''
+  this.pointilles = 0
   const med = rotation(M, Omega, angle / 2)
   if (typeof (angle) !== 'number') {
     angle = angleOriente(M, Omega, angle)
@@ -3976,10 +4024,10 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
  * @param {Point} Omega Centre de l'arc
  * @param {number} angle Mesure de l'angle compris entre -360 et 360 (valeur négative = sens indirect)
  * @param {boolean} [rayon = false] Booléen. Si true, les rayons délimitant l'arc sont ajoutés.
- * @param {string} [couleurDeRemplissage = 'none'] Couleur ou 'none'. Code couleur HTML acceptée.
- * @param {string} [color = 'black'] Couleur de l'arc ou 'none'. Code couleur HTML acceptée.
+ * @param {string} [couleurDeRemplissage = 'none'] Couleur ou 'none' : du type 'blue' ou du type '#f15929'
+ * @param {string} [color = 'black'] Couleur de l'arc ou 'none' : du type 'blue' ou du type '#f15929'
  * @param {number} [opaciteDeRemplissage = 0.2] Opacité de remplissage de 0 à 1.
- * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none'. Code couleur HTML acceptée. Si 'none', pas de hachures.
+ * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none' : du type 'blue' ou du type '#f15929' Si 'none', pas de hachures.
  * @example arc(M,0,35)
   // Trace l'arc en noir de centre 0, d'extrémité M et d'angle orienté 35° (sans remplissage et sans hachures)
  * @example arc(M,O,true,-40,'red','green',0.8,'white')
@@ -3987,7 +4035,7 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
  * @return {Arc}
  * @author Jean-Claude Lhote
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2, couleurDesHachures = 'none') {
   return new Arc(M, Omega, angle, rayon, couleurDeRemplissage, color, opaciteDeRemplissage, couleurDesHachures)
 }
@@ -3997,15 +4045,19 @@ export function arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'non
  * @param {Point} N Deuxième extrémité de l'arc
  * @param {number} angle Mesure de l'angle compris entre -360 et 360 (valeur négative = sens indirect)
  * @param {boolean} [rayon = false] Booléen. Si true, les rayons délimitant l'arc sont ajoutés.
- * @param {boolean} [couleurDeRemplissage = 'none'] Couleur ou 'none'. Code couleur HTML acceptée.
- * @param {string} [color = 'black'] Couleur de l'arc ou 'none'. Code couleur HTML acceptée.
+ * @param {boolean} [couleurDeRemplissage = 'none'] Couleur ou 'none' : du type 'blue' ou du type '#f15929'
+ * @param {string} [color = 'black'] Couleur de l'arc ou 'none' : du type 'blue' ou du type '#f15929'
  * @param {number} [opaciteDeRemplissage = 0.2] Opacité de remplissage de 0 à 1.
- * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none'. Code couleur HTML acceptée. Si 'none', pas de hachures.
+ * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none' : du type 'blue' ou du type '#f15929' Si 'none', pas de hachures.
+ * @example arcPointPointAngle(A,B,35)
+  // Trace l'arc en noir d'extrémités A et B (dans cet ordre) et d'angle orienté 35° (sans remplissage et sans hachures)
+ * @example arcPointPointAngle(A,B,true,-40,'red','green',0.8,'white')
+  // Trace l'arc en vert d'extrémités A et B (dans cet ordre) et d'angle orienté -40°, rempli en rouge à 80 %, avec des hachures blanches
+ * @return {Arc}
  * @author Jean-Claude Lhote
- * @private
  */
-// JSDOC Validee EE Juin 2022
-function ArcPointPointAngle (M, N, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2, couleurDesHachures = 'none') {
+// JSDOC Validee par EE Juin 2022
+export function arcPointPointAngle (M, N, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2, couleurDesHachures = 'none') {
   let anglerot
   if (angle < 0) anglerot = (angle + 180) / 2
   else anglerot = (angle - 180) / 2
@@ -4019,29 +4071,7 @@ function ArcPointPointAngle (M, N, angle, rayon = false, couleurDeRemplissage = 
   const Omegax = (d.b * f.c - f.b * d.c) / determinant
   const Omegay = (f.a * d.c - d.a * f.c) / determinant
   const Omega = point(Omegax, Omegay)
-  Arc.call(this, M, Omega, angle, rayon, couleurDeRemplissage, color, opaciteDeRemplissage)
-}
-
-/** Trace un arc de cercle, connaissant deux extrémités et la mesure de l'angle
- * @param {Point} M Première extrémité de l'arc
- * @param {Point} N Deuxième extrémité de l'arc
- * @param {number} angle Mesure de l'angle compris entre -360 et 360 (valeur négative = sens indirect)
- * @param {boolean} [rayon = false] Booléen. Si true, les rayons délimitant l'arc sont ajoutés.
- * @param {boolean} [couleurDeRemplissage = 'none'] Couleur ou 'none'. Code couleur HTML acceptée.
- * @param {string} [color = 'black'] Couleur de l'arc ou 'none'. Code couleur HTML acceptée.
- * @param {number} [opaciteDeRemplissage = 0.2] Opacité de remplissage de 0 à 1.
- * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none'. Code couleur HTML acceptée. Si 'none', pas de hachures.
- * @example arcPointPointAngle(A,B,35)
-  // Trace l'arc en noir d'extrémités A et B (dans cet ordre) et d'angle orienté 35° (sans remplissage et sans hachures)
- * @example arcPointPointAngle(A,B,true,-40,'red','green',0.8,'white')
-  // Trace l'arc en vert d'extrémités A et B (dans cet ordre) et d'angle orienté -40°, rempli en rouge à 80 %, avec des hachures blanches
- * @return {ArcPointPointAngle}
- * @author Jean-Claude Lhote
- * @private
- */
-// JSDOC Validee EE Juin 2022
-export function arcPointPointAngle (M, N, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2, couleurDesHachures = 'none') {
-  return new ArcPointPointAngle(M, N, angle, rayon, couleurDeRemplissage, color, opaciteDeRemplissage, couleurDesHachures)
+  return new Arc(M, Omega, angle, rayon, couleurDeRemplissage, color, opaciteDeRemplissage)
 }
 
 /**
@@ -4079,7 +4109,7 @@ export function traceCompas (
  * @return {SemiEllipse} Objet SemiEllipse
  */
 function SemiEllipse ({ centre, Rx, Ry, hemisphere = 'nord', pointilles = false, rayon = false, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2 }) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.color = colorToLatexOrHTML(color)
   this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
   this.opaciteDeRemplissage = opaciteDeRemplissage
@@ -4316,7 +4346,7 @@ export function semiEllipse ({ centre, Rx, Ry, hemisphere = 'nord', pointilles =
  * @private
  */
 function Cone ({ centre, Rx, hauteur, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2 }) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   const sommet = point(centre.x, centre.y + hauteur)
   this.color = color
   this.couleurDeRemplissage = couleurDeRemplissage
@@ -4358,7 +4388,7 @@ export function cone ({ centre, Rx, hauteur, couleurDeRemplissage = 'none', colo
 
 /* INUTLISEE - A SUPPRIMER ?
 function CourbeDeBezier (A, B, C) {
-  ObjetMathalea2D.call(this)
+   ObjetMathalea2D.call(this, { })
   this.svg = function (coeff) {
     const code = `<path d="M${A.xSVG(coeff)} ${A.ySVG(coeff)} Q ${B.xSVG(
       coeff
@@ -4379,47 +4409,30 @@ export function courbeDeBezier (...args) {
 %%%%%%%%%% LES TRANSFORMATIONS %%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
-/**
- * retourne un couple de coordonnées correspondant au centre d'une cible
- * afin que le point (x,y) se trouve dans la case correspondante à cellule
- * cellule est une chaine comme 'A1' ou 'B3'
+
+/**  Retourne un couple de coordonnées correspondant au centre d'une cible, connaissant les coordonnées du point réponse et de la cellule dans laquelle on veut qu'il soit
+ * @param {number} x Abscisse du point réponse
+ * @param {number} y Ordonnée du point réponse
+ * @param {number} rang Nombre de cases en largeur
+ * @param {number} taille Taille des cases
+ * @param {string} cellule Cellule de la réponse, chaine définie par exemple comme 'A1' ou 'B3'
+ * @example dansLaCibleCarree(-1, -3, 4, 0.6, 'B2')
+  // Retourne les coordonnées du centre d'une cible carrée de rang 4 et de taille 0.6 dont la réponse est le point (-1;-3) dans la cellule B2
+  * @return {number[]|string} Ce sont les coordonnées du centre de la cible ou bien 'Cette cellule n'existe pas dans la cible'
  * @author Jean-Claude Lhote
  */
+// JSDOC Validee par EE Aout 2022
 export function dansLaCibleCarree (x, y, rang, taille, cellule) {
   const lettre = cellule[0]; const chiffrelettre = lettre.charCodeAt(0) - 64
-  // const Taille = Math.floor(3 * taille)
   const chiffre = parseInt(cellule[1])
   // dx et dy étaient utilisés pour décentrer le point dans la cellule... cela pouvait entrainer des points très proches des cellules voisines
   // en recentrant les points dans les cellules, on tolère une plus grande marge d'erreur.
-  const dx = 0 // randint(-Taille, Taille) / 10
-  const dy = 0 // randint(-Taille, Taille) / 10
+  const dx = 0 // Devenu inutile
+  const dy = 0 // Devenu inutile
   const delta = taille / 2
   if (chiffre > rang || chiffrelettre > rang) return 'Cette cellule n\'existe pas dans la cible'
   else {
     return [x + dx - chiffrelettre * taille + delta + rang * delta, y + dy - chiffre * 2 * delta + (rang + 1) * delta]
-  }
-}
-/**
- * Comme dansLaCibleCarree mais pour un cible ronde. (voir ci-dessus)
- * Cellule va de A1 à Hn où n est le rang de la cible.
- * taille c'est la différence entre deux rayons successifs.
- * x et y sont les coordonnées du point à cibler.
- * @author Jean-Claude Lhote
- */
-export function dansLaCibleRonde (x, y, rang, taille, cellule) {
-  const lettre = cellule[0]; const chiffrelettre = lettre.charCodeAt(0) - 64
-  // const Taille = Math.floor(4 * taille)
-  const chiffre = parseInt(cellule[1])
-  const drayon = 0 // randint(-Taille, Taille) / 10
-  const dangle = randint(-7, 7)
-  const angle = (chiffrelettre - 1) * 45 - 157.5 + dangle
-  const rayon = taille / 2 + (chiffre - 1) * taille + drayon
-  const P = similitude(point(1, 0), point(0, 0), angle, rayon)
-  P.x += x
-  P.y += y
-  if (chiffre > rang || chiffrelettre > 8) return 'Cette cellule n\'existe pas dans la cible'
-  else {
-    return [P.x, P.y]
   }
 }
 
@@ -4432,16 +4445,20 @@ export function dansLaCibleRonde (x, y, rang, taille, cellule) {
  * @param {number} [taille=0.6] Taille des cases
  * @param {string} [color='gray'] Couleur de la cible. Code couleur HTML acceptée
  * @param {number} [opacite=0.5] Opacité de la cible
- * @example CibleCarree({})
- * // Crée une cible Carree, de centre (0,0), avec 4 carrés en largeur dont chacune a pour côté 0.6, de couleur grise avec une opacité de 50 %
- * @example CibleCarree({ x: 2, y: -1, rang: 5, num: 17, taille: 0.5, color: 'blue', opacite: 0.8 })
- * // Crée une cible Carree, de centre (2,-1), avec 5 carrés en largeur dont chacune a pour côté 0.5, de couleur bleue avec une opacité de 80 %, portant le numéro 17
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {number} x Abscisse du point au centre de la cible
+ * @property {number} y Ordonnée du point au centre de la cible
+ * @property {number} rang Nombre de cases en largeur
+ * @property {number} taille Taille des cases
+ * @property {string} color Couleur de la cible. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {number} opacite Opacité de la cible
  * @author Jean-Claude Lhote
- * @private
+ * @class
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray', opacite = 0.5 }) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.x = x
   this.y = y
   this.rang = rang
@@ -4450,7 +4467,7 @@ function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray
   this.opacite = opacite
   const objets = []
   let numero
-  // Si un numéro est donné on l'ajoute en filigrane.
+  // Si un numéro est donné, alors on l'ajoute en filigrane.
   if (typeof (num) !== 'undefined') {
     numero = texteParPosition(num, this.x - this.rang * this.taille / 4, this.y - this.rang * this.taille / 4, 'milieu', this.color)
     numero.opacite = 0.5
@@ -4501,13 +4518,13 @@ function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray
 
 /**
  * Crée une cible carrée pour l'auto-correction
- * @param {number} [x=0] Abscisse du point au centre de la cible
- * @param {number} [y=0] Ordonnée du point au centre de la cible
- * @param {number} [rang=4] Nombre de cases en largeur
+ * @param {number} [x = 0] Abscisse du point au centre de la cible
+ * @param {number} [y = 0] Ordonnée du point au centre de la cible
+ * @param {number} [rang = 4] Nombre de cases en largeur
  * @param {number} [num] Numéro (ou rien) pour identifier la cible (quand il y en a plusieurs)
- * @param {number} [taille=0.6] Taille des cases
- * @param {string} [color='gray'] Couleur de la cible. Code couleur HTML acceptée
- * @param {number} [opacite=0.5] Opacité de la cible
+ * @param {number} [taille = 0.6] Taille des cases
+ * @param {string} [color = 'gray'] Couleur de la cible. Code couleur HTML acceptée
+ * @param {number} [opacite = 0.5] Opacité de la cible
  * @example cibleCarree({})
  * // Crée une cible Carree, de centre (0,0), avec 4 carrés en largeur dont chacune a pour côté 0.6, de couleur grise avec une opacité de 50 %
  * @example cibleCarree({ x: 2, y: -1, rang: 5, num: 17, taille: 0.5, color: 'blue', opacite: 0.8 })
@@ -4515,9 +4532,37 @@ function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray
  * @author Jean-Claude Lhote
  * @return {CibleCarree}
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function cibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray', opacite = 0.5 }) {
-  return new CibleCarree({ x, y, rang, num, taille, color, opacite })
+  return new CibleCarree({ x: x, y: y, rang: rang, num: num, taille: taille, color: color, opacite: opacite })
+}
+
+/**  Retourne un couple de coordonnées correspondant au centre d'une cible, connaissant les coordonnées du point réponse et de la cellule dans laquelle on veut qu'il soit
+ * @param {number} x Abscisse du point réponse
+ * @param {number} y Ordonnée du point réponse
+ * @param {number} rang Nombre de cases sur une couronne
+ * @param {number} taille Différence entre deux rayons successifs
+ * @param {string} cellule Cellule de la réponse, chaine définie par exemple comme 'A1' ou 'B3'
+ * @example dansLaCibleCarree(-1, -3, 4, 0.6, 'B2')
+  // Retourne les coordonnées du centre d'une cible ronde de rang 4 et de taille 0.6 dont la réponse est le point (-1;-3) dans la cellule B2
+ * @return {number[]|string} Ce sont les coordonnées du centre de la cible ou bien 'Cette cellule n'existe pas dans la cible'
+ * @author Jean-Claude Lhote
+ */
+// JSDOC Validee par EE Aout 2022
+export function dansLaCibleRonde (x, y, rang, taille, cellule) {
+  const lettre = cellule[0]; const chiffrelettre = lettre.charCodeAt(0) - 64
+  const chiffre = parseInt(cellule[1])
+  const drayon = 0
+  const dangle = randint(-7, 7)
+  const angle = (chiffrelettre - 1) * 45 - 157.5 + dangle
+  const rayon = taille / 2 + (chiffre - 1) * taille + drayon
+  const P = similitude(point(1, 0), point(0, 0), angle, rayon)
+  P.x += x
+  P.y += y
+  if (chiffre > rang || chiffrelettre > 8) return 'Cette cellule n\'existe pas dans la cible'
+  else {
+    return [P.x, P.y]
+  }
 }
 
 /**
@@ -4528,16 +4573,20 @@ export function cibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color 
  * @param {number} [taille=0.3] Distance entre le centre de la cible et le premier cercle (et entre chaque cercle consécutif)
  * @param {string} [color='gray'] Couleur de la cible. Code couleur HTML acceptée
  * @param {number} [opacite=0.5] Opacité de la cible
- * @example CibleRonde({})
- * // Crée une cible ronde, de centre (0,0), possédant 3 cercles, avec une distance de 0,3 entre chaque cercle consécutifu cercle intérieur est 5, de couleur grise avec une opacité de 50 %.
- * @example CibleRonde({ x: 2, y: -1, rang: 10, taille: 1, color: 'blue', opacite: 0.8 })
- * // Crée une cible ronde, de centre (2,-1), possédant 10 cercles, avec une distance de 1 entre chaque cercle consécutifu cercle intérieur est 5, de couleur bleue avec une opacité de 80 %.
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {number} x Abscisse du point au centre de la cible
+ * @property {number} y Ordonnée du point au centre de la cible
+ * @property {number} rang Nombre de cercles centrés sur le centre de la cible
+ * @property {number} taille Distance entre le centre de la cible et le premier cercle (et entre chaque cercle consécutif)
+ * @property {string} color Couleur de la cible. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {number} opacite Opacité de la cible
  * @author Jean-Claude Lhote
- * @private
+ * @class
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 function CibleRonde ({ x = 0, y = 0, rang = 3, num, taille = 0.3, color = 'gray', opacite = 0.5 }) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.x = x
   this.y = y
   this.taille = taille
@@ -4599,7 +4648,7 @@ function CibleRonde ({ x = 0, y = 0, rang = 3, num, taille = 0.3, color = 'gray'
  * @author Jean-Claude Lhote
  * @return {CibleRonde}
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function cibleRonde ({ x = 0, y = 0, rang = 3, num = 1, taille = 0.3, color = 'gray', opacite = 0.5 }) {
   return new CibleRonde({ x, y, rang, num, taille, color, opacite })
 }
@@ -4616,18 +4665,21 @@ export function cibleRonde ({ x = 0, y = 0, rang = 3, num = 1, taille = 0.3, col
  * @param {boolean} [label=true] Pour faire apparaître ou disparaître les lettres dans la couronne
  * @param {string} [color='gray'] Couleur de la cible. Code couleur HTML acceptée
  * @param {number} [opacite=0.5] Opacité de la cible
- * @example CibleCouronne({})
- * // Crée une cible couronne circulaire, de centre (0,0), dont le rayon du cercle intérieur est 5, la longueur des segments est 1, la première lettre démarre à 0°,
- * //    le nombre de divisions de la couronne est 18, le nombre de subdivisions est 3, leur opacité est 50 %, avec les lettres apparentes, de couleur grise
- * @example CibleCouronne({ x: 2, y: -1, taille: 4, taille2: 2, depart: 35, nbDivisions: 12, nbSubDivisions: 2, semi: true, label: false, color: 'blue', opacite: 0.8 })
- * // Crée une cible couronne semi-circulaire, de centre (2,-1), dont le rayon du cercle intérieur est 4, la longueur des segments est 2, la première lettre démarre à 35°,
- * //    le nombre de divisions de la couronne est 12, le nombre de subdivisions est 2, leur opacité est 80 %, avec les lettres non apparentes, de couleur bleue
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {number} x Abscisse du point au centre de la cible
+ * @property {number} y Ordonnée du point au centre de la cible
+ * @property {number} depart Valeur angulaire en degré du départ de la couronne
+ * @property {number} taille Rayon du cercle intérieur
+ * @property {number} taille2 Longueur des segments dans la couronne
+ * @property {string} color Couleur de la cible. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {number} opacite Opacité de la cible
  * @author Jean-Claude Lhote
- * @private
+ * @class
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 function CibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true, color = 'gray', opacite = 0.5 }) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.x = x
   this.y = y
   this.taille = taille
@@ -4711,13 +4763,13 @@ function CibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbD
  * @author Jean-Claude Lhote
  * @return {CibleCouronne}
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function cibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true, color = 'gray', opacite = 0.5 }) {
   return new CibleCouronne({ x, y, taille, taille2, depart, nbDivisions, nbSubDivisions, semi, label, color, opacite })
 }
 
 function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecNombre = 'deuxSens', precisionAuDegre = 1, stepGraduation = 10, rayonsVisibles = true, color = 'gray' }) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.x = x
   this.y = y
   this.taille = taille
@@ -4834,7 +4886,7 @@ function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecN
  * @param {number} stepGraduation est un multiple de 10 qui divise 180 (c'est mieux) donc 10 (par défaut), ou 20, ou 30, ou 60 ou 90.
  * @param {boolean} rayonsVisibles = false permet de supprimer les rayons et le cercle central
  * @param {object} param0 = {x: 'number', y: 'number', taille: 'number', semi: boolean, avecNombre: string}
- * @returns {Rapporteur} // crée un instance de l'objet 2d Rapporteur
+ * @return {Rapporteur} // crée un instance de l'objet 2d Rapporteur
  */
 export function rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecNombre = 'deuxSens', precisionAuDegre = 1, stepGraduation = 10, rayonsVisibles = true, color = 'gray' }) {
   return new Rapporteur({ x, y, taille, depart, semi, avecNombre, precisionAuDegre, stepGraduation, rayonsVisibles, color })
@@ -4978,7 +5030,7 @@ export function rotation (A, O, angle, nom = '', positionLabel = 'above', color 
  * sens Le sens (+1 ou -1) de la rotation. +1=sens trig
  */
 function SensDeRotation (A1, centre, sens, color = 'black') {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   const objets = []
   const arc1 = arc(A1, centre, 20 * sens)
   arc1.color = colorToLatexOrHTML(color)
@@ -5007,50 +5059,51 @@ function SensDeRotation (A1, centre, sens, color = 'black') {
 export function sensDeRotation (A, O, sens, color = 'black') {
   return new SensDeRotation(A, O, sens, color)
 }
-/**
- * M = homothetie(A,O,k) //M est l'image de A dans l'homothétie de centre O et de rapport k
- *
- * M = homothetie(A,O,k,'M') //M est l'image de A dans l'homothétie de centre O et de rapport k et se nomme M
- *
- * M = homothetie(A,O,k,'M') //M est l'image de A dans l'homothétie de centre O et de rapport k, se nomme M et le nom est en dessous du point
- *
- * @param {point} A Point-antécédent de l'homothétie
- * @param {point} O Centre de l'homothétie
+/** Construit l'image d'un objet par homothétie
+ * @param {Point|Segment|Droite|Polygone|Vecteur} Objet Objet MathAlea2d choisi parmi un point, un segment, une droite, un polygone ou un vecteur
+ * @param {oint} O Centre de l'homothétie
  * @param {number} k Rapport de l'homothétie
  * @param {string} [nom = ''] Nom du point-image
- * @param {string} [color = 'black']
- * @param {string} [positionLabel = 'above'] Position du point-image
+ * @param {string} [positionLabel = 'above'] Position du point-image. Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
+ * @param {string} [color='black']  Couleur de l'image : du type 'blue' ou du type '#f15929' (non valable pour un point et pour un vecteur)
+ * @example p2 = homothetie(p1 ,I ,2)
+ * // p2 est l'image de p1 par une homothétie de centre I et de rapport 2
+ * @example N = homothetie(M, I, 0.5, 'point N', 'right')
+ * // N est l'image de M par une homothétie de centre I et de rapport 0.5.  Le point sera affiché comme "point N" et ce nom sera écrit à droite de sa position.
+ * @example s = homothetie(segment(A, B), I, -0.5, '', '','blue')
+ * // s est l'image du segment [AB] par une homothétie de centre I et de rapport -0.5.  s sera en bleu.
  * @author Rémi Angot
+ * @return {Point|Segment|Droite|Polygone|Vecteur}
  */
-export function homothetie (A, O, k, nom = '', positionLabel = 'above', color = 'black') {
-  if (A.constructor === Point) {
-    const x = O.x + k * (A.x - O.x)
-    const y = O.y + k * (A.y - O.y)
+export function homothetie (Objet, O, k, nom = '', positionLabel = 'above', color = 'black') {
+  if (Objet.constructor === Point) {
+    const x = O.x + k * (Objet.x - O.x)
+    const y = O.y + k * (Objet.y - O.y)
     return new Point(x, y, nom, positionLabel)
   }
-  if (A.constructor === Polygone) {
+  if (Objet.constructor === Polygone) {
     const p2 = []
-    for (let i = 0; i < A.listePoints.length; i++) {
-      p2[i] = homothetie(A.listePoints[i], O, k)
-      p2[i].nom = A.listePoints[i].nom + '\''
+    for (let i = 0; i < Objet.listePoints.length; i++) {
+      p2[i] = homothetie(Objet.listePoints[i], O, k)
+      p2[i].nom = Objet.listePoints[i].nom + '\''
     }
     return polygone(p2, color)
   }
-  if (A.constructor === Droite) {
-    const M = homothetie(point(A.x1, A.y1), O, k)
-    const N = homothetie(point(A.x2, A.y2), O, k)
+  if (Objet.constructor === Droite) {
+    const M = homothetie(point(Objet.x1, Objet.y1), O, k)
+    const N = homothetie(point(Objet.x2, Objet.y2), O, k)
     return droite(M, N, '', color)
   }
-  if (A.constructor === Segment) {
-    const M = homothetie(A.extremite1, O, k)
-    const N = homothetie(A.extremite2, O, k)
+  if (Objet.constructor === Segment) {
+    const M = homothetie(Objet.extremite1, O, k)
+    const N = homothetie(Objet.extremite2, O, k)
     const s = segment(M, N, color)
-    s.styleExtremites = A.styleExtremites
+    s.styleExtremites = Objet.styleExtremites
     return s
   }
-  if (A.constructor === Vecteur) {
-    const x = A.x
-    const y = A.y
+  if (Objet.constructor === Vecteur) {
+    const x = Objet.x
+    const y = Objet.y
     const v = vecteur(x * k, y * k)
     return v
   }
@@ -5117,19 +5170,19 @@ export function symetrieAxiale (A, d, nom = '', positionLabel = 'above', color =
   }
 }
 
-/**
- * Calcule la distance entre un point et une droite.
- * 1ere version utilisant la projection orthogonale
- * 2eme version utilisant la symétrie axiale (abandonnée)
+/**  Donne la distance entre le point A et la droite d
+ * @param {point} A
+ * @param {droite} d
+ * @example distancePointDroite (M, d1) // Retourne la distance entre le point M et la droite d1
  * @author Jean-Claude Lhote
- * @param {Point} A
- * @param {Droite} d
- * @returns {number} longueur
+ * @return {longueur}
  */
+// JSDOC Validee par EE Aout 2022
 export function distancePointDroite (A, d) {
   const M = projectionOrtho(A, d)
   return longueur(A, M, 9)
 }
+
 /**
  * N = projectionOrtho(M,d,'N','below left')
  *@author Jean-Claude Lhote
@@ -5166,7 +5219,7 @@ export function projectionOrtho (M, d, nom = '', positionLabel = 'above') {
 
 /**
  * Construit l'image d'un objet par affinité orthogonale
- * @param {Point|Segment|Droite|Polygone|Vecteur} Objet Objet MathALEA2d choisi parmi un point, un segment, une droite, un polygone ou un vecteur
+ * @param {Point|Segment|Droite|Polygone|Vecteur} Objet Objet MathAlea2d choisi parmi un point, un segment, une droite, un polygone ou un vecteur
  * @param {number} d Direction de l'affinité
  * @param {number} k Rapport de l'affinité
  * @param {string} [nom=''] Nom de l'image (uniquement valable pour un point)
@@ -5176,9 +5229,9 @@ export function projectionOrtho (M, d, nom = '', positionLabel = 'above') {
  * @example p2 = affiniteOrtho(p1,droite(B, C),k)
  * // p2 est l'image de p1 par une affinité orthogonale dont la direction est la droite (BC) et de rapport k
  * @example N = affiniteOrtho(M,d,0.5,'point N','right')
- * // N est l'image du point M par une affinité orthogonale de direction d et de rapport 0.5. Le point sera affiché comme "point N" et ce nom sera écrit à droite de sa position
- * @example s = affiniteOrtho(segment(A,B),d,0.1,'','','red')
- * // s est l'image du segment [AB] par une affinité orthogonale de direction d et de rapport 0.1. s sera rouge
+ * // N est l'image du point M par une affinité orthogonale de direction d et de rapport 0.5. Le point sera affiché comme "point N" et ce nom sera écrit à droite de sa position.
+ * @example s = affiniteOrtho(segment(A, B),d,0.1,'','','red')
+ * // s est l'image du segment [AB] par une affinité orthogonale de direction d et de rapport 0.1. s sera rouge.
  * @return {Point|Segment|Droite|Polygone|Vecteur} Retourne un objet du même type que le paramètre objet de la fonction
  */
 // JSDOC Validee par EE Juin 2022
@@ -5199,7 +5252,7 @@ export function affiniteOrtho (A, d, k, nom = '', positionLabel = 'above', color
       x = q * (b * b * A.x - a * b * A.y - a * c) * (1 - k) + k * A.x
       y = q * (a * a * A.y - a * b * A.x + (a * a * c) / b) * (1 - k) + (k * c) / b + k * A.y - c / b
     }
-    return point(x, y, nom, positionLabel)
+    return new Point(x, y, nom, positionLabel)
   }
   if (A.constructor === Polygone) {
     const p2 = []
@@ -5207,19 +5260,17 @@ export function affiniteOrtho (A, d, k, nom = '', positionLabel = 'above', color
       p2[i] = affiniteOrtho(A.listePoints[i], d, k)
       p2[i].nom = A.listePoints[i].nom + '\''
     }
-    return polygone(p2, color)
+    return new Polygone(p2, color)
   }
   if (A.constructor === Droite) {
     const M = affiniteOrtho(point(A.x1, A.y1), d, k)
     const N = affiniteOrtho(point(A.x2, A.y2), d, k)
-    return droite(M, N, color)
+    return new Droite(M, N, color)
   }
   if (A.constructor === Segment) {
     const M = affiniteOrtho(A.extremite1, d, k)
     const N = affiniteOrtho(A.extremite2, d, k)
-    const s = segment(M, N, color)
-    s.styleExtremites = A.styleExtremites
-    return s
+    return new Segment(M, N, color, A.styleExtremites)
   }
   if (A.constructor === Vecteur) {
     let O
@@ -5228,8 +5279,7 @@ export function affiniteOrtho (A, d, k, nom = '', positionLabel = 'above', color
     } else O = point(0, -c / b)
     const M = translation(O, A)
     const N = affiniteOrtho(M, d, k)
-    const v = vecteur(O, N)
-    return v
+    return new Vecteur(O, N)
   }
 }
 /**
@@ -5286,352 +5336,6 @@ export function similitude (A, O, a, k, nom = '', positionLabel = 'above', color
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%% LES TRANSFORMATIONS ANIMÉES %%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-*/
-
-/**
- * Fait apparaître une liste d'objets de façon animée.
- * @param {ObjetMathalea2D[]} liste liste d'objets à faire apparaitre
- * @param {number} [dur = 2] Durée de l'animation en secondes
- * @param {number} [pourcentage = 0.5] Pourcentage de la durée à partir de laquelle les objets sont visibles
- * @param {number|string} [repeat = 'indefinite'] Nombre de répétitions de l'animation, peut être un entier.
- * @author Rémi Angot
- * @private
- */
-// JSDOC Non Validee EE Juin 2022 (impossible à tester car non utilisée)
-function ApparitionAnimee (liste, dur = 2, pourcentage = 0.5, repeat = 'indefinite') {
-  ObjetMathalea2D.call(this)
-  this.svg = function (coeff) {
-    let code = '<g> '
-    if (Array.isArray(liste)) {
-      for (const objet of liste) {
-        code += '\n' + objet.svg(coeff)
-      }
-    } else {
-      // si ce n'est pas une liste
-      code += '\n' + liste.svg(coeff)
-    }
-    code += `<animate attributeType="CSS"
-    attributeName="visibility"
-    from="hidden" 
-    to="hidden"
-    values="hidden;visible;hidden"
-    keyTimes="0; ${pourcentage}; 1"
-    dur="${dur}"
-    repeatCount="${repeat}"/>`
-    code += '</g>'
-    return code
-  }
-}
-/**
- * Fait apparaître une liste d'objets de façon animée
- * @param {ObjetMathalea2D[]} liste liste d'objets à faire apparaitre
- * @param {number} [dur = 2] Durée de l'animation en secondes
- * @param {number} [pourcentage = 0.5] Pourcentage de la durée à partir de laquelle les objets sont visibles
- * @param {number|string} [repeat = 'indefinite'] Nombre de répétitions de l'animation, peut être un entier
- * @return {ApparitionAnimee}
- * @example Fonction non utilisée donc pas d'exemple, fonction non testée, peut être bugguée
- * @author Rémi Angot
- */
-// JSDOC Non Validee EE Juin 2022 (impossible à tester car non utilisée)
-export function apparitionAnimee (liste, dur = 2, pourcentage = 0.5, repeat = 'indefinite') {
-  return new ApparitionAnimee(liste, dur, pourcentage, repeat)
-}
-/**
- * translationAnimee(s,v) //Animation de la translation de vecteur v pour s
- * translationAnimee([a,b,c],v) //Animation de la translation de vecteur v pour les objets a, b et v
- *
- * @author Rémi Angot
- */
-function TranslationAnimee (liste, v, animation = 'begin="0s" dur="2s" repeatCount="indefinite"') {
-  ObjetMathalea2D.call(this)
-  this.svg = function (coeff) {
-    let code = '<g> '
-    if (Array.isArray(liste)) {
-      for (const objet of liste) {
-        code += '\n' + objet.svg(coeff)
-      }
-    } else {
-      // si ce n'est pas une liste
-      code += '\n' + liste.svg(coeff)
-    }
-    if (Array.isArray(v)) {
-      code += '<animateMotion path="M 0 0 l'
-      for (const vecteur of v) {
-        code += ` ${vecteur.xSVG(coeff)} ${vecteur.ySVG(coeff)} `
-      }
-      code += `${animation} />`
-    } else {
-      code += `<animateMotion path="M 0 0 l ${v.xSVG(coeff)} ${v.ySVG(coeff)} " ${animation} />`
-    }
-    code += '</g>'
-    return code
-  }
-}
-export function translationAnimee (...args) {
-  return new TranslationAnimee(...args)
-}
-
-/**
- * rotationAnimee(s,O,a) //Animation de la rotation de centre O et d'angle a pour s
- * rotationAnimee([a,b,c],O,a) //Animation de la rotation de centre O et d'angle a pour les objets a, b et c
- *
- * @author Rémi Angot
- */
-function RotationAnimee (
-  liste,
-  O,
-  angle,
-  animation = 'begin="0s" dur="2s" repeatCount="indefinite"'
-) {
-  ObjetMathalea2D.call(this)
-  this.svg = function (coeff) {
-    let code = '<g> '
-    if (Array.isArray(liste)) {
-      for (const objet of liste) {
-        code += '\n' + objet.svg(coeff)
-      }
-    } else {
-      // si ce n'est pas une liste
-      code += '\n' + liste.svg(coeff)
-    }
-
-    code += `<animateTransform
-  attributeName="transform"
-  type="rotate"
-  from="0 ${O.xSVG(coeff)} ${O.ySVG(coeff)}"
-  to="${-angle} ${O.xSVG(coeff)} ${O.ySVG(coeff)}"
-  ${animation}
-  />`
-    code += '</g>'
-    return code
-  }
-}
-export function rotationAnimee (...args) {
-  return new RotationAnimee(...args)
-}
-/**
- * homothetieAnimee(s,O,k) //Animation de la homothetie de centre O et de rapport k pour s
- * homothetieAnimee([a,b,c],O,k) //Animation de la homothetie de centre O et de rapport k pour les objets a, b et v
- *
- * @author Rémi Angot
- */
-function HomothetieAnimee (
-  p,
-  O,
-  k,
-  animation = 'begin="0s" dur="2s" repeatCount="indefinite"'
-) {
-  ObjetMathalea2D.call(this)
-  this.svg = function (coeff) {
-    const binomesXY1 = p.binomesXY(coeff)
-    const p2 = homothetie(p, O, k)
-    p2.isVisible = false
-    const binomesXY2 = p2.binomesXY(coeff)
-    const code = `<polygon stroke="${p.color[0]}" stroke-width="${p.epaisseur}" fill="${p.couleurDeRemplissage[0]}" >
-  <animate attributeName="points" ${animation}
-  from="${binomesXY1}"
-  to="${binomesXY2}"
-  />
-  </polygon>`
-    return code
-  }
-}
-export function homothetieAnimee (...args) {
-  return new HomothetieAnimee(...args)
-}
-
-/**
- * symetrieAnimee(s,d) //Animation de la symetrie d'axe (d) pour s
- * symetrieAnimee([a,b,c],d) //Animation de la symetrie d'axe (d) pour les objets a, b et v
- *
- * @author Rémi Angot
- */
-function SymetrieAnimee (
-  p,
-  d,
-  animation = 'begin="0s" dur="2s" repeatCount="indefinite"'
-) {
-  ObjetMathalea2D.call(this)
-  this.svg = function (coeff) {
-    const binomesXY1 = p.binomesXY(coeff)
-    const p2 = symetrieAxiale(p, d)
-    p2.isVisible = false
-    const binomesXY2 = p2.binomesXY(coeff)
-    const code = `<polygon stroke="${p.color[0]}" stroke-width="${p.epaisseur}" fill="${p.couleurDeRemplissage[0]}" >
-    <animate attributeName="points" ${animation}
-    from="${binomesXY1}"
-    to="${binomesXY2}"
-    />
-    </polygon>`
-    return code
-  }
-}
-export function symetrieAnimee (...args) {
-  return new SymetrieAnimee(...args)
-}
-
-function AffiniteOrthoAnimee (
-  p,
-  d,
-  k,
-  animation = 'begin="0s" dur="2s" repeatCount="indefinite"'
-) {
-  ObjetMathalea2D.call(this)
-  this.svg = function (coeff) {
-    const binomesXY1 = p.binomesXY(coeff)
-    const p2 = affiniteOrtho(p, d, k)
-    p2.isVisible = false
-    const binomesXY2 = p2.binomesXY(coeff)
-    const code = `<polygon stroke="${p.color[0]}" stroke-width="${p.epaisseur}" fill="${p.couleurDeRemplissage[0]}" >
-    <animate attributeName="points" ${animation}
-    from="${binomesXY1}"
-    to="${binomesXY2}"
-    />
-    </polygon>`
-    return code
-  }
-}
-export function affiniteOrthoAnimee (...args) {
-  return new AffiniteOrthoAnimee(...args)
-}
-
-/**
- * Rend visible un element d'après son id
- * @param {number} id id propre à un objet MathALEA2d
- * @example montrerParDiv(s2.id) // Affiche l'objet s2
- * @author Rémi Angot
- */
-// JSDOC Validee par EE Juin 2022
-export function montrerParDiv (id) {
-  if (document.getElementById(id)) {
-    document.getElementById(id).style.visibility = 'visible'
-  } else {
-    console.log(id + ' n\'existe pas et ne peut pas être rendu visible.')
-  }
-}
-
-/**
- * Rend invisible un element d'après son id
- * @param {number} id id propre à un objet MathALEA2d
- * @example cacherParDiv(s2.id) // Cache l'objet s2
- * @author Rémi Angot
- */
-// JSDOC Validee par EE Juin 2022
-export function cacherParDiv (id) {
-  if (document.getElementById(id)) {
-    document.getElementById(id).style.visibility = 'hidden'
-  } else {
-    console.log(id + ' n\'existe pas et ne peut pas être caché.')
-  }
-}
-
-/**
- * Masque un objet pendant t0 secondes puis l'affiche pendant (t-t0) secondes avant de recommencer r fois ce cycle en tout
- * @param {ObjetMathalea2D} objet Objet MathALEA2d masqué puis affiché
- * @param {number} [t0=1] Temps en secondes avant l'apparition.
- * @param {number} [t=5] Temps à partir duquel l'animation recommence.
- * @param {string} [r='Infinity'] Nombre de répétitions (infini si ce n'est pas un nombre).
- * @example afficherTempo(ob1)
- * // Affiche ob1 au bout de 1 seconde, pendant 4 secondes puis le masque. Ce cycle est répété indéfiniment.
- * @example afficherTempo(ob1,2,9,10)
- * // Sur un cycle de 9 secondes, affiche ob1 au bout de 2 seconde puis le masque en fin de cycle. Ce cycle est répété 10 fois.
- */
-// JSDOC Validee par EE Juin 2022
-export function afficherTempo (objet, t0 = 1, t = 5, r = 'Infinity') {
-  let compteur = 1 // Nombre d'animations
-  const checkExist = setInterval(function () {
-    if (document.getElementById(objet.id)) {
-      clearInterval(checkExist)
-      cacherParDiv(objet.id)
-      if (r === 1) { // On le montre au bout de t0 et on ne le cache plus
-        setTimeout(function () { montrerParDiv(objet.id) }, t0 * 1000)
-      } else {
-        const cacheRepete = setInterval(function () { cacherParDiv(objet.id) }, t * 1000) // On cache tous les t s
-        setTimeout(function () {
-          montrerParDiv(objet.id) // On attend t0 pour montrer
-          const montreRepete = setInterval(function () {
-            montrerParDiv(objet.id)
-            compteur++
-            if (typeof r === 'number') {
-              if (compteur >= r) {
-                clearInterval(cacheRepete)
-                clearInterval(montreRepete)
-              }
-            }
-          }, t * 1000) // On montre tous les t s (vu qu'on a décalé de t0)
-        }, t0 * 1000) // Fin de l'animation en boucle
-      }
-    }
-  }, 100) // vérifie toutes les  100ms que le div existe
-}
-
-/**
- * Affiche un objet pendant t0 secondes puis le cache pendant (t-t0) secondes avant de recommencer r fois ce cycle en tout
- * @param {ObjetMathalea2D} objet Objet MathALEA2d affiché puis masqué
- * @param {number} [t0=1] Temps en secondes avant l'apparition
- * @param {number} [t=5] Temps à partir duquel l'animation recommence
- * @param {string} [r='Infinity'] Nombre de répétitions (infini si ce n'est pas un nombre)
- * @example cacherTempo(figure1)
- * // Affiche figure1 pendant 1 seconde, puis le cache pendant 4 secondes et recommence ce cycle indéfiniment.
- * @example cacherTempo(figure1,2,8,3)
- * // Affiche figure1 pendant 2 secondes, puis le cache pendant 6 secondes et recommence ce cycle 3 fois en tout.
- * @author Eric Elter
- */
-// JSDOC Validee par EE Juin 2022
-export function cacherTempo (objet, t0 = 1, t = 5, r = 'Infinity') {
-  let compteur = 1 // Nombre d'animations
-  const checkExist = setInterval(function () {
-    if (document.getElementById(objet.id)) {
-      clearInterval(checkExist)
-      montrerParDiv(objet.id)
-      if (r === 1) { // On le cache au bout de t0 et on ne le montre plus
-        setTimeout(function () { cacherParDiv(objet.id) }, t0 * 1000)
-      } else {
-        const montreRepete = setInterval(function () { montrerParDiv(objet.id) }, t * 1000) // On cache tous les t s
-        setTimeout(function () {
-          cacherParDiv(objet.id) // On attend t0 pour montrer
-          const cacheRepete = setInterval(function () {
-            cacherParDiv(objet.id)
-            compteur++
-            if (typeof r === 'number') {
-              if (compteur >= r) {
-                clearInterval(cacheRepete)
-                clearInterval(montreRepete)
-              }
-            }
-          }, t * 1000) // On montre tous les t s (vu qu'on a décalé de t0)
-        }, t0 * 1000) // Fin de l'animation en boucle
-      }
-    }
-  }, 100) // vérifie toutes les  100ms que le div existe
-}
-
-/**
- * Masque une suite d'objets puis les affiche un par un, de t secondes en t secondes avant de recommencer r fois, tApresDernier secondes après l'affichage de tous les objets
- * @param {ObjetMathalea2D[]} objets Liste d'objets MathALEA2d masqués puis affichés
- * @param {number} [t = 1] Temps en secondes entre l'apparition de chaque objet
- * @param {string} [r = 'Infinity'] Nombre de répétitions (infini si ce n'est pas un nombre).
- * @param {number} [tApresDernier = 5] Temps, après l'affichage du dernier objet, à partir duquel l'animation recommence.
- * @example afficherUnParUn([s1,s2])
- * // Affiche s1 au bout de 1 seconde, puis s2 après 1 nouvelle seconde, puis les masque après 5 secondes. Ce cycle est répété indéfiniment.
- * @example afficherUnParUn([s1,s2],2,9,10)
- * // Affiche s1 au bout de 2 secondes, puis s2 après 2 nouvelles secondes, puis les masque après 10 secondes. Ce cycle est répété en tout 9 fois.
- * @author Rémi Angot
- */
-// JSDOC Validee par EE Juin 2022
-export function afficherUnParUn (objets, t = 1, r = 'Infinity', tApresDernier = 5) {
-  let t0 = t
-  const tf = objets.length * t + tApresDernier
-  for (const objet of objets) {
-    afficherTempo(objet, t0, tf, r)
-    t0 += t
-  }
-}
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%% LE TRIANGLE %%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
@@ -5672,25 +5376,41 @@ export function centreGraviteTriangle (A, B, C, nom = '', positionLabel = 'above
   const p = pointIntersectionDD(d, e)
   const x = p.x
   const y = p.y
-  return point(x, y, nom, positionLabel)
+  return new Point(x, y, nom, positionLabel)
 }
 
-/**
- * Hauteur issue de A relative à [BC]
+/**  Trace la hauteur issue de A relative à [BC]
+ * @param {Point} A Point dont est issue la hauteur
+ * @param {Point} B Première extrémité du segment dont est relative la hauteur
+ * @param {Point} C Seconde extrémité du segment dont est relative la hauteur
+ * @param {string} [color = 'black'] Couleur de cette hauteur : du type 'blue' ou du type '#f15929'
+ * @example hauteurTriangle (M, N, P) // Trace, en noir, la hauteur issue de M relative à [NP]
+ * @example hauteurTriangle (M, N, P, 'red') // Trace, en rouge, la hauteur issue de M relative à [NP]
  * @author Jean-Claude Lhote
- * @param {Point} A
- * @param {Point} B
- * @param {Point} C
- * @param {string} color
+ * @return {Droite}
  */
+// JSDOC Validee par EE Aout 2022
 export function hauteurTriangle (A, B, C, color = 'black') {
   const d = droite(B, C)
   d.isVisible = false
   const p = projectionOrtho(A, d)
-  return droite(p, A, '', color)
+  return new Droite(p, A, '', color)
 }
+
+/**
+ * Code la hauteur d'un triangle
+ * @param {Point} A Premier sommet d'un triangle
+ * @param {Point} B Deuxième sommet d'un triangle
+ * @param {Point} C Troisième sommet d'un triangle
+ * @param {string} [color = 'black'] Couleur des codages : du type 'blue' ou du type '#f15929'
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} color Couleur des codages. À associer obligatoirement à colorToLatexOrHTML().
+ * @class
+ */
+// JSDOC Validee par EE Juin 2022
 export function CodageHauteurTriangle (A, B, C, color = 'black') {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.color = color
   const d = droite(B, C)
   const p = projectionOrtho(A, d)
@@ -5732,23 +5452,36 @@ export function CodageHauteurTriangle (A, B, C, color = 'black') {
     }
   }
 }
-export function codageHauteurTriangle (...args) {
-  return new CodageHauteurTriangle(...args)
+
+/**
+ * Code la hauteur d'un triangle
+ * @param {Point} A Premier sommet d'un triangle
+ * @param {Point} B Deuxième sommet d'un triangle
+ * @param {Point} C Troisième sommet d'un triangle
+ * @param {string} [color = 'black'] Couleur des codages : du type 'blue' ou du type '#f15929'
+ * @example codageHauteurTriangle(M,N,P) // Code, en noir, la hauteur du triangle MNP.
+ * @example codageHauteurTriangle(M,N,P,'red') // Code, en rouge, la hauteur du triangle MNP.
+ * @return {CodageHauteurTriangle}
+ */
+// JSDOC Validee par EE Juin 2022
+export function codageHauteurTriangle (A, B, C, color = 'black') {
+  return new CodageHauteurTriangle(A, B, C, color)
 }
-function CodageMedianeTriangle (B, C, color = 'black', mark = '//') {
-  ObjetMathalea2D.call(this)
-  this.color = color
-  const O = milieu(B, C)
-  const c = codageSegments(mark, this.color, B, O, O, C)
-  this.svg = function (coeff) {
-    return c.svg(coeff)
-  }
-  this.tikz = function (coeff) {
-    return c.tikz(coeff)
-  }
-}
-export function codageMedianeTriangle (...args) {
-  return new CodageMedianeTriangle(...args)
+
+/**
+ * Code la médiane d'un triangle
+ * @param {Point} B Première extrémité du segment dont la médiane est relative
+ * @param {Point} C Seconde extrémité du segment dont la médiane est relative
+ * @param {string} [color = 'black'] Couleur des codages : du type 'blue' ou du type '#f15929'
+ * @param {string} [mark = '//'] Symbole posé de part et d'autre du milieu du segment
+ * @param {boolean} [mil = false] Trace ou nom le point du milieu.
+ * @example codageMedianeTriangle(M,N) // Code, en noir, la médiane d'un triangle relative au côté [MN], avec les symboles //
+ * @example codageMedianeTriangle(M,N,P,'red','oo') // Code, en rouge, la médiane d'un triangle relative au côté [MN], avec les symboles oo
+ * @return {CodageSegments}
+ */
+// JSDOC Validee par EE Juin 2022
+export function codageMedianeTriangle (A, B, color = 'black', mark = '×', mil = false) {
+  return new CodageMilieu(A, B, color, mark, mil)
 }
 
 /**
@@ -5793,7 +5526,7 @@ export function centreCercleCirconscrit (A, B, C, nom = '', positionLabel = 'abo
   const p = pointIntersectionDD(d, e)
   const x = p.x
   const y = p.y
-  return point(x, y, nom, positionLabel)
+  return new Point(x, y, nom, positionLabel)
 }
 
 /*
@@ -5812,17 +5545,23 @@ export function centreCercleCirconscrit (A, B, C, nom = '', positionLabel = 'abo
  * @param {number} [epaisseur=0.5] Epaisseur du trait
  * @param {number} [opacite=1] Opacité du trait
  * @param {string} [couleurDeRemplissage='none'] 'none' si on ne veut pas de remplissage, sinon une couleur du type 'blue' ou du type '#f15929'
- * @param {number} [opaciteDeRemplissage=1] Taux d'opacité du remplissage
- * @example CodageAngleDroit(A,J,T)
- * // Trace un codage d'angle droit pour l'angle direct AJT, de couleur noire, de taille 0,4, d'épaisseur 0,5 avec une opacité de 100 %, sans remplissage
- * @example CodageAngleDroit(A,J,T,'pink',1,0.2,0.6,'blue',0.2)
- * // Trace un codage d'angle droit pour l'angle direct AJT, de couleur rose, de taille 1, d'épaisseur 0,2 avec une opacité de 60 %, rempli en bleu avec une opacité de 20%.
- * @author Rémi Angot
- * @private
+ * @param {number} [opaciteDeRemplissage=1] Taux d'opacité du remplissage entre 0 et 1
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml Sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {Point} depart Point sur un côté de l'angle droit
+ * @property {Point} sommet Sommet de l'angle droit
+ * @property {Point} arrivee Point sur l'autre côté de l'angle droit
+ * @property {string} color Couleur du codage. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {number} taille Taille du codage de l'angle droit
+ * @property {string} couleurDeRemplissage 'none' si on ne veut pas de remplissage. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {number} opaciteDeRemplissage Taux d'opacité du remplissage entre 0 et 1
+ * @class
  */
 // JSDOC Validee par EE Juin 2022
 function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 1) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.sommet = O
   this.depart = A
   this.arrivee = B
@@ -5909,11 +5648,11 @@ function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, o
  * @param {number} [opacite=1] Opacité du trait
  * @param {string} [couleurDeRemplissage='none'] 'none' si on ne veut pas de remplissage, sinon une couleur du type 'blue' ou du type '#f15929'
  * @param {number} [opaciteDeRemplissage=1] Taux d'opacité du remplissage
- * @example CodageAngleDroit(A,J,T)
+ * @example codageAngleDroit(A,J,T)
  * // Trace un codage d'angle droit pour l'angle direct AJT, de couleur noire, de taille 0,4, d'épaisseur 0,5 avec une opacité de 100 %, sans remplissage
- * @example CodageAngleDroit(A,J,T,'pink',1,0.2,0.6,'blue',0.2)
+ * @example codageAngleDroit(A,J,T,'pink',1,0.2,0.6,'blue',0.2)
  * // Trace un codage d'angle droit pour l'angle direct AJT, de couleur rose, de taille 1, d'épaisseur 0,2 avec une opacité de 60 %, rempli en bleu avec une opacité de 20%.
- * @returns {CodageAngleDroit}
+ * @return {CodageAngleDroit}
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
@@ -5925,16 +5664,19 @@ export function codageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur =
  * Affiche la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous.
  * @param  {Point} A Première extrémité du segment
  * @param  {Point} B Seconde extrémité du segment
- * @param  {string} [color='black'] Couleur affichée de la longueur affichée : du type 'blue' ou du type '#f15929'.
+ * @param  {string} [color='black'] Couleur de la longueur affichée : du type 'blue' ou du type '#f15929'.
  * @param  {number} [d=0.5] Distance entre l'affichage de la longueur et le segment.
  * @param  {string} [unite='cm'] Affiche cette unité après la valeur numérique de la longueur.
  * @param  {boolean} [horizontal=false] Si true, alors le texte est horizontal, sinon le texte est parallèle au segment.
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} color Couleur de la longueur affichée. À associer obligatoirement à colorToLatexOrHTML().
  * @author Rémi Angot
- * @private
+ * @class
  */
 // JSDOC Validee par EE Juin 2022
 function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm', horizontal = false) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.color = color
   const O = milieu(A, B)
   const M = rotation(A, O, -90)
@@ -5973,7 +5715,7 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm', h
  * // Affiche la longueur du segment [AB] (en noir, à 0,5 "cm" du segment, complétée par l'unité cm et parallèlement au segment).
  * @example  afficheLongueurSegment(A,B,'blue',1,'mm',true)
  * // Affiche la longueur du segment [AB], en bleu, à 1 "cm" du segment, complétée par l'unité mm et horizontalement.
- * @returns {AfficheLongueurSegment}
+ * @return {AfficheLongueurSegment}
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
@@ -5987,7 +5729,7 @@ export function afficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 
  * @author Rémi Angot
  */
 function TexteSurSegment (texte, A, B, color = 'black', d = 0.5, horizontal = false) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   if (longueur(A, B) < 0.1) window.notify('TexteSurSegment : Points trop proches pour cette fonction', { A, B })
   this.color = color
   this.extremite1 = A
@@ -6040,7 +5782,7 @@ export function texteSurSegment (...args) {
  * @author Rémi Angot et Frédéric Piou
  */
 function TexteSurArc (texte, A, B, angle, color = 'black', d = 0.5, horizontal = false) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.color = color
   this.extremite1 = A
   this.extremite2 = B
@@ -6110,31 +5852,42 @@ export function texteSurArc (texte, A, B, angle, color = 'black', d = 0.5, horiz
  * @param {Point} B Sommet de l'angle
  * @param {Point} C Point sur l'autre côté de l'angle
  * @param {string} [color='black'] Couleur de la mesure de l'angle : du type 'blue' ou du type '#f15929'.
- * @param {number} [distance=1.5] Taille de l'angle.
+ * @param {number} [distance=1.5] Taille de l'angle
  * @param {string} [label=''] Si vide, alors affiche la mesure de l'angle sinon affiche ce label.
- * @param {number} [ecart=0.5] Distance entre l'arc et sa mesure.
- * @param {boolean} [saillant=true] True si on veut l'angle saillant, false si on veut l'angle rentrant.
- * @param {string} [colorArc='black']  Couleur de l'arc  : du type 'blue' ou du type '#f15929'.
- * @param {boolean} [rayon=false] True pour fermer l'angle, par deux rayons (en vue de colorier l'intérieur).
- * @param {string} [couleurDeRemplissage='none'] 'none' si on ne veut pas de remplissage, sinon une couleur du type 'blue' ou du type '#f15929'.
- * @param {number} [opaciteDeRemplissage=0.5] Taux d'opacité du remplissage.
- * @param {number} [arcEpaisseur=1] Epaisseur de l'arc.
- * @param {boolean} [mesureEnGras=false] True pour mettre en gras la mesure affichée.
- * @private
+ * @param {Object} parametres À saisir entre accolades
+ * @param {number} [parametres.ecart=0.5] Distance entre l'arc et sa mesure
+ * @param {boolean} [parametres.saillant=true] True si on veut l'angle saillant, false si on veut l'angle rentrant.
+ * @param {string} [parametres.colorArc='black']  Couleur de l'arc  : du type 'blue' ou du type '#f15929'.
+ * @param {boolean} [parametres.rayon=false] True pour fermer l'angle, par deux rayons (en vue de colorier l'intérieur).
+ * @param {string} [parametres.couleurDeRemplissage='none'] 'none' si on ne veut pas de remplissage, sinon une couleur du type 'blue' ou du type '#f15929'.
+ * @param {number} [parametres.opaciteDeRemplissage=0.5] Taux d'opacité du remplissage entre 0 et 1
+ * @param {number} [parametres.arcEpaisseur=1] Epaisseur de l'arc
+ * @param {boolean} [parametres.mesureEnGras=false] True pour mettre en gras la mesure affichée
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {Point} depart Point sur un côté de l'angle
+ * @property {Point} sommet Sommet de l'angle
+ * @property {Point} arrivee Point sur l'autre côté de l'angle
+ * @property {number} distance Taille de l'angle
+ * @property {number} ecart Distance entre l'arc et sa mesure
+ * @property {boolean} saillant True si on veut l'angle saillant, false si on veut l'angle rentrant.
+ * @property {number} epaisseur Epaisseur de l'arc
+ * @class
  */
 // JSDOC Validee par EE Juin 2022
 function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '', { ecart = 0.5, mesureEnGras = false, saillant = true, colorArc = 'black', rayon = false, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.5, arcEpaisseur = 1 } = {}) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.depart = A
   this.arrivee = C
   this.sommet = B
   this.distance = distance
-  this.angle = saillant ? angleOriente(this.depart, this.sommet, this.arrivee) : angleOriente(this.depart, this.sommet, this.arrivee) > 0 ? angleOriente(this.depart, this.sommet, this.arrivee) - 360 : 360 + angleOriente(this.depart, this.sommet, this.arrivee)
+  const angle = saillant ? angleOriente(this.depart, this.sommet, this.arrivee) : angleOriente(this.depart, this.sommet, this.arrivee) > 0 ? angleOriente(this.depart, this.sommet, this.arrivee) - 360 : 360 + angleOriente(this.depart, this.sommet, this.arrivee)
   this.ecart = ecart
   this.saillant = saillant
+  this.epaisseur = arcEpaisseur
   this.svg = function (coeff) {
     const M = pointSurSegment(this.sommet, this.depart, this.distance)
-    const N = rotation(pointSurSegment(this.sommet, M, this.distance + this.ecart * 20 / coeff), this.sommet, this.angle / 2, '', 'center')
+    const N = rotation(pointSurSegment(this.sommet, M, this.distance + this.ecart * 20 / coeff), this.sommet, angle / 2, '', 'center')
     let mesureAngle
     if (label !== '') {
       mesureAngle = label
@@ -6142,15 +5895,15 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
       mesureAngle = Math.round(this.saillant ? angle(this.depart, this.sommet, this.arrivee) : 360 - angle(this.depart, this.sommet, this.arrivee)) + '°'
     }
     const mesure = texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true)
-    const marque = arc(M, B, this.angle, rayon, couleurDeRemplissage, colorArc, opaciteDeRemplissage)
+    const marque = arc(M, B, angle, rayon, couleurDeRemplissage, colorArc, opaciteDeRemplissage)
     mesure.contour = mesureEnGras
     mesure.couleurDeRemplissage = colorToLatexOrHTML(color)
-    marque.epaisseur = arcEpaisseur
+    marque.epaisseur = this.epaisseur
     return '\n' + mesure.svg(coeff) + '\n' + marque.svg(coeff)
   }
   this.tikz = function () {
     const M = pointSurSegment(this.sommet, this.depart, this.distance)
-    const N = rotation(pointSurSegment(this.sommet, M, this.distance + this.ecart), this.sommet, this.angle / 2, '', 'center')
+    const N = rotation(pointSurSegment(this.sommet, M, this.distance + this.ecart), this.sommet, angle / 2, '', 'center')
     let mesureAngle
     if (label !== '') {
       mesureAngle = label
@@ -6158,10 +5911,10 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
       mesureAngle = Math.round(this.saillant ? angle(this.depart, this.sommet, this.arrivee) : 360 - angle(this.depart, this.sommet, this.arrivee)) + '\\degree'
     }
     const mesure = texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true)
-    const marque = arc(M, B, this.angle, rayon, couleurDeRemplissage, colorArc, opaciteDeRemplissage)
+    const marque = arc(M, B, angle, rayon, couleurDeRemplissage, colorArc, opaciteDeRemplissage)
     mesure.contour = mesureEnGras
     mesure.couleurDeRemplissage = colorToLatexOrHTML(color)
-    marque.epaisseur = arcEpaisseur
+    marque.epaisseur = this.epaisseur
     return '\n' + mesure.tikz() + '\n' + marque.tikz()
   }
 }
@@ -6173,19 +5926,20 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
  * @param {string} [color='black'] Couleur de la mesure de l'angle : du type 'blue' ou du type '#f15929'.
  * @param {number} [distance=1.5] Rayon de l'arc de cercle.
  * @param {string} [label=''] Si vide, alors affiche la mesure de l'angle sinon affiche ce label.
- * @param {number} [ecart=0.5] Distance entre l'arc et sa mesure.
- * @param {boolean} [saillant=true] True si on veut l'angle saillant, false si on veut l'angle rentrant.
- * @param {string} [colorArc='black']  Couleur de l'arc  : du type 'blue' ou du type '#f15929'.
- * @param {boolean} [rayon=false] True pour fermer l'angle, par deux rayons (en vue de colorier l'intérieur).
- * @param {string} [couleurDeRemplissage='none'] 'none' si on ne veut pas de remplissage, sinon une couleur du type 'blue' ou du type '#f15929'.
- * @param {number} [opaciteDeRemplissage=0.5] Taux d'opacité du remplissage.
- * @param {number} [arcEpaisseur=1] Epaisseur de l'arc.
- * @param {boolean} [mesureEnGras=false] True pour mettre en gras la mesure affichée.
+ * @param {Object} parametres À saisir entre accolades
+ * @param {number} [parametres.ecart=0.5] Distance entre l'arc et sa mesure
+ * @param {boolean} [parametres.saillant=true] True si on veut l'angle saillant, false si on veut l'angle rentrant.
+ * @param {string} [parametres.colorArc='black']  Couleur de l'arc  : du type 'blue' ou du type '#f15929'.
+ * @param {boolean} [parametres.rayon=false] True pour fermer l'angle, par deux rayons (en vue de colorier l'intérieur).
+ * @param {string} [parametres.couleurDeRemplissage='none'] 'none' si on ne veut pas de remplissage, sinon une couleur du type 'blue' ou du type '#f15929'.
+ * @param {number} [parametres.opaciteDeRemplissage=0.5] Taux d'opacité du remplissage entre 0 et 1
+ * @param {number} [parametres.arcEpaisseur=1] Epaisseur de l'arc
+ * @param {boolean} [parametres.mesureEnGras=false] True pour mettre en gras la mesure affichée
  * @example afficheMesureAngle(M,N,O)
  * // Affiche la mesure de l'angle MNO (en noir, avec un arc de rayon 1,5 "cm").
  * @example afficheMesureAngle(M,N,O,'red',2,'pop',{ecart:1,saillant:false,colorArc:'blue',rayon:true,couleurDeRemplissage:'#f15929',opaciteDeRemplissage:0.8,arcEpaisseur:2,mesureEnGras:true})
  * // Affiche le label pop en gras et rouge, sur l'angle rentrant MNO, avec un arc bleu, epais de 2 et de rayon 2 "cm", à 1 "cm" de l'arc rempli en orange avec une opacité de 80%, cerné par ses rayons.
- * @returns {AfficheMesureAngle}
+ * @return {AfficheMesureAngle}
  */
 // JSDOC Validee par EE Juin 2022
 export function afficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '', { ecart = 0.5, mesureEnGras = false, saillant = true, colorArc = 'black', rayon = false, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.5, arcEpaisseur = 1 } = {}) {
@@ -6202,12 +5956,10 @@ export function afficheMesureAngle (A, B, C, color = 'black', distance = 1.5, la
  * @param {number} [positionValeur=0.5] Position de la valeur par rapport à la flèche. Valeur négative ou positive selon la position voulue.
  * @param {string} [couleurValeur='black']  Couleur de la valeur indiquée : du type 'blue' ou du type '#f15929'.
  * @param {boolean} [horizontal=false]  Si true, alors le texte est horizontal, sinon le texte est parallèle au segment.
- * @example AfficheCoteSegment(s)
- * \\ Affiche la côte du segment s (avec une flèche noire d\'épaisseur 1 "cm", placée 0.5 "cm" sous le segment, avec la longueur du segment, en cm, écrite en noir, 0,5 "cm" au-dessus, et parallèle au segment.
- * @example AfficheCoteSegment(s,'x',-1,'red',2,1,'blue',true)
- * \\ Affiche la côte du segment s, avec une flèche rouge d\'épaisseur 2 "cm", placée 1 "cm" sous le segment, avec le texte 'x' écrit en bleu, 1 "cm" au-dessus, et horizontalement.
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @author Jean-Claude Lhote
- * @private
+ * @class
  */
 // JSDOC Validee par EE Juin 2022
 function AfficheCoteSegment (
@@ -6220,38 +5972,35 @@ function AfficheCoteSegment (
   couleurValeur = 'black',
   horizontal = false
 ) {
-  ObjetMathalea2D.call(this)
-  this.positionCoteSVG = positionCote * 20 / context.pixelsParCm
-  this.positionCoteTIKZ = positionCote / context.scale
-  this.positionValeur = positionValeur
-  this.seg = s
-  this.cote = Cote
+  ObjetMathalea2D.call(this, { })
+  const positionCoteSVG = positionCote * 20 / context.pixelsParCm
+  const positionCoteTIKZ = positionCote / context.scale
 
   this.svg = function (coeff) {
     let valeur
-    const A = this.seg.extremite1
-    const B = this.seg.extremite2
-    const v = similitude(vecteur(A, B), A, 90, this.positionCoteSVG / this.seg.longueur)
+    const A = s.extremite1
+    const B = s.extremite2
+    const v = similitude(vecteur(A, B), A, 90, positionCoteSVG / s.longueur)
     const cote = segment(translation(A, v), translation(B, v), couleurCote)
     if (longueur(A, B) > 1) cote.styleExtremites = '<->'
     else cote.styleExtremites = '>-<'
     cote.epaisseur = epaisseurCote
-    if (this.cote === '') {
+    if (Cote === '') {
       valeur = afficheLongueurSegment(
         cote.extremite1,
         cote.extremite2,
         couleurValeur,
-        this.positionValeur,
+        positionValeur,
         'cm',
         horizontal
       )
     } else {
       valeur = texteSurSegment(
-        this.cote,
+        Cote,
         cote.extremite1,
         cote.extremite2,
         couleurValeur,
-        this.positionValeur,
+        positionValeur,
         horizontal
       )
     }
@@ -6260,27 +6009,27 @@ function AfficheCoteSegment (
 
   this.tikz = function () {
     let valeur
-    const A = this.seg.extremite1
-    const B = this.seg.extremite2
-    const v = similitude(vecteur(A, B), A, 90, this.positionCoteTIKZ / this.seg.longueur)
+    const A = s.extremite1
+    const B = s.extremite2
+    const v = similitude(vecteur(A, B), A, 90, positionCoteTIKZ / s.longueur)
     const cote = segment(translation(A, v), translation(B, v), couleurCote)
     if (longueur(A, B) > 1) cote.styleExtremites = '<->'
     else cote.styleExtremites = '>-<'
     cote.epaisseur = epaisseurCote
-    if (this.cote === '') {
+    if (Cote === '') {
       valeur = afficheLongueurSegment(
         cote.extremite1,
         cote.extremite2,
         couleurValeur,
-        this.positionValeur
+        positionValeur
       )
     } else {
       valeur = texteSurSegment(
-        this.cote,
+        Cote,
         cote.extremite1,
         cote.extremite2,
         couleurValeur,
-        this.positionValeur
+        positionValeur
       )
     }
     return '\n\t' + cote.tikz() + '\n\t' + valeur.tikz()
@@ -6297,10 +6046,10 @@ function AfficheCoteSegment (
  * @param {string} [couleurValeur='black']  Couleur de la valeur indiquée : du type 'blue' ou du type '#f15929'.
  * @param {boolean} [horizontal=false]  Si true, alors le texte est horizontal, sinon le texte est parallèle au segment.
  * @example afficheCoteSegment(s)
- * \\ Affiche la côte du segment s (avec une flèche noire d\'épaisseur 1 "cm", placée 0.5 "cm" sous le segment, avec la longueur du segment, en cm, écrite en noir, 0,5 "cm" au-dessus, et parallèle au segment.
+ * // Affiche la côte du segment s (avec une flèche noire d\'épaisseur 1 "cm", placée 0.5 "cm" sous le segment, avec la longueur du segment, en cm, écrite en noir, 0,5 "cm" au-dessus, et parallèle au segment.
  * @example afficheCoteSegment(s,'x',-1,'red',2,1,'blue',true)
- * \\ Affiche la côte du segment s, avec une flèche rouge d\'épaisseur 2 "cm", placée 1 "cm" sous le segment, avec le texte 'x' écrit en bleu, 1 "cm" au-dessus, et horizontalement.
- * @returns {AfficheCoteSegment}
+ * // Affiche la côte du segment s, avec une flèche rouge d\'épaisseur 2 "cm", placée 1 "cm" sous le segment, avec le texte 'x' écrit en bleu, 1 "cm" au-dessus, et horizontalement.
+ * @return {AfficheCoteSegment}
  * @author Jean-Claude Lhote
  */
 // JSDOC Validee par EE Juin 2022
@@ -6314,16 +6063,14 @@ export function afficheCoteSegment (s, Cote = '', positionCote = 0.5, couleurCot
  * @param {Point} A Première extrémité du segment
  * @param {Point} B Seconde extrémité du segment
  * @param {string} [mark='||'] Symbole posé sur le segment
- * @param {string} [color='black'] Couleur du symbole : : du type 'blue' ou du type '#f15929'
- * @example CodageSegment(H,K) // Code le segment [HK] avec la marque noire '||'
- * @example CodageAngle(H,K,'x','green') // Code le segment [HK] avec la marque verte 'x'
+ * @param {string} [color='black'] Couleur du symbole : du type 'blue' ou du type '#f15929'
+ * @example codageSegment(H,K) // Code le segment [HK] avec la marque noire '||'
+ * @example codageAngle(H,K,'x','green') // Code le segment [HK] avec la marque verte 'x'
  * @author Rémi Angot
- * @returns {texteParPoint}
- * @private
+ * @return {TexteParPoint}
  */
-function CodageSegment (A, B, mark = '||', color = 'black') {
-  ObjetMathalea2D.call(this)
-  this.color = color
+// JSDOC Validee par EE Juin 2022
+export function codageSegment (A, B, mark = '||', color = 'black') {
   const O = milieu(A, B)
   const s = segment(A, B)
   s.isVisible = false
@@ -6333,38 +6080,22 @@ function CodageSegment (A, B, mark = '||', color = 'black') {
   } else {
     angle = -parseInt(s.angleAvecHorizontale) + 180
   }
-  return texteParPoint(mark, O, angle, this.color)
-}
-
-/**
- * Code un segment
- * @param {Point} A Première extrémité du segment
- * @param {Point} B Seconde extrémité du segment
- * @param {string} [mark='||'] Symbole posé sur le segment
- * @param {string} [color='black'] Couleur du symbole : : du type 'blue' ou du type '#f15929'
- * @example codageSegment(H,K) // Code le segment [HK] avec la marque noire '||'
- * @example codageAngle(H,K,'x','green') // Code le segment [HK] avec la marque verte 'x'
- * @author Rémi Angot
- * @returns {CodageSegment}
- */
-export function codageSegment (...args) {
-  return new CodageSegment(...args)
+  return new TexteParPoint(mark, O, angle, color)
 }
 
 /**
  * Code plusieurs segments de la même façon
- * @param {string} [mark='||'] Symbole posé sur le segment
- * @param {string} [color='black'] Couleur du symbole : : du type 'blue' ou du type '#f15929'
- * @param  {Point|Point[]|Segment} args Les segments différement codés. Voir exemples.
- * @example CodageSegments('×','blue',A,B, B,C, C,D) // Code les segments [AB], [BC] et [CD] avec une croix bleue
- * @example CodageSegments('×','blue',[A,B,C,D]) // Code les segments [AB], [BC], [CD] et [DA] (attention, chemin fermé, pratique pour des polygones pas pour des lignes brisées)
- * @example CodageSegments('×','blue',s1,s2,s3) // Code les segments s1, s2 et s3 avec une croix bleue
- * @example CodageSegments('×','blue',p.listePoints) // Code tous les segments du polygone avec une croix bleue
+ * @param {string} [mark = '||'] Symbole posé sur le segment
+ * @param {string} [color = 'black'] Couleur du symbole : : du type 'blue' ou du type '#f15929'
+ * @param  {Point|Point[]|Segment} args Les segments différement codés.
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @author Rémi Angot
- * @private
+ * @class
  */
+// JSDOC Validee par EE Juin 2022
 function CodageSegments (mark = '||', color = 'black', ...args) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.svg = function (coeff) {
     let code = ''
     if (Array.isArray(args[0])) {
@@ -6434,16 +6165,17 @@ function CodageSegments (mark = '||', color = 'black', ...args) {
 
 /**
  * Code plusieurs segments de la même façon
- * @param {string} [mark='||'] Symbole posé sur le segment
- * @param {string} [color='black'] Couleur du symbole : : du type 'blue' ou du type '#f15929'
- * @param  {Points|Array.Point|Segments} args Les segments différement codés. Voir exemples.
+ * @param {string} [mark = '||'] Symbole posé sur le segment
+ * @param {string} [color = 'black'] Couleur du symbole : : du type 'blue' ou du type '#f15929'
+ * @param  {Points|Point[]|Segments} args Les segments différement codés. Voir exemples.
  * @example codageSegments('×','blue',A,B, B,C, C,D) // Code les segments [AB], [BC] et [CD] avec une croix bleue
  * @example codageSegments('×','blue',[A,B,C,D]) // Code les segments [AB], [BC], [CD] et [DA] (attention, chemin fermé, pratique pour des polygones pas pour des lignes brisées)
  * @example codageSegments('×','blue',s1,s2,s3) // Code les segments s1, s2 et s3 avec une croix bleue
  * @example codageSegments('×','blue',p.listePoints) // Code tous les segments du polygone avec une croix bleue
  * @author Rémi Angot
- * @returns {CodageSegments}
+ * @return {CodageSegments}
  */
+// JSDOC Validee par EE Juin 2022
 export function codageSegments (mark = '||', color = 'black', ...args) {
   return new CodageSegments(mark, color, ...args)
 }
@@ -6464,22 +6196,26 @@ export function codageSegments (mark = '||', color = 'black', ...args) {
  * @param {boolean} [noAngleDroit=false] Pour choisir si on veut que l'angle droit soit marqué par un carré ou pas
  * @param {string} [texteACote=''] Pour mettre un texte à côté de l'angle à la place de la mesure de l'angle
  * @param {number} [tailleTexte=1] Pour choisir la taille du texte à côté de l'angle
- * @example CodageAngle(H,K,30)
- * // Code l'angle de centre K, avec H sur un côté de l'angle et avec 30° comme mesure d'angle orienté,
- * // en noir, avec une épaisseur de 1, une opacité de 100 %, un rayon d'arc de 0,8, sans autre option.
- * @example CodageAngle(H,K,G)
- * // Code l'angle HKG, en noir, avec une épaisseur de 1, une opacité de 100 %, un rayon d'arc de 0,8, sans autre option.
- * @example CodageAngle(H,K,G,2,'x','red',0.5,0.2,'blue',0.8,true,true)
- * // Code l'angle HKG, en rouge, avec une épaisseur de 0.5 et une opacité de 20 %, rempli en bleu avec une opacité de 80 %
- * // avec un arc de cercle de rayon 2, avec une marque 'x' sur l'angle, en affichant la mesure de l'angle et sans faire apparaître d'angle droit le cas échéant.
- * @example CodageAngle(H,K,G,2,'x','red',0.5,0.2,'blue',0.8,true,true,'?',2)
- * // Code l'angle HKG, en rouge, avec une épaisseur de 0.5 et une opacité de 20 %, rempli en bleu avec une opacité de 80 %
- * // avec un arc de cercle de rayon 2, avec une marque 'x' sur l'angle, en affichant le texte '?' d'une taille de 2 et sans faire apparaître d'angle droit le cas échéant.
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml Sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {Point} debut Point sur un côté de l'angle
+ * @property {Point} centre Sommet de l'angle
+ * @property {number|Point} angle Mesure de l'angle ou nom d'un point sur l'autre côté de l'angle
+ * @property {number} taille Taille de l'angle
+ * @property {string} mark Marque sur l'angle
+ * @property {string} color Couleur de l'angle. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {number} epaisseur Epaisseur du tracé de l'angle
+ * @property {number} opacite Opacité de la couleur du tracé de l'angle
+ * @property {string} couleurDeRemplissage À associer obligatoirement à colorToLatexOrHTML(). 'none' si on ne veut pas de remplissage.
+ * @property {number} opaciteDeRemplissage Opacité de la couleur de remplissage de l'angle
  * @author Jean-Claude Lhote
- * @private
+ * @class
  */
+// JSDOC Validee par EE Juin 2022
 function CodageAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, texteACote = '', tailleTexte = 1) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.color = color
   this.debut = debut
   this.centre = centre
@@ -6490,7 +6226,6 @@ function CodageAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'bl
   this.couleurDeRemplissage = couleurDeRemplissage
   this.opaciteDeRemplissage = opaciteDeRemplissage
   this.angle = angle
-
   this.svg = function (coeff) {
     let code = ''
     const objets = []
@@ -6614,8 +6349,9 @@ function CodageAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'bl
  * // Code l'angle HKG, en rouge, avec une épaisseur de 0.5 et une opacité de 20 %, rempli en bleu avec une opacité de 80 %
  * // avec un arc de cercle de rayon 2, avec une marque 'x' sur l'angle, en affichant le texte '?' d'une taille de 2 et sans faire apparaître d'angle droit le cas échéant.
  * @author Jean-Claude Lhote
- * @returns {CodageAngle|codageAngleDroit}
+ * @return {CodageAngle|CodageAngleDroit}
  */
+// JSDOC Validee par EE Juin 2022
 export function codageAngle (A, O, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, noAngleDroit = false, texteACote = '', tailleTexte = 1) {
   if (typeof (angle) !== 'number') {
     angle = angleOriente(A, O, angle)
@@ -6626,7 +6362,7 @@ export function codageAngle (A, O, angle, taille = 0.8, mark = '', color = 'blac
 }
 
 function NomAngleParPosition (nom, x, y, color, s) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   const objets = []
   objets.push(texteParPosition(nom, x, y, 'milieu', color, 1, 'middle', true))
   const s1 = segment(x - 0.6, y + 0.4 - s / 10, x + 0.1, y + 0.4 + s / 10, color)
@@ -6660,139 +6396,64 @@ export function nomAngleRentrantParPosition (nom, x, y, color) {
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
 
-// (Xorig,Yorig,'H' ou 'V', 'dd' ou 'd', longueur Unité, nombre de part, longueur totale, valeur origine, valeur première grosse graduation, label origine, label première grosse graduation, graduer ?, [Points à placer]...
-/**
- *
- * @param {number} [x=0] Place le début en (x,y).
- * @param {number} [y=0]
- * @param {string} [position='H'] pour horizontale 'V' pour verticale
- * @param {string} [type='dd'] pour demi-droite 'd' ou n'importe quoi pour droite
- * @param {number} [longueurUnite=10] longueur en cm de la taille d import { ObjetMathalea2D } from '/modules/mathalea2d.js';
- * @param {number} [division=10] nombre de parts à faire entre deux grosses graduations
- * @param {number} [longueurTotale=15] longueur totale en cm utilisable
- * @param {number} [origin=0] valeur de la première graduation
- * @param {number} [unite=1] valeur de la deuxième graduation
- * @param {string} [labelGauche='O'] Ce qu'on écrit sous la première graduation
- * @param {string} [labelUnite='I'] Ce qu'on écrit sous la deuxième graduation
- * @param {boolean} gradue Si true, alors les grosses graduation à partir de la troisième auront l'abscisse renseignée
- * @param  {...any} args des points à placer au format ['M',xM]
- */
-function DroiteGraduee (x = 0, y = 0, position = 'H', type = 'dd', longueurUnite = 10, division = 10, longueurTotale = 15, origin = 0, unite = 1, labelGauche = 'O', labelUnite = 'I', gradue = true, ...args) {
-  ObjetMathalea2D.call(this)
-  let absord = [1, 0]; let S; let M; let k; let g; let fleche
-  const pasprincipal = unite - origin
-  if (position !== 'H') absord = [0, 1]
-  const objets = []
-  for (let j = 0; j < args.length; j++) {
-    objets.push(texteParPosition(args[j][0], x + (-origin + args[j][1]) * absord[0] * longueurUnite / pasprincipal + 0.8 * absord[1], y + (-origin + args[j][1]) * absord[1] * longueurUnite / pasprincipal + 0.8 * absord[0]))
-    objets.push(texteParPosition('X', x + (-origin + args[j][1]) * absord[0] * longueurUnite / pasprincipal, y + (-origin + args[j][1]) * absord[1] * longueurUnite / pasprincipal, 'milieu', 'blue'))
-  }
-  fleche = segment(point(x + longueurTotale * absord[0], y + longueurTotale * absord[1]), point(x + (longueurTotale - 0.3) * absord[0] + 0.3 * absord[1], y + (longueurTotale - 0.3) * absord[1] + 0.3 * absord[0]))
-  fleche.epaisseur = 2
-  objets.push(fleche)
-  fleche = segment(point(x + longueurTotale * absord[0], y + longueurTotale * absord[1]), point(x + (longueurTotale - 0.3) * absord[0] - 0.3 * absord[1], y + (longueurTotale - 0.3) * absord[1] - 0.3 * absord[0]))
-  fleche.epaisseur = 2
-  objets.push(fleche)
-  const pas = longueurUnite / division
-  if (type === 'dd') {
-    S = segment(point(x, y), point(x + longueurTotale * absord[0], y + longueurTotale * absord[1]))
-  } else {
-    S = segment(point(x - 0.5 * absord[0], y - 0.5 * absord[1]), point(x + longueurTotale * absord[0], y + longueurTotale * absord[1]))
-  }
-  const O = texteParPosition(labelGauche, x - 0.8 * absord[1], y - 0.8 * absord[0])
-  const I = texteParPosition(labelUnite, x - 0.8 * absord[1] + longueurUnite * absord[0], y - 0.8 * absord[0] + longueurUnite * absord[1])
-  //  M=texteParPosition(labelPoint,x-0.8*absord[1]+abscissePoint*absord[0]*longueurUnite,y-0.8*absord[0]+abscissePoint*absord[1]*longueurUnite)
-  k = 0
-  for (let i = 0; i < longueurTotale; i += pas) {
-    if (k % division === 0) {
-      g = segment(point(x + i * absord[0] - 0.3 * absord[1], y - 0.3 * absord[0] + i * absord[1]), point(x + i * absord[0] + 0.3 * absord[1], y + 0.3 * absord[0] + i * absord[1]))
-      g.epaisseur = 2
-      objets.push(g)
-      if (gradue && k !== 0 && k !== division) {
-        objets.push(texteParPosition(nombreAvecEspace(arrondi(origin + i / longueurUnite * pasprincipal, 3)), x + i * absord[0] - 0.8 * absord[1], y + i * absord[1] - 0.8 * absord[0]))
-      }
-    } else {
-      g = segment(point(x + i * absord[0] - 0.2 * absord[1], y - 0.2 * absord[0] + i * absord[1]), point(x + i * absord[0] + 0.2 * absord[1], y + 0.2 * absord[0] + i * absord[1]))
-      objets.push(g)
-    }
-    k++
-  }
-  objets.push(S, O, I, M)
-
-  this.svg = function (coeff) {
-    let code = ''
-    for (const objet of objets) {
-      code += '\n\t' + objet.svg(coeff)
-    }
-    return code
-  }
-  this.tikz = function () {
-    let code = ''
-    for (const objet of objets) {
-      code += '\n\t' + objet.tikz()
-    }
-    return code
-  }
-  this.svgml = function (coeff, amp) {
-    let code = ''
-    for (const objet of objets) {
-      if (!context.mainlevee || typeof (objet.svgml) === 'undefined') code += '\t' + objet.svg(coeff) + '\n'
-      else code += '\t' + objet.svgml(coeff, amp) + '\n'
-    }
-    return code
-  }
-  this.tikzml = function (amp) {
-    let code = ''
-    for (const objet of objets) {
-      if (!context.mainlevee || typeof (objet.tikzml) === 'undefined') code += '\t' + objet.tikz() + '\n'
-      else code += '\t' + objet.tikzml(amp) + '\n'
-    }
-    return code
-  }
-}
-
-export function droiteGraduee (...args) {
-  return new DroiteGraduee(...args)
-}
-/**
+/**  Trace un axe gradué
+ * @param {Object} parametres À saisir entre accolades
+ * @param {number} [parametres.Unite = 10] Nombre de cm par unité
+ * @param {number} [parametres.Min = 10] Valeur minimum labelisée sur l'axe (les graduations commencent un peu avant)
+ * @param {number} [parametres.Max = 10] Valeur maximum labelisée sur l'axe (les graduations finissent un peu après)
+ * @param {number} [parametres.x = 0] Abscisse du point de départ du tracé
+ * @param {number} [parametres.y = 0] Ordonnée du point de départ du tracé
+ * @param {number} [parametres.axeEpaisseur = 2] Épaisseur de l'axe gradué
+ * @param {string} [parametres.axeCouleur = 'black'] Couleur de l'axe gradué : du type 'blue' ou du type '#f15929'
+ * @param {string} [parametres.axeStyle = '->'] Style final de l'axe gradué
+ * @param {number} [parametres.axeHauteur = 4] Définit la "largeur" de l'axe, celle des graduations et du style final
+ * @param {string} [parametres.axePosition = 'H'] Position de l'axe : 'H' pour horizontal, 'V' pour vertical
+ * @param {number} [parametres.thickEpaisseur = 2] Épaisseur des graduations
+ * @param {string} [parametres.thickCouleur = axeCouleur] Couleur des graduations : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.thickDistance = 1] Distance entre deux graduations principales
+ * @param {number} [parametres.thickOffset = 0] Décalage de toutes les graduations sur l'axe (pour, par exemple, faire coïncider le début de l'axe avec une graduation)
+ * @param {boolean} [parametres.thickSec = false] Affichage (ou pas) des graduations secondaires
+ * @param {number} [parametres.thickSecDist = 0.1] Distance entre deux graduations secondaires
+ * @param {boolean} [parametres.thickTer = false] Affichage (ou pas) des graduations secondaires
+ * @param {number} [parametres.thickTerDist = 0.1] Distance entre deux graduations tertiaires, false sinon
+ * @param {Array} [parametres.pointListe = []] Liste de points à mettre sur l'axe comme, par exemple, [[3.4,'A'],[3.8,'B']]. Les noms se placent au-dessus de l'axe.
+ * @param {number} [parametres.labelPointTaille = 10] Taille (hauteur) de la police des points (de la liste des points pointListe) utilisée de 5 = \small à 20=\huge...
+ * @param {number} [parametres.labelPointLargeur = 20] Largeur de la boîte où sont affichés les points (de la liste des points pointListe) utilisée de 5 = \small à 20=\huge...
+ * @param {string} [parametres.pointCouleur = 'blue'] Couleur des points de la liste pointListe : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.pointTaille = 4] Taille en pixels des points de la liste  pointListe
+ * @param {string} [parametres.pointStyle = '+'] Style des points de la liste pointListe
+ * @param {number} [parametres.pointOpacite = 0.8] Opacité des points de la liste pointListe
+ * @param {number} [parametres.pointEpaisseur = 2] Épaisseur des points de la liste pointListe
+ * @param {boolean} [parametres.labelsPrincipaux = true] Présence (ou non) des labels numériques principaux
+ * @param {boolean} [parametres.labelsSecondaires = false] Présence (ou non) des labels numériques secondaires
+ * @param {number} [parametres.step1 = 1] Pas des labels numériques principaux
+ * @param {number} [parametres.step2 = 1] Pas des labels numériques secondaires
+ * @param {number} [parametres.labelDistance = (axeHauteur + 10) / context.pixelsParCm] Distance entre les labels et l'axe
+ * @param {Array} [parametres.labelListe = []] Liste de labels à mettre sous l'axe comme, par exemple, [[2.8,'x'],[3.1,'y']]. Les noms se placent en-dessous de l'axe.
+ * @param {string} [parametres.Legende = ''] Légende de l'axe
+ * @param {number} [parametres.LegendePosition = (Max - Min) * Unite + 1.5] Position de la légende
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml Sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {number} Unite Nombre de cm par unité
+ * @property {number} Min Valeur minimum labelisée sur l'axe (les graduations commencent un peu avant)
+ * @property {number} Max Valeur maximum labelisée sur l'axe (les graduations finissent un peu après)
  * @author Jean-Claude Lhote
- * Paramètres :
- * Unite : Nombre de cm par Unité
- * Min,Max : Valeur minimum et maximum labelisées sur l'axe (les graduations commencent un peu avant et finissent un peu après)
- * x,y : coordonnées du point de départ du tracé
- * axeEpaisseur,axeCouleur, axeStyle : épaisseur, couleur et syle de l'axe
- * axeHauteur : définit la "largeur" de l'axe, celle des graduations et de la flèche
- * axePosition : 'H' pour horizontal, 'V' pour vertical
- * thickEpaisseur,thickCouleur : grosseur et couleur des graduations
- * thickDistance : distance entre deux graduations principales
- * thickSecDist : distance entre deux graduations secondaires
- * thickTerDist : distance entre deux graduations tertiaires
- * thickSec : true si besoin de graduations secondaires, false sinon
- * thickTer : true si besoin de graduations tertiaires, false sinon
- * pointListe : Liste de points à mettre sur l'axe. Exemple [[3.4,'A'],[3.8,'B],....]. Les noms se placent au dessus de l'axe.
- * pointTaille, pointOpacite, pointCouleur : taille en pixels, opacité et couleurs des points de la pointListe
- * labelListe : pour ajouter des labels. Exemple [[2.8,'x'],[3.1,'y']] les labels se placent sous l'axe.
- * Legende : texte à écrire en bout de droite graduée
- * LegendePosition : position de la légende
+ * @class
  */
-
-function DroiteGraduee2 ({
-  Unite = 10, // nombre de cm pour une unité
-  Min = 0, // Là où commence la droite
-  Max = 2, // Là où finit la droite prévoir 0,5cm pour la flèche
-  x = 0, y = 0, // les coordonnées du début du tracé dans le SVG
-  axeEpaisseur = 2, axeCouleur = 'black', axeStyle = '->', axeHauteur = 4, axePosition = 'H', // Les caractéristiques de l'axe
-  thickEpaisseur = 2, thickCouleur = axeCouleur, thickDistance = 1, thickOffset = 0, // Les caractéristiques des graduations principales
-  thickSecDist = 0.1, thickSec = false, // Les caractéristiques des graduations secondaires. Pas de couleur, on joue sur l'opacité
-  thickTerDist = 0.01, thickTer = false, // Les caractéristiques des graduations tertiaires. Pas de couleur, on joue sur l'opacité
-  pointListe = false, labelPointTaille = 10, labelPointLargeur = 20, pointCouleur = 'blue', pointTaille = 4, pointStyle = '+', pointOpacite = 0.8, pointEpaisseur = 2, // Liste de points et caractéristiques des points de ces points
+// JSDOC Validee par EE Aout 2022
+function DroiteGraduee ({
+  Unite = 10, Min = 0, Max = 2, x = 0, y = 0, axeEpaisseur = 2, axeCouleur = 'black', axeStyle = '->', axeHauteur = 4, axePosition = 'H',
+  thickEpaisseur = 2, thickCouleur = axeCouleur, thickDistance = 1, thickOffset = 0,
+  thickSecDist = 0.1, thickSec = false, thickTerDist = 0.01, thickTer = false,
+  pointListe = [], labelPointTaille = 10, labelPointLargeur = 20, pointCouleur = 'blue', pointTaille = 4,
+  pointStyle = '+', pointOpacite = 0.8, pointEpaisseur = 2,
   labelsPrincipaux = true, labelsSecondaires = false, step1 = 1, step2 = 1,
   labelDistance = (axeHauteur + 10) / context.pixelsParCm,
-  labelListe = false,
-  Legende = '',
-  LegendePosition = (Max - Min) * Unite + 1.5
-} = {}) {
-  ObjetMathalea2D.call(this)
+  labelListe = [], Legende = '', LegendePosition = (Max - Min) * Unite + 1.5
+}) {
+  ObjetMathalea2D.call(this, { })
 
   // Les propriétés exportables
   this.Unite = Unite
@@ -6865,7 +6526,7 @@ function DroiteGraduee2 ({
   }
   // Les labels facultatifs
   let t
-  if (labelListe) {
+  if (labelListe.length !== 0) {
     for (const p of labelListe) {
       t = texteParPosition(p[1], x - labelDistance * absord[1] + (p[0] - Min) * absord[0] * Unite, y - labelDistance * absord[0] + (p[0] - Min) * absord[1] * Unite)
       objets.push(t)
@@ -6874,7 +6535,7 @@ function DroiteGraduee2 ({
   if (Legende !== '') {
     objets.push(texteParPosition(Legende, x + LegendePosition * absord[0], y + LegendePosition * absord[1]))
   }
-  if (pointListe) {
+  if (pointListe.length !== 0) {
     let lab
     for (const p of pointListe) {
       P = point(x + (p[0] - Min) * absord[0] * Unite, y + (p[0] - Min) * absord[1] * Unite, p[1])
@@ -6919,8 +6580,111 @@ function DroiteGraduee2 ({
     return code
   }
 }
-export function droiteGraduee2 (...args) {
-  return new DroiteGraduee2(...args)
+/**  Trace un axe gradué
+ * @param {Object} parametres À saisir entre accolades
+ * @param {number} [parametres.Unite = 10] Nombre de cm par unité
+ * @param {number} [parametres.Min = 10] Valeur minimum labelisée sur l'axe (les graduations commencent un peu avant)
+ * @param {number} [parametres.Max = 10] Valeur maximum labelisée sur l'axe (les graduations finissent un peu après)
+ * @param {number} [parametres.x = 0] Abscisse du point de départ du tracé
+ * @param {number} [parametres.y = 0] Ordonnée du point de départ du tracé
+ * @param {number} [parametres.axeEpaisseur = 2] Épaisseur de l'axe gradué
+ * @param {string} [parametres.axeCouleur = 'black'] Couleur de l'axe gradué : du type 'blue' ou du type '#f15929'
+ * @param {string} [parametres.axeStyle = '->'] Style final de l'axe gradué
+ * @param {number} [parametres.axeHauteur = 4] Définit la "largeur" de l'axe, celle des graduations et du style final
+ * @param {string} [parametres.axePosition = 'H'] Position de l'axe : 'H' pour horizontal, 'V' pour vertical
+ * @param {number} [parametres.thickEpaisseur = 2] Épaisseur des graduations
+ * @param {string} [parametres.thickCouleur = axeCouleur] Couleur des graduations : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.thickDistance = 1] Distance entre deux graduations principales
+ * @param {number} [parametres.thickOffset = 0] Décalage de toutes les graduations sur l'axe (pour, par exemple, faire coïncider le début de l'axe avec une graduation)
+ * @param {boolean} [parametres.thickSec = false] Affichage (ou pas) des graduations secondaires
+ * @param {number} [parametres.thickSecDist = 0.1] Distance entre deux graduations secondaires
+ * @param {boolean} [parametres.thickTer = false] Affichage (ou pas) des graduations secondaires
+ * @param {number} [parametres.thickTerDist = 0.1] Distance entre deux graduations tertiaires, false sinon
+ * @param {Array} [parametres.pointListe = []] Liste de points à mettre sur l'axe comme, par exemple, [[3.4,'A'],[3.8,'B']]. Les noms se placent au-dessus de l'axe.
+ * @param {number} [parametres.labelPointTaille = 10] Taille (hauteur) de la police des points (de la liste des points pointListe) utilisée de 5 = \small à 20=\huge...
+ * @param {number} [parametres.labelPointLargeur = 20] Largeur de la boîte où sont affichés les points (de la liste des points pointListe) utilisée de 5 = \small à 20=\huge...
+ * @param {string} [parametres.pointCouleur = 'blue'] Couleur des points de la liste pointListe : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.pointTaille = 4] Taille en pixels des points de la liste  pointListe
+ * @param {string} [parametres.pointStyle = '+'] Style des points de la liste pointListe
+ * @param {number} [parametres.pointOpacite = 0.8] Opacité des points de la liste pointListe
+ * @param {number} [parametres.pointEpaisseur = 2] Épaisseur des points de la liste pointListe
+ * @param {boolean} [parametres.labelsPrincipaux = true] Présence (ou non) des labels numériques principaux
+ * @param {boolean} [parametres.labelsSecondaires = false] Présence (ou non) des labels numériques secondaires
+ * @param {number} [parametres.step1 = 1] Pas des labels numériques principaux
+ * @param {number} [parametres.step2 = 1] Pas des labels numériques secondaires
+ * @param {number} [parametres.labelDistance = (axeHauteur + 10) / context.pixelsParCm] Distance entre les labels et l'axe
+ * @param {Array} [parametres.labelListe = []] Liste de labels à mettre sous l'axe comme, par exemple, [[2.8,'x'],[3.1,'y']]. Les noms se placent en-dessous de l'axe.
+ * @param {string} [parametres.Legende = ''] Légende de l'axe
+ * @param {number} [parametres.LegendePosition = (Max - Min) * Unite + 1.5] Position de la légende
+ * @example droiteGraduee({
+        x: 0,
+        y: 3,
+        Min: -2.7,
+        Max: 12 + 0.2,
+        thickSec: true,
+        Unite: 3,
+        thickCouleur: 'red',
+        axeCouleur: 'blue',
+        axeHauteur: 4,
+        labelsPrincipaux: false,
+        labelListe: [[0, 'O'], [1, 'I']],
+        pointListe: [[-1, 'A'], [5, 'B'], [7.2, 'C']],
+        pointTaille: 6,
+        pointCouleur: 'gray',
+        pointStyle: '|',
+        pointEpaisseur: 3
+      })
+  // Trace une droite graduée avec différentes options
+ * @author Jean-Claude Lhote
+ * @return {DroiteGraduee}
+ */
+// JSDOC Validee par EE Aout 2022
+export function droiteGraduee ({
+  Unite = 10, Min = 0, Max = 2, x = 0, y = 0, axeEpaisseur = 2, axeCouleur = 'black', axeStyle = '->', axeHauteur = 4, axePosition = 'H',
+  thickEpaisseur = 2, thickCouleur = axeCouleur, thickDistance = 1, thickOffset = 0,
+  thickSecDist = 0.1, thickSec = false, thickTerDist = 0.01, thickTer = false,
+  pointListe = [], labelPointTaille = 10, labelPointLargeur = 20, pointCouleur = 'blue', pointTaille = 4,
+  pointStyle = '+', pointOpacite = 0.8, pointEpaisseur = 2,
+  labelsPrincipaux = true, labelsSecondaires = false, step1 = 1, step2 = 1,
+  labelDistance = (axeHauteur + 10) / context.pixelsParCm,
+  labelListe = [], Legende = '', LegendePosition = (Max - Min) * Unite + 1.5
+}) {
+  return new DroiteGraduee({
+    Unite: Unite,
+    Min: Min,
+    Max: Max,
+    x: x,
+    y: y,
+    axeEpaisseur: axeEpaisseur,
+    axeCouleur: axeCouleur,
+    axeStyle: axeStyle,
+    axeHauteur: axeHauteur,
+    axePosition: axePosition,
+    thickEpaisseur: thickEpaisseur,
+    thickCouleur: thickCouleur,
+    thickDistance: thickDistance,
+    thickOffset: thickOffset,
+    thickSecDist: thickSecDist,
+    thickSec: thickSec,
+    thickTerDist: thickTerDist,
+    thickTer: thickTer,
+    pointListe: pointListe,
+    labelPointTaille: labelPointTaille,
+    labelPointLargeur: labelPointLargeur,
+    pointCouleur: pointCouleur,
+    pointTaille: pointTaille,
+    pointStyle: pointStyle,
+    pointOpacite: pointOpacite,
+    pointEpaisseur: pointEpaisseur,
+    labelsPrincipaux: labelsPrincipaux,
+    labelsSecondaires: labelsSecondaires,
+    step1: step1,
+    step2: step2,
+    labelDistance: labelDistance,
+    labelListe: labelListe,
+    Legende: Legende,
+    LegendePosition: LegendePosition
+  })
 }
 
 /**
@@ -6933,15 +6697,12 @@ export function droiteGraduee2 (...args) {
  * @param {number} [xstep=1] Pas sur l'axe des abscisses
  * @param {number} [ystep=1] Pas sur l'axe des ordonnées
  * @param {number} [epaisseur=2] Epaisseur des deux axes
- * @param {string} [color='black'] Couleur du codage. Code couleur HTML accepté aussi.
+ * @param {string} [color='black'] Couleur du codage : du type 'blue' ou du type '#f15929'.
  * @param {number} [tailleExtremites=4] Taille des flèches à l'extrémité des axes.
- * @example Axes()
- * // Trace un repère orthonormé dont les axes des abscisses et des ordonnées ont pour minimum -30, maximum -30, épaisseur 2, avec un pas de 1 et de couleur noire. Le tiret de chaque graduation mesure 0,4.
- * @example Axes(-10,-5,20,3,0.25,2,0.5,1,'red',2)
- * // Trace un repère orthonormé rouge dont les axes des abscisses et des ordonnées ont pour épaisseur 1 et dont le tiret de chaque graduation mesure 0,5.
- * // L'axe des abscisses va de -10 à 20 avec un pas de 2. L'axe des ordonnées va de -5 à 3 avec un pas de 0,5. Les flèches des axes mesurent 2.
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @author Rémi Angot
- * @private
+ * @class
 */
 // JSDOC Validee par EE Juin 2022
 function Axes (
@@ -6956,7 +6717,7 @@ function Axes (
   color = 'black',
   tailleExtremites = 4
 ) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   const objets = []
   let yabscisse
   ymin > 0 ? (yabscisse = ymin) : (yabscisse = 0)
@@ -6995,7 +6756,7 @@ function Axes (
     }
     return code
   }
-  this.commentaire = `Axes(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, thick = ${thick})`
+  // this.commentaire = `Axes(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, thick = ${thick})`
 }
 
 /**
@@ -7008,14 +6769,14 @@ function Axes (
  * @param {number} [xstep=1] Pas sur l'axe des abscisses
  * @param {number} [ystep=1] Pas sur l'axe des ordonnées
  * @param {number} [epaisseur=2] Epaisseur des deux axes
- * @param {string} [color='black'] Couleur du codage. Code couleur HTML accepté aussi.
- * @author Rémi Angot
+ * @param {string} [color='black'] Couleur du codage : du type 'blue' ou du type '#f15929'.
  * @example axes()
  * // Trace un repère orthonormé dont les axes des abscisses et des ordonnées ont pour minimum -30, maximum -30, épaisseur 2, avec un pas de 1 et de couleur noire. Le tiret de chaque graduation mesure 0,4.
  * @example axes(-10,-5,20,3,0.25,2,0.5,1,'red')
  * // Trace un repère orthonormé rouge dont les axes des abscisses et des ordonnées ont pour épaisseur 1 et dont le tiret de chaque graduation mesure 0,5.
  * // L'axe des abscisses va de -10 à 20 avec un pas de 2. L'axe des ordonnées va de -5 à 3 avec un pas de 0,5.
- * @returns {Axes}
+ * @return {Axes}
+ * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
 export function axes (
@@ -7039,15 +6800,14 @@ export function axes (
  * @param {number} [thick=0.2] Largeur des tirets de chaque graduation principale
  * @param {number} [ystep=1] Pas sur l'axe des ordonnées
  * @param {number} [epaisseur=2] Epaisseur des deux axes
- * @param {string} [color='black'] Couleur du codage. Code couleur HTML accepté aussi.
+ * @param {string} [color='black'] Couleur du codage : du type 'blue' ou du type '#f15929'.
  * @param {number} [ytick=2] Nombre de partage entre deux graduations principales
  * @param {string} [titre=''] Titre de l'axe
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {number[]} bordures Coordonnées de la fenêtre d'affichage du genre [-2,-2,5,5]
  * @author Frédéric Piou
- * @example AxeY()
- * // Trace un axe noir vertical gradué de -2 à 5, de 1 en 1, avec une petite graduation entre deux graduations principales (de longueur 0.2 et d'épaisseur 2), et sans titre
- * @example AxeY(0,10,0.25,2,1,'red',5,'titre')
- * // Trace un axe rouge vertical gradué de 0 à 10, de 2 en 2, avec quatre petites graduations entre deux graduations principales (de longueur 0.25 et d'épaisseur 1), et avec comme titre de l'axe : titre
- * @private
+ * @class
 */
 // JSDOC Validee par EE Juin 2022
 function AxeY (
@@ -7062,7 +6822,7 @@ function AxeY (
 ) {
   if (!(ystep instanceof Fraction || ystep instanceof FractionX)) ystep = fraction(ystep)
   if (!(ytick instanceof Fraction || ytick instanceof FractionX)) ytick = fraction(ytick)
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   const objets = []
   objets.push(texteParPoint(titre, point(-1 - thick - 0.1, ymax), 'gauche', color))
   const ordonnee = segment(-1, ymin, -1, ymax, color)
@@ -7106,15 +6866,15 @@ function AxeY (
  * @param {number} [thick=0.2] Largeur des tirets de chaque graduation principale
  * @param {number} [ystep=1] Pas sur l'axe des ordonnées
  * @param {number} [epaisseur=2] Epaisseur des deux axes
- * @param {string} [color='black'] Couleur du codage. Code couleur HTML accepté aussi.
+ * @param {string} [color='black'] Couleur du codage : du type 'blue' ou du type '#f15929'.
  * @param {number} [ytick=2] Nombre de partage entre deux graduations principales
  * @param {string} [titre=''] Titre de l'axe
- * @author Frédéric Piou
  * @example axeY()
  * // Trace un axe noir vertical gradué de -2 à 5, de 1 en 1, avec une petite graduation entre deux graduations principales (de longueur 0.2 et d'épaisseur 2), et sans titre
  * @example axeY(0,10,0.25,2,1,'red',5,'titre')
  * // Trace un axe rouge vertical gradué de 0 à 10, de 2 en 2, avec quatre petites graduations entre deux graduations principales (de longueur 0.25 et d'épaisseur 1), et avec comme titre de l'axe : titre
- * @returns {AxeY}
+ * @author Frédéric Piou
+ * @return {AxeY}
 */
 // JSDOC Validee par EE Juin 2022
 export function axeY (
@@ -7138,7 +6898,7 @@ function LabelX (
   pos = -0.6,
   coeff = 1
 ) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   const objets = []
   for (let x = ceil(xmin / coeff);
     x * coeff <= xmax;
@@ -7193,7 +6953,7 @@ function LabelY (
   pos = -0.6,
   coeff = 1
 ) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   const objets = []
   for (let y = ceil(ymin / coeff);
     y * coeff <= ymax;
@@ -7228,30 +6988,28 @@ function LabelY (
 export function labelY (...args) {
   return new LabelY(...args)
 }
-/**
- * grille(xmin,ymin,xmax,ymax,color,opacite,step,pointilles) // Trace les axes des abscisses et des ordonnées
- * @param {number} [xmin=-30]
- * @param {number} [ymin=-30]
- * @param {number} [xmax=30]
- * @param {number} [ymax=30]
- * @param {string} [color='gray']
- * @param {number} [opacite=0.4]
- * @param {number} [step=1]
- * @param {boolean} [pointilles=false]
- * @return Une grille quadrillée dont le coin en bas à gauche est (xmin,ymin) et celui à droite est au maximum (xmax,ymax), de couleur et opacité choisie, avec un pas choisi et avec ou sans pointillés
+
+/**  Trace une grille quadrillée dont le coin en bas à gauche est (xmin, ymin) et celui à droite est au maximum (xmax, ymax), de couleur et opacité choisie, avec un pas choisi et avec ou sans pointillés
+ * @param {number} [xmin = -30] Abscisse du coin en bas à gauche de la grille
+ * @param {number} [ymin = -30] Ordonnée du coin en bas à gauche de la grille
+ * @param {number} [xmax = 30] Abscisse du coin en haut à droite de la grille
+ * @param {number} [ymax = 30] Ordonnée du coin en haut à droite de la grille
+ * @param {string} [color = 'gray'] Couleur de la grille : du type 'blue' ou du type '#f15929'
+ * @param {number} [opacite = 0.4] Opacité de la grille : entre 0 et 1
+ * @param {number} [step = 1] Pas de la grille
+ * @param {number} [pointilles = 0] Style des pointillés de la grille (entier entre 1 et 5). Si autre chose, pas de pointillés.
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml Sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} color Couleur de la grille. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {number} opacite Opacité de la grille : entre 0 et 1
  * @author Rémi Angot
+ * @class
  */
-function Grille (
-  xmin = -30,
-  ymin = -30,
-  xmax = 30,
-  ymax = 30,
-  color = 'gray',
-  opacite = 0.4,
-  step = 1,
-  pointilles = ''
-) {
-  ObjetMathalea2D.call(this)
+// JSDOC Validee par EE Aout 2022
+function Grille (xmin = -30, ymin = -30, xmax = 30, ymax = 30, color = 'gray', opacite = 0.4, step = 1, pointilles = 0) {
+  ObjetMathalea2D.call(this, { })
   this.color = color
   this.opacite = opacite
   const objets = []
@@ -7271,7 +7029,7 @@ function Grille (
     }
     objets.push(s)
   }
-  this.commentaire = `Grille(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, color = ${this.color}, opacite = ${this.opacite}, pas = ${step})`
+  // this.commentaire = `Grille(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, color = ${this.color}, opacite = ${this.opacite}, pas = ${step})`
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
@@ -7302,21 +7060,45 @@ function Grille (
   }
 }
 
-/**
- * grille(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace les axes des abscisses et des ordonnées
- *
+/**  Trace une grille quadrillée dont le coin en bas à gauche est (xmin, ymin) et celui à droite est au maximum (xmax, ymax), de couleur et opacité choisie, avec un pas choisi et avec ou sans pointillés
+ * @param {number} [xmin = -30] Abscisse du coin en bas à gauche de la grille
+ * @param {number} [ymin = -30] Ordonnée du coin en bas à gauche de la grille
+ * @param {number} [xmax = 30] Abscisse du coin en haut à droite de la grille
+ * @param {number} [ymax = 30] Ordonnée du coin en haut à droite de la grille
+ * @param {string} [color = 'gray'] Couleur de la grille : du type 'blue' ou du type '#f15929'
+ * @param {number} [opacite = 0.4] Opacité de la grille : entre 0 et 1
+ * @param {number} [step = 1] Pas de la grille
+ * @param {number} [pointilles = 0] Style des pointillés de la grille (entier entre 1 et 5). Si autre chose, pas de pointillés.
+ * @example grid = grille() // Trace une grille avec toutes les options par défaut
+ * @example grid = grille(-3, -3, 27, 18, 'red', 0.2, 0.5, true) // Trace une grille avec toutes les options différentes de celles par défaut
  * @author Rémi Angot
+ * @return {Grille}
  */
-export function grille (...args) {
-  return new Grille(...args)
+// JSDOC Validee par EE Aout 2022
+export function grille (xmin = -30, ymin = -30, xmax = 30, ymax = 30, color = 'gray', opacite = 0.4, step = 1, pointilles = 0) {
+  return new Grille(xmin, ymin, xmax, ymax, color, opacite, step, pointilles)
 }
 
-/**
- * grilleHorizontale(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace des parallèles à l'axe des ordonnées
- *
+/**  Trace des parallèles à l'axe des abscisses
+ * @param {number} [xmin = -30] Abscisse du coin en bas à gauche de ces parallèles
+ * @param {number} [ymin = -30] Ordonnée du coin en bas à gauche de ces parallèles
+ * @param {number} [xmax = 30] Abscisse du coin en haut à droite de ces parallèles
+ * @param {number} [ymax = 30] Ordonnée du coin en haut à droite de ces parallèles
+ * @param {string} [color = 'gray'] Couleur de ces parallèles : du type 'blue' ou du type '#f15929'
+ * @param {number} [opacite = 0.4] Opacité de ces parallèles : entre 0 et 1
+ * @param {number} [step = 1] Pas de ces parallèles
+ * @param {number} [pointilles = 0] Style des pointillés de ces parallèles (entier entre 1 et 5). Si autre chose, pas de pointillés.
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml Sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} color Couleur de ces parallèles. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {number} opacite Opacité de ces parallèles : entre 0 et 1
  * @author Rémi Angot
+ * @class
  */
-function GrilleHorizontale (
+// JSDOC Validee par EE Aout 2022
+function LignesHorizontales (
   xmin = -30,
   ymin = -30,
   xmax = 30,
@@ -7326,7 +7108,7 @@ function GrilleHorizontale (
   step = 1,
   pointilles = ''
 ) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.color = color
   this.opacite = opacite
   const objets = []
@@ -7354,25 +7136,46 @@ function GrilleHorizontale (
   }
 }
 
-/**
- * grilleHorizontale(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace des parallèles à l'axe des ordonnées
- *
+/**  Trace des parallèles à l'axe des abscisses
+ * @param {number} [xmin = -30] Abscisse du coin en bas à gauche de ces parallèles
+ * @param {number} [ymin = -30] Ordonnée du coin en bas à gauche de ces parallèles
+ * @param {number} [xmax = 30] Abscisse du coin en haut à droite de ces parallèles
+ * @param {number} [ymax = 30] Ordonnée du coin en haut à droite de ces parallèles
+ * @param {string} [color = 'gray'] Couleur de ces parallèles : du type 'blue' ou du type '#f15929'
+ * @param {number} [opacite = 0.4] Opacité de ces parallèles : entre 0 et 1
+ * @param {number} [step = 1] Pas de ces parallèles
+ * @param {number} [pointilles = 0] Style des pointillés de ces parallèles (entier entre 1 et 5). Si autre chose, pas de pointillés.
+ * @example grid = lignesHorizontales() // Trace des parallèles à l'axe des abscisses avec toutes les options par défaut
+ * @example grid = lignesHorizontales(-3, -3, 27, 18, 'red', 0.2, 0.5, true) // Trace des parallèles à l'axe des abscisses avec toutes les options différentes de celles par défaut
  * @author Rémi Angot
+ * @return {LignesHorizontales}
  */
-export function grilleHorizontale (...args) {
-  return new GrilleHorizontale(...args)
+// JSDOC Validee par EE Aout 2022
+export function lignesHorizontales (xmin = -30, ymin = -30, xmax = 30, ymax = 30, color = 'gray', opacite = 0.4, step = 1, pointilles = '') {
+  return new LignesHorizontales(xmin, ymin, xmax, ymax, color, opacite, step, pointilles)
 }
-function GrilleVerticale (
-  xmin = -30,
-  ymin = -30,
-  xmax = 30,
-  ymax = 30,
-  color = 'gray',
-  opacite = 0.4,
-  step = 1,
-  pointilles = ''
-) {
-  ObjetMathalea2D.call(this)
+
+/**  Trace des verticales à l'axe des ordonnées
+ * @param {number} [xmin = -30] Abscisse du coin en bas à gauche de ces parallèles
+ * @param {number} [ymin = -30] Ordonnée du coin en bas à gauche de ces parallèles
+ * @param {number} [xmax = 30] Abscisse du coin en haut à droite de ces parallèles
+ * @param {number} [ymax = 30] Ordonnée du coin en haut à droite de ces parallèles
+ * @param {string} [color = 'gray'] Couleur de ces parallèles : du type 'blue' ou du type '#f15929'
+ * @param {number} [opacite = 0.4] Opacité de ces parallèles : entre 0 et 1
+ * @param {number} [step = 1] Pas de ces parallèles
+ * @param {number} [pointilles = 0] Style des pointillés de ces parallèles (entier entre 1 et 5). Si autre chose, pas de pointillés.
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml Sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} color Couleur de ces parallèles. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {number} opacite Opacité de ces parallèles : entre 0 et 1
+ * @author Rémi Angot
+ * @class
+ */
+// JSDOC Validee par EE Aout 2022
+function LignesVerticales (xmin = -30, ymin = -30, xmax = 30, ymax = 30, color = 'gray', opacite = 0.4, step = 1, pointilles = '') {
+  ObjetMathalea2D.call(this, { })
   this.color = color
   this.opacite = opacite
   const objets = []
@@ -7401,16 +7204,31 @@ function GrilleVerticale (
 }
 
 /**
- * grilleVerticale(xmin,ymin,xmax,ymax,color,opacite,pas)
+ * LignesVerticales(xmin,ymin,xmax,ymax,color,opacite,pas)
  *
  * @author Rémi Angot
  */
-export function grilleVerticale (...args) {
-  return new GrilleVerticale(...args)
+/**  Trace des parallèles à l'axe des ordonnées
+ * @param {number} [xmin = -30] Abscisse du coin en bas à gauche de ces parallèles
+ * @param {number} [ymin = -30] Ordonnée du coin en bas à gauche de ces parallèles
+ * @param {number} [xmax = 30] Abscisse du coin en haut à droite de ces parallèles
+ * @param {number} [ymax = 30] Ordonnée du coin en haut à droite de ces parallèles
+ * @param {string} [color = 'gray'] Couleur de ces parallèles : du type 'blue' ou du type '#f15929'
+ * @param {number} [opacite = 0.4] Opacité de ces parallèles : entre 0 et 1
+ * @param {number} [step = 1] Pas de ces parallèles
+ * @param {number} [pointilles = 0] Style des pointillés de ces parallèles (entier entre 1 et 5). Si autre chose, pas de pointillés.
+ * @example grid = lignesHorizontales() // Trace des parallèles à l'axe des ordonnées avec toutes les options par défaut
+ * @example grid = lignesHorizontales(-3, -3, 27, 18, 'red', 0.2, 0.5, true) // Trace des parallèles à l'axe des ordonnées avec toutes les options différentes de celles par défaut
+ * @author Rémi Angot
+ * @return {LignesVerticales}
+ */
+// JSDOC Validee par EE Aout 2022
+export function lignesVerticales (xmin = -30, ymin = -30, xmax = 30, ymax = 30, color = 'gray', opacite = 0.4, step = 1, pointilles = '') {
+  return new LignesVerticales(xmin, ymin, xmax, ymax, color, opacite, step, pointilles)
 }
 
 function Seyes (xmin = 0, ymin = 0, xmax = 15, ymax = 15, opacite1 = 0.5, opacite2 = 0.2) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   const objets = []
   for (let y = ymin; y <= ymax; y = y + 0.25) {
     if (y % 1 !== 0) {
@@ -7463,7 +7281,7 @@ function PapierPointe ({
   opacite = 1,
   opaciteDeRemplissage = 1
 }) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.listeCoords = []
   const plots = []
   let xstep1, xstep2, ystep1, stepper
@@ -7660,8 +7478,8 @@ function Repere ({
   grilleSecondaireYMax = false,
   grilleSecondaireYCouleur = grilleSecondaireCouleur,
   grilleSecondaireYOpacite = grilleSecondaireOpacite
-} = {}) {
-  ObjetMathalea2D.call(this)
+}) {
+  ObjetMathalea2D.call(this, { })
 
   // Les propriétés exportables
   this.xUnite = xUnite
@@ -7671,13 +7489,17 @@ function Repere ({
   this.yMin = yMin
   this.yMax = yMax
 
+  this.bordures = [xMin * xUnite - 1, yMin * yUnite - 1, xMax * xUnite + 1 + xLegende.length / 3, yMax * yUnite + 1]
+
   const objets = []
   // LES AXES
-  const OrdonneeAxe = Math.max(0, yMin)
-  const axeX = segment(xMin * xUnite, OrdonneeAxe * yUnite, xMax * xUnite, OrdonneeAxe * yUnite, axesCouleur)
+  const ordonneeAxe = Math.max(0, yMin)
+  xLegendePosition = [xMax * xUnite + 0.5, 0.5 + ordonneeAxe]
+  const axeX = segment(xMin * xUnite, ordonneeAxe * yUnite, xMax * xUnite, ordonneeAxe * yUnite, axesCouleur)
   axeX.epaisseur = axesEpaisseur
   axeX.styleExtremites = axeXStyle
   const abscisseAxe = Math.max(0, xMin)
+  yLegendePosition = [0.5 + abscisseAxe, yMax * yUnite + 0.5]
   const axeY = segment(abscisseAxe * xUnite, yMin * yUnite, abscisseAxe * xUnite, yMax * yUnite, axesCouleur)
   axeY.epaisseur = axesEpaisseur
   axeY.styleExtremites = axeYStyle
@@ -7809,7 +7631,7 @@ function Repere ({
       xThickListe = rangeMinMax(xThickMin, xThickMax, [0], xThickDistance)
     }
     for (const x of xThickListe) {
-      const thick = segment(x * xUnite, OrdonneeAxe * yUnite - thickHauteur, x * xUnite, OrdonneeAxe * yUnite + thickHauteur, thickCouleur)
+      const thick = segment(x * xUnite, ordonneeAxe * yUnite - thickHauteur, x * xUnite, ordonneeAxe * yUnite + thickHauteur, thickCouleur)
       thick.isVisible = false
       thick.epaisseur = thickEpaisseur
       objets.push(thick)
@@ -7832,7 +7654,7 @@ function Repere ({
       xLabelListe = rangeMinMax(xLabelMin, xLabelMax, [0], xLabelDistance)
     }
     for (const x of xLabelListe) {
-      const l = texteParPosition(`${stringNombre(x, precisionLabelX)}`, x * xUnite, OrdonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', 1, 'middle', true)
+      const l = texteParPosition(`${stringNombre(x, precisionLabelX)}`, x * xUnite, ordonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', 1, 'middle', true)
       l.isVisible = false
       objets.push(l)
     }
@@ -7890,7 +7712,7 @@ function Repere ({
 /**
  *
  * @param {object} param0
- * @returns {object}
+ * @return {object}
  */
 export function repere ({
   xUnite = 1,
@@ -8073,7 +7895,7 @@ export function pointDansRepere (x, y, repere = { xUnite: 1, yUnite: 1 }) {
  * @param {object} repere
  * @author Rémi Angot
  */
-function TraceGraphiqueCartesien (data, repere, {
+function TraceGraphiqueCartesien (data, repere = {}, {
   couleurDesPoints = 'red',
   couleurDuTrait = 'blue',
   styleDuTrait = '', // plein par défaut
@@ -8082,7 +7904,7 @@ function TraceGraphiqueCartesien (data, repere, {
   tailleDesPoints = 3
 
 } = {}) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   const objets = []
   const listePoints = []
   for (const [x, y] of data) {
@@ -8159,7 +7981,7 @@ export function traceGraphiqueCartesien (...args) {
  * @author Jean-Claude Lhote
  */
 function TableauDeVariation ({ tabInit, tabLines, lgt, escpl, deltacl, colors, hauteurLignes, colorBackground }) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.tabInit = tabInit
   this.tabLines = tabLines
   this.colors = colors
@@ -8244,10 +8066,10 @@ function TableauDeVariation ({ tabInit, tabLines, lgt, escpl, deltacl, colors, h
                       segments.push(s)
                       break
                     case 'h':
-                      p = polygone(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine),
+                      p = polygone([point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine),
                         point(this.lgt + this.deltacl + this.escpl / 2 * (k), yLine),
                         point(this.lgt + this.deltacl + this.escpl / 2 * (k), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 15),
-                        point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 15))
+                        point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 15)])
                       p.couleurDeRemplissage = colorToLatexOrHTML('gray')
                       segments.push(p)
                       break
@@ -9031,8 +8853,8 @@ export function tableauDeVariation ({ tabInit = ['', ''], tabLines = [], lgt = 3
  * @author Rémi Angot
  */
 function TraceBarre (x, hauteur, legende = '', { epaisseur = 0.6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = 0.3, angle = 66, unite = 1, hachures = false } = {}) {
-  ObjetMathalea2D.call(this)
-  const p = hauteur === 0 ? vide2d(x, 0) : polygone(point(x - epaisseur / 2, 0), point(x - epaisseur / 2, hauteur * unite), point(x + epaisseur / 2, hauteur * unite), point(x + epaisseur / 2, 0))
+  ObjetMathalea2D.call(this, { })
+  const p = hauteur === 0 ? vide2d(x, 0) : polygone([point(x - epaisseur / 2, 0), point(x - epaisseur / 2, hauteur * unite), point(x + epaisseur / 2, hauteur * unite), point(x + epaisseur / 2, 0)])
   p.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
   p.opaciteDeRemplissage = opaciteDeRemplissage
   p.color = colorToLatexOrHTML(color)
@@ -9066,8 +8888,8 @@ export function traceBarre (...args) {
  * @author Rémi Angot
  */
 function TraceBarreHorizontale (longueur, y, legende = '', { epaisseur = 0.6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = 0.3, unite = 1, angle = 'gauche', hachures = false } = {}) {
-  ObjetMathalea2D.call(this)
-  const p = longueur === 0 ? vide2d(0, y) : polygone(point(0, y - epaisseur / 2), point(0, y + epaisseur / 2), point(unite * longueur, y + epaisseur / 2), point(unite * longueur, y - epaisseur / 2))
+  ObjetMathalea2D.call(this, { })
+  const p = longueur === 0 ? vide2d(0, y) : polygone([point(0, y - epaisseur / 2), point(0, y + epaisseur / 2), point(unite * longueur, y + epaisseur / 2), point(unite * longueur, y - epaisseur / 2)])
   p.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
   p.opaciteDeRemplissage = opaciteDeRemplissage
   p.color = colorToLatexOrHTML(color)
@@ -9088,8 +8910,26 @@ export function traceBarreHorizontale (...args) {
   return new TraceBarreHorizontale(...args)
 }
 
-function DiagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille = false, couleurDeRemplissage = 'blue', titreAxeVertical = '', titre = '', hauteurDiagramme = 5, coeff = 2, axeVertical = false, etiquetteValeur = true, labelAxeVert = false } = {}) {
-  ObjetMathalea2D.call(this)
+/** Trace un diagramme en barres
+ * @param {number[]} hauteursBarres Tableau des effectifs
+ * @param {string[]} etiquettes Tableau des labels pour chaque effectif
+ * @param {Object} parametres À saisir entre accolades
+ * @param {boolean} [parametres.reperageTraitPointille = false] Présence (ou non) du trait en pointillés, reliant le haut de chaque barre à l'axe des ordonnées
+ * @param {string} [parametres.couleurDeRemplissage = 'blue'] Couleur de remplissage de toutes les barres : du type 'blue' ou du type '#f15929'.
+ * @param {number} [parametres.titreAxeVertical = ''] Titre de l'axe des ordonnées
+ * @param {boolean} [parametres.titre = ''] Titre du diagramme
+ * @param {boolean} [parametres.hauteurDiagramme = 5] Hauteur du diagramme
+ * @param {string[]} [parametres.coeff = 2] Largeur entre deux barres
+ * @param {string} [parametres.axeVertical = true] Présence (ou non) de l'axe vertical
+ * @param {boolean[]} [parametres.etiquetteValeur = true] Présence (ou non) de l'effectif sur chaque barre
+ * @param {boolean[]} [parametres.labelAxeVert = true] Présence (ou non) des labels numériques sur l'axe vertical
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {number[]} bordures Coordonnées de la fenêtre d'affichage du genre [-2,-2,5,5]
+ * @class
+ */
+function DiagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille = false, couleurDeRemplissage = 'blue', titreAxeVertical = '', titre = '', hauteurDiagramme = 5, coeff = 2, axeVertical = false, etiquetteValeur = true, labelAxeVert = false }) {
+  ObjetMathalea2D.call(this, { })
   const diagramme = []
   for (let j = 0; j < hauteursBarres.length; j++) {
     const abscisseBarre = j * coeff
@@ -9146,12 +8986,56 @@ function DiagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille =
     return code
   }
 }
-export function diagrammeBarres (...args) {
-  return new DiagrammeBarres(...args)
+/** Trace un diagramme en barres
+ * @param {number[]} hauteursBarres Tableau des effectifs
+ * @param {string[]} etiquettes Tableau des labels pour chaque effectif
+ * @param {Object} parametres À saisir entre accolades
+ * @param {boolean} [parametres.reperageTraitPointille = false] Présence (ou non) du trait en pointillés, reliant le haut de chaque barre à l'axe des ordonnées
+ * @param {string} [parametres.couleurDeRemplissage = 'blue'] Couleur de remplissage de toutes les barres : du type 'blue' ou du type '#f15929'.
+ * @param {number} [parametres.titreAxeVertical = ''] Titre de l'axe des ordonnées
+ * @param {boolean} [parametres.titre = ''] Titre du diagramme
+ * @param {boolean} [parametres.hauteurDiagramme = 5] Hauteur du diagramme
+ * @param {string[]} [parametres.coeff = 2] Largeur entre deux barres
+ * @param {string} [parametres.axeVertical = true] Présence (ou non) de l'axe vertical
+ * @param {boolean[]} [parametres.etiquetteValeur = true] Présence (ou non) de l'effectif sur chaque barre
+ * @param {boolean[]} [parametres.labelAxeVert = true] Présence (ou non) des labels numériques sur l'axe vertical
+ * @example diagrammeBarres([15, 25, 30, 10, 20], ['Compas', 'Rapporteur', 'Règle', 'Crayon', 'Gomme'])
+ * // Trace un diagramme en barres avec les options par défaut
+ * @example diagrammeBarres([15, 25, 30, 10, 20], ['Compas', 'Rapporteur', 'Règle', 'Crayon', 'Gomme'],{
+ * reperageTraitPointille: true, couleurDeRemplissage: 'red', titreAxeVertical: 'Nombre de réponses',
+ * titre = 'Matériel mathématique dans sa trousse', * hauteurDiagramme: 10, coeff: 3, etiquetteValeur: false }})
+ * // Trace un diagramme en barres avec modification de quelques options par défaut
+ * @return {DiagrammeBarres}
+ */
+export function diagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille = false, couleurDeRemplissage = 'blue', titreAxeVertical = '', titre = '', hauteurDiagramme = 5, coeff = 2, axeVertical = false, etiquetteValeur = true, labelAxeVert = false }) {
+  return new DiagrammeBarres(hauteursBarres, etiquettes, { reperageTraitPointille: reperageTraitPointille, couleurDeRemplissage: couleurDeRemplissage, titreAxeVertical: titreAxeVertical, titre: titre, hauteurDiagramme: hauteurDiagramme, coeff: coeff, axeVertical: axeVertical, etiquetteValeur: etiquetteValeur, labelAxeVert: labelAxeVert })
 }
 
-function DiagrammeCirculaire ({ effectifs = [], x = 0, y = 0, rayon = 4, modalites = [], semi = false, legende = true, legendePosition = 'droite', mesures = [], visibles = [], pourcents = [], valeurs = [], hachures = [], remplissage = [] }) {
-  ObjetMathalea2D.call(this)
+/** Trace un diagramme circulaire
+ * @param {Object} parametres À saisir entre accolades
+ * @param {number[]} parametres.effectifs Liste des effectifs à donner impérativement
+ * @param {number} [parametres.x = 0] Abscisse du point en bas à gauche
+ * @param {number} [parametres.y = 0] Ordonnée du point en bas à gauche
+ * @param {number} [parametres.rayon = 4] Rayon du diagramme circulaire
+ * @param {boolean} [parametres.semi = false] True pour un semi-circulaire, false pour un circulaire
+ * @param {boolean} [parametres.legendeAffichage = true] Présence (ou non) de la légende (ensemble des labels)
+ * @param {string[]} [parametres.labels = []] Labels associés aux effectifs respectifs. Tableau de même taille que effectifs.
+ * @param {string} [parametres.legendePosition = 'droite'] Position de la légende à choisir parmi : 'droite', 'dessus' ou 'dessous'
+ * @param {boolean[]} [parametres.mesures = []] Présence (ou non) de la mesure de chaque secteur. Tableau de même taille que effectifs.
+ * @param {boolean[]} [parametres.visibles = []] Découpe (ou non) du secteur (pour créer des diagrammes à compléter). Tableau de même taille que effectifs.
+ * @param {boolean[]} [parametres.pourcents = []] Présence (ou non) du pourcentage de l'effectif total associé au secteur. Tableau de même taille que effectifs.
+ * @param {boolean[]} [parametres.valeurs = []] Présence (ou non) de des valeurs de l'effectif. Tableau de même taille que effectifs.
+ * @param {boolean[]} [parametres.hachures = []] Présence (ou non) de hachures dans le secteur associé. Tableau de même taille que effectifs.
+ * @param {boolean[]} [parametres.remplissage = []] Présence (ou non) d'une couleur de remplissage dans le secteur associé. Tableau de même taille que effectifs.
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {number} x Abscisse du point en bas à gauche
+ * @property {number} y Ordonnée du point en bas à gauche
+ * @property {number[]} bordures Coordonnées de la fenêtre d'affichage du genre [-2,-2,5,5]
+ * @class
+ */
+function DiagrammeCirculaire ({ effectifs, x = 0, y = 0, rayon = 4, labels = [], semi = false, legendeAffichage = true, legendePosition = 'droite', mesures = [], visibles = [], pourcents = [], valeurs = [], hachures = [], remplissage = [] }) {
+  ObjetMathalea2D.call(this, { })
   const objets = []
   const listeHachuresDisponibles = [0, 1, 3, 4, 5, 6, 7, 8, 9, 10]
   const listeMotifs = combinaisonListes(listeHachuresDisponibles, effectifs.length)
@@ -9214,14 +9098,14 @@ function DiagrammeCirculaire ({ effectifs = [], x = 0, y = 0, rayon = 4, modalit
     switch (legendePosition) {
       case 'droite':
         legende = carre(translation(T, vecteur(0, 1.5 * i)), translation(T, vecteur(1, 1.5 * i)), 'black')
-        textelegende = texteParPoint(modalites[i], translation(T, vecteur(1.2, i * 1.5 + 0.5)), 0, 'black', 1.5, 'gauche', false)
-        legendeMax = Math.max(legendeMax, modalites[i].length * 0.6)
+        textelegende = texteParPoint(labels[i], translation(T, vecteur(1.2, i * 1.5 + 0.5)), 0, 'black', 1.5, 'gauche', false)
+        legendeMax = Math.max(legendeMax, labels[i].length * 0.6)
         break
       default:
         legende = carre(T, translation(T, vecteur(1, 0)), 'black')
-        textelegende = texteParPoint(modalites[i], translation(T, vecteur(1.2, 0.5)), 0, 'black', 1.5, 'gauche', false)
-        T = translation(T, vecteur(modalites[i].length * 0.6 + 1, 0))
-        legendeMax = legendeMax + modalites[i].length * 0.6 + 2.2
+        textelegende = texteParPoint(labels[i], translation(T, vecteur(1.2, 0.5)), 0, 'black', 1.5, 'gauche', false)
+        T = translation(T, vecteur(labels[i].length * 0.6 + 1, 0))
+        legendeMax = legendeMax + labels[i].length * 0.6 + 2.2
         break
     }
 
@@ -9233,13 +9117,13 @@ function DiagrammeCirculaire ({ effectifs = [], x = 0, y = 0, rayon = 4, modalit
   }
   objets.push(contour)
   objets.push(...secteurs)
-  if (legende) objets.push(...legendes)
+  if (legendeAffichage) objets.push(...legendes)
   objets.push(...etiquettes, ...etiquettes2, ...etiquettes3)
   // calcul des bordures
   this.bordures[0] = this.x - 0.5
-  this.bordures[1] = this.y - 0.5 - (legende ? (legendePosition === 'dessous' ? 2 : 0) : 0)
-  this.bordures[2] = this.x + rayon * 2 + 1 + (legende ? (legendePosition === 'droite' ? legendeMax : (Math.max(legendeMax, this.x + rayon * 2 + 1) - (this.x + rayon * 2 + 1))) : 0)
-  this.bordures[3] = this.y + (semi ? rayon : rayon * 2) + (legende ? (legendePosition === 'dessus' ? 2 : (legendePosition === 'droite' ? Math.max(this.y + (semi ? rayon : rayon * 2), effectifs.length * 1.5) - (this.y + (semi ? rayon : rayon * 2)) : 0)) : 0)
+  this.bordures[1] = this.y - 0.5 - (legendeAffichage ? (legendePosition === 'dessous' ? 2 : 0) : 0)
+  this.bordures[2] = this.x + rayon * 2 + 1 + (legendeAffichage ? (legendePosition === 'droite' ? legendeMax : (Math.max(legendeMax, this.x + rayon * 2 + 1) - (this.x + rayon * 2 + 1))) : 0)
+  this.bordures[3] = this.y + (semi ? rayon : rayon * 2) + (legendeAffichage ? (legendePosition === 'dessus' ? 2 : (legendePosition === 'droite' ? Math.max(this.y + (semi ? rayon : rayon * 2), effectifs.length * 1.5) - (this.y + (semi ? rayon : rayon * 2)) : 0)) : 0)
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
@@ -9255,25 +9139,37 @@ function DiagrammeCirculaire ({ effectifs = [], x = 0, y = 0, rayon = 4, modalit
     return code
   }
 }
-/**
- *
- * @param {number[]} effectifs liste des effectifs à donner impérativement
- * @param {number} x abscisse du point en bas à gauche (défaut 0)
- * @param {number} y ordonnée du point en bas à gauche (defaut 0)
- * @param {number} rayon 4 par défaut
- * @param {string[]} modalites les modalités associées aux effectifs respectifs
- * @param {boolean} semi true pour un semi-circulaire, false pour un circulaire false par défaut
- * @param {boolean} legende true pour présence de la légende
- * @param {string} legendePosition 'droite' (défaut) 'dessus' ou 'dessous'
- * @param {boolean[]} mesures présence ou non de la mesure de chaque secteur
- * @param {boolean[]} visibles découpe ou non du secteur (pour créer des diagrammes à compléter)
- * @param {boolean[]} pourcents présence ou non du pourcentage de l'effectif total associé au secteur
- * @param {boolean[]} valeurs présence ou non de l'effectif
- * @param {boolean[]} présence ou non de hachures dans le secteur associé
- * @param {boolean[]} présence ou non d'une couleur de remplissage dans le secteur associé
+
+/** Trace un diagramme circulaire
+ * @param {Object} parametres À saisir entre accolades
+ * @param {number[]} parametres.effectifs Liste des effectifs à donner impérativement
+ * @param {number} [parametres.x = 0] Abscisse du point en bas à gauche
+ * @param {number} [parametres.y = 0] Ordonnée du point en bas à gauche
+ * @param {number} [parametres.rayon = 4] Rayon du diagramme circulaire
+ * @param {boolean} [parametres.semi = false] True pour un semi-circulaire, false pour un circulaire
+ * @param {boolean} [parametres.legendeAffichage = true] Présence (ou non) de la légende (ensemble des labels)
+ * @param {string[]} [parametres.labels = []] Labels associés aux effectifs respectifs. Tableau de même taille que effectifs.
+ * @param {string} [parametres.legendePosition = 'droite'] Position de la légende à choisir parmi : 'droite', 'dessus' ou 'dessous'
+ * @param {boolean[]} [parametres.mesures = []] Présence (ou non) de la mesure de chaque secteur. Tableau de même taille que effectifs.
+ * @param {boolean[]} [parametres.visibles = []] Découpe (ou non) du secteur (pour créer des diagrammes à compléter). Tableau de même taille que effectifs.
+ * @param {boolean[]} [parametres.pourcents = []] Présence (ou non) du pourcentage de l'effectif total associé au secteur. Tableau de même taille que effectifs.
+ * @param {boolean[]} [parametres.valeurs = []] Présence (ou non) de des valeurs de l'effectif. Tableau de même taille que effectifs.
+ * @param {boolean[]} [parametres.hachures = []] Présence (ou non) de hachures dans le secteur associé. Tableau de même taille que effectifs.
+ * @param {boolean[]} [parametres.remplissage = []] Présence (ou non) d'une couleur de remplissage dans le secteur associé. Tableau de même taille que effectifs.
+ * @example diagrammeCirculaire({ rayon: 7, semi: false, legendePosition: 'dessous',
+ * effectifs: [15, 25, 30, 10, 20],
+ * labels: ['Compas', 'Rapporteur', 'Règle', 'Crayon', 'Gomme'],
+ * mesures: [true, true, true, false, true],
+ * visibles: [true, false, true, true, true],
+ * pourcents: [true, true, true, false, true],
+ * valeurs: [true, false, true, true, false],
+ * hachures: [true, true, true, false, true],
+ * remplissage: [false, true, true, true, true] })
+ * // Trace un diagramme semi-circulaire de rayon 7 avec différentes options
+ * @return {DiagrammeCirculaire}
  */
-export function diagrammeCirculaire ({ effectifs = [100], x = 0, y = 0, rayon = 4, modalites = ['tout'], semi = false, legende = true, legendePosition = 'droite', mesures = [false], visibles = [true], pourcents = [true], valeurs = [false], hachures = [true], remplissage = [false] }) {
-  return new DiagrammeCirculaire({ effectifs, x, y, rayon, modalites, semi, legende, legendePosition, mesures, visibles, pourcents, valeurs, hachures, remplissage })
+export function diagrammeCirculaire ({ effectifs, x = 0, y = 0, rayon = 4, labels = [], semi = false, legendeAffichage = true, legendePosition = 'droite', mesures = [], visibles = [], pourcents = [], valeurs = [], hachures = [], remplissage = [] }) {
+  return new DiagrammeCirculaire({ effectifs: effectifs, x: x, y: y, rayon: rayon, labels: labels, semi: semi, legendeAffichage: legendeAffichage, legendePosition: legendePosition, mesures: mesures, visibles: visibles, pourcents: pourcents, valeurs: valeurs, hachures: hachures, remplissage: remplissage })
 }
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -9282,7 +9178,7 @@ export function diagrammeCirculaire ({ effectifs = [100], x = 0, y = 0, rayon = 
 */
 
 function LectureImage (x, y, xscale = 1, yscale = 1, color = 'red', textAbs = '', textOrd = '') {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.x = x
   this.y = y
   this.xscale = xscale
@@ -9356,7 +9252,7 @@ export function lectureImage (...args) {
 
 function LectureAntecedent (x, y, xscale, yscale, color = 'black', textOrd, textAbs) {
   // 'use strict'
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.x = x
   this.y = y
   this.xscale = xscale
@@ -9430,47 +9326,42 @@ export function lectureAntecedent (...args) {
 
 /**
  * Trace la courbe d'une fonction dans un repère
- * @param {string} [color='black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
- * @param {number} [epaisseur=2]  Epaisseur du tracé de la courbe
- * @param {number} [xMin = repere.xMin]  Abscisse minimale du tracé de la courbe
- * @param {number} [xMax = repere.xMax]  Abscisse maximale du tracé de la courbe
- * @param {number} [yMin = repere.yMin]  Ordonnée minimale du tracé de la courbe
- * @param {number} [yMax = repere.yMax]  Ordonnée maximale du tracé de la courbe
- * @param {number} [step=0.2 / repere.xUnite]  Pas entre deux abscisses du tracé de la fonction
- * courbe(f,{repere,color,epaisseur,step,xMin,xMax,yMin,yMax,xUnite,yUnite}) // Trace la courbe de f
- *
+ * @param {function} f fonction à tracer comme par exemple : const f = x => a * x ** 2 + b * x + c
+ * @param {Object} parametres À saisir entre accolades
+ * @param {Repere} [parametres.repere  = {}]  Repère dans lequel le tracé de la fonction se fait
+ * @param {string} [parametres.color = 'black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.epaisseur = 2]  Epaisseur du tracé de la courbe
+ * @param {number} [parametres.xMin = repere.xMin]  Abscisse minimale du tracé de la courbe
+ * @param {number} [parametres.xMax = repere.xMax]  Abscisse maximale du tracé de la courbe
+ * @param {number} [parametres.yMin = repere.yMin]  Ordonnée minimale du tracé de la courbe
+ * @param {number} [parametres.yMax = repere.yMax]  Ordonnée maximale du tracé de la courbe
+ * @param {boolean|number} [parametres.step = false] Si false, le pas entre deux abscisses du tracé de la fonction est 0.2/xUnite. Sinon, ce pas vaut la valeur indiquée.
+ * @param {number} [parametres.xUnite = 1]  Abscisse minimale du tracé de la courbe
+ * @param {number} [parametres.yUnite = 1]  Abscisse maximale du tracé de la courbe
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml Sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} color Couleur du tracé de la courbe. À associer obligatoirement à colorToLatexOrHTML().
  * @author Rémi Angot
+ * @class
  */
-
+// JSDOC Validee par EE Aout 2022
 function Courbe (f, {
   repere = {},
-  // repere,
   color = 'black',
   epaisseur = 2,
   step = false,
-  xMin,
-  xMax,
-  yMin,
-  yMax,
+  xMin = repere.xMin,
+  xMax = repere.xMax,
+  yMin = repere.yMin,
+  yMax = repere.yMax,
   xUnite = 1,
   yUnite = 1
-} = {}) {
-  ObjetMathalea2D.call(this)
+}) {
+  ObjetMathalea2D.call(this, { })
   this.color = color
-  let xmin, ymin, xmax, ymax, xunite, yunite // Tout en minuscule pour les différencier des paramètres de la fonction
-  if (typeof xMin === 'undefined') {
-    xmin = repere.xMin
-  } else xmin = xMin
-  if (typeof yMin === 'undefined') {
-    ymin = repere.yMin
-  } else ymin = yMin
-  if (typeof xMax === 'undefined') {
-    xmax = repere.xMax
-  } else xmax = xMax
-  if (typeof yMax === 'undefined') {
-    ymax = repere.yMax
-  } else ymax = yMax
-
+  let xunite, yunite // Tout en minuscule pour les différencier des paramètres de la fonction
   xunite = repere.xUnite
   yunite = repere.yUnite
 
@@ -9485,10 +9376,10 @@ function Courbe (f, {
   } else {
     pas = step
   }
-  for (let x = xmin; inferieurouegal(x, xmax); x += pas
+  for (let x = xMin; inferieurouegal(x, xMax); x += pas
   ) {
     if (isFinite(f(x))) {
-      if (f(x) < ymax + 1 && f(x) > ymin - 1) {
+      if (f(x) < yMax + 1 && f(x) > yMin - 1) {
         points.push(point(x * xunite, f(x) * yunite))
       } else {
         p = polyline([...points], this.color)
@@ -9536,30 +9427,61 @@ function Courbe (f, {
   }
 }
 
-export function courbe (...args) {
-  return new Courbe(...args)
+/**
+ * Trace la courbe d'une fonction dans un repère
+ * @param {function} f Fonction à tracer comme par exemple : const f = x => a * x ** 2 + b * x + c
+ * @param {Object} parametres À saisir entre accolades
+ * @param {Repere} [parametres.repere = {}] Repère dans lequel le tracé de la fonction se fait
+ * @param {string} [parametres.color = 'black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.epaisseur = 2]  Epaisseur du tracé de la courbe
+ * @param {number} [parametres.xMin = repere.xMin]  Abscisse minimale du tracé de la courbe
+ * @param {number} [parametres.xMax = repere.xMax]  Abscisse maximale du tracé de la courbe
+ * @param {number} [parametres.yMin = repere.yMin]  Ordonnée minimale du tracé de la courbe
+ * @param {number} [parametres.yMax = repere.yMax]  Ordonnée maximale du tracé de la courbe
+ * @param {boolean|number} [parametres.step = false] Si false, le pas entre deux abscisses du tracé de la fonction est 0.2/xUnite. Sinon, ce pas vaut la valeur indiquée.
+ * @param {number} [parametres.xUnite = 1]  Abscisse minimale du tracé de la courbe
+ * @param {number} [parametres.yUnite = 1]  Abscisse maximale du tracé de la courbe
+ * @example courbe(g, {repere: r})
+ * // Trace, en noir avec une épaisseur de 2, la courbe g dans le repère r, tous deux précédemment définis.
+ * @example courbe(g, {repere: r, epaisseur: 5, color: 'blue'})
+ * // Trace la courbe g dans le repère r, tous deux précédemment définis, en bleu, avec une épaisseur de 5.
+ * @author Rémi Angot
+ * @return {Courbe}
+ */
+// JSDOC Validee par EE Aout 2022
+export function courbe (f, { repere = {}, color = 'black', epaisseur = 2, step = false, xMin, xMax, yMin, yMax, xUnite = 1, yUnite = 1 }) {
+  return new Courbe(f, { repere: repere, color: color, epaisseur: epaisseur, step: step, xMin: xMin, xMax: xMax, yMin: yMin, yMax: yMax, xUnite: xUnite, yUnite: yUnite })
 }
 
 /**
- * Integrale(f,{repere,color,couleurDeRemplissage,epaisseur,step,a,b,opacite,hachures}) // Trace la courbe de f
- * a et b sont les bornes (dans l'ordre croissant a<b)
- * opacite = 0.5 par défaut
- * hachures = 0 par défaut (= 'northeastlines')
- * @author Jean-Claude Lhote
+ * Trace l'aire entre la courbe d'une fonction et l'axe des abscisses
+ * @param {function} f fonction dont on veut tracer l'aire entre sa courbe et l'axe des abscisses comme par exemple : const f = x => a * x ** 2 + b * x + c
+ * @param {Object} parametres À saisir entre accolades
+ * @param {Repere} [parametres.repere  = {}]  Repère dans lequel le tracé de la fonction se fait
+ * @param {string} [parametres.color = 'black']  Couleur du contour de l'aire : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.epaisseur = 2]  Epaisseur du contour de l'aire
+ * @param {string} [parametres.couleurDeRemplissage = 'blue']  Couleur de l'intérieur de l'aire : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.opacite = 0.5] Taux d'opacité du remplissage entre 0 et 1
+ * @param {number} [parametres.hachures = 0] Style des hachures dans cette aire (entier entre 0 et 10).
+ * @param {boolean|number} [parametres.step = false] Si false, le pas entre deux abscisses pour tracer l'aire est 0.2/xUnite. Sinon, ce pas vaut la valeur indiquée.
+ * @param {number} [parametres.a = 0]  Abscisse minimale du tracé de la courbe avec a < b
+ * @param {number} [parametres.b = 1]  Abscisse maximale du tracé de la courbe avec a < b
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml Sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} color Couleur du contour de l'aire. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {string} couleurDeRemplissage Couleur de l'intérieur de l'aire. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {number} xUnite Unité des abscisses du repère
+ * @property {number} yUnite Unité des ordonnées du repère
+ * @property {number} ymin Ordonnée minimale du repère
+ * @property {number} ymax Ordonnée maximale du repère
+ * @author Rémi Angot
+ * @class
  */
-
-function Integrale (f, {
-  repere = {},
-  color = 'black',
-  couleurDeRemplissage = 'blue',
-  epaisseur = 2,
-  step = false,
-  a = 0,
-  b = 1,
-  opacite = 0.5,
-  hachures = 0
-} = {}) {
-  ObjetMathalea2D.call(this)
+// JSDOC Validee par EE Juin 2022
+function Integrale (f, { repere = {}, color = 'black', couleurDeRemplissage = 'blue', epaisseur = 2, step = false, a = 0, b = 1, opacite = 0.5, hachures = 0 }) {
+  ObjetMathalea2D.call(this, { })
   this.color = color
   this.couleurDeRemplissage = couleurDeRemplissage
   const ymin = repere.yMin
@@ -9627,44 +9549,59 @@ function Integrale (f, {
   }
 }
 
-export function integrale (...args) {
-  return new Integrale(...args)
-}
 /**
- * crée un objet correspondant au tracé de la fonction f de la classe Spline
- * f devra être définie avant...
- * @author Jean-Claude Lhote
+ * Trace l'aire entre la courbe d'une fonction et l'axe des abscisses
+ * @param {function} f fonction dont on veut tracer l'aire entre sa courbe et l'axe des abscisses comme par exemple : const f = x => a * x ** 2 + b * x + c
+ * @param {Object} parametres À saisir entre accolades
+ * @param {Repere} [parametres.repere  = {}]  Repère dans lequel le tracé de la fonction se fait
+ * @param {string} [parametres.color = 'black']  Couleur du contour de l'aire : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.epaisseur = 2]  Epaisseur du contour de l'aire
+ * @param {string} [parametres.couleurDeRemplissage = 'blue']  Couleur de l'intérieur de l'aire : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.opacite = 0.5] Taux d'opacité du remplissage entre 0 et 1
+ * @param {number} [parametres.hachures = 0] Style des hachures dans cette aire (entier entre 0 et 10).
+ * @param {boolean|number} [parametres.step = false] Si false, le pas entre deux abscisses pour tracer l'aire est 0.2/xUnite. Sinon, ce pas vaut la valeur indiquée.
+ * @param {number} [parametres.a = 0]  Abscisse minimale du tracé de la courbe avec a < b
+ * @param {number} [parametres.b = 1]  Abscisse maximale du tracé de la courbe avec a < b
+ * @example integrale(g, {repere: r})
+ * // Trace avec une épaisseur de 2, l'aire entre la courbe de la fonction g et l'axe des abscisses dans le repère r, tous deux précédemment définis.
+ * @example integrale(g,  {repere: r, epaisseur: 5, color: 'blue', couleurDeRemplissage: 'red'})
+ * // Trace avec une épaisseur de 5, l'aire entre la courbe de la fonction g et l'axe des abscisses dans le repère r, tous deux précédemment définis. L'aire est entourée de bleu et remplie de rouge.
+ * @author Rémi Angot
+ * @return {Integrale}
  */
-function CourbeSpline (f, {
-  repere = {},
-  color = 'black',
-  epaisseur = 2,
-  step = false,
-  xMin,
-  xMax,
-  yMin,
-  yMax,
-  xUnite = 1,
-  yUnite = 1,
-  traceNoeuds = true
-} = {}) {
-  ObjetMathalea2D.call(this)
+// JSDOC Validee par EE Juin 2022
+export function integrale (f, { repere = {}, color = 'black', couleurDeRemplissage = 'blue', epaisseur = 2, step = false, a = 0, b = 1, opacite = 0.5, hachures = 0 }) {
+  return new Integrale(f, { repere: repere, color: color, couleurDeRemplissage: couleurDeRemplissage, epaisseur: epaisseur, step: step, a: a, b: b, opacite: opacite, hachures: hachures })
+}
+
+/**
+ * Trace la courbe d'une fonction, précédemment définie comme Spline, dans un repère
+ * @param {function} f fonction à tracer défine, au préalable, avec splineCatmullRom()
+ * @param {Object} parametres À saisir entre accolades
+ * @param {Repere} [parametres.repere  = {}] Repère dans lequel le tracé de la fonction se fait
+ * @param {string} [parametres.color = 'black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.epaisseur = 2]  Epaisseur du tracé de la courbe
+ * @param {number} [parametres.xMin = repere.xMin]  Abscisse minimale du tracé de la courbe
+ * @param {number} [parametres.xMax = repere.xMax]  Abscisse maximale du tracé de la courbe
+ * @param {number} [parametres.yMin = repere.yMin]  Ordonnée minimale du tracé de la courbe
+ * @param {number} [parametres.yMax = repere.yMax]  Ordonnée maximale du tracé de la courbe
+ * @param {boolean|number} [parametres.step = false] Si false, le pas entre deux abscisses du tracé de la fonction est 0.2/xUnite. Sinon, ce pas vaut la valeur indiquée.
+ * @param {number} [parametres.xUnite = 1]  Abscisse minimale du tracé de la courbe
+ * @param {number} [parametres.yUnite = 1]  Abscisse maximale du tracé de la courbe
+ * @param {boolean} [parametres.traceNoeuds = true]  Place (ou non) les points définis dans le paramètre f.
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} color Couleur du tracé de la courbe. À associer obligatoirement à colorToLatexOrHTML().
+ * @author Jean-Claude Lhote
+ * @class
+ */
+// JSDOC Validee par EE Juin 2022
+function CourbeSpline (f, { repere = {}, color = 'black', epaisseur = 2, step = false, xMin = repere.xMin, xMax = repere.xMax, yMin = repere.yMin, yMax = repere.yMax, xUnite = 1, yUnite = 1, traceNoeuds = true }) {
+  ObjetMathalea2D.call(this, { })
+  this.color = color
   const noeuds = []
   let points = []
-  let xmin, ymin, xmax, ymax, xunite, yunite // Tout en minuscule pour les différencier des paramètres de la fonction
-  if (typeof xMin === 'undefined') {
-    xmin = repere.xMin
-  } else xmin = xMin
-  if (typeof yMin === 'undefined') {
-    ymin = repere.yMin
-  } else ymin = yMin
-  if (typeof xMax === 'undefined') {
-    xmax = repere.xMax
-  } else xmax = xMax
-  if (typeof yMax === 'undefined') {
-    ymax = repere.yMax
-  } else ymax = yMax
-
+  let xunite, yunite // Tout en minuscule pour les différencier des paramètres de la fonction
   xunite = repere.xUnite
   yunite = repere.yUnite
 
@@ -9688,13 +9625,13 @@ function CourbeSpline (f, {
   } else {
     pas = step
   }
-  for (let x = xmin; inferieurouegal(x, xmax); x = x + pas) {
+  for (let x = xMin; inferieurouegal(x, xMax); x = x + pas) {
     y = f.image(x)
     if (!isNaN(y)) {
-      if (y < ymax + 1 && y > ymin - 1) {
+      if (y < yMax + 1 && y > yMin - 1) {
         points.push(point(x * xunite, y * yunite))
-      } else {
-        p = polyline([...points], color)
+      } else if (points.length > 0) {
+        p = polyline([...points], this.color)
         p.epaisseur = epaisseur
         p.opacite = 0.7
         objets.push(p)
@@ -9704,7 +9641,7 @@ function CourbeSpline (f, {
       x += 0.05
     }
   }
-  p = polyline([...points], color)
+  p = polyline([...points], this.color)
   p.epaisseur = epaisseur
   p.opacite = 0.7
   objets.push(p)
@@ -9725,12 +9662,36 @@ function CourbeSpline (f, {
   }
 }
 
-export function courbeSpline (...args) {
-  return new CourbeSpline(...args)
+/**
+ * Trace la courbe d'une fonction, précédemment définie comme Spline, dans un repère
+ * @param {function} f fonction à tracer défine, au préalable, avec splineCatmullRom()
+ * @param {Object} parametres À saisir entre accolades
+ * @param {Repere} [parametres.repere  = {}] Repère dans lequel le tracé de la fonction se fait
+ * @param {string} [parametres.color = 'black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.epaisseur = 2]  Epaisseur du tracé de la courbe
+ * @param {number} [parametres.xMin = repere.xMin]  Abscisse minimale du tracé de la courbe
+ * @param {number} [parametres.xMax = repere.xMax]  Abscisse maximale du tracé de la courbe
+ * @param {number} [parametres.yMin = repere.yMin]  Ordonnée minimale du tracé de la courbe
+ * @param {number} [parametres.yMax = repere.yMax]  Ordonnée maximale du tracé de la courbe
+ * @param {boolean|number} [parametres.step = false] Si false, le pas entre deux abscisses du tracé de la fonction est 0.2/xUnite. Sinon, ce pas vaut la valeur indiquée.
+ * @param {number} [parametres.xUnite = 1]  Abscisse minimale du tracé de la courbe
+ * @param {number} [parametres.yUnite = 1]  Abscisse maximale du tracé de la courbe
+ * @param {boolean} [parametres.traceNoeuds = true]  Place (ou non) les points définis dans le paramètre f.
+ * @example courbeSpline(g, {repere: r})
+ * // Trace, en noir avec une épaisseur de 2, la courbe spline g dans le repère r, tous deux précédemment définis.
+ * @example courbeSpline(g, {repere: r, epaisseur: 5, color: 'blue'})
+ * // Trace la courbe spline g dans le repère r, tous deux précédemment définis, en bleu, avec une épaisseur de 5.
+ * @author Jean-Claude Lhote
+ * @return {CourbeSpline}
+ */
+// JSDOC Validee par EE Juin 2022
+export function courbeSpline (f, { repere = {}, color = 'black', epaisseur = 2, step = false, xMin = repere.xMin, xMax = repere.xMax, yMin = repere.yMin, yMax = repere.yMax, xUnite = 1, yUnite = 1, traceNoeuds = true }) {
+  return new CourbeSpline(f, { repere: repere, color: color, epaisseur: epaisseur, step: step, xMin: xMin, xMax: xMax, yMin: yMin, yMax: yMax, xUnite: xUnite, yUnite: yUnite, traceNoeuds: traceNoeuds })
 }
 
 /**
  * @SOURCE : https://gist.github.com/ericelliott/80905b159e1f3b28634ce0a690682957
+ * @private
  */
 // y1: start value
 // y2: end value
@@ -9740,25 +9701,32 @@ const cosineInterpolate = (y1, y2, mu) => {
   const mu2 = (1 - Math.cos(mu * Math.PI)) / 2
   return y1 * (1 - mu2) + y2 * mu2
 }
+
 /**
- *
- * @param {*} tableau
- * @param {*} color
- * @param {*} epaisseur
- * @param {Repere} r
- * @param {*} xmin
- * @param {*} xmax
+ * Trace la courbe d'une fonction interpolée, linéaire par parties, dans un repère
+ * @param {Array.number[]} tableau Ce tableau de tableaux contient les coordonnées des points à rejoindre comme par exemple : [[-5,2],[-1,-7],[2,5],[3,-1]]
+ * @param {Object} parametres À saisir entre accolades
+ * @param {Repere} [parametres.repere  = { xMin: -1, yMin: 1 }] Repère dans lequel le tracé de la fonction se fait
+ * @param {string} [parametres.color = 'black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.epaisseur = 2]  Epaisseur du tracé de la courbe
+ * @param {number} [parametres.xMin = repere.xMin]  Abscisse minimale du tracé de la courbe
+ * @param {number} [parametres.xMax = repere.xMax]  Abscisse maximale du tracé de la courbe
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @author Rémi Angot
+ * @class
  */
+// JSDOC Validee par EE Juin 2022
 function CourbeInterpolee (
   tableau,
   {
     color = 'black',
     epaisseur = 2,
     repere = { xMin: -1, yMin: 1 },
-    xMin,
-    xmax
+    xMin = repere.xMin,
+    xMax = repere.xMax
   }) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   const mesCourbes = []
   for (let i = 0; i < tableau.length - 1; i++) {
     const x0 = tableau[i][0]
@@ -9768,7 +9736,7 @@ function CourbeInterpolee (
     const f = (x) => cosineInterpolate(y0, y1, (x - x0) / (x1 - x0))
     let depart, fin
     xMin > x0 ? (depart = xMin) : (depart = x0)
-    xmax < x1 ? (fin = xmax) : (fin = x1)
+    xMax < x1 ? (fin = xMax) : (fin = x1)
     const c = courbe(f, { repere, xMin: depart, xMax: fin, color, epaisseur })
     mesCourbes.push(c)
     this.svg = function (coeff) {
@@ -9788,30 +9756,36 @@ function CourbeInterpolee (
   }
 }
 /**
- *
- * @param {array} tableau de coordonnées [x,y]
- * @param {string} color
- * @param {number} epaisseur
- * @param {objet} repere (ou tableau [xscale,yscale])
- * @param {number} xmin (ceux de la courbe, pas ceux du repère)
- * @param {number} xmax
- *
+ * Trace la courbe d'une fonction interpolée, linéaire par parties, dans un repère
+ * @param {Array.number[]} tableau Ce tableau de tableaux contient les coordonnées des points à rejoindre comme par exemple : [[-5,2],[-1,-7],[2,5],[3,-1]]
+ * @param {Object} parametres À saisir entre accolades
+ * @param {Repere} [parametres.repere  = {}]  Repère dans lequel le tracé de la fonction se fait
+ * @param {string} [parametres.color = 'black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.epaisseur = 2]  Epaisseur du tracé de la courbe
+ * @param {number} [parametres.xMin = repere.xMin]  Abscisse minimale du tracé de la courbe
+ * @param {number} [parametres.xMax = repere.xMax]  Abscisse maximale du tracé de la courbe
+ * @example courbeInterpolee(tab, {repere: r})
+ * // Trace, en noir avec une épaisseur de 2, la courbe de la fonction interpolée sur les intervalles définis dans tab, dans le repère r, tous deux précédemment définis.
+ * @example courbeInterpolee(tab, {repere: r, epaisseur: 5, color: 'blue'})
+ * // Trace la courbe de la fonction interpolée sur les intervalles définis dans tab, dans le repère r, tous deux précédemment définis, en bleu avec une épaisseur de 5.
  * @author Rémi Angot
+ * @return {CourbeInterpolee}
  */
-export function courbeInterpolee (tableau, { color = 'black', epaisseur = 1, repere, xMin = -10, xMax = 10 }) {
-  return new CourbeInterpolee(tableau, { color, epaisseur, repere, xMin, xMax })
+// JSDOC Validee par EE Juin 2022
+export function courbeInterpolee (tableau, { color = 'black', epaisseur = 1, repere = {}, xMin = -10, xMax = 10 }) {
+  return new CourbeInterpolee(tableau, { color: color, epaisseur: epaisseur, repere: repere, xMin: xMin, xMax: xMax })
 }
 
 function GraphiqueInterpole (
   tableau, {
     color = 'black',
     epaisseur = 1,
-    repere = {},
+    repere = {}, // repère par défaut : le laisser...
     step = 0.2
   } = {}
 
 ) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   const mesCourbes = []
   for (let i = 0; i < tableau.length - 1; i++) {
     const x0 = tableau[i][0]
@@ -9822,7 +9796,7 @@ function GraphiqueInterpole (
     let depart, fin
     repere.xMin > x0 ? (depart = repere.xMin) : (depart = x0)
     repere.xMax < x1 ? (fin = repere.xMax) : (fin = x1)
-    const c = courbe(f, { step: step, xMin: depart, xMax: fin, color: color, epaisseur: epaisseur, xUnite: repere.xUnite, yUnite: repere.yUnite, yMin: repere.yMin, yMax: repere.yMax })
+    const c = courbe(f, { repere: repere, step: step, xMin: depart, xMax: fin, color: color, epaisseur: epaisseur, xUnite: repere.xUnite, yUnite: repere.yUnite, yMin: repere.yMin, yMax: repere.yMax })
     mesCourbes.push(c)
   }
   this.svg = function (coeff) {
@@ -9893,7 +9867,7 @@ function AntecedentParDichotomie (xmin, xmax, f, y, precision = 0.01) {
 */
 
 function CrochetD (A, color = 'blue') {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.epaisseur = 2
   this.color = colorToLatexOrHTML(color)
   this.taille = 0.2
@@ -9944,7 +9918,7 @@ export function crochetD (...args) {
 }
 
 function CrochetG (A, color = 'blue') {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.epaisseur = 2
   this.color = colorToLatexOrHTML(color)
   this.taille = 0.2
@@ -10005,76 +9979,8 @@ export function intervalle (A, B, color = 'blue', h = 0) {
   return s
 }
 
-/**
- * convertHexToRGB convertit une couleur en héxadécimal (sans le #) en un tableau RVB avec des valeurs entre 0 et 255.
- * @param {string} [Couleur='000000'] Code couleur HTML sans le #
- * @example convertHexToRGB('f15929')=[241,89,41]
- * @author Eric Elter
- * @return {number[]}
- */
-// JSDOC Validee EE Juin 2022
-function convertHexToRGB (couleur = '000000') {
-  const hexDecoupe = couleur.match(/.{1,2}/g)
-  const hexToRGB = [
-    parseInt(hexDecoupe[0], 16),
-    parseInt(hexDecoupe[1], 16),
-    parseInt(hexDecoupe[2], 16)
-  ]
-  return hexToRGB
-}
-
-/**
- * ColorToLatexOrHTML prend en paramètre une couleur sous forme prédéfinie ('red','yellow',...) ou sous forme HTML en hexadécimal (avec #, genre '#f15929')
- * La sortie de cette fonction est un tableau où :
- * - le premier élément est cette couleur exploitable en SVG, donc en HTML.
- * - le second élément est cette couleur exploitable en TikZ, donc en Latex.
- * @param {string} couleur Une couleur du type 'blue' ou du type '#f15929'
- * @example ColorToLatexOrHTML('red')=['red','{red}']
- * @example ColorToLatexOrHTML('#f15929')=['#f15929','{rgb,255:red,241;green,89;blue,41}']
- * @example ColorToLatexOrHTML('')=''
- * @example ColorToLatexOrHTML('none')=['none','none']
- * @author Eric Elter
- * @return {string[]}
- * @private
- */
-// JSDOC Validee EE Juin 2022
-function ColorToLatexOrHTML (couleur) {
-  const tabCouleur = []
-  let rgb = []
-  if (Array.isArray(couleur)) return couleur // Si jamais une fonction rappelle une couleur qui aurait déjà été transformée par cette même fonction
-  else if (couleur === '') return ''
-  else if (couleur === 'none') return ['none', 'none']
-  else {
-    tabCouleur[0] = couleur
-    if (couleur[0] === '#') {
-      rgb = convertHexToRGB(couleur.replace('#', ''))
-      tabCouleur[1] = '{rgb,255:red,' + rgb[0] + ';green,' + rgb[1] + ';blue,' + rgb[2] + '}'
-    } else {
-      tabCouleur[1] = '{' + couleur + '}'
-    }
-    return tabCouleur
-  }
-}
-
-/**
- * colorToLatexOrHTML prend en paramètre une couleur sous forme prédéfinie ('red','yellow',...) ou sous forme HTML en hexadécimal (avec #, genre '#f15929')
- * La sortie de cette fonction est un tableau où :
- * - le premier élément est cette couleur exploitable en SVG, donc en HTML.
- * - le second élément est cette couleur exploitable en TikZ, donc en Latex.
- * @param {string} couleur Une couleur du type 'blue' ou du type '#f15929'
- * @example colorToLatexOrHTML('red')=['red','{red}']
- * @example colorToLatexOrHTML('#f15929')=['#f15929','{rgb,255:red,241;green,89;blue,41}']
- * @example colorToLatexOrHTML('')=''
- * @example colorToLatexOrHTML('none')=['none','none']
- * @author Eric Elter
- * @return {string[]}
- */
-// JSDOC Validee EE Juin 2022
-export function colorToLatexOrHTML (couleur) {
-  return new ColorToLatexOrHTML(couleur)
-}
-
 /*
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%% LES TEXTES %%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -10090,13 +9996,14 @@ export function colorToLatexOrHTML (couleur) {
  * @author Rémi Angot
  */
 function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.color = colorToLatexOrHTML(color)
   this.contour = false
   this.taille = 10 * scale
   this.opacite = 1
   this.couleurDeRemplissage = this.color
   this.opaciteDeRemplissage = this.opacite
+  if (typeof texte === 'number' || texte instanceof Decimal) texte = stringNombre(texte)
   this.bordures = [A.x - texte.length * 0.2, A.y - 0.4, A.x + texte.length * 0.2, A.y + 0.4]
   if (typeof texte !== 'string') {
     texte = String(texte)
@@ -10208,7 +10115,7 @@ export function texteParPoint (texte, A, orientation = 'milieu', color = 'black'
 }
 
 function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false, scaleFigure) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.color = colorToLatexOrHTML(color)
   this.contour = false
   this.taille = 10 * scale
@@ -10400,7 +10307,7 @@ export function latexParPoint (texte, A, color = 'black', largeur = 20, hauteur 
  * @param {Number} [tailleCaracteres] Taille de la police utilisée de 5 = \small à 20=\huge... agit sur la box en en modifiant les paramètres hauteur et largeur
  */
 function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, colorBackground, tailleCaracteres) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.x = x
   this.y = y
   this.largeur = largeur * Math.log10(2 * tailleCaracteres)
@@ -10437,7 +10344,7 @@ function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, colorBackgro
     if (this.colorBackground !== '') {
       code = `\\draw (${x},${y}) node[anchor = center] {\\colorbox{ ${colorBackground[1]}}{${taille}  $\\color${this.color[1]}{${texte}}$}};`
     } else {
-      code = `\\draw (${x},${y}) node[anchor = center] {${taille} $\\color{${this.color[1]}}{${texte}}$};`
+      code = `\\draw (${x},${y}) node[anchor = center] {${taille} $\\color${this.color[1]}{${texte}}$};`
     };
     return code
   }
@@ -10446,57 +10353,6 @@ function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, colorBackgro
 export function latexParCoordonnees (texte, x, y, color = 'black', largeur = 50, hauteurLigne = 20, colorBackground = 'white', tailleCaracteres = 8) {
   if (texte === '') return vide2d()
   else return new LatexParCoordonnees(texte, x, y, color, largeur, hauteurLigne, colorBackground, tailleCaracteres)
-}
-
-/**
- * Fonction dépréciée depuis que latexParCoordonnees() est au point.
- * x,y sont les coordonnées du début du trait de fraction, 0;0 par défaut
- * num et den sont les numérateurs et dénominateurs (1 et 2) par défaut
- * On peut changer la couleur (noir par défaut)
- * permet d'afficher une fraction à une position donnée en SVG et Latex
- * Les nombres ne sont pas en mode Maths
- *
- * @author Jean-Claude Lhote
- */
-
-function FractionParPosition ({ x = 0, y = 0, fraction = { num: 1, den: 2 }, couleur = 'black' } = {}) {
-  ObjetMathalea2D.call(this)
-  const num = Math.abs(fraction.num)
-  const den = Math.abs(fraction.den)
-  const signe = fraction.signe
-  const longueur = Math.max(Math.floor(Math.log10(num)) + 1, Math.floor(Math.log10(den)) + 1) * 10
-  const offset = 10
-
-  this.svg = function (coeff) {
-    const s = segment(x - longueur / coeff / 2, y, x + longueur / coeff / 2, y, couleur)
-    s.isVisible = false
-    let code = s.svg(coeff)
-    if (signe === -1) {
-      code += segment(x - ((longueur + 15) / coeff / 2), y, x - ((longueur + 5) / coeff / 2), y, couleur).svg(coeff)
-    }
-    const t1 = texteParPosition(nombreAvecEspace(num), x, y + offset / coeff, 'milieu', couleur)
-    code += t1.svg(coeff)
-    const t2 = texteParPosition(nombreAvecEspace(den), x, y - offset / coeff, 'milieu', couleur)
-    code += t2.svg(coeff)
-    t1.isVisible = false
-    t2.isVisible = false
-    code = `<g id="${this.id}">${code}</g>`
-    return code
-  }
-
-  this.tikz = function () {
-    let code = segment(x, y, x + longueur / 30 / context.scale, y, couleur).tikz()
-    if (signe === -1) {
-      code += segment(x - ((longueur / 30 + 0.785) / context.scale / 2), y, x - ((longueur / 30 + 0.25) / context.scale / 2), y, couleur).tikz()
-    }
-    code += texteParPosition(nombreAvecEspace(num), x + longueur / 60 / context.scale, y + offset / 30 / context.scale, 'milieu', couleur).tikz()
-    code += texteParPosition(nombreAvecEspace(den), x + longueur / 60 / context.scale, y - offset / 30 / context.scale, 'milieu', couleur).tikz()
-    return code
-  }
-}
-
-export function fractionParPosition (arg) {
-  return new FractionParPosition(arg)
 }
 
 /*
@@ -10535,14 +10391,14 @@ export function norme (v) {
  * @param {Point} O Sommet de l'angle
  * @param {Point} B Point sur l'autre côté de l'angle
  * @param {integer} [precision = 2] Nombre maximal de décimales de la valeur arrondie de la mesure de l'angle
- * @return {number}
  * @example x = angle(H,E,T)
  * // x contient la mesure en degré de l'angle HET, arrondi au centième
  * @example x = angle(H,E,T,0)
  * // x contient la mesure en degré de l'angle HET, arrondi à l'unité
+ * @return {number}
  * @author Rémi Angot
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function angle (A, O, B, precision = 2) {
   const OA = longueur(O, A)
   const OB = longueur(O, B)
@@ -10562,7 +10418,6 @@ export function angle (A, O, B, precision = 2) {
 /**
  * Convertit un nombre de degrés quelconque en une mesure comprise entre -180 et 180
  * @param {number} a Valeur en degrés dont on cherche la valeur entre -180 et 180
- * @return {number}
  * @example x = angleModulo(170)
  * // x contient 170
  * @example x = angleModulo(190)
@@ -10573,8 +10428,9 @@ export function angle (A, O, B, precision = 2) {
  * // x contient 180
  * @example x = angleModulo(-180)
  * // x contient 180
+ * @return {number}
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function angleModulo (a) {
   while (a <= -180) a = a + 360
   while (a > 180) a = a - 360
@@ -10587,14 +10443,14 @@ export function angleModulo (a) {
  * @param {Point} O Sommet de l'angle
  * @param {Point} B Point sur l'autre côté de l'angle
  * @param {integer} [precision = 2] Nombre maximal de décimales de la valeur arrondie de la mesure de l'angle orienté
- * @return {number}
- * @author Jean-Claude Lhote
  * @example x = angleOriente(H,E,T)
  * // x contient la valeur de la mesure de l'angle orienté HET, arrondie au centième
  * @example x = angleOriente(H,E,T,0)
  * // x contient la valeur de la mesure de l'angle orienté HET, arrondie à l'unité
+ * @return {number}
+ * @author Jean-Claude Lhote
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function angleOriente (A, O, B, precision = 2) {
   const A2 = rotation(A, O, 90)
   const v = vecteur(O, B); const u = vecteur(O, A2)
@@ -10607,312 +10463,19 @@ export function angleOriente (A, O, B, precision = 2) {
  * @param {Point} O Sommet de l'angle
  * @param {Point} B Point sur l'autre côté de l'angle
  * @param {integer} [precision = 2] Nombre maximal de décimales de la valeur arrondie de la mesure de l'angle orienté
- * @return {number}
- * @author Rémi Angot
  * @example x = angleradian(H,E,T)
  * // x contient la valeur de la mesure de l'angle HET en radians, arrondie au centième
  * @example x = angleradian(H,E,T,0)
  * // x contient la valeur de la mesure de l'angle HET en radians, arrondie à l'unité
+ * @return {number}
+ * @author Rémi Angot
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function angleradian (A, O, B, precision = 2) {
   const OA = longueur(O, A)
   const OB = longueur(O, B)
   const AB = longueur(A, B)
   return calcul(Math.acos(arrondi((AB ** 2 - OA ** 2 - OB ** 2) / (-2 * OA * OB), 12)), precision)
-}
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%% LES LUTINS %%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-*/
-
-/**
- * Renvoie la mesure d'angle (entre -180° et 180°) dans le cercle trigonométrique à partir d'une mesure d'angle donnée en degrés, qu'utilise Scratch.
- * Parce que le 0 angulaire de Scratch est dirigé vers le Nord et qu'il croît dans le sens indirect
- * @param {number} x Angle Scratch
- * @example x=angleScratchTo2d(0) // x=90
- * @example x=angleScratchTo2d(90) // x=0
- * @example x=angleScratchTo2d(-90) // x=180
- * @example x=angleScratchTo2d(-120) // x=-150
- * @return {angleModulo}
- */
-// JSDOC Validee EE Juin 2022
-export function angleScratchTo2d (x) {
-  const angle2d = 90 - x
-  return angleModulo(angle2d)
-}
-
-function ObjetLutin () {
-  ObjetMathalea2D.call(this)
-  this.x = 0
-  this.y = 0
-  this.xMin = 0
-  this.xMax = 0
-  this.yMin = 0
-  this.yMax = 0
-  this.xSVG = function (coeff) {
-    return this.x * coeff
-  }
-  this.ySVG = function (coeff) {
-    return -this.y * coeff
-  }
-  this.orientation = 0
-  this.historiquePositions = []
-  this.crayonBaisse = false
-  this.isVisible = true
-  this.costume = ''
-  this.listeTraces = [] // [[x0,y0,x1,y1,style]...]
-  this.color = colorToLatexOrHTML('black')
-  this.epaisseur = 2
-  this.pointilles = ''
-  this.opacite = 1
-  this.style = ''
-  this.animation = ''
-  this.svg = function (coeff) {
-    let code = ''
-    for (const trace of this.listeTraces) {
-      const A = point(trace[0], trace[1])
-      const B = point(trace[2], trace[3])
-      const color = colorToLatexOrHTML(trace[4])
-      const epaisseur = trace[5]
-      const pointilles = trace[6]
-      const opacite = trace[7]
-      let style = ''
-      if (epaisseur !== 1) {
-        style += ` stroke-width="${epaisseur}" `
-      }
-      if (pointilles) {
-        style += ' stroke-dasharray="4 3" '
-      }
-      if (opacite !== 1) {
-        style += ` stroke-opacity="${opacite}" `
-      }
-      code += `\n\t<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
-        coeff
-      )}" x2="${B.xSVG(coeff)}" y2="${B.ySVG(coeff)}" stroke="${color[0]}" ${style}  />`
-    }
-    if (this.isVisible && this.animation !== '') {
-      code += '\n <g>' + this.animation + '</g>'
-    }
-    return code
-  }
-  this.tikz = function () {
-    let code = ''
-    for (const trace of this.listeTraces) {
-      const A = point(trace[0], trace[1])
-      const B = point(trace[2], trace[3])
-      const color = colorToLatexOrHTML(trace[4])
-      const epaisseur = trace[5]
-      const pointilles = trace[6]
-      const opacite = trace[7]
-      let optionsDraw = []
-      const tableauOptions = []
-      if (color[1].length > 1 && color[1] !== 'black') {
-        tableauOptions.push(`color =${color[1]}`)
-      }
-      if ((!isNaN(epaisseur)) && epaisseur !== 1) {
-        tableauOptions.push(`line width = ${epaisseur}`)
-      }
-      if ((!isNaN(opacite)) && opacite !== 1) {
-        tableauOptions.push(`opacity = ${opacite}`)
-      }
-      if (pointilles) {
-        tableauOptions.push('dashed')
-      }
-      if (tableauOptions.length > 0) {
-        optionsDraw = '[' + tableauOptions.join(',') + ']'
-      }
-      code += `\n\t\\draw${optionsDraw} (${A.x},${A.y})--(${B.x},${B.y});`
-    };
-    return code
-  }
-}
-/**
- * Crée une nouvelle instance de l'objet lutin
- * @param  {...any} args En fait, il n'y a pas d'argument... il faudra les renseigner après la création de l'objet.
- * Voire l'objet lutin pour la liste de ses attributs (lutin.x, lutin.y, lutin.orientation, ...)
- * @returns {object} Instance d'un lutin
- */
-export function creerLutin (...args) {
-  return new ObjetLutin(...args)
-}
-
-/**
- * Fait avancer le lutin de d unités de lutin dans la direction de son orientation
- * @param {number} d Nombre d'unités choisi pour avancer
- * @param {ObjetLutin} lutin Lutin
- * @example avance(5, lutin) // Fait avancer le lutin de 5 unités
- * @author Jean-Claude Lhote
- */
-// JSDOC Validee EE Juin 2022
-export function avance (d, lutin = context.lutin) { // A faire avec pointSurCercle pour tenir compte de l'orientation
-  const xdepart = lutin.x
-  const ydepart = lutin.y
-  lutin.x = lutin.x + d / context.unitesLutinParCm * Math.cos(radians(lutin.orientation))
-  lutin.y = lutin.y + d / context.unitesLutinParCm * Math.sin(radians(lutin.orientation))
-  lutin.historiquePositions.push([lutin.x, lutin.y])
-  if (lutin.crayonBaisse) {
-    lutin.listeTraces.push([xdepart, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-  }
-  lutin.xMin = Math.min(lutin.xMin, lutin.x)
-  lutin.yMin = Math.min(lutin.yMin, lutin.y)
-  lutin.xMax = Math.max(lutin.xMax, lutin.x)
-  lutin.yMax = Math.max(lutin.yMax, lutin.y)
-}
-
-/**
- * Fait entrer le lutin dans le mode "trace"
- * @param {ObjetLutin} lutin
- * @example baisseCrayon(lutin) // Met lutin en mode "trace"
- */
-export function baisseCrayon (lutin = context.lutin) {
-  lutin.crayonBaisse = true
-}
-/**
- * Fait sortir le lutin du mode "trace"
- * @param {ObjetLutin} lutin
- * @example leveCrayon(lutin) // Sort lutin du mode "trace"
- */
-// JSDOC Validee par EE Juin 2022
-export function leveCrayon (lutin = context.lutin) {
-  lutin.crayonBaisse = false
-}
-/**
- * Fixe l'orientation du lutin à a degrés (au sens Mathalea2d=trigo)
- * Voire la fonction angleScratchTo2d(angle_scratch) pour la conversion
- * @param {number} a
- * @param {ObjetLutin} lutin
- */
-export function orienter (a, lutin = context.lutin) {
-  lutin.orientation = angleModulo(a)
-}
-/**
- * Fait tourner de a degrés le lutin dans le sens direct
- * @param {number} a
- * @param {ObjetLutin} lutin
- */
-export function tournerG (a, lutin = context.lutin) {
-  lutin.orientation = angleModulo(lutin.orientation + a)
-}
-/**
- * Fait tourner de a degrés le lutin dans le sens indirect
- * @param {number} a
- * @param {ObjetLutin} lutin
- */
-export function tournerD (a, lutin = context.lutin) {
-  lutin.orientation = angleModulo(lutin.orientation - a)
-}
-/**
- * Déplace le lutin de sa position courante à (x;y)
- * @param {number} x Nouvelle abscisse
- * @param {number} y Nouvelle ordonnée
- * @param {ObjetLutin} lutin Lutin
- * @example allerA(10,-5,lutin) // Le lutin prend pour coordonnées (10 ; -5).
- */
-// JSDOC Validee EE Juin 2022
-export function allerA (x, y, lutin = context.lutin) {
-  const xdepart = lutin.x
-  const ydepart = lutin.y
-  lutin.x = x / context.unitesLutinParCm
-  lutin.y = y / context.unitesLutinParCm
-  lutin.historiquePositions.push([lutin.x, lutin.y])
-  if (lutin.crayonBaisse) {
-    lutin.listeTraces.push([xdepart, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-  }
-  lutin.xMin = Math.min(lutin.xMin, lutin.x)
-  lutin.yMin = Math.min(lutin.yMin, lutin.y)
-  lutin.xMax = Math.max(lutin.xMax, lutin.x)
-  lutin.yMax = Math.max(lutin.yMax, lutin.y)
-}
-/**
- * Change en x à l'abscisse du lutin
- * @param {number} x Nouvelle abscisse
- * @param {ObjetLutin} lutin Lutin
- * @example mettrexA(10,lutin) // L'abscisse de lutin devient 10.
- */
-export function mettrexA (x, lutin = context.lutin) {
-  const xdepart = lutin.x
-  lutin.x = x / context.unitesLutinParCm
-  lutin.historiquePositions.push([lutin.x, lutin.y])
-  if (lutin.crayonBaisse) {
-    lutin.listeTraces.push([xdepart, lutin.y, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-  }
-  lutin.xMin = Math.min(lutin.xMin, lutin.x)
-  lutin.xMax = Math.max(lutin.xMax, lutin.x)
-}
-/**
- * change en y l'ordonnée du lutin
- * @param {number} y Nouvelle ordonnée
- * @param {ObjetLutin} lutin Lutin
- * @example mettreyA(10,lutin) // L'ordonnée de lutin devient 10.
- */
-export function mettreyA (y, lutin = context.lutin) {
-  const ydepart = lutin.y
-  lutin.y = y / context.unitesLutinParCm
-  lutin.historiquePositions.push([lutin.x, lutin.y])
-  if (lutin.crayonBaisse) {
-    lutin.listeTraces.push([lutin.x, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-  }
-  lutin.yMin = Math.min(lutin.yMin, lutin.y)
-  lutin.yMax = Math.max(lutin.yMax, lutin.y)
-}
-/**
- * Ajoute x à l'abscisse du lutin
- * @param {number} x Valeur à ajouter à l'abscisse
- * @param {ObjetLutin} lutin Lutin
- * @example ajouterAx(10,lutin) // L'abscisse de lutin est augmentée de 10.
- */
-// JSDOC Non Validee EE Juin 2022 (impossible à tester car non utilisée)
-export function ajouterAx (x, lutin = context.lutin) {
-  const xdepart = lutin.x
-  lutin.x += x / context.unitesLutinParCm
-  lutin.historiquePositions.push([lutin.x, lutin.y])
-  if (lutin.crayonBaisse) {
-    lutin.listeTraces.push([xdepart, lutin.y, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-  }
-  lutin.xMin = Math.min(lutin.xMin, lutin.x)
-  lutin.xMax = Math.max(lutin.xMax, lutin.x)
-}
-/**
- * Ajoute y à l'ordonnée du lutin
- * @param {number} y Valeur à ajouter à l'ordonnée
- * @param {ObjetLutin} lutin Lutin
- * @example ajouterAy(10,lutin) // L'ordonnée de lutin est augmentée de 10.
- */
-// JSDOC Non Validee EE Juin 2022 (impossible à tester car non utilisée)
-export function ajouterAy (y, lutin = context.lutin) {
-  const ydepart = lutin.y
-  lutin.y += y / context.unitesLutinParCm
-  lutin.historiquePositions.push([lutin.x, lutin.y])
-  if (lutin.crayonBaisse) {
-    lutin.listeTraces.push([lutin.x, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-  }
-  lutin.yMin = Math.min(lutin.yMin, lutin.y)
-  lutin.yMax = Math.max(lutin.yMax, lutin.y)
-}
-
-/**
- * Fait "vibrer" le lutin, tempo fois autour de sa position courante
- * @param {number} tempo Nombre de vibrations
- * @param {ObjetLutin} lutin Lutin
- * @example attendre(5, lutin) // Fait "vibrer" 5 fois le lutin
- * @author Jean-Claude Lhote
- */
-// JSDOC Validee EE Juin 2022
-export function attendre (tempo, lutin = context.lutin) {
-  const x = lutin.x; const y = lutin.y
-  lutin.listeTraces.push([x, y, x + 0.08, y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-  for (let i = 0; i < tempo; i++) {
-    lutin.listeTraces.push([x + 0.08, y, x + 0.08, y + 0.08, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-    lutin.listeTraces.push([x + 0.08, y + 0.08, x - 0.08, y + 0.08, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-    lutin.listeTraces.push([x + 0.08, y + 0.08, x - 0.08, y + 0.08, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-    lutin.listeTraces.push([x - 0.08, y + 0.08, x - 0.08, y - 0.08, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-    lutin.listeTraces.push([x - 0.08, y - 0.08, x + 0.08, y - 0.08, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-    lutin.listeTraces.push([x + 0.08, y - 0.08, x + 0.08, y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-  }
-  lutin.listeTraces.push([x + 0.03, y, x, y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
 }
 
 /**
@@ -11292,271 +10855,6 @@ export function scratchblock (stringLatex) {
   return codeScratch
 }
 
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%% LES INSTRUMENTS %%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-*/
-
-/**
- * Affiche (en HTML) un crayon avec la mine sur le point A
- * @param {point} A
- * @private
- */
-// JSDOC Validee par EE Juin 2022
-function AfficherCrayon (A) {
-  ObjetMathalea2D.call(this)
-  this.x = A.x
-  this.y = A.y
-  this.svg = function () {
-    const code = `<g id="${this.id}" stroke="#000000" fill="none" transform="translate(${(this.x - 0.2) * context.pixelsParCm},${-60 - (this.y - 0.2) * context.pixelsParCm}) scale(.1) ">
-   <path id="rect2990" d="m70.064 422.35 374.27-374.26 107.58 107.58-374.26 374.27-129.56 21.97z" stroke-width="30"/>
-   <path id="path3771" d="m70.569 417.81 110.61 110.61" stroke-width="25"/>
-   <path id="path3777" d="m491.47 108.37-366.69 366.68" stroke-width="25"/>
-   <path id="path3763" d="m54.222 507.26 40.975 39.546" stroke-width="25"/>
-  </g>`
-    return code
-  }
-}
-
-/**
- * Afficher (en HTML) un crayon avec la mine sur le point A
- * @param {point} A
- * @return {AfficherCrayon}
- */
-// JSDOC Validee par EE Juin 2022
-export function afficherCrayon (A) {
-  return new AfficherCrayon(A)
-}
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%% LES FONCTIONS - FORMATAGE %%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-*/
-
-/**
- * codeSvg(segment(A,B),polygone(D,E,F),labelPoints(A,B))
- *
- * @author Rémi Angot
- * @private
- */
-// JSDOC Validee par EE Juin 2022
-export function codeSvg (fenetreMathalea2d, pixelsParCm, mainlevee, ...objets) {
-  let code = ''
-  const fenetrexmin = fenetreMathalea2d[0]
-  const fenetreymin = fenetreMathalea2d[3] * -(1)
-  const fenetrexmax = fenetreMathalea2d[2]
-  const fenetreymax = fenetreMathalea2d[1] * (-1)
-
-  code = `<svg width="${(fenetrexmax - fenetrexmin) * pixelsParCm}" height="${(fenetreymax - fenetreymin) * pixelsParCm}" viewBox="${fenetrexmin * pixelsParCm} ${fenetreymin * pixelsParCm} ${(fenetrexmax - fenetrexmin) * pixelsParCm} ${(fenetreymax - fenetreymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg">\n`
-  for (const objet of objets) {
-    if (Array.isArray(objet)) {
-      for (let i = 0; i < objet.length; i++) {
-        try {
-          if (objet[i].isVisible) {
-            if (!mainlevee || typeof (objet[i].svgml) === 'undefined') code += '\t' + objet[i].svg(pixelsParCm) + '\n'
-            else {
-              code += '\t' + objet[i].svgml(pixelsParCm, context.amplitude) + '\n'
-            }
-          }
-        } catch (error) { }
-      }
-    }
-    try {
-      if (objet.isVisible) {
-        if (!mainlevee || typeof (objet.svgml) === 'undefined') code += '\t' + objet.svg(pixelsParCm) + '\n'
-        else code += '\t' + objet.svgml(pixelsParCm, context.amplitude) + '\n'
-      }
-    } catch (error) { }
-  }
-  code += '</svg>'
-  return code
-}
-
-/**
- * codeTikz(segment(A,B),polygone(D,E,F),labelPoints(A,B))
- *
- * @author Rémi Angot
- * @private
- */
-// JSDOC Validee par EE Juin 2022
-export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
-  let code = ''
-  const fenetrexmin = fenetreMathalea2d[0]
-  const fenetreymin = fenetreMathalea2d[3] * -(1)
-  const fenetrexmax = fenetreMathalea2d[2]
-  const fenetreymax = fenetreMathalea2d[1] * (-1)
-  const sortie = context.isHtml
-  // eslint-disable-next-line no-global-assign
-  context.isHtml = false
-  if (scale === 1) {
-    code += '\\begin{tikzpicture}[baseline]\n'
-  } else {
-    code += `\\begin{tikzpicture}[baseline,scale = ${scale}]\n`
-  }
-  code += `\\tikzset{
-    point/.style={
-      thick,
-      draw,
-      cross out,
-      inner sep=0pt,
-      minimum width=5pt,
-      minimum height=5pt,
-    },
-  }
-  \\clip (${fenetrexmin},${fenetreymin}) rectangle (${fenetrexmax},${fenetreymax});
-
-  \n\n`
-
-  for (const objet of objets) {
-    if (Array.isArray(objet)) {
-      for (let i = 0; i < objet.length; i++) {
-        try {
-          if (objet[i].isVisible) {
-            if (!mainlevee || typeof (objet[i].tikzml) === 'undefined') code += '\t' + objet[i].tikz(scale) + '\n'
-            else code += '\t' + objet[i].tikzml(context.amplitude) + '\n'
-          }
-        } catch (error) { }
-      }
-    }
-    try {
-      if (objet.isVisible) {
-        if (!mainlevee || typeof (objet.tikzml) === 'undefined') code += '\t' + objet.tikz(scale) + '\n'
-        else code += '\t' + objet.tikzml(context.amplitude) + '\n'
-      }
-    } catch (error) { }
-  }
-  code += '\\end{tikzpicture}\n'
-  // eslint-disable-next-line no-global-assign
-  context.isHtml = sortie
-  return code
-}
-
-/**
- * mathalea2d(xmin,xmax,ymin,ymax,objets)
- *
- * @author Rémi Angot
- *
- *
- * Le paramètre optionsTikz est un tableau de strings contenant exclusivement des options Tikz à ajouter
- */
-
-export function mathalea2d (
-  { xmin = 0, ymin = 0, xmax = 15, ymax = 6, pixelsParCm = 20, scale = 1, zoom = 1, optionsTikz, mainlevee = false, amplitude = 1, style = 'display: block', id = '' } = {},
-  ...objets
-) {
-  let code = ''
-  if (context.isHtml) {
-    code = `<svg class="mathalea2d" id="${id}" width="${(xmax - xmin) * pixelsParCm * zoom}" height="${(ymax - ymin) * pixelsParCm * zoom
-      }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${(xmax - xmin) * pixelsParCm
-      } ${(ymax - ymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg" ${style ? `style="${style}"` : ''}>\n`
-    for (const objet of objets) {
-      if (Array.isArray(objet)) {
-        for (let i = 0; i < objet.length; i++) {
-          if (Array.isArray(objet[i])) { // EE : Test nécessaire pour les cubes 3d
-            for (let j = 0; j < objet[i].length; j++) {
-              try {
-                if (objet[i][j].isVisible) {
-                  if ((!mainlevee) || typeof (objet[i][j].svgml) === 'undefined') code += '\t' + objet[i][j].svg(pixelsParCm) + '\n'
-                  else { code += '\t' + objet[i][j].svgml(pixelsParCm, amplitude) + '\n' }
-                }
-              } catch (error) { }
-            }
-          } else {
-            try {
-              if (objet[i].isVisible) {
-                if ((!mainlevee) || typeof (objet[i].svgml) === 'undefined') code += '\t' + objet[i].svg(pixelsParCm) + '\n'
-                else { code += '\t' + objet[i].svgml(pixelsParCm, amplitude) + '\n' }
-              }
-            } catch (error) { }// console.log('premiere boucle', error.message, objet[i], i) }
-          }
-        }
-      } else {
-        try {
-          if (objet.isVisible) {
-            if ((!mainlevee) || typeof (objet.svgml) === 'undefined') code += '\t' + objet.svg(pixelsParCm) + '\n'
-            else { code += '\t' + objet.svgml(pixelsParCm, amplitude) + '\n' }
-          }
-        } catch (error) { console.log('le try tout seul', error.message, objet) }
-      }
-    }
-    code += '\n</svg>'
-    code = code.replace(/\\thickspace/gm, ' ')
-    //  pixelsParCm = 20;
-  } else {
-    // si scale existe autre que 1 il faut que le code reste comme avant
-    // sinon on ajoute scale quoi qu'il en soit quitte à ce que xscale et yscale viennent s'ajouter
-    // de cette manière d'autres options Tikz pourront aussi être ajoutées
-    // si il n'y a qu'une optionsTikz on peut passer un string
-    const listeOptionsTikz = []
-    if (optionsTikz !== undefined) {
-      if (typeof optionsTikz === 'string') {
-        listeOptionsTikz.push(optionsTikz)
-      } else {
-        optionsTikz.forEach(e => listeOptionsTikz.push(e))
-      };
-    }
-    if (scale === 1) {
-      // if (listeOptionsTikz.length==0) {
-      //   code = `\\begin{tikzpicture}[baseline]\n`;
-      // } else {
-      code = '\\begin{tikzpicture}[baseline'
-      for (let l = 0; l < listeOptionsTikz.length; l++) {
-        code += `,${listeOptionsTikz[l]}`
-      }
-      code += ']\n'
-      // }
-    } else {
-      // if (listeOptionsTikz.length==0) {
-      //   code = `\\begin{tikzpicture}[baseline,scale = ${scale}]\n`;
-      // } else {
-      code = `\\begin{tikzpicture}[baseline,scale = ${scale}`
-      for (let l = 0; l < listeOptionsTikz.length; l++) {
-        code += `,${listeOptionsTikz[l]}`
-      }
-      code += ']\n'
-      // }
-    }
-
-    code += `
-    \\tikzset{
-      point/.style={
-        thick,
-        draw,
-        cross out,
-        inner sep=0pt,
-        minimum width=5pt,
-        minimum height=5pt,
-      },
-    }
-    \\clip (${xmin},${ymin}) rectangle (${xmax},${ymax});
-
-
-    `
-    // code += codeTikz(...objets)
-    for (const objet of objets) {
-      if (Array.isArray(objet)) {
-        for (let i = 0; i < objet.length; i++) {
-          try {
-            if (objet[i].isVisible) {
-              if (!mainlevee || typeof (objet[i].tikzml) === 'undefined') code += '\t' + objet[i].tikz(scale) + '\n'
-              else code += '\t' + objet[i].tikzml(amplitude, scale) + '\n'
-            }
-          } catch (error) { }
-        }
-      }
-      try {
-        if (objet.isVisible) {
-          if (!mainlevee || typeof (objet.tikzml) === 'undefined') code += '\t' + objet.tikz(scale) + '\n'
-          else code += '\t' + objet.tikzml(amplitude, scale) + '\n'
-        }
-      } catch (error) { }
-    }
-    code += '\n\\end{tikzpicture}'
-  }
-  return code
-}
 /**
  *
  * @param {number} index Choix du motif
@@ -12004,7 +11302,7 @@ function Labyrinthe (
         } else if (typeof (nombres[a - 1][b]) === 'string') { // écriture mode Maths
           objets.push(texteParPosition(nombres[a - 1][b], -1.5 + a * 3, 2.5 + b * 3, 'milieu', 'black', taille, 0, true))
         } else {
-          objets.push(fractionParPosition({ x: -1.5 + a * 3, y: 2.5 + b * 3, fraction: nombres[a - 1][b] }))
+          objets.push(latexParCoordonnees(nombres[a - 1][b].texFraction, -1.5 + a * 3, 2.5 + b * 3, 'black', 20, 20, 'white', 6))
         }
       }
     }
@@ -12580,7 +11878,7 @@ function Tableau ({
   flecheDroite = false, // à remplacer par un string
   flecheDroiteSens = 'bas'
 } = {}) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   if (ligne1 && ligne2) {
     nbColonnes = Math.max(ligne1.length, ligne2.length, nbColonnes)
   }
@@ -12685,7 +11983,7 @@ export function tableau (...args) {
 }
 
 export function GlisseNombre (nombre = '', decalage = 0) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   const objets = []
   const chiffresADecaler = []
   const largeurColonne = 2

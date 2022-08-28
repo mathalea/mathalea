@@ -15,9 +15,11 @@ export const amcType = 'AMCHybride'
  * en cherchant le plus grand diviseur commun de deux nombres.
  * Donner ensuite la composition de chaque groupe, bouquet ou corbeille.
  * @author Laurence Candille et Jean-Claude Lhote (pour l'export AMC)
- * Référence 3A14
+ * Référence 3A12-1
  * Date août 2021
 */
+export const uuid = '8c05e'
+export const ref = '3A12-1'
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
@@ -80,7 +82,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
             texte += numAlpha(1) + `Nombre d'iris dans chaque bouquet :${sp(8)}`
             texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur25') + '<br><br>'
             texteCorr += numAlpha(1) + ` $${var1 * objet} \\div ${objet} = ${var1}$<br>`
-            texteCorr += 'Le nombre d\'ris dans chaque bouquet est :' + texteEnCouleurEtGras(` ${var1}`) + '.<br><br>'
+            texteCorr += 'Le nombre d\'iris dans chaque bouquet est :' + texteEnCouleurEtGras(` ${var1}`) + '.<br><br>'
             setReponse(this, 3 * i + 1, var1)
 
             texte += numAlpha(2) + ' Nombre de roses dans chaque bouquet :'
@@ -91,7 +93,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           } else {
             texte = `Un fleuriste dispose de ${var1 * objet} iris et de ${var2 * objet} roses. <br>`
             texte += 'Il veut, en utilisant toutes ses fleurs, réaliser un maximum de bouquets '
-            texte += 'contenant tous le même nombre d\'ris et le même nombre de roses. <br><br>'
+            texte += 'contenant tous le même nombre d\'iris et le même nombre de roses. <br><br>'
             texte += numAlpha(0) + 'Quel est le nombre maximal de bouquets ?<br><br>'
             texteCorr = numAlpha(0)
             texteCorr += `- Les diviseurs de ${var1 * objet} sont : ${listeDesDiviseurs(var1 * objet).join(', ')}.<br>`
@@ -99,9 +101,9 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
             texteCorr += `${objet} est le plus grand nombre qui divise à la fois ${var1 * objet} et ${var2 * objet}.<br>`
             texteCorr += ' Le nombre maximal de bouquets est donc : ' + texteEnCouleurEtGras(`${objet}`) + '.<br><br>'
 
-            texte += numAlpha(1) + 'Quel est le nombre d\'ris dans chaque bouquet ?<br><br>'
+            texte += numAlpha(1) + 'Quel est le nombre d\'iris dans chaque bouquet ?<br><br>'
             texteCorr += numAlpha(1) + ` $${var1 * objet} \\div ${objet} = ${var1}$<br>`
-            texteCorr += 'Le nombre d\'ris dans chaque bouquet est :' + texteEnCouleurEtGras(` ${var1}`) + '.<br><br>'
+            texteCorr += 'Le nombre d\'iris dans chaque bouquet est :' + texteEnCouleurEtGras(` ${var1}`) + '.<br><br>'
 
             texte += numAlpha(2) + 'Quel est le nombre de roses dans chaque bouquet ?<br><br>'
             texteCorr += numAlpha(2) + ` $${var2 * objet} \\div ${objet} = ${var2}$<br>`
@@ -185,7 +187,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           } else {
             texte = `Un boulanger dispose de ${var1 * objet} croissants et de ${var2 * objet} brioches. <br>`
             texte += 'Il veut, en utilisant toutes ses viennoiseries, réaliser un maximum de corbeilles '
-            texte += 'contenant toutes le même nombre de croissants et le même nombre de brioches. <br>'
+            texte += 'contenant toutes le même nombre de croissants et le même nombre de brioches. <br><br>'
             texte += numAlpha(0) + 'Quel est le nombre maximal de corbeilles ?<br><br>'
             texteCorr = numAlpha(0)
             texteCorr += `- Les diviseurs de ${var1 * objet} sont : ${listeDesDiviseurs(var1 * objet).join(', ')}.<br>`

@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, listeQuestionsToContenu, choice, sp, ecritureAlgebrique, rienSi1 } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import { repere, courbe, mathalea2d, texteParPosition } from '../../../modules/2d.js'
+import { repere, courbe, texteParPosition } from '../../../modules/2d.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { calcule } from '../../../modules/fonctionsMaths.js'
 export const titre = 'Lire graphiquement les valeurs de $a$ et $b$ dans $ax^2+b$'
@@ -16,6 +17,8 @@ export const dateDePublication = '17/06/2022' // La date de publication initiale
  * @author Gilles Mora
  * Référence can1F06
 */
+export const uuid = '26b38'
+export const ref = 'can1F06'
 export default function LectureGraphiqueParaboleaEtb () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1

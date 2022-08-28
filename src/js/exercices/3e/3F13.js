@@ -1,9 +1,10 @@
 /* eslint-disable no-sequences */
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import Decimal from 'decimal.js/decimal.mjs'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, resolutionSystemeLineaire2x2 } from '../../modules/outils.js'
-import { courbe, mathalea2d, repere } from '../../modules/2d.js'
+import { courbe, repere } from '../../modules/2d.js'
 export const titre = 'Lire les antécédents d\'un nombre à partir d\'un graphique'
 
 /**
@@ -13,6 +14,8 @@ export const titre = 'Lire les antécédents d\'un nombre à partir d\'un graphi
 * @author Rémi Angot
 * 3F13
 */
+export const uuid = '8117d'
+export const ref = '3F13'
 export default function AntecedentGraphique () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

@@ -14,6 +14,8 @@ export const dateDePublication = '18/01/2022'
  * @author Mireille Gain
  * 4C32-0
 */
+export const uuid = '5d72b'
+export const ref = '4C32-0'
 export default function EcritureDecimaleApresPuissancesDeDix () {
   Exercice.call(this)
   this.consigne = 'Donner le résultat des calculs suivants en écriture décimale.'

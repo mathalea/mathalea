@@ -1,5 +1,6 @@
 import Exercice from '../Exercice.js'
-import { axes, mathalea2d, point, polygoneAvecNom, repere } from '../../modules/2d.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { axes, point, polygoneAvecNom, repere } from '../../modules/2d.js'
 import { extraireRacineCarree, listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureParentheseSiNegatif, fractionSimplifiee, texNombre } from '../../modules/outils.js'
 export const titre = 'Déterminer la nature d\'un polygone'
 
@@ -7,6 +8,8 @@ export const titre = 'Déterminer la nature d\'un polygone'
  * 2G12
  * @author Stéphane Guyon
  */
+export const uuid = 'd633a'
+export const ref = '2G12-4'
 export default function NaturePolygone () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

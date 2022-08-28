@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { mathalea2d } from '../../modules/2d.js'
+
 import { fraction } from '../../modules/fractions.js'
 import { combinaisonListesSansChangerOrdre, contraindreValeur } from '../../modules/outils.js'
 

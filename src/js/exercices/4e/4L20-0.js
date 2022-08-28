@@ -20,6 +20,8 @@ export const titre = 'Équation du premier degré à solutions entières'
  * Modifications de 4L20 pour n'avoir que des solutions entières : Jean-Claude Lhote
  * 4L20-0
  */
+export const uuid = '515b0'
+export const ref = '4L20-0'
 export default function ExerciceEquationASolutionEntiere () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

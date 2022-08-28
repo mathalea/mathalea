@@ -1,6 +1,7 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import FractionX from '../../../modules/FractionEtendue.js'
-import { mathalea2d, point, polygoneAvecNom, codageAngleDroit, droite, labelPoint, milieu, texteParPosition } from '../../../modules/2d.js'
+import { point, polygoneAvecNom, codageAngleDroit, droite, labelPoint, milieu, texteParPosition } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { listeQuestionsToContenu, randint, ecritureAlgebrique, texPrix, rienSi1, texNombre, shuffle, reduirePolynomeDegre3, choice, reduireAxPlusB, sp, ecritureAlgebriqueSauf1 } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
@@ -22,6 +23,8 @@ export const dateDePublication = '13/07/2022' // La date de publication initiale
 function compareNombres (a, b) {
   return a - b
 }
+export const uuid = '2a4b1'
+export const ref = 'can2a-2022'
 export default function SujetCAN2022Seconde () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

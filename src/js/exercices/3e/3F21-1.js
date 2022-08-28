@@ -1,8 +1,9 @@
 
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, ecritureAlgebrique, randint, reduireAxPlusB, texNombre, katexPopup2 } from '../../modules/outils.js'
-import { droiteParPointEtPente, point, repere, mathalea2d, positionLabelDroite, latexParPoint } from '../../modules/2d.js'
+import { droiteParPointEtPente, point, repere, positionLabelDroite, latexParPoint } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Déterminer une fonction affine'
@@ -16,6 +17,8 @@ export const interactifType = 'mathLive'
  * @author Jean-Claude Lhote
  * Référence : 3F21-1
  */
+export const uuid = 'e5ddd'
+export const ref = '3F21-1'
 export default function LectureExpressionFonctionsAffines () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
