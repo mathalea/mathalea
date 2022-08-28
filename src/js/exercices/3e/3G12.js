@@ -2,7 +2,8 @@ import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, egal, randint, choice, shuffle, nombreAvecEspace, arcenciel, texcolors } from '../../modules/outils.js'
-import { pavage, tracePoint, labelPoint, segment, rotation, rotationAnimee, codageAngle, texteParPosition } from '../../modules/2d.js'
+import { pavage, tracePoint, labelPoint, segment, rotation, codageAngle, texteParPosition } from '../../modules/2d.js'
+import { rotationAnimee } from '../../modules/2dAnimation.js'
 export const titre = 'Trouver l\'image d\'une figure par une rotation dans un pavage'
 
 /**
