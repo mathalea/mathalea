@@ -34,7 +34,6 @@ export default function MilieuEntre1EtFraction () {
     objets.push(segmentAvecExtremites(A, B), segmentAvecExtremites(B, C), labelPoint(B), codageSegments('||', 'blue', A, B, B, C))
     objets.push(texteParPosition('1', 0, -0.6, 'milieu', 'black', 1, 'middle', true)
     )
-    // objets.push(fractionParPosition({ x: 8, y: -1, fraction: fraction(n, d), couleur: 'black' }))
     objets.push(latexParCoordonnees(fraction(n, d).texFraction, C.x, -1, 'black', 20, 20, 'white', 6))
 
     this.question = 'Donner l\'abscisse du point $M$ sous forme d’une fraction irréductible.<br>'

@@ -1,4 +1,4 @@
-import { polygoneATrous, semiEllipse, diagrammeBarres, axeY, texteParPointEchelle, scratchblock, motifs, nomVecteurParPosition, point, tracePoint, tracePointSurDroite, milieu, pointSurSegment, pointSurCercle, pointSurDroite, pointIntersectionDD, pointAdistance, labelPoint, barycentre, droite, droiteParPointEtVecteur, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, droiteHorizontaleParPoint, droiteVerticaleParPoint, droiteParPointEtPente, mediatrice, codageMediatrice, codageMilieu, codageBissectrice, bissectrice, polyline, pave, vecteur, segment, segmentAvecExtremites, demiDroite, polygone, polygoneAvecNom, polygoneRegulier, carre, codageCarre, polygoneRegulierParCentreEtRayon, triangle2points2longueurs, triangle2points2angles, triangle2points1angle1longueur, triangle2points1angle1longueurOppose, nommePolygone, deplaceLabel, aireTriangle, cercle, ellipse, pointIntersectionLC, pointIntersectionCC, cercleCentrePoint, arc, arcPointPointAngle, traceCompas, dansLaCibleCarree, dansLaCibleRonde, cibleCarree, cibleRonde, cibleCouronne, translation, translation2Points, rotation, sensDeRotation, homothetie, symetrieAxiale, distancePointDroite, projectionOrtho, affiniteOrtho, similitude, translationAnimee, apparitionAnimee, rotationAnimee, homothetieAnimee, symetrieAnimee, affiniteOrthoAnimee, medianeTriangle, centreGraviteTriangle, hauteurTriangle, codageHauteurTriangle, codageMedianeTriangle, orthoCentre, centreCercleCirconscrit, codageAngleDroit, afficheLongueurSegment, texteSurSegment, afficheMesureAngle, afficheCoteSegment, codageSegment, codageSegments, codageAngle, nomAngleSaillantParPosition, nomAngleRentrantParPosition, droiteGraduee, axes, labelX, labelY, grille, grilleHorizontale, grilleVerticale, seyes, repere, pointDansRepere, traceGraphiqueCartesien, traceBarre, traceBarreHorizontale, lectureImage, lectureAntecedent, courbe, courbeInterpolee, graphiqueInterpole, imageInterpolee, antecedentInterpole, crochetD, crochetG, intervalle, texteParPoint, texteParPosition, latexParPoint, latexParCoordonnees, longueur, norme, angle, angleOriente, angleradian, labyrinthe, pavage, tableau, glisseNombre, boite, plot, papierPointe, traceMilieuSegment, positionLabelDroite, texteSurArc, cone, diagrammeCirculaire } from './2d.js'
+import { polygoneATrous, semiEllipse, diagrammeBarres, axeY, texteParPointEchelle, scratchblock, motifs, nomVecteurParPosition, point, tracePoint, tracePointSurDroite, milieu, pointSurSegment, pointSurCercle, pointSurDroite, pointIntersectionDD, pointAdistance, labelPoint, barycentre, droite, droiteParPointEtVecteur, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, droiteHorizontaleParPoint, droiteVerticaleParPoint, droiteParPointEtPente, mediatrice, codageMediatrice, codageMilieu, codageBissectrice, bissectrice, polyline, pave, vecteur, segment, segmentAvecExtremites, demiDroite, polygone, polygoneAvecNom, polygoneRegulier, carre, codageCarre, polygoneRegulierParCentreEtRayon, triangle2points2longueurs, triangle2points2angles, triangle2points1angle1longueur, triangle2points1angle1longueurOppose, nommePolygone, deplaceLabel, aireTriangle, cercle, ellipse, pointIntersectionLC, pointIntersectionCC, cercleCentrePoint, arc, arcPointPointAngle, traceCompas, dansLaCibleCarree, dansLaCibleRonde, cibleCarree, cibleRonde, cibleCouronne, translation, translation2Points, rotation, sensDeRotation, homothetie, symetrieAxiale, distancePointDroite, projectionOrtho, affiniteOrtho, similitude, medianeTriangle, centreGraviteTriangle, hauteurTriangle, codageHauteurTriangle, codageMedianeTriangle, orthoCentre, centreCercleCirconscrit, codageAngleDroit, afficheLongueurSegment, texteSurSegment, afficheMesureAngle, afficheCoteSegment, codageSegment, codageSegments, codageAngle, nomAngleSaillantParPosition, nomAngleRentrantParPosition, droiteGraduee, axes, labelX, labelY, grille, lignesHorizontales, lignesVerticales, seyes, repere, pointDansRepere, traceGraphiqueCartesien, traceBarre, traceBarreHorizontale, lectureImage, lectureAntecedent, courbe, courbeInterpolee, graphiqueInterpole, imageInterpolee, antecedentInterpole, crochetD, crochetG, intervalle, texteParPoint, texteParPosition, latexParPoint, latexParCoordonnees, longueur, norme, angle, angleOriente, angleradian, labyrinthe, pavage, tableau, glisseNombre, boite, plot, papierPointe, traceMilieuSegment, positionLabelDroite, texteSurArc, cone, diagrammeCirculaire } from './2d.js'
 import { sensDeRotation3d, cube, cube3d, plaque3d, paveLPH3d, barre3d, point3d, vecteur3d, arete3d, droite3d, demicercle3d, cercle3d, polygone3d, sphere3d, cone3d, cylindre3d, prisme3d, pave3d, rotationV3d, rotation3d, translation3d, homothetie3d, CodageAngleDroit3D } from './3d.js'
 import { pointCliquable } from './2dinteractif.js'
 import { randint, texNombre, nombreDecimal, calcul } from './outils.js'
@@ -7,7 +7,7 @@ import { context } from './context.js'
 import { calcule } from './fonctionsMaths.js'
 import Sval from 'sval'
 import Alea2iep from './Alea2iep.js'
-import { afficherTempo, afficherUnParUn, cacherParDiv, cacherTempo, montrerParDiv } from './2dAnimation.js'
+import { afficherTempo, afficherUnParUn, affiniteOrthoAnimee, apparitionAnimee, cacherParDiv, cacherTempo, homothetieAnimee, montrerParDiv, rotationAnimee, symetrieAnimee, translationAnimee } from './2dAnimation.js'
 import { codeSvg, codeTikz, colorToLatexOrHTML, fixeBordures, mathalea2d } from './2dGeneralites.js'
 import { ajouterAx, ajouterAy, allerA, angleScratchTo2d, avance, baisseCrayon, creerLutin, leveCrayon, mettrexA, mettreyA, orienter, tournerD, tournerG } from './2dLutin.js'
 import { afficherCrayon } from './2dInstruments.js'
@@ -140,8 +140,8 @@ export default function initialiseEditeur () {
   window.labelX = labelX
   window.labelY = labelY
   window.grille = grille
-  window.grilleHorizontale = grilleHorizontale
-  window.grilleVerticale = grilleVerticale
+  window.lignesHorizontales = lignesHorizontales
+  window.lignesVerticales = lignesVerticales
   window.seyes = seyes
   window.repere = repere
   window.repere = repere
@@ -357,8 +357,8 @@ export default function initialiseEditeur () {
     labelX: window.labelX,
     labelY: window.labelY,
     grille: window.grille,
-    grilleHorizontale: window.grilleHorizontale,
-    grilleVerticale: window.grilleVerticale,
+    lignesHorizontales: window.lignesHorizontales,
+    lignesVerticales: window.lignesVerticales,
     seyes: window.seyes,
     repere: window.repere,
     pointDansRepere: window.pointDansRepere,
