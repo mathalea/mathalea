@@ -13,4 +13,5 @@ export const ref = '6N13'
 export default function Exercice6N13 () {
   ExerciceConversions.call(this)
   this.sup = 1
+  this.nbQuestions = 5
 }

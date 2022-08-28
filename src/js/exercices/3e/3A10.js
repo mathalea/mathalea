@@ -263,6 +263,6 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Nombres de chiffres de l\'entier de la question 5']
-  this.besoinFormulaire2Texte = ['Nombre maximum de diviseurs de l\'entier de la question 5']
+  this.besoinFormulaireNumerique = ['Nombres de chiffres de l\'entier de la question 5', 20]
+  this.besoinFormulaire2Numerique = ['Nombre maximum de diviseurs de l\'entier de la question 5', 20]
 }
