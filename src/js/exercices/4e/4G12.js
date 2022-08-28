@@ -356,8 +356,8 @@ export default function SerieDeTransformations () {
       }
       if (context.isHtml) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur75 inline')
-        texte = deuxColonnes(texte(paramsEnonce, objetsEnonce), 50)
-        texteCorr = deuxColonnes(texteCorr(paramsCorrection, objetsCorrection), 50)
+        texte = deuxColonnes(texte, mathalea2d(paramsEnonce, objetsEnonce), 50)
+        texteCorr = deuxColonnes(texteCorr, mathalea2d(paramsCorrection, objetsCorrection), 50)
       } else {
         texte += '\n' + centrage(mathalea2d(paramsEnonce, objetsEnonce))
         texteCorr += '\n' + centrage(mathalea2d(paramsCorrection, objetsCorrection))

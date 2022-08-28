@@ -4,11 +4,16 @@ import { grille, point, segment, tracePoint, homothetie, polygone, symetrieAxial
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { choixDeroulant } from '../../modules/interactif/questionListeDeroulante.js'
-import { colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 export const dateDePublication = '3/12/2021'
 export const titre = 'Trouver la transformation'
 export const interactifReady = true // Pour l'instant le listeDeroulante n'est pas au point avec les chaines ???
 export const interactifType = 'listeDeroulante'
+
+/**
+ *
+ * Réf : 4G12-1
+ */
 
 export default function TrouverLaTransformations () {
   Exercice.call(this)
@@ -237,8 +242,8 @@ export default function TrouverLaTransformations () {
       this.listeCorrections.push(texteCorr)
     }
     listeQuestionsToContenu(this)
-    this.contenu = deuxColonnes(this.contenu(paramsEnonce, objetsEnonce), 50)
-    this.contenuCorrection = deuxColonnes(this.contenuCorrection(paramsCorrection, objetsCorrection), 50)
+    this.contenu = deuxColonnes(this.contenu, mathalea2d(paramsEnonce, objetsEnonce), 50)
+    this.contenuCorrection = deuxColonnes(this.contenuCorrection, mathalea2d(paramsCorrection, objetsCorrection), 50)
   }
   this.besoinFormulaireNumerique = ['Types de transformations possibles', 3, '1 : Symétries axiales et centrales\n2 : Symétries et translations\n3 : Symétries, translations et quarts de tour']
 }
