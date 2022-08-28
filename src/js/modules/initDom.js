@@ -777,10 +777,8 @@ function affichageCorrection () {
   if (texteExerciceTermine) texteExerciceTermine.remove()
   document.getElementById('titreCorrections').style.display = 'block'
   document.getElementById('corrections').style.display = 'block'
-  console.log(document.querySelectorAll('div.correction'))
   const corrections = document.querySelectorAll('div.correction')
   const i = context.questionCanEnCours - 1
-  console.log(corrections[i])
   if (corrections[i] !== undefined) {
     corrections[i].style.display = 'block'
     const correction = corrections[i].parentElement.parentElement
