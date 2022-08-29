@@ -26,6 +26,7 @@ export default function LecturesGraphiques () {
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = true
   this.nbQuestions = 6
+  this.nbQuestionsModifiable = false
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
