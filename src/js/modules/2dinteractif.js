@@ -19,8 +19,7 @@ function PointCliquable (x, y, options) {
   this.etat = false // Pour récupérer si le point est affiché ou pas
   this.svg = function (coeff) {
     let code
-    const trace = tracePoint(A)
-    trace.color = options.color || options.couleur || 'black' // colorToLatexOrHTML inutile ici puisque cette couleur n'est traitée qu'en SVG
+    const trace = tracePoint(A, options.color || options.couleur || 'black')
     trace.epaisseur = options.width || options.epaisseur || 1
     trace.taille = options.size || options.taille || 3
     trace.isVisible = false
