@@ -137,7 +137,7 @@ class Arete3d {
     } else {
       this.visible = true
     }
-    this.c2d = segment(point1.c2d, point2.c2d, color)
+    this.c2d = segment(point1.c2d, point2.c2d, this.color)
     if (!this.visible) {
       this.c2d.pointilles = 2
     } else {
@@ -256,7 +256,7 @@ class Polygone3d {
       }
     } else {
       this.listePoints = args
-      this.color = colorToLatexOrHTML('black')
+      this.color = 'black'
     }
     const segments3d = []; let A; const segments = []
     A = this.listePoints[0]
@@ -415,46 +415,35 @@ function Cylindre3d (centrebase1, centrebase2, normal, rayon1, rayon2, color) {
   this.rayon2 = rayon2
   this.color = color
   this.c2d = []
-  let s, color1, color2
+  let s
   const prodvec = vecteur3d(math.cross(this.normal.matrice, this.rayon1.matrice))
   const prodscal = math.dot(prodvec.matrice, vecteur3d(0, 1, 0).matrice)
   let cote1, cote2
   if (prodscal > 0) {
     cote1 = 'caché'
-    color1 = this.color
     cote2 = 'visible'
-    color2 = this.color
   } else {
     cote2 = 'caché'
     cote1 = 'visible'
-    color1 = this.color
-    color2 = this.color
   }
-  const c1 = demicercle3d(this.centrebase1, this.normal, this.rayon1, cote1, color1)
-  const c3 = demicercle3d(this.centrebase2, this.normal, this.rayon2, cote1, color1)
-  const c2 = demicercle3d(this.centrebase1, this.normal, this.rayon1, cote2, color2)
-  const c4 = demicercle3d(this.centrebase2, this.normal, this.rayon2, cote2, color2)
+  const c1 = demicercle3d(this.centrebase1, this.normal, this.rayon1, cote1, this.color)
+  const c3 = demicercle3d(this.centrebase2, this.normal, this.rayon2, cote1, this.color)
+  const c2 = demicercle3d(this.centrebase1, this.normal, this.rayon1, cote2, this.color)
+  const c4 = demicercle3d(this.centrebase2, this.normal, this.rayon2, cote2, this.color)
   c3.pointilles = false
-  c3.color = this.color
   for (let i = 0; i < c1.listePoints.length; i += 2) {
-    s = segment(c3.listePoints[i], c1.listePoints[i])
+    s = segment(c3.listePoints[i], c1.listePoints[i], this.color)
     if (cote1 === 'caché') {
       s.pointilles = 2
-      s.color = this.color
       s.opacite = 0.3
-    } else {
-      s.color = this.color
     }
     this.c2d.push(s)
   }
   for (let i = 0; i < c2.listePoints.length; i += 2) {
-    s = segment(c4.listePoints[i], c2.listePoints[i])
+    s = segment(c4.listePoints[i], c2.listePoints[i], this.color)
     if (cote2 === 'caché') {
       s.pointilles = 2
-      s.color = this.color
       s.opacite = 0.3
-    } else {
-      s.color = this.color
     }
     this.c2d.push(s)
   }
@@ -475,7 +464,7 @@ class Prisme3d {
     ObjetMathalea2D.call(this, { })
 
     this.color = color
-    base.color = color
+    base.color = colorToLatexOrHTML(color)
     this.base1 = base
     this.base2 = translation3d(base, vecteur)
     this.base2.color = this.base1.color
@@ -508,7 +497,7 @@ class Pyramide3d {
     ObjetMathalea2D.call(this, { })
 
     this.color = color
-    base.color = color
+    base.color = colorToLatexOrHTML(color)
     this.base = base
     this.aretes = []
     this.sommet = sommet
@@ -550,7 +539,7 @@ class PyramideTronquee3d {
     ObjetMathalea2D.call(this, { })
 
     this.color = color
-    base.color = color
+    base.color = colorToLatexOrHTML(color)
     this.base = base
     this.coeff = coeff
     this.aretes = []
@@ -565,7 +554,7 @@ class PyramideTronquee3d {
     this.base2 = polygone3d(...sommetsBase2)
     this.c2d.push(...this.base.c2d)
     for (let i = 0; i < base.listePoints.length; i++) {
-      this.aretes.push(arete3d(base.listePoints[i], this.base2.listePoints[i], color, base.listePoints[i].visible))
+      this.aretes.push(arete3d(base.listePoints[i], this.base2.listePoints[i], this.color, base.listePoints[i].visible))
       this.c2d.push(this.aretes[i].c2d)
     }
     this.c2d.push(...this.base2.c2d)
@@ -762,9 +751,9 @@ class Cube {
     this.z = z
     this.alpha = alpha
     this.beta = beta
-    this.colorD = colorD
-    this.colorG = colorG
-    this.colorT = colorT
+    this.colorD = colorToLatexOrHTML(colorD)
+    this.colorG = colorToLatexOrHTML(colorG)
+    this.colorT = colorToLatexOrHTML(colorT)
 
     this.lstPoints = []
     this.lstPolygone = []
@@ -921,26 +910,22 @@ function SensDeRotation3d (axe, rayon, angle, epaisseur, color) {
   M = translation3d(axe.origine, rayon)
   for (let i = 0; i < angle; i += 5) {
     N = rotation3d(M, axe, 5)
-    s = segment(M.c2d, N.c2d)
-    s.color = this.color
+    s = segment(M.c2d, N.c2d, this.color)
     s.epaisseur = this.epaisseur
     this.c2d.push(s)
     M = N
   }
   N = rotation3d(M, axe, 5)
-  s = segment(M.c2d, N.c2d)
-  s.color = this.color
+  s = segment(M.c2d, N.c2d, this.color)
   s.epaisseur = this.epaisseur
   this.c2d.push(s)
   const d = droite3d(N, axe.directeur)
   const A = rotation3d(M, d, 30)
   const B = rotation3d(M, d, -30)
-  s = segment(N.c2d, A.c2d)
-  s.color = this.color
+  s = segment(N.c2d, A.c2d, this.color)
   s.epaisseur = this.epaisseur
   this.c2d.push(s)
-  s = segment(N.c2d, B.c2d)
-  s.color = this.color
+  s = segment(N.c2d, B.c2d, this.color)
   s.epaisseur = this.epaisseur
   this.c2d.push(s)
 }
