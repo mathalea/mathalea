@@ -12,6 +12,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can4C07
  */
+export const uuid = 'da898'
+export const ref = 'can4C07'
 export default function DifferenceFractionsCompatibles () {
   Exercice.call(this)
   this.typeExercice = 'simple'

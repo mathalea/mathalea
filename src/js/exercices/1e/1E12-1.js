@@ -15,6 +15,8 @@ export const titre = 'Lecture graphique d\'éléments caractéristiques d\'un tr
  * - les 3 trucs précédents
  * référence 1E12-1
  */
+export const uuid = 'a896e'
+export const ref = '1E12-1'
 export default function LireElementsCarac () {
   Exercice.call(this)
   this.nbQuestions = 5 // Nombre de questions par défaut

@@ -14,6 +14,8 @@ export const titre = 'Programmer des déplacements (Scratch)'
  * @author Erwan Duplessy // (Ajout paramètre 3 par EE)
  * Ajout AMC : Janvier 2022 par EE
  */
+export const uuid = 'c8fe9'
+export const ref = '6I10'
 export default function ColorierDeplacement () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'Scratch'

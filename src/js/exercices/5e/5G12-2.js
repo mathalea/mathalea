@@ -8,6 +8,8 @@ export const dateDePublication = '4/12/2021'
  * Créé le 4/12/2021
  * Référence 5G12-2 clone Symétrie axiale de 4G12
  */
+export const uuid = 'dbc1d'
+export const ref = '5G12-2'
 export default function SerieDeTransformations5e () {
   SerieDeTransformations.call(this)
   this.titre = titre

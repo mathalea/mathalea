@@ -17,6 +17,8 @@ export const dateDePublication = '19/08/2022'
  * @author Guillaume Valmont
  * Référence 6G10-4
 */
+export const uuid = '03b49'
+export const ref = '6G10-4'
 export default function VocabulaireDuCercle () {
   Exercice.call(this)
   this.titre = titre
@@ -87,27 +89,32 @@ export default function VocabulaireDuCercle () {
         {
           nom: `[$${O.nom + A.nom}$]`,
           nature: 'un rayon',
-          commentaire: `${texteEnCouleurEtGras('Un')} rayon est un ${texteEnCouleurEtGras('segment')}, il se note donc avec des crochets.`
+          commentaire: `${texteEnCouleurEtGras('Un')} rayon est un ${texteEnCouleurEtGras('segment')}, il se note donc avec des crochets.`,
+          commentaireAlt: `${texteEnCouleurEtGras('Le')} rayon est une ${texteEnCouleurEtGras('longueur')}, il se note donc sans crochet.`
         },
         {
           nom: `[$${B.nom + C.nom}$]`,
           nature: 'un diamètre',
-          commentaire: `${texteEnCouleurEtGras('Un')} diamètre est un ${texteEnCouleurEtGras('segment')}, il se note donc avec des crochets.`
+          commentaire: `${texteEnCouleurEtGras('Un')} diamètre est un ${texteEnCouleurEtGras('segment')}, il se note donc avec des crochets.`,
+          commentaireAlt: `${texteEnCouleurEtGras('Le')} diamètre est une ${texteEnCouleurEtGras('longueur')}, il se note donc sans crochet.`
         },
         {
           nom: `$${O.nom + A.nom}$`,
           nature: 'le rayon',
-          commentaire: `${texteEnCouleurEtGras('Le')} rayon est une ${texteEnCouleurEtGras('longueur')}, il se note donc sans crochet.`
+          commentaire: `${texteEnCouleurEtGras('Le')} rayon est une ${texteEnCouleurEtGras('longueur')}, il se note donc sans crochet.`,
+          commentaireAlt: `${texteEnCouleurEtGras('Un')} rayon est un ${texteEnCouleurEtGras('segment')}, il se note donc avec des crochets.`
         },
         {
           nom: `$${B.nom + C.nom}$`,
           nature: 'le diamètre',
-          commentaire: `${texteEnCouleurEtGras('Le')} diamètre est une ${texteEnCouleurEtGras('longueur')}, il se note donc sans crochet.`
+          commentaire: `${texteEnCouleurEtGras('Le')} diamètre est une ${texteEnCouleurEtGras('longueur')}, il se note donc sans crochet.`,
+          commentaireAlt: `${texteEnCouleurEtGras('Un')} diamètre est un ${texteEnCouleurEtGras('segment')}, il se note donc avec des crochets.`
         },
         {
           nom: `[$${D.nom + E.nom}$]`,
           nature: 'une corde',
-          commentaire: ''
+          commentaire: '',
+          commentaireAlt: ''
         }
       ]
       questions = shuffle(questions)
@@ -125,7 +132,8 @@ export default function VocabulaireDuCercle () {
         propositions.push({
           texte: texteProposition,
           statut: false,
-          feedback: question.commentaire
+          feedback: question.commentaire,
+          feedbackAlt: question.commentaireAlt
         })
       }
       let j = 0
@@ -146,10 +154,13 @@ export default function VocabulaireDuCercle () {
         if (this.correctionDetaillee && question.commentaire !== '') texteCorr += question.commentaire + '<br>'
         if (this.sup2) {
           for (let ee = 0; ee < propositions.length; ee++) {
+            const statut = propositions[ee].texte === question.nom || propositions[ee].texte === question.nature
+            let feedback
+            statut ? feedback = propositions[ee].feedback : feedback = propositions[ee].feedbackAlt
             propositionsEE.push({
               texte: propositions[ee].texte,
-              statut: propositions[ee].texte === question.nom || propositions[ee].texte === question.nature,
-              feedback: propositions[ee].feedback
+              statut,
+              feedback
             })
           }
           this.autoCorrection[i * questions.length + j] = {

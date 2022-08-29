@@ -13,6 +13,8 @@ export const dateDePublication = '24/06/2022' // La date de publication initiale
      * @author Gilles Mora
      * Référence
     */
+export const uuid = 'c4251'
+export const ref = 'can1F18'
 export default function CalculFonctionDeriveeAsurU () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
@@ -70,7 +72,6 @@ export default function CalculFonctionDeriveeAsurU () {
                 $f'(x)= ${a}\\times\\dfrac{-${ecritureParentheseSiNegatif(2 * m)}x}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}=\\dfrac{${-2 * a * m}x}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}$.`
 
         this.reponse = [`\\dfrac{${-2 * a * m}x}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}`, `\\dfrac{${-2 * a * m}x}{(${reduirePolynomeDegre3(0, -m, 0, -p)})^2}`]
-        console.log(this.reponse)
         break
     }
   }

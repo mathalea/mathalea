@@ -11,6 +11,8 @@ export const titre = 'Construire des quadrilatères particuliers'
  * @author Jean-Claude Lhote
  * Publié le 3/02/2020
  */
+export const uuid = '37e37'
+export const ref = '5G41'
 export default function ConstructionsParallelogrammesParticuliers () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

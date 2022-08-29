@@ -18,6 +18,8 @@ export const dateDePublication = '15/02/2022'
  * Réf : 3L13-3
  * Date de publication 15/02/2022
  */
+export const uuid = '22412'
+export const ref = '3L13-3'
 export default class ProblemesEnEquation extends Exercice {
   constructor () {
     super()

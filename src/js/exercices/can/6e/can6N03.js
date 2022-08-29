@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6N03
  */
+export const uuid = '1dbee'
+export const ref = 'can6N03'
 export default function RecomposerEntierMoinsSimple () {
   Exercice.call(this)
   this.typeExercice = 'simple'

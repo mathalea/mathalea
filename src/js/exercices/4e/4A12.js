@@ -17,6 +17,8 @@ export const titre = 'Résoudre des problèmes de conjonction de phénomènes'
  * Référence 4A12
  * 30/10/2021
 */
+export const uuid = 'b16c6'
+export const ref = '4A12'
 export default function ProblemesEvenementsRecurrents () {
   Exercice.call(this)
   this.nbQuestions = 1

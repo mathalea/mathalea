@@ -12,6 +12,8 @@ export const amcType = 'AMCNum'
  * Référence can6C26
  * Date de publication 21/10/2021
 */
+export const uuid = '31096'
+export const ref = 'can6C26'
 export default function MultiplierDiviserPar10Par100Par1000 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

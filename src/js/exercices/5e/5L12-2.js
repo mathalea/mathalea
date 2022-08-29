@@ -26,6 +26,8 @@ export const dateDePublication = '22/02/2022' // La date de publication initiale
 * @author Mickael Guironnet - Rémi Angot
 * 5L12
 */
+export const uuid = 'a8ad0'
+export const ref = '5L12-2'
 export default function ReduireUneExpressionLitterale () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

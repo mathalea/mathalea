@@ -9,6 +9,8 @@ export const titre = 'Démontrer qu\'un quadrilatère est ou non un parallélogr
  * 2G12-3
  * @author Stéphane Guyon
  */
+export const uuid = '31760'
+export const ref = '2G12-3'
 export default function Parallélogramme () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

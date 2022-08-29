@@ -11,6 +11,8 @@ export const titre = 'Calculer des probabilités dans une expérience aléatoire
  * Ajout de la partie vocabulaire (this.sup !== 1) par Guillaume Valmont le 03/04/2022
  * Remplacement des this.sup par des this.niveau par Guillaume Valmont le 07/05/2022
  */
+export const uuid = '69e1f'
+export const ref = '5S21'
 export default function FonctionsProbabilite1 () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

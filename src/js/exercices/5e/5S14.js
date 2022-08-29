@@ -20,6 +20,8 @@ export const dateDeModifImportante = '28/02/2022'
 * Référence 5S14
 * Modifié le 23/07/2021
 */
+export const uuid = 'ab91d'
+export const ref = '5S14'
 export default function CalculerDesMoyennes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

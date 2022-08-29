@@ -12,6 +12,8 @@ export const amcReady = true
 export const interactifType = 'mathLive'
 export const amcType = 'AMCNum'
 
+export const uuid = '0d4be'
+export const ref = '6M30-0'
 export default function VolumesPavesParDenombrement () {
   Exercice.call(this)
   this.nbQuestions = 1 // Ici le nombre de questions

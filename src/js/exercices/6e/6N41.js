@@ -16,6 +16,8 @@ export const interactifType = 'mathLive' // On pourrait ajouter QCM
  * @author Jean-claude Lhote (Mode QCM et alternance numérateur / dénominateur)
  * 5N13-2 et 6N41
  */
+export const uuid = '06633'
+export const ref = '6N41'
 export default function EgalitesEntreFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 11 // Correspond au facteur commun

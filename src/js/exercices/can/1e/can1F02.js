@@ -15,6 +15,8 @@ export const dateDeModifImportante = '10/06/2022' // Une date de modification im
  * @author Gilles Mora
  * Référence can1F02
 */
+export const uuid = 'cc460'
+export const ref = 'can1F02'
 export default function SecondDegreVariations () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1

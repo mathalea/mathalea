@@ -2,7 +2,8 @@ import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, egal, randint, choice, shuffle, nombreAvecEspace, texcolors } from '../../modules/outils.js'
-import { tracePoint, labelPoint, codageMilieu, segment, rotation, rotationAnimee, texteParPosition, pavage } from '../../modules/2d.js'
+import { tracePoint, labelPoint, codageMilieu, segment, rotation, texteParPosition, pavage } from '../../modules/2d.js'
+import { rotationAnimee } from '../../modules/2dAnimation.js'
 
 export const titre = 'Trouver l\'image d\'une figure par symétrie centrale dans un pavage'
 
@@ -13,6 +14,8 @@ export const titre = 'Trouver l\'image d\'une figure par symétrie centrale dans
  * @author Jean-Claude Lhote
  * Ref 5G12
  */
+export const uuid = '76ea9'
+export const ref = '5G12'
 export default function PavageEtDemiTour2D () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

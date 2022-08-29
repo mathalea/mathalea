@@ -10,6 +10,8 @@ export const interactifType = 'mathLive'
  * Référence
  * Date de publication
 */
+export const uuid = 'd5c88'
+export const ref = 'can6M09'
 export default function PerimetreCarreRectangle () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

@@ -11,6 +11,8 @@ export const dateDePublication = '26/10/2021'
 /*!
  * @author Jean-Claude Lhote
  */
+export const uuid = 'd0042'
+export const ref = 'can1L01'
 export default function Discriminant () {
   Exercice.call(this)
   this.typeExercice = 'simple'

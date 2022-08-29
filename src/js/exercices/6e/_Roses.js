@@ -11,7 +11,7 @@ const { ComputeEngine } = pkg
 export const interactifReady = true
 export const interactifType = 'custom'
 const math = create(all)
-const engine = new ComputeEngine()
+const engine = ComputeEngine
 /**
  * Travailler les tables de multiplication autrement
  * @author Jean-Claude Lhote
@@ -341,7 +341,7 @@ export function ExoRose () {
   }
   this.besoinFormulaireNumerique = ['Valeur maximale (entre 10 et 30) des facteurs', 30]
   this.besoinFormulaire2Numerique = ['Nombre de facteur entre 3 et 9 (limité à 5 pour les valeurs fractionnaires ou littérales)']
-  this.besoinFormulaire3Numerique = ['Type de question', 4, '1 : Calculer les produits\n2 : Calculer les facteurs\n3 : this.Type course aux nombres 1\n4 : this.Type course aux nombres 2']
+  this.besoinFormulaire3Numerique = ['Type de question', 4, '1 : Calculer les produits\n2 : Calculer les facteurs\n3 : Course aux nombres 1\n4 : Course aux nombres 2']
 
   this.correctionInteractive = i => {
     const taille = this.nombreDeValeurs
@@ -393,8 +393,6 @@ export function ExoRose () {
           }
         } else {
           if (this.roses[question].typeDonnees.substring(0, 4) === 'frac') {
-            console.log(engine.parse(`${saisies[i]}${this.roses[question].operation === 'addition' ? '+' : '\\times'}${saisies[(i + 1) % this.nombreDeValeurs]}`).canonical)
-            console.log(engine.parse(this.roses[question].resultats[i].toLatex()))
             resultatOK = resultatOK && engine.parse(`${saisies[i]}${this.roses[question].operation === 'addition' ? '+' : '\\times'}${saisies[(i + 1) % this.nombreDeValeurs]}`).canonical.isEqual(engine.parse(this.roses[question].resultats[i].toLatex()))
           } else {
             resultatOK = resultatOK && engine.parse(this.roses[question].operate(saisies[i], saisies[(i + 1) % this.nombreDeValeurs])).canonical.isEqual(engine.parse(this.roses[question].resultats[i]).canonical)

@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6C19
  */
+export const uuid = 'd656b'
+export const ref = 'can6C19'
 export default function ComplementACent () {
   Exercice.call(this)
   this.nbQuestions = 1

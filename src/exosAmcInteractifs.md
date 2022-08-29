@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 488 
-- nombre d'exos interactifReady 761 
+- nombre d'exos amcReady 492 
+- nombre d'exos interactifReady 765 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -21,6 +21,7 @@
 |2G30-1|Déterminer le coefficient directeur d'une droite.|OK|AMCHybride|OK|mathLive|
 |2G35-7|Lecture graphique des coefficients d'une équation réduite |OK|AMCHybride|OK|mathLive|
 |2N10-1|Lire l’abscisse décimale d’un point repéré par une fraction|OK|AMCHybride|OK|mathLive|
+|2N10-2|Placer un point d'abscisse décimale|OK|AMCOpen|OK|custom|
 |2N10-3|Utiliser les abscisses fractionnaires|KO|KO|OK|custom|
 |2N12-1|Encadrer une fraction entre deux nombres entiers|OK|AMCHybride|OK|mathLive|
 |2N12-2|Encadrer avec des puissances de 10|KO|KO|OK|mathLive|
@@ -108,7 +109,7 @@
 |3L11-5|Calcul mental et calcul littéral|KO|KO|OK|mathLive|
 |3L11-6|Factoriser une expression complexe|KO|KO|OK|mathLive|
 |3L11-7|Développer des carrés avec la double distributivité|KO|KO|OK|mathLive|
-|3L11-8|Yahoku multiplicatif expressions littérales niveau 1|KO|KO|OK|custom|
+|3L11-8|Yoh ku multiplicatif expressions littérales niveau 1|KO|KO|OK|custom|
 |3L11-9|Rose multiplicative littéraux|KO|KO|OK|custom|
 |3L11|Utiliser la simple distributivité|KO|KO|OK|mathLive|
 |3L12-1|Développer (a-b)(a+b)|KO|KO|OK|mathLive|
@@ -131,23 +132,24 @@
 |4A12|Résoudre des problèmes de conjonction de phénomènes|OK|AMCNum|OK|mathLive|
 |4C10-0|Signe d'un produit ou d'un quotient de nombres relatifs|OK|qcmMono|OK|qcm|
 |4C10-1|Signe d'un produit de nombres relatifs|OK|qcmMono|OK|qcm|
+|4C10-10|Multiplication à trou de deux entiers relatifs|OK|qcmMono|OK|qcm|
 |4C10-2|Signe d'un quotient de nombres relatifs|OK|qcmMono|OK|qcm|
 |4C10-3|Multiplication de deux entiers relatifs|KO|KO|OK|mathLive|
 |4C10-4|Quotient de deux entiers relatifs|KO|KO|OK|mathLive|
 |4C10-6|Multiplications et quotients de relatifs : signe avec une lettre|OK|qcmMono|OK|qcm|
 |4C10-7|Opérations avec deux entiers relatifs|KO|KO|OK|mathLive|
-|4C10-8|Yahoku multiplicatif nombres relatifs niveau 1|KO|KO|OK|custom|
+|4C10-8|Yohaku multiplicatif nombres relatifs niveau 1|KO|KO|OK|custom|
 |4C10-9|Rose multiplicative relatifs|KO|KO|OK|custom|
 |4C11|Calculs utilisant les priorités opératoires|KO|KO|OK|mathLive|
 |4C20-2|Fractions égales et égalité des produits en croix 4e|OK|qcmMono|OK|qcm|
 |4C20|Comparer deux fractions (dénominateurs multiples)|OK|qcmMono|OK|qcm|
 |4C21-1|Additionner deux fractions|OK|AMCNum|OK|mathLive|
-|4C21-2|Yahoku additif fractions niveau 1|KO|KO|OK|custom|
+|4C21-2|Yohaku additif fractions niveau 1|KO|KO|OK|custom|
 |4C21-3|Rose additive fractions|KO|KO|OK|custom|
 |4C21|Additionner ou soustraire deux fractions|OK|AMCNum|OK|mathLive|
 |4C22-1|Trouver l'inverse d'un nombre|KO|KO|OK|mathLive|
 |4C22-2|Diviser des fractions|OK|AMCNum|OK|mathLive|
-|4C22-3|Yahoku multiplicatif fractions niveau 1|KO|KO|OK|custom|
+|4C22-3|Yohaku multiplicatif fractions niveau 1|KO|KO|OK|custom|
 |4C22-4|Rose multiplicative fractions|KO|KO|OK|custom|
 |4C22|Multiplier des fractions|OK|AMCNum|OK|mathLive|
 |4C23-1|Fractions et priorités opératoires|OK|AMCNum|OK|mathLive|
@@ -186,7 +188,7 @@
 |4G41|Utiliser le cosinus pour calculer la mesure d'un angle dans un triangle rectangle|OK|AMCOpenNum|OK|mathLive|
 |4G53|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
 |4I1-2|Tortue Scratch avec répétitions|OK|qcmMono|OK|cliqueFigure|
-|4L10-3|Yahoku additif expressions littérales niveau 1|KO|KO|OK|custom|
+|4L10-3|Yohaku additif expressions littérales niveau 1|KO|KO|OK|custom|
 |4L10-4|Rose additive littéraux|KO|KO|OK|custom|
 |4L10|Utiliser la simple distributivité|KO|KO|OK|mathLive|
 |4L11|Factoriser une expression littérale|OK|AMCOpen|OK|mathLive|
@@ -236,12 +238,12 @@
 |5R11|Lire l'abscisse relative d'un point|OK|AMCHybride|OK|mathLive|
 |5R20-2|Addition à trou de deux entiers relatifs|OK|qcmMono|OK|qcm|
 |5R20-3|Additions de 5 nombres relatifs|OK|AMCNum|OK|mathLive|
-|5R20-6|Yahoku additif nombres relatifs niveau 1|KO|KO|OK|custom|
+|5R20-6|Yohaku additif nombres relatifs niveau 1|KO|KO|OK|custom|
 |5R20-7|Rose additive relatifs|KO|KO|OK|custom|
 |5R20|Addition de deux entiers relatifs|OK|qcmMono|OK|qcm,mathLive|
 |5R21|Soustraction de deux entiers relatifs|OK|AMCNum|OK|mathLive|
 |5R22|Additions et soustractions de nombres relatifs|OK|AMCOpenNum|OK|mathLive|
-|5S11|Lire un diagramme en barre|OK|AMCHybride|OK|mathLive|
+|5S11|Lire un diagramme en barres|OK|AMCHybride|OK|mathLive|
 |5S13-2|Calculs de fréquences|OK|AMCHybride|OK|mathLive|
 |5S13|Calculer des fréquences|OK|AMCHybride|OK|mathLive|
 |5S14|Calculer des moyennes|OK|AMCHybride|OK|mathLive|
@@ -252,8 +254,8 @@
 |6C10-4|Effectuer addition de deux entiers|OK|AMCNum|OK|mathLive|
 |6C10-5|Parcourir un labyrinthe de multiples|OK|AMCOpen|KO|KO|
 |6C10-6|Rose multiplicative|KO|KO|OK|custom|
-|6C10-7a|Yahoku additif niveau 1|KO|KO|OK|custom|
-|6C10-7b|Yahoku multiplicatif niveau 1|KO|KO|OK|custom|
+|6C10-7a|Yohaku additif niveau 1|KO|KO|OK|custom|
+|6C10-7b|Yohaku multiplicatif niveau 1|KO|KO|OK|custom|
 |6C10|Poser additions, soustractions et multiplications de nombres entiers|OK|AMCHybride|OK|mathLive|
 |6C11-1|Déterminer reste et quotient d'une division euclidienne à partir d'une égalité|OK|AMCOpenNum✖︎2|OK|mathLive|
 |6C11-2|Trouver le vocabulaire associé aux termes de l'égalité issue de la division euclidienne|OK|AMCOpen|OK|mathLive|
@@ -332,7 +334,7 @@
 |6N10-3|Décomposer un nombre entier (nombre de ..., chiffres des ...)|OK|AMCNum|OK|mathLive|
 |6N10-5|Parcourir un labyrinthe de numération décimale|OK|AMCOpen|KO|KO|
 |6N10-6|Donner l'écriture (décimale ou en fraction décimale) d'une somme (ou différence) de nombres avec fractions décimales|OK|AMCNum|OK|mathLive|
-|6N10-7|Recomposer un entier|OK|AMCNum|OK|custom|
+|6N10-7|Recomposer un décimal ou un entier|OK|AMCNum|OK|custom|
 |6N10|Écrire un nombre entier en chiffres ou en lettres|KO|KO|OK|mathLive|
 |6N11-2|Placer un point d'abscisse entière (grands nombres)|OK|AMCOpen|OK|custom|
 |6N11|Lire l'abscisse entière d'un point (grands nombres)|OK|AMCOpen|OK|mathLive|
@@ -380,7 +382,7 @@
 |6P13|Augmenter ou diminuer d'un pourcentage|OK|AMCHybride|OK|mathLive|
 |6P14|Agrandir ou réduire des figures, d'après une situation de proportionnalité|OK|AMCHybride|OK|mathLive|
 |6S10-1|Représenter des données par un diagramme|OK|AMCHybride|OK|qcm|
-|6S10|Lire un diagramme en barre|OK|AMCHybride|OK|mathLive|
+|6S10|Lire un diagramme en barres|OK|AMCHybride|OK|mathLive|
 |FichierDeTests|Calculer un angle, déduit de figures simples|KO|KO|OK|mathLive|
 |Yohaku|Générateur de Yohaku|KO|KO|OK|custom|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|mathLive|
@@ -697,7 +699,7 @@
 |can6C24|Multiplier par 0,1 ou 0,01 ou 0,001|OK|AMCNum|OK|mathLive|
 |can6C25|Rechercher un prix unitaire|KO|KO|OK|mathLive|
 |can6C26|Multiplier ou diviser par 10, 100,  1000 ou 0,1 ou 0,01|OK|AMCNum|OK|mathLive|
-|can6C27|Résoudre un problème concret|KO|KO|OK|mathLive|
+|can6C27|Résoudre un problème de rendu de monnaie|KO|KO|OK|mathLive|
 |can6C28|Résoudre un problème de fraction|KO|KO|OK|mathLive|
 |can6C29|Résoudre un problème de partage|OK|AMCNum|OK|mathLive|
 |can6C30|Multiplier deux décimaux|OK|AMCNum|OK|mathLive|
@@ -731,6 +733,7 @@
 |can6M09|Calculer des longueurs à partir des périmètres|KO|KO|OK|mathLive|
 |can6M10|Volume de pavé droit|OK|AMCNum|OK|mathLive|
 |can6M11|Volume de pavé droit par dénombrement de cubes unités|OK|AMCNum|OK|mathLive|
+|can6M12|Calculer une longueur/un périmètre (avec des décimaux)|OK|AMCNum|OK|mathLive|
 |can6N01|Recomposer un entier|OK|AMCNum|OK|mathLive|
 |can6N02|Recomposer un entier (bis)|OK|AMCNum|OK|mathLive|
 |can6N03|Recomposer un entier*|OK|AMCNum|OK|mathLive|
@@ -772,6 +775,7 @@
 |canc3D02|Lire une durée|KO|KO|OK|mathLive|
 |canc3D03|Ajouter des durées|KO|KO|OK|mathLive|
 |canc3M01|Trouver la bonne unité|OK|AMCOpen|OK|mathLive|
+|canc3M02|Calculer une longueur/un périmètre/une aire (avec des entiers)|OK|AMCNum|OK|mathLive|
 |canc3N01|Écrire en lettres un nombre entier (QCM)|OK|qcmMono|OK|qcm|
 |canc3N02|Trouver un nombre sur une droite graduée|OK|AMCNum|OK|mathLive|
 |canc3N03|Trouver le plus grand nombre entier|OK|AMCNum|OK|mathLive|

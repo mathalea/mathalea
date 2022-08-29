@@ -1,9 +1,11 @@
 import FabriqueAYohaku from '../6e/Yohaku.js'
-export const titre = 'Yahoku multiplicatif expressions littérales niveau 1'
+export const titre = 'Yoh ku multiplicatif expressions littérales niveau 1'
 export { interactifReady, interactifType } from '../6e/Yohaku.js'
 
 export const dateDePublication = '10/08/2022'
 
+export const uuid = '1f9b4'
+export const ref = '3L11-8'
 export default function FabriqueAYohaku3L1 () {
   FabriqueAYohaku.call(this)
   this.sup = 10

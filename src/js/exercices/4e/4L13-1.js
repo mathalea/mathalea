@@ -7,6 +7,8 @@ export const titre = 'Produire une forme littérale en introduisant une lettre p
  * * 4L13-1
  * @author Sébastien Lozano
  */
+export const uuid = '8b18b'
+export const ref = '4L13-1'
 export default function FormeLitteraleIntroduireUneLettre () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

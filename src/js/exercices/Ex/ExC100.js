@@ -10,6 +10,8 @@ export const dateDePublication = '30/10/2021'
  * @author Eric Schrafstetter
  * Référence ExC100
 */
+export const uuid = '8e72e'
+export const ref = 'ExC100'
 export default function EquationDuPremierDegreDansC () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Résoudre dans $\\mathbb{C}$ les équations ci-dessous. On écrira les solutions sous forme algébrique.'

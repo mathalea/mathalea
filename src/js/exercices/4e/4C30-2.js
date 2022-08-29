@@ -16,6 +16,8 @@ export const amcType = 'AMCNum'
  * @author Rémi Angot
 * Référence 4C30-2
  */
+export const uuid = '93df9'
+export const ref = '4C30-2'
 export default function EcritureDecimalePuissanceDe10 () {
   Exercice.call(this)
   this.titre = titre

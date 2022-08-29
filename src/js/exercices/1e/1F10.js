@@ -9,6 +9,8 @@ export const titre = 'Calculs de dérivées'
  * @author Rémi Angot
  * Référence 1F10
 */
+export const uuid = '2af1c'
+export const ref = '1F10'
 export default function CalculsDeDerives () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

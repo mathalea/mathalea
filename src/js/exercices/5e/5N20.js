@@ -24,6 +24,8 @@ export const titre = 'Additionner ou soustraire deux fractions (dénominateurs m
 * @author Rémi Angot
 * 5N20
 */
+export const uuid = 'd5ee3'
+export const ref = '5N20'
 export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = max // Correspond au facteur commun

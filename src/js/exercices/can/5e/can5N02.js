@@ -10,6 +10,8 @@ export const dateDePublication = '15/12/2021' // La date de publication initiale
 /*!
  * @author Gilles Mora
  */
+export const uuid = 'b850a'
+export const ref = 'can5N02'
 export default function FractionDecimaleEcritureDecimale2 () {
   Exercice.call(this)
   this.nbQuestions = 1

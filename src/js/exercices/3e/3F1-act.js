@@ -13,6 +13,8 @@ export const titre = 'Fonctions : Notion et vocabulaire'
  * ON LAISSE LA PIROUETTE DE DETECTION DU USERAGENT EN COMMENTAIRE EN ATTENDANT DE TROUVER UNE SOLUTION DE RENDU LATEX DANS SVG UNIVERSELLE
  * @author Sébastien Lozano
  */
+export const uuid = '77d18'
+export const ref = '3F1-act'
 export default function fonctionNotionVocabulaire () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

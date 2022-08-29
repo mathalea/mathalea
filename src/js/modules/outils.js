@@ -4654,19 +4654,27 @@ export function infoMessage ({ titre, texte, couleur }) {
  */
 
 export function lampeMessage ({ titre, texte, couleur }) {
-  // 'use strict';
   if (context.isHtml) {
-    return `
-    <div class="ui compact icon message">
-      <i class="lightbulb outline icon"></i>
-      <div class="content">
-          <div class="header">
-          ` + titre + `
-          </div>
-          <p>` + texte + `</p>
+    if (context.versionMathalea === 3) {
+      return `
+      <div class='bg-gray-100 border-solid border-2 border-black rounded p-2'>
+      <h1 class='font-bold'>${titre}</h1>
+      <p>${texte}</p>
       </div>
-      </div>
-    `
+      `
+    } else {
+      return `
+      <div class="ui compact icon message">
+        <i class="lightbulb outline icon"></i>
+        <div class="content">
+            <div class="header">
+            ` + titre + `
+            </div>
+            <p>` + texte + `</p>
+        </div>
+        </div>
+      `
+    }
   } else if (context.isAmc) {
     return `
     {\\bf ${titre}} : ${texte}
@@ -8911,7 +8919,7 @@ export function dataTailleDiaporama (exercice) {
   }
 }
 function dataTaille (taille) {
-  if (context.vue !== 'diap') {
+  if (context.vue !== 'diap' || taille === 1) {
     return ''
   } else if (taille !== 1) {
     return `data-taille = "${taille}"`

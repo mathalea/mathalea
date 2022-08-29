@@ -7,6 +7,8 @@ export const dateDePublication = '04/07/2022'
 /*!
  * @author Delphine David (reprise de 4C37)
  */
+export const uuid = '4239a'
+export const ref = 'can4C11'
 export default class SignePuissance extends Exercice {
   constructor () {
     super()

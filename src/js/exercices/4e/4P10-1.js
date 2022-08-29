@@ -9,6 +9,8 @@ export const titre = 'Résoudre un problème de proportionnalité à l\'aide d\'
  * fork de 4P10-1 par Jean-Claude Lhote
  */
 
+export const uuid = 'c668a'
+export const ref = '4P10-1'
 export default function GraphiquesEtProportionnalite2 () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

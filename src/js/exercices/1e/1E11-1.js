@@ -12,6 +12,8 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 
+export const uuid = '731f0'
+export const ref = '1E11-1'
 export default function CalculerDiscriminant () {
   Exercice.call(this)
   this.besoinFormulaireNumerique = ['Niveaux de difficulté', 4, '1 : Coefficients entiers positifs\n2 : Coefficients entiers relatifs\n3 : Coefficients rationnels\n4 : Mélange']

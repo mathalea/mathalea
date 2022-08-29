@@ -10,6 +10,8 @@ export const titre = 'Représenter un vecteur dans un repère, à partir de ses 
  * @author Stéphane Guyon légèrement modifié par Jean-Claude Lhote
  * référence 2G22-1
  */
+export const uuid = '3a3ec'
+export const ref = '2G22-1'
 export default function RepresenterUnVecteur () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

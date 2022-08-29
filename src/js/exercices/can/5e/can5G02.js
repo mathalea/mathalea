@@ -16,6 +16,8 @@ export const interactifType = 'mathLive'
  * Référence
  * Date de publication
 */
+export const uuid = '7b386'
+export const ref = 'can5G02'
 export default function AngleTriangleIsocele () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

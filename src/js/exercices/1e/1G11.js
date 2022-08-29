@@ -15,6 +15,8 @@ export const dateDeModifImportante = '' // Une date de modification importante a
  * @author Stéphane Guyon
  * Référence
 */
+export const uuid = 'a720c'
+export const ref = '1G11'
 export default function MesurePrincipale () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 3 // Nombre de questions par défaut

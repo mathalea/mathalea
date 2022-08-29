@@ -13,6 +13,8 @@ export const dateDePublication = '28/10/2021'
  * Référence can5P03
  * Date de publication
 */
+export const uuid = '57777'
+export const ref = 'can5P03'
 export default function PoucentageP2 () {
   Exercice.call(this)
   this.typeExercice = 'simple'

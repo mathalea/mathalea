@@ -17,6 +17,8 @@ export const dateDePublication = '29/06/2022' // La date de publication initiale
  * @author Gilles Mora
  * Référence
 */
+export const uuid = '8a0ce'
+export const ref = 'can2G18'
 export default function LectureGraphiqueVecteurRepere () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1

@@ -17,6 +17,8 @@ export const amcType = 'AMCOpen'
  * référence 6N11
  * Relecture : Novembre 2021 par EE
  */
+export const uuid = 'acd4a'
+export const ref = '6N11'
 export default function LireAbscisseEntiere2d () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = "Lire l'abscisse de chacun des points suivants."

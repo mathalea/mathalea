@@ -11,6 +11,8 @@ export const dateDeModifImportante = '22/08/2022'
  *
  * Date de publication 21/10/2021
 */
+export const uuid = '02170'
+export const ref = 'can6C27'
 export default function RenduMonnaie () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

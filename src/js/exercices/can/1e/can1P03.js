@@ -18,6 +18,8 @@ export const amcType = 'AMCNum'
  * @author Gilles Mora
 
 */
+export const uuid = '7c8b7'
+export const ref = 'can1P03'
 export default function CalculerProbabiliteIntersection () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = true

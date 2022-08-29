@@ -8,6 +8,8 @@ export const titre = 'Développer les identités remarquables avec des racines c
  * @author Stéphane Guyon
  * Relecture : Novembre 2021 par EE
  */
+export const uuid = '91dc4'
+export const ref = '2N32-6'
 export default function IdentitesRemarquablesEtRacineCarree () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

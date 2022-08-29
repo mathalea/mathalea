@@ -12,6 +12,8 @@ export const amcType = 'AMCNum'
  * Date de publication
 */
 export const dateDeModifImportante = '19/12/2021'
+export const uuid = 'bd5d1'
+export const ref = 'can5P02'
 export default function PoucentageP2 () {
   Exercice.call(this)
   this.typeExercice = 'simple'
