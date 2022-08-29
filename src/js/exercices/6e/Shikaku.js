@@ -1,6 +1,27 @@
-import { boite, flatArrayToPolygone, grille, texteParPosition } from '../../modules/2d.js'
+import { boite, grille, nommePolygone, point, polygone, texteParPosition } from '../../modules/2d.js'
 import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites.js'
 import { shuffle, randint } from '../../modules/outils.js'
+
+/**
+ * Cette fonction permet de créer un polygone rapidement à partir d'une liste des coordonnées de ses sommets et éventuellement de leur noms
+ * @param {array} flat
+ * @param {string} noms
+ * @return {Polygone}
+ * @author Jean-Claude Lhote
+ */
+export function flatArrayToPolygone (flat, noms) {
+  const sommets = []
+  for (let i = 0; i < flat.length; i += 2) {
+    sommets.push(point(flat[i], flat[i + 1]))
+  }
+  const pol = polygone(...sommets)
+  if (typeof noms === 'string') {
+    if (noms.length >= sommets.length) {
+      nommePolygone(pol, noms)
+    }
+  }
+  return pol
+}
 
 /**
  * Générateur aléatoire de Shikaku : il suffit de donner la largeur et la hauteur globale, le générateur fait le reste
