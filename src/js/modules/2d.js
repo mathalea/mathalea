@@ -6452,7 +6452,7 @@ function DroiteGraduee ({
   labelsPrincipaux = true, labelsSecondaires = false, step1 = 1, step2 = 1,
   labelDistance = (axeHauteur + 10) / context.pixelsParCm,
   labelListe = [], Legende = '', LegendePosition = (Max - Min) * Unite + 1.5
-}) {
+} = {}) {
   ObjetMathalea2D.call(this, { })
 
   // Les propriétés exportables
@@ -6648,7 +6648,7 @@ export function droiteGraduee ({
   labelsPrincipaux = true, labelsSecondaires = false, step1 = 1, step2 = 1,
   labelDistance = (axeHauteur + 10) / context.pixelsParCm,
   labelListe = [], Legende = '', LegendePosition = (Max - Min) * Unite + 1.5
-}) {
+} = {}) {
   return new DroiteGraduee({
     Unite: Unite,
     Min: Min,
@@ -8928,7 +8928,7 @@ export function traceBarreHorizontale (...args) {
  * @property {number[]} bordures Coordonnées de la fenêtre d'affichage du genre [-2,-2,5,5]
  * @class
  */
-function DiagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille = false, couleurDeRemplissage = 'blue', titreAxeVertical = '', titre = '', hauteurDiagramme = 5, coeff = 2, axeVertical = false, etiquetteValeur = true, labelAxeVert = false }) {
+function DiagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille = false, couleurDeRemplissage = 'blue', titreAxeVertical = '', titre = '', hauteurDiagramme = 5, coeff = 2, axeVertical = false, etiquetteValeur = true, labelAxeVert = false } = {}) {
   ObjetMathalea2D.call(this, { })
   const diagramme = []
   for (let j = 0; j < hauteursBarres.length; j++) {
@@ -9007,7 +9007,7 @@ function DiagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille =
  * // Trace un diagramme en barres avec modification de quelques options par défaut
  * @return {DiagrammeBarres}
  */
-export function diagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille = false, couleurDeRemplissage = 'blue', titreAxeVertical = '', titre = '', hauteurDiagramme = 5, coeff = 2, axeVertical = false, etiquetteValeur = true, labelAxeVert = false }) {
+export function diagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille = false, couleurDeRemplissage = 'blue', titreAxeVertical = '', titre = '', hauteurDiagramme = 5, coeff = 2, axeVertical = false, etiquetteValeur = true, labelAxeVert = false } = {}) {
   return new DiagrammeBarres(hauteursBarres, etiquettes, { reperageTraitPointille: reperageTraitPointille, couleurDeRemplissage: couleurDeRemplissage, titreAxeVertical: titreAxeVertical, titre: titre, hauteurDiagramme: hauteurDiagramme, coeff: coeff, axeVertical: axeVertical, etiquetteValeur: etiquetteValeur, labelAxeVert: labelAxeVert })
 }
 
@@ -9034,7 +9034,7 @@ export function diagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPoin
  * @property {number[]} bordures Coordonnées de la fenêtre d'affichage du genre [-2,-2,5,5]
  * @class
  */
-function DiagrammeCirculaire ({ effectifs, x = 0, y = 0, rayon = 4, labels = [], semi = false, legendeAffichage = true, legendePosition = 'droite', mesures = [], visibles = [], pourcents = [], valeurs = [], hachures = [], remplissage = [] }) {
+function DiagrammeCirculaire ({ effectifs, x = 0, y = 0, rayon = 4, labels = [], semi = false, legendeAffichage = true, legendePosition = 'droite', mesures = [], visibles = [], pourcents = [], valeurs = [], hachures = [], remplissage = [] } = {}) {
   ObjetMathalea2D.call(this, { })
   const objets = []
   const listeHachuresDisponibles = [0, 1, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -9168,7 +9168,7 @@ function DiagrammeCirculaire ({ effectifs, x = 0, y = 0, rayon = 4, labels = [],
  * // Trace un diagramme semi-circulaire de rayon 7 avec différentes options
  * @return {DiagrammeCirculaire}
  */
-export function diagrammeCirculaire ({ effectifs, x = 0, y = 0, rayon = 4, labels = [], semi = false, legendeAffichage = true, legendePosition = 'droite', mesures = [], visibles = [], pourcents = [], valeurs = [], hachures = [], remplissage = [] }) {
+export function diagrammeCirculaire ({ effectifs, x = 0, y = 0, rayon = 4, labels = [], semi = false, legendeAffichage = true, legendePosition = 'droite', mesures = [], visibles = [], pourcents = [], valeurs = [], hachures = [], remplissage = [] } = {}) {
   return new DiagrammeCirculaire({ effectifs: effectifs, x: x, y: y, rayon: rayon, labels: labels, semi: semi, legendeAffichage: legendeAffichage, legendePosition: legendePosition, mesures: mesures, visibles: visibles, pourcents: pourcents, valeurs: valeurs, hachures: hachures, remplissage: remplissage })
 }
 /*
@@ -9358,7 +9358,7 @@ function Courbe (f, {
   yMax = repere.yMax,
   xUnite = 1,
   yUnite = 1
-}) {
+} = {}) {
   ObjetMathalea2D.call(this, { })
   this.color = color
   let xunite, yunite // Tout en minuscule pour les différencier des paramètres de la fonction
@@ -9449,7 +9449,7 @@ function Courbe (f, {
  * @return {Courbe}
  */
 // JSDOC Validee par EE Aout 2022
-export function courbe (f, { repere = {}, color = 'black', epaisseur = 2, step = false, xMin, xMax, yMin, yMax, xUnite = 1, yUnite = 1 }) {
+export function courbe (f, { repere = {}, color = 'black', epaisseur = 2, step = false, xMin, xMax, yMin, yMax, xUnite = 1, yUnite = 1 } = {}) {
   return new Courbe(f, { repere: repere, color: color, epaisseur: epaisseur, step: step, xMin: xMin, xMax: xMax, yMin: yMin, yMax: yMax, xUnite: xUnite, yUnite: yUnite })
 }
 
@@ -9480,7 +9480,7 @@ export function courbe (f, { repere = {}, color = 'black', epaisseur = 2, step =
  * @class
  */
 // JSDOC Validee par EE Juin 2022
-function Integrale (f, { repere = {}, color = 'black', couleurDeRemplissage = 'blue', epaisseur = 2, step = false, a = 0, b = 1, opacite = 0.5, hachures = 0 }) {
+function Integrale (f, { repere = {}, color = 'black', couleurDeRemplissage = 'blue', epaisseur = 2, step = false, a = 0, b = 1, opacite = 0.5, hachures = 0 } = {}) {
   ObjetMathalea2D.call(this, { })
   this.color = color
   this.couleurDeRemplissage = couleurDeRemplissage
@@ -9570,7 +9570,7 @@ function Integrale (f, { repere = {}, color = 'black', couleurDeRemplissage = 'b
  * @return {Integrale}
  */
 // JSDOC Validee par EE Juin 2022
-export function integrale (f, { repere = {}, color = 'black', couleurDeRemplissage = 'blue', epaisseur = 2, step = false, a = 0, b = 1, opacite = 0.5, hachures = 0 }) {
+export function integrale (f, { repere = {}, color = 'black', couleurDeRemplissage = 'blue', epaisseur = 2, step = false, a = 0, b = 1, opacite = 0.5, hachures = 0 } = {}) {
   return new Integrale(f, { repere: repere, color: color, couleurDeRemplissage: couleurDeRemplissage, epaisseur: epaisseur, step: step, a: a, b: b, opacite: opacite, hachures: hachures })
 }
 
@@ -9596,7 +9596,7 @@ export function integrale (f, { repere = {}, color = 'black', couleurDeRemplissa
  * @class
  */
 // JSDOC Validee par EE Juin 2022
-function CourbeSpline (f, { repere = {}, color = 'black', epaisseur = 2, step = false, xMin = repere.xMin, xMax = repere.xMax, yMin = repere.yMin, yMax = repere.yMax, xUnite = 1, yUnite = 1, traceNoeuds = true }) {
+function CourbeSpline (f, { repere = {}, color = 'black', epaisseur = 2, step = false, xMin = repere.xMin, xMax = repere.xMax, yMin = repere.yMin, yMax = repere.yMax, xUnite = 1, yUnite = 1, traceNoeuds = true } = {}) {
   ObjetMathalea2D.call(this, { })
   this.color = color
   const noeuds = []
@@ -9685,7 +9685,7 @@ function CourbeSpline (f, { repere = {}, color = 'black', epaisseur = 2, step = 
  * @return {CourbeSpline}
  */
 // JSDOC Validee par EE Juin 2022
-export function courbeSpline (f, { repere = {}, color = 'black', epaisseur = 2, step = false, xMin = repere.xMin, xMax = repere.xMax, yMin = repere.yMin, yMax = repere.yMax, xUnite = 1, yUnite = 1, traceNoeuds = true }) {
+export function courbeSpline (f, { repere = {}, color = 'black', epaisseur = 2, step = false, xMin = repere.xMin, xMax = repere.xMax, yMin = repere.yMin, yMax = repere.yMax, xUnite = 1, yUnite = 1, traceNoeuds = true } = {}) {
   return new CourbeSpline(f, { repere: repere, color: color, epaisseur: epaisseur, step: step, xMin: xMin, xMax: xMax, yMin: yMin, yMax: yMax, xUnite: xUnite, yUnite: yUnite, traceNoeuds: traceNoeuds })
 }
 
@@ -9725,7 +9725,7 @@ function CourbeInterpolee (
     repere = { xMin: -1, yMin: 1 },
     xMin = repere.xMin,
     xMax = repere.xMax
-  }) {
+  } = {}) {
   ObjetMathalea2D.call(this, { })
   const mesCourbes = []
   for (let i = 0; i < tableau.length - 1; i++) {
@@ -9772,7 +9772,7 @@ function CourbeInterpolee (
  * @return {CourbeInterpolee}
  */
 // JSDOC Validee par EE Juin 2022
-export function courbeInterpolee (tableau, { color = 'black', epaisseur = 1, repere = {}, xMin = -10, xMax = 10 }) {
+export function courbeInterpolee (tableau, { color = 'black', epaisseur = 1, repere = {}, xMin = -10, xMax = 10 } = {}) {
   return new CourbeInterpolee(tableau, { color: color, epaisseur: epaisseur, repere: repere, xMin: xMin, xMax: xMax })
 }
 
@@ -10342,7 +10342,7 @@ function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, colorBackgro
   this.tikz = function () {
     let code
     if (this.colorBackground !== '') {
-      code = `\\draw (${x},${y}) node[anchor = center] {\\colorbox{ ${colorBackground[1]}}{${taille}  $\\color${this.color[1]}{${texte}}$}};`
+      code = `\\draw (${x},${y}) node[anchor = center] {\\colorbox ${this.colorBackground[1]}{${taille}  $\\color${this.color[1]}{${texte}}$}};`
     } else {
       code = `\\draw (${x},${y}) node[anchor = center] {${taille} $\\color${this.color[1]}{${texte}}$};`
     };
