@@ -77,6 +77,10 @@ export class Arbre {
     return arbre
   }
 
+  isFraction (obj) {
+    return (typeof obj === 'object' && ['Fraction', 'FractionX'].indexOf(obj.type) !== -1)
+  }
+
   // Essai de fonction récursive pour calculer la probabilité d'un événement.
   /**
    *
@@ -91,21 +95,27 @@ export class Arbre {
   getProba (nom, rationnel) {
     let p = rationnel ? fraction(0, 1) : 0
     let probaArbre = rationnel ? fraction(0, 1) : 0
-    if (this.nom === nom) return (rationnel || this.rationnel) ? fraction(this.proba, 1) : number(this.proba)
+    let getPro
+    if (this.nom === nom) return (rationnel || this.rationnel) ? (this.isFraction(this.proba) ? this.proba : fraction(this.proba, 1)) : number(this.proba)
     else {
       for (const arbre of this.enfants) {
-        if (arbre.nom === nom) p = add(p, (rationnel || this.rationnel) ? fraction(arbre.proba, 1) : number(arbre.proba))
-        else {
+        if (arbre.nom === nom) {
+          p = add(p, (rationnel || this.rationnel) ? ((typeof arbre.proba === 'number' || typeof arbre.proba === 'string') ? fraction(arbre.proba, 1) : arbre.proba) : number(arbre.proba))
+        } else {
           if (rationnel) {
-            probaArbre = add(fraction(probaArbre, 1), multiply(fraction(arbre.proba, 1), fraction(arbre.getProba(nom, true), 1)))
+            getPro = arbre.getProba(nom, true)
+            probaArbre = add(this.isFraction(probaArbre) ? probaArbre : fraction(probaArbre, 1),
+              multiply(this.isFraction(arbre.proba) ? arbre.proba : fraction(arbre.proba, 1),
+                this.isFraction(getPro) ? getPro : fraction(getPro, 1)))
           } else {
-            probaArbre = number(probaArbre) + number(multiply(arbre.proba, number(arbre.getProba(nom, false))))
+            getPro = arbre.getProba(nom, false)
+            probaArbre = number(probaArbre) + number(multiply(arbre.proba, number(getPro)))
           }
         }
       }
-      p = add(p, (rationnel || this.rationnel) ? fraction(probaArbre, 1) : number(probaArbre))
+      p = add(p, (rationnel || this.rationnel) ? this.isFraction(probaArbre) ? probaArbre : fraction(probaArbre, 1) : number(probaArbre))
     }
-    return rationnel ? fraction(p, 1) : number(p)
+    return rationnel ? (this.isFraction(p) ? p : fraction(p, 1)) : number(p)
   }
 
   // méthode pour compter les descendants de l'arbre (le nombre de feuilles terminales).
