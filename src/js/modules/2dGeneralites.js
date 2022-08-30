@@ -22,7 +22,7 @@ let numId = 0 // Créer un identifiant numérique unique par objet SVG
  *
  * @author Rémi Angot
  */
-export function ObjetMathalea2D ({ classe = true }) {
+export function ObjetMathalea2D ({ classe = true } = {}) {
   this.positionLabel = 'above'
   this.isVisible = true
   this.color = colorToLatexOrHTML('black')
