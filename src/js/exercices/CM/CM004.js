@@ -17,6 +17,8 @@ export const amcType = 'AMCNum'
  * @author Rémi Angot
 * Référence CM004
   */
+export const uuid = 'ac900'
+export const ref = 'CM004'
 export default function QuatreOperations () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Calculer'

@@ -16,6 +16,8 @@ export const titre = 'Addition à trou de deux entiers relatifs'
 * @author Rémi Angot
 * 5R20-2
 */
+export const uuid = 'ce842'
+export const ref = '5R20-2'
 export default function ExerciceAdditionsRelatifsATrou (max = 20) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = max

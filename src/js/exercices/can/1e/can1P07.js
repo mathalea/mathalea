@@ -15,6 +15,8 @@ export const amcType = 'AMCNum'
  * @author Gilles Mora
 
 */
+export const uuid = '1b057'
+export const ref = 'can1P07'
 export default function CalculProbaTableauEff () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = true

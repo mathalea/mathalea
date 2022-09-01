@@ -14,6 +14,8 @@ export const dateDeModifImportante = '18/06/2022'
  * @author Mireille Gain, s'inspirant fortement de Jean-Claude Lhote
  * Ajout du cône par Guillaume Valmont le 18/06/2022
  */
+export const uuid = '0e754'
+export const ref = '4G51'
 export default function RepresenterUnSolide4e () {
   Exercice.call(this) // Héritage de la classe Exercice ()
   this.titre = titre

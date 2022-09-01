@@ -829,6 +829,8 @@ fois ${texteEnCouleur(stringNombre(liste[alea1].qtt_surface[alea3]), 'blue')}${s
 
 // _______ Fin des fonctions correspondants aux situations problèmes _____
 
+export const uuid = 'f7a14'
+export const ref = '6P11'
 export default function ProportionnaliteParLinearite () {
   'use strict'
   let question

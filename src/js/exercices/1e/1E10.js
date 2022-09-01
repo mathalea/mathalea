@@ -11,6 +11,8 @@ export const titre = 'Calcul du discriminant d\'une équation du second degré'
  * @author Rémi Angot
  * Référence 1E10
 */
+export const uuid = 'feb39'
+export const ref = '1E10'
 export default function CalculDiscriminant () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

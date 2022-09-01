@@ -10,6 +10,8 @@ export const dateDePublication = '07/08/2022'
  * @author Guillaume Valmont
  * Référence 6N11-5
 */
+export const uuid = 'a7aa7'
+export const ref = '6N11-5'
 export default class ComparerDeuxNombresEntiers extends Exercice {
   constructor () {
     super()

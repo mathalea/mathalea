@@ -18,6 +18,8 @@ export const dateDePublication = '10/08/2022'
  * @author Eric Elter
 * Référence 5P13
  */
+export const uuid = 'edb61'
+export const ref = '5P13'
 export default function EchellesProblemes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 4

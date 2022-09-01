@@ -2,7 +2,8 @@ import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, egal, randint, shuffle, nombreAvecEspace, texcolors } from '../../modules/outils.js'
-import { tracePoint, mediatrice, codageMediatrice, segment, symetrieAxiale, symetrieAnimee, texteParPosition, pavage } from '../../modules/2d.js'
+import { tracePoint, mediatrice, codageMediatrice, segment, symetrieAxiale, texteParPosition, pavage } from '../../modules/2d.js'
+import { symetrieAnimee } from '../../modules/2dAnimation.js'
 export const titre = 'Trouver l\'image d\'une figure par une symétrie axiale dans un pavage'
 
 // Gestion de la date de publication initiale
@@ -14,6 +15,8 @@ export const dateDePublication = '14/12/2020'
  * Réf : 6G25-3
  * Relecture : Novembre 2021 par EE
  */
+export const uuid = '328b1'
+export const ref = '6G25-3'
 export default function PavageEtReflexion2d () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

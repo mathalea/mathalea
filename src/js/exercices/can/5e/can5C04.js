@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can5C04
  */
+export const uuid = '52336'
+export const ref = 'can5C04'
 export default function TripleEtMoitie () {
   Exercice.call(this)
   this.nbQuestions = 1

@@ -11,6 +11,8 @@ export const titre = 'Problèmes d\'aires de rectangles'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
+export const uuid = '9a5fe'
+export const ref = '6M10-1'
 export default function ProblemesAiresRectangles () {
   Exercice.call(this)
   this.titre = titre

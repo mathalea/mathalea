@@ -7,6 +7,8 @@ export const titre = 'Calculer un antécédent par une fonction linéaire'
   * Créé pendant l'été 2021
  * Référence can3C04
 */
+export const uuid = '4b600'
+export const ref = 'can3F04'
 export default function CalculAntecedentLineaire () {
   CalculsImagesFonctions.call(this)
   this.nbQuestions = 1

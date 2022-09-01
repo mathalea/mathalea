@@ -7,6 +7,8 @@ export const titre = 'Réduire un produit et une somme à partir des mêmes él�
  * Distinction entre la réduction d'un produit et la réduction d'une somme, on garde les même coeffs
  * @author Sébastien Lozano
  */
+export const uuid = '46234'
+export const ref = '5L12-1'
 export default function ReduireDinstinctionSommeProduit () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

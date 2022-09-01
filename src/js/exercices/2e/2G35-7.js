@@ -15,6 +15,8 @@ export const amcType = 'AMCHybride'
  2G35-7, ex 2G50-2
 
 */
+export const uuid = '41e6f'
+export const ref = '2G35-7'
 export default function lecturegraphiquedeaetb (numeroExercice) {
   Exercice.call(this)
 

@@ -9,6 +9,8 @@ export { interactifReady, interactifType, amcReady, amcType } from '../6e/_Pavag
  * référence 6G25-2
  * Relecture : Novembre 2021 par EE
  */
+export const uuid = 'f5569'
+export const ref = '6G25-2'
 export default function PavagesEtSymetries () {
   PavagesEtTransformations.call(this)
   this.titre = titre

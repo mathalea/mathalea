@@ -11,6 +11,8 @@ export const titre = 'Équations du second degré se ramenant au premier degré'
  * @author Rémi Angot
  * Référence 3L15
 */
+export const uuid = '231d2'
+export const ref = '3L15'
 export default function ExerciceEquations () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

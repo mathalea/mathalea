@@ -12,6 +12,8 @@ export const titre = 'Utiliser les propriétés des droites perpendiculaires'
  * @author Jean-Claude Lhote (EE : pour l'ajout d'AMC et la possibilité de sélectionner différents mélanges)
  * publié le 22/11/2020
  */
+export const uuid = '6a336'
+export const ref = '6G14'
 export default function ProprietesParallelesPerpendiculaires () {
   'use strict'
   Exercice.call(this)

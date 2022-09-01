@@ -19,6 +19,8 @@ export const dateDeModifImportante = '02/01/2022' // Correction détaillée
  * @author Rémi Angot
  * Référence 6D12
  */
+export const uuid = 'e960d'
+export const ref = '6D12'
 export default function CalculsDeDureesOuHoraires () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

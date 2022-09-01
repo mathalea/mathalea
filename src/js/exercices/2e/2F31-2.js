@@ -10,6 +10,8 @@ export const dateDePublication = '31/01/2022'
  * @author Gilles Mora
  * Référence
 */
+export const uuid = '1ca05'
+export const ref = '2F31-2'
 export default function EncadrerAvecFctRef () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

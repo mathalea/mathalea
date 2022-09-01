@@ -779,9 +779,11 @@ function affichageCorrection () {
   document.getElementById('corrections').style.display = 'block'
   const corrections = document.querySelectorAll('div.correction')
   const i = context.questionCanEnCours - 1
-  corrections[i].style.display = 'block'
-  const correction = corrections[i].parentElement.parentElement
-  correction.style.display = 'block'
+  if (corrections[i] !== undefined) {
+    corrections[i].style.display = 'block'
+    const correction = corrections[i].parentElement.parentElement
+    correction.style.display = 'block'
+  }
 }
 
 function masquerCorrection () {

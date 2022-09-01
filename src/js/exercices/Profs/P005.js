@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { point, segment, polygone, carre, grille, grilleHorizontale, texteParPosition, grilleVerticale } from '../../modules/2d.js'
+import { point, segment, polygone, carre, grille, lignesHorizontales, texteParPosition, lignesVerticales } from '../../modules/2d.js'
 
 export const titre = 'Grilles décimales'
 
@@ -39,10 +39,10 @@ export default function FeuilleDeGrilles () {
         objets.push(texteParPosition('ZOOM', 13.5, 0.4))
         objets.push(texteParPosition('x4', 13.5, -0.4))
         objets.push(fleche)
-        objets.push(grilleHorizontale(15, -2, 19, 2, 'gray', 1, 0.8))
-        objets.push(grilleVerticale(15, -2, 19, 2, 'gray', 1, 2))
-        objets.push(grilleHorizontale(11, -0.5, 12, 0.5, 'gray', 0.8, 0.2))
-        objets.push(grilleVerticale(11, -0.5, 12, 0.5, 'gray', 0.8, 0.5))
+        objets.push(lignesHorizontales(15, -2, 19, 2, 'gray', 1, 0.8))
+        objets.push(lignesVerticales(15, -2, 19, 2, 'gray', 1, 2))
+        objets.push(lignesHorizontales(11, -0.5, 12, 0.5, 'gray', 0.8, 0.2))
+        objets.push(lignesVerticales(11, -0.5, 12, 0.5, 'gray', 0.8, 0.5))
 
         texte = mathalea2d({ xmin: -0.5, ymin: -2.2, xmax: 21, ymax: 3, pixelsParCm: 30, scale: 0.8 }, objets)
         this.contenu += texte
@@ -95,8 +95,8 @@ export default function FeuilleDeGrilles () {
         objets.push(texteParPosition('ZOOM', 13.5, 0.5))
         objets.push(texteParPosition('x10', 13.5, -0.5))
         objets.push(fleche)
-        objets.push(grilleHorizontale(15, -5, 25, 5, 'gray', 0.8, 0.2))
-        objets.push(grilleVerticale(15, -5, 25, 5, 'gray', 0.8, 0.5))
+        objets.push(lignesHorizontales(15, -5, 25, 5, 'gray', 0.8, 0.2))
+        objets.push(lignesVerticales(15, -5, 25, 5, 'gray', 0.8, 0.5))
         objets.push(grille(15, -5, 25, 5, 'black', 1, 1))
         objets.push(grille(11, -0.5, 12, 0.5, 'black', 0.3, 0.1))
         texte = mathalea2d({ xmin: -0.1, ymin: -5.5, xmax: 26, ymax: 5.5, pixelsParCm: 25, scale: 0.7 }, objets)

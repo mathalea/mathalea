@@ -10,6 +10,8 @@ export const dateDeModifImportante = '09/08/2022'
  * Référence 6N12
  * Ajout de la division par Guillaume Valmont le 09/08/2022
  */
+export const uuid = 'bb9d8'
+export const ref = '6N12'
 export default function MultiplierEntierPar101001000 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Calculer :'

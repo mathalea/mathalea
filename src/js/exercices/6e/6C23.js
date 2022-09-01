@@ -6,6 +6,8 @@ export const interactifType = 'mathLive'
 
 export const titre = 'Additionner ou soustraire des fractions de même dénominateur'
 
+export const uuid = '64422'
+export const ref = '6C23'
 export default function ExerciceAdditionnerFractions6e () {
   CalculsFractionsSimples.call(this)
   this.version = '6'

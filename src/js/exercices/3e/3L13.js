@@ -10,6 +10,8 @@ export { interactifReady, interactifType, amcReady, amcType, titre } from '../4e
  * @author Rémi Angot
  * 4L20 et 3L13
  */
+export const uuid = 'f239f'
+export const ref = '3L13'
 export default function ExerciceEquation3e () {
   ExerciceEquation1.call(this) // Héritage de la classe Exercice()
   this.sup = true

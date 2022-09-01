@@ -9,6 +9,8 @@ export const dateDePublication = '12/08/2022'
  * Référence 6C10-6
  */
 
+export const uuid = '3e4d9'
+export const ref = '5R20-7'
 export default function RoseAdditive5R () { // c'est l'ExoRose zéro contenu dans _Roses.js
   ExoRose.call(this) // Héritage de la classe Exercice()
   this.operation = 'addition'

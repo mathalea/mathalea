@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
  * Septembre 2021
  * Référence can2L01
  */
+export const uuid = '3b832'
+export const ref = 'can2L01'
 export default function EquationPlusMoinsX2PlusAEgalB () {
   Exercice.call(this)
   this.typeExercice = 'simple'

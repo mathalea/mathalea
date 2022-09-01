@@ -12,6 +12,8 @@ export const titre = 'Construire le symétrique d\'un point avec cible auto-corr
  * @author Jean-Claude Lhote
  * Publié le 30/11/2020
  */
+export const uuid = '34032'
+export const ref = '5G11-3'
 export default function ConstruireSymetriquePoint5e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

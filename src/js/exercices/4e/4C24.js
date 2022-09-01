@@ -16,6 +16,8 @@ export const dateDePublication = '17/03/2022'
  * @author Guillaume Valmont
  * Référence 4C24
 */
+export const uuid = '612b9'
+export const ref = '4C24'
 export default function NomExercice () {
   Exercice.call(this)
   this.consigne = 'Simplifier le plus possible les fractions suivantes.'

@@ -11,6 +11,8 @@ export const dateDePublication = '29/10/2021'
  * @author Rémi Angot
  * Référence PEG20
 */
+export const uuid = '44b85'
+export const ref = 'PEG20'
 export default function PartageSegmentCompasRegle () {
   Exercice.call(this)
   this.typeExercice = 'IEP'

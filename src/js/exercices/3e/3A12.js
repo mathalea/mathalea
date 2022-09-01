@@ -11,6 +11,8 @@ export const titre = 'Résoudre un exercice d\'engrenages'
  * @author Sébastien Lozano
  * Référence 3A12
  */
+export const uuid = 'ce352'
+export const ref = '3A12'
 export default function ppcmEngrenages () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

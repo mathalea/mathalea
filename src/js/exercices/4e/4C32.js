@@ -17,6 +17,8 @@ export const amcType = 'AMCNum' // type de question AMC
  * 4C32
  */
 
+export const uuid = 'a0d16'
+export const ref = '4C32'
 export default function NotationScientifique () {
   Exercice.call(this)
   this.sup = 1

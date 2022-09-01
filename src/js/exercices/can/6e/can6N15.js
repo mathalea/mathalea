@@ -12,6 +12,8 @@ export const dateDePublication = '14/08/2022'
  * Par Jean-Claude Lhote
  */
 
+export const uuid = '41030'
+export const ref = 'can6N15'
 export default function EcrirePetitsNombresEntiersCan () {
   EcrirePetitsNombresEntiers.call(this)
   this.tailleDiaporama = 1

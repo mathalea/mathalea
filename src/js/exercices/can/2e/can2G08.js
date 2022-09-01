@@ -14,6 +14,8 @@ export const dateDePublication = '30/10/2021' // La date de publication initiale
  * @author Gilles Mora
  * Référence
 */
+export const uuid = 'eaebb'
+export const ref = 'can2G08'
 export default function CoordonneesVecteur2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1

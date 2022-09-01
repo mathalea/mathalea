@@ -6,6 +6,8 @@ export { titre, amcReady, amcType, interactifType, interactifReady } from '../6e
  * @author Jean-Claude Lhote
  * Référence 6N10
  */
+export const uuid = 'c0fb1'
+export const ref = 'c3N11'
 export default function LireAbscisseEntiere2dC3 () {
   LireAbscisseEntiere2d.call(this)
   this.sup = 1

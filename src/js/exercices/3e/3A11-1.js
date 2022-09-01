@@ -7,6 +7,8 @@ export const titre = 'Résoudre des problèmes de conjonction de phénomènes'
  * Référence 3A11-1
  * 30/10/2021
  */
+export const uuid = '80772'
+export const ref = '3A11-1'
 export default function ProblemesEvenementsRecurrents3e () {
   ProblemesEvenementsRecurrents.call(this)
   this.titre = titre

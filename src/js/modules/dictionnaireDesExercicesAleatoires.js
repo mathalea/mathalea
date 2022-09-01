@@ -3364,7 +3364,7 @@ export default {
     }
   },
   "3L11-8": {
-    "titre": "Yahoku multiplicatif expressions littérales niveau 1",
+    "titre": "Yoh ku multiplicatif expressions littérales niveau 1",
     "url": "/exercices/3e/3L11-8.js",
     "amcReady": false,
     "interactifReady": true,
@@ -3948,7 +3948,7 @@ export default {
     }
   },
   "4C10-8": {
-    "titre": "Yahoku multiplicatif nombres relatifs niveau 1",
+    "titre": "Yohaku multiplicatif nombres relatifs niveau 1",
     "url": "/exercices/4e/4C10-8.js",
     "amcReady": false,
     "interactifReady": true,
@@ -4068,7 +4068,7 @@ export default {
     }
   },
   "4C21-2": {
-    "titre": "Yahoku additif fractions niveau 1",
+    "titre": "Yohaku additif fractions niveau 1",
     "url": "/exercices/4e/4C21-2.js",
     "amcReady": false,
     "interactifReady": true,
@@ -4154,7 +4154,7 @@ export default {
     }
   },
   "4C22-3": {
-    "titre": "Yahoku multiplicatif fractions niveau 1",
+    "titre": "Yohaku multiplicatif fractions niveau 1",
     "url": "/exercices/4e/4C22-3.js",
     "amcReady": false,
     "interactifReady": true,
@@ -5112,7 +5112,7 @@ export default {
     }
   },
   "4L10-3": {
-    "titre": "Yahoku additif expressions littérales niveau 1",
+    "titre": "Yohaku additif expressions littérales niveau 1",
     "url": "/exercices/4e/4L10-3.js",
     "amcReady": false,
     "interactifReady": true,
@@ -7064,7 +7064,7 @@ export default {
     }
   },
   "5R20-6": {
-    "titre": "Yahoku additif nombres relatifs niveau 1",
+    "titre": "Yohaku additif nombres relatifs niveau 1",
     "url": "/exercices/5e/5R20-6.js",
     "amcReady": false,
     "interactifReady": true,
@@ -7477,7 +7477,7 @@ export default {
     }
   },
   "6C10-7a": {
-    "titre": "Yahoku additif niveau 1",
+    "titre": "Yohaku additif niveau 1",
     "url": "/exercices/6e/6C10-7a.js",
     "amcReady": false,
     "interactifReady": true,
@@ -7493,7 +7493,7 @@ export default {
     }
   },
   "6C10-7b": {
-    "titre": "Yahoku multiplicatif niveau 1",
+    "titre": "Yohaku multiplicatif niveau 1",
     "url": "/exercices/6e/6C10-7b.js",
     "amcReady": false,
     "interactifReady": true,
@@ -11749,12 +11749,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "betaModele30_constructions_géométriques": {
+  "betaModele30_constructions_géométriques": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
+    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele30_constructions_géométriques",
+    "name": "betaModele30_constructions_géométriques",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -17639,6 +17639,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "can6M12": {
+    "titre": "Calculer une longueur/un périmètre (avec des décimaux)",
+    "url": "/exercices/can/6e/can6M12.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6M12",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "can6N01": {
     "titre": "Recomposer un entier",
     "url": "/exercices/can/6e/can6N01.js",
@@ -18393,6 +18412,25 @@ export default {
     "name": "canc3M01",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "canc3M02": {
+    "titre": "Calculer une longueur/un périmètre/une aire (avec des entiers)",
+    "url": "/exercices/can/c3/canc3M02.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "canc3M02",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

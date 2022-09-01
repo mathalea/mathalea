@@ -8,6 +8,8 @@ export const titre = 'Mettre en équation un problème sans objectif de résolut
  *
  * @author Sébastien LOZANO
  */
+export const uuid = '622b9'
+export const ref = '2N50-1'
 export default function MettreEnEquationSansResoudre2nde () {
   MettreEnEquationSansResoudre.call(this)
 }

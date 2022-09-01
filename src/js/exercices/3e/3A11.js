@@ -8,6 +8,8 @@ export const titre = 'Rendre irréductible une fraction'
  * @author Sébastien Lozano
  * Référence 3A11
  */
+export const uuid = 'a6667'
+export const ref = '3A11'
 export default function FractionsIrreductibles () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

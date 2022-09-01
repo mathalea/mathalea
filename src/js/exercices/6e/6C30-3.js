@@ -20,6 +20,8 @@ export const titre = 'Effectuer des opérations avec les nombres décimaux'
 * date : 2021/02/15
 */
 
+export const uuid = '36573'
+export const ref = '6C30-3'
 export default function MultiplicationMentalDecimaux () {
   Exercice.call(this)
   this.titre = titre

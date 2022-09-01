@@ -20,6 +20,8 @@ export const dateDePublication = '25/10/2021'
  * @author Eric ELTER
  * Référence 6C11-2
  */
+export const uuid = '4e35d'
+export const ref = '6C11-2'
 export default function VocabulaireDivisionEuclidienne () {
   Exercice.call(this)
   this.titre = titre

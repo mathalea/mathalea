@@ -17,6 +17,8 @@ export const interactifType = 'mathLive'
  * 6N23-0
  */
 
+export const uuid = '5eb83'
+export const ref = '6N23-0'
 export default function EcrireNombresDecimal () {
   Exercice.call(this)
   this.nbQuestions = 5

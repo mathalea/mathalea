@@ -4,6 +4,10 @@
  * @example montrerParDiv(s2.id) // Affiche l'objet s2
  * @author Rémi Angot
  */
+
+import { affiniteOrtho, homothetie, symetrieAxiale } from './2d'
+import { ObjetMathalea2D } from './2dGeneralites'
+
 // JSDOC Validee par EE Juin 2022
 export function montrerParDiv (id) {
   if (document.getElementById(id)) {
@@ -129,4 +133,216 @@ export function afficherUnParUn (objets, t = 1, r = 'Infinity', tApresDernier = 
     afficherTempo(objet, t0, tf, r)
     t0 += t
   }
+}
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%% LES TRANSFORMATIONS ANIMÉES %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+*/
+
+/**
+ * Fait apparaître une liste d'objets de façon animée.
+ * @param {ObjetMathalea2D[]} liste liste d'objets à faire apparaître
+ * @param {number} [dur = 2] Durée de l'animation en secondes
+ * @param {number} [pourcentage = 0.5] Pourcentage de la durée à partir de laquelle les objets sont visibles
+ * @param {number|string} [repeat = 'indefinite'] Nombre de répétitions de l'animation, peut être un entier.
+ * @author Rémi Angot
+ */
+// JSDOC Non Validee EE Juin 2022 (non testée)
+function ApparitionAnimee (liste, dur = 2, pourcentage = 0.5, repeat = 'indefinite') {
+  ObjetMathalea2D.call(this, { })
+  this.svg = function (coeff) {
+    let code = '<g> '
+    if (Array.isArray(liste)) {
+      for (const objet of liste) {
+        code += '\n' + objet.svg(coeff)
+      }
+    } else {
+      // si ce n'est pas une liste
+      code += '\n' + liste.svg(coeff)
+    }
+    code += `<animate attributeType="CSS"
+    attributeName="visibility"
+    from="hidden" 
+    to="hidden"
+    values="hidden;visible;hidden"
+    keyTimes="0; ${pourcentage}; 1"
+    dur="${dur}"
+    repeatCount="${repeat}"/>`
+    code += '</g>'
+    return code
+  }
+}
+/**
+ * Fait apparaître une liste d'objets de façon animée
+ * @param {ObjetMathalea2D[]} liste liste d'objets à faire apparaître
+ * @param {number} [dur = 2] Durée de l'animation en secondes
+ * @param {number} [pourcentage = 0.5] Pourcentage de la durée à partir de laquelle les objets sont visibles
+ * @param {number|string} [repeat = 'indefinite'] Nombre de répétitions de l'animation, peut être un entier
+ * @return {ApparitionAnimee}
+ * @example Fonction non utilisée donc pas d'exemple, fonction non testée, peut être bugguée
+ * @author Rémi Angot
+ */
+// JSDOC Non Validee EE Juin 2022 (impossible à tester car non utilisée)
+export function apparitionAnimee (liste, dur = 2, pourcentage = 0.5, repeat = 'indefinite') {
+  return new ApparitionAnimee(liste, dur, pourcentage, repeat)
+}
+/**
+ * translationAnimee(s,v) //Animation de la translation de vecteur v pour s
+ * translationAnimee([a,b,c],v) //Animation de la translation de vecteur v pour les objets a, b et v
+ *
+ * @author Rémi Angot
+ */
+function TranslationAnimee (liste, v, animation = 'begin="0s" dur="2s" repeatCount="indefinite"') {
+  ObjetMathalea2D.call(this, { })
+  this.svg = function (coeff) {
+    let code = '<g> '
+    if (Array.isArray(liste)) {
+      for (const objet of liste) {
+        code += '\n' + objet.svg(coeff)
+      }
+    } else {
+      // si ce n'est pas une liste
+      code += '\n' + liste.svg(coeff)
+    }
+    if (Array.isArray(v)) {
+      code += '<animateMotion path="M 0 0 l'
+      for (const vecteur of v) {
+        code += ` ${vecteur.xSVG(coeff)} ${vecteur.ySVG(coeff)} `
+      }
+      code += `${animation} />`
+    } else {
+      code += `<animateMotion path="M 0 0 l ${v.xSVG(coeff)} ${v.ySVG(coeff)} " ${animation} />`
+    }
+    code += '</g>'
+    return code
+  }
+}
+export function translationAnimee (...args) {
+  return new TranslationAnimee(...args)
+}
+
+/**
+ * rotationAnimee(s,O,a) //Animation de la rotation de centre O et d'angle a pour s
+ * rotationAnimee([a,b,c],O,a) //Animation de la rotation de centre O et d'angle a pour les objets a, b et c
+ *
+ * @author Rémi Angot
+ */
+function RotationAnimee (
+  liste,
+  O,
+  angle,
+  animation = 'begin="0s" dur="2s" repeatCount="indefinite"'
+) {
+  ObjetMathalea2D.call(this, { })
+  this.svg = function (coeff) {
+    let code = '<g> '
+    if (Array.isArray(liste)) {
+      for (const objet of liste) {
+        code += '\n' + objet.svg(coeff)
+      }
+    } else {
+      // si ce n'est pas une liste
+      code += '\n' + liste.svg(coeff)
+    }
+
+    code += `<animateTransform
+  attributeName="transform"
+  type="rotate"
+  from="0 ${O.xSVG(coeff)} ${O.ySVG(coeff)}"
+  to="${-angle} ${O.xSVG(coeff)} ${O.ySVG(coeff)}"
+  ${animation}
+  />`
+    code += '</g>'
+    return code
+  }
+}
+export function rotationAnimee (...args) {
+  return new RotationAnimee(...args)
+}
+/**
+ * homothetieAnimee(s,O,k) //Animation de la homothetie de centre O et de rapport k pour s
+ * homothetieAnimee([a,b,c],O,k) //Animation de la homothetie de centre O et de rapport k pour les objets a, b et v
+ *
+ * @author Rémi Angot
+ */
+function HomothetieAnimee (
+  p,
+  O,
+  k,
+  animation = 'begin="0s" dur="2s" repeatCount="indefinite"'
+) {
+  ObjetMathalea2D.call(this, { })
+  this.svg = function (coeff) {
+    const binomesXY1 = p.binomesXY(coeff)
+    const p2 = homothetie(p, O, k)
+    p2.isVisible = false
+    const binomesXY2 = p2.binomesXY(coeff)
+    const code = `<polygon stroke="${p.color[0]}" stroke-width="${p.epaisseur}" fill="${p.couleurDeRemplissage[0]}" >
+  <animate attributeName="points" ${animation}
+  from="${binomesXY1}"
+  to="${binomesXY2}"
+  />
+  </polygon>`
+    return code
+  }
+}
+export function homothetieAnimee (...args) {
+  return new HomothetieAnimee(...args)
+}
+
+/**
+ * symetrieAnimee(s,d) //Animation de la symetrie d'axe (d) pour s
+ * symetrieAnimee([a,b,c],d) //Animation de la symetrie d'axe (d) pour les objets a, b et v
+ *
+ * @author Rémi Angot
+ */
+function SymetrieAnimee (
+  p,
+  d,
+  animation = 'begin="0s" dur="2s" repeatCount="indefinite"'
+) {
+  ObjetMathalea2D.call(this, { })
+  this.svg = function (coeff) {
+    const binomesXY1 = p.binomesXY(coeff)
+    const p2 = symetrieAxiale(p, d)
+    p2.isVisible = false
+    const binomesXY2 = p2.binomesXY(coeff)
+    const code = `<polygon stroke="${p.color[0]}" stroke-width="${p.epaisseur}" fill="${p.couleurDeRemplissage[0]}" >
+    <animate attributeName="points" ${animation}
+    from="${binomesXY1}"
+    to="${binomesXY2}"
+    />
+    </polygon>`
+    return code
+  }
+}
+export function symetrieAnimee (...args) {
+  return new SymetrieAnimee(...args)
+}
+
+function AffiniteOrthoAnimee (
+  p,
+  d,
+  k,
+  animation = 'begin="0s" dur="2s" repeatCount="indefinite"'
+) {
+  ObjetMathalea2D.call(this, { })
+  this.svg = function (coeff) {
+    const binomesXY1 = p.binomesXY(coeff)
+    const p2 = affiniteOrtho(p, d, k)
+    p2.isVisible = false
+    const binomesXY2 = p2.binomesXY(coeff)
+    const code = `<polygon stroke="${p.color[0]}" stroke-width="${p.epaisseur}" fill="${p.couleurDeRemplissage[0]}" >
+    <animate attributeName="points" ${animation}
+    from="${binomesXY1}"
+    to="${binomesXY2}"
+    />
+    </polygon>`
+    return code
+  }
+}
+export function affiniteOrthoAnimee (...args) {
+  return new AffiniteOrthoAnimee(...args)
 }
