@@ -11,7 +11,7 @@ const { ComputeEngine } = pkg
 export const interactifReady = true
 export const interactifType = 'custom'
 const math = create(all)
-const engine = ComputeEngine
+const engine = new ComputeEngine()
 /**
  * Travailler les tables de multiplication autrement
  * @author Jean-Claude Lhote
@@ -46,7 +46,7 @@ export class Rose {
             values.push(randint(-this.valeurMax, this.valeurMax, [0, ...values]))
             this.rayon = 2
             break
-          case 'littéraux' :
+          case 'litteraux' :
             values.push(calculer(`${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`).printResult)
             this.rayon = 3
             break
@@ -78,7 +78,7 @@ export class Rose {
           case 'entiers relatifs' :
             values.push(randint(-this.valeurMax, this.valeurMax, [0, ...values]))
             break
-          case 'littéraux' :
+          case 'litteraux' :
             values.push(calculer(`${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`).printResult)
             break
           case 'fractions dénominateurs multiples':
@@ -111,7 +111,7 @@ export class Rose {
   operate (a, b) {
     switch (this.operation) {
       case 'addition':
-        if (this.typeDonnees !== 'littéraux') {
+        if (this.typeDonnees !== 'litteraux') {
           if (this.typeDonnees.substring(0, 4) === 'frac') {
             return math.fraction(math.add(a, b))
           } else {
@@ -121,7 +121,7 @@ export class Rose {
           return calculer(`${a.toString()}+${b.toString()}`).printResult
         }
       case 'multiplication':
-        if (this.typeDonnees !== 'littéraux') {
+        if (this.typeDonnees !== 'litteraux') {
           if (this.typeDonnees.substring(0, 4) === 'frac') {
             return math.fraction(math.multiply(a, b))
           } else {
@@ -138,7 +138,7 @@ export class Rose {
       this.rayonBoite = 1
     } else {
       if (this.typeDonnees.substring(0, 4) === 'frac') this.rayonBoite = 1.5
-      else if (this.typeDonnees === 'littéraux') this.rayonBoite = 2.8
+      else if (this.typeDonnees === 'litteraux') this.rayonBoite = 2.8
       else this.rayonBoite = 1
     }
     const objets = []
@@ -146,6 +146,7 @@ export class Rose {
     const A = rotation(point(this.rayon, 0), O, 180 / this.nombreDeValeurs - 90)
     for (let i = 0, bulle1, bulle2; i < this.nombreDeValeurs; i++) {
       const M = rotation(A, O, 360 * i / this.nombreDeValeurs)
+      M.positionLabel = 'center'
       const B = similitude(M, O, 180 / this.nombreDeValeurs, 1.3)
       const D = similitude(M, O, -180 / this.nombreDeValeurs, 1.3)
       const C = homothetie(M, O, 1.6)
@@ -173,17 +174,17 @@ export class Rose {
       if (this.type === 'résultats' || this.type === 'solutions' || this.type === 'can1' || this.type === 'can2') {
         if (!(this.type === 'can1' && (this.indexInconnue === i || i === (this.indexInconnue - 1) % this.nombreDeValeurs || i === (this.indexInconnue + 1) % this.nombreDeValeurs))) {
           if (!(this.type === 'can2' && (this.indexInconnue === i || i === (this.indexInconnue + 1) % this.nombreDeValeurs))) {
-            if (this.typeDonnees !== 'littéraux' && this.typeDonnees.substring(0, 4) !== 'frac') {
+            if (this.typeDonnees !== 'litteraux' && this.typeDonnees.substring(0, 4) !== 'frac') {
               objets.push(texteParPoint(this.values[i].toString(), M))
             } else {
-              if (this.typeDonnees !== 'littéraux') {
+              if (this.typeDonnees !== 'litteraux') {
                 if (this.values[i].d === 1) {
                   objets.push(texteParPoint(this.values[i].toLatex().replace('frac', 'dfrac'), M))
                 } else {
                   objets.push(latexParPoint(this.values[i].toLatex().replace('frac', 'dfrac'), M, 'black', 20, 0, ''))
                 }
               } else {
-                objets.push(latexParPoint(this.values[i], M, 'black', 70, -10, ''))
+                objets.push(latexParPoint(this.values[i], M, 'black', 70, 12, ''))
               }
             }
           }
@@ -194,17 +195,17 @@ export class Rose {
       }
       if (this.type === 'solutions' || this.type === 'valeurs' || this.type === 'can1' || this.type === 'can2') { // on ajoute les produits
         if (!(this.type === 'can2' && this.indexInconnue === i)) {
-          if (this.typeDonnees !== 'littéraux' && this.typeDonnees.substring(0, 4) !== 'frac') {
+          if (this.typeDonnees !== 'litteraux' && this.typeDonnees.substring(0, 4) !== 'frac') {
             objets.push(texteParPoint((this.resultats[i]).toString(), P))
           } else {
-            if (this.typeDonnees !== 'littéraux') {
+            if (this.typeDonnees !== 'litteraux') {
               if (this.resultats[i].d === 1) {
                 objets.push(texteParPoint(this.resultats[i].toLatex().replace('frac', 'dfrac'), P))
               } else {
                 objets.push(latexParPoint(this.resultats[i].toLatex().replace('frac', 'dfrac'), P, 'black', 20, 0, ''))
               }
             } else {
-              objets.push(latexParPoint(this.resultats[i], P, 'black', 70, -10, ''))
+              objets.push(latexParPoint(this.resultats[i], P, 'black', 70, 10, ''))
             }
           }
         }
