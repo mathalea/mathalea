@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 492 
-- nombre d'exos interactifReady 765 
+- nombre d'exos interactifReady 769 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -70,6 +70,7 @@
 |3A10-1|Justifier si des nombres sont premiers ou pas|OK|qcmMono|OK|qcm|
 |3A10-2|Justifier si des nombres sont premiers ou pas - Variante avec les critères de divisibilité par 7 et par 11|OK|qcmMono|OK|qcm|
 |3A10-3|Décomposer un entier en facteurs premiers|KO|KO|OK|mathLive|
+|3A10-5|Recourir à une décomposition en facteurs premiers dans des cas simples|KO|KO|OK|mathLive|
 |3A12-1|Résoudre des problèmes avec recherche de diviseurs communs|OK|AMCHybride|OK|mathLive|
 |3F10-1|Vocabulaire et notations des fonctions (généralités)|OK|qcmMult|OK|qcm|
 |3F10-2|Fonction : calculs d'images (et d'antécédents)|OK|AMCNum|OK|mathLive|
@@ -88,6 +89,7 @@
 |3G20|Calculer des longueurs avec le théorème de Thalès|OK|AMCOpenNum✖︎2|OK|mathLive|
 |3G21|Démontrer que deux droites sont ou ne sont pas parallèles avec le théorème de Thalès|OK|AMCHybride|OK|mathLive|
 |3G22-1|Agrandissement et réduction|KO|KO|OK|mathLive|
+|3G23|Reconnaître des triangles égaux dans différentes configurations|KO|KO|OK|qcm|
 |3G30-1|Exprimer le cosinus, le sinus ou la tangente d'un angle en fonction des côtés du triangle|OK|AMCHybride|OK|mathLive|
 |3G30|Calculer une longueur dans un triangle rectangle en utilisant la trigonométrie|OK|AMCOpenNum|OK|mathLive|
 |3G31|Calculer un angle dans un triangle rectangle en utilisant la trigonométrie|OK|AMCOpenNum|OK|mathLive|
@@ -709,8 +711,8 @@
 |can6C34|Calculer dans une pyramide additive inverse|OK|AMCNum|OK|mathLive|
 |can6C35|Résoudre un problème avec "de plus", "de moins"|OK|AMCNum|OK|mathLive|
 |can6C36|Résoudre un problème de partage*|KO|KO|OK|mathLive|
-|can6C38|Addition à trou Yohaku|OK|AMCNum|OK|mathLive|
-|can6C39|Multiplication à trou Yohaku|OK|AMCNum|OK|mathLive|
+|can6C38|Trouver une valeur dans un Yohaku (additif)|OK|AMCNum|OK|mathLive|
+|can6C39|Trouver une valeur dans un Yohaku (multiplicatif)|OK|AMCNum|OK|mathLive|
 |can6D01|Convertir des Heures/minutes en minutes|OK|AMCNum|OK|mathLive|
 |can6D02|Chercher un reste en minutes|OK|AMCNum|OK|mathLive|
 |can6D03|Calculer une durée en minutes|OK|AMCNum|OK|mathLive|
@@ -749,6 +751,8 @@
 |can6N13|Passer d’un calcul de fractions décimales à une écriture décimale**|OK|AMCNum|OK|mathLive|
 |can6N14|Déterminer un nombre à partir de son nombre de dixièmes, centièmes, millièmes (QCM)|KO|KO|OK|qcm|
 |can6N15|Lire et écrire des nombres|OK|AMCNum|OK|mathLive|
+|can6N16|Lire une abscisse (entière) sur une droite graduée *|KO|KO|OK|mathLive|
+|can6N17|Lire une abscisse (décimale) sur une droite graduée*|KO|KO|OK|mathLive|
 |can6P01|Utiliser une proportionnalité|OK|AMCNum|OK|mathLive|
 |can6P02|Utiliser une proportionnalité*|OK|AMCNum|OK|mathLive|
 |can6P03|Déterminer le nombre de km avec une vitesse|OK|AMCNum|OK|mathLive|
