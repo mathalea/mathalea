@@ -146,6 +146,7 @@ export class Rose {
     const A = rotation(point(this.rayon, 0), O, 180 / this.nombreDeValeurs - 90)
     for (let i = 0, bulle1, bulle2; i < this.nombreDeValeurs; i++) {
       const M = rotation(A, O, 360 * i / this.nombreDeValeurs)
+      M.positionLabel = 'center'
       const B = similitude(M, O, 180 / this.nombreDeValeurs, 1.3)
       const D = similitude(M, O, -180 / this.nombreDeValeurs, 1.3)
       const C = homothetie(M, O, 1.6)
@@ -183,7 +184,7 @@ export class Rose {
                   objets.push(latexParPoint(this.values[i].toLatex().replace('frac', 'dfrac'), M, 'black', 20, 0, ''))
                 }
               } else {
-                objets.push(latexParPoint(this.values[i], M, 'black', 70, -10, ''))
+                objets.push(latexParPoint(this.values[i], M, 'black', 70, 12, ''))
               }
             }
           }
@@ -204,7 +205,7 @@ export class Rose {
                 objets.push(latexParPoint(this.resultats[i].toLatex().replace('frac', 'dfrac'), P, 'black', 20, 0, ''))
               }
             } else {
-              objets.push(latexParPoint(this.resultats[i], P, 'black', 70, -10, ''))
+              objets.push(latexParPoint(this.resultats[i], P, 'black', 70, 10, ''))
             }
           }
         }
