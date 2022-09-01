@@ -1,7 +1,8 @@
 import { ExoRose } from '../6e/_Roses.js'
 export const titre = 'Rose multiplicative littéraux'
-export { interactifReady, interactifType } from '../6e/_Roses.js'
+// export { interactifReady, interactifType } from '../6e/_Roses.js'
 export const dateDePublication = '12/08/2022'
+export const interactifReady = false
 
 /**
  * Travailler la double distribu
