@@ -1749,9 +1749,9 @@ export function xcas (expression) {
 * Le 2e argument facultatif permet de préciser l'arrondi souhaité : c'est le nombre max de chiffres après la virgule souhaités
 * @author Rémi Angot modifié par Jean-Claude Lhote
 */
-export function calcul (x, arrondir) {
+export function calcul (x, arrondir = 6) {
   const sansPrecision = (arrondir === undefined)
-  if (sansPrecision) arrondir = 6
+  // if (sansPrecision) arrondir = 6
   if (typeof x === 'string') {
     window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', { x })
     x = parseFloat(evaluate(x))
