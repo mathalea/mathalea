@@ -20,7 +20,7 @@ export const ref = '4C37'
 export default class SignePuissance extends Exercice {
   constructor () {
     super()
-    this.consigne = 'Déterminer le signe des expressions suivantes :'
+    this.consigne = 'Déterminer le signe des expressions suivantes.'
     this.nbQuestions = 5
     this.nbCols = 1
     this.nbColsCorr = 1

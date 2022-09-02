@@ -17,7 +17,7 @@ export const ref = '2N32-4'
 export default function SimplifierUneSommeDeRacinesCarrees () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = ' Simplifier une somme de racines carrées'
+  // this.consigne = ''
   this.nbQuestions = 4
   this.nbCols = 2
   this.nbColsCorr = 2

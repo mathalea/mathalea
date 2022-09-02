@@ -13,7 +13,6 @@ export const ref = '2N52-2'
 export default function FactoriserIdentitesRemarquables2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Résoudre dans $\\mathbb R$ les équations suivantes :'
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacing = 1
@@ -23,6 +22,7 @@ export default function FactoriserIdentitesRemarquables2 () {
   this.spacingCorr = 3
 
   this.nouvelleVersion = function () {
+    this.consigne = 'Résoudre dans $\\mathbb R$ ' + (this.nbQuestions !== 1 ? 'les équations suivantes' : 'l\'équation suivante') + '.'
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

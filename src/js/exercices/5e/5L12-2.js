@@ -33,7 +33,7 @@ export default function ReduireUneExpressionLitterale () {
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType
-  this.consigne = 'Réduire les expressions suivantes'
+  this.consigne = 'Réduire les expressions suivantes.'
   this.nbQuestions = 5
   this.nbCols = 1
   this.nbColsCorr = 1

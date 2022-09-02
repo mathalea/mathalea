@@ -20,7 +20,7 @@ export default function CalculsFractionsSimples () {
   this.formatInteractif = 'fractionEgale'
   this.nbQuestions = 6
   this.sup = 4
-  this.consigne = 'Calculer'
+  this.consigne = 'Calculer :'
   this.tailleDiaporama = 4
   this.version = 'c3'
 

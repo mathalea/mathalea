@@ -24,7 +24,6 @@ export const ref = '3L13-1'
 export default function ExerciceEquation1Tiret2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Résoudre les équations suivantes :'
   this.spacing = 2
   this.interactifType = 'mathLive'
   context.isHtml ? this.spacingCorr = 3 : this.spacingCorr = 2
@@ -36,6 +35,7 @@ export default function ExerciceEquation1Tiret2 () {
   this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
+    this.consigne = 'Résoudre ' + (this.nbQuestions !== 1 ? 'les équations suivantes' : 'l\'équation suivante') + '.'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

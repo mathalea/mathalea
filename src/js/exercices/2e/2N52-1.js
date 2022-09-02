@@ -15,7 +15,6 @@ export default function EquationsProduitsNuls2 () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Résoudre dans $\\mathbb R$ les équations suivantes :'
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacing = 1
@@ -28,6 +27,7 @@ export default function EquationsProduitsNuls2 () {
   this.correctionDetaillee = true
 
   this.nouvelleVersion = function () {
+    this.consigne = 'Résoudre dans $\\mathbb R$ ' + (this.nbQuestions !== 1 ? 'les équations suivantes' : 'l\'équation suivante') + '.'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles = []
