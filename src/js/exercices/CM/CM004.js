@@ -21,7 +21,7 @@ export const uuid = 'ac900'
 export const ref = 'CM004'
 export default function QuatreOperations () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Calculer'
+  this.consigne = 'Calculer :'
   this.nbQuestions = 10
   this.nbCols = 2
   this.nbColsCorr = 2

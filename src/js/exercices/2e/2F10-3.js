@@ -15,7 +15,7 @@ export const ref = '2F10-3'
 export default function representerfonctionaffine () {
   Exercice.call(this)
   this.titre = titre
-  this.consigne = 'Représenter graphiquement la fonction affine $f$ définie sur $\\mathbb R$ par :'
+  this.consigne = 'Représenter graphiquement ' + (this.nbQuestions === 1 ? 'la fonction affine suivante  $f$ définie' : 'les fonctions affines suivantes  $f$ définies') + ' sur $\\mathbb R$ par :'
   this.nbQuestions = 3 // On complète le nb de questions
   this.nbCols = 1
   this.nbColsCorr = 1

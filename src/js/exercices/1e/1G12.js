@@ -19,7 +19,7 @@ export const uuid = 'b9e6a'
 export const ref = '1G12'
 export default function MesurePrincipale () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Déterminer une écriture plus simple, en fonction de $\\cos(x)$ ou $\\sin(x) $'
+  this.consigne = 'Déterminer une écriture plus simple, en fonction de $\\cos(x)$ ou $\\sin(x)$.'
   this.nbQuestions = 3 // Nombre de questions par défaut
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX

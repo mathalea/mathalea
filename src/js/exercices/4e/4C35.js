@@ -18,7 +18,7 @@ export const ref = '4C35'
 export default function PuissanceDecimaleOuFractionnaire () {
   Exercice.call(this)
   this.titre = titre
-  this.consigne = 'Calculer de tête l\'écriture décimale ou fractionnaire des nombres suivants'
+  this.consigne = 'Calculer de tête l\'écriture décimale ou fractionnaire des nombres suivants.'
   this.nbQuestions = 8
   this.nbCols = 2
   this.nbColsCorr = 2

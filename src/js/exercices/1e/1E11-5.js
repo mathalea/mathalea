@@ -17,7 +17,7 @@ export const ref = '1E11-5'
 export default function Resolutionavecdelta () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = ' '
+  // this.consigne = ''
   this.nbQuestions = 4
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -27,7 +27,7 @@ export default function Resolutionavecdelta () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     if (this.interactif) {
-      this.consigne += '<br> '
+      this.consigne = '<br> '
     }
     const listeTypeDeQuestions = combinaisonListes([true, true, false], this.nbQuestions)
     for (let i = 0, texte, texteCorr, a, b, p, b2, stringX1, stringX2, x1, x2, c, delta, alpha, cpt = 0; i < this.nbQuestions && cpt < 50;) {

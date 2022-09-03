@@ -21,7 +21,7 @@ export default function Reconnaitrefonctionaffine () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.video = ''
-  this.consigne = 'Déterminer, en expliquant, si les fonctions suivantes sont, ou non, des fonctions affines :'
+  this.consigne = 'Déterminer, en expliquant, si les fonctions suivantes sont, ou non, des fonctions affines.'
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacing = 1
