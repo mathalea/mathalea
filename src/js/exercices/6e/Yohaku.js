@@ -5,6 +5,10 @@ import { calculer } from '../../modules/outilsMathjs.js'
 import { create, all } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
+import * as pkg from '@cortex-js/compute-engine'
+import { fractionLatexToMathjs } from '../../modules/fonctionsMaths.js'
+const { ComputeEngine } = pkg
+const engine = new ComputeEngine()
 export const titre = 'Générateur de Yohaku'
 export const interactifReady = true
 export const interactifType = 'custom'
@@ -286,16 +290,42 @@ export default function FabriqueAYohaku () {
     for (let i = 0; i < taille; i++) {
       valeurs = []
       for (let j = 0; j < taille; j++) {
-        valeurs.push(saisies[i + j * taille])
+        if (this.yohaku[question].type !== 'littéraux' && this.yohaku[question].type.substring(0, 4) !== 'frac') {
+          valeurs.push(Number(saisies[i + j * taille]))
+        } else {
+          if (this.yohaku[question].type.substring(0, 4) === 'frac') {
+            const test = saisies[i + j * taille].indexOf('frac') === -1 ? Number(saisies[i + j * taille]) : fractionLatexToMathjs(saisies[i + j * taille])
+            valeurs.push(test)
+          } else {
+            valeurs.push(engine.parse(saisies[i + j * taille]).canonical.toString())
+          }
+        }
       }
-      resultatOK = resultatOK && (this.yohaku[question].operate(valeurs) === this.yohaku[question].resultats[i])
+      if (this.yohaku[question].type.substring(0, 4) === 'frac') {
+        resultatOK = resultatOK && math.equal(this.yohaku[question].operate(valeurs), (this.yohaku[question].resultats[i]))
+      } else {
+        resultatOK = resultatOK && (this.yohaku[question].operate(valeurs) === this.yohaku[question].resultats[i])
+      }
     }
     for (let i = taille; i < taille * 2; i++) {
       valeurs = []
       for (let j = 0; j < taille; j++) {
-        valeurs.push(saisies[(i - taille) * taille + j])
+        if (this.yohaku[question].type !== 'littéraux' && this.yohaku[question].type.substring(0, 4) !== 'frac') {
+          valeurs.push(Number(saisies[(i - taille) * taille + j]))
+        } else {
+          if (this.yohaku[question].type.substring(0, 4) === 'frac') {
+            const test = saisies[(i - taille) * taille + j].indexOf('frac') === -1 ? Number(saisies[(i - taille) * taille + j]) : fractionLatexToMathjs(saisies[(i - taille) * taille + j])
+            valeurs.push(test)
+          } else {
+            valeurs.push(engine.parse(saisies[(i - taille) * taille + j]).canonical.toString())
+          }
+        }
       }
-      resultatOK = resultatOK && (this.yohaku[question].operate(valeurs) === this.yohaku[question].resultats[i])
+      if (this.yohaku[question].type.substring(0, 4) === 'frac') {
+        resultatOK = resultatOK && math.equal(this.yohaku[question].operate(valeurs), (this.yohaku[question].resultats[i]))
+      } else {
+        resultatOK = resultatOK && (this.yohaku[question].operate(valeurs) === (this.yohaku[question].resultats[i]))
+      }
     }
     return resultatOK
   }
