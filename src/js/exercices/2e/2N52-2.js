@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleur } from '../../modules/outils.js'
 
-export const titre = 'Résoudre des équations carrées.'
+export const titre = 'Résoudre des équations carrées'
 
 /**
  * Résoudre des équations produit-nul

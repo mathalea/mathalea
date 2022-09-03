@@ -3,7 +3,7 @@ import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice } from '../../modules/outils.js'
 import { repere, point, labelPoint, segment, nomVecteurParPosition, texteParPosition, vecteur, homothetie, longueur, latexParPoint } from '../../modules/2d.js'
 
-export const titre = 'Représenter un vecteur dans un repère, à partir de ses coordonnées.'
+export const titre = 'Représenter un vecteur dans un repère, à partir de ses coordonnées'
 
 /**
  * Tracer un vecteur dont on connais les coordonnées dans un repère.

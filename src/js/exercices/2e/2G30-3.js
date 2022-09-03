@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, reduireAxPlusB, ecritureAlgebrique, ecritureParentheseSiNegatif, ecritureAlgebriqueSauf1 } from '../../modules/outils.js'
-export const titre = 'Déterminer une équation cartésienne de droite à partir de deux points.'
+export const titre = 'Déterminer une équation cartésienne de droite à partir de deux points'
 // totoche
 /**
  * Description didactique de l'exercice

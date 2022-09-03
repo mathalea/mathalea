@@ -3,7 +3,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 
 import { listeQuestionsToContenu, randint, choice, quotientier, combinaisonListes, ecritureParentheseSiNegatif, texFractionReduite, ecritureAlgebrique } from '../../modules/outils.js'
 import { repere, point, tracePoint, labelPoint } from '../../modules/2d.js'
-export const titre = 'Déterminer une fonction affine à partir de deux images.'
+export const titre = 'Déterminer une fonction affine à partir de deux images'
 
 /**
  * Déterminer une fonction affine à partir de deux images
