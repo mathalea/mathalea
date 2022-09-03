@@ -12,7 +12,6 @@ export const ref = '2G30-2'
 export default function EquationReduiteDeDroites () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal. '
   this.nbQuestions = 3
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
@@ -23,12 +22,10 @@ export default function EquationReduiteDeDroites () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    if (this.sup === 1) this.consigne = 'Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal.<br>Déterminer une équation réduite de ' + (this.nbQuestions !== 1 ? 'chaque' : 'la') + ' droite $(AB)$ avec les points $A$ et $B$ de coordonnées suivantes.'
+    else this.consigne = 'Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal.<br>Déterminer une équation réduite de ' + (this.nbQuestions !== 1 ? 'chaque' : 'la') + ' droite $(d)$  passant par le point $A$  et ayant le vecteur $\\vec {u}$ comme vecteur directeur. $A$ et $\\vec {u}$ ont les coordonnées suivantes.'
 
-    // const typeQuestionsDisponibles = ['A et B', 'A et u'] // On créé 2 types de questions
-    // const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, xA, yA, xB, yB, n, d, texteCorr, xu, yu, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      // Boucle principale où i+1 correspond au numéro de la question
-      // switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
       if (this.sup === 1) {
         // case 'A et B':
         xA = randint(-5, 5)
@@ -40,7 +37,7 @@ export default function EquationReduiteDeDroites () {
         n = yB - yA
         d = xB - xA
 
-        texte = `Déterminer une équation réduite de la droite $(AB)$ avec les point $A$ et $B$ de coordonnées : $A(${xA};${yA})$ et $B(${xB};${yB})$ `
+        texte = `$A(${xA};${yA})$ et $B(${xB};${yB})$ `
         texteCorr = 'On observe que $ x_B\\neq x_A$.'
         texteCorr += '<br>La droite $(AB)$ a donc une équation du type $y=mx+p$.'
         texteCorr += '<br>On commence par calculer le coefficient directeur $m$ :'
@@ -117,7 +114,7 @@ export default function EquationReduiteDeDroites () {
         n = yu
         d = xu
 
-        texte = `Déterminer une équation réduite de la droite $(d)$ passant par le point $A$ de coordonnées : $A(${xA};${yA})$ et ayant le vecteur $\\vec {u} \\begin{pmatrix}${xu}\\\\${yu}\\end{pmatrix}$ comme vecteur directeur. `
+        texte = `$A(${xA};${yA})$ et $\\vec {u} \\begin{pmatrix}${xu}\\\\${yu}\\end{pmatrix}$`
         texteCorr = 'On observe que $ \\vec u$ n\'est pas colinéaire au vecteur $\\vec j$, puisque son déplacement horizontal est non-nul.'
         texteCorr += '<br>La droite $(AB)$ n\'est donc pas verticale. Elle admet donc une équation du type : $(AB) :y=mx+p$.'
         texteCorr += '<br>On commence par calculer le coefficient directeur $m$ :'

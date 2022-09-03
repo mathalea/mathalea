@@ -49,7 +49,7 @@ export default function ExerciceAnglesTriangles () {
     if (this.sup === 1) { typesDeQuestionsDisponibles = [1, 2, 4, 5, 9] } else if (this.sup === 2) { typesDeQuestionsDisponibles = [3, 6, 7, 8, 10, 11, 12] } else { typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] }
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    this.consigne = 'Calculer l\'angle demandé dans les triangles suivants :'
+    this.consigne = 'Calculer l\'angle demandé dans les triangles suivants.'
     let lettre1, lettre2, lettre3, s1, s2, s3, angle1, angle2
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       lettre1 = randint(1, 26) // aleatoirisation du nom des points

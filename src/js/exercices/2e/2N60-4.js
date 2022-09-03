@@ -18,7 +18,6 @@ export const ref = '2N60-4'
 export default function ExerciceInequation1 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Résoudre les inéquations suivantes'
   this.spacing = 2
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
   this.correctionDetailleeDisponible = true
@@ -30,6 +29,7 @@ export default function ExerciceInequation1 () {
   this.nbQuestions = 6
 
   this.nouvelleVersion = function () {
+    this.consigne = 'Résoudre ' + (this.nbQuestions !== 1 ? 'les inéquations suivantes' : 'l\'inéquation suivante') + '.'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let listeTypeDeQuestions
