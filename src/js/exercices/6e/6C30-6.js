@@ -9,7 +9,7 @@ export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
 export const interactifType = 'qcm'
-export const titre = 'Par combien multiplier un nombre pour que le chiffre des unités devienne le chiffre des ...'
+export const titre = 'Par combien multiplier un nombre pour que le chiffre des unités devienne le chiffre des ... ?'
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '04/11/2021'

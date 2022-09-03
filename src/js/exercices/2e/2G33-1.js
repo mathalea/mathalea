@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, texFractionReduite, pgcd, ecritureParentheseSiNegatif } from '../../modules/outils.js'
-export const titre = 'Alignement de 3 points.'
+export const titre = 'Alignement de 3 points'
 /**
  * Description didactique de l'exercice Démontrer alignement de 3 points avec coefficient directeur
  * @author Stéphane Guyon

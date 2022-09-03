@@ -5,7 +5,7 @@ import { fraction } from '../../modules/fractions.js'
 import { choisiDelta } from '../../modules/fonctionsMaths.js'
 export const interactifReady = false
 // export const interactifType = 'mathLive'
-export const titre = 'Résoudre une équation du second degré avec le discriminant.'
+export const titre = 'Résoudre une équation du second degré avec le discriminant'
 
 /**
  * Calcul de discriminant pour identifier la forme graphique associée (0 solution dans IR, 1 ou 2)

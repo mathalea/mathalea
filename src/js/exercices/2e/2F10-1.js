@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, randint, choice, combinaisonListes, reduireAxP
 import { context } from '../../modules/context.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
-export const titre = 'Reconnaître une fonction affine.'
+export const titre = 'Reconnaître une fonction affine'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
