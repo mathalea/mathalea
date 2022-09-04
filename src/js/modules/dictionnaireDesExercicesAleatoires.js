@@ -2284,7 +2284,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -2366,6 +2366,22 @@ export default {
     "name": "3A10-4",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "3A10-5": {
+    "titre": "Recourir à une décomposition en facteurs premiers dans des cas simples",
+    "url": "/exercices/3e/3A10-5.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "3A10-5",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -2908,7 +2924,8 @@ export default {
     "titre": "Reconnaître des triangles égaux dans différentes configurations",
     "url": "/exercices/3e/3G23.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
     "name": "3G23",
     "newEx": {
       "isNew": false,
@@ -3669,7 +3686,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -11156,6 +11173,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "P019": {
+    "titre": "Générateur de Shikaku",
+    "url": "/exercices/Profs/P019.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "P019",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "beta-CAN6-2022": {
     "titre": "CAN Sixième sujet 2022",
     "url": "/exercices/beta/beta-CAN6-2022.js",
@@ -17163,7 +17195,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can6C36",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -17172,7 +17204,7 @@ export default {
     }
   },
   "can6C38": {
-    "titre": "Addition à trou Yohaku",
+    "titre": "Trouver une valeur dans un Yohaku (additif)",
     "url": "/exercices/can/6e/can6C38.js",
     "amcReady": true,
     "amcType": {
@@ -17191,7 +17223,7 @@ export default {
     }
   },
   "can6C39": {
-    "titre": "Multiplication à trou Yohaku",
+    "titre": "Trouver une valeur dans un Yohaku (multiplicatif)",
     "url": "/exercices/can/6e/can6C39.js",
     "amcReady": true,
     "amcType": {
@@ -17931,6 +17963,38 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6N15",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can6N16": {
+    "titre": "Lire une abscisse (entière) sur une droite graduée *",
+    "url": "/exercices/can/6e/can6N16.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N16",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can6N17": {
+    "titre": "Lire une abscisse (décimale) sur une droite graduée*",
+    "url": "/exercices/can/6e/can6N17.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N17",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"

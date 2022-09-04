@@ -17,7 +17,7 @@ export const uuid = 'ee307'
 export const ref = 'CM008'
 export default function Soustraire11 () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Calculer'
+  this.consigne = 'Calculer :'
   this.nbQuestions = 10
   this.nbCols = 2
   this.nbColsCorr = 2

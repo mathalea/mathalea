@@ -20,7 +20,6 @@ export const ref = '2G35-7'
 export default function lecturegraphiquedeaetb (numeroExercice) {
   Exercice.call(this)
 
-  this.consigne = 'Equation réduite de droite et représentation graphique '
   this.nbQuestions = 3// On complète le nb de questions
   this.nbCols = 2
   this.nbColsCorr = 2
@@ -53,7 +52,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
         c = droite(a, -1, b) // On définit l'objet qui tracera la courbe dans le repère
         c.color = colorToLatexOrHTML('red')
         c.epaisseur = 2
-        texte = 'A partir de la représentation graphique de la droite ci-dessous, donner par lecture graphique son équation réduite.<br>'
+        texte = 'À partir de la représentation graphique de la droite ci-dessous, donner par lecture graphique son équation réduite.<br><br>'
         texte += mathalea2d({
           xmin: -8,
           ymin: -8,
@@ -171,7 +170,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
         c.color = colorToLatexOrHTML('red')
         c.epaisseur = 2// On définit l'objet qui tracera la courbe dans le repère
 
-        texte = 'A partir de la représentation graphique de la droite ci-dessous, donner par lecture graphique son équation réduite.<br>'
+        texte = 'À partir de la représentation graphique de la droite ci-dessous, donner par lecture graphique son équation réduite.<br><br>'
         texte += mathalea2d({
           xmin: -6,
           ymin: -6,

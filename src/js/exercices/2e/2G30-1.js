@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, texFr
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-export const titre = "Déterminer le coefficient directeur d'une droite."
+export const titre = "Déterminer le coefficient directeur d'une droite"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

@@ -23,7 +23,7 @@ export default function TablesDeDivisions (tablesParDefaut = '2-3-4-5-6-7-8-9') 
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = tablesParDefaut
   this.sup2 = 1 // classique|a_trous|melange
-  this.consigne = 'Calculer'
+  this.consigne = 'Calculer :'
   this.spacing = 2
   this.tailleDiaporama = 3
 

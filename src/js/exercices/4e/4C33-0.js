@@ -34,11 +34,11 @@ export default function NotationPuissance () {
     let listeTypeDeQuestions
     switch (this.sup) {
       case 1:
-        this.consigne = 'Donner la signification des écritures suivantes'
+        this.consigne = 'Donner la signification des écritures suivantes.'
         listeTypeDeQuestions = ['produit']
         break
       case 2:
-        this.consigne = 'Simplifier l\'écriture en utilisant la notation puissance'
+        this.consigne = 'Simplifier l\'écriture en utilisant la notation puissance.'
         listeTypeDeQuestions = ['puissance']
         break
       default:

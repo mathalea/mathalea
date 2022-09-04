@@ -14,7 +14,7 @@ export const ref = '4C32-2'
 export default function ConversionsPuissancesDe10 (numeroExercice) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Compléter'
+  this.consigne = 'Compléter :'
   this.nbQuestions = 10
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX

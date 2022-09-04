@@ -16,7 +16,7 @@ export default class ComparerDeuxNombresEntiers extends Exercice {
   constructor () {
     super()
     this.titre = titre
-    this.consigne = 'Comparer'
+    this.consigne = 'Comparer :'
     this.nbQuestions = 5
 
     this.besoinFormulaireNumerique = ['Difficulté', 3, '1 : Avec un nombre de chiffres différents\n2 : Avec le même nombre de chiffres\n3 : Mélange']

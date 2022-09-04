@@ -1749,9 +1749,9 @@ export function xcas (expression) {
 * Le 2e argument facultatif permet de préciser l'arrondi souhaité : c'est le nombre max de chiffres après la virgule souhaités
 * @author Rémi Angot modifié par Jean-Claude Lhote
 */
-export function calcul (x, arrondir) {
+export function calcul (x, arrondir = 6) {
   const sansPrecision = (arrondir === undefined)
-  if (sansPrecision) arrondir = 6
+  // if (sansPrecision) arrondir = 6
   if (typeof x === 'string') {
     window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', { x })
     x = parseFloat(evaluate(x))
@@ -4518,25 +4518,24 @@ export function texteOuPas (texte) {
  * @author Sébastien Lozano
  *
  */
-export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLignes, arraystretch) {
-  'use strict'
-  let myLatexArraystretch
-  if (typeof arraystretch === 'undefined') {
-    myLatexArraystretch = 1
-  } else {
-    myLatexArraystretch = arraystretch
-  }
-
+export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLignes, arraystretch, math = true) {
   // on définit le nombre de colonnes
   const C = tabEntetesColonnes.length
   // on définit le nombre de lignes
   const L = tabEntetesLignes.length
   // On construit le string pour obtenir le tableau pour compatibilité HTML et LaTeX
   let tableauCL = ''
+  if (!arraystretch) {
+    if (context.isHtml) {
+      arraystretch = 2.5
+    } else {
+      arraystretch = 1
+    }
+  }
   if (context.isHtml) {
-    tableauCL += '$\\def\\arraystretch{2.5}\\begin{array}{|'
+    tableauCL += `$\\def\\arraystretch{${arraystretch}}\\begin{array}{|`
   } else {
-    tableauCL += `$\\renewcommand{\\arraystretch}{${myLatexArraystretch}}\n`
+    tableauCL += `$\\renewcommand{\\arraystretch}{${arraystretch}}\n`
     tableauCL += '\\begin{array}{|'
   }
   // on construit la 1ere ligne avec toutes les colonnes
@@ -4547,15 +4546,15 @@ export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLi
 
   tableauCL += '\\hline\n'
   if (typeof tabEntetesColonnes[0] === 'number') {
-    tableauCL += texNombre(tabEntetesColonnes[0])
+    tableauCL += math ? texNombre(tabEntetesColonnes[0]) + '' : `\\text{${stringNombre(tabEntetesColonnes[0])}} `
   } else {
-    tableauCL += tabEntetesColonnes[0]
+    tableauCL += math ? tabEntetesColonnes[0] : `\\text{${tabEntetesColonnes[0]}}`
   }
   for (let k = 1; k < C; k++) {
     if (typeof tabEntetesColonnes[k] === 'number') {
-      tableauCL += ' & ' + texNombre(tabEntetesColonnes[k]) + ''
+      tableauCL += ` & ${math ? texNombre(tabEntetesColonnes[k]) : '\\text{' + stringNombre(tabEntetesColonnes[k]) + '}'}`
     } else {
-      tableauCL += ' & ' + tabEntetesColonnes[k] + ''
+      tableauCL += ` & ${math ? tabEntetesColonnes[k] : '\\text{' + tabEntetesColonnes[k] + '}'}`
     }
   }
   tableauCL += '\\\\\n'
@@ -4563,15 +4562,15 @@ export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLi
   // on construit toutes les lignes
   for (let k = 0; k < L; k++) {
     if (typeof tabEntetesLignes[k] === 'number') {
-      tableauCL += '' + texNombre(tabEntetesLignes[k]) + ''
+      tableauCL += math ? texNombre(tabEntetesLignes[k]) : `\\text{${stringNombre(tabEntetesLignes[k]) + ''}}`
     } else {
-      tableauCL += '' + tabEntetesLignes[k] + ''
+      tableauCL += math ? tabEntetesLignes[k] : `\\text{${tabEntetesLignes[k] + ''}}`
     }
     for (let m = 1; m < C; m++) {
       if (typeof tabLignes[(C - 1) * k + m - 1] === 'number') {
-        tableauCL += ' & ' + texNombre(tabLignes[(C - 1) * k + m - 1])
+        tableauCL += ` & ${math ? texNombre(tabLignes[(C - 1) * k + m - 1]) : '\\text{' + stringNombre(tabLignes[(C - 1) * k + m - 1]) + '}'}`
       } else {
-        tableauCL += ' & ' + tabLignes[(C - 1) * k + m - 1]
+        tableauCL += ` & ${math ? tabLignes[(C - 1) * k + m - 1] : '\\text{' + tabLignes[(C - 1) * k + m - 1] + '}'}`
       }
     }
     tableauCL += '\\\\\n'

@@ -12,7 +12,7 @@ export const ref = '2N32-2'
 export default function proprietesracinecarree () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Effectuer, si possible, les calculs suivants :'
+  this.consigne = 'Effectuer, si possible, les calculs suivants.'
   this.nbQuestions = 5
   this.nbCols = 2
   this.nbColsCorr = 2
