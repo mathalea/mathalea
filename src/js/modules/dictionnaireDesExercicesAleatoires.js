@@ -1601,7 +1601,7 @@ export default {
     }
   },
   "2N32-7": {
-    "titre": "Rendre entier le dénominateur d'une fraction.",
+    "titre": "Rendre entier le dénominateur d'une fraction",
     "url": "/exercices/2e/2N32-7.js",
     "amcReady": false,
     "interactifReady": false,
@@ -3381,7 +3381,7 @@ export default {
     }
   },
   "3L11-8": {
-    "titre": "Yoh ku multiplicatif expressions littérales niveau 1",
+    "titre": "Yohaku multiplicatif expressions littérales niveau 1",
     "url": "/exercices/3e/3L11-8.js",
     "amcReady": false,
     "interactifReady": true,
@@ -3400,8 +3400,7 @@ export default {
     "titre": "Rose multiplicative littéraux",
     "url": "/exercices/3e/3L11-9.js",
     "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "custom",
+    "interactifReady": false,
     "name": "3L11-9",
     "newEx": {
       "isNew": true,

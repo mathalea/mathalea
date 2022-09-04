@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 492 
-- nombre d'exos interactifReady 769 
+- nombre d'exos interactifReady 768 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -111,8 +111,7 @@
 |3L11-5|Calcul mental et calcul littéral|KO|KO|OK|mathLive|
 |3L11-6|Factoriser une expression complexe|KO|KO|OK|mathLive|
 |3L11-7|Développer des carrés avec la double distributivité|KO|KO|OK|mathLive|
-|3L11-8|Yoh ku multiplicatif expressions littérales niveau 1|KO|KO|OK|custom|
-|3L11-9|Rose multiplicative littéraux|KO|KO|OK|custom|
+|3L11-8|Yohaku multiplicatif expressions littérales niveau 1|KO|KO|OK|custom|
 |3L11|Utiliser la simple distributivité|KO|KO|OK|mathLive|
 |3L12-1|Développer (a-b)(a+b)|KO|KO|OK|mathLive|
 |3L12|Factoriser a²-b²|KO|KO|OK|mathLive|

@@ -1,4 +1,4 @@
-const annee = '2015'
+const annee = '2022'
 const testFolder = 'src/assets/crpe/' + annee
 const fs = require('fs')
 let content = ''
