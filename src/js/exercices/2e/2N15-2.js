@@ -16,7 +16,7 @@ export const ref = '2N15-2'
 export default function ValeurAbsolueEtEquation () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Résoudre dans $\\mathbb{R}$ les équations suivantes  :'
+  this.consigne = 'Résoudre dans $\\mathbb{R}$ les équations suivantes.'
   this.nbQuestions = 4
   this.nbCols = 2
   this.nbColsCorr = 2

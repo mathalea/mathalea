@@ -15,7 +15,7 @@ export const ref = '2N11-1'
 export default function IntervallesDeR () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Répondre aux questions suivantes: :'
+  // this.consigne = ''
   this.nbQuestions = 4
   this.nbCols = 1
   this.nbColsCorr = 1

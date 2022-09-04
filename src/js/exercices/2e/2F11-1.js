@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, combinaisonListes, randint, ecritureParenthese
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import FractionX from '../../modules/FractionEtendue.js'
-export const titre = 'Déterminer l\'image d\'un nombre par une fonction de référence.'
+export const titre = 'Déterminer l\'image d\'un nombre par une fonction de référence'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

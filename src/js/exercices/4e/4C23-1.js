@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, abs, pgcd, produitDeDeuxFractions, simplificationDeFractionAvecEtapes, miseEnEvidence, texFractionSigne, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles, texFraction, ppcm, lettreDepuisChiffre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, pgcd, produitDeDeuxFractions, simplificationDeFractionAvecEtapes, miseEnEvidence, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles, texFraction, ppcm, lettreDepuisChiffre } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
@@ -26,48 +26,48 @@ export default function ExerciceAdditionnerFractionProduit () {
   this.sup3 = true
   this.sup4 = true
   this.titre = titre
-  this.consigne = 'Calculer sous la forme d\'un nombre rationnel relatif irréductible'
+  this.consigne = 'Calculer sous la forme d\'un nombre rationnel relatif irréductible.'
   this.nbCols = 2
   this.spacing = 1
   this.spacingCorr = 2
   this.nbQuestions = 6
-  this.nbColsCorr = this.sup4 ? 2 : 1;
+  this.nbColsCorr = this.sup4 ? 2 : 1
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = false
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
-    this.listeQuestions = []    // Liste de questions
-    this.listeCorrections = []  // Liste de questions corrigées
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     let typesDeQuestionsDisponibles
     const listeFractions = obtenirListeFractionsIrreductibles()
     const listeFractionsFaciles = obtenirListeFractionsIrreductiblesFaciles()
-    let piegeObligatoire = false;
-    
+    let piegeObligatoire = false
+
     // Définition des styles d'exercices
     switch (this.sup) {
       case 1: // Fractions faciles, tout enchaînement d'opérations possibles
         typesDeQuestionsDisponibles = [1, 2]
-        break;
-        
+        break
+
       case 2: // Fractions standards, tout enchaînement d'opérations possibles
         typesDeQuestionsDisponibles = [1, 2]
-        break;
+        break
 
       case 3: // Uniquement expressions pièges démarrant sur une opération prioritaire *ou pas*
         typesDeQuestionsDisponibles = [1, 2]
-        piegeObligatoire = true;
-        break;
+        piegeObligatoire = true
+        break
 
       case 4: // Uniquement des expressions pièges démarrant sur une opération non prioritaire`
-        typesDeQuestionsDisponibles = [1]           
-        piegeObligatoire = true;
-        break;
+        typesDeQuestionsDisponibles = [1]
+        piegeObligatoire = true
+        break
 
       default: // En cas de pépin…
         typesDeQuestionsDisponibles = [1]
-        break;      
+        break
     }
 
     const listeTypeDeQuestions = combinaisonListes(
@@ -103,33 +103,33 @@ export default function ExerciceAdditionnerFractionProduit () {
 
     ) {
       typesDeQuestions = listeTypeDeQuestions[i]
-      
+
       if (this.sup === 1) {
         ab = choice(listeFractionsFaciles); cd = choice(listeFractionsFaciles); ef = choice(listeFractionsFaciles)
       } else {
         ab = choice(listeFractions); cd = choice(listeFractions); ef = choice(listeFractions)
       }
-      
+
       [a, b] = ab;
       [c, d] = cd;
-      [e, f] = ef;
-      
-      if(this.sup2) { [a,b,c,d,e,f] = [a,b,c,d,e,f].map(e => e * randint(-1, 1, [0])); }
-     
-      operation1 = randint(0,1);                  // Pioche la soustraction (0) ou l'addition (1)
-      operation2 = this.sup3 ? randint(0,1) : 1;  // Si l'option est cochée, Pioche la division (0) ou la multiplication (1)
-      texteOperation1 = operation1 ? '+' : '-';
-      texteOperation2 = operation2 ? ' \\times ' : ' \\div ';
-      texte = '';
+      [e, f] = ef
+
+      if (this.sup2) { [a, b, c, d, e, f] = [a, b, c, d, e, f].map(e => e * randint(-1, 1, [0])) }
+
+      operation1 = randint(0, 1) // Pioche la soustraction (0) ou l'addition (1)
+      operation2 = this.sup3 ? randint(0, 1) : 1 // Si l'option est cochée, Pioche la division (0) ou la multiplication (1)
+      texteOperation1 = operation1 ? '+' : '-'
+      texteOperation2 = operation2 ? ' \\times ' : ' \\div '
+      texte = ''
 
       switch (typesDeQuestions) {
         case 1: // De la forme : « a⁄b ± c⁄d ×÷ e⁄f »
           if (piegeObligatoire) { d = b };
-        
+
           texte += `$${texFraction(a, b)} ${texteOperation1} ${texFraction(c, d)} ${texteOperation2} ${texFraction(e, f)}$`
 
           texteCorr = `$${texFraction(a, b)} ${texteOperation1} ${texFraction(c, d)} ${texteOperation2} ${texFraction(e, f)}$`
-          if(!operation2) { // Si il y a division, multiplier par l'inverse du diviseur
+          if (!operation2) { // Si il y a division, multiplier par l'inverse du diviseur
             [e, f] = [f, e]
             texteCorr += `$=${texFraction(a, b)} ${texteOperation1} ${texFraction(c, d)} \\times ${texFraction(e, f)}$`
           }
@@ -141,7 +141,7 @@ export default function ExerciceAdditionnerFractionProduit () {
             texteCorr += `$=${texFraction(a, b)} ${texteOperation1} ${produit[1]}$`
             texteCorr += `$=${texFraction(a, b)} ${texteOperation1} ${produit[0]}$`
           }
-          
+
           // faut-il simplifier c×e⁄d×f ?
           if (!this.correctionDetaillee) {
             [c, d, e, f] = produit[2]
@@ -175,22 +175,22 @@ export default function ExerciceAdditionnerFractionProduit () {
           }
 
           texteCorr += `$=${texFraction(a * k1, p)} ${texteOperation1} ${texFraction(c * k2, p)}$`
-          e = operation1 ? a * k1 + c * k2 : a * k1 - c * k2;
+          e = operation1 ? a * k1 + c * k2 : a * k1 - c * k2
           f = p
           texteCorr += `$=${texFraction(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$`
           reponse = fraction(e, f).simplifie()
-          break;
+          break
 
         case 2: // De la forme : « c⁄d ×÷ e⁄f ± a⁄b »
           if (piegeObligatoire) { f = b };
           texte += `$${texFraction(c, d)} ${texteOperation2} ${texFraction(e, f)} ${texteOperation1} ${texFraction(a, b)}$`
-          
+
           texteCorr = `$${texFraction(c, d)} ${texteOperation2} ${texFraction(e, f)} ${texteOperation1} ${texFraction(a, b)}$`
-          if(!operation2) { // Si il y a division, multiplier par l'inverse du diviseur
+          if (!operation2) { // Si il y a division, multiplier par l'inverse du diviseur
             [e, f] = [f, e]
             texteCorr += `$=${texFraction(c, d)} \\times ${texFraction(e, f)} ${texteOperation1} ${texFraction(a, b)}$`
           }
-          
+
           produit = produitDeDeuxFractions(c, d, e, f)
           texteCorr += `$=${texFraction(c, d)}\\times ${texFraction(e, f)} ${texteOperation1} ${texFraction(a, b)}$`
           if (this.correctionDetaillee) {
@@ -200,7 +200,7 @@ export default function ExerciceAdditionnerFractionProduit () {
             texteCorr += `$=${produit[1]} ${texteOperation1} ${texFraction(a, b)}$`
             texteCorr += `$=${produit[0]} ${texteOperation1} ${texFraction(a, b)}$`
           }
-          
+
           // faut-il simplifier c×e⁄d×f ?
           if (!this.correctionDetaillee) {
             [c, d, e, f] = produit[2]
@@ -242,12 +242,12 @@ export default function ExerciceAdditionnerFractionProduit () {
           if (this.correctionDetaillee) {
             texteCorr += `$=${texFraction(c * k2, p)} ${texteOperation1} ${texFraction(a * k1, p)}$`
           }
-          e = operation1 ? c * k2 + a * k1 : c * k2 - a * k1 ;
+          e = operation1 ? c * k2 + a * k1 : c * k2 - a * k1
           f = p
 
           texteCorr += `$=${texFraction(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$`
           reponse = fraction(e, f).simplifie()
-          break;
+          break
       }
 
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
@@ -277,7 +277,7 @@ export default function ExerciceAdditionnerFractionProduit () {
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
   this.besoinFormulaireNumerique = [
-    `Style d'expressions`,
+    'Style d\'expressions',
     4,
 `   1 : Fractions faciles, tout enchaînement d'opérations possibles
     2 : Fractions standards, tout enchaînement d'opérations possibles
@@ -287,5 +287,4 @@ export default function ExerciceAdditionnerFractionProduit () {
   this.besoinFormulaire2CaseACocher = ['Utiliser les nombres relatifs', false]
   this.besoinFormulaire3CaseACocher = ['Utiliser les divisions', true]
   this.besoinFormulaire4CaseACocher = ['Présentation des calculs en colonnes', true]
-  
 }

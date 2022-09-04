@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, randint, choice, combinaisonListes, reduireAxP
 import { context } from '../../modules/context.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
-export const titre = 'Reconnaître une fonction affine.'
+export const titre = 'Reconnaître une fonction affine'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
@@ -21,7 +21,7 @@ export default function Reconnaitrefonctionaffine () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.video = ''
-  this.consigne = 'Déterminer, en expliquant, si les fonctions suivantes sont, ou non, des fonctions affines :'
+  this.consigne = 'Déterminer, en expliquant, si les fonctions suivantes sont, ou non, des fonctions affines.'
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacing = 1

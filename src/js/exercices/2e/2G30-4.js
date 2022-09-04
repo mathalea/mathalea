@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, ecritureAlgebrique, ecritureParentheseSiNegatif, ecritureAlgebriqueSauf1, reduireAxPlusB } from '../../modules/outils.js'
-export const titre = 'Déterminer une équation cartésienne de droite à partir d\'un point et d\'un vecteur directeur.'
+export const titre = 'Déterminer une équation cartésienne de droite à partir d\'un point et d\'un vecteur directeur'
 // totoche
 /**
  * Description didactique de l'exercice
@@ -12,7 +12,7 @@ export const ref = '2G30-4'
 export default function equationcartesienne () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Déterminer une équation cartésienne de la droite $\\bm(d)$'
+  this.consigne = 'Déterminer une équation cartésienne de la droite $\\bm(d)$.'
   this.nbQuestions = 2
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX

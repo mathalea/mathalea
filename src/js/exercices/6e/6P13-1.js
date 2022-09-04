@@ -14,7 +14,7 @@ export const ref = '6P13-1'
 export default function CompleterUneFacture () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Compléter le tableau suivant : '
+  this.consigne = 'Compléter le tableau suivant.'
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.nbCols = 1 // Uniquement pour la sortie LaTeX

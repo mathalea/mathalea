@@ -3,7 +3,7 @@ import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice, ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../modules/outils.js'
 import { repere, point, vecteur, nomVecteurParPosition, texteParPosition, longueur, homothetie, latexParPoint } from '../../modules/2d.js'
 
-export const titre = 'Coordonnées de vecteurs et translations.'
+export const titre = 'Coordonnées de vecteurs et translations'
 
 /**
  * Calculer les coordonnées d'un point image ou antécédent d'un autre par une translation

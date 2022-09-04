@@ -2852,6 +2852,7 @@ export function polygoneRegulierParCentreEtRayon (O, r, n, color = 'black') {
  * texteColor : sa couleur
  * textMath : un booléen qui détermine la police (true -> Book Antiqua Italic)
  * echelleFigure : pour passer la valeur de scale de tikzPicture (valeur scale de la commande mathalea) afin d'adapter la taille du texte dans la boite à la résolution
+ * @class
  * @author Jean-Claude Lhote
  */
 class Boite {
@@ -2881,7 +2882,24 @@ class Boite {
     }
   }
 }
-
+/**
+ * Crée un rectangle positionné horizontal/vertical avec possibilité d'écrire du texte dedans
+ * @param {number} [Xmin = 0] abscisse du sommet en bas à gauche
+ * @param {number} [Ymin = 0] ordonnée du sommet en bas à gauche
+ * @param {number} [Xmax = 1] abscisse du sommet en haut à droite
+ * @param {number} [Ymax = 1] ordonnée du sommet en haut à droite
+ * @param {string} [color = 'black'] couleur du cadre
+ * @param {string} [colorFill = 'none'] couleur de remplissage
+ * @param {number} [opaciteDeRemplissage = 0.7] comme son nom l'indique utilisé si colorFill !== 'none'
+ * @param {string} texteIn Texte à afficher (On peut passer du latex si texteIn commence et finit par $)
+ * @param {number} [tailleTexte = 1] permet de modifier la taille du texteIn
+ * @param {string} [texteColor = 'black'] permet de choisir la couleur du texteIn
+ * @param {number} [texteOpacite = 0.7] indice d'opacité du texte de 0 à 1
+ * @param {boolean} [texteMa = false] Si le texte n'est pas du latex, change la police pour mettre un style mathématique si true
+ * @param {number} [echelleFigure = 1] permet de passer le scale utilisé dans la fonction mathalea2d afin d'adapter la taille du texte en latex
+ * @return {Boite}
+ * @author Rémi Angot et Frédéric Piou
+ */
 export function boite ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black', colorFill = 'none', opaciteDeRemplissage = 0.7, texteIn = '', tailleTexte = 1, texteColor = 'black', texteOpacite = 0.7, texteMath = false, echelleFigure = 1 } = {}) {
   return new Boite({ Xmin: Xmin, Ymin: Ymin, Xmax: Xmax, Ymax: Ymax, color: color, colorFill: colorFill, opaciteDeRemplissage: opaciteDeRemplissage, texteIn: texteIn, tailleTexte: tailleTexte, texteColor: texteColor, texteOpacite: texteOpacite, texteMath: texteMath, echelleFigure: echelleFigure })
 }
@@ -2898,7 +2916,16 @@ export function polygoneToFlatArray (P) {
   }
   return flatArray
 }
-
+/**
+ *
+ * @param {number[]} [data = []] tableau à une seule dimension (flat array) contenant les coordonnées des sommets (extérieurs et intérieurs) du polygone
+ * @param {number[]} [holes = []] tableau à une seule dimension contenant les indices des points qui démarrent un 'trou' dans le tableau data (exemple : holes = [4, 8] indique que les points 4 à 7 définissent un trou ainsi que 8 et suivants, donc les coordonnées 8 à 15 et 16 à ...(ne pas oublier que 1 point = 2 coordonnées))
+ * @param {string} [noms = ''] chaine donnant les noms des sommets
+ * @param {string} [color = 'black'] couleur du polygone
+ * @param {string} [couleurDeRemplissage = ' blue'] la couleur de remplissage
+ * @param {string} [couleurDeFond = 'white'] la couleur des trous
+ * @class
+ */
 function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', couleurDeRemplissage = 'blue', couleurDeFond = 'white' }) {
   ObjetMathalea2D.call(this, { })
   const triangles = earcut(data, holes) // on crée le pavage de triangles grâce à Mapbox/earcut
@@ -2975,13 +3002,13 @@ function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', co
 /**
  * Cet objet permet de créer un polygone avec une surface contenant des 'trous' eux-mêmes polygonaux
  * cerise sur le gâteau, la propriété this.triangulation fournit une liste de triangles pavant le polygone
- * @param {number[]} data contient la liste des coordonnées des sommets (contour puis trous)
- * @param {number[]} holes contient la liste des indices des points formant les trous
- * @param {string} noms contient les noms des sommets
- * @param {string} color est la couleur des bords
- * @param {string} couleurDeRemplissage est la couleur de la surface
- * @param {string} couleurDeFond est la couleur de remplissage des trous
- * @return {ObjetMathalea2D} un polygone à trous (ou pas : il peut ne pas y avoir de trou !)
+ * @param {number[]} [data = []] contient la liste des coordonnées des sommets (contour puis trous) 2 coordonnées par point dans l'ordre abscisse, ordonnée
+ * @param {number[]}  [holes = []] tableau à une seule dimension contenant les indices des points qui démarrent un 'trou' dans le tableau data (exemple : holes = [4, 8] indique que les points 4 à 7 définissent un trou ainsi que 8 et suivants, donc les coordonnées 8 à 15 et 16 à ...(ne pas oublier que 1 point = 2 coordonnées))
+ * @param {string} [noms = ''] contient les noms des sommets
+ * @param {string} [color = 'black'] est la couleur des bords
+ * @param {string} [couleurDeRemplissage = 'blue'] est la couleur de la surface
+ * @param {string} [couleurDeFond = 'white'] est la couleur de remplissage des trous
+ * @return {PolygoneaTrou} un polygone à trous (ou pas : il peut ne pas y avoir de trou !)
  */
 export function polygoneATrous ({ data = [], holes = [], noms = '', color = 'black', couleurDeRemplissage = 'blue', couleurDeFond = 'white' }) {
   return new PolygoneATrous({ data, holes, noms, color, couleurDeRemplissage, couleurDeFond })

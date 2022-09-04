@@ -14,7 +14,7 @@ export const ref = '2N11-2'
 export default function UnionEtIntersectionIntervallesDeR () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Répondre aux questions suivantes: :'
+  // this.consigne = ''
   this.nbQuestions = 4
   this.nbCols = 2
   this.nbColsCorr = 2
