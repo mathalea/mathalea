@@ -1292,13 +1292,15 @@ export function unSiPositifMoinsUnSinon (a) {
   else return 1
 }
 /**
-* Retourne la somme des chiffres d'un nombre en valeur et sous forme de String [valeur, String]
+* Retourne la somme des chiffres (ou d'un tableau de chiffres) d'un nombre en valeur et sous forme de String [valeur, String]
 * @Example
-* sommeDesChiffress(123)
+* sommeDesChiffres(123)
 * // [ 6, '1+2+3']
-* @author Rémi Angot
+* @author Rémi Angot (Rajout Tableau par EE)
 */export function sommeDesChiffres (n) {
-  const nString = n.toString()
+  let nString
+  if (Array.isArray(n)) nString = n.join('').toString()
+  else nString = n.toString()
   let somme = 0
   let sommeString = ''
   for (let i = 0; i < nString.length - 1; i++) {
