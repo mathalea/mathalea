@@ -16,7 +16,6 @@ export const dateDePublication = '29/08/2022'
  * Référence 3A10-5
  */
 
-export const ref = '3A10-5'
 export default function recourirDecompositionFacteursPremiers () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 4
