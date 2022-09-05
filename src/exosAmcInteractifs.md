@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 492 
-- nombre d'exos interactifReady 768 
+- nombre d'exos interactifReady 767 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -385,7 +385,6 @@
 |6S10-1|Représenter des données par un diagramme|OK|AMCHybride|OK|qcm|
 |6S10|Lire un diagramme en barres|OK|AMCHybride|OK|mathLive|
 |FichierDeTests|Calculer un angle, déduit de figures simples|KO|KO|OK|mathLive|
-|Yohaku|Générateur de Yohaku|KO|KO|OK|custom|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|mathLive|
 |CM001|Tables de multiplication|OK|AMCNum|OK|mathLive|
 |CM002|Tables de divisions|OK|AMCNum|OK|mathLive|

@@ -1423,13 +1423,13 @@ export function texFractionReduite (n, d) {
 export function produitDeDeuxFractions (num1, den1, num2, den2) {
   let num, den, texProduit
   if (num1 === den2) {
-    texProduit = `\\dfrac{\\cancel{${num1}}\\times ${num2}}{${den1}\\times\\cancel{${den2}}}`
+    texProduit = `\\dfrac{\\cancel{${num1}}\\times ${ecritureParentheseSiNegatif(num2)}}{${den1}\\times\\cancel{${ecritureParentheseSiNegatif(den2)}}}`
     num = num2
     num1 = 1
     den2 = 1
     den = den1
   } else if (num2 === den1) {
-    texProduit = `\\dfrac{${num1}\\times \\cancel{${num2}}}{\\cancel{${den1}}\\times${den2}}`
+    texProduit = `\\dfrac{${num1}\\times \\cancel{${ecritureParentheseSiNegatif(num2)}}}{\\cancel{${den1}}\\times${ecritureParentheseSiNegatif(den2)}}`
     num = num1
     num2 = 1
     den1 = 1
@@ -1437,7 +1437,7 @@ export function produitDeDeuxFractions (num1, den1, num2, den2) {
   } else {
     num = num1 * num2
     den = den1 * den2
-    texProduit = `\\dfrac{${num1}\\times ${num2}}{${den1}\\times${den2}}`
+    texProduit = `\\dfrac{${num1}\\times ${ecritureParentheseSiNegatif(num2)}}{${den1}\\times${ecritureParentheseSiNegatif(den2)}}`
   }
   return [texFraction(num, den), texProduit, [num1, den1, num2, den2]]
 }
