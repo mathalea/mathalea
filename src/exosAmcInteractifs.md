@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 492 
-- nombre d'exos interactifReady 769 
+- nombre d'exos interactifReady 767 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -12,13 +12,13 @@
 |1G10|Valeurs remarquables du cosinus et sinus|KO|KO|OK|mathLive|
 |1G11|Mesure principale d'un angle|KO|KO|OK|mathLive|
 |1G12|cos et sin associés à un réel x |KO|KO|OK|mathLive|
-|2F10-1|Reconnaître une fonction affine.|OK|qcmMono|OK|qcm|
+|2F10-1|Reconnaître une fonction affine|OK|qcmMono|OK|qcm|
 |2F10-2|Lecture graphique d'une fonction affine|OK|AMCHybride|OK|mathLive|
-|2F11-1|Déterminer l'image d'un nombre par une fonction de référence.|OK|AMCNum|OK|mathLive|
+|2F11-1|Déterminer l'image d'un nombre par une fonction de référence|OK|AMCNum|OK|mathLive|
 |2F25-2|Étudier la parité d'une fonction|OK|qcmMono|OK|qcm|
 |2F32-2|Déterminer graphiquement les extremums|OK|AMCHybride|OK|mathLive|
 |2G11-5|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
-|2G30-1|Déterminer le coefficient directeur d'une droite.|OK|AMCHybride|OK|mathLive|
+|2G30-1|Déterminer le coefficient directeur d'une droite|OK|AMCHybride|OK|mathLive|
 |2G35-7|Lecture graphique des coefficients d'une équation réduite |OK|AMCHybride|OK|mathLive|
 |2N10-1|Lire l’abscisse décimale d’un point repéré par une fraction|OK|AMCHybride|OK|mathLive|
 |2N10-2|Placer un point d'abscisse décimale|OK|AMCOpen|OK|custom|
@@ -42,7 +42,7 @@
 |2N31-4|Calculs utilisant les priorités opératoires et les puissances|OK|AMCOpenNum|KO|KO|
 |2N32-4|Simplifier une somme de racines carrées|KO|KO|OK|mathLive|
 |2N40-1|Traduire un programme de calcul par une expression littérale|OK|qcmMono|OK|qcm|
-|2N40-2|Calculer la valeur d'une expression littérale.|KO|KO|OK|mathLive|
+|2N40-2|Calculer la valeur d'une expression littérale|KO|KO|OK|mathLive|
 |2N40-3|Écrire une expression littérale|OK|qcmMult|OK|qcm|
 |2N40-4|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
 |2N40-5|Factoriser une expression|OK|AMCOpen|OK|mathLive|
@@ -111,8 +111,7 @@
 |3L11-5|Calcul mental et calcul littéral|KO|KO|OK|mathLive|
 |3L11-6|Factoriser une expression complexe|KO|KO|OK|mathLive|
 |3L11-7|Développer des carrés avec la double distributivité|KO|KO|OK|mathLive|
-|3L11-8|Yoh ku multiplicatif expressions littérales niveau 1|KO|KO|OK|custom|
-|3L11-9|Rose multiplicative littéraux|KO|KO|OK|custom|
+|3L11-8|Yohaku multiplicatif expressions littérales niveau 1|KO|KO|OK|custom|
 |3L11|Utiliser la simple distributivité|KO|KO|OK|mathLive|
 |3L12-1|Développer (a-b)(a+b)|KO|KO|OK|mathLive|
 |3L12|Factoriser a²-b²|KO|KO|OK|mathLive|
@@ -276,7 +275,7 @@
 |6C30-3|Effectuer des opérations avec les nombres décimaux|OK|qcmMono|OK|qcm|
 |6C30-4|Multiplier par 0,1 ; 0,01 ; 0,001 (placer la virgule)|OK|qcmMono|OK|qcm|
 |6C30-5|Multiplier par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient)|OK|qcmMono|OK|qcm|
-|6C30-6|Par combien multiplier un nombre pour que le chiffre des unités devienne le chiffre des ...|OK|qcmMono|OK|qcm|
+|6C30-6|Par combien multiplier un nombre pour que le chiffre des unités devienne le chiffre des ... ?|OK|qcmMono|OK|qcm|
 |6C30-7|Par combien diviser un nombre pour que le chiffre des unités devienne le chiffre des ...|OK|qcmMono|OK|qcm|
 |6C30-8|Diviser par 10, 100 ou 1 000|OK|qcmMono|OK|qcm|
 |6C30|Poser des multiplications de nombres décimaux|OK|AMCNum|OK|mathLive|
@@ -340,7 +339,7 @@
 |6N10|Écrire un nombre entier en chiffres ou en lettres|KO|KO|OK|mathLive|
 |6N11-2|Placer un point d'abscisse entière (grands nombres)|OK|AMCOpen|OK|custom|
 |6N11|Lire l'abscisse entière d'un point (grands nombres)|OK|AMCOpen|OK|mathLive|
-|6N12-1|Par combien multiplier un entier pour que le chiffre des unités devienne le chiffre des ...|OK|qcmMono|OK|qcm|
+|6N12-1|Par combien multiplier un entier pour que le chiffre des unités devienne le chiffre des ... ?|OK|qcmMono|OK|qcm|
 |6N13|Convertir des longueurs, masses, capacités, prix ou unités informatiques|OK|AMCNum|OK|mathLive|
 |6N14|Représenter des fractions|OK|AMCHybride|KO|KO|
 |6N20-1|Encadrer une fraction entre deux nombres entiers consécutifs|OK|AMCHybride|OK|mathLive|
@@ -386,7 +385,6 @@
 |6S10-1|Représenter des données par un diagramme|OK|AMCHybride|OK|qcm|
 |6S10|Lire un diagramme en barres|OK|AMCHybride|OK|mathLive|
 |FichierDeTests|Calculer un angle, déduit de figures simples|KO|KO|OK|mathLive|
-|Yohaku|Générateur de Yohaku|KO|KO|OK|custom|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|mathLive|
 |CM001|Tables de multiplication|OK|AMCNum|OK|mathLive|
 |CM002|Tables de divisions|OK|AMCNum|OK|mathLive|
@@ -523,7 +521,7 @@
 |can2F10|Résoudre une équation avec une fonction de référence*|KO|KO|OK|qcm|
 |can2F11|Utiliser la fonction carré pour comparer deux images|KO|KO|OK|qcm|
 |can2F12|Utiliser une fonction de référence (inverse, cube, racine) pour comparer deux images|KO|KO|OK|qcm|
-|can2F13|Déterminer l’image d’un nombre par une fonction de référence.|OK|AMCNum|OK|mathLive|
+|can2F13|Déterminer l’image d’un nombre par une fonction de référence|OK|AMCNum|OK|mathLive|
 |can2G01|Déterminer un agrandissement/réduction avec fraction|OK|AMCNum|OK|mathLive|
 |can2G02|Calculer une longueur avec le théorème de Pythagore|KO|KO|OK|mathLive|
 |can2G03|Calculer l’hypoténuse avec le théorème de Pythagore|KO|KO|OK|mathLive|

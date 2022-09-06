@@ -157,7 +157,20 @@ export function propositionsQcm (exercice, i) {
   } else {
     texte += nbCols === 1 ? '' : '\\end{multicols}'
   }
-  return { texte: texte, texteCorr: texteCorr }
+
+  // GESTION DE LA V3
+  if (context.isHtml && context.versionMathalea === 3 && exercice.interactif) {
+    texte = ''
+    for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
+      texte += `<div class="ex${exercice.numeroExercice} monQcm">
+      <input type="checkbox" tabindex="0"  id="checkEx${exercice.numeroExercice}Q${i}R${rep}">
+      <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}" class="ml-2">${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>
+      <div id="feedbackEx${exercice.numeroExercice}Q${i}"></div>
+      </div>`
+    }
+    texte += `<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+  }
+  return { texte, texteCorr }
 }
 
 /**
