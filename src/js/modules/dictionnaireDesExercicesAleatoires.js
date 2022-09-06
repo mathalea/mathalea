@@ -9316,7 +9316,7 @@ export default {
     "interactifReady": false,
     "name": "6N11-5",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
