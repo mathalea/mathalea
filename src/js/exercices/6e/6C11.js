@@ -35,13 +35,15 @@ export default function DivisionsEuclidiennes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 2
   this.titre = titre
-  this.consigne = "Poser et effectuer les divisions euclidiennes suivantes puis donner l'égalité fondamentale correspondante."
   this.spacing = 2
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opidiv n'est pas joli
   this.nbQuestions = 4
   this.listePackages = 'xlop'
 
   this.nouvelleVersion = function () {
+    this.consigne = 'Poser et effectuer '
+    this.consigne += this.nbQuestions === 1 ? 'la division euclidienne suivante ' : 'les divisions euclidiennes suivantes '
+    this.consigne += "puis donner l'égalité fondamentale correspondante."
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
