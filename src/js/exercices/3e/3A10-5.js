@@ -16,6 +16,7 @@ export const dateDePublication = '29/08/2022'
  * Référence 3A10-5
  */
 
+export const uuid = 'eee79'
 export const ref = '3A10-5'
 export default function recourirDecompositionFacteursPremiers () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -73,19 +74,18 @@ export default function recourirDecompositionFacteursPremiers () {
     if (this.interactif) this.consigne += '<br>Indiquer les facteurs par ordre croissant.'
     let typesDeQuestionsDisponibles = []
     if (!this.sup) { // Si aucune liste n'est saisie
-      typesDeQuestionsDisponibles = range1(6)
+      typesDeQuestionsDisponibles = 5
     } else {
       if (typeof (this.sup) === 'number') {
-        this.sup = Math.max(Math.min(parseInt(this.sup), 7), 1)
+        this.sup = Math.max(Math.min(parseInt(this.sup), 5), 1)
         typesDeQuestionsDisponibles[0] = this.sup
       } else {
         typesDeQuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          typesDeQuestionsDisponibles[i] = contraindreValeur(1, 6, parseInt(typesDeQuestionsDisponibles[i]), 6)
+          typesDeQuestionsDisponibles[i] = contraindreValeur(1, 5, parseInt(typesDeQuestionsDisponibles[i]), 5)
         }
       }
     }
-    typesDeQuestionsDisponibles = [1]
     if (compteOccurences(typesDeQuestionsDisponibles, 5) > 0) typesDeQuestionsDisponibles = range1(4) // Teste si l'utilisateur a choisi tout
     const puissanceMax = contraindreValeur(2, 5, this.sup2, 3)
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)

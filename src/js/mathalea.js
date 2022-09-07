@@ -475,9 +475,9 @@ function contenuExerciceHtml (obj, numeroExercice) {
         }
         // Pour la numérotation de diapCorr, il faut qu'il y ait toujours des listes même s'il n'y a qu'une seule question
         if (obj.nbQuestions === 1 && context.vue !== 'diapCorr') {
-          contenuUneCorrection += obj.correctionIsCachee ? 'Correction masquée' : `<div><div class="correction">${obj.contenuCorrection}</div></div>`
+          contenuUneCorrection += obj.correctionIsCachee ? 'Correction masquée' : `<div><div class="correction">${obj.correction}</div></div>`
         } else {
-          contenuUneCorrection += `<li class="correction">${obj.correctionIsCachee ? 'Correction masquée' : obj.contenuCorrection}</li>`
+          contenuUneCorrection += `<li class="correction">${obj.correctionIsCachee ? 'Correction masquée' : obj.correction}</li>`
         }
         numQuestion++
       }

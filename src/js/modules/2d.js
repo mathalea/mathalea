@@ -660,18 +660,35 @@ function LabelPoint (...points) {
 export function labelPoint (...args) {
   return new LabelPoint(...args)
 }
+
 /**
- * labelLatexPoint(A,B) pour nommer les points A et B
- * Le nombre d'arguments n'est pas limité
- * A utiliser par exemple si le label est A_1
+ * Associe à tous les points passés en paramètre, son label, défini préalablement en Latex. Par exemple, si besoin de nommer le point A_1.
+ * @param {number} [distance=1.5] Taille de l'angle
+ * @param {string} [label=''] Si vide, alors affiche la mesure de l'angle sinon affiche ce label.
+ * @param {Object} parametres À saisir entre accolades
+ * @param {Point|Point[]} [parametres.points = []] Point ou tableau de points
+ * @param {string} [parametres.color = 'black'] Couleur du label : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.taille = 8] Taille du label
+ * @param {number} [parametres.largeur = 10] Largeur en pixels du label à des fins de centrage
+ * @param {number} [parametres.hauteur = 10] Hauteur en pixels du label à des fins de centrage
+ * @param {string} [parametres.couleurDeRemplissage=''] Couleur de fond de ce label : du type 'blue' ou du type '#f15929'
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} color Couleur du label. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {number} taille Taille du label
+ * @property {number} largeur Largeur en pixels du label à des fins de centrage
+ * @property {number} hauteur Hauteur en pixels du label à des fins de centrage
+ * @property {string} couleurDeRemplissage Couleur de fond de ce label. À associer obligatoirement à colorToLatexOrHTML().
  * @author Rémi Angot et Jean-Claude Lhote
+ * @class
  */
-function LabelLatexPoint ({ points = [], color = 'black', taille = 8, largeur = 10, hauteur = 10, background = '' }) {
+// JSDOC Validee par EE Juin 2022
+function LabelLatexPoint ({ points = [], color = 'black', taille = 8, largeur = 10, hauteur = 10, couleurDeRemplissage = '' } = {}) {
   ObjetMathalea2D.call(this, { })
   this.taille = taille
   this.largeur = largeur
   this.hauteur = hauteur
-  this.background = background
+  this.couleurDeRemplissage = couleurDeRemplissage
   this.color = color
 
   const offset = 0.25 * Math.log10(this.taille) // context.pixelsParCm ne correspond pas forcément à la valeur utilisée par mathalea2d... cela peut entrainer un trés léger écart
@@ -695,28 +712,28 @@ function LabelLatexPoint ({ points = [], color = 'black', taille = 8, largeur = 
     y = A.y
     switch (A.positionLabel) {
       case 'left':
-        objets.push(latexParCoordonnees(A.nom, x - offset, y, this.color, this.largeur, this.hauteur, this.background, this.taille))
+        objets.push(latexParCoordonnees(A.nom, x - offset, y, this.color, this.largeur, this.hauteur, this.couleurDeRemplissage, this.taille))
         break
       case 'right':
-        objets.push(latexParCoordonnees(A.nom, x + offset, y, this.color, this.largeur, this.hauteur, this.background, this.taille))
+        objets.push(latexParCoordonnees(A.nom, x + offset, y, this.color, this.largeur, this.hauteur, this.couleurDeRemplissage, this.taille))
         break
       case 'below':
-        objets.push(latexParCoordonnees(A.nom, x, y - offset, this.color, this.largeur, this.hauteur, this.background, this.taille))
+        objets.push(latexParCoordonnees(A.nom, x, y - offset, this.color, this.largeur, this.hauteur, this.couleurDeRemplissage, this.taille))
         break
       case 'above':
-        objets.push(latexParCoordonnees(A.nom, x, y + offset, this.color, this.largeur, this.hauteur, this.background, this.taille))
+        objets.push(latexParCoordonnees(A.nom, x, y + offset, this.color, this.largeur, this.hauteur, this.couleurDeRemplissage, this.taille))
         break
       case 'above right':
-        objets.push(latexParCoordonnees(A.nom, x + offset, y + offset, this.color, this.largeur, this.hauteur, this.background, this.taille))
+        objets.push(latexParCoordonnees(A.nom, x + offset, y + offset, this.color, this.largeur, this.hauteur, this.couleurDeRemplissage, this.taille))
         break
       case 'below left':
-        objets.push(latexParCoordonnees(A.nom, x - offset, y - offset, this.color, this.largeur, this.hauteur, this.background, this.taille))
+        objets.push(latexParCoordonnees(A.nom, x - offset, y - offset, this.color, this.largeur, this.hauteur, this.couleurDeRemplissage, this.taille))
         break
       case 'below right':
-        objets.push(latexParCoordonnees(A.nom, x + offset, y - offset, this.color, this.largeur, this.hauteur, this.background, this.taille))
+        objets.push(latexParCoordonnees(A.nom, x + offset, y - offset, this.color, this.largeur, this.hauteur, this.couleurDeRemplissage, this.taille))
         break
       default:
-        objets.push(latexParCoordonnees(A.nom, x - offset, y + offset, this.color, this.largeur, this.hauteur, this.background, this.taille))
+        objets.push(latexParCoordonnees(A.nom, x - offset, y + offset, this.color, this.largeur, this.hauteur, this.couleurDeRemplissage, this.taille))
         break
     }
   }
@@ -737,18 +754,23 @@ function LabelLatexPoint ({ points = [], color = 'black', taille = 8, largeur = 
     return code
   }
 }
+
 /**
- * Nomme les points passés en argument, le nombre d'arguments n'est pas limité.
- * @param  {objext} points: un tableau des points dont on veut afficher les labels
- * color: leur couleur
- * taille: la taille du texte (voir latexParCoordonnees)
- * largeur: la largeur en pixels du label (par défaut 10) a des fins de centrage
- * hauteur: la hauteur en pixels du label à des fins de centrage
- * background: transparent si '' sinon une couleur
- * @return {LabelLatexPoint} LabelLatexPoint
+ * Associe à tous les points passés en paramètre, son label, défini préalablement en Latex. Par exemple, si besoin de nommer le point A_1.
+ * @param {number} [distance=1.5] Taille de l'angle
+ * @param {string} [label=''] Si vide, alors affiche la mesure de l'angle sinon affiche ce label.
+ * @param {Object} parametres À saisir entre accolades
+ * @param {Point|Point[]} [parametres.points] Point ou tableau de points
+ * @param {string} [parametres.color = 'black'] Couleur du label : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.taille = 8] Taille du label
+ * @param {number} [parametres.largeur = 10] Largeur en pixels du label à des fins de centrage
+ * @param {number} [parametres.hauteur = 10] Hauteur en pixels du label à des fins de centrage
+ * @param {string} [parametres.couleurDeRemplissage=''] Couleur de fond de ce label : du type 'blue' ou du type '#f15929'
  * @author Rémi Angot et Jean-Claude Lhote
+ * @return {LabelLatexPoint}
  */
-export function labelLatexPoint ({ points, color = 'black', taille = 8, largeur = 10, hauteur = 10, background = '' }) {
+// JSDOC Validee par EE Juin 2022
+export function labelLatexPoint ({ points, color = 'black', taille = 8, largeur = 10, hauteur = 10, background = '' } = {}) {
   return new LabelLatexPoint({ points: points, color: color, taille: taille, largeur: largeur, hauteur: hauteur, background: background })
 }
 

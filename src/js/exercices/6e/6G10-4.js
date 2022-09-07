@@ -77,8 +77,8 @@ export default function VocabulaireDuCercle () {
       const OA = segment(O, A)
       const BC = segment(B, C)
       const DE = segment(D, E)
-      const polygon = polygoneAvecNom(A, B, C, D, E, 'white')
-      objetsEnonce.push(leCercle, labelPoint(O), tracePoint(O), OA, BC, DE, polygon)
+      const polygon = polygoneAvecNom([A, B, C, D, E], 'white')
+      objetsEnonce.push(leCercle, labelPoint(O), tracePoint(O), OA, BC, DE, polygon[0], polygon[1])
       const params = { xmin: -4, ymin: -4, xmax: 4, ymax: 4, pixelsParCm: 20, scale: 1 }
       // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
       texte += mathalea2d(params, objetsEnonce) + '<br>'

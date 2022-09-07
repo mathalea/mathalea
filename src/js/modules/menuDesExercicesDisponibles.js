@@ -620,7 +620,7 @@ export function menuDesExercicesDisponibles () {
     ['6N1', '6N1 - Numération et fractions niveau 1'], ['6N2', '6N2 - Numération et fractions niveau 2'], ['6N3', '6N3 - Numération et fractions niveau 3'], ['6N4', '6N4 - Numération et fractions niveau 4'],
     ['6P1', '6P1 - Proportionnalité'], ['6S1', '6S1 - Statistiques']]
   const listeThemes5 = [
-    ['5A1', '5A1 - Arithmetique'], ['5C1', '5C1 - Calculs'],
+    ['5A1', '5A1 - Arithmétique'], ['5C1', '5C1 - Calculs'],
     ['5G1', '5G1 - Symétries'], ['5G2', '5G2 - Triangles'], ['5G3', '5G3 - Angles'], ['5G4', '5G4 - Parallélogrammes'], ['5G5', '5G5 - Espace'],
     ['5I1', '5I1 - Algorithmique'],
     ['5L1', '5L1 - Calcul littéral'],
@@ -636,7 +636,7 @@ export function menuDesExercicesDisponibles () {
     ['4I1', '4I1 - Algorithmique'],
     ['4L1', '4L1 - Calcul littéral'], ['4L2', '4L2 - Équation'], ['4P1', '4P1 - Proportionnalité'], ['4S1', '4S1 - Statistiques'], ['4S2', '4S2 - Probabilités']]
   const listeThemes3 = [
-    ['3A1', '3A1 - Arithmetique'],
+    ['3A1', '3A1 - Arithmétique'],
     ['3F1', '3F1 - Généralités sur les fonctions'], ['3F2', '3F2 - Fonctions affines et linéaires'],
     ['3G1', '3G1 - Homothétie et rotation'], ['3G2', '3G2 - Théorème de Thalès'], ['3G3', '3G3 - Trigonométrie'], ['3G4', '3G4 - Espace'],
     ['3I1', '3I1 - Algorithmique premier niveau'],

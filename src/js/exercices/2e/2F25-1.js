@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint, combinaisonListes, texFractionReduite
 import { courbe, latexParCoordonnees, point, repere, segment, tracePoint } from '../../modules/2d.js'
 import { abs } from 'mathjs'
 
-export const titre = 'Propriétés graphiques de la parité d\'une fonction.'
+export const titre = 'Propriétés graphiques de la parité d\'une fonction'
 
 /**
  * Reconnaître parité fonction
