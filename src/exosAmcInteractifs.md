@@ -1,6 +1,5 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 492 
-- nombre d'exos interactifReady 767 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
