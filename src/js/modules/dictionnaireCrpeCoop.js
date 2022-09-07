@@ -1,6 +1,6 @@
 export const dictionnaireCrpeCoop = {
   'crpe-2022-g1-ex1': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 1',
     numeroInitial: 'Ex 1',
@@ -20,7 +20,7 @@ export const dictionnaireCrpeCoop = {
 
   },
   'crpe-2022-g1-ex2': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 1',
     numeroInitial: 'Ex 2',
@@ -39,7 +39,7 @@ export const dictionnaireCrpeCoop = {
     tags: ['Probabilités']
   },
   'crpe-2022-g1-ex3': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 1',
     numeroInitial: 'Ex 3',
@@ -58,7 +58,7 @@ export const dictionnaireCrpeCoop = {
     tags: ['Résolution de problème', 'Équations']
   },
   'crpe-2022-g1-ex4': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 1',
     numeroInitial: 'Ex 4',
@@ -77,7 +77,7 @@ export const dictionnaireCrpeCoop = {
     tags: ['Volumes', 'Aires latérales', 'Pythagore', 'Agrandissement-réduction', 'Fonctions affines et linéaires', 'Inéquations']
   },
   'crpe-2022-g1-ex5': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 1',
     numeroInitial: 'Ex 5',
@@ -96,7 +96,7 @@ export const dictionnaireCrpeCoop = {
     tags: []
   },
   'crpe-2022-g2-ex1': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 2',
     numeroInitial: 'Ex 1',
@@ -115,7 +115,7 @@ export const dictionnaireCrpeCoop = {
     tags: ['Probabilités']
   },
   'crpe-2022-g2-ex2': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 2',
     numeroInitial: 'Ex 2',
@@ -134,7 +134,7 @@ export const dictionnaireCrpeCoop = {
     tags: ['Vitesses', 'Agrandissement-réduction']
   },
   'crpe-2022-g2-ex3': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 2',
     numeroInitial: 'Ex 3',
@@ -153,7 +153,7 @@ export const dictionnaireCrpeCoop = {
     tags: ['Géométrie plane', 'Pythagore', 'Volumes', 'Agrandissement-réduction', 'Équations', 'Fonctions affines et linéaires', 'Inéquations']
   },
   'crpe-2022-g2-ex4': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 2',
     numeroInitial: 'Ex 4',
@@ -172,7 +172,7 @@ export const dictionnaireCrpeCoop = {
     tags: ['Programmes de calculs', 'Calcul littéral', 'Équations']
   },
   'crpe-2022-g2-ex5': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 2',
     numeroInitial: 'Ex 5',
@@ -191,7 +191,7 @@ export const dictionnaireCrpeCoop = {
     tags: ['Numération']
   },
   'crpe-2022-g3-ex1': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 3',
     numeroInitial: 'Ex 1',
@@ -210,7 +210,7 @@ export const dictionnaireCrpeCoop = {
     tags: ['QCM', 'Volumes', 'Puissances', 'Pourcentages', 'Fractions', 'Pythagore']
   },
   'crpe-2022-g3-ex2': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 3',
     numeroInitial: 'Ex 2',
@@ -229,7 +229,7 @@ export const dictionnaireCrpeCoop = {
     tags: ['Statistiques', 'Agrandissement-réduction', 'Nombre π', 'Durées', 'Vitesses', 'Proportionnalité']
   },
   'crpe-2022-g3-ex3': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 3',
     numeroInitial: 'Ex 3',
@@ -248,7 +248,7 @@ export const dictionnaireCrpeCoop = {
     tags: ['Pythagore', 'Thalès', 'Calcul littéral', 'Lecture graphique', 'Volumes', 'Pourcentages', 'Proportionnalité']
   },
   'crpe-2022-g3-ex4': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 3',
     numeroInitial: 'Ex 4',
@@ -271,7 +271,7 @@ export const dictionnaireCrpeCoop = {
 export const garderPourTagsEx4 =
 {
   'crpe-2022-g1-ex1': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 1',
     numeroInitial: 'Ex 1',
@@ -283,7 +283,7 @@ export const garderPourTagsEx4 =
     ]
   },
   'crpe-2022-g1-ex2': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 1',
     numeroInitial: 'Ex 2',
@@ -296,7 +296,7 @@ export const garderPourTagsEx4 =
     tags: []
   },
   'crpe-2022-g1-ex3': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 1',
     numeroInitial: 'Ex 3',
@@ -309,7 +309,7 @@ export const garderPourTagsEx4 =
     tags: []
   },
   'crpe-2022-g1-ex4': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 1',
     numeroInitial: 'Ex 4',
@@ -322,7 +322,7 @@ export const garderPourTagsEx4 =
     tags: ['Algorithmique et programmation', 'Géométrie plane']
   },
   'crpe-2022-g1-ex5': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 1',
     numeroInitial: 'Ex 5',
@@ -335,7 +335,7 @@ export const garderPourTagsEx4 =
     tags: []
   },
   'crpe-2022-g2-ex1': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 2',
     numeroInitial: 'Ex 1',
@@ -348,7 +348,7 @@ export const garderPourTagsEx4 =
     tags: ['Probabilités']
   },
   'crpe-2022-g2-ex2': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 2',
     numeroInitial: 'Ex 2',
@@ -361,7 +361,7 @@ export const garderPourTagsEx4 =
     tags: ['Vitesses', 'Agrandissement-réduction']
   },
   'crpe-2022-g2-ex3': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 2',
     numeroInitial: 'Ex 3',
@@ -374,7 +374,7 @@ export const garderPourTagsEx4 =
     tags: ['Géométrie plane', 'Pythagore', 'Volumes', 'Agrandissement-réduction', 'Équations', 'Fonctions affines et linéaires', 'Inéquations']
   },
   'crpe-2022-g2-ex4': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 2',
     numeroInitial: 'Ex 4',
@@ -387,7 +387,7 @@ export const garderPourTagsEx4 =
     tags: ['Programmes de calculs', 'Calcul littéral', 'Équations']
   },
   'crpe-2022-g2-ex5': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 2',
     numeroInitial: 'Ex 5',
@@ -400,7 +400,7 @@ export const garderPourTagsEx4 =
     tags: ['Numération']
   },
   'crpe-2022-g3-ex1': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 3',
     numeroInitial: 'Ex 1',
@@ -413,7 +413,7 @@ export const garderPourTagsEx4 =
     tags: ['QCM', 'Volumes', 'Puissances', 'Pourcentages', 'Fractions', 'Pythagore']
   },
   'crpe-2022-g3-ex2': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 3',
     numeroInitial: 'Ex 2',
@@ -426,7 +426,7 @@ export const garderPourTagsEx4 =
     tags: ['Statistiques', 'Agrandissement-réduction', 'Nombre π', 'Durées', 'Vitesses', 'Proportionnalité']
   },
   'crpe-2022-g3-ex3': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 3',
     numeroInitial: 'Ex 3',
@@ -439,7 +439,7 @@ export const garderPourTagsEx4 =
     tags: ['Pythagore', 'Thalès', 'Calcul littéral', 'Lecture graphique', 'Volumes', 'Pourcentages', 'Proportionnalité']
   },
   'crpe-2022-g3-ex4': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 3',
     numeroInitial: 'Ex 4',
@@ -452,7 +452,7 @@ export const garderPourTagsEx4 =
     tags: ['Algorithmique et programmation']
   },
   'crpe-2022-g4-ex1': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 4',
     numeroInitial: 'Ex 1',
@@ -465,7 +465,7 @@ export const garderPourTagsEx4 =
     tags: ['Probabilités', 'Équations']
   },
   'crpe-2022-g4-ex2': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 4',
     numeroInitial: 'Ex 2',
@@ -478,7 +478,7 @@ export const garderPourTagsEx4 =
     tags: ['Pourcentages', 'Proportionnalité', 'Fonctions linéaires et affines', 'Volumes']
   },
   'crpe-2022-g4-ex3': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 4',
     numeroInitial: 'Ex 3',
@@ -491,7 +491,7 @@ export const garderPourTagsEx4 =
     tags: ['Tableur', 'Résolution de problèmes', 'Équations']
   },
   'crpe-2022-g4-ex4': {
-    typeExercice: 'crpeCoop',
+    typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 4',
     numeroInitial: 'Ex 4',
