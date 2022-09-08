@@ -11,6 +11,8 @@ export const dateDePublication = '29/08/2022'
  * @author Gilles Mora
  *
  */
+export const uuid = 'aa22e'
+export const ref = 'can6N17'
 export default function AbscisseDroiteDecimaux () {
   Exercice.call(this)
   this.typeExercice = 'simple'

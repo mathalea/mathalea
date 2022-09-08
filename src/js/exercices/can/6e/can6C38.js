@@ -1,5 +1,5 @@
 import { randint } from '../../../modules/outils.js'
-import { Yohaku } from '../../6e/Yohaku.js'
+import { Yohaku } from '../../6e/_Yohaku.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Trouver une valeur dans un Yohaku (additif)'
 export const interactifReady = true

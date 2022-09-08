@@ -5,8 +5,8 @@
  * @author Rémi Angot
  */
 
-import { affiniteOrtho, homothetie, symetrieAxiale } from './2d'
-import { ObjetMathalea2D } from './2dGeneralites'
+import { affiniteOrtho, homothetie, symetrieAxiale } from './2d.js'
+import { ObjetMathalea2D } from './2dGeneralites.js'
 
 // JSDOC Validee par EE Juin 2022
 export function montrerParDiv (id) {

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, pgcd, produitDeDeuxFractions, simplificationDeFractionAvecEtapes, miseEnEvidence, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles, texFraction, ppcm, lettreDepuisChiffre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, pgcd, produitDeDeuxFractions, simplificationDeFractionAvecEtapes, miseEnEvidence, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles, texFraction, ppcm, lettreDepuisChiffre, ecritureParentheseSiNegatif } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
@@ -26,7 +26,7 @@ export default function ExerciceAdditionnerFractionProduit () {
   this.sup3 = true
   this.sup4 = true
   this.titre = titre
-  this.consigne = 'Calculer sous la forme d\'un nombre rationnel relatif irréductible.'
+  this.consigne = 'Calculer et donner un résultat simplifié.'
   this.nbCols = 2
   this.spacing = 1
   this.spacingCorr = 2
@@ -135,7 +135,7 @@ export default function ExerciceAdditionnerFractionProduit () {
           }
           produit = produitDeDeuxFractions(c, d, e, f)
           if (this.correctionDetaillee) {
-            texteCorr += `$=${texFraction(a, b)} ${texteOperation1} ${texFraction(c + '\\times' + e, d + '\\times' + f)}$`
+            texteCorr += `$=${texFraction(a, b)} ${texteOperation1} ${texFraction(c + '\\times' + ecritureParentheseSiNegatif(e), d + '\\times' + ecritureParentheseSiNegatif(f))}$`
             texteCorr += `$=${texFraction(a, b)} ${texteOperation1} ${texFraction(c * e, d * f)}$`
           } else {
             texteCorr += `$=${texFraction(a, b)} ${texteOperation1} ${produit[1]}$`
@@ -148,7 +148,7 @@ export default function ExerciceAdditionnerFractionProduit () {
           }
           p = pgcd(c * e, d * f)
           if (p !== 1 && ppcm(b, d * f) > ppcm(b, (d * f) / p)) {
-            texteCorr += `$=${texFraction(a, b)} ${texteOperation1} ${texFraction((e * c) / p + '\\times\\cancel{' + p + '}', (f * d) / p + '\\times\\cancel{' + p + '}'
+            texteCorr += `$=${texFraction(a, b)} ${texteOperation1} ${texFraction((e * c) / p + '\\times\\cancel{' + ecritureParentheseSiNegatif(p) + '}', (f * d) / p + '\\times\\cancel{' + ecritureParentheseSiNegatif(p) + '}'
             )}$`
             c = (e * c) / p
             d = (f * d) / p
@@ -160,14 +160,14 @@ export default function ExerciceAdditionnerFractionProduit () {
           k1 = p / b
           k2 = p / d
           if (k1 !== 1) {
-            texteCorr += `$=${texFraction(a + miseEnEvidence('\\times' + k1), b + miseEnEvidence('\\times' + k1))}$`
+            texteCorr += `$=${texFraction(a + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k1)), b + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k1)))}$`
           } else {
             if (k2 !== 1) {
               texteCorr += `$=${texFraction(a, b)}$`
             }
           }
           if (k2 !== 1) {
-            texteCorr += `$ ${texteOperation1} ${texFraction(c + miseEnEvidence('\\times' + k2), d + miseEnEvidence('\\times' + k2))}$`
+            texteCorr += `$ ${texteOperation1} ${texFraction(c + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k2)), d + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k2)))}$`
           } else {
             if (k1 !== 1) {
               texteCorr += `$ ${texteOperation1} ${texFraction(c, d)}$`
@@ -194,7 +194,7 @@ export default function ExerciceAdditionnerFractionProduit () {
           produit = produitDeDeuxFractions(c, d, e, f)
           texteCorr += `$=${texFraction(c, d)}\\times ${texFraction(e, f)} ${texteOperation1} ${texFraction(a, b)}$`
           if (this.correctionDetaillee) {
-            texteCorr += `$=${texFraction(c + '\\times' + e, d + '\\times' + f)} ${texteOperation1} ${texFraction(a, b)}$`
+            texteCorr += `$=${texFraction(c + '\\times' + ecritureParentheseSiNegatif(e), d + '\\times' + ecritureParentheseSiNegatif(f))} ${texteOperation1} ${texFraction(a, b)}$`
             texteCorr += `$=${texFraction(c * e, d * f)} ${texteOperation1} ${texFraction(a, b)}$`
           } else {
             texteCorr += `$=${produit[1]} ${texteOperation1} ${texFraction(a, b)}$`
@@ -207,7 +207,7 @@ export default function ExerciceAdditionnerFractionProduit () {
           }
           p = pgcd(c * e, d * f)
           if (p !== 1 && ppcm(b, d * f) > ppcm(b, (d * f) / p)) {
-            texteCorr += `$=${texFraction((e * c) / p + '\\times\\cancel{' + p + '}', (f * d) / p + '\\times\\cancel{' + p + '}')} ${texteOperation1} ${texFraction(a, b)}$`
+            texteCorr += `$=${texFraction((e * c) / p + '\\times\\cancel{' + ecritureParentheseSiNegatif(p) + '}', (f * d) / p + '\\times\\cancel{' + ecritureParentheseSiNegatif(p) + '}')} ${texteOperation1} ${texFraction(a, b)}$`
             c = (e * c) / p
             d = (f * d) / p
           } else {
@@ -219,8 +219,8 @@ export default function ExerciceAdditionnerFractionProduit () {
           k2 = p / d
           if (k2 !== 1) {
             texteCorr += `$=${texFraction(
-            c + miseEnEvidence('\\times' + k2),
-            d + miseEnEvidence('\\times' + k2)
+            c + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k2)),
+            d + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k2))
           )}$`
           } else {
             if (k1 !== 1) {
@@ -230,8 +230,8 @@ export default function ExerciceAdditionnerFractionProduit () {
 
           if (k1 !== 1) {
             texteCorr += `$ ${texteOperation1} ${texFraction(
-            a + miseEnEvidence('\\times' + k1),
-            b + miseEnEvidence('\\times' + k1)
+            a + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k1)),
+            b + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k1))
           )}$`
           } else {
             if (k2 !== 1) {
@@ -254,7 +254,7 @@ export default function ExerciceAdditionnerFractionProduit () {
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
         setReponse(this, i, reponse, { formatInteractif: 'fraction', digits: 5, digitsNum: 3, digitsDen: 2, signe: true })
         if (this.sup4) {
-          texte = `${lettreDepuisChiffre(i + 1)} = ${texte}`
+          texte = `$${lettreDepuisChiffre(i + 1)} = $ ${texte}`
           // On découpe
           const etapes = texteCorr.split('=')
           texteCorr = ''
@@ -264,7 +264,7 @@ export default function ExerciceAdditionnerFractionProduit () {
             if (context.isHtml) {
               texteCorr += '<br>'
             }
-            texteCorr += `${lettreDepuisChiffre(i + 1)} = $${etape}$ <br>`
+            texteCorr += `$ ${lettreDepuisChiffre(i + 1)} = ${etape}$ <br>`
           })
         }
         if (context.isAmc) texte = 'Calculer et donner le résultat sous forme irréductible\\\\\n' + texte
