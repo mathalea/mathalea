@@ -28,6 +28,8 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
   this.consigne = "Compléter l'égalité puis donner l'écriture décimale."
   this.spacing = 2
   this.spacingCorr = 2
+  this.nbCols = 2
+  this.nbColsCorr = 2
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -71,9 +73,9 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
             indexQ++
           } else {
             texte = `$${texFraction(n, '100')}=${a ? 'a' : '\\ldots\\ldots'}+${texFraction(
-              a ? 'b' : '',
+              a ? 'b' : '\\ldots\\ldots',
               10
-            )}+${texFraction(a ? 'c' : '', 100)}=${a ? 'd' : '\\ldots'}$`
+            )}+${texFraction(a ? 'c' : '\\ldots\\ldots', 100)}=${a ? 'd' : '\\ldots\\ldots'}$`
             texteCorr = `$${texFraction(n, '100')}=${u}+${texFraction(
               d,
               '10'
@@ -176,9 +178,9 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
             indexQ++
           } else {
             texte = `$${texFraction(n, '100')}=${a ? 'a' : '\\ldots\\ldots'}+${texFraction(
-              a ? 'b' : '',
+              a ? 'b' : '\\ldots\\ldots',
               100
-            )}+${texFraction(a ? 'c' : '', 10)}=${a ? 'd' : '\\ldots'}$`
+            )}+${texFraction(a ? 'c' : '\\ldots\\ldots', 10)}=${a ? 'd' : '\\ldots\\ldots'}$`
             this.autoCorrection[i] = {
               options: { multicols: true },
               enonce: texte,
@@ -272,10 +274,10 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
             setReponse(this, indexQ, calcul(u + d / 10 + c / 100), { formatInteractif: 'calcul' })
             indexQ++
           } else {
-            texte = `$${texFraction(a ? 'a' : '', '100')}=${u}+${texFraction(
+            texte = `$${texFraction(a ? 'a' : '\\ldots\\ldots', '100')}=${u}+${texFraction(
             d,
             '10'
-          )}+${texFraction(c, '100')}=${a ? 'b' : '\\ldots'}$`
+          )}+${texFraction(c, '100')}=${a ? 'b' : '\\ldots\\ldots'}$`
             this.autoCorrection[i] = {
               options: { multicols: true },
               enonce: texte,
@@ -326,7 +328,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
             setReponse(this, indexQ, fraction(10 * u, 10), { formatInteractif: 'Num' })
             indexQ++
           } else {
-            texte = `$${u}=${texFraction(a ? 'a' : '', '10')}$`
+            texte = `$${u}=${texFraction(a ? 'a' : '\\ldots\\ldots', '10')}$`
             this.autoCorrection[i] = {
               enonce: texte,
               propositions: [
@@ -360,7 +362,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
             setReponse(this, indexQ, fraction(100 * u, 100), { formatInteractif: 'Num' })
             indexQ++
           } else {
-            texte = `$${u}=${texFraction(a ? 'a' : '', '100')}$`
+            texte = `$${u}=${texFraction(a ? 'a' : '\\ldots\\ldots', '100')}$`
             this.autoCorrection[i] = {
               enonce: texte,
               propositions: [
@@ -403,7 +405,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
             setReponse(this, indexQ, calcul(n / 10), { formatInteractif: 'calcul' })
             indexQ++
           } else {
-            texte = `$${texFraction(n, 10)}=${a ? 'a' : '\\ldots\\ldots'}+${texFraction(a ? 'b' : '', 10)}+${texFraction(a ? 'c' : '', 100)}=${a ? 'd' : '\\ldots'}$`
+            texte = `$${texFraction(n, 10)}=${a ? 'a' : '\\ldots\\ldots'}+${texFraction(a ? 'b' : '\\ldots\\ldots', 10)}+${texFraction(a ? 'c' : '\\ldots\\ldots', 100)}=${a ? 'd' : '\\ldots\\ldots'}$`
             this.autoCorrection[i] = {
               options: { multicols: true },
               enonce: texte,
