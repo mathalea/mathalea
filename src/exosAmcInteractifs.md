@@ -1,5 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 492 
+- nombre d'exos interactifReady 768 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -70,6 +71,7 @@
 |3A10-2|Justifier si des nombres sont premiers ou pas - Variante avec les critères de divisibilité par 7 et par 11|OK|qcmMono|OK|qcm|
 |3A10-3|Décomposer un entier en facteurs premiers|KO|KO|OK|mathLive|
 |3A10-5|Recourir à une décomposition en facteurs premiers dans des cas simples|KO|KO|OK|mathLive|
+|3A10-6|Trouver un chiffre pour qu'un nombre soit divisible par un autre|KO|KO|OK|mathLive|
 |3A12-1|Résoudre des problèmes avec recherche de diviseurs communs|OK|AMCHybride|OK|mathLive|
 |3F10-1|Vocabulaire et notations des fonctions (généralités)|OK|qcmMult|OK|qcm|
 |3F10-2|Fonction : calculs d'images (et d'antécédents)|OK|AMCNum|OK|mathLive|

@@ -2389,6 +2389,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "3A10-6": {
+    "titre": "Trouver un chiffre pour qu'un nombre soit divisible par un autre",
+    "url": "/exercices/3e/3A10-6.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "3A10-6",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "3A10": {
     "titre": "Comprendre le vocabulaire : division euclidienne, diviseurs, multiples",
     "url": "/exercices/3e/3A10.js",
