@@ -31,7 +31,7 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
           expc = `$${texNombrec(a)}+${texNombrec(b)} = ${texNombrec(a + b)}$`
           break
         case 1: // différence entre deux nombres
-          if (a < b) { a = a + b }
+          if (a < b) { a = a - b }
           expf = `La différence entre ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)}`
           expn = `$${texNombrec(a)}-${texNombrec(b)}$`
           expc = `$${texNombrec(a)}-${texNombrec(b)} = ${texNombrec(a - b)}$`
