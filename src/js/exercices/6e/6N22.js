@@ -39,6 +39,12 @@ export default function FractionsCalculsSimples () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
+    if (this.sup) {
+      this.consigne = 'Calculer en s\'aidant éventuellement du schéma.'
+    } else {
+      this.consigne = 'Calculer.'
+    }
+
     const typeQuestionsDisponibles = ['a/b+c/b', 'n+a/b', 'n+a/b', 'n*a/b', 'n-a/b']//, 'a/b+c/nb']
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
