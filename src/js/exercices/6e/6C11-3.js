@@ -9,12 +9,14 @@ export const amcType = 'AMCOpen' // type de question AMC
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const titre = 'Poser divisions euclidiennes'
+export const titre = 'Indiquer un égalité à partir d\'une division euclidienne'
+
+export const dateDePublication = '09/09/2022'
 
 /**
- * Poser et effectuer les divisions euclidiennes suivantes puis donner l'égalité fondamentale correspondante.
+ * À partir de divisions euclidiennes, indiquer l'égalité fondamentale correspondante.
  *
- * Niveau de difficulté 2 :
+ * Niveau de difficulté 1
  * * division par 2, 3 , 4 ou 5
  *
  * Niveau de difficulté 2 :
@@ -26,14 +28,12 @@ export const titre = 'Poser divisions euclidiennes'
  * * division par 11, 12, 15, 25
  * * division par 13,14,21,22,23 ou 24 et un 0 dans le quotient
  * * division par un multiple de 10 et un 0 dans le quotient
- * @author Rémi Angot
- * Référence 6C11
+ * @author Eric Elter (à partir de 6C11)
+ * Référence 6C11-3
  */
-export const uuid = '2da81'
-export const ref = '6C11'
-export default function DivisionsEuclidiennes () {
+export default function APartirDeDivisionsEuclidiennes () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.sup = 2
+  this.sup = 3
   this.titre = titre
   this.spacing = 2
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opidiv n'est pas joli
@@ -41,9 +41,9 @@ export default function DivisionsEuclidiennes () {
   this.listePackages = 'xlop'
 
   this.nouvelleVersion = function () {
-    this.consigne = 'Poser et effectuer '
-    this.consigne += this.nbQuestions === 1 ? 'la division euclidienne suivante ' : 'les divisions euclidiennes suivantes '
-    this.consigne += "puis donner l'égalité fondamentale correspondante."
+    this.consigne = 'À partir '
+    this.consigne += this.nbQuestions === 1 ? 'de la division euclidienne suivante, ' : 'des divisions euclidiennes suivantes, '
+    this.consigne += "donner l'égalité fondamentale correspondante."
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -96,13 +96,13 @@ export default function DivisionsEuclidiennes () {
       }
       r = randint(0, b - 1) // reste inférieur au diviseur
       a = b * q + r
-      texte = `$${texNombre(a)}\\div${b}$`
+      texte = `${Operation({ operande1: a, operande2: b, type: 'divisionE' })}`
       if (r === 0) {
-        texteCorr = `${Operation({ operande1: a, operande2: b, type: 'divisionE' })}$${texNombre(a)}\\div${b}=${texNombre(q)}$`
+        texteCorr = `$${texNombre(a)}\\div${b}=${texNombre(q)}$`
         setReponse(this, i, [`${a}=${b}\\times${texNombre(q)}`, `${a}=${texNombre(q)}\\times${b}`,
         `${b}\\times${texNombre(q)}`, `${texNombre(q)}\\times${b}=${a}`])
       } else {
-        texteCorr = `${Operation({ operande1: a, operande2: b, type: 'divisionE' })}$${texNombre(a)}=${b}\\times${texNombre(q)}+${r}$`
+        texteCorr = `$${texNombre(a)}=${b}\\times${texNombre(q)}+${r}$`
         setReponse(this, i, [`${a}=${b}\\times${texNombre(q)}+${r}`, `${a}=${texNombre(q)}\\times${b}+${r}`,
         `${b}\\times${texNombre(q)}+${r}=${a}`, `${texNombre(q)}\\times${b}+${r}=${a}`])
       }
