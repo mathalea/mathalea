@@ -370,14 +370,14 @@ export default function SujetCAN20205ieme () {
             yMin: 0,
             axeXStyle: ''
           })
-          
+
           reponse = 50 * a + 50 * b + 50 * c
 
           objets.push(r)
           objets.push(traceBarre(2, a, 'Chien', { epaisseur: 2, couleurDeRemplissage: 'red', hachures: true }))
           objets.push(traceBarre(5, b, 'Chat', { epaisseur: 2, couleurDeRemplissage: 'red', hachures: true }))
           objets.push(traceBarre(8, c, 'Autre animal', { epaisseur: 2, couleurDeRemplissage: 'red', hachures: true }))
-          texte = `À partir du diagramme ci-dessous, détermine le nombre total d'animaux comptabilisés. <br>`
+          texte = 'À partir du diagramme ci-dessous, détermine le nombre total d\'animaux comptabilisés. <br>'
           texte += mathalea2d({ xmin: -5, xmax: 11, ymin: -3.5, ymax: 9.5, pixelsParCm: 25, scale: 0.8 }, objets)
           texteCorr = `Le nombre total d'animaux est : $${50 * a}+${50 * b}+${50 * c}=${reponse}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -509,8 +509,7 @@ export default function SujetCAN20205ieme () {
             texteCorr = `Pour qu'un triangle soit constructible, il faut que la longueur du plus grand côté soit inférieure à la somme des deux autres.<br>
           On a $${texNombre(a, 1)}+${texNombre(b, 1)}=${texNombre(somme, 0)} > ${c}$.<br>
           L'affirmation est donc vraie.`
-          }
-         else {
+          } else {
             setReponse(this, index, ['F', 'f'], { formatInteractif: 'texte' })
             texteCorr = `Pour qu'un triangle soit constructible, il faut que la longueur du plus grand côté soit inférieure à la somme des deux autres.<br>
           On a $${texNombre(a, 1)}+${texNombre(b, 1)}=${texNombre(new Decimal(a).add(b), 0)} < ${c}$.<br>
