@@ -27,6 +27,7 @@ export function verifQuestionMathLive (exercice, i) {
     champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
     if (champTexte === {} || champTexte === undefined) champTexte = { value: '' }
     let resultat = 'KO'
+    let feedback
     let ii = 0
     while ((resultat === 'KO') && (ii < reponses.length)) {
       reponse = reponses[ii]
@@ -84,10 +85,11 @@ export function verifQuestionMathLive (exercice, i) {
 
           if (champTexte !== undefined) saisie = champTexte.value
           else saisie = ''
-          // console.log('saisie : ', saisie) // EE : NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
-          // console.log('reponse : ', reponse) // EE : NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
+          // console.log({ saisie, reponse}) // EE : NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
           if (saisie === reponse) {
             resultat = 'OK'
+          } else if (saisie.replaceAll('\\,', '') === reponse.replaceAll('\\,', '')) {
+            feedback = 'Attention aux espaces !'
           }
           break
 
@@ -248,6 +250,7 @@ export function verifQuestionMathLive (exercice, i) {
       spanReponseLigne.style.fontSize = 'large'
       if (champTexte !== undefined) champTexte.readOnly = true
     }
+    if (feedback) spanReponseLigne.innerHTML += `<span style="margin-left: 10px">${feedback}</span>`
     return resultat
   } catch (error) {
     window.notify(`Erreur dans verif QuestionMathLive : ${error} <br> Avec les métadonnées : `, { champTexteValue: champTexte._slotValue, exercice: exercice.id, i, autoCorrection: exercice.autoCorrection[i], formatInteractif, spanReponseLigne })
