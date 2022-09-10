@@ -15,19 +15,6 @@ const college6emeKeyboardLayer = {
         { label: '9', key: '9' },
         { latex: '\\div' },
         { class: 'separator w5' },
-        { class: 'separator w10' },
-        { class: 'separator w10' },
-        { class: 'separator w10' },
-        { class: 'separator w10' },
-        { class: 'separator w5' }
-      ],
-      [
-        { class: 'separator w5' },
-        { label: '4', latex: '4' },
-        { label: '5', key: '5' },
-        { label: '6', key: '6' },
-        { latex: '\\times' },
-        { class: 'separator w5' },
         { label: '%', key: '%' },
         { label: '°', latex: '\\operatorname{°}' },
         { latex: '(' },
@@ -36,16 +23,29 @@ const college6emeKeyboardLayer = {
       ],
       [
         { class: 'separator w5' },
+        { label: '4', latex: '4' },
+        { label: '5', key: '5' },
+        { label: '6', key: '6' },
+        { latex: '\\times' },
+        { class: 'separator w10' },
+        { label: 'oui', key: 'oui' },
+        { label: 'non', key: 'non' },
+        { label: ';', key: ';' },
+        { class: 'separator w10' }
+      ],
+      [
+        { class: 'separator w5' },
         { label: '1', key: '1' },
         { label: '2', key: '2' },
         { label: '3', key: '3' },
         { latex: '-' },
-        { class: 'separator w5' },
-        { label: 'oui', key: 'oui' },
-        { label: 'non', key: 'non' },
-        { label: ';', key: ';' },
-        { latex: '\\,' }, // espace
-        { class: 'separator w5' }
+        { class: 'separator w15' },
+        {
+          class: 'w20',
+          label: 'espace', // Espace
+          insert: '\\,'
+        },
+        { class: 'separator w15' }
       ],
       [
         { label: '0', key: '0' },
@@ -90,6 +90,7 @@ export const clavierCollege6eme = {
   customVirtualKeyboardLayers: college6emeKeyboardLayer,
   customVirtualKeyboards: college6emeKeyboard,
   virtualKeyboards: 'college6emeKeyboard roman',
+  virtualKeyboardLayout: 'azerty',
   mathModeSpace: '\\,',
   inlineShortcuts: {
     D: { mode: 'math', value: 'd' },
