@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, texNombre, texteEnCouleur, numAlpha, stringNombre } from '../../modules/outils.js'
-import { point, tracePoint, pointSurDroite, pointIntersectionDD, labelPoint, droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, segment, rotation, codageAngleDroit, afficheCoteSegment, grille, seyes, longueur, mathalea2d } from '../../modules/2d.js'
+import { point, tracePoint, pointSurDroite, pointIntersectionDD, labelPoint, droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, segment, rotation, codageAngleDroit, afficheCoteSegment, grille, seyes, longueur } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 export const amcReady = true
 export const amcType = 'AMCOpen' // type de question AMC
@@ -14,6 +15,8 @@ export const titre = 'Tracer des parallèles et des perpendiculaires'
  * @author Jean-Claude Lhote  (AMC par Eric Elter en septembre 2021, ES6 par Loïc Geeraerts
  */
 
+export const uuid = 'd14bc'
+export const ref = '6G12-1'
 export default class ParalleleEtPerpendiculaires extends Exercice {
 //  'use strict'
   constructor () {

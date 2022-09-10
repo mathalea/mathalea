@@ -1,13 +1,16 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { choice, listeQuestionsToContenu, numAlpha, premiereLettreEnMajuscule, randint, shuffle, tableauColonneLigne } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import { Arbre, texProba } from '../../modules/arbres.js'
-import { mathalea2d } from '../../modules/2d.js'
+
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import FractionX from '../../modules/FractionEtendue.js'
 export const titre = 'Expérience aléatoire à deux épreuves'
 export const dateDePublication = '28/12/2021'
+export const dateDeModifImportante = '30/08/2022' // Passage en intégralité interactif
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -15,9 +18,11 @@ export const amcType = 'AMCNum'
 
 /**
  * On doit calculer la probabilité qu'un événement se réalise après une expérience aléatoire à deux épreuves
- * @author Jean-Claude Lhote
+ * @author Jean-Claude Lhote (et EE pour passage en interactif intégral)
  * Référence 2S30-5
 */
+export const uuid = 'cee5d'
+export const ref = '2S30-5'
 export default function CalculProbaExperience2Epreuves2e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = true
@@ -28,7 +33,8 @@ export default function CalculProbaExperience2Epreuves2e () {
   this.spacing = 2
   this.spacingCorr = 3
 
-  function unePieceDeuxUrnes (exercice, i, sup, sup2, sup3) {
+  function unePieceDeuxUrnes (exercice, i, sup, sup2, sup3, numQuestionInteractif) {
+    i += numQuestionInteractif
     const p = []
     const choix = randint(0, 2)
     let nombres1, nombres2, n1, n2, urne1, urne2, texte, texteCorr
@@ -149,7 +155,8 @@ export default function CalculProbaExperience2Epreuves2e () {
     return { texte: texte, texteCorr: texteCorr, alea: [...n1, ...n2] }
   }
 
-  function urneDeuxTiragesAvecRemise (exercice, i, sup, sup2, niveau) { // tirage dans une urne avec remise
+  function urneDeuxTiragesAvecRemise (exercice, i, sup, sup2, niveau, numQuestionInteractif) { // tirage dans une urne avec remise
+    i += numQuestionInteractif
     const [b1Color, b2Color] = shuffle(['bleue', 'rouge', 'verte', 'orange', 'noire', 'jaune']).splice(0, 2)
 
     const b1Char = premiereLettreEnMajuscule(b1Color.charAt(0))
@@ -262,11 +269,17 @@ export default function CalculProbaExperience2Epreuves2e () {
     const proba1et2 = proba1.sommeFraction(proba2)
     const proba3 = fraction(nbBoule1 * nbBoule2, card ** 2)
     const proba4 = proba3.multiplieEntier(2)
-    let texte = `Dans une urne, il y a ${nbBoule1} boule${nbBoule1 > 1 ? 's' : ''} ${b1Color}${nbBoule1 > 1 && b1Char !== 'O' ? 's' : ''} et ${nbBoule2} boule${nbBoule2 > 1 ? 's' : ''} ${b2Color}${nbBoule2 > 1 && b2Char !== 'O' ? 's' : ''} indicernables au toucher.<br>`
+    let texte = `Dans une urne, il y a ${nbBoule1} boule${nbBoule1 > 1 ? 's' : ''} ${b1Color}${nbBoule1 > 1 && b1Char !== 'O' ? 's' : ''} et ${nbBoule2} boule${nbBoule2 > 1 ? 's' : ''} ${b2Color}${nbBoule2 > 1 && b2Char !== 'O' ? 's' : ''} indiscernables au toucher.<br>`
     texte += 'On tire successivement et avec remise deux boules.<br>'
-    texte += `${numAlpha(0)} Déterminer la probabilité d'obtenir deux boules ${choix[1]}${choix[2] !== 'O' ? 's' : ''}.<br>`
-    texte += `${numAlpha(1)} Déterminer la probabilité d'obtenir deux boules de la même couleur.<br>`
-    texte += `${numAlpha(2)} Déterminer la probabilité d'obtenir deux boules de couleurs différentes.<br>`
+    texte += `${numAlpha(0)} Déterminer la probabilité d'obtenir deux boules ${choix[1]}${choix[2] !== 'O' ? 's' : ''}.`
+    texte += ajouteChampTexteMathLive(exercice, i, 'largeur15 inline') + '<br>'
+    setReponse(exercice, i, probaChoix, { formatInteractif: 'fractionEgale' })
+    texte += `${numAlpha(1)} Déterminer la probabilité d'obtenir deux boules de la même couleur.`
+    texte += ajouteChampTexteMathLive(exercice, i + 1, 'largeur15 inline') + '<br>'
+    setReponse(exercice, i + 1, proba1et2, { formatInteractif: 'fractionEgale' })
+    texte += `${numAlpha(2)} Déterminer la probabilité d'obtenir deux boules de couleurs différentes.`
+    texte += ajouteChampTexteMathLive(exercice, i + 2, 'largeur15 inline') + '<br>'
+    setReponse(exercice, i + 2, proba4, { formatInteractif: 'fractionEgale' })
     let texteCorr = ''
     texteCorr += 'On a représenté l\'expérience par le tableau ci-dessous :<br>'
     texteCorr += tableau + '<br>'
@@ -295,11 +308,13 @@ export default function CalculProbaExperience2Epreuves2e () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
-    for (let i = 0, cpt = 0, question; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0, question, numQuestionInteractif = 0; i < this.nbQuestions && cpt < 50;) {
       switch (i % 2) {
-        case 0: question = unePieceDeuxUrnes(this, i, this.sup, this.sup2, this.sup3)
+        case 0: question = unePieceDeuxUrnes(this, i, this.sup, this.sup2, this.sup3, numQuestionInteractif)
           break
-        case 1: question = urneDeuxTiragesAvecRemise(this, i, this.sup, this.sup2, this.sup3)
+        case 1:
+          question = urneDeuxTiragesAvecRemise(this, i, this.sup, this.sup2, this.sup3, numQuestionInteractif)
+          numQuestionInteractif = +2
           break
       }
       if (this.questionJamaisPosee(i, ...question.alea)) {

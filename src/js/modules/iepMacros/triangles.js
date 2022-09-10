@@ -1,4 +1,4 @@
-import { nombreAvecEspace, randint } from '../outils'
+import { nombreAvecEspace, randint } from '../outils.js'
 import { cercle, droite, droiteParPointEtPerpendiculaire, homothetie, longueur, point, pointAdistance, pointIntersectionDD, pointIntersectionLC, pointSurSegment, rotation, triangle2points2longueurs } from '../2d.js'
 
 /**
@@ -232,7 +232,7 @@ export const triangle1longueur2angles = function (NOM, AB, BAC, CBA, description
   this.regleSegment(B, E2)
   this.angleCodage(C, B, A)
   this.pointCreer(C)
- // this.pointNommer(C, C.nom, -0.5, 1)
+  // this.pointNommer(C, C.nom, -0.5, 1)
   this.couleur = 'blue'
   this.epaisseur = 3
   this.regleSegment(B, C)

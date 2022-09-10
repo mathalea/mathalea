@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif } from '../../modules/outils.js'
 // import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'// import { courbeSpline } from '../../modules/2d.js'
+// import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+// import { courbeSpline } from '../../modules/2d.js'
 // export const interactifReady = true
 // export const interactifType = 'mathLive'
 export const titre = 'Factoriser un polynôme du second degré avec racines entières'
@@ -11,10 +12,12 @@ export const titre = 'Factoriser un polynôme du second degré avec racines enti
  * @author Rémi Angot et Stéphane Guyon
  * Référence 1E14
 */
+export const uuid = 'a8e1b'
+export const ref = '1E14'
 export default function ResoudreEquationDegre2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Factoriser les polynômes suivants : '
+  this.consigne = 'Factoriser, si cela est possible, ' + (this.nbQuestions !== 1 ? 'chaque' : 'le') + ' polynôme suivant $P$ défini pour tout $x$ de $\\mathbb R$ par : '
   this.nbQuestions = 4
   this.nbCols = 2
   this.nbColsCorr = 2
@@ -26,9 +29,6 @@ export default function ResoudreEquationDegre2 () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let listeTypeDeQuestions
-    // if (this.interactif) {
-    //  this.consigne += '<br>S\'il n\'y a pas de solution, écrire Non'
-    // }
     if (this.sup === 1) {
       listeTypeDeQuestions = combinaisonListes(['solutionsEntieres', 'solutionsEntieres', 'pasDeSolution'], this.nbQuestions)
     }
@@ -43,8 +43,7 @@ export default function ResoudreEquationDegre2 () {
         b = -k * x1 - k * x2
         c = k * x1 * x2
 
-        texte = `Soit $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`
-        texte += '<br>Donner si possible une écriture factorisée de $P(x).$'
+        texte = `$P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`
 
         texteCorr = `On a $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`
         texteCorr += '<br>On reconnaît un polynôme du second degré. On cherche ses éventuelles racines en calculant son discriminant.'
@@ -71,8 +70,7 @@ export default function ResoudreEquationDegre2 () {
           b = 2 * k * x1
           c = -k * x1 * x1 - y1
         }
-        texte = `Soit $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`
-        texte += '<br>Donner si possible une écriture factorisée de $P(x).$'
+        texte = `$P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`
 
         texteCorr = `On a $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`
         texteCorr += '<br>On reconnaît un polynôme du second degré. On cherche ses éventuelles racines en calculant son discriminant.'

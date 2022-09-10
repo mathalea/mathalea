@@ -1,5 +1,5 @@
 allerA(600,220)
-context.lutin.color = 'blue' // Change la couleur
+context.lutin.color = colorToLatexOrHTML('blue') // Change la couleur
 baisseCrayon()
 for (let a = 0 ; a < 6 ; a++) { // Répète 6 fois 
     for (let i = 0 ; i < 4 ; i++){ // Trace le carré

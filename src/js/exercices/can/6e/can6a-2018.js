@@ -1,6 +1,7 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
-import { mathalea2d, point, polygoneAvecNom, droiteGraduee2, segmentAvecExtremites, segment, milieu, texteParPosition } from '../../../modules/2d.js'
+import { point, polygoneAvecNom, droiteGraduee, segmentAvecExtremites, segment, milieu, texteParPosition } from '../../../modules/2d.js'
 import { listeQuestionsToContenu, randint, texNombre, miseEnEvidence, shuffle, prenomF, choice, arrondi, sp } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
@@ -22,6 +23,8 @@ function compareNombres (a, b) {
   return a - b
 }
 
+export const uuid = '5c46d'
+export const ref = 'can6a-2018'
 export default function SujetCAN20186ieme () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -165,7 +168,7 @@ export default function SujetCAN20186ieme () {
           a = randint(3, 6)
           b = choice([1, a - 1])
           reponse = fraction(b, a)// .simplifie()
-          texte = 'Quelle est la fraction repérée par le point d’interrogation ?<br>' + mathalea2d({ xmin: -0.5, ymin: -1, xmax: 10, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee2({
+          texte = 'Quelle est la fraction repérée par le point d’interrogation ?<br>' + mathalea2d({ xmin: -0.5, ymin: -1, xmax: 10, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee({
             Unite: 8,
             Min: 0,
             Max: 1,
@@ -243,7 +246,7 @@ export default function SujetCAN20186ieme () {
         case 13 :
           a = choice([1, 2, 3, 4, 6, 7, 8, 9]) // numérateur
           reponse = arrondi(a / 5, 1)
-          texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee2({
+          texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee({
             Unite: 3,
             Min: 0,
             Max: 3.2,

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { randint, listeQuestionsToContenu, combinaisonListes, prenomPronom, premiereLettreEnMajuscule, texNombre, contraindreValeur, compteOccurences, rangeMinMax } from '../../modules/outils.js'
-import Decimal from 'decimal.js'
+import Decimal from 'decimal.js/decimal.mjs'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -14,6 +14,8 @@ export const dateDeModifImportante = '18/06/2022'
  * Référence 4C36
  * Reformulation de l'énoncé et ajout de problèmes avec des puissances de 10 par Guillaume Valmont le 18/06/2022
 */
+export const uuid = '975cc'
+export const ref = '4C36'
 export default class nomExercice extends Exercice {
   constructor () {
     super()
@@ -88,11 +90,6 @@ export default class nomExercice extends Exercice {
         intitule: 'le volume d\'une bouteille d\'eau',
         puissanceDe10: 3,
         unite: 'mm³'
-      },
-      {
-        intitule: 'la superficie d\'une salle de classe',
-        puissanceDe10: 1,
-        unite: 'm²'
       },
       {
         intitule: 'la surface d\'une table',

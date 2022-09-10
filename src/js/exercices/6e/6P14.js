@@ -1,12 +1,13 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, arrondi, choice, lettreDepuisChiffre, rangeMinMax, contraindreValeur, compteOccurences, miseEnEvidence, sp, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
-import { codageAngleDroit, point, mathalea2d, pointAdistance, polygone, nommePolygone, codageSegments, afficheLongueurSegment, rotation, triangle2points2longueurs, angleOriente } from '../../modules/2d.js'
+import { codageAngleDroit, point, pointAdistance, polygone, nommePolygone, codageSegments, afficheLongueurSegment, rotation, triangle2points2longueurs, angleOriente } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { min, max } from 'mathjs'
 import FractionX from '../../modules/FractionEtendue.js'
-export const titre = "Figures à agrandir ou à réduire d'après une situation de proportionnalité"
+export const titre = "Agrandir ou réduire des figures, d'après une situation de proportionnalité"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -18,6 +19,8 @@ export const dateDePublication = '13/03/2022'
  * @author Eric Elter
  * Référence 6P14
 */
+export const uuid = '4c6e2'
+export const ref = '6P14'
 export default function agrandirReduireFigure () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

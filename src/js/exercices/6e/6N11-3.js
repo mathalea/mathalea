@@ -9,6 +9,8 @@ export const titre = 'Encadrer un entier entre deux entiers consécutifs'
 * @author Sébastien Lozano
 */
 
+export const uuid = '29b40'
+export const ref = '6N11-3'
 export default function EncadrerUnEntierParDeuxEntiersConsecutifs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.beta = false

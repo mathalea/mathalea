@@ -1,9 +1,10 @@
 /* eslint-disable no-sequences */
 import Exercice from '../Exercice.js'
-import Decimal from 'decimal.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
+import Decimal from 'decimal.js/decimal.mjs'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, resolutionSystemeLineaire2x2 } from '../../modules/outils.js'
-import { courbe2, mathalea2d, repere2 } from '../../modules/2d.js'
+import { courbe, repere } from '../../modules/2d.js'
 export const titre = 'Lire les antécédents d\'un nombre à partir d\'un graphique'
 
 /**
@@ -13,6 +14,8 @@ export const titre = 'Lire les antécédents d\'un nombre à partir d\'un graphi
 * @author Rémi Angot
 * 3F13
 */
+export const uuid = '8117d'
+export const ref = '3F13'
 export default function AntecedentGraphique () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -101,8 +104,8 @@ export default function AntecedentGraphique () {
         texteCorr = `$${fx1}$ a deux antécédents $${x1}$ et $${x3}$, on note $f(${x1})=f(${x3})=${fx1}$.<br>`
       }
     }
-    const r = repere2({ xMin: -10, xMax: 10, yMin: -10, yMax: 10 })
-    const Cf = courbe2(f, { repere: r, step: 0.2, color: 'purple' })
+    const r = repere({ xMin: -10, xMax: 10, yMin: -10, yMax: 10 })
+    const Cf = courbe(f, { repere: r, step: 0.2, color: 'purple' })
     texte += mathalea2d({ xmin: -10, xmax: 10, ymin: -10, ymax: 10, scale: 0.5 }, r, Cf)
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)

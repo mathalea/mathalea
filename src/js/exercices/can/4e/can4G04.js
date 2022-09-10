@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, creerNomDePolygone, texNombrec, texteEnCouleur, extraireRacineCarree, texRacineCarree } from '../../../modules/outils.js'
 import {
-  mathalea2d, point, pointAdistance, polygoneAvecNom, codageAngleDroit, texteParPosition, milieu
+  point, pointAdistance, polygoneAvecNom, codageAngleDroit, texteParPosition, milieu
 } from '../../../modules/2d.js'
 export const titre = 'Calculer un côté avec le théorème de Pythagore'
 export const interactifReady = true
@@ -13,6 +14,8 @@ export const interactifType = 'mathLive'
  * Référence can4G04
  * Date de publication sptembre 2021
 */
+export const uuid = '4b711'
+export const ref = 'can4G04'
 export default function CalculCotePythagore () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

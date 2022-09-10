@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  mathalea2d, point, labelPoint, polygoneAvecNom, milieu, texteParPosition, tracePoint, repere2, polygone, codageAngleDroit, latexParCoordonnees
+  point, labelPoint, polygoneAvecNom, milieu, texteParPosition, tracePoint, repere, polygone, codageAngleDroit, latexParCoordonnees
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { listeQuestionsToContenu, arrondi, randint, texNombre, shuffle, ecritureParentheseSiNegatif, simplificationDeFractionAvecEtapes, choice, calcul, sp } from '../../../modules/outils.js'
@@ -24,6 +25,8 @@ export const dateDePublication = '01/05/2022' // La date de publication initiale
 function compareNombres (a, b) {
   return a - b
 }
+export const uuid = 'cf47f'
+export const ref = 'can4a-2022'
 export default function SujetCAN2022quatrieme () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -502,7 +505,7 @@ export default function SujetCAN2022quatrieme () {
           k1 = choice([3, 4, 5])
           b = randint(-k2 + 1, k2 - 1)
           a = randint(-k1 + 1, k1 - 1)
-          r = repere2({
+          r = repere({
             xUnite: k1,
             yUnite: k2,
             xMin: -k1 - 1,
@@ -519,9 +522,6 @@ export default function SujetCAN2022quatrieme () {
             axeXStyle: '->',
             axeYStyle: '->'
           })
-
-          // C.color = 'red'
-          // C.epaisseur = 2
 
           A = point(a, b)
           o = latexParCoordonnees('\\text{O}', -0.3, -0.4, 'black', 15, 10, '', 7)

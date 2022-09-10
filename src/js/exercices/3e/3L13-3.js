@@ -1,9 +1,10 @@
-import { codageSegments, homothetie, mathalea2d, point, polygone, polygoneAvecNom, segment, texteParPosition } from '../../modules/2d'
-import { setReponse } from '../../modules/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive'
-import { arrondi, choice, combinaisonListes, ecritureAlgebrique, listeQuestionsToContenu, prenom, texNombre, texPrix } from '../../modules/outils'
-import { aleaVariables, resoudre } from '../../modules/outilsMathjs'
-import Exercice from '../Exercice'
+import { codageSegments, homothetie, point, polygone, polygoneAvecNom, segment, texteParPosition } from '../../modules/2d.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { arrondi, choice, combinaisonListes, ecritureAlgebrique, listeQuestionsToContenu, prenom, texNombre, texPrix } from '../../modules/outils.js'
+import { aleaVariables, resoudre } from '../../modules/outilsMathjs.js'
+import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 export const titre = 'Problèmes à mettre en équation et à résoudre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -17,6 +18,8 @@ export const dateDePublication = '15/02/2022'
  * Réf : 3L13-3
  * Date de publication 15/02/2022
  */
+export const uuid = '22412'
+export const ref = '3L13-3'
 export default class ProblemesEnEquation extends Exercice {
   constructor () {
     super()

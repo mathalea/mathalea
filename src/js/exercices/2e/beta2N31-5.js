@@ -20,7 +20,6 @@ import {
 } from '../../modules/context.js'
 import {
   round
-  , planckTemperatureDependencies
 } from 'mathjs'
 
 export const titre = 'Calculer avec des nombres en écriture scientifique'

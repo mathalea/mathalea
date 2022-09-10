@@ -18,11 +18,13 @@ export const amcType = 'AMCNum'
  * @author Rémi Angot
  * Référence CM000
  */
+export const uuid = '6d698'
+export const ref = 'CM000'
 export default function TablesAdditionsSoustractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 20
   this.sup2 = 6 // additions|additions à trous|soustractions|soustractions à trous|mélange sans trou|mélange avec trou
-  this.consigne = 'Calculer'
+  this.consigne = 'Calculer :'
   this.spacing = 2
   this.tailleDiaporama = 3
   this.nouvelleVersion = function () {
@@ -135,7 +137,6 @@ export default function TablesAdditionsSoustractions () {
       this.listeCorrections.push(texteCorr)
     }
     listeQuestionsToContenu(this)
-    console.log(this.autoCorrection)
   }
   this.besoinFormulaireNumerique = ['Valeur maximale', 9999] // Texte, tooltip
   this.besoinFormulaire2Numerique = [

@@ -716,8 +716,8 @@ function questionRecouvrirSurface (exo, i) { // peinture, gazon, carrelage pour 
     const quantiteD = couplePremiersEntreEux[indexN][1]
     const surfaceD = couplePremiersEntreEux[indexN][0]
     const coef = randint(2, 5)
-    const quantiteF = calcul(quantiteD * coef, 2)
-    const surfaceF = calcul(surfaceD * coef, 2)
+    const quantiteF = calcul(quantiteD * coef, 3)
+    const surfaceF = calcul(surfaceD * coef, 3)
     const enonceAMC = `${prenoms[0]} doit acheter ${liste[alea1].matiere}. ` +
 `Sur la notice, il est indiqué de prévoir ${quantiteD}${sp()}${liste[alea1].unite} pour ${surfaceD}${sp()}m${texteExposant(2)}. <br> ` +
 `Combien de${sp()}${liste[alea1].unite} doit-elle en acheter pour une surface de ${surfaceF}${sp()}m${texteExposant(2)}${sp()}?`
@@ -757,7 +757,7 @@ texteEnCouleurEtGras(`Conclusion : ${prenoms[0]} doit en acheter ${quantiteF}${s
     const alea1 = randint(0, liste.length - 1)
     const alea2 = randint(0, liste[alea1].qtt_matiere_unitaire.length - 1)
     const alea3 = randint(0, liste[alea1].qtt_surface.length - 1)
-    const rapport = [0.25, 0.5, 0.75, 1.25, 1.5, 2, 3, 4, 5] // choix parmi des rapports simples (en 6eme cela parait suffisant)
+    const rapport = [0.25, 0.5, 0.75, 1.25, 1.5, 2, 3, 4, 5] // choix parmi des rapports simples (en 6eme cela paraît suffisant)
     const quantite = liste[alea1].qtt_matiere_unitaire[alea2]
     const alea4 = randint(0, rapport.length - 1)
     const surfaceFinale = calcul(rapport[alea4] * liste[alea1].qtt_surface[alea3], 3)
@@ -772,22 +772,22 @@ texteEnCouleurEtGras(`Conclusion : ${prenoms[0]} doit en acheter ${quantiteF}${s
     texte = enonceAMC1 + ajouteChampTexteMathLive(exo, i, 'largeur25  inline', { texteApres: ' ' + liste[alea1].unite })
     texteCorr = `${numAlpha(0)} ${stringNombre(surfaceFinale)}${sp()}m${texteExposant(2)}, c'est ${texteEnCouleur(stringNombre(rapport[alea4]))} fois ${liste[alea1].qtt_surface[alea3]}${sp()}m${texteExposant(2)}. <br>` +
 `Il va donc falloir ${texteEnCouleur(stringNombre(rapport[alea4]))} fois ${texteEnCouleur(qttaffichage, 'blue')}${sp()}${liste[alea1].unite} pour ${stringNombre(surfaceFinale)}${sp()}m${texteExposant(2)}. <br>` +
-`${texteEnCouleur(stringNombre(rapport[alea4]))} $\\times$ ${texteEnCouleur(qttaffichage, 'blue')}${sp()}${liste[alea1].unite} = ${stringNombre(calcul(rapport[alea4] * quantite, 2))}${sp()}${liste[alea1].unite}<br>` +
-texteEnCouleurEtGras(`Conclusion : ${prenoms[0]} doit acheter ${stringNombre(calcul(rapport[alea4] * quantite, 2))}${sp()}${liste[alea1].unite}.`, 'black') + '<br>  '
+`${texteEnCouleur(stringNombre(rapport[alea4]))} $\\times$ ${texteEnCouleur(qttaffichage, 'blue')}${sp()}${liste[alea1].unite} = ${stringNombre(calcul(rapport[alea4] * quantite, 3))}${sp()}${liste[alea1].unite}<br>` +
+texteEnCouleurEtGras(`Conclusion : ${prenoms[0]} doit acheter ${stringNombre(calcul(rapport[alea4] * quantite, 3))}${sp()}${liste[alea1].unite}.`, 'black') + '<br>  '
     const enonceAMC2 = `${numAlpha(1)} ${prenoms[1]} a acheté ${liste[alea1].matiere}. Il lui en reste ${stringNombre(quantite2)}${sp()}${liste[alea1].unite}. Sur la notice, il est aussi indiqué de prévoir ${qttaffichage}${sp()}${liste[alea1].unite} pour ${stringNombre(liste[alea1].qtt_surface[alea3])}${sp()}m${texteExposant(2)}. <br>` +
 `En a-t-il suffisamment pour la surface de ${stringNombre(surfaceFinale2)}${sp()}m${texteExposant(2)} qu'il lui reste à faire${sp()}?<br>`
     texte += '<br>' + enonceAMC2 + ajouteChampTexteMathLive(exo, i + 1, 'largeur25  inline', { texteApres: ' (oui ou non)' })
     texteCorr += `${numAlpha(1)} ${stringNombre(quantite2)}${sp()}${liste[alea1].unite}, c'est ${texteEnCouleur(stringNombre(rapport[alea5]))} fois ${qttaffichage}${sp()}${liste[alea1].unite}. <br>` +
 `Avec ${stringNombre(quantite2)}${sp()}${liste[alea1].unite} on peut donc traiter une surface de ${texteEnCouleur(stringNombre(rapport[alea5]))}
 fois ${texteEnCouleur(stringNombre(liste[alea1].qtt_surface[alea3]), 'blue')}${sp()}m${texteExposant(2)}. <br>` +
-`${texteEnCouleur(stringNombre(rapport[alea5]))} $\\times$ ${texteEnCouleur(stringNombre(liste[alea1].qtt_surface[alea3]), 'blue')}${sp()}m${texteExposant(2)} = ${stringNombre(calcul(rapport[alea5] * liste[alea1].qtt_surface[alea3], 2))}${sp()}m${texteExposant(2)}<br>`
+`${texteEnCouleur(stringNombre(rapport[alea5]))} $\\times$ ${texteEnCouleur(stringNombre(liste[alea1].qtt_surface[alea3]), 'blue')}${sp()}m${texteExposant(2)} = ${stringNombre(calcul(rapport[alea5] * liste[alea1].qtt_surface[alea3], 3))}${sp()}m${texteExposant(2)}<br>`
     texteCorr += rapport[alea5] * liste[alea1].qtt_surface[alea3] < surfaceFinale2
-      ? texteEnCouleurEtGras(`Conclusion : ${stringNombre(calcul(rapport[alea5] * liste[alea1].qtt_surface[alea3], 2))}${sp()}m${texteExposant(2)} < ${stringNombre(surfaceFinale2)}${sp()}m${texteExposant(2)} donc ${prenoms[1]} en a suffisamment pour ${surfaceFinale2}${sp()}m${texteExposant(2)}.`, 'black') + ' <br>'
-      : texteEnCouleurEtGras(`Conclusion : ${stringNombre(calcul(rapport[alea5] * liste[alea1].qtt_surface[alea3], 2))}${sp()}m${texteExposant(2)} > ${stringNombre(surfaceFinale2)}${sp()}m${texteExposant(2)} donc ${prenoms[1]} n'en a pas assez pour ${surfaceFinale2}${sp()}m${texteExposant(2)}.`, 'black') + ' <br>'
+      ? texteEnCouleurEtGras(`Conclusion : ${stringNombre(calcul(rapport[alea5] * liste[alea1].qtt_surface[alea3], 3))}${sp()}m${texteExposant(2)} < ${stringNombre(surfaceFinale2)}${sp()}m${texteExposant(2)} donc ${prenoms[1]} en a suffisamment pour ${surfaceFinale2}${sp()}m${texteExposant(2)}.`, 'black') + ' <br>'
+      : texteEnCouleurEtGras(`Conclusion : ${stringNombre(calcul(rapport[alea5] * liste[alea1].qtt_surface[alea3], 3))}${sp()}m${texteExposant(2)} > ${stringNombre(surfaceFinale2)}${sp()}m${texteExposant(2)} donc ${prenoms[1]} n'en a pas assez pour ${surfaceFinale2}${sp()}m${texteExposant(2)}.`, 'black') + ' <br>'
 
     if (!context.isAmc) {
-      setReponse(exo, i, calcul(rapport[alea4] * quantite, 2))
-      setReponse(exo, i + 1, calcul(rapport[alea5] * liste[alea1].qtt_surface[alea3], 2) > surfaceFinale2 ? 'oui' : 'non')
+      setReponse(exo, i, calcul(rapport[alea4] * quantite, 3))
+      setReponse(exo, i + 1, calcul(rapport[alea5] * liste[alea1].qtt_surface[alea3], 3) > surfaceFinale2 ? 'oui' : 'non')
     } else {
       exo.autoCorrection[i] = {
         enonce: '',
@@ -800,10 +800,10 @@ fois ${texteEnCouleur(stringNombre(liste[alea1].qtt_surface[alea3]), 'blue')}${s
               statut: '',
               reponse: {
                 texte: enonceAMC1,
-                valeur: [calcul(rapport[alea4] * quantite)],
+                valeur: [calcul(rapport[alea4] * quantite, 3)],
                 param: {
-                  digits: nombreDeChiffresDe(calcul(rapport[alea4] * quantite, 2)),
-                  decimals: nombreDeChiffresDansLaPartieDecimale(calcul(rapport[alea4] * quantite, 2)),
+                  digits: nombreDeChiffresDe(calcul(rapport[alea4] * quantite, 3)),
+                  decimals: nombreDeChiffresDansLaPartieDecimale(calcul(rapport[alea4] * quantite, 3)),
                   signe: false,
                   approx: 0
                 }
@@ -829,6 +829,8 @@ fois ${texteEnCouleur(stringNombre(liste[alea1].qtt_surface[alea3]), 'blue')}${s
 
 // _______ Fin des fonctions correspondants aux situations problèmes _____
 
+export const uuid = 'f7a14'
+export const ref = '6P11'
 export default function ProportionnaliteParLinearite () {
   'use strict'
   let question
@@ -843,7 +845,11 @@ export default function ProportionnaliteParLinearite () {
   this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Achat\n2 : Recette\n3 : Dilution\n4 : Distance\n5 : Echelle\n6 : Surface\n7 : Mélange']
   this.sup2 = 7
   this.nouvelleVersion = function () {
-    this.consigne = this.nbQuestions === 1 ? 'Répondre à la question posée en justifiant.' : 'Répondre aux questions posées en justifiant.'
+    if (this.interactif) {
+      this.consigne = ''
+    } else {
+      this.consigne = this.nbQuestions === 1 ? 'Répondre à la question posée en justifiant.' : 'Répondre aux questions posées en justifiant.'
+    }
     let indiceQuestion = 0
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

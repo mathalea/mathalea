@@ -1,13 +1,25 @@
+// Le premier import et l'utilisation de iepLoadPromise est à commenter pour que le build:dicos fonctionne dans la v3
 import iepLoadPromise from 'instrumenpoche'
 import { angleOriente, droite, homothetie, longueur, milieu, norme, point, pointAdistance, pointSurSegment, rotation, segment, translation, translation2Points, vecteur } from './2d.js'
 import { context } from './context.js'
-import { bissectriceAuCompas, cercleCirconscrit, hauteur, mediane, mediatriceAuCompas, mediatriceRegleEquerre } from './iepMacros/droitesRemarquables'
+import { bissectriceAuCompas, cercleCirconscrit, hauteur, mediane, mediatriceAuCompas, mediatriceRegleEquerre } from './iepMacros/droitesRemarquables.js'
 import { paralleleAuCompas, paralleleAuCompasAvecDescription, paralleleRegleEquerre2points3epoint, paralleleRegleEquerreDroitePointAvecDescription, perpendiculaireCompasPoint, perpendiculaireCompasPointSurLaDroite, perpendiculaireRegleEquerre2points3epoint, perpendiculaireRegleEquerreDroitePoint, perpendiculaireRegleEquerrePointSurLaDroite } from './iepMacros/parallelesEtPerpendiculaires.js'
-import { parallelogramme2sommetsConsecutifsCentre, parallelogramme3sommetsConsecutifs, parallelogrammeAngleCentre, partageSegment } from './iepMacros/parallelogrammes'
+import { parallelogramme2sommetsConsecutifsCentre, parallelogramme3sommetsConsecutifs, parallelogrammeAngleCentre, partageSegment } from './iepMacros/parallelogrammes.js'
 import { carre1point1longueur } from './iepMacros/quadrilateres.js'
-import { demiTourPoint, demiTourPolygone, homothetiePoint, homothetiePolygone, rotationPoint, rotationPolygone, symetrieAxialePoint, symetrieAxialePolygone, translationPoint, translationPolygone } from './iepMacros/transformations'
+import { demiTourPoint, demiTourPolygone, homothetiePoint, homothetiePolygone, rotationPoint, rotationPolygone, symetrieAxialePoint, symetrieAxialePolygone, translationPoint, translationPolygone } from './iepMacros/transformations.js'
 import { triangle1longueur2angles, triangle2longueurs1angle, triangle3longueurs, triangleEquilateral, triangleEquilateral2Sommets, triangleRectangle2Cotes, triangleRectangleCoteHypotenuse } from './iepMacros/triangles.js'
 
+const store = {}
+
+export class StoreIep {
+  static getXml (id) {
+    return store[id]
+  }
+
+  static saveXml (id, xml) {
+    store[id] = xml
+  }
+}
 /*
  * Classe parente de tous les objets Alea2iep
  *
@@ -135,13 +147,24 @@ export default class Alea2iep {
    * @param {int} numeroExercice - Numéro de l'exercice
    * @param {int} i - Numéro de la question
    */
-  html (id1, id2) {
-    if (context.isHtml) {
-      const id = `IEP_${id1}_${id2}`
-      window.listeScriptsIep[id] = this.script() // On ajoute le script
-      const codeHTML = `<div id="IEPContainer${id}" ></div>`
-      window.listeAnimationsIepACharger.push(id)
-      return codeHTML
+  html (id1, id2 = 0) {
+    if (context.versionMathalea === 3) {
+      if (context.isHtml) {
+        const id = `IEP_${id1}_${id2}`
+        StoreIep.saveXml(id, this.script())
+        const codeHTML = `<alea-instrumenpoche id=${id}>`
+        return codeHTML
+      }
+      return ''
+    } else {
+      if (context.isHtml) {
+        const id = `IEP_${id1}_${id2}`
+        window.listeScriptsIep[id] = this.script() // On ajoute le script
+        const codeHTML = `<div id="IEPContainer${id}" ></div>`
+        window.listeAnimationsIepACharger.push(id)
+        return codeHTML
+      }
+      return ''
     }
   }
 
@@ -152,36 +175,46 @@ export default class Alea2iep {
    * @return Code HTML avec le bouton qui affiche ou masque un div avec l'animation
    */
   htmlBouton (id1, id2 = '') {
-    if (context.isHtml) {
-      const id = `IEP_${id1}_${id2}`
-      window.listeScriptsIep[id] = this.script() // On ajoute le script
-      const codeHTML = `<br><button class="ui mini compact button" id="btnAnimation${id}" onclick="toggleVisibilityIEP('${id}')" style="margin-top:20px"><i class="large play circle outline icon"></i>Voir animation</button>
-            <div id="IEPContainer${id}" style="display: none;" ></div>`
-      if (!window.toggleVisibilityIEP) {
-        window.toggleVisibilityIEP = function (id) {
-          const element = document.getElementById(`IEPContainer${id}`)
-          const elementBtn = document.getElementById(`btnAnimation${id}`)
-          const xml = window.listeScriptsIep[id]
-          if (element.style.display === 'none') {
-            element.style.display = 'block'
-            element.style.marginTop = '30px'
-            // On ajoute une regle css max-width pour éviter le débordement
-            element.style.maxWidth = '95%'
-            elementBtn.innerHTML = '<i class="large stop circle outline icon"></i>Masquer animation'
-            iepLoadPromise(element, xml, { zoom: true, autostart: true }).then(iepApp => {
-              // la figure est chargée
-              // On surcharge la propriété CSS min-width après que la promesse ait été satisfaite sinon ça marche pas !
-              element.style.minWidth = '90%'
-            }).catch(error => { console.log(error) })
-          } else {
-            element.style.display = 'none'
-            elementBtn.innerHTML = '<i class="large play circle outline icon"></i>Voir animation'
+    if (context.versionMathalea === 3) {
+      if (context.isHtml) {
+        const id = `IEP_${id1}_${id2}`
+        StoreIep.saveXml(id, this.script())
+        const codeHTML = `<alea-buttoninstrumenpoche id=${id}>`
+        return codeHTML
+      }
+      return ''
+    } else {
+      if (context.isHtml) {
+        const id = `IEP_${id1}_${id2}`
+        window.listeScriptsIep[id] = this.script() // On ajoute le script
+        const codeHTML = `<br><button class="ui mini compact button" id="btnAnimation${id}" onclick="toggleVisibilityIEP('${id}')" style="margin-top:20px"><i class="large play circle outline icon"></i>Voir animation</button>
+              <div id="IEPContainer${id}" style="display: none;" ></div>`
+        if (!window.toggleVisibilityIEP) {
+          window.toggleVisibilityIEP = function (id) {
+            const element = document.getElementById(`IEPContainer${id}`)
+            const elementBtn = document.getElementById(`btnAnimation${id}`)
+            const xml = window.listeScriptsIep[id]
+            if (element.style.display === 'none') {
+              element.style.display = 'block'
+              element.style.marginTop = '30px'
+              // On ajoute une regle css max-width pour éviter le débordement
+              element.style.maxWidth = '95%'
+              elementBtn.innerHTML = '<i class="large stop circle outline icon"></i>Masquer animation'
+              iepLoadPromise(element, xml, { zoom: true, autostart: true }).then(iepApp => {
+                // la figure est chargée
+                // On surcharge la propriété CSS min-width après que la promesse ait été satisfaite sinon ça marche pas !
+                element.style.minWidth = '90%'
+              }).catch(error => { console.log(error) })
+            } else {
+              element.style.display = 'none'
+              elementBtn.innerHTML = '<i class="large play circle outline icon"></i>Voir animation'
+            }
           }
         }
+        return codeHTML
+      } else {
+        return ''
       }
-      return codeHTML
-    } else {
-      return ''
     }
   }
 
@@ -226,7 +259,7 @@ export default class Alea2iep {
         A1 = A
       }
       if (this[objet].visibilite) { // S'il est déjà visible, montrer devient un déplacer
-        this.deplacer(objet, A1, { tempo: tempo, vitesse: vitesse })
+        this.deplacer(objet, A1, { tempo, vitesse })
       } else {
         codeXML = `<action objet="${objet}" mouvement="montrer" abscisse="${this.x(A1)}" ordonnee="${this.y(A1)}" tempo="${tempo}" />`
         this[objet].visibilite = true
@@ -683,7 +716,7 @@ export default class Alea2iep {
     if (typeof dy !== 'undefined') {
       M.y += dy
     }
-    this.textePoint(`$${nom}$`, M, { tempo: tempo, couleur: couleur })
+    this.textePoint(`$${nom}$`, M, { tempo, couleur })
     // this.liste_script.push(`<action couleur="${couleur}" nom="${nom}" id="${A.id}" mouvement="nommer" objet="point" tempo="${tempo}" ${coordonneesTexte} />`)
   }
 
@@ -724,12 +757,12 @@ export default class Alea2iep {
 * @param {*} options Défaut : { tempo: this.tempo, vitesse: this.vitesse, sens : this.vitesse / 2 }
 */
   compasEcarterAvecRegle (l, { tempo = this.tempo, vitesse = this.vitesse, sens = this.vitesse / 2 } = {}) {
-    this.regleRotation(0, { tempo: 0, sens: sens })
+    this.regleRotation(0, { tempo: 0, sens })
     this.regleMontrer(this.compas.position, { tempo: 0 })
-    this.regleDeplacer(this.compas.position, { tempo: 0, vitesse: vitesse })
+    this.regleDeplacer(this.compas.position, { tempo: 0, vitesse })
     this.compasMontrer()
-    this.compasRotation(0, { tempo: 0, sens: sens })
-    this.compasEcarter(l, { tempo: tempo, vitesse: vitesse, sens: sens })
+    this.compasRotation(0, { tempo: 0, sens })
+    this.compasEcarter(l, { tempo, vitesse, sens })
   }
 
   /**
@@ -740,12 +773,12 @@ export default class Alea2iep {
 */
   compasEcarter2Points (A, B, { tempo = this.tempo, vitesse = this.vitesse, sens = this.vitesse / 2 } = {}) {
     this.compasMontrer(A)
-    this.compasDeplacer(A, { tempo: tempo, vitesse: vitesse })
+    this.compasDeplacer(A, { tempo, vitesse })
     const s = segment(A, B)
     s.isVisible = false
     const angle = s.angleAvecHorizontale
-    this.compasRotation(angle, { tempo: tempo, sens: sens })
-    this.compasEcarter(longueur(A, B), { tempo: tempo, vitesse: vitesse })
+    this.compasRotation(angle, { tempo, sens })
+    this.compasEcarter(longueur(A, B), { tempo, vitesse })
   }
 
   /**
@@ -810,15 +843,15 @@ export default class Alea2iep {
 */
   compasTracerArcCentrePoint (centre, point, { delta = 10, tempo = this.tempo, vitesse = this.vitesse, sens = Math.round(this.vitesse / 2), epaisseur = this.epaisseur, couleur = this.couleurCompas, pointilles = this.pointilles } = {}) {
     this.compasMontrer()
-    this.compasDeplacer(centre, { tempo: tempo, vitesse: vitesse })
+    this.compasDeplacer(centre, { tempo, vitesse })
     const s = segment(centre, point)
     s.visibility = false
     const angle1 = s.angleAvecHorizontale - delta
     const angle2 = s.angleAvecHorizontale + delta
     if ((Math.abs(this.compas.ecartement - longueur(this.compas.position, point))) > 0.1) {
-      this.compasEcarter(longueur(centre, point), { tempo: tempo, vitesse: vitesse })
+      this.compasEcarter(longueur(centre, point), { tempo, vitesse })
     }
-    return this.compasTracerArc2Angles(angle1, angle2, { tempo: tempo, vitesse: vitesse, epaisseur: epaisseur, sens: sens, couleur: couleur, pointilles: pointilles })
+    return this.compasTracerArc2Angles(angle1, angle2, { tempo, vitesse, epaisseur, sens, couleur, pointilles })
   }
 
   /**
@@ -828,10 +861,10 @@ export default class Alea2iep {
 * @param {objet} options Défaut : { tempo: this.tempo, sens: this.vitesse / 2, epaisseur: this.epaisseur, couleur: this.couleurCompas, pointilles: this.pointilles }
 */
   compasCercleCentrePoint (centre, point, { tempo = this.tempo, couleur = this.couleur, vitesse = this.vitesse, sens = Math.round(this.vitesse / 2), epaisseur = this.epaisseur, pointilles = this.pointilles } = {}) {
-    this.compasEcarter2Points(centre, point, { vitesse: vitesse, tempo: tempo })
+    this.compasEcarter2Points(centre, point, { vitesse, tempo })
     const d = droite(centre, point)
     const angle1 = d.angleAvecHorizontale
-    this.compasTracerArc2Angles(angle1, angle1 + 360, { tempo: tempo, vitesse: vitesse, sens: sens, epaisseur: epaisseur, couleur: couleur, pointilles: pointilles })
+    this.compasTracerArc2Angles(angle1, angle1 + 360, { tempo, vitesse, sens, epaisseur, couleur, pointilles })
   }
 
   /**
@@ -914,8 +947,8 @@ export default class Alea2iep {
     const d = droite(A, B)
     d.isVisible = false
     this.rapporteurMontrer()
-    this.rapporteurDeplacer(A, { tempo: tempo, vitesse: vitesse })
-    this.rapporteurRotation(d.angleAvecHorizontale, { tempo: tempo, vitesse: vitesse, sens: sens })
+    this.rapporteurDeplacer(A, { tempo, vitesse })
+    this.rapporteurRotation(d.angleAvecHorizontale, { tempo, vitesse, sens })
   }
 
   /**
@@ -929,8 +962,8 @@ export default class Alea2iep {
     const M = pointAdistance(O, distanceBord, angle + this.rapporteur.angle)
     const N = pointAdistance(O, distanceBord + 0.3, angle + this.rapporteur.angle)
     this.crayonMontrer()
-    this.crayonDeplacer(M, { tempo: tempo, vitesse: vitesse })
-    this.tracer(N, { tempo: tempo, vitesse: vitesse, couleur: couleur, epaisseur: epaisseur })
+    this.crayonDeplacer(M, { tempo, vitesse })
+    this.tracer(N, { tempo, vitesse, couleur, epaisseur })
   }
 
   /**
@@ -942,18 +975,18 @@ export default class Alea2iep {
  */
   rapporteurTracerDemiDroiteAngle (A, B, angle, { longueur = 0.9 * this.regle.longueur, couleur = this.couleur, tempo = this.tempo, vitesse = this.vitesse, sens = Math.round(this.vitesse / 2), epaisseur = this.epaisseur, pointilles = this.pointilles } = {}) {
     if (angle > 0) {
-      this.rapporteurDeplacerRotation2Points(A, B, { tempo: tempo, vitesse: vitesse, sens: sens })
-      this.rapporteurCrayonMarqueAngle(angle, { tempo: tempo, vitesse: vitesse, sens: sens })
+      this.rapporteurDeplacerRotation2Points(A, B, { tempo, vitesse, sens })
+      this.rapporteurCrayonMarqueAngle(angle, { tempo, vitesse, sens })
     } else {
       const B2 = rotation(B, A, 180)
-      this.rapporteurDeplacerRotation2Points(A, B2, { tempo: tempo, vitesse: vitesse, sens: sens })
-      this.rapporteurCrayonMarqueAngle(180 - Math.abs(angle), { tempo: tempo, vitesse: vitesse, sens: sens })
+      this.rapporteurDeplacerRotation2Points(A, B2, { tempo, vitesse, sens })
+      this.rapporteurCrayonMarqueAngle(180 - Math.abs(angle), { tempo, vitesse, sens })
     }
     const d = droite(A, B)
     d.isVisible = false
     const M = pointAdistance(A, this.rapporteur.rayon * this.rapporteur.zoom / 100, d.angleAvecHorizontale + angle)
-    this.rapporteurMasquer({ tempo: tempo })
-    this.regleDemiDroiteOriginePoint(A, M, { longueur: longueur, couleur: couleur, tempo: tempo, vitesse: vitesse, sens: sens, epaisseur: epaisseur, pointilles: pointilles })
+    this.rapporteurMasquer({ tempo })
+    this.regleDemiDroiteOriginePoint(A, M, { longueur, couleur, tempo, vitesse, sens, epaisseur, pointilles })
   }
 
   /**
@@ -1372,8 +1405,8 @@ export default class Alea2iep {
    * @param {objet} options Défaut { tempo: 0 }
    */
   codageAngleDroitMasquer (id, { tempo = 0 } = {}) {
-    this.traitMasquer(id[0], { tempo: tempo })
-    this.traitMasquer(id[1], { tempo: tempo })
+    this.traitMasquer(id[0], { tempo })
+    this.traitMasquer(id[1], { tempo })
   }
 
   /**

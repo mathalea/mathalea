@@ -16,6 +16,8 @@ export const amcType = 'AMCHybride'
  * Rendre l'exercice interactif Laurence Candille
  * Référence 6D101
  */
+export const uuid = '6b3e4'
+export const ref = '6D101'
 export default function HeuresDecimales () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Compléter les égalités suivantes.'

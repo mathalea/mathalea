@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, range, rangeMinMax, shuffle, combinaisonListes, contraindreValeur, choice } from '../../modules/outils.js'
-import { point, pointIntersectionDD, droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, droiteParPointEtPente, rotation, codageAngleDroit, mathalea2d } from '../../modules/2d.js'
+import { point, pointIntersectionDD, droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, droiteParPointEtPente, rotation, codageAngleDroit } from '../../modules/2d.js'
 export const amcReady = true
 export const amcType = 'AMCOpen' // type de question AMC
 export const titre = 'Utiliser les propriétés des droites perpendiculaires'
@@ -11,6 +12,8 @@ export const titre = 'Utiliser les propriétés des droites perpendiculaires'
  * @author Jean-Claude Lhote (EE : pour l'ajout d'AMC et la possibilité de sélectionner différents mélanges)
  * publié le 22/11/2020
  */
+export const uuid = '6a336'
+export const ref = '6G14'
 export default function ProprietesParallelesPerpendiculaires () {
   'use strict'
   Exercice.call(this)
@@ -67,7 +70,7 @@ export default function ProprietesParallelesPerpendiculaires () {
     const d = []; const P = []; const objets = []; const couleurd = []; let droiteP; let PP; let Inter
     const droitecolor = function (num) {
       let couleurs
-      context.isHtml ? couleurs = ['red', 'blue', 'green', 'black', 'magenta', 'orange'] : couleurs = ['black', 'black', 'black', 'black', 'black', 'black']
+      context.isHtml ? couleurs = ['red', 'blue', 'green', 'black', 'magenta', '#f15929'] : couleurs = ['black', 'black', 'black', 'black', 'black', 'black']
       return couleurs[num]
     }
 

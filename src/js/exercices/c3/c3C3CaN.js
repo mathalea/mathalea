@@ -2,7 +2,8 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint, calcul, texNombrec, choice, texNombre, texPrix, range1, prenom, personne, miseEnEvidence, stringNombre } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { afficheCoteSegment, codageSegments, homothetie, mathalea2d, point, polygoneRegulier, segment, texteSurSegment } from '../../modules/2d.js'
+import { afficheCoteSegment, codageSegments, homothetie, point, polygoneRegulier, segment, texteSurSegment } from '../../modules/2d.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 export const titre = 'Course aux nombres CM1'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -14,6 +15,8 @@ export const amcType = 'AMCNum'
  * @author Jean-Claude Lhote
  * Référence
 */
+export const uuid = '32a0f'
+export const ref = 'c3C3CaN'
 export default function CourseAuxNombresCM (numeroExercice) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 30

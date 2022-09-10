@@ -1,9 +1,10 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, choice, texNombre, choisitLettresDifferentes } from '../../../modules/outils.js'
 import {
-  mathalea2d, point, labelPoint, afficheLongueurSegment, afficheMesureAngle, pointAdistance, segment
+  point, labelPoint, afficheLongueurSegment, afficheMesureAngle, pointAdistance, segment
 } from '../../../modules/2d.js'
-import Decimal from 'decimal.js'
+import Decimal from 'decimal.js/decimal.mjs'
 import FractionX from '../../../modules/FractionEtendue.js'
 export const titre = 'Calculer un produit scalaire à l’aide de normes et d’un angle '
 export const interactifReady = true
@@ -15,6 +16,8 @@ export const dateDePublication = '26/06/2022'
  * Référence can1G04
  *
 */
+export const uuid = 'df08a'
+export const ref = 'can1G04'
 export default function ProduitScalaireNormesAngles () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

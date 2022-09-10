@@ -1,9 +1,11 @@
 // on importe les fonctions nécessaires.
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, combinaisonListesSansChangerOrdre, shuffle, texteGras } from '../../modules/outils.js'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
-import { angleScratchTo2d, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA, leveCrayon, grille, tracePoint, point, segment, texteParPoint } from '../../modules/2d.js'
+import { scratchblock, point, segment, tracePoint, grille, texteParPoint } from '../../modules/2d.js'
+import { allerA, angleScratchTo2d, avance, baisseCrayon, creerLutin, leveCrayon, orienter, tournerD, tournerG } from '../../modules/2dLutin.js'
 import { afficheScore } from '../../modules/gestionInteractif.js'
 export const interactifReady = true
 // il y avait un fonctionnement avec amcType cf commit 3ae7c43
@@ -12,6 +14,8 @@ export const amcReady = true
 export const amcType = 'qcmMono'
 
 export const titre = 'Trouver le bon tracé avec Scratch'
+export const uuid = 'e9cac'
+export const ref = '6I12'
 export default function AlgoTortue () { // ça c'est la classe qui permet de créer cet exercice
   'use strict'
   Exercice.call(this) // la classe parente qui définit les attributs commun à tous les exercices
@@ -61,7 +65,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     // Ici on crée 5 instances de l'objet Lutin.
     for (let i = 0; i < 5; i++) {
       lutins[i] = creerLutin()
-      lutins[i].color = 'green' // la couleur de la trace
+      lutins[i].color = colorToLatexOrHTML('green') // la couleur de la trace
       lutins[i].epaisseur = 3 // son epaisseur
     }
     context.unitesLutinParCm = 10 // avancer de 10 pour le lutin lui fait parcourir 1cm (en fait 0,5cm car j'ai ajouté un scale=0.5 pour la sortie latex)
@@ -150,7 +154,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     for (let i = 0; i < 5; i++) { // ajouter le point de départ de chaque tracé
       depart[i] = tracePoint(point(lutins[i].listeTraces[0][0], lutins[i].listeTraces[0][1]))
       depart[i].taille = 5
-      depart[i].color = 'blue'
+      depart[i].color = colorToLatexOrHTML('blue')
       depart[i].epaisseur = 2
       if (i === 0) {
         objetsCorrection.push(depart[0])

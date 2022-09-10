@@ -12,6 +12,8 @@ export const titre = 'Passer de la base dix à une autre base et inversement'
 *
 * @author Rémi Angot
 */
+export const uuid = '8dbda'
+export const ref = 'PEA11'
 export default function PasserDUneBaseA1Autre () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

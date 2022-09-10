@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { randint, combinaisonListes, calcul, lettreDepuisChiffre, listeQuestionsToContenu, stringNombre } from '../../modules/outils.js'
-import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
+import { droiteGraduee } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -16,6 +17,8 @@ export const amcType = 'AMCOpen'
  * référence 6N11
  * Relecture : Novembre 2021 par EE
  */
+export const uuid = 'acd4a'
+export const ref = '6N11'
 export default function LireAbscisseEntiere2d () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = "Lire l'abscisse de chacun des points suivants."
@@ -71,7 +74,7 @@ export default function LireAbscisseEntiere2d () {
       x2 = calcul(randint(33, 47) / 10)
       x3 = calcul(randint(53, 67) / 10)
 
-      d[2 * i] = droiteGraduee2({
+      d[2 * i] = droiteGraduee({
         Unite: 4,
         Min: 0,
         Max: 7.1,
@@ -84,7 +87,7 @@ export default function LireAbscisseEntiere2d () {
         labelListe: [[0, `${stringNombre(abs0)}`], [1, `${stringNombre(calcul(abs0 + 1 / pas1))}`]],
         pointListe: [[x1, l1], [x2, l2], [x3, l3]]
       })
-      d[2 * i + 1] = droiteGraduee2({
+      d[2 * i + 1] = droiteGraduee({
         Unite: 4,
         Min: 0,
         Max: 7.1,
@@ -103,7 +106,7 @@ export default function LireAbscisseEntiere2d () {
 
       })
 
-      texte = mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 1, pixelsParCm: 20, scale: 0.5 }, d[2 * i])
+      texte = mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 2, pixelsParCm: 20, scale: 0.5 }, d[2 * i])
       texteCorr = mathalea2d({ xmin: -2, ymin: -2, xmax: 30, ymax: 2, pixelsParCm: 20, scale: 0.5 }, d[2 * i + 1])
 
       if (this.interactif && context.isHtml) {

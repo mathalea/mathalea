@@ -12,10 +12,11 @@ export const titre = 'Factoriser, si possible, un polynôme du second degré'
  * @author Stéphane Guyon
  * Référence 1E13
 */
+export const uuid = '334ca'
+export const ref = '1E13'
 export default function Resolutionavecformecanonique () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Factoriser un polynôme de degré 2: '
   this.nbQuestions = 4
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -25,6 +26,7 @@ export default function Resolutionavecformecanonique () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.consigne = 'Factoriser, si cela est possible, ' + (this.nbQuestions !== 1 ? 'chaque' : 'le') + ' polynôme suivant de degré 2 : '
     if (this.interactif) {
       this.consigne += '<br> '
     }
@@ -34,8 +36,8 @@ export default function Resolutionavecformecanonique () {
       alpha = fraction(-b, 2 * a)
       delta = b * b - 4 * a * c
       b2 = fraction(delta, 4 * a * a).simplifie() // terme b² dans l'expression a²-b²
-      texte = `Facroriser, si cela est possible :  $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$. `
-      texteCorr = `Facroriser, si cela est possible : $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$.`
+      texte = `$${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`
+      texteCorr = `Factoriser, si cela est possible : $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$.`
       texteCorr += '<br>On reconnaît un polynôme du second degré sous la forme $ax^2+bx+c$.'
       texteCorr += '<br>On cherche les éventuelles racine(s) du polynôme.'
       texteCorr += '<br>On commence par calculer le discriminant : $\\Delta = b^2-4ac$'

@@ -8,8 +8,8 @@ import { isUserIdOk } from './interactif/isUserIdOk.js'
 import { gestionCan } from './interactif/gestionCan.js'
 import FractionX from './FractionEtendue.js'
 import Grandeur from './Grandeur.js'
-import { ComputeEngine } from '@cortex-js/compute-engine'
-
+import * as pkg from '@cortex-js/compute-engine'
+const { ComputeEngine } = pkg
 export function exerciceInteractif (exercice) {
   if (exercice.interactifType === 'qcm')exerciceQcm(exercice)
   if (exercice.interactifType === 'listeDeroulante')exerciceListeDeroulante(exercice)
@@ -70,6 +70,7 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
   }
   let laReponseDemandee
   let test
+
   const engine = new ComputeEngine()
   switch (formatInteractif) {
     case 'Num':
@@ -140,7 +141,7 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
   if (exercice.autoCorrection[i].reponse === undefined) {
     exercice.autoCorrection[i].reponse = {}
   }
-  exercice.autoCorrection[i].reponse.param = { digits: digits, decimals: decimals, signe: signe, exposantNbChiffres: exposantNbChiffres, exposantSigne: exposantSigne, approx: approx, aussiCorrect: aussiCorrect, digitsNum: digitsNum, digitsDen: digitsDen, basePuissance: basePuissance, exposantPuissance: exposantPuissance, milieuIntervalle: milieuIntervalle, baseNbChiffres: baseNbChiffres, formatInteractif: formatInteractif }
+  exercice.autoCorrection[i].reponse.param = { digits, decimals, signe, exposantNbChiffres, exposantSigne, approx, aussiCorrect, digitsNum, digitsDen, basePuissance, exposantPuissance, milieuIntervalle, baseNbChiffres, formatInteractif }
   exercice.autoCorrection[i].reponse.valeur = reponses
 }
 

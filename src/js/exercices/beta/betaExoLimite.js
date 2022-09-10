@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { randint, listeQuestionsToContenu, choice, shuffle } from '../../modules/outils.js'
-import { mathalea2d, courbe2, repere2 } from '../../modules/2d.js'
+import { courbe, repere } from '../../modules/2d.js'
 export const titre = 'Lecture graphique de limites'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -42,7 +43,7 @@ export default function NomExercice () {
       const id = x.slice() // identifiant de la question qui dépant des données aléatoires
 
       const f = []
-      const monRepere = repere2()
+      const monRepere = repere()
 
       const limG = randint(-5, 5) // lim x->-oo
       const limD = randint(-5, 5, [limG]) // lim x->+oo
@@ -53,8 +54,8 @@ export default function NomExercice () {
           const lim1 = limG // lim x->-oo
           const lim2 = choice([-1, 1]) // lim x->x[0]- (-1 pour -oo, +1 pour +oo)
           const g = t => lim1 + lim2 * 1 / (t - x[0])
-          f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: -10, xMax: x[0] - 0.5, yMin: -10, yMax: 10, step: 0.1 }))
-          f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[0] - 0.5, xMax: x[0] - 0.001, yMin: -10, yMax: 10, step: 0.001 }))
+          f.push(courbe(g, { color: 'red', repere: monRepere, xMin: -10, xMax: x[0] - 0.5, yMin: -10, yMax: 10, step: 0.1 }))
+          f.push(courbe(g, { color: 'red', repere: monRepere, xMin: x[0] - 0.5, xMax: x[0] - 0.001, yMin: -10, yMax: 10, step: 0.001 }))
           id.push(lim1, lim2)
           texteCorr += `$\\displaystyle\\lim_{x \\to -\\infty} ${nom}(x) = ${lim1}$<br>`
           texteCorr += `$\\displaystyle\\lim_{${xversreel(x[0], '-')}} ${nom}(x) = ${lim2 < 0 ? '+\\infty' : '-\\infty'}$<br>`
@@ -66,9 +67,9 @@ export default function NomExercice () {
           const lim2 = choice([-1, 1]) // lim x->x[k+1]- (-1 pour -oo, +1 pour +oo)
           const c = randint(-3, 3)
           const g = t => lim1 * 1 / (t - x[k]) + c + lim2 * 1 / (t - x[k + 1])
-          f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[k] + 0.001, xMax: x[k] + 0.5, yMin: -10, yMax: 10, step: 0.001 }))
-          f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[k] + 0.5, xMax: x[k + 1] - 0.5, yMin: -10, yMax: 10, step: 0.1 }))
-          f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[k + 1] - 0.5, xMax: x[k + 1] - 0.001, yMin: -10, yMax: 10, step: 0.001 }))
+          f.push(courbe(g, { color: 'red', repere: monRepere, xMin: x[k] + 0.001, xMax: x[k] + 0.5, yMin: -10, yMax: 10, step: 0.001 }))
+          f.push(courbe(g, { color: 'red', repere: monRepere, xMin: x[k] + 0.5, xMax: x[k + 1] - 0.5, yMin: -10, yMax: 10, step: 0.1 }))
+          f.push(courbe(g, { color: 'red', repere: monRepere, xMin: x[k + 1] - 0.5, xMax: x[k + 1] - 0.001, yMin: -10, yMax: 10, step: 0.001 }))
           id.push(lim1, lim2 /*, c */)
           texteCorr += `$\\displaystyle\\lim_{${xversreel(x[k], '+')}} ${nom}(x) = ${lim1 > 0 ? '+\\infty' : '-\\infty'}$<br>`
           texteCorr += `$\\displaystyle\\lim_{${xversreel(x[k + 1], '-')}} ${nom}(x) = ${lim2 < 0 ? '+\\infty' : '-\\infty'}$<br>`
@@ -79,8 +80,8 @@ export default function NomExercice () {
           const lim1 = choice([-1, 1]) // lim x->x[n]+ (-1 pour -oo, +1 pour +oo)
           const lim2 = limD // lim x->+oo
           const g = t => lim1 * 1 / (t - x[x.length - 1]) + lim2
-          f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[x.length - 1] + 0.001, xMax: x[x.length - 1] + 0.5, yMin: -10, yMax: 10, step: 0.001 }))
-          f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[x.length - 1] + 0.5, xMax: 10, yMin: -10, yMax: 10, step: 0.1 }))
+          f.push(courbe(g, { color: 'red', repere: monRepere, xMin: x[x.length - 1] + 0.001, xMax: x[x.length - 1] + 0.5, yMin: -10, yMax: 10, step: 0.001 }))
+          f.push(courbe(g, { color: 'red', repere: monRepere, xMin: x[x.length - 1] + 0.5, xMax: 10, yMin: -10, yMax: 10, step: 0.1 }))
           id.push(lim1, lim2)
           texteCorr += `$\\displaystyle\\lim_{${xversreel(x[x.length - 1], '+')}} ${nom}(x) = ${lim1 > 0 ? '+\\infty' : '-\\infty'}$<br>`
           texteCorr += `$\\displaystyle\\lim_{x \\to +\\infty} ${nom}(x) = ${lim2}$<br>`
@@ -106,7 +107,7 @@ export default function NomExercice () {
         const c = -3 / 40 * (limG - limD)
         const d = (limG + limD) / 2
         const g = t => a * t * t * t + c * t + d
-        f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: -10, xMax: 10, yMin: -10, yMax: 10, step: 0.1 }))
+        f.push(courbe(g, { color: 'red', repere: monRepere, xMin: -10, xMax: 10, yMin: -10, yMax: 10, step: 0.1 }))
         id.push('∅', limG, limD)
         texteCorr += `$\\displaystyle\\lim_{x \\to -\\infty} ${nom}(x) = ${limG}$<br>`
         texteCorr += `$\\displaystyle\\lim_{x \\to +\\infty} ${nom}(x) = ${limD}$<br>`

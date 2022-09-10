@@ -1,7 +1,7 @@
-import { context } from '../../../modules/context'
-import { propositionsQcm } from '../../../modules/interactif/questionQcm'
-import { calcul, listeQuestionsToContenu, randint, texNombre, texNombrec, texteEnCouleur } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { context } from '../../../modules/context.js'
+import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
+import { calcul, listeQuestionsToContenu, randint, texNombre, texNombrec, texteEnCouleur } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Trouver un ordre de grandeur (QCM)'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -13,6 +13,8 @@ export const amcType = 'qcmMono'
  * Créé pendant l'été 2021
  * Référence can6C01
  */
+export const uuid = 'de779'
+export const ref = 'can6C01'
 export default function OrdreDeGrandeur () {
   Exercice.call(this)
   this.nbQuestions = 1

@@ -15,9 +15,10 @@ export const dateDeModifImportante = '18/06/2022'
  * Référence 5L16
  * Ajout du paramètre de procédure inverse par Guillaume Valmont le 18/06/2022
 */
+export const uuid = 'e2e64'
+export const ref = '5L16'
 export default function NomExercice () {
   Exercice.call(this)
-  this.consigne = 'Simplifie l\'écriture'
   this.nbQuestions = 10
 
   this.besoinFormulaireNumerique = ['Type de simplification', 3, '1 : × devant une lettre ou une parenthèse\n2 : Carré et cube\n3 : Mélange']

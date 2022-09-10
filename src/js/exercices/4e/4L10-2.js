@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, choice } from '../../modules/outils.js'
-import { codageAngleDroit, codageSegments, mathalea2d, point, pointAdistance, polygone, rotation, segment, similitude, texteParPosition, translation, vecteur } from '../../modules/2d.js'
+import { codageAngleDroit, codageSegments, point, pointAdistance, polygone, rotation, segment, similitude, texteParPosition, translation, vecteur } from '../../modules/2d.js'
 export const titre = 'Donner l\'expression littérale d\'un Périmètre et d\'une aire de quadrilatère'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -11,6 +12,8 @@ export const dateDePublication = '08/03/2022'
  * @author Mireille Gain
  * Référence 4L10-2
 */
+export const uuid = 'af8bb'
+export const ref = '4L10-2'
 export default function AirePerimetrePolygone () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Exprimer le périmètre et l\'aire des rectangles et carrés suivants par une expression littérale réduite.'

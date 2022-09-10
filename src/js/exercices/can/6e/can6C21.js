@@ -1,5 +1,5 @@
-import { calcul, randint, texNombrec, texteEnCouleur } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { calcul, randint, texNombrec, texteEnCouleur } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Trouver le complément à 1*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -10,6 +10,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6C21
  */
+export const uuid = '89135'
+export const ref = 'can6C21'
 export default function ComplementAUn () {
   Exercice.call(this)
   this.nbQuestions = 1

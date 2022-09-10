@@ -1,6 +1,6 @@
-import { fraction } from '../../../modules/fractions'
-import { obtenirListeFractionsIrreductibles, choice, simplificationDeFractionAvecEtapes } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { fraction } from '../../../modules/fractions.js'
+import { obtenirListeFractionsIrreductibles, choice, simplificationDeFractionAvecEtapes } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Rendre irréductible une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -12,6 +12,8 @@ export const amcType = 'AMCNum'
   * Créé pendant l'été 2021
  * Référence can3C03
 */
+export const uuid = 'f1208'
+export const ref = 'can3C03'
 export default function FractionIrreductible () {
   Exercice.call(this)
   this.typeExercice = 'simple'

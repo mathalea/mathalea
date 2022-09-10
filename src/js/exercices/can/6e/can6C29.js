@@ -12,6 +12,8 @@ export const amcReady = true
  * @author Gilles Mora
  * Référence can6C29
 */
+export const uuid = 'c9168'
+export const ref = 'can6C29'
 export default function Partage () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

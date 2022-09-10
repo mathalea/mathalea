@@ -1,5 +1,5 @@
-import { numTrie, randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { numTrie, randint } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Trouver le plus grand nombre entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
  * Date de publication septembre 2021
  * Référence canc3C01
  */
+export const uuid = '44f8c'
+export const ref = 'canc3N03'
 export default function PlusGrandNombreEntier () {
   Exercice.call(this)
   this.typeExercice = 'simple'

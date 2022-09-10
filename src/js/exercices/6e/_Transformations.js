@@ -1,5 +1,6 @@
-import { mathalea2d, point, droiteParPointEtPente, droiteHorizontaleParPoint, droiteVerticaleParPoint, tracePoint, segment, vecteur, latexParCoordonnees, codageSegments, afficheMesureAngle, milieu, translation, texteParPositionEchelle, labelLatexPoint } from '../../modules/2d.js'
+import { point, droiteParPointEtPente, droiteHorizontaleParPoint, droiteVerticaleParPoint, tracePoint, segment, vecteur, latexParCoordonnees, afficheMesureAngle, milieu, translation, texteParPositionEchelle, labelLatexPoint, codageSegments } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, choice, combinaisonListes, imagePointParTransformation, texFractionReduite, numAlpha, rangeMinMax, contraindreValeur, lettreDepuisChiffre, enleveElementNo, enleveElementBis, compteOccurences, arrondi, egal } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -65,10 +66,10 @@ export default function Transformations () {
     d2.epaisseur = 2
     d3.epaisseur = 2
     d4.epaisseur = 2
-    d1.color = context.isHtml ? 'green' : 'black'
-    d2.color = context.isHtml ? 'green' : 'black'
-    d3.color = context.isHtml ? 'green' : 'black'
-    d4.color = context.isHtml ? 'green' : 'black'
+    d1.color = colorToLatexOrHTML(context.isHtml ? 'green' : 'black')
+    d2.color = d1.color
+    d3.color = d1.color
+    d4.color = d1.color
     d1.opacite = 0.5
     d2.opacite = 0.5
     d3.opacite = 0.5
@@ -77,9 +78,9 @@ export default function Transformations () {
     const objetsCorrection = []
     for (let i = 0; i < 10; i++) {
       for (let j = 0; j < 10; j++) {
-        croix = tracePoint(point(j - 4, i - 4))
+        croix = tracePoint(point(j - 4, i - 4), 'gray')
         croix.taille = 2
-        croix.color = 'gray'
+        // croix.color = colorToLatexOrHTML('gray')
         croix.style = 'x'
         croix.opacite = 1
         objetsEnonce.push(croix)
@@ -181,7 +182,7 @@ export default function Transformations () {
       traceAnt.opacite = 1
       traceIm.opacite = 1
       traceIm.epaisseur = 2
-      traceIm.color = 'orange'
+      traceIm.color = colorToLatexOrHTML('#f15929')
       traceO = tracePoint(O)
       traceO.epaisseur = 2
       traceO.opacite = 1
@@ -357,7 +358,7 @@ export default function Transformations () {
           (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` L'image du point ${antecedents[i]} par l'homothétie de centre O et de rapport ${k[i]} est le point ${images[i]}.<br>`
           objetsEnonce.push(traceAnt, traceO, labO)
-          objetsCorrection.push(traceAnt, traceIm, traceO, labO, segment(M[i], O, 'blue'), segment(N[i], O, 'orange'))
+          objetsCorrection.push(traceAnt, traceIm, traceO, labO, segment(M[i], O, 'blue'), segment(N[i], O, '#f15929'))
           break
 
         case 10:
@@ -374,7 +375,7 @@ export default function Transformations () {
               k[i]
             )}$ est le point ${images[i]}.<br>`
           objetsEnonce.push(traceAnt, traceO, labO)
-          objetsCorrection.push(traceAnt, traceIm, traceO, labO, segment(M[i], O, 'blue'), segment(N[i], O, 'orange'))
+          objetsCorrection.push(traceAnt, traceIm, traceO, labO, segment(M[i], O, 'blue'), segment(N[i], O, '#f15929'))
           break
       }
 

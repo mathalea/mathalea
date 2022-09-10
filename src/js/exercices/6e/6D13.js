@@ -1,9 +1,9 @@
-import { context } from '../../modules/context'
+import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
-import { calcul, combinaisonListes, contraindreValeur, listeQuestionsToContenu, randint, sp, texteEnCouleur } from '../../modules/outils'
-import Exercice from '../Exercice'
+import { calcul, combinaisonListes, contraindreValeur, listeQuestionsToContenu, randint, sp, texteEnCouleur } from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
 export const titre = 'Convertir en min vers h et min ou en s vers min et s'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -17,6 +17,8 @@ export const dateDeModifImportante = '14/05/2022'
  * Référence 6D13
  * Ajout d'une option "Mélange" par Guillaume Valmont le 14/05/2022
 */
+export const uuid = '4f8f4'
+export const ref = '6D13'
 export default function ConversionHeuresMinutesOuMinutesEtSecondes (can = false) {
   Exercice.call(this)
   this.nbQuestions = 5

@@ -12,13 +12,15 @@ export const dateDeModifImportante = '27/01/2022'
  * @author Rémi Angot
  * Référence c3c23
 */
+export const uuid = '3a087'
+export const ref = 'c3C23'
 export default function CalculsFractionsSimples () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.formatInteractif = 'fractionEgale'
   this.nbQuestions = 6
   this.sup = 4
-  this.consigne = 'Calculer'
+  this.consigne = 'Calculer :'
   this.tailleDiaporama = 4
   this.version = 'c3'
 

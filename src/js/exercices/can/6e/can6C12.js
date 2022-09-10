@@ -1,5 +1,5 @@
-import { calcul, choice, randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { calcul, choice, randint } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Calculer le double ou le triple'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6C12
  */
+export const uuid = 'c3b5b'
+export const ref = 'can6C12'
 export default function DoubleOuTriple () {
   Exercice.call(this)
   this.typeExercice = 'simple'

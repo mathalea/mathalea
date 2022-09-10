@@ -1,7 +1,9 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, egal, randint, choice, shuffle, nombreAvecEspace, texcolors } from '../../modules/outils.js'
-import { tracePoint, labelPoint, codageMilieu, segment, rotation, rotationAnimee, texteParPosition, mathalea2d, pavage } from '../../modules/2d.js'
+import { tracePoint, labelPoint, codageMilieu, segment, rotation, texteParPosition, pavage } from '../../modules/2d.js'
+import { rotationAnimee } from '../../modules/2dAnimation.js'
 
 export const titre = 'Trouver l\'image d\'une figure par symétrie centrale dans un pavage'
 
@@ -12,6 +14,8 @@ export const titre = 'Trouver l\'image d\'une figure par symétrie centrale dans
  * @author Jean-Claude Lhote
  * Ref 5G12
  */
+export const uuid = '76ea9'
+export const ref = '5G12'
 export default function PavageEtDemiTour2D () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -140,11 +144,10 @@ export default function PavageEtDemiTour2D () {
         }
         A.nom = 'A'
         A.positionLabel = 'above left'
-        d = tracePoint(A) // la trace du centre de symétrie sera rouge et grosse
+        d = tracePoint(A, 'red') // la trace du centre de symétrie sera rouge et grosse
         B = labelPoint(A)
         d.epaisseur = 3
         d.taille = 4
-        d.color = 'red'
         for (let i = 1; i <= monpavage.nb_polygones; i++) { // on crée une liste des couples (antécédents, images)
           image = demitour(monpavage, A, i)
           if (image !== -1) { // si l'image du polygone i existe, on ajoute le couple à la liste
@@ -190,17 +193,17 @@ export default function PavageEtDemiTour2D () {
         G1 = monpavage.barycentres[couples[i][0] - 1]
         G2 = monpavage.barycentres[couples[i][1] - 1]
         P1 = monpavage.polygones[couples[i][0] - 1]
-        P1.color = texcolors(i)
-        P1.couleurDeRemplissage = texcolors(i)
+        P1.color = colorToLatexOrHTML(texcolors(i))
+        P1.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i))
         P1.opaciteDeRemplissage = 0.5
         P1.epaisseur = 2
         P2 = monpavage.polygones[couples[i][1] - 1]
-        P2.color = texcolors(i)
-        P2.couleurDeRemplissage = texcolors(i)
+        P2.color = colorToLatexOrHTML(texcolors(i))
+        P2.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i))
         P2.opaciteDeRemplissage = 0.5
         P2.epaisseur = 2
         P3 = rotationAnimee(P1, A, 180, `begin="${i * 3}s;${i * 3 + t}s;${i * 3 + t * 2}s" end="${i * 3 + 2}s;${i * 3 + t + 2}s;${i * 3 + t * 2 + 2}s" dur="2s" repeatCount="indefinite" repeatDur="${9 * this.nbQuestions}s" id="poly-${i}-anim"`)
-        P3.color = texcolors(i)
+        P3.color = colorToLatexOrHTML(texcolors(i))
         P3.epaisseur = 2
         objetsCorrection.push(tracePoint(G1, G2), segment(G1, G2, texcolors(i)), codageMilieu(G1, G2, texcolors(i), codes[i], false), P1, P2, P3)
       }

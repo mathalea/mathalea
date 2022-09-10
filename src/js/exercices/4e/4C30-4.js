@@ -13,6 +13,8 @@ export const dateDePublication = '12/04/2022' // La date de publication initiale
  * @author Rémi Angot
  * Référence 4C30-4
 */
+export const uuid = 'b0b3c'
+export const ref = '4C30-4'
 export default class PuissancesEtPrefixe extends Exercice {
   constructor () {
     super()

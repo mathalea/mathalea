@@ -1,15 +1,18 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texFractionReduite } from '../../modules/outils.js'
-import { courbe2, latexParCoordonnees, mathalea2d, point, repere2, segment, tracePoint } from '../../modules/2d.js'
+import { courbe, latexParCoordonnees, point, repere, segment, tracePoint } from '../../modules/2d.js'
 import { abs } from 'mathjs'
 
-export const titre = 'Propriétés graphiques de la parité d\'une fonction.'
+export const titre = 'Propriétés graphiques de la parité d\'une fonction'
 
 /**
  * Reconnaître parité fonction
 * @author Stéphane Guyon
 * 2F20
 */
+export const uuid = '6e82d'
+export const ref = '2F25-1'
 export default function EtudierGraphiqueParite () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -36,12 +39,11 @@ export default function EtudierGraphiqueParite () {
         case 1:// Cas f(x)=ax+b
           a = randint(-2, 2, [0])
           b = randint(-2, 2, [0])
-          r = repere2({ xMin: -7, xMax: 9, yMin: -7, yMax: 7 })
+          r = repere({ xMin: -7, xMax: 9, yMin: -7, yMax: 7 })
           x = randint(-1, 1, [0]) * 2
           f = x => a * x + b
-          C = courbe2(f, { repere: r, step: 0.25 })
-          // C.color = 'red'
-          // C.epaisseur = 2
+          C = courbe(f, { repere: r, step: 0.25 })
+
           B = point(x, a * x + b)
           A = point(-x, -a * x + b)
 
@@ -69,12 +71,11 @@ export default function EtudierGraphiqueParite () {
           break
         case 2:// Cas f(x)=ax
           a = randint(-2, 2, [0])
-          r = repere2({ xMin: -7, xMax: 9, yMin: -7, yMax: 7 })
+          r = repere({ xMin: -7, xMax: 9, yMin: -7, yMax: 7 })
           x = randint(2, 3, [0])
           f = x => a * x
-          C = courbe2(f, { repere: r, step: 0.25 })
-          // C.color = 'red'
-          // C.epaisseur = 2
+          C = courbe(f, { repere: r, step: 0.25 })
+
           B = point(x, a * x)
           A = point(-x, -a * x)
           labA0 = latexParCoordonnees('-x', -x - 0.2, 0.8 * (a > 0 ? 1 : -1), 'red', 20, 10, 'white', 8)
@@ -114,12 +115,11 @@ export default function EtudierGraphiqueParite () {
           b = randint(1, 5)
           if (a > 0) { b = -b }
 
-          r = repere2({ xMin: -4, xMax: 4, yMin: -9, yMax: 9, xUnite: 1, yUnite: 1 })
+          r = repere({ xMin: -4, xMax: 4, yMin: -9, yMax: 9, xUnite: 1, yUnite: 1 })
           x = 1
           f = x => a * x * x + b
-          C = courbe2(f, { repere: r })
-          // C.color = 'red'
-          // C.epaisseur = 2
+          C = courbe(f, { repere: r })
+
           B = point(x, a * x * x + b)
           A = point(-x, a * x * x + b)
           labA0 = latexParCoordonnees('-x', -x - 0.2, -0.8, 'red', 20, 10, 'white', 8)
@@ -158,12 +158,11 @@ export default function EtudierGraphiqueParite () {
           b = randint(-3, 3, [0])
           c = randint(1, 3)
           if (a > 0) { c = -c }
-          r = repere2({ xMin: -5 + b, xMax: 5 + b, yMin: -9, yMax: 9, xUnite: 1, yUnite: 1 })
+          r = repere({ xMin: -5 + b, xMax: 5 + b, yMin: -9, yMax: 9, xUnite: 1, yUnite: 1 })
           x = 4 - abs(b)
           f = x => a * (x - b) * (x - b) + c
-          C = courbe2(f, { repere: r, step: 0.25 })
-          // C.color = 'red'
-          // C.epaisseur = 2
+          C = courbe(f, { repere: r, step: 0.25 })
+
           B = point(x, a * (x - b) * (x - b) + c)
           A = point(-x, a * (-x - b) * (-x - b) + c)
           labA0 = latexParCoordonnees(`${abs(b) - 4}`, -x - 0.2, 0.8, 'red', 20, 10, 'white', 8)
@@ -203,13 +202,12 @@ export default function EtudierGraphiqueParite () {
           a = randint(-2, 2, [0])
           b = randint(-3, 3, [0])
           c = Math.trunc(-b / a)
-          r = repere2({ xMin: -7 + c, xMax: 7 + c, yMin: -9, yMax: 9, xUnite: 1, yUnite: 1 })
+          r = repere({ xMin: -7 + c, xMax: 7 + c, yMin: -9, yMax: 9, xUnite: 1, yUnite: 1 })
           x = randint(-3, 3, [-b / a, 0, 1, -1])
 
           f = x => 1 / (a * x + b)
-          C = courbe2(f, { repere: r, step: 0.01 })
-          // C.color = 'red'
-          // C.epaisseur = 2
+          C = courbe(f, { repere: r, step: 0.01 })
+
           B = point(x, 1 / (a * x + b))
           A = point(-x, 1 / (-a * x + b))
           labA0 = latexParCoordonnees(`${-x}`, -x - 0.2, 0.8, 'red', 20, 10, 'white', 8)
@@ -247,12 +245,11 @@ export default function EtudierGraphiqueParite () {
           break
         case 6:// Cas f(x)=1/ax
           a = randint(-3, 3, [0, 1, -1])
-          r = repere2({ xMin: -4, xMax: 4, yMin: -9, yMax: 9, xUnite: 1, yUnite: 1 })
+          r = repere({ xMin: -4, xMax: 4, yMin: -9, yMax: 9, xUnite: 1, yUnite: 1 })
           x = 2
           f = x => 1 / (a * x)
-          C = courbe2(f, { repere: r, step: 0.01 })
-          // C.color = 'red'
-          // C.epaisseur = 2
+          C = courbe(f, { repere: r, step: 0.01 })
+
           B = point(x, 1 / (a * x))
           A = point(-x, -1 / (a * x))
           labA0 = latexParCoordonnees('-x', -x - 0.2, -0.8, 'red', 20, 10, 'white', 8)

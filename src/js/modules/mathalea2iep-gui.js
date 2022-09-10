@@ -13,7 +13,7 @@ import 'codemirror/addon/hint/show-hint.css'
 import 'codemirror/addon/edit/closebrackets.js'
 import initialiseEditeur from './initialiseEditeur.js'
 import '../../css/style_mathalea.css'
-import { telechargeFichier } from './outils'
+import { telechargeFichier } from './outils.js'
 import { context } from './context.js'
 
 // Pour le menu du haut

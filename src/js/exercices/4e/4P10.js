@@ -8,6 +8,8 @@ export const titre = 'Résoudre des problèmes de grandeurs composées et de con
  * @author Jean-Claude Lhote
  * Référence : 4P10
  */
+export const uuid = '72c5a'
+export const ref = '4P10'
 export default function ProblemesGrandeursComposees () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

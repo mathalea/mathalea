@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { fraction } from '../../../modules/fractions'
+import { fraction } from '../../../modules/fractions.js'
 import { randint, choice, texteEnCouleur, reduirePolynomeDegre3, reduireAxPlusB, ecritureAlgebrique, ecritureParentheseSiNegatif, miseEnEvidence } from '../../../modules/outils.js'
 export const titre = 'Déterminer le nombre de solutions d’une équation du second degré'
 export const interactifReady = true
@@ -13,6 +13,8 @@ export const dateDePublication = '1/11/2021' // La date de publication initiale 
  * @author Gilles Mora
  * Référence can1L02
 */
+export const uuid = 'c74ea'
+export const ref = 'can1L02'
 export default function NombreSolutionsSecondDegre () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

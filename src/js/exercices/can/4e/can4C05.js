@@ -1,6 +1,6 @@
-import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
-import { choice, simplificationDeFractionAvecEtapes } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
+import { choice, simplificationDeFractionAvecEtapes } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Déterminer la somme de fractions à dénominateurs compatibles'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -12,6 +12,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can4C05
  */
+export const uuid = '1b4fe'
+export const ref = 'can4C05'
 export default function SommeFractionsCompatibles () {
   Exercice.call(this)
   this.typeExercice = 'simple'

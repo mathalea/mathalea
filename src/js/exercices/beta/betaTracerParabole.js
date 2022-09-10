@@ -1,5 +1,6 @@
 import Exercice from '../Exercice.js'
-import { courbe, repere, mathalea2d } from '../../modules/2d.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { courbe, repere } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texFractionReduite, ecritureAlgebrique, texRacineCarree, ecritureParentheseSiNegatif, calcul, lettreMinusculeDepuisChiffre, texNombre } from '../../modules/outils.js'
 import { simplify, floor } from 'mathjs'
@@ -114,9 +115,9 @@ export default function TrouverEquationDeParabole () {
       const ymin = 0 | Math.min(-1, -1 + (a > 0 ? -d / 4 / a : Math.min(g(xmin + 1), g(xmax - 1)))) // ymin pour parabole (valeur entière)
       const ymax = 0 | Math.max(1, 1 + (a < 0 ? -d / 4 / a : Math.max(g(xmin + 1), g(xmax - 1)))) // ymax pour parabole
 
-      const r = repere({ xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax })
+      const r = repere({ xMin: xmin, xMax: xmax, yMin: ymin, yMax: ymax })
 
-      const cg = courbe(g, xmin, xmax)
+      const cg = courbe(g, { repere: r, xMin: xmin, xMax: xmax })
       texteCorr += mathalea2d({ xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax, pixelsParCm: 30, scale: 0.8 }, r, cg)
 
       if (this.listeQuestions.indexOf(texte) === -1) {

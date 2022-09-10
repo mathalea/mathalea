@@ -1,9 +1,11 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, contraindreValeur, combinaisonListes, arrondi, numAlpha, choice, compteOccurences, rangeMinMax, entreDeux } from '../../modules/outils.js'
-import { afficherTempo, arc, cacherTempo, codageSegment, droite, droiteParPointEtPente, homothetie, longueur, mathalea2d, milieu, ObjetMathalea2D, point, pointIntersectionDD, pointSurSegment, polygone, projectionOrtho, rotation, segment, translation, vecteur } from '../../modules/2d.js'
+import { arc, codageSegment, droite, droiteParPointEtPente, homothetie, longueur, milieu, point, pointIntersectionDD, pointSurSegment, polygone, projectionOrtho, rotation, segment, translation, vecteur } from '../../modules/2d.js'
 import { min, max } from 'mathjs'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { context } from '../../modules/context.js'
+import { afficherTempo, cacherTempo } from '../../modules/2dAnimation.js'
 export const dateDePublication = '08/06/2022'
 export const titre = 'Comparer périmètres et/ou aires de figures'
 export const interactifReady = true
@@ -16,7 +18,7 @@ export const interactifType = 'qcm'
  * Publié le 08/06/2022
  */
 function TranslationPuisRotationAnimee (numId, figure1, v, figure2, O, angle, t1 = 5, t2 = 2) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.svg = function (coeff) {
     afficherTempo(figure2, t1, t1 + t2, 1)
     let code = '<g> '
@@ -64,6 +66,8 @@ function translationPuisRotationAnimees (...args) {
   return new TranslationPuisRotationAnimee(...args)
 }
 
+export const uuid = '95313'
+export const ref = '6M21'
 export default function compareAireEtPerimetreAvecRectangle () {
   Exercice.call(this)
   this.titre = titre
@@ -94,7 +98,7 @@ export default function compareAireEtPerimetreAvecRectangle () {
 
     typesDeProblemes = combinaisonListes(typesDeProblemes, this.nbQuestions)
 
-    const color = combinaisonListes(['red', 'blue', 'green', 'gray', 'pink', 'orange'], this.nbQuestions)
+    const color = combinaisonListes(['red', 'blue', 'green', 'gray', 'pink', '#f15929'], this.nbQuestions)
 
     let aireOuPerimetre = 'Les deux'
     if (this.sup2 === 1) aireOuPerimetre = 'Perimetre'
@@ -112,7 +116,7 @@ export default function compareAireEtPerimetreAvecRectangle () {
       B = point(randint(5, 10), 0)
       C = point(B.x, randint(5, 10, B.x))
       D = point(0, C.y)
-      rect = polygone(A, B, C, D)
+      rect = polygone([A, B, C, D])
       rect.hachures = true
       rect.pointilles = 2
       reponsePerimetre1 = false
@@ -144,9 +148,10 @@ export default function compareAireEtPerimetreAvecRectangle () {
           S = point(A.x, entreDeux(R.y, T.y))
 
           poly = polygone(E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T)
-          poly.couleurDeRemplissage = color[q]
+          poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           poly.opaciteDeRemplissage = 0.5
           objets.push(poly, rect)
+          // objets.push(rect)
           paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: B.x + 0.5, ymax: C.y + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false }
           texte = mathalea2d(paramsEnonce, objets)
           // Correction
@@ -176,7 +181,7 @@ export default function compareAireEtPerimetreAvecRectangle () {
           Q = point(A.x, entreDeux(A.y, D.y))
           R = point(entreDeux(A.x - (A.x + B.x) / 2, A.x), entreDeux(Q.y, A.y))
           poly = polygone(E, F, G, H, I, J, K, L, M, N, O, P, Q, R)
-          poly.couleurDeRemplissage = color[q]
+          poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           poly.opaciteDeRemplissage = 0.5
           objets.push(poly, rect)
           paramsEnonce = { xmin: min(P.x, R.x) - 0.5, ymin: min(F.y, H.y) - 0.5, xmax: max(J.x, L.x) + 0.5, ymax: max(M.y, O.y) + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false }
@@ -202,9 +207,9 @@ export default function compareAireEtPerimetreAvecRectangle () {
           K = point(A.x, entreDeux(C.y, B.y + 2 * (C.y - B.y) / 3))
           L = point(A.x, entreDeux(B.y, B.y + (C.y - B.y) / 3))
           poly = polygone(A, B, C, D)
-          poly.couleurDeRemplissage = color[q]
+          poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           poly.opaciteDeRemplissage = 0.5
-          poly.color = ''
+          poly.color = 'none'
           objets.push(poly)
           rayonOuCote = arrondi((min(longueur(E, F), longueur(G, H), longueur(I, J), longueur(K, L))) / 2)
           M = translation(E, vecteur(rayonOuCote, 0))
@@ -295,9 +300,9 @@ export default function compareAireEtPerimetreAvecRectangle () {
           K = point(A.x, entreDeux(C.y, B.y + 2 * (C.y - B.y) / 3))
           L = point(A.x, entreDeux(B.y, B.y + (C.y - B.y) / 3))
           poly = polygone(A, B, C, D)
-          poly.couleurDeRemplissage = color[q]
+          poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           poly.opaciteDeRemplissage = 0.5
-          poly.color = ''
+          poly.color = 'none'
           objets.push(poly)
           aleaDemiDisque = choice([true, false])
           aleaRayon = randint(2, 3)
@@ -386,9 +391,9 @@ export default function compareAireEtPerimetreAvecRectangle () {
           K = point(A.x, entreDeux(C.y, B.y + 2 * (C.y - B.y) / 3))
           L = point(A.x, entreDeux(B.y, B.y + (C.y - B.y) / 3))
           poly = polygone(A, B, C, D)
-          poly.couleurDeRemplissage = color[q]
+          poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           poly.opaciteDeRemplissage = 0.5
-          poly.color = ''
+          poly.color = 'none'
           objets.push(poly)
           rayonOuCote = arrondi((min(longueur(E, F), longueur(G, H), longueur(I, J), longueur(K, L))) / 2)
           M = translation(E, vecteur(rayonOuCote, 0))
@@ -462,9 +467,9 @@ export default function compareAireEtPerimetreAvecRectangle () {
           K = point(A.x, entreDeux(C.y, B.y + 2 * (C.y - B.y) / 3))
           L = point(A.x, entreDeux(B.y, B.y + (C.y - B.y) / 3))
           poly = polygone(A, B, C, D)
-          poly.couleurDeRemplissage = color[q]
+          poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           poly.opaciteDeRemplissage = 0.5
-          poly.color = ''
+          poly.color = 'none'
           objets.push(poly)
           rayonOuCote = arrondi((min(longueur(E, F), longueur(G, H), longueur(I, J), longueur(K, L))) / 2)
           M = translation(E, vecteur(rayonOuCote, 0))
@@ -534,7 +539,7 @@ export default function compareAireEtPerimetreAvecRectangle () {
           G = point(entreDeux(A.x, B.x), C.y)
           H = point(A.x, entreDeux(B.y, C.y))
           poly = polygone(E, F, G, H)
-          poly.couleurDeRemplissage = color[q]
+          poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           poly.opaciteDeRemplissage = 0.5
           objets.push(poly, rect)
           paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: B.x + 0.5, ymax: C.y + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false }
@@ -561,7 +566,7 @@ export default function compareAireEtPerimetreAvecRectangle () {
           G = pointIntersectionDD(d3, d4)
           H = pointIntersectionDD(d4, d1)
           poly = polygone(E, F, G, H)
-          poly.couleurDeRemplissage = color[q]
+          poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           poly.opaciteDeRemplissage = 0.5
           objets.push(poly, rect)
           paramsEnonce = { xmin: H.x - 0.5, ymin: E.y - 0.5, xmax: F.x + 0.5, ymax: G.y + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false }
@@ -587,9 +592,9 @@ export default function compareAireEtPerimetreAvecRectangle () {
           K = point(A.x, entreDeux(C.y, B.y + 2 * (C.y - B.y) / 3))
           L = point(A.x, entreDeux(B.y, B.y + (C.y - B.y) / 3))
           poly = polygone(A, B, C, D)
-          poly.couleurDeRemplissage = color[q]
+          poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           poly.opaciteDeRemplissage = 0.5
-          poly.color = ''
+          poly.color = 'none'
           objets.push(poly)
           rayonOuCote = (min(longueur(E, F), longueur(G, H), longueur(I, J), longueur(K, L)))
           M = translation(E, vecteur(rayonOuCote, 0))
@@ -625,8 +630,8 @@ export default function compareAireEtPerimetreAvecRectangle () {
           Q = pointSurSegment(pt2, pt1, rayonOuCote + aleaLongueur)
           R = rotation(Q, pt2, -aleaAngle)
           figAire1 = polygone(pt2, pt1, R)
-          figAire1.color = ''
-          figAire1.couleurDeRemplissage = color[q]
+          figAire1.color = 'none'
+          figAire1.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           figAire1.opaciteDeRemplissage = 0.5
           choixFig2 = randint(0, 3, [choixFig])
           choixFigAire2 = [
@@ -640,8 +645,8 @@ export default function compareAireEtPerimetreAvecRectangle () {
           S = pointSurSegment(choixFigAire2[choixFig2][1], choixFigAire2[choixFig2][0], rayonOuCote + aleaLongueur)
           T = rotation(S, choixFigAire2[choixFig2][1], -aleaAngle)
           figAire2 = polygone(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], T)
-          figAire2.color = ''
-          figAire2.couleurDeRemplissage = 'white'
+          figAire2.color = 'none'
+          figAire2.couleurDeRemplissage = colorToLatexOrHTML('white')
           figAire2.opaciteDeRemplissage = 1.1
           objets.push(figAire1, figAire2, segment(pt2, R), segment(pt1, R), codageSegment(pt2, R, '|||'), codageSegment(pt2, pt1, 'OO'), codageSegment(pt1, R, 'XX'), rect)
           objets.push(segment(choixFigAire2[choixFig2][0], T), segment(choixFigAire2[choixFig2][1], T), codageSegment(choixFigAire2[choixFig2][1], T, '|||'), codageSegment(choixFigAire2[choixFig2][1], choixFigAire2[choixFig2][0], 'OO'), codageSegment(choixFigAire2[choixFig2][0], T, 'XX'))
@@ -654,16 +659,16 @@ export default function compareAireEtPerimetreAvecRectangle () {
           objets = []
           if ((this.sup2 === 2 || this.sup2 === 3 || aireOuPerimetre !== 'Perimetre')) {
             figAire1 = polygone(pt2, pt1, R)
-            figAire1.color = ''
-            figAire1.couleurDeRemplissage = 'white'
+            figAire1.color = 'none'
+            figAire1.couleurDeRemplissage = colorToLatexOrHTML('white')
             figAire1.opaciteDeRemplissage = 1.1
             figAireCorr = polygone(pt2, pt1, R)
-            figAireCorr.couleurDeRemplissage = color[q]
+            figAireCorr.couleurDeRemplissage = colorToLatexOrHTML(color[q])
             figAireCorr.opaciteDeRemplissage = 0.5
             angleCorr = choixFig2 - choixFig < 0 ? choixFig2 - choixFig + 4 : choixFig2 - choixFig
             angleCorr = angleCorr === 1 ? 90 : angleCorr === 2 ? 0 : -90
             figAireCorr2 = rotation(figAire2, choixFigAire2[choixFig2][0], angleCorr)
-            figAireCorr2.couleurDeRemplissage = color[q]
+            figAireCorr2.couleurDeRemplissage = colorToLatexOrHTML(color[q])
             figAireCorr2.opaciteDeRemplissage = 0.5
             objets.push(poly, figAire1, figAire2, segment(pt2, R), segment(pt1, R), codageSegment(pt2, R, '|||'), codageSegment(pt2, pt1, 'OO'), codageSegment(pt1, R, 'XX'), rect)
             objets.push(segment(choixFigAire2[choixFig2][0], T), segment(choixFigAire2[choixFig2][1], T), codageSegment(choixFigAire2[choixFig2][1], T, '|||'), codageSegment(choixFigAire2[choixFig2][1], choixFigAire2[choixFig2][0], 'OO'), codageSegment(choixFigAire2[choixFig2][0], T, 'XX'))
@@ -693,9 +698,9 @@ export default function compareAireEtPerimetreAvecRectangle () {
           K = point(A.x, entreDeux(C.y, B.y + 2 * (C.y - B.y) / 3))
           L = point(A.x, entreDeux(B.y, B.y + (C.y - B.y) / 3))
           poly = polygone(A, B, C, D)
-          poly.couleurDeRemplissage = color[q]
+          poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           poly.opaciteDeRemplissage = 0.5
-          poly.color = ''
+          poly.color = 'none'
           objets.push(poly)
           rayonOuCote = (min(longueur(E, F), longueur(G, H), longueur(I, J), longueur(K, L)))
           M = translation(E, vecteur(rayonOuCote, 0))
@@ -731,8 +736,8 @@ export default function compareAireEtPerimetreAvecRectangle () {
           Q = pointSurSegment(pt2, pt1, rayonOuCote + aleaLongueur)
           R = rotation(Q, pt2, -aleaAngle)
           figAire1 = polygone(pt2, pt1, R)
-          figAire1.color = ''
-          figAire1.couleurDeRemplissage = color[q]
+          figAire1.color = 'none'
+          figAire1.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           figAire1.opaciteDeRemplissage = 0.5
           choixFig2 = randint(0, 3, [choixFig])
           hauteur = longueur(R, projectionOrtho(R, droite(pt1, pt2))) // Longueur de la hauteur issue de R dans figAire1
@@ -749,8 +754,8 @@ export default function compareAireEtPerimetreAvecRectangle () {
           figAire2 = polygone(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], T)
           aleaRapportHomothetie = choice([0.7, 0.8, arrondi(min(1.2, choixFigAire2[choixFig2][2] - 0.01)), min(1.3, arrondi(choixFigAire2[choixFig2][2] - 0.01))])
           figAire2 = homothetie(figAire2, choixFigAire2[choixFig2][0], aleaRapportHomothetie)
-          figAire2.color = ''
-          figAire2.couleurDeRemplissage = 'white'
+          figAire2.color = 'none'
+          figAire2.couleurDeRemplissage = colorToLatexOrHTML('white')
           figAire2.opaciteDeRemplissage = 1.1
           objets.push(figAire1, figAire2, segment(pt2, R), segment(pt1, R), rect)
           objets.push(homothetie(segment(choixFigAire2[choixFig2][0], T), choixFigAire2[choixFig2][0], aleaRapportHomothetie), homothetie(segment(choixFigAire2[choixFig2][1], T), choixFigAire2[choixFig2][0], aleaRapportHomothetie))
@@ -765,17 +770,17 @@ export default function compareAireEtPerimetreAvecRectangle () {
           if ((this.sup2 === 2 || this.sup2 === 3 || aireOuPerimetre !== 'Perimetre')) {
             objets = []
             figAire1 = polygone(pt2, pt1, R)
-            figAire1.color = ''
-            figAire1.couleurDeRemplissage = 'white'
+            figAire1.color = 'none'
+            figAire1.couleurDeRemplissage = colorToLatexOrHTML('white')
             figAire1.opaciteDeRemplissage = 1.1
             figAireCorr = polygone(pt2, pt1, R)
-            figAireCorr.couleurDeRemplissage = color[q]
+            figAireCorr.couleurDeRemplissage = colorToLatexOrHTML(color[q])
             figAireCorr.opaciteDeRemplissage = 0.5
             figAire2Corr = homothetie(figAire2, choixFigAire2[choixFig2][0], 1 / aleaRapportHomothetie)
             angleCorr = choixFig2 - choixFig < 0 ? choixFig2 - choixFig + 4 : choixFig2 - choixFig
             angleCorr = angleCorr === 1 ? 90 : angleCorr === 2 ? 0 : -90
             figAireCorr2 = rotation(figAire2Corr, choixFigAire2[choixFig2][0], angleCorr)
-            figAireCorr2.couleurDeRemplissage = color[q]
+            figAireCorr2.couleurDeRemplissage = colorToLatexOrHTML(color[q])
             figAireCorr2.opaciteDeRemplissage = 0.5
             objets.push(poly, figAire1, figAire2, segment(pt2, R), segment(pt1, R), rect)
             objets.push(homothetie(segment(choixFigAire2[choixFig2][0], T), choixFigAire2[choixFig2][0], aleaRapportHomothetie), homothetie(segment(choixFigAire2[choixFig2][1], T), choixFigAire2[choixFig2][0], aleaRapportHomothetie))
@@ -806,9 +811,9 @@ export default function compareAireEtPerimetreAvecRectangle () {
           K = point(A.x, entreDeux(C.y, B.y + 2 * (C.y - B.y) / 3))
           L = point(A.x, entreDeux(B.y, B.y + (C.y - B.y) / 3))
           poly = polygone(A, B, C, D)
-          poly.couleurDeRemplissage = color[q]
+          poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           poly.opaciteDeRemplissage = 0.5
-          poly.color = ''
+          poly.color = 'none'
           objets.push(poly)
           rayonOuCote = (min(longueur(E, F), longueur(G, H), longueur(I, J), longueur(K, L)))
           M = translation(E, vecteur(rayonOuCote, 0))
@@ -856,8 +861,8 @@ export default function compareAireEtPerimetreAvecRectangle () {
               break
           }
           figAire1 = polygone(pt2, pt1, R)
-          figAire1.color = ''
-          figAire1.couleurDeRemplissage = color[q]
+          figAire1.color = 'none'
+          figAire1.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           figAire1.opaciteDeRemplissage = 0.5
           choixFig2 = randint(0, 3, [choixFig])
           choixFigAire2 = [
@@ -891,8 +896,8 @@ export default function compareAireEtPerimetreAvecRectangle () {
               break
           }
           figAire2 = polygone(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], T)
-          figAire2.color = ''
-          figAire2.couleurDeRemplissage = color[q]
+          figAire2.color = 'none'
+          figAire2.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           figAire2.opaciteDeRemplissage = 0.5
           objets.push(figAire1, figAire2, segment(pt2, R), segment(pt1, R), codageSegment(pt2, R, '|||'), codageSegment(pt2, pt1, 'OO'), codageSegment(pt1, R, 'XX'), rect)
           objets.push(segment(choixFigAire2[choixFig2][0], T), segment(choixFigAire2[choixFig2][1], T), codageSegment(choixFigAire2[choixFig2][1], T, '|||'), codageSegment(choixFigAire2[choixFig2][1], choixFigAire2[choixFig2][0], 'OO'), codageSegment(choixFigAire2[choixFig2][0], T, 'XX'))
@@ -918,9 +923,9 @@ export default function compareAireEtPerimetreAvecRectangle () {
           K = point(A.x, entreDeux(C.y, B.y + 2 * (C.y - B.y) / 3))
           L = point(A.x, entreDeux(B.y, B.y + (C.y - B.y) / 3))
           poly = polygone(A, B, C, D)
-          poly.couleurDeRemplissage = color[q]
+          poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           poly.opaciteDeRemplissage = 1.1
-          poly.color = ''
+          poly.color = 'none'
           objets.push(poly)
           rayonOuCote = (min(longueur(E, F), longueur(G, H), longueur(I, J), longueur(K, L)))
           M = translation(E, vecteur(rayonOuCote, 0))
@@ -956,8 +961,8 @@ export default function compareAireEtPerimetreAvecRectangle () {
             R = rotation(Q, pt2, aleaAngle)
           }
           figAire1 = polygone(pt2, pt1, R)
-          figAire1.color = ''
-          figAire1.couleurDeRemplissage = 'white'
+          figAire1.color = 'none'
+          figAire1.couleurDeRemplissage = colorToLatexOrHTML('white')
           figAire1.opaciteDeRemplissage = 1.1
           choixFig2 = randint(0, 3, [choixFig])
           choixFigAire2 = [
@@ -976,8 +981,8 @@ export default function compareAireEtPerimetreAvecRectangle () {
             T = homothetie(R, S, -1)
           }
           figAire2 = polygone(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], T)
-          figAire2.color = ''
-          figAire2.couleurDeRemplissage = 'white'
+          figAire2.color = 'none'
+          figAire2.couleurDeRemplissage = colorToLatexOrHTML('white')
           figAire2.opaciteDeRemplissage = 1.1
           objets.push(figAire1, figAire2, segment(pt2, R), segment(pt1, R), codageSegment(pt2, R, '|||'), codageSegment(pt2, pt1, 'OO'), codageSegment(pt1, R, 'XX'), rect)
           objets.push(segment(choixFigAire2[choixFig2][0], T), segment(choixFigAire2[choixFig2][1], T), codageSegment(choixFigAire2[choixFig2][1], T, 'XX'), codageSegment(choixFigAire2[choixFig2][1], choixFigAire2[choixFig2][0], 'OO'), codageSegment(choixFigAire2[choixFig2][0], T, '|||'))

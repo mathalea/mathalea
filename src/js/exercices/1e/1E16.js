@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif } from '../../modules/outils.js'
-import { mathalea2d, tableauDeVariation } from '../../modules/2d.js'
+import { tableauDeVariation } from '../../modules/2d.js'
 export const titre = 'Résoudre une inéquation du second degré'
 
 /**
@@ -8,6 +9,8 @@ export const titre = 'Résoudre une inéquation du second degré'
  * @author Stéphane Guyon
  * Référence 1E11
 */
+export const uuid = '77bcc'
+export const ref = '1E16'
 export default function ResoudreEquationDegre2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

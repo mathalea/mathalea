@@ -1,7 +1,7 @@
 /* global $ */
 
-import { get } from '../dom'
-import { messageFeedback } from '../messages'
+import { get } from '../dom.js'
+import { messageFeedback } from '../messages.js'
 import { shuffleJusqua } from '../outils.js'
 import { context } from '../context.js'
 import { gestionCan } from './gestionCan.js'
@@ -111,7 +111,7 @@ export function propositionsQcm (exercice, i) {
       texte += '<tr>\n\t'
     }
   } else {
-    texte += `\n\n\\begin{multicols}{${nbCols}}\n\t`
+    texte += nbCols === 1 ? '\t' : `\n\n\\begin{multicols}{${nbCols}}\n\t`
   }
   for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
     if (context.isHtml) {
@@ -131,9 +131,9 @@ export function propositionsQcm (exercice, i) {
         }
       }
       if (exercice.autoCorrection[i].propositions[rep].statut) {
-        texteCorr += `$\\blacksquare\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
+        texteCorr += `$\\blacksquare\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace + '<br>'
       } else {
-        texteCorr += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
+        texteCorr += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace + '<br>'
       }
     } else {
       texte += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
@@ -141,9 +141,9 @@ export function propositionsQcm (exercice, i) {
         texte += '\\\\\n\t'
       }
       if (exercice.autoCorrection[i].propositions[rep].statut) {
-        texteCorr += `$\\blacksquare\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
+        texteCorr += `$\\blacksquare\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace + '<br>'
       } else {
-        texteCorr += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
+        texteCorr += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace + '<br>'
       }
     }
   }
@@ -155,9 +155,22 @@ export function propositionsQcm (exercice, i) {
     texte += `<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
     texte += `\n<div id="feedbackEx${exercice.numeroExercice}Q${i}"></div></form>`
   } else {
-    texte += '\\end{multicols}'
+    texte += nbCols === 1 ? '' : '\\end{multicols}'
   }
-  return { texte: texte, texteCorr: texteCorr }
+
+  // GESTION DE LA V3
+  if (context.isHtml && context.versionMathalea === 3 && exercice.interactif) {
+    texte = ''
+    for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
+      texte += `<div class="ex${exercice.numeroExercice} monQcm">
+      <input type="checkbox" tabindex="0"  id="checkEx${exercice.numeroExercice}Q${i}R${rep}">
+      <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}" class="ml-2">${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>
+      <div id="feedbackEx${exercice.numeroExercice}Q${i}"></div>
+      </div>`
+    }
+    texte += `<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+  }
+  return { texte, texteCorr }
 }
 
 /**

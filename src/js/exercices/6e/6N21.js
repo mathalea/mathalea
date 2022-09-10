@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, combinaisonListes, lettreIndiceeDepuisChiffre, randint, texFraction } from '../../modules/outils.js'
-import { mathalea2d, droiteGraduee2, point, tracePoint, labelPoint } from '../../modules/2d.js'
+import { droiteGraduee, point, tracePoint, labelPoint } from '../../modules/2d.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Utiliser les abscisses fractionnaires'
@@ -17,6 +18,8 @@ export const amcType = 'AMCHybride'
  * Référence 6N21
  * publié le 29/6/2021
 */
+export const uuid = '2ba53'
+export const ref = '6N21'
 export default function PlacerPointsAbscissesFractionnaires () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
@@ -67,7 +70,7 @@ export default function PlacerPointsAbscissesFractionnaires () {
         texte = `Placer les points $${lettreIndiceeDepuisChiffre(i * 3 + 1)}\\left(${texFraction(num, den)}\\right)$, $~${lettreIndiceeDepuisChiffre(i * 3 + 2)}\\left(${texFraction(num2, den)}\\right)$ et $~${lettreIndiceeDepuisChiffre(i * 3 + 3)}\\left(${texFraction(num3, den)}\\right)$.`
       }
       const tailleUnite = 4
-      const d = droiteGraduee2({
+      const d = droiteGraduee({
         Min: origine,
         Max: origine + 4 * tailleUnite,
         Unite: tailleUnite,
@@ -97,8 +100,7 @@ export default function PlacerPointsAbscissesFractionnaires () {
       } else {
         A = point(((num / den) - origine) * tailleUnite, 0, lettreIndiceeDepuisChiffre(i + 1))
       }
-      traceA = tracePoint(A)
-      traceA.color = 'blue'
+      traceA = tracePoint(A, 'blue')
       traceA.epaisseur = this.interactif ? 3 : 2
       traceA.taille = this.interactif ? 5 : 3
       labels = labelPoint(A)
@@ -110,8 +112,7 @@ export default function PlacerPointsAbscissesFractionnaires () {
           A.nom = lettreIndiceeDepuisChiffre(i * 3 + 1)
           B = point(((num2 / den) - origine) * tailleUnite, 0, lettreIndiceeDepuisChiffre(i * 3 + 2))
         }
-        traceB = tracePoint(B)
-        traceB.color = 'blue'
+        traceB = tracePoint(B, 'blue')
         traceB.epaisseur = 2
         traceB.taille = 3
         if (context.isHtml) {
@@ -119,8 +120,7 @@ export default function PlacerPointsAbscissesFractionnaires () {
         } else {
           C = point(((num3 / den) - origine) * tailleUnite, 0, lettreIndiceeDepuisChiffre(i * 3 + 3))
         }
-        traceC = tracePoint(C)
-        traceC.color = 'blue'
+        traceC = tracePoint(C, 'blue')
         traceC.epaisseur = 2
         traceC.taille = 3
         labels = labelPoint(A, B, C)

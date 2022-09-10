@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import Decimal from 'decimal.js'
+import Decimal from 'decimal.js/decimal.mjs'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, texteEnCouleur, texNombre, egalOuApprox } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -17,6 +17,8 @@ export const dateDePublication = '16/01/2022'
 * @author Florence Tapiero
 * 2S12-3
 */
+export const uuid = '509db'
+export const ref = '2S12-3'
 export default function EvolutionsSuccesives () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

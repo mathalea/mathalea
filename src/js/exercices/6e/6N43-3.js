@@ -12,6 +12,8 @@ export const titre = 'Reconnaître diviseur, multiple, divisible'
  * @author Rémi Angot
  * Référence 6N43-3
 */
+export const uuid = 'bbdd6'
+export const ref = '6N43-3'
 export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Pour chaque affirmation, indiquer si elle est vraie ou fausse.'
@@ -172,4 +174,4 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Critères de divisibilité par 2 et 5\n2 : Critères de divisibilité par 2, 3, 5 et 9\n3 : Sans critère de divisibilité']
 }
 
-// python3 list-to-js.py pour faire apparaitre l'exercice dans le menu
+// python3 list-to-js.py pour faire apparaître l'exercice dans le menu

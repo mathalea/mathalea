@@ -2,6 +2,7 @@ import { arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarre
 import { point, vecteur, segment, carre, cercle, arc, translation, rotation, texteParPosition } from './2d.js'
 import { Fraction, equal, largerEq, subtract, add, abs, multiply, gcd, larger, smaller, round, lcm, max, min, pow } from 'mathjs'
 import { fraction } from './fractions.js'
+import { colorToLatexOrHTML } from './2dGeneralites.js'
 
 // Fonction écrite par Daniel Caillibaud pour créer ajouter les propriétés à la première utilisation de celles-ci.
 const definePropRo = (obj, prop, get) => {
@@ -690,8 +691,7 @@ export default class FractionX extends Fraction {
     const unegraduation = function (x, y, couleur = 'black', epaisseur = 1) {
       const A = point(x, y + 0.2)
       const B = point(x, y - 0.2)
-      const g = segment(A, B)
-      g.color = couleur
+      const g = segment(A, B, couleur)
       g.epaisseur = epaisseur
       return g
     }
@@ -741,8 +741,7 @@ export default class FractionX extends Fraction {
           s.styleExtremites = '|-'
           objets.push(s)
         }
-        a = segment(O, point(O.x + Math.min(num, this.denIrred) * rayon / this.denIrred, O.y))
-        a.color = couleur
+        a = segment(O, point(O.x + Math.min(num, this.denIrred) * rayon / this.denIrred, O.y), couleur)
         a.opacite = 0.4
         a.epaisseur = 6
         objets.push(a)
@@ -758,8 +757,7 @@ export default class FractionX extends Fraction {
         s.styleExtremites = '|-'
         objets.push(s)
       }
-      a = segment(O, point(O.x + Math.min(this.numIrred, this.denIrred) * rayon / this.denIrred, O.y))
-      a.color = couleur
+      a = segment(O, point(O.x + Math.min(this.numIrred, this.denIrred) * rayon / this.denIrred, O.y), couleur)
       a.opacite = 0.4
       a.epaisseur = 6
       objets.push(a)
@@ -782,9 +780,9 @@ export default class FractionX extends Fraction {
           for (let h = 0; h < arrondi(this.denIrred / diviseur); h++) {
             O = point(x + k * (rayon + 1) + j * rayon / diviseur, y + h * rayon / diviseur)
             C = translation(O, vecteur(rayon / diviseur, 0))
-            dep = carre(O, C)
-            dep.color = 'black'
-            dep.couleurDeRemplissage = couleur
+            dep = carre(O, C, 'black')
+
+            dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
             dep.opaciteDeRemplissage = 0.4
             objets.push(dep)
           }
@@ -796,17 +794,17 @@ export default class FractionX extends Fraction {
           for (let h = 0; h < arrondi(this.denIrred / diviseur); h++) {
             O = point(x + k * (rayon + 1) + j * rayon / diviseur, y + h * rayon / diviseur)
             C = translation(O, vecteur(rayon / diviseur, 0))
-            dep = carre(O, C)
-            dep.color = 'black'
+            dep = carre(O, C, 'black')
+
             objets.push(dep)
           }
         }
         for (let i = 0; i < num; i++) {
           O = point(x + k * (rayon + 1) + (i % diviseur) * rayon / diviseur, y + quotientier(i, diviseur) * rayon / diviseur)
           C = translation(O, vecteur(rayon / diviseur, 0))
-          dep = carre(O, C)
-          dep.color = 'black'
-          dep.couleurDeRemplissage = couleur
+          dep = carre(O, C, 'black')
+
+          dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
           dep.opaciteDeRemplissage = 0.4
           objets.push(dep)
         }
@@ -837,8 +835,7 @@ export default class FractionX extends Fraction {
     const unegraduation = function (x, y, couleur = 'black', epaisseur = 1) {
       const A = point(x, y + 0.2)
       const B = point(x, y - 0.2)
-      const g = segment(A, B)
-      g.color = couleur
+      const g = segment(A, B, couleur)
       g.epaisseur = epaisseur
       return g
     }
@@ -892,8 +889,7 @@ export default class FractionX extends Fraction {
           s.styleExtremites = '|-'
           objets.push(s)
         }
-        a = segment(O, point(O.x + Math.min(num, this.den) * rayon / this.den, O.y))
-        a.color = couleur
+        a = segment(O, point(O.x + Math.min(num, this.den) * rayon / this.den, O.y), couleur)
         a.opacite = 0.4
         a.epaisseur = 6
         objets.push(a)
@@ -909,8 +905,7 @@ export default class FractionX extends Fraction {
         s.styleExtremites = '|-'
         objets.push(s)
       }
-      a = segment(O, point(O.x + Math.min(num, this.den) * rayon / this.den, O.y))
-      a.color = couleur
+      a = segment(O, point(O.x + Math.min(num, this.den) * rayon / this.den, O.y), couleur)
       a.opacite = 0.4
       a.epaisseur = 6
       objets.push(a)
@@ -933,9 +928,9 @@ export default class FractionX extends Fraction {
           for (let h = 0; h < arrondi(this.den / diviseur); h++) {
             O = point(x + k * (rayon + 1) + j * rayon / diviseur, y + h * rayon / diviseur)
             C = translation(O, vecteur(rayon / diviseur, 0))
-            dep = carre(O, C)
-            dep.color = 'black'
-            dep.couleurDeRemplissage = couleur
+            dep = carre(O, C, 'black')
+
+            dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
             dep.opaciteDeRemplissage = 0.4
             objets.push(dep)
           }
@@ -947,17 +942,17 @@ export default class FractionX extends Fraction {
           for (let h = 0; h < arrondi(this.den / diviseur); h++) {
             O = point(x + k * (rayon + 1) + j * rayon / diviseur, y + h * rayon / diviseur)
             C = translation(O, vecteur(rayon / diviseur, 0))
-            dep = carre(O, C)
-            dep.color = 'black'
+            dep = carre(O, C, 'black')
+
             objets.push(dep)
           }
         }
         for (let i = 0; i < num; i++) {
           O = point(x + k * (rayon + 1) + (i % diviseur) * rayon / diviseur, y + quotientier(i, diviseur) * rayon / diviseur)
           C = translation(O, vecteur(rayon / diviseur, 0))
-          dep = carre(O, C)
-          dep.color = 'black'
-          dep.couleurDeRemplissage = couleur
+          dep = carre(O, C, 'black')
+
+          dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
           dep.opaciteDeRemplissage = 0.4
           objets.push(dep)
         }

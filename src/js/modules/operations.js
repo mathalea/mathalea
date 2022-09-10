@@ -1,7 +1,8 @@
-import { ordreDeGrandeur, base10VersBaseN } from './outils.js'
-import Decimal from 'decimal.js'
-import { mathalea2d, texteParPosition, segment } from './2d.js'
+import { ordreDeGrandeur, base10VersBaseN, nombreDeChiffresDansLaPartieEntiere } from './outils.js'
+import Decimal from 'decimal.js/decimal.mjs'
+import { texteParPosition, segment } from './2d.js'
 import { context } from './context.js'
+import { mathalea2d } from './2dGeneralites.js'
 /**
  *
  * Pose une opération
@@ -47,9 +48,10 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       for (let k = 0; k < P.length; k++) {
         objets.push(texteParPosition(P[P.length - k - 1], upos - k - 1, 10 - i * 2, 'milieu', 'black', 1.2, 'middle', false))
       }
+      objets.push(segment(upos - P.length - 0.5, 9.6 - i * 2, upos + 0.2 - 1, 9.6 - i * 2))
     }
     const ecrirereste = function (upos, R) {
-      objets.push(segment(i - 1, 9.6 - i * 2, i + R.length, 9.6 - i * 2))
+      // objets.push(segment(0, 9.6 - i * 2, 5, 9.6 - i * 2))
       for (let k = 0; k < R.length; k++) {
         objets.push(texteParPosition(R[R.length - k - 1], upos - k - 1, 9 - i * 2, 'milieu', 'black', 1.2, 'middle', false))
       }
@@ -74,7 +76,9 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     if (dec1 + dec2 !== 0) {
       objets.push(texteParPosition(',', n - dec1 - dec2 - 1 + 0.5, 11, 'milieu', 'black', 1.2, 'middle', false))
     }
-    objets.push(segment(n, 11.5, n, 11.5 - n * 2)) // on trace le trait vertical
+    const longueurPotence = nombreDeChiffresDansLaPartieEntiere((divid.toNumber() / divis.toNumber()))
+    // objets.push(segment(n, 11.5, n, 10.5 - longueurPotence * 1.5)) // on trace le trait vertical
+    objets.push(segment(n, 11.5, n, 10.5 - 2 * longueurPotence)) // on trace le trait vertical
 
     let i = 0
     divd.push(dividende.substr(0, m))
@@ -101,17 +105,9 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       } else {
         ecrirereste(upos, R[i])
       }
-      //  for (let r=0;r<i;r++){
-      //      if (R[i]==R[r]) periode=i-r
-      //  }
       divd.push(R[i])
       upos++
 
-      //  if (periode!=0) {
-      //      ecrirequotient(i,'...')
-      //      break
-      //  }
-      //  else
       ecrirequotient(i, Q[i])
       i++
     }
@@ -122,7 +118,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     }
     objets.push(segment(n, 10.5, n + m + i, 10.5)) // on trace le trait horizontal
 
-    const code = mathalea2d({ xmin: -1.5, ymin: 10 - 2 * n, xmax: n + m + 10, ymax: 11.5, pixelsParCm: 20, scale: 0.8, style }, objets)
+    const code = mathalea2d({ xmin: -1.5, ymin: 10 - 2 * longueurPotence, xmax: n + m + 10, ymax: 11.5, pixelsParCm: 20, scale: 0.8, style }, objets)
     return code
   }
 

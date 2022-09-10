@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import Decimal from 'decimal.js'
+import Decimal from 'decimal.js/decimal.mjs'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, texFraction, rangeMinMax, contraindreValeur, compteOccurences } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -18,6 +18,8 @@ export const interactifType = ['qcm', 'mathLive']
  * référence 6M30
  */
 
+export const uuid = '04b0d'
+export const ref = '6M30'
 export default function CalculDeVolumes () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

@@ -16,6 +16,8 @@ export const dateDePublication = '21/11/2021' // La date de publication initiale
  * @author Guillaume Valmont
  * Référence 4C33-0
 */
+export const uuid = '1d078'
+export const ref = '4C33-0'
 export default function NotationPuissance () {
   Exercice.call(this)
   this.nbQuestions = 4
@@ -32,11 +34,11 @@ export default function NotationPuissance () {
     let listeTypeDeQuestions
     switch (this.sup) {
       case 1:
-        this.consigne = 'Donner la signification des écritures suivantes'
+        this.consigne = 'Donner la signification des écritures suivantes.'
         listeTypeDeQuestions = ['produit']
         break
       case 2:
-        this.consigne = 'Simplifier l\'écriture en utilisant la notation puissance'
+        this.consigne = 'Simplifier l\'écriture en utilisant la notation puissance.'
         listeTypeDeQuestions = ['puissance']
         break
       default:

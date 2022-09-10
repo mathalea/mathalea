@@ -2,13 +2,15 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texEnumerate, miseEnEvidence, itemize, tikzMachineDiag, numAlpha, texCadreParOrange } from '../../modules/outils.js'
 import { SvgMachineDiag3F12 } from '../../modules/macroSvgJs.js'
-export const titre = 'Fonctions : Calculs d\'images'
+export const titre = 'Calculer, de manières différentes, des images par une fonction'
 
 /**
  * 3F12 Notion de fonction - Vocabulaire
  * Déterminer à partir de plusieurs modes de représentation l'image d'un nombre
  * @author Sébastien LOZANO
  */
+export const uuid = '02116'
+export const ref = '3F12'
 export default function fonctionsCalculsDImages () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -17,7 +19,7 @@ export default function fonctionsCalculsDImages () {
   // pas de différence entre la version html et la version latex pour la consigne
   this.consigne = ''
   // pas de différence entre la version html et la version latex pour la consigne
-  this.consigne += 'Calcule les images avec la méthode demandée.'
+  this.consigne += 'Calculer les images avec la méthode demandée.'
 
   context.isHtml ? this.spacing = 2 : this.spacing = 1
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
@@ -81,46 +83,46 @@ export default function fonctionsCalculsDImages () {
 <br>
 <div class="ui compact warning message">
 <p>
-- Choisir un nombre<br>
-- Multiplier ce nombre par ${a}<br>
-- Ajouter ${b} au résultat obtenu<br>
+- Choisir un nombre.<br>
+- Multiplier ce nombre par ${a}.<br>
+- Ajouter ${b} au résultat obtenu.<br>
 </p>
 </div>
 <br>`
             // sous-question a/
-            texte += numAlpha(j) + ` Appliquer ce programme de calcul au nombre ${c}<br>`
+            texte += numAlpha(j) + ` Appliquer ce programme de calcul au nombre ${c}.<br>`
             texteCorr += '<br>' + numAlpha(j) + `
 <br>
 <div class="ui compact warning message">
 <p>
-- On choisit le nombre ${c}<br>
-- On multiplie ce nombre par ${a} : ${a}$\\times$ ${c} = ${a * c}<br>
-- On ajoute ${b} au résultat obtenu : ${a * c}+${b}=${a * c + b}<br>
+- On choisit le nombre ${c}.<br>
+- On multiplie ce nombre par ${a}, soit ${a}$\\times$ ${c} = ${a * c}.<br>
+- On ajoute ${b} au résultat obtenu, soit ${a * c}+${b}=${a * c + b}.<br>
 </p>
 </div>
 <br>
 `
             j++
             // sous-question b/
-            texte += numAlpha(j) + ' Traduire ce calcul par une phrase contenant le mot image'
-            texteCorr += numAlpha(j) + `L'image de ${c} par cette fonction vaut ${a * c + b}`
-            texteCorr += `<br> On peut aussi dire que ${a * c + b} est l'image de ${c} par cette fonction`
+            texte += numAlpha(j) + ' Traduire ce calcul par une phrase contenant le mot image.'
+            texteCorr += numAlpha(j) + `L'image de ${c} par cette fonction vaut ${a * c + b}.`
+            texteCorr += `<br> On peut aussi dire que ${a * c + b} est l'image de ${c} par cette fonction.`
           } else {
-            texte += texCadreParOrange(itemize(['Choisir un nombre', `Multiplier ce nombre par ${a}`, `Ajouter ${b} au résultat obtenu`]))
+            texte += texCadreParOrange(itemize(['Choisir un nombre.', `Multiplier ce nombre par ${a}.`, `Ajouter ${b} au résultat obtenu.`]))
             // sous-question a/
-            texte += texEnumerate([`Appliquer ce programme de calcul au nombre ${c}`, 'Traduire ce calcul par une phrase contenant le mot image'], this.spacing)
+            texte += texEnumerate([`Appliquer ce programme de calcul au nombre ${c}.`, 'Traduire ce calcul par une phrase contenant le mot image.'], this.spacing)
             // texteCorr +=
-            texteCorr += texEnumerate([texCadreParOrange(itemize([`On choisit le nombre ${c}`, `On multiplie ce nombre par ${a} : $${a} \\times ${c} = ${a * c}$ `, `On ajoute ${b} au résultat obtenu : $${a * c}+${b}=${a * c + b}$`])), `L'image de ${c} par cette fonction vaut ${a * c + b}<br>On peut aussi dire que ${a * c + b} est l'image de ${c} par cette fonction`], this.spacing)
+            texteCorr += texEnumerate([texCadreParOrange(itemize([`On choisit le nombre ${c}`, `On multiplie ce nombre par ${a} : $${a} \\times ${c} = ${a * c}$. `, `On ajoute ${b} au résultat obtenu : $${a * c}+${b}=${a * c + b}$.`])), `L'image de ${c} par cette fonction vaut ${a * c + b}.<br>On peut aussi dire que ${a * c + b} est l'image de ${c} par cette fonction.`], this.spacing)
           };
           break
         case 2:
           j = 0 // pour la sous-numérotation
 
           // les variables a,b,c changent sans refaire un appel à randint
-          texte = `Soit $f$ la fonction définie par l'expression algébrique $f(x)=$ ${a}$x+$${b}`
+          texte = `Soit $f$ la fonction définie par l'expression algébrique $f(x)=$ ${a}$x+$${b}.`
           if (context.isHtml) {
             // sous-question a/
-            texte += '<br>' + numAlpha(j) + ` Calculer l'image de ${c}`
+            texte += '<br>' + numAlpha(j) + ` Calculer l'image de ${c}.`
             texte += '<br>'
             texteCorr = numAlpha(j) + ` Calculons l'image par $f$ de $x= ${c}$ :`
             texteCorr += `<br>$f(${miseEnEvidence('\\textit{\\textbf{x}}')})= ${a} ${miseEnEvidence('\\textit{\\textbf{x}}')}+${b}$`
@@ -129,18 +131,18 @@ export default function fonctionsCalculsDImages () {
             texteCorr += `<br>$f(${miseEnEvidence(c)})= ${a * c + b}$`
             j++
             // sous question b/
-            texte += numAlpha(j) + ' Traduire ce calcul par une phrase contenant le mot image'
-            texteCorr += '<br>' + numAlpha(j) + ` L'image de ${c} par la fonction $f$ vaut ${a * c + b}`
-            texteCorr += `<br> On peut aussi dire que ${a * c + b} est l'image de ${c} par la fonction $f$`
+            texte += numAlpha(j) + ' Traduire ce calcul par une phrase contenant le mot image.'
+            texteCorr += '<br>' + numAlpha(j) + ` L'image de ${c} par la fonction $f$ vaut ${a * c + b}.`
+            texteCorr += `<br> On peut aussi dire que ${a * c + b} est l'image de ${c} par la fonction $f$.`
           } else {
             // sous-question a/ et b/
-            texte += texEnumerate([`Calculer l'image de ${c}`, 'Traduire ce calcul par une phrase contenant le mot image'], this.spacing)
+            texte += texEnumerate([`Calculer l'image de ${c}.`, 'Traduire ce calcul par une phrase contenant le mot image.'], this.spacing)
             texteCorr = texEnumerate([`Calculons l'image par $f$ de $x= ${c}$ :
 <br>$f(${miseEnEvidence('\\textit{\\textbf{x}}')})= ${a} ${miseEnEvidence('\\textit{\\textbf{x}}')}+${b}$
 <br>$f(${miseEnEvidence(c)})= ${a}\\times ${miseEnEvidence(c)}+${b}$
 <br>$f(${miseEnEvidence(c)})= ${a * c}+${b}$
-<br>$f(${miseEnEvidence(c)})= ${a * c + b}$`, `L'image de ${c} par la fonction $f$ vaut ${a * c + b}
-<br> On peut aussi dire que ${a * c + b} est l'image de ${c} par la fonction $f$`
+<br>$f(${miseEnEvidence(c)})= ${a * c + b}$`, `L'image de ${c} par la fonction $f$ vaut ${a * c + b}.
+<br> On peut aussi dire que ${a * c + b} est l'image de ${c} par la fonction $f$.`
             ], this.spacing)
           };
           break
@@ -148,10 +150,10 @@ export default function fonctionsCalculsDImages () {
           j = 0 // pour la sous-numérotation
 
           // les variables a,b,c changent sans refaire un appel à randint
-          texte = `Soit $g$ la fonction définie par $g:x\\longmapsto$ ${a}$x+$${b}`
+          texte = `Soit $g$ la fonction définie par $g:x\\longmapsto$ ${a}$x+$${b}.`
           if (context.isHtml) {
             // sous-question a/
-            texte += '<br>' + numAlpha(j) + ` Calculer l'image de ${c}`
+            texte += '<br>' + numAlpha(j) + ` Calculer l'image de ${c}.`
             texte += '<br>'
             texteCorr = numAlpha(j) + ` Calculons l'image par $g$ de $x= ${c}$ :`
             texteCorr += `<br>$g:${miseEnEvidence('\\textit{\\textbf{x}}')}\\longmapsto ${a} ${miseEnEvidence('\\textit{\\textbf{x}}')}+${b}$`
@@ -160,34 +162,34 @@ export default function fonctionsCalculsDImages () {
             texteCorr += `<br>$g:${miseEnEvidence(c)}\\longmapsto ${a * c + b}$`
             j++
             // sous question b/
-            texte += numAlpha(j) + ' Traduire ce calcul par une phrase contenant le mot image'
-            texteCorr += '<br>' + numAlpha(j) + ` L'image de ${c} par la fonction $g$ vaut ${a * c + b}`
-            texteCorr += `<br> On peut aussi dire que ${a * c + b} est l'image de ${c} par la fonction $g$`
+            texte += numAlpha(j) + ' Traduire ce calcul par une phrase contenant le mot image.'
+            texteCorr += '<br>' + numAlpha(j) + ` L'image de ${c} par la fonction $g$ vaut ${a * c + b}.`
+            texteCorr += `<br> On peut aussi dire que ${a * c + b} est l'image de ${c} par la fonction $g$.`
           } else {
             // sous-question a/ et b/
-            texte += texEnumerate([`Calculer l'image de ${c}`, 'Traduire ce calcul par une phrase contenant le mot image'], this.spacing)
+            texte += texEnumerate([`Calculer l'image de ${c}.`, 'Traduire ce calcul par une phrase contenant le mot image.'], this.spacing)
             texteCorr = texEnumerate([`Calculons l'image par $g$ de $x= ${c}$ :
 <br>$g:${miseEnEvidence('\\textit{\\textbf{x}}')}\\longmapsto ${a} ${miseEnEvidence('\\textit{\\textbf{x}}')}+${b}$
 <br>$g:${miseEnEvidence(c)}\\longmapsto ${a}\\times ${miseEnEvidence(c)}+${b}$
 <br>$g:${miseEnEvidence(c)}\\longmapsto ${a * c}+${b}$
-<br>$g:${miseEnEvidence(c)}\\longmapsto ${a * c + b}$`, `L'image de ${c} par la fonction $g$ vaut ${a * c + b}
-<br> On peut aussi dire que ${a * c + b} est l'image de ${c} par la fonction $g$`
+<br>$g:${miseEnEvidence(c)}\\longmapsto ${a * c + b}$`, `L'image de ${c} par la fonction $g$ vaut ${a * c + b}.
+<br> On peut aussi dire que ${a * c + b} est l'image de ${c} par la fonction $g$.`
             ], this.spacing)
           };
           break
         case 4:
           texte = ''
           texteCorr = ''
-          texteCorr += 'Calculer avec un diagramme '
+          texteCorr += 'Calculer avec un diagramme.'
           j = 0 // pour la sous-numérotation
 
           // les variables a,b,c changent sans refaire un appel à randint
-          texte += 'Soit la fonction $h$ définie par le diagramme '
+          texte += 'Soit la fonction $h$ définie par le diagramme :'
           if (context.isHtml) {
             // sous-question a/
             texte += `<div id="${idDuDiv}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`
             SvgMachineDiag3F12(idDuDiv, 800, 100, 'h', 'x', [['' + a, a + 'x'], ['' + b, a + 'x+' + b]])
-            texte += numAlpha(j) + ` Calculer l'image de ${c}`
+            texte += numAlpha(j) + ` Calculer l'image de ${c}.`
             texte += '<br>'
             texteCorr += '<br>'
             texteCorr += numAlpha(j) + ` Calculons l'image par $h$ de $x=$ ${c} :`
@@ -195,17 +197,17 @@ export default function fonctionsCalculsDImages () {
             SvgMachineDiag3F12(idDuDivCorr, 800, 100, 'h', '' + c, [['' + a, '' + (a * c)], ['' + b, '' + (a * c + b)]])
             j++
             // sous question b/
-            texte += numAlpha(j) + ' Traduire ce calcul par une phrase contenant le mot image'
-            texteCorr += '<br>' + numAlpha(j) + ` L'image de ${c} par la fonction $h$ vaut ${a * c + b}`
-            texteCorr += `<br> On peut aussi dire que ${a * c + b} est l'image de ${c} par la fonction $h$`
+            texte += numAlpha(j) + ' Traduire ce calcul par une phrase contenant le mot image.'
+            texteCorr += '<br>' + numAlpha(j) + ` L'image de ${c} par la fonction $h$ vaut ${a * c + b}.`
+            texteCorr += `<br> On peut aussi dire que ${a * c + b} est l'image de ${c} par la fonction $h$.`
           } else {
             texte += '<br>' + tikzMachineDiag('h', 'x', [['\\times ' + a, a + 'x'], ['+' + b, a + 'x+' + b]])
             // sous-question a/ et b/
-            texte += texEnumerate([`Calculer l'image de ${c}`, 'Traduire ce calcul par une phrase contenant le mot image'], this.spacing)
+            texte += texEnumerate([`Calculer l'image de ${c}.`, 'Traduire ce calcul par une phrase contenant le mot image.'], this.spacing)
             texteCorr = texEnumerate(
               [`Calculons l'image par $g$ de $x=$ ${c} :<br>` + tikzMachineDiag('h', c, [['\\times ' + a, (a * c)], ['+' + b, (a * c + b)]]),
-`L'image de ${c} par la fonction $g$ vaut ${a * c + b}
- <br> On peut aussi dire que ${a * c + b} est l'image de ${c} par la fonction $g$`
+`L'image de ${c} par la fonction $g$ vaut ${a * c + b}.
+ <br> On peut aussi dire que ${a * c + b} est l'image de ${c} par la fonction $g$.`
               ], this.spacing)
           };
           break

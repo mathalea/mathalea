@@ -1,4 +1,5 @@
-import { cercle, mathalea2d, point, rotation, segment, texteParPosition } from '../../../modules/2d.js'
+import { cercle, point, rotation, segment, texteParPosition } from '../../../modules/2d.js'
+import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites.js'
 import { context } from '../../../modules/context.js'
 import { calcul, choice, personne, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
@@ -12,6 +13,8 @@ export const interactifType = 'mathLive'
  * Créé le 4/11/2021
  * Référence canc3D01
  */
+export const uuid = '0861b'
+export const ref = 'canc3D02'
 export default function LireUneDuree () {
   Exercice.call(this)
   this.nbQuestions = 1
@@ -62,13 +65,13 @@ export default function LireUneDuree () {
     const grandeAiguille2 = rotation(segment(O, point(1.5, 0)), O, beta2)
     const petiteAiguille2 = rotation(segment(O, point(1, 0)), O, alpha2)
 
-    grandeAiguille1.color = 'red'
+    grandeAiguille1.color = colorToLatexOrHTML('red')
     grandeAiguille1.epaisseur = 2
-    petiteAiguille1.color = 'green'
+    petiteAiguille1.color = colorToLatexOrHTML('green')
     petiteAiguille1.epaisseur = 3
-    grandeAiguille2.color = 'red'
+    grandeAiguille2.color = colorToLatexOrHTML('red')
     grandeAiguille2.epaisseur = 2
-    petiteAiguille2.color = 'green'
+    petiteAiguille2.color = colorToLatexOrHTML('green')
     petiteAiguille2.epaisseur = 3
     this.question = enonce + (context.isHtml ? '<table><tr><td>' : '\\begin{multicols}{2}\n') +
     mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 1, zoom: this.tailleDiaporama, style: 'margin: auto' }, horloge, grandeAiguille1, petiteAiguille1, texteParPosition('Heure de début', 0, -2.5)) +

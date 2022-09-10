@@ -8,6 +8,8 @@ export { interactifReady, interactifType, amcReady, amcType } from './4C10-0.js'
  * 4C10-1 fils de 4C10-0
  * @author Sébastien Lozano
  */
+export const uuid = '4fd42'
+export const ref = '4C10-1'
 export default function SigneProduitRelatifs () {
   SigneProduitQuotientRelatifs.call(this)
   this.beta = ''// ici this.beta peut prendre la valeur 'beta' ou '', tous les autres this.beta sont devenus des this.debug

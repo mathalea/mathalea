@@ -10,6 +10,8 @@ export const dateDePublication = '25/10/2021'
  * Référence can3L06
  * Date de publication
 */
+export const uuid = 'ab332'
+export const ref = 'can3L05'
 export default function SolutionsEquationProduit () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

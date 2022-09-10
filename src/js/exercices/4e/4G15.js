@@ -1,10 +1,14 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { symetrieAnimee, rotationAnimee, translationAnimee, polygone, mathalea2d, point, milieu, pointSurSegment, droite, mediatrice, translation, similitude, rotation, pointAdistance, longueur, symetrieAxiale, vecteur, latexParPoint, tracePoint, labelPoint, polygoneAvecNom, renommePolygone, nommePolygone } from '../../modules/2d.js'
+import { polygone, point, milieu, pointSurSegment, droite, mediatrice, translation, similitude, rotation, pointAdistance, longueur, symetrieAxiale, vecteur, latexParPoint, tracePoint, labelPoint, polygoneAvecNom, renommePolygone, nommePolygone } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
+import { rotationAnimee, symetrieAnimee, translationAnimee } from '../../modules/2dAnimation.js'
 
 export const titre = 'Tranformations de triangle'
+export const uuid = '0da6a'
+export const ref = '4G15'
 export default function TransformationsDeTriangle () {
   'use strict'
   Exercice.call(this)
@@ -122,7 +126,7 @@ export default function TransformationsDeTriangle () {
     anim.textePoint('(d)', milieu(B, B1))
     anim.symetrieAxialePolygone(triangle0, med, ['A_1', 'B_1', 'C_1'], { couleur: 'blue', couleurCodage: 'lightblue' })
     anim.demiTourPolygone(triangle2, D, ['A_2', 'B_2', 'C_2'], { couleur: 'red', couleurCodage: 'pink' })
-    anim.translationPolygone(triangle3, D, F, ['A_3', 'B_3', 'C_3'], { couleur: 'brown', couleurCodage: 'orange' })
+    anim.translationPolygone(triangle3, D, F, ['A_3', 'B_3', 'C_3'], { couleur: 'brown', couleurCodage: '#f15929' })
     anim.rotationPolygone(triangle4, F, alpha, ['A_4', 'B_4', 'C_4'], { couleur: 'green', couleurCodage: 'lightgreen' })
     anim.crayonMasquer()
 

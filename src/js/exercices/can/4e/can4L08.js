@@ -14,6 +14,8 @@ export const dateDePublication = '27/02/2022' // La date de publication initiale
  * @author Gilles Mora
  * Référence
 */
+export const uuid = 'a6e97'
+export const ref = 'can4L08'
 export default function ReconnaitreExpL () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1

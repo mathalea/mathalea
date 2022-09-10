@@ -1,12 +1,16 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice } from '../../modules/outils.js'
-import { mathalea2d, point, tracePoint, vecteur, polygoneAvecNom, translation, pointAdistance, longueur, homothetie, latexParPoint, similitude, translationAnimee } from '../../modules/2d.js'
+import { point, tracePoint, vecteur, polygoneAvecNom, translation, pointAdistance, longueur, homothetie, latexParPoint, similitude } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
+import { translationAnimee } from '../../modules/2dAnimation.js'
 export const titre = 'Construire les images de points par une translation'
 
 /**
  * @author Jean-Claude Lhote
  */
+export const uuid = '2b8bf'
+export const ref = '2G21-1'
 export default function SommeDeVecteurs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -41,10 +45,10 @@ export default function SommeDeVecteurs () {
       }
       U = u.representantNomme(M, 'u', 2, 'blue')
       UU = u.representant(M)
-      UU.color = 'blue'
+      UU.color = colorToLatexOrHTML('blue')
       V = v.representantNomme(N, 'v', 2, 'green')
       VV = v.representant(N)
-      VV.color = 'green'
+      VV.color = colorToLatexOrHTML('green')
       texte = 'Construire le point $C$ tel que $\\overrightarrow{AC} = \\vec{u} + \\vec{v}$.<br>'
       texte += mathalea2d({
         xmin: Math.min(0, B.x, C.x, M.x, M.x + xU, N.x, N.x + xV) - 1,

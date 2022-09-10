@@ -11,6 +11,8 @@ export const dateDePublication = '25/10/2021'
  * Référence can3L05
  * Date de publication
 */
+export const uuid = '9734b'
+export const ref = 'can3P01'
 export default function ProportionnaliteExpressionAlgebrique () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

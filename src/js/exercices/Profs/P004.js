@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { randint, troncature, calcul, choisitLettresDifferentes } from '../../modules/outils.js'
-import { point, segment, droiteGraduee2, mathalea2d } from '../../modules/2d.js'
+import { point, segment, droiteGraduee } from '../../modules/2d.js'
 
 export const titre = 'Droites graduées avec zoom'
 
@@ -33,7 +34,7 @@ export default function FeuilleDeZooms () {
         x1 = calcul(xmin + 0.2 + randint(1, 5) + randint(2, 8) / 10)
         extremite = '->'
 
-        const d1 = droiteGraduee2({
+        const d1 = droiteGraduee({
           x: 0,
           y: 3,
           Min: xmin,
@@ -56,7 +57,7 @@ export default function FeuilleDeZooms () {
           pointEpaisseur: 2,
           axeStyle: extremite
         })
-        const d2 = droiteGraduee2({
+        const d2 = droiteGraduee({
           x: Math.floor(x1) - xmin + 1.5,
           y: 0,
           Min: Math.floor(x1),
@@ -102,7 +103,7 @@ export default function FeuilleDeZooms () {
         const thickOff = 0.001
 
         extremite = '->'
-        const d1 = droiteGraduee2({
+        const d1 = droiteGraduee({
           x: 0,
           y: 6,
           Min: xmin,
@@ -127,7 +128,7 @@ export default function FeuilleDeZooms () {
           pointEpaisseur: 3,
           axeStyle: extremite
         })
-        const d2 = droiteGraduee2({
+        const d2 = droiteGraduee({
           x: 6.5,
           y: 3,
           Min: x2,
@@ -152,7 +153,7 @@ export default function FeuilleDeZooms () {
           pointEpaisseur: 2,
           axeStyle: extremite
         })
-        const d3 = droiteGraduee2({
+        const d3 = droiteGraduee({
           x: 6.5,
           y: 0,
           Min: x21,

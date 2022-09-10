@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { combinaisonListes, listeQuestionsToContenu, randint, choice, creerNomDePolygone, calcul } from '../../modules/outils.js'
-import { mathalea2d, point, tracePointSurDroite, droite, demiDroite, labelPoint, segment } from '../../modules/2d.js'
+import { point, tracePointSurDroite, droite, demiDroite, labelPoint, segment } from '../../modules/2d.js'
 
 export const titre = 'Donner description et notation de droites, segments et demi-droites'
 
@@ -9,6 +10,8 @@ export const titre = 'Donner description et notation de droites, segments et dem
  * @author Rémi Angot
  * Référence 6G10-1
  */
+export const uuid = 'd81c6'
+export const ref = '6G10-1'
 export default function DescriptionSegmentDroiteDemiDroite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

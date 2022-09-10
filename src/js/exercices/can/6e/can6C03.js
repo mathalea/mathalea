@@ -1,5 +1,5 @@
-import { calcul, randint, texteEnCouleur } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { calcul, randint, texteEnCouleur } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Rechercher un terme dans une somme'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6C03
  */
+export const uuid = '2e274'
+export const ref = 'can6C03'
 export default function AdditionATrou () {
   Exercice.call(this)
   this.typeExercice = 'simple'

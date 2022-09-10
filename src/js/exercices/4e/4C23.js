@@ -15,6 +15,8 @@ export const interactifReady = true
  * Référence 4C23-1
  * Date de publication septembre 2021
 */
+export const uuid = '374b6'
+export const ref = '4C23'
 export default function SommeOuProduitFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.interactifReady = interactifReady
@@ -22,7 +24,7 @@ export default function SommeOuProduitFractions () {
   this.spacing = context.isHtml ? 4 : 3
   this.spacingCorr = context.isHtml ? 4 : 3
   this.nbColonneModifiable = false
-  this.consigne = 'Effectuer les calculs suivants :'
+  this.consigne = 'Effectuer les calculs suivants.'
   this.nbQuestions = 8 // Nombre de questions par défaut
   this.nbCols = 4 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX

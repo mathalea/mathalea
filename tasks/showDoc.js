@@ -3,7 +3,6 @@
 const path = require('path')
 const webpack = require('webpack')
 const Server = require('webpack-dev-server/lib/Server')
-
 const host = process.env.HOST || 'localhost'
 const port = process.env.PORT || 8081
 const ip = process.env.IP || '127.0.0.1'
@@ -13,7 +12,7 @@ const webpackConfig = {
   entry: {}, // rien à compiler ici
   output: {},
   devServer: {
-    contentBase: path.resolve(__dirname, '..', 'documentation'),
+    contentBase: path.resolve('.', 'documentation'),
     open: true,
     openPage: 'index.html',
     host,

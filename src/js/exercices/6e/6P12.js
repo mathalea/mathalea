@@ -437,7 +437,7 @@ function questionRecouvrirSurface (exo, i) { // peinture, gazon, carrelage pour 
   } else {
     surfaceInitiale = liste[alea1].qtt_surface[alea3]
     quantite = liste[alea1].qtt_matiere_unitaire[alea2]
-    surfaceFinale = calcul(rapport[alea4] * liste[alea1].qtt_surface[alea3])
+    surfaceFinale = calcul(rapport[alea4] * liste[alea1].qtt_surface[alea3], 3)
   }
   const prenoms = [prenomF(), prenomM()]
   const qttaffichage = stringNombre(quantite) // Pour affichage avec virgule en séparateur.
@@ -454,7 +454,7 @@ function questionRecouvrirSurface (exo, i) { // peinture, gazon, carrelage pour 
   ` ${stringNombre(surfaceFinale)} m$^2$, c'est ${texteEnCouleur(stringNombre(surfaceFinale))} fois plus que 1 m$^2$.` +
   `<br> ${texteEnCouleur(stringNombre(quantite / surfaceInitiale), 'blue')} ${liste[alea1].unite} $\\times$ ${texteEnCouleur(stringNombre(surfaceFinale))} = ${stringNombre(quantite * surfaceFinale / surfaceInitiale)} ${liste[alea1].unite}<br>` +
   `${texteEnCouleurEtGras('Conclusion :', 'black')} ${prenoms[0]} aura besoin de ${stringNombre(quantite * surfaceFinale / surfaceInitiale)} ${liste[alea1].unite} pour recouvrir ${stringNombre(surfaceFinale)} m$^2$.`
-  setReponse(exo, i, calcul(quantite * surfaceFinale / surfaceInitiale))
+  setReponse(exo, i, calcul(quantite * surfaceFinale / surfaceInitiale, 3))
   return {
     qtexte: texte,
     qtexteCorr: texteCorr
@@ -463,6 +463,8 @@ function questionRecouvrirSurface (exo, i) { // peinture, gazon, carrelage pour 
 
 // _______ Fin des fonctions correspondants aux situations problèmes _____
 
+export const uuid = 'b0f4e'
+export const ref = '6P12'
 export default function ProportionnaliteParCoefDeProportionnalite () {
   'use strict'
   let question

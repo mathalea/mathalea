@@ -2,9 +2,9 @@
 import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube, exerciceSimpleToContenu, listeQuestionsToContenu, introLatexCan, arrondi, dataTailleDiaporama, contraindreValeur } from './modules/outils.js'
 import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch, getUserId, setUrlAndGo, replaceQueryParam, goTabVue } from './modules/gestionUrl.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
-import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders'
-import { waitFor } from './modules/outilsDom'
-import { mg32DisplayAll } from './modules/mathgraph'
+import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders.js'
+import { waitFor } from './modules/outilsDom.js'
+import { mg32DisplayAll } from './modules/mathgraph.js'
 import {
   errorHandler,
   getInvalidModuleError, getNoLatexError,
@@ -270,12 +270,13 @@ function contenuExerciceHtml (obj, numeroExercice) {
   // * boutons
   // * formulaires
   // renvoie un objet : { contenu_un_exercice: le html de l'exercice  ,contenu_une_correction: le html de la correction }
+
   let contenuUnExercice = ''
   let contenuUneCorrection = ''
   let paramTooltip = ''
   let iconeInteractif = ''
   // Pour factoriser les entrées des exos statiques
-  const factoExosStatiques = ['crpe', 'dnb', 'bac', 'e3c']
+  const factoExosStatiques = ['crpe', 'dnb', 'bac', 'e3c', 'crpeCoop']
   if (factoExosStatiques.includes(obj.typeExercice)) {
     const crpe = {
       titreEx: `<h3> Exercice ${numeroExercice} − CRPE ${obj.annee} - ${obj.lieu} - ${obj.numeroInitial}</h3>`,
@@ -315,6 +316,9 @@ function contenuExerciceHtml (obj, numeroExercice) {
       case 'crpe':
         contenuUnExercice += crpe.titreEx
         break
+      case 'crpeCoop':
+        contenuUnExercice += crpe.titreEx
+        break
       case 'dnb':
         contenuUnExercice += dnb.titreEx
         break
@@ -337,6 +341,14 @@ function contenuExerciceHtml (obj, numeroExercice) {
         }
       }
         break
+      case 'crpeCoop': {
+        let i = 1
+        for (const png of obj.png) {
+          contenuUnExercice += `<img id="${obj.id}-${i}" width="90%" src="${png}">`
+          i++
+        }
+      }
+        break
       case 'dnb':
       case 'bac':
       case 'e3c':
@@ -347,6 +359,9 @@ function contenuExerciceHtml (obj, numeroExercice) {
 
     switch (obj.typeExercice) {
       case 'crpe':
+        contenuUneCorrection += crpe.titreExCorr
+        break
+      case 'crpeCoop':
         contenuUneCorrection += crpe.titreExCorr
         break
       case 'dnb':
@@ -366,6 +381,14 @@ function contenuExerciceHtml (obj, numeroExercice) {
       contenuUneCorrection += '<div><div class="correction">'
       switch (obj.typeExercice) {
         case 'crpe': {
+          let i = 1
+          for (const png of obj.pngCor) {
+            contenuUneCorrection += `<img id="${obj.id}-${i}Cor" width="90%" src="${png}">`
+            i++
+          }
+        }
+          break
+        case 'crpeCoop': {
           let i = 1
           for (const png of obj.pngCor) {
             contenuUneCorrection += `<img id="${obj.id}-${i}Cor" width="90%" src="${png}">`
@@ -425,9 +448,9 @@ function contenuExerciceHtml (obj, numeroExercice) {
 
       if (obj.questionJamaisPosee(numQuestion, obj.question)) {
         if (obj.nbQuestions === 1) {
-          contenuUnExercice += `<div><div class="question" id="exercice${numeroExercice - 1}Q${numQuestion}" ${dataTailleDiaporama(obj)}>${obj.question}</div></div>`
+          contenuUnExercice += `<div><div class="question" id="exercice${numeroExercice - 1}Q${numQuestion}" ${dataTailleDiaporama(obj)}>${obj.question.replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....')}</div></div>`
         } else {
-          contenuUnExercice += `<li class="question" id="exercice${numeroExercice - 1}Q${numQuestion}" ${dataTailleDiaporama(obj)}>${obj.question}`
+          contenuUnExercice += `<li class="question" id="exercice${numeroExercice - 1}Q${numQuestion}" ${dataTailleDiaporama(obj)}>${obj.question.replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....')}`
         }
         if (obj.interactif && obj.interactifReady) {
           if (obj.formatChampTexte) {
@@ -459,6 +482,7 @@ function contenuExerciceHtml (obj, numeroExercice) {
         numQuestion++
       }
     }
+
     contenuUnExercice += (obj.nbQuestions !== 1) ? '</ol>' : ''
     contenuUneCorrection += (obj.nbQuestions !== 1) ? '</ol>' : ''
     if (obj.interactif || obj.interactifObligatoire) {
@@ -511,6 +535,7 @@ function contenuExerciceHtml (obj, numeroExercice) {
     }
     contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice}</h3>`
     contenuUneCorrection += obj.correctionIsCachee ? 'Correction masquée' : obj.contenuCorrection
+
     if (obj.typeExercice === 'MG32' && obj.MG32codeBase64corr) {
       contenuUneCorrection += `<div id="MG32divcorr${numeroExercice - 1}" class="MG32"></div>`
     }
@@ -522,7 +547,7 @@ function contenuExerciceHtml (obj, numeroExercice) {
 }
 
 function miseAJourDuCode () {
-  // fonction permettant de mettre à jour la liste des exercices affichées.
+  // fonction permettant de mettre à jour la liste des exercices affichés.
   // puis gère les gestionnaires d'évènements sur les éléments en provenance des exercices (icones pour supprimer/déplacer...)
   // Appelée dès lors que l'on a une modification sur l'affichage d'un ou plusieurs exercices
   //    suppression d'un exercice, nouvelle donnée, changement de paramètre...)
@@ -533,7 +558,13 @@ function miseAJourDuCode () {
   // Active ou désactive l'icone de la course aux nombres
   let tousLesExercicesSontInteractifs = true
   for (const exercice of listeObjetsExercice) {
-    if (!exercice.interactifReady) {
+    if (exercice.interactifReady === undefined) { // Rajout EE : Parfois, certains exos n'ont pas de propriété interactifReady définie
+      tousLesExercicesSontInteractifs = false
+      if (document.getElementById('btnCan') && document.getElementById('btnEval')) {
+        document.getElementById('btnCan').classList.add('disabled')
+        document.getElementById('btnEval').classList.add('disabled')
+      }
+    } else if (!exercice.interactifReady) {
       tousLesExercicesSontInteractifs = false
       if (document.getElementById('btnCan') && document.getElementById('btnEval')) {
         document.getElementById('btnCan').classList.add('disabled')
@@ -560,8 +591,10 @@ function miseAJourDuCode () {
   if (btnTousInteractifs !== null) {
     btnTousInteractifs.addEventListener('click', () => {
       for (let i = 0; i < listeObjetsExercice.length; i++) {
-        if (listeObjetsExercice[i].interactifReady) {
-          listeObjetsExercice[i].interactif = true
+        if (listeObjetsExercice[i] !== undefined) {
+          if (listeObjetsExercice[i].interactifReady) {
+            listeObjetsExercice[i].interactif = true
+          }
         }
       }
       miseAJourDuCode()
@@ -759,20 +792,20 @@ function miseAJourDuCode () {
         if ($('#liste_des_exercices').is(':visible') || $('#exercices_disponibles').is(':visible') || $('#exo_plein_ecran').is(':visible')) {
           // si on n'a plus la liste des exercices il ne faut plus pouvoir en supprimer (pour v=l)
           if (listeDesExercices.length === 1) {
-            // si on a q'un seul exercice, uniquement l'icone poubelle
-            contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i>${contenu.contenu_un_exercice} </div>`
+            // si on a qu'un seul exercice, uniquement l'icone poubelle
+            contenuDesExercices += `<div id="exercice${i}" style="margin-top: 20px"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i>${contenu.contenu_un_exercice} </div>`
           } else if (i === 0) {
             // si c'est le premier exercice icone poubelle plus fleche vers le bas
-            contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i>${contenu.contenu_un_exercice} </div>`
+            contenuDesExercices += `<div id="exercice${i}" style="margin-top: 20px"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i>${contenu.contenu_un_exercice} </div>`
           } else if (i === listeDesExercices.length - 1) {
             // Pour le dernier exercice pas de fleche vers le bas
-            contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle up icon icone_up"></i>${contenu.contenu_un_exercice} </div>`
+            contenuDesExercices += `<div id="exercice${i}" style="margin-top: 20px"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle up icon icone_up"></i>${contenu.contenu_un_exercice} </div>`
           } else {
             // pour les autres exercices affichage de l'icone poubelle et des deux flèches (haut et bas)
-            contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i><i id="${i}" class="arrow circle up icon icone_up"></i>${contenu.contenu_un_exercice} </div>`
+            contenuDesExercices += `<div id="exercice${i}" style="margin-top: 20px"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i><i id="${i}" class="arrow circle up icon icone_up"></i>${contenu.contenu_un_exercice} </div>`
           }
         } else {
-          contenuDesExercices += `<div id="exercice${i}" class="titreExercice"> <h3 class="ui dividing header">${contenu.contenu_un_exercice} </div>`
+          contenuDesExercices += `<div id="exercice${i}" class="titreExercice" style="margin-top: 20px"> <h3 class="ui dividing header">${contenu.contenu_un_exercice} </div>`
         }
         contenuDesCorrections += `<div id="divexcorr${i}" class="titreExercice"> ${contenu.contenu_une_correction} </div>`
       }
@@ -1431,25 +1464,33 @@ async function miseAJourDeLaListeDesExercices (preview) {
         throw getUnknownError(id)
       }
 
-      if (dictionnaireDesExercices[id].typeExercice === 'dnb' || dictionnaireDesExercices[id].typeExercice === 'bac' || dictionnaireDesExercices[id].typeExercice === 'e3c') {
+      if (dictionnaireDesExercices[id].typeExercice === 'dnb' || dictionnaireDesExercices[id].typeExercice === 'bac' || dictionnaireDesExercices[id].typeExercice === 'e3c' || dictionnaireDesExercices[id].typeExercice === 'crpe') {
         listeObjetsExercice[i] = dictionnaireDesExercices[id]
-        promises.push(
-          window.fetch(url)
-            .then((response) => response.text())
-            .then((data) => {
-              listeObjetsExercice[i].nbQuestionsModifiable = false
-              listeObjetsExercice[i].video = ''
-              listeObjetsExercice[i].titre = id
-              listeObjetsExercice[i].contenu = data
-            })
-        )
-        promises.push(
-          window.fetch(dictionnaireDesExercices[id].urlcor)
-            .then((response) => response.text())
-            .then((data) => {
-              listeObjetsExercice[i].contenuCorrection = listeObjetsExercice[i].correctionIsCachee ? 'Correction masquée' : data
-            })
-        )
+        if (url) {
+          promises.push(
+            window.fetch(url)
+              .then((response) => response.text())
+              .then((data) => {
+                listeObjetsExercice[i].nbQuestionsModifiable = false
+                listeObjetsExercice[i].video = ''
+                listeObjetsExercice[i].titre = id
+                listeObjetsExercice[i].contenu = data
+              })
+          )
+          promises.push(
+            window.fetch(dictionnaireDesExercices[id].urlcor)
+              .then((response) => response.text())
+              .then((data) => {
+                listeObjetsExercice[i].contenuCorrection = listeObjetsExercice[i].correctionIsCachee ? 'Correction masquée' : data
+              })
+          )
+        } else {
+          listeObjetsExercice[i].nbQuestionsModifiable = false
+          listeObjetsExercice[i].video = ''
+          listeObjetsExercice[i].titre = id
+          listeObjetsExercice[i].contenu = 'Exercice non disponible en LaTeX.'
+          listeObjetsExercice[i].contenuCorrection = 'Exercice non disponible en LaTeX.'
+        }
         if (typeof dictionnaireDesExercices[id].urlcorcoop !== 'undefined') {
           promises.push(
             window.fetch(dictionnaireDesExercices[id].urlcorcoop)
@@ -1459,13 +1500,13 @@ async function miseAJourDeLaListeDesExercices (preview) {
               })
           )
         }
-      } else if (dictionnaireDesExercices[id].typeExercice === 'crpe') {
-        listeObjetsExercice[i] = dictionnaireDesExercices[id]
-        listeObjetsExercice[i].nbQuestionsModifiable = false
-        listeObjetsExercice[i].video = ''
-        listeObjetsExercice[i].titre = id
-        listeObjetsExercice[i].contenu = 'Exercice non disponible en version LaTeX'
-        listeObjetsExercice[i].contenuCorrection = 'Exercice non disponible en version LaTeX'
+      // } else if (dictionnaireDesExercices[id].typeExercice === 'crpe') {
+      //   listeObjetsExercice[i] = dictionnaireDesExercices[id]
+      //   listeObjetsExercice[i].nbQuestionsModifiable = false
+      //   listeObjetsExercice[i].video = ''
+      //   listeObjetsExercice[i].titre = id
+      //   listeObjetsExercice[i].contenu = 'Exercice non disponible en version LaTeX'
+      //   listeObjetsExercice[i].contenuCorrection = 'Exercice non disponible en version LaTeX'
       } else {
         // avec webpack on ne peut pas faire de import(url), car il faut lui indiquer quels fichiers sont susceptibles d'être chargés
         // ici il ne peut s'agir que de js contenus dans exercices (dnb,bac,e3c,crpe déjà traité dans le if au dessus)
@@ -1634,7 +1675,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
     }
     if (besoinXCas) {
       // On charge le javascript de XCas
-      let div // le div dans lequel on fera apparaitre le cercle de chargement
+      let div // le div dans lequel on fera apparaître le cercle de chargement
       if (context.isHtml) {
         div = document.getElementById('exercices')
       } else {
@@ -1970,7 +2011,7 @@ function parametresExercice (exercice) {
     if (exercice[i].besoinFormulaireTexte) {
       // Création d'un formulaire texte
       const paramTooltip = exercice[i].besoinFormulaireTexte[1] ? `data-tooltip="${exercice[i].besoinFormulaireTexte[1]}"` : ''
-      divParametresGeneraux.innerHTML += `<div style='display: inline'><label for='form_sup${i}'> ${exercice[i].besoinFormulaireTexte[0]} : </label>
+      divParametresGeneraux.innerHTML += `<div><label for='form_sup${i}'> ${exercice[i].besoinFormulaireTexte[0]} : </label>
                     <div style='display: inline' ${paramTooltip} data-inverted=''>
                     <input id='form_sup${i}' type='text' size='20' ></div></div>`
     }
@@ -2052,7 +2093,7 @@ function parametresExercice (exercice) {
     if (exercice[i].besoinFormulaire2Texte) {
       // Création d'un formulaire texte
       const paramTooltip = exercice[i].besoinFormulaire2Texte[1] ? `data-tooltip="${exercice[i].besoinFormulaire2Texte[1]}"` : ''
-      divParametresGeneraux.innerHTML += `<div style='display: inline'><label for='form_sup2${i}'> ${exercice[i].besoinFormulaire2Texte[0]} : </label>
+      divParametresGeneraux.innerHTML += `<div><label for='form_sup2${i}'> ${exercice[i].besoinFormulaire2Texte[0]} : </label>
                     <div style='display: inline' ${paramTooltip} data-inverted=''>
                     <input id='form_sup2${i}' type='text' size='20' ></div></div>`
     }
@@ -2060,7 +2101,7 @@ function parametresExercice (exercice) {
     if (exercice[i].besoinFormulaire3CaseACocher) {
       // Création d'un formulaire texte
       divParametresGeneraux.innerHTML +=
-        "<div style='display: inline'><label for='form_sup3" +
+        "<div><label for='form_sup3" +
         i +
         "'>" +
         exercice[i].besoinFormulaire3CaseACocher[0] +
@@ -2102,7 +2143,7 @@ function parametresExercice (exercice) {
     if (exercice[i].besoinFormulaire3Texte) {
       // Création d'un formulaire texte
       const paramTooltip = exercice[i].besoinFormulaire3Texte[1] ? `data-tooltip="${exercice[i].besoinFormulaire3Texte[1]}"` : ''
-      divParametresGeneraux.innerHTML += `<div style='display: inline'><label for='form_sup2${i}'> ${exercice[i].besoinFormulaire3Texte[0]} : </label>
+      divParametresGeneraux.innerHTML += `<div><label for='form_sup3${i}'> ${exercice[i].besoinFormulaire3Texte[0]} : </label>
                     <div style='display: inline' ${paramTooltip} data-inverted=''>
                     <input id='form_sup3${i}' type='text' size='20' ></div></div>`
     }
@@ -2152,7 +2193,7 @@ function parametresExercice (exercice) {
     if (exercice[i].besoinFormulaire4Texte) {
       // Création d'un formulaire texte
       const paramTooltip = exercice[i].besoinFormulaire4Texte[1] ? `data-tooltip="${exercice[i].besoinFormulaire4Texte[1]}"` : ''
-      divParametresGeneraux.innerHTML += `<div style='display: inline'><label for='form_sup2${i}'> ${exercice[i].besoinFormulaire4Texte[0]} : </label>
+      divParametresGeneraux.innerHTML += `<div><label for='form_sup4${i}'> ${exercice[i].besoinFormulaire4Texte[0]} : </label>
                     <div style='display: inline' ${paramTooltip} data-inverted=''>
                     <input id='form_sup4${i}' type='text' size='20' ></div></div>`
     }
@@ -2878,7 +2919,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       } else {
         items = '<span contenteditable="true" class="choix_exercices"><br></span>'
       }
-      return `<div class="evalelem"><input type="checkbox" class="checkeval"><i class="sign-in icon ajoutexoligne"></i><input type="text" style="width:70px" data-tooltip="Nom qui apparaitra sur la copie." value="${nomCopie}">
+      return `<div class="evalelem"><input type="checkbox" class="checkeval"><i class="sign-in icon ajoutexoligne"></i><input type="text" style="width:70px" data-tooltip="Nom qui apparaîtra sur la copie." value="${nomCopie}">
       <div id="choix_exercices_div" style="width:65%" data-tooltip="Identifiants des exercices" ><div class="choix_exo sortable">${items}</div></div><i class="trash alternate outline icon supprexoligne"></i></div>`
     }
 

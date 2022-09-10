@@ -10,6 +10,8 @@ export const dateDePublication = '07/06/2022'
  * @author Gilles Mora repris de 1E11-3 de Stéphane
  * Référence can1L06
 */
+export const uuid = 'd1ad9'
+export const ref = 'can1L06'
 export default function FormeCanonique () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

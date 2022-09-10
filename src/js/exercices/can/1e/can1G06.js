@@ -1,9 +1,10 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, choice, texNombre } from '../../../modules/outils.js'
 import {
-  mathalea2d, point, labelPoint, afficheLongueurSegment, codageAngleDroit, afficheMesureAngle, codeSegment, pointAdistance, polygone, milieu, segment
+  point, labelPoint, afficheLongueurSegment, codageAngleDroit, afficheMesureAngle, codageSegment, pointAdistance, polygone, milieu, segment
 } from '../../../modules/2d.js'
-import Decimal from 'decimal.js'
+import Decimal from 'decimal.js/decimal.mjs'
 import FractionX from '../../../modules/FractionEtendue.js'
 export const titre = 'Déterminer un produit scalaire sur des figures géométriques classiques '
 export const interactifReady = true
@@ -15,6 +16,8 @@ export const dateDePublication = '27/06/2022'
  * Référence can1G06
  *
 */
+export const uuid = 'a394f'
+export const ref = 'can1G06'
 export default function ProduitScalaireFiguresClassiques () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
@@ -124,7 +127,7 @@ export default function ProduitScalaireFiguresClassiques () {
         xmax = Math.max(A.x, B.x, C.x, D.x) + 1
         ymax = Math.max(A.y, B.y, C.y, D.y) + 1
 
-        objets.push(labelPoint(A, B, C, D, I), a1, a2, poly, segment(I, D), codeSegment(A, I, '||'), codeSegment(I, B, '||'))
+        objets.push(labelPoint(A, B, C, D, I), a1, a2, poly, segment(I, D), codageSegment(A, I, '||'), codageSegment(I, B, '||'))
         if (choix === 'a') {
           this.question = `$ABCD$ est un carré. $I$ est le milieu de $[AB]$.<br>
           Calculer $\\overrightarrow{AB}\\cdot ${choixb ? '\\overrightarrow{AD}' : '\\overrightarrow{CB}'}$.<br>`

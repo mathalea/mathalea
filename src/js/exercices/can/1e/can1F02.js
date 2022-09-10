@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { fraction } from '../../../modules/fractions'
+import { fraction } from '../../../modules/fractions.js'
 import { randint, listeQuestionsToContenu, reduireAxPlusB, reduirePolynomeDegre3, sp, ecritureParentheseSiNegatif, choice, ecritureAlgebrique } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
 export const titre = 'Déterminer le sens de variation d’un pôlynome du second degré'
@@ -15,6 +15,8 @@ export const dateDeModifImportante = '10/06/2022' // Une date de modification im
  * @author Gilles Mora
  * Référence can1F02
 */
+export const uuid = 'cc460'
+export const ref = 'can1F02'
 export default function SecondDegreVariations () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1

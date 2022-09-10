@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, lettreDepuisChiffre, texNombre, contraindreValeur, combinaisonListes } from '../../modules/outils.js'
-import { point, labelPoint, rotation, mathalea2d, afficheMesureAngle, sensDeRotation, homothetie, demiDroiteAvecExtremite, cibleCouronne, texteParPoint, similitude, segment, fixeBordures } from '../../modules/2d.js'
+import { point, labelPoint, rotation, afficheMesureAngle, sensDeRotation, homothetie, cibleCouronne, texteParPoint, similitude, segment, demiDroite } from '../../modules/2d.js'
 
 export const titre = 'Construire un angle de mesure donnée'
 export const amcReady = true
@@ -12,6 +13,8 @@ export const amcType = 'AMCOpen'
  * @author Jean-Claude Lhote
  * Référence 6G23
  */
+export const uuid = '34e3c'
+export const ref = '6G23'
 export default function ConstruireUnAngle () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -68,7 +71,7 @@ export default function ConstruireUnAngle () {
       C = rotation(B, A, angle)
       Cpos = texteParPoint(p[2], similitude(A, homothetie(C, A, 0.9), -signe[i] * 90, 0.1), 'milieu')
       fleche = sensDeRotation(B, A, signe[i])
-      s2 = demiDroiteAvecExtremite(A, C)
+      s2 = demiDroite(A, C, 'black', '|-')
       labels = labelPoint(A, B)
       labels2 = labelPoint(A, B, C)
       secteur = afficheMesureAngle(B, A, C)

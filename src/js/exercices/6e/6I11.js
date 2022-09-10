@@ -1,9 +1,11 @@
 /* eslint-disable camelcase */
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { randint, choice, texteGras, modalUrl, modalPdf, contraindreValeur, listeQuestionsToContenu, combinaisonListes, stringNombre } from '../../modules/outils.js'
-import { attendre, angleScratchTo2d, clone, orienter, mathalea2d, scratchblock, creerLutin, baisseCrayon, allerA, point, texteParPositionEchelle } from '../../modules/2d.js'
+import { scratchblock, point, texteParPositionEchelle } from '../../modules/2d.js'
+import { allerA, angleScratchTo2d, attendre, baisseCrayon, clone, creerLutin, orienter } from '../../modules/2dLutin.js'
 import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur.js'
+import { choice, combinaisonListes, contraindreValeur, listeQuestionsToContenu, modalPdf, modalUrl, randint, stringNombre, texteGras } from '../../modules/outils.js'
 export const titre = 'Note la couleur (scratch)'
 
 /**
@@ -17,6 +19,8 @@ export const titre = 'Note la couleur (scratch)'
 /**
  * Fonction exercice.
  */
+export const uuid = '0e016'
+export const ref = '6I11'
 export default function NoteLaCouleur6e () {
   'use strict'
   Exercice.call(this)
@@ -103,7 +107,7 @@ export default function NoteLaCouleur6e () {
             ydepart = -165 + randint(3, 8) * 30 + (this.relatif ? 0 : 180)
 
             pion = noteLaCouleur({ x: xdepart, y: ydepart, orientation: angledepart, plateau: lePlateau.plateauNLC, relatif: this.relatif })
-            lutin.color = context.isHtml ? 'green' : 'black'
+            lutin.color = context.isHtml ? colorToLatexOrHTML('green') : colorToLatexOrHTML('black')
             lutin.epaisseur = 2
             lutin.pointilles = 2
             allerA(xdepart, ydepart, lutin)
@@ -197,7 +201,7 @@ export default function NoteLaCouleur6e () {
 
             pion = noteLaCouleur({ x: xdepart, y: ydepart, orientation: angledepart, plateau: lePlateau.plateauNLC, relatif: this.relatif })
             pion.codeScratch = ''
-            lutin.color = context.isHtml ? 'green' : 'black'
+            lutin.color = context.isHtml ? colorToLatexOrHTML('green') : colorToLatexOrHTML('black')
             lutin.epaisseur = 2
             lutin.pointilles = 2
             allerA(xdepart, ydepart, lutin)

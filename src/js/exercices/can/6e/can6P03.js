@@ -1,5 +1,5 @@
-import { calcul, randint, texNombrec, texteEnCouleur } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { calcul, randint, texNombrec, texteEnCouleur } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Déterminer le nombre de km avec une vitesse'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6P03
  */
+export const uuid = 'b0f1a'
+export const ref = 'can6P03'
 export default function QuestionDeVitesse () {
   Exercice.call(this)
   this.typeExercice = 'simple'

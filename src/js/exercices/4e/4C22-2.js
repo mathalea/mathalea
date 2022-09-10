@@ -16,6 +16,8 @@ export const interactifType = 'mathLive'
  * @author Jean-Claude Lhote
  * 4C22-2
  */
+export const uuid = '55354'
+export const ref = '4C22-2'
 export default function ExerciceDiviserFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1 // Avec ou sans relatifs

@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
-import { afficheLongueurSegment, mathalea2d, point, polygone, segment } from '../../modules/2d.js'
+import { afficheLongueurSegment, point, polygone, segment } from '../../modules/2d.js'
 export const titre = 'Aire d\'assemblages de rectangles'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -39,7 +40,7 @@ export default class AireAssemblageRectangles extends Exercice {
         const F = point(0, l)
         const G = point(L, l)
         const p = polygone(A, B, C, D, E, F)
-        p.couleurDeRemplissage = 'gray'
+        p.couleurDeRemplissage = colorToLatexOrHTML('gray')
         p.opaciteDeRemplissage = 0.2
         const sCorr = segment(E, G)
         sCorr.pointilles = 5

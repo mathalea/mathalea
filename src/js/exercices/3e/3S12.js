@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { randint, listeQuestionsToContenu, choice, premiereLettreEnMajuscule, numAlpha, texFractionSigne, calcul, arrondi, texteGras, stringNombre } from '../../modules/outils.js'
-import { repere2, traceBarre, mathalea2d } from '../../modules/2d.js'
+import { repere, traceBarre } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Calculer des effectifs et des fréquences'
@@ -14,6 +15,8 @@ export const interactifType = 'mathLive'
 * 2021-02-07
 */
 
+export const uuid = 'f4b95'
+export const ref = '3S12'
 export default function calculEffectifFrequence () {
   Exercice.call(this)
   this.titre = titre
@@ -42,7 +45,7 @@ export default function calculEffectifFrequence () {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
     // let listeTypeDeQuestions_disponibles= [];
-    const lstQuadri = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes', 'lycaons', 'servals', 'phacochères']
+    const lstQuadri = ['Girafes', 'Zèbres', 'Gnous', 'Buffles', 'Gazelles', 'Crocodiles', 'Rhinocéros', 'Léopards', 'Guépards', 'Hyènes', 'Lycaons', 'Servals', 'Phacochères']
     const lstOiseaux = ['hérons', 'marabouts', 'flamants roses', 'cigognes', 'grues', 'vautours']
     const nbAnimaux = 4 + parseInt(this.sup) // nombre d'animaux différents dans l'énoncé (entre 5 et 7)
     const nbQuadri = 3
@@ -92,7 +95,7 @@ export default function calculEffectifFrequence () {
 
     const coef = 1
 
-    const r = repere2({
+    const r = repere({
       grilleX: false,
       grilleY: 'pointilles',
       xThickListe: [],
@@ -111,7 +114,7 @@ export default function calculEffectifFrequence () {
     for (let i = 0; i < nbAnimaux; i++) {
       lstElementGraph.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], premiereLettreEnMajuscule(lstAnimauxExo[i]), { unite: 1 / coef }))
     }
-    texte += '<br>' + mathalea2d({ xmin: -5, xmax: 11, ymin: -4, ymax: 11, pixelsParCm: 30, scale: 1 }, r, lstElementGraph)
+    texte += '<br>' + mathalea2d({ xmin: -5, xmax: 11, ymin: -4, ymax: 12, pixelsParCm: 30, scale: 1 }, r, lstElementGraph)
 
     // début de la correction
     // question 1

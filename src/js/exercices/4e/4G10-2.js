@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { randint, listeQuestionsToContenu, choisitLettresDifferentes } from '../../modules/outils.js'
-import { afficheLongueurSegment, codageAngleDroit, droite, droiteParPointEtPerpendiculaire, labelPoint, mathalea2d, point, pointAdistance, pointIntersectionDD, pointSurDroite, polygoneAvecNom, segment, translation2Points, triangle2points2longueurs, vecteur } from '../../modules/2d.js'
+import { afficheLongueurSegment, codageAngleDroit, droite, droiteParPointEtPerpendiculaire, labelPoint, point, pointAdistance, pointIntersectionDD, pointSurDroite, polygoneAvecNom, segment, translation2Points, triangle2points2longueurs, vecteur } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 export const titre = 'Transformer une figure par translation'
 
@@ -10,6 +11,8 @@ export const dateDePublication = '16/05/2022'
  * @author Guillaume Valmont
  * Référence 4G10-2
 */
+export const uuid = '6a2dd'
+export const ref = '4G10-2'
 export default class nomExercice extends Exercice {
   constructor () {
     super()
@@ -45,9 +48,8 @@ export default class nomExercice extends Exercice {
       const imageC = translation2Points(C, D, E, `${lettres[2]}'`)
       const imagePoly = polygoneAvecNom(imageA, imageB, imageC)
       function segmente (point, image) {
-        const segmentAA = segment(point, image)
+        const segmentAA = segment(point, image, 'red')
         segmentAA.styleExtremites = '|->'
-        segmentAA.color = 'red'
         segmentAA.pointilles = 2
         return segmentAA
       }

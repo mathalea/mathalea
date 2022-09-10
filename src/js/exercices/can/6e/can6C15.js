@@ -1,7 +1,7 @@
-import { context } from '../../../modules/context'
-import FractionEtendue from '../../../modules/FractionEtendue'
-import { pgcd, randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { context } from '../../../modules/context.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
+import { pgcd, randint } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Trouver la fraction (définition)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -13,6 +13,8 @@ export const amcType = 'AMCHybride'
  * Créé pendant l'été 2021
  * Référence can6C15
  */
+export const uuid = '84b48'
+export const ref = 'can6C15'
 export default function FractionCommeFacteurManquant () {
   Exercice.call(this)
   this.typeExercice = 'simple'

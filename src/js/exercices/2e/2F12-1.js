@@ -5,7 +5,7 @@ import {
   miseEnEvidence
 } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
-export const titre = 'Résoudre algébriquement une équation f(x)=k avec une fonction de référence.'
+export const titre = 'Résoudre algébriquement une équation f(x)=k avec une fonction de référence'
 export const dateDePublication = '07/01/2022'
 /**
 *
@@ -13,6 +13,8 @@ export const dateDePublication = '07/01/2022'
 * @author Gilles Mora // suppression des calcul des texNombrec et simplification des racines carrées de fration par Jean-Claude Lhote
 *
 */
+export const uuid = 'de0d1'
+export const ref = '2F12-1'
 export default function EquationsFonctionsRef () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1
@@ -52,7 +54,6 @@ export default function EquationsFonctionsRef () {
       return a < 0 ? `(${result})` : result
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    console.log(listeTypeDeQuestions)
     let sousChoix
     if (parseInt(this.sup2) === 1) {
       sousChoix = combinaisonListes([0], this.nbQuestions) // pour choisir aléatoirement des questions dans chaque catégorie

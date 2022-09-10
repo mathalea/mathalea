@@ -8,6 +8,8 @@ export const titre = 'Problèmes utilisant le théorème de Pythagore'
  *
  * @author Sébastien LOZANO
  */
+export const uuid = '109b1'
+export const ref = '2G11-1'
 export default function ProblemesPythagore2nde () {
   ProblemesPythagore.call(this)
 }

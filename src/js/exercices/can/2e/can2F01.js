@@ -13,6 +13,8 @@ export const interactifType = 'mathLive'
  * Référence can2F01
  * Date de publication
 */
+export const uuid = 'b2c31'
+export const ref = 'can2F01'
 export default function CalculImageSecondDegre () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

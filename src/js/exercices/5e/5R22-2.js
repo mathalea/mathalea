@@ -11,6 +11,8 @@ export const titre = 'Simplifier l\'écriture d\'une somme de 2 relatifs et calc
 * 5R22-2
 * Rendu les différentes situations équiprobables le 16/10/2021 par Guillaume Valmont
 */
+export const uuid = '070b4'
+export const ref = '5R22-2'
 export default function ExerciceSimplificationSommeAlgebrique (max = 20) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = max

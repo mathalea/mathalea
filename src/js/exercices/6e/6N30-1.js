@@ -1,9 +1,10 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { calcul, arrondi, htmlConsigne, lettreDepuisChiffre, combinaisonListes, listeQuestionsToContenu, randint, stringNombre, contraindreValeur } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
+import { droiteGraduee } from '../../modules/2d.js'
 
 export const titre = 'Lire l\'abscisse décimale d\'un point (niveau 2)'
 export const interactifReady = true
@@ -18,6 +19,8 @@ export const dateDeModificationImportante = '01/02/2022'
  * @author Jean-Claude Lhote
  * Référence 6N30-1
  */
+export const uuid = '8418e'
+export const ref = '6N30-1'
 export default function LireAbscisseDecimaleBis2d () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Lire l\'abscisse de chacun des points suivants et donner le résultat sous la forme d\'un nombre en écriture décimale.'
@@ -107,7 +110,7 @@ export default function LireAbscisseDecimaleBis2d () {
       xA = calcul(x1 + x11 / pas2)
       xB = calcul(x2 + x22 / pas2)
       xC = calcul(x3 + x33 / pas2)
-      d[2 * i] = droiteGraduee2({
+      d[2 * i] = droiteGraduee({
         Unite: 4,
         Min: 0,
         Max: 7.1,
@@ -120,7 +123,7 @@ export default function LireAbscisseDecimaleBis2d () {
         labelListe: [[0, `${stringNombre(abs0)}`], [1, `${stringNombre(calcul(abs0 + 1 / pas1))}`]],
         pointListe: [[xA, l1], [xB, l2], [xC, l3]]
       })
-      d[2 * i + 1] = droiteGraduee2({
+      d[2 * i + 1] = droiteGraduee({
         Unite: 4,
         Min: 0,
         Max: 7.1,

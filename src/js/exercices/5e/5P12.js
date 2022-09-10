@@ -9,6 +9,8 @@ export const titre = 'Partager une quantité en deux ou trois parts selon un rat
  * Référence 5P12
  * Date de publication : 24/07/2021
 */
+export const uuid = '60910'
+export const ref = '5P12'
 export default function PartagerSelonUnRatio () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

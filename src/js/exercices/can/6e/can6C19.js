@@ -1,5 +1,5 @@
-import { randint, texteEnCouleur } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { randint, texteEnCouleur } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Déterminer le complément à 100'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6C19
  */
+export const uuid = 'd656b'
+export const ref = 'can6C19'
 export default function ComplementACent () {
   Exercice.call(this)
   this.nbQuestions = 1

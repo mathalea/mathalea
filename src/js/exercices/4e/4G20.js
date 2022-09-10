@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombrec, creerNomDePolygone, texNombre, arrondi } from '../../modules/outils.js'
-import { point, polygone, nommePolygone, rotation, similitude, codageAngleDroit, afficheLongueurSegment, longueur, mathalea2d } from '../../modules/2d.js'
+import { point, polygone, nommePolygone, rotation, similitude, codageAngleDroit, afficheLongueurSegment, longueur } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import Grandeur from '../../modules/Grandeur.js'
@@ -18,6 +19,8 @@ export const interactifType = 'mathLive'
  * @author Rémi Angot
  * 4G20
  */
+export const uuid = 'bd660'
+export const ref = '4G20'
 export default function Pythagore2D () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

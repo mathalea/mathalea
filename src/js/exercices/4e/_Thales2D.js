@@ -1,10 +1,11 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, calcul, texNombrec, creerNomDePolygone, texNombre, creerBoutonMathalea2d, nombreDeChiffresDansLaPartieEntiere, texteGras } from '../../modules/outils.js'
-import { point, pointSurSegment, pointAdistance, polygone, triangle2points2longueurs, homothetie, similitude, texteParPoint, longueur, angle, angleOriente, mathalea2d } from '../../modules/2d.js'
+import { point, pointSurSegment, pointAdistance, polygone, triangle2points2longueurs, homothetie, similitude, texteParPoint, longueur, angle, angleOriente } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import Grandeur from '../../modules/Grandeur'
+import Grandeur from '../../modules/Grandeur.js'
 
 export const amcReady = true
 export const amcType = 'AMCOpenNum✖︎2'

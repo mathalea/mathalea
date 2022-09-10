@@ -7,6 +7,8 @@ export { interactifReady, interactifType, amcReady, amcType } from '../6e/6N23-2
  * @author Jean-Claude Lhote
  * Référence 6N10
  */
+export const uuid = '2fa3b'
+export const ref = 'c3N22'
 export default function LireAbscisseDecimaleTroisFormesCM () {
   LireAbscisseDecimaleTroisFormes.call(this)
   this.titre = titre

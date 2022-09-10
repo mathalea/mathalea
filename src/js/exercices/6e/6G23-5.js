@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { abs, arrondi, choice, combinaisonListes, compteOccurences, contraindreValeur, lettreDepuisChiffre, listeQuestionsToContenu, miseEnEvidence, randint, rangeMinMax, sp } from '../../modules/outils.js'
-import { point, mathalea2d, segment, rotation, pointSurSegment, labelPoint, tracePoint, angleModulo, afficheMesureAngle, codageAngleDroit, codageAngle } from '../../modules/2d.js'
+import { point, segment, rotation, pointSurSegment, labelPoint, tracePoint, angleModulo, afficheMesureAngle, codageAngleDroit, codageAngle } from '../../modules/2d.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { min, max } from 'mathjs'
@@ -18,6 +19,8 @@ export const dateDePublication = '03/05/2022'
  * @author Eric Elter
  * Publié le 03/05/2022
  */
+export const uuid = '329fe'
+export const ref = '6G23-5'
 export default function CalculerUnAngle () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

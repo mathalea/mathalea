@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, pgcd, texFractionReduite, calcul, texteEnCouleurEtGras } from '../../modules/outils.js'
-import { mathalea2d, labyrinthe } from '../../modules/2d.js'
+import { labyrinthe } from '../../modules/2d.js'
 import { fraction } from '../../modules/fractions.js'
 
 export const titre = 'Parcourir un labyrinthe de fractions égales'
@@ -11,6 +12,8 @@ export const titre = 'Parcourir un labyrinthe de fractions égales'
  * Ref : 6N41-1
  * Parcourir un labyrinthe de fractions en passant par des fractions égales.
  */
+export const uuid = 'f8a4d'
+export const ref = '6N41-1'
 export default function ExerciceLabyrintheFractionsEgales () {
   Exercice.call(this)
   this.consigne = ''

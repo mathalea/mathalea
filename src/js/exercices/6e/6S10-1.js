@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
-import { premiereLettreEnMajuscule, texcolors, combinaisonListes, choice, randint, listeQuestionsToContenu, numAlpha, calcul } from '../../modules/outils.js'
-import { traceGraphiqueCartesien, segment, mathalea2d, arc, point, rotation, motifs, tracePoint, vecteur, translation, carre, texteParPosition, repere2, traceBarre, cercleCentrePoint } from '../../modules/2d.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { texcolors, combinaisonListes, choice, randint, listeQuestionsToContenu, numAlpha, calcul } from '../../modules/outils.js'
+import { traceGraphiqueCartesien, segment, arc, point, rotation, motifs, tracePoint, vecteur, translation, carre, texteParPosition, repere, traceBarre, cercleCentrePoint } from '../../modules/2d.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { context } from '../../modules/context.js'
 
@@ -15,6 +16,8 @@ export const amcType = 'AMCHybride'
  * @author Jean-Claude Lhote
  * Référence 6S10-1
  */
+export const uuid = 'adac4'
+export const ref = '6S10-1'
 export default function LireUnDiagramme () {
   'use strict'
   Exercice.call(this)
@@ -53,7 +56,7 @@ export default function LireUnDiagramme () {
     let paramsEnonce, coef, r, lstElementGraph, g
     let reponse1, reponse2, nbMin, nbMax, monQcm1, monQcm2, monQcm3
     let objets
-    const lstAnimaux = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes', 'lycaons', 'servals', 'phacochères']
+    const lstAnimaux = ['Girafes', 'Zèbres', 'Gnous', 'Buffles', 'Gazelles', 'Crocodiles', 'Rhinocéros', 'Léopards', 'Guépards', 'Hyènes', 'Lycaons', 'Servals', 'Phacochères']
     const lstNomParc = ['Dramve', 'Fatenmin', 'Batderfa', 'Vihi', 'Genser', 'Barbetdou', 'Dramrendu', 'Secai', 'Cipeudram', 'Cigel', 'Lisino', 'Fohenlan',
       'Farnfoss', 'Kinecardine', 'Zeffari', 'Barmwich', 'Swadlincote', 'Swordbreak', 'Loshull', 'Ruyron', 'Fluasall', 'Blueross', 'Vlane']
     let A, B, T, angle, a, legende, textelegende, hachures, a0, t, alpha
@@ -109,7 +112,7 @@ export default function LireUnDiagramme () {
             a = arc(rotation(B, A, alpha), A, angle, true, texcolors(i + 1), 'black', 0.7)
             hachures = motifs(listeMotifs[i])
             a.hachures = hachures
-            a.couleurDeRemplissage = texcolors(i + 1)
+            a.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i + 1))
             a.couleurDesHachures = a.couleurDeRemplissage
             objets.push(a)
             alpha += angle
@@ -139,7 +142,7 @@ export default function LireUnDiagramme () {
             a = arc(rotation(B, A, alpha), A, angle, true, texcolors(i + 1), 'black', 0.7)
             hachures = motifs(listeMotifs[i])
             a.hachures = hachures
-            a.couleurDeRemplissage = texcolors(i + 1)
+            a.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i + 1))
             a.couleurDesHachures = a.couleurDeRemplissage
             objets.push(a)
             alpha += angle
@@ -163,7 +166,7 @@ export default function LireUnDiagramme () {
               coef = 10
               break
           }
-          r = repere2({
+          r = repere({
             grilleX: false,
             grilleY: 'pointilles',
             xThickListe: [],
@@ -180,7 +183,7 @@ export default function LireUnDiagramme () {
 
           lstElementGraph = []
           for (let i = 0; i < nbAnimaux; i++) {
-            objets.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], premiereLettreEnMajuscule(lstAnimauxExo[i]), { unite: 0.1 / coef, couleurDeRemplissage: texcolors(i + 1), hachures: 'north east lines' }))
+            objets.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], lstAnimauxExo[i], { unite: 0.1 / coef, couleurDeRemplissage: texcolors(i + 1), hachures: 'north east lines' }))
           }
           objets.push(r)
           paramsEnonce = { xmin: -6.5, ymin: -3, xmax: 20, ymax: 7, pixelsParCm: 20, scale: 0.5, mainlevee: false }
@@ -197,7 +200,7 @@ export default function LireUnDiagramme () {
               coef = 10
               break
           }
-          r = repere2({
+          r = repere({
             grilleX: false,
             grilleY: 'pointilles',
             xThickListe: [],
@@ -328,10 +331,10 @@ export default function LireUnDiagramme () {
       if (!context.isAmc) {
         texte += `<br>${numAlpha(0)} Quelle est l'espèce la moins nombreuse ?` + monQcm1.texte
         texte += `<br>${numAlpha(1)} Quelle est l'espèce la plus nombreuse ?` + monQcm2.texte
-        texte += `<br>${numAlpha(2)} L'espèce la plus nombreuse représente ?` + monQcm3.texte
+        texte += `<br>${numAlpha(2)} L'espèce la plus nombreuse représente ...` + monQcm3.texte
         texteCorr = `<br>${numAlpha(0)} L'animal le moins nombreux parmi ces espèces est : ` + monQcm1.texteCorr
-        texteCorr += `<br>${numAlpha(1)} L'animal le plus nombreux parmi ces espèces est :` + monQcm2.texteCorr
-        texteCorr += `<br>${numAlpha(2)} L'animal le plus nombreux parmi ces espèces est :` + monQcm3.texteCorr
+        texteCorr += `<br>${numAlpha(1)} L'animal le plus nombreux parmi ces espèces est : ` + monQcm2.texteCorr
+        texteCorr += `<br>${numAlpha(2)} L'animal le plus nombreux parmi ces espèces représente : ` + monQcm3.texteCorr
       }
 
       if (this.questionJamaisPosee(q, effectiftotal)) {

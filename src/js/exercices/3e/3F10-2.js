@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import Decimal from 'decimal.js'
+import Decimal from 'decimal.js/decimal.mjs'
 import { listeQuestionsToContenu, randint, combinaisonListes, rangeMinMax, ecritureAlgebrique, choice, texNombre, miseEnEvidence, sp, ecritureParentheseSiNegatif, texNombrec, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -16,6 +16,8 @@ export const titre = 'Fonction : calculs d\'images (et d\'antécédents)'
 * @author Jean-Claude Lhote
 * 3F10-1
 */
+export const uuid = 'ba520'
+export const ref = '3F10-2'
 export default function CalculsImagesFonctions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 2

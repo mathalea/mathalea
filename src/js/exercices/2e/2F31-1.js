@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, choice, randint, texNombre, miseEnEvidence, texFraction, stringNombre } from '../../modules/outils.js'
-import Decimal from 'decimal.js'
+import Decimal from 'decimal.js/decimal.mjs'
 export const titre = 'Utiliser les variations des fonctions de référence pour comparer des images'
 export const dateDePublication = '07/01/2022'
 /**
@@ -15,6 +15,8 @@ function ecritureParentheseSiNegatif (a, maximumFractionDigits = 15) {
   const result = Intl.NumberFormat('fr-FR', { maximumFractionDigits: maximumFractionDigits }).format(a).replace(',', '{,}')
   return a < 0 ? `(${result})` : result
 }
+export const uuid = '1803c'
+export const ref = '2F31-1'
 export default function ComparerAvecFctRef () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

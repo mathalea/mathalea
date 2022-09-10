@@ -1,6 +1,6 @@
-import { calcul, choice, randint, texNombre, texteEnCouleur } from '../../../modules/outils'
-import Exercice from '../../Exercice'
-import Decimal from 'decimal.js'
+import { calcul, choice, randint, texNombre, texteEnCouleur } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import Decimal from 'decimal.js/decimal.mjs'
 export const titre = 'Calculer le double ou le triple (décimal)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -12,6 +12,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6C11
  */
+export const uuid = '50fc4'
+export const ref = 'can6C11'
 export default function DoubleOuTripleDecimal () {
   Exercice.call(this)
   this.typeExercice = 'simple'
@@ -31,9 +33,9 @@ export default function DoubleOuTripleDecimal () {
       this.correction += texteEnCouleur(`
       <br> Mentalement : <br>
   On décompose $${texNombre(c, 1)}$ en $${e}+${texNombre(d, 1)}$. <br>
-  On calcule le triple de $${e}$, soit $3\\times ${e}= ${3*e}$
+  On calcule le triple de $${e}$, soit $3\\times ${e}= ${3 * e}$
   puis le triple de $${texNombre(d, 1)}$, soit $3\\times ${texNombre(d, 1)}=${texNombre(d.mul(3))}$.<br>
-  On en fait la somme : $${3*e}+${texNombre(d.mul(3))}$, ce qui donne le résultat $${texNombre(this.reponse, 1)}$.
+  On en fait la somme : $${3 * e}+${texNombre(d.mul(3))}$, ce qui donne le résultat $${texNombre(this.reponse, 1)}$.
       `)
     } else {
       this.reponse = c.mul(2)
@@ -42,9 +44,9 @@ export default function DoubleOuTripleDecimal () {
       this.correction += texteEnCouleur(`
       <br> Mentalement : <br>
   On décompose $${texNombre(c, 1)}$ en $${e}+${texNombre(d, 1)}$. <br>
-  On calcule le double de $${e}$, soit $2\\times ${e}= ${2*e}$
+  On calcule le double de $${e}$, soit $2\\times ${e}= ${2 * e}$
   puis le double de $${texNombre(d, 1)}$, soit $2\\times ${texNombre(d, 1)}=${texNombre(d.mul(2), 1)}$.<br>
-  On en fait la somme : $${2*e}+${texNombre(d.mul(2), 1)}$, ce qui donne le résultat $${texNombre(this.reponse, 1)}$.
+  On en fait la somme : $${2 * e}+${texNombre(d.mul(2), 1)}$, ce qui donne le résultat $${texNombre(this.reponse, 1)}$.
       `)
     }
   }

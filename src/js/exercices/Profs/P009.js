@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, calcul, texNombre, nombreAvecEspace } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
-import { repere2, traceBarre, mathalea2d } from '../../modules/2d.js'
+import { repere, traceBarre } from '../../modules/2d.js'
 
 export const titre = 'Simulation d\'expériences aléatoires'
 
@@ -167,7 +168,7 @@ export default function SimulateurAleatoire () {
         texte += '<br>'
         if (this.correctionDetaillee) {
           const coef = 10
-          const r = repere2({
+          const r = repere({
             grilleX: false,
             grilleY: 'pointilles',
             xThickListe: [],
@@ -206,7 +207,7 @@ export default function SimulateurAleatoire () {
         texte += '<br>'
         if (this.correctionDetaillee) {
           const coef = 10
-          const r = repere2({
+          const r = repere({
             grilleX: false,
             grilleY: 'pointilles',
             xThickListe: [],

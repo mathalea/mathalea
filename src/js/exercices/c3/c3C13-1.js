@@ -1,4 +1,4 @@
-import QuestionsMasses from '../6e/6C12-1'
+import QuestionsMasses from '../6e/6C12-1.js'
 export const titre = 'Résoudre des problèmes de masses'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -13,6 +13,8 @@ export const dateDePublication = '02/11/2021'
  * Référence c3C13-1
  * Date octobre 2021
  */
+export const uuid = 'ec3cc'
+export const ref = 'c3C13-1'
 export default function QuestionsMassesCM () {
   QuestionsMasses.call(this)
   this.titre = titre

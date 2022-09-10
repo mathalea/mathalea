@@ -1,8 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, shuffle, texteEnCouleurEtGras } from '../../modules/outils.js'
-import { point, tracePoint, segment, texteParPosition, fractionParPosition, mathalea2d } from '../../modules/2d.js'
-import { fraction } from '../../modules/fractions.js'
+import { point, tracePoint, segment, texteParPosition, latexParCoordonnees } from '../../modules/2d.js'
 
 export const titre = 'Placer un événement sur une échelle de probabilités'
 
@@ -12,6 +12,8 @@ export const titre = 'Placer un événement sur une échelle de probabilités'
  * Référence 5S20
  */
 // Source : https://pedagogie.ac-guadeloupe.fr/sites/default/files/File/flouvet/ra16_c4_math_probabilite_flash_pdf_69131.pdf
+export const uuid = '86db6'
+export const ref = '5S20'
 export default function PlacerProbabilites () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -112,7 +114,7 @@ export default function PlacerProbabilites () {
         lstObjet.push(texteParPosition(lstEchelle[j][0], L * lstEchelle[j][1], y, angle, 'black', 1, 'gauche'))
       }
     } else {
-      lstObjet.push(fractionParPosition({ x: L / 2, y: -1, fraction: fraction(1, 2), couleur: 'black' })) // fraction 1/2
+      lstObjet.push(latexParCoordonnees('\\dfrac{1}{2}', L / 2, -1, 'black', 20, 20, 'white', 6))
       lstObjet.push(texteParPosition('0', 0, y - 0.25, 0, 'black', 1, 'middle')) // abscisse 0
       lstObjet.push(texteParPosition('1', L, y - 0.25, 0, 'black', 1, 'middle')) // abscisse 1
     }

@@ -11,6 +11,8 @@ export const titre = 'Résoudre une équation du second degré'
  * @author Rémi Angot
  * Référence 1E11
 */
+export const uuid = 'cf78f'
+export const ref = '1E11-2'
 export default function ResoudreEquationDegre2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -26,7 +28,7 @@ export default function ResoudreEquationDegre2 () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.consigne = 'Résoudre dans $\\mathbb{R}$ les équations suivantes.'
     if (this.interactif) {
-      this.consigne += '<br>S\'il y a plusieurs solutions, les donner séparées d\'un point virgule. <br>S\'il n\'y a pas de solution, écrire Non'
+      this.consigne += '<br>S\'il y a plusieurs solutions, les donner séparées d\'un point virgule. <br>S\'il n\'y a pas de solution, écrire Non.'
     }
     const listeTypeDeQuestions = combinaisonListes(['solutionsEntieres', 'solutionsEntieres', 'pasDeSolution'], this.nbQuestions)
 

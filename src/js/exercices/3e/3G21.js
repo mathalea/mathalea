@@ -1,8 +1,9 @@
 import Exercice from '../Exercice.js'
-import Decimal from 'decimal.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
+import Decimal from 'decimal.js/decimal.mjs'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, listeQuestionsToContenuSansNumero, randint, lettreDepuisChiffre, texNombre, miseEnEvidence, texFraction, creerBoutonMathalea2d, contraindreValeur, choice } from '../../modules/outils.js'
-import { angleOriente, homothetie, mathalea2d, point, pointSurSegment, polygone, rotation, texteParPoint } from '../../modules/2d.js'
+import { angleOriente, homothetie, point, pointSurSegment, polygone, rotation, texteParPoint } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
@@ -20,6 +21,8 @@ export const titre = 'Démontrer que deux droites sont ou ne sont pas parallèle
  * 18/10/21 passage de MG32 à MathALEA2D par Rémi Angot
  * 3G21
  */
+export const uuid = '3451c'
+export const ref = '3G21'
 export default function ReciproqueThales () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

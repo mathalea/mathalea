@@ -1,5 +1,5 @@
-import { calcul, choice, randint, texteEnCouleur } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { calcul, choice, randint, texteEnCouleur } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Résoudre un problème de robinets'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can4P01
  */
+export const uuid = '8767b'
+export const ref = 'can4P01'
 export default function ProblemesDeRobinets () {
   Exercice.call(this)
   this.typeExercice = 'simple'

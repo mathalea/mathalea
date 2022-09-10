@@ -11,6 +11,8 @@ export const titre = 'Décomposition en facteurs premiers'
 * @author Rémi Angot
 5A13
 */
+export const uuid = '7f50c'
+export const ref = '5A13'
 export default function ExerciceDecomposerEnFacteursPremiers () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = "Écrire les nombres suivants sous la forme d'un produit de facteurs premiers rangés dans l'ordre croissant."

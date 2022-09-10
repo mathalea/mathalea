@@ -1,16 +1,18 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, reduireAxPlusB, ecritureAlgebrique, ecritureParentheseSiNegatif, ecritureAlgebriqueSauf1 } from '../../modules/outils.js'
-export const titre = 'Déterminer une équation cartésienne de droite à partir de deux points.'
+export const titre = 'Déterminer une équation cartésienne de droite à partir de deux points'
 // totoche
 /**
  * Description didactique de l'exercice
  * @author Stéphane Guyon
  * Référence 2G30-3, ex 2G51
 */
+export const uuid = '1bb30'
+export const ref = '2G30-3'
 export default function equationcartesienne () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Déterminer une équation cartésienne de la droite $(AB)$'
+  this.consigne = 'Déterminer une équation cartésienne de la droite $(AB)$.'
   this.nbQuestions = 3
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX

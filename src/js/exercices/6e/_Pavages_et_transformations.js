@@ -1,9 +1,11 @@
-import { translation, mathalea2d, polygone, point, segment, rotation, similitude, arc, vecteur, milieu, barycentre, texteParPoint, labelPoint, mediatrice, tracePoint, symetrieAnimee, rotationAnimee, translationAnimee } from '../../modules/2d.js'
+import { translation, polygone, point, segment, rotation, similitude, arc, vecteur, milieu, barycentre, texteParPoint, labelPoint, mediatrice, tracePoint } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { egal, listeQuestionsToContenuSansNumero, randint, choice, imagePointParTransformation, texteEnCouleurEtGras, numAlpha } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { rotationAnimee, symetrieAnimee, translationAnimee } from '../../modules/2dAnimation.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -58,7 +60,6 @@ export default function PavagesEtTransformations () {
         break
       case 2:
         choixPave = randint(0, 7)// pavages adaptés à symétrie centrale (tous)
-        console.log(choixPave)
         break
       case 3:
         choixPave = randint(0, 7) // pavages adaptés à translation (tous)
@@ -143,10 +144,10 @@ export default function PavagesEtTransformations () {
               xa = tabfigA[indexA][0]
               ya = tabfigA[indexA][1]
               mediatrice1 = mediatrice(point(xa, ya), point(punto[0], punto[1]), '$(d_1)$')
-              mediatrice1.color = 'green'
+              mediatrice1.color = colorToLatexOrHTML('green')
               mediatrice1.epaisseur = 2
               mediatrice1.isVisible = true
-              quad[numA].couleurDeRemplissage = 'green'
+              quad[numA].couleurDeRemplissage = colorToLatexOrHTML('green')
               quad[numA].opaciteDeRemplissage = 0.6
               break
             }
@@ -179,10 +180,10 @@ export default function PavagesEtTransformations () {
               yb = tabfigD[indexD][1] - 4
               objetsEnonce.push(tracePoint(point(xb, yb), point(punto[0], punto[1])))
               mediatrice2 = mediatrice(point(xb, yb + 4), point(punto[0], punto[1]), '$(d_2)$')
-              mediatrice2.color = 'red'
+              mediatrice2.color = colorToLatexOrHTML('red')
               mediatrice2.epaisseur = 2
               mediatrice2.isVisible = true
-              quad[numD].couleurDeRemplissage = 'red'
+              quad[numD].couleurDeRemplissage = colorToLatexOrHTML('red')
               quad[numD].opaciteDeRemplissage = 0.6
 
               break
@@ -215,10 +216,10 @@ export default function PavagesEtTransformations () {
               xc = tabfigC[indexC][0]
               yc = tabfigC[indexC][1]
               mediatrice3 = mediatrice(point(xc, yc), point(punto[0], punto[1]), '$(d_3)$')
-              mediatrice3.color = 'blue'
+              mediatrice3.color = colorToLatexOrHTML('blue')
               mediatrice3.epaisseur = 2
               mediatrice3.isVisible = true
-              quad[numC].couleurDeRemplissage = 'blue'
+              quad[numC].couleurDeRemplissage = colorToLatexOrHTML('blue')
               quad[numC].opaciteDeRemplissage = 0.6
               break
             }
@@ -249,13 +250,13 @@ export default function PavagesEtTransformations () {
         }, objetsEnonce
         )
         quad1 = translation(quad[num1], vecteur(0, 0))
-        quad1.couleurDeRemplissage = 'green'
+        quad1.couleurDeRemplissage = colorToLatexOrHTML('green')
         quad1.opaciteDeRemplissage = 0.3
         quad2 = translation(quad[num2], vecteur(0, 0))
-        quad2.couleurDeRemplissage = 'red'
+        quad2.couleurDeRemplissage = colorToLatexOrHTML('red')
         quad2.opaciteDeRemplissage = 0.3
         quad3 = translation(quad[num3], vecteur(0, 0))
-        quad3.couleurDeRemplissage = 'blue'
+        quad3.couleurDeRemplissage = colorToLatexOrHTML('blue')
         quad3.opaciteDeRemplissage = 0.3
         objetsCorrection.push(quad1, quad2, quad3)
         texteCorr += mathalea2d({
@@ -290,7 +291,7 @@ export default function PavagesEtTransformations () {
               xa = tabfigA[indexA][0]
               ya = tabfigA[indexA][1]
               centre1 = point(xmil1, ymil1, s0, 'left')
-              quad[numA].couleurDeRemplissage = 'green'
+              quad[numA].couleurDeRemplissage = colorToLatexOrHTML('green')
               quad[numA].opaciteDeRemplissage = 0.6
               break
             }
@@ -324,7 +325,7 @@ export default function PavagesEtTransformations () {
               xb = tabfigA[indexD][0]
               yb = tabfigA[indexD][1]
               centre2 = point(xmil2, ymil2, s1, 'left')
-              quad[numD].couleurDeRemplissage = 'red'
+              quad[numD].couleurDeRemplissage = colorToLatexOrHTML('red')
               quad[numD].opaciteDeRemplissage = 0.6
 
               break
@@ -361,7 +362,7 @@ export default function PavagesEtTransformations () {
               xc = tabfigA[indexC][0]
               yc = tabfigA[indexC][1]
               centre3 = point(xmil3, ymil3, s2, 'left')
-              quad[numC].couleurDeRemplissage = 'blue'
+              quad[numC].couleurDeRemplissage = colorToLatexOrHTML('blue')
               quad[numC].opaciteDeRemplissage = 0.6
               break
             }
@@ -394,13 +395,13 @@ export default function PavagesEtTransformations () {
         }, objetsEnonce
         )
         quad1 = translation(quad[num1], vecteur(0, 0))
-        quad1.couleurDeRemplissage = 'green'
+        quad1.couleurDeRemplissage = colorToLatexOrHTML('green')
         quad1.opaciteDeRemplissage = 0.3
         quad2 = translation(quad[num2], vecteur(0, 0))
-        quad2.couleurDeRemplissage = 'red'
+        quad2.couleurDeRemplissage = colorToLatexOrHTML('red')
         quad2.opaciteDeRemplissage = 0.3
         quad3 = translation(quad[num3], vecteur(0, 0))
-        quad3.couleurDeRemplissage = 'blue'
+        quad3.couleurDeRemplissage = colorToLatexOrHTML('blue')
         quad3.opaciteDeRemplissage = 0.3
         arc1 = arc(point(tabfigA[indexA][0], tabfigA[indexA][1]), centre1, 180)
         rayon11 = segment(point(tabfigA[indexA][0], tabfigA[indexA][1]), centre1)
@@ -457,10 +458,10 @@ export default function PavagesEtTransformations () {
               origine1 = point(tabfigB[iB1][0], tabfigB[iB1][1])
               vector1 = vecteur(origine1, point(tabfigB[iB2][0], tabfigB[iB2][1]))
               vecteur1 = vector1.representant(origine1)
-              vecteur1.color = 'green'
+              vecteur1.color = colorToLatexOrHTML('green')
               vecteur1.epaisseur = 2
               vecteur1.pointilles = 2
-              quad[numA].couleurDeRemplissage = 'green'
+              quad[numA].couleurDeRemplissage = colorToLatexOrHTML('green')
               quad[numA].opaciteDeRemplissage = 0.6
               break
             }
@@ -497,10 +498,10 @@ export default function PavagesEtTransformations () {
               origine2 = point(tabfigC[iC1][0], tabfigC[iC1][1])
               vector2 = vecteur(origine2, point(tabfigA[iA1][0], tabfigA[iA1][1]))
               vecteur2 = vector2.representant(origine2)
-              vecteur2.color = 'red'
+              vecteur2.color = colorToLatexOrHTML('red')
               vecteur2.epaisseur = 2
               vecteur2.pointilles = 2
-              quad[numD].couleurDeRemplissage = 'red'
+              quad[numD].couleurDeRemplissage = colorToLatexOrHTML('red')
               quad[numD].opaciteDeRemplissage = 0.6
               break
             }
@@ -538,10 +539,10 @@ export default function PavagesEtTransformations () {
               origine3 = point(tabfigC[iD1][0], tabfigC[iD1][1])
               vector3 = vecteur(origine3, point(tabfigA[iB3][0], tabfigA[iB3][1]))
               vecteur3 = vector3.representant(origine3)
-              vecteur3.color = 'blue'
+              vecteur3.color = colorToLatexOrHTML('blue')
               vecteur3.epaisseur = 2
               vecteur3.pointilles = 2
-              quad[numC].couleurDeRemplissage = 'blue'
+              quad[numC].couleurDeRemplissage = colorToLatexOrHTML('blue')
               quad[numC].opaciteDeRemplissage = 0.6
               break
             }
@@ -575,22 +576,22 @@ export default function PavagesEtTransformations () {
         }, objetsEnonce
         )
         quad1 = translation(quad[num1], vecteur(0, 0))
-        quad1.couleurDeRemplissage = 'green'
+        quad1.couleurDeRemplissage = colorToLatexOrHTML('green')
         quad1.opaciteDeRemplissage = 0.3
         quad2 = translation(quad[num2], vecteur(0, 0))
-        quad2.couleurDeRemplissage = 'red'
+        quad2.couleurDeRemplissage = colorToLatexOrHTML('red')
         quad2.opaciteDeRemplissage = 0.3
         quad3 = translation(quad[num3], vecteur(0, 0))
-        quad3.couleurDeRemplissage = 'blue'
+        quad3.couleurDeRemplissage = colorToLatexOrHTML('blue')
         quad3.opaciteDeRemplissage = 0.3
         rayon11 = vector1.representant(point(xa, ya))
-        rayon11.color = 'green'
+        rayon11.color = colorToLatexOrHTML('green')
         rayon11.epaisseur = 2
         rayon21 = vector2.representant(point(xb, yb))
-        rayon21.color = 'red'
+        rayon21.color = colorToLatexOrHTML('red')
         rayon21.epaisseur = 2
         rayon31 = vector3.representant(point(xc, yc))
-        rayon31.color = 'blue'
+        rayon31.color = colorToLatexOrHTML('blue')
         rayon31.epaisseur = 2
         objetsCorrection.push(quad1, quad2, quad3, rayon11, rayon21, rayon31)
         texteCorr += mathalea2d({
@@ -625,7 +626,7 @@ export default function PavagesEtTransformations () {
               xa = tabfigA[indexA][0]
               ya = tabfigA[indexA][1]
               centre1 = point(xmil1, ymil1, s0, 'left')
-              quad[numA].couleurDeRemplissage = 'green'
+              quad[numA].couleurDeRemplissage = colorToLatexOrHTML('green')
               quad[numA].opaciteDeRemplissage = 0.6
               break
             }
@@ -658,7 +659,7 @@ export default function PavagesEtTransformations () {
               xb = tabfigA[indexD][0]
               yb = tabfigA[indexD][1]
               centre2 = point(xmil2, ymil2, s1, 'left')
-              quad[numD].couleurDeRemplissage = 'red'
+              quad[numD].couleurDeRemplissage = colorToLatexOrHTML('red')
               quad[numD].opaciteDeRemplissage = 0.6
               break
             }
@@ -691,7 +692,7 @@ export default function PavagesEtTransformations () {
               xc = tabfigA[indexC][0]
               yc = tabfigA[indexC][1]
               centre3 = point(xmil3, ymil3, s2, 'left')
-              quad[numC].couleurDeRemplissage = 'blue'
+              quad[numC].couleurDeRemplissage = colorToLatexOrHTML('blue')
               quad[numC].opaciteDeRemplissage = 0.6
               break
             }
@@ -724,13 +725,13 @@ export default function PavagesEtTransformations () {
         }, objetsEnonce
         )
         quad1 = translation(quad[num1], vecteur(0, 0))
-        quad1.couleurDeRemplissage = 'green'
+        quad1.couleurDeRemplissage = colorToLatexOrHTML('green')
         quad1.opaciteDeRemplissage = 0.3
         quad2 = translation(quad[num2], vecteur(0, 0))
-        quad2.couleurDeRemplissage = 'red'
+        quad2.couleurDeRemplissage = colorToLatexOrHTML('red')
         quad2.opaciteDeRemplissage = 0.3
         quad3 = translation(quad[num3], vecteur(0, 0))
-        quad3.couleurDeRemplissage = 'blue'
+        quad3.couleurDeRemplissage = colorToLatexOrHTML('blue')
         quad3.opaciteDeRemplissage = 0.3
         arc1 = arc(point(tabfigA[indexA][0], tabfigA[indexA][1]), centre1, -90)
         rayon11 = segment(point(tabfigA[indexA][0], tabfigA[indexA][1]), centre1)
@@ -739,7 +740,7 @@ export default function PavagesEtTransformations () {
         rayon12.pointilles = 2
         arc1.pointilles = 2
         arc1.epaisseur = 2
-        arc1.color = 'green'
+        arc1.color = colorToLatexOrHTML('green')
         arc2 = arc(point(tabfigD[indexD][0], tabfigD[indexD][1]), centre2, 90)
         rayon21 = segment(point(tabfigD[indexD][0], tabfigD[indexD][1]), centre2)
         rayon22 = rotation(rayon21, centre2, 90)
@@ -747,7 +748,7 @@ export default function PavagesEtTransformations () {
         rayon22.pointilles = 2
         arc2.pointilles = 2
         arc2.epaisseur = 2
-        arc2.color = 'red'
+        arc2.color = colorToLatexOrHTML('red')
         arc3 = arc(point(tabfigC[indexC][0], tabfigC[indexC][1]), centre3, -90)
         rayon31 = segment(point(tabfigC[indexC][0], tabfigC[indexC][1]), centre3)
         rayon32 = rotation(rayon31, centre3, -90)
@@ -755,7 +756,7 @@ export default function PavagesEtTransformations () {
         rayon32.pointilles = 2
         arc3.pointilles = 2
         arc3.epaisseur = 2
-        arc3.color = 'blue'
+        arc3.color = colorToLatexOrHTML('blue')
         objetsCorrection.push(quad1, quad2, quad3, arc1, arc2, arc3, rayon11, rayon12, rayon21, rayon22, rayon31, rayon32)
         texteCorr += mathalea2d({
           xmin: Xmin,

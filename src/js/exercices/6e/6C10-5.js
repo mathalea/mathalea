@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleurEtGras, choice, contraindreValeur, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
-import { mathalea2d, labyrinthe } from '../../modules/2d.js'
+import { labyrinthe } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 export const amcReady = true
 export const amcType = 'AMCOpen' // type de question AMC
@@ -15,6 +16,8 @@ export const titre = 'Parcourir un labyrinthe de multiples'
  * Relecture : Janvier 2022 par EE
  */
 
+export const uuid = 'fd4d8'
+export const ref = '6C10-5'
 export default function ExerciceLabyrintheMultiples () {
   'use strict'
   Exercice.call(this)

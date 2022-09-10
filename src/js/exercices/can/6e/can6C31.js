@@ -1,5 +1,5 @@
-import { choice, randint, texNombre, texteEnCouleur, arrondi } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { choice, randint, texNombre, texteEnCouleur, arrondi } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Soustraire un décimal d’un entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -11,6 +11,8 @@ export const dateDePublication = '09/05/2022'
  *
  *
  */
+export const uuid = '5b443'
+export const ref = 'can6C31'
 export default function SoustraireEntierDecimal () {
   Exercice.call(this)
   this.nbQuestions = 1

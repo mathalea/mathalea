@@ -3,13 +3,13 @@ import { texteParPosition } from './2d.js'
 import { fraction } from './fractions.js'
 import Algebrite from 'algebrite'
 import { format, evaluate, isPrime, gcd, round, equal, Fraction, isInteger } from 'mathjs'
-import { loadScratchblocks } from './loaders'
+import { loadScratchblocks } from './loaders.js'
 import { context } from './context.js'
 import { setReponse } from './gestionInteractif.js'
 import { getVueFromUrl } from './gestionUrl.js'
 import FractionX from './FractionEtendue.js'
 import { elimineDoublons } from './interactif/questionQcm.js'
-import { Decimal } from 'decimal.js'
+import Decimal from 'decimal.js/decimal.mjs'
 
 const math = { format: format, evaluate: evaluate }
 const epsilon = 0.000001
@@ -205,7 +205,7 @@ export function centrage (texte) {
  * @param {number} defaut valeur par défaut si non entier
  */
 export function contraindreValeur (min, max, valeur, defaut) {
-  return !(isNaN(valeur)) ? (valeur < min) ? min : (valeur > max) ? max : valeur : defaut
+  return !(isNaN(valeur)) ? (valeur < min) ? min : (valeur > max) ? max : Number(valeur) : defaut
 }
 
 /** Retourne un nombre décimal entre a et b, sans être trop près de a et de b
@@ -360,7 +360,9 @@ export function creerCouples (E1, E2, nombreDeCouplesMin = 10) {
 * @example
 * // Renvoie -1 ou 1
 * randint(-1,1,[0])
-*
+* @example
+* Renvoie 0 ou 1 ou 4 ou 6 ou 8 ou 9
+* randint(0,9, '2357') // même résultat avec randint(0,9, ['2','3','5','7']) ou randint(0,9, [2,3,5,7])
 * @author Rémi Angot
 * @Source https://gist.github.com/pc035860/6546661
 */
@@ -368,9 +370,13 @@ export function randint (min, max, listeAEviter = []) {
   // Source : https://gist.github.com/pc035860/6546661
   const range = max - min
   let rand = Math.floor(Math.random() * (range + 1))
+  if (typeof listeAEviter === 'string') {
+    listeAEviter = listeAEviter.split('')
+  }
   if (Number.isInteger(listeAEviter)) {
     listeAEviter = [listeAEviter]
   }
+  listeAEviter = listeAEviter.map(Number)
   if (listeAEviter.length > 0) {
     while (listeAEviter.indexOf(min + rand) !== -1) {
       rand = Math.floor(Math.random() * (range + 1))
@@ -858,6 +864,29 @@ export function combinaisonListesSansChangerOrdre (liste, tailleMinimale) {
   }
   return liste
 }
+/** Renvoie une liste exhaustive de tableaux contenant les mêmes élèments que tab mais jamais dans le même ordre
+* Fonction fort utile quand reponse est une suite de nombres par exemple. Voir ligne 111 Exercice 3A10-6.
+* Gros défaut :  Si tab contient plus de 6 éléments, cette fonction est chronophage. A ne pas utiliser
+* @example reponse = diversesReponsesPossibles([3,4,5]) renvoie [[3,4,5],[3,5,4],[4,3,5],[4,5,3],[5,3,4],[5,4,3]]
+* et ensuite pour les tous les i : reponse[i]=reponse[i].join(';') et reponse contient alors toutes les réponses possibles
+* @author Eric Elter
+* Septembre 2022
+*/
+export function diversesReponsesPossibles (tab) {
+  let tab2, tab3
+  const rep = []
+  if (tab.length === 1) return (tab)
+  for (let ee = 0; ee < tab.length; ee++) {
+    tab2 = tab.slice()
+    tab2.splice(ee, 1)
+    tab3 = diversesReponsesPossibles(tab2)
+    for (let k = 0; k < tab3.length; k++) {
+      rep.push([tab[ee]].concat(tab3[k]))
+    }
+  }
+  return rep
+}
+
 /**
 * N'écrit pas un nombre s'il est égal à 1
 * @Example
@@ -1286,13 +1315,15 @@ export function unSiPositifMoinsUnSinon (a) {
   else return 1
 }
 /**
-* Retourne la somme des chiffres d'un nombre en valeur et sous forme de String [valeur, String]
+* Retourne la somme des chiffres (ou d'un tableau de chiffres) d'un nombre en valeur et sous forme de String [valeur, String]
 * @Example
-* sommeDesChiffress(123)
+* sommeDesChiffres(123)
 * // [ 6, '1+2+3']
-* @author Rémi Angot
+* @author Rémi Angot (Rajout Tableau par EE)
 */export function sommeDesChiffres (n) {
-  const nString = n.toString()
+  let nString
+  if (Array.isArray(n)) nString = n.join('').toString()
+  else nString = n.toString()
   let somme = 0
   let sommeString = ''
   for (let i = 0; i < nString.length - 1; i++) {
@@ -1417,13 +1448,13 @@ export function texFractionReduite (n, d) {
 export function produitDeDeuxFractions (num1, den1, num2, den2) {
   let num, den, texProduit
   if (num1 === den2) {
-    texProduit = `\\dfrac{\\cancel{${num1}}\\times ${num2}}{${den1}\\times\\cancel{${den2}}}`
+    texProduit = `\\dfrac{\\cancel{${num1}}\\times ${ecritureParentheseSiNegatif(num2)}}{${den1}\\times\\cancel{${ecritureParentheseSiNegatif(den2)}}}`
     num = num2
     num1 = 1
     den2 = 1
     den = den1
   } else if (num2 === den1) {
-    texProduit = `\\dfrac{${num1}\\times \\cancel{${num2}}}{\\cancel{${den1}}\\times${den2}}`
+    texProduit = `\\dfrac{${num1}\\times \\cancel{${ecritureParentheseSiNegatif(num2)}}}{\\cancel{${den1}}\\times${ecritureParentheseSiNegatif(den2)}}`
     num = num1
     num2 = 1
     den1 = 1
@@ -1431,7 +1462,7 @@ export function produitDeDeuxFractions (num1, den1, num2, den2) {
   } else {
     num = num1 * num2
     den = den1 * den2
-    texProduit = `\\dfrac{${num1}\\times ${num2}}{${den1}\\times${den2}}`
+    texProduit = `\\dfrac{${num1}\\times ${ecritureParentheseSiNegatif(num2)}}{${den1}\\times${ecritureParentheseSiNegatif(den2)}}`
   }
   return [texFraction(num, den), texProduit, [num1, den1, num2, den2]]
 }
@@ -1743,9 +1774,9 @@ export function xcas (expression) {
 * Le 2e argument facultatif permet de préciser l'arrondi souhaité : c'est le nombre max de chiffres après la virgule souhaités
 * @author Rémi Angot modifié par Jean-Claude Lhote
 */
-export function calcul (x, arrondir) {
+export function calcul (x, arrondir = 6) {
   const sansPrecision = (arrondir === undefined)
-  if (sansPrecision) arrondir = 6
+  // if (sansPrecision) arrondir = 6
   if (typeof x === 'string') {
     window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', { x })
     x = parseFloat(evaluate(x))
@@ -1988,7 +2019,7 @@ export function lettreMinusculeDepuisChiffre (i) {
 */
 export function lettreIndiceeDepuisChiffre (i) {
   const indiceLettre = quotientier(i - 1, 26) === 0 ? '' : quotientier(i - 1, 26)
-  return String.fromCharCode(64 + (i - 1) % 26 + 1) + `_{${indiceLettre}}`
+  return String.fromCharCode(64 + (i - 1) % 26 + 1) + (i > 26 ? `_{${indiceLettre}}` : '')
 }
 
 /**
@@ -2706,7 +2737,7 @@ export function nombreAvecEspace (nb) {
 export const scientifiqueToDecimal = (mantisse, exp) => {
   if (exp < -6) Decimal.toExpNeg = exp - 1
   else if (exp > 20) Decimal.toExpPos = exp + 1
-  return texNombre(new Decimal(mantisse).mul(Decimal.pow(10, exp)))
+  return texNombre(new Decimal(mantisse).mul(Decimal.pow(10, exp)), 10)
 }
 
 /**
@@ -2780,24 +2811,33 @@ function afficherNombre (nb, precision, fonction, force = false) {
    * @param {number} precision nombre de décimales demandé
    * @returns string avec le nombre dans le format français
    */
-  function insereEspacesNombre (nb, maximumSignificantDigits = 15, fonction) {
+  function insereEspacesNombre (nb, nbChiffresPartieEntiere, precision, fonction) {
     let signe
     let nombre
+    const maximumSignificantDigits = nbChiffresPartieEntiere + precision
     if (nb instanceof Decimal) {
       signe = nb.isNeg()
-      if (force) {
-        nombre = nb.toPrecision(maximumSignificantDigits).replace('.', ',')
+      if (nb.abs().gte(1)) {
+        if (force) {
+          nombre = nb.toFixed(precision).replace('.', ',')
+        } else {
+          nombre = nb.toDP(precision).toString().replace('.', ',')
+        }
       } else {
-        nombre = nb.toSD(maximumSignificantDigits).toString().replace('.', ',')
+        if (force) {
+          nombre = nb.toFixed(precision).replace('.', ',')
+        } else {
+          nombre = nb.toDP(precision).toString().replace('.', ',')
+        }
       }
     } else {
       signe = nb < 0
       // let nombre = math.format(nb, { notation: 'fixed', lowerExp: -precision, upperExp: precision, precision: precision }).replace('.', ',')
       if (Math.abs(nb) < 1) {
         if (force) {
-          nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: maximumSignificantDigits, minimumFractionDigits: maximumSignificantDigits }).format(nb)
+          nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: precision, minimumFractionDigits: precision }).format(nb)
         } else {
-          nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: maximumSignificantDigits }).format(nb)
+          nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: precision }).format(nb)
         }
       } else {
         if (force) {
@@ -2840,7 +2880,7 @@ function afficherNombre (nb, precision, fonction, force = false) {
 
   // si nb n'est pas un nombre, on le retourne tel quel, on ne fait rien.
   if (isNaN(nb) && !(nb instanceof Decimal)) {
-    window.notify('AfficherNombre : Le nombre n\'en est pas un', { nb, precision, fonction })
+    window.notify("AfficherNombre : Le nombre n'en est pas un", { nb, precision, fonction })
     return ''
   }
   if (nb instanceof Decimal) {
@@ -2848,7 +2888,11 @@ function afficherNombre (nb, precision, fonction, force = false) {
   } else if (Number(nb) === 0) return '0'
   let nbChiffresPartieEntiere
   if (nb instanceof Decimal) {
-    nbChiffresPartieEntiere = nb.abs().lt(1) ? 0 : nb.abs().toFixed(0).length
+    if (nb.abs().lt(1)) {
+      nbChiffresPartieEntiere = 0
+    } else {
+      nbChiffresPartieEntiere = nb.abs().toFixed(0).length
+    }
     if (nb.isInteger()) precision = 0
     else {
       if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
@@ -2858,7 +2902,11 @@ function afficherNombre (nb, precision, fonction, force = false) {
       }
     }
   } else {
-    nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
+    if (Math.abs(nb) < 1) {
+      nbChiffresPartieEntiere = 0
+    } else {
+      nbChiffresPartieEntiere = Math.abs(nb).toFixed(0).length
+    }
     if (Number.isInteger(nb)) precision = 0
     else {
       if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
@@ -2870,11 +2918,11 @@ function afficherNombre (nb, precision, fonction, force = false) {
   }
 
   const maximumSignificantDigits = nbChiffresPartieEntiere + precision
-  if (maximumSignificantDigits > 15 && !(nb instanceof Decimal)) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondi
+  if ((maximumSignificantDigits > 15) && (!(nb instanceof Decimal))) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondi
     window.notify(fonction + ' : Trop de chiffres', { nb, precision })
-    return insereEspacesNombre(nb, 15, fonction, force)
+    return insereEspacesNombre(nb, nbChiffresPartieEntiere, precision, fonction)
   } else {
-    return insereEspacesNombre(nb, maximumSignificantDigits, fonction, force)
+    return insereEspacesNombre(nb, nbChiffresPartieEntiere, precision, fonction)
   }
 }
 /**
@@ -2979,12 +3027,12 @@ export function couleurTab (choixCouleur = 999) {
 
 export function arcenciel (i, fondblanc = true) {
   let couleurs
-  if (fondblanc) couleurs = ['violet', 'purple', 'blue', 'green', 'lime', 'orange', 'red']
-  else couleurs = ['violet', 'indigo', 'blue', 'green', 'yellow', 'orange', 'red']
+  if (fondblanc) couleurs = ['violet', 'purple', 'blue', 'green', 'lime', '#f15929', 'red']
+  else couleurs = ['violet', 'indigo', 'blue', 'green', 'yellow', '#f15929', 'red']
   return couleurs[i % 7]
 }
 export function texcolors (i, fondblanc = true) {
-  const couleurs = ['black', 'blue', 'brown', 'cyan', 'darkgray', 'gray', 'green', 'lightgray', 'lime', 'magenta', 'olive', 'orange', 'pink', 'purple', 'red', 'teal', 'violet', 'white', 'yellow']
+  const couleurs = ['black', 'blue', 'brown', 'cyan', 'darkgray', 'gray', 'green', 'lightgray', 'lime', 'magenta', 'olive', '#f15929', 'pink', 'purple', 'red', 'teal', 'violet', 'white', 'yellow']
   if (fondblanc && i % 19 >= 17) i += 2
   return couleurs[i % 19]
 }
@@ -3060,11 +3108,15 @@ export function premiereLettreEnMajuscule (text) { return (text + '').charAt(0).
 
 /**
 * Renvoie le nombre de chiffres de la partie décimale
+* @param nb : nombre décimal
+* @param except : chiffre à ne pas compter (0 par exemple) [Ajout EE]
 * @author Rémi Angot
 */
-export function nombreDeChiffresDansLaPartieDecimale (nb) {
+export function nombreDeChiffresDansLaPartieDecimale (nb, except = 'aucune') {
+  let sauf = 0
   if (String(nb).indexOf('.') > 0) {
-    return String(nb).split('.')[1].length
+    if (!isNaN(except)) sauf = (String(nb).split('.')[1].split(String(except)).length - 1)
+    return String(nb).split('.')[1].length - sauf
   } else {
     return 0
   }
@@ -3073,25 +3125,29 @@ export function nombreDeChiffresDansLaPartieDecimale (nb) {
  * Renvoie le nombre de chiffres dans la partie entière
  * @author ?
  */
-export function nombreDeChiffresDansLaPartieEntiere (nb) {
-  let nombre
+export function nombreDeChiffresDansLaPartieEntiere (nb, except = 'aucune') {
+  let nombre; let sauf = 0
   if (nb < 0) {
     nombre = -nb
   } else {
     nombre = nb
   }
   if (String(nombre).indexOf('.') > 0) {
-    return String(nombre).split('.')[0].length
+    if (!isNaN(except)) sauf = (String(nombre).split('.')[0].split(String(except)).length - 1)
+    return String(nombre).split('.')[0].length - sauf
   } else {
+    if (!isNaN(except)) sauf = (String(nombre).split(String(except)).length - 1)
     return String(nombre).length
   }
 }
 /**
  * Renvoie le nombre de chiffres d'un nombre décimal
+ * @param nb : nombre décimal
+ * @param except : chiffre à ne pas compter (0 par exemple) [Ajout EE]
  * @author Jean-Claude Lhote
  */
-export function nombreDeChiffresDe (nb) {
-  return nombreDeChiffresDansLaPartieDecimale(nb) + nombreDeChiffresDansLaPartieEntiere(nb)
+export function nombreDeChiffresDe (nb, except) {
+  return nombreDeChiffresDansLaPartieDecimale(nb, except) + nombreDeChiffresDansLaPartieEntiere(nb, except)
 }
 /**
  * Retourne la string LaTeX de la fraction
@@ -3103,10 +3159,10 @@ export function nombreDeChiffresDe (nb) {
 export function texFractionSigne (num, den) {
   if (den === 1) return String(num)
   if (num * den > 0) {
-    return `\\dfrac{${Math.abs(num)}}{${Math.abs(den)}}`
+    return `\\dfrac{${texNombre(Math.abs(num))}}{${texNombre(Math.abs(den))}}`
   }
   if (num * den < 0) {
-    return `-\\dfrac{${Math.abs(num)}}{${Math.abs(den)}}`
+    return `-\\dfrac{${texNombre(Math.abs(num))}}{${texNombre(Math.abs(den))}}`
   }
   return '0'
 }
@@ -3831,9 +3887,11 @@ export function creerModal (numeroExercice, contenu, labelBouton, icone) {
 * @author Rémi Angot
 */
 export function creerBoutonMathalea2d (numeroExercice, fonction, labelBouton = 'Aide', icone = 'info circle') {
-  const HTML = `<button class="ui toggle left floated mini compact button" id = "btnMathALEA2d_${numeroExercice}" onclick="${fonction}"><i class="large ${icone} icon"></i>${labelBouton}</button>`
-
-  return HTML
+  if (context.versionMathalea === 3) {
+    return `<button class="inline-block px-6 py-2.5 mr-10 my-5 ml-6 bg-coopmaths text-white font-medium text-xs leading-tight uppercase rounded shadow-md transform hover:scale-110 hover:bg-coopmaths-dark hover:shadow-lg focus:bg-coopmaths-dark focus:shadow-lg focus:outline-none focus:ring-0 active:bg-coopmaths-dark active:shadow-lg transition duration-150 ease-in-out" id = "btnMathALEA2d_${numeroExercice}" onclick="${fonction}"><i class="large ${icone} icon"></i>${labelBouton}</button>`
+  } else {
+    return `<button class="ui toggle left floated mini compact button" id = "btnMathALEA2d_${numeroExercice}" onclick="${fonction}"><i class="large ${icone} icon"></i>${labelBouton}</button>`
+  }
 }
 
 /**
@@ -4252,13 +4310,11 @@ export function katexPopup2 (numero, type, texte, titrePopup, textePopup) {
 /**
  * Crée une liste de questions alphabétique
  * @param {number} k valeur numérique
- * @author Sébastien Lozano
+ * @author Sébastien Lozano (Rajout par EE, l'opportunité d'enlever l'espace final qui est par défaut)
  */
-export function numAlpha (k) {
-  'use strict'
-  if (context.isHtml) return '<span style="color:#f15929; font-weight:bold">' + String.fromCharCode(97 + k) + ') &nbsp;</span>'
-  // else return '\\textcolor [HTML] {f15929} {'+String.fromCharCode(97+k)+'/}';
-  else return '\\textbf {' + String.fromCharCode(97 + k) + '.} '
+export function numAlpha (k, nospace = false) {
+  if (context.isHtml) return '<span style="color:#f15929; font-weight:bold">' + String.fromCharCode(97 + k) + ')' + (nospace ? '' : '&nbsp;') + '</span>'
+  else return '\\textbf {' + String.fromCharCode(97 + k) + '.}' + (nospace ? '' : ' ')
 }
 
 /**
@@ -4495,25 +4551,24 @@ export function texteOuPas (texte) {
  * @author Sébastien Lozano
  *
  */
-export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLignes, arraystretch) {
-  'use strict'
-  let myLatexArraystretch
-  if (typeof arraystretch === 'undefined') {
-    myLatexArraystretch = 1
-  } else {
-    myLatexArraystretch = arraystretch
-  }
-
+export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLignes, arraystretch, math = true) {
   // on définit le nombre de colonnes
   const C = tabEntetesColonnes.length
   // on définit le nombre de lignes
   const L = tabEntetesLignes.length
   // On construit le string pour obtenir le tableau pour compatibilité HTML et LaTeX
   let tableauCL = ''
+  if (!arraystretch) {
+    if (context.isHtml) {
+      arraystretch = 2.5
+    } else {
+      arraystretch = 1
+    }
+  }
   if (context.isHtml) {
-    tableauCL += '$\\def\\arraystretch{2.5}\\begin{array}{|'
+    tableauCL += `$\\def\\arraystretch{${arraystretch}}\\begin{array}{|`
   } else {
-    tableauCL += `$\\renewcommand{\\arraystretch}{${myLatexArraystretch}}\n`
+    tableauCL += `$\\renewcommand{\\arraystretch}{${arraystretch}}\n`
     tableauCL += '\\begin{array}{|'
   }
   // on construit la 1ere ligne avec toutes les colonnes
@@ -4524,15 +4579,15 @@ export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLi
 
   tableauCL += '\\hline\n'
   if (typeof tabEntetesColonnes[0] === 'number') {
-    tableauCL += texNombre(tabEntetesColonnes[0])
+    tableauCL += math ? texNombre(tabEntetesColonnes[0]) + '' : `\\text{${stringNombre(tabEntetesColonnes[0])}} `
   } else {
-    tableauCL += tabEntetesColonnes[0]
+    tableauCL += math ? tabEntetesColonnes[0] : `\\text{${tabEntetesColonnes[0]}}`
   }
   for (let k = 1; k < C; k++) {
     if (typeof tabEntetesColonnes[k] === 'number') {
-      tableauCL += ' & ' + texNombre(tabEntetesColonnes[k]) + ''
+      tableauCL += ` & ${math ? texNombre(tabEntetesColonnes[k]) : '\\text{' + stringNombre(tabEntetesColonnes[k]) + '}'}`
     } else {
-      tableauCL += ' & ' + tabEntetesColonnes[k] + ''
+      tableauCL += ` & ${math ? tabEntetesColonnes[k] : '\\text{' + tabEntetesColonnes[k] + '}'}`
     }
   }
   tableauCL += '\\\\\n'
@@ -4540,15 +4595,15 @@ export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLi
   // on construit toutes les lignes
   for (let k = 0; k < L; k++) {
     if (typeof tabEntetesLignes[k] === 'number') {
-      tableauCL += '' + texNombre(tabEntetesLignes[k]) + ''
+      tableauCL += math ? texNombre(tabEntetesLignes[k]) : `\\text{${stringNombre(tabEntetesLignes[k]) + ''}}`
     } else {
-      tableauCL += '' + tabEntetesLignes[k] + ''
+      tableauCL += math ? tabEntetesLignes[k] : `\\text{${tabEntetesLignes[k] + ''}}`
     }
     for (let m = 1; m < C; m++) {
       if (typeof tabLignes[(C - 1) * k + m - 1] === 'number') {
-        tableauCL += ' & ' + texNombre(tabLignes[(C - 1) * k + m - 1])
+        tableauCL += ` & ${math ? texNombre(tabLignes[(C - 1) * k + m - 1]) : '\\text{' + stringNombre(tabLignes[(C - 1) * k + m - 1]) + '}'}`
       } else {
-        tableauCL += ' & ' + tabLignes[(C - 1) * k + m - 1]
+        tableauCL += ` & ${math ? tabLignes[(C - 1) * k + m - 1] : '\\text{' + tabLignes[(C - 1) * k + m - 1] + '}'}`
       }
     }
     tableauCL += '\\\\\n'
@@ -4631,19 +4686,27 @@ export function infoMessage ({ titre, texte, couleur }) {
  */
 
 export function lampeMessage ({ titre, texte, couleur }) {
-  // 'use strict';
   if (context.isHtml) {
-    return `
-    <div class="ui compact icon message">
-      <i class="lightbulb outline icon"></i>
-      <div class="content">
-          <div class="header">
-          ` + titre + `
-          </div>
-          <p>` + texte + `</p>
+    if (context.versionMathalea === 3) {
+      return `
+      <div class='bg-gray-100 border-solid border-2 border-black rounded p-2'>
+      <h1 class='font-bold'>${titre}</h1>
+      <p>${texte}</p>
       </div>
-      </div>
-    `
+      `
+    } else {
+      return `
+      <div class="ui compact icon message">
+        <i class="lightbulb outline icon"></i>
+        <div class="content">
+            <div class="header">
+            ` + titre + `
+            </div>
+            <p>` + texte + `</p>
+        </div>
+        </div>
+      `
+    }
   } else if (context.isAmc) {
     return `
     {\\bf ${titre}} : ${texte}
@@ -8888,7 +8951,7 @@ export function dataTailleDiaporama (exercice) {
   }
 }
 function dataTaille (taille) {
-  if (context.vue !== 'diap') {
+  if (context.vue !== 'diap' || taille === 1) {
     return ''
   } else if (taille !== 1) {
     return `data-taille = "${taille}"`

@@ -1,6 +1,6 @@
-import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
-import { choice, texFractionReduite } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
+import { choice, texFractionReduite } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Trouver l’opposé ou l’inverse d’une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -12,6 +12,8 @@ export const dateDeModifImportante = '05/12/2021'
  * Créé pendant l'été 2021
  * Référence can4C02
  */
+export const uuid = '87d2f'
+export const ref = 'can4C02'
 export default function OpposeDeFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'

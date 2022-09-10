@@ -11,6 +11,8 @@ export const dateDePublication = '25/10/2021'
  * Référence can3F06
 */
 
+export const uuid = '17987'
+export const ref = 'can3F06'
 export default function CoefficientFonctionAffine () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
@@ -30,7 +32,6 @@ export default function CoefficientFonctionAffine () {
     On en déduit $ ${c}a=${d}-${ecritureParentheseSiNegatif(b)}$, d'où $a=\\dfrac{${d}-${ecritureParentheseSiNegatif(b)}}{${c}}=\\dfrac{${d - b}}{${c}}=${texFractionReduite(d - b, c)}$.`
 
       this.reponse = (d - b) / c
-      console.log(this.reponse)
     } else {
       this.question = `$f$ est une fonction affine telle que $f(x)=ax-${abs(b)}$ et $f(${c})=${d}$.<br>
       La valeur de $a$ est :
@@ -39,7 +40,6 @@ export default function CoefficientFonctionAffine () {
     On en déduit $${c}a=${d}-${ecritureParentheseSiNegatif(b)}$, d'où $a=\\dfrac{${d}-${ecritureParentheseSiNegatif(b)}}{${c}}=\\dfrac{${d - b}}{${c}}=${texFractionReduite(d - b, c)}$.`
 
       this.reponse = (d - b) / c
-      console.log(this.reponse)
     }
   }
 }

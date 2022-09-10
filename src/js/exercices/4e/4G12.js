@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { texcolors, choice, lettreDepuisChiffre, listeQuestionsToContenu, texteEnCouleurEtGras, sp, deuxColonnes, centrage, texteEnCouleur, contraindreValeur, enleveElement, compteOccurences, miseEnEvidence, calcul } from '../../modules/outils.js'
-import { grille, mathalea2d, point, segment, tracePoint, homothetie, polygone, symetrieAxiale, translation, droite, vecteur, rotation, milieu, texteParPointEchelle } from '../../modules/2d.js'
+import { grille, point, segment, tracePoint, homothetie, polygone, symetrieAxiale, translation, droite, vecteur, rotation, milieu, texteParPointEchelle } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -22,6 +23,8 @@ export const dateDePublication = '3/12/2021'
  * publié le 03/12/2021
  */
 
+export const uuid = '4ffdb'
+export const ref = '4G12'
 export default function SerieDeTransformations () {
   Exercice.call(this)
   this.nbQuestions = 1
@@ -298,19 +301,19 @@ export default function SerieDeTransformations () {
         for (let y = 0, numero; y < 5; y++) {
           numero = texteParPointEchelle(Number(x * 6 + y).toString(), point(x * 3.2 + 1.6, y * 3.2 + 1.6), 'milieu', context.isHtml ? 'yellow' : 'black', 1.2, 'middle', true, 0.4)
           numero.contour = context.isHtml
-          numero.couleurDeRemplissage = 'black'
+          numero.couleurDeRemplissage = colorToLatexOrHTML('black')
           numero.opacite = context.isHtml ? 0.5 : 1
           numero.opaciteDeRemplissage = 1
           maGrille.push(numero)
           polys[x * 6 + y].opacite = 0.7
-          polys[x * 6 + y].color = 'blue'
+          polys[x * 6 + y].color = colorToLatexOrHTML('blue')
         }
       }
 
       polys[0].opaciteDeRemplissage = 0.7
-      polys[0].couleurDeRemplissage = texcolors(11)
+      polys[0].couleurDeRemplissage = colorToLatexOrHTML(texcolors(11))
       polys[28].opaciteDeRemplissage = 0.7
-      polys[28].couleurDeRemplissage = texcolors(11 + (chemin.length - 1))
+      polys[28].couleurDeRemplissage = colorToLatexOrHTML(texcolors(11 + (chemin.length - 1)))
       objetsEnonce.push(...polys)
       objetsEnonce.push(...maGrille)
 
@@ -318,7 +321,7 @@ export default function SerieDeTransformations () {
         for (let y = 0, label; y < 6; y++) {
           label = texteParPointEchelle(noeuds[x * 6 + y].nom, translation(noeuds[x * 6 + y], vecteur(0.3, 0.3)), 'milieu', context.isHtml ? 'red' : 'black', 1.2, 'middle', true, 0.4)
           label.contour = context.isHtml
-          label.couleurDeRemplissage = 'black'
+          label.couleurDeRemplissage = colorToLatexOrHTML('black')
           label.opacite = context.isHtml ? 0.8 : 1
           label.opaciteDeRemplissage = 1
           objetsEnonce.push(label)
@@ -333,8 +336,8 @@ export default function SerieDeTransformations () {
       }
       for (let k = 1, figure; k < chemin.length - 1; k++) {
         figure = translation(polys[chemin[k]], vecteur(0, 0))
-        figure.color = texcolors(k + 11)
-        figure.couleurDeRemplissage = texcolors(k + 11)
+        figure.color = colorToLatexOrHTML(texcolors(k + 11))
+        figure.couleurDeRemplissage = colorToLatexOrHTML(texcolors(k + 11))
         figure.opaciteDeRemplissage = 0.6
         objetsCorrection.push(figure)
       }

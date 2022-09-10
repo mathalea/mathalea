@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import Decimal from 'decimal.js'
+import Decimal from 'decimal.js/decimal.mjs'
 import { randint, choice, texNombre, texteCentre } from '../../../modules/outils.js'
 export const titre = 'Déterminer la fonction dérivée d’une fonction $k/x$ ou $k\\sqrt{x}$'
 export const interactifReady = true
@@ -14,6 +14,8 @@ export const dateDePublication = '21/06/2022' // La date de publication initiale
      * @author Gilles Mora
      * Référence
     */
+export const uuid = 'e794b'
+export const ref = 'can1F12'
 export default function CalculFonctionDeriveeFctRef () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
