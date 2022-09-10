@@ -165,7 +165,7 @@ export default function EcrirePetitsNombresEntiers () {
         else texteCorr = `${nombreEnLettres(NombreAEcrire)}`
       } else {
         setReponse(this, i, texNombre(NombreAEcrire), { formatInteractif: 'texte' })
-        if (context.vue !== 'diap') texte = `$${nombreEnLettres(NombreAEcrire)} ${!this.interactif ? ' : \\dotfill $' : '$ <br>' + ajouteChampTexteMathLive(this, i, 'college6eme')}`
+        if (context.vue !== 'diap') texte = `${nombreEnLettres(NombreAEcrire)} ${!this.interactif ? ' : $\\dotfill$' : ' <br>' + ajouteChampTexteMathLive(this, i, 'college6eme')}`
         else texte = `${nombreEnLettres(NombreAEcrire)}`
         if (context.vue !== 'diap') texteCorr = `${nombreEnLettres(NombreAEcrire)} : $${texNombre(NombreAEcrire)}$`
         else texteCorr = `$${texNombre(NombreAEcrire)}$`
