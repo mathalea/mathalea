@@ -8,7 +8,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 
-export const dateDeModifImportante = '07/11/2021'
+export const dateDeModifImportante = '09/09/2022'
 
 /**
  * Le nombre de dizaines, centaines et milliers étant donné, il faut écrire le nombre.

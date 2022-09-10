@@ -10,6 +10,7 @@ export const interactifType = 'mathLive'
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '19/09/2021'
+export const dateDeModifImportante = '09/09/2022'
 
 /**
  * Ecrire en chiffres ou en lettres un nombre entier inférieur à 1 000 000.
@@ -47,6 +48,7 @@ export default function EcrirePetitsNombresEntiers () {
     if (parseInt(this.sup3) === 2) {
       this.consigne = 'Écrire le nombre en chiffres.'
       typeDeConsigne = combinaisonListes([2], this.nbQuestions)
+      if (this.interactif) this.consigne = 'Écrire le nombre en chiffres sans oublier les espaces.'
     }
     if (parseInt(this.sup3) === 3) {
       this.consigne = 'Passer de l\'écriture en chiffres à celle en lettres et inversement.'
@@ -162,8 +164,8 @@ export default function EcrirePetitsNombresEntiers () {
         if (context.vue !== 'diap') texteCorr = `$${texNombre(NombreAEcrire)}$ : ${nombreEnLettres(NombreAEcrire)}`
         else texteCorr = `${nombreEnLettres(NombreAEcrire)}`
       } else {
-        setReponse(this, i, NombreAEcrire)
-        if (context.vue !== 'diap') texte = `$${nombreEnLettres(NombreAEcrire)} ${!this.interactif ? ' : \\dotfill $' : '$ <br>' + ajouteChampTexteMathLive(this, i)}`
+        setReponse(this, i, texNombre(NombreAEcrire), { formatInteractif: 'texte' })
+        if (context.vue !== 'diap') texte = `$${nombreEnLettres(NombreAEcrire)} ${!this.interactif ? ' : \\dotfill $' : '$ <br>' + ajouteChampTexteMathLive(this, i, 'college6eme')}`
         else texte = `${nombreEnLettres(NombreAEcrire)}`
         if (context.vue !== 'diap') texteCorr = `${nombreEnLettres(NombreAEcrire)} : $${texNombre(NombreAEcrire)}$`
         else texteCorr = `$${texNombre(NombreAEcrire)}$`
