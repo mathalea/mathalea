@@ -70,11 +70,11 @@ export default function SujetCAN20205ieme () {
           c = randint(1, 9)
           reponse = new Decimal(u).add(a / 10).add(c / 1000)
           if (choice([true, false])) {
-            texte = `Écris sous forme décimale : $${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}$. `
-            texteCorr = `$${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}=${u}+${texNombre(a / 10, 1)}+${texNombre(c / 1000, 3)}=${texNombre(u + a / 10 + c / 1000, 3)}$`
+            texte = `Écris sous forme décimale : $${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{${texNombre(1000)}}$. `
+            texteCorr = `$${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{${texNombre(1000)}}=${u}+${texNombre(a / 10, 1)}+${texNombre(c / 1000, 3)}=${texNombre(u + a / 10 + c / 1000, 3)}$`
           } else {
-            texte = `Écris sous forme décimale : $${u}+\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}$. `
-            texteCorr = `$${u}+\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}=${u}+${texNombre(c / 1000, 3)}+${texNombre(a / 10, 1)}=${texNombre(u + a / 10 + c / 1000, 3)}$
+            texte = `Écris sous forme décimale : $${u}+\\dfrac{${c}}{${texNombre(1000)}}+\\dfrac{${a}}{10}$. `
+            texteCorr = `$${u}+\\dfrac{${c}}{${texNombre(1000)}}+\\dfrac{${a}}{10}=${u}+${texNombre(c / 1000, 3)}+${texNombre(a / 10, 1)}=${texNombre(u + a / 10 + c / 1000, 3)}$
              `
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -114,7 +114,7 @@ export default function SujetCAN20205ieme () {
           texte = `$${a}$ $\\%$ de $${b} =$
          `
 
-          texteCorr = `$${a}$ $\\%$ de $${b} =${texNombre(a / 100, 2)}\\times ${b}=${texNombre(b * a / 100, 2)}$.
+          texteCorr = `$${a}$ $\\%$ de $${b} =${texNombre(a / 100, 2)}\\times ${b}=${texNombre(b * a / 100, 2)}$
           `
 
           reponse = new Decimal(a).div(100).mul(b)
@@ -144,10 +144,10 @@ export default function SujetCAN20205ieme () {
           b = choice([25, 30, 40, 50])
           c = randint(1, 3)
           d = choice([40, 50])
-
-          texte = `Toto part à  $${a}$ h $${b}$ min et son trajet dure  $${c}$ h $${d}$ min.<br>
+          prenom = prenomM()
+          texte = `${prenom} part à  $${a}$ h $${b}$ min et son trajet dure  $${c}$ h $${d}$ min.<br>
           À quelle heure arrive-t-il ?`
-          texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - b}$ min, puis il faut ajouter encore $${c}$  ${c > 1 ? ' heures' : ' heure '}      
+          texteCorr = `Pour atteindre $${a + 1}$ h, il faut $${60 - b}$ min, puis il faut ajouter encore $${c}$  ${c > 1 ? ' heures' : ' heure '}      
           et $${d - 60 + b}$ min, soit une arrivée à  $${a + c + 1}$ h $${b + d - 60}$ min.`
 
           if (this.interactif) {
@@ -169,8 +169,8 @@ export default function SujetCAN20205ieme () {
             texteCorr = `La moitié de $${2 * a}$ est égale à $${2 * a}\\div 2=${a}$`
           } else {
             reponse = 2 * b
-            texte = `Le double de $${b}$ est égale à `
-            texteCorr = `Le double de $${b}$ est égale à $2\\times ${b}=${2 * b}$.`
+            texte = `Le double de $${b}$ est égal à `
+            texteCorr = `Le double de $${b}$ est égal à $2\\times ${b}=${2 * b}$.`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += ' $\\ldots$' }
@@ -186,8 +186,8 @@ export default function SujetCAN20205ieme () {
             Combien coûtent $${3 * a}$ de ces mêmes gâteaux ?
              `
 
-          texteCorr = `$${2 * a}$ gâteaux coûtent  $${texPrix(prix)}$ €, donc $${a}$ ${a > 1 ? 'gâteaux coûtent' : 'gâteau coûte'} $${texPrix(prix)}\\div 2=${texPrix(prix / 2)}$ €.<br>
-          Ainsi, $${3 * a}$ gâteaux coûtent $${texPrix(prix)}+${texPrix(prix / 2)}=${texPrix(reponse)}$ €.`
+          texteCorr = `$${2 * a}$ gâteaux coûtent  $${texPrix(prix)}$ €, donc $${a}$ ${a > 1 ? 'gâteaux coûtent' : 'gâteau coûte'} $${texPrix(prix)} \\text{ €} \\div 2=${texPrix(prix / 2)}$ €.<br>
+          Ainsi, $${3 * a}$ gâteaux coûtent $${texPrix(prix)}\\text{ €}+${texPrix(prix / 2)}\\text{ €}=${texPrix(reponse)}$ €.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' €' }
@@ -278,7 +278,7 @@ export default function SujetCAN20205ieme () {
           texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1.2, style: 'margin: auto' }, objets)
           texte += '<br>? $=$'
           texteCorr = `Les longueurs de la figure $B$ sont le double de celles de la figure $A$.<br>
-          Ainsi, ?$=2\\times ${texNombre(a, 1)}= ${texNombre(reponse, 1)}$ cm.
+          Ainsi, ?$=2\\times ${texNombre(a, 1)}\\text{ cm}= ${texNombre(reponse, 1)}$ cm.
                   `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -332,8 +332,9 @@ export default function SujetCAN20205ieme () {
            `
             texte += '<br>? $=$'
 
-            texteCorr = `On passe d'un terme au suivant en multiplant par $2$. <br>
-            Ainsi, ? $=2\\times ${texNombre(new Decimal(a).mul(2), 1)}= ${texNombre(reponse, 1)}$.`
+            texteCorr = `L'hypothèse que l'on peut faire est que l'on passe d'un terme au suivant en multiplant par $2$. <br>
+            Ainsi, ? $=2\\times ${texNombre(new Decimal(a).mul(2), 1)}= ${texNombre(reponse, 1)}$.<br>
+            On vérifie avec la dernière valeur : $2\\times ${texNombre(reponse, 1)}=${texNombre(new Decimal(a).mul(8), 1)}$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += ' $\\ldots$' }
           }
@@ -343,8 +344,9 @@ export default function SujetCAN20205ieme () {
             $${texNombre(a, 1)}$ $${sp(8)}${texNombre(new Decimal(a).add(b), 1)}$${sp(8)}?$${sp(8)}${texNombre(new Decimal(a).add(3 * b), 1)}$
            `
             texte += '<br>? $=$'
-            texteCorr = `On passe d'un terme au suivant en ajoutant  $${b}$. <br>
-            Ainsi, ? $= ${texNombre(new Decimal(a).add(b), 1)}+${b}= ${texNombre(reponse, 1)}$.`
+            texteCorr = `L'hypothèse que l'on peut faire est que l'on passe d'un terme au suivant en ajoutant  $${b}$. <br>
+            Ainsi, ? $= ${texNombre(new Decimal(a).add(b), 1)}+${b}= ${texNombre(reponse, 1)}$.<br>
+            On vérifie avec la dernière valeur : $${texNombre(reponse, 1)}+${b}=${texNombre(new Decimal(a).add(3 * b), 1)}$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += ' $\\ldots$' }
           }
@@ -368,7 +370,8 @@ export default function SujetCAN20205ieme () {
             xMin: 0,
             xMax: 10,
             yMin: 0,
-            axeXStyle: ''
+            axeXStyle: '',
+            yLegende: 'Effectifs'
           })
 
           reponse = 50 * a + 50 * b + 50 * c
@@ -378,7 +381,7 @@ export default function SujetCAN20205ieme () {
           objets.push(traceBarre(5, b, 'Chat', { epaisseur: 2, couleurDeRemplissage: 'red', hachures: true }))
           objets.push(traceBarre(8, c, 'Autre animal', { epaisseur: 2, couleurDeRemplissage: 'red', hachures: true }))
           texte = 'À partir du diagramme ci-dessous, détermine le nombre total d\'animaux comptabilisés. <br>'
-          texte += mathalea2d({ xmin: -5, xmax: 11, ymin: -3.5, ymax: 9.5, pixelsParCm: 25, scale: 0.8 }, objets)
+          texte += mathalea2d({ xmin: -5, xmax: 11, ymin: -3.5, ymax: 10.5, pixelsParCm: 25, scale: 0.8 }, objets)
           texteCorr = `Le nombre total d'animaux est : $${50 * a}+${50 * b}+${50 * c}=${reponse}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -392,29 +395,29 @@ export default function SujetCAN20205ieme () {
             b = randint(2, 8)
             reponse = 10 * b
             texteCorr = `Sur $${a}$ chiots, $${b}$ sont de couleurs marron, donc sur $${a}\\times 10=100$ chiots, $10\\times ${b}$ soit $${10 * b}$ sont de couleur marron.<br>
-            Il y a donc $${reponse}$ $\\%$ de chiots marrons.`
+            Il y a donc $${reponse}$ $\\%$ de chiots marron.`
           }
           if (a === 20) {
             b = randint(8, 15)
             reponse = 5 * b
             texteCorr = `Sur $${a}$ chiots, $${b}$ sont de couleurs marron, donc sur $${a}\\times 5=100$ chiots, $10\\times ${b}$ soit $${5 * b}$ sont de couleur marron.<br>
-            Il y a donc $${reponse}$ $\\%$ de chiots marrons.`
+            Il y a donc $${reponse}$ $\\%$ de chiots marron.`
           }
           if (a === 25) {
             b = randint(8, 15)
             reponse = 4 * b
             texteCorr = `Sur $${a}$ chiots, $${b}$ sont de couleurs marron, donc sur $${a}\\times 4=100$ chiots, $4\\times ${b}$ soit $${4 * b}$ sont de couleur marron.<br>
-            Il y a donc $${reponse}$ $\\%$ de chiots marrons.`
+            Il y a donc $${reponse}$ $\\%$ de chiots marron.`
           }
           if (a === 50) {
-            b = randint(15, 65, [20, 30, 40, 50])
+            b = randint(15, 65, [20, 25, 30, 40, 50])
             reponse = 2 * b
             texteCorr = `Sur $${a}$ chiots, $${b}$ sont de couleurs marron, donc sur $${a}\\times 2=100$ chiots, $2\\times ${b}$ soit $${2 * b}$ sont de couleur marron.<br>
-            Il y a donc $${reponse}$ $\\%$ de chiots marrons.`
+            Il y a donc $${reponse}$ $\\%$ de chiots marron.`
           }
 
           texte = `Sur $${a}$ chiots, $${b}$ sont de couleur marron.<br>
-          Quel est le pourcentage de chiots marrons ?`
+          Quel est le pourcentage de chiots marron ?`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' $\\%$' }
@@ -427,14 +430,14 @@ export default function SujetCAN20205ieme () {
           b = new Decimal(choice([25, 50, 75])).div(100)
           d = new Decimal(b).mul(60)
           if (!this.interactif) {
-            texte = `Convertis en heures/minutes : <br>$${texNombre(new Decimal(a).add(b), 2)}$ h $=$ ..... h..... min`
-            texteCorr = `$${texNombre(new Decimal(a).add(b), 2)} $ h $ = ${a}$ h  $ + ${texNombre(b, 2)} \\times 60  = ${a}$ h $${d}$ min`
+            texte = `Convertis en heures/minutes : <br>$${texNombre(new Decimal(a).add(b), 2)}\\text{ h}=\\ldots  \\text{ h } \\ldots \\text{ min}$`
+            texteCorr = `$${texNombre(new Decimal(a).add(b), 2)}\\text{ h}= ${a}\\text{ h} + ${texNombre(b, 2)} \\times 60 \\text{ min} = ${a}\\text{ h }${d}\\text{ min}$`
           } else {
-            texte = `Convertis en heures/minutes : <br>$${texNombre(new Decimal(a).add(b), 2)}$ h $=$`
+            texte = `Convertis en heures/minutes : <br>$${texNombre(new Decimal(a).add(b), 2)}\\text{ h}=$`
             texte += ajouteChampTexteMathLive(this, index, 'largeur10 inline', { texteApres: sp(5) + 'h' })
             setReponse(this, index, a)
             texte += ajouteChampTexteMathLive(this, index + 1, 'largeur10 inline', { texteApres: sp(5) + 'min' })
-            texteCorr = `$${texNombre(new Decimal(a).add(b), 2)} $ h $ = ${a}$ h  $  + ${texNombre(b, 2)} \\times 60$ min $  = ${a}$ h $${d}$ min`
+            texteCorr = `$${texNombre(new Decimal(a).add(b), 2)}\\text{ h}=${a}\\text{ h}+${texNombre(b, 2)} \\times 60\\text{ min}=${a}\\text{ h } ${d}\\text{ min}$`
             setReponse(this, index + 1, d)
           }
 
@@ -482,15 +485,15 @@ export default function SujetCAN20205ieme () {
           b = new Decimal(randint(11, 49, [20, 30, 40])).div(10)
           reponse = new Decimal(a1 * 2).add(b * 2)
 
-          texte = ` Quel est le périmètre d'un rectangle $ABCD$ tel que : <br>
-                $AB=${a}$ mm et $BC=${texNombre(b, 1)}$ cm ?`
+          texte = ` Quel est le périmètre d'un rectangle $ABCD$ tel que :
+                $AB=${a}$ mm et $BC=${texNombre(b, 1)}$ cm ?<br>`
           texteCorr = `$${a}$ mm $= ${texNombre(a1, 1)}$ cm.<br>
-                Le périmètre de $ABCD$ est donc : $2\\times ${texNombre(a1, 1)} + 2\\times ${texNombre(b, 1)} =${texNombre(reponse, 1)}$ cm.`
+                Le périmètre de $ABCD$ est donc : $2\\times ${texNombre(a1, 1)} \\text{ cm}+ 2\\times ${texNombre(b, 1)} \\text{ cm}=${texNombre(reponse, 1)}$ cm.`
 
           if (this.interactif) {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             texte += ajouteChampTexteMathLive(this, index, 'largeur15 inline', { texteApres: ' cm' })
-          } else { texte += ' $\\ldots$ cm' }
+          } else { texte += 'Périmètre $=\\ldots$ cm' }
           nbChamps = 1
           break
 
@@ -506,12 +509,12 @@ export default function SujetCAN20205ieme () {
           texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}`
           if (somme > c) {
             setReponse(this, index, ['V', 'v'], { formatInteractif: 'texte' })
-            texteCorr = `Pour qu'un triangle soit constructible, il faut que la longueur du plus grand côté soit inférieure à la somme des deux autres.<br>
+            texteCorr = `Pour qu'un triangle soit constructible (non aplati), il faut que la longueur du plus grand côté soit strictement inférieure à la somme des deux autres.<br>
           On a $${texNombre(a, 1)}+${texNombre(b, 1)}=${texNombre(somme, 0)} > ${c}$.<br>
           L'affirmation est donc vraie.`
           } else {
             setReponse(this, index, ['F', 'f'], { formatInteractif: 'texte' })
-            texteCorr = `Pour qu'un triangle soit constructible, il faut que la longueur du plus grand côté soit inférieure à la somme des deux autres.<br>
+            texteCorr = `Pour qu'un triangle soit constructible (non aplati), il faut que la longueur du plus grand côté soit strictement inférieure à la somme des deux autres.<br>
           On a $${texNombre(a, 1)}+${texNombre(b, 1)}=${texNombre(new Decimal(a).add(b), 0)} < ${c}$.<br>
           L'affirmation est donc fausse.`
           }
@@ -531,7 +534,7 @@ export default function SujetCAN20205ieme () {
           texte = `Quel est le volume du pavé droit ci-dessous ?<br>
         ${mathalea2d({ xmin: -2, ymin: -2, xmax: 10, ymax: 0.5 * h + l }, pav)}`
           reponse = L * l * h
-          texteCorr = `Le volume de ce pavé droit est : $${L}\\times ${l}\\times ${h}=${reponse}$ cm$^3$.`
+          texteCorr = `Le volume de ce pavé droit est : $${L}\\text{ cm}\\times ${l} \\text{ cm}\\times ${h}\\text{ cm}=${reponse}$ cm$^3$.`
           texte += ajouteChampTexteMathLive(this, index, 'inline largeur15', { texteApres: ' cm$^3$' })
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           nbChamps = 1
@@ -541,9 +544,9 @@ export default function SujetCAN20205ieme () {
           a = randint(11, 24, 20)
           reponse = calcul(101 * a)
           texte = `$${a}\\times 101=$`
-          texteCorr = `$${a}\\times 101 = ${101 * a}$<br>`
+          texteCorr = `$${a}\\times 101 = ${texNombre(101 * a)}$<br>`
 
-          texteCorr += `$${a}\\times 101 = ${a}\\times (100+1)=${a}\\times 100+${a}\\times 1=${a * 100}+${a}=${101 * a}$`
+          texteCorr += `$${a}\\times 101 = ${a}\\times (100+1)=${a}\\times 100+${a}\\times 1=${texNombre(a * 100)}+${a}=${texNombre(101 * a)}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += ' $\\ldots$' }
@@ -633,7 +636,7 @@ export default function SujetCAN20205ieme () {
           if (choix === 'a') {
             reponse = a * 1000
             texte = `$${a}$ dm$^3=$`
-            texteCorr = `$1$ dm$^3= 1000$ cm$^3$, donc $${a}$ dm$^3=${a}\\times 1000$ cm$^3=${a * 1000}$ cm$^3$.`
+            texteCorr = `$1$ dm$^3= ${texNombre(1000)}$ cm$^3$, donc $${a}$ dm$^3=${a}\\times ${texNombre(1000)}$ cm$^3=${a * 1000}$ cm$^3$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm$^3$' } else { texte += ' $\\ldots$ cm$^3$' }
           }
@@ -647,7 +650,7 @@ export default function SujetCAN20205ieme () {
           if (choix === 'c') {
             reponse = a * 1000
             texte = `$${a}$ m$^3=$`
-            texteCorr = `$1$ m$^3= 1000$ dm$^3$, donc $${a}$ m$^3=${a}\\times 1000$ dm$^3=${a * 1000}$ dm$^3$.`
+            texteCorr = `$1$ m$^3= ${texNombre(1000)}$ dm$^3$, donc $${a}$ m$^3=${a}\\times ${texNombre(1000)}$ dm$^3=${a * 1000}$ dm$^3$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'dm$^3$' } else { texte += ' $\\ldots$ dm$^3$' }
           }
@@ -690,9 +693,9 @@ export default function SujetCAN20205ieme () {
           texte += mathalea2d({ xmin: -1.5, ymin: -1, xmax: 7.1, ymax: 4, pixelsParCm: 30, scale: 0.7 }, poly, labelPoint(A, B, C, D, E),
             codageAngleDroit(E, A, B), codageAngleDroit(A, B, C), codageAngleDroit(B, C, E), codageAngleDroit(C, E, A),
             code1, code2, d, e, segmentED, segmentEA)
-          texteCorr = `L'aire du rectangle $ABCD$ est : $${b}\\times ${c}=${b * c}$ cm$^2$.<br>
-          L'aire du triangle $AED$ est : $\\dfrac{${a}\\times ${b}}{2}=${texNombre(f, 1)}$ cm$^2$.<br>
-          On en déduit que L'aire du polygone grisé est : $${b * c}-${texNombre(f, 1)}=${texNombre(reponse, 1)}$ cm$^2$.`
+          texteCorr = `L'aire du rectangle $ABCD$ est : $${b}\\text{ cm}\\times ${c}\\text{ cm}=${b * c}$ cm$^2$.<br>
+          L'aire du triangle $AED$ est : $\\dfrac{${a}\\text{ cm}\\times ${b}\\text{ cm}}{2}=${texNombre(f, 1)}$ cm$^2$.<br>
+          On en déduit que l'aire du polygone grisé est : $${b * c}\\text{ cm}^2-${texNombre(f, 1)}\\text{ cm}^2=${texNombre(reponse, 1)}$ cm$^2$.`
           texte += '<br> Aire $= $'
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -714,7 +717,7 @@ export default function SujetCAN20205ieme () {
           $(${a}+${b})\\times (${c}-${d})=${a + b}\\times ${k}=${reponse}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += ' $\\ldots$' }
           nbChamps = 1
           break
 
@@ -729,7 +732,7 @@ export default function SujetCAN20205ieme () {
             a = randint(2, 9)
 
             texte = `$${a}\\div ${a}\\times ${a}-${a}+${a}\\times ${a}=$`
-            texteCorr = `$${a}\\div ${a}\\times ${a}-${a}+${a}\\times ${a}=1\\times ${a}-${a}+${a * a}=${a}-${a}+${a * a}=${a * a}$.`
+            texteCorr = `$${a}\\div ${a}\\times ${a}-${a}+${a}\\times ${a}=1\\times ${a}-${a}+${a * a}=${a}-${a}+${a * a}=${a * a}$`
             reponse = a * a
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
