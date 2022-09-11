@@ -2336,7 +2336,7 @@ function parametresExercice (exercice) {
       formNbQuestions[i].value = exercice[i].nbQuestions // Rempli le formulaire avec le nombre de questions
       formNbQuestions[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].nbQuestions = e.target.value
+        exercice[i].nbQuestions = parseInt(e.target.value)
         miseAJourDuCode()
       })
     }
