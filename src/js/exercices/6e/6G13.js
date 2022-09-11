@@ -72,26 +72,35 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
       objetsCorrection.push(traces2, labels2, figure, aA, aB, aC, aD, segmentAC, segmentBC)
       objetsCorrection.push(afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), afficheLongueurSegment(D, C), afficheLongueurSegment(A, D), afficheLongueurSegment(A, C, 'blue'))
       const anim = new Alea2iep()
-      anim.pointCreer(A)
+      anim.recadre(-longueurFigure, 2 * largeurFigure) // Déplace l'origine du repère (à mettre en premier obligatoirement)
+      anim.pointCreer(A, { dx: -0.5, dy: -0.5 }) // On déplace les labels des points avec dx et dy
       anim.regleMontrer(A)
       anim.regleSegment(A, B)
-      anim.regleMasquer()
-      anim.pointCreer(B)
+      anim.pointCreer(B, { dx: 0.2, dy: -0.5 })
       anim.equerreMontrer(B)
+      anim.equerreRotation(90)
+      anim.regleDeplacer(B)
+      anim.regleRotation(90)
+      anim.equerreMasquer()
+      anim.pointCreer(C, { dx: 0.2, dy: 0.8 })
       anim.tracer(C)
-      anim.pointCreer(C)
       anim.equerreMontrer(C)
       anim.equerreRotation(90)
-      anim.tracer(D)
+      const D2 = point(D.x - 2, D.y)
+      anim.tracer(D2)
       anim.equerreMasquer()
-      anim.pointCreer(D)
+      anim.regleDeplacer(C)
+      anim.regleRotation(180)
+      anim.pointCreer(D, { dx: -0.5, dy: 0.8 })
       anim.regleSegment(D, A)
-      texte = `Construire le ${naturePoly} $${nomPoly}$ avec $${A.nom + B.nom} = ${longueurFigure} cm$`
-      if (listeTypeDeQuestions[i] === 'Rectangle') texte += ` et $${B.nom + C.nom} = ${largeurFigure} cm$`
+      anim.regleMasquer()
+      anim.crayonMasquer()
+      texte = `Construire le ${naturePoly} $${nomPoly}$ avec $${A.nom + B.nom} = ${texNombre(longueurFigure, 2)}~\\text{cm}$`
+      if (listeTypeDeQuestions[i] === 'Rectangle') texte += ` et $${B.nom + C.nom} = ${texNombre(largeurFigure, 2)}~\\text{cm}$`
       texte += '.<br>'
       texteCorr = ''
       texteCorr += anim.htmlBouton()
-      texteCorr += `<br>Pour l'auto-correction, on peut vérifier que $[${A.nom + C.nom}]$ et $[${B.nom + D.nom}]$ mesurent bien tous les deux $${texNombre(longueurAC, 1)} cm$`
+      texteCorr += `<br><br>Pour l'auto-correction, on peut vérifier que $[${A.nom + C.nom}]$ et $[${B.nom + D.nom}]$ mesurent bien tous les deux $${texNombre(longueurAC, 1)}~\\text{cm}$`
       // Les lignes ci-dessous permettent d'avoir un affichage aux dimensions optimisées
       const xmin = Math.min(A.x, B.x, C.x, D.x) - 2
       const xmax = Math.max(A.x, B.x, C.x, D.x) + 2

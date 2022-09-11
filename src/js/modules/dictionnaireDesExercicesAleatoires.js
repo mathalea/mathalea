@@ -3419,7 +3419,7 @@ export default {
     "interactifReady": false,
     "name": "3L11-9",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -4003,7 +4003,7 @@ export default {
     "interactifType": "custom",
     "name": "4C10-9",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -4123,7 +4123,7 @@ export default {
     "interactifType": "custom",
     "name": "4C21-3",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -4209,7 +4209,7 @@ export default {
     "interactifType": "custom",
     "name": "4C22-4",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -5167,7 +5167,7 @@ export default {
     "interactifType": "custom",
     "name": "4L10-4",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -7119,7 +7119,7 @@ export default {
     "interactifType": "custom",
     "name": "5R20-7",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -7391,7 +7391,7 @@ export default {
     "interactifType": "custom",
     "name": "6C10-0",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -7500,7 +7500,7 @@ export default {
     "interactifType": "custom",
     "name": "6C10-6",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -8307,6 +8307,21 @@ export default {
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    }
+  },
+  "6G13": {
+    "titre": "Tracer des carrés et des rectangles de longueurs données",
+    "url": "/exercices/6e/6G13.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6G13",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G14": {
