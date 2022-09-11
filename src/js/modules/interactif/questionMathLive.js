@@ -144,7 +144,11 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
             if (grandeurSaisie.estEgal(reponse)) resultat = 'OK'
             else if (precision && grandeurSaisie.estUneApproximation(reponse, precision)) feedbackCorrection = 'Erreur d\'arrondi.'
           } else {
-            resultat = 'essaieEncoreAvecUneSeuleUnite'
+            if (saisie === '') {
+              resultat = 'KO'
+            } else {
+              resultat = 'essaieEncoreAvecUneSeuleUnite'
+            }
           }
           break
         case 'intervalleStrict':// Pour les exercice où la saisie doit être dans un intervalle

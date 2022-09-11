@@ -7598,7 +7598,7 @@ export default {
     }
   },
   "6C11-3": {
-    "titre": "Indiquer un égalité à partir d'une division euclidienne",
+    "titre": "Indiquer une égalité à partir d'une division euclidienne",
     "url": "/exercices/6e/6C11-3.js",
     "amcReady": true,
     "amcType": {
@@ -16521,6 +16521,22 @@ export default {
     "name": "can5P08",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can5a-2020": {
+    "titre": "CAN 5ième sujet 2020",
+    "url": "/exercices/can/5e/can5a-2020.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5a-2020",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
