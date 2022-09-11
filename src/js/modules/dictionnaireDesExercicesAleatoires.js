@@ -8309,6 +8309,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     }
   },
+  "6G13": {
+    "titre": "Tracer des carrés et des rectangles de longueurs données",
+    "url": "/exercices/6e/6G13.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6G13",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "6G14": {
     "titre": "Utiliser les propriétés des droites perpendiculaires",
     "url": "/exercices/6e/6G14.js",
