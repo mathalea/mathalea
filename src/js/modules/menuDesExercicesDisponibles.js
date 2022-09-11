@@ -7,6 +7,7 @@ import { dictionnaireBAC } from './dictionnaireBAC.js'
 import { dictionnaireE3C } from './dictionnaireE3C.js'
 import { dictionnaireLycee } from './dictionnaireLycee.js'
 import { dictionnaireCrpe } from './dictionnaireCrpe.js'
+import { dictionnaireCrpeCoop } from './dictionnaireCrpeCoop'
 import $ from 'jquery'
 import 'datatables.net-dt/css/jquery.dataTables.css'
 import { getFilterFromUrl, getVueFromUrl } from './gestionUrl.js'
@@ -36,7 +37,7 @@ const tableauTagsBAC = dictionnaireToTableauTags(dictionnaireBAC)
 const tableauTagsE3C = dictionnaireToTableauTags(dictionnaireE3C)
 
 // On concatène les différentes listes d'exercices
-export const dictionnaireDesExercices = { ...dictionnaireDesExercicesAleatoires, ...dictionnaireDNB, ...dictionnaireC3, ...dictionnaireLycee, ...dictionnaireCrpe, ...dictionnaireBAC, ...dictionnaireE3C }
+export const dictionnaireDesExercices = { ...dictionnaireDesExercicesAleatoires, ...dictionnaireDNB, ...dictionnaireC3, ...dictionnaireLycee, ...dictionnaireCrpe, ...dictionnaireCrpeCoop, ...dictionnaireBAC, ...dictionnaireE3C }
 let listeDesExercicesDisponibles
 if (getVueFromUrl() === 'amc') {
   const dictionnaireDesExercicesAMC = {}
@@ -145,6 +146,28 @@ function listeHtmlDesExercicesCrpeAnnee (annee) {
   const dictionnaire = filtreDictionnaireValeurCle(dictionnaireCrpe, 'annee', annee)
   for (const id in dictionnaire) {
     liste += aCrpe(id, dictionnaire, 'annee')
+  }
+  return liste
+}
+function listeHtmlDesExercicesCrpeCoopAnnee (annee) {
+  let liste = ''
+  const dictionnaire = filtreDictionnaireValeurCle(dictionnaireCrpeCoop, 'annee', annee)
+  for (const id in dictionnaire) {
+    liste += aCrpe(id, dictionnaire, 'annee')
+  }
+  return liste
+}
+function listeHtmlDesExercicesCrpeCoopTheme (theme) {
+  let liste = ''
+  const dictionnaire = filtreDictionnaireValeurTableauCle(dictionnaireCrpeCoop, 'tags', theme)
+  let tableauDesExercices = []
+  for (const id in dictionnaire) {
+    tableauDesExercices.push(id)
+  }
+  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaître les exercices les plus récents
+  tableauDesExercices = tableauDesExercices.sort().reverse()
+  for (const id of tableauDesExercices) {
+    liste += aCrpe(id, dictionnaire, 'theme')
   }
   return liste
 }
@@ -268,6 +291,16 @@ function getListeHtmlDesExercicesCrpe () {
   liste += '</div>'
   return liste
 }
+function getListeHtmlDesExercicesCrpeCoop () {
+  let liste = '<div class="accordion">'
+  for (const annee of ['2022']) {
+    liste += `<div class="title"><i class="dropdown icon"></i> ${annee}</div><div class="content">`
+    liste += listeHtmlDesExercicesCrpeCoopAnnee(annee)
+    liste += '</div>'
+  }
+  liste += '</div>'
+  return liste
+}
 function getListeHtmlDesExercicesDNB () {
   let liste = '<div class="accordion">'
   for (const annee of ['2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013']) {
@@ -367,6 +400,19 @@ function getListeHtmlDesExercicesE3CTheme () {
   return liste
 }
 
+function getListeHtmlDesExercicesCrpeCoopTheme () {
+  let liste = '<div class="accordion">'
+  for (const theme of tableauTagsCrpe) {
+    const listeHtml = listeHtmlDesExercicesCrpeCoopTheme(theme)
+    if (listeHtml.length > 1) {
+      liste += `<div class="title"><i class="dropdown icon"></i> ${theme}</div><div class="content">`
+      liste += listeHtml
+      liste += '</div>'
+    }
+  }
+  liste += '</div>'
+  return liste
+}
 function getListeHtmlDesExercicesCrpeTheme () {
   let liste = '<div class="accordion">'
   for (const theme of tableauTagsCrpe) {
@@ -398,7 +444,7 @@ function listeHtmlDesTags (objet) {
 function divNiveau (obj, active, id) {
   // construction de la div contenant l'ensemble d'un niveau.
   let nombreExo = ''
-  if (id !== 'DNB' && id !== 'DNBtheme' && id !== 'CRPE' && id !== 'CrpeTheme' && id !== 'BAC' && id !== 'BACtheme' && id !== 'E3C' && id !== 'E3Ctheme') {
+  if (id !== 'DNB' && id !== 'DNBtheme' && id !== 'CRPE' && id !== 'CRPECoop' && id !== 'CrpeCoopTheme' && id !== 'CrpeTheme' && id !== 'BAC' && id !== 'BACtheme' && id !== 'E3C' && id !== 'E3Ctheme') {
     nombreExo = '(' + obj.nombre_exercices_dispo + ')'
   }
   return `<div id=${id} class="${active ? 'active title fermer_niveau' : 'title ouvrir_niveau'}"><i class="dropdown icon"></i>${obj.label} ${nombreExo}</div><div id="content${id}" class="${active} content">${active ? obj.liste_html_des_exercices : ''}</div>`
@@ -574,7 +620,7 @@ export function menuDesExercicesDisponibles () {
     ['6N1', '6N1 - Numération et fractions niveau 1'], ['6N2', '6N2 - Numération et fractions niveau 2'], ['6N3', '6N3 - Numération et fractions niveau 3'], ['6N4', '6N4 - Numération et fractions niveau 4'],
     ['6P1', '6P1 - Proportionnalité'], ['6S1', '6S1 - Statistiques']]
   const listeThemes5 = [
-    ['5A1', '5A1 - Arithmetique'], ['5C1', '5C1 - Calculs'],
+    ['5A1', '5A1 - Arithmétique'], ['5C1', '5C1 - Calculs'],
     ['5G1', '5G1 - Symétries'], ['5G2', '5G2 - Triangles'], ['5G3', '5G3 - Angles'], ['5G4', '5G4 - Parallélogrammes'], ['5G5', '5G5 - Espace'],
     ['5I1', '5I1 - Algorithmique'],
     ['5L1', '5L1 - Calcul littéral'],
@@ -590,7 +636,7 @@ export function menuDesExercicesDisponibles () {
     ['4I1', '4I1 - Algorithmique'],
     ['4L1', '4L1 - Calcul littéral'], ['4L2', '4L2 - Équation'], ['4P1', '4P1 - Proportionnalité'], ['4S1', '4S1 - Statistiques'], ['4S2', '4S2 - Probabilités']]
   const listeThemes3 = [
-    ['3A1', '3A1 - Arithmetique'],
+    ['3A1', '3A1 - Arithmétique'],
     ['3F1', '3F1 - Généralités sur les fonctions'], ['3F2', '3F2 - Fonctions affines et linéaires'],
     ['3G1', '3G1 - Homothétie et rotation'], ['3G2', '3G2 - Théorème de Thalès'], ['3G3', '3G3 - Trigonométrie'], ['3G4', '3G4 - Espace'],
     ['3I1', '3I1 - Algorithmique premier niveau'],
@@ -796,14 +842,26 @@ export function menuDesExercicesDisponibles () {
       liste_html_des_exercices: listeHtmlDesExercicesDUnNiveau(listeThemesHP),
       lignes_tableau: ''
     },
+    CRPECoop: {
+      label: 'Concours CRPE 2022',
+      nombre_exercices_dispo: 0,
+      liste_html_des_exercices: getListeHtmlDesExercicesCrpeCoop(),
+      lignes_tableau: ''
+    },
+    CrpeCoopTheme: {
+      label: 'Concours CRPE 2022 (classés par thème)',
+      nombre_exercices_dispo: 0,
+      liste_html_des_exercices: getListeHtmlDesExercicesCrpeCoopTheme(),
+      lignes_tableau: ''
+    },
     CRPE: {
-      label: 'Concours CRPE corrigés par la Copirelem (classés par année)',
+      label: 'Concours CRPE 2015-2019 corrigés par la Copirelem (classés par année)',
       nombre_exercices_dispo: 0,
       liste_html_des_exercices: getListeHtmlDesExercicesCrpe(),
       lignes_tableau: ''
     },
     CrpeTheme: {
-      label: 'Concours CRPE corrigés par la Copirelem (classés par thème)',
+      label: 'Concours CRPE 2015-2019 corrigés par la Copirelem (classés par thème)',
       nombre_exercices_dispo: 0,
       liste_html_des_exercices: getListeHtmlDesExercicesCrpeTheme(),
       lignes_tableau: ''
@@ -903,6 +961,7 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercices += '</div>'
     listeHtmlDesExercicesTab += objExercicesDisponibles.P0.lignes_tableau
   } else if (context.vue === 'crpe') {
+    // listeHtmlDesExercices += divNiveau(objExercicesDisponibles.CRPECoop, 'active', 'CrpeTheme')
     listeHtmlDesExercices += divNiveau(objExercicesDisponibles.CrpeTheme, 'active', 'CrpeTheme')
     listeHtmlDesExercices += divNiveau(objExercicesDisponibles.CRPE, 'active', 'CRPE')
     listeHtmlDesExercices += '</div>'
@@ -960,7 +1019,7 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercicesTab += htmlAffichage.lignes
   } else {
     htmlAffichage = htmlListes({
-      liste_affichage: ['ca', 'c3', 6, 5, 4, 3, 'DNB', 'DNBtheme', 2, 1, 'techno1', 'T', 'Ex', 'HP', 'E3C', 'E3Ctheme', 'BAC', 'BACtheme', 'PE', 'CrpeTheme', 'CRPE', 'C'],
+      liste_affichage: ['ca', 'c3', 6, 5, 4, 3, 'DNB', 'DNBtheme', 2, 1, 'techno1', 'T', 'Ex', 'HP', 'E3C', 'E3Ctheme', 'BAC', 'BACtheme', 'PE', 'CrpeCoopTheme', 'CRPECoop', 'CrpeTheme', 'CRPE', 'C'],
       active: '',
       obj_ex: objExercicesDisponibles
     })

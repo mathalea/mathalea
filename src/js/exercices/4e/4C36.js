@@ -92,11 +92,6 @@ export default class nomExercice extends Exercice {
         unite: 'mm³'
       },
       {
-        intitule: 'la superficie d\'une salle de classe',
-        puissanceDe10: 1,
-        unite: 'm²'
-      },
-      {
         intitule: 'la surface d\'une table',
         puissanceDe10: 0,
         unite: 'm²'

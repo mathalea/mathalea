@@ -1,5 +1,5 @@
 // Export de Mathalea pour Moodle au format GIFT
-// Créé le 27/08/2022
+// Créé le 11/09/2022
 
 $CATEGORY: Mathalea/1e
 
@@ -91,7 +91,7 @@ $CATEGORY: Mathalea/1e
 
 $CATEGORY: Mathalea/2e
 
-:: Mathalea - Reconnaître une fonction affine. (2F10-1) ::
+:: Mathalea - Reconnaître une fonction affine (2F10-1) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="2F10-1" />
 {
@@ -113,7 +113,7 @@ $CATEGORY: Mathalea/2e
 
 $CATEGORY: Mathalea/2e
 
-:: Mathalea - Déterminer l'image d'un nombre par une fonction de référence. (2F11-1) ::
+:: Mathalea - Déterminer l'image d'un nombre par une fonction de référence (2F11-1) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="2F11-1" />
 {
@@ -157,7 +157,7 @@ $CATEGORY: Mathalea/2e
 
 $CATEGORY: Mathalea/2e
 
-:: Mathalea - Déterminer le coefficient directeur d'une droite. (2G30-1) ::
+:: Mathalea - Déterminer le coefficient directeur d'une droite (2G30-1) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="2G30-1" />
 {
@@ -410,7 +410,7 @@ $CATEGORY: Mathalea/2e
 
 $CATEGORY: Mathalea/2e
 
-:: Mathalea - Calculer la valeur d'une expression littérale. (2N40-2) ::
+:: Mathalea - Calculer la valeur d'une expression littérale (2N40-2) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="2N40-2" />
 {
@@ -718,6 +718,28 @@ $CATEGORY: Mathalea/3e
 
 $CATEGORY: Mathalea/3e
 
+:: Mathalea - Recourir à une décomposition en facteurs premiers dans des cas simples (3A10-5) ::
+<script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+<mathalea-moodle ex\="3A10-5" />
+{
+    =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
+    #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+    <mathalea-moodle ex\="3A10-5" correction />
+}
+
+$CATEGORY: Mathalea/3e
+
+:: Mathalea - Trouver un chiffre pour qu'un nombre soit divisible par un autre (3A10-6) ::
+<script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+<mathalea-moodle ex\="3A10-6" />
+{
+    =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
+    #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+    <mathalea-moodle ex\="3A10-6" correction />
+}
+
+$CATEGORY: Mathalea/3e
+
 :: Mathalea - Résoudre des problèmes avec recherche de diviseurs communs (3A12-1) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="3A12-1" />
@@ -912,6 +934,17 @@ $CATEGORY: Mathalea/3e
     =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
     #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
     <mathalea-moodle ex\="3G22-1" correction />
+}
+
+$CATEGORY: Mathalea/3e
+
+:: Mathalea - Reconnaître des triangles égaux dans différentes configurations (3G23) ::
+<script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+<mathalea-moodle ex\="3G23" />
+{
+    =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
+    #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+    <mathalea-moodle ex\="3G23" correction />
 }
 
 $CATEGORY: Mathalea/3e
@@ -1147,24 +1180,13 @@ $CATEGORY: Mathalea/3e
 
 $CATEGORY: Mathalea/3e
 
-:: Mathalea - Yoh ku multiplicatif expressions littérales niveau 1 (3L11-8) ::
+:: Mathalea - Yohaku multiplicatif expressions littérales niveau 1 (3L11-8) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="3L11-8" />
 {
     =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
     #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
     <mathalea-moodle ex\="3L11-8" correction />
-}
-
-$CATEGORY: Mathalea/3e
-
-:: Mathalea - Rose multiplicative littéraux (3L11-9) ::
-<script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
-<mathalea-moodle ex\="3L11-9" />
-{
-    =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
-    #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
-    <mathalea-moodle ex\="3L11-9" correction />
 }
 
 $CATEGORY: Mathalea/3e
@@ -2775,6 +2797,17 @@ $CATEGORY: Mathalea/6e
 
 $CATEGORY: Mathalea/6e
 
+:: Mathalea - Indiquer un égalité à partir d'une division euclidienne (6C11-3) ::
+<script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+<mathalea-moodle ex\="6C11-3" />
+{
+    =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
+    #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+    <mathalea-moodle ex\="6C11-3" correction />
+}
+
+$CATEGORY: Mathalea/6e
+
 :: Mathalea - Poser divisions euclidiennes (6C11) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="6C11" />
@@ -2940,7 +2973,7 @@ $CATEGORY: Mathalea/6e
 
 $CATEGORY: Mathalea/6e
 
-:: Mathalea - Par combien multiplier un nombre pour que le chiffre des unités devienne le chiffre des ... (6C30-6) ::
+:: Mathalea - Par combien multiplier un nombre pour que le chiffre des unités devienne le chiffre des ... ? (6C30-6) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="6C30-6" />
 {
@@ -3501,7 +3534,7 @@ $CATEGORY: Mathalea/6e
 
 $CATEGORY: Mathalea/6e
 
-:: Mathalea - Par combien multiplier un entier pour que le chiffre des unités devienne le chiffre des ... (6N12-1) ::
+:: Mathalea - Par combien multiplier un entier pour que le chiffre des unités devienne le chiffre des ... ? (6N12-1) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="6N12-1" />
 {
@@ -3981,17 +4014,6 @@ $CATEGORY: Mathalea/6e
     =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
     #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
     <mathalea-moodle ex\="FichierDeTests" correction />
-}
-
-$CATEGORY: Mathalea/6e
-
-:: Mathalea - Générateur de Yohaku (Yohaku) ::
-<script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
-<mathalea-moodle ex\="Yohaku" />
-{
-    =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
-    #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
-    <mathalea-moodle ex\="Yohaku" correction />
 }
 
 $CATEGORY: Mathalea/CM
@@ -5481,7 +5503,7 @@ $CATEGORY: Mathalea/can/2e
 
 $CATEGORY: Mathalea/can/2e
 
-:: Mathalea - Déterminer l’image d’un nombre par une fonction de référence. (can2F13) ::
+:: Mathalea - Déterminer l’image d’un nombre par une fonction de référence (can2F13) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="can2F13" />
 {
@@ -7549,7 +7571,7 @@ $CATEGORY: Mathalea/can/6e
 
 $CATEGORY: Mathalea/can/6e
 
-:: Mathalea - Addition à trou Yohaku (can6C38) ::
+:: Mathalea - Trouver une valeur dans un Yohaku (additif) (can6C38) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="can6C38" />
 {
@@ -7560,7 +7582,7 @@ $CATEGORY: Mathalea/can/6e
 
 $CATEGORY: Mathalea/can/6e
 
-:: Mathalea - Multiplication à trou Yohaku (can6C39) ::
+:: Mathalea - Trouver une valeur dans un Yohaku (multiplicatif) (can6C39) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="can6C39" />
 {
@@ -7985,6 +8007,28 @@ $CATEGORY: Mathalea/can/6e
     =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
     #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
     <mathalea-moodle ex\="can6N15" correction />
+}
+
+$CATEGORY: Mathalea/can/6e
+
+:: Mathalea - Lire une abscisse (entière) sur une droite graduée * (can6N16) ::
+<script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+<mathalea-moodle ex\="can6N16" />
+{
+    =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
+    #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+    <mathalea-moodle ex\="can6N16" correction />
+}
+
+$CATEGORY: Mathalea/can/6e
+
+:: Mathalea - Lire une abscisse (décimale) sur une droite graduée* (can6N17) ::
+<script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+<mathalea-moodle ex\="can6N17" />
+{
+    =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
+    #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+    <mathalea-moodle ex\="can6N17" correction />
 }
 
 $CATEGORY: Mathalea/can/6e

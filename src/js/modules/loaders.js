@@ -7,6 +7,7 @@ import { clavierTrigo } from './interactif/claviers/trigo.js'
 import { clavierCollege } from './interactif/claviers/college.js'
 import { clavierLycee } from './interactif/claviers/lycee.js'
 import { clavierConfiguration } from './interactif/claviers/claviersUnites.js'
+import { clavierCollege6eme } from './interactif/claviers/college6eme.js'
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
  * @type {Object}
@@ -178,6 +179,9 @@ export async function loadMathLive () {
       }
       if (mf.classList.contains('lycee')) {
         mf.setOptions(clavierLycee)
+      }
+      if (mf.classList.contains('college6eme')) {
+        mf.setOptions(clavierCollege6eme)
       }
       if (mf.classList.contains('longueur')) {
         mf.setOptions(clavierLongueur)

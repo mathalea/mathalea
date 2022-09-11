@@ -23,7 +23,6 @@ export default function ResoudreUneEquationProduitNul () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Résoudre les équations suivantes'
   this.nbQuestions = 5
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -33,6 +32,7 @@ export default function ResoudreUneEquationProduitNul () {
   this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
+    this.consigne = 'Résoudre ' + (this.nbQuestions !== 1 ? 'les équations suivantes' : 'l\'équation suivante') + '.'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let listeTypeDeQuestions = []

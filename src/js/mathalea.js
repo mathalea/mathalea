@@ -276,7 +276,7 @@ function contenuExerciceHtml (obj, numeroExercice) {
   let paramTooltip = ''
   let iconeInteractif = ''
   // Pour factoriser les entrées des exos statiques
-  const factoExosStatiques = ['crpe', 'dnb', 'bac', 'e3c']
+  const factoExosStatiques = ['crpe', 'dnb', 'bac', 'e3c', 'crpeCoop']
   if (factoExosStatiques.includes(obj.typeExercice)) {
     const crpe = {
       titreEx: `<h3> Exercice ${numeroExercice} − CRPE ${obj.annee} - ${obj.lieu} - ${obj.numeroInitial}</h3>`,
@@ -316,6 +316,9 @@ function contenuExerciceHtml (obj, numeroExercice) {
       case 'crpe':
         contenuUnExercice += crpe.titreEx
         break
+      case 'crpeCoop':
+        contenuUnExercice += crpe.titreEx
+        break
       case 'dnb':
         contenuUnExercice += dnb.titreEx
         break
@@ -338,6 +341,14 @@ function contenuExerciceHtml (obj, numeroExercice) {
         }
       }
         break
+      case 'crpeCoop': {
+        let i = 1
+        for (const png of obj.png) {
+          contenuUnExercice += `<img id="${obj.id}-${i}" width="90%" src="${png}">`
+          i++
+        }
+      }
+        break
       case 'dnb':
       case 'bac':
       case 'e3c':
@@ -348,6 +359,9 @@ function contenuExerciceHtml (obj, numeroExercice) {
 
     switch (obj.typeExercice) {
       case 'crpe':
+        contenuUneCorrection += crpe.titreExCorr
+        break
+      case 'crpeCoop':
         contenuUneCorrection += crpe.titreExCorr
         break
       case 'dnb':
@@ -367,6 +381,14 @@ function contenuExerciceHtml (obj, numeroExercice) {
       contenuUneCorrection += '<div><div class="correction">'
       switch (obj.typeExercice) {
         case 'crpe': {
+          let i = 1
+          for (const png of obj.pngCor) {
+            contenuUneCorrection += `<img id="${obj.id}-${i}Cor" width="90%" src="${png}">`
+            i++
+          }
+        }
+          break
+        case 'crpeCoop': {
           let i = 1
           for (const png of obj.pngCor) {
             contenuUneCorrection += `<img id="${obj.id}-${i}Cor" width="90%" src="${png}">`
@@ -453,9 +475,9 @@ function contenuExerciceHtml (obj, numeroExercice) {
         }
         // Pour la numérotation de diapCorr, il faut qu'il y ait toujours des listes même s'il n'y a qu'une seule question
         if (obj.nbQuestions === 1 && context.vue !== 'diapCorr') {
-          contenuUneCorrection += obj.correctionIsCachee ? 'Correction masquée' : `<div><div class="correction">${obj.contenuCorrection}</div></div>`
+          contenuUneCorrection += obj.correctionIsCachee ? 'Correction masquée' : `<div><div class="correction">${obj.correction}</div></div>`
         } else {
-          contenuUneCorrection += `<li class="correction">${obj.correctionIsCachee ? 'Correction masquée' : obj.contenuCorrection}</li>`
+          contenuUneCorrection += `<li class="correction">${obj.correctionIsCachee ? 'Correction masquée' : obj.correction}</li>`
         }
         numQuestion++
       }
@@ -1442,25 +1464,33 @@ async function miseAJourDeLaListeDesExercices (preview) {
         throw getUnknownError(id)
       }
 
-      if (dictionnaireDesExercices[id].typeExercice === 'dnb' || dictionnaireDesExercices[id].typeExercice === 'bac' || dictionnaireDesExercices[id].typeExercice === 'e3c') {
+      if (dictionnaireDesExercices[id].typeExercice === 'dnb' || dictionnaireDesExercices[id].typeExercice === 'bac' || dictionnaireDesExercices[id].typeExercice === 'e3c' || dictionnaireDesExercices[id].typeExercice === 'crpe') {
         listeObjetsExercice[i] = dictionnaireDesExercices[id]
-        promises.push(
-          window.fetch(url)
-            .then((response) => response.text())
-            .then((data) => {
-              listeObjetsExercice[i].nbQuestionsModifiable = false
-              listeObjetsExercice[i].video = ''
-              listeObjetsExercice[i].titre = id
-              listeObjetsExercice[i].contenu = data
-            })
-        )
-        promises.push(
-          window.fetch(dictionnaireDesExercices[id].urlcor)
-            .then((response) => response.text())
-            .then((data) => {
-              listeObjetsExercice[i].contenuCorrection = listeObjetsExercice[i].correctionIsCachee ? 'Correction masquée' : data
-            })
-        )
+        if (url) {
+          promises.push(
+            window.fetch(url)
+              .then((response) => response.text())
+              .then((data) => {
+                listeObjetsExercice[i].nbQuestionsModifiable = false
+                listeObjetsExercice[i].video = ''
+                listeObjetsExercice[i].titre = id
+                listeObjetsExercice[i].contenu = data
+              })
+          )
+          promises.push(
+            window.fetch(dictionnaireDesExercices[id].urlcor)
+              .then((response) => response.text())
+              .then((data) => {
+                listeObjetsExercice[i].contenuCorrection = listeObjetsExercice[i].correctionIsCachee ? 'Correction masquée' : data
+              })
+          )
+        } else {
+          listeObjetsExercice[i].nbQuestionsModifiable = false
+          listeObjetsExercice[i].video = ''
+          listeObjetsExercice[i].titre = id
+          listeObjetsExercice[i].contenu = 'Exercice non disponible en LaTeX.'
+          listeObjetsExercice[i].contenuCorrection = 'Exercice non disponible en LaTeX.'
+        }
         if (typeof dictionnaireDesExercices[id].urlcorcoop !== 'undefined') {
           promises.push(
             window.fetch(dictionnaireDesExercices[id].urlcorcoop)
@@ -1470,13 +1500,13 @@ async function miseAJourDeLaListeDesExercices (preview) {
               })
           )
         }
-      } else if (dictionnaireDesExercices[id].typeExercice === 'crpe') {
-        listeObjetsExercice[i] = dictionnaireDesExercices[id]
-        listeObjetsExercice[i].nbQuestionsModifiable = false
-        listeObjetsExercice[i].video = ''
-        listeObjetsExercice[i].titre = id
-        listeObjetsExercice[i].contenu = 'Exercice non disponible en version LaTeX'
-        listeObjetsExercice[i].contenuCorrection = 'Exercice non disponible en version LaTeX'
+      // } else if (dictionnaireDesExercices[id].typeExercice === 'crpe') {
+      //   listeObjetsExercice[i] = dictionnaireDesExercices[id]
+      //   listeObjetsExercice[i].nbQuestionsModifiable = false
+      //   listeObjetsExercice[i].video = ''
+      //   listeObjetsExercice[i].titre = id
+      //   listeObjetsExercice[i].contenu = 'Exercice non disponible en version LaTeX'
+      //   listeObjetsExercice[i].contenuCorrection = 'Exercice non disponible en version LaTeX'
       } else {
         // avec webpack on ne peut pas faire de import(url), car il faut lui indiquer quels fichiers sont susceptibles d'être chargés
         // ici il ne peut s'agir que de js contenus dans exercices (dnb,bac,e3c,crpe déjà traité dans le if au dessus)

@@ -45,11 +45,7 @@ export default function ExerciceInequationProduit () {
     let listeTypeDeQuestions // Stockera la liste des types de questions
     let correctionInteractif // Pour récupérer l'intervalle solution à saisir
     const separateur = ';'
-    if (this.nbQuestions === 1) {
-      this.consigne = 'Résoudre l\'inéquation suivante :'
-    } else {
-      this.consigne = 'Résoudre les inéquations suivantes :'
-    }
+    this.consigne = 'Résoudre ' + (this.nbQuestions !== 1 ? 'les inéquations suivantes' : 'l\'inéquation suivante') + '.'
     // Convertit le paramètre this.sup en type de question
     switch (this.sup.toString()) {
       case '1':

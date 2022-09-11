@@ -464,12 +464,18 @@ export default function SujetCAN2022Premiere () {
 
         case 15:
           a = randint(1, 9)
-          b = new Decimal(randint(1, 9)).div(10)
-          c = new Decimal(randint(1, 9, b)).div(100)
-          d = new Decimal(randint(1, 9, [b, c])).div(1000)
-          e = new Decimal(randint(0, 9, [b, c, d])).div(10000)
-          f = new Decimal(randint(0, 9, [b, c, d, e])).div(100000)
-          g = new Decimal(randint(1, 9, [b, c, d, e, f])).div(1000000)
+          b = randint(1, 9)
+          c = randint(1, 9, b)
+          d = randint(1, 9, [b, c])
+          e = randint(0, 9, [b, c, d])
+          f = randint(0, 9, [b, c, d, e])
+          g = randint(1, 9, [b, c, d, e, f])
+          b = new Decimal(b).div(10)
+          c = new Decimal(c).div(100)
+          d = new Decimal(d).div(1000)
+          e = new Decimal(e).div(10000)
+          f = new Decimal(f).div(100000)
+          g = new Decimal(g).div(1000000)
           nbre = new Decimal(a).add(b).add(c).add(d).add(e).add(f).add(g)
           if (choice([true, false])) {
             texte = `Donner l'arrondi au millième de $${texNombre(nbre, 6)}$.

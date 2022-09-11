@@ -34,7 +34,7 @@ export default function EchellesProblemes () {
     this.listeCorrections = [] // Liste de questions corrigées
     // Ebauche de la consigne en fonction des possibilités
     const chaqueCe = ['chaque', 'ce']
-    this.consigne = 'Résouds '
+    this.consigne = 'Résoudre '
     this.consigne += this.nbQuestions === 1 ? chaqueCe[1] : chaqueCe[0]
     this.consigne += ' problème, lié à une échelle sur un plan.'
     // Fin de l'ébauche de la consigne en fonction des possibilités

@@ -11,6 +11,8 @@ export const dateDePublication = '29/08/2022'
  * @author Gilles Mora
  *
  */
+export const uuid = 'fb7ac'
+export const ref = 'can6N16'
 export default function AbscisseDroiteEntiers () {
   Exercice.call(this)
   this.typeExercice = 'simple'

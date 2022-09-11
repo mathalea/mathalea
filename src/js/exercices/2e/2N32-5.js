@@ -12,7 +12,7 @@ export const ref = '2N32-5'
 export default function DoubleDistributiviteAvecRacineCarree () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = ' Effectuer les calculs suivants :'
+  this.consigne = ' Effectuer les calculs suivants.'
   this.nbQuestions = 5
   this.nbCols = 2
   this.nbColsCorr = 2

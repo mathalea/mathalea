@@ -1,4 +1,5 @@
 import { number, add, unequal, largerEq, fraction, equal, multiply, inv, matrix, max } from 'mathjs'
+import FractionX from './FractionEtendue.js'
 import { calcul, arrondi, ecritureAlgebrique, egal, randint, rienSi1, ecritureAlgebriqueSauf1, choice } from './outils.js'
 /**
 * Convertit un angle de radian vers degrés et fonction inverse
@@ -63,6 +64,7 @@ export function atan (x) {
 }
 /**
  * retourne un décimal sans décimales bizarres
+ * Déprécié -> utiliser la classe Decimal de Decimal.js pour travailler avec de vrais décimaux
  * @author Jean-Claude Lhote
  */
 export function calcule (a, arrondir = false) {
@@ -83,6 +85,7 @@ export function calcule (a, arrondir = false) {
 
 /**
  * retourne une chaine contenant le résultat du calcul avec la virgule comme séparateur et pas de décimales bizarres
+ * déprécié -> utiliser Decimal.toString() pour travailler avec les décimaux
  * @author Jean-Claude Lhote
  */
 export function calculeS (a, arrondir = false) {
@@ -102,6 +105,13 @@ export function calculeS (a, arrondir = false) {
   }
   result[1] = result[1].replace(/[0]*$/, '')
   if (result[1].length !== 0) { return result[0] + ',' + result[1] } else return result[0]
+}
+
+export function fractionLatexToMathjs (fractionLatex) {
+  const parts = fractionLatex.split('{')
+  const num = Number(parts[1].substring(0, parts[1].length - 1))
+  const den = Number(parts[2].substring(0, parts[2].length - 1))
+  return new FractionX(num, den)
 }
 /**
  * delta(true) retourne dans un tableau des valeurs de a, b, c telles que b*b-4*a*c >0
