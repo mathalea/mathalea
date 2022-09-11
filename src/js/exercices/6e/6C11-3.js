@@ -9,7 +9,7 @@ export const amcType = 'AMCOpen' // type de question AMC
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const titre = 'Indiquer un égalité à partir d\'une division euclidienne'
+export const titre = 'Indiquer une égalité à partir d\'une division euclidienne'
 
 export const dateDePublication = '09/09/2022'
 
