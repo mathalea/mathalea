@@ -73,16 +73,16 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
       objetsCorrection.push(afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), afficheLongueurSegment(D, C), afficheLongueurSegment(A, D), afficheLongueurSegment(A, C, 'blue'))
       const anim = new Alea2iep()
       anim.recadre(-longueurFigure, 2 * largeurFigure) // Déplace l'origine du repère (à mettre en premier obligatoirement)
-      anim.pointCreer(A, { dx: -0.5, dy: -0.5 }) // On déplace les labels des points avec dx et dy
+      anim.pointCreer(A, { dx: -0.5, dy: -0.5, label: nomPoly.charAt(0) }) // On déplace les labels des points avec dx et dy
       anim.regleMontrer(A)
       anim.regleSegment(A, B)
-      anim.pointCreer(B, { dx: 0.2, dy: -0.5 })
+      anim.pointCreer(B, { dx: 0.2, dy: -0.5, label: nomPoly.charAt(1) })
       anim.equerreMontrer(B)
       anim.equerreRotation(90)
       anim.regleDeplacer(B)
       anim.regleRotation(90)
       anim.equerreMasquer()
-      anim.pointCreer(C, { dx: 0.2, dy: 0.8 })
+      anim.pointCreer(C, { dx: 0.2, dy: 0.8, label: nomPoly.charAt(2) })
       anim.tracer(C)
       anim.equerreMontrer(C)
       anim.equerreRotation(90)
@@ -91,7 +91,7 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
       anim.equerreMasquer()
       anim.regleDeplacer(C)
       anim.regleRotation(180)
-      anim.pointCreer(D, { dx: -0.5, dy: 0.8 })
+      anim.pointCreer(D, { dx: -0.5, dy: 0.8, label: nomPoly.charAt(3) })
       anim.regleSegment(D, A)
       anim.regleMasquer()
       anim.crayonMasquer()
@@ -99,7 +99,7 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
       if (listeTypeDeQuestions[i] === 'Rectangle') texte += ` et $${B.nom + C.nom} = ${texNombre(largeurFigure, 2)}~\\text{cm}$`
       texte += '.<br>'
       texteCorr = ''
-      texteCorr += anim.htmlBouton()
+      texteCorr += anim.htmlBouton(numeroExercice, i)
       texteCorr += `<br><br>Pour l'auto-correction, on peut vérifier que $[${A.nom + C.nom}]$ et $[${B.nom + D.nom}]$ mesurent bien tous les deux $${texNombre(longueurAC, 1)}~\\text{cm}$`
       // Les lignes ci-dessous permettent d'avoir un affichage aux dimensions optimisées
       const xmin = Math.min(A.x, B.x, C.x, D.x) - 2
@@ -111,7 +111,7 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
       // On ajoute au texte de la correction, la figure de la correction
       texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
       // Si la question n'a jamais été posée, on l'enregistre
-      if (this.questionJamaisPosee(i)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, longueurFigure, largeurFigure)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         // Dans cet exercice, on n'utilise pas a, b, c et d mais A, B, C et D alors remplace-les !
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
