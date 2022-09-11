@@ -8,7 +8,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 
-export const dateDeModifImportante = '07/11/2021'
+export const dateDeModifImportante = '09/09/2022'
 
 /**
  * Le nombre de dizaines, centaines et milliers étant donné, il faut écrire le nombre.
@@ -38,10 +38,12 @@ export default function ExerciceNumerationEntier () {
     this.autoCorrection = []
     let listeTypeDeQuestions = []
     if (this.sup2) { // Vers les unités
-      this.consigne = 'Écrire en chiffres chacun des nombres.'
+      this.consigne = 'Écrire en chiffres '
+      this.consigne += this.nbQuestions === 1 ? 'ce nombre.' : 'chacun des nombres.'
     } else { // Vers les dizaines, centaines, milliers....
       this.consigne = 'Compléter.'
     }
+    this.consigne += this.interactif ? ' Penser à mettre les espaces nécessaires.' : ''
     if (this.sup2) { this.sup3 = 1 } // Si entiers à 1 chiffres choisis, chevauchement impossible.
     if (this.sup3 === 1) { // Sans chevauchement
       listeTypeDeQuestions = combinaisonListes(
@@ -112,11 +114,11 @@ export default function ExerciceNumerationEntier () {
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         if (this.sup2) {
-          setReponse(this, i, b * Math.pow(10, rangB) + a * Math.pow(10, rangA), { digits: 0 })
-          texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+          setReponse(this, i, texNombre(b * Math.pow(10, rangB) + a * Math.pow(10, rangA)), { formatInteractif: 'texte' })
+          texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline college6eme')
         } else {
-          setReponse(this, i, b * Math.pow(10, rangB - rangRef) + a * Math.pow(10, rangA - rangRef), { digits: 0 })
-          texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: `$\\text{ ${rangs[rangRef]}.}$` })
+          setReponse(this, i, texNombre(b * Math.pow(10, rangB - rangRef) + a * Math.pow(10, rangA - rangRef)), { formatInteractif: 'texte' })
+          texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline college6eme', { texteApres: `$\\text{ ${rangs[rangRef]}.}$` })
         }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

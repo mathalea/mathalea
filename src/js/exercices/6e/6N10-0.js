@@ -34,6 +34,7 @@ export default function EcrireNombresEntiers () {
     if (parseInt(this.sup) === 2) {
       this.consigne = 'Écrire le nombre en chiffres.'
       typeDeConsigne = combinaisonListes([2], this.nbQuestions)
+      if (this.interactif) this.consigne = 'Écrire le nombre en chiffres sans oublier les espaces.'
     }
     if (parseInt(this.sup) === 3) {
       this.consigne = 'Passer de l\'écriture en chiffres à celle en lettres et inversement.'
@@ -79,8 +80,8 @@ export default function EcrireNombresEntiers () {
         if (context.vue !== 'diap') texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre)}`
         else texteCorr = `${nombreEnLettres(nombre)}`
       } else {
-        setReponse(this, i, nombre)
-        if (context.vue !== 'diap') texte = `${nombreEnLettres(nombre)} ${!this.interactif ? ' :  $' : '<br>' + ajouteChampTexteMathLive(this, i)}`
+        setReponse(this, i, texNombre(nombre), { formatInteractif: 'texte' })
+        if (context.vue !== 'diap') texte = `${nombreEnLettres(nombre)} ${!this.interactif ? ' :  ' : ' <br>' + ajouteChampTexteMathLive(this, i, 'college6eme')}`
         else texte = `${nombreEnLettres(nombre)}`
         if (context.vue !== 'diap') texteCorr = `${nombreEnLettres(nombre)} : $${texNombre(nombre)}$`
         else texteCorr = `$${texNombre(nombre)}$`
