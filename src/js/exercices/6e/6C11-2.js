@@ -69,6 +69,13 @@ export default function VocabulaireDivisionEuclidienne () {
           Nbutilises[3] = randint(4, min(Nbutilises[2], Nbutilises[1]) - 1)
           break
         default :
+          if (randint(0, 1) === 0) {
+            Nbutilises[2] = randint(4, Nbutilises[1] - 1)
+            Nbutilises[3] = randint(Nbutilises[2], Nbutilises[1] - 1)
+          } else {
+            Nbutilises[2] = randint(5, 99, [Nbutilises[1]])
+            Nbutilises[3] = randint(4, min(Nbutilises[2], Nbutilises[1]) - 1)
+          }
           Nbutilises[2] = randint(5, 99, [Nbutilises[1]])
           Nbutilises[3] = randint(4, max(Nbutilises[2], Nbutilises[1]) - 1, [min(Nbutilises[2], Nbutilises[1])])
           break
@@ -184,7 +191,7 @@ export default function VocabulaireDivisionEuclidienne () {
   ]
   this.besoinFormulaire4Numerique = [
     'Choix sur le nombre de divisions euclidiennes associées à chaque égalité',
-    2,
+    3,
     '1 : Une seule division euclidienne associée\n2 : Deux divisions euclidiennes associées\n3 : Mélange'
   ]
 }
