@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 493 
-- nombre d'exos interactifReady 769 
+- nombre d'exos interactifReady 770 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -261,7 +261,7 @@
 |6C10|Poser additions, soustractions et multiplications de nombres entiers|OK|AMCHybride|OK|mathLive|
 |6C11-1|Déterminer reste et quotient d'une division euclidienne à partir d'une égalité|OK|AMCOpenNum✖︎2|OK|mathLive|
 |6C11-2|Trouver le vocabulaire associé aux termes de l'égalité issue de la division euclidienne|OK|AMCOpen|OK|mathLive|
-|6C11-3|Indiquer un égalité à partir d'une division euclidienne|OK|AMCOpen|OK|mathLive|
+|6C11-3|Indiquer une égalité à partir d'une division euclidienne|OK|AMCOpen|OK|mathLive|
 |6C11|Poser divisions euclidiennes|OK|AMCOpen|OK|mathLive|
 |6C12-1|Résoudre des problèmes de masses|OK|AMCHybride|OK|mathLive|
 |6C12-3|Trouver les informations utiles ou inutiles pour résoudre des problèmes|OK|qcmMult|OK|qcm|
@@ -672,6 +672,7 @@
 |can5P06|Ecrire sous la forme d’un pourcentage|OK|AMCNum|OK|mathLive|
 |can5P07|Résoudre un problème de proportionnalité*|OK|AMCNum|OK|mathLive|
 |can5P08|Résoudre un problème de proportionnalité**|OK|AMCNum|OK|mathLive|
+|can5a-2020|CAN 5ième sujet 2020|KO|KO|OK|mathLive|
 |can5a-2021|CAN 5ième sujet 2021|KO|KO|OK|mathLive|
 |can5a-2022|CAN 5ième sujet 2022|KO|KO|OK|mathLive|
 |can5a-xxxx|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
