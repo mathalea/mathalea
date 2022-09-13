@@ -1,6 +1,9 @@
 import EqResolvantesThales from '../3e/3L13-2.js'
 export const titre = 'Déterminer une quatrième proportionnelle dans un tableau'
 
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const dateDeModificationImportante = '04/04/2022'
 /**
  * * Quatrieme proportionnelle dans un tableau du type
  * ---------
@@ -14,6 +17,8 @@ export const titre = 'Déterminer une quatrième proportionnelle dans un tableau
  * @author Sébastien Lozano
  */
 
+export const uuid = 'a6b5b'
+export const ref = '4P10-2'
 export default function TableauxEtQuatriemeProportionnelle () {
   EqResolvantesThales.call(this)
   this.exo = '4P10-2'

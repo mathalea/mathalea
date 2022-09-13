@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { fraction } from '../../../modules/fractions'
+import { fraction } from '../../../modules/fractions.js'
 import { randint, calcul, miseEnEvidence } from '../../../modules/outils.js'
 export const titre = 'Déterminer un antécédent avec la racine carrée'
 export const interactifReady = true
@@ -13,6 +13,8 @@ export const dateDePublication = '1/11/2021' // La date de publication initiale 
  * @author Gilles Mora
  * Référence can2F05
 */
+export const uuid = '82d4a'
+export const ref = 'can2F05'
 export default function AntecedentFonctionRacine () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

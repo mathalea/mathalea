@@ -1,15 +1,24 @@
-import { context } from '../../modules/context'
+import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
-import { calcul, contraindreValeur, listeQuestionsToContenu, randint, sp, texteEnCouleur } from '../../modules/outils'
-import Exercice from '../Exercice'
+import { calcul, combinaisonListes, contraindreValeur, listeQuestionsToContenu, randint, sp, texteEnCouleur } from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
 export const titre = 'Convertir en min vers h et min ou en s vers min et s'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
+export const dateDeModifImportante = '14/05/2022'
 
+/**
+ *
+ * @author
+ * Référence 6D13
+ * Ajout d'une option "Mélange" par Guillaume Valmont le 14/05/2022
+*/
+export const uuid = '4f8f4'
+export const ref = '6D13'
 export default function ConversionHeuresMinutesOuMinutesEtSecondes (can = false) {
   Exercice.call(this)
   this.nbQuestions = 5
@@ -17,15 +26,19 @@ export default function ConversionHeuresMinutesOuMinutesEtSecondes (can = false)
   this.correctionDetaillee = false
   this.sup = 1
   this.nouvelleVersion = function () {
-    this.sup = contraindreValeur(1, 2, this.sup, 1)
+    this.sup = contraindreValeur(1, 3, this.sup, 1)
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
+    let typeQuestionsDisponibles = ['min vers h et min', 's vers min et s']
+    if (this.sup === 1) typeQuestionsDisponibles = ['min vers h et min']
+    else if (this.sup === 2) typeQuestionsDisponibles = ['s vers min et s']
+    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, cpt = 0, a, b, d, texte, texteCorr; i < this.nbQuestions && cpt < 50;) {
       a = randint(2, 4)
       b = randint(10, 59)
       d = calcul(a * 60 + b)
-      if (this.sup === 1) {
+      if (listeTypeQuestions[i] === 'min vers h et min') {
         texte = `Convertir $${d}$ minutes en heures(h) et minutes(min) :` + ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: sp(5), texteApres: ' h ' }) +
         ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texte: sp(5), texteApres: ' min ' })
       } else {
@@ -33,7 +46,7 @@ export default function ConversionHeuresMinutesOuMinutesEtSecondes (can = false)
         ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texte: sp(5), texteApres: ' s ' })
       }
       if (can) {
-        if (this.sup === 1) {
+        if (listeTypeQuestions[i] === 'min vers h et min') {
           texteCorr = texteEnCouleur(`
     <br> Mentalement : <br>
 On cherche le multiple de $60$ inférieur à $${d}$ le plus grand possible. C'est $${Math.floor(d / 60)}\\times 60 = ${Math.floor(d / 60) * 60}$.<br>
@@ -51,7 +64,7 @@ Ainsi $${d} = ${Math.floor(d / 60) * 60} + ${d % 60}$ donc $${d}$min $= ${Math.f
           texteCorr = ''
         }
       }
-      if (this.sup === 1) {
+      if (listeTypeQuestions[i] === 'min vers h et min') {
         texteCorr += `$${d} = ${a} \\times 60 + ${b}$ donc $${d}$ minutes = ${a}h ${b}min.`
       } else {
         texteCorr += `$${d} = ${a} \\times 60 + ${b}$ donc $${d}$ s = ${a}min ${b}s.`
@@ -60,7 +73,7 @@ Ainsi $${d} = ${Math.floor(d / 60) * 60} + ${d % 60}$ donc $${d}$min $= ${Math.f
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         if (context.isAmc) {
-          if (this.sup === 1) {
+          if (listeTypeQuestions[i] === 'min vers h et min') {
             this.autoCorrection[i] = {
               enonce: texte,
               options: { multicols: true },
@@ -153,5 +166,5 @@ Ainsi $${d} = ${Math.floor(d / 60) * 60} + ${d % 60}$ donc $${d}$min $= ${Math.f
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type d\'unité de départ', 2, '1 : Minutes\n2 : Secondes']
+  this.besoinFormulaireNumerique = ['Type d\'unité de départ', 3, '1 : Minutes\n2 : Secondes\n3 : Mélange']
 }

@@ -1,9 +1,10 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, choisitLettresDifferentes, lettreDepuisChiffre, arcenciel, texNombre } from '../../modules/outils.js'
-import { point, tracePoint, labelPoint, segment, dansLaCibleCarree, cibleCarree, homothetie, longueur, mathalea2d } from '../../modules/2d.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { listeQuestionsToContenu, randint, choisitLettresDifferentes, lettreDepuisChiffre, arcenciel, texNombre } from '../../modules/outils.js'
+import { point, tracePoint, labelPoint, segment, dansLaCibleCarree, cibleCarree, homothetie, longueur } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 import { context } from '../../modules/context.js'
-export const titre = 'Construire l’image d’un point par une homothetie avec cible auto-corrective'
+export const titre = 'Construire l\'image d\'un point par une homothetie avec cible auto-corrective'
 
 /**
 * Construction d'images par homothétie avec dispositif d'auto-correction aléatoire
@@ -11,6 +12,8 @@ export const titre = 'Construire l’image d’un point par une homothetie avec 
 * @author Jean-Claude Lhote
 * Publié le 30/11/2020
 */
+export const uuid = '18e25'
+export const ref = '3G11'
 export default function ConstruireHomothetiePoint3e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -48,21 +51,21 @@ export default function ConstruireHomothetiePoint3e () {
     let xMin, yMin, xMax, yMax;
     [xMin, yMin, xMax, yMax] = [0, 0, 0, 0]
     for (let i = 0; i < nbpoints; i++) { // On place les cibles.
-      N.push(point(calcul(randint(-60, 60, 0) / 10), calcul(randint(-60, 60, 0) / 10), noms[i] + "'"))
+      N.push(point(randint(-60, 60, 0) / 10, randint(-60, 60, 0) / 10, noms[i] + "'"))
       nontrouve = true
       while (longueur(N[i], O) < 3 || nontrouve) {
         nontrouve = true
         if (longueur(N[i], O) < 3) {
-          N[i].x = calcul(randint(-60, 60, 0) / 10)
-          N[i].y = calcul(randint(-60, 60, 0) / 10)
+          N[i].x = randint(-60, 60, 0) / 10
+          N[i].y = randint(-60, 60, 0) / 10
         } else {
           assezloin = true
           for (let j = 0; j < i; j++) {
             if (longueur(N[i], N[j]) < 4.5) { assezloin = false }
           }
           if (assezloin === false) { // éloigner les points donc les grilles
-            N[i].x = calcul(randint(-60, 60, 0) / 10)
-            N[i].y = calcul(randint(-60, 60, 0) / 10)
+            N[i].x = randint(-60, 60, 0) / 10
+            N[i].y = randint(-60, 60, 0) / 10
           } else { nontrouve = false }
         }
       }
@@ -74,9 +77,7 @@ export default function ConstruireHomothetiePoint3e () {
     for (let i = 0; i < nbpoints; i++) {
       cellules.push(celluleAlea(4))
       result = dansLaCibleCarree(N[i].x, N[i].y, 4, 0.6, cellules[i])
-      cible = cibleCarree({ x: result[0], y: result[1], rang: 4, num: i + 1, taille: 0.6 })
-      cible.taille = 0.6
-      cible.color = 'orange'
+      cible = cibleCarree({ x: result[0], y: result[1], rang: 4, num: i + 1, taille: 0.6, color: '#f15929' })
       cible.opacite = 0.7
       cibles.push(cible)
     }

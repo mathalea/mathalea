@@ -12,16 +12,22 @@ export const dateDeModifImportante = '27/01/2022'
  * @author Rémi Angot
  * Référence c3c23
 */
+export const uuid = '3a087'
+export const ref = 'c3C23'
 export default function CalculsFractionsSimples () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.formatInteractif = 'fractionEgale'
   this.nbQuestions = 6
   this.sup = 4
-  this.consigne = 'Calculer'
+  this.consigne = 'Calculer :'
   this.tailleDiaporama = 4
+  this.version = 'c3'
 
   this.nouvelleVersion = function (i) {
+    if (this.version === '6') {
+      this.sup = 4
+    }
     const den = choice([2, 3, 4, 5, 10])
     let a = randint(1, 10, [den, 2 * den, 3 * den, 4 * den])
     let b = randint(1, 10, [den, 2 * den, 3 * den, 4 * den])
@@ -42,5 +48,4 @@ export default function CalculsFractionsSimples () {
     }
     this.reponse = new FractionX(num, den)
   }
-  this.besoinFormulaireNumerique = ['Opérations', 5, '1 : Additions uniquement\n2 : Soustractions uniquement\n3: Multiplications par un entier uniquement\n4: Additions et soustractions\n5: Additions, soustractions ou multiplications par un entier']
 }

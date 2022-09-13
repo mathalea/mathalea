@@ -11,6 +11,8 @@ export const dateDePublication = '25/10/2021'
  * Référence can3F06
 */
 
+export const uuid = '17987'
+export const ref = 'can3F06'
 export default function CoefficientFonctionAffine () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
@@ -20,7 +22,7 @@ export default function CoefficientFonctionAffine () {
   this.nouvelleVersion = function () {
     const b = randint(-3, 3, 0)
     const c = randint(1, 5)
-    const n = choice([-3, -2, 2, 3])
+    const n = choice([-4, -3, -2, 2, 3, 4])
     const d = b + n * c
     if (b > 0) {
       this.question = `$f$ est une fonction affine telle que $f(x)=ax+${b}$ et $f(${c})=${d}$.<br>

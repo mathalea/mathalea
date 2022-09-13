@@ -2,7 +2,7 @@
   For determining the type of a mathJS node.
  */
 
-const NodeType = {}
+export const NodeType = {}
 
 NodeType.isOperator = function (node, operator = null) {
   return node.type === 'OperatorNode' &&
@@ -88,5 +88,3 @@ NodeType.isIntegerFraction = function (node, allowUnaryMinus = false) {
   return (Number.isInteger(parseFloat(numerator.value)) &&
           Number.isInteger(parseFloat(denominator.value)))
 }
-
-module.exports = NodeType

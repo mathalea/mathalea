@@ -1,11 +1,12 @@
-import { codageAngleDroit, droiteParPointEtPente, droiteVerticaleParPoint, mathalea2d, point, segment, milieu, pointSurDroite, tracePoint, codeSegments, repere2, labelPoint, droiteHorizontaleParPoint, afficheMesureAngle, vecteur } from '../../modules/2d.js'
+import { codageAngleDroit, droiteParPointEtPente, droiteVerticaleParPoint, point, segment, milieu, pointSurDroite, tracePoint, codageSegments, repere, labelPoint, droiteHorizontaleParPoint, afficheMesureAngle, vecteur } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, choice, combinaisonListes, imagePointParTransformation, texFractionReduite, texNombrec, texNombre } from '../../modules/outils.js'
 import { calcule } from '../../modules/fonctionsMaths.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-export const titre = 'Trouver les coordonnées de l’image d’un point par une transformation du plan'
+export const titre = 'Trouver les coordonnées de l\'image d\'un point par une transformation du plan'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -16,6 +17,8 @@ export const amcType = 'AMCHybride'
  * @author Jean-Claude Lhote
  * 3G10-1
  */
+export const uuid = 'd4088'
+export const ref = '3G10-1'
 export default function TransformationsDuPlanEtCoordonnees () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -49,9 +52,9 @@ export default function TransformationsDuPlanEtCoordonnees () {
     const transformation = parseInt(this.sup) - 1
     let listeTypeDeQuestions
     if (this.sup2) {
-      listeTypeDeQuestions = [[1, 2, 3, 4], [7], [8], [5, 6, 9, 10]]
+      listeTypeDeQuestions = [[1, 2, 3, 4], [7], [8], [5, 6], [9, 10]]
     } else {
-      listeTypeDeQuestions = [[1, 2, 3, 4], [3, 4, 7, 7], [1, 3, 7, 8, 7, 8], [1, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10]]
+      listeTypeDeQuestions = [[1, 2, 3, 4], [3, 4, 7, 7], [1, 3, 7, 8, 7, 8], [1, 4, 5, 5, 6, 6, 7, 7, 8, 8], [1, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10]]
     }
     const choixTransformation = combinaisonListes(listeTypeDeQuestions[transformation], 3)
     for (let j = 0; j < 3; j++) {
@@ -64,10 +67,10 @@ export default function TransformationsDuPlanEtCoordonnees () {
     const yO = randint(-3, 3, [0, -1])
     const pointO = point(0, 0, 'O', 'above right')
     const O = point(xO, yO, "O'", 'above left') // on crée le point O'
-    const droited1 = droiteParPointEtPente(O, 1, '(d_1)') // et les trois axes passant par O'
-    const droited = droiteHorizontaleParPoint(O, '(d)')
-    const droited2 = droiteParPointEtPente(O, -1, '(d_2)')
-    const droitedprime = droiteVerticaleParPoint(O, "(d')")
+    const droited1 = droiteParPointEtPente(O, 1, '$(d_1)$') // et les trois axes passant par O'
+    const droited = droiteHorizontaleParPoint(O, '$(d)$')
+    const droited2 = droiteParPointEtPente(O, -1, '$(d_2)$')
+    const droitedprime = droiteVerticaleParPoint(O, "$(d')$")
     droited1.isVisible = true
     droited2.isVisible = true
     droited.isVisible = true
@@ -76,12 +79,12 @@ export default function TransformationsDuPlanEtCoordonnees () {
     droited2.epaisseur = 2
     droited.epaisseur = 2
     droitedprime.epaisseur = 2
-    droited1.color = 'green'
-    droited2.color = 'green'
-    droited.color = 'green'
-    droitedprime.color = 'green'
+    droited1.color = colorToLatexOrHTML('green')
+    droited2.color = colorToLatexOrHTML('green')
+    droited.color = colorToLatexOrHTML('green')
+    droitedprime.color = colorToLatexOrHTML('green')
     droited1.opacite = 0.5
-    droited1.nom = '(d_1)'
+    droited1.nom = '$(d_1)$'
     droited2.opacite = 0.5
     droited.opacite = 0.5
     droitedprime.opacite = 0.5
@@ -145,17 +148,17 @@ export default function TransformationsDuPlanEtCoordonnees () {
           t[1] = 1
           if (i === 0) {
             objetsEnonce.push(tracePoint(A), labelPoint(A))
-            objetsCorrection.push(tracePoint(A, Aprime), labelPoint(A, Aprime), segment(A, Aprime, 'blue'), codageAngleDroit(A, milieu(A, Aprime), pointSurDroite(droited1, -15)), codeSegments('||', 'red', A, milieu(A, Aprime), milieu(A, Aprime), Aprime))
+            objetsCorrection.push(tracePoint(A, Aprime), labelPoint(A, Aprime), segment(A, Aprime, 'blue'), codageAngleDroit(A, milieu(A, Aprime), pointSurDroite(droited1, -15)), codageSegments('||', 'red', A, milieu(A, Aprime), milieu(A, Aprime), Aprime))
             xP[1] = xA
             yP[1] = yA
           } else if (i === 1) {
             objetsEnonce.push(tracePoint(B), labelPoint(B))
-            objetsCorrection.push(tracePoint(B, Bprime), labelPoint(B, Bprime), segment(B, Bprime, 'blue'), codageAngleDroit(B, milieu(B, Bprime), pointSurDroite(droited1, -15)), codeSegments('O', 'red', B, milieu(B, Bprime), milieu(B, Bprime), Bprime))
+            objetsCorrection.push(tracePoint(B, Bprime), labelPoint(B, Bprime), segment(B, Bprime, 'blue'), codageAngleDroit(B, milieu(B, Bprime), pointSurDroite(droited1, -15)), codageSegments('O', 'red', B, milieu(B, Bprime), milieu(B, Bprime), Bprime))
             xP[1] = xB
             yP[1] = yB
           } else {
             objetsEnonce.push(tracePoint(C), labelPoint(C))
-            objetsCorrection.push(tracePoint(C, Cprime), labelPoint(C, Cprime), segment(C, Cprime, 'blue'), codageAngleDroit(C, milieu(C, Cprime), pointSurDroite(droited1, -15)), codeSegments('X', 'red', C, milieu(C, Cprime), milieu(C, Cprime), Cprime))
+            objetsCorrection.push(tracePoint(C, Cprime), labelPoint(C, Cprime), segment(C, Cprime, 'blue'), codageAngleDroit(C, milieu(C, Cprime), pointSurDroite(droited1, -15)), codageSegments('X', 'red', C, milieu(C, Cprime), milieu(C, Cprime), Cprime))
             xP[1] = xC
             yP[1] = yC
           }
@@ -173,17 +176,17 @@ export default function TransformationsDuPlanEtCoordonnees () {
           t[2] = 1
           if (i === 0) {
             objetsEnonce.push(tracePoint(A), labelPoint(A))
-            objetsCorrection.push(tracePoint(A, Aprime), labelPoint(A, Aprime), segment(A, Aprime, 'blue'), codageAngleDroit(A, milieu(A, Aprime), pointSurDroite(droited2, -15)), codeSegments('||', 'red', A, milieu(A, Aprime), milieu(A, Aprime), Aprime))
+            objetsCorrection.push(tracePoint(A, Aprime), labelPoint(A, Aprime), segment(A, Aprime, 'blue'), codageAngleDroit(A, milieu(A, Aprime), pointSurDroite(droited2, -15)), codageSegments('||', 'red', A, milieu(A, Aprime), milieu(A, Aprime), Aprime))
             xP[2] = xA
             yP[2] = yA
           } else if (i === 1) {
             objetsEnonce.push(tracePoint(B), labelPoint(B))
-            objetsCorrection.push(tracePoint(B, Bprime), labelPoint(B, Bprime), segment(B, Bprime, 'blue'), codageAngleDroit(B, milieu(B, Bprime), pointSurDroite(droited2, -15)), codeSegments('O', 'red', B, milieu(B, Bprime), milieu(B, Bprime), Bprime))
+            objetsCorrection.push(tracePoint(B, Bprime), labelPoint(B, Bprime), segment(B, Bprime, 'blue'), codageAngleDroit(B, milieu(B, Bprime), pointSurDroite(droited2, -15)), codageSegments('O', 'red', B, milieu(B, Bprime), milieu(B, Bprime), Bprime))
             xP[2] = xB
             yP[2] = yB
           } else {
             objetsEnonce.push(tracePoint(C), labelPoint(C))
-            objetsCorrection.push(tracePoint(C, Cprime), labelPoint(C, Cprime), segment(C, Cprime, 'blue'), codageAngleDroit(C, milieu(C, Cprime), pointSurDroite(droited2, -15)), codeSegments('X', 'red', C, milieu(C, Cprime), milieu(C, Cprime), Cprime))
+            objetsCorrection.push(tracePoint(C, Cprime), labelPoint(C, Cprime), segment(C, Cprime, 'blue'), codageAngleDroit(C, milieu(C, Cprime), pointSurDroite(droited2, -15)), codageSegments('X', 'red', C, milieu(C, Cprime), milieu(C, Cprime), Cprime))
             xP[2] = xC
             yP[2] = yC
           }
@@ -200,17 +203,17 @@ export default function TransformationsDuPlanEtCoordonnees () {
           t[3] = 1
           if (i === 0) {
             objetsEnonce.push(tracePoint(A), labelPoint(A))
-            objetsCorrection.push(tracePoint(A, Aprime), labelPoint(A, Aprime), segment(A, Aprime, 'blue'), codageAngleDroit(A, milieu(A, Aprime), pointSurDroite(droited, -15)), codeSegments('||', 'red', A, milieu(A, Aprime), milieu(A, Aprime), Aprime))
+            objetsCorrection.push(tracePoint(A, Aprime), labelPoint(A, Aprime), segment(A, Aprime, 'blue'), codageAngleDroit(A, milieu(A, Aprime), pointSurDroite(droited, -15)), codageSegments('||', 'red', A, milieu(A, Aprime), milieu(A, Aprime), Aprime))
             xP[3] = xA
             yP[3] = yA
           } else if (i === 1) {
             objetsEnonce.push(tracePoint(B), labelPoint(B))
-            objetsCorrection.push(tracePoint(B, Bprime), labelPoint(B, Bprime), segment(B, Bprime, 'blue'), codageAngleDroit(B, milieu(B, Bprime), pointSurDroite(droited, -15)), codeSegments('O', 'red', B, milieu(B, Bprime), milieu(B, Bprime), Bprime))
+            objetsCorrection.push(tracePoint(B, Bprime), labelPoint(B, Bprime), segment(B, Bprime, 'blue'), codageAngleDroit(B, milieu(B, Bprime), pointSurDroite(droited, -15)), codageSegments('O', 'red', B, milieu(B, Bprime), milieu(B, Bprime), Bprime))
             xP[3] = xB
             yP[3] = yB
           } else {
             objetsEnonce.push(tracePoint(C), labelPoint(C))
-            objetsCorrection.push(tracePoint(C, Cprime), labelPoint(C, Cprime), segment(C, Cprime, 'blue'), codageAngleDroit(C, milieu(C, Cprime), pointSurDroite(droited, -15)), codeSegments('X', 'red', C, milieu(C, Cprime), milieu(C, Cprime), Cprime))
+            objetsCorrection.push(tracePoint(C, Cprime), labelPoint(C, Cprime), segment(C, Cprime, 'blue'), codageAngleDroit(C, milieu(C, Cprime), pointSurDroite(droited, -15)), codageSegments('X', 'red', C, milieu(C, Cprime), milieu(C, Cprime), Cprime))
             xP[3] = xC
             yP[3] = yC
           }
@@ -227,17 +230,17 @@ export default function TransformationsDuPlanEtCoordonnees () {
           t[4] = 1
           if (i === 0) {
             objetsEnonce.push(tracePoint(A), labelPoint(A))
-            objetsCorrection.push(tracePoint(A, Aprime), labelPoint(A, Aprime), segment(A, Aprime, 'blue'), codageAngleDroit(A, milieu(A, Aprime), pointSurDroite(droitedprime, -15)), codeSegments('||', 'red', A, milieu(A, Aprime), milieu(A, Aprime), Aprime))
+            objetsCorrection.push(tracePoint(A, Aprime), labelPoint(A, Aprime), segment(A, Aprime, 'blue'), codageAngleDroit(A, milieu(A, Aprime), pointSurDroite(droitedprime, -15)), codageSegments('||', 'red', A, milieu(A, Aprime), milieu(A, Aprime), Aprime))
             xP[4] = xA
             yP[4] = yA
           } else if (i === 1) {
             objetsEnonce.push(tracePoint(B), labelPoint(B))
-            objetsCorrection.push(tracePoint(B, Bprime), labelPoint(B, Bprime), segment(B, Bprime, 'blue'), codageAngleDroit(B, milieu(B, Bprime), pointSurDroite(droitedprime, -15)), codeSegments('O', 'red', B, milieu(B, Bprime), milieu(B, Bprime), Bprime))
+            objetsCorrection.push(tracePoint(B, Bprime), labelPoint(B, Bprime), segment(B, Bprime, 'blue'), codageAngleDroit(B, milieu(B, Bprime), pointSurDroite(droitedprime, -15)), codageSegments('O', 'red', B, milieu(B, Bprime), milieu(B, Bprime), Bprime))
             xP[4] = xB
             yP[4] = yB
           } else {
             objetsEnonce.push(tracePoint(C), labelPoint(C))
-            objetsCorrection.push(tracePoint(C, Cprime), labelPoint(C, Cprime), segment(C, Cprime, 'blue'), codageAngleDroit(C, milieu(C, Cprime), pointSurDroite(droitedprime, -15)), codeSegments('X', 'red', C, milieu(C, Cprime), milieu(C, Cprime), Cprime))
+            objetsCorrection.push(tracePoint(C, Cprime), labelPoint(C, Cprime), segment(C, Cprime, 'blue'), codageAngleDroit(C, milieu(C, Cprime), pointSurDroite(droitedprime, -15)), codageSegments('X', 'red', C, milieu(C, Cprime), milieu(C, Cprime), Cprime))
             xP[4] = xC
             yP[4] = yC
           }
@@ -256,20 +259,20 @@ export default function TransformationsDuPlanEtCoordonnees () {
           if (i === 0) {
             objetsEnonce.push(tracePoint(A, O), labelPoint(A, O))
             objetsCorrection.push(tracePoint(A, Aprime, O), labelPoint(A, Aprime, O),
-              segment(O, A, 'blue'), segment(O, Aprime, 'blue'), afficheMesureAngle(A, O, Aprime), codeSegments('//', 'red', O, A, O, Aprime)
+              segment(O, A, 'blue'), segment(O, Aprime, 'blue'), afficheMesureAngle(A, O, Aprime), codageSegments('//', 'red', O, A, O, Aprime)
             )
             xP[5] = xA
             yP[5] = yA
           } else if (i === 1) {
             objetsEnonce.push(tracePoint(B, A), labelPoint(B, A))
             objetsCorrection.push(tracePoint(B, Bprime, A), labelPoint(B, Bprime, A),
-              segment(A, B, 'blue'), segment(A, Bprime, 'blue'), afficheMesureAngle(B, A, Bprime), codeSegments('O', 'red', A, B, A, Bprime))
+              segment(A, B, 'blue'), segment(A, Bprime, 'blue'), afficheMesureAngle(B, A, Bprime), codageSegments('O', 'red', A, B, A, Bprime))
             xP[5] = xB
             yP[5] = yB
           } else {
             objetsEnonce.push(tracePoint(C, B), labelPoint(C, B))
             objetsCorrection.push(tracePoint(C, Cprime, B), labelPoint(C, Cprime, B),
-              segment(B, C, 'blue'), segment(B, Cprime, 'blue'), afficheMesureAngle(C, B, Cprime), codeSegments('X', 'red', B, C, B, Cprime))
+              segment(B, C, 'blue'), segment(B, Cprime, 'blue'), afficheMesureAngle(C, B, Cprime), codageSegments('X', 'red', B, C, B, Cprime))
             xP[5] = xC
             yP[5] = yC
           }
@@ -286,19 +289,19 @@ export default function TransformationsDuPlanEtCoordonnees () {
           if (i === 0) {
             objetsEnonce.push(tracePoint(A, O), labelPoint(A, O))
             objetsCorrection.push(tracePoint(A, Aprime, O), labelPoint(A, Aprime, O),
-              segment(O, A, 'blue'), segment(O, Aprime, 'blue'), afficheMesureAngle(A, O, Aprime), codeSegments('//', 'red', O, A, O, Aprime))
+              segment(O, A, 'blue'), segment(O, Aprime, 'blue'), afficheMesureAngle(A, O, Aprime), codageSegments('//', 'red', O, A, O, Aprime))
             xP[6] = xA
             yP[6] = yA
           } else if (i === 1) {
             objetsEnonce.push(tracePoint(B, A), labelPoint(B, A))
             objetsCorrection.push(tracePoint(B, A), labelPoint(B, A),
-              segment(A, B, 'blue'), segment(A, Bprime, 'blue'), afficheMesureAngle(B, A, Bprime), codeSegments('O', 'red', A, B, A, Bprime))
+              segment(A, B, 'blue'), segment(A, Bprime, 'blue'), afficheMesureAngle(B, A, Bprime), codageSegments('O', 'red', A, B, A, Bprime))
             xP[6] = xB
             yP[6] = yB
           } else {
             objetsEnonce.push(tracePoint(C, B), labelPoint(C, B))
             objetsCorrection.push(tracePoint(C, Cprime, B), labelPoint(C, Cprime, B),
-              segment(B, C, 'blue'), segment(B, Cprime, 'blue'), afficheMesureAngle(C, B, Cprime), codeSegments('X', 'red', B, C, B, Cprime))
+              segment(B, C, 'blue'), segment(B, Cprime, 'blue'), afficheMesureAngle(C, B, Cprime), codageSegments('X', 'red', B, C, B, Cprime))
             xP[6] = xC
             yP[6] = yC
           }
@@ -315,19 +318,19 @@ export default function TransformationsDuPlanEtCoordonnees () {
           if (i === 0) {
             objetsEnonce.push(tracePoint(A, O), labelPoint(A, O))
             objetsCorrection.push(tracePoint(A, Aprime, O), labelPoint(A, Aprime, O),
-              segment(O, A, 'blue'), segment(O, Aprime, 'blue'), codeSegments('//', 'red', O, A, O, Aprime))
+              segment(O, A, 'blue'), segment(O, Aprime, 'blue'), codageSegments('//', 'red', O, A, O, Aprime))
             xP[7] = xA
             yP[7] = yA
           } else if (i === 1) {
             objetsEnonce.push(tracePoint(B, A), labelPoint(B, A))
             objetsCorrection.push(tracePoint(B, Bprime, A), labelPoint(B, Bprime, A),
-              segment(A, B, 'blue'), segment(A, Bprime, 'blue'), codeSegments('O', 'red', A, B, A, Bprime))
+              segment(A, B, 'blue'), segment(A, Bprime, 'blue'), codageSegments('O', 'red', A, B, A, Bprime))
             xP[7] = xB
             yP[7] = yB
           } else {
             objetsEnonce.push(tracePoint(C, B), labelPoint(C, B))
             objetsCorrection.push(tracePoint(C, Cprime, B), labelPoint(C, Cprime, B),
-              segment(B, C, 'blue'), segment(B, Cprime, 'blue'), codeSegments('X', 'red', B, C, B, Cprime))
+              segment(B, C, 'blue'), segment(B, Cprime, 'blue'), codageSegments('X', 'red', B, C, B, Cprime))
             xP[7] = xC
             yP[7] = yC
           }
@@ -344,19 +347,19 @@ export default function TransformationsDuPlanEtCoordonnees () {
           if (i === 0) {
             objetsEnonce.push(tracePoint(A, O), labelPoint(A, O))
             objetsCorrection.push(tracePoint(A, Aprime, O), labelPoint(A, Aprime, O),
-              segment(O, A, 'blue'), segment(O, Aprime, 'blue'), afficheMesureAngle(A, O, Aprime), codeSegments('//', 'red', O, A, O, Aprime))
+              segment(O, A, 'blue'), segment(O, Aprime, 'blue'), afficheMesureAngle(A, O, Aprime), codageSegments('//', 'red', O, A, O, Aprime))
             xP[11] = xA
             yP[11] = yA
           } else if (i === 1) {
             objetsEnonce.push(tracePoint(B, A), labelPoint(B, A))
             objetsCorrection.push(tracePoint(B, Bprime, A), labelPoint(B, Bprime, A),
-              segment(A, B, 'blue'), segment(A, Bprime, 'blue'), afficheMesureAngle(B, A, Bprime), codeSegments('O', 'red', A, B, A, Bprime))
+              segment(A, B, 'blue'), segment(A, Bprime, 'blue'), afficheMesureAngle(B, A, Bprime), codageSegments('O', 'red', A, B, A, Bprime))
             xP[11] = xB
             yP[11] = yB
           } else {
             objetsEnonce.push(tracePoint(C, B), labelPoint(C, B))
             objetsCorrection.push(tracePoint(C, Cprime, B), labelPoint(C, Cprime, B),
-              segment(B, C, 'blue'), segment(B, Cprime, 'blue'), afficheMesureAngle(C, B, Cprime), codeSegments('X', 'red', B, C, B, Cprime))
+              segment(B, C, 'blue'), segment(B, Cprime, 'blue'), afficheMesureAngle(C, B, Cprime), codageSegments('X', 'red', B, C, B, Cprime))
             xP[11] = xC
             yP[11] = yC
           }
@@ -372,19 +375,19 @@ export default function TransformationsDuPlanEtCoordonnees () {
           if (i === 0) {
             objetsEnonce.push(tracePoint(A, O), labelPoint(A, O))
             objetsCorrection.push(tracePoint(A, Aprime, O), labelPoint(A, Aprime, O),
-              segment(O, A, 'blue'), segment(O, Aprime, 'blue'), afficheMesureAngle(A, O, Aprime), codeSegments('//', 'red', O, A, O, Aprime))
+              segment(O, A, 'blue'), segment(O, Aprime, 'blue'), afficheMesureAngle(A, O, Aprime), codageSegments('//', 'red', O, A, O, Aprime))
             xP[12] = xA
             yP[12] = yA
           } else if (i === 1) {
             objetsEnonce.push(tracePoint(B, A), labelPoint(B, A))
             objetsCorrection.push(tracePoint(B, Bprime, A), labelPoint(B, Bprime, A),
-              segment(A, B, 'blue'), segment(A, Bprime, 'blue'), afficheMesureAngle(B, A, Bprime), codeSegments('O', 'red', A, B, A, Bprime))
+              segment(A, B, 'blue'), segment(A, Bprime, 'blue'), afficheMesureAngle(B, A, Bprime), codageSegments('O', 'red', A, B, A, Bprime))
             xP[12] = xB
             yP[12] = yB
           } else {
             objetsEnonce.push(tracePoint(C, B), labelPoint(C, B))
             objetsCorrection.push(tracePoint(C, Cprime, B), labelPoint(C, Cprime, B),
-              segment(B, C, 'blue'), segment(B, Cprime, 'blue'), afficheMesureAngle(C, B, Cprime), codeSegments('X', 'red', B, C, B, Cprime))
+              segment(B, C, 'blue'), segment(B, Cprime, 'blue'), afficheMesureAngle(C, B, Cprime), codageSegments('X', 'red', B, C, B, Cprime))
             xP[12] = xC
             yP[12] = yC
           }
@@ -401,19 +404,19 @@ export default function TransformationsDuPlanEtCoordonnees () {
           if (i === 0) {
             objetsEnonce.push(tracePoint(A, O), labelPoint(A, O))
             objetsCorrection.push(tracePoint(A, Aprime, O), labelPoint(A, Aprime, O),
-              segment(O, A, 'blue'), segment(O, Aprime, 'blue'), afficheMesureAngle(A, O, Aprime), codeSegments('//', 'red', O, A, O, Aprime))
+              segment(O, A, 'blue'), segment(O, Aprime, 'blue'), afficheMesureAngle(A, O, Aprime), codageSegments('//', 'red', O, A, O, Aprime))
             xP[13] = xA
             yP[13] = yA
           } else if (i === 1) {
             objetsEnonce.push(tracePoint(B, A), labelPoint(B, A))
             objetsCorrection.push(tracePoint(B, Bprime, A), labelPoint(B, Bprime, A),
-              segment(A, B, 'blue'), segment(A, Bprime, 'blue'), afficheMesureAngle(B, A, Bprime), codeSegments('O', 'red', A, B, A, Bprime))
+              segment(A, B, 'blue'), segment(A, Bprime, 'blue'), afficheMesureAngle(B, A, Bprime), codageSegments('O', 'red', A, B, A, Bprime))
             xP[13] = xB
             yP[13] = yB
           } else {
             objetsEnonce.push(tracePoint(C, B), labelPoint(C, B))
             objetsCorrection.push(tracePoint(C, Cprime, B), labelPoint(C, Cprime, B),
-              segment(B, C, 'blue'), segment(B, Cprime, 'blue'), afficheMesureAngle(C, B, Cprime), codeSegments('X', 'red', B, C, B, Cprime))
+              segment(B, C, 'blue'), segment(B, Cprime, 'blue'), afficheMesureAngle(C, B, Cprime), codageSegments('X', 'red', B, C, B, Cprime))
             xP[13] = xC
             yP[13] = yC
           }
@@ -430,19 +433,19 @@ export default function TransformationsDuPlanEtCoordonnees () {
           if (i === 0) {
             objetsEnonce.push(tracePoint(A, O), labelPoint(A, O))
             objetsCorrection.push(tracePoint(A, Aprime, O), labelPoint(A, Aprime, O),
-              segment(O, A, 'blue'), segment(O, Aprime, 'blue'), afficheMesureAngle(A, O, Aprime), codeSegments('//', 'red', O, A, O, Aprime))
+              segment(O, A, 'blue'), segment(O, Aprime, 'blue'), afficheMesureAngle(A, O, Aprime), codageSegments('//', 'red', O, A, O, Aprime))
             xP[14] = xA
             yP[14] = yA
           } else if (i === 1) {
             objetsEnonce.push(tracePoint(B, A), labelPoint(B, A))
             objetsCorrection.push(tracePoint(B, Bprime, A), labelPoint(B, Bprime, A),
-              segment(A, B, 'blue'), segment(A, Bprime, 'blue'), afficheMesureAngle(B, A, Bprime), codeSegments('O', 'red', A, B, A, Bprime))
+              segment(A, B, 'blue'), segment(A, Bprime, 'blue'), afficheMesureAngle(B, A, Bprime), codageSegments('O', 'red', A, B, A, Bprime))
             xP[14] = xB
             yP[14] = yB
           } else {
             objetsEnonce.push(tracePoint(C, B), labelPoint(C, B))
             objetsCorrection.push(tracePoint(C, Cprime, B), labelPoint(C, Cprime, B),
-              segment(B, C, 'blue'), segment(B, Cprime, 'blue'), afficheMesureAngle(C, B, Cprime), codeSegments('X', 'red', B, C, B, Cprime))
+              segment(B, C, 'blue'), segment(B, Cprime, 'blue'), afficheMesureAngle(C, B, Cprime), codageSegments('X', 'red', B, C, B, Cprime))
             xP[14] = xC
             yP[14] = yC
           }
@@ -488,20 +491,20 @@ export default function TransformationsDuPlanEtCoordonnees () {
           if (i === 0) {
             objetsEnonce.push(tracePoint(A, O), labelPoint(A, O))
             objetsCorrection.push(tracePoint(A, Aprime, O), labelPoint(A, Aprime, O),
-              segment(O, A, 'blue'), segment(O, Aprime, 'orange'))
+              segment(O, A, 'blue'), segment(O, Aprime, '#f15929'))
             xP[9] = xA
             yP[9] = yA
           } else if (i === 1) {
             objetsEnonce.push(tracePoint(B, A), labelPoint(B, A))
             objetsCorrection.push(tracePoint(B, Bprime, A), labelPoint(B, Bprime, A),
-              segment(O, B, 'blue'), segment(O, Bprime, 'orange'))
+              segment(O, B, 'blue'), segment(O, Bprime, '#f15929'))
 
             xP[9] = xB
             yP[9] = yB
           } else {
             objetsEnonce.push(tracePoint(C, B), labelPoint(C, B))
             objetsCorrection.push(tracePoint(C, Cprime, B), labelPoint(C, Cprime, B),
-              segment(O, C, 'blue'), segment(O, Cprime, 'orange'))
+              segment(O, C, 'blue'), segment(O, Cprime, '#f15929'))
 
             xP[9] = xC
             yP[9] = yC
@@ -519,19 +522,19 @@ export default function TransformationsDuPlanEtCoordonnees () {
           if (i === 0) {
             objetsEnonce.push(tracePoint(A, O), labelPoint(A, O))
             objetsCorrection.push(tracePoint(A, Aprime, O), labelPoint(A, Aprime, O),
-              segment(O, A, 'blue'), segment(O, Aprime, 'orange'))
+              segment(O, A, 'blue'), segment(O, Aprime, '#f15929'))
             xP[10] = xA
             yP[10] = yA
           } else if (i === 1) {
             objetsEnonce.push(tracePoint(B, A), labelPoint(B, A))
             objetsCorrection.push(tracePoint(B, Bprime, A), labelPoint(B, Bprime, A),
-              segment(A, B, 'blue'), segment(A, Bprime, 'orange'))
+              segment(A, B, 'blue'), segment(A, Bprime, '#f15929'))
             xP[10] = xB
             yP[10] = yB
           } else {
             objetsEnonce.push(tracePoint(C, B), labelPoint(C, B))
             objetsCorrection.push(tracePoint(C, Cprime, B), labelPoint(C, Cprime, B),
-              segment(B, C, 'blue'), segment(B, Cprime, 'orange'))
+              segment(B, C, 'blue'), segment(B, Cprime, '#f15929'))
             xP[10] = xC
             yP[10] = yC
           }
@@ -544,14 +547,15 @@ export default function TransformationsDuPlanEtCoordonnees () {
       }
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
-      } else texte += '<br>'
+      }
+      texte += '<br>'
       setReponse(this, i, [`${punto[i][0]};${punto[i][1]}`, `(${punto[i][0]};${punto[i][1]})`])
       if (context.isAmc) {
         enonceAmc += '<br>'
       }
     }
-    objetsEnonce.push(repere2({ xMin: -10, yMin: -10, xMax: 10, yMax: 10, grilleOpacite: 0.2 }))
-    objetsCorrection.push(repere2({ xMin: -10, yMin: -10, xMax: 10, yMax: 10, grilleOpacite: 0.2 }))
+    objetsEnonce.push(repere({ xMin: -10, yMin: -10, xMax: 10, yMax: 10, grilleOpacite: 0.2 }))
+    objetsCorrection.push(repere({ xMin: -10, yMin: -10, xMax: 10, yMax: 10, grilleOpacite: 0.2 }))
     if (context.isAmc) {
       this.autoCorrection[0] = {
         enonce: enonceAmc + mathalea2d({ xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 0.5, mainlevee: false }, objetsEnonce) + '\\\\',
@@ -666,6 +670,6 @@ export default function TransformationsDuPlanEtCoordonnees () {
     this.listeCorrections.push(texteCorr + '<br>' + mathalea2d({ xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 0.4, mainlevee: false }, objetsCorrection))
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireNumerique = ['Transformations', 4, ' 1 : Symétrie axiale\n 2 : On ajoute la symétrie centrale\n 3 : On ajoute la translation\n 4 : On ajoute la rotation et l\'homothétie']
-  this.besoinFormulaire2CaseACocher = ['Transofrmations du niveau seulement', false]
+  this.besoinFormulaireNumerique = ['Transformations', 5, ' 1 : Symétrie axiale\n 2 : On ajoute la symétrie centrale\n 3 : On ajoute la translation\n 4 : On ajoute la rotation\n 5 : On ajoute l\'homothétie']
+  this.besoinFormulaire2CaseACocher = ['Transformations du niveau seulement', false]
 }

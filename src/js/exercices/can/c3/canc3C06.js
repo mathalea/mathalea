@@ -1,5 +1,5 @@
-import { calcul, choice, randint, texNombre } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { calcul, choice, randint, texNombre } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Trouver le nombre manquant dans une somme'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -11,6 +11,8 @@ export const dateDePublication = '20/11/2021'
  * @author Jean-Claude Lhote
  * Référence canc3C06
  */
+export const uuid = '3ca23'
+export const ref = 'canc3C06'
 export default function ComplementAuDixiemeOuALaDizaine () {
   Exercice.call(this)
   this.typeExercice = 'simple'

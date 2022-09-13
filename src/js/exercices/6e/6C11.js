@@ -29,17 +29,21 @@ export const titre = 'Poser divisions euclidiennes'
  * @author Rémi Angot
  * Référence 6C11
  */
+export const uuid = '2da81'
+export const ref = '6C11'
 export default function DivisionsEuclidiennes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 2
   this.titre = titre
-  this.consigne = "Poser et effectuer les divisions euclidiennes suivantes puis donner l'égalité fondamentale correspondante."
   this.spacing = 2
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opidiv n'est pas joli
   this.nbQuestions = 4
   this.listePackages = 'xlop'
 
   this.nouvelleVersion = function () {
+    this.consigne = 'Poser et effectuer '
+    this.consigne += this.nbQuestions === 1 ? 'la division euclidienne suivante ' : 'les divisions euclidiennes suivantes '
+    this.consigne += "puis donner l'égalité fondamentale correspondante."
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -95,10 +99,12 @@ export default function DivisionsEuclidiennes () {
       texte = `$${texNombre(a)}\\div${b}$`
       if (r === 0) {
         texteCorr = `${Operation({ operande1: a, operande2: b, type: 'divisionE' })}$${texNombre(a)}\\div${b}=${texNombre(q)}$`
-        setReponse(this, i, [`${a}=${b}\\times${texNombre(q)}`, `${a}=${texNombre(q)}\\times${b}`])
+        setReponse(this, i, [`${a}=${b}\\times${texNombre(q)}`, `${a}=${texNombre(q)}\\times${b}`,
+        `${b}\\times${texNombre(q)}`, `${texNombre(q)}\\times${b}=${a}`])
       } else {
         texteCorr = `${Operation({ operande1: a, operande2: b, type: 'divisionE' })}$${texNombre(a)}=${b}\\times${texNombre(q)}+${r}$`
-        setReponse(this, i, [`${a}=${b}\\times${texNombre(q)}+${r}`, `${a}=${texNombre(q)}\\times${b}+${r}`])
+        setReponse(this, i, [`${a}=${b}\\times${texNombre(q)}+${r}`, `${a}=${texNombre(q)}\\times${b}+${r}`,
+        `${b}\\times${texNombre(q)}+${r}=${a}`, `${texNombre(q)}\\times${b}+${r}=${a}`])
       }
       texte += ajouteChampTexteMathLive(this, i)
       // Pour AMC question AmcOpen

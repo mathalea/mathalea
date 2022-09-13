@@ -11,6 +11,8 @@ export const titre = 'Décomposition en facteurs premiers'
 * @author Rémi Angot
 5A13
 */
+export const uuid = '7f50c'
+export const ref = '5A13'
 export default function ExerciceDecomposerEnFacteursPremiers () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = "Écrire les nombres suivants sous la forme d'un produit de facteurs premiers rangés dans l'ordre croissant."
@@ -24,6 +26,10 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
   this.correctionDetaillee = false // booléen indiquant si la correction détaillée doit être affiché par défaut (récupéré dans l'url avec le paramètre `,cd=`).
 
   this.nouvelleVersion = function () {
+    if (this.level === 2) {
+      this.sup = 3
+      this.sup2 = true
+    }
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

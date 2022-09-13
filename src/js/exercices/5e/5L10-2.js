@@ -9,11 +9,16 @@ export const interactifType = 'qcm'
 
 export const titre = 'Traduire un programme de calcul par une expression littérale'
 
+export const dateDeModifImportante = '11/05/2022'
+
 /**
 * Traduire un programme de calcul par une expression littérale de la forme ax+b après simplification
 * @author Rémi Angot
 * 5L10-2
+* Ajout de la possibilité d'afficher un résultat qui n'est pas développé par Guillaume Valmont le 11/05/2022
 */
+export const uuid = '12bb6'
+export const ref = '5L10-2'
 export default function TraduireUnProgrammeDeCalcul () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -28,6 +33,9 @@ export default function TraduireUnProgrammeDeCalcul () {
   this.interactifType = interactifType
   this.amcType = amcType
   this.amcReady = amcReady
+
+  this.besoinFormulaireCaseACocher = ['Résultat développé']
+  this.sup = true
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -47,14 +55,18 @@ export default function TraduireUnProgrammeDeCalcul () {
           texte = 'Voici un programme de calcul : \n'
           texte += itemize([`Ajoute ${a}`, `Multiplie par ${b}`, `Ajoute ${c}`])
           texte += 'Si on note $x$ le nombre de départ, quel est le résultat du programme de calcul ?'
-          texteCorr = `$x\\xrightarrow{+${a}} x+${a}\\xrightarrow{\\times  ${b}}(x+${a})\\times  ${b}=${b}x+${a * b}\\xrightarrow{+${c}}${b}x+${a * b + c}$`
-          texteCorr += '<br>'
-          texteCorr += `Le résultat du programme est donc $${b}x+${a * b + c}$.`
+          texteCorr = `$x\\xrightarrow{+${a}} x+${a}\\xrightarrow{\\times  ${b}}(x+${a})\\times  ${b}`
+          if (this.sup) texteCorr += `=${b}x+${a * b}`
+          texteCorr += `\\xrightarrow{+${c}}`
+          this.sup ? texteCorr += `${b}x+${a * b + c}` : texteCorr += `(x+${a})\\times  ${b} + ${c}`
+          texteCorr += '$<br>'
+          texteCorr += 'Le résultat du programme est donc '
+          this.sup ? texteCorr += `$${b}x+${a * b + c}$.` : texteCorr += `$(x+${a})\\times  ${b} + ${c}$.`
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
             {
-              texte: `$${b}x+${a * b + c}$`,
+              texte: this.sup ? `$${b}x+${a * b + c}$` : `$(x+${a})\\times  ${b} + ${c}$`,
               statut: true
             },
             {
@@ -62,7 +74,7 @@ export default function TraduireUnProgrammeDeCalcul () {
               statut: false
             },
             {
-              texte: `$${b}x+${a * c}$`,
+              texte: this.sup ? `$${b}x+${a * c}$` : `$(x+${a})\\times  ${b + c}$`,
               statut: false
             },
             {
@@ -75,14 +87,16 @@ export default function TraduireUnProgrammeDeCalcul () {
           texte = 'Voici un programme de calcul : \n'
           texte += itemize([`Multiplie par ${a}`, `Ajoute ${b}`, `Multiplie par ${c}`])
           texte += 'Si on note $y$ le nombre de départ, quel est le résultat du programme de calcul ?'
-          texteCorr = `$y\\xrightarrow{\\times  ${a}} ${a}y\\xrightarrow{+${b}}${a}y+${b} \\xrightarrow{\\times  ${c}}(${a}y+${b})\\times ${c}=${a * c}y+${b * c}$`
-          texteCorr += '<br>'
-          texteCorr += `Le résultat du programme est donc $${a * c}y+${b * c}$.`
+          texteCorr = `$y\\xrightarrow{\\times  ${a}} ${a}y\\xrightarrow{+${b}}${a}y+${b} \\xrightarrow{\\times  ${c}}(${a}y+${b})\\times ${c}`
+          if (this.sup) texteCorr += `=${a * c}y+${b * c}`
+          texteCorr += '$<br>'
+          texteCorr += 'Le résultat du programme est donc '
+          this.sup ? texteCorr += `$${a * c}y+${b * c}$.` : texteCorr += `$(${a}y+${b})\\times ${c}$.`
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
             {
-              texte: `$${a * c}y+${b * c}$`,
+              texte: this.sup ? `$${a * c}y+${b * c}$` : `$(${a}y+${b})\\times ${c}$`,
               statut: true
             },
             {
@@ -90,7 +104,7 @@ export default function TraduireUnProgrammeDeCalcul () {
               statut: false
             },
             {
-              texte: `$${b * a}y+${c}$`,
+              texte: this.sup ? `$${b * a}y+${c}$` : `$(${c}y + ${b}) \\times ${a}$`,
               statut: false
             },
             {
@@ -114,7 +128,7 @@ export default function TraduireUnProgrammeDeCalcul () {
               statut: true
             },
             {
-              texte: `$${a + b - 2}a$`,
+              texte: this.sup ? `$${a + b - 2}a$` : `$(${a}a + ${b}) \\times 2$`,
               statut: false
             },
             {
@@ -122,7 +136,7 @@ export default function TraduireUnProgrammeDeCalcul () {
               statut: false
             },
             {
-              texte: `$${a + b}-2a$`,
+              texte: this.sup ? `$${a + b}-2a$` : `$(2a + ${b}) \\times ${a}$`,
               statut: false
             }
           ]
@@ -146,11 +160,11 @@ export default function TraduireUnProgrammeDeCalcul () {
               statut: false
             },
             {
-              texte: `$${a + b}t+3t$`,
+              texte: this.sup ? `$${a + b}t+3t$` : `$(${a}t + ${b}) \\times 3$`,
               statut: false
             },
             {
-              texte: `$${a + b}t-3t$`,
+              texte: this.sup ? `$${a + b}t-3t$` : `$(3t + ${b}) \\times ${a}$`,
               statut: false
             }
           ]
@@ -159,14 +173,18 @@ export default function TraduireUnProgrammeDeCalcul () {
           texte = 'Voici un programme de calcul : \n'
           texte += itemize([`Multiplie par ${a}`, `Ajoute ${b}`, `Multiplie par ${c}`, `Enlève ${d}`])
           texte += 'Si on note $x$ le nombre de départ, quel est le résultat du programme de calcul ?'
-          texteCorr = `$x\\xrightarrow{\\times  ${a}} ${a}x\\xrightarrow{+${b}}${a}x+${b} \\xrightarrow{\\times  ${c}}(${a}x+${b})\\times  ${c}=${a * c}x+${b * c}\\xrightarrow{-${d}}${a * c}x+${b * c - d}$`
-          texteCorr += '<br>'
-          texteCorr += `Le résultat du programme est donc $${a * c}x+${b * c - d}$.`
+          texteCorr = `$x\\xrightarrow{\\times  ${a}} ${a}x\\xrightarrow{+${b}}${a}x+${b} \\xrightarrow{\\times  ${c}}(${a}x+${b})\\times  ${c}`
+          if (this.sup) texteCorr += `=${a * c}x+${b * c}`
+          texteCorr += `\\xrightarrow{-${d}}`
+          this.sup ? texteCorr += `${a * c}x+${b * c - d}` : texteCorr += `(${a}x+${b})\\times  ${c} - ${d}`
+          texteCorr += '$<br>'
+          texteCorr += 'Le résultat du programme est donc '
+          this.sup ? texteCorr += `$${a * c}x+${b * c - d}$.` : texteCorr += `$(${a}x+${b})\\times  ${c} - ${d}$.`
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
             {
-              texte: `$${a * c}x+${b * c - d}$`,
+              texte: this.sup ? `$${a * c}x+${b * c - d}$` : `$(${a}x+${b})\\times  ${c} - ${d}$`,
               statut: true
             },
             {
@@ -178,7 +196,7 @@ export default function TraduireUnProgrammeDeCalcul () {
               statut: false
             },
             {
-              texte: `$${a + b * c}x-${d}$`,
+              texte: this.sup ? `$${a + b * c}x-${d}$` : `$(${a + b}x - ${d}) \\times ${c}$`,
               statut: false
             }
           ]
@@ -187,14 +205,18 @@ export default function TraduireUnProgrammeDeCalcul () {
           texte = 'Voici un programme de calcul : \n'
           texte += itemize([`Multiplie par ${a}`, `Ajoute ${b}`, `Multiplie par ${c}`, 'Ajoute le nombre de départ'])
           texte += 'Si on note $y$ le nombre de départ, quel est le résultat du programme de calcul ?'
-          texteCorr = `$y\\xrightarrow{\\times  ${a}} ${a}y\\xrightarrow{+${b}}${a}y+${b} \\xrightarrow{\\times  ${c}}(${a}y+${b})\\times  ${c}=${a * c}y+${b * c}\\rightarrow ${a * c}y+${b * c}+y=${a * c + 1}y+${b * c}$`
-          texteCorr += '<br>'
-          texteCorr += `Le résultat du programme est donc $${a * c + 1}y+${b * c}$.`
+          texteCorr = `$y\\xrightarrow{\\times  ${a}} ${a}y\\xrightarrow{+${b}}${a}y+${b} \\xrightarrow{\\times  ${c}}(${a}y+${b})\\times  ${c}`
+          if (this.sup) texteCorr += `=${a * c}y+${b * c}`
+          texteCorr += '\\xrightarrow{+y}'
+          this.sup ? texteCorr += `${a * c}y+${b * c}+y=${a * c + 1}y+${b * c}` : texteCorr += `(${a}y+${b})\\times  ${c} + y`
+          texteCorr += '$<br>'
+          texteCorr += 'Le résultat du programme est donc '
+          this.sup ? texteCorr += `$${a * c + 1}y+${b * c}$.` : texteCorr += `$(${a}y+${b})\\times  ${c} + y$.`
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
             {
-              texte: `$${a * c + 1}y+${b * c}$`,
+              texte: this.sup ? `$${a * c + 1}y+${b * c}$` : `$(${a}y+${b})\\times  ${c} + y$`,
               statut: true
             },
             {
@@ -202,7 +224,7 @@ export default function TraduireUnProgrammeDeCalcul () {
               statut: false
             },
             {
-              texte: `$${a}y+${c}$`,
+              texte: this.sup ? `$${a}y+${c}$` : `$(${a}y+${b})\\times  ${c}$`,
               statut: false
             },
             {
@@ -229,5 +251,4 @@ export default function TraduireUnProgrammeDeCalcul () {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireCaseACocher = true;
 }

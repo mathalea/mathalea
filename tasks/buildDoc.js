@@ -1,7 +1,7 @@
 // lance jsdoc sur tous les jsdoc/*.json existants
 const fs = require('fs')
 const path = require('path')
-const { execFile } = require('child_process');
+const { execFile } = require('child_process')
 
 const jsDocDir = path.resolve(__dirname, '..', 'jsdoc')
 const jsDocBin = path.resolve(__dirname, '..', 'node_modules', '.bin', 'jsdoc')

@@ -1,10 +1,11 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, calcul, texNombrec, creerNomDePolygone, texNombre, creerBoutonMathalea2d, nombreDeChiffresDansLaPartieEntiere, texteGras } from '../../modules/outils.js'
-import { point, pointSurSegment, pointAdistance, polygone, triangle2points2longueurs, homothetie, similitude, texteParPoint, longueur, angle, angleOriente, mathalea2d } from '../../modules/2d.js'
+import { point, pointSurSegment, pointAdistance, polygone, triangle2points2longueurs, homothetie, similitude, texteParPoint, longueur, angle, angleOriente } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import Grandeur from '../../modules/Grandeur'
+import Grandeur from '../../modules/Grandeur.js'
 
 export const amcReady = true
 export const amcType = 'AMCOpenNum✖︎2'
@@ -35,14 +36,16 @@ export default function Thales2D () {
     this.listeCorrections = [] // Liste de questions corrigées
     let listeDeNomsDePolygones = []
     this.autoCorrection = []
-
+    if (this.level === 4) {
+      this.sup = 1
+    }
     const premiereQuestionPapillon = randint(0, 1) // Pour alterner les configurations et savoir par laquelle on commence
     let reponse, reponse2
 
     for (let i = 0, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // this.autoCorrection[i] = {}
-      if ((i + 1) % 3 === 0) { // Toutes les 3 questions, on repart à zéro sur les noms des polygones
-        listeDeNomsDePolygones = []
+      if (i % 3 === 0) { // Toutes les 3 questions, on repart à zéro sur les noms des polygones
+        listeDeNomsDePolygones = ['QD']
       }
       const nomDesPoints = creerNomDePolygone(5, listeDeNomsDePolygones)
       listeDeNomsDePolygones.push(nomDesPoints)
@@ -188,11 +191,11 @@ export default function Thales2D () {
       if (this.interactif && context.isHtml) {
         texte += '<br><br><em>Il faut saisir une unité.</em>'
         texte += `<br><br>$${nomM + nomN} = $`
-        setReponse(this, i * 2, new Grandeur(calcul(Math.abs(k) * ab), 'cm'), { formatInteractif: 'longueur' }) // 2 réponses par question donc 2i et 2i + 1 ainsi elles restent ordonnées
-        texte += ajouteChampTexteMathLive(this, i * 2, 'longueur')
-        texte += `$${nomC + nomB} = $`
-        texte += ajouteChampTexteMathLive(this, i * 2 + 1, 'longueur')
-        setReponse(this, i * 2 + 1, new Grandeur(bc, 'cm'), { formatInteractif: 'longueur' })
+        setReponse(this, i * 2, new Grandeur(calcul(Math.abs(k) * ab), 'cm'), { formatInteractif: 'unites', precision: 0.001 }) // 2 réponses par question donc 2i et 2i + 1 ainsi elles restent ordonnées
+        texte += ajouteChampTexteMathLive(this, i * 2, 'unites[longueurs] inline largeur25')
+        texte += `<br>$${nomC + nomB} = $`
+        texte += ajouteChampTexteMathLive(this, i * 2 + 1, 'unites[longueurs] inline largeur25')
+        setReponse(this, i * 2 + 1, new Grandeur(bc, 'cm'), { formatInteractif: 'unites', precision: 0.001 })
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {

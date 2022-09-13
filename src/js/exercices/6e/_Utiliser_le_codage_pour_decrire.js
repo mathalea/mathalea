@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, shuffle, combinaisonListes, creerNomDePolygone } from '../../modules/outils.js'
-import { point, pointSurSegment, pointIntersectionDD, pointAdistance, labelPoint, droite, mediatrice, segment, polygone, translation2Points, rotation, affiniteOrtho, similitude, codageAngleDroit, codeSegments, codeAngle, longueur, angleOriente, mathalea2d } from '../../modules/2d.js'
+import { point, pointSurSegment, pointIntersectionDD, pointAdistance, labelPoint, droite, mediatrice, segment, polygone, translation2Points, rotation, affiniteOrtho, similitude, codageAngleDroit, codageSegments, codageAngle, longueur, angleOriente } from '../../modules/2d.js'
 
 export default function UtiliserLeCodagePourDecrire () {
   'use strict'
@@ -19,12 +20,15 @@ export default function UtiliserLeCodagePourDecrire () {
     let A, B, C, D, E, F, s1, s2, s3, s4, s5, s6, s7, s8, medAC, medBC, dBD, dBC, dAC, dAF
     if (this.classe === 6) { typesDeQuestionsDisponibles = [1, 2, 3] } else { typesDeQuestionsDisponibles = [1, 2, 3, 4] }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    let listeDeNomsDePolygones
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       objetsEnonce = []
       objetsCorrection = []
       paramsEnonce = {}
       paramsCorrection = {}
-      nom = creerNomDePolygone(6, 'PQ')
+      if (i % 3 === 0) listeDeNomsDePolygones = ['PQD']
+      nom = creerNomDePolygone(6, listeDeNomsDePolygones)
+      listeDeNomsDePolygones.push(nom)
       for (let i = 0; i < 6; i++) { sommets.push(nom[i]) }
       sommets = shuffle(sommets)
 
@@ -53,7 +57,7 @@ export default function UtiliserLeCodagePourDecrire () {
           s8 = segment(E, F)
           s4 = segment(B, C)
           paramsEnonce = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 1, D.x - 1, E.x - 1, F.x - 1), ymin: Math.min(A.y - 1, B.y - 1, C.y - 1, D.y - 1, E.y - 1, F.y - 1), xmax: Math.max(A.x + 1, B.x + 1, C.x + 1, D.x + 1, E.x + 1, F.x + 1), ymax: Math.max(A.y + 1, B.y + 1, C.y + 1, D.y + 1, E.y + 1, F.y + 1.5), pixelsParCm: 30, scale: 1, mainlevee: true, amplitude: 1 }
-          objetsEnonce.push(s1, s2, s4, s8, s7, s3, s6, s5, codageAngleDroit(B, A, C), codeSegments('//', 'black', A, F, F, C), codeSegments('|||', 'black', A, E, E, C), codeSegments('O', 'black', B, D, D, C), labelPoint(A, B, C, D, E, F), codageAngleDroit(A, E, F))
+          objetsEnonce.push(s1, s2, s4, s8, s7, s3, s6, s5, codageAngleDroit(B, A, C), codageSegments('//', 'black', A, F, F, C), codageSegments('|||', 'black', A, E, E, C), codageSegments('O', 'black', B, D, D, C), labelPoint(A, B, C, D, E, F), codageAngleDroit(A, E, F))
           texte = '<br>À l\'aide du schéma ci-dessous, déterminer :<br>'
           texte += '- deux segments de même longueur ;<br>'
           texte += '- le milieu d\'un segment ;<br>'
@@ -79,7 +83,7 @@ export default function UtiliserLeCodagePourDecrire () {
           paramsCorrection = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 1, D.x - 1, E.x - 1, F.x - 1), ymin: Math.min(A.y - 1, B.y - 1, C.y - 1, D.y - 1, E.y - 1, F.y - 1), xmax: Math.max(A.x + 1, B.x + 1, C.x + 1, D.x + 1, E.x + 1, F.x + 1), ymax: Math.max(A.y + 1, B.y + 1, C.y + 1, D.y + 1, E.y + 1, F.y + 1), pixelsParCm: 30, scale: 1, mainlevee: true, amplitude: 1 }
           objetsCorrection.push(labelPoint(A, B, C, D, E, F), s1, s2, s4, s5, s6)
           objetsCorrection.push(codageAngleDroit(D, A, B), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), codageAngleDroit(C, D, A))
-          objetsCorrection.push(codeSegments('||', 'black', D, E, C, E), codeSegments('O', 'black', A, B, B, C, C, D, D, A), codeSegments('|||', 'black', F, C, B, F))
+          objetsCorrection.push(codageSegments('||', 'black', D, E, C, E), codageSegments('O', 'black', A, B, B, C, C, D, D, A), codageSegments('|||', 'black', F, C, B, F))
           texte = `$${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$ est un carré et $${sommets[3] + sommets[2] + sommets[4]}$ est un triangle équilatéral ($${sommets[4]}$ est à l'intérieur du carré $${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$).<br>`
           texte += ` $${sommets[1] + sommets[2] + sommets[5]}$ est un triangle isocèle en $${sommets[5]}$ ($${sommets[5]}$ est à l'extérieur du carré $${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$).<br>`
           texte += 'Représenter cette configuration par un schéma à main levée et ajouter les codages nécessaires.'
@@ -99,10 +103,10 @@ export default function UtiliserLeCodagePourDecrire () {
           paramsCorrection = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 1, D.x - 1, E.x - 1, F.x - 1), ymin: Math.min(A.y - 1, B.y - 1, C.y - 1, D.y - 1, E.y - 1, F.y - 1), xmax: Math.max(A.x + 1, B.x + 1, C.x + 1, D.x + 1, E.x + 1, F.x + 1), ymax: Math.max(A.y + 1, B.y + 1, C.y + 1, D.y + 1, E.y + 1, F.y + 1), pixelsParCm: 30, scale: 1, mainlevee: true, amplitude: 1 }
           objetsCorrection.push(labelPoint(A, B, C, D, E, F), s1, s2, s3, s4, s5)
           objetsCorrection.push(codageAngleDroit(D, A, B), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), codageAngleDroit(C, D, A))
-          objetsCorrection.push(codeSegments('||', 'black', D, E, E, B, A, E, E, C, F, C, B, F), codeSegments('O', 'black', A, B, D, C), codeSegments('/', 'black', A, D, B, C))
+          objetsCorrection.push(codageSegments('||', 'black', D, E, E, B, A, E, E, C, F, C, B, F), codageSegments('O', 'black', A, B, D, C), codageSegments('/', 'black', A, D, B, C))
           texte = `$${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$ est un rectangle. Ses diagonales se coupent en $${sommets[4]}$.<br>`
           texte += `$${sommets[4] + sommets[1] + sommets[5] + sommets[2]}$ est un losange.<br>`
-          texte += 'Représenter cette configuration par un schéma à main levée et ajouter les codages nécssaires.'
+          texte += 'Représenter cette configuration par un schéma à main levée et ajouter les codages nécessaires.'
           texteCorr = 'Voilà ci-dessous un schéma qui pourrait convenir à la situation.<br>'
           break
         case 4:
@@ -118,11 +122,11 @@ export default function UtiliserLeCodagePourDecrire () {
           s2 = segment(A, C)
           paramsEnonce = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 1, D.x - 1, E.x - 1, F.x - 1), ymin: Math.min(A.y - 1, B.y - 1, C.y - 1, D.y - 1, E.y - 1, F.y - 1), xmax: Math.max(A.x + 1, B.x + 1, C.x + 1, D.x + 1, E.x + 1, F.x + 1), ymax: Math.max(A.y + 1, B.y + 1, C.y + 1, D.y + 1, E.y + 1, F.y + 1), pixelsParCm: 30, scale: 1, mainlevee: true, amplitude: 0.8 }
           objetsEnonce.push(labelPoint(A, B, C, D, E, F), s1, s2, s3, s4, s5)
-          objetsEnonce.push(codeAngle(D, A, B, 2, '|', 'red', 2), codeAngle(B, C, D, 2, '|', 'red', 2), codeAngle(A, B, F, 2, '|', 'red', 2))
-          objetsEnonce.push(codeAngle(A, B, C, 2, '||', 'blue', 2), codeAngle(A, D, C, 2, '||', 'blue', 2))
-          objetsEnonce.push(codeAngle(B, A, F, 2, '///', 'green', 3), codeAngle(B, F, A, 2, '///', 'green', 3))
+          objetsEnonce.push(codageAngle(D, A, B, 2, '|', 'red', 2), codageAngle(B, C, D, 2, '|', 'red', 2), codageAngle(A, B, F, 2, '|', 'red', 2))
+          objetsEnonce.push(codageAngle(A, B, C, 2, '||', 'blue', 2), codageAngle(A, D, C, 2, '||', 'blue', 2))
+          objetsEnonce.push(codageAngle(B, A, F, 2, '///', 'green', 3), codageAngle(B, F, A, 2, '///', 'green', 3))
 
-          objetsEnonce.push(codeSegments('||', 'black', B, E, E, D), codeSegments('O', 'black', A, E, E, C))
+          objetsEnonce.push(codageSegments('||', 'black', B, E, E, D), codageSegments('O', 'black', A, E, E, C))
           texte = `$${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$ est un rectangle. Ses diagonales se coupent en $${sommets[4]}$.<br>`
           texte += `$${sommets[4] + sommets[1] + sommets[5] + sommets[2]}$ est un losange.<br>`
           texte = '<br>À l\'aide du schéma ci-dessous, déterminer :<br>'

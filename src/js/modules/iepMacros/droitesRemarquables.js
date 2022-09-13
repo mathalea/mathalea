@@ -1,5 +1,4 @@
 import { angleOriente, centreCercleCirconscrit, droite, longueur, milieu, pointSurSegment, projectionOrtho, rotation } from '../2d.js'
-import { calcul } from '../outils'
 
 /**
  * Trace la médiatrice de [AB] au compas. Le paramétrage des longueurs correspond à la distance entre le milieu du segment et le point d'intersection des arcs de cercles
@@ -196,10 +195,9 @@ export const mediane = function (A, B, C, options = {}) {
    * @param {objet} param3
    * @returns {objet} {arc1, arc2, arc3, arc4}
    */
-export const bissectriceAuCompas = function (A, B, C, { codage = '/', l = 2, couleur = this.couleur, tempo = this.tempo, vitesse = this.vitesse, sens = calcul(this.vitesse / 2, 0), epaisseur = this.epaisseur, pointilles = this.pointilles, couleurCodage = this.couleurCodage, masquerTraitsDeConstructions = true } = {}) {
+export const bissectriceAuCompas = function (A, B, C, { codage = '/', l = 2, couleur = this.couleur, tempo = this.tempo, vitesse = this.vitesse, sens = Math.round(this.vitesse / 2), epaisseur = this.epaisseur, pointilles = this.pointilles, couleurCodage = this.couleurCodage, masquerTraitsDeConstructions = true } = {}) {
   const A1 = pointSurSegment(B, A, l)
   const C1 = pointSurSegment(B, C, l)
-  // const demiangle = calcul(angleOriente(A, B, C) / 2);
   const angle = angleOriente(A, B, C)
   const M = rotation(B, A1, -(180 - angle))
   const options = { couleur: couleur, tempo: tempo, vitesse: vitesse, sens: sens, pointilles: false }

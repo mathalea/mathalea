@@ -1,13 +1,16 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, abs, ecritureParentheseSiNegatif, fractionSimplifiee, texNombre } from '../../modules/outils.js'
-import { point, tracePoint, labelPoint, segment, axes, grille, mathalea2d } from '../../modules/2d.js'
+import { point, tracePoint, labelPoint, segment, axes, grille } from '../../modules/2d.js'
 
-export const titre = 'Déterminer les coordonnées milieu d’un segment dans un repère'
+export const titre = 'Déterminer les coordonnées milieu d\'un segment dans un repère'
 
 /**
  * 2G12-2
  * @author Stéphane Guyon
  */
+export const uuid = '4b25a'
+export const ref = '2G12-2'
 export default function Milieu () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -63,7 +66,7 @@ export default function Milieu () {
           s = segment(A, B, 'blue')
 
           s.epaisseur = 2
-          // s3 = codeSegments('X', 'red', s1, s2)
+          // s3 = codageSegments('X', 'red', s1, s2)
           T = tracePoint(A, B, M, I, J, O) // Repère les points avec une croix
           L = labelPoint(A, B, M, I, J, O)
           texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
@@ -105,7 +108,7 @@ export default function Milieu () {
             yI = randint(0, 4) * choice([-1, 1])
           }
 
-         // xI0 = fractionSimplifiee(xA + xB, 2)[0]
+          // xI0 = fractionSimplifiee(xA + xB, 2)[0]
           // xI1 = fractionSimplifiee(xA + xB, 2)[1]
           // yI0 = fractionSimplifiee(yA + yB, 2)[0]
           // yI1 = fractionSimplifiee(yA + yB, 2)[1]

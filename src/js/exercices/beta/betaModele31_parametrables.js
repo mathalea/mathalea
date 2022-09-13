@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, creerNomDePolygone } from '../../modules/outils.js'
-import { point, tracePoint, labelPoint, polygoneRegulier, codageAngleDroit, mathalea2d } from '../../modules/2d.js'
+import { point, tracePoint, labelPoint, polygoneRegulier, codageAngleDroit } from '../../modules/2d.js'
 export const titre = 'Nom de l\'exercice'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -12,20 +13,23 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
  * @author
  * Référence
 */
-export default function NomExercice () {
-  Exercice.call(this)
-  this.consigne = 'consigne'
-  this.nbQuestions = 1
+export default class NomExercice extends Exercice {
+  constructor () {
+    super()
+    this.titre = titre
+    this.consigne = 'consigne'
+    this.nbQuestions = 1
 
-  this.besoinFormulaireNumerique = ['Figure à tracer', 2, '1 : Carré\n2 : Triangle'] // le paramètre sera numérique de valeur max 2 (le 2 en vert)
-  this.sup = 2 // Valeur du paramètre par défaut
-  // Remarques : le paramètre peut aussi être un texte avec : this.besoinFormulaireTexte = [texte, tooltip]
-  //              il peut aussi être une case à cocher avec : this.besoinFormulaireCaseACocher = [texte] (dans ce cas, this.sup = true ou this.sup = false)
+    this.besoinFormulaireNumerique = ['Figure à tracer', 2, '1 : Carré\n2 : Triangle'] // le paramètre sera numérique de valeur max 2 (le 2 en vert)
+    this.sup = 2 // Valeur du paramètre par défaut
+    // Remarques : le paramètre peut aussi être un texte avec : this.besoinFormulaireTexte = [texte, tooltip]
+    //              il peut aussi être une case à cocher avec : this.besoinFormulaireCaseACocher = [texte] (dans ce cas, this.sup = true ou this.sup = false)
 
-  this.nbCols = 1
-  this.nbColsCorr = 1
+    this.nbCols = 1
+    this.nbColsCorr = 1
+  }
 
-  this.nouvelleVersion = function (numeroExercice) {
+  nouvelleVersion (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []

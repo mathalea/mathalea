@@ -1,19 +1,22 @@
-import { droiteGraduee2, mathalea2d } from '../../../modules/2d'
-import { context } from '../../../modules/context'
-import FractionEtendue from '../../../modules/FractionEtendue'
-import { pgcd, randint, texFractionReduite } from '../../../modules/outils'
-import Exercice from '../../Exercice'
-export const titre = 'Trouver une abscisse fractionnaire'
+import { droiteGraduee } from '../../../modules/2d.js'
+import { context } from '../../../modules/context.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
+import { pgcd, randint, texFractionReduite } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
+export const titre = 'Lire une abscisse sur une droite graduée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
 /*!
- * @author Jean-Claude Lhote
+ * @author Jean-Claude Lhote et Gilles Mora
  * Créé pendant l'été 2021
  * Référence can6N04
  */
+export const uuid = 'ca515'
+export const ref = 'can6N04'
 export default function AbscisseFractionnaire () {
   Exercice.call(this)
   this.typeExercice = 'simple'
@@ -30,7 +33,7 @@ export default function AbscisseFractionnaire () {
     } while (b % a === 0)
     const c = new FractionEtendue(b, a)
     this.reponse = c
-    this.question = 'Determiner l\'abscisse du point $A$ situé ci-dessous :<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, droiteGraduee2({
+    this.question = 'Determiner l\'abscisse du point $A$.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, droiteGraduee({
       Unite: 3,
       Min: 0,
       Max: 4.2,
@@ -48,16 +51,16 @@ export default function AbscisseFractionnaire () {
       step2: 1
     }))
     if (pgcd(a, b) === 1) {
-      this.correction = `L'unité est divisée en $${a}$ graduations.<br>
+      this.correction = `L'unité est divisée en $${a}$ intervalles.<br>
     Une graduation correspond donc à $\\dfrac{1}{${a}}$. <br>
      Comme le point $A$ est situé à $${b}$ graduations de l'origine, 
-      l'abscisse du point $A$ est donc $\\dfrac{1}{${a}}\\times ${b}$ soit  $\\dfrac{${b}}{${a}}$.<br>
+      l'abscisse du point $A$ est donc $\\dfrac{1}{${a}}\\times ${b}$, soit  $\\dfrac{${b}}{${a}}$.<br>
       `
     } else {
-      this.correction = `L'unité est divisée en $${a}$ graduations.<br>
+      this.correction = `L'unité est divisée en $${a}$ intervalles.<br>
       Une graduation correspond donc à $\\dfrac{1}{${a}}$. <br>
        Comme le point $A$ est situé à $${b}$ graduations de l'origine, 
-        l'abscisse du point $A$ est donc $\\dfrac{1}{${a}}\\times ${b}$ soit  $\\dfrac{${b}}{${a}}$ que l'on peut simplifier en $${texFractionReduite(b, a)}$.<br>
+        l'abscisse du point $A$ est donc $\\dfrac{1}{${a}}\\times ${b}$, soit  $\\dfrac{${b}}{${a}}$ que l'on peut simplifier en $${texFractionReduite(b, a)}$.<br>
         `
     }
     if (context.isAmc) {

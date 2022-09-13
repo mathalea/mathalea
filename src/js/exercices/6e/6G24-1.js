@@ -1,5 +1,5 @@
 import ConstruireParSymetrie from '../6e/_Construire_par_symetrie.js'
-export const titre = 'Construire le symétrique d’un point par rapport à une droite'
+export const titre = 'Construire le symétrique d\'un point par rapport à une droite'
 export const dateDeModificationImportante = '14/11/2021'
 export { amcReady, amcType } from '../6e/_Construire_par_symetrie.js'
 /**
@@ -7,6 +7,8 @@ export { amcReady, amcType } from '../6e/_Construire_par_symetrie.js'
  * @author Jean-Claude Lhote
  * Relecture : Novembre 2021 par EE
  */
+export const uuid = '91a00'
+export const ref = '6G24-1'
 export default class SymetrieAxialePoint6e extends ConstruireParSymetrie {
   constructor () {
     super()

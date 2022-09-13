@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, shuffle, texNombre, numAlpha, arrondi } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-export const titre = 'Donner des valeurs approchées d’un quotient décimal'
+export const titre = 'Donner des valeurs approchées d\'un quotient décimal'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -14,6 +14,8 @@ export const interactifType = 'mathLive'
  * Référence 6C31-2
  * 2020-12-07
  */
+export const uuid = '013ef'
+export const ref = '6C31-2'
 export default function ValeurApprocheeDivisionDecimale () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Compléter les phrases suivantes.'

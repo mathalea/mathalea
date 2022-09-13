@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, randint, choice, range1, combinaisonListes } f
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
-export const titre = 'Calculer la valeur d’une expression littérale'
+export const titre = 'Calculer la valeur d\'une expression littérale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -23,6 +23,8 @@ export const interactifType = 'mathLive'
 * @author Rémi Angot
 * 5L14
 */
+export const uuid = '17e39'
+export const ref = '5L14'
 export default function CalculerLaValeurDUneExpressionLitterale () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

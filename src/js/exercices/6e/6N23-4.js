@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, range1, combinaisonListesSansChangerOrdre, texNombrec, texFraction, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, calcul, contraindreValeur, compteOccurences } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-export const titre = 'Donner l’écriture décimale d’un nombre à partir de différents textes'
+export const titre = 'Donner l\'écriture décimale d\'un nombre à partir de différents textes'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true
@@ -21,6 +21,8 @@ export const dateDeModifImportante = '15/01/2022' // Ajout de paramètres
  * Référence 6N23-4
  * Ajout de paramètres, Interactivité et AMC : Janvier 2022 par EE
  */
+export const uuid = 'e8e24'
+export const ref = '6N23-4'
 export default function NombreDecimalOraliseDeDifferentesManieres () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = "Donner l'écriture décimale de chaque nombre."

@@ -9,6 +9,8 @@ export const titre = 'Tableaux et pourcentages - prix constant'
  * @author Sébastien Lozano
  */
 
+export const uuid = 'f00fb'
+export const ref = '5N11-1'
 export default function TableauxEtPourcentagesPrixConstant () {
   this.exo = '5N11-1'
   this.titre = titre

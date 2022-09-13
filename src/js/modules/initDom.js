@@ -1,10 +1,10 @@
 /* global $ */
-import { context, setOutputAmc, setOutputHtml, setOutputLatex, setOutputMoodle, setOutputAlc } from './context'
-import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement, setStyles } from './dom'
-import { getDureeFromUrl, getLogFromUrl, getZoomFromUrl, getVueFromUrl, getUrlVars, goTabVue, replaceQueryParam } from './gestionUrl'
-import { initialiseBoutonsConnexion, modalLog } from './modalLog'
-import { modalTimer } from './modalTimer'
-import { zoomAffichage } from './zoom'
+import { context, setOutputAmc, setOutputHtml, setOutputLatex, setOutputMoodle, setOutputAlc } from './context.js'
+import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement, setStyles } from './dom.js'
+import { getDureeFromUrl, getLogFromUrl, getZoomFromUrl, getVueFromUrl, getUrlVars, goTabVue, replaceQueryParam } from './gestionUrl.js'
+import { initialiseBoutonsConnexion, modalLog } from './modalLog.js'
+import { modalTimer } from './modalTimer.js'
+import { zoomAffichage } from './zoom.js'
 
 const boutonMAJ = () => {
   const btn = create('button', { class: 'btn mini ui labeled icon button', id: 'btn_mise_a_jour_code' })
@@ -93,13 +93,19 @@ const affichageUniquementQuestion = (i) => {
   }
   if (i !== undefined) {
     context.questionCanEnCours = i + 1
-    questions[i].style.display = 'block'
-    const exercice = questions[i].parentElement.parentElement
-    exercice.style.display = 'block'
-    if (document.getElementById('scoreTotal')) {
-      corrections[i].style.display = 'block'
-      const correction = corrections[i].parentElement.parentElement
-      correction.style.display = 'block'
+    if (questions[i] !== undefined) {
+      questions[i].style.display = 'block'
+      const exercice = questions[i].parentElement.parentElement
+      exercice.style.display = 'block'
+      if (document.getElementById('scoreTotal')) {
+        if (corrections[i] !== undefined) {
+          corrections[i].style.display = 'block'
+          const correction = corrections[i].parentElement.parentElement
+          correction.style.display = 'block'
+        }
+      }
+    } else {
+      window.notify('AffichageUniquementQuestion(i) : questions[i] n\'est pas défini', { i, questions })
     }
   }
   const inputs = document.querySelectorAll('input, math-field ')
@@ -773,9 +779,11 @@ function affichageCorrection () {
   document.getElementById('corrections').style.display = 'block'
   const corrections = document.querySelectorAll('div.correction')
   const i = context.questionCanEnCours - 1
-  corrections[i].style.display = 'block'
-  const correction = corrections[i].parentElement.parentElement
-  correction.style.display = 'block'
+  if (corrections[i] !== undefined) {
+    corrections[i].style.display = 'block'
+    const correction = corrections[i].parentElement.parentElement
+    correction.style.display = 'block'
+  }
 }
 
 function masquerCorrection () {

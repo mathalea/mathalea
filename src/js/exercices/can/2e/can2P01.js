@@ -1,6 +1,6 @@
-import { fraction } from '../../../modules/fractions'
-import { choice, randint, simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { fraction } from '../../../modules/fractions.js'
+import { choice, randint, simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une probabilité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -12,6 +12,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can2P01
  */
+export const uuid = '763d3'
+export const ref = 'can2P01'
 export default function CalculsDeProbabilites () {
   Exercice.call(this)
   this.typeExercice = 'simple'

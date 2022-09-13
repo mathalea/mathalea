@@ -1,8 +1,9 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, texNombre, numAlpha, tableauColonneLigne } from '../../modules/outils.js'
-import { point, polygone, mathalea2d } from '../../modules/2d.js'
-export const titre = 'Produire une formule à partir d’un tableau'
+import { point, polygone } from '../../modules/2d.js'
+export const titre = 'Produire une formule à partir d\'un tableau'
 
 /**
  * * Traduire la dépendance entre deux grandeurs par un tableau de valeurs et produire une formule.
@@ -10,6 +11,8 @@ export const titre = 'Produire une formule à partir d’un tableau'
  * @author Sébastien Lozano
  */
 
+export const uuid = '7aba6'
+export const ref = '5L10-4'
 export default function TableauxEtFonction () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

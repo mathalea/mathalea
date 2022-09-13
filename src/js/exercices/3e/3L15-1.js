@@ -12,6 +12,8 @@ export const interactifType = 'mathLive'
 * @author Jean-Claude Lhote
 * 3L15
 */
+export const uuid = '57f44'
+export const ref = '3L15-1'
 export default function ResoudreEquatioeX2EgalA () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -72,11 +74,9 @@ export default function ResoudreEquatioeX2EgalA () {
           break
       }
       texte += ajouteChampTexteMathLive(this, i)
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, a)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        // alert(this.listeQuestions)
-        // alert(this.listeCorrections)
         i++
       }
       cpt++

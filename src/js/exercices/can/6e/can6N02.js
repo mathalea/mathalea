@@ -1,5 +1,5 @@
-import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { randint } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Recomposer un entier (bis)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6N02
  */
+export const uuid = '75d40'
+export const ref = 'can6N02'
 export default function RecomposerEntierSimple () {
   Exercice.call(this)
   this.typeExercice = 'simple'

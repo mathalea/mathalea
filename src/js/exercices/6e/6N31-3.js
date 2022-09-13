@@ -18,6 +18,8 @@ export const titre = 'Arrondir une valeur'
  * Ajout Nouvel AMC : Janvier 2022 par EE
  */
 
+export const uuid = 'ab793'
+export const ref = '6N31-3'
 export default function ArrondirUneValeur () {
   Exercice.call(this) // Héritage de la classe Exercice()
 
@@ -29,6 +31,11 @@ export default function ArrondirUneValeur () {
   this.spacingCorr = context.isHtml ? 2.5 : 3.5
 
   this.nouvelleVersion = function () {
+    if (this.version === 3) {
+      this.sup = 3
+    } else if (this.version === 4) {
+      this.sup = 4
+    }
     this.sup = parseInt(this.sup)
     this.sup2 = parseInt(this.sup2)
     this.amcType = this.sup2 === 1 ? 'qcmMono' : 'AMCHybride'

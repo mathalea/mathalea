@@ -1,9 +1,11 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, abs, reduireAxPlusB, texFractionReduite, ecritureAlgebrique, pgcd, calcul } from '../../modules/outils.js'
-import { repere2, droite, segment, tracePoint, labelPoint, point, mathalea2d } from '../../modules/2d.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { listeQuestionsToContenu, randint, abs, reduireAxPlusB, texFractionReduite, ecritureAlgebrique, pgcd } from '../../modules/outils.js'
+import { repere, droite, segment, tracePoint, labelPoint, point } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
+import Decimal from 'decimal.js/decimal.mjs'
 export const titre = "Lecture graphique des coefficients d'une équation réduite "
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -13,10 +15,11 @@ export const amcType = 'AMCHybride'
  2G35-7, ex 2G50-2
 
 */
+export const uuid = '41e6f'
+export const ref = '2G35-7'
 export default function lecturegraphiquedeaetb (numeroExercice) {
   Exercice.call(this)
 
-  this.consigne = 'Equation réduite de droite et représentation graphique '
   this.nbQuestions = 3// On complète le nb de questions
   this.nbCols = 2
   this.nbColsCorr = 2
@@ -45,11 +48,11 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
         if (a === 0 && b === 0) {
           a = 1
         }// On évite la situation de double nullité
-        r = repere2()// On définit le repère
+        r = repere()// On définit le repère
         c = droite(a, -1, b) // On définit l'objet qui tracera la courbe dans le repère
-        c.color = 'red'
+        c.color = colorToLatexOrHTML('red')
         c.epaisseur = 2
-        texte = 'A partir de la représentation graphique de la droite ci-dessous, donner par lecture graphique son équation réduite.<br>'
+        texte = 'À partir de la représentation graphique de la droite ci-dessous, donner par lecture graphique son équation réduite.<br><br>'
         texte += mathalea2d({
           xmin: -8,
           ymin: -8,
@@ -82,8 +85,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           s2.epaisseur = 4
           const A = point(0, b, 'A')
           t = tracePoint(A, 'blue') // Variable qui trace les points avec une croix
-          l = labelPoint(A)// Variable qui trace les nom s A et B
-          l.color = 'blue'
+          l = labelPoint(A, 'blue')// Variable qui trace les nom s A et B
           if (a !== 0) {
             texteCorr += mathalea2d({
               xmin: -8,
@@ -101,8 +103,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           s2.epaisseur = 4
           const A = point(0, b, 'A')
           t = tracePoint(A, 'blue') // Variable qui trace les points avec une croix
-          l = labelPoint(A)// Variable qui trace les nom s A et B
-          l.color = 'blue'
+          l = labelPoint(A, 'blue')// Variable qui trace les nom s A et B
           if (a !== 0) {
             texteCorr += mathalea2d({
               xmin: -8,
@@ -155,9 +156,8 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
             ]
           }
         }
-      }
-      if (this.sup === 2) { // cas du coeff directeur fractionnaire
-        a = randint(-5, 5, [0]) // numérateut coefficient directeur non nul
+      } else { // cas du coeff directeur fractionnaire
+        a = randint(-5, 5, [0]) // numérateur coefficient directeur non nul
         b = randint(-5, 5) // ordonnée à l'origine
         d = randint(2, 5, 3) // dénominateur coefficient directeur
         if (a === 0 && b === 0) {
@@ -165,12 +165,12 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           d = 3
         }// On évite la situation de double nullité
 
-        r = repere2()// On définit le repère
+        r = repere()// On définit le repère
         c = droite(a / d, -1, b) // On définit l'objet qui tracera la courbe dans le repère
-        c.color = 'red'
+        c.color = colorToLatexOrHTML('red')
         c.epaisseur = 2// On définit l'objet qui tracera la courbe dans le repère
 
-        texte = 'A partir de la représentation graphique de la droite ci-dessous, donner par lecture graphique son équation réduite.<br>'
+        texte = 'À partir de la représentation graphique de la droite ci-dessous, donner par lecture graphique son équation réduite.<br><br>'
         texte += mathalea2d({
           xmin: -6,
           ymin: -6,
@@ -203,11 +203,15 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           texteCorr += '$'
 
           texteCorr += '<br>On peut en déduire que l\'équation réduite de la droite $(d)$ est : $y= '
-          if (a === d) { texteCorr += 'x' }
-          if (a === -d) { texteCorr += '-x' }
-          if (a !== d & a !== -d) { texteCorr += `${texFractionReduite(a, d)}x` }
+          if (a === d) {
+            texteCorr += `x${b !== 0 ? ecritureAlgebrique(b) : ''}`
+          } else if (a === -d) {
+            texteCorr += `-x${b !== 0 ? ecritureAlgebrique(b) : ''}`
+          } else {
+            texteCorr += `${texFractionReduite(a, d)}x`
+            if (b !== 0) { texteCorr += `${ecritureAlgebrique(b)}=${reduireAxPlusB(new Decimal(a).div(d), b)}` }
+          }
 
-          if (b !== 0) { texteCorr += `${ecritureAlgebrique(b)}` }
           texteCorr += '$.'
 
           if (a > 0) {
@@ -223,8 +227,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           s2.epaisseur = 4
           const A = point(0, b, 'A')
           t = tracePoint(A, 'red') // Variable qui trace les points avec une croix
-          l = labelPoint(A)// Variable qui trace les nom s A et B
-          l.color = 'red'
+          l = labelPoint(A, 'red')// Variable qui trace les nom s A et B
           if (a !== 0) {
             texteCorr += mathalea2d({
               xmin: -6,
@@ -234,7 +237,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
               scale: 0.5
             }, r, s1, s2, t, l, c)
           }// On trace le graphique
-          setReponse(this, i, 'y=' + reduireAxPlusB(calcul(a / d), b))
+          setReponse(this, i, 'y=' + reduireAxPlusB(new Decimal(a).div(d), b))
           if (context.isAmc) {
             this.autoCorrection[i] = {
               enonce: texte + '<br>',
@@ -246,7 +249,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
                     statut: '',
                     reponse: {
                       texte: 'coefficient directeur',
-                      valeur: calcul(a / d),
+                      valeur: new Decimal(a).div(d).toString(),
                       param: {
                         digits: 3,
                         decimals: 2,

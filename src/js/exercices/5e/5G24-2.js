@@ -1,5 +1,6 @@
 import Exercice from '../Exercice.js'
-import { point, pointAdistance, rotation, translation, vecteur, barycentre, codeSegment, codeAngle, nommePolygone, mathalea2d, triangle2points2longueurs } from '../../modules/2d.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { point, pointAdistance, rotation, translation, vecteur, barycentre, codageSegment, codageAngle, nommePolygone, triangle2points2longueurs } from '../../modules/2d.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, creerNomDePolygone, texteEnCouleur } from '../../modules/outils.js'
 export const titre = 'Justifier que deux triangles sont égaux'
 
@@ -8,6 +9,8 @@ export const titre = 'Justifier que deux triangles sont égaux'
  * @author Rémi Angot
  * Référence 5G24-1
 */
+export const uuid = 'b9a52'
+export const ref = '5G24-2'
 export default function TrianglesEgaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -27,8 +30,9 @@ export default function TrianglesEgaux () {
     const typeQuestionsDisponibles = ['CCC', 'CAC', 'ACA', 'AAA', 'CC']
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-
+    let listeDeNomsDePolygones
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      if (i % 3 === 0) listeDeNomsDePolygones = ['QD']
       // Boucle principale où i+1 correspond au numéro de la question
       let l1 = randint(40, 70)
       let l2 = randint(40, 80, l1)
@@ -49,20 +53,22 @@ export default function TrianglesEgaux () {
       const D = p2.listePoints[0]
       const E = p2.listePoints[1]
       const F = p2.listePoints[2]
-      const code1 = codeSegment(A, B, '|')
-      const code2 = codeSegment(D, E, '|')
-      const code3 = codeSegment(B, C, '||')
-      const code4 = codeSegment(E, F, '||')
-      const code5 = codeSegment(C, A, '|||')
-      const code6 = codeSegment(F, D, '|||')
-      const codeA1 = codeAngle(A, B, C)
-      const codeA2 = codeAngle(D, E, F)
-      const codeA3 = codeAngle(B, C, A, 0.8, 'X')
-      const codeA4 = codeAngle(E, F, D, 0.8, 'X')
-      const codeA5 = codeAngle(C, A, B, 0.8, '||')
-      const codeA6 = codeAngle(F, D, E, 0.8, '||')
-      const nom1 = creerNomDePolygone(3)
-      const nom2 = creerNomDePolygone(3, nom1)
+      const code1 = codageSegment(A, B, '|')
+      const code2 = codageSegment(D, E, '|')
+      const code3 = codageSegment(B, C, '||')
+      const code4 = codageSegment(E, F, '||')
+      const code5 = codageSegment(C, A, '|||')
+      const code6 = codageSegment(F, D, '|||')
+      const codeA1 = codageAngle(A, B, C)
+      const codeA2 = codageAngle(D, E, F)
+      const codeA3 = codageAngle(B, C, A, 0.8, 'X')
+      const codeA4 = codageAngle(E, F, D, 0.8, 'X')
+      const codeA5 = codageAngle(C, A, B, 0.8, '||')
+      const codeA6 = codageAngle(F, D, E, 0.8, '||')
+      const nom1 = creerNomDePolygone(3, listeDeNomsDePolygones)
+      listeDeNomsDePolygones.push(nom1)
+      const nom2 = creerNomDePolygone(3, listeDeNomsDePolygones)
+      listeDeNomsDePolygones.push(nom2)
       const nommeP1 = nommePolygone(p1, nom1)
       const nommeP2 = nommePolygone(p2, nom2)
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent

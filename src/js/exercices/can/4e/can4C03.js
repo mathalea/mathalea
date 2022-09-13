@@ -1,6 +1,6 @@
-import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
-import { calcul, choice, texteEnCouleur } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
+import { calcul, choice, texteEnCouleur } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Effectuer une division avec une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -12,6 +12,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can4C03
  */
+export const uuid = '22c4c'
+export const ref = 'can4C03'
 export default function QuotientEntierQuiVaBienParFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'

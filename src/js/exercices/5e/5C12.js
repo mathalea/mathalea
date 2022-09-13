@@ -1,7 +1,7 @@
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { combinaisonListes, listeQuestionsToContenu, randint, lettreDepuisChiffre } from '../../modules/outils.js'
+import { combinaisonListes, listeQuestionsToContenu, randint, lettreDepuisChiffre, contraindreValeur } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import choisirExpressionNumerique from './_choisirExpressionNumerique.js'
 import ChoisirExpressionLitterale from './_Choisir_expression_litterale.js'
@@ -12,6 +12,8 @@ export const titre = 'Calculer une expression numérique en détaillant les calc
  * @author Jean-Claude Lhote
  * Référence 5C12
  */
+export const uuid = 'e61fc'
+export const ref = '5C12'
 export default function CalculerUneExpressionNumerique () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
@@ -47,7 +49,7 @@ export default function CalculerUneExpressionNumerique () {
 
     for (let i = 0, texte, texteCorr, val1, val2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}
-      nbOperations = parseInt(listeTypeDeQuestions[i] % 6)
+      nbOperations = contraindreValeur(1, 5, parseInt(listeTypeDeQuestions[i]), 2)
       val1 = randint(2, 5)
       val2 = randint(6, 9)
       if (this.version > 2 && nbOperations === 1 && !this.litteral) nbOperations++
@@ -90,7 +92,8 @@ export default function CalculerUneExpressionNumerique () {
       } else {
         texteCorr = `Pour $x=${val1}$ :<br>${expc}.`
       }
-      reponse = parseInt(expc.split('=')[expc.split('=').length - 1])
+
+      reponse = this.litteral ? parseInt(expc.split('=')[expc.split('=').length - 1]) : resultats[4]
       if (this.questionJamaisPosee(i, expn, expf)) { // Si la question n'a jamais été posée, on en créé une autre
         if (this.interactif) {
           texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: ' Résultat : ' })

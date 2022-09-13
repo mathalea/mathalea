@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, choice, creerNomDePolygone, texNombrec, texteEnCouleur, extraireRacineCarree, texRacineCarree } from '../../../modules/outils.js'
 import {
-  mathalea2d, point, pointAdistance, polygoneAvecNom, milieu, codageAngleDroit, similitude, texteParPosition
+  point, pointAdistance, polygoneAvecNom, milieu, codageAngleDroit, similitude, texteParPosition
 } from '../../../modules/2d.js'
 export const titre = 'Calculer l’hypoténuse avec le théorème de Pythagore'
 export const interactifReady = true
@@ -13,6 +14,8 @@ export const interactifType = 'mathLive'
  * Référence can4G03
  * Date de publication
 */
+export const uuid = 'd9524'
+export const ref = 'can4G03'
 export default function CalculHypotenusePythagore () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
@@ -21,7 +24,7 @@ export default function CalculHypotenusePythagore () {
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   let a, b
   this.nouvelleVersion = function () {
-    const nom = creerNomDePolygone(3, ['Q'])
+    const nom = creerNomDePolygone(3, ['QD'])
     a = randint(2, 7)//
     b = randint(3, 7)//
     const A = point(0, 0, nom[0])

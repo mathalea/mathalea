@@ -11,6 +11,8 @@ export const titre = 'Encadrer avec des puissances de 10'
  * 4C30-1
  * @author Sébastien Lozano (Modifications apportées par Eric Elter)
  */
+export const uuid = '760d7'
+export const ref = '4C30-1'
 export default function PuissancesEncadrement () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 4
@@ -27,6 +29,9 @@ export default function PuissancesEncadrement () {
   let signeChange
 
   this.nouvelleVersion = function () {
+    if (this.level === 2) {
+      this.sup = 5
+    }
     this.sup = Number(this.sup) // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
     signeChange = false
     switch (this.sup) {

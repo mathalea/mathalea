@@ -15,10 +15,12 @@ export const titre = 'Réduire une expression littérale'
 * @author Rémi Angot
 * 5L12
 */
+export const uuid = '85d2d'
+export const ref = '5L12'
 export default function ReduireUneExpressionLitterale () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Réduire les expressions suivantes'
+  this.consigne = 'Réduire les expressions suivantes.'
   this.nbQuestions = 5
   this.nbCols = 1
   this.nbColsCorr = 1

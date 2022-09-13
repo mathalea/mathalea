@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, abs, ecritureParentheseSiNegatif, fractionSimplifiee, texNombre } from '../../modules/outils.js'
-import { point, tracePoint, codeSegments, labelPoint, segment, axes, grille, mathalea2d } from '../../modules/2d.js'
+import { point, tracePoint, codageSegments, labelPoint, segment, axes, grille } from '../../modules/2d.js'
 
 export const titre = 'Démontrer qu\'un quadrilatère est ou non un parallélogramme'
 
@@ -8,6 +9,8 @@ export const titre = 'Démontrer qu\'un quadrilatère est ou non un parallélogr
  * 2G12-3
  * @author Stéphane Guyon
  */
+export const uuid = '31760'
+export const ref = '2G12-3'
 export default function Parallélogramme () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -84,7 +87,7 @@ export default function Parallélogramme () {
           s4.epaisseur = 2
           s5.epaisseur = 2
           s6.epaisseur = 2
-          codeSegments('X', 'red', s5, s6) // Code les segments s5 et s6
+          codageSegments('X', 'red', s5, s6) // Code les segments s5 et s6
           T = tracePoint(A, B, C, D, M, I, J, O) // Repère les points avec une croix
           L = labelPoint(A, B, C, D, M, I, J, O)
 
@@ -184,7 +187,7 @@ export default function Parallélogramme () {
           s4.epaisseur = 2
           s5.epaisseur = 2
           s6.epaisseur = 2
-          // codeSegments('X', 'red', s1, s2, s3, s4, s5, s6) // Code les segments s5 et s6
+          // codageSegments('X', 'red', s1, s2, s3, s4, s5, s6) // Code les segments s5 et s6
 
           T = tracePoint(A, B, C, D, I, J, M, N, O) // Repère les points avec une croix
           L = labelPoint(A, B, C, D, I, J, M, N, O)

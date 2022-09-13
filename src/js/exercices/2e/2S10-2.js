@@ -1,5 +1,6 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombre, texPrix } from '../../modules/outils.js'
+import Decimal from 'decimal.js/decimal.mjs'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombre, texPrix } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -23,6 +24,8 @@ export const dateDePublication = '9/12/2021'
 * * ajout de lignes pour l'export AMC par Jean-Claude Lhote
 * 2S10-1
 */
+export const uuid = '612a5'
+export const ref = '2S10-2'
 export default function Proportions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -80,48 +83,48 @@ export default function Proportions () {
               taux = randint(10, 80)
               break
           }
-          p = calcul(taux / 100)
-          sous = calcul(totale * p)
-          sous2 = totale - sous
+          p = new Decimal(taux).div(100)
+          sous = p.mul(totale)
+          sous2 = sous.mul(-1).plus(totale)
           switch (listeTypeDeQuestions[i]) {
             case 'sous-population':
               switch (randint(1, 2)) {
                 case 1:
-                  texte = `$${texNombre(totale)}$ personnes assistent à un concert. $${taux}~\\%$ ont moins de $18$ ans. <br>Calculer le nombre de personnes mineures dans le public.`
-                  texteCorr = `Pour appliquer une proportion à une valeur, on multiplie celle-ci par la proportion $p$. <br>Comme $${taux}~\\%$ des $${texNombre(totale)}$ personnes sont mineures, le nombre de personnes mineures est donné par :`
-                  texteCorr += `<br>$\\dfrac{${taux}}{100} \\times ${texNombre(totale)} = ${texNombre(p)} \\times ${texNombre(totale)}=${texNombre(sous)}$`
+                  texte = `$${texNombre(totale, 0)}$ personnes assistent à un concert. $${taux}~\\%$ ont moins de $18$ ans. <br>Calculer le nombre de personnes mineures dans le public.`
+                  texteCorr = `Pour appliquer une proportion à une valeur, on multiplie celle-ci par la proportion $p$. <br>Comme $${taux}~\\%$ des $${texNombre(totale, 0)}$ personnes sont mineures, le nombre de personnes mineures est donné par :`
+                  texteCorr += `<br>$\\dfrac{${taux}}{100} \\times ${texNombre(totale, 0)} = ${texNombre(p, 2)} \\times ${texNombre(totale, 0)}=${texNombre(sous, 2)}$`
                   texteCorr += `<br>Il y a donc $${texNombre(sous)}$ personnes mineures dans le public.`
                   reponse = sous
                   break
                 case 2:
-                  texte = `$${texNombre(totale)}$ personnes assistent à un concert. $${taux}~\\%$ ont moins de $18$ ans. <br>Calculer le nombre de personnes majeures dans le public.`
+                  texte = `$${texNombre(totale, 0)}$ personnes assistent à un concert. $${taux}~\\%$ ont moins de $18$ ans. <br>Calculer le nombre de personnes majeures dans le public.`
                   texteCorr = `<br>On commence par déterminer la proportion de personnes majeures avec ce calcul : <br> $100-${taux}=${100 - taux}$.`
                   texteCorr += 'Pour appliquer une proportion à une valeur, on multiplie celle-ci par la proportion $p$.'
-                  texteCorr += `<br>Comme $${100 - taux}~\\%$ des $${texNombre(totale)}$ personnes sont majeures, le nombre de personnes majeures est donné par :`
-                  texteCorr += `<br>$\\dfrac{${100 - taux}}{100} \\times ${texNombre(totale)} = ${texNombre(calcul(1 - p))} \\times ${texNombre(totale)} = ${texNombre(sous2)}$`
-                  texteCorr += `<br>Il y a donc $${texNombre(sous2)}$ personnes majeures dans le public.`
+                  texteCorr += `<br>Comme $${100 - taux}~\\%$ des $${texNombre(totale, 0)}$ personnes sont majeures, le nombre de personnes majeures est donné par :`
+                  texteCorr += `<br>$\\dfrac{${100 - taux}}{100} \\times ${texNombre(totale, 0)} = ${texNombre(p.mul(-1).add(1))} \\times ${texNombre(totale, 0)} = ${texNombre(sous2, 2)}$`
+                  texteCorr += `<br>Il y a donc $${texNombre(sous2, 2)}$ personnes majeures dans le public.`
                   reponse = sous2
                   break
               }
               paramAMC = { digits: 4, decimals: 0, signe: false, approx: 0 } // on mets 4 chiffres même si la plupart des réponses n'en ont que 3 pour ne pas contraindre les réponses
               break
             case 'population-totale':
-              texte = `Lors d'un concert, il y a $${texNombre(sous)}$ spectacteurs de plus de $60$ ans, ce qui représente $${taux}~\\%$ du public. <br>Combien de spectateurs ont assisté au concert ?`
-              texteCorr = `Soit $x$ le nombre total de spectateur. <br> Comme $${taux}~\\%$ de $x$ est égal à $${texNombre(sous)}$, on a :`
+              texte = `Lors d'un concert, il y a $${texNombre(sous, 2)}$ spectacteurs de plus de $60$ ans, ce qui représente $${taux}~\\%$ du public. <br>Combien de spectateurs ont assisté au concert ?`
+              texteCorr = `Soit $x$ le nombre total de spectateur. <br> Comme $${taux}~\\%$ de $x$ est égal à $${texNombre(sous, 2)}$, on a :`
               texteCorr += `<br>$\\begin{aligned}
-              \\dfrac{${taux}}{100} \\times x &= ${texNombre(sous)} \\\\\\
-              ${texNombre(p)} \\times x &= ${texNombre(sous)} \\\\
-              x &= \\dfrac{${texNombre(sous)}}{${texNombre(p)}} \\\\
-              x &= ${texNombre(totale)}
+              \\dfrac{${taux}}{100} \\times x &= ${texNombre(sous, 2)} \\\\\\
+              ${texNombre(p, 2)} \\times x &= ${texNombre(sous, 2)} \\\\
+              x &= \\dfrac{${texNombre(sous, 2)}}{${texNombre(p, 2)}} \\\\
+              x &= ${texNombre(totale, 0)}
               \\end{aligned}$`
-              texteCorr += `<br>Il y avait donc $${texNombre(totale)}$ spectateurs.`
+              texteCorr += `<br>Il y avait donc $${texNombre(totale, 0)}$ spectateurs.`
               reponse = totale
               paramAMC = { digits: 4, decimals: 0, signe: false, approx: 0 } // Le nombre attendu a bien 4 chiffres maxi
               break
             case 'proportion':
-              texte = `Parmi les $${texNombre(totale)}$ spectacteurs d'un concert, $${texNombre(sous)}$ ont moins de $18$ ans. <br>Calculer la proportion des personnes mineures dans le public en pourcentage.`
-              texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texNombre(sous)}}{${texNombre(totale)}} = ${texNombre(p)}$.`
-              texteCorr += `<br>$${texNombre(p)}=\\dfrac{${texNombre(taux)}}{100}$. Il y a donc $${taux}~\\%$ de personnes mineures dans le public.`
+              texte = `Parmi les $${texNombre(totale, 0)}$ spectacteurs d'un concert, $${texNombre(sous, 2)}$ ont moins de $18$ ans. <br>Calculer la proportion des personnes mineures dans le public en pourcentage.`
+              texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texNombre(sous, 2)}}{${texNombre(totale, 0)}} = ${texNombre(p, 2)}$.`
+              texteCorr += `<br>$${texNombre(p, 2)}=\\dfrac{${texNombre(taux, 0)}}{100}$. Il y a donc $${taux}~\\%$ de personnes mineures dans le public.`
               reponse = taux
               paramAMC = { digits: 2, decimals: 0, signe: false, approx: 0 } // Le taux est ici inférieur à 100%
               break
@@ -142,15 +145,15 @@ export default function Proportions () {
               taux = 10 * randint(1, 3)
               break
           }
-          p = calcul(taux / 100)
-          sous = calcul(totale * p)
-          sous2 = totale - sous
+          p = new Decimal(taux).div(100)
+          sous = p.mul(totale)
+          sous2 = sous.mul(-1).plus(totale)
           prénom = choice(['Frédéric', 'Brice', 'Marion', 'Christelle', 'Léo', 'Gabriel', 'Maël', 'Louise', 'Lina', 'Mia', 'Rose', 'Mohamed', 'Mehdi', 'Rayan', 'Karim', 'Yasmine', 'Noûr', 'Kaïs', 'Louna', 'Nora', 'Fatima', 'Nora', 'Nadia', 'Sohan', 'Timothée', 'Jamal'])
           switch (listeTypeDeQuestions[i]) {
             case 'sous-population':
               texte = `Le cadeau commun que nous souhaitons faire à ${prénom} coûte $${texPrix(totale)}$ €. Je participe à hauteur de $${taux}~\\%$ du prix total. <br>Combien ai-je donné pour le cadeau de ${prénom} ?`
               texteCorr = `Pour appliquer une proportion à une valeur, on multiplie celle-ci par la proportion $p$. <br>Comme ma participation représente $${taux}~\\%$ de $${texPrix(totale)}$, j'ai donné :`
-              texteCorr += `<br>$\\dfrac{${taux}}{100} \\times ${texNombre(totale)} = ${texNombre(p)} \\times ${texNombre(totale)}=${texNombre(sous)}$`
+              texteCorr += `<br>$\\dfrac{${taux}}{100} \\times ${texNombre(totale, 0)} = ${texNombre(p, 2)} \\times ${texNombre(totale, 0)}=${texNombre(sous, 2)}$`
               texteCorr += `<br>Ma participation au cadeau est de $${texPrix(sous)}$ €.`
               reponse = sous
               paramAMC = { digits: 3, decimals: 0, signe: false, approx: 0 } // la participation n'a que 2 chiffres mais on ne contraint pas la réponse
@@ -160,8 +163,8 @@ export default function Proportions () {
               texteCorr = `Soit $x$ le montant du cadeau. <br> Comme $${taux}~\\%$ de $x$ est égal à $${texPrix(sous)}$, on a :`
               texteCorr += `<br>$\\begin{aligned}
               \\dfrac{${taux}}{100} \\times x &= ${sous} \\\\\\
-              ${texNombre(p)} \\times x &= ${sous} \\\\
-              x &= \\dfrac{${texPrix(sous)}}{${texNombre(p)}} \\\\
+              ${texNombre(p, 2)} \\times x &= ${sous} \\\\
+              x &= \\dfrac{${texPrix(sous, 2)}}{${texNombre(p, 2)}} \\\\
               x &= ${texPrix(totale)}
               \\end{aligned}$`
               texteCorr += `<br>Le cadeau coûte $${texPrix(totale)}$ €.`
@@ -170,8 +173,8 @@ export default function Proportions () {
               break
             case 'proportion':
               texte = `Le cadeau commun que nous souhaitons faire à ${prénom} coûte $${texPrix(totale)}$ €. Je participe à hauteur de $${texPrix(sous)}$ €. <br>Calculer la proportion de ma participation sur le prix total du cadeau.`
-              texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texPrix(sous)}}{${texPrix(totale)}} = ${texNombre(p)}$.`
-              texteCorr += `<br>$${texNombre(p)}=\\dfrac{${texNombre(taux)}}{100}$. J'ai donc donné $${taux}~\\%$ du montant total du cadeau.`
+              texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texPrix(sous)}}{${texPrix(totale)}} = ${texNombre(p, 2)}$.`
+              texteCorr += `<br>$${texNombre(p, 2)}=\\dfrac{${texNombre(taux, 0)}}{100}$. J'ai donc donné $${taux}~\\%$ du montant total du cadeau.`
               reponse = taux
               paramAMC = { digits: 2, decimals: 0, signe: false, approx: 0 } // Le taux est ici inférieur à 100%
               break
@@ -192,39 +195,39 @@ export default function Proportions () {
               taux = randint(8, 40)
               break
           }
-          p = calcul(taux / 100)
-          sous = calcul(totale * p)
-          sous2 = totale - sous
+          p = new Decimal(taux).div(100)
+          sous = p.mul(totale)
+          sous2 = sous.mul(-1).plus(totale)
           // espèce = choice(['pic noir', 'pipit farlouse', 'bruant des roseaux']) au singulier, inutile à priori
           espèces = choice(['pics noir', 'pipits farlouse', 'bruants des roseaux'])
           switch (listeTypeDeQuestions[i]) {
             case 'sous-population':
-              texte = `Une réserve de protection d'oiseaux contient $${texNombre(totale)}$ individus d'oiseaux. On dénombre $${taux}~\\%$ de ${espèces}.<br>Quel est le nombre de ${espèces} ?`
-              texteCorr = `Pour appliquer une proportion à une valeur, on multiplie celle-ci par la proportion $p$. <br>Comme les ${espèces} représentent $${taux}~\\%$ de $${texNombre(totale)}$, leur nombre est donné par :`
-              texteCorr += `<br>$\\dfrac{${taux}}{100} \\times ${texNombre(totale)} = ${texNombre(p)} \\times ${texNombre(totale)}=${texNombre(sous)}$`
-              texteCorr += `<br>Il y a $${texNombre(sous)}$ ${espèces} dans la réserve.`
+              texte = `Une réserve de protection d'oiseaux contient $${texNombre(totale, 0)}$ individus d'oiseaux. On dénombre $${taux}~\\%$ de ${espèces}.<br>Quel est le nombre de ${espèces} ?`
+              texteCorr = `Pour appliquer une proportion à une valeur, on multiplie celle-ci par la proportion $p$. <br>Comme les ${espèces} représentent $${taux}~\\%$ de $${texNombre(totale, 0)}$, leur nombre est donné par :`
+              texteCorr += `<br>$\\dfrac{${taux}}{100} \\times ${texNombre(totale, 0)} = ${texNombre(p, 2)} \\times ${texNombre(totale, 0)}=${texNombre(sous, 2)}$`
+              texteCorr += `<br>Il y a $${texNombre(sous, 2)}$ ${espèces} dans la réserve.`
               reponse = sous
               paramAMC = { digits: 4, decimals: 0, signe: false, approx: 0 } // on mets 4 chiffres même si la plupart des réponses n'en ont que 3 pour ne pas contraindre les réponses
 
               break
             case 'population-totale':
-              texte = `Dans une réserve de protection d'oiseaux, il y a $${texNombre(sous)}$ ${espèces}, ce qui représente $${taux}~\\%$ du nombre total d'oiseaux. <br>Quel est le nombre d'oiseaux de cette réserve ?`
-              texteCorr = `Soit $x$ le nombre d'oiseaux. <br> Comme $${taux}~\\%$ de $x$ est égal à $${texNombre(sous)}$, on a :`
+              texte = `Dans une réserve de protection d'oiseaux, il y a $${texNombre(sous, 2)}$ ${espèces}, ce qui représente $${taux}~\\%$ du nombre total d'oiseaux. <br>Quel est le nombre d'oiseaux de cette réserve ?`
+              texteCorr = `Soit $x$ le nombre d'oiseaux. <br> Comme $${taux}~\\%$ de $x$ est égal à $${texNombre(sous, 2)}$, on a :`
               texteCorr += `<br>$\\begin{aligned}
-                \\dfrac{${taux}}{100} \\times x &= ${texNombre(sous)} \\\\\\
-                ${texNombre(p)} \\times x &= ${texNombre(sous)} \\\\
-                x &= \\dfrac{${texNombre(sous)}}{${texNombre(p)}} \\\\
-                x &= ${texNombre(totale)}
+                \\dfrac{${taux}}{100} \\times x &= ${texNombre(sous, 2)} \\\\\\
+                ${texNombre(p, 2)} \\times x &= ${texNombre(sous, 2)} \\\\
+                x &= \\dfrac{${texNombre(sous, 2)}}{${texNombre(p, 2)}} \\\\
+                x &= ${texNombre(totale, 0)}
                 \\end{aligned}$`
-              texteCorr += `<br>Il y a $${texNombre(totale)}$ oiseaux dans la réserve.`
+              texteCorr += `<br>Il y a $${texNombre(totale, 0)}$ oiseaux dans la réserve.`
               reponse = totale
               paramAMC = { digits: 4, decimals: 0, signe: false, approx: 0 } // population à 4 chiffres (souvent)
 
               break
             case 'proportion':
-              texte = `Une réserve de protection d'oiseaux contient $${texNombre(totale)}$ individus d'oiseaux. On dénombre $${texNombre(sous)}$ ${espèces}. <br>Calculer la proportion de ${espèces} dans la réserve.`
-              texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texNombre(sous)}}{${texNombre(totale)}} = ${texNombre(p)}$.`
-              texteCorr += `<br>$${texNombre(p)}=\\dfrac{${texNombre(taux)}}{100}$. Le pourcentage de ${espèces} dans la réserve est donc de $${taux}~\\%$.`
+              texte = `Une réserve de protection d'oiseaux contient $${texNombre(totale, 0)}$ individus d'oiseaux. On dénombre $${texNombre(sous, 2)}$ ${espèces}. <br>Calculer la proportion de ${espèces} dans la réserve.`
+              texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texNombre(sous, 2)}}{${texNombre(totale, 0)}} = ${texNombre(p, 2)}$.`
+              texteCorr += `<br>$${texNombre(p, 2)}=\\dfrac{${texNombre(taux, 0)}}{100}$. Le pourcentage de ${espèces} dans la réserve est donc de $${taux}~\\%$.`
               reponse = taux
               paramAMC = { digits: 2, decimals: 0, signe: false, approx: 0 } // Le taux est ici inférieur à 100%
               break

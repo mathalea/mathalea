@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, arrondiVirgule, randint, arrondi, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, texNombre, randint, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -15,6 +15,8 @@ export const amcType = 'AMCHybride'
  * Référence 4G20-6
  * Date de publication : 08/08/2021
 */
+export const uuid = '516d1'
+export const ref = '4G20-6'
 export default function CalculValeurApprocheeRacineCarree () {
   Exercice.call(this)
   this.nbQuestions = 6
@@ -49,26 +51,26 @@ export default function CalculValeurApprocheeRacineCarree () {
         switch (listeTypeQuestions[i]) {
           case 'unite':
             type = 'à l\'unité'
-            reponse = arrondiVirgule(Math.sqrt(a), 0)
-            reponseG = arrondiVirgule(Math.floor(Math.sqrt(a)), 0)
-            reponseD = arrondiVirgule(Math.ceil(Math.sqrt(a)), 0)
-            setReponse(this, indexRep, arrondi(Math.sqrt(a), 0))
+            reponse = texNombre(Math.sqrt(a), 0)
+            reponseG = texNombre(Math.floor(Math.sqrt(a)), 0)
+            reponseD = texNombre(Math.ceil(Math.sqrt(a)), 0)
+            setReponse(this, indexRep, Math.round(Math.sqrt(a)))
             nbDec = 0
             break
           case 'dixieme':
             type = 'au dixième'
-            reponse = arrondiVirgule(Math.sqrt(a), 1)
-            reponseG = arrondiVirgule(Math.floor(Math.sqrt(a) * 10) / 10, 1)
-            reponseD = arrondiVirgule(Math.ceil(Math.sqrt(a) * 10) / 10, 1)
-            setReponse(this, indexRep, arrondi(Math.sqrt(a), 1))
+            reponse = texNombre(Math.sqrt(a), 1)
+            reponseG = texNombre(Math.floor(Math.sqrt(a) * 10) / 10, 1)
+            reponseD = texNombre(Math.ceil(Math.sqrt(a) * 10) / 10, 1)
+            setReponse(this, indexRep, Math.sqrt(a).toFixed(1))
             nbDec = 1
             break
           case 'centieme':
             type = 'au centième'
-            reponse = arrondiVirgule(Math.sqrt(a), 2)
-            reponseG = arrondiVirgule(Math.floor(Math.sqrt(a) * 100) / 100, 2)
-            reponseD = arrondiVirgule(Math.ceil(Math.sqrt(a) * 100) / 100, 2)
-            setReponse(this, indexRep, arrondi(Math.sqrt(a), 2))
+            reponse = texNombre(Math.sqrt(a), 2)
+            reponseG = texNombre(Math.floor(Math.sqrt(a) * 100) / 100, 2)
+            reponseD = texNombre(Math.ceil(Math.sqrt(a) * 100) / 100, 2)
+            setReponse(this, indexRep, Math.sqrt(a).toFixed(2))
             nbDec = 2
             break
         }
@@ -80,9 +82,9 @@ export default function CalculValeurApprocheeRacineCarree () {
           texte = `Donner la valeur arrondie de $\\sqrt{${a}}$ ${type} près : `
           texte += ajouteChampTexteMathLive(this, indexRep, 'largeur10 inline')
         }
-        texteCorr = `$\\sqrt{${a}} \\simeq ${arrondiVirgule(Math.sqrt(a), 6)}$.<br>`
-        texteCorr += `Or $${reponseG} < ${arrondiVirgule(Math.sqrt(a), 6)} < ${reponseD}$,<br>`
-        texteCorr += `et $${arrondiVirgule(Math.sqrt(a), 6)}$ est plus proche de $${reponse}$ que de $${pasReponse}$.<br>`
+        texteCorr = `$\\sqrt{${a}} \\simeq ${texNombre(Math.sqrt(a), 6)}$.<br>`
+        texteCorr += `Or $${reponseG} < ${texNombre(Math.sqrt(a), 6)} < ${reponseD}$,<br>`
+        texteCorr += `et $${texNombre(Math.sqrt(a), 6)}$ est plus proche de $${reponse}$ que de $${pasReponse}$.<br>`
         texteCorr += `Donc l'arrondi ${type} près de $\\sqrt{${a}}$ est $${reponse}$.`
       } else if (listeAvecOuSansCalculatrice[i] === 'sans') {
         a = randint(2, 300, [4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256, 289])

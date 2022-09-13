@@ -16,6 +16,8 @@ export const dateDeModifImportante = '23/02/2022'
  * @author Sébastien Lozano (et Eric Elter pour divers enrichissements)
  */
 
+export const uuid = 'c511f'
+export const ref = '6P11-1'
 export default function ProportionnaliteParLineariteBis () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.beta = false
@@ -78,10 +80,11 @@ export default function ProportionnaliteParLineariteBis () {
       } while (n4 === 1)
       const situation = situations[sousChoix[i]]
       const consigneQuestions = shuffle([n3, n4, n5])
-      const enonceInit = `${situation.lieu}, ${prenomliste[0]} achète $${n1}$ ${pluriel(n1, situation)} et paie $${texPrix(n1 * situation.pu)}$${sp()}€.
+      texte = `${situation.lieu}, ${prenomliste[0]} achète $${n1}$ ${pluriel(n1, situation)} et paie $${texPrix(n1 * situation.pu)}$${sp()}€.
       <br>${prenomliste[1]} achète $${n2}$ ${pluriel(n2, situation)} et paie $${texPrix(n2 * situation.pu)}$${sp()}€.`
-      let enonceAMC = `${numAlpha(k++)} Combien paiera ${prenomliste[2]} pour $${consigneQuestions[k - 1]}$ ${pluriel(consigneQuestions[k - 1], situation)} ? ${ajouteChampTexteMathLive(this, 4 * i, 'largeur25 inline')}`
-      texte = enonceInit + '<br>' + enonceAMC
+      const enonceQ1 = `<br>${numAlpha(k++)} Combien paiera ${prenomliste[2]} pour $${consigneQuestions[k - 1]}$ ${pluriel(consigneQuestions[k - 1], situation)} ? ${ajouteChampTexteMathLive(this, 4 * i, 'largeur25 inline')}`
+      let enonceAMC = texte + '<br>' + enonceQ1
+      texte += enonceQ1
       const propositionsAMC = [
         {
           type: 'AMCNum',
@@ -143,7 +146,7 @@ export default function ProportionnaliteParLineariteBis () {
           }]
         }
       )
-      enonceAMC = `${numAlpha(k++)} Quel est le nombre maximum de ${situation.achat_plur} que ${prenomliste[5]} peut acheter avec $${texPrix(nMax * situation.pu)}$ € ? ${ajouteChampTexteMathLive(this, 4 * i + 3, 'largeur25 inline')}`
+      enonceAMC = `${numAlpha(k++)} Quel est le nombre maximum de ${situation.achat_plur} que ${prenomliste[5]} peut acheter avec $${texPrix(nMax * situation.pu)}$${sp()}€ ? ${ajouteChampTexteMathLive(this, 4 * i + 3, 'largeur25 inline')}`
       texte += '<br>' + enonceAMC
       propositionsAMC.push(
         {
@@ -169,19 +172,19 @@ export default function ProportionnaliteParLineariteBis () {
         <br>C'est ce que nous allons faire pour les trois premières questions.
         <br>`
       const texteCorrInit = `
-        Pour $${n1}$ ${pluriel(n1, situation)}, on paie $${texPrix(n1 * situation.pu)}$ €.
-        <br> Pour $${n2}$ ${pluriel(n2, situation)}, on paie $${texPrix(n2 * situation.pu)}$ €.`
+        Pour $${n1}$ ${pluriel(n1, situation)}, on paie $${texPrix(n1 * situation.pu)}$${sp()}€.
+        <br> Pour $${n2}$ ${pluriel(n2, situation)}, on paie $${texPrix(n2 * situation.pu)}$${sp()}€.`
       const texteCorrn3 = `
-        <br> Donc pour $${n1}+${n2}$ ${pluriel(n3, situation)}, on paie $${texPrix(n1 * situation.pu)}$ € + $${texPrix(n2 * situation.pu)}$ €.
-        <br> ${texteEnCouleurEtGras(`${prenomliste[2]} paiera donc $${miseEnEvidence(texPrix(n3 * situation.pu))}$ € pour $${miseEnEvidence(n3)}$ ${pluriel(n3, situation)}.`)}
+        <br> Donc pour $${n1}+${n2}$ ${pluriel(n3, situation)}, on paie $${texPrix(n1 * situation.pu)}$${sp()}€ + $${texPrix(n2 * situation.pu)}$${sp()}€.
+        <br> ${texteEnCouleurEtGras(`${prenomliste[2]} paiera donc $${miseEnEvidence(texPrix(n3 * situation.pu))}$${sp()}€ pour $${miseEnEvidence(n3)}$ ${pluriel(n3, situation)}.`)}
         <br>`
       const texteCorrn4 = `
-        <br> Donc pour $${n1}-${n2}$ ${pluriel(n4, situation)}, on paie $${texPrix(n1 * situation.pu)}$ € - $${texPrix(n2 * situation.pu)}$ €.
-        <br> ${texteEnCouleurEtGras(`${prenomliste[3]} paiera donc $${miseEnEvidence(texPrix(n4 * situation.pu))}$ € pour $${miseEnEvidence(n4)}$ ${pluriel(n4, situation)}.`)}
+        <br> Donc pour $${n1}-${n2}$ ${pluriel(n4, situation)}, on paie $${texPrix(n1 * situation.pu)}$${sp()}€ - $${texPrix(n2 * situation.pu)}$${sp()}€.
+        <br> ${texteEnCouleurEtGras(`${prenomliste[3]} paiera donc $${miseEnEvidence(texPrix(n4 * situation.pu))}$${sp()}€ pour $${miseEnEvidence(n4)}$ ${pluriel(n4, situation)}.`)}
         <br>`
       const texteCorrn5 = `
-        <br> Donc pour $${choixMult}\\times${choixN}$ ${pluriel(n5, situation)}, on paie $${choixMult}\\times${texPrix(choixN * situation.pu)}$ €.
-        <br> ${texteEnCouleurEtGras(`${prenomliste[4]} paiera donc $${miseEnEvidence(texPrix(n5 * situation.pu))}$ € pour $${miseEnEvidence(n5)}$ ${pluriel(n5, situation)}.`)}
+        <br> Donc pour $${choixMult}\\times${choixN}$ ${pluriel(n5, situation)}, on paie $${choixMult}\\times${texPrix(choixN * situation.pu)}$${sp()}€.
+        <br> ${texteEnCouleurEtGras(`${prenomliste[4]} paiera donc $${miseEnEvidence(texPrix(n5 * situation.pu))}$${sp()}€ pour $${miseEnEvidence(n5)}$ ${pluriel(n5, situation)}.`)}
         <br>`
       for (let kk = 0; kk < 3; kk++) {
         texteCorr += `<br>${numAlpha(kCorr++)} ` + texteCorrInit
@@ -199,10 +202,10 @@ export default function ProportionnaliteParLineariteBis () {
       }
       texteCorr += `
         ${numAlpha(kCorr++)} On peut utiliser l'une ou l'autre des informations de l'énoncé pour répondre en revenant à l'unité.
-        <br> Par exemple, pour $${n1}$ ${pluriel(n1, situation)}, on paie $${texPrix(n1 * situation.pu)}$ €.
-        <br> Donc $1$ ${situation.achat_sing} coûte $${texPrix(n1 * situation.pu)}$ € $\\div ${n1} = ${texPrix(situation.pu)}$ €.
-        <br> Pour $${texPrix(nMax * situation.pu)}$ €, nous aurons donc $${texPrix(nMax * situation.pu)}$  € $\\div ${texPrix(situation.pu)}$ € $= ${nMax}$.
-        <br> ${texteEnCouleurEtGras(`Avec $${miseEnEvidence(texPrix(nMax * situation.pu))}$ €, ${prenomliste[5]} peut donc acheter $${miseEnEvidence(nMax)}$ ${pluriel(nMax, situation)}.`)}
+        <br> Par exemple, pour $${n1}$ ${pluriel(n1, situation)}, on paie $${texPrix(n1 * situation.pu)}$${sp()}€.
+        <br> Donc $1$ ${situation.achat_sing} coûte $${texPrix(n1 * situation.pu)}$${sp()}€ $\\div ${n1} = ${texPrix(situation.pu)}$${sp()}€.
+        <br> Pour $${texPrix(nMax * situation.pu)}$${sp()}€, nous aurons donc $${texPrix(nMax * situation.pu)}$ ${sp()}€ $\\div ${texPrix(situation.pu)}$${sp()}€ $= ${nMax}$.
+        <br> ${texteEnCouleurEtGras(`Avec $${miseEnEvidence(texPrix(nMax * situation.pu))}$${sp()}€, ${prenomliste[5]} peut donc acheter $${miseEnEvidence(nMax)}$ ${pluriel(nMax, situation)}.`)}
         `
 
       if (tabHash.indexOf(checkSum(prenomliste[3], n3, n2, nMax)) === -1) { // Si la question n'a jamais été posée, on en crée une autre
@@ -214,8 +217,9 @@ export default function ProportionnaliteParLineariteBis () {
           setReponse(this, 4 * i + 3, nMax)
         } else {
           this.autoCorrection[i] = {
-            enonce: '\\rule{1\\linewidth}{1pt}<br>' + enonceInit,
-            options: { multicols: true, barreseparation: true }, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
+            enonce: '',
+            enonceAvant: false,
+            options: { barreseparation: true, multicolsAll: true }, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
             propositions: propositionsAMC
           }
         }

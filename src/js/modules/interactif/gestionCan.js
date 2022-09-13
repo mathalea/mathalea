@@ -1,9 +1,9 @@
-import { context } from '../context'
-import { addElement, get } from '../dom'
-import { verifQuestionCliqueFigure } from './cliqueFigure'
-import { isUserIdOk } from './isUserIdOk'
-import { verifQuestionMathLive } from './questionMathLive'
-import { verifQuestionQcm } from './questionQcm'
+import { context } from '../context.js'
+import { addElement, get } from '../dom.js'
+import { verifQuestionCliqueFigure } from './cliqueFigure.js'
+import { isUserIdOk } from './isUserIdOk.js'
+import { verifQuestionMathLive } from './questionMathLive.js'
+import { verifQuestionQcm } from './questionQcm.js'
 
 export function gestionCan (exercice) {
   context.nbBonnesReponses = 0
@@ -15,7 +15,7 @@ export function gestionCan (exercice) {
         button1question.addEventListener('click', () => {
           let resultat
           if (exercice.interactifType === 'mathLive') {
-            resultat = verifQuestionMathLive(exercice, i)
+            resultat = verifQuestionMathLive(exercice, i).resultat
           }
           if (exercice.interactifType === 'qcm') {
             resultat = verifQuestionQcm(exercice, i)

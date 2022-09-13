@@ -1,14 +1,17 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice } from '../../modules/outils.js'
-import { repere2, mathalea2d, point, labelPoint, segment, nomVecteurParPosition, texteParPosition, vecteur, homothetie, longueur, latexParPoint } from '../../modules/2d.js'
+import { repere, point, labelPoint, segment, nomVecteurParPosition, texteParPosition, vecteur, homothetie, longueur, latexParPoint } from '../../modules/2d.js'
 
-export const titre = 'Représenter un vecteur dans un repère, à partir de ses coordonnées.'
+export const titre = 'Représenter un vecteur dans un repère, à partir de ses coordonnées'
 
 /**
  * Tracer un vecteur dont on connais les coordonnées dans un repère.
  * @author Stéphane Guyon légèrement modifié par Jean-Claude Lhote
  * référence 2G22-1
  */
+export const uuid = '3a3ec'
+export const ref = '2G22-1'
 export default function RepresenterUnVecteur () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -40,7 +43,7 @@ export default function RepresenterUnVecteur () {
       A = point(xA, yA)
       B = point(xB, yB)
       AB = vecteur(A, B)
-      r = repere2()// On définit le repère
+      r = repere()// On définit le repère
       posLabelA = homothetie(B, A, -0.7 / longueur(A, B), '', 'center') // pour positionner les noms des points aux extrémités proprement
       posLabelB = homothetie(A, B, -0.7 / longueur(A, B), '', 'center')
       labelA = latexParPoint('A', posLabelA, 'red', 10, 12, '')
@@ -57,7 +60,7 @@ export default function RepresenterUnVecteur () {
       k = vecteur(O, I).representant(O) // Variable qui trace [OI] en rouge
       j = vecteur(O, J).representant(O)// Variable qui trace [OJ] en rouge
       s.epaisseur = 2// Variable qui grossit le tracé du vecteur AB
-      s.color = 'red'
+      s.color = colorToLatexOrHTML('red')
       k.epaisseur = 2// Variable qui grossit le tracé du vecteur OI
       j.epaisseur = 2// Variable qui grossit le tracé du vecteur OJ
       h1.epaisseur = 2// Variable qui grossit le tracé bleu

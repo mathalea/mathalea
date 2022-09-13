@@ -9,7 +9,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true // pour définir que l'exercice est exportable AMC
 export const amcType = 'AMCNum'
 
-export const titre = 'Problèmes d\'évenements récurrents'
+export const titre = 'Résoudre des problèmes de conjonction de phénomènes'
 
 /**
  * Problèmes d'événements récurrents avec résolution à l'aide de décompositions en produits de facteurs premiers
@@ -17,6 +17,8 @@ export const titre = 'Problèmes d\'évenements récurrents'
  * Référence 4A12
  * 30/10/2021
 */
+export const uuid = 'b16c6'
+export const ref = '4A12'
 export default function ProblemesEvenementsRecurrents () {
   Exercice.call(this)
   this.nbQuestions = 1
@@ -77,9 +79,9 @@ export default function ProblemesEvenementsRecurrents () {
       switch (saveurs[i]) {
         case 'guirlande':
           texte = `Une guirlande électrique est constituée de lumières rouges et vertes.<br>
-          les lumières rouges s’allument toutes les ${nombreAvecEspace(Commun * A)} secondes et les vertes toutes les ${nombreAvecEspace(Commun * B)} secondes.<br>
+          Les lumières rouges s'allument toutes les ${nombreAvecEspace(Commun * A)} secondes et les vertes toutes les ${nombreAvecEspace(Commun * B)} secondes.<br>
           À un instant donné, on voit les lumières rouges et vertes allumées en même temps.<br>
-          Au bout de combien de temps ce phénomène se reproduira-t-il une nouvelle fois ?`
+          Au bout de combien de temps ce phénomène se reproduira-t-il la prochaine fois ?`
           unite = 'secondes'
           phenomene1 = 'les lumières rouges'
           phenomene2 = 'les lumières vertes'
@@ -119,7 +121,7 @@ export default function ProblemesEvenementsRecurrents () {
           break
         case 'restau-ciné':
           texte = `Pour sa résolution de cette année, ${Robert.prenom} a décidé de ne pas abuser des bonnes choses :<br>
-          ${Robert.Pronom} s'accorde le droit d'aller au restaurant tous les ${nombreAvecEspace(Commun * A)} jours et d'aller au cinéma tous les ${nombreAvecEspace(Commun * B)} jours.<br>
+          ${Robert.pronom} s'accorde le droit d'aller au restaurant tous les ${nombreAvecEspace(Commun * A)} jours et d'aller au cinéma tous les ${nombreAvecEspace(Commun * B)} jours.<br>
           Aujourd'hui, ${Robert.pronom} s'est fait un « restau - ciné ».<br>
           Au bout de combien de temps s'en fera-t-${Robert.pronom} un autre ?`
           unite = 'jours'
@@ -132,17 +134,6 @@ export default function ProblemesEvenementsRecurrents () {
           cycles = ' sorties'
           break
         case 'engrenages':
-          if (context.isHtml) {
-            // eslint-disable-next-line no-var
-            var pourcentage = '100%'
-            let txtIntro = ''
-            const idUnique = `${numeroExercice}_${Date.now()}`
-            const idDivIntro = `divIntro${idUnique}`
-            txtIntro += warnMessage('Attention, les roues ci-dessous ne comportent pas le nombre de dents de l\'énoncé!', 'nombres', 'Coup de pouce')
-            txtIntro += `<div id="${idDivIntro}" style="width: ${pourcentage}; height: 50px; display : table "></div>`
-            svgEngrenages(idDivIntro, 200, 200)
-            this.introduction = txtIntro
-          }
           texte = `Une première roue possède ${nombreAvecEspace(Commun * A)} dents et une seconde en possède ${nombreAvecEspace(Commun * B)}.<br>
           Elles tournent jusqu'à revenir (pour la première fois) en position initiale<br>`
           if (this.interactif) {
@@ -175,6 +166,19 @@ export default function ProblemesEvenementsRecurrents () {
         default:
           break
       }
+      let txtIntro = ''
+      if (context.isHtml && saveurs[i] === 'engrenages') {
+        // eslint-disable-next-line no-var
+        var pourcentage = '100%'
+        const idUnique = `${numeroExercice}_${Date.now()}`
+        const idDivIntro = `divIntro${idUnique}`
+        txtIntro += warnMessage('Attention, les roues ci-dessous ne comportent pas le nombre de dents de l\'énoncé!', 'nombres', 'Coup de pouce')
+        txtIntro += `<div id="${idDivIntro}" style="width: ${pourcentage}; height: 50px; display : table "></div>`
+        svgEngrenages(idDivIntro, 200, 200)
+      } else {
+        txtIntro = ''
+      }
+      this.introduction = txtIntro
       switch (this.sup) {
         case 1:
           decompositionCommun = texteEnCouleurEtGras(nombreAvecEspace(Commun), 'blue')
@@ -228,18 +232,18 @@ export default function ProblemesEvenementsRecurrents () {
         texteCorr += 'On multiplie les facteurs communs aux deux décompositions avec les facteurs spécifiques à chaque décomposition :<br>'
       }
       texteCorr += `${decompositionCommun} $\\times$ ${decompositionA} $\\times$ ${decompositionB} = ${nombreAvecEspace(Commun * A * B)}<br>
-      Ce phénomène se produira à nouveau au bout de ${nombreAvecEspace(Commun * A * B)} ${unite}.<br>
-      (Après ${texteEnCouleurEtGras(nombreAvecEspace(B) + cycles, 'green')} pour ${texteEnCouleurEtGras(phenomene1, 'red')} et après ${texteEnCouleurEtGras(nombreAvecEspace(A) + cycles, 'red')} pour ${texteEnCouleurEtGras(phenomene2, 'green')})<br>`
+      Ce phénomène se produira à nouveau au bout de ${nombreAvecEspace(Commun * A * B)} ${unite}, 
+      après ${texteEnCouleurEtGras(nombreAvecEspace(B) + cycles, 'green')} pour ${texteEnCouleurEtGras(phenomene1, 'red')} et après ${texteEnCouleurEtGras(nombreAvecEspace(A) + cycles, 'red')} pour ${texteEnCouleurEtGras(phenomene2, 'green')}.<br>`
       if (this.correctionDetaillee) {
         texteCorr += `${nombreAvecEspace(Commun * A * B)} est bien un multiple de ${texteEnCouleurEtGras(nombreAvecEspace(Commun * A), 'red')} car :
          ${decompositionCommun} $\\times$ ${decompositionA} $\\times$ ${decompositionB} =
          (${decompositionCommun} $\\times$ ${decompositionA}) $\\times$ ${decompositionB} =
-         ${texteEnCouleurEtGras(nombreAvecEspace(Commun * A), 'red')} $\\times$ ${texteEnCouleurEtGras(nombreAvecEspace(B), 'green')}<br>
+         ${texteEnCouleurEtGras(nombreAvecEspace(Commun * A), 'red')} $\\times$ ${texteEnCouleurEtGras(nombreAvecEspace(B), 'green')}.<br>
         ${nombreAvecEspace(Commun * A * B)} est bien un multiple de ${texteEnCouleurEtGras(nombreAvecEspace(Commun * B), 'green')} car :
          ${decompositionCommun} $\\times$ ${decompositionA} $\\times$ ${decompositionB} =
          ${decompositionCommun} $\\times$ ${decompositionB} $\\times$ ${decompositionA} =
          (${decompositionCommun} $\\times$ ${decompositionB}) $\\times$ ${decompositionA} =
-         ${texteEnCouleurEtGras(nombreAvecEspace(Commun * B), 'green')} $\\times$ ${texteEnCouleurEtGras(nombreAvecEspace(A), 'red')}<br>`
+         ${texteEnCouleurEtGras(nombreAvecEspace(Commun * B), 'green')} $\\times$ ${texteEnCouleurEtGras(nombreAvecEspace(A), 'red')}.<br>`
       }
       if (saveurs[i] === 'engrenages') {
         switch (variableEngrenages) {

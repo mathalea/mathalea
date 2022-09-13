@@ -12,6 +12,8 @@ export const amcType = 'AMCNum'
  * publié le 23/10/2021
  * Référence can4C10
 */
+export const uuid = '8cbb4'
+export const ref = 'can4C10'
 export default function SommeDifferenceFractionsEgyptiennes () {
   Exercice.call(this)
   this.typeExercice = 'simple'

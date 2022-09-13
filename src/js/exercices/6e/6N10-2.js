@@ -15,6 +15,8 @@ export const amcType = 'AMCNum'
  * Référence 6N10-2
  * Relecture : Décembre 2021 par EE
  */
+export const uuid = '6ea89'
+export const ref = '6N10-2'
 export default function DecompositionNombreDecimal () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Compléter les phrases suivantes.'
@@ -190,7 +192,7 @@ export default function DecompositionNombreDecimal () {
       }
 
       texteCorr += '.'
-      if (!this.interactif) texte += '\\ldots'
+      if (!this.interactif) texte += '$\\ldots\\ldots\\ldots\\ldots$'
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

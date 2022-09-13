@@ -1,10 +1,17 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
+import Decimal from 'decimal.js/decimal.mjs'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, listeQuestionsToContenuSansNumero, randint, arrondi, abs, texNombrec, lettreDepuisChiffre, texNombre, miseEnEvidence, texFraction, calcul, creerBoutonMathalea2d, contraindreValeur } from '../../modules/outils.js'
-import { angleOriente, homothetie, mathalea2d, point, pointSurSegment, polygone, rotation, texteParPoint } from '../../modules/2d.js'
+import { listeQuestionsToContenu, listeQuestionsToContenuSansNumero, randint, lettreDepuisChiffre, texNombre, miseEnEvidence, texFraction, creerBoutonMathalea2d, contraindreValeur, choice } from '../../modules/outils.js'
+import { angleOriente, homothetie, point, pointSurSegment, polygone, rotation, texteParPoint } from '../../modules/2d.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
+export const interactifReady = true
+export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride' // type de question AMC
+export const dateDeModificationImportante = '03/04/2022'
 
 export const titre = 'Démontrer que deux droites sont ou ne sont pas parallèles avec le théorème de Thalès'
 
@@ -14,6 +21,8 @@ export const titre = 'Démontrer que deux droites sont ou ne sont pas parallèle
  * 18/10/21 passage de MG32 à MathALEA2D par Rémi Angot
  * 3G21
  */
+export const uuid = '3451c'
+export const ref = '3G21'
 export default function ReciproqueThales () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -26,7 +35,7 @@ export default function ReciproqueThales () {
   this.nbColsCorr = 1
   this.quatrieme = false
   this.sup = 1
-  this.sup2 = 1
+  this.sup2 = 3
   this.sup3 = 3
   this.listePackages = 'tkz-euclide'
 
@@ -52,48 +61,48 @@ export default function ReciproqueThales () {
     let y2 = randint(3, 5)
     let x3 = randint(5, 6)
     let y3 = randint(-2, 1)
-    let k = calcul((randint(2, 8) / 10))
-    k = this.sup3 === 2 ? calcul(-1 * k) : this.sup3 === 3 ? calcul(randint(-1, 1, [0]) * k) : k
+    let k = new Decimal(randint(2, 8)).div(10)
+    k = this.sup3 === 2 ? k.mul(-1) : this.sup3 === 3 ? k.mul(randint(-1, 1, [0])) : k
     let k2
-    if (this.sup2 === 1) { k2 = k } else if (this.sup2 === 3) { k2 = k * (1 + randint(0, 1) * 0.1) } else { k2 = k * (1 + randint(-1, 1, 0) * 0.1) }
+    if (this.sup2 === 1) { k2 = k.mul(1) } else if (this.sup2 === 3) { k2 = k.mul(choice([1, 1.1])) } else { k2 = k.mul(choice([0.9, 1.1])) }
 
     if (this.quatrieme) {
-      k = abs(k)
-      k2 = abs(k2)
+      k = k.abs()
+      k2 = k2.abs()
     }
     let dist24
-    let dist12 = Math.round(Math.sqrt(x2 * x2 + y2 * y2))
-    let dist13 = Math.round(Math.sqrt(x3 * x3 + y3 * y3))
-    while (dist12 === dist13) {
+    let dist12 = new Decimal(x2 * x2 + y2 * y2).sqrt().round()
+    let dist13 = new Decimal(x3 * x3 + y3 * y3).sqrt().round()
+    while (dist12.eq(dist13)) {
       // éviter les triangles isocèles imbriqués qui ne nécéssitent aucun calcul.
       x2 = randint(2, 4)
       y2 = randint(3, 5)
       x3 = randint(5, 6)
       y3 = randint(-2, 1)
-      dist12 = Math.round(Math.sqrt(x2 * x2 + y2 * y2))
-      dist13 = Math.round(Math.sqrt(x3 * x3 + y3 * y3))
+      dist12 = new Decimal(x2 * x2 + y2 * y2).sqrt().round()
+      dist13 = new Decimal(x3 * x3 + y3 * y3).sqrt().round()
     }
-    const dist15 = arrondi(dist13 * abs(k), 1)
-    const dist14 = arrondi(dist12 * abs(k2), 1)
+    const dist15 = k.abs().mul(dist13)
+    const dist14 = k2.abs().mul(dist12)
     let dist35
 
     if (k < 0) {
-      dist35 = calcul(dist13 + dist15)
-      dist24 = calcul(dist12 + dist14)
+      dist35 = dist13.plus(dist15)
+      dist24 = dist12.plus(dist14)
     } else {
-      dist35 = calcul(dist13 - dist15)
-      dist24 = calcul(dist12 - dist14)
+      dist35 = dist13.sub(dist15)
+      dist24 = dist12.sub(dist14)
     }
 
     let texte, texteCorr
     // On ne garde qu'une approximation au dixième pour l'exercice
     // mise en texte avec 1 chiffre après la virgule pour énoncé
-    const s13 = texNombre(dist13)
-    const s12 = texNombre(dist12)
-    const s15 = texNombre(dist15)
-    const s14 = texNombre(dist14)
-    const s24 = texNombre(dist24)
-    const s35 = texNombre(dist35)
+    const s13 = texNombre(dist13, 3)
+    const s12 = texNombre(dist12, 3)
+    const s15 = texNombre(dist15, 3)
+    const s14 = texNombre(dist14, 3)
+    const s24 = texNombre(dist24, 3)
+    const s35 = texNombre(dist35, 3)
     const A = point(0, 0)
     const B = point(x2, y2)
     const C = point(x3, y3)
@@ -116,7 +125,7 @@ export default function ReciproqueThales () {
     const yMin = Math.min(A.y, B.y, C.y, M.y, N.y) - 1
     const yMax = Math.max(A.y, B.y, C.y, M.y, N.y) + 1
     let a
-    if (k < 0) {
+    if (k.isNeg()) {
       const demiangle = angleOriente(N, A, B) / 2
       const a2 = pointSurSegment(A, N, 0.5)
       a = rotation(a2, A, demiangle)
@@ -133,7 +142,7 @@ export default function ReciproqueThales () {
         // AN n'est pas donné, il faut le calculer avant.
         texte = `Dans la figure ci-dessous, $${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s3 + s5}=${s35}$ cm et $${s2 + s4}=${s24}$ cm.<br>`
         texteCorr = ''
-        if (k > 0) {
+        if (k.isPos()) {
           // triangles imbriqués
           texteCorr +=
             'On sait que ' +
@@ -164,28 +173,30 @@ export default function ReciproqueThales () {
         texte += `$${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s1 + s4}=${s14}$ cm et $${s1 + s5}=${s15}$ cm.<br>`
         texteCorr = ''
       }
-      texte += `Les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont-elles parallèles ?<br>`
+      texte += `Les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont-elles parallèles ? ${ajouteChampTexteMathLive(this, 0, 'largeur15 inline')}<br>`
 
       texteCorr += `D'une part, on a : $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s12}}{${s14}}=\\dfrac{${s12}\\times${miseEnEvidence(
         s15
       )}}{${s14}\\times${miseEnEvidence(s15)}}=\\dfrac{
-        ${texNombrec(arrondi(dist12 * dist15, 3))}}
+        ${texNombre(dist12 * dist15, 3)}}
         {${s14}\\times${s15}}
       $.`
       texteCorr += `<br>D'autre part, on a : $\\dfrac{${s1 + s3}}{${s1 + s5}}=\\dfrac{${s13}}{${s15}}=\\dfrac{${s13}\\times${miseEnEvidence(
         s14
-      )}}{${s15}\\times${miseEnEvidence(s14)}}=\\dfrac{${texNombrec(arrondi(dist13 * dist14, 3))}}
+      )}}{${s15}\\times${miseEnEvidence(s14)}}=\\dfrac{${texNombre(dist13 * dist14, 3)}}
         {${s14}\\times${s15}}
       $.`
 
-      if (k !== k2) {
+      if (!k.eq(k2)) {
+        if (!context.isAmc) setReponse(this, 0, 'non')
         // droites non parallèles
         texteCorr += `<br>D'où : $\\dfrac{${s1 + s2}}{${s1 + s4}}\\not=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>`
         texteCorr += `Donc d'après le théorème de Thales, les droites $(${s2 + s3})$ et $(${s4 + s5})$ ne sont pas parallèles.<br>`
       } else {
+        if (!context.isAmc) setReponse(this, 0, 'oui')
         // droites parallèles
-        texteCorr += `<br>D'où : $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>` // car les produits en croix sont égaux : $${s12}\\times${s15}=${s13}\\times${s14}=${texNombre(arrondi(dist12*dist15,3))}$.<br>`;
-        if (k > 0) { texteCorr += `De plus, $${s1}$, $${s4}$, $${s2}$ et $${s1}$, $${s5}$, $${s3}$ sont alignés dans le même ordre.<br>` } else { texteCorr += `De plus, $${s4}$, $${s1}$, $${s2}$ et $${s5}$, $${s1}$, $${s3}$ sont alignés dans le même ordre.<br>` }
+        texteCorr += `<br>D'où : $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>`
+        if (k.isPos()) { texteCorr += `De plus, $${s1}$, $${s4}$, $${s2}$ et $${s1}$, $${s5}$, $${s3}$ sont alignés dans le même ordre.<br>` } else { texteCorr += `De plus, $${s4}$, $${s1}$, $${s2}$ et $${s5}$, $${s1}$, $${s3}$ sont alignés dans le même ordre.<br>` }
         texteCorr += `Donc d'après la réciproque du théorème de Thales, les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont parallèles.<br>`
       }
 
@@ -251,7 +262,7 @@ export default function ReciproqueThales () {
           '\\end{itemize}  ' +
           `Les droites (${s2 + s3}) et (${s4 + s5}) sont-elles parallèles ?<br>` +
           '. \\end{minipage}'
-        if (k > 0) {
+        if (k.isPos()) {
           // triangles imbriqués
           texteCorr +=
             'On sait que ' +
@@ -351,17 +362,17 @@ export default function ReciproqueThales () {
       texteCorr += `D'une part on a $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s12}}{${s14}}=\\dfrac{${s12}\\times${miseEnEvidence(
         s15
       )}}{${s14}\\times${miseEnEvidence(s15)}}=${texFraction(
-        texNombrec(arrondi(dist12 * dist15, 3)),
-        texNombrec(arrondi(dist14 * dist15, 4))
+        texNombre(dist12 * dist15, 3),
+        texNombre(dist14 * dist15, 4)
       )}$`
       texteCorr += `<br>D'autre part on a $\\dfrac{${s1 + s3}}{${s1 + s5}}=\\dfrac{${s13}}{${s15}}=\\dfrac{${s13}\\times${miseEnEvidence(
         s14
       )}}{${s15}\\times${miseEnEvidence(s14)}}=${texFraction(
-        texNombrec(arrondi(dist13 * dist14, 3)),
-        texNombrec(arrondi(dist14 * dist15, 4))
+        texNombre(dist13 * dist14, 3),
+        texNombre(dist14 * dist15, 4)
       )}$`
 
-      if (k !== k2) {
+      if (!k.eq(k2)) {
         // droites pas parallèles
         texteCorr += `<br>$\\dfrac{${s1 + s2}}{${s1 + s4}}\\not=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>`
         texteCorr += `Donc d'après le théorème de Thales, les droites $(${s2 + s3})$ et $(${s4 + s5})$ ne sont pas parallèles.<br>`
@@ -396,8 +407,8 @@ export default function ReciproqueThales () {
         }]
       } else {
         // droites parallèles
-        texteCorr += `<br>$\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>` // car les produits en croix sont égaux : $${s12}\\times${s15}=${s13}\\times${s14}=${texNombre(arrondi(dist12*dist15,3))}$.<br>`;
-        if (k > 0) { texteCorr += `$${s1}$,$${s4}$,$${s2}$ et $${s1}$,$${s5}$,$${s3}$ sont alignés dans le même ordre.<br>` } else { texteCorr += `$${s4}$,$${s1}$,$${s2}$ et $${s5}$,$${s1}$,$${s3}$ sont alignés dans le même ordre.<br>` }
+        texteCorr += `<br>$\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>`
+        if (k.isPos()) { texteCorr += `$${s1}$,$${s4}$,$${s2}$ et $${s1}$,$${s5}$,$${s3}$ sont alignés dans le même ordre.<br>` } else { texteCorr += `$${s4}$,$${s1}$,$${s2}$ et $${s5}$,$${s1}$,$${s3}$ sont alignés dans le même ordre.<br>` }
         texteCorr += `Donc d'après la réciproque du théorème de Thales, les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont parallèles.<br>`
         this.autoCorrection = [{
           enonce: texte,

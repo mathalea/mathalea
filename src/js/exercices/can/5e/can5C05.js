@@ -1,5 +1,5 @@
-import { randint, texteEnCouleur } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { randint, texteEnCouleur } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Calculer un quotient entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can5C05
  */
+export const uuid = '63dff'
+export const ref = 'can5C05'
 export default function Division5e () {
   Exercice.call(this)
   this.nbQuestions = 1

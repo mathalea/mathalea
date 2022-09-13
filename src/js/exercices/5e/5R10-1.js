@@ -9,11 +9,13 @@ export const titre = 'Deviner un nombre relatif'
  *  @author Jean-Claude Lhote à partir de CM000 de Rémi Angot
  * Référence 5R10
  */
+export const uuid = '76343'
+export const ref = '5R10-1'
 export default function DevinerNombreRelatif () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Qui suis-je ?'
+  this.consigne = ''
   this.spacing = 2
   this.nbQuestions = 3
   this.nouvelleVersion = function () {

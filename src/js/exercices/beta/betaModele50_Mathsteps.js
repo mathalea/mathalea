@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
-import { toTex, resoudre, calculer, aleaVariables } from '../../modules/outilsMathjs'
+import { toTex, resoudre, calculer, aleaVariables } from '../../modules/outilsMathjs.js'
 import { simplify } from 'mathjs'
 export const titre = 'Nom de l\'exercice'
 
@@ -13,15 +13,18 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
  * @author
  * Référence
 */
-export default function NomExercice () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Consigne'
-  this.nbQuestions = 6 // Nombre de questions par défaut
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.video = '' // Id YouTube ou url
+export default class NomExercice extends Exercice {
+  constructor () {
+    super()
+    this.titre = titre
+    this.consigne = 'Consigne'
+    this.nbQuestions = 6 // Nombre de questions par défaut
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    this.video = '' // Id YouTube ou url
+  }
 
-  this.nouvelleVersion = function (numeroExercice) {
+  nouvelleVersion (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

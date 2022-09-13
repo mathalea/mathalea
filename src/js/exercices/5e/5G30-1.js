@@ -1,9 +1,10 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, arrondi, choisitLettresDifferentes, miseEnEvidence, numAlpha } from '../../modules/outils.js'
-import { point, pointSurSegment, pointIntersectionDD, labelPoint, droite, droiteParPointEtParallele, rotation, similitude, codeAngle, longueur, angle, mathalea2d } from '../../modules/2d.js'
+import { point, pointSurSegment, pointIntersectionDD, labelPoint, droite, droiteParPointEtParallele, rotation, similitude, codageAngle, longueur, angle } from '../../modules/2d.js'
 
-export const titre = 'Déterminer des angles en utilisant les cas d’égalité'
+export const titre = 'Déterminer des angles en utilisant les cas d\'égalité'
 
 /**
  * Déterminer des angles en utilisant les cas d'égalités : opposés par le sommet, alternes-internes, correspondants...
@@ -11,6 +12,8 @@ export const titre = 'Déterminer des angles en utilisant les cas d’égalité'
  * publié le 14/11/2020
  * @author Jean-Claude Lhote Inspiré d'exercices du manuel sésamath.
  */
+export const uuid = 'd12db'
+export const ref = '5G30-1'
 export default function EgaliteDAngles () {
   'use strict'
   Exercice.call(this)
@@ -52,14 +55,14 @@ export default function EgaliteDAngles () {
       const BD = droiteParPointEtParallele(B, AE, '', 'gray')
       BD.epaisseur = 2
       const D = pointIntersectionDD(BD, CE, noms[3], 'above right')
-      const m1 = codeAngle(E, A, C, 1, '', 'black', 2, 1, 'black', 0.1, true)
-      const m2 = codeAngle(A, C, E, 1, '', 'black', 2, 1, 'black', 0.1, true)
+      const m1 = codageAngle(E, A, C, 1, '', 'black', 2, 1, 'black', 0.1, true)
+      const m2 = codageAngle(A, C, E, 1, '', 'black', 2, 1, 'black', 0.1, true)
       const l1 = labelPoint(A, B, C, D, E)
-      const c1 = codeAngle(D, B, A, 1, '', 'blue', 2, 1, 'blue')
-      const c2 = codeAngle(B, D, E, 1, '', 'orange', 2, 1, 'orange')
-      const c3 = codeAngle(D, E, A, 1, '', 'green', 2, 1, 'green')
-      const c4 = codeAngle(D, B, C, 1, '', 'pink', 2, 1, 'pink')
-      const c5 = codeAngle(C, D, B, 1, '', 'red', 2, 1, 'red')
+      const c1 = codageAngle(D, B, A, 1, '', 'blue', 2, 1, 'blue')
+      const c2 = codageAngle(B, D, E, 1, '', '#f15929', 2, 1, '#f15929')
+      const c3 = codageAngle(D, E, A, 1, '', 'green', 2, 1, 'green')
+      const c4 = codageAngle(D, B, C, 1, '', 'pink', 2, 1, 'pink')
+      const c5 = codageAngle(C, D, B, 1, '', 'red', 2, 1, 'red')
       objets.push(CA, CE, AE, BD, m1, m2, c1, c2, c3, c4, c5, l1)
       a = Math.round(angle(E, A, C))
       enonce = `Dans la figure ci-dessous,  les droites $(${noms[0]}${noms[4]})$ et $(${noms[1]}${noms[3]})$ sont parallèles.<br>`
@@ -99,13 +102,13 @@ export default function EgaliteDAngles () {
       const E = pointSurSegment(C, D, cd * ab / ad, noms[4], 'below right')
       const BE = droite(B, E)
       const d = arrondi(angle(C, D, B), 0)
-      const cA = codeAngle(D, A, C, 1, '', 'black', 2, 1, 'black', 0.2, true)
-      const cD = codeAngle(C, D, B, 1, '', 'red', 2, 1, 'red', 0.2, true)
-      const cE = codeAngle(D, E, B, 1, '', 'blue', 2, 1, 'blue', 0.2, true)
-      const c4 = codeAngle(A, C, D, 1, '', 'green', 2, 1, 'green', 0.2)
-      const c5 = codeAngle(B, D, E, 1, '', 'orange', 2, 1, 'orange', 0.2)
-      const c6 = codeAngle(E, B, D, 1, '', 'pink', 2, 1, 'pink', 0.2)
-      const c3 = codeAngle(A, D, C, 1, '', 'gray', 2, 1, 'gray', 0.2)
+      const cA = codageAngle(D, A, C, 1, '', 'black', 2, 1, 'black', 0.2, true)
+      const cD = codageAngle(C, D, B, 1, '', 'red', 2, 1, 'red', 0.2, true)
+      const cE = codageAngle(D, E, B, 1, '', 'blue', 2, 1, 'blue', 0.2, true)
+      const c4 = codageAngle(A, C, D, 1, '', 'green', 2, 1, 'green', 0.2)
+      const c5 = codageAngle(B, D, E, 1, '', '#f15929', 2, 1, '#f15929', 0.2)
+      const c6 = codageAngle(E, B, D, 1, '', 'pink', 2, 1, 'pink', 0.2)
+      const c3 = codageAngle(A, D, C, 1, '', 'gray', 2, 1, 'gray', 0.2)
       const l1 = labelPoint(A, B, C, D, E)
       objets.push(CA, AB, CE, BE, cA, cD, cE, c3, c4, c5, c6, l1)
       enonce = 'La figure n\'est pas en vraie grandeur. Toutes les réponses devront être justifiées.<br>'

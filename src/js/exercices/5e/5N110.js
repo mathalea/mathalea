@@ -16,6 +16,8 @@ export const amcType = 'AMCNum'
 * Date août 2021
 * 5N110
 */
+export const uuid = 'b2c55'
+export const ref = '5N110'
 export default function VariationEnPourcentages () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -39,13 +41,13 @@ export default function VariationEnPourcentages () {
       if (choice([true, false])) {
         fReponse = fraction(100 * prix - prix * taux, 100)
         if (context.isHtml) { // partie html
-          texte = `Un article coûtait ${texPrix(prix)} € et son prix diminue de ${taux}%.<br><br>`
+          texte = `Un article coûtait $${texPrix(prix)}$ € et son prix diminue de $${taux}\\, \\%$.<br><br>`
           if (this.interactif) {
             texte += '&ensp;&ensp;&ensp;&ensp;Le nouveau prix est :'
             texte += ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br>'
           }
         } else { // partie latex
-          texte = `Un article coûtait ${texPrix(prix)} € et son prix diminue de ${taux}\\%.<br><br>`
+          texte = `Un article coûtait $${texPrix(prix)}$ € et son prix diminue de $${taux}\\, \\%$.<br><br>`
         }
 
         texteCorr = `$\\text{Diminution : }${texFraction(taux, 100)}\\times  ${texPrix(prix)} = ${texPrix(calcul(prix * taux))}\\div 100=${texPrix(calcul(prix * taux / 100))}$ €`
@@ -54,13 +56,13 @@ export default function VariationEnPourcentages () {
       } else {
         fReponse = fraction(100 * prix + prix * taux, 100)
         if (context.isHtml) { // partie html
-          texte = `Un article coûtait ${texPrix(prix)} € et son prix augmente de ${taux}%.<br><br>`
+          texte = `Un article coûtait $${texPrix(prix)}$ € et son prix augmente de $${taux}\\ \\%$.<br><br>`
           if (this.interactif) {
             texte += '&ensp;&ensp;&ensp;&ensp;Le nouveau prix est :'
             texte += ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br>'
           }
         } else { // partie latex
-          texte = `Un article coûtait ${texPrix(prix)} € et son prix augmente de ${taux}\\%.<br><br>`
+          texte = `Un article coûtait $${texPrix(prix)}$ € et son prix augmente de $${taux}\\, \\%$.<br><br>`
         }
         texteCorr = `$\\text{Augmentation : }${texFraction(taux, 100)}\\times  ${texPrix(prix)}= ${texPrix(calcul(prix * taux))}\\div 100=${texPrix(calcul(prix * taux / 100))}$ €`
         texteCorr += '<br>'

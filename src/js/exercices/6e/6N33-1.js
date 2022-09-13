@@ -9,7 +9,7 @@ export const amcType = 'AMCNum' // type de question AMC
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const titre = 'Calculer mentalement le pourcentage d’un nombre'
+export const titre = 'Calculer mentalement le pourcentage d\'un nombre'
 
 /**
  * Calculer 10, 20, 30, 40 ou 50% d'un nombre
@@ -17,6 +17,8 @@ export const titre = 'Calculer mentalement le pourcentage d’un nombre'
  * 6N33-1
  * Ajout niveau 2 + 1 correction différente cgrolleau 03/2021
  */
+export const uuid = '66756'
+export const ref = '6N33-1'
 export default function PourcentageDunNombre () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 5

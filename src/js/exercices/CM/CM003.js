@@ -1,19 +1,21 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, creerCouples, choice, combinaisonListes, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, creerCouples, choice, combinaisonListes, randint, contraindreValeur } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
-export const titre = 'Tables de multiplications et de divisions'
+export const titre = 'Tables de multiplication et de divisions'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
- * Tables de multiplications et de divisions classiques, à trou ou un mélange des deux.
+ * Tables de multiplication et de divisions classiques, à trou ou un mélange des deux.
  *
  * Par défaut ce sont les tables de 2 à 9 mais on peut choisir les tables que l'on veut
  * @author Rémi Angot
  * Référence CM003
  */
+export const uuid = '9db38'
+export const ref = 'CM003'
 export default function TablesMultiplicationsDivisions (
   tablesParDefaut = '2-3-4-5-6-7-8-9'
 ) {
@@ -21,7 +23,7 @@ export default function TablesMultiplicationsDivisions (
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = tablesParDefaut
   this.sup2 = 1 // classique|a_trous|melange
-  this.consigne = 'Calculer'
+  this.consigne = 'Calculer :'
   this.spacing = 2
   this.tailleDiaporama = 3
 
@@ -38,6 +40,9 @@ export default function TablesMultiplicationsDivisions (
       tables[0] = this.sup
     } else {
       tables = this.sup.split('-') // Sinon on crée un tableau à partir des valeurs séparées par des ;
+    }
+    for (let i = 0; i < tables.length; i++) {
+      tables[i] = contraindreValeur(2, 9, parseInt(tables[i]))
     }
     const couples = creerCouples(
       tables,

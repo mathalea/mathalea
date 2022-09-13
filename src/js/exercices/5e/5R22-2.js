@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, ecritureNombreRelatif, ecritureAlgebrique, combinaisonListes } from '../../modules/outils.js'
 
-export const titre = 'Simplifier l’écriture d’une somme de 2 relatifs et calculer'
+export const titre = 'Simplifier l\'écriture d\'une somme de 2 relatifs et calculer'
 
 /**
 * Simplifier l'écriture d'une somme de 2 relatifs et calculer
@@ -11,6 +11,8 @@ export const titre = 'Simplifier l’écriture d’une somme de 2 relatifs et ca
 * 5R22-2
 * Rendu les différentes situations équiprobables le 16/10/2021 par Guillaume Valmont
 */
+export const uuid = '070b4'
+export const ref = '5R22-2'
 export default function ExerciceSimplificationSommeAlgebrique (max = 20) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = max

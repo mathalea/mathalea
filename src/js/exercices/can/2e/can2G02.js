@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, calcul, creerNomDePolygone, texNombrec } from '../../../modules/outils.js'
 import {
-  mathalea2d, point, texteParPosition, pointAdistance, polygoneAvecNom, milieu, codageAngleDroit
+  point, texteParPosition, pointAdistance, polygoneAvecNom, milieu, codageAngleDroit
 } from '../../../modules/2d.js'
 export const titre = 'Calculer une longueur avec le théorème de Pythagore'
 export const interactifReady = true
@@ -13,6 +14,8 @@ export const interactifType = 'mathLive'
  * Référence can2G02
  * Date de publication septembre 2021
 */
+export const uuid = '31f61'
+export const ref = 'can2G02'
 export default function CalculCotePythagore () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
@@ -21,7 +24,7 @@ export default function CalculCotePythagore () {
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {
-    const nom = creerNomDePolygone(3, ['Q'])
+    const nom = creerNomDePolygone(3, ['QD'])
     const a = randint(1, 5)//
     const b = randint(6, 10)//
     const A = point(0, 0, nom[0])

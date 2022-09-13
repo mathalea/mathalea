@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, lettreDepuisChiffre, contraindreValeur, combinaisonListes } from '../../modules/outils.js'
-import { point, labelPoint, rotation, mathalea2d, afficheMesureAngle, homothetie, demiDroite, texteParPoint, similitude, pointSurSegment } from '../../modules/2d.js'
+import { point, labelPoint, rotation, afficheMesureAngle, homothetie, demiDroite, texteParPoint, similitude, pointSurSegment } from '../../modules/2d.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
 export const amcReady = true
@@ -9,13 +10,15 @@ export const amcType = 'qcmMono' // QCM
 export const interactifReady = true
 export const interactifType = 'qcm'
 
-export const titre = 'Mesurer un angle'
+export const titre = 'Mesurer un angle sans rapporteur sur l\'énoncé'
 
 /**
  * Construire un angle
  * @author Jean-Claude Lhote
  * Référence 6G23
  */
+export const uuid = 'c7f7a'
+export const ref = '6G23-1'
 export default function MesurerUnAngle () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
@@ -60,9 +63,9 @@ export default function MesurerUnAngle () {
       angle = signes[i] * angle
       p = [choice(['x', 'y', 'z', 't']), lettreDepuisChiffre(randint(1, 16)), choice(['s', 'u', 'v', 'w'])]
       if (!this.sup2) {
-        texte = `Estime la mesure de l'angle $\\widehat{${p[0] + p[1] + p[2]}}$ sans instrument.<br>`
+        texte = `Estimer la mesure de l'angle $\\widehat{${p[0] + p[1] + p[2]}}$ sans instrument.<br>`
       } else {
-        texte = `Mesure l'angle $\\widehat{${p[0] + p[1] + p[2]}}$.<br>`
+        texte = `Mesurer l'angle $\\widehat{${p[0] + p[1] + p[2]}}$.<br>`
       }
       A = point(0, 0)
       B = point(6, 0)

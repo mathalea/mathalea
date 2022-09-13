@@ -1,5 +1,5 @@
-import { choice } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { choice } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Déterminer un agrandissement/réduction avec fraction'
 export const interactifReady = true
@@ -12,6 +12,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can2G01
  */
+export const uuid = '4a666'
+export const ref = 'can2G01'
 export default function AgrandissementReductionGFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'

@@ -42,6 +42,8 @@ export const amcType = 'AMCNum' // Question numérique
  * @author Rémi Angot
  * Référence 6C33
  */
+export const uuid = '4c10a'
+export const ref = '6C33'
 export default function Priorites () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

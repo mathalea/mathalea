@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, combinaisonListes, choice, randint, prenom, texPrix, texNombre, texNombrec, miseEnEvidence, texMasse, stringNombre } from '../../modules/outils.js'
-import { mathalea2d, tableau } from '../../modules/2d.js'
+import { tableau } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité'
@@ -11,7 +12,9 @@ export const interactifType = 'mathLive'
  * Résoudre un problème de proportionnalité avec linéarité via tableau
  * @Mireille Gain, 30 mai 2021
  * Référence 6P11-2
-*/export default function ProportionnaliteParLineariteTableau () {
+*/export const uuid = '65288'
+export const ref = '6P11-2'
+export default function ProportionnaliteParLineariteTableau () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'On considère que les situations suivantes, sauf cas flagrant, sont des situations de proportionnalité. <br>On demande de les résoudre à l\'aide d\'un tableau.'
   this.nbQuestions = 5
@@ -76,7 +79,7 @@ export const interactifType = 'mathLive'
             pp = np * randint(8, 9) * ([objets[index][1]]) / 10
             pg = cm * pp
             o = choice([objets[index][0]])
-            texte = `${prenom()} achète ${np} ${np === 1 ? o.slice(0, -1) : o} pour ${Number(pp).toFixed(2).toLocaleString()} €. Combien faudrait-il payer pour en acheter ${ng} ? `
+            texte = `${prenom()} achète ${np} ${np === 1 ? o.slice(0, -1) : o} pour $${texPrix(pp)}$ €. Combien faudrait-il payer pour en acheter ${ng} ? `
             monTableau = tableau({
               ligne1: [`\\text{Nombre de ${o}}`, np, ng],
               ligne2: ['\\text{Prix (en euros)}', `${texPrix(pp)}`, `${miseEnEvidence(texPrix(pg))}`],
@@ -91,7 +94,7 @@ export const interactifType = 'mathLive'
             pp = np * fruits[index][1]
             pg = cm * pp
             o = choice([fruits[index][0]])
-            texte = `${prenom()} achète ${texMasse(pp)} kg de ${o} pour ${texPrix(np)} €. Quelle masse pourrait être achetée avec ${ng} € ? `
+            texte = `${prenom()} achète ${texMasse(pp)} kg de ${o} pour $${texPrix(np)}$ €. Quelle masse pourrait être achetée avec ${ng} € ? `
             monTableau = tableau({
               largeurTitre: 10,
               ligne1: [`\\text{Prix des ${o} (en euros)}`, np, ng],
@@ -127,7 +130,7 @@ export const interactifType = 'mathLive'
             pp = np * randint(8, 9) / 10
             pg = cm * pp
             o = choice([objets[index][0]])
-            texte = `${prenom()} achète ${ng} ${ng === 1 ? o.slice(0, -1) : o} pour ${texPrix(pg)} €. Combien faudrait-il payer pour en acheter ${np} ? `
+            texte = `${prenom()} achète ${ng} ${ng === 1 ? o.slice(0, -1) : o} pour $${texPrix(pg)}$ €. Combien faudrait-il payer pour en acheter ${np} ? `
             monTableau = tableau({
               ligne1: [`\\text{Nombre de ${o}}`, ng, np],
               ligne2: ['\\text{Prix (en euros)}', `${texPrix(pg)}`, `${miseEnEvidence(texPrix(pp))}`],
@@ -155,7 +158,7 @@ export const interactifType = 'mathLive'
             pp = np * fruits[index][1]
             pg = cm * pp
             o = choice([fruits[index][0]])
-            texte = `${prenom()} achète ${texMasse(pg)} kg de ${o} pour ${texPrix(ng)} €. Quelle masse pourrait être achetée avec ${np} € ? `
+            texte = `${prenom()} achète ${texMasse(pg)} kg de ${o} pour $${texPrix(ng)}$ €. Quelle masse pourrait être achetée avec ${np} € ? `
             monTableau = tableau({
               largeurTitre: 10,
 
@@ -177,7 +180,7 @@ export const interactifType = 'mathLive'
             ng = randint(2, 10, np)
             pg = pu * ng
             o = choice([objets[index][0]])
-            texte = `${prenom()} achète ${np} ${np === 1 ? o.slice(0, -1) : o} pour ${texPrix(pp)} €. Combien faudrait-il payer pour en acheter ${ng} ? `
+            texte = `${prenom()} achète ${np} ${np === 1 ? o.slice(0, -1) : o} pour $${texPrix(pp)}$ €. Combien faudrait-il payer pour en acheter ${ng} ? `
             monTableau = tableau({
 
               ligne1: [`\\text{Nombre de ${o}}`, np, 1, ng],

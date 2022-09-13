@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
-export const titre = 'Déterminer la racine carrée d’un carré parfait (calcul mental)'
+export const titre = 'Déterminer la racine carrée d\'un carré parfait (calcul mental)'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifType = 'mathLive'
@@ -14,6 +14,8 @@ export const interactifReady = true
  * Référence 4G20-2
  * Mis à jour le 08/08/2021
  */
+export const uuid = 'f5cbd'
+export const ref = '4G20-2'
 export default function RacineCareeDeCarresParfaits () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

@@ -1,15 +1,21 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, creerNomDePolygone } from '../../modules/outils.js'
-import { point, tracePoint, milieu, labelPoint, segment, translation2Points, similitude, grille, seyes, mathalea2d } from '../../modules/2d.js'
+import { point, tracePoint, milieu, labelPoint, segment, translation2Points, similitude, grille, seyes, cone, longueur, codageAngleDroit, semiEllipse } from '../../modules/2d.js'
 
 export const titre = 'Compléter une représentation en perspective cavalière'
+
+export const dateDeModifImportante = '18/06/2022'
 
 /**
  * fonction servant à compléter des solides, inspirée des fonctions de 6G42 et 6G43
  * référence : 6G41
  * @author Mireille Gain, s'inspirant fortement de Jean-Claude Lhote
+ * Ajout du cône par Guillaume Valmont le 18/06/2022
  */
+export const uuid = '0e754'
+export const ref = '4G51'
 export default function RepresenterUnSolide4e () {
   Exercice.call(this) // Héritage de la classe Exercice ()
   this.titre = titre
@@ -24,7 +30,17 @@ export default function RepresenterUnSolide4e () {
     this.sup2 = Number(this.sup2)
     let typesDeQuestionsDisponibles
 
-    if (this.sup === 3) { typesDeQuestionsDisponibles = [1, 2] } else if (this.sup === 5) { typesDeQuestionsDisponibles = [1, 2, 4] } else if (this.sup === 7) { typesDeQuestionsDisponibles = [1, 2, 4, 6] } else { typesDeQuestionsDisponibles = [parseInt(this.sup)] }
+    if (this.sup === 3) {
+      typesDeQuestionsDisponibles = [1, 2]
+    } else if (this.sup === 5) {
+      typesDeQuestionsDisponibles = [1, 2, 4]
+    } else if (this.sup === 7) {
+      typesDeQuestionsDisponibles = [1, 2, 4, 6]
+    } else if (this.sup === 9) {
+      typesDeQuestionsDisponibles = [1, 2, 4, 6, 8]
+    } else {
+      typesDeQuestionsDisponibles = [parseInt(this.sup)]
+    }
 
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
@@ -39,8 +55,8 @@ export default function RepresenterUnSolide4e () {
       typesDeQuestionsDisponibles = [1, 2]
     } else if (this.classe === 5) { // cinquième : on ajoute le prisme
       typesDeQuestionsDisponibles = [1, 2, 4]
-    } else if (this.classe === 4) { // Quatrième : on ajoute la pyramide
-      typesDeQuestionsDisponibles = [1, 2, 4, 6]
+    } else if (this.classe === 4) { // Quatrième : on ajoute la pyramide et le cône
+      typesDeQuestionsDisponibles = [1, 2, 4, 6, 8]
     }
     if (this.sup2 === 1) { sc = 0.5 } else { sc = 0.8 }
 
@@ -52,9 +68,11 @@ export default function RepresenterUnSolide4e () {
     let carreaux; let g
     let objetsEnonce = []
     let objetsCorrection = []
-
+    let listeDeNomsDePolygones
     for (let i = 0, texte, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const nom = creerNomDePolygone(8, 'PQ')
+      if (i % 2 === 0) listeDeNomsDePolygones = ['QD'] // lettres à éviter
+      const nom = creerNomDePolygone(8, listeDeNomsDePolygones)
+      listeDeNomsDePolygones.push(nom)
       const anglepersp = choice([30, 45, -30, -45, 150, 135, -150, -135])
       if (anglepersp % 10 === 0) { coeffpersp = 0.6 } else { coeffpersp = 0.4 }
       objetsCorrection = []
@@ -80,6 +98,11 @@ export default function RepresenterUnSolide4e () {
 
         case 6: // pyramide
           enonce = 'On considère une pyramide à base rectangulaire.<br>Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>'
+          correction = 'Figure complétée :<br>'
+          break
+
+        case 8: // cône
+          enonce = 'Reproduire et compléter la figure ci-dessous de façon à obtenir la représentation d\'un cône en perspective cavalière.<br>'
           correction = 'Figure complétée :<br>'
           break
       }
@@ -115,19 +138,19 @@ export default function RepresenterUnSolide4e () {
       matrace.opacite = 0.9
       matrace.epaisseur = 5
       matrace.style = 'x'
-      AB = segment(A, B)
-      BC = segment(B, C)
-      CD = segment(C, D)
-      DA = segment(D, A)
-      EF = segment(E, F)
-      FG = segment(F, G)
-      GH = segment(G, H)
-      HE = segment(H, E)
-      AE = segment(A, E)
-      BF = segment(B, F)
-      CG = segment(C, G)
-      DH = segment(D, H)
-      IA = segment(A, I)
+      AB = segment(A, B, 'black')
+      BC = segment(B, C, 'black')
+      CD = segment(C, D, 'black')
+      DA = segment(D, A, 'black')
+      EF = segment(E, F, 'black')
+      FG = segment(F, G, 'black')
+      GH = segment(G, H, 'black')
+      HE = segment(H, E, 'black')
+      AE = segment(A, E, 'black')
+      BF = segment(B, F, 'black')
+      CG = segment(C, G, 'black')
+      DH = segment(D, H, 'black')
+      IA = segment(A, I, 'black')
       IB = segment(B, I)
       IE = segment(E, I)
       IF = segment(F, I)
@@ -151,64 +174,52 @@ export default function RepresenterUnSolide4e () {
       IF.epaisseur = 1
       BD.epaisseur = 2
       FH.epaisseur = 2
-      AB.color = 'black'
-      BC.color = 'black'
-      CD.color = 'black'
-      DA.color = 'black'
-      EF.color = 'black'
-      FG.color = 'black'
-      GH.color = 'black'
-      HE.color = 'black'
-      AE.color = 'black'
-      BF.color = 'black'
-      CG.color = 'black'
-      IA.color = 'black'
 
       if (G.y < C.y && G.x < C.x) {
-        CG.pointilles = true
-        GH.pointilles = true
-        FG.pointilles = true
-        IF.pointilles = true
-        FH.pointilles = true
-        CG.color = 'gray'
-        GH.color = 'gray'
-        FG.color = 'gray'
+        CG.pointilles = 5
+        GH.pointilles = 5
+        FG.pointilles = 5
+        IF.pointilles = 5
+        FH.pointilles = 5
+        CG.color = colorToLatexOrHTML('gray')
+        GH.color = colorToLatexOrHTML('gray')
+        FG.color = colorToLatexOrHTML('gray')
         CG.opacite = 0.7
         GH.opacite = 0.7
         FG.opacite = 0.7
       } else if (E.y > A.y && E.x > A.x) {
-        AE.pointilles = true
-        EF.pointilles = true
-        HE.pointilles = true
-        IE.pointilles = true
-        FH.pointilles = true
-        AE.color = 'gray'
-        EF.color = 'gray'
-        HE.color = 'gray'
+        AE.pointilles = 5
+        EF.pointilles = 5
+        HE.pointilles = 5
+        IE.pointilles = 5
+        FH.pointilles = 5
+        AE.color = colorToLatexOrHTML('gray')
+        EF.color = colorToLatexOrHTML('gray')
+        HE.color = colorToLatexOrHTML('gray')
         AE.opacite = 0.7
         EF.opacite = 0.7
         HE.opacite = 0.7
       } else if (F.x < B.x && F.y > B.y) {
-        BF.pointilles = true
-        FG.pointilles = true
-        EF.pointilles = true
-        IF.pointilles = true
-        FH.pointilles = true
-        BF.color = 'gray'
-        FG.color = 'gray'
-        EF.color = 'gray'
+        BF.pointilles = 5
+        FG.pointilles = 5
+        EF.pointilles = 5
+        IF.pointilles = 5
+        FH.pointilles = 5
+        BF.color = colorToLatexOrHTML('gray')
+        FG.color = colorToLatexOrHTML('gray')
+        EF.color = colorToLatexOrHTML('gray')
         BF.opacite = 0.7
         FG.opacite = 0.7
         EF.opacite = 0.7
       } else if (H.x > D.x && H.y < D.y) {
-        DH.pointilles = true
-        GH.pointilles = true
-        HE.pointilles = true
-        IE.pointilles = true
-        FH.pointilles = true
-        DH.color = 'gray'
-        GH.color = 'gray'
-        HE.color = 'gray'
+        DH.pointilles = 5
+        GH.pointilles = 5
+        HE.pointilles = 5
+        IE.pointilles = 5
+        FH.pointilles = 5
+        DH.color = colorToLatexOrHTML('gray')
+        GH.color = colorToLatexOrHTML('gray')
+        HE.color = colorToLatexOrHTML('gray')
         DH.opacite = 0.7
         GH.opacite = 0.7
         HE.opacite = 0.7
@@ -259,20 +270,48 @@ export default function RepresenterUnSolide4e () {
         )
       }
 
+      if (listeTypeDeQuestions[i] === 8) {
+        const centre = milieu(A, F)
+        const sommet = I
+        const hauteur = segment(centre, sommet, 'red')
+        hauteur.pointilles = 5
+        const milieuBF = milieu(B, F)
+        const rayon = segment(centre, milieuBF, 'red')
+        rayon.pointilles = 5
+        const angleDroit = codageAngleDroit(milieuBF, centre, sommet, 'red')
+        const Rx = longueur(centre, milieuBF)
+        const Ry = longueur(A, E) / 3
+        objetsEnonce.push(tracePoint(sommet), g, carreaux)
+        objetsCorrection.push(tracePoint(sommet), cone({ centre, Rx, Ry, sommet }), g, carreaux)
+        switch (choice(['hemisphere nord', 'hemisphere sud'])) {
+          case 'hemisphere nord':
+            objetsEnonce.push(semiEllipse({ centre, Rx, Ry, hemisphere: 'nord', pointilles: 5 }))
+            break
+          case 'hemisphere sud':
+            objetsEnonce.push(semiEllipse({ centre, Rx, Ry, hemisphere: 'sud' }))
+            break
+        }
+
+        objetsCorrection.push(tracePoint(sommet), hauteur, rayon, angleDroit, cone({ centre, Rx, Ry, sommet }),
+          g,
+          carreaux
+        )
+      }
+
       enonce += mathalea2d(params, objetsEnonce)
       if (listeTypeDeQuestions[i] === 1) {
-        AB.color = 'green'
-        BC.color = 'red'
-        CD.color = 'green'
-        DA.color = 'red'
-        EF.color = 'green'
-        FG.color = 'red'
-        GH.color = 'green'
-        HE.color = 'red'
-        AE.color = 'blue'
-        BF.color = 'blue'
-        CG.color = 'blue'
-        DH.color = 'blue'
+        AB.color = colorToLatexOrHTML('green')
+        BC.color = colorToLatexOrHTML('red')
+        CD.color = colorToLatexOrHTML('green')
+        DA.color = colorToLatexOrHTML('red')
+        EF.color = colorToLatexOrHTML('green')
+        FG.color = colorToLatexOrHTML('red')
+        GH.color = colorToLatexOrHTML('green')
+        HE.color = colorToLatexOrHTML('red')
+        AE.color = colorToLatexOrHTML('blue')
+        BF.color = colorToLatexOrHTML('blue')
+        CG.color = colorToLatexOrHTML('blue')
+        DH.color = colorToLatexOrHTML('blue')
         objetsCorrection.push(AB, BC, CD, DA, EF, FG, GH, HE, AE, BF, CG, DH, labelPoint(A, B, C, D, E, F, G, H),
           g,
           carreaux
@@ -280,18 +319,18 @@ export default function RepresenterUnSolide4e () {
       }
 
       if (listeTypeDeQuestions[i] === 2) {
-        AB.color = 'green'
-        BC.color = 'red'
-        CD.color = 'green'
-        DA.color = 'red'
-        EF.color = 'green'
-        FG.color = 'red'
-        GH.color = 'green'
-        HE.color = 'red'
-        AE.color = 'blue'
-        BF.color = 'blue'
-        CG.color = 'blue'
-        DH.color = 'blue'
+        AB.color = colorToLatexOrHTML('green')
+        BC.color = colorToLatexOrHTML('red')
+        CD.color = colorToLatexOrHTML('green')
+        DA.color = colorToLatexOrHTML('red')
+        EF.color = colorToLatexOrHTML('green')
+        FG.color = colorToLatexOrHTML('red')
+        GH.color = colorToLatexOrHTML('green')
+        HE.color = colorToLatexOrHTML('red')
+        AE.color = colorToLatexOrHTML('blue')
+        BF.color = colorToLatexOrHTML('blue')
+        CG.color = colorToLatexOrHTML('blue')
+        DH.color = colorToLatexOrHTML('blue')
         objetsCorrection.push(AB, BC, CD, DA, EF, FG, GH, HE, AE, BF, CG, DH, labelPoint(A, B, C, D, E, F, G, H),
           g,
           carreaux
@@ -299,18 +338,18 @@ export default function RepresenterUnSolide4e () {
       }
 
       if (listeTypeDeQuestions[i] === 4) {
-        AB.color = 'green'
-        BC.color = 'red'
-        CD.color = 'green'
-        DA.color = 'red'
-        EF.color = 'green'
-        FG.color = 'red'
-        GH.color = 'green'
-        HE.color = 'red'
-        AE.color = 'blue'
-        BF.color = 'blue'
-        CG.color = 'blue'
-        DH.color = 'blue'
+        AB.color = colorToLatexOrHTML('green')
+        BC.color = colorToLatexOrHTML('red')
+        CD.color = colorToLatexOrHTML('green')
+        DA.color = colorToLatexOrHTML('red')
+        EF.color = colorToLatexOrHTML('green')
+        FG.color = colorToLatexOrHTML('red')
+        GH.color = colorToLatexOrHTML('green')
+        HE.color = colorToLatexOrHTML('red')
+        AE.color = colorToLatexOrHTML('blue')
+        BF.color = colorToLatexOrHTML('blue')
+        CG.color = colorToLatexOrHTML('blue')
+        DH.color = colorToLatexOrHTML('blue')
         objetsCorrection.push(AB, DA, BD, EF, HE, AE, BF, DH, FH,
           g,
           carreaux
@@ -318,18 +357,18 @@ export default function RepresenterUnSolide4e () {
       }
 
       if (listeTypeDeQuestions[i] === 6) {
-        AB.color = 'green'
-        BC.color = 'red'
-        CD.color = 'green'
-        DA.color = 'red'
-        EF.color = 'green'
-        FG.color = 'red'
-        GH.color = 'green'
-        HE.color = 'red'
-        AE.color = 'blue'
-        BF.color = 'blue'
-        CG.color = 'blue'
-        DH.color = 'blue'
+        AB.color = colorToLatexOrHTML('green')
+        BC.color = colorToLatexOrHTML('red')
+        CD.color = colorToLatexOrHTML('green')
+        DA.color = colorToLatexOrHTML('red')
+        EF.color = colorToLatexOrHTML('green')
+        FG.color = colorToLatexOrHTML('red')
+        GH.color = colorToLatexOrHTML('green')
+        HE.color = colorToLatexOrHTML('red')
+        AE.color = colorToLatexOrHTML('blue')
+        BF.color = colorToLatexOrHTML('blue')
+        CG.color = colorToLatexOrHTML('blue')
+        DH.color = colorToLatexOrHTML('blue')
         objetsCorrection.push(AB, EF, AE, BF, IA, IB, IE, IF, tracePoint(I),
           g,
           carreaux
@@ -347,7 +386,7 @@ export default function RepresenterUnSolide4e () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de solides', 7, ' 1 : Cubes\n 2 : Pavés droits\n 3 : Mélange cubes et pavés\n 4 : Prismes\n 5 : Mélange cubes, pavés, prismes\n 6 : Pyramides\n 7 : Mélange cubes, pavés, prismes, pyramides']
+  this.besoinFormulaireNumerique = ['Type de solides', 9, ' 1 : Cubes\n 2 : Pavés droits\n 3 : Mélange cubes et pavés\n 4 : Prismes\n 5 : Mélange cubes, pavés, prismes\n 6 : Pyramides\n 7 : Mélange cubes, pavés, prismes, pyramides\n 8 : Cônes\n 9 : Mélange cubes, pavés, prismes, pyramides, cônes']
   this.besoinFormulaire2Numerique = [
     'Type de cahier',
     3,

@@ -1,4 +1,5 @@
-import { cercle, mathalea2d, point, rotation, segment } from '../../../modules/2d.js'
+import { cercle, point, rotation, segment } from '../../../modules/2d.js'
+import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites.js'
 import { context } from '../../../modules/context.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
@@ -14,6 +15,8 @@ export const amcType = 'AMCHybride'
  * Créé le 4/11/2021
  * Référence canc3D01
  */
+export const uuid = '2ce11'
+export const ref = 'canc3D01'
 export default function LireHeure () {
   Exercice.call(this)
   this.nbQuestions = 1
@@ -39,9 +42,9 @@ export default function LireHeure () {
     const beta = 90 - m * 6
     const grandeAiguille = rotation(segment(O, point(1.5, 0)), O, beta)
     const petiteAiguille = rotation(segment(O, point(1, 0)), O, alpha)
-    grandeAiguille.color = context.isHtml ? 'red' : 'black'
+    grandeAiguille.color = context.isHtml ? colorToLatexOrHTML('red') : colorToLatexOrHTML('black')
     grandeAiguille.epaisseur = 2
-    petiteAiguille.color = context.isHtml ? 'blue' : 'black'
+    petiteAiguille.color = context.isHtml ? colorToLatexOrHTML('blue') : colorToLatexOrHTML('black')
     petiteAiguille.epaisseur = 4
     horloge.push(petiteAiguille, grandeAiguille)
     this.question = 'Quelle est l\'heure du matin indiquée par cette horloge ? (...h....)<br>' + mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 0.7, zoom: this.tailleDiaporama, style: 'margin: auto' }, horloge)

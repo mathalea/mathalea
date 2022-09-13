@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleurEtGras, contraindreValeur, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
-import { mathalea2d, labyrinthe } from '../../modules/2d.js'
+import { labyrinthe } from '../../modules/2d.js'
 export const dateDeModifImportante = '14/11/2021'
 
 export const titre = 'Labyrinthe de multiples basé sur les critères de divisibilité'
@@ -11,11 +12,13 @@ export const titre = 'Labyrinthe de multiples basé sur les critères de divisib
  * Ref 5A11-1
  * Sortir du labyrinthe en utilisant les critères de divisibilité.
  */
+export const uuid = 'a3870'
+export const ref = '5A11-1'
 export default function ExerciceLabyrintheDivisibilite () {
   Exercice.call(this)
   this.titre = titre
   this.consigne = ''
-  this.niveau = '6e'
+  this.niveau = '5e'
   this.nbQuestions = 5
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -24,26 +27,36 @@ export default function ExerciceLabyrintheDivisibilite () {
   this.sup3 = 3
   this.sup = '2-5-10'
   if (this.niveau === 'CM') {
-    this.sup2 = 1
     this.sup3 = 3
   } else {
-    this.sup2 = 2
     this.sup3 = 4
   }
   // this.consigne=`Trouve la sortie en ne passant que par les cases contenant un nombre divisible par $${parseInt(this.sup)}$.`
   this.nouvelleVersion = function () {
-    this.sup2 = Number(this.sup2)
     this.sup3 = Number(this.sup3)
     const tailleChiffre = 0.8
 
     this.listeCorrections = []
     this.listeQuestions = []
     this.autoCorrection = []
-
+    let tablesDisponibles
     let texte, texteCorr, trouve
     let laby
     let monChemin
-    const tables = combinaisonListesSansChangerOrdre(this.sup.split('-'), this.nbQuestions)
+    if (!this.sup) { // Si aucune liste n'est saisie
+      tablesDisponibles = [2, 5, 10]
+    } else {
+      if (typeof this.sup === 'number') { // Si c'est un nombre c'est qu'il y a qu'un problème
+        tablesDisponibles = [Number(this.sup)]
+      } else {
+        tablesDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+        for (let i = 0; i < tablesDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+          tablesDisponibles[i] = contraindreValeur(2, 20, parseInt(tablesDisponibles[i]), 5) // parseInt en fait un tableau d'entiers
+        }
+      }
+    }
+    const tables = combinaisonListesSansChangerOrdre(tablesDisponibles, this.nbQuestions)
+
     for (let i = 0; i < this.nbQuestions; i++) {
       tables[i] = contraindreValeur(2, 50, parseInt(tables[i]), 5)
     }

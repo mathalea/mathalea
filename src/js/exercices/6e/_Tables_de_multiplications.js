@@ -7,34 +7,32 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 /**
- * Tables de multiplications classiques, à trou ou un mélange des deux.
+ * Tables de multiplication classiques, à trou ou un mélange des deux.
  *
  * Par défaut ce sont les tables de 2 à 9 mais on peut choisir les tables que l'on veut
  * @author Rémi Angot (ES6: Loïc Geeraerts)
  * Référence 6C10-1
  */
-export default class TablesDeMultiplications extends Exercice {
+export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-8-9') {
   // Multiplier deux nombres
-  constructor (tablesParDefaut = '2-3-4-5-6-7-8-9') {
-    super()
-    this.sup = tablesParDefaut
-    this.sup2 = 1 // classique|a_trous|melange
-    this.titre = 'Tables de multiplications'
-    this.consigne = 'Calculer : '
-    this.spacing = 2
+  Exercice.call(this)
+  this.sup = tablesParDefaut
+  this.sup2 = 1 // classique|a_trous|melange
+  this.titre = 'Tables de multiplication'
+  this.consigne = 'Calculer : '
+  this.spacing = 2
 
-    this.besoinFormulaireTexte = [
-      'Choix des tables',
-      'Nombres séparés par des tirets'
-    ] // Texte, tooltip
-    this.besoinFormulaire2Numerique = [
-      'Type de questions',
-      3,
-      '1 : Classique\n2 : À trous\n3 : Mélange'
-    ]
-  }
+  this.besoinFormulaireTexte = [
+    'Choix des tables',
+    'Nombres séparés par des tirets'
+  ] // Texte, tooltip
+  this.besoinFormulaire2Numerique = [
+    'Type de questions',
+    3,
+    '1 : Classique\n2 : À trous\n3 : Mélange'
+  ]
 
-  nouvelleVersion () {
+  this.nouvelleVersion = function () {
     this.sup2 = parseInt(this.sup2)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -49,6 +47,9 @@ export default class TablesDeMultiplications extends Exercice {
       tables[0] = this.sup
     } else {
       tables = this.sup.split('-') // Sinon on crée un tableau à partir des valeurs séparées par des -
+    }
+    for (let i = 0; i < tables.length; i++) {
+      tables[i] = parseInt(tables[i])
     }
     const couples = creerCouples(
       tables,

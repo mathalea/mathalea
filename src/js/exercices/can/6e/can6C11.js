@@ -1,5 +1,6 @@
-import { calcul, choice, randint, texNombre, texteEnCouleur, texNombrec } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { calcul, choice, randint, texNombre, texteEnCouleur } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import Decimal from 'decimal.js/decimal.mjs'
 export const titre = 'Calculer le double ou le triple (décimal)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -11,6 +12,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6C11
  */
+export const uuid = '50fc4'
+export const ref = 'can6C11'
 export default function DoubleOuTripleDecimal () {
   Exercice.call(this)
   this.typeExercice = 'simple'
@@ -20,29 +23,30 @@ export default function DoubleOuTripleDecimal () {
   this.nouvelleVersion = function () {
     const a = randint(1, 3)
     const b = randint(1, 9, a)
-    const d = randint(1, 9)
-    const c = calcul(a * 10 + b + d * 0.1)
+    const e = a * 10 + b
+    const d = (new Decimal(randint(1, 9))).div(10)
+    const c = d.add(e)
     if (choice([true, false])) {
-      this.reponse = calcul(3 * c)
-      this.question = `Quel est le triple de $${texNombre(c)}$ ?`
-      this.correction = `Le triple de $${texNombre(c)}$ est $3 \\times ${texNombre(c)}=${texNombrec(3 * c)}$.`
+      this.reponse = c.mul(3)
+      this.question = `Quel est le triple de $${texNombre(c, 1)}$ ?`
+      this.correction = `Le triple de $${texNombre(c, 1)}$ est $3 \\times ${texNombre(c, 1)}=${texNombre(this.reponse, 1)}$.`
       this.correction += texteEnCouleur(`
       <br> Mentalement : <br>
-  On décompose $${texNombrec(a * 10 + b + d * 0.1)}$ en $${texNombrec(a * 10 + b)}+${texNombrec(d * 0.1)}$. <br>
-  On calcule le triple de $${a * 10 + b}$, soit $3\\times ${texNombrec(a * 10 + b)}= ${texNombrec(a * 30 + 3 * b)}$
-  puis le triple de $${texNombrec(d * 0.1)}$, soit $3\\times ${texNombrec(d * 0.1)}=${texNombrec(d * 0.3)}$.<br>
-  On en fait la somme : $${texNombrec(3 * a * 10 + 3 * b)}+${texNombrec(d * 0.3)}$, ce qui donne le résultat $${texNombrec(3 * c)}$.
+  On décompose $${texNombre(c, 1)}$ en $${e}+${texNombre(d, 1)}$. <br>
+  On calcule le triple de $${e}$, soit $3\\times ${e}= ${3 * e}$
+  puis le triple de $${texNombre(d, 1)}$, soit $3\\times ${texNombre(d, 1)}=${texNombre(d.mul(3))}$.<br>
+  On en fait la somme : $${3 * e}+${texNombre(d.mul(3))}$, ce qui donne le résultat $${texNombre(this.reponse, 1)}$.
       `)
     } else {
-      this.reponse = calcul(2 * c)
-      this.question = `Quel est le double de $${texNombre(c)}$ ?`
-      this.correction = `Le double de $${texNombre(c)}$ est $2 \\times ${texNombre(c)}=${texNombrec(2 * c)}$.`
+      this.reponse = c.mul(2)
+      this.question = `Quel est le double de $${texNombre(c, 1)}$ ?`
+      this.correction = `Le double de $${texNombre(c, 1)}$ est $2 \\times ${texNombre(c, 1)}=${texNombre(this.reponse, 1)}$.`
       this.correction += texteEnCouleur(`
       <br> Mentalement : <br>
-  On décompose $${texNombrec(a * 10 + b + d * 0.1)}$ en $${texNombrec(a * 10 + b)}+${texNombrec(d * 0.1)}$. <br>
-  On calcule le double de $${a * 10 + b}$, soit $2\\times ${texNombrec(a * 10 + b)}= ${texNombrec(a * 20 + 2 * b)}$
-  puis le double de $${texNombrec(d * 0.1)}$, soit $2\\times ${texNombrec(d * 0.1)}=${texNombrec(d * 0.2)}$.<br>
-  On en fait la somme : $${texNombrec(2 * a * 10 + 2 * b)}+${texNombrec(d * 0.2)}$, ce qui donne le résultat $${texNombrec(2 * c)}$.
+  On décompose $${texNombre(c, 1)}$ en $${e}+${texNombre(d, 1)}$. <br>
+  On calcule le double de $${e}$, soit $2\\times ${e}= ${2 * e}$
+  puis le double de $${texNombre(d, 1)}$, soit $2\\times ${texNombre(d, 1)}=${texNombre(d.mul(2), 1)}$.<br>
+  On en fait la somme : $${2 * e}+${texNombre(d.mul(2), 1)}$, ce qui donne le résultat $${texNombre(this.reponse, 1)}$.
       `)
     }
   }

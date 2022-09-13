@@ -8,7 +8,7 @@ export const interactifReady = true
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifType = 'mathLive'
-export const titre = 'Trouver le terme manquant d’une somme de nombres relatifs'
+export const titre = 'Trouver le terme manquant d\'une somme de nombres relatifs'
 
 /**
  * Additions à trou dans les relatifs
@@ -16,6 +16,8 @@ export const titre = 'Trouver le terme manquant d’une somme de nombres relatif
  *  @author Jean-Claude Lhote à partir de CM000 de Rémi Angot
  * Référence 5R10
  */
+export const uuid = '61b4a'
+export const ref = '5R10'
 export default function TermeInconnuDeSomme () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

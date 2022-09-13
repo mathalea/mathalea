@@ -1,10 +1,11 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, calcul, lettreDepuisChiffre, htmlConsigne, texNombre, egal, shuffle, stringNombre } from '../../modules/outils.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 import { afficheScore } from '../../modules/gestionInteractif.js'
-import { droiteGraduee2, labelPoint, mathalea2d, point, tracePoint } from '../../modules/2d.js'
+import { droiteGraduee, labelPoint, point, tracePoint } from '../../modules/2d.js'
 
-export const titre = 'Placer un point d’abscisse entière (grands nombres)'
+export const titre = 'Placer un point d\'abscisse entière (grands nombres)'
 export const interactifReady = true
 export const interactifType = 'custom'
 export const amcReady = true
@@ -15,6 +16,8 @@ export const amcType = 'AMCOpen'
  * référence 6N11-2
  * Relecture : Novembre 2021 par EE
  */
+export const uuid = '4f2a3'
+export const ref = '6N11-2'
 export default function PlacerUnPointAbscisseEntiere2d () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 5
@@ -80,7 +83,7 @@ export default function PlacerUnPointAbscisseEntiere2d () {
       x22 = abs0 + x2 * pas1
       x33 = abs0 + x3 * pas1
       abscisse = shuffle([[x1, x11], [x2, x22], [x3, x33]])
-      d[2 * i] = droiteGraduee2({
+      d[2 * i] = droiteGraduee({
         Unite: 4,
         Min: 0,
         Max: 7.1,
@@ -92,7 +95,7 @@ export default function PlacerUnPointAbscisseEntiere2d () {
         step1: 10,
         labelListe: [[0, `${stringNombre(abs0)}`], [1, `${stringNombre(calcul(abs0 + pas1))}`]]
       })
-      d[2 * i + 1] = droiteGraduee2({
+      d[2 * i + 1] = droiteGraduee({
         Unite: 4,
         Min: 0,
         Max: 7.1,
@@ -128,21 +131,18 @@ export default function PlacerUnPointAbscisseEntiere2d () {
       }
 
       A = point(abscisse[0][0] * tailleUnite, 0, l1)
-      traceA = tracePoint(A)
-      traceA.color = 'blue'
+      traceA = tracePoint(A, 'blue')
       traceA.epaisseur = 3
       traceA.taille = 5
       labels = labelPoint(A)
       if (!this.interactif) {
         A.nom = lettreDepuisChiffre(i * 3 + 1)
         B = point(abscisse[1][0] * tailleUnite, 0, l2)
-        traceB = tracePoint(B)
-        traceB.color = 'blue'
+        traceB = tracePoint(B, 'blue')
         traceB.epaisseur = 3
         traceB.taille = 5
         C = point(abscisse[2][0] * tailleUnite, 0, l3)
-        traceC = tracePoint(C)
-        traceC.color = 'blue'
+        traceC = tracePoint(C, 'blue')
         traceC.epaisseur = 3
         traceC.taille = 5
         labels = labelPoint(A, B, C)

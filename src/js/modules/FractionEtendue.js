@@ -1,7 +1,8 @@
-import { arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarree, fractionSimplifiee, listeDiviseurs, pgcd, nombreDeChiffresDansLaPartieDecimale, calcul } from './outils.js'
+import { arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarree, fractionSimplifiee, listeDiviseurs, pgcd, nombreDeChiffresDansLaPartieDecimale, calcul, miseEnEvidence, ecritureParentheseSiNegatif, signeMoinsEnEvidence, texNombre, egal } from './outils.js'
 import { point, vecteur, segment, carre, cercle, arc, translation, rotation, texteParPosition } from './2d.js'
 import { Fraction, equal, largerEq, subtract, add, abs, multiply, gcd, larger, smaller, round, lcm, max, min, pow } from 'mathjs'
 import { fraction } from './fractions.js'
+import { colorToLatexOrHTML } from './2dGeneralites.js'
 
 // Fonction écrite par Daniel Caillibaud pour créer ajouter les propriétés à la première utilisation de celles-ci.
 const definePropRo = (obj, prop, get) => {
@@ -41,22 +42,22 @@ export default class FractionX extends Fraction {
         den = Number(den)
         let maxDecimalesNumDen = max(nombreDeChiffresDansLaPartieDecimale(num), nombreDeChiffresDansLaPartieDecimale(den))
         if (maxDecimalesNumDen > 9) { // On peut estimer que num et/ou den ne sont pas décimaux. Essayons de les diviser car peut-être que leur quotient est mieux.
-          const quotientNumDen = calcul(num / den)
+          const quotientNumDen = calcul(num / den, 12)
           // console.log(quotientNumDen)
           if (nombreDeChiffresDansLaPartieDecimale(quotientNumDen) < 9) { // On peut estimer que le quotient aboutit à un décimal. Ex. dans fraction(7/3,14/3)
             num = quotientNumDen
             den = 1
             maxDecimalesNumDen = max(nombreDeChiffresDansLaPartieDecimale(num), nombreDeChiffresDansLaPartieDecimale(den))
           } else { // On peut estimer que le quotient n'aboutit pas à un décimal. Essayons par l'inverse du quotient.
-            const quotientDenNum = calcul(den / num)
+            const quotientDenNum = calcul(den / num, 12)
             // console.log(quotientDenNum)
             if (nombreDeChiffresDansLaPartieDecimale(quotientDenNum) < 9) { // On peut estimer que l'inverse du quotient aboutit à un décimal. Ex. dans fraction(7/3,7/9)
               den = quotientDenNum
               num = 1
               maxDecimalesNumDen = max(nombreDeChiffresDansLaPartieDecimale(num), nombreDeChiffresDansLaPartieDecimale(den))
             } else { // num et/ou den non décimaux et leurs quotients n'aboutissent pas à un décimal. Essayons par l'inverse de chaque nombre.
-              const inverseNum = calcul(1 / num)
-              const inverseDen = calcul(1 / den)
+              const inverseNum = calcul(1 / num, 12)
+              const inverseDen = calcul(1 / den, 12)
               maxDecimalesNumDen = max(nombreDeChiffresDansLaPartieDecimale(inverseNum), nombreDeChiffresDansLaPartieDecimale(inverseDen))
               if (maxDecimalesNumDen < 13) { // Ex. dans fraction(1/3,1/7)
                 den = inverseNum
@@ -72,11 +73,10 @@ export default class FractionX extends Fraction {
                 // console.log(denTest, ' ', inverseDenTest)
                 while (min(nombreDeChiffresDansLaPartieDecimale(denTest), nombreDeChiffresDansLaPartieDecimale(inverseDenTest)) > 9 & iDen < testMAX) {
                   iDen += (iDen % 5 === 3) ? 4 : 2
-                  denTest = calcul(den * iDen)
-                  inverseDenTest = calcul(inverseDen * iDen)
+                  denTest = calcul(den * iDen, 10)
+                  inverseDenTest = calcul(inverseDen * iDen, 10)
                 // while (min(nombreDeChiffresDansLaPartieDecimale(denTest), nombreDeChiffresDansLaPartieDecimale(inverseDenTest)) > 13 & iDen < testMAX) {
                 }
-                console.log(iDen, ' ', denTest, ' ', inverseDenTest)
                 let iNum = 1
                 let numTest = num
                 let inverseNumTest = inverseNum
@@ -84,29 +84,29 @@ export default class FractionX extends Fraction {
                 // console.log(iNum, ' ', numTest, ' ', inverseNumTest)
                 while (min(nombreDeChiffresDansLaPartieDecimale(numTest), nombreDeChiffresDansLaPartieDecimale(inverseNumTest)) > 9 & iNum < testMAX) {
                   iNum += (iNum % 5 === 3) ? 4 : 2
-                  numTest = calcul(num * iNum)
-                  inverseNumTest = calcul(inverseNum * iNum)
+                  numTest = calcul(num * iNum, 10)
+                  inverseNumTest = calcul(inverseNum * iNum, 10)
                 }
                 // console.log(iNum, ' ', numTest, ' ', inverseNumTest)
                 if (nombreDeChiffresDansLaPartieDecimale(numTest) < 10) {
                   if (nombreDeChiffresDansLaPartieDecimale(denTest) < 10) { // Ex. console.log(new FractionX(11 / 9, 17 / 13))
                   // console.log('toto')
-                    num = calcul(numTest * iDen)
-                    den = calcul(denTest * iNum)
+                    num = calcul(numTest * iDen, 10)
+                    den = calcul(denTest * iNum, 10)
                   } else { // Ex. console.log(new FractionX(11 / 9, 13 / 17))
                   // console.log('titi')
-                    num = calcul(numTest * inverseDenTest)
+                    num = calcul(numTest * inverseDenTest, 10)
                     den = iDen * iNum
                   }
                 } else {
                   if (nombreDeChiffresDansLaPartieDecimale(denTest) < 10) { // Ex. console.log(new FractionX(9 / 11, 17 / 13))
                   // console.log('tata')
-                    den = calcul(denTest * inverseNumTest)
+                    den = calcul(denTest * inverseNumTest, 10)
                     num = iDen * iNum
                   } else { // Ex. console.log(new FractionX(9 / 11, 13 / 17))
                   // console.log('tutu')
-                    den = calcul(inverseNumTest * iDen)
-                    num = calcul(inverseDenTest * iNum)
+                    den = calcul(inverseNumTest * iDen, 10)
+                    num = calcul(inverseDenTest * iNum, 10)
                   }
                 }
                 maxDecimalesNumDen = max(nombreDeChiffresDansLaPartieDecimale(num), nombreDeChiffresDansLaPartieDecimale(den))
@@ -186,8 +186,19 @@ export default class FractionX extends Fraction {
      */
     let texFraction // num/den mais sans traitement des signes des numérateur et dénominateur
     definePropRo(this, 'texFraction', () => {
-      if (!texFraction) texFraction = `\\dfrac{${this.num}}{${this.den}}`
+      if (!texFraction) texFraction = `\\dfrac{${texNombre(this.num)}}{${texNombre(this.den)}}`
       return texFraction
+    })
+
+    /**
+     * num/den
+     * @property texFractionSR
+     * @type {string}
+     */
+    let texFractionSR // num/den mais sans traitement des signes des numérateur et dénominateur
+    definePropRo(this, 'texFractionSR', () => {
+      if (!texFractionSR) texFractionSR = `\\dfrac{${signeMoinsEnEvidence(this.num)}}{${signeMoinsEnEvidence(this.den)}}`
+      return texFractionSR
     })
 
     /**
@@ -197,7 +208,7 @@ export default class FractionX extends Fraction {
        */
     let texFSD
     definePropRo(this, 'texFSD', () => {
-      if (!texFSD) texFSD = this.s === -1 ? Math.abs(this.den) === 1 ? '-' + String(Math.abs(this.num)) : `-\\dfrac{${Math.abs(this.num)}}{${Math.abs(this.den)}}` : Math.abs(this.den) === 1 ? String(Math.abs(this.num)) : `\\dfrac{${Math.abs(this.num)}}{${Math.abs(this.den)}}`
+      if (!texFSD) texFSD = this.s === -1 ? Math.abs(this.den) === 1 ? '-' + String(texNombre(Math.abs(this.num))) : `-\\dfrac{${texNombre(Math.abs(this.num))}}{${texNombre(Math.abs(this.den))}}` : Math.abs(this.den) === 1 ? String(texNombre(Math.abs(this.num))) : `\\dfrac{${texNombre(Math.abs(this.num))}}{${texNombre(Math.abs(this.den))}}`
       return texFSD
     })
 
@@ -299,7 +310,7 @@ export default class FractionX extends Fraction {
  */
     let estIrreductible
     definePropRo(this, 'estIrreductible', () => {
-      if (!estIrreductible) estIrreductible = gcd(this.num, this.den) === 1
+      if (!estIrreductible) estIrreductible = gcd(this.num, this.den) === 1 && this.den !== 1
       return estIrreductible
     })
 
@@ -525,6 +536,30 @@ export default class FractionX extends Fraction {
   }
 
   /**
+ * Si la fraction est réductible, retourne une suite d'égalités permettant d'obtenir la fraction irréductible
+ */
+  texSimplificationAvecEtapes () {
+    if (this.estIrreductible && this.num > 0 && this.den > 0) return '' // irreductible et positifs
+    else if (this.estIrreductible && this.num * this.den > 0) { // irréductible mais négatifs
+      return `=${this.texFSD}`
+    } else {
+      const signe = this.signe === -1 ? '-' : ''
+      const num = Math.abs(this.num)
+      const den = Math.abs(this.den)
+      const pgcd = gcd(num, den)
+      if (pgcd !== 1) {
+        let redaction = `=${signe}\\dfrac{${num / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))} }{${den / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))}}=`
+        if (Math.abs(den / pgcd) !== 1) redaction += `${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
+        else redaction += `${signe}${Math.abs(num / pgcd)}`
+        return redaction
+      } else {
+        if (!egal(Math.abs(den / pgcd), 1)) return `=${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
+        else return `=${signe}${Math.abs(num / pgcd)}`
+      }
+    }
+  }
+
+  /**
   * @returns NaN si la FractionX n'est pas un nombre décimal sinon retourne une FractionX avec la bonne puissance de 10 au dénominateur
   */
   fractionDecimale () {
@@ -656,8 +691,7 @@ export default class FractionX extends Fraction {
     const unegraduation = function (x, y, couleur = 'black', epaisseur = 1) {
       const A = point(x, y + 0.2)
       const B = point(x, y - 0.2)
-      const g = segment(A, B)
-      g.color = couleur
+      const g = segment(A, B, couleur)
       g.epaisseur = epaisseur
       return g
     }
@@ -707,8 +741,7 @@ export default class FractionX extends Fraction {
           s.styleExtremites = '|-'
           objets.push(s)
         }
-        a = segment(O, point(O.x + Math.min(num, this.denIrred) * rayon / this.denIrred, O.y))
-        a.color = couleur
+        a = segment(O, point(O.x + Math.min(num, this.denIrred) * rayon / this.denIrred, O.y), couleur)
         a.opacite = 0.4
         a.epaisseur = 6
         objets.push(a)
@@ -724,8 +757,7 @@ export default class FractionX extends Fraction {
         s.styleExtremites = '|-'
         objets.push(s)
       }
-      a = segment(O, point(O.x + Math.min(this.numIrred, this.denIrred) * rayon / this.denIrred, O.y))
-      a.color = couleur
+      a = segment(O, point(O.x + Math.min(this.numIrred, this.denIrred) * rayon / this.denIrred, O.y), couleur)
       a.opacite = 0.4
       a.epaisseur = 6
       objets.push(a)
@@ -748,9 +780,9 @@ export default class FractionX extends Fraction {
           for (let h = 0; h < arrondi(this.denIrred / diviseur); h++) {
             O = point(x + k * (rayon + 1) + j * rayon / diviseur, y + h * rayon / diviseur)
             C = translation(O, vecteur(rayon / diviseur, 0))
-            dep = carre(O, C)
-            dep.color = 'black'
-            dep.couleurDeRemplissage = couleur
+            dep = carre(O, C, 'black')
+
+            dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
             dep.opaciteDeRemplissage = 0.4
             objets.push(dep)
           }
@@ -762,17 +794,17 @@ export default class FractionX extends Fraction {
           for (let h = 0; h < arrondi(this.denIrred / diviseur); h++) {
             O = point(x + k * (rayon + 1) + j * rayon / diviseur, y + h * rayon / diviseur)
             C = translation(O, vecteur(rayon / diviseur, 0))
-            dep = carre(O, C)
-            dep.color = 'black'
+            dep = carre(O, C, 'black')
+
             objets.push(dep)
           }
         }
         for (let i = 0; i < num; i++) {
           O = point(x + k * (rayon + 1) + (i % diviseur) * rayon / diviseur, y + quotientier(i, diviseur) * rayon / diviseur)
           C = translation(O, vecteur(rayon / diviseur, 0))
-          dep = carre(O, C)
-          dep.color = 'black'
-          dep.couleurDeRemplissage = couleur
+          dep = carre(O, C, 'black')
+
+          dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
           dep.opaciteDeRemplissage = 0.4
           objets.push(dep)
         }
@@ -803,8 +835,7 @@ export default class FractionX extends Fraction {
     const unegraduation = function (x, y, couleur = 'black', epaisseur = 1) {
       const A = point(x, y + 0.2)
       const B = point(x, y - 0.2)
-      const g = segment(A, B)
-      g.color = couleur
+      const g = segment(A, B, couleur)
       g.epaisseur = epaisseur
       return g
     }
@@ -858,8 +889,7 @@ export default class FractionX extends Fraction {
           s.styleExtremites = '|-'
           objets.push(s)
         }
-        a = segment(O, point(O.x + Math.min(num, this.den) * rayon / this.den, O.y))
-        a.color = couleur
+        a = segment(O, point(O.x + Math.min(num, this.den) * rayon / this.den, O.y), couleur)
         a.opacite = 0.4
         a.epaisseur = 6
         objets.push(a)
@@ -875,8 +905,7 @@ export default class FractionX extends Fraction {
         s.styleExtremites = '|-'
         objets.push(s)
       }
-      a = segment(O, point(O.x + Math.min(num, this.den) * rayon / this.den, O.y))
-      a.color = couleur
+      a = segment(O, point(O.x + Math.min(num, this.den) * rayon / this.den, O.y), couleur)
       a.opacite = 0.4
       a.epaisseur = 6
       objets.push(a)
@@ -899,9 +928,9 @@ export default class FractionX extends Fraction {
           for (let h = 0; h < arrondi(this.den / diviseur); h++) {
             O = point(x + k * (rayon + 1) + j * rayon / diviseur, y + h * rayon / diviseur)
             C = translation(O, vecteur(rayon / diviseur, 0))
-            dep = carre(O, C)
-            dep.color = 'black'
-            dep.couleurDeRemplissage = couleur
+            dep = carre(O, C, 'black')
+
+            dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
             dep.opaciteDeRemplissage = 0.4
             objets.push(dep)
           }
@@ -913,17 +942,17 @@ export default class FractionX extends Fraction {
           for (let h = 0; h < arrondi(this.den / diviseur); h++) {
             O = point(x + k * (rayon + 1) + j * rayon / diviseur, y + h * rayon / diviseur)
             C = translation(O, vecteur(rayon / diviseur, 0))
-            dep = carre(O, C)
-            dep.color = 'black'
+            dep = carre(O, C, 'black')
+
             objets.push(dep)
           }
         }
         for (let i = 0; i < num; i++) {
           O = point(x + k * (rayon + 1) + (i % diviseur) * rayon / diviseur, y + quotientier(i, diviseur) * rayon / diviseur)
           C = translation(O, vecteur(rayon / diviseur, 0))
-          dep = carre(O, C)
-          dep.color = 'black'
-          dep.couleurDeRemplissage = couleur
+          dep = carre(O, C, 'black')
+
+          dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
           dep.opaciteDeRemplissage = 0.4
           objets.push(dep)
         }

@@ -1,9 +1,9 @@
-import { scratchblock } from '../../../modules/2d'
-import { setReponse } from '../../../modules/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive'
-import { propositionsQcm } from '../../../modules/interactif/questionQcm'
-import { calcul, choice, listeQuestionsToContenuSansNumero, randint, texteEnCouleur } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { scratchblock } from '../../../modules/2d.js'
+import { setReponse } from '../../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
+import { calcul, choice, listeQuestionsToContenuSansNumero, randint, texteEnCouleur } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Travailler les répétitions (Scratch)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -15,6 +15,8 @@ export const amcType = 'AMCNum'
  * publié le 24/10/2021
  * Référence can5A01
  */
+export const uuid = 'af3c8'
+export const ref = 'can5A01'
 export default function RepetitionScratch () {
   Exercice.call(this)
   this.listeQuestions = []

@@ -8,6 +8,8 @@ export const titre = 'Le compte est bon original'
  *  @author Jean-Claude Lhote
  * Référence CM021
  */
+export const uuid = 'bd6ff'
+export const ref = 'CM021'
 export default function CompteEstBon () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne =

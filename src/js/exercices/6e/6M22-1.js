@@ -1,5 +1,6 @@
-import { pointAdistance, point, segment, rotation, cercle, tracePoint, mathalea2d, afficheLongueurSegment, latexParPoint } from '../../modules/2d.js'
+import { pointAdistance, point, segment, rotation, cercle, tracePoint, afficheLongueurSegment, latexParPoint } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, arrondi, texNombre, contraindreValeur, randint, interactivite, texNombrec, stringNombre } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -21,6 +22,8 @@ export const amcType = 'AMCHybride'
  * @author Rémi Angot (AMC par EE)
  * Référence 6M22-1
  */
+export const uuid = 'f9a02'
+export const ref = '6M22-1'
 export default function PerimetreAireDisques (pa = 3) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -186,8 +189,8 @@ export default function PerimetreAireDisques (pa = 3) {
           if (context.isHtml && this.interactif) {
             setReponse(this, 2 * i, stringNombre(reponseA1) + '\\pi', { formatInteractif: 'texte' })
             setReponse(this, 2 * i + 1, reponseA2, { formatInteractif: 'calcul' })
-            texte += 'Aire : ' + ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texteApres: ' cm^2' })
-            texte += ' $\\approx$' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texteApres: ' cm^2' })
+            texte += 'Aire : ' + ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texteApres: ' cm²' })
+            texte += ' $\\approx$' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texteApres: ' cm²' })
           } else {
             this.autoCorrection[i] = {
               enonce: "Calculer l'aire du cercle suivant :<br>" + texte,

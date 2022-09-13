@@ -9,10 +9,12 @@ export const titre = 'Puissances de 10 et préfixes kilo, méga, giga, téra'
  * Référence 4C32-2
  * 2021-02-05
 */
+export const uuid = 'fedae'
+export const ref = '4C32-2'
 export default function ConversionsPuissancesDe10 (numeroExercice) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Compléter'
+  this.consigne = 'Compléter :'
   this.nbQuestions = 10
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX

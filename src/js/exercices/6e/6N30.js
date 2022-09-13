@@ -1,10 +1,11 @@
-import { combinaisonListes, listeQuestionsToContenu, randint, calcul, htmlConsigne, lettreDepuisChiffre, texNombre } from '../../modules/outils.js'
+import { combinaisonListes, listeQuestionsToContenu, randint, calcul, htmlConsigne, lettreDepuisChiffre, stringNombre } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
+import { droiteGraduee } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-export const titre = 'Lire l’abscisse décimale d’un point'
+export const titre = 'Lire l\'abscisse décimale d\'un point'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -15,6 +16,8 @@ export const amcType = 'AMCOpen'
  * @author Jean-Claude Lhote et Rémi Angot
  * référence 6N30
  */
+export const uuid = 'c1888'
+export const ref = '6N30'
 export default function LireAbscisseDecimale () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = "Lire l'abscisse de chacun des points suivants."
@@ -79,7 +82,7 @@ export default function LireAbscisseDecimale () {
       xA = calcul(x1 + x11 / pas2)
       xB = calcul(x2 + x22 / pas2)
       xC = calcul(x3 + x33 / pas2)
-      d[2 * i] = droiteGraduee2({
+      d[2 * i] = droiteGraduee({
         Unite: 4,
         Min: 0,
         Max: 7.1,
@@ -89,10 +92,10 @@ export default function LireAbscisseDecimale () {
         labelsPrincipaux: false,
         thickSec: true,
         thickSecDist: 1 / pas2,
-        labelListe: [[0, `${texNombre(abs0)}`], [1, `${texNombre(calcul(abs0 + 1 / pas1))}`]],
+        labelListe: [[0, `${stringNombre(abs0)}`], [1, `${stringNombre(calcul(abs0 + 1 / pas1))}`]],
         pointListe: [[xA, l1], [xB, l2], [xC, l3]]
       })
-      d[2 * i + 1] = droiteGraduee2({
+      d[2 * i + 1] = droiteGraduee({
         Unite: 4,
         Min: 0,
         Max: 7.1,
@@ -103,10 +106,10 @@ export default function LireAbscisseDecimale () {
         thickSec: true,
         thickSecDist: 1 / pas2,
         labelListe: [
-          [0, `${texNombre(abs0)}`],
-          [xA, texNombre(calcul(xA / pas1 + abs0))],
-          [xB, texNombre(calcul(xB / pas1 + abs0))],
-          [xC, texNombre(calcul(xC / pas1 + abs0))]
+          [0, `${stringNombre(abs0)}`],
+          [xA, stringNombre(calcul(xA / pas1 + abs0))],
+          [xB, stringNombre(calcul(xB / pas1 + abs0))],
+          [xC, stringNombre(calcul(xC / pas1 + abs0))]
         ],
         pointListe: [[xA, l1], [xB, l2], [xC, l3]]
 
@@ -119,9 +122,9 @@ export default function LireAbscisseDecimale () {
         setReponse(this, 3 * i, calcul(xA / pas1 + abs0))
         setReponse(this, 3 * i + 1, calcul(xB / pas1 + abs0))
         setReponse(this, 3 * i + 2, calcul(xC / pas1 + abs0))
-        texte += l1 + ajouteChampTexteMathLive(this, 3 * i)
-        texte += l2 + ajouteChampTexteMathLive(this, 3 * i + 1)
-        texte += l3 + ajouteChampTexteMathLive(this, 3 * i + 2)
+        texte += `<br><br>$${l1}$` + ajouteChampTexteMathLive(this, 3 * i)
+        texte += `$${l2}$` + ajouteChampTexteMathLive(this, 3 * i + 1)
+        texte += `$${l3}$` + ajouteChampTexteMathLive(this, 3 * i + 2)
       } else {
         if (context.isAmc) {
           this.autoCorrection[i].enonce = texte

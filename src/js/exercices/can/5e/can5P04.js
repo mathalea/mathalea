@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
  * Référence
  * Date de publication
 */
+export const uuid = 'eb6bc'
+export const ref = 'can5P04'
 export default function PoucentageP1 () {
   Exercice.call(this)
   this.typeExercice = 'simple'

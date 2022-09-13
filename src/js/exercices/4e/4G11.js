@@ -1,8 +1,10 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, egal, randint, shuffle, nombreAvecEspace, texcolors } from '../../modules/outils.js'
-import { tracePoint, vecteur, segment, translation, translationAnimee, codeSegment, texteParPosition, mathalea2d, pavage } from '../../modules/2d.js'
-export const titre = 'Trouver l’image d’une figure par une translation dans un pavage'
+import { tracePoint, vecteur, segment, translation, codageSegment, texteParPosition, pavage } from '../../modules/2d.js'
+import { translationAnimee } from '../../modules/2dAnimation.js'
+export const titre = 'Trouver l\'image d\'une figure par une translation dans un pavage'
 
 /**
  * @author Jean-Claude Lhote
@@ -10,6 +12,8 @@ export const titre = 'Trouver l’image d’une figure par une translation dans 
  * Réf : 4G11
  * Trouver une figure image dans un pavage par une translation. 6 pavages différents.
  */
+export const uuid = '3bfb6'
+export const ref = '4G11'
 export default function PavageEtTranslation2d () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -141,9 +145,8 @@ export default function PavageEtTranslation2d () {
           B = monpavage.barycentres[index2]
           v = vecteur(A, B)
         }
-        d = segment(A, B)
+        d = segment(A, B, 'red')
         d.styleExtremites = '->'
-        d.color = 'red'
         d.epaisseur = 3
         for (let i = 1; i <= monpavage.nb_polygones; i++) { // on crée une liste des couples (antécédents, images)
           image = translacion(monpavage, v, i)
@@ -189,22 +192,22 @@ export default function PavageEtTranslation2d () {
         A = monpavage.barycentres[couples[i][0] - 1]
         B = monpavage.barycentres[couples[i][1] - 1]
         d = v.representant(A, B)
-        d.color = texcolors(i)
+        d.color = colorToLatexOrHTML(texcolors(i))
         t = this.nbQuestions * 3
         P1 = monpavage.polygones[couples[i][0] - 1]
-        P1.color = texcolors(i)
-        P1.couleurDeRemplissage = texcolors(i)
+        P1.color = colorToLatexOrHTML(texcolors(i))
+        P1.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i))
         P1.opaciteDeRemplissage = 0.5
         P1.epaisseur = 2
         P2 = monpavage.polygones[couples[i][1] - 1]
-        P2.color = texcolors(i)
-        P2.couleurDeRemplissage = texcolors(i)
+        P2.color = colorToLatexOrHTML(texcolors(i))
+        P2.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i))
         P2.opaciteDeRemplissage = 0.5
         P2.epaisseur = 2
         P3 = translationAnimee(P1, v, `begin="${i * 3}s;${i * 3 + t}s;${i * 3 + t * 2}s" end="${i * 3 + 2}s;${i * 3 + t + 2}s;${i * 3 + t * 2 + 2}s" dur="2s" repeatCount="indefinite" repeatDur="${9 * this.nbQuestions}s" id="poly-${i}-anim"`)
-        P3.color = texcolors(i)
+        P3.color = colorToLatexOrHTML(texcolors(i))
         P3.epaisseur = 2
-        objetsCorrection.push(tracePoint(A, B), d, codeSegment(A, B, '//', texcolors(i)), P1, P2, P3)
+        objetsCorrection.push(tracePoint(A, B), d, codageSegment(A, B, '//', texcolors(i)), P1, P2, P3)
       }
     }
     if (this.correctionDetaillee) {

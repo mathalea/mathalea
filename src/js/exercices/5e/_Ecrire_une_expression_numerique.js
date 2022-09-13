@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import choisirExpressionNumerique from './_choisirExpressionNumerique.js'
 import ChoisirExpressionLitterale from './_Choisir_expression_litterale.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, lettreDepuisChiffre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, lettreDepuisChiffre, contraindreValeur } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -43,10 +43,13 @@ export default function EcrireUneExpressionNumerique (calculMental) {
     if (!this.sup) { // Si aucune liste n'est saisie
       typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
     } else {
-      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est qu'il y a qu'une expression
-        typesDeQuestionsDisponibles[0] = this.sup % 6
+      if (typeof this.sup === 'number') { // Si c'est un nombre c'est qu'il y a qu'une expression
+        typesDeQuestionsDisponibles = [this.sup % 6]
       } else {
         typesDeQuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+        for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) {
+          typesDeQuestionsDisponibles[i] = contraindreValeur(1, 5, parseInt(typesDeQuestionsDisponibles[i]), randint(1, 5))
+        }
       }
     }
     let expf; let expn; let expc; let decimal; let nbval; let nbOperations; let resultats
@@ -76,7 +79,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
       nbval = resultats[3]
       switch (this.version) {
         case 1:
-          this.consigne = 'Traduire la phrase par un calcul (il n’est pas demandé d’effectuer ce calcul).'
+          this.consigne = 'Traduire la phrase par un calcul (il n\'est pas demandé d\'effectuer ce calcul).'
           texte = `${expf}.`
           texteCorr = `${expf} s'écrit<br>${expn}.`
           break

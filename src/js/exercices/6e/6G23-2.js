@@ -10,6 +10,8 @@ export const titre = 'Tracer un triangle dont on connaît une longueur et 2 angl
  * @author Rémi Angot
  * Références 6G23-2 et 5G20-2
  */
+export const uuid = '1ad45'
+export const ref = '6G23-2'
 export default function TracerTriangle2Angles () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -24,16 +26,18 @@ export default function TracerTriangle2Angles () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-
+    let listeDeNomsDePolygones
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
+      if (i % 5 === 0) listeDeNomsDePolygones = ['PQD']
       const c = calcul(randint(30, 70) / 10)
       const angle1 = randint(20, 70)
       const angle2 = randint(20, 70)
-      const p = creerNomDePolygone(3)
+      const p = creerNomDePolygone(3, listeDeNomsDePolygones)
+      listeDeNomsDePolygones.push(p)
       texte = `Tracer un triangle $${p}$ tel que $${p[0] + p[1]}=${texNombre(
         c
       )}$ cm, $\\widehat{${p[1] + p[0] + p[2]

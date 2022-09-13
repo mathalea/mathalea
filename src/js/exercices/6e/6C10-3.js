@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, creerCouples, choice, texNombre, texNombre2, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, creerCouples, choice, texNombre, texNombre2, calcul, contraindreValeur } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
 export const amcReady = true
@@ -7,13 +7,15 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcType = 'qcmMono' // type de question AMC
 
-export const titre = 'Utiliser tables de multiplications pour effectuer produits avec décimaux'
+export const titre = 'Utiliser tables de multiplication pour effectuer produits avec décimaux'
 
 /**
  * Multiplier deux nombres décimaux
  * @author Rémi Angot
  * Référence 6C10-3
  */
+export const uuid = 'a5c5a'
+export const ref = '6C10-3'
 export default function ExerciceTablesMultiplicationsEtDecimaux (
   tablesParDefaut = '2-3-4-5-6-7-8-9'
 ) {
@@ -40,6 +42,9 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
       tables[0] = this.sup
     } else {
       tables = this.sup.split('-') // Sinon on crée un tableau à partir des valeurs séparées par des ;
+      for (let i = 0; i < tables.length; i++) {
+        tables[i] = contraindreValeur(2, 9, parseInt(tables[i]))
+      }
     }
     const couples = creerCouples(
       tables,

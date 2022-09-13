@@ -1,6 +1,7 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, reduireAxPlusB, randint, choice, texFractionReduite } from '../../../modules/outils.js'
-import { tableauDeVariation, mathalea2d } from '../../../modules/2d.js'
+import { tableauDeVariation } from '../../../modules/2d.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
 export const titre = 'Dresser le tableau de signes d’une fonction affine'
 export const interactifReady = true
@@ -14,6 +15,8 @@ export const dateDePublication = '15/12/2021' // La date de publication initiale
  * @author Gilles Mora
  * Référence
 */
+export const uuid = '73ab4'
+export const ref = 'can2F06'
 export default function TableauSignes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1

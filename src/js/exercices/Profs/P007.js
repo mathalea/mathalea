@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, nombreAvecEspace } from '../../modules/outils.js'
-import { pavage, texteParPosition, mathalea2d } from '../../modules/2d.js'
+import { pavage, texteParPosition } from '../../modules/2d.js'
 
 export const titre = 'Fabriquer des pavages pour travailler les transformations'
 
@@ -33,11 +34,11 @@ export default function PavagesMathalea2d () {
       // Si aucune grandeur n'est saisie
       [Nx, Ny] = [1, 1]
     } else {
-      if (typeof parseInt(this.sup2) === 'number') { // Si on ne met qu'un nombre alors on prend Nx=Ny
-        [Nx, Ny] = [this.sup2, this.sup2]
+      if (!isNaN(this.sup2)) { // Si on ne met qu'un nombre alors on prend Nx=Ny
+        [Nx, Ny] = [parseInt(this.sup2), parseInt(this.sup2)]
         this.nbQuestions = 1
       } else { // On fixe Nx et Ny avec les valeurs saisies.
-        [Nx, Ny] = this.sup2.split('-') // Sinon on créé un tableau à partir des valeurs séparées par des -
+        [Nx, Ny] = [parseInt(this.sup2.split('-')[0]), parseInt(this.sup2.split('-')[1])] // Sinon on créé un tableau à partir des valeurs séparées par des -
       }
     }
     this.listeCorrections = []
@@ -49,7 +50,7 @@ export default function PavagesMathalea2d () {
     monpavage.construit(typeDePavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
     if (this.sup3) { // Doit-on afficher les Numéros ?
       for (let i = 0; i < monpavage.nb_polygones; i++) {
-        objets.push(texteParPosition(nombreAvecEspace(i + 1), monpavage.barycentres[i].x + 0.5, monpavage.barycentres[i].y, 'milieu', 'black', 0.04 * monpavage.echelle, 0, true))
+        objets.push(texteParPosition(nombreAvecEspace(i + 1), monpavage.barycentres[i].x + 0.3, monpavage.barycentres[i].y, 'milieu', 'black', 0.04 * monpavage.echelle, 0, true))
       }
     }
     if (this.correctionDetaillee) { // Doit-on montrer les centres des figures ?

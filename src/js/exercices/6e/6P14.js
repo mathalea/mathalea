@@ -1,12 +1,13 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, arrondi, choice, lettreDepuisChiffre, rangeMinMax, contraindreValeur, compteOccurences, miseEnEvidence, sp, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
-import { codageAngleDroit, point, mathalea2d, pointAdistance, polygone, nommePolygone, codeSegments, afficheLongueurSegment, rotation, triangle2points2longueurs, angleOriente } from '../../modules/2d.js'
+import { codageAngleDroit, point, pointAdistance, polygone, nommePolygone, codageSegments, afficheLongueurSegment, rotation, triangle2points2longueurs, angleOriente } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { min, max } from 'mathjs'
 import FractionX from '../../modules/FractionEtendue.js'
-export const titre = "Figures à agrandir ou à réduire d'après une situation de proportionnalité"
+export const titre = "Agrandir ou réduire des figures, d'après une situation de proportionnalité"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -16,9 +17,11 @@ export const dateDePublication = '13/03/2022'
 /**
  * Trouver comment agrandir ou réduire des longueurs d'une figure et construire la figure demandée
  * @author Eric Elter
- * Référence 3G32-0
+ * Référence 6P14
 */
-export default function problemesTrigoLongueur () {
+export const uuid = '4c6e2'
+export const ref = '6P14'
+export default function agrandirReduireFigure () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.besoinFormulaireTexte = [
@@ -29,12 +32,12 @@ export default function problemesTrigoLongueur () {
     3 : Triangle avec coefficient de réduction ou d'agrandissement
     4 : Triangle avec longueur initiale et longueur finale
     5 : Rectangle avec coefficient de réduction ou d'agrandissement
-    4 : Rectangle avec longueur initiale et longueur finale
+    6 : Rectangle avec longueur initiale et longueur finale
     7 : Mélange`
   ]
   this.sup = 7
   this.nbQuestions = 4
-  this.spacingCorr = 3
+  this.spacingCorr = 1
   this.spacing = 2
 
   this.nouvelleVersion = function () {
@@ -87,7 +90,7 @@ export default function problemesTrigoLongueur () {
           numBCorr = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numACorr])
           numCCorr = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numACorr, numBCorr])
           nomCorr = lettreDepuisChiffre(numACorr) + lettreDepuisChiffre(numBCorr) + lettreDepuisChiffre(numCCorr)
-          objets.push(polygoneInit, codeSegments('||', 'red', polygoneInit.listePoints), afficheLongueurSegment(sensRotation < 0 ? A : B, sensRotation < 0 ? B : A, 'blue', 0.5, '', true), nommePolygone(polygoneInit, nom))
+          objets.push(polygoneInit, codageSegments('||', 'red', polygoneInit.listePoints), afficheLongueurSegment(sensRotation < 0 ? A : B, sensRotation < 0 ? B : A, 'blue', 0.5, '', true), nommePolygone(polygoneInit, nom))
           enonceInit = `On décide d'effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du triangle équilatéral ${nom}. Quelle sera la longueur du côté du triangle à construire ?`
           texte = enonceInit
           enonceAMC = '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x) - 1, ymin: min(A.y, B.y, C.y) - 1, xmax: max(A.x, B.x, C.x) + 1, ymax: max(A.y, B.y, C.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
@@ -138,7 +141,7 @@ export default function problemesTrigoLongueur () {
             texteCorr += choixAgrandissementOuReduction === 6 ? ' puis multiplier chacun de ces résultats par 3' : ''
           }
           texteCorr += '.<br>'
-          texteCorr += `$${absB} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${reponse}$`
+          texteCorr += `$${absB} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${texNombre(reponse)}$`
           if (choixAgrandissementOuReduction === 6) {
             texteCorr += ` ou bien $(${absB} \\div 4) \\times 3=${texNombre(arrondi(absB / 4, 1))} \\times 3=${texNombre(reponse)}$`
           } else if (choixAgrandissementOuReduction >= 4) {
@@ -147,7 +150,7 @@ export default function problemesTrigoLongueur () {
           texteCorr += `<br>Le triangle équilatéral issu d'un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du triangle ${nom} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ possède donc des côtés de longueur $${miseEnEvidence(texNombre(reponse))}$.`
           texteCorr += '<br>En voici, une réalisation ci-dessous.'
           objets = []
-          objets.push(polygoneCorr, codeSegments('|||', 'blue', polygoneCorr.listePoints), afficheLongueurSegment(sensRotation < 0 ? A : BCorr, sensRotation < 0 ? BCorr : A, 'red', 0.5, '', true), nommePolygone(polygoneCorr, nomCorr))
+          objets.push(polygoneCorr, codageSegments('|||', 'blue', polygoneCorr.listePoints), afficheLongueurSegment(sensRotation < 0 ? A : BCorr, sensRotation < 0 ? BCorr : A, 'red', 0.5, '', true), nommePolygone(polygoneCorr, nomCorr))
           texteCorr += '<br>' + mathalea2d({ xmin: min(A.x, BCorr.x, CCorr.x) - 1, ymin: min(A.y, BCorr.y, CCorr.y) - 1, xmax: max(A.x, BCorr.x, CCorr.x) + 1, ymax: max(A.y, BCorr.y, CCorr.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
           break
         case 2:
@@ -173,7 +176,7 @@ export default function problemesTrigoLongueur () {
           numCCorr = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numACorr, numBCorr])
           numDCorr = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numACorr, numBCorr, numCCorr])
           nomCorr = lettreDepuisChiffre(numACorr) + lettreDepuisChiffre(numBCorr) + lettreDepuisChiffre(numCCorr) + lettreDepuisChiffre(numDCorr)
-          objets.push(polygoneInit, codeSegments('||', 'red', polygoneInit.listePoints), afficheLongueurSegment(A, B, 'blue', 0.5, '', true), nommePolygone(polygoneInit, nom))
+          objets.push(polygoneInit, codageSegments('||', 'red', polygoneInit.listePoints), afficheLongueurSegment(A, B, 'blue', 0.5, '', true), nommePolygone(polygoneInit, nom))
           objets.push(codageAngleDroit(A, B, C), codageAngleDroit(D, C, B), codageAngleDroit(A, D, C), codageAngleDroit(B, A, D))
           enonceInit = `On décide d'effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$, du carré ${nom}. Quelle sera la longueur du côté du carré à construire ?`
           texte = enonceInit
@@ -225,7 +228,7 @@ export default function problemesTrigoLongueur () {
             texteCorr += choixAgrandissementOuReduction === 6 ? ' puis multiplier chacun de ces résultats par 3' : ''
           }
           texteCorr += '.<br>'
-          texteCorr += `$${absB} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${reponse}$`
+          texteCorr += `$${absB} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${texNombre(reponse)}$`
           if (choixAgrandissementOuReduction === 6) {
             texteCorr += ` ou bien $(${absB} \\div 4) \\times 3=${texNombre(arrondi(absB / 4, 1))} \\times 3=${texNombre(reponse)}$`
           } else if (choixAgrandissementOuReduction >= 4) {
@@ -234,7 +237,7 @@ export default function problemesTrigoLongueur () {
           texteCorr += `<br>Le carré issu d'un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du carré ${nom} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ possède donc des côtés de longueur $${miseEnEvidence(texNombre(reponse))}$.`
           texteCorr += '<br>En voici, une réalisation ci-dessous.'
           objets = []
-          objets.push(polygoneCorr, codeSegments('|||', 'blue', polygoneCorr.listePoints), afficheLongueurSegment(A, BCorr, 'red', 0.5, '', true), nommePolygone(polygoneCorr, nomCorr))
+          objets.push(polygoneCorr, codageSegments('|||', 'blue', polygoneCorr.listePoints), afficheLongueurSegment(A, BCorr, 'red', 0.5, '', true), nommePolygone(polygoneCorr, nomCorr))
           objets.push(codageAngleDroit(A, BCorr, CCorr), codageAngleDroit(DCorr, CCorr, BCorr), codageAngleDroit(A, DCorr, CCorr), codageAngleDroit(BCorr, A, DCorr))
           texteCorr += '<br>' + mathalea2d({ xmin: min(A.x, BCorr.x, CCorr.x, DCorr.x) - 1, ymin: min(A.y, BCorr.y, CCorr.y, DCorr.y) - 1, xmax: max(A.x, BCorr.x, CCorr.x, DCorr.x) + 1, ymax: max(A.y, BCorr.y, CCorr.y, DCorr.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
           break
@@ -358,9 +361,9 @@ export default function problemesTrigoLongueur () {
             texteCorr += choixAgrandissementOuReduction === 6 ? ' puis multiplier chacun de ces résultats par 3' : ''
           }
           texteCorr += '.<br>'
-          texteCorr += `$${absB} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${reponse}${sp(10)}$`
-          texteCorr += `$${absC} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${reponse1}${sp(10)}$`
-          texteCorr += `$${absD} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${reponse2}$`
+          texteCorr += `$${absB} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${texNombre(reponse)}${sp(10)}$`
+          texteCorr += `$${absC} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${texNombre(reponse1)}${sp(10)}$`
+          texteCorr += `$${absD} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${texNombre(reponse2)}$`
           if (choixAgrandissementOuReduction === 6) {
             texteCorr += `${sp(10)} ou bien ${sp(10)}$(${absB} \\div 4) \\times 3=${texNombre(arrondi(absB / 4, 1))} \\times 3=${texNombre(reponse)}$`
             texteCorr += `${sp(10)}$(${absC} \\div 4) \\times 3=${texNombre(arrondi(absC / 4, 1))} \\times 3=${texNombre(reponse1)}$`
@@ -473,15 +476,15 @@ export default function problemesTrigoLongueur () {
             iiAMC++
           }
           texteCorr = `Effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} implique de multiplier toutes les longueurs par un coefficient de proportionnalité. Trouvons ce coefficient.<br>`
-          texteCorr += `Pour trouver ce coefficient, divisons la longueur connue du futur triangle par sa longueur associée dans le triangle actuel : $${reponse2} \\div ${absD} = ${coefAgrandissement[choixAgrandissementOuReduction]}$. Le coefficient de proportionnalité est donc $${coefAgrandissement[choixAgrandissementOuReduction]}$.<br>`
+          texteCorr += `Pour trouver ce coefficient, divisons la longueur connue du futur triangle par sa longueur associée dans le triangle actuel : $${texNombre(reponse2)} \\div ${absD} = ${coefAgrandissement[choixAgrandissementOuReduction]}$. Le coefficient de proportionnalité est donc $${coefAgrandissement[choixAgrandissementOuReduction]}$.<br>`
           texteCorr += `Multiplions toutes les longueurs connues du triangle actuel par $${coefAgrandissement[choixAgrandissementOuReduction]}$`
 
           if (choixAgrandissementOuReduction >= 4) {
             texteCorr += `, ou bien, comme $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}=${coefReduction[choixAgrandissementOuReduction - 4].texFraction}$, cela revient à diviser toutes les longueurs par $${coefReduction[choixAgrandissementOuReduction - 4].den}$`
             texteCorr += choixAgrandissementOuReduction === 6 ? ' puis multiplier chacun de ces résultats par 3' : ''
           }
-          texteCorr += `.<br>$${absB} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${reponse}${sp(10)}$`
-          texteCorr += `$${absC} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${reponse1}$`
+          texteCorr += `.<br>$${absB} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${texNombre(reponse)}${sp(10)}$`
+          texteCorr += `$${absC} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${texNombre(reponse1)}$`
           if (choixAgrandissementOuReduction === 6) {
             texteCorr += `${sp(10)} ou bien ${sp(10)}$(${absB} \\div 4) \\times 3=${texNombre(arrondi(absB / 4, 1))} \\times 3=${texNombre(reponse)}$`
             texteCorr += `${sp(10)}$(${absC} \\div 4) \\times 3=${texNombre(arrondi(absC / 4, 1))} \\times 3=${texNombre(reponse1)}$`
@@ -525,8 +528,8 @@ export default function problemesTrigoLongueur () {
           numDCorr = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numACorr, numBCorr, numCCorr])
           nomCorr = lettreDepuisChiffre(numACorr) + lettreDepuisChiffre(numBCorr) + lettreDepuisChiffre(numCCorr) + lettreDepuisChiffre(numDCorr)
           objets.push(polygoneInit, nommePolygone(polygoneInit, nom))
-          objets.push(codeSegments('||', 'red', A, B, C, D))
-          objets.push(codeSegments('X', 'red', B, C, D, A))
+          objets.push(codageSegments('||', 'red', A, B, C, D))
+          objets.push(codageSegments('X', 'red', B, C, D, A))
           objets.push(afficheLongueurSegment(angleOriente(B, C, D) > 0 ? C : D, angleOriente(B, C, D) > 0 ? D : C, 'blue', 0.5, '', true))
           objets.push(afficheLongueurSegment(angleOriente(C, D, A) > 0 ? D : A, angleOriente(C, D, A) > 0 ? A : D, 'blue', 0.5, '', true))
           objets.push(codageAngleDroit(A, B, C), codageAngleDroit(D, C, B), codageAngleDroit(A, D, C), codageAngleDroit(B, A, D))
@@ -601,8 +604,8 @@ export default function problemesTrigoLongueur () {
             texteCorr += choixAgrandissementOuReduction === 6 ? ' puis multiplier chacun de ces résultats par 3' : ''
           }
           texteCorr += '.<br>'
-          texteCorr += `$${absB} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${reponse}${sp(10)}$`
-          texteCorr += `$${absC} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${reponse1}$`
+          texteCorr += `$${absB} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${texNombre(reponse)}${sp(10)}$`
+          texteCorr += `$${absC} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${texNombre(reponse1)}$`
           if (choixAgrandissementOuReduction === 6) {
             texteCorr += `${sp(10)} ou bien ${sp(10)}$(${absB} \\div 4) \\times 3=${texNombre(arrondi(absB / 4, 1))} \\times 3=${texNombre(reponse)}$`
             texteCorr += `${sp(10)}$(${absC} \\div 4) \\times 3=${texNombre(arrondi(absC / 4, 1))} \\times 3=${texNombre(reponse1)}$`
@@ -614,8 +617,8 @@ export default function problemesTrigoLongueur () {
           texteCorr += '<br>En voici, une réalisation ci-dessous.'
           objets = []
           objets.push(polygoneCorr, nommePolygone(polygoneCorr, nomCorr))
-          objets.push(codeSegments('|||', 'blue', A, BCorr, CCorr, DCorr))
-          objets.push(codeSegments('XX', 'blue', BCorr, CCorr, DCorr, A))
+          objets.push(codageSegments('|||', 'blue', A, BCorr, CCorr, DCorr))
+          objets.push(codageSegments('XX', 'blue', BCorr, CCorr, DCorr, A))
           objets.push(afficheLongueurSegment(angleOriente(CCorr, A, BCorr) > 0 ? A : BCorr, angleOriente(CCorr, A, BCorr) > 0 ? BCorr : A, 'red', 0.5, '', true))
           objets.push(afficheLongueurSegment(angleOriente(A, BCorr, CCorr) > 0 ? BCorr : CCorr, angleOriente(A, BCorr, CCorr) > 0 ? CCorr : BCorr, 'red', 0.5, '', true))
           objets.push(codageAngleDroit(A, BCorr, CCorr), codageAngleDroit(DCorr, CCorr, BCorr), codageAngleDroit(A, DCorr, CCorr), codageAngleDroit(BCorr, A, DCorr))
@@ -648,8 +651,8 @@ export default function problemesTrigoLongueur () {
           numDCorr = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numACorr, numBCorr, numCCorr])
           nomCorr = lettreDepuisChiffre(numACorr) + lettreDepuisChiffre(numBCorr) + lettreDepuisChiffre(numCCorr) + lettreDepuisChiffre(numDCorr)
           objets.push(polygoneInit, nommePolygone(polygoneInit, nom))
-          objets.push(codeSegments('||', 'red', A, B, C, D))
-          objets.push(codeSegments('X', 'red', B, C, D, A))
+          objets.push(codageSegments('||', 'red', A, B, C, D))
+          objets.push(codageSegments('X', 'red', B, C, D, A))
           objets.push(afficheLongueurSegment(angleOriente(B, C, D) > 0 ? C : D, angleOriente(B, C, D) > 0 ? D : C, 'blue', 0.5, '', true))
           objets.push(afficheLongueurSegment(angleOriente(C, D, A) > 0 ? D : A, angleOriente(C, D, A) > 0 ? A : D, 'blue', 0.5, '', true))
           objets.push(codageAngleDroit(A, B, C), codageAngleDroit(D, C, B), codageAngleDroit(A, D, C), codageAngleDroit(B, A, D))
@@ -661,7 +664,7 @@ export default function problemesTrigoLongueur () {
             texte += enonceAMC
             setReponse(this, i + ii, reponse1)
           } else if (!context.isAmc) {
-            texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du rectangle ${nom} de telle sorte que la longueur du côté associé à [${lettreDepuisChiffre(numB) + lettreDepuisChiffre(numC)}] mesurera $${texNombre(reponse)}$.`
+            texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du rectangle ${nom} de telle sorte que la longueur du côté associé à [${lettreDepuisChiffre(numA) + lettreDepuisChiffre(numB)}] mesurera $${texNombre(reponse)}$.`
             texte += '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x, D.x) - 1, ymin: min(A.y, B.y, C.y, D.y) - 1, xmax: max(A.x, B.x, C.x, D.x) + 1, ymax: max(A.y, B.y, C.y, D.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
           } else {
             propositionsAMC[iiAMC] = {
@@ -698,7 +701,7 @@ export default function problemesTrigoLongueur () {
             iiAMC++
           }
           texteCorr = `Effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} implique de multiplier toutes les longueurs par un coefficient de proportionnalité. Trouvons ce coefficient.<br>`
-          texteCorr += `Pour trouver ce coefficient, divisons la longueur connue du futur rectangle par sa longueur associée dans le rectangle actuel : $${reponse} \\div ${absB} = ${coefAgrandissement[choixAgrandissementOuReduction]}$. Le coefficient de proportionnalité est donc $${coefAgrandissement[choixAgrandissementOuReduction]}$.<br>`
+          texteCorr += `Pour trouver ce coefficient, divisons la longueur connue du futur rectangle par sa longueur associée dans le rectangle actuel : $${texNombre(reponse)} \\div ${absB} = ${coefAgrandissement[choixAgrandissementOuReduction]}$. Le coefficient de proportionnalité est donc $${coefAgrandissement[choixAgrandissementOuReduction]}$.<br>`
           texteCorr += `Multiplions toutes les longueurs connues du triangle actuel par $${coefAgrandissement[choixAgrandissementOuReduction]}$`
 
           if (choixAgrandissementOuReduction >= 4) {
@@ -706,7 +709,7 @@ export default function problemesTrigoLongueur () {
             texteCorr += choixAgrandissementOuReduction === 6 ? ' puis multiplier chacun de ces résultats par 3' : ''
           }
           texteCorr += '.<br>'
-          texteCorr += `$${absC} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${reponse1}$`
+          texteCorr += `$${absC} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${texNombre(reponse1)}$`
           if (choixAgrandissementOuReduction === 6) {
             texteCorr += `${sp(10)} ou bien ${sp(10)}$(${absC} \\div 4) \\times 3=${texNombre(arrondi(absC / 4, 1))} \\times 3=${texNombre(reponse1)}$`
           } else if (choixAgrandissementOuReduction >= 4) {
@@ -716,8 +719,8 @@ export default function problemesTrigoLongueur () {
           texteCorr += '<br>En voici, une réalisation ci-dessous.'
           objets = []
           objets.push(polygoneCorr, nommePolygone(polygoneCorr, nomCorr))
-          objets.push(codeSegments('|||', 'blue', A, BCorr, CCorr, DCorr))
-          objets.push(codeSegments('XX', 'blue', BCorr, CCorr, DCorr, A))
+          objets.push(codageSegments('|||', 'blue', A, BCorr, CCorr, DCorr))
+          objets.push(codageSegments('XX', 'blue', BCorr, CCorr, DCorr, A))
           objets.push(afficheLongueurSegment(angleOriente(CCorr, A, BCorr) > 0 ? A : BCorr, angleOriente(CCorr, A, BCorr) > 0 ? BCorr : A, 'red', 0.5, '', true))
           objets.push(afficheLongueurSegment(angleOriente(A, BCorr, CCorr) > 0 ? BCorr : CCorr, angleOriente(A, BCorr, CCorr) > 0 ? CCorr : BCorr, 'red', 0.5, '', true))
           objets.push(codageAngleDroit(A, BCorr, CCorr), codageAngleDroit(DCorr, CCorr, BCorr), codageAngleDroit(A, DCorr, CCorr), codageAngleDroit(BCorr, A, DCorr))

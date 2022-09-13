@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, calcul, texNombre, texPrix, arrondi } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-export const titre = 'Exprimer une fraction sous la forme d’une valeur approchée d’un pourcentage'
+export const titre = 'Exprimer une fraction sous la forme d\'une valeur approchée d\'un pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -15,6 +15,8 @@ export const dateDeModifImportante = '17/03/2022'
  * 2021-02-06
  * Ajout de l'interactivité par Guillaume Valmont le 17/03/2022
 */
+export const uuid = '6b534'
+export const ref = '5N11-4'
 export default function ValeurApprocheeDePourcentages () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

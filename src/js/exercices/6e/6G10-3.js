@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { combinaisonListes, enleveElement, lettreDepuisChiffre, listeQuestionsToContenu, randint, shuffle } from '../../modules/outils.js'
-import { demiDroite, droite, labelPoint, mathalea2d, point, segmentAvecExtremites } from '../../modules/2d.js'
+import { demiDroite, droite, labelPoint, point, segmentAvecExtremites } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Choisir la bonne figure'
 export const amcReady = true
@@ -13,6 +14,8 @@ export const interactifType = ['cliqueFigure']
  * @author ANGOT Rémi (Ajout AMC par Eric Elter)
  * Référence
 */
+export const uuid = '83763'
+export const ref = '6G10-3'
 export default function cliqueFigure () {
   Exercice.call(this)
   this.nbQuestions = 3

@@ -1,5 +1,5 @@
 import Transformations from '../6e/_Transformations.js'
-export const titre = 'Trouver l’image d’un point par une symétrie axiale ou centrale'
+export const titre = 'Trouver l\'image d\'un point par une symétrie axiale ou centrale'
 export { interactifReady, interactifType, amcReady, amcType } from '../6e/_Transformations.js'
 
 /**
@@ -8,6 +8,8 @@ export { interactifReady, interactifType, amcReady, amcType } from '../6e/_Trans
  * référence 5G11
  * Pas de version LaTeX
  */
+export const uuid = 'ec32b'
+export const ref = '5G11'
 export default function Transformations5e () {
   Transformations.call(this)
   this.sup = 2

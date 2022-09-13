@@ -9,6 +9,8 @@ export const titre = 'Reconnaître des tableaux de proportionnalité'
  * @author Sébastien Lozano
  */
 
+export const uuid = 'aa997'
+export const ref = '5P10'
 export default function TableauxEtProportionnalite () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -73,10 +75,10 @@ export default function TableauxEtProportionnalite () {
         let sortie
         switch (sens) {
           case 'L1L2':
-            sortie = `$\\dfrac{\\textcolor{blue}{${texNombre(n1)}}}{\\textcolor{red}{${texNombre(n1 * coeff)}}} = \\dfrac{\\textcolor{blue}{${texNombre(n2)}}}{\\textcolor{red}{${texNombre(n2 * coeff)}}} = \\dfrac{\\textcolor{blue}{${texNombre(n3)}}}{\\textcolor{red}{${texNombre(n3 * coeff)}}}$`
+            sortie = `$\\dfrac{\\textcolor{blue}{${n1}}}{\\textcolor{red}{${n1 * coeff}}} = \\dfrac{\\textcolor{blue}{${n2}}}{\\textcolor{red}{${n2 * coeff}}} = \\dfrac{\\textcolor{blue}{${n3}}}{\\textcolor{red}{${n3 * coeff}}}$`
             break
           case 'L2L1':
-            sortie = `$\\dfrac{\\textcolor{red}{${texNombre(n1 * coeff)}}}{\\textcolor{blue}{${texNombre(n1)}}} = \\dfrac{\\textcolor{red}{${texNombre(n2 * coeff)}}}{\\textcolor{blue}{${texNombre(n2)}}} = \\dfrac{\\textcolor{red}{${texNombre(n3 * coeff)}}}{\\textcolor{blue}{${texNombre(n3)}}}$`
+            sortie = `$\\dfrac{\\textcolor{red}{${n1 * coeff}}}{\\textcolor{blue}{${n1}}} = \\dfrac{\\textcolor{red}{${n2 * coeff}}}{\\textcolor{blue}{${n2}}} = \\dfrac{\\textcolor{red}{${n3 * coeff}}}{\\textcolor{blue}{${n3}}}$`
             break
         };
         return sortie
@@ -86,7 +88,7 @@ export default function TableauxEtProportionnalite () {
       function justificationsKO (n1, n2, n3, coeff, operation, sens) {
         let sortie
         const isEq = function (n1, n2, coeff) {
-          if (calcul(n1 / (n1 + coeff)) === calcul(n2 / (n2 + coeff))) {
+          if (calcul(n1 / (n1 + coeff), 8) === calcul(n2 / (n2 + coeff), 8)) {
             return '='
           } else {
             return '\\neq'
@@ -105,18 +107,18 @@ export default function TableauxEtProportionnalite () {
         };
         switch (operation) {
           case '+':
-            sortie = `$\\dfrac{\\textcolor{${color2}}{${texNombre(n1)}}}{\\textcolor{${color1}}{${texNombre(n1 + coeff)}}}`
+            sortie = `$\\dfrac{\\textcolor{${color2}}{${n1}}}{\\textcolor{${color1}}{${n1 + coeff}}}`
             sortie += isEq(n1, n2, coeff)
-            sortie += `\\dfrac{\\textcolor{${color2}}{${texNombre(n2)}}}{\\textcolor{${color1}}{${texNombre(n2 + coeff)}}}`
+            sortie += `\\dfrac{\\textcolor{${color2}}{${n2}}}{\\textcolor{${color1}}{${n2 + coeff}}}`
             sortie += isEq(n2, n3, coeff)
-            sortie += `\\dfrac{\\textcolor{${color2}}{${texNombre(n3)}}}{\\textcolor{${color1}}{${texNombre(n3 + coeff)}}}$`
+            sortie += `\\dfrac{\\textcolor{${color2}}{${n3}}}{\\textcolor{${color1}}{${n3 + coeff}}}$`
             break
           case '-':
-            sortie = `$\\dfrac{\\textcolor{${color2}}{${texNombre(n1)}}}{\\textcolor{${color1}}{${texNombre(n1 - coeff)}}}`
+            sortie = `$\\dfrac{\\textcolor{${color2}}{${n1}}}{\\textcolor{${color1}}{${n1 - coeff}}}`
             sortie += isEq(n1, n2, coeff)
-            sortie += `\\dfrac{\\textcolor{${color2}}{${texNombre(n2)}}}{\\textcolor{${color1}}{${texNombre(n2 - coeff)}}}`
+            sortie += `\\dfrac{\\textcolor{${color2}}{${n2}}}{\\textcolor{${color1}}{${n2 - coeff}}}`
             sortie += isEq(n2, n3, coeff)
-            sortie += `\\dfrac{\\textcolor{${color2}}{${texNombre(n3)}}}{\\textcolor{${color1}}{${texNombre(n3 - coeff)}}}$`
+            sortie += `\\dfrac{\\textcolor{${color2}}{${n3}}}{\\textcolor{${color1}}{${n3 - coeff}}}$`
             break
         };
         return sortie
@@ -137,8 +139,8 @@ export default function TableauxEtProportionnalite () {
         },
         { // case 1 --> multiplication ligne1 vers ligne2 Décimaux
           tableau: tableauColonneLigne(
-            ['\\phantom{000}' + texNombre(u1 + ci1 / 10) + '\\phantom{000}', '\\phantom{000}' + texNombre(u2 + ci2 / 10) + '\\phantom{000}', '\\phantom{000}' + texNombre(u3 + ci3 / 10) + '\\phantom{000}'],
-            [texNombre((u1 + ci1 / 10) * coeff)], [texNombre((u2 + ci2 / 10) * coeff), texNombre((u3 + ci3 / 10) * coeff)]
+            ['\\phantom{000}' + texNombre(u1 + ci1 / 10, 1) + '\\phantom{000}', '\\phantom{000}' + texNombre(u2 + ci2 / 10, 1) + '\\phantom{000}', '\\phantom{000}' + texNombre(u3 + ci3 / 10, 1) + '\\phantom{000}'],
+            [texNombre((u1 + ci1 / 10) * coeff, 1)], [texNombre((u2 + ci2 / 10) * coeff, 1), texNombre((u3 + ci3 / 10) * coeff, 1)]
           ),
           justification_L1_L2: justificationsOK(u1 + ci1 / 10, u2 + ci2 / 10, u3 + ci3 / 10, coeff, 'L1L2'),
           justification_L2_L1: justificationsOK(u1 + ci1 / 10, u2 + ci2 / 10, u3 + ci3 / 10, coeff, 'L2L1'),
@@ -169,8 +171,8 @@ export default function TableauxEtProportionnalite () {
         },
         { // case 4 --> addition ligne1 vers ligne2 Décimaux
           tableau: tableauColonneLigne(
-            ['\\phantom{000}' + texNombre(u1 + ci1 / 10) + '\\phantom{000}', '\\phantom{000}' + texNombre(u2 + ci2 / 10) + '\\phantom{000}', '\\phantom{000}' + texNombre(u3 + ci3 / 10) + '\\phantom{000}'],
-            [texNombre((u1 + ci1 / 10) + coeff)], [texNombre((u2 + ci2 / 10) + coeff), texNombre((u3 + ci3 / 10) + coeff)]
+            ['\\phantom{000}' + texNombre(u1 + ci1 / 10, 1) + '\\phantom{000}', '\\phantom{000}' + texNombre(u2 + ci2 / 10, 1) + '\\phantom{000}', '\\phantom{000}' + texNombre(u3 + ci3 / 10, 1) + '\\phantom{000}'],
+            [texNombre((u1 + ci1 / 10) + coeff, 1)], [texNombre((u2 + ci2 / 10) + coeff, 1), texNombre((u3 + ci3 / 10) + coeff, 1)]
           ),
           justification_L1_L2: justificationsKO(u1 + ci1 / 10, u2 + ci2 / 10, u3 + ci3 / 10, coeff, '+', 'L1L2'),
           justification_L2_L1: justificationsKO(u1 + ci1 / 10, u2 + ci2 / 10, u3 + ci3 / 10, coeff, '+', 'L2L1'),

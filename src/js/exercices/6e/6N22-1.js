@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, miseEnEvidence } from '../../modules/outils.js'
-import { mathalea2d } from '../../modules/2d.js'
+
 import { fraction } from '../../modules/fractions.js'
 export const titre = 'Exprimer le rapport de deux longueurs sur un segment'
 
@@ -11,6 +12,8 @@ export const titre = 'Exprimer le rapport de deux longueurs sur un segment'
  * @author Sébastien Lozano
  */
 
+export const uuid = '7781a'
+export const ref = '6N22-1'
 export default function RapportsSurUnSegment () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.beta = false
@@ -168,11 +171,11 @@ export default function RapportsSurUnSegment () {
 `,
           question: '',
           correction: `
-          Les graduations étant régulières, comptons le nombre de graduations pour chaque segment :<br>
+          Les graduations étant régulières, comptons le nombre d'espaces entre deux graduations pour chaque segment :<br>
           ${situations[k].fig_corr1}<br>
-          Le segment $${situations[k].segment_corr1}$ compte $${situations[k].m_color_corr}$ ${singPlur(situations[k].m, 'graduation', 'graduations')}.<br>
+          Le segment $${situations[k].segment_corr1}$ compte $${situations[k].m_color_corr}$ ${singPlur(situations[k].m, 'espace', 'espaces')}.<br>
           ${situations[k].fig_corr2}<br>
-          Le segment $${situations[k].segment_corr2}$ compte $${situations[k].n_color_corr}$ ${singPlur(situations[k].n, 'graduation', 'graduations')}.<br><br>
+          Le segment $${situations[k].segment_corr2}$ compte $${situations[k].n_color_corr}$ ${singPlur(situations[k].n, 'espace', 'espaces')}.<br><br>
           $\\textbf{Donc}$ $\\mathbf{\\dfrac{${situations[k].longueur_corr2}}{${situations[k].longueur_corr1}}=\\dfrac{${situations[k].n_color_corr}}{${situations[k].m_color_corr}}}$
           $\\textbf{et}$ $\\mathbf{\\dfrac{${situations[k].longueur_corr1}}{${situations[k].longueur_corr2}}=\\dfrac{${situations[k].m_color_corr}}{${situations[k].n_color_corr}}}$<br><br>      
           ${Remarque(situations[k].rapport, situations[k].rapport_inverse, situations[k].n, situations[k].m)}

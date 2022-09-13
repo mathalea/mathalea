@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { modalTexteCourt, combinaisonListes, listeQuestionsToContenu, randint, rangeMinMax } from '../../modules/outils.js'
-import { mathalea2d } from '../../modules/2d.js'
+
 import { fraction } from '../../modules/fractions.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -17,6 +18,8 @@ export const amcType = 'AMCHybride'
  * Référence 6N20-1
  * Relecture : Novembre 2021 par EE
 */
+export const uuid = '1f5de'
+export const ref = '6N20-1'
 export default function EncadrerFractionEntre2Entiers () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Compléter avec deux nombres entiers consécutifs.' + modalTexteCourt(1, 'Nombres entiers consécutifs : Ce sont deux nombres entiers qui se suivent comme 4 et 5.', 'Consécutifs')
@@ -34,7 +37,6 @@ export default function EncadrerFractionEntre2Entiers () {
     this.autoCorrection = []
     this.liste_de_denominateurs = this.lycee ? combinaisonListes([2, 3, 4, 5, 6, 7, 8, 9], this.nbQuestions) : combinaisonListes([2, 3, 4, 5, 10], this.nbQuestions)
     this.liste_de_k = this.lycee ? combinaisonListes(rangeMinMax(-5, 5), this.nbQuestions) : combinaisonListes([0, 1, 2, 3, 4, 5], this.nbQuestions)
-    console.log(this.lycee)
     for (let i = 0, texte, texteCorr, n, d, k, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       d = this.liste_de_denominateurs[i]
       k = this.liste_de_k[i]

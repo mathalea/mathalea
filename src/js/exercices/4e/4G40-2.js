@@ -7,11 +7,11 @@ export const titre = 'Arrondir une valeur comprenant un cosinus'
  * référence 4G40-2
  */
 
+export const uuid = '2f4d7'
+export const ref = '4G40-2'
 export default function ArrondirUneValeur4e () {
   ArrondirUneValeur.call(this)
   this.titre = titre
-  this.sup = 2
-  this.sup2 = true
+  this.version = 2
   this.spacing = 3
-  this.besoinFormulaireNumerique = false
 }

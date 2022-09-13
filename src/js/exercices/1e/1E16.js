@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, arrondiVirgule, texFractionReduite, texFractionSigne, texFraction } from '../../modules/outils.js'
-import { mathalea2d, tableauDeVariation } from '../../modules/2d.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif } from '../../modules/outils.js'
+import { tableauDeVariation } from '../../modules/2d.js'
 export const titre = 'Résoudre une inéquation du second degré'
 
 /**
@@ -8,6 +9,8 @@ export const titre = 'Résoudre une inéquation du second degré'
  * @author Stéphane Guyon
  * Référence 1E11
 */
+export const uuid = '77bcc'
+export const ref = '1E16'
 export default function ResoudreEquationDegre2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -23,10 +26,10 @@ export default function ResoudreEquationDegre2 () {
     this.listeCorrections = [] // Liste de questions corrigées
     let listeTypeDeQuestions
     if (this.sup === 1) {
-      listeTypeDeQuestions = combinaisonListes(['supérieur ou égal', 'supérieur ou égal', 'strictement supérieur', 'strictement supérieur', 'strictement supérieur', 'inférieur ou égal', 'inférieur ou égal',  'strictement inférieur', 'strictement inférieur', 'pasDeSolution1', 'pasDeSolution2', 'pasDeSolution3', 'pasDeSolution4'], this.nbQuestions)
+      listeTypeDeQuestions = combinaisonListes(['supérieur ou égal', 'supérieur ou égal', 'strictement supérieur', 'strictement supérieur', 'strictement supérieur', 'inférieur ou égal', 'inférieur ou égal', 'strictement inférieur', 'strictement inférieur', 'pasDeSolution1', 'pasDeSolution2', 'pasDeSolution3', 'pasDeSolution4'], this.nbQuestions)
     }
 
-    for (let i = 0, texte, texteCorr, a, b, c, x1, x2, y1, k, ligne1, ligne2, ligne3, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, a, b, c, x1, x2, y1, k, ligne1, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       //* ***************************************************
       if (listeTypeDeQuestions[i] === 'strictement supérieur') {
         // k(x-x1)(x-x2)

@@ -1,5 +1,6 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, rangeMinMax, ecritureAlgebrique, choice, calcul, texNombre, miseEnEvidence, sp, ecritureParentheseSiNegatif, texNombrec, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
+import Decimal from 'decimal.js/decimal.mjs'
+import { listeQuestionsToContenu, randint, combinaisonListes, rangeMinMax, ecritureAlgebrique, choice, texNombre, miseEnEvidence, sp, ecritureParentheseSiNegatif, texNombrec, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -7,7 +8,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-export const titre = 'Fonction : calculs d’images (et d’antécédents)'
+export const titre = 'Fonction : calculs d\'images (et d\'antécédents)'
 
 /**
 * Répondre à des questions sur les fonctions.
@@ -15,6 +16,8 @@ export const titre = 'Fonction : calculs d’images (et d’antécédents)'
 * @author Jean-Claude Lhote
 * 3F10-1
 */
+export const uuid = 'ba520'
+export const ref = '3F10-2'
 export default function CalculsImagesFonctions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 2
@@ -183,28 +186,28 @@ export default function CalculsImagesFonctions () {
               else m = n ** 2 - x
               enonce = `Soit $f$ la fonction qui à $x$ associe $\\dfrac{x}{x${ecritureAlgebrique(m)}}$. ${sp(5)} Quelle est l'image de $${x}$ ?<br>`
               correction = `$f(x)=\\dfrac{x}{x${ecritureAlgebrique(m)}}$ donc ici on a : $f(${x})=\\dfrac{${x}}{${x}${ecritureAlgebrique(m)}}=\\dfrac{${x}}{${x + m}}=${texNombrec(x / n)}$`
-              reponses[i] = calcul(x / n)
+              reponses[i] = new Decimal(x).div(n)
               break
             case 1:
               if (n !== x) m = n - x
               else m = n ** 2 - x
               enonce = `Soit $f$ telle que $f(x)=\\dfrac{${m}x}{x${ecritureAlgebrique(m)}}$. ${sp(5)} Quelle est l'image de $${x}$ ?<br>`
               correction = `$f(x)=\\dfrac{${m}x}{x${ecritureAlgebrique(m)}}$ donc ici on a : $f(${x})=\\dfrac{${m}\\times ${ecritureParentheseSiNegatif(x)}}{${x}${ecritureAlgebrique(m)}}=\\dfrac{${m * x}}{${x}${ecritureAlgebrique(m)}}=${texNombrec(m * x / (x + m))}$`
-              reponses[i] = calcul(m * x / (x + m))
+              reponses[i] = new Decimal(m * x).div(x + m)
               break
             case 2:
               if (n !== x) m = n - x
               else m = n ** 2 - x
               enonce = `Soit $f$ telle que $f(x)=\\dfrac{${m}x^2+${n}x}{x^2${ecritureAlgebrique(m)}x}$. ${sp(5)} Quelle est l'image de $${x}$ ?<br>`
               correction = `$f(x)=\\dfrac{${m}x^2+${n}x}{x^2${ecritureAlgebrique(m)}x}$ donc ici on a : $f(${x})=\\dfrac{${m}\\times ${ecritureParentheseSiNegatif(x)}^2+${n}\\times ${ecritureParentheseSiNegatif(x)}}{${ecritureParentheseSiNegatif(x)}^2${ecritureAlgebrique(m)}\\times ${ecritureParentheseSiNegatif(x)}}=\\dfrac{${m * x ** 2}${ecritureAlgebrique(n * x)}}{${x ** 2}${ecritureAlgebrique(m * x)}}=\\dfrac{${m * x ** 2 + n * x}}{${x ** 2 + m * x}}=${texNombrec((m * x ** 2 + n * x) / (x ** 2 + m * x))}$`
-              reponses[i] = calcul((m * x ** 2 + n * x) / (x ** 2 + m * x))
+              reponses[i] = new Decimal(m * x ** 2 + n * x).div(x ** 2 + m * x)
               break
             case 3:
               if (n !== x) m = n - x
               else m = n ** 2 - x
               enonce = `Soit $f: x \\longmapsto \\dfrac{x${ecritureAlgebrique(-m)}}{x^2${ecritureAlgebrique(-2 * m)}x+${m * m}}$. ${sp(5)} Quelle est l'image de $${x}$ ?<br>`
               correction = `$f(x)= \\dfrac{x${ecritureAlgebrique(-m)}}{x^2${ecritureAlgebrique(-2 * m)}x+${m * m}}$ donc ici on a : $f(${x})= \\dfrac{${x}${ecritureAlgebrique(-m)}}{${ecritureParentheseSiNegatif(x)}^2${ecritureAlgebrique(-2 * m)}\\times ${ecritureParentheseSiNegatif(x)}+${m * m}}=\\dfrac{${x - m}}{${x ** 2}${ecritureAlgebrique(-2 * m * x)}+${m * m}}=\\dfrac{${x - m}}{${x ** 2 - 2 * m * x + m * m}}=${texNombrec(1 / n)}$`
-              reponses[i] = calcul(1 / n)
+              reponses[i] = new Decimal(1).div(n)
               break
           }
           break
@@ -219,9 +222,9 @@ export default function CalculsImagesFonctions () {
         texte = enonce
       }
       if (tagImage) {
-        texteCorr = correction + '<br>' + `$f(${ant})=${miseEnEvidence(texNombre(reponses[i]))}$`
+        texteCorr = correction + '<br>' + `$f(${ant})=${miseEnEvidence(texNombre(reponses[i], 5))}$`
       } else {
-        texteCorr = correction + '<br>' + `$f(${miseEnEvidence(texNombre(reponses[i]))})=${img}$`
+        texteCorr = correction + '<br>' + `$f(${miseEnEvidence(texNombre(reponses[i], 5))})=${img}$`
       }
       setReponse(this, i, reponses[i])
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], x, y, sousChoix[i])) {

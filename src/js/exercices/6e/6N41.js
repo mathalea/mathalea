@@ -2,8 +2,8 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, miseEnEvidence, texFraction } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import { fraction as fractionX } from '../../modules/fractions.js'
+import { ajouteChampFractionMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Compléter les égalités entre fractions simples'
 export const amcReady = true
 export const amcType = 'qcmMono' // QCM
@@ -16,6 +16,8 @@ export const interactifType = 'mathLive' // On pourrait ajouter QCM
  * @author Jean-claude Lhote (Mode QCM et alternance numérateur / dénominateur)
  * 5N13-2 et 6N41
  */
+export const uuid = '06633'
+export const ref = '6N41'
 export default function EgalitesEntreFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 11 // Correspond au facteur commun
@@ -92,61 +94,76 @@ export default function EgalitesEntreFractions () {
         }
         switch (choix) {
           case 0 :
-            texte = `$${texFraction(a, b)} = ${texFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = ${texFraction('\\phantom{0000}', d)}$`
+            texte = `$${texFraction(a, b)} = ${texFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
+            if (this.interactif && context.isHtml) {
+              setReponse(this, i, fractionX(c, d), { formatInteractif: 'Num' })
+              texte += ajouteChampFractionMathLive(this, i, false, d)
+            } else {
+              texte += `$${texFraction('\\phantom{0000}', d)}$`
+            }
             texteCorr = `$${texFraction(a, b)} = ${texFraction(a + miseEnEvidence('\\times' + k), b + miseEnEvidence('\\times' + k))} = ${texFraction(c, d)}$`
-            this.autoCorrection[i] = {}
-            this.autoCorrection[i].enonce = `${texte}\n`
-            this.autoCorrection[i].propositions = [
-              {
-                texte: `$${texFraction(c, d)}$`,
-                statut: true
-              },
-              {
-                texte: `$${texFraction(a, d)}$`,
-                statut: false
-              },
-              {
-                texte: `$${texFraction((k - 1) * a, d)}$`,
-                statut: false
-              },
-              {
-                texte: `$${texFraction((k + 1) * a, d)}$`,
-                statut: false
-              },
-              {
-                texte: `$${texFraction(Math.abs(d - a), d)}$`,
-                statut: false
-              }
-            ]
+            if (context.isAmc) {
+              this.autoCorrection[i] = {}
+              this.autoCorrection[i].enonce = `${texte}\n`
+              this.autoCorrection[i].propositions = [
+                {
+                  texte: `$${texFraction(c, d)}$`,
+                  statut: true
+                },
+                {
+                  texte: `$${texFraction(a, d)}$`,
+                  statut: false
+                },
+                {
+                  texte: `$${texFraction((k - 1) * a, d)}$`,
+                  statut: false
+                },
+                {
+                  texte: `$${texFraction((k + 1) * a, d)}$`,
+                  statut: false
+                },
+                {
+                  texte: `$${texFraction(Math.abs(d - a), d)}$`,
+                  statut: false
+                }
+              ]
+            }
             break
           case 1 :
-            texte = `$${texFraction(a, b)} = ${texFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = ${texFraction(c, '\\phantom{0000}')}$`
+            texte = `$${texFraction(a, b)} = ${texFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
+            if (this.interactif && context.isHtml) {
+              setReponse(this, i, fractionX(c, d), { formatInteractif: 'Den' })
+              texte += ajouteChampFractionMathLive(this, i, c, false)
+            } else {
+              texte += `$${texFraction(c, '\\phantom{0000}')}$`
+            }
             texteCorr = `$${texFraction(a, b)} = ${texFraction(a + miseEnEvidence('\\times' + k), b + miseEnEvidence('\\times' + k))} = ${texFraction(c, d)}$`
-            this.autoCorrection[i] = {}
-            this.autoCorrection[i].enonce = `${texte}\n`
-            this.autoCorrection[i].propositions = [
-              {
-                texte: `$${texFraction(c, d)}$`,
-                statut: true
-              },
-              {
-                texte: `$${texFraction(c, b)}$`,
-                statut: false
-              },
-              {
-                texte: `$\\dfrac{${c}}{${(k - 1) * b}}$`,
-                statut: false
-              },
-              {
-                texte: `$${texFraction(c, (k + 1) * b)}$`,
-                statut: false
-              },
-              {
-                texte: `$\\dfrac{${c}}{${Math.abs(c - b)}}$`,
-                statut: false
-              }
-            ]
-
+            if (context.isAmc) {
+              this.autoCorrection[i] = {}
+              this.autoCorrection[i].enonce = `${texte}\n`
+              this.autoCorrection[i].propositions = [
+                {
+                  texte: `$${texFraction(c, d)}$`,
+                  statut: true
+                },
+                {
+                  texte: `$${texFraction(c, b)}$`,
+                  statut: false
+                },
+                {
+                  texte: `$\\dfrac{${c}}{${(k - 1) * b}}$`,
+                  statut: false
+                },
+                {
+                  texte: `$${texFraction(c, (k + 1) * b)}$`,
+                  statut: false
+                },
+                {
+                  texte: `$\\dfrac{${c}}{${Math.abs(c - b)}}$`,
+                  statut: false
+                }
+              ]
+            }
             break
         }
       } else {
@@ -165,73 +182,84 @@ export default function EgalitesEntreFractions () {
         }
         switch (choix) {
           case 0 :
-            texte = `$${a} = ${texFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = ${texFraction('\\phantom{0000}', d)}$`
+            texte = `$${a} = ${texFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
+            if (this.interactif && context.isHtml) {
+              setReponse(this, i, fractionX(c, d), { formatInteractif: 'Num' })
+              texte += ajouteChampFractionMathLive(this, i, false, d)
+            } else {
+              texte += `$${texFraction('\\phantom{0000}', d)}$`
+            }
             if (this.interactif && this.interactifType !== 'mathLive') {
               texte = `$${a} = \\ldots$`
             }
             texteCorr = `$${a} = \\dfrac{${a}}{1} =${texFraction(a + miseEnEvidence('\\times' + d), '1' + miseEnEvidence('\\times' + d))} = ${texFraction(c, d)}$`
-            this.autoCorrection[i] = {}
-            this.autoCorrection[i].enonce = `${texte}\n`
-            this.autoCorrection[i].propositions = [
-              {
-                texte: `$${texFraction(c, d)}$`,
-                statut: true
-              },
-              {
-                texte: `$${texFraction(a, d)}$`,
-                statut: false
-              },
-              {
-                texte: `$${texFraction(d + a, d)}$`,
-                statut: false
-              },
-              {
-                texte: `$${texFraction(Math.abs(d - a), d)}$`,
-                statut: false
-              },
-              {
-                texte: `$${texFraction((a + 1) * d, d)}$`,
-                statut: false
-              }
-            ]
+            if (context.isAmc) {
+              this.autoCorrection[i] = {}
+              this.autoCorrection[i].enonce = `${texte}\n`
+              this.autoCorrection[i].propositions = [
+                {
+                  texte: `$${texFraction(c, d)}$`,
+                  statut: true
+                },
+                {
+                  texte: `$${texFraction(a, d)}$`,
+                  statut: false
+                },
+                {
+                  texte: `$${texFraction(d + a, d)}$`,
+                  statut: false
+                },
+                {
+                  texte: `$${texFraction(Math.abs(d - a), d)}$`,
+                  statut: false
+                },
+                {
+                  texte: `$${texFraction((a + 1) * d, d)}$`,
+                  statut: false
+                }
+              ]
+            }
             break
           case 1 :
-            texte = `$${a} = ${texFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = ${texFraction(c, '\\phantom{0000}')}$`
-            if (this.interactif) {
+            texte = `$${a} = ${texFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
+            if (this.interactif && context.isHtml) {
+              setReponse(this, i, fractionX(c, d), { formatInteractif: 'Den' })
+              texte += ajouteChampFractionMathLive(this, i, c, false)
+            } else {
+              texte += `$${texFraction(c, '\\phantom{0000}')}$`
+            }
+            if (this.interactif && this.interactifType !== 'mathLive') {
               texte = `$${a} = \\ldots$`
             }
             texteCorr = `$${a} = \\dfrac{${a}}{1} =${texFraction(a + miseEnEvidence('\\times' + d), '1' + miseEnEvidence('\\times' + d))} = ${texFraction(c, d)}$`
-            this.autoCorrection[i] = {}
-            this.autoCorrection[i].enonce = `${texte}\n`
-            this.autoCorrection[i].propositions = [
-              {
-                texte: `$${texFraction(c, d)}$`,
-                statut: true
-              },
-              {
-                texte: `$${texFraction(c, c - a)}$`,
-                statut: false
-              },
-              {
-                texte: `$${texFraction(c, a)}$`,
-                statut: false
-              },
-              {
-                texte: `$${texFraction(c, c + a)}$`,
-                statut: false
-              },
-              {
-                texte: `$${texFraction(c, c * a)}$`,
-                statut: false
-              }
-            ]
-
+            if (context.isAmc) {
+              this.autoCorrection[i] = {}
+              this.autoCorrection[i].enonce = `${texte}\n`
+              this.autoCorrection[i].propositions = [
+                {
+                  texte: `$${texFraction(c, d)}$`,
+                  statut: true
+                },
+                {
+                  texte: `$${texFraction(c, c - a)}$`,
+                  statut: false
+                },
+                {
+                  texte: `$${texFraction(c, a)}$`,
+                  statut: false
+                },
+                {
+                  texte: `$${texFraction(c, c + a)}$`,
+                  statut: false
+                },
+                {
+                  texte: `$${texFraction(c, c * a)}$`,
+                  statut: false
+                }
+              ]
+            }
             break
         }
-      }
-      if (this.interactif && context.isHtml) {
-        setReponse(this, i, new FractionEtendue(c, d), { formatInteractif: 'fraction' })
-        texte += ajouteChampTexteMathLive(this, i)
       }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)

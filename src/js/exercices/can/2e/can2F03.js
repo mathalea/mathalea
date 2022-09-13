@@ -1,4 +1,4 @@
-import { fraction } from '../../../modules/fractions'
+import { fraction } from '../../../modules/fractions.js'
 import Exercice from '../../Exercice.js'
 import { randint, rienSi1, ecritureParentheseSiNegatif, choice, texteEnCouleur, reduireAxPlusB, sp, listeQuestionsToContenuSansNumero } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
@@ -12,6 +12,8 @@ export const interactifType = 'qcm'
  * Référence can2F03
  * Date de publication 24/10/2021
 */
+export const uuid = '03b1d'
+export const ref = 'can2F03'
 export default function SigneFonctionAffine () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.date = 1635094684684

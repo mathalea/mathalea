@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, creerCouples, randint, choice, texNombre, texNombre2, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, creerCouples, randint, choice, texNombre, texNombre2, calcul, contraindreValeur } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
@@ -9,13 +9,15 @@ export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 
-export const titre = 'Utiliser tables de multiplications pour effectuer produits avec multiple de 10'
+export const titre = 'Utiliser tables de multiplication pour effectuer produits avec multiple de 10'
 
 /**
  * Les 2 facteurs peuvent terminer par aucun, 1, 2 ou 3 zéros
  * @author Rémi Angot
 * Référence 6C10-2
  */
+export const uuid = '23bc8'
+export const ref = '6C10-2'
 export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
   tablesParDefaut = '2-3-4-5-6-7-8-9'
 ) {
@@ -43,6 +45,9 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
       tables[0] = this.sup
     } else {
       tables = this.sup.split('-') // Sinon on crée un tableau à partir des valeurs séparées par des ;
+      for (let i = 0; i < tables.length; i++) {
+        tables[i] = contraindreValeur(2, 9, parseInt(tables[i]))
+      }
     }
     const couples = creerCouples(
       tables,

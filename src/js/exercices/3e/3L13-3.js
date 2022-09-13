@@ -1,9 +1,10 @@
-import { codeSegments, homothetie, mathalea2d, point, polygone, polygoneAvecNom, segment, texteParPosition } from '../../modules/2d'
-import { setReponse } from '../../modules/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive'
-import { arrondi, choice, combinaisonListes, ecritureAlgebrique, listeQuestionsToContenu, prenom, texNombre, texPrix } from '../../modules/outils'
-import { aleaVariables, resoudre } from '../../modules/outilsMathjs'
-import Exercice from '../Exercice'
+import { codageSegments, homothetie, point, polygone, polygoneAvecNom, segment, texteParPosition } from '../../modules/2d.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { arrondi, choice, combinaisonListes, ecritureAlgebrique, listeQuestionsToContenu, prenom, texNombre, texPrix } from '../../modules/outils.js'
+import { aleaVariables, resoudre } from '../../modules/outilsMathjs.js'
+import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 export const titre = 'Problèmes à mettre en équation et à résoudre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -17,11 +18,14 @@ export const dateDePublication = '15/02/2022'
  * Réf : 3L13-3
  * Date de publication 15/02/2022
  */
+export const uuid = '22412'
+export const ref = '3L13-3'
 export default class ProblemesEnEquation extends Exercice {
   constructor () {
     super()
     this.titre = titre
     this.nbQuestions = 2
+    this.sup = 2
   }
 
   figureThales (a, b, c, OC) {
@@ -44,7 +48,7 @@ export default class ProblemesEnEquation extends Exercice {
     const B = point(0, 0)
     const A = point(0, 3)
     const OAB = polygone(O, A, B)
-    const codage = codeSegments('//', 'black', O, A, O, B)
+    const codage = codageSegments('//', 'black', O, A, O, B)
     return mathalea2d({ xmin: -1, xmax: 7, ymin: -1, ymax: 4, pixelsParCm: 20, scale: 0.8, zoom: 1 }, OAB, codage)
   }
 
@@ -53,7 +57,7 @@ export default class ProblemesEnEquation extends Exercice {
     const B = point(6, 0)
     const A = point(0, 0)
     const OAB = polygone(O, A, B)
-    const codage = codeSegments('//', 'black', O, A, O, B)
+    const codage = codageSegments('//', 'black', O, A, O, B)
     return mathalea2d({ xmin: -1, xmax: 7, ymin: -1, ymax: 2.5, pixelsParCm: 20, scale: 0.8, zoom: 1 }, OAB, codage)
   }
 
@@ -61,7 +65,12 @@ export default class ProblemesEnEquation extends Exercice {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    const listeTypeDeProblemes = ['basket', 'achats', 'polygone', 'basket2', 'programmes', 'programmes2', 'Thales', 'Thales2', 'tarifs', 'spectacle', 'isocele']
+    let listeTypeDeProblemes
+    if (parseInt(this.sup) === 1) {
+      listeTypeDeProblemes = ['basket', 'achats', 'polygone', 'basket2', 'programmes', 'programmes2', 'tarifs', 'spectacle', 'isocele']
+    } else {
+      listeTypeDeProblemes = ['basket', 'achats', 'polygone', 'basket2', 'programmes', 'programmes2', 'Thales', 'Thales2', 'tarifs', 'spectacle', 'isocele']
+    }
     const listeDeProblemes = combinaisonListes(listeTypeDeProblemes, this.nbQuestions)
     for (let i = 0, cpt = 0, texte, x, a, b, c, d, variables, enonce, figure, intro, conclusion, equation, resolution, verification, texteCorr; i < this.nbQuestions && cpt < 50;) {
       const quidam = prenom(2)
@@ -135,7 +144,7 @@ export default class ProblemesEnEquation extends Exercice {
           c = 0 // ne sert pas dans ce cas
           equation = `${a}*x+${arrondi(d - b, 2)}=${d}`
           resolution = resoudre(equation, { substeps: true, comment: true })
-          enonce = `${quidam[0]} a acheté $${texNombre(a)}$ kg de ${produit} avec un billet de ${d} €. Le marchand lui a rendu ${texPrix(d - b)} €.<br>`
+          enonce = `${quidam[0]} a acheté $${texNombre(a)}$ kg de ${produit} avec un billet de $${d}$ €. Le marchand lui a rendu $${texPrix(d - b)}$ €.<br>`
           enonce += `Quel est le prix d'un kilogramme de ${produit} ?`
           intro = `Posons $x$ le prix d'un kilogramme de ${produit}.<br>L'énoncé se traduit par l'équation suivante :<br>`
           conclusion = `<br>Le prix d'un kilogramme de ${produit} est donc de $${texNombre(x)}$ €.`
@@ -290,13 +299,13 @@ export default class ProblemesEnEquation extends Exercice {
           resolution = resoudre(equation, { reduceSteps: false, substeps: false, comment: true })
           enonce = `Le ${clubs[a]} d'un village propose deux tarifs à ses pratiquants.<br>`
           enonce += `Le tarif A propose de payer $${texPrix(b)}$ € à chaque séance.<br>`
-          enonce += `Le tarif B propose de payer un abonnement annuel de ${texPrix(c)} € puis de payer ${texPrix(d)} € par séance.<br>`
+          enonce += `Le tarif B propose de payer un abonnement annuel de $${texPrix(c)}$ € puis de payer $${texPrix(d)}$ € par séance.<br>`
           enonce += 'Pour quel nombre de séances le tarif B devient-il plus avantageux que le tarif A ?'
           intro = 'Posons $x$ le nombre de séances.<br>'
           intro += `Le prix à payer avec le tarif A est : $x\\times ${texPrix(b)}$.<br>`
           intro += `Le prix à payer avec le tarif B est : $${texPrix(c)}+x\\times ${texPrix(d)}$.<br>`
           intro += 'Pour que le tarif B soit plus avantageux, $x$ doit vérifier l\'inéquation suivante:<br>'
-          conclusion = `<br>C'est à partir de ${x} séances que le tarif B devient plus avantageux que le tarif A (pour ${x} séances, les deux tarifs sont équivalents).`
+          conclusion = `<br>C'est à partir de $${x}$ séances que le tarif B devient plus avantageux que le tarif A (pour $${x}$ séances, les deux tarifs sont équivalents).`
           figure = ''
           verification = `<br>Vérification :
           <br>
@@ -365,7 +374,7 @@ export default class ProblemesEnEquation extends Exercice {
             enonce += '<br>Quelle est la mesure de ses côtés égaux ? (la figure n\'est pas en vraie grandeur)'
             intro = `Posons $x$ la longueur d'un des côtés égaux. La longueur de la base est : $x${ecritureAlgebrique(c)}$.<br>`
             intro += 'Le calcul du périmètre donne l\'équation suivante :<br>'
-            equation = `2*x+x${ecritureAlgebrique(c)})=${d}`
+            equation = `2*x+x${ecritureAlgebrique(c)}=${d}`
             conclusion = `<br>Les deux côtés égaux de ce triangle isocèle mesurent donc $${a}$ mm.`
             x = a
           }

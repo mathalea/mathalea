@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { demiDroite, droite, labelPoint, mathalea2d, point, segmentAvecExtremites } from '../../modules/2d.js'
+import { demiDroite, droite, labelPoint, point, segmentAvecExtremites } from '../../modules/2d.js'
 export const titre = 'Choisir la bonne figure'
 export const interactifReady = true
 export const interactifType = 'cliqueFigure'
@@ -14,14 +15,17 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
  * @author
  * Référence
 */
-export default function cliqueFigure () {
-  Exercice.call(this)
-  this.consigne = 'Clique sur la bonne figure'
-  this.nbQuestions = 3
-  this.nbCols = 1
-  this.nbColsCorr = 1
+export default class NomExercice extends Exercice {
+  constructor () {
+    super()
+    this.titre = titre
+    this.consigne = 'Clique sur la bonne figure.'
+    this.nbQuestions = 3
+    this.nbCols = 1
+    this.nbColsCorr = 1
+  }
 
-  this.nouvelleVersion = function (numeroExercice) {
+  nouvelleVersion (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []

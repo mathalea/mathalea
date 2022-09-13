@@ -1,12 +1,15 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice, ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../modules/outils.js'
-import { repere2, mathalea2d, point, tracePoint, labelPoint, segment, nomVecteurParPosition } from '../../modules/2d.js'
+import { repere, point, tracePoint, labelPoint, segment, nomVecteurParPosition } from '../../modules/2d.js'
 
-export const titre = 'Déterminer les coordonnées d’un vecteur à partir des coordonnées de deux points'
+export const titre = 'Déterminer les coordonnées d\'un vecteur à partir des coordonnées de deux points'
 
 /**
  * @author Stéphane Guyon
  */
+export const uuid = 'f71c1'
+export const ref = '2G24-1'
 export default function calculercoordonneesvecteurs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -37,7 +40,7 @@ export default function calculercoordonneesvecteurs () {
         texteCorr += ' <br>On applique ici aux données de l\'énoncé :'
         texteCorr += ` $\\overrightarrow{AB}\\begin{pmatrix}${xB}-${ecritureParentheseSiNegatif(xA)}  \\\\${yB}-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$<br>`
         texteCorr += `Ce qui donne au final : $\\overrightarrow{AB}\\begin{pmatrix}${xB - xA}  \\\\${yB - yA}\\end{pmatrix}$<br>`
-        r = repere2()// On définit le repère
+        r = repere()// On définit le repère
         A = point(xA, yA, 'A') // On définit et on trace le point A
         B = point(xB, yB, 'B') // On définit et on trace le point B
         t = tracePoint(A, B, 'red') // Variable qui trace les points avec une croix
@@ -52,9 +55,12 @@ export default function calculercoordonneesvecteurs () {
         s.styleExtremites = '->'// Variable qui transforme [AB] en vecteur
         k.styleExtremites = '->'// Variable qui transforme [OI] en vecteur
         j.styleExtremites = '->'// Variable qui transforme [OJ] en vecteur
-        s.epaisseur = 3// Variable qui grossit le tracé du vecteur AB
-        k.epaisseur = 3// Variable qui grossit le tracé du vecteur OI
-        j.epaisseur = 3// Variable qui grossit le tracé du vecteur OJ
+        s.epaisseur = 2// Variable qui grossit le tracé du vecteur AB
+        k.epaisseur = 2// Variable qui grossit le tracé du vecteur OI
+        j.epaisseur = 2// Variable qui grossit le tracé du vecteur OJ
+        k.tailleExtremites = 3
+        j.tailleExtremites = 3
+        s.tailleExtremites = 3
         // vi = vecteur(O, I) // Variable qui définit vecteur OI
         // vj = vecteur(O, J)// Variable qui définit vecteur OJ
         // nomi = vi.representantNomme(O, 'i', 2, 'red') // Variable qui trace le nom du représentant du vecteur OI en origine O
@@ -95,7 +101,7 @@ export default function calculercoordonneesvecteurs () {
         texteCorr += `<br>ou encore : $\\begin{cases}x_B  =${ux}${ecritureAlgebrique(xA)}\\\\ y_B=${uy}${ecritureAlgebrique(yA)}\\end{cases}$`
         texteCorr += `<br>Ce qui donne au final : $\\begin{cases}x_B  =${xB}\\\\ y_B=${yB}\\end{cases}$`
         texteCorr += `<br>On a donc: $B(${xB};${yB})$.`
-        r = repere2()// On définit le repère
+        r = repere()// On définit le repère
         A = point(xA, yA, 'A') // On définit et on trace le point A
         B = point(xB, yB, 'B') // On définit et on trace le point B
         t = tracePoint(A, B, 'red') // Variable qui trace les points avec une croix
@@ -150,7 +156,7 @@ export default function calculercoordonneesvecteurs () {
         texteCorr += `<br>ou encore : $\\begin{cases}x_A  =${xB}${ecritureAlgebrique(-ux)}\\\\ y_A=${yB}${ecritureAlgebrique(-uy)}\\end{cases}$`
         texteCorr += `<br>Ce qui donne au final : $\\begin{cases}x_A  =${xA}\\\\ y_A=${yA}\\end{cases}$`
         texteCorr += `<br>On a donc: $A(${xA};${yA})$.`
-        r = repere2()// On définit le repère
+        r = repere()// On définit le repère
         A = point(xA, yA, 'A') // On définit et on trace le point A
         B = point(xB, yB, 'B') // On définit et on trace le point B
         t = tracePoint(A, B, 'red') // Variable qui trace les points avec une croix

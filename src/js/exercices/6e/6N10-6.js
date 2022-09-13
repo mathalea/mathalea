@@ -5,7 +5,7 @@ import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import FractionX from '../../modules/FractionEtendue.js'
 import { max } from 'mathjs'
-export const titre = 'Donner l’écriture (décimale ou en fraction décimale) d’une somme (ou différence) de nombres avec fractions décimales'
+export const titre = 'Donner l\'écriture (décimale ou en fraction décimale) d\'une somme (ou différence) de nombres avec fractions décimales'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true
@@ -13,7 +13,7 @@ export const interactifType = 'mathLive'
 
 export const dateDePublication = '20/01/2022'
 /**
- * Donner l’écriture (décimale ou en fraction décimale) d’une somme (ou différence) de nombres avec fractions décimales
+ * Donner l\'écriture (décimale ou en fraction décimale) d\'une somme (ou différence) de nombres avec fractions décimales
  *
  * * La somme avec entiers peut être avec retenue (genre 2+23/10) ou sans retenue (3+7/10)
  * * Tous les choix sont paramétrables
@@ -22,6 +22,8 @@ export const dateDePublication = '20/01/2022'
  * Référence 6N10-6
  */
 
+export const uuid = 'c5438'
+export const ref = '6N10-6'
 export default function sommmeFractionsDecimales () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 6

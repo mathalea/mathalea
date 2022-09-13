@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, troncature, calcul, choisitLettresDifferentes, texNombre, texFraction, nombreDeChiffresDe, stringNombre } from '../../modules/outils.js'
-import { point, segment, droiteGraduee2, mathalea2d } from '../../modules/2d.js'
+import { point, segment, droiteGraduee } from '../../modules/2d.js'
 import FractionX from '../../modules/FractionEtendue.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -16,6 +17,8 @@ export const interactifType = 'mathLive'
  * 6N23-3
  * Ajout Interactivité et AMC : Janvier 2022 par EE
  */
+export const uuid = '23c48'
+export const ref = '6N23-3'
 export default function LireUneAbscisseAvecZoom () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.niveau = 'sixième'
@@ -59,7 +62,7 @@ export default function LireUneAbscisseAvecZoom () {
       if (xmin === 0) extremite = '|->'
       else extremite = '->'
 
-      d1 = droiteGraduee2({
+      d1 = droiteGraduee({
         x: 0,
         y: 3,
         Min: xmin,
@@ -82,7 +85,7 @@ export default function LireUneAbscisseAvecZoom () {
         pointEpaisseur: 2,
         axeStyle: extremite
       })
-      d2 = droiteGraduee2({
+      d2 = droiteGraduee({
         x: Math.floor(x1) - xmin + 1.5,
         y: 0,
         Min: Math.floor(x1),
@@ -104,7 +107,7 @@ export default function LireUneAbscisseAvecZoom () {
         pointEpaisseur: 2,
         axeStyle: extremite
       })
-      d1Corr = droiteGraduee2({
+      d1Corr = droiteGraduee({
         x: 0,
         y: 3,
         Min: xmin,
@@ -127,7 +130,7 @@ export default function LireUneAbscisseAvecZoom () {
         pointEpaisseur: 2,
         axeStyle: extremite
       })
-      d2Corr = droiteGraduee2({
+      d2Corr = droiteGraduee({
         x: Math.floor(x1) - xmin + 1.5,
         y: 0,
         Min: Math.floor(x1),
@@ -158,8 +161,8 @@ export default function LireUneAbscisseAvecZoom () {
       pB2 = point(Math.floor(x1) - xmin + 21.5, 0)
       sA = segment(pA1, pA2)
       sB = segment(pB1, pB2)
-      sA.pointilles = true
-      sB.pointilles = true
+      sA.pointilles = 5
+      sB.pointilles = 5
       objets.push(d1, d2, sA, sB)
       objetsCorr.push(d1Corr, d2Corr, sA, sB)
       fenetre = { xmin: -1.5, xmax: 35, ymin: -1, ymax: 4.5, pixelsParCm: 25, scale: 0.5 }
@@ -186,7 +189,7 @@ export default function LireUneAbscisseAvecZoom () {
       //      xmax=calcul(xmin+1.7)
       if (xmin === 0) extremite = '|->'
       else extremite = '->'
-      d1 = droiteGraduee2({
+      d1 = droiteGraduee({
         x: 0,
         y: 3,
         Min: xmin,
@@ -212,7 +215,7 @@ export default function LireUneAbscisseAvecZoom () {
         pointEpaisseur: 2,
         axeStyle: extremite
       })
-      d2 = droiteGraduee2({
+      d2 = droiteGraduee({
         x: (x2 - xmin) + 6,
         y: 0,
         Min: x2,
@@ -237,7 +240,7 @@ export default function LireUneAbscisseAvecZoom () {
         pointEpaisseur: 2,
         axeStyle: extremite
       })
-      d1Corr = droiteGraduee2({
+      d1Corr = droiteGraduee({
         x: 0,
         y: 3,
         Min: xmin,
@@ -263,7 +266,7 @@ export default function LireUneAbscisseAvecZoom () {
         pointEpaisseur: 2,
         axeStyle: extremite
       })
-      d2Corr = droiteGraduee2({
+      d2Corr = droiteGraduee({
         x: (x2 - xmin) + 6,
         y: 0,
         Min: x2,
@@ -297,8 +300,8 @@ export default function LireUneAbscisseAvecZoom () {
       pB2 = point(x3 - xmin + 26, 0)
       sA = segment(pA1, pA2)
       sB = segment(pB1, pB2)
-      sA.pointilles = true
-      sB.pointilles = true
+      sA.pointilles = 5
+      sB.pointilles = 5
       fenetre = { xmin: -1.5, xmax: 35, ymin: -1.5, ymax: 4.5, pixelsParCm: 25, scale: 0.5 }
       objets.push(d1, d2, sA, sB)
       objetsCorr.push(d1Corr, d2Corr, sA, sB)
@@ -333,7 +336,7 @@ export default function LireUneAbscisseAvecZoom () {
       }
       if (xmin === 0) extremite = '|->'
       else extremite = '->'
-      d1 = droiteGraduee2({
+      d1 = droiteGraduee({
         x: 0,
         y: 6,
         Min: xmin,
@@ -359,7 +362,7 @@ export default function LireUneAbscisseAvecZoom () {
         pointEpaisseur: 3,
         axeStyle: extremite
       })
-      d2 = droiteGraduee2({
+      d2 = droiteGraduee({
         x: 6.5,
         y: 3,
         Min: x2,
@@ -384,7 +387,7 @@ export default function LireUneAbscisseAvecZoom () {
         pointEpaisseur: 2,
         axeStyle: extremite
       })
-      d3 = droiteGraduee2({
+      d3 = droiteGraduee({
         x: 6.5,
         y: 0,
         Min: x21,
@@ -407,7 +410,7 @@ export default function LireUneAbscisseAvecZoom () {
         pointEpaisseur: 2,
         axeStyle: extremite
       })
-      d1Corr = droiteGraduee2({
+      d1Corr = droiteGraduee({
         x: 0,
         y: 6,
         Min: xmin,
@@ -434,7 +437,7 @@ export default function LireUneAbscisseAvecZoom () {
         pointEpaisseur: 3,
         axeStyle: extremite
       })
-      d2Corr = droiteGraduee2({
+      d2Corr = droiteGraduee({
         x: 6.5,
         y: 3,
         Min: x2,
@@ -461,7 +464,7 @@ export default function LireUneAbscisseAvecZoom () {
         pointEpaisseur: 2,
         axeStyle: extremite
       })
-      d3Corr = droiteGraduee2({
+      d3Corr = droiteGraduee({
         x: 6.5,
         y: 0,
         Min: x21,
@@ -493,16 +496,16 @@ export default function LireUneAbscisseAvecZoom () {
       pB2 = point(26.5, 3)
       sA = segment(pA1, pA2)
       sB = segment(pB1, pB2)
-      sA.pointilles = true
-      sB.pointilles = true
+      sA.pointilles = 5
+      sB.pointilles = 5
       pC1 = point(6.5 + (x21 - x2) * 200, 3)
       pC2 = point(6.5, 0)
       pD1 = point(6.5 + (x31 - x2) * 200, 3)
       pD2 = point(26.5, 0)
       sC = segment(pC1, pC2)
       sD = segment(pD1, pD2)
-      sC.pointilles = true
-      sD.pointilles = true
+      sC.pointilles = 5
+      sD.pointilles = 5
       fenetre = { xmin: -1.5, xmax: 35, ymin: -1.5, ymax: 7.5, pixelsParCm: 25, scale: 0.5 }
       objets.push(d1, d2, d3, sA, sB, sC, sD)
       objetsCorr.push(d1Corr, d2Corr, d3Corr, sA, sB, sC, sD)
@@ -516,7 +519,7 @@ export default function LireUneAbscisseAvecZoom () {
     texte = `Donner l'abscisse de ${noms[1]} sous `
     texte += context.isAmc ? 'deux ' : 'trois '
     texte += 'formes : en écriture décimale'
-    texte += context.isAmc ? '' : ', comme somme d’un nombre entier et d’une fraction décimale,'
+    texte += context.isAmc ? '' : ', comme somme d\'un nombre entier et d\'une fraction décimale,'
     texte += ' et avec une fraction décimale.<br>'
     texte += mathalea2d(fenetre, objets)
     if (this.interactif) {
@@ -525,7 +528,7 @@ export default function LireUneAbscisseAvecZoom () {
       setReponse(this, 2, reponse2B, { formatInteractif: 'fraction' })
       setReponse(this, 3, reponse3, { formatInteractif: 'fraction' })
       texte += ajouteChampTexteMathLive(this, 0, 'largeur25 inline nospacebefore', { tailleExtensible: true, texte: `Abscisse de ${noms[1]} en écriture décimale : ` })
-      texte += '<br><br>' + ajouteChampTexteMathLive(this, 1, 'largeur25 inline nospacebefore', { tailleExtensible: true, texte: `Abscisse de ${noms[1]} comme somme d’un nombre entier et d’une fraction décimale : ` }) + ajouteChampTexteMathLive(this, 2, 'largeur25 inline nospacebefore', { formatInteractif: 'fraction', tailleExtensible: true, texte: '+' })
+      texte += '<br><br>' + ajouteChampTexteMathLive(this, 1, 'largeur25 inline nospacebefore', { tailleExtensible: true, texte: `Abscisse de ${noms[1]} comme somme d'un nombre entier et d'une fraction décimale : ` }) + ajouteChampTexteMathLive(this, 2, 'largeur25 inline nospacebefore', { formatInteractif: 'fraction', tailleExtensible: true, texte: '+' })
       texte += '<br><br>' + ajouteChampTexteMathLive(this, 3, 'largeur25 inline nospacebefore', { formatInteractif: 'fraction', tailleExtensible: true, texte: `Abscisse de ${noms[1]} sous forme d'une fraction décimale : ` })
     } else if (context.isAmc) {
       this.autoCorrection[0] = {

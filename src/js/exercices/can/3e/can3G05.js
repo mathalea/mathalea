@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { choice, creerNomDePolygone, randint } from '../../../modules/outils.js'
 import {
-  mathalea2d, point, segment, polygoneAvecNom, codageAngleDroit, rotation, afficheLongueurSegment, pointAdistance, similitude
+  point, segment, polygoneAvecNom, codageAngleDroit, rotation, afficheLongueurSegment, pointAdistance, similitude
 } from '../../../modules/2d.js'
 export const titre = 'Utiliser la trigonométrie'
 export const interactifReady = true
@@ -13,6 +14,8 @@ export const interactifType = 'mathLive'
  * Référence can3G05
  * Date de publication
 */
+export const uuid = 'c6b9c'
+export const ref = 'can3G05'
 export default function Trigo () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
@@ -25,7 +28,7 @@ export default function Trigo () {
       [3, 4, 5], [5, 12, 13], [8, 15, 17], [7, 24, 25], [20, 21, 29], [12, 35, 37], [9, 40, 41], [11, 60, 61]
     ] // triplets Pythagore
     const triplet = choice(listeTriplet)
-    const nom = creerNomDePolygone(3, ['Q'])
+    const nom = creerNomDePolygone(3, ['QD'])
     const a = triplet[0]
     const b = triplet[1]
     const c = triplet[2]

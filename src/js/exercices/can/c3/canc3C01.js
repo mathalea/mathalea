@@ -1,5 +1,5 @@
-import { choice } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { choice } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Déterminer un nombre à partir d’une phrase'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
  * Date de publication septembre 2021
  * Référence canc3C01
  */
+export const uuid = '385b7'
+export const ref = 'canc3C01'
 export default function CalculsAutomatiques () {
   Exercice.call(this)
   this.typeExercice = 'simple'

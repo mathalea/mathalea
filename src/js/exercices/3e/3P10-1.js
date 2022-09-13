@@ -3,7 +3,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombrec, texPrix, modalUrl } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-export const titre = 'Coefficient multiplicateur d’une variation en pourcentage'
+export const titre = 'Coefficient multiplicateur d\'une variation en pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -14,6 +14,8 @@ export const interactifType = 'mathLive'
 * @author Rémi Angot
 * 3P10-1
 */
+export const uuid = '4ce2d'
+export const ref = '3P10-1'
 export default function CoefficientEvolution () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

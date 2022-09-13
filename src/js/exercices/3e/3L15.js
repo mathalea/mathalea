@@ -11,6 +11,8 @@ export const titre = 'Équations du second degré se ramenant au premier degré'
  * @author Rémi Angot
  * Référence 3L15
 */
+export const uuid = '231d2'
+export const ref = '3L15'
 export default function ExerciceEquations () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -67,11 +69,11 @@ export default function ExerciceEquations () {
           texte = `$ ${rienSi1(a ** 2)}x^2 - ${b ** 2} = 0 $ `
           texteCorr = `$ ${rienSi1(a ** 2)}x^2 - ${b ** 2} = 0 $ `
           texteCorr += '<br>'
-          texteCorr += `$ (${a}x+${b})(${a}x-${b}) = 0 $ `
+          texteCorr += `$ (${rienSi1(a)}x+${b})(${rienSi1(a)}x-${b}) = 0 $ `
           texteCorr += '<br>'
-          texteCorr += `$${a}x+${b} = 0 \\quad \\text{ou} \\quad ${a}x-${b} = 0$ `
+          texteCorr += `$${rienSi1(a)}x+${b} = 0 \\quad \\text{ou} \\quad ${rienSi1(a)}x-${b} = 0$ `
           texteCorr += '<br>'
-          texteCorr += `$${a}x = ${-b} \\quad \\text{ou} \\quad ${a}x = ${b}$ `
+          texteCorr += `$${rienSi1(a)}x = ${-b} \\quad \\text{ou} \\quad ${rienSi1(a)}x = ${b}$ `
           texteCorr += '<br>'
           if (pgcd(a, b) !== 1) {
             texteCorr += `$x = ${texFraction(-b, a)} \\quad \\text{ou} \\quad x = ${texFraction(b, a)}$ `
@@ -87,11 +89,11 @@ export default function ExerciceEquations () {
           texteCorr += '<br>'
           texteCorr += `$ ${rienSi1(a ** 2)}x^2 - ${b ** 2} = 0 $ `
           texteCorr += '<br>'
-          texteCorr += `$ (${a}x+${b})(${a}x-${b}) = 0 $ `
+          texteCorr += `$ (${rienSi1(a)}x+${b})(${a}x-${b}) = 0 $ `
           texteCorr += '<br>'
-          texteCorr += `$${a}x+${b} = 0 \\quad \\text{ou} \\quad ${a}x-${b} = 0$ `
+          texteCorr += `$${rienSi1(a)}x+${b} = 0 \\quad \\text{ou} \\quad ${rienSi1(a)}x-${b} = 0$ `
           texteCorr += '<br>'
-          texteCorr += `$${a}x = ${-b} \\quad \\text{ou} \\quad ${a}x = ${b}$ `
+          texteCorr += `$${rienSi1(a)}x = ${-b} \\quad \\text{ou} \\quad ${rienSi1(a)}x = ${b}$ `
           texteCorr += '<br>'
           if (pgcd(a, b) !== 1) {
             texteCorr += `$x = ${texFraction(-b, a)} \\quad \\text{ou} \\quad x = ${texFraction(b, a)}$ `

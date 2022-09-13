@@ -1,8 +1,9 @@
 
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, ecritureAlgebrique, randint, reduireAxPlusB, texNombre, katexPopup2 } from '../../modules/outils.js'
-import { droiteParPointEtPente, point, repere2, mathalea2d, positionLabelDroite, latexParPoint } from '../../modules/2d.js'
+import { droiteParPointEtPente, point, repere, positionLabelDroite, latexParPoint } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Déterminer une fonction affine'
@@ -16,6 +17,8 @@ export const interactifType = 'mathLive'
  * @author Jean-Claude Lhote
  * Référence : 3F21-1
  */
+export const uuid = 'e5ddd'
+export const ref = '3F21-1'
 export default function LectureExpressionFonctionsAffines () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -41,7 +44,7 @@ export default function LectureExpressionFonctionsAffines () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    const colors = ['blue', 'red', 'green', 'brown', 'purple']
+    const colors = ['blue', 'red', 'black', 'purple', 'brown']
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
     const listeDroites = []
@@ -64,7 +67,7 @@ export default function LectureExpressionFonctionsAffines () {
       if (this.lineaire) { OrdX0 = 0 } else { OrdX0 = randint(-1 + pente[i] / k, 1 + pente[i] / k, [pente[i], 0]) }
       listeDroites.push([OrdX0, pente[i] / k])
     }
-    const r = repere2({ xMin: -6, yMin: -6, xMax: 6, yMax: 6 })
+    const r = repere({ xMin: -6, yMin: -6, xMax: 6, yMax: 6 })
     const objets2d = []
     objets2d.push(r)
     for (let i = 0; i < nbDroites; i++) {
@@ -90,11 +93,11 @@ export default function LectureExpressionFonctionsAffines () {
     }
     listeQuestionsToContenu(this)
     if (!this.lineaire) {
-      explain = 'Il s’agit de fonctions affines, elles sont donc de la forme $f(x)=ax+b$, $b$ étant l’ordonnée à l’origine et $a$ la pente de la droite.\\\n' + explain
-      this.contenuCorrection = 'Il s’agit de fonctions affines, elles sont donc de la forme $f(x)=ax+b$, $b$ étant l’ordonnée à l’origine et $a$ la pente de la droite.\n' + this.contenuCorrection
+      explain = 'Il s\'agit de fonctions affines, elles sont donc de la forme $f(x)=ax+b$, $b$ étant l\'ordonnée à l\'origine et $a$ la pente de la droite.\\\n' + explain
+      this.contenuCorrection = 'Il s\'agit de fonctions affines, elles sont donc de la forme $f(x)=ax+b$, $b$ étant l\'ordonnée à l\'origine et $a$ la pente de la droite.\n' + this.contenuCorrection
     } else {
-      explain = 'Il s’agit de fonctions linéaires, elles sont donc de la forme $f(x)=ax$, $a$ étant la pente de la droite.\\ \n' + explain
-      this.contenuCorrection = 'Il s’agit de fonctions linéaires, elles sont donc de la forme $f(x)=ax$, $a$ étant la ' + katexPopup2(numeroExercice, 1, 'pente', 'pente d\'une droite', 'La pente (le a de y=ax ou y=ax+b) d\'une droite donne le taux d\'accroissement de y par rapport à x : lorsque x augmente de 1, alors y augmente de a.') + ' de la droite.\n' + this.contenuCorrection
+      explain = 'Il s\'agit de fonctions linéaires, elles sont donc de la forme $f(x)=ax$, $a$ étant la pente de la droite.\\ \n' + explain
+      this.contenuCorrection = 'Il s\'agit de fonctions linéaires, elles sont donc de la forme $f(x)=ax$, $a$ étant la ' + katexPopup2(numeroExercice, 1, 'pente', 'pente d\'une droite', 'La pente (le a de y=ax ou y=ax+b) d\'une droite donne le taux d\'accroissement de y par rapport à x : lorsque x augmente de 1, alors y augmente de a.') + ' de la droite.\n' + this.contenuCorrection
     }
     if (context.isAmc) {
       this.autoCorrection[0] = {

@@ -11,6 +11,8 @@ export const titre = 'Résoudre une équation du second degré'
  * @author Rémi Angot
  * Référence 1E11
 */
+export const uuid = 'cf78f'
+export const ref = '1E11-2'
 export default function ResoudreEquationDegre2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -24,14 +26,11 @@ export default function ResoudreEquationDegre2 () {
     this.sup = Number(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let listeTypeDeQuestions
     this.consigne = 'Résoudre dans $\\mathbb{R}$ les équations suivantes.'
     if (this.interactif) {
-      this.consigne += '<br>S\'il y a plusieurs solutions, les donner séparées d\'un point virgule. <br>S\'il n\'y a pas de solution, écrire Non'
+      this.consigne += '<br>S\'il y a plusieurs solutions, les donner séparées d\'un point virgule. <br>S\'il n\'y a pas de solution, écrire Non.'
     }
-    if (this.sup === 1) {
-      listeTypeDeQuestions = combinaisonListes(['solutionsEntieres', 'solutionsEntieres', 'pasDeSolution'], this.nbQuestions)
-    }
+    const listeTypeDeQuestions = combinaisonListes(['solutionsEntieres', 'solutionsEntieres', 'pasDeSolution'], this.nbQuestions)
 
     for (let i = 0, texte, texteCorr, a, b, c, x1, x2, y1, k, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (listeTypeDeQuestions[i] === 'solutionsEntieres') {
@@ -84,5 +83,4 @@ export default function ResoudreEquationDegre2 () {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Solutions entières\n2 : Solutions réelles et calcul du discriminant non obligatoire']
 }

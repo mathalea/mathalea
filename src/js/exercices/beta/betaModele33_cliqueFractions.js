@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, texFraction } from '../../modules/outils.js'
-import { mathalea2d, polygone, point } from '../../modules/2d.js'
-import { fractionCliquable, rectangleCliquable } from '../../modules/2dinteractif'
+import { polygone, point } from '../../modules/2d.js'
+import { fractionCliquable, rectangleCliquable } from '../../modules/2dinteractif.js'
 import { afficheScore } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Fractions interactives'
@@ -17,15 +18,18 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
  * @author Rémi Angot
  * Référence
 */
-export default function NomExercice () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = ''
-  this.nbQuestions = 5 // Nombre de questions par défaut
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-  this.tailleDiaporama = 3
+export default class NomExercice extends Exercice {
+  constructor () {
+    super()
+    this.titre = titre
+    this.consigne = ''
+    this.nbQuestions = 5 // Nombre de questions par défaut
+    this.nbCols = 1 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
+    this.tailleDiaporama = 3
+  }
 
-  this.nouvelleVersion = function (numeroExercice) {
+  nouvelleVersion (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

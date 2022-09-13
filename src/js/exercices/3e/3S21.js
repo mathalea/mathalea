@@ -1,8 +1,9 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { choice, combinaisonListesSansChangerOrdre, contraindreValeur, listeQuestionsToContenu, numAlpha, premiereLettreEnMajuscule, randint, rangeMinMax, shuffle, tableauColonneLigne } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import { Arbre } from '../../modules/arbres.js'
-import { mathalea2d } from '../../modules/2d.js'
+
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -16,6 +17,8 @@ export const interactifType = 'mathLive'
  * @author Jean-Claude Lhote
  * Référence 3S21
 */
+export const uuid = '76230'
+export const ref = '3S21'
 export default function CalculProbaExperience2Epreuves3e () {
   Exercice.call(this) // Héritage de la classe Exercice()
 
@@ -331,7 +334,7 @@ function urneDeuxTiragesAvecRemise (exercice, NoQuestion, sup, sup2, niveau) { /
   const proba1et2 = proba1.sommeFraction(proba2)
   const proba3 = fraction(nbBoule1 * nbBoule2, card ** 2)
   const proba4 = proba3.multiplieEntier(2)
-  let texte = `Dans une urne, il y a ${nbBoule1} boule${nbBoule1 > 1 ? 's' : ''} ${b1Color}${nbBoule1 > 1 && b1Char !== 'O' ? 's' : ''} et ${nbBoule2} boule${nbBoule2 > 1 ? 's' : ''} ${b2Color}${nbBoule2 > 1 && b2Char !== 'O' ? 's' : ''} indicernables au toucher.<br>`
+  let texte = `Dans une urne, il y a ${nbBoule1} boule${nbBoule1 > 1 ? 's' : ''} ${b1Color}${nbBoule1 > 1 && b1Char !== 'O' ? 's' : ''} et ${nbBoule2} boule${nbBoule2 > 1 ? 's' : ''} ${b2Color}${nbBoule2 > 1 && b2Char !== 'O' ? 's' : ''} indiscernables au toucher.<br>`
   texte += 'On tire successivement et avec remise deux boules.<br>'
   texte += `${numAlpha(0)} Déterminer la probabilité d'obtenir deux boules ${choix[1]}${choix[2] !== 'O' ? 's' : ''}.` + ajouteChampTexteMathLive(exercice, NoQuestion, 'largeur10 inline') + '<br>'
   texte += `${numAlpha(1)} Déterminer la probabilité d'obtenir deux boules de la même couleur.` + ajouteChampTexteMathLive(exercice, NoQuestion + 1, 'largeur10 inline') + '<br>'
@@ -471,7 +474,7 @@ function urneDeuxTiragesSansRemise (exercice, NoQuestion, sup, sup2, niveau) { /
   const proba1et2 = proba1.sommeFraction(proba2)
   const proba3 = fraction(nbBoule1 * nbBoule2, card ** 2 - card)
   const proba4 = proba3.multiplieEntier(2)
-  let texte = `Dans une urne, il y a ${nbBoule1} boule${nbBoule1 > 1 ? 's' : ''} ${b1Color}${nbBoule1 > 1 && b1Char !== 'O' ? 's' : ''} et ${nbBoule2} boule${nbBoule2 > 1 ? 's' : ''} ${b2Color}${nbBoule2 > 1 && b2Char !== 'O' ? 's' : ''} indicernables au toucher.<br>`
+  let texte = `Dans une urne, il y a ${nbBoule1} boule${nbBoule1 > 1 ? 's' : ''} ${b1Color}${nbBoule1 > 1 && b1Char !== 'O' ? 's' : ''} et ${nbBoule2} boule${nbBoule2 > 1 ? 's' : ''} ${b2Color}${nbBoule2 > 1 && b2Char !== 'O' ? 's' : ''} indiscernables au toucher.<br>`
   texte += 'On tire successivement et sans remise deux boules.<br>'
   texte += `${numAlpha(0)} Déterminer la probabilité d'obtenir deux boules ${choix[1]}${choix[2] !== 'O' ? 's' : ''}.` + ajouteChampTexteMathLive(exercice, NoQuestion, 'largeur10 inline') + '<br>'
   texte += `${numAlpha(1)} Déterminer la probabilité d'obtenir deux boules de la même couleur.` + ajouteChampTexteMathLive(exercice, NoQuestion + 1, 'largeur10 inline') + '<br>'
@@ -497,7 +500,6 @@ function urneDeuxTiragesSansRemise (exercice, NoQuestion, sup, sup2, niveau) { /
   texteCorr += `On peut donc calculer la probabilité de cet événement en calculant : $1 -${proba1et2.texFractionSimplifiee} = ${proba4.texFractionSimplifiee}$.`
   if (!context.isAMC) setReponse(exercice, NoQuestion, probaChoix, { formatInteractif: 'fractionEgale' })
   if (!context.isAMC) setReponse(exercice, NoQuestion + 1, proba1et2, { formatInteractif: 'fractionEgale' })
-  console.log(proba4)
   if (!context.isAMC) setReponse(exercice, NoQuestion + 2, proba4, { formatInteractif: 'fractionEgale' })
   return { texte: texte, texteCorr: texteCorr, alea: [nbBoule1, nbBoule2, b1Char, b2Char], NoQuestion: NoQuestion + 3 }
 }

@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenuSansNumero, randint, arrondi, texNombrec, texNombre, texTexte } from '../../modules/outils.js'
-import { afficheLongueurSegment, codageAngleDroit, codeSegments, fixeBordures, mathalea2d, point, polygoneAvecNom, segment } from '../../modules/2d.js'
+import { afficheLongueurSegment, codageAngleDroit, codageSegments, point, polygoneAvecNom, segment } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -22,6 +23,8 @@ export const amcType = 'AMCHybride'
  * @author Rémi Angot
  * Référence 6M11-2
  */
+export const uuid = '5999f'
+export const ref = '6M11-2'
 export default function PerimetreOuAireDeFiguresComposees () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -50,7 +53,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
       const p1 = polygoneAvecNom(A, B, C, D, E)
       const angles1 = [codageAngleDroit(A, B, C), codageAngleDroit(B, C, E), codageAngleDroit(C, E, A), codageAngleDroit(E, A, B)]
       const CE = segment(C, E)
-      CE.pointilles = true
+      CE.pointilles = 5
       const objets1 = []
       objets1.push(p1[0], CE, ...angles1, afficheLongueurSegment(D, E), afficheLongueurSegment(A, B), afficheLongueurSegment(E, A), afficheLongueurSegment(B, D))
       const c = randint(4, 7)
@@ -63,21 +66,21 @@ export default function PerimetreOuAireDeFiguresComposees () {
       const S = point(2, c - h)
       const p2 = polygoneAvecNom(M, N, S, O, P)
       const HS = segment(H, S)
-      HS.pointilles = true
+      HS.pointilles = 5
       const NO = segment(N, O)
-      NO.pointilles = true
+      NO.pointilles = 5
       const angles2 = [codageAngleDroit(M, N, O), codageAngleDroit(N, O, P), codageAngleDroit(N, H, S), codageAngleDroit(O, P, M), codageAngleDroit(P, M, N)]
       const objets2 = []
-      objets2.push(p2[0], HS, NO, ...angles2, afficheLongueurSegment(P, M), afficheLongueurSegment(S, N), afficheLongueurSegment(O, S), afficheLongueurSegment(H, S), codeSegments('//', 'black', M, N, M, P, O, P))
+      objets2.push(p2[0], HS, NO, ...angles2, afficheLongueurSegment(P, M), afficheLongueurSegment(S, N), afficheLongueurSegment(O, S), afficheLongueurSegment(H, S), codageSegments('//', 'black', M, N, M, P, O, P))
       const DA = arrondi(Math.sqrt(L2 ** 2 + l1 ** 2), 1)
       const t1 = arrondi(Math.sqrt(4 + h ** 2), 1) // longueur d'un côté du triangle
       const t2 = arrondi(Math.sqrt((c - 2) ** 2 + h ** 2), 1) // longueur de l'autre côté d'un triangle
       let texte = mathalea2d(Object.assign({ scale: 0.7, pixelsParCm: 20, zoom: 2 }, fixeBordures(objets1, { rxmin: -1, rymin: -1 })), ...objets1)
-      texte += ajouteChampTexteMathLive(this, i * 4, 'longueur', { texte: 'Périmètre : ' })
-      texte += ajouteChampTexteMathLive(this, i * 4 + 1, 'longueur', { texte: '  Aire : ' })
+      texte += ajouteChampTexteMathLive(this, i * 4, 'unites[longueurs]', { texte: 'Périmètre : ' })
+      texte += ajouteChampTexteMathLive(this, i * 4 + 1, 'unites[aires]', { texte: '  Aire : ' })
       texte += mathalea2d(Object.assign({ scale: 0.7, pixelsParCm: 20, zoom: 2 }, fixeBordures(objets2, { rxmin: -1, rymin: -1 })), ...objets2)
-      texte += ajouteChampTexteMathLive(this, i * 4 + 2, 'longueur', { texte: 'Périmètre : ' })
-      texte += ajouteChampTexteMathLive(this, i * 4 + 3, 'longueur', { texte: '  Aire : ' })
+      texte += ajouteChampTexteMathLive(this, i * 4 + 2, 'unites[longueurs]', { texte: 'Périmètre : ' })
+      texte += ajouteChampTexteMathLive(this, i * 4 + 3, 'unites[aires]', { texte: '  Aire : ' })
       let texteCorr = `La première figure est composée d'un rectangle de ${L1} cm par ${l1} cm`
       texteCorr += ` et d'un triangle rectangle dont les côtés de l'angle droit mesurent ${L2} cm et ${l1} cm.<br>`
       texteCorr += `$\\mathcal{P}_{1}=${L1 + L2}+${texNombre(
@@ -172,10 +175,10 @@ export default function PerimetreOuAireDeFiguresComposees () {
           ]
         }
       } else {
-        setReponse(this, i * 4, new Grandeur(L1 + L2 + DA + L1 + l1, 'cm'), { formatInteractif: 'longueur' })
-        setReponse(this, i * 4 + 1, new Grandeur(L1 * l1 + (L2 * l1) / 2, 'cm^2'), { formatInteractif: 'longueur' })
-        setReponse(this, i * 4 + 2, new Grandeur(3 * c + t1 + t2, 'cm'), { formatInteractif: 'longueur' })
-        setReponse(this, i * 4 + 3, new Grandeur(c ** 2 - (c * h) / 2, 'cm^2'), { formatInteractif: 'longueur' })
+        setReponse(this, i * 4, new Grandeur(L1 + L2 + DA + L1 + l1, 'cm'), { formatInteractif: 'unites' })
+        setReponse(this, i * 4 + 1, new Grandeur(L1 * l1 + (L2 * l1) / 2, 'cm^2'), { formatInteractif: 'unites' })
+        setReponse(this, i * 4 + 2, new Grandeur(3 * c + t1 + t2, 'cm'), { formatInteractif: 'unites' })
+        setReponse(this, i * 4 + 3, new Grandeur(c ** 2 - (c * h) / 2, 'cm^2'), { formatInteractif: 'unites' })
       }
       if (this.questionJamaisPosee(i, L1, L2, l1, c, h)) {
         this.listeQuestions.push(texte)

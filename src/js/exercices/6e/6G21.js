@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, shuffle, combinaisonListes, calcul, creerNomDePolygone, stringNombre } from '../../modules/outils.js'
-import { point, pointAdistance, droite, droiteParPointEtPerpendiculaire, polygoneAvecNom, cercle, pointIntersectionLC, pointIntersectionCC, traceCompas, codageAngleDroit, afficheLongueurSegment, mathalea2d } from '../../modules/2d.js'
+import { point, pointAdistance, droite, droiteParPointEtPerpendiculaire, polygoneAvecNom, cercle, pointIntersectionLC, pointIntersectionCC, traceCompas, codageAngleDroit, afficheLongueurSegment } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
 export const titre = 'Construire un triangle aux instruments'
@@ -11,6 +12,8 @@ export const titre = 'Construire un triangle aux instruments'
  * Référence 6G21 et 5G20-0
  * Modifié 2021/04/02
  */
+export const uuid = 'e0bc9'
+export const ref = '6G21'
 export default function ConstruireUnTriangle () {
   Exercice.call(this)
   this.titre = titre
@@ -44,7 +47,9 @@ export default function ConstruireUnTriangle () {
       }
     } else typesDeQuestionsDisponibles = [1]
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    let listeDeNomsDePolygones
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      if (i % 5 === 0) listeDeNomsDePolygones = ['PQD']
       IEP = new Alea2iep()
       objetsEnonce = []
       objetsCorrection = []
@@ -52,7 +57,8 @@ export default function ConstruireUnTriangle () {
         texte = 'Le triangle ci-dessous a été réalisé à main levée.<br>Construire ce triangle avec les instruments de géométrie en respectant les mesures indiquées.<br>'
       }
       texteCorr = 'Voici la construction que tu devais réaliser.<br>'
-      nom = creerNomDePolygone(3, 'PQ')
+      nom = creerNomDePolygone(3, listeDeNomsDePolygones)
+      listeDeNomsDePolygones.push(nom)
       sommets = []
       for (let i = 0; i < 3; i++) sommets.push(nom[i])
       sommets = shuffle(sommets)

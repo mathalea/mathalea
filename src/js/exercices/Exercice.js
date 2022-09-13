@@ -23,7 +23,7 @@ export default function Exercice () {
   // ///////////////////////////////////////////////
   // Construction de l'exercice
   // ///////////////////////////////////////////////
-  this.consigne = '' // Chaîne de caractère qui apparaît en gras au-dessus des questions de préférence à l'infinitif et sans point à la fin.
+  this.consigne = '' // Chaîne de caractère qui apparaît en gras au-dessus des questions de préférence à l'infinitif et AVEC point à la fin.
   this.consigneCorrection = '' // Chaîne de caractère en général vide qui apparaît au-dessus des corrections.
   this.introduction = '' // Texte qui n'est pas forcément en gras et qui apparaît entre la consigne et les questions.
   this.listeQuestions = [] // Liste de chaînes de caractères avec chacune correspondant à une question. Chaque question est définie par la méthode this.nouvelleVersion puis `listeDeQuestionToContenu(this)` mettra en forme `this.contenu` et `this.contenuCorrection` suivant `context` (sortie HTML ?...)
@@ -105,11 +105,11 @@ export default function Exercice () {
   this.listeArguments = [] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
 
   /**
-   * Compare chaque nouvelle version d'un exercice aux précédentes pour s'assurer de ne pas avoir deux exercices identiques
-   * @param {int} i indice de la question
-   * @param  {...any} args toutes les variables pertinentes qui "résumeraient" la question
-   * @returns {boolean} true si la question n'a jamais été posée
-   */
+     * Compare chaque nouvelle version d'un exercice aux précédentes pour s'assurer de ne pas avoir deux exercices identiques
+     * @param {int} i indice de la question
+     * @param  {...any} args toutes les variables pertinentes qui "résumeraient" la question
+     * @returns {boolean} true si la question n'a jamais été posée
+     */
   this.questionJamaisPosee = function (i, ...args) {
     if (i === 0) this.listeArguments = []
     let argsConcatenes = ''

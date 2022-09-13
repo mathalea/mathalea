@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
-import { fraction } from '../../../modules/fractions'
+import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
+import { fraction } from '../../../modules/fractions.js'
 import { randint, texFraction, miseEnEvidence, abs, ecritureAlgebrique, texFractionReduite, egal, calcul, texteCentre } from '../../../modules/outils.js'
-import { mathalea2d, repere2, texteParPosition, segment, droite } from '../../../modules/2d.js'
+import { repere, texteParPosition, segment, droite } from '../../../modules/2d.js'
 export const titre = 'Lire graphiquement une fonction affine*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -14,6 +15,8 @@ export const dateDePublication = '25/10/2021' // La date de publication initiale
  * @author Gilles Mora (2F10-02)
  * Référence
 */
+export const uuid = 'f554f'
+export const ref = 'can3F08'
 export default function LectureGraphiqueFonctionAffine2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
@@ -27,11 +30,11 @@ export default function LectureGraphiqueFonctionAffine2 () {
     const a = randint(-5, 5, [0, 4]) // numérateut coefficient directeur non nul
     const b = randint(-2, 2) // ordonnée à l'origine
     const d = randint(2, 5, [-a, a, 2 * a, -2 * a]) // dénominateur coefficient directeur non multiple du numérateur pour éviter nombre entier
-    const r = repere2()// On définit le repère
+    const r = repere()// On définit le repère
     const c = droite(a / d, -1, b)
     const maFraction = fraction(a, d)
 
-    c.color = 'red'
+    c.color = colorToLatexOrHTML('red')
     c.epaisseur = 2
     this.question = '$f$ est une fonction affine définie par $f(x)=...$<br>'
     this.question += `${mathalea2d({

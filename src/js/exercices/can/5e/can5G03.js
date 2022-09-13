@@ -1,6 +1,7 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice, shuffle } from '../../../modules/outils.js'
-import { labelPoint, longueur, mathalea2d, papierPointe, point, rotation, tracePoint } from '../../../modules/2d.js'
+import { labelPoint, longueur, papierPointe, point, rotation, tracePoint } from '../../../modules/2d.js'
 import { context } from '../../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
@@ -17,6 +18,8 @@ export const amcType = 'AMCNum'
  * @author Jean-Claude Lhote
  * Publié le 18/12/2021
  */
+export const uuid = '36f08'
+export const ref = 'can5G03'
 export default function CompterlesSymetriquesCan5e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
@@ -49,10 +52,10 @@ export default function CompterlesSymetriquesCan5e () {
       papier = papierPointe({ xmin: 0, ymin: 0, xmax: 6, ymax: 6, type: 'quad' })
       objetsEnonce.push(papier)
       const O = point(3, 3, 'O')
-      d = tracePoint(O)
+      d = tracePoint(O, context.isHtml ? 'blue' : 'black')
       d.epaisseur = 2
       d.style = '+'
-      d.color = context.isHtml ? 'blue' : 'black'
+      d.color =
       objetsEnonce.push(d)
       pointsPossibles = papier.listeCoords.slice()
       while (pointsPossibles.length > 1) { // si il n'en reste qu'un, on ne peut pas trouver de symétrique

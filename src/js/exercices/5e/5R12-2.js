@@ -1,14 +1,17 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenuSansNumero, creerCouples, randint, calcul, lettreDepuisChiffre, texNombre, shuffle2tableaux } from '../../modules/outils.js'
-import { mathalea2d, point, repere2, labelPoint, tracePoint } from '../../modules/2d.js'
+import { point, repere, labelPoint, tracePoint } from '../../modules/2d.js'
 
-export const titre = 'Déterminer les coordonnées (relatives) d’un point'
+export const titre = 'Déterminer les coordonnées (relatives) d\'un point'
 
 /**
  * Lire les coordonnées d'un point du plan avec une précision allant de l'unité à 0,25.
  * @author Jean-Claude Lhote
  * Références 5R12-2
  */
+export const uuid = 'ab968'
+export const ref = '5R12-2'
 export default function ReperagePointDuPlan () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -71,7 +74,7 @@ export default function ReperagePointDuPlan () {
     texte += ` $${nom[4]}$.<br>`
     texteCorr += ` $${nom[4]}(${texNombre(points[4].x)};${texNombre(points[4].y)})$.`
     if (this.sup2) {
-      objets2d.push(repere2({
+      objets2d.push(repere({
         xMin: xmin - 1,
         yMin: ymin - 1,
         xMax: xmax + 1,
@@ -84,7 +87,7 @@ export default function ReperagePointDuPlan () {
         grilleSecondaireYMax: ymax + 1
       }))
     } else {
-      objets2d.push(repere2({ xMin: xmin - 1, yMin: ymin - 1, xMax: xmax + 1, yMax: ymax + 1 }))
+      objets2d.push(repere({ xMin: xmin - 1, yMin: ymin - 1, xMax: xmax + 1, yMax: ymax + 1 }))
     }
     for (let i = 0; i < 5; i++) {
       objets2d.push(points[i], tracePoint(points[i], 'red'), labelPoint(points[i]))

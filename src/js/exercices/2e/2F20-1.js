@@ -1,10 +1,10 @@
 import Exercice from '../Exercice.js'
-import { fraction, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions'
+import { fraction, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions.js'
 import {
   listeQuestionsToContenu, reduireAxPlusB, simplificationDeFractionAvecEtapes, reduirePolynomeDegre3, rienSi1, randint, texteCentre, combinaisonListes, ecritureAlgebrique, choice,
   ecritureParentheseSiNegatif, pgcd
 } from '../../modules/outils.js'
-export const titre = 'Montrer qu’un point appartient ou non à une courbe'
+export const titre = 'Montrer qu\'un point appartient ou non à une courbe'
 
 /**
 * Répondre à des questions sur les fonctions.
@@ -12,6 +12,8 @@ export const titre = 'Montrer qu’un point appartient ou non à une courbe'
 * @author Gilles Mora
 * 3F10-1
 */
+export const uuid = '36795'
+export const ref = '2F20-1'
 export default function PointSurCourbe () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1

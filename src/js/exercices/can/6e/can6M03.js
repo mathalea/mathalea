@@ -1,5 +1,5 @@
-import { calcul, contraindreValeur, randint, texNombre } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { calcul, contraindreValeur, randint, texNombre } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Convertir en mètres'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6M03
  */
+export const uuid = 'd52aa'
+export const ref = 'can6M03'
 export default function ConvertirEnM () {
   Exercice.call(this)
   this.typeExercice = 'simple'

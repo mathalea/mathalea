@@ -1,66 +1,90 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, texteEnCouleurEtGras, shuffle2tableaux } from '../../modules/outils.js'
+import { listeQuestionsToContenu, texteEnCouleurEtGras, combinaisonListes } from '../../modules/outils.js'
 export const titre = 'Citer les propriétés des parallélogrammes'
+
+export const dateDeModifImportante = '08/05/2022'
 
 /**
  * On doit compléter des propriétés des parallélogrammes
  * @author Rémi Angot
  * Référence 5G40-1
+ * Ajout de la possibilité de choisir le nombre de questions par Guillaume Valmont le 08/05/2022
  * Publié le 5/4/2021
 */
+export const uuid = 'af2c2'
+export const ref = '5G40-1'
 export default function ProprietesDesParallelogrammes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = "Compléter les phrases suivantes à l'aide de la définition ou des propriétés des parallélogrammes."
-  this.nbQuestionsModifiable = false
+  this.nbQuestions = 9
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  // this.sup = 1
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
-    this.introduction = 'Dans cet exercice, on supposera que tous les quadrilatères sont non croisés.'
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
-    const question1 = 'Si un quadrilatère est un parallélogramme alors ses côtés…'
-    const correction1 = `Si un quadrilatère est un parallélogramme alors ses côtés ${texteEnCouleurEtGras('opposés sont parallèles et de même longueur')}.`
-
-    const question2 = 'Si un quadrilatère est un parallélogramme alors ses diagonales…'
-    const correction2 = `Si un quadrilatère est un parallélogramme alors ses diagonales ${texteEnCouleurEtGras('se coupent en leur milieu')}.`
-
-    const question3 = 'Si un quadrilatère est un parallélogramme alors ses angles…'
-    const correction3 = `Si un quadrilatère est un parallélogramme alors ses angles ${texteEnCouleurEtGras('opposés sont égaux et la somme de deux angles consécutifs est égale à 180°')}.`
-
-    const question4 = 'Si un quadrilatère est un parallélogramme alors … symétrie …'
-    const correction4 = `Si un quadrilatère est un parallélogramme alors ${"il a un centre de symétrie qui est le point d'intersection de ses diagonales"}.`
-
-    const question5 = "Si un quadrilatère a ses diagonales … alors c'est un parallélogramme."
-    const correction5 = `Si un quadrilatère a ses diagonales ${texteEnCouleurEtGras('qui se coupent en leur milieu')} alors c'est un parallélogramme`
-
-    const question6 = "Si un quadrilatère a … parallèles alors c'est un parallélogramme."
-    const correction6 = `Si un quadrilatère a ${texteEnCouleurEtGras('ses côtés opposés')} parallèles alors c'est un parallélogramme`
-
-    const question7 = "Si un quadrilatère a … longueur alors c'est un parallélogramme."
-    const correction7 = `Si un quadrilatère a ${texteEnCouleurEtGras('ses côtés opposés de même')} longueur alors c'est un parallélogramme`
-
-    const question8 = "Si un quadrilatère a deux côtés … alors c'est un parallélogramme."
-    const correction8 = `Si un quadrilatère a deux côtés ${texteEnCouleurEtGras('opposés parallèles et de même longueur')} alors c'est un parallélogramme`
-
-    const question9 = "Si un quadrilatère a … angles … alors c'est un parallélogramme."
-    const correction9 = `Si un quadrilatère a ${texteEnCouleurEtGras('ses angles opposés égaux')} alors c'est un parallélogramme`
-
+    if (this.nbQuestions === 1) this.consigne = "Compléter la phrases suivante à l'aide de la définition ou d'une propriété des parallélogrammes."
+    let typeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     if (parseInt(this.sup) === 1) {
-      this.listeQuestions = [question1, question2, question3, question4]
-      this.listeCorrections = [correction1, correction2, correction3, correction4]
+      typeQuestionsDisponibles = [1, 2, 3, 4]
     } else if (parseInt(this.sup) === 2) {
-      this.listeQuestions = [question5, question6, question7, question8, question9]
-      this.listeCorrections = [correction5, correction6, correction7, correction8, correction9]
-    } else {
-      this.listeQuestions = [question1, question2, question3, question4, question5, question6, question7, question8, question9]
-      this.listeCorrections = [correction1, correction2, correction3, correction4, correction5, correction6, correction7, correction8, correction9]
+      typeQuestionsDisponibles = [5, 6, 7, 8, 9]
     }
-    shuffle2tableaux(this.listeQuestions, this.listeCorrections)
+
+    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      this.introduction = 'Dans cet exercice, on supposera que tous les quadrilatères sont non croisés.'
+
+      switch (listeTypeQuestions[i]) {
+        case 1:
+          texte = 'Si un quadrilatère est un parallélogramme alors ses côtés…'
+          texteCorr = `Si un quadrilatère est un parallélogramme alors ses côtés ${texteEnCouleurEtGras('opposés sont parallèles et de même longueur')}.`
+          break
+        case 2:
+          texte = 'Si un quadrilatère est un parallélogramme alors ses diagonales…'
+          texteCorr = `Si un quadrilatère est un parallélogramme alors ses diagonales ${texteEnCouleurEtGras('se coupent en leur milieu')}.`
+          break
+        case 3:
+          texte = 'Si un quadrilatère est un parallélogramme alors ses angles…'
+          texteCorr = `Si un quadrilatère est un parallélogramme alors ses angles ${texteEnCouleurEtGras('opposés sont égaux et la somme de deux angles consécutifs est égale à 180°')}.`
+          break
+        case 4:
+          texte = 'Si un quadrilatère est un parallélogramme alors … symétrie …'
+          texteCorr = `Si un quadrilatère est un parallélogramme alors ${"il a un centre de symétrie qui est le point d'intersection de ses diagonales"}.`
+          break
+        case 5:
+          texte = "Si un quadrilatère a ses diagonales … alors c'est un parallélogramme."
+          texteCorr = `Si un quadrilatère a ses diagonales ${texteEnCouleurEtGras('qui se coupent en leur milieu')} alors c'est un parallélogramme`
+          break
+        case 6:
+          texte = "Si un quadrilatère a … parallèles alors c'est un parallélogramme."
+          texteCorr = `Si un quadrilatère a ${texteEnCouleurEtGras('ses côtés opposés')} parallèles alors c'est un parallélogramme`
+          break
+        case 7:
+          texte = "Si un quadrilatère a … longueur alors c'est un parallélogramme."
+          texteCorr = `Si un quadrilatère a ${texteEnCouleurEtGras('ses côtés opposés de même')} longueur alors c'est un parallélogramme`
+          break
+        case 8:
+          texte = "Si un quadrilatère a deux côtés … alors c'est un parallélogramme."
+          texteCorr = `Si un quadrilatère a deux côtés ${texteEnCouleurEtGras('opposés parallèles et de même longueur')} alors c'est un parallélogramme`
+          break
+        case 9:
+          texte = "Si un quadrilatère a … angles … alors c'est un parallélogramme."
+          texteCorr = `Si un quadrilatère a ${texteEnCouleurEtGras('ses angles opposés égaux')} alors c'est un parallélogramme`
+          break
+      }
+      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+      }
+      cpt++
+    }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, "1 : Propriétés du parallélogramme\n2 : Propriétés pour montrer qu'un quadrilatère est un parallélogramme\n3 : Mélange"]
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, "1 : Propriétés du parallélogramme (max. 4 questions)\n2 : Propriétés pour montrer qu'un quadrilatère est un parallélogramme (max. 5 questions)\n3 : Mélange (max. 9 questions)"]
 }

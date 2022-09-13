@@ -10,6 +10,8 @@ export const interactifType = 'mathLive'
  * Référence can2G05
  * Date de publication sptembre 2021
 */
+export const uuid = 'b0d98'
+export const ref = 'can2G05'
 export default function DistanceRepere () {
   Exercice.call(this)
   this.typeExercice = 'simple'
@@ -17,7 +19,7 @@ export default function DistanceRepere () {
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let a, b, c, d
-    const nom = creerNomDePolygone(2, 'PQ')
+    const nom = creerNomDePolygone(2, 'PQD')
     switch (choice(['a', 'a', 'b'])) {
       case 'a':
         a = randint(1, 6)
@@ -25,7 +27,7 @@ export default function DistanceRepere () {
         c = randint(1, 6)
         d = randint(1, 6, b)
         if ((c - a) ** 2 + (d - b) ** 2 === 1 || (c - a) ** 2 + (d - b) ** 2 === 4 || (c - a) ** 2 + (d - b) ** 2 === 9 || (c - a) ** 2 + (d - b) ** 2 === 16 || (c - a) ** 2 + (d - b) ** 2 === 25 || (c - a) ** 2 + (d - b) ** 2 === 36) {
-          this.question = `Dans un repère du plan d'orignine $O$, on donne $${nom[0]}(${a};${b})$ et $${nom[1]}(${c};${d})$.<br>
+          this.question = `Dans un repère du plan d'origine $O$, on donne $${nom[0]}(${a};${b})$ et $${nom[1]}(${c};${d})$.<br>
         Déterminer la longueur du segment $[${nom[0]}${nom[1]}]$.<br>
         (donner le résultat sous la forme $\\sqrt{a}$ ou d'un nombre entier le cas échéant)`
           this.optionsChampTexte = { texteApres: '' }
@@ -41,7 +43,7 @@ export default function DistanceRepere () {
            `)
           this.reponse = Math.sqrt((c - a) ** 2 + (d - b) ** 2)
         } else {
-          this.question = `Dans un repère du plan d'orignine $O$, on donne $${nom[0]}(${a};${b})$ et $${nom[1]}(${c};${d})$.<br>
+          this.question = `Dans un repère du plan d'origine $O$, on donne $${nom[0]}(${a};${b})$ et $${nom[1]}(${c};${d})$.<br>
         Déterminer la longueur du segment $[${nom[0]}${nom[1]}]$.<br>
         (donner le résultat sous la forme $\\sqrt{a}$ ou d'un nombre entier le cas échéant)`
           this.optionsChampTexte = { texteApres: '' }

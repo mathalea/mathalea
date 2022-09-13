@@ -1,5 +1,6 @@
 import Exercice from '../Exercice.js'
-import { point, segmentAvecExtremites, labelPoint, arcPointPointAngle, mathalea2d, fixeBordures, texteSurSegment, texteSurArc, rotation, homothetie } from '../../modules/2d.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
+import { point, segmentAvecExtremites, labelPoint, arcPointPointAngle, texteSurSegment, texteSurArc, rotation, homothetie } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { choice, randint, listeQuestionsToContenu, choisitLettresDifferentes, texNum, combinaisonListes } from '../../modules/outils.js'
 import { fraction, abs, multiply, evaluate, divide, isInteger, pow, round, subtract, max } from 'mathjs'
@@ -14,10 +15,12 @@ export const dateDePublication = '28/11/2021' // La date de publication initiale
  * @author Frédéric PIOU
  * Référence
 */
+export const uuid = '6f383'
+export const ref = '3G13'
 export default function calculsHomothetie () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
-  this.nbQuestions = 11 // Nombre de questions par défaut
+  this.nbQuestions = 4 // Nombre de questions par défaut
   this.nbCols = 0 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 0 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 1 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
@@ -169,11 +172,11 @@ export default function calculsHomothetie () {
         legendeOBi: agrandissement || !kpositif ? texteSurSegment('?', figure.O, figure.B, 'black', 0.30) : texteSurArc('?', figure.B, figure.O, 60, 'black', 0.30),
         legendeOhBi: !agrandissement || !kpositif ? texteSurSegment('?', figure.O, figure.hB, 'black', 0.30) : texteSurArc('?', figure.hB, figure.O, 60, 'black', 0.30)
       })
-      figure.arcOA.pointilles = true
-      figure.arcOhA.pointilles = true
-      figure.arcOB.pointilles = true
-      figure.arcOhB.pointilles = true
-      figure.arcAhA.pointilles = true
+      figure.arcOA.pointilles = 5
+      figure.arcOhA.pointilles = 5
+      figure.arcOB.pointilles = 5
+      figure.arcOhB.pointilles = 5
+      figure.arcAhA.pointilles = 5
       // const fscale = context.isHtml ? kpositif ? 1 : 0.7 : kpositif ? 0.7 : 0.5
       const fscale = context.isHtml ? 1 : kpositif ? 0.7 : 0.6
       const flabelsRapport = labelPoint(figure.O, figure.A, figure.hA)

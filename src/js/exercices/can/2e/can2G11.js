@@ -13,6 +13,8 @@ export const dateDeModifImportante = '03/01/2022'
  * @author Gilles Mora
  * Référence
 */
+export const uuid = '7bc4a'
+export const ref = 'can2G11'
 export default function RelationChasles2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
@@ -22,7 +24,7 @@ export default function RelationChasles2 () {
     this.listeQuestions = []
     this.listeCorrections = []
     let texte, texteCorr, n
-    const nom = creerNomDePolygone(7, ['Q'])
+    const nom = creerNomDePolygone(7, ['QD'])
     switch (choice([1, 2, 3, 3])) { //, 'b'
       case 1 :
         if (this.interactif) {

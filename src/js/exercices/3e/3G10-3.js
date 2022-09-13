@@ -1,8 +1,9 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul, choisitLettresDifferentes, lettreDepuisChiffre, arcenciel } from '../../modules/outils.js'
-import { point, tracePoint, labelPoint, arcPointPointAngle, dansLaCibleCarree, cibleCarree, rotation, longueur, mathalea2d } from '../../modules/2d.js'
-export const titre = 'Construire l’image d’un point par une rotation avec cible auto-corrective'
+import { listeQuestionsToContenu, randint, choisitLettresDifferentes, lettreDepuisChiffre, arcenciel } from '../../modules/outils.js'
+import { point, tracePoint, labelPoint, arcPointPointAngle, dansLaCibleCarree, cibleCarree, rotation, longueur } from '../../modules/2d.js'
+export const titre = 'Construire l\'image d\'un point par une rotation avec cible auto-corrective'
 
 /**
  * Construction d'images par rotation avec dispositif d'auto-correction aléatoire
@@ -10,6 +11,8 @@ export const titre = 'Construire l’image d’un point par une rotation avec ci
  * @author Jean-Claude Lhote
  * Publié le 30/11/2020
  */
+export const uuid = '19ce6'
+export const ref = '3G10-3'
 export default function ConstruireRotationPoint3e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -45,21 +48,21 @@ export default function ConstruireRotationPoint3e () {
     let xMin, yMin, xMax, yMax;
     [xMin, yMin, xMax, yMax] = [0, 0, 0, 0]
     for (let i = 0; i < nbpoints; i++) { // On place les cibles.
-      N.push(point(calcul(randint(-80, 80, 0) / 10), calcul(randint(-80, 80, 0) / 10), noms[i] + "'"))
+      N.push(point(randint(-80, 80, 0) / 10, randint(-80, 80, 0) / 10, noms[i] + "'"))
       nontrouve = true
       while (longueur(N[i], O) < 3 || nontrouve) {
         nontrouve = true
         if (longueur(N[i], O) < 3) {
-          N[i].x = calcul(randint(-80, 80, 0) / 10)
-          N[i].y = calcul(randint(-80, 80, 0) / 10)
+          N[i].x = randint(-80, 80, 0) / 10
+          N[i].y = randint(-80, 80, 0) / 10
         } else {
           assezloin = true
           for (let j = 0; j < i; j++) {
             if (longueur(N[i], N[j]) < 4.5) { assezloin = false }
           }
           if (assezloin === false) { // éloigner les points donc les grilles
-            N[i].x = calcul(randint(-80, 80, 0) / 10)
-            N[i].y = calcul(randint(-80, 80, 0) / 10)
+            N[i].x = randint(-80, 80, 0) / 10
+            N[i].y = randint(-80, 80, 0) / 10
           } else { nontrouve = false }
         }
       }
@@ -71,9 +74,7 @@ export default function ConstruireRotationPoint3e () {
     for (let i = 0; i < nbpoints; i++) {
       cellules.push(celluleAlea(4))
       result = dansLaCibleCarree(N[i].x, N[i].y, 4, 0.6, cellules[i])
-      cible = cibleCarree({ x: result[0], y: result[1], rang: 4, num: i + 1, taille: 0.6 })
-      cible.taille = 0.6
-      cible.color = 'orange'
+      cible = cibleCarree({ x: result[0], y: result[1], rang: 4, num: i + 1, taille: 0.6, color: '#f15929' })
       cible.opacite = 0.7
       cibles.push(cible)
     }

@@ -12,10 +12,12 @@ export const interactifType = 'mathLive'
  * 2N32-4, ex 2N11-1
  * @author Stéphane Guyon
  */
+export const uuid = '12b72'
+export const ref = '2N32-4'
 export default function SimplifierUneSommeDeRacinesCarrees () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = ' Simplifier une somme de racines carrées'
+  // this.consigne = ''
   this.nbQuestions = 4
   this.nbCols = 2
   this.nbColsCorr = 2

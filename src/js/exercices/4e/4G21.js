@@ -9,10 +9,12 @@ export const interactifType = 'qcm'
 
 export const interactifReady = true
 /**
- * À partir de la donnée des 3 longueurs d'un triangle, déterminer si il est rectangle ou pas.
+ * À partir de la donnée des 3 longueurs d'un triangle, déterminer s'il est rectangle ou pas.
  * @author Rémi Angot
  * 4G21
  */
+export const uuid = 'ab5d4'
+export const ref = '4G21'
 export default function ReciproquePythagore () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -94,7 +96,7 @@ export default function ReciproquePythagore () {
       [60, 80, 100],
       [65, 72, 97]
     ]
-    const nomsTriangles = [] // on mémorise les noms des triangles pour ne pas les redonner
+    let nomsTriangles// on mémorise les noms des triangles pour ne pas les redonner
     for (
       let i = 0,
         texte,
@@ -122,6 +124,7 @@ export default function ReciproquePythagore () {
           statut: false
         }
       ]
+      if (i % 4 === 0) nomsTriangles = ['QD'] // toutes les 4 question on peut à nouveau choisir les mêms sauf Q et D (problème clavier mathLive)
       nomTriangle = creerNomDePolygone(3, nomsTriangles)
       nomsTriangles.push(nomTriangle)
       A = nomTriangle[0]

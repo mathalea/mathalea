@@ -14,6 +14,8 @@ export const titre = 'Résoudre des problèmes utilisant le théorème de Pythag
  * @author Rémi Angot
  * 4G22
  */
+export const uuid = 'b18e8'
+export const ref = '4G22'
 export default function ProblemesPythagore () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -131,12 +133,13 @@ export default function ProblemesPythagore () {
       [60, 80, 100],
       [65, 72, 97]
     ]
-    const listeNomsQuadrilateres = ['L', 'M', 'N', 'O'] // pour que le O ne soit pas une des 4 lettres
+    let listeNomsQuadrilateres = ['L', 'M', 'N', 'O']
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
+      if (i % 3 === 0) listeNomsQuadrilateres = ['LMNOQD'] // lettres à éviter
       const nomQuadrilatere = creerNomDePolygone(4, listeNomsQuadrilateres)
       listeNomsQuadrilateres.push(nomQuadrilatere)
       const A = nomQuadrilatere[0]

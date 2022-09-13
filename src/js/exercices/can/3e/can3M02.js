@@ -1,5 +1,5 @@
-import { shuffle, randint, calcul, texteExposant, texteEnCouleur } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { shuffle, randint, calcul, texteExposant, texteEnCouleur } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Calculer un volume de pyramide'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
   * Créé pendant l'été 2021
  * Référence can3E01
 */
+export const uuid = 'f0128'
+export const ref = 'can3M02'
 export default function CalculVolumePyramide () {
   Exercice.call(this)
   this.typeExercice = 'simple'

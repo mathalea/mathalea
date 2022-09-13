@@ -2,7 +2,7 @@ import Exercice from '../../Exercice.js'
 import { randint, listeQuestionsToContenuSansNumero, ecritureParentheseSiNegatif, sp, texteCentre } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
-export const titre = 'Déterminer les coordonnées d\'un point avec une trabslation'
+export const titre = 'Déterminer les coordonnées d\'un point avec une translation'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -14,6 +14,8 @@ export const dateDePublication = '04/03:2022' // La date de publication initiale
  * @author Stéphane Guyon
  * Référence
 */
+export const uuid = '0dfad'
+export const ref = 'can2G14'
 export default function TranslationVecteur () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1

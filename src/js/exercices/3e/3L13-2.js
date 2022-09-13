@@ -1,16 +1,25 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, shuffle, combinaisonListesSansChangerOrdre, calcul, texNombre, texteEnCouleurEtGras, tableauColonneLigne, warnMessage } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, shuffle, combinaisonListesSansChangerOrdre, texNombre, texteEnCouleurEtGras, tableauColonneLigne, warnMessage } from '../../modules/outils.js'
 import FractionX from '../../modules/FractionEtendue.js'
+
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+
 export const titre = 'Equations résolvantes pour le théorème de Thalès'
 
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const dateDeModificationImportante = '04/04/2022'
 /**
  * * Equations résolvantes pour le théorème de Thalès
- * * 3L13-2
+ * * 3L13-2 enfants : 4P10-2 et 4L15-1
  * * modification le 11/01/2021
  * * correctif le 27/03/2022
  * @author Sébastien Lozano
  */
+export const uuid = '6516e'
+export const ref = '3L13-2'
 export default function EqResolvantesThales () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -55,6 +64,7 @@ export default function EqResolvantesThales () {
     };
 
     // Un fonction pour afficher la simplification si c'est possible
+    // eslint-disable-next-line no-unused-vars
     function simplificationSiPossible (bool, frac, inc) {
       let sortie
       if (!bool) {
@@ -84,10 +94,11 @@ export default function EqResolvantesThales () {
       // on a besoin d'un coeff pour le type de nombres
       let coeff, masterChoix
       let nbAlea = [1, 1, 1]
-      let cTempCase3
-      while (cTempCase3 % 2 !== 0 || cTempCase3 % 5 !== 0) {
-        cTempCase3 = randint(11, 99)
-      };
+      // On génère un c pour s'assurer que le résultat soit décimal.
+      // Au min 10, au max 100
+      const exposantDeDeux = randint(1, 2)
+      const exposantDeCinq = randint(1, 2)
+      const cTempCase3 = 2 ** exposantDeDeux * 5 ** exposantDeCinq
 
       this.sup = Number(this.sup) // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
       switch (this.sup) {
@@ -132,9 +143,9 @@ export default function EqResolvantesThales () {
       };
 
       const params = {
-        a: calcul(nbAlea[0] * coeff[0]),
-        b: calcul(nbAlea[1] * coeff[1]),
-        c: calcul(nbAlea[2] * coeff[2]),
+        a: nbAlea[0] * coeff[0],
+        b: nbAlea[1] * coeff[1],
+        c: nbAlea[2] * coeff[2],
         inc: inc,
         fraction: new FractionX(nbAlea[1] * nbAlea[0], nbAlea[2] / coeff[0] / coeff[1])
       }
@@ -142,7 +153,7 @@ export default function EqResolvantesThales () {
       // pour les situations, autant de situations que de cas dans le switch !
       const situations = [
         { // x/b = a/c
-          eq: `\\dfrac{${params.inc}}{${texNombre(params.b)}}=\\dfrac{${texNombre(params.a)}}{${texNombre(params.c)}}`,
+          eq: `\\dfrac{${params.inc}}{${texNombre(params.b, 1)}}=\\dfrac{${texNombre(params.a, 1)}}{${texNombre(params.c, 1)}}`,
           tab: tableauColonneLigne([params.inc, params.a], [params.b], [params.c]),
           a: params.a,
           b: params.b,
@@ -152,7 +163,7 @@ export default function EqResolvantesThales () {
           trivial: (params.b === params.c) || (params.c === params.a)
         },
         { // a/c = x/b
-          eq: `\\dfrac{${texNombre(params.a)}}{${texNombre(params.c)}}=\\dfrac{${params.inc}}{${texNombre(params.b)}}`,
+          eq: `\\dfrac{${texNombre(params.a, 1)}}{${texNombre(params.c, 1)}}=\\dfrac{${params.inc}}{${texNombre(params.b, 1)}}`,
           tab: tableauColonneLigne([params.a, params.inc], [params.c], [params.b]),
           a: params.a,
           b: params.b,
@@ -162,7 +173,7 @@ export default function EqResolvantesThales () {
           trivial: (params.b === params.c) || (params.c === params.a)
         },
         { // b/x = c/a
-          eq: `\\dfrac{${texNombre(params.b)}}{${params.inc}}=\\dfrac{${texNombre(params.c)}}{${texNombre(params.a)}}`,
+          eq: `\\dfrac{${texNombre(params.b, 1)}}{${params.inc}}=\\dfrac{${texNombre(params.c, 1)}}{${texNombre(params.a, 1)}}`,
           tab: tableauColonneLigne([params.b, params.c], [params.inc], [params.a]),
           a: params.a,
           b: params.b,
@@ -172,7 +183,7 @@ export default function EqResolvantesThales () {
           trivial: (params.b === params.c) || (params.c === params.a)
         },
         { // c/a = b/x
-          eq: `\\dfrac{${texNombre(params.c)}}{${texNombre(params.a)}}=\\dfrac{${texNombre(params.b)}}{${params.inc}}`,
+          eq: `\\dfrac{${texNombre(params.c, 1)}}{${texNombre(params.a, 1)}}=\\dfrac{${texNombre(params.b, 1)}}{${params.inc}}`,
           tab: tableauColonneLigne([params.c, params.b], [params.a], [params.inc]),
           a: params.a,
           b: params.b,
@@ -185,6 +196,7 @@ export default function EqResolvantesThales () {
 
       let enoncePlus
       let corrPlusPremiereLigne
+      let correctionInteractif
 
       const enonces = []
       for (let k = 0; k < situations.length; k++) {
@@ -202,14 +214,13 @@ export default function EqResolvantesThales () {
           correction: `${corrPlusPremiereLigne}
 $${situations[k].eq}$<br>
 ${texteEnCouleurEtGras('Les produits en croix sont égaux.')}<br>
-$${texNombre(situations[k].c)}\\times ${situations[k].inc} = ${texNombre(situations[k].a)}\\times ${texNombre(situations[k].b)}$<br>
-${texteEnCouleurEtGras(`On divise les deux membres par ${texNombre(situations[k].c)}`)}.<br>
-$\\dfrac{${texNombre(situations[k].c)}\\times ${situations[k].inc}}{${texNombre(situations[k].c)}}= \\dfrac{${texNombre(situations[k].a)}\\times ${texNombre(situations[k].b)}}{${texNombre(situations[k].c)}}$<br>
-${texteEnCouleurEtGras('On simplifie les écritures.')}<br>
-$${situations[k].inc}=\\dfrac{${situations[k].fraction.num}}{${situations[k].fraction.den}}$<br>
-${simplificationSiPossible(situations[k].fraction.estIrreductible, situations[k].fraction, situations[k].inc)}
-${trivial(situations[k].trivial, texNombre(situations[k].a), texNombre(situations[k].b), texNombre(situations[k].c), situations[k].inc)}
-`
+$${texNombre(situations[k].c, 1)}\\times ${situations[k].inc} = ${texNombre(situations[k].a, 1)}\\times ${texNombre(situations[k].b, 1)}$<br>
+${texteEnCouleurEtGras(`On divise les deux membres par ${texNombre(situations[k].c, 1)}`)}.<br>
+$\\dfrac{${texNombre(situations[k].c, 1)}\\times ${situations[k].inc}}{${texNombre(situations[k].c, 1)}}= \\dfrac{${texNombre(situations[k].a, 1)}\\times ${texNombre(situations[k].b, 1)}}{${texNombre(situations[k].c, 1)}}$<br>
+${texteEnCouleurEtGras('On simplifie et on calcule.')}<br>
+$${situations[k].inc}=${texNombre(situations[k].b * situations[k].a / situations[k].c, 2)}$
+${trivial(situations[k].trivial, texNombre(situations[k].a, 1), texNombre(situations[k].b, 1), texNombre(situations[k].c, 1), situations[k].inc)}`,
+          correctionInteractif: [(situations[k].b * situations[k].a / situations[k].c).toFixed(2)]
         })
       };
 
@@ -225,6 +236,7 @@ ${trivial(situations[k].trivial, texNombre(situations[k].a), texNombre(situation
           } else {
             texteCorr = `${enonces[0].correction}`
           };
+          correctionInteractif = enonces[0].correctionInteractif[0].replace('{', '').replace('}', '')
           break
         case 1:
           texte = `${enonces[1].enonce}`
@@ -235,6 +247,7 @@ ${trivial(situations[k].trivial, texNombre(situations[k].a), texNombre(situation
           } else {
             texteCorr = `${enonces[1].correction}`
           };
+          correctionInteractif = enonces[1].correctionInteractif[0].replace('{', '').replace('}', '')
           break
         case 2:
           texte = `${enonces[2].enonce}`
@@ -245,6 +258,7 @@ ${trivial(situations[k].trivial, texNombre(situations[k].a), texNombre(situation
           } else {
             texteCorr = `${enonces[2].correction}`
           };
+          correctionInteractif = enonces[2].correctionInteractif[0].replace('{', '').replace('}', '')
           break
         case 3:
           texte = `${enonces[3].enonce}`
@@ -255,9 +269,13 @@ ${trivial(situations[k].trivial, texNombre(situations[k].a), texNombre(situation
           } else {
             texteCorr = `${enonces[3].correction}`
           };
+          correctionInteractif = enonces[3].correctionInteractif[0].replace('{', '').replace('}', '')
           break
       };
-
+      if (this.interactif && !context.isAmc) {
+        texte += ajouteChampTexteMathLive(this, i, 'inline largeur25', { texte: `<br> ${inc} = ` })
+        setReponse(this, i, new FractionX(correctionInteractif), { formatInteractif: 'fractionEgale' })
+      }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

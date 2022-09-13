@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, calcul, choice, texNombrec, creerNomDePolygone } from '../../../modules/outils.js'
 import {
-  mathalea2d, point, labelPoint, segment, codeSegments
+  point, labelPoint, segment, codageSegments
 } from '../../../modules/2d.js'
 export const titre = 'Calculer une longueur avec le théorème de Thalès (milieu)'
 export const interactifReady = true
@@ -13,6 +14,8 @@ export const interactifType = 'mathLive'
  * Référence can4G07
  * Date de publication septembre 2021
 */
+export const uuid = 'ae712'
+export const ref = 'can4G07'
 export default function CalculLongueurThalesMilieu () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
@@ -23,7 +26,7 @@ export default function CalculLongueurThalesMilieu () {
   this.nouvelleVersion = function () {
     let a, A, B, C, D, E, objets, nom
     if (choice([true, false])) {
-      nom = creerNomDePolygone(5, ['Q'])
+      nom = creerNomDePolygone(5, ['QD'])
       a = randint(1, 9) + randint(1, 5) / 10 + randint(1, 9) / 100
 
       A = point(0, 0, nom[0], 'below')
@@ -33,7 +36,7 @@ export default function CalculLongueurThalesMilieu () {
       E = point(3, 0, nom[4], 'below')
       objets = []
       objets.push(segment(A, B), segment(D, E), segment(A, C), segment(B, C),
-        codeSegments('||', 'blue', A, D, D, C), labelPoint(A, B, C, D, E))
+        codageSegments('||', 'blue', A, D, D, C), labelPoint(A, B, C, D, E))
 
       this.question = `$(${nom[3]}${nom[4]})//(${nom[1]}${nom[2]})$ et  
       $${nom[3]}${nom[4]}=${texNombrec(a)}$.
@@ -47,7 +50,7 @@ export default function CalculLongueurThalesMilieu () {
 
       this.reponse = calcul(2 * a)
     } else {
-      nom = creerNomDePolygone(5, ['Q'])
+      nom = creerNomDePolygone(5, ['QD'])
       a = calcul((randint(1, 9) + randint(1, 5) / 10) * 2)
       A = point(0, 0, nom[0], 'below')
       B = point(6, 0, nom[1], 'below')
@@ -56,7 +59,7 @@ export default function CalculLongueurThalesMilieu () {
       E = point(3, 0, nom[4], 'below')
       objets = []
       objets.push(segment(A, B), segment(D, E), segment(A, C), segment(B, C),
-        codeSegments('||', 'blue', A, D, D, C), labelPoint(A, B, C, D, E))
+        codageSegments('||', 'blue', A, D, D, C), labelPoint(A, B, C, D, E))
 
       this.question = `$(${nom[3]}${nom[4]})//(${nom[1]}${nom[2]})$ et 
        $${nom[1]}${nom[2]}=${texNombrec(a)}$. 

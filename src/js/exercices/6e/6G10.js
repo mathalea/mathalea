@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, creerNomDePolygone, combinaisonListes } from '../../modules/outils.js'
-import { point, labelPoint, droite, segment, demiDroite, mathalea2d } from '../../modules/2d.js'
+import { point, labelPoint, droite, segment, demiDroite } from '../../modules/2d.js'
 export const titre = 'Utiliser la notation de droites, segments et demi-droites'
 
 /**
@@ -8,6 +9,8 @@ export const titre = 'Utiliser la notation de droites, segments et demi-droites'
  * @author Rémi Angot
  * Référence 6G10
  */
+export const uuid = '8f5d3'
+export const ref = '6G10'
 export default function NotationSegmentDroiteDemiDroite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -21,9 +24,11 @@ export default function NotationSegmentDroiteDemiDroite () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     const listeDesTypesDeQuestions = combinaisonListes([1, 1, 2, 3, 4, 4], this.nbQuestions * 3)
-
+    let listeDeNomsDePolygones
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const p = creerNomDePolygone(3, 'PQ')
+      if (i % 5 === 0) listeDeNomsDePolygones = ['PQD']
+      const p = creerNomDePolygone(3, listeDeNomsDePolygones)
+      listeDeNomsDePolygones.push(p)
       const A = point(0, 0, p[0], 'above left')
       const B = point(1, 1.2, p[1], 'above')
       const C = point(2.2, -0.3, p[2], 'above right')

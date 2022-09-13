@@ -9,6 +9,8 @@ export const amcReady = true
 export const amcType = 'AMCNum' // type de question AMC
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const dateDeModifImportante = '09/04/2022'
+
 /**
  * Exercice de calcul de produit de deux fractions.
  *
@@ -18,12 +20,15 @@ export const interactifType = 'mathLive'
  * * 3 : Produits de nombres relatifs
  * * Si décomposition cochée : les nombres utilisés sont plus importants.
  * @author Jean-Claude Lhote
+ * Ajout d'une option pour ne pas exiger une fraction irréductible le 09/04/2022 par Guillaume Valmont
  * 4C22
  */
+export const uuid = '72ce7'
+export const ref = '4C22'
 export default function ExerciceMultiplierFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1 // Avec ou sans relatifs
-  this.consigne = 'Calculer et donner le résultat sous forme irréductible.'
+  this.sup3 = true
   if (context.isAmc) this.titre = 'Multiplier des fractions et donner le résultat sous forme irréductible'
   this.spacing = 2
   this.spacingCorr = 2
@@ -36,6 +41,12 @@ export default function ExerciceMultiplierFractions () {
     this.autoCorrection = []
     let typesDeQuestionsDisponibles
     const listeFractions = obtenirListeFractionsIrreductibles()
+    const fractionIrreductibleDemandee = this.sup3
+    if (fractionIrreductibleDemandee) {
+      this.consigne = 'Calculer et donner le résultat sous forme irréductible.'
+    } else {
+      this.consigne = 'Calculer.'
+    }
 
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1, 2, 2, 2]// 1*nombre entier,3*fraction (pas de négatifs)
@@ -439,8 +450,13 @@ export default function ExerciceMultiplierFractions () {
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
-        if (context.isAmc) texte = 'Calculer et donner la réponse sous forme irréductible\\\\\n' + texte
-        setReponse(this, i, reponse, { formatInteractif: 'fraction', digits: 5, digitsNum: 3, digitsDen: 2, signe: true })
+        if (fractionIrreductibleDemandee) {
+          if (context.isAmc) texte = 'Calculer et donner la réponse sous forme irréductible\\\\\n' + texte
+          setReponse(this, i, reponse, { formatInteractif: 'fraction', digits: 5, digitsNum: 3, digitsDen: 2, signe: true })
+        } else {
+          if (context.isAmc) texte = 'Calculer\\\\\n' + texte
+          setReponse(this, i, reponse, { formatInteractif: 'fractionEgale', digits: 5, digitsNum: 3, digitsDen: 2, signe: true })
+        }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
@@ -456,4 +472,5 @@ export default function ExerciceMultiplierFractions () {
     ' 1 : Fractions à numérateur et dénominateur positifs \n 2 : Type 1 et type 3 pour 50%/50%\n 3 : Ecritures fractionnaires à numérateur et dénominateur entiers relatifs'
   ]
   this.besoinFormulaire2CaseACocher = ['Avec décomposition']
+  this.besoinFormulaire3CaseACocher = ['Demander une fraction irréductible']
 }

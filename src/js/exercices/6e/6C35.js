@@ -1,8 +1,9 @@
 /* eslint-disable camelcase */
 
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { rangeMinMax, choice, randint, objet, jour, listeQuestionsToContenu, prenomF, prenomM, objetF, objetM, sp, shuffle, range, deuxColonnes, texteEnCouleurEtGras } from '../../modules/outils.js'
-import { point, polygone, segment, mathalea2d, texteParPosition } from '../../modules/2d.js'
+import { point, polygone, segment, texteParPosition } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -28,6 +29,8 @@ export const dateDeModifImportante = '16/11/2021'
  * Référence 6C35
  * Relecture : Novembre 2021 par EE
 */
+export const uuid = '4e89b'
+export const ref = '6C35'
 export default function ModelisationProblemes () {
   Exercice.call(this)
   this.titre = titre
@@ -105,7 +108,6 @@ export default function ModelisationProblemes () {
         brouilleLesCartes = shuffle(range(this.nbQuestions - 1))
     }
     const listeTypeDeQuestions = shuffle(typesDeQuestionsDisponibles)
-    console.log(listeTypeDeQuestions)
     const b1 = randint(15, 50)
     let c1 = randint(5, 9)
     const c3 = randint(5, 9)

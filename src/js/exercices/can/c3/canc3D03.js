@@ -1,5 +1,5 @@
-import { choice, randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { choice, randint } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Ajouter des durées'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -9,6 +9,8 @@ export const dateDePublication = '20/11/2021'
  * @author Jean-Claude Lhote
  * Référence canc3D03
  */
+export const uuid = 'e3b7d'
+export const ref = 'canc3D03'
 export default function AjouterDesDurees () {
   Exercice.call(this)
   this.typeExercice = 'simple'

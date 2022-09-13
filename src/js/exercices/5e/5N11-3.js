@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, combinaisonListes, randint, texNombre, choice,
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-export const titre = 'Écrire une fraction sur 100 puis sous la forme d’un pourcentage'
+export const titre = 'Écrire une fraction sur 100 puis sous la forme d\'un pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcType = 'AMCNum'
@@ -17,6 +17,8 @@ export const dateDeModifImportante = '17/03/2022'
  * Référence 5N11-3
  * 2021-02-06
 */
+export const uuid = '0e58f'
+export const ref = '5N11-3'
 export default function FractionVersPourcentage () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
