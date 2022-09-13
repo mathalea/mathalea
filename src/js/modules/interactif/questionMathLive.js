@@ -8,10 +8,11 @@ import { gestionCan } from './gestionCan.js'
 import { sp, texteExposant } from '../outils.js'
 import * as pkg from '@cortex-js/compute-engine'
 const { ComputeEngine } = pkg
-export function verifQuestionMathLive (exercice, i) {
+export function verifQuestionMathLive (exercice, i, writeResult = true) {
   const engine = new ComputeEngine()
   let saisieParsee, num, den, fSaisie, fReponse
   const formatInteractif = exercice.autoCorrection[i].reponse.param.formatInteractif
+  const precision = exercice.autoCorrection[i].reponse.param.precision
   const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
   // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
   let reponse, saisie, nombreSaisi, grandeurSaisie, mantisseSaisie, expoSaisi, nombreAttendu, mantisseReponse, expoReponse
@@ -27,6 +28,9 @@ export function verifQuestionMathLive (exercice, i) {
     champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
     if (champTexte === {} || champTexte === undefined) champTexte = { value: '' }
     let resultat = 'KO'
+    let statut = 'OK'
+    let feedbackSaisie
+    let feedbackCorrection
     let ii = 0
     while ((resultat === 'KO') && (ii < reponses.length)) {
       reponse = reponses[ii]
@@ -84,10 +88,11 @@ export function verifQuestionMathLive (exercice, i) {
 
           if (champTexte !== undefined) saisie = champTexte.value
           else saisie = ''
-          // console.log('saisie : ', saisie) // EE : NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
-          // console.log('reponse : ', reponse) // EE : NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
+          // console.log({ saisie, reponse}) // EE : NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
           if (saisie === reponse) {
             resultat = 'OK'
+          } else if (saisie.replaceAll('\\,', '') === reponse.replaceAll('\\,', '')) {
+            feedbackCorrection = 'Attention aux espaces !'
           }
           break
 
@@ -137,8 +142,13 @@ export function verifQuestionMathLive (exercice, i) {
           grandeurSaisie = saisieToGrandeur(saisie)
           if (grandeurSaisie) {
             if (grandeurSaisie.estEgal(reponse)) resultat = 'OK'
+            else if (precision && grandeurSaisie.estUneApproximation(reponse, precision)) feedbackCorrection = 'Erreur d\'arrondi.'
           } else {
-            resultat = 'essaieEncoreAvecUneSeuleUnite'
+            if (saisie === '') {
+              resultat = 'KO'
+            } else {
+              resultat = 'essaieEncoreAvecUneSeuleUnite'
+            }
           }
           break
         case 'intervalleStrict':// Pour les exercice où la saisie doit être dans un intervalle
@@ -227,7 +237,8 @@ export function verifQuestionMathLive (exercice, i) {
       }
       ii++
     }
-    if (resultat === 'OK') {
+    spanReponseLigne.innerHTML = ''
+    if (resultat === 'OK' && writeResult) {
       spanReponseLigne.innerHTML = '😎'
       spanReponseLigne.style.fontSize = 'large'
       if (champTexte !== undefined) champTexte.readOnly = true
@@ -239,16 +250,19 @@ export function verifQuestionMathLive (exercice, i) {
     ' par exemple).</em>'
       spanReponseLigne.style.color = '#f15929'
       spanReponseLigne.style.fontWeight = 'bold'
+      statut = 'wait'
     } else if (resultat === 'essaieEncorePuissance') {
       spanReponseLigne.innerHTML = '<br><em>Attention, la réponse est mathématiquement correcte mais n\'a pas le format demandé.</em>'
       spanReponseLigne.style.color = '#f15929'
       spanReponseLigne.style.fontWeight = 'bold'
-    } else {
+    } else if (writeResult) {
       spanReponseLigne.innerHTML = '☹️'
       spanReponseLigne.style.fontSize = 'large'
       if (champTexte !== undefined) champTexte.readOnly = true
     }
-    return resultat
+    if (feedbackSaisie) spanReponseLigne.innerHTML += `<span style="margin-left: 10px">${feedbackSaisie}</span>`
+    if (feedbackCorrection && writeResult) spanReponseLigne.innerHTML += `<span style="margin-left: 10px">${feedbackCorrection}</span>`
+    return { resultat, statut }
   } catch (error) {
     window.notify(`Erreur dans verif QuestionMathLive : ${error} <br> Avec les métadonnées : `, { champTexteValue: champTexte._slotValue, exercice: exercice.id, i, autoCorrection: exercice.autoCorrection[i], formatInteractif, spanReponseLigne })
   }
@@ -333,19 +347,27 @@ export function exerciceMathLive (exercice) {
           button.addEventListener('click', event => {
             let nbBonnesReponses = 0
             let nbMauvaisesReponses = 0
-            const besoinDe2eEssai = false
+            let besoinDe2eEssai = false
             let resultat
+            let wait = false
             for (const i in exercice.autoCorrection) {
-              resultat = verifQuestionMathLive(exercice, i)
-              if (resultat === 'OK') {
-                nbBonnesReponses++
-              } else {
-                nbMauvaisesReponses++ // Il reste à gérer le 2e essai
-              }
+              if (verifQuestionMathLive(exercice, i, false).statut === 'wait') wait = true
             }
-            if (!besoinDe2eEssai) {
-              button.classList.add('disabled')
-              afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
+            if (!wait) {
+              for (const i in exercice.autoCorrection) {
+                if (verifQuestionMathLive(exercice, i).statut) { resultat = verifQuestionMathLive(exercice, i).resultat }
+                if (resultat === 'OK') {
+                  nbBonnesReponses++
+                } else if (resultat === 'wait') {
+                  besoinDe2eEssai = true
+                } else {
+                  nbMauvaisesReponses++ // Il reste à gérer le 2e essai
+                }
+              }
+              if (!besoinDe2eEssai) {
+                button.classList.add('disabled')
+                afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
+              }
             }
           })
           button.hasMathaleaListener = true

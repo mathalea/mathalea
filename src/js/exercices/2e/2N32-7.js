@@ -102,5 +102,5 @@ export default function Rendreentier () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Dénominateur sqrt{a}\\n2 : Dénominateur a+\\sqrt{b}\\n3 :Dénominateur a+b sqrt{x} ']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Dénominateur « racine de a »\n2 : Dénominateur « a + racine de b »\n3 : Dénominateur « a + b racine de x »']
 }

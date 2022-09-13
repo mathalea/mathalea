@@ -1,7 +1,7 @@
-import FabriqueAYohaku from '../6e/Yohaku.js'
+import FabriqueAYohaku from '../6e/_Yohaku.js'
 export const titre = 'Yohaku multiplicatif fractions niveau 1'
 export const dateDePublication = '10/08/2022'
-export { interactifReady, interactifType } from '../6e/Yohaku.js'
+export { interactifReady, interactifType } from '../6e/_Yohaku.js'
 
 export const uuid = 'ee808'
 export const ref = '4C22-3'

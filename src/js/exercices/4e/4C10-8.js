@@ -1,7 +1,7 @@
-import FabriqueAYohaku from '../6e/Yohaku.js'
+import FabriqueAYohaku from '../6e/_Yohaku.js'
 export const titre = 'Yohaku multiplicatif nombres relatifs niveau 1'
 export const dateDePublication = '10/08/2022'
-export { interactifReady, interactifType } from '../6e/Yohaku.js'
+export { interactifReady, interactifType } from '../6e/_Yohaku.js'
 
 export const uuid = '2fbc0'
 export const ref = '4C10-8'

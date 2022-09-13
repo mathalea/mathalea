@@ -209,7 +209,7 @@ export default function Pythagore2D () {
             texteCorr += `<br> $${A.nom + B.nom}\\approx${AB}$ cm.`
             if (this.interactif && context.isHtml) texte += `<br>$${A.nom + B.nom}\\approx$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
           }
-          context.isAmc ? setReponse(this, i, reponse) : setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'unites' })
+          context.isAmc ? setReponse(this, i, reponse) : setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'unites', precision: 0.001 })
         }
         if (listeTypeDeQuestions[i] === 'BC') {
           const BC = texNombre(calcul(Math.sqrt(longueurAB ** 2 + longueurAC ** 2), 1))
@@ -223,7 +223,7 @@ export default function Pythagore2D () {
             texteCorr += `<br> $${B.nom + C.nom}\\approx${BC}$ cm.`
             if (this.interactif && context.isHtml) texte += `<br>$${B.nom + C.nom}\\approx$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
           }
-          context.isAmc ? setReponse(this, i, reponse) : setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'unites' })
+          context.isAmc ? setReponse(this, i, reponse) : setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'unites', precision: 0.001 })
         }
         if (listeTypeDeQuestions[i] === 'AC') {
           const AC = texNombre(calcul(Math.sqrt(longueurBC ** 2 - longueurAB ** 2), 1))
@@ -238,7 +238,7 @@ export default function Pythagore2D () {
             texteCorr += `<br> $${A.nom + C.nom}\\approx${AC}$ cm.`
             if (this.interactif && context.isHtml) texte += `<br>$${A.nom + C.nom}\\approx$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
           }
-          context.isAmc ? setReponse(this, i, reponse) : setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'unites' })
+          context.isAmc ? setReponse(this, i, reponse) : setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'unites', precision: 0.001 })
         }
       } else {
         texte += ajouteChampTexteMathLive(this, i)

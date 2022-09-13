@@ -15,7 +15,7 @@ export function gestionCan (exercice) {
         button1question.addEventListener('click', () => {
           let resultat
           if (exercice.interactifType === 'mathLive') {
-            resultat = verifQuestionMathLive(exercice, i)
+            resultat = verifQuestionMathLive(exercice, i).resultat
           }
           if (exercice.interactifType === 'qcm') {
             resultat = verifQuestionQcm(exercice, i)

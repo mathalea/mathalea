@@ -63,6 +63,16 @@ class Grandeur {
       return false
     }
   }
+
+  estUneApproximation (unite2, precision) {
+    const u1 = this.convertirEn(this.uniteDeReference)
+    const u2 = unite2.convertirEn(this.uniteDeReference)
+    if (u1 && u2) {
+      if (Math.abs(u1.mesure - u2.mesure) <= precision + precision / 10) return true
+    } else {
+      return false
+    }
+  }
 }
 
 export default Grandeur

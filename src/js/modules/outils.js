@@ -864,6 +864,29 @@ export function combinaisonListesSansChangerOrdre (liste, tailleMinimale) {
   }
   return liste
 }
+/** Renvoie une liste exhaustive de tableaux contenant les mêmes élèments que tab mais jamais dans le même ordre
+* Fonction fort utile quand reponse est une suite de nombres par exemple. Voir ligne 111 Exercice 3A10-6.
+* Gros défaut :  Si tab contient plus de 6 éléments, cette fonction est chronophage. A ne pas utiliser
+* @example reponse = diversesReponsesPossibles([3,4,5]) renvoie [[3,4,5],[3,5,4],[4,3,5],[4,5,3],[5,3,4],[5,4,3]]
+* et ensuite pour les tous les i : reponse[i]=reponse[i].join(';') et reponse contient alors toutes les réponses possibles
+* @author Eric Elter
+* Septembre 2022
+*/
+export function diversesReponsesPossibles (tab) {
+  let tab2, tab3
+  const rep = []
+  if (tab.length === 1) return (tab)
+  for (let ee = 0; ee < tab.length; ee++) {
+    tab2 = tab.slice()
+    tab2.splice(ee, 1)
+    tab3 = diversesReponsesPossibles(tab2)
+    for (let k = 0; k < tab3.length; k++) {
+      rep.push([tab[ee]].concat(tab3[k]))
+    }
+  }
+  return rep
+}
+
 /**
 * N'écrit pas un nombre s'il est égal à 1
 * @Example
@@ -1292,13 +1315,15 @@ export function unSiPositifMoinsUnSinon (a) {
   else return 1
 }
 /**
-* Retourne la somme des chiffres d'un nombre en valeur et sous forme de String [valeur, String]
+* Retourne la somme des chiffres (ou d'un tableau de chiffres) d'un nombre en valeur et sous forme de String [valeur, String]
 * @Example
-* sommeDesChiffress(123)
+* sommeDesChiffres(123)
 * // [ 6, '1+2+3']
-* @author Rémi Angot
+* @author Rémi Angot (Rajout Tableau par EE)
 */export function sommeDesChiffres (n) {
-  const nString = n.toString()
+  let nString
+  if (Array.isArray(n)) nString = n.join('').toString()
+  else nString = n.toString()
   let somme = 0
   let sommeString = ''
   for (let i = 0; i < nString.length - 1; i++) {
@@ -1423,13 +1448,13 @@ export function texFractionReduite (n, d) {
 export function produitDeDeuxFractions (num1, den1, num2, den2) {
   let num, den, texProduit
   if (num1 === den2) {
-    texProduit = `\\dfrac{\\cancel{${num1}}\\times ${num2}}{${den1}\\times\\cancel{${den2}}}`
+    texProduit = `\\dfrac{\\cancel{${num1}}\\times ${ecritureParentheseSiNegatif(num2)}}{${den1}\\times\\cancel{${ecritureParentheseSiNegatif(den2)}}}`
     num = num2
     num1 = 1
     den2 = 1
     den = den1
   } else if (num2 === den1) {
-    texProduit = `\\dfrac{${num1}\\times \\cancel{${num2}}}{\\cancel{${den1}}\\times${den2}}`
+    texProduit = `\\dfrac{${num1}\\times \\cancel{${ecritureParentheseSiNegatif(num2)}}}{\\cancel{${den1}}\\times${ecritureParentheseSiNegatif(den2)}}`
     num = num1
     num2 = 1
     den1 = 1
@@ -1437,7 +1462,7 @@ export function produitDeDeuxFractions (num1, den1, num2, den2) {
   } else {
     num = num1 * num2
     den = den1 * den2
-    texProduit = `\\dfrac{${num1}\\times ${num2}}{${den1}\\times${den2}}`
+    texProduit = `\\dfrac{${num1}\\times ${ecritureParentheseSiNegatif(num2)}}{${den1}\\times${ecritureParentheseSiNegatif(den2)}}`
   }
   return [texFraction(num, den), texProduit, [num1, den1, num2, den2]]
 }
@@ -3083,11 +3108,15 @@ export function premiereLettreEnMajuscule (text) { return (text + '').charAt(0).
 
 /**
 * Renvoie le nombre de chiffres de la partie décimale
+* @param nb : nombre décimal
+* @param except : chiffre à ne pas compter (0 par exemple) [Ajout EE]
 * @author Rémi Angot
 */
-export function nombreDeChiffresDansLaPartieDecimale (nb) {
+export function nombreDeChiffresDansLaPartieDecimale (nb, except = 'aucune') {
+  let sauf = 0
   if (String(nb).indexOf('.') > 0) {
-    return String(nb).split('.')[1].length
+    if (!isNaN(except)) sauf = (String(nb).split('.')[1].split(String(except)).length - 1)
+    return String(nb).split('.')[1].length - sauf
   } else {
     return 0
   }
@@ -3096,25 +3125,29 @@ export function nombreDeChiffresDansLaPartieDecimale (nb) {
  * Renvoie le nombre de chiffres dans la partie entière
  * @author ?
  */
-export function nombreDeChiffresDansLaPartieEntiere (nb) {
-  let nombre
+export function nombreDeChiffresDansLaPartieEntiere (nb, except = 'aucune') {
+  let nombre; let sauf = 0
   if (nb < 0) {
     nombre = -nb
   } else {
     nombre = nb
   }
   if (String(nombre).indexOf('.') > 0) {
-    return String(nombre).split('.')[0].length
+    if (!isNaN(except)) sauf = (String(nombre).split('.')[0].split(String(except)).length - 1)
+    return String(nombre).split('.')[0].length - sauf
   } else {
+    if (!isNaN(except)) sauf = (String(nombre).split(String(except)).length - 1)
     return String(nombre).length
   }
 }
 /**
  * Renvoie le nombre de chiffres d'un nombre décimal
+ * @param nb : nombre décimal
+ * @param except : chiffre à ne pas compter (0 par exemple) [Ajout EE]
  * @author Jean-Claude Lhote
  */
-export function nombreDeChiffresDe (nb) {
-  return nombreDeChiffresDansLaPartieDecimale(nb) + nombreDeChiffresDansLaPartieEntiere(nb)
+export function nombreDeChiffresDe (nb, except) {
+  return nombreDeChiffresDansLaPartieDecimale(nb, except) + nombreDeChiffresDansLaPartieEntiere(nb, except)
 }
 /**
  * Retourne la string LaTeX de la fraction
@@ -4518,25 +4551,24 @@ export function texteOuPas (texte) {
  * @author Sébastien Lozano
  *
  */
-export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLignes, arraystretch) {
-  'use strict'
-  let myLatexArraystretch
-  if (typeof arraystretch === 'undefined') {
-    myLatexArraystretch = 1
-  } else {
-    myLatexArraystretch = arraystretch
-  }
-
+export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLignes, arraystretch, math = true) {
   // on définit le nombre de colonnes
   const C = tabEntetesColonnes.length
   // on définit le nombre de lignes
   const L = tabEntetesLignes.length
   // On construit le string pour obtenir le tableau pour compatibilité HTML et LaTeX
   let tableauCL = ''
+  if (!arraystretch) {
+    if (context.isHtml) {
+      arraystretch = 2.5
+    } else {
+      arraystretch = 1
+    }
+  }
   if (context.isHtml) {
-    tableauCL += '$\\def\\arraystretch{2.5}\\begin{array}{|'
+    tableauCL += `$\\def\\arraystretch{${arraystretch}}\\begin{array}{|`
   } else {
-    tableauCL += `$\\renewcommand{\\arraystretch}{${myLatexArraystretch}}\n`
+    tableauCL += `$\\renewcommand{\\arraystretch}{${arraystretch}}\n`
     tableauCL += '\\begin{array}{|'
   }
   // on construit la 1ere ligne avec toutes les colonnes
@@ -4547,15 +4579,15 @@ export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLi
 
   tableauCL += '\\hline\n'
   if (typeof tabEntetesColonnes[0] === 'number') {
-    tableauCL += texNombre(tabEntetesColonnes[0])
+    tableauCL += math ? texNombre(tabEntetesColonnes[0]) + '' : `\\text{${stringNombre(tabEntetesColonnes[0])}} `
   } else {
-    tableauCL += tabEntetesColonnes[0]
+    tableauCL += math ? tabEntetesColonnes[0] : `\\text{${tabEntetesColonnes[0]}}`
   }
   for (let k = 1; k < C; k++) {
     if (typeof tabEntetesColonnes[k] === 'number') {
-      tableauCL += ' & ' + texNombre(tabEntetesColonnes[k]) + ''
+      tableauCL += ` & ${math ? texNombre(tabEntetesColonnes[k]) : '\\text{' + stringNombre(tabEntetesColonnes[k]) + '}'}`
     } else {
-      tableauCL += ' & ' + tabEntetesColonnes[k] + ''
+      tableauCL += ` & ${math ? tabEntetesColonnes[k] : '\\text{' + tabEntetesColonnes[k] + '}'}`
     }
   }
   tableauCL += '\\\\\n'
@@ -4563,15 +4595,15 @@ export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLi
   // on construit toutes les lignes
   for (let k = 0; k < L; k++) {
     if (typeof tabEntetesLignes[k] === 'number') {
-      tableauCL += '' + texNombre(tabEntetesLignes[k]) + ''
+      tableauCL += math ? texNombre(tabEntetesLignes[k]) : `\\text{${stringNombre(tabEntetesLignes[k]) + ''}}`
     } else {
-      tableauCL += '' + tabEntetesLignes[k] + ''
+      tableauCL += math ? tabEntetesLignes[k] : `\\text{${tabEntetesLignes[k] + ''}}`
     }
     for (let m = 1; m < C; m++) {
       if (typeof tabLignes[(C - 1) * k + m - 1] === 'number') {
-        tableauCL += ' & ' + texNombre(tabLignes[(C - 1) * k + m - 1])
+        tableauCL += ` & ${math ? texNombre(tabLignes[(C - 1) * k + m - 1]) : '\\text{' + stringNombre(tabLignes[(C - 1) * k + m - 1]) + '}'}`
       } else {
-        tableauCL += ' & ' + tabLignes[(C - 1) * k + m - 1]
+        tableauCL += ` & ${math ? tabLignes[(C - 1) * k + m - 1] : '\\text{' + tabLignes[(C - 1) * k + m - 1] + '}'}`
       }
     }
     tableauCL += '\\\\\n'
