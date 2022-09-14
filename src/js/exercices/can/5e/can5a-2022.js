@@ -7,7 +7,7 @@ import {
 import { round, min, max } from 'mathjs'
 import Grandeur from '../../../modules/Grandeur.js'
 import { paveLPH3d } from '../../../modules/3d.js'
-import { listeQuestionsToContenu, arrondi, tableauColonneLigne, randint, texNombre, shuffle, texFractionReduite, choice, calcul, sp, lettreDepuisChiffre } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, arrondi, tableauColonneLigne, stringNombre, randint, texNombre, shuffle, texFractionReduite, choice, calcul, sp, lettreDepuisChiffre } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
@@ -37,7 +37,12 @@ export default function SujetCAN2022cinquieme () {
   this.nbQuestions = 30// 10,20,30
   this.nbCols = 1
   this.nbColsCorr = 1
-
+  this.comment = `Cet exercice fait partie des annales des Courses aux nombres.<br>
+  Il est composé de 30 questions réparties de la façon suivante :<br>
+  les 10 premières questions parfois communes à plusieurs niveaux font appels à des questions automatisées élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
+  Par défaut, les questions sont rangées dans le même ordre que le sujet officiel avec des données aléatoires. Ainsi, en cliquant sur « Nouvelles données », on obtient une nouvelle course aux nombres avec des données différentes.
+  En choisissant un nombre de questions différents de 30, on fabrique une « mini » course aux nombres qui respecte la proportion de nombre de questions élémentaires par rapport aux autres.
+  Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 questions automatisées élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -390,9 +395,9 @@ export default function SujetCAN2022cinquieme () {
           poly2 = polygone([F, G, H], 'black')
           if (choix === 'a') { reponse = b }
           if (choix === 'b') { reponse = c }
-          e = texteParPosition(`$${a}^\\circ$`, 3.5, 2.3)// angle E
-          f = texteParPosition(`$${b}^\\circ$`, 1.5, 5)// angle C
-          g = texteParPosition(`$${c}^\\circ$`, 2.7, 5.5)// angle D
+          e = texteParPosition(`${stringNombre(a)}°`, 3.4, 2.5)// angle E
+          f = texteParPosition(`${stringNombre(b)}°`, 1.6, 4.9)// angle C
+          g = texteParPosition(`${stringNombre(c)}°`, 2.7, 5.5)// angle D
           if (choix === 'a') {
             h = texteParPosition('?', 7, 8.5)
             codeA = codageAngle(F, G, H)
@@ -405,7 +410,7 @@ export default function SujetCAN2022cinquieme () {
           poly1.epaisseur = 1
           poly2.epaisseur = 1
           texte = 'Le triangle $FGH$ est le symétrique du triangle $DEF$ par rapport à la droite $d$<br> '
-          texte += mathalea2d({ xmin: 0, ymin: 0, xmax: 10, ymax: 10, pixelsParCm: 27, scale: 0.7 }, poly1, poly2, labelPoint(C, D, E, F, G, H), d, e, f, g, h, codeA)
+          texte += mathalea2d({ xmin: 0, ymin: 0, xmax: 10, ymax: 10, pixelsParCm: 27, scale: 0.8 }, poly1, poly2, labelPoint(C, D, E, F, G, H), d, e, f, g, h, codeA)
           texteCorr = `La symétrie axiale conserve les angles.
            Cela signifie que la mesure de l'angle  $\\widehat{C}$ est égale à celle de l'angle $\\widehat{G}$, celle de l'angle $\\widehat{D}$ est égale à celle de
            l'angle $\\widehat{F}$ et celle de l'angle $\\widehat{E}$ est égale à celle de l'angle $\\widehat{H}$.`
