@@ -6780,14 +6780,61 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 \\fancypagestyle{premierePage}
 {
   \\fancyhead[C]{\\textbf{${entete}}}
-
 }
 ${preambulePersonnalise(listePackages)}
 
+% Spécifique sujets CAN
+\\usepackage{longtable}
 
+\\tikzset{
+  mybox/.style={
+    rectangle,
+    drop shadow, 
+    inner sep=17pt,
+    draw=gray,
+    shade,
+    top color=gray,
+    every shadow/.append style={fill=gray!40}, 
+    bottom color=gray!20
+    }
+  }
+  
+  \\newcommand\\MyBox[2][]{%
+    \\tikz\\node[mybox,#1] {#2}; 
+  }
+  \\newcounter{nbEx}
+  \\usepackage{totcount}
+  \\regtotcounter{nbEx}
+  \\def\\checkmark{\\tikz\\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
+  
 \\begin{document}
 \\thispagestyle{premierePage}
 
+\\setcounter{nbEx}{1}
+\\begin{minipage}{0.55\\textwidth}
+  \\textsc{Nom} : \\dotfill 
+  
+  \\medskip
+  \\textsc{Prénom} : \\dotfill 
+  
+  \\medskip
+  \\textsc{Classe} : \\dotfill 
+\\end{minipage}
+\\begin{minipage}{0.35\\textwidth}
+  \\begin{center}
+\\MyBox{\\Large\\textsc{Score} : \\dots\\dots / \\total{nbEx}}      
+  \\end{center}
+\\end{minipage}
+
+  \\par\\medskip \\hrulefill \\par
+  \\checkmark \\textbf{Durée : [À compléter dans le code source] minutes}
+  
+  \\checkmark L'épreuve comporte \\total{nbEx} questions.
+
+  \\checkmark L'usage de la calculatrice et du brouillon sont interdits.
+  Il n'est pas permis d'écrire des calculs intermédiaires.
+
+  \\par \\hrulefill \\par\\vspace{5mm}
 `
 }
 
