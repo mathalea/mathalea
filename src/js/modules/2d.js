@@ -553,12 +553,19 @@ export function pointAdistance (...args) {
   } else { return similitude(B, A, args[2], d, args[3], args[4]) }
 }
 
-/**
- * labelPoint(A,B) pour nommer les points A et B
- * Le nombre d'arguments n'est pas limité
- *
+/**  Nomme les points passés en argument, le nombre d'arguments n'est pas limité.
+ * @param  {...any} args Points mis à la suite
+ * @param {string} [color = 'black'] Couleur des points : du type 'blue' ou du type '#f15929'
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} color Couleur des points. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {number} taille Taille de la boite contenant le nom des points
+ * @property {number} largeur Largeur de la boite contenant le nom des points
+ * @property {number[]} bordures Coordonnées de la fenêtre d'affichage du genre [-2,-2,5,5]
  * @author Rémi Angot
+ * @class
  */
+// JSDOC Validee par EE Septembre 2022
 function LabelPoint (...points) {
   ObjetMathalea2D.call(this, { })
   if (!this.taille) this.taille = 10
@@ -566,7 +573,7 @@ function LabelPoint (...points) {
   if (typeof points[points.length - 1] === 'string') {
     this.color = colorToLatexOrHTML(points[points.length - 1])
     points.length--
-  }
+  } else this.color = colorToLatexOrHTML('black')
   let xmin = 1000
   let xmax = -1000
   let ymin = 1000
@@ -647,16 +654,17 @@ function LabelPoint (...points) {
     return code
   }
 }
-/**
- * Nomme les points passés en argument, le nombre d'arguments n'est pas limité.
- * @param  {...any} args Points
- * @param {string} [color='black']
- * @return {LabelPoint} LabelPoint
+
+/**  Nomme les points passés en argument, le nombre d'arguments n'est pas limité.
+ * @param  {...any} args Points mis à la suite
+ * @param {string} [color = 'black'] Couleur des points : du type 'blue' ou du type '#f15929'
  * @example labelPoint(A,B,C) // Retourne le nom des points A, B et C en noir
  * @example labelPoint(A,B,C,'red') // Retourne le nom des points A, B et C en rouge
  * @example labelPoint(A,B,C,'#f15929') // Retourne le nom des points A, B et C en orange (code couleur HTML : #f15929)
  * @author Rémi Angot
+ * @return {LabelPoint}
  */
+// JSDOC Validee par EE Septembre 2022
 export function labelPoint (...args) {
   return new LabelPoint(...args)
 }
