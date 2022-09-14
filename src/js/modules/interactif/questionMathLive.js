@@ -144,7 +144,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
             if (grandeurSaisie.estEgal(reponse)) resultat = 'OK'
             else if (precision && grandeurSaisie.estUneApproximation(reponse, precision)) feedbackCorrection = 'Erreur d\'arrondi.'
           } else {
-            if (saisie === '') {
+            if ((saisie === '') || isNaN(saisie)) {
               resultat = 'KO'
             } else {
               resultat = 'essaieEncoreAvecUneSeuleUnite'
