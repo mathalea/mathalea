@@ -140,7 +140,7 @@ $${miseEnEvidence(`${texPrix(prix)} \\times (100\\% - ${remise.str}) = ${texPrix
         prix = [prix1, prix2, prix3, prix4, prix5]
       }
 
-      if (this.sup === 1) { // coeff entier
+      if (this.sup === 1 || this.sup === '1') { // coeff entier // Rajout EE du 'ou' pour 5N11-2
         if (this.exo === '5N11-1') { // prix constant
           remises = choice([
             [{ str: '5\\%', nb: 5 }, { str: '10\\%', nb: 10 }, { str: '15\\%', nb: 15 }, { str: '20\\%', nb: 20 }, { str: '25\\%', nb: 25 }, { str: '30\\%', nb: 30 }],
@@ -173,9 +173,8 @@ $${miseEnEvidence(`${texPrix(prix)} \\times (100\\% - ${remise.str}) = ${texPrix
             [{ str: '75\\%', nb: 75 }, { str: '75\\%', nb: 75 }, { str: '75\\%', nb: 75 }, { str: '75\\%', nb: 75 }, { str: '75\\%', nb: 75 }, { str: '75\\%', nb: 75 }],
             [{ str: '80\\%', nb: 80 }, { str: '80\\%', nb: 80 }, { str: '80\\%', nb: 80 }, { str: '80\\%', nb: 80 }, { str: '80\\%', nb: 80 }, { str: '80\\%', nb: 80 }]
           ])
-        };
-      };
-      if (this.sup === 2) { // coeff décimal
+        }
+      } else if (this.sup === 2) { // coeff décimal
         if (this.exo === '5N11-1') { // prix constant
           remises = choice([
             [{ str: '10\\%', nb: 10 }, { str: '5\\%', nb: 5 }, { str: '15\\%', nb: 15 }, { str: '25\\%', nb: 25 }, { str: '35\\%', nb: 35 }, { str: '45\\%', nb: 45 }],

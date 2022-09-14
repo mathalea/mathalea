@@ -52,7 +52,7 @@ export default function EvolutionsEnPourcentage () {
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const typesDeSituations = combinaisonListes(situationsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     let date, cetteAnnee, anneeDerniere, etablissement, facture, nb
-    for (let i = 0, texte, texteCorr, depart, arrive, taux, coeff, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, depart, arrive, taux, coeff, reponse, texteApres, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typesDeSituations[i]) {
         case 'prix':
           depart = choice([calcul(randint(11, 99) / 10), randint(11, 99), randint(11, 99) * 10])
@@ -67,42 +67,42 @@ export default function EvolutionsEnPourcentage () {
                 texteCorr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.`
                 texteCorr += `<br>$${texPrix(depart)}\\times ${coeff} = ${texPrix(arrive)}$`
                 texteCorr += `<br>Le nouveau prix de cet article est $${texPrix(arrive)}$ €.`
-                reponse = arrive
               } else {
                 texte = `Un article coûtait $${texPrix(depart)}$ € et son prix est soldé à $${taux}~\\%$. Calculer son nouveau prix.`
                 texteCorr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.`
                 texteCorr += `<br>$${texPrix(depart)}\\times ${coeff} = ${texPrix(arrive)}$`
                 texteCorr += `<br>Le nouveau prix de cet article est $${texPrix(arrive)}$ €.`
-                reponse = arrive
               }
+              reponse = arrive
+              texteApres = ' €'
               break
             case 'initiale':
               if (taux > 0) {
                 texte = `Après une augmentation de $${taux}~\\%$ un article coûte maintenant $${texPrix(arrive)}$ €. Calculer son prix avant l'augmentation.`
                 texteCorr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\%=${100 + taux}~\\% = ${coeff}$.<br>Pour retrouver le prix initial, on va donc diviser le prix final par $${coeff}$.`
                 texteCorr += `<br>$${texPrix(arrive)}\\div ${coeff} = ${texPrix(depart)}$`
-                texteCorr += `<br>Avant l'augmentation cet article coûtait $${texPrix(depart)}$ €.`
-                reponse = depart
+                texteCorr += `<br>Avant l'augmentation, cet article coûtait $${texPrix(depart)}$ €.`
               } else {
                 texte = `Soldé à $${taux}~\\%$ un article coûte maintenant $${texPrix(arrive)}$ €. Calculer son prix avant les soldes.`
                 texteCorr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.<br>Pour retrouver le prix initial, on va donc diviser le prix final par $${coeff}$.`
                 texteCorr += `<br>$${texPrix(arrive)}\\div ${coeff} = ${texPrix(depart)}$`
-                texteCorr += `<br>Avant les soldes cet article coûtait $${texPrix(depart)}$ €.`
-                reponse = depart
+                texteCorr += `<br>Avant les soldes, cet article coûtait $${texPrix(depart)}$ €.`
               }
+              reponse = depart
+              texteApres = ' €'
               break
             case 'evolution':
               if (taux > 0) {
                 texte = `Un article qui coûtait $${texPrix(depart)}$ € coûte maintenant $${texPrix(arrive)}$ €. Exprimer l'augmentation du prix en pourcentage.`
                 texteCorr = `$${texPrix(arrive)}\\div ${texPrix(depart)} = ${coeff} =  ${100 + taux}~\\% = 100~\\%+${taux}~\\%$`
                 texteCorr += `<br>Le prix a été multiplié par ${coeff}, il a donc augmenté de $${taux}~\\%$.`
-                reponse = taux
               } else {
                 texte = `Un article qui coûtait $${texPrix(depart)}$ € coûte maintenant $${texPrix(arrive)}$ €. Exprimer la réduction du prix en pourcentage.`
                 texteCorr = `<br>$${texPrix(arrive)}\\div ${texPrix(depart)} = ${coeff} =  ${100 + taux}~\\% = 100~\\%${taux}~\\%$`
                 texteCorr += `<br>Le prix a été multiplié par $${coeff}$, il a donc diminué de $${abs(taux)}~\\%$.`
-                reponse = abs(taux)
               }
+              reponse = abs(taux)
+              texteApres = ' %'
               break
           }
           break
@@ -138,14 +138,14 @@ export default function EvolutionsEnPourcentage () {
                 texteCorr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.`
                 texteCorr += `<br>$${texNombre(depart)}\\times ${coeff} = ${texNombre(arrive)}$`
                 texteCorr += `<br>Il y a maintenant $${texNombre(arrive)}$ élèves dans ce ${etablissement}.`
-                reponse = arrive
               } else {
                 texte = `Un ${etablissement} avait $${texNombre(depart)}$ élèves en ${anneeDerniere}. Depuis, le nombre d'élèves a diminué de $${abs(taux)}~\\%$. Calculer le nombre d'élèves dans ce ${etablissement} cette année.`
                 texteCorr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.`
                 texteCorr += `<br>$${texNombre(depart)}\\times ${coeff} = ${texNombre(arrive)}$`
                 texteCorr += `<br>Il y a maintenant $${texNombre(arrive)}$ élèves dans ce ${etablissement}.`
-                reponse = arrive
               }
+              reponse = arrive
+              texteApres = ' élèves'
               break
             case 'initiale':
               if (taux > 0) {
@@ -153,27 +153,27 @@ export default function EvolutionsEnPourcentage () {
                 texteCorr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.<br>Pour retrouver le nombre initial d'élèves, on va donc diviser le nombre actuel d'élèves par $${coeff}$.`
                 texteCorr += `<br>$${texNombre(arrive)}\\div ${coeff} = ${texNombre(depart)}$`
                 texteCorr += `<br>En ${anneeDerniere}, il y avait ${stringNombre(depart)} élèves dans ce ${etablissement}.`
-                reponse = depart
               } else {
                 texte = `Depuis ${anneeDerniere} le nombre d'élèves d'un ${etablissement} a diminué de $${taux}~\\%$. Il y a maintenant $${texNombre(arrive)}$ élèves. Calculer le nombre d'élèves en ${anneeDerniere} dans cet établissement.`
                 texteCorr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.<br>Pour retrouver le nombre initial d'élèves, on va donc diviser le nombre actuel d'élèves par $${coeff}$.`
                 texteCorr += `<br>$${texNombre(arrive)}\\div ${coeff} = ${texNombre(depart)}$`
                 texteCorr += `<br>En ${anneeDerniere}, il y avait ${stringNombre(depart)} élèves dans ce ${etablissement}.`
-                reponse = depart
               }
+              reponse = depart
+              texteApres = ' élèves'
               break
             case 'evolution':
               texte = `En ${anneeDerniere}, il y avait $${texNombre(depart)}$ élèves dans un ${etablissement}. En ${cetteAnnee}, ils sont $${texNombre(arrive)}$. Exprimer la variation du nombre d'élèves de cet établissement en pourcentage.`
               if (taux > 0) {
                 texteCorr = `$${texNombre(arrive)}\\div ${texNombre(depart)} = ${coeff} =  ${100 + taux}~\\% = 100~\\%+${taux}~\\%$`
                 texteCorr += `<br>Le nombre d'élèves a été multiplié par $${coeff}$, il a donc augmenté de $${taux}~\\%$.`
-                reponse = taux
               } else {
                 texte = `Un article qui coûtait $${texNombre(depart)}$ € coûte maintenant $${texNombre(arrive)}$ €. Exprimer la réduction du prix en pourcentage.`
                 texteCorr = `$${texNombre(arrive)}\\div ${texPrix(depart)} = ${coeff} =  ${100 + taux}~\\% = 100~\\%${taux}~\\%$`
                 texteCorr += `<br>Le nombre d'élèves a été multiplié par $${coeff}$, il a donc diminué de $${abs(taux)}~\\%$.`
-                reponse = abs(taux)
               }
+              reponse = abs(taux)
+              texteApres = ' %'
               break
           }
           break
@@ -191,14 +191,14 @@ export default function EvolutionsEnPourcentage () {
                 texteCorr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.`
                 texteCorr += `<br>$${texPrix(depart)}\\times ${coeff} = ${texPrix(arrive)}$`
                 texteCorr += `<br>Le prix de ${facture} est maintenant de $${texPrix(arrive)}$ €.`
-                reponse = arrive
               } else {
                 texte = `Le prix de ${facture} était de $${texPrix(depart)}$ € l'année dernière et il a diminué de $${abs(taux)}~\\%$. Calculer son nouveau prix.`
                 texteCorr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.`
                 texteCorr += `<br>$${texPrix(depart)}\\times ${coeff} = ${texPrix(arrive)}$`
                 texteCorr += `<br>Le prix de ${facture} est maintenant de $${texPrix(arrive)}$ €.`
-                reponse = arrive
               }
+              reponse = arrive
+              texteApres = ' €'
               break
             case 'initiale':
               if (taux > 0) {
@@ -206,7 +206,6 @@ export default function EvolutionsEnPourcentage () {
                 texteCorr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\%=${100 + taux}~\\% = ${coeff}$.<br>Pour retrouver le prix initial, on va donc diviser le prix final par $${coeff}$.`
                 texteCorr += `<br>$${texPrix(arrive)}\\div${coeff} = ${texPrix(depart)}$`
                 texteCorr += `<br>Avant l'augmentation le prix de ${facture} était de $${texPrix(depart)}$ €.`
-                reponse = depart
               } else {
                 texte = `Après une diminution de $${abs(taux)}~\\%$ ${facture} coûte maintenant $${texPrix(arrive)}$ €. Calculer son prix avant les soldes.`
                 texteCorr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.<br>Pour retrouver le prix initial, on va donc diviser le prix final par $${coeff}$.`
@@ -214,19 +213,21 @@ export default function EvolutionsEnPourcentage () {
                 texteCorr += `<br>Avant la diminution le prix de ${facture} était de $${texPrix(depart)}$ €.`
                 reponse = depart
               }
+              reponse = depart
+              texteApres = ' €'
               break
             case 'evolution':
               if (taux > 0) {
                 texte = `Le prix de ${facture} est passé de $${texPrix(depart)}$ € à $${texPrix(arrive)}$ €. Exprimer cette augmentation en pourcentage.`
                 texteCorr = `$${texPrix(arrive)}\\div ${texPrix(depart)} = ${coeff} =  ${100 + taux}~\\% = 100~\\%+${taux}~\\%$`
                 texteCorr += `<br>Le prix a été multiplié par $${coeff}$, il a donc augmenté de $${taux}~\\%$.`
-                reponse = taux
               } else {
                 texte = `Le prix de ${facture} est passé de $${texPrix(depart)}$ € à $${texPrix(arrive)}$ €. Exprimer cette diminution en pourcentage.`
                 texteCorr = `$${texPrix(arrive)}\\div ${texPrix(depart)} = ${coeff} =  ${100 + taux}~\\% = 100~\\%${taux}~\\%$`
                 texteCorr += `<br>Le prix a été multiplié par $${coeff}$, il a donc diminué de $${abs(taux)}~\\%$.`
-                reponse = abs(taux)
               }
+              reponse = abs(taux)
+              texteApres = ' %'
               break
           }
           break
@@ -251,6 +252,7 @@ export default function EvolutionsEnPourcentage () {
                 texteCorr += `<br>La population de cette ville est maintenant de $${texNombre(arrive)}$ habitants.`
               }
               reponse = arrive
+              texteApres = ' habitants'
               break
             case 'initiale':
               if (taux > 0) {
@@ -265,6 +267,7 @@ export default function EvolutionsEnPourcentage () {
                 texteCorr += `<br>Il y a $${texNombre(nb)}$ ans cette ville comptait $${texNombre(depart)}$ habitants.`
               }
               reponse = depart
+              texteApres = ' habitants'
               break
             case 'evolution':
               if (taux > 0) {
@@ -282,7 +285,7 @@ export default function EvolutionsEnPourcentage () {
           break
       }
       setReponse(this, i, reponse)
-      texte += ajouteChampTexteMathLive(this, i)
+      texte += ajouteChampTexteMathLive(this, i, 'inline largeur10', { texteApres: texteApres })
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
