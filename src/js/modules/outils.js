@@ -1437,7 +1437,7 @@ export function produitDeDeuxFractions (num1, den1, num2, den2) {
   } else {
     num = num1 * num2
     den = den1 * den2
-    texProduit = `\\dfrac{${num1}\\times ${num2}}{${den1}\\times${den2}}`
+    texProduit = `\\dfrac{${num1}\\times ${ecritureParentheseSiNegatif(num2)}}{${den1}\\times${den2}}`
   }
   return [texFraction(num, den), texProduit, [num1, den1, num2, den2]]
 }
