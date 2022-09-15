@@ -1146,7 +1146,6 @@ function miseAJourDuCode () {
       }
       if ($('#style_can:checked').val()) {
         const monSuperExercice = concatExercices(listeObjetsExercice)
-        // codeEnonces = monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', '\\begin{enumerate}[itemsep=1em]')
         codeEnonces = monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', `\\begin{spacing}{1.5}
         \\begin{longtable}{|c|>{\\centering}p{0.65\\textwidth}|>{\\centering}p{0.15\\textwidth}|c|}%
         \\hline
@@ -1158,17 +1157,6 @@ function miseAJourDuCode () {
         \\addtocounter{nbEx}{-1}`).replace('\\begin{multicols}{2}', '').replace('\\end{multicols}', '').replaceAll('\\\\', '')
         codeCorrections = monSuperExercice.contenuCorrection.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '')
       }
-      // \begin{longtable}{|c|p{0.45\linewidth}|>{\centering}p{0.3\linewidth}|p{0.1\linewidth}|}%
-      // \hline
-      // 1&Complète :&$8\times \dots =64$&\\
-      // \hline
-      // 2&\'Ecris sous forme décimale : $41+\dfrac{8}{10}+\dfrac{7}{\num{1000}}$.&&\\
-      // \hline
-      // 3&$\num{0.41}+\num{6.9}=\dots$&&\\
-      // \hline
-      // 4&$10-\num{6.9}=\dots$&&\\
-      // \hline
-      // \end{longtable}
       if ($('#supprimer_correction:checked').val()) {
         codeMoodle = codeEnonces
       } else {
@@ -1191,8 +1179,7 @@ function miseAJourDuCode () {
           codeExercices += '\\version{' + (v + 1) + '}\n\n'
           codeCorrection += '\n\n\\newpage\n\\version{' + (v + 1) + '}\n\\begin{correction}'
           if ($('#style_can:checked').val()) {
-            const monSuperExercice = concatExercices(listeObjetsExercice)
-            // codeExercices += monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', '\\begin{enumerate}[itemsep=1em]')
+            const monSuperExercice = concatExercices(listeObjetsExercice)            
             codeExercices += monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', `\\begin{spacing}{1.5}
             \\begin{longtable}{|c|>{\\centering}p{0.65\\textwidth}|>{\\centering}p{0.15\\textwidth}|c|}%
             \\hline
