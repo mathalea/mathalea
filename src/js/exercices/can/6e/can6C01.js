@@ -22,6 +22,8 @@ export default function OrdreDeGrandeur () {
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
+    this.canEnonce = `Enonce CAN ${ref}`
+    this.canReponseACompleter = `Test repAComp ${ref}`
     const a = randint(3, 7)
     const b = randint(2, 9)
     const c = randint(1, 9)

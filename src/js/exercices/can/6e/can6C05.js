@@ -20,6 +20,7 @@ export default function MultiplierAstucieusement () {
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
+    this.canEnonce = `Enonce CAN ${ref}`
     const a = randint(1, 9)
     const b = randint(1, 9, a)
     const c = randint(1, 9, [a, b])

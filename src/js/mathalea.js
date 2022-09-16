@@ -1146,15 +1146,42 @@ function miseAJourDuCode () {
       }
       if ($('#style_can:checked').val()) {
         const monSuperExercice = concatExercices(listeObjetsExercice)
-        codeEnonces = monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', `\\begin{spacing}{1.5}
-        \\begin{longtable}{|c|>{\\centering}p{0.65\\textwidth}|>{\\centering}p{0.15\\textwidth}|c|}%
+        // codeEnonces = monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', `\\begin{spacing}{1.5}
+        // \\begin{longtable}{|c|>{\\centering}p{0.65\\textwidth}|>{\\centering}p{0.15\\textwidth}|c|}%
+        // \\hline
+        // \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline
+        // \\thenbEx \\addtocounter{nbEx}{1}&`).replace('\\item', '').replaceAll('\\item', `&${monSuperExercice.reponseACompleter}&\\tabularnewline \\hline
+        // \\thenbEx  \\addtocounter{nbEx}{1}&`).replace('\\end{enumerate}', `&&\\tabularnewline \\hline
+        // \\end{longtable}
+        // \\end{spacing}
+        // \\addtocounter{nbEx}{-1}`).replace('\\begin{multicols}{2}', '').replace('\\end{multicols}', '').replaceAll('\\\\', '')
+        codeEnonces = `\\begin{spacing}{1.5}
+        \\begin{longtable}{|>{\\columncolor{gray!20}}c|>{\\centering}p{0.65\\textwidth}|>{\\centering}p{0.15\\textwidth}|c|}%
         \\hline
-        \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline
-        \\thenbEx \\addtocounter{nbEx}{1}&`).replace('\\item', '').replaceAll('\\item', `&&\\tabularnewline \\hline
-        \\thenbEx  \\addtocounter{nbEx}{1}&`).replace('\\end{enumerate}', `&&\\tabularnewline \\hline
+        \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline`
+        for (const exoCan of listeObjetsExercice) {
+          exoCan.nouvelleVersion()
+          let msgEnonce
+          let msgRepACompleter
+          if (!exoCan.hasOwnProperty('canEnonce')) {
+            msgEnonce = 'PAS D\'ENONCE CAN'
+          } else {
+            msgEnonce = exoCan.canEnonce
+          }
+          if (!exoCan.hasOwnProperty('canReponseACompleter')) {
+            msgRepACompleter = 'PAS DE REPONSE A COMPLETER CAN'
+          } else {
+            msgRepACompleter = exoCan.canReponseACompleter
+          }
+          codeEnonces += `
+          \\thenbEx \\addtocounter{nbEx}{1}&${msgEnonce}&${msgRepACompleter}&\\tabularnewline \\hline
+          `
+        }
+        codeEnonces += `
         \\end{longtable}
         \\end{spacing}
-        \\addtocounter{nbEx}{-1}`).replace('\\begin{multicols}{2}', '').replace('\\end{multicols}', '').replaceAll('\\\\', '')
+        \\addtocounter{nbEx}{-1}
+        `
         codeCorrections = monSuperExercice.contenuCorrection.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '')
       }
       if ($('#supprimer_correction:checked').val()) {
