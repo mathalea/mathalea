@@ -6598,6 +6598,7 @@ function DroiteGraduee ({
       P = point(x + (p[0] - Min) * absord[0] * Unite, y + (p[0] - Min) * absord[1] * Unite, p[1])
       T = tracePoint(P, pointCouleur)
       T.taille = pointTaille
+      T.tailleTikz = Math.max(T.taille / 30, 0.3)
       T.opacite = pointOpacite
       T.style = pointStyle
       T.epaisseur = pointEpaisseur
