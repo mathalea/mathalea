@@ -1,4 +1,4 @@
-import { calcul, choice, randint, texNombre, texteEnCouleur } from '../../../modules/outils.js'
+import { choice, randint, texNombre, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import Decimal from 'decimal.js/decimal.mjs'
 export const titre = 'Calculer le double ou le triple (décimal)'
