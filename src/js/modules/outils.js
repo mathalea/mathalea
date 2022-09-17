@@ -7306,6 +7306,7 @@ export function preambulePersonnalise (listePackages) {
         break
       case 'bac':
       case 'crpe':
+        result += '\\usepackage{scratch3}'
       case 'dnb':
       case 'e3c':
         // result += `
