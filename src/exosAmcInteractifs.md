@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 500 
-- nombre d'exos interactifReady 777 
+- nombre d'exos amcReady 501 
+- nombre d'exos interactifReady 778 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -505,7 +505,7 @@
 |can1a-2022|CAN première sujet 2022|KO|KO|OK|mathLive|
 |can2C01|Trouver le nombre d’entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
 |can2C02|Calculer une différence de deux carrés|OK|AMCNum|OK|mathLive|
-|can2C03|Calculer avec  des puissances|OK|AMCNum|OK|mathLive|
+|can2C03|Calculer avec  des puissances*|OK|AMCNum|OK|mathLive|
 |can2C04|Calculer avec les identités remarquables - simple|KO|KO|OK|mathLive|
 |can2C05|Calculer avec les identités remarquables - Guidé|KO|KO|OK|mathLive|
 |can2C06|Simplifier des racines carrées|KO|KO|OK|mathLive|
@@ -515,6 +515,7 @@
 |can2C10|Passer du taux d’évolution au coefficient multiplicateur|KO|KO|OK|mathLive|
 |can2C11|Passer du coefficient multiplicateur au taux d’évolution|KO|KO|OK|mathLive|
 |can2C12|Déterminer un taux global d’évolution|OK|AMCNum|OK|mathLive|
+|can2C13|Calculer avec  des puissances|OK|AMCNum|OK|mathLive|
 |can2F01|Calculer une image avec le second degré|KO|KO|OK|mathLive|
 |can2F02|Calculer une image avec un quotient|KO|KO|OK|mathLive|
 |can2F03|Déterminer le signe d’une fonction affine (V/F)|KO|KO|OK|qcm|

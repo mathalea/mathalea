@@ -9503,6 +9503,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "6N13-0": {
+    "titre": "Connaître les préfixes utilisés dans les unités",
+    "url": "/exercices/6e/6N13-0.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6N13-0",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "6N13": {
     "titre": "Convertir des longueurs, masses, capacités, prix ou unités informatiques",
     "url": "/exercices/6e/6N13.js",
@@ -13629,7 +13644,7 @@ export default {
     }
   },
   "can2C03": {
-    "titre": "Calculer avec  des puissances",
+    "titre": "Calculer avec  des puissances*",
     "url": "/exercices/can/2e/can2C03.js",
     "amcReady": true,
     "amcType": {
@@ -13787,6 +13802,25 @@ export default {
     "name": "can2C12",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can2C13": {
+    "titre": "Calculer avec  des puissances",
+    "url": "/exercices/can/2e/can2C13.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2C13",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
