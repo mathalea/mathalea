@@ -2487,8 +2487,12 @@ export default {
   "3A13-1": {
     "titre": "Poser divisions euclidiennes",
     "url": "/exercices/3e/3A13-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3A13-1",
     "newEx": {
       "isNew": true,
@@ -2502,8 +2506,12 @@ export default {
   "3A13-2": {
     "titre": "Déterminer reste et quotient d'une division euclidienne à partir d'une égalité",
     "url": "/exercices/3e/3A13-2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpenNum✖︎2"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3A13-2",
     "newEx": {
       "isNew": true,
@@ -2517,8 +2525,12 @@ export default {
   "3A13-3": {
     "titre": "Trouver le vocabulaire associé aux termes de l'égalité issue de la division euclidienne",
     "url": "/exercices/3e/3A13-3.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3A13-3",
     "newEx": {
       "isNew": true,
@@ -2532,8 +2544,12 @@ export default {
   "3A13-4": {
     "titre": "Indiquer une égalité à partir d'une division euclidienne",
     "url": "/exercices/3e/3A13-4.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3A13-4",
     "newEx": {
       "isNew": true,
@@ -11889,12 +11905,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "betaModele30_constructions_géométriques": {
+  "betaModele30_constructions_géométriques": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
+    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele30_constructions_géométriques",
+    "name": "betaModele30_constructions_géométriques",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
