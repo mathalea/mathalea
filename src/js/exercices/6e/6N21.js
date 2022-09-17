@@ -91,7 +91,7 @@ export default function PlacerPointsAbscissesFractionnaires () {
         }
       }
       texte += '<br>' + mathalea2d({ xmin: -0.2, xmax: 4 * tailleUnite + 1, ymin: -1, ymax: 1, style: 'margin-top:30px ' }, mesObjets)
-      if (this.interactif) {
+      if (this.interactif && context.isHtml) {
         texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
       }
 
@@ -128,8 +128,8 @@ export default function PlacerPointsAbscissesFractionnaires () {
 
       if (!context.isHtml) {
         A.positionLabel = 'above = 0.2'
-        B.positionLabel = 'above = 0.2'
-        C.positionLabel = 'above = 0.2'
+        if (B) B.positionLabel = 'above = 0.2'
+        if (C) C.positionLabel = 'above = 0.2'
       }
 
       if (this.interactif) {
