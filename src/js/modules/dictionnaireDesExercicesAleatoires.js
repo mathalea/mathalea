@@ -9507,7 +9507,8 @@ export default {
     "titre": "Connaître les préfixes utilisés dans les unités",
     "url": "/exercices/6e/6N13-0.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "listeDeroulante",
     "name": "6N13-0",
     "newEx": {
       "isNew": true,

@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 501 
-- nombre d'exos interactifReady 778 
+- nombre d'exos interactifReady 779 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -346,6 +346,7 @@
 |6N11-2|Placer un point d'abscisse entière (grands nombres)|OK|AMCOpen|OK|custom|
 |6N11|Lire l'abscisse entière d'un point (grands nombres)|OK|AMCOpen|OK|mathLive|
 |6N12-1|Par combien multiplier un entier pour que le chiffre des unités devienne le chiffre des ... ?|OK|qcmMono|OK|qcm|
+|6N13-0|Connaître les préfixes utilisés dans les unités|KO|KO|OK|listeDeroulante|
 |6N13|Convertir des longueurs, masses, capacités, prix ou unités informatiques|OK|AMCNum|OK|mathLive|
 |6N14|Représenter des fractions|OK|AMCHybride|KO|KO|
 |6N20-1|Encadrer une fraction entre deux nombres entiers consécutifs|OK|AMCHybride|OK|mathLive|
