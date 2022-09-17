@@ -22,7 +22,8 @@ anim.xml = `
 texteCorr += anim.html()
 ```
 
-À noter que l'on peut remplacer `anim.html()` par `anim.htmlBouton()` et ainsi avoir un bouton pour afficher ou masquer l'animation (qui est masquée par défaut au chargement).
+À noter que l'on peut remplacer `anim.html(numExo, numQuestion)` par `anim.htmlBouton(numExo, numQuestion)` et ainsi avoir un bouton pour afficher ou masquer l'animation (qui est masquée par défaut au chargement).
+Renseigner le numéro de l'exercice et celui de la question est très important car il permet de créer un identifiant unique pour chaque animation.
 
 # Créer une animation
 
@@ -53,7 +54,7 @@ texteCorr += anim.htmlBouton()
 
 # Recadrer une animation
 
-La commande `anim.recadre(xMin, yMax)` doit apparaître avant toutes les autres animations pour être prise en compte.
+La commande `anim.recadre(xMin, yMax)` doit apparaître avant toutes les autres animations pour être prise en compte et permet de déplacer le repère de l'animation.
 
 ```js
 const xMin = Math.min(0, B.x, C.x, M.x, M.x + xU, N.x, N.x + xV) - 1
