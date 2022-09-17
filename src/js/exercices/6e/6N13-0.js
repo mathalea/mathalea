@@ -23,7 +23,7 @@ export default class sensDesPrefixes extends Exercice {
     this.nbCols = 1
     this.nbColsCorr = 1
     this.sup = 1
-    this.sup2 = 2
+    this.sup2 = 1
     this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Donner la signification du préfixe\n2 : Donner le préfixe correspondant\n3 : Mélange']
     this.besoinFormulaire2Numerique = ['Choix des préfixes', 2, '1 : De milli à kilo\n2 : De nano à téra']
   }
