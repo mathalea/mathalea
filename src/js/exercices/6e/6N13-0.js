@@ -13,6 +13,8 @@ export const dateDePublication = '17/09/2022'
  * @author Rémi Angot
  * Référence 6N13-0
  */
+export const uuid = '5d1e2'
+export const ref = '6N13-0'
 export default class sensDesPrefixes extends Exercice {
   constructor () {
     super()
