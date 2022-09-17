@@ -3,7 +3,7 @@ import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
 import { point, labelPoint, codageSegment, codageAngle, droiteGraduee, segment, milieu, texteParPosition } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, printlatex, randint, simplificationDeFractionAvecEtapes, texNombre, tableauColonneLigne, miseEnEvidence, shuffle, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, printlatex, randint, stringNombre, simplificationDeFractionAvecEtapes, texNombre, tableauColonneLigne, miseEnEvidence, shuffle, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 export const titre = 'CAN 5ième sujet 2021'
@@ -32,7 +32,12 @@ export default function SujetCAN20215ieme () {
   this.nbQuestions = 30
   this.nbCols = 1
   this.nbColsCorr = 1
-
+  this.comment = `Cet exercice fait partie des annales des Courses aux nombres.<br>
+  Il est composé de 30 questions réparties de la façon suivante :<br>
+  les 10 premières questions parfois communes à plusieurs niveaux font appels à des questions automatisées élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
+  Par défaut, les questions sont rangées dans le même ordre que le sujet officiel avec des données aléatoires. Ainsi, en cliquant sur « Nouvelles données », on obtient une nouvelle course aux nombres avec des données différentes.
+  En choisissant un nombre de questions différents de 30, on fabrique une « mini » course aux nombres qui respecte la proportion de nombre de questions élémentaires par rapport aux autres.
+  Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 questions automatisées élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -345,11 +350,11 @@ export default function SujetCAN20215ieme () {
             ymax = 1.2
             objets = []
             objets.push(
-              texteParPosition(`$${a} \\text{cm} $`, milieu(B, C).x - 0.5, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
+              texteParPosition(`${stringNombre(a)} cm`, milieu(B, C).x - 0.5, milieu(B, C).y),
               s1, s2, s3, s4, s5, s6, code1, code2, code3, code4, code5, code6, s7, s8, s9, s10, s11, s12, code7, code8, code9, code10, code11, code12)
             reponse = 12 * a
             texte = 'Quel est le périmètre de cette figure ?<br>'
-            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1.4, style: 'margin: auto' }, objets)
             texteCorr = `La figure est composée de $12$ segments de longueur $${a}$ cm.<br>
               Le périmètre de cette figure est donc : $12\\times\\times ${a}=${12 * a}$ cm.   `
           }
@@ -382,13 +387,13 @@ export default function SujetCAN20215ieme () {
             ymax = 2.5
             objets = []
             objets.push(
-              texteParPosition(`$${a} \\text{cm} $`, milieu(B, C).x, milieu(B, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
-              texteParPosition(`$${b} \\text{cm}  $`, milieu(D, E).x + 0.3, milieu(D, E).y, 'milieu', 'black', 1, 'middle', true),
-              texteParPosition(`$${c} \\text{cm} $`, milieu(D, C).x - 0.2, milieu(D, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
+              texteParPosition(`${stringNombre(a)} cm`, milieu(B, C).x, milieu(B, C).y + 0.3),
+              texteParPosition(`${stringNombre(b)} cm`, milieu(D, E).x + 0.5, milieu(D, E).y),
+              texteParPosition(`${stringNombre(c)} cm`, milieu(D, C).x - 0.3, milieu(D, C).y + 0.2),
               s1, s2, s3, s4, s5, s6, code1, code2, code3, code4, code5, code6, segment(D, E))
             reponse = 4 * a + 2 * c + b
             texte = 'Quel est le périmètre de cette figure ?<br>'
-            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1.4, style: 'margin: auto' }, objets)
             texteCorr = `La figure est composée de $4$ segments de longueur $${a}$, de $2$ segments de longueur $${c}$ et d'un segment de longueur $${b}$.<br>
             Le périmètre de cette figure est donc : $4\\times ${a}+2\\times ${c}+${b}=${4 * a + 2 * c + b}$ cm.   `
           }
@@ -419,13 +424,13 @@ export default function SujetCAN20215ieme () {
             ymax = 2.5
             objets = []
             objets.push(
-              texteParPosition(`$${c} \\text{cm} $`, milieu(B, C).x, milieu(B, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
-              texteParPosition(`$${b}  \\text{cm}$`, milieu(D, E).x + 0.3, milieu(D, E).y, 'milieu', 'black', 1, 'middle', true),
-              texteParPosition(`$${a} \\text{cm}$`, milieu(D, C).x, milieu(D, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
+              texteParPosition(`${stringNombre(c)} cm`, milieu(B, C).x, milieu(B, C).y + 0.3),
+              texteParPosition(`${stringNombre(b)} cm`, milieu(D, E).x + 0.4, milieu(D, E).y),
+              texteParPosition(`${stringNombre(a)} cm`, milieu(D, C).x - 0.2, milieu(D, C).y + 0.2),
               s1, s2, s4, s5, s6, code1, code2, code4, code5, code6, segment(D, E))
             reponse = 3 * c + 2 * a + b
             texte = 'Quel est le périmètre de cette figure ?<br>'
-            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1.4, style: 'margin: auto' }, objets)
             texteCorr = `La figure est composée de $3$ segments de longueur $${c}$, de $2$ segments de longueur $${a}$ et d'un segment de longueur $${b}$.<br>
                     Le périmètre de cette figure est donc : $3\\times ${c}+2\\times ${a}+${b}=${3 * c + 2 * a + b}$ cm.   `
           }
@@ -446,14 +451,14 @@ export default function SujetCAN20215ieme () {
             texte = `$${a}$ dm$^2=$`
             texteCorr = `$1$ dm$^2= 100$ cm$^2$, donc $${a}$ dm$^2=${a}\\times 100$ cm$^2=${a * 100}$ cm$^2$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm$^2$' } else { texte += '$\\ldots$ cm$^2$' }
+            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm$^2$' } else { texte += ' $\\ldots$ cm$^2$' }
           }
           if (choix === 'b') {
             reponse = a / 100
             texte = `$${a}$ cm$^2=$`
             texteCorr = `$1$ cm$^2= 0,01$ dm$^2$, donc $${a}$ cm$^2=${a}\\times 0,01$ dm$^2=${texNombre(a / 100)}$ dm$^2$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'dm$^2$' } else { texte += '$\\ldots$ dm$^2$' }
+            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'dm$^2$' } else { texte += ' $\\ldots$ dm$^2$' }
           }
           if (choix === 'c') {
             reponse = a * 100
@@ -687,9 +692,9 @@ export default function SujetCAN20215ieme () {
             ymax = 2.5
             objets = []
             objets.push(
-              texteParPosition(`$${a}° $`, 4, 1.5, 'milieu', 'black', 1, 'middle', true),
-              texteParPosition(`$${b}° $`, 1.2, 0.25, 'milieu', 'black', 1, 'middle', true),
-              texteParPosition('?', 5.3, 0.3, 'milieu', 'black', 1, 'middle', true),
+              texteParPosition(`${stringNombre(a)}°`, 3.8, 0.8),
+              texteParPosition(`${stringNombre(b)}°`, 1.2, 0.25),
+              texteParPosition('?', 5.3, 0.3),
               s1, s2, s3, codageAngle(B, C, A, 0.8, '|'), codageAngle(C, A, B, 0.8, '||'))
           } else {
             a = choice([100, 110, 120])
@@ -707,20 +712,20 @@ export default function SujetCAN20215ieme () {
             ymax = 2.5
             objets = []
             objets.push(
-              texteParPosition(`$${a}° $`, 2, 1.5, 'milieu', 'black', 1, 'middle', true),
-              texteParPosition(`$${b}° $`, 1.2, 0.25, 'milieu', 'black', 1, 'middle', true),
-              texteParPosition('?', 5.2, 0.3, 'milieu', 'black', 1, 'middle', true),
+              texteParPosition(`${stringNombre(a)}°`, 2.1, 0.8),
+              texteParPosition(`${stringNombre(b)}°`, 1.2, 0.25),
+              texteParPosition('?', 5, 0.3),
               s1, s2, s3, codageAngle(B, C, A, 0.8, '|'), codageAngle(C, A, B, 0.8, '||'))
           }
           reponse = 180 - a - b
-          texte = '<br>'
-          texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
-          texte += ' ? $=$'
+          texte = 'On donne la figure suivante :<br>'
+          texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1.3, style: 'margin: auto' }, objets)
+          texte += ' <br>? $=$'
           texteCorr = `Dans un triangle, la somme des angles vaut $180°$.<br>
          ?$=180-${a}-${b}=${180 - a - b}°$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '°' } else { texte += '$\\ldots °$' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '°' } else { texte += ' $\\ldots °$' }
 
           nbChamps = 1
           break
@@ -817,20 +822,20 @@ export default function SujetCAN20215ieme () {
           objets = []
           if (a > (b - 2 * a) / 2) {
             objets.push(
-              texteParPosition(`$${a} \\text{cm} $`, milieu(A, C).x, milieu(A, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
+              texteParPosition(`${stringNombre(a)} cm`, milieu(A, C).x, milieu(A, C).y + 0.5),
               s1, s2, s3, s4, s5, code1, code2, code3, code4, code5, labelPoint(A, C, D, E))
             texte = `Le périmètre du quadrilatère $AEDC$ est égal à $${b}$ cm.<br>
           `
-            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1.3, style: 'margin: auto' }, objets)
             texteCorr = ` Le quadrilatère est composé de $2$ segments de $${a}$ cm et de deux autres segments de même longueur.<br>
           Ainsi, $CD=(${b}-2\\times ${a})\\div 2=${texNombre((b - 2 * a) / 2)}$  `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += '$CD=$'
+              texte += '<br>$CD=$'
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
             } else { texte += '<br>$CD=\\ldots$ cm' }
           } else {
-            objets.push(texteParPosition(`$${a} \\text{cm} $`, milieu(D, C).x, milieu(D, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
+            objets.push(texteParPosition(`${stringNombre(a)} cm`, milieu(D, C).x, milieu(D, C).y + 0.4),
               s1, s2, s3, s4, s5, code1, code2, code3, code4, code5, labelPoint(A, C, D, E))
             texte = `Le périmètre du quadrilatère $AEDC$ est égal à $${b}$ cm.<br>
           `
@@ -839,7 +844,7 @@ export default function SujetCAN20215ieme () {
           Ainsi, $AE=(${b}-2\\times ${a})\\div 2=${texNombre((b - 2 * a) / 2)}$  `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += '$AE=$'
+              texte += '<br>$AE=$'
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
             } else { texte += '<br>$AE=\\ldots$ cm' }
           }

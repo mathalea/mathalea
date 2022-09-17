@@ -2,7 +2,7 @@ import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import { point, polygoneAvecNom, droiteGraduee, segmentAvecExtremites, segment, milieu, texteParPosition } from '../../../modules/2d.js'
-import { listeQuestionsToContenu, randint, texNombre, miseEnEvidence, shuffle, prenomF, choice, arrondi, sp } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, stringNombre, texNombre, miseEnEvidence, shuffle, prenomF, choice, arrondi, sp } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { round, min } from 'mathjs'
@@ -33,7 +33,12 @@ export default function SujetCAN20186ieme () {
   this.nbQuestions = 30 // 10,20,30
   this.nbCols = 1
   this.nbColsCorr = 1
-
+  this.comment = `Cet exercice fait partie des annales des Courses aux nombres.<br>
+  Il est composé de 30 questions réparties de la façon suivante :<br>
+  les 10 premières questions parfois communes à plusieurs niveaux font appels à des questions automatisées élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
+  Par défaut, les questions sont rangées dans le même ordre que le sujet officiel avec des données aléatoires. Ainsi, en cliquant sur « Nouvelles données », on obtient une nouvelle course aux nombres avec des données différentes.
+  En choisissant un nombre de questions différents de 30, on fabrique une « mini » course aux nombres qui respecte la proportion de nombre de questions élémentaires par rapport aux autres.
+  Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 questions automatisées élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -361,8 +366,9 @@ export default function SujetCAN20186ieme () {
             objets.push(segment(indice, 0, indice, 1.5))
           }
           objets.push(segmentAvecExtremites(-0.3, 0, -0.3, 1.5), segmentAvecExtremites(0, 1.8, j, 1.8))
-          objets.push(texteParPosition(`$${texNombre(j)} \\text{cm}$`, j / 2, 2, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition('$1,5\\text{cm}$', -1, 0.75, 'milieu', 'black', 1, 'middle', true),
+
+          objets.push(texteParPosition(`${stringNombre(j)} cm`, milieu(D, C).x, milieu(D, C).y + 0.5),
+            texteParPosition(`${stringNombre(1.5)} cm`, milieu(D, A).x - 1, milieu(D, A).y),
             segment(0, 0.5, j, 0.5)
           )
           reponse = arrondi(j * 1.5, 1)
@@ -534,19 +540,18 @@ export default function SujetCAN20186ieme () {
           objets = []
           objets.push(pol[0]) //, pol[1]
           objets.push(pol2[0])
-
-          objets.push(texteParPosition(`$${l} \\text{cm}$`, milieu(F, G).x + 0.4, milieu(F, G).y, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${L} \\text{cm}$`, milieu(E, F).x, milieu(E, F).y - 0.2, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${l2} \\text{cm}$`, milieu(B, C).x + 0.4, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition('$\\large \\textcircled{1}$', 1.4, 3.2, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition('$\\large \\textcircled{2}$', 2, 0.8, 'milieu', 'black', 1, 'middle', true)
+          objets.push(texteParPosition(`${stringNombre(l)} cm`, milieu(F, G).x + 0.5, milieu(F, G).y),
+            texteParPosition(`${stringNombre(L)} cm`, milieu(E, F).x, milieu(E, F).y - 0.3),
+            texteParPosition(`${stringNombre(l2)} cm`, milieu(B, C).x + 0.5, milieu(B, C).y),
+            texteParPosition('A ', milieu(F, G).x - 1.2, milieu(F, G).y),
+            texteParPosition('B ', milieu(B, C).x - 2, milieu(B, C).y)
           )
           reponse = l2 * k
-          texte = 'Le rectangle $\\textcircled{2}$ est un agrandissement du rectangle $\\textcircled{1}$. <br>'
+          texte = 'Le rectangle B est un agrandissement du rectangle A. <br>'
 
           texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
-          texte += '<br>Quelle est la longueur du rectangle $\\textcircled{2}$ ?'
-          texteCorr = `La longueur du rectangle $\\textcircled{1}$ est $${k}$ fois plus grande que sa largeur. On en déduit que la longueur du rectangle $\\textcircled{2}$ est aussi $${k}$ fois plus grande que sa largeur.<br>
+          texte += '<br>Quelle est la longueur du rectangle B ?'
+          texteCorr = `La longueur du rectangle A est $${k}$ fois plus grande que sa largeur. On en déduit que la longueur du rectangle B est aussi $${k}$ fois plus grande que sa largeur.<br>
           Elle est donc égale à $${l2}\\times ${k}=${k * l2}$ cm.
                   `
 
