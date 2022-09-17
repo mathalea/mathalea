@@ -8986,10 +8986,7 @@ function DiagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille =
       ytick = 5
     }
 
-    // console.log(0, max(hauteursBarres), (fraction(hauteurDiagramme, max(hauteursBarres))).mul(step), 'black', -3, max(hauteursBarres) / hauteurDiagramme)
-    if (labelAxeVert) diagramme.push(labelY(0, max(hauteursBarres), (fraction(hauteurDiagramme, max(hauteursBarres))).mul(step), 'black', -3, 2 * max(hauteursBarres) / hauteurDiagramme))
-    // if (labelAxeVert) diagramme.push(labelY(0, 160, 2, 'red', -2, 20))
-    // if (labelAxeVert) diagramme.push(labelY(0, 160, 2, 'red', -2, 20))
+    if (labelAxeVert) diagramme.push(labelY(0, max(hauteursBarres), (fraction(hauteurDiagramme, max(hauteursBarres))).mul(step), 'black', -3, max(hauteursBarres) / hauteurDiagramme))
     if (axeVertical) diagramme.push(axeY(0, hauteurDiagramme + 1, 0.2, (fraction(hauteurDiagramme, max(hauteursBarres))).mul(step), 0.2, 'black', ytick, titreAxeVertical))
   }
   if (titre !== '') diagramme.push(texteParPoint(titre, point((hauteursBarres.length - 1) * coeff / 2, hauteurDiagramme + 1)))
