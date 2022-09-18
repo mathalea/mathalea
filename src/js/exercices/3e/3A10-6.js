@@ -17,6 +17,7 @@ export const dateDePublication = '29/08/2022'
  */
 
 export const ref = '3A10-6'
+export const uuid = '5636e'
 export default function trouverChiffre () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 4

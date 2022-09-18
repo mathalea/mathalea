@@ -19,10 +19,11 @@ anim.xml = `
    </INSTRUMENPOCHE>
 `
 
-texteCorr += anim.html()
+texteCorr += anim.html(numeroExercice, i)
 ```
-
-À noter que l'on peut remplacer `anim.html()` par `anim.htmlBouton()` et ainsi avoir un bouton pour afficher ou masquer l'animation (qui est masquée par défaut au chargement).
+**Remarques :**
+- On peut remplacer `anim.html(numeroExercice, numeroQuestion)` par `anim.htmlBouton(numeroExercice, numeroQuestion)` et ainsi avoir un bouton pour afficher ou masquer l'animation (qui est masquée par défaut au chargement).
+- Renseigner le numéro de l'exercice et celui de la question est très important car il permet de créer un identifiant unique pour chaque animation.
 
 # Créer une animation
 
@@ -33,10 +34,10 @@ const anim = new Alea2iep()
 
 const A = point(4,5) // Fonction à importer depuis /modules/2d.js
 
-anim.pointCreer(A)
+anim.pointCreer(A, { dx: -0.5, dy: -0.5, label: 'A' }) // On déplace les labels des points avec dx et dy
 anim.regleMontrer(A)
 anim.segmentTracer(A,B)
-anim.pointCreer(B)
+anim.pointCreer(B, { dx: 0.2, dy: -0.5, label: 'B'})
 anim.crayonMasquer()
 anim.couleur = "forestgreen" // Cela change la couleur pour tous les futurs tracés
 anim.epaisseur = 2 // Cela change l'épaisseur pour tous les futurs tracés
@@ -53,7 +54,7 @@ texteCorr += anim.htmlBouton()
 
 # Recadrer une animation
 
-La commande `anim.recadre(xMin, yMax)` doit apparaître avant toutes les autres animations pour être prise en compte.
+La commande `anim.recadre(xMin, yMax)` doit apparaître avant toutes les autres animations pour être prise en compte et permet de déplacer le repère de l'animation.
 
 ```js
 const xMin = Math.min(0, B.x, C.x, M.x, M.x + xU, N.x, N.x + xV) - 1

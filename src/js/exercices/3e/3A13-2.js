@@ -14,6 +14,8 @@ export const dateDePublication = '14/09/2022'
  * @author Eric Elter
  */
 
+export const uuid = 'd8bf2'
+export const ref = '3A13-2'
 export default function DivisionsEuclidiennesEgalite3e () {
   DivisionsEuclidiennesEgalite.call(this)
   this.sup = 1
