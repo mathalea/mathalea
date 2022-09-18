@@ -25,6 +25,9 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
     this.titre = titre
     this.nbQuestions = 2
 
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = false
+
     this.besoinFormulaireNumerique = ['Consigne', 3, '1 : Droites parallèles\n2 : Droites perpendiculaires\n3 : Mélange']
     this.sup = 3
   }
@@ -84,15 +87,21 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
       switch (listeTypeDeQuestions[i]) {
         case 'Parallèles':
           texte += 'Donner tous les couples de droites parallèles en justifiant'
-          texteCorr = `D'après l'énoncé, les droites ${texDroite(0)} et ${texDroite(1)} sont parallèles.<br>`
-          texteCorr += `Les droites ${texDroite(2)} et ${texDroite(1)} sont perpendiculaires à la même droite ${texDroite(3)}, elles sont donc parallèles.<br>`
-          texteCorr += `Les droites ${texDroite(0)} et ${texDroite(2)} sont parallèles à la même droite ${texDroite(1)}, elles sont donc parallèles.<br>`
+          texteCorr = `D'après l'énoncé, les droites ${texDroite(0)} et ${texDroite(1)} sont parallèles.<br><br>`
+          texteCorr += `Les droites ${texDroite(2)} et ${texDroite(1)} sont perpendiculaires à la même droite ${texDroite(3)}`
+          this.correctionDetaillee ? texteCorr += '.<br>Or, si deux droites sont perpendiculaires à une même droite alors elles sont parallèles entre elles.<br>E' : texteCorr += ', e'
+          texteCorr += 'lles sont donc parallèles.<br><br>'
+          texteCorr += `Les droites ${texDroite(0)} et ${texDroite(2)} sont parallèles à la même droite ${texDroite(1)}`
+          this.correctionDetaillee ? texteCorr += '.<br>Or, si deux droites sont parallèles à une même troisième droite alors elles sont parallèles entre elles.<br>E' : texteCorr += ', e'
+          texteCorr += 'lles sont donc parallèles.<br>'
           texteCorr += `<br>Remarque :<br>La droite ${texDroite(4)} semble elle aussi être parallèle aux autres mais rien ne nous permet de l'affirmer.<br>Il aurait fallu que l'énoncé dise qu'elle est parallèle à une autre ou qu'un angle droit soit marqué par exemple.`
           break
         case 'Perpendiculaires':
           texte += 'Donner tous les couples de droites perpendiculaires en justifiant'
-          texteCorr = `Les codages permettent d'affirmer que les droites ${texDroite(1)} et ${texDroite(2)} sont toutes les deux perpendiculaires à ${texDroite(3)}<br>`
-          texteCorr += `Les droites ${texDroite(0)} et ${texDroite(1)} sont parallèles (c'est l'énoncé qui le dit) et ${texDroite(3)} est perpendiculaire à ${texDroite(1)} donc ${texDroite(3)} est aussi perpendiculaire à ${texDroite(0)}.<br>`
+          texteCorr = `Les codages permettent d'affirmer que les droites ${texDroite(1)} et ${texDroite(2)} sont toutes les deux perpendiculaires à ${texDroite(3)}<br><br>`
+          texteCorr += `Les droites ${texDroite(0)} et ${texDroite(1)} sont parallèles (c'est l'énoncé qui le dit) et ${texDroite(3)} est perpendiculaire à ${texDroite(1)}`
+          this.correctionDetaillee ? texteCorr += '.<br>Or, si deux droites sont parallèles et si une troisième droite est perpendiculaire à l’une alors elle est perpendiculaire à l’autre.<br>D' : texteCorr += ' d'
+          texteCorr += `onc ${texDroite(3)} est aussi perpendiculaire à ${texDroite(0)}.<br>`
           texteCorr += `<br>Remarque :<br>La droite ${texDroite(4)} semble elle aussi être perpendiculaire à ${texDroite(3)} mais rien ne nous permet de l'affirmer.<br>Il aurait fallu que l'énoncé dise qu'elle est parallèle à une autre ou qu'un angle droit soit marqué par exemple.`
           break
       }
