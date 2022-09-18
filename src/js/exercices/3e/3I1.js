@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-export const titre = 'Instruction conditionelle (scratch)'
+export const titre = 'Instruction conditionnelle (scratch)'
 
 /**
  * * Instructions conditionnelles
@@ -11,7 +11,7 @@ export const titre = 'Instruction conditionelle (scratch)'
  */
 export const uuid = '8cbd6'
 export const ref = '3I1'
-export default function InstructionConditionelle () {
+export default function InstructionConditionnelle () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.debug = false
