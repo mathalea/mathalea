@@ -16,7 +16,7 @@ export default function comprendreScript () {
   this.sup = 5
   this.sup2 = 5
   this.sup3 = 4
-  this.sup4 = 3
+  this.sup4 = 9
   this.spacing = 2
   this.nbQuestions = 1
   this.titre = titre
@@ -149,7 +149,7 @@ export default function comprendreScript () {
           if (optionsQuestions[i] < 7) choixQuestions.push(listeQuestions[optionsQuestions[i]])
           else nbDeQuestions = [optionsQuestions[i] - 6]
         }
-        if (choixQuestions === []) {
+        if (choixQuestions.length === 0) {
           choixQuestions = combinaisonListes(listeQuestions, 6).slice(0, nbDeQuestions[0])
         }
       }
