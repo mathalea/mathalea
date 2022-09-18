@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, shuffle, miseEnEvidence } from '../../modules/outils.js'
-import { point, codageAngleDroit, droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, pointSurDroite } from '../../modules/2d.js'
+import { point, codageAngleDroit, droite, droiteParPointEtPerpendiculaire, pointSurDroite, droiteParPointEtPente } from '../../modules/2d.js'
 export const titre = 'Se servir des relations entre perpendicularité et parallélisme'
 
 export const dateDePublication = '11/09/2022'
@@ -48,35 +48,39 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
       const couleurs = shuffle(['BlueViolet', 'Crimson', 'ForestGreen', 'IndianRed', 'Navy', 'SteelBlue', 'GoldenRod'])
       const x = []
       const y = []
-      for (let i = 0; i < 7; i++) {
+      for (let i = 0; i < 6; i++) {
         x.push(randint(-3, 3, x))
         y.push(randint(-3, 3, y))
       }
-      for (let i = 0; i < 7; i++) {
-        x[i] = x[i] * 2
-        y[i] = y[i] * 2
+      for (let i = 0; i < 6; i++) {
+        x[i] = x[i] * 2 + randint(-10, 10) / 20
+        y[i] = y[i] * 2 + randint(-10, 10) / 20
       }
-      const P0 = point(x[0], y[0])
-      const P1 = point(x[1], y[1])
-      const P13 = point(x[1] + randint(-10, 10) / 10, y[1] + 3)
-      const d1 = droite(P1, P13, `$${noms[1]}$`, couleurs[1])
-      const d0 = droiteParPointEtParallele(P0, d1, `$${noms[0]}$`, couleurs[0])
-      const d3 = droiteParPointEtPerpendiculaire(P13, d1, `$${noms[3]}$`, couleurs[3])
-      const P23 = pointSurDroite(d3, x[3])
+      const P03 = point(x[0], y[0])
+      const P13 = point(x[1], y[0] + randint(-10, 10) / 10)
+      const d3 = droite(P03, P13, `$${noms[3]}$`, couleurs[3])
+      const P23 = pointSurDroite(d3, x[2])
+      const P43 = pointSurDroite(d3, x[3])
+      const P53 = pointSurDroite(d3, x[4])
+      const P63 = pointSurDroite(d3, x[5])
+      const d0 = droiteParPointEtPerpendiculaire(P03, d3, `$${noms[0]}$`, couleurs[0])
+      const d1 = droiteParPointEtPerpendiculaire(P13, d3, `$${noms[1]}$`, couleurs[1])
       const d2 = droiteParPointEtPerpendiculaire(P23, d3, `$${noms[2]}$`, couleurs[2])
-      const P43 = pointSurDroite(d3, x[4])
       const d4 = droiteParPointEtPerpendiculaire(P43, d3, `$${noms[4]}$`, couleurs[4])
-      const d5 = droite(x[5], -1, y[5], `$${noms[5]}$`, couleurs[5])
-      const d6 = droite(x[6], -1, y[6], `$${noms[6]}$`, couleurs[6])
-      const A13 = codageAngleDroit(P1, P13, P43, couleurs[1])
+      const d5 = droiteParPointEtPente(P53, randint(-3, 3, [0]), `$${noms[5]}$`, couleurs[5])
+      const d6 = droiteParPointEtPente(P63, randint(-3, 3, [0]), `$${noms[6]}$`, couleurs[6])
+      const P1 = pointSurDroite(d1, 10)
       const P2 = pointSurDroite(d2, 10)
+      const A13 = codageAngleDroit(P1, P13, P43, couleurs[1])
       const A23 = codageAngleDroit(P2, P23, P43, couleurs[2])
       objetsEnonce.push(d0, d1, d2, d3, d4, d5, d6, A13, A23)
+      console.log(P03.x, P13.x, P23.x, P43.x)
+      console.log(P03.y, P13.y, P23.y, P43.y)
       // Les lignes ci-dessous permettent d'avoir un affichage aux dimensions optimisées
-      const xmin = Math.min(P0.x, P1.x, P13.x, P23.x, P43.x) - 2
-      const xmax = Math.max(P0.x, P1.x, P13.x, P23.x, P43.x) + 2
-      const ymin = Math.min(P0.y, P1.y, P13.y, P23.y, P43.y) - 2
-      const ymax = Math.max(P0.y, P1.y, P13.y, P23.y, P43.y) + 2
+      const xmin = Math.min(P03.x, P13.x, P23.x, P43.x, P53.x, P63.x) - 2
+      const xmax = Math.max(P03.x, P13.x, P23.x, P43.x, P53.x, P63.x) + 2
+      const ymin = Math.min(P03.y, P13.y, P23.y, P43.y, P53.y, P63.y) - 4
+      const ymax = Math.max(P03.y, P13.y, P23.y, P43.y, P53.y, P63.y) + 4
       // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
       const params = { xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 20, scale: 1 }
       // On ajoute au texte de la correction, la figure de la correction
