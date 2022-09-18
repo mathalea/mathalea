@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, ecritureAlgebriqueSauf1, randint, rienSi1, sp, abs, choice, ecritureAlgebrique, texFractionReduite } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, ecritureAlgebriqueSauf1, randint, rienSi1, sp, abs, choice, ecritureAlgebrique } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
 import FractionX from '../../../modules/FractionEtendue.js'
 export const titre = 'Résoudre une équation du second degré sans $\\Delta$'
@@ -28,7 +28,7 @@ export default function ResoudreEquationsSecondDegreSansDelta () {
       [2, 32], [-2, 32], [-9, 81], [9, 36], [-6, 24], [4, -36], [2, 50], [-2, 50], [3, -12], [3, -48], [3, 48], [-4, 36], [-4, -36]]//
     let texte, texteCorr, a, k, b, c, fraction
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (choice([1,2,3,3,4])) { //
+      switch (choice([1, 2, 3, 3, 4])) { //
         case 1 :// ax^2-b=0  pour x^2=b/a avec b/a carré parfait positif ou négatif
           fraction = choice(choixab1)
           a = fraction[0]
@@ -270,19 +270,18 @@ export default function ResoudreEquationsSecondDegreSansDelta () {
 
           break
 
+        case 4 :// egalite remarquable
 
-          case 4 :// egalite remarquable 
-
-          a = choice([1,2])
+          a = choice([1, 2])
           b = randint(-3, 5, 0)
-c=b**2
+          c = b ** 2
           k = new FractionX(-b, a)
           if (this.interactif) {
             if (choice([true, false])) {
-              texte = `L'ensemble des solutions $S$ de l'équation  $${rienSi1(a*a)}x^2${ecritureAlgebriqueSauf1(b*2*a)}x+${c}=0$ est :
+              texte = `L'ensemble des solutions $S$ de l'équation  $${rienSi1(a * a)}x^2${ecritureAlgebriqueSauf1(b * 2 * a)}x+${c}=0$ est :
                `
             } else {
-              texte = `L'ensemble des solutions $S$ de l'équation  $${rienSi1(b*2*a)}x${ecritureAlgebriqueSauf1(a*a)}x^2+${c}=0$ est :
+              texte = `L'ensemble des solutions $S$ de l'équation  $${rienSi1(b * 2 * a)}x${ecritureAlgebriqueSauf1(a * a)}x^2+${c}=0$ est :
                `
             }
 
@@ -310,18 +309,18 @@ c=b**2
                 enonce: texte,
                 options: { horizontal: true },
                 propositions: [
-                    {
-                        texte: `$S=\\left\\{${k.texFractionSimplifiee}\\right\\}$`,
-                        statut: true
-                      },
-                      {
-                        texte: `$S=\\left\\{${k.oppose().texFractionSimplifiee}\\right\\}$`,
-                        statut: false
-                      },
-                      {
-                        texte: `$S=\\left\\{0${sp(1)};${sp(1)}${k.texFractionSimplifiee}\\right\\}$`,
-                        statut: false
-                      }
+                  {
+                    texte: `$S=\\left\\{${k.texFractionSimplifiee}\\right\\}$`,
+                    statut: true
+                  },
+                  {
+                    texte: `$S=\\left\\{${k.oppose().texFractionSimplifiee}\\right\\}$`,
+                    statut: false
+                  },
+                  {
+                    texte: `$S=\\left\\{0${sp(1)};${sp(1)}${k.texFractionSimplifiee}\\right\\}$`,
+                    statut: false
+                  }
                 ]
               }
             }
@@ -330,25 +329,21 @@ c=b**2
           } else {
             if (choice([true, false])) {
               texte = `Résoudre dans $\\mathbb{R}$ :${sp(2)}
-              $${rienSi1(a*a)}x^2${ecritureAlgebriqueSauf1(b*2*a)}x+${c}=0$`
+              $${rienSi1(a * a)}x^2${ecritureAlgebriqueSauf1(b * 2 * a)}x+${c}=0$`
             } else {
               texte = `Résoudre dans $\\mathbb{R}$ :${sp(2)}
-              $${rienSi1(b*2*a)}x${ecritureAlgebriqueSauf1(a*a)}x^2+${c}=0$`
+              $${rienSi1(b * 2 * a)}x${ecritureAlgebriqueSauf1(a * a)}x^2+${c}=0$`
             }
           }
 
-         
-            texteCorr = `On reconnaît dans le premier membre de l'équation le développement d'une égalité remarquable :  $(${rienSi1(a)}x${ecritureAlgebrique(b)})=${rienSi1(a*a)}x^2${ecritureAlgebriqueSauf1(b*2*a)}x+${c}$
+          texteCorr = `On reconnaît dans le premier membre de l'équation le développement d'une égalité remarquable :  $(${rienSi1(a)}x${ecritureAlgebrique(b)})=${rienSi1(a * a)}x^2${ecritureAlgebriqueSauf1(b * 2 * a)}x+${c}$.
            <br>
             L'équation s'écrit alors : $(${rienSi1(a)}x${ecritureAlgebrique(b)})^2=0$.<br>
            Elle a pour unique solution $x=${k.texFractionSimplifiee}$.<br>
            
             Ainsi, $S=\\left\\{${k.texFractionSimplifiee}\\right\\}$.`
-          
+
           break
-
-
-
       }
 
       if (this.questionJamaisPosee(i, a, b)) {
