@@ -28,7 +28,7 @@ export default function ResoudreEquationsSecondDegreSansDelta () {
       [2, 32], [-2, 32], [-9, 81], [9, 36], [-6, 24], [4, -36], [2, 50], [-2, 50], [3, -12], [3, -48], [3, 48], [-4, 36], [-4, -36]]//
     let texte, texteCorr, a, k, b, c, fraction
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (choice([1, 2, 3, 3, 4])) { //
+      switch (choice([1, 2, 3, 3, 4])) {
         case 1 :// ax^2-b=0  pour x^2=b/a avec b/a carré parfait positif ou négatif
           fraction = choice(choixab1)
           a = fraction[0]
@@ -97,12 +97,13 @@ export default function ResoudreEquationsSecondDegreSansDelta () {
 
           texteCorr = ''
           if (k > 0) {
-            texteCorr += `En isolant le carré, on obtient l'équation $x^2=${k}$ qui est de la forme $x^2=k$ avec $k=${k}$. <br>
-            Comme  $${k}>0$ alors l'équation admet deux solutions : $-\\sqrt{${k}}=-${Math.sqrt(k)}$ et $\\sqrt{${k}}=${Math.sqrt(k)}$.
+            texteCorr += `En isolant le carré, on obtient l'équation $x^2=${k}$ qui est de la forme $x^2=k$ avec $k=${k} >0$. <br>
+            L'équation admet donc deux solutions : $-\\sqrt{${k}}=-${Math.sqrt(k)}$ et $\\sqrt{${k}}=${Math.sqrt(k)}$.
              <br>Ainsi,  $S=\\{-${Math.sqrt(k)}${sp(1)};${sp(1)}${Math.sqrt(k)}\\}$.
           `
           } else {
-            texteCorr += `En isolant le carré, on obtient l'équation  $x^2=${k}$ qui est de la forme $x^2=k$. Comme $k=${k}$ et $${k}<0$, alors l'équation n'admet aucune solution.<br>
+            texteCorr += `En isolant le carré, on obtient l'équation  $x^2=${k}$ qui est de la forme $x^2=k$ avec $k<0$.<br>
+            L'équation n'admet donc aucune solution.<br>
             Ainsi, $S=\\emptyset$.`
           }
 
@@ -175,12 +176,13 @@ export default function ResoudreEquationsSecondDegreSansDelta () {
 
           texteCorr = ''
           if (k > 0) {
-            texteCorr += `En isolant le carré, on obtient l'équation $x^2=${k}$ qui est de la forme $x^2=k$ avec $k=${k}$. <br>
-            Comme  $${k}>0$ alors l'équation admet deux solutions : $-\\sqrt{${k}}$ et $\\sqrt{${k}}$.
+            texteCorr += `En isolant le carré, on obtient l'équation $x^2=${k}$ qui est de la forme $x^2=k$ avec $k>0$. <br>
+           L'équation admet donc deux solutions : $-\\sqrt{${k}}$ et $\\sqrt{${k}}$.
              <br>Ainsi,  $S=\\{-\\sqrt{${k}}${sp(1)};${sp(1)}\\sqrt{${k}}\\}$.
           `
           } else {
-            texteCorr += `En isolant le carré, on obtient l'équation  $x^2=${k}$ qui est de la forme $x^2=k$. Comme $k=${k}$ et $${k}<0$, alors l'équation n'admet aucune solution.<br>
+            texteCorr += `En isolant le carré, on obtient l'équation  $x^2=${k}$ qui est de la forme $x^2=k$ avec $k<0>$. <br>
+           L'équation n'admet donc aucune solution.<br>
             Ainsi, $S=\\emptyset$.`
           }
 
@@ -256,14 +258,14 @@ export default function ResoudreEquationsSecondDegreSansDelta () {
             texteCorr = `En factorisant le premier membre de l'équation on obtient : 
             $x(${rienSi1(a)}x${ecritureAlgebrique(b)})$.<br>
             L'équation s'écrit alors : $x(${rienSi1(a)}x${ecritureAlgebrique(b)})=0$.<br>
-            On reconnaît une équation produit nul. Un rpoduit de deux facteurs est nul si et seulement si l'un au moins des deux facteurs est nul.<br>
+            On reconnaît une équation produit nul. Un poduit de deux facteurs est nul si et seulement si l'un au moins des deux facteurs est nul.<br>
             $x=0$ ou $ ${rienSi1(a)}x${ecritureAlgebrique(b)}=0$ soit $x=${k.texFraction}${k.texSimplificationAvecEtapes()}$.<br>
             Ainsi, $S=\\left\\{0${sp(1)};${sp(1)}${k.texFractionSimplifiee}\\right\\}$.`
           } else {
             texteCorr = `En factorisant le premier membre de l'équation on obtient : 
             $x(${rienSi1(a)}x${ecritureAlgebrique(b)})$.<br>
             L'équation s'écrit alors : $x(${rienSi1(a)}x${ecritureAlgebrique(b)})=0$.<br>
-            On reconnaît une équation produit nul. Un rpoduit de deux facteurs est nul si et seulement si l'un au moins des deux facteurs est nul.<br>
+            On reconnaît une équation produit nul. Un poduit de deux facteurs est nul si et seulement si l'un au moins des deux facteurs est nul.<br>
             $x=0$ ou $ ${rienSi1(a)}x${ecritureAlgebrique(b)}=0$ soit $x=${k.texFraction}${k.texSimplificationAvecEtapes()}$.<br>
             Ainsi, $S=\\left\\{${k.texFractionSimplifiee}${sp(1)};${sp(1)}0\\right\\}$.`
           }
