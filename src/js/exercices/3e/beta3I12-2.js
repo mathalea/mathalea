@@ -177,7 +177,7 @@ export default function comprendreScript () {
   ]
   this.besoinFormulaire2Texte = [
     'Choix sur la brique intiale',
-    'Nombres séparés par des tirets\n1 : La brique initiale est un clic sur drapeau vert.\n2 : La brique initiale est un clic sur lutin.\n3 : La brique initiale est un appui sur touche imposée\n4 : La brique initiale est un appui sur touche non imposée\n5:Une des possiblités précédentes choisie au hasard'
+    'Nombres séparés par des tirets\n1 : La brique initiale est un clic sur drapeau vert.\n2 : La brique initiale est un clic sur lutin.\n3 : La brique initiale est un appui sur touche imposée\n4 : La brique initiale est un appui sur touche non imposée\n5 : Une des possiblités précédentes choisie au hasard'
   ]
   this.besoinFormulaire3Texte = [
     'Choix sur une des phrases finales',

@@ -25,7 +25,7 @@ export default function completerScriptMultiple () {
   this.nbQuestionsModifiable = false
   this.listePackages = 'scratch3'
   this.nouvelleVersion = function () {
-    this.consigne = 'Complète les briques manquantes.'
+    this.consigne = 'Compléter les briques manquantes.'
     // this.consigne = 'Lis et comprends ce script Scratch associé à un lutin puis réponds aux questions suivantes.'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -173,7 +173,7 @@ export default function completerScriptMultiple () {
   ]
   this.besoinFormulaire2Texte = [
     'Choix sur la brique intiale',
-    'Nombres séparés par des tirets\n1 : La brique initiale est un clic sur drapeau vert.\n2 : La brique initiale est un clic sur lutin.\n3 : La brique initiale est un appui sur touche imposée\n4 : La brique initiale est un appui sur touche non imposée\n5:Une des possiblités précédentes choisie au hasard'
+    'Nombres séparés par des tirets\n1 : La brique initiale est un clic sur drapeau vert.\n2 : La brique initiale est un clic sur lutin.\n3 : La brique initiale est un appui sur touche imposée\n4 : La brique initiale est un appui sur touche non imposée\n5 : Une des possiblités précédentes choisie au hasard'
   ]
   this.besoinFormulaire3Texte = [
     'Choix sur une des phrases finales',
