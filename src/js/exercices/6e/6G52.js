@@ -1,8 +1,7 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, shuffle, miseEnEvidence } from '../../modules/outils.js'
-import { point, codageAngleDroit, droite, droiteParPointEtPerpendiculaire, pointSurDroite, droiteParPointEtPente, labelPoint } from '../../modules/2d.js'
-import { context } from '../../modules/context.js'
+import { point, codageAngleDroit, droite, droiteParPointEtPerpendiculaire, pointSurDroite, droiteParPointEtPente, labelLatexPoint } from '../../modules/2d.js'
 export const titre = 'Se servir des relations entre perpendicularité et parallélisme'
 
 export const dateDePublication = '11/09/2022'
@@ -75,7 +74,7 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
       const P2 = pointSurDroite(d2, 10)
       const A13 = codageAngleDroit(P1, P13, P43, couleur(1))
       const A23 = codageAngleDroit(P2, P23, P43, couleur(2))
-      objetsEnonce.push(d0, d1, d2, d3, d4, d5, d6, A13, A23, labelPoint(P03, P13, P23, P43, P53, P63, P3))
+      objetsEnonce.push(d0, d1, d2, d3, d4, d5, d6, A13, A23, labelLatexPoint({ points: [P03, P13, P23, P43, P53, P63, P3] }))
       // Les lignes ci-dessous permettent d'avoir un affichage aux dimensions optimisées
       const xmin = Math.min(P03.x, P13.x, P23.x, P43.x, P53.x, P63.x) - 2
       const xmax = Math.max(P03.x, P13.x, P23.x, P43.x, P53.x, P63.x) + 3
@@ -88,11 +87,7 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
         return couleurs[indice]
       }
       function texDroiteFigure (indice) {
-        if (context.isHtml) {
-          return `$${miseEnEvidence(noms[indice], couleurs[indice])}$`
-        } else {
-          return `${miseEnEvidence(noms[indice], couleurs[indice])}`
-        }
+        return `${miseEnEvidence(noms[indice], couleurs[indice])}`
       }
       function texDroiteEnonce (indice) {
         return `$${miseEnEvidence(noms[indice], couleurs[indice])}$`
