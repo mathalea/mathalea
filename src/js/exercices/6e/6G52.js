@@ -77,7 +77,7 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
       objetsEnonce.push(d0, d1, d2, d3, d4, d5, d6, A13, A23, labelPoint(P03, P13, P23, P43, P53, P63, P3))
       // Les lignes ci-dessous permettent d'avoir un affichage aux dimensions optimisées
       const xmin = Math.min(P03.x, P13.x, P23.x, P43.x, P53.x, P63.x) - 2
-      const xmax = Math.max(P03.x, P13.x, P23.x, P43.x, P53.x, P63.x) + 2
+      const xmax = Math.max(P03.x, P13.x, P23.x, P43.x, P53.x, P63.x) + 3
       const ymin = Math.min(P03.y, P13.y, P23.y, P43.y, P53.y, P63.y) - 4
       const ymax = Math.max(P03.y, P13.y, P23.y, P43.y, P53.y, P63.y) + 4
       // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
