@@ -46,7 +46,7 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const objetsEnonce = []
       const noms = shuffle(['(d_1)', '(d_2)', '(d_3)', '(d_4)', '(d_5)', '(d_6)', '(d_7)'])
-      const couleurs = shuffle(['black', 'blue', 'green', '#f15929', 'purple', 'red', 'brown'])
+      const couleurs = shuffle(['black', 'blue', '#7e22ce', '#f15929', 'purple', 'red', 'brown'])
       const x = []
       const y = []
       for (let i = 0; i < 6; i++) {
