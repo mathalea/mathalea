@@ -1,9 +1,9 @@
 import Exercice from '../Exercice.js'
-import { choice, combinaisonListes, compteOccurences, contraindreValeur, lettreDepuisChiffre, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { choice, combinaisonListes, compteOccurences, contraindreValeur, lampeMessage, lettreDepuisChiffre, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { scratchblock } from '../../modules/2d.js'
 export const titre = 'Compléter un script Scratch'
 
-export const dateDePublication = '18/09/2022'
+export const dateDePublication = '20/09/2022'
 
 /**
  * Compléter un script sur les multiples et diviseurs
@@ -25,6 +25,12 @@ export default function completerScriptMultiple () {
   this.nbQuestionsModifiable = false
   this.listePackages = 'scratch3'
   this.nouvelleVersion = function () {
+    this.introduction = lampeMessage({
+      titre: `${scratchblock('\\begin{scratch}[print,fill,blocks,scale=0.5]\n\\ovaloperator{\\ovalnum{ } modulo \\ovalnum{ }}\\end{scratch}')}`,
+      texte: 'Cette brique donne le reste de la division euclidienne du nombre de gauche par le nombre de droite.',
+      couleur: 'nombres'
+    })
+
     this.consigne = 'Compléter les briques manquantes.'
     // this.consigne = 'Lis et comprends ce script Scratch associé à un lutin puis réponds aux questions suivantes.'
     this.listeQuestions = [] // Liste de questions
@@ -102,66 +108,78 @@ export default function completerScriptMultiple () {
     const nb2 = randint(1, 26, [23, 9, 15, 17, nb1]) // Pour éviter I,O,Q et W
     let var1 = lettreDepuisChiffre(nb1)
     let var2 = lettreDepuisChiffre(nb2)
-    let colonne1 = '\\begin{scratch}[print,fill,blocks,scale=0.5]\n'
+    let texteScratch = '\\begin{scratch}[print,fill,blocks,scale=0.5]\n'
     switch (briqueInitiale) {
       case 1 :
-        colonne1 += '\\blockinit{quand \\greenflag est cliqué}\n'
+        texteScratch += '\\blockinit{quand \\greenflag est cliqué}\n'
         break
       case 2 :
-        colonne1 += '\\blockinit{quand ce lutin est cliqué}\n'
+        texteScratch += '\\blockinit{quand ce sprite est cliqué}\n'
         break
       case 3 :
-        colonne1 += `\\blockinit{quand la touche \\selectmenu{${touchePressee}} est pressée}\n`
+        texteScratch += `\\blockinit{quand la touche \\selectmenu{${touchePressee}} est pressée}\n`
         break
       case 4 :
-        colonne1 += '\\blockinit{quand la touche \\selectmenu{n\'importe laquelle} est pressée}\n'
+        texteScratch += '\\blockinit{quand la touche \\selectmenu{n\'importe laquelle} est pressée}\n'
         break
     }
-    colonne1 += '\\blockmove{demander \\ovalnum{Donne-moi un nombre entier.} et attendre}\n'
-    colonne1 += choixLignes3et5
+    texteScratch += '\\blockmove{demander \\ovalnum{Donne-moi un nombre entier.} et attendre}\n'
+    const texteSansTrou = [texteScratch]
+    texteSansTrou.push(`\\blockvariable{mettre \\selectmenu{${var1}} à \\ovalsensing{réponse}}\n`)
+    texteScratch += choixLignes3et5
       ? `\\blockvariable{mettre \\selectmenu{${var1}} à \\ovalnum{ ................ }}\n`
-      : `\\blockvariable{mettre \\selectmenu{${var1}} à \\ovalsensing{réponse}}\n`
-    colonne1 += '\\blockmove{demander \\ovalnum{Donne-moi un second nombre entier.} et attendre}\n'
-    colonne1 += choixLignes3et5
+      : texteSansTrou[1]
+    texteSansTrou.push('\\blockmove{demander \\ovalnum{Donne-moi un second nombre entier.} et attendre}\n')
+    texteScratch += texteSansTrou[2]
+    texteSansTrou.push(`\\blockvariable{mettre \\selectmenu{${var2}} à \\ovalsensing{réponse}}\n`)
+    texteScratch += choixLignes3et5
       ? `\\blockvariable{mettre \\selectmenu{${var2}} à \\ovalnum{ ................ }}\n`
-      : `\\blockvariable{mettre \\selectmenu{${var2}} à \\ovalsensing{réponse}}\n`
+      : texteSansTrou[3]
     const var3 = lettreDepuisChiffre(nb1)
     var1 = diviseurEnPremier ? var2 : var1
     var2 = diviseurEnPremier ? var3 : var2
-    colonne1 += choixLigne6
+    texteSansTrou.push(`\\blockifelse{si \\booloperator{\\ovaloperator{\\ovalmove{${var1}} modulo \\ovalmove{${var2}}} = \\ovalnum{0}} alors}\n`)
+    texteScratch += choixLigne6
       ? '\\blockifelse{si \\booloperator{\\ovaloperator{\\ovalnum{ ................ } modulo \\ovalnum{ ................ }} = \\ovalnum{0}} alors}\n'
-      : `\\blockifelse{si \\booloperator{\\ovaloperator{\\ovalmove{${var1}} modulo \\ovalmove{${var2}}} = \\ovalnum{0}} alors}\n`
+      : texteSansTrou[4]
     switch (choixScript) {
       case 1 : // .... est un multiple de ....
-        colonne1 += choixLignes7et8Extremes
+        texteSansTrou.push(`{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var1}} et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : ' est un multiple de '}} et \\ovalmove{${var2}}}} et \\ovalnum{.}}}\n}\n`)
+        texteScratch += choixLignes7et8Extremes
           ? `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalnum{ ................ } et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : ' est un multiple de '}} et \\ovalnum{ ................ }}} et \\ovalnum{.}}}\n}\n`
-          : `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var1}} et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : ' est un multiple de '}} et \\ovalmove{${var2}}}} et \\ovalnum{.}}}\n}\n`
-        colonne1 += choixLignes7et8Extremes
+          : texteSansTrou[5]
+        texteSansTrou.push(`{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var1}} et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : ' n\'est pas un multiple de '}} et \\ovalmove{${var2}}}} et \\ovalnum{.}}}\n}\n`)
+        texteScratch += choixLignes7et8Extremes
           ? `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalnum{ ................ } et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : ' n\'est pas un multiple de '}} et \\ovalnum{ ................ }}} et \\ovalnum{.}}}\n}\n`
-          : `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var1}} et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : ' n\'est pas un multiple de '}} et \\ovalmove{${var2}}}} et \\ovalnum{.}}}\n}\n`
+          : texteSansTrou[6]
         break
       case 2 : // .... divise ....
-        colonne1 += choixLignes7et8Extremes
+        texteSansTrou.push(`{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var2}} et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : ' divise '}} et \\ovalmove{${var1}}}} et \\ovalnum{.}}}\n}\n`)
+        texteScratch += choixLignes7et8Extremes
           ? `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalnum{ ................ } et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : ' divise '}} et \\ovalnum{ ................ }}} et \\ovalnum{.}}}\n}\n`
-          : `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var2}} et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : ' divise '}} et \\ovalmove{${var1}}}} et \\ovalnum{.}}}\n}\n`
-        colonne1 += choixLignes7et8Extremes
+          : texteSansTrou[5]
+        texteSansTrou.push(`{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var2}} et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : ' ne divise pas '}} et \\ovalmove{${var1}}}} et \\ovalnum{.}}}\n}\n`)
+        texteScratch += choixLignes7et8Extremes
           ? `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalnum{ ................ } et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : ' ne divise pas '}} et \\ovalnum{ ................ }}} et \\ovalnum{.}}}\n}\n`
-          : `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var2}} et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : ' ne divise pas '}} et \\ovalmove{${var1}}}} et \\ovalnum{.}}}\n}\n`
+          : texteSansTrou[6]
         break
       case 3 : // .... est un diviseur de  ....
-        colonne1 += choixLignes7et8Extremes
+        texteSansTrou.push(`{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var2}} et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : ' est un diviseur de '}} et \\ovalmove{${var1}}}} et \\ovalnum{.}}}\n}\n`)
+        texteScratch += choixLignes7et8Extremes
           ? `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalnum{ ................ } et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : ' est un diviseur de '}} et \\ovalnum{ ................ }}} et \\ovalnum{.}}}\n}\n`
-          : `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var2}} et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : ' est un diviseur de '}} et \\ovalmove{${var1}}}} et \\ovalnum{.}}}\n}\n`
-        colonne1 += choixLignes7et8Extremes
+          : texteSansTrou[5]
+        texteSansTrou.push(`{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var2}} et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : ' n\'est pas un diviseur de '}} et \\ovalmove{${var1}}}} et \\ovalnum{.}}}\n}\n`)
+        texteScratch += choixLignes7et8Extremes
           ? `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalnum{ ................ } et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : ' n\'est pas un diviseur de '}} et \\ovalnum{ ................ }}} et \\ovalnum{.}}}\n}\n`
-          : `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var2}} et \\ovaloperator{regrouper \\ovalnum{${choixLignes7et8Centre ? ' ................ ' : ' n\'est pas un diviseur de '}} et \\ovalmove{${var1}}}} et \\ovalnum{.}}}\n}\n`
+          : texteSansTrou[6]
         break
     }
-    colonne1 += '\\end{scratch}'
-    colonne1 = scratchblock(colonne1)
+    texteSansTrou.push('\\end{scratch}')
+    texteScratch += texteSansTrou[7]
+    texteScratch = scratchblock(texteScratch)
 
-    const texte = colonne1
-    const texteCorr = ' '
+    const texte = texteScratch
+    const texteCorr = scratchblock(texteSansTrou.join(''))
 
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
