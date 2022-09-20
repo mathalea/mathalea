@@ -6,7 +6,7 @@ import {
   point, labelPoint, polygoneAvecNom, milieu, texteParPosition, polygone, codageAngleDroit
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, randint, texNombre, shuffle, simplificationDeFractionAvecEtapes, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombre, stringNombre, shuffle, simplificationDeFractionAvecEtapes, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
@@ -36,7 +36,12 @@ export default function SujetCAN2022troisieme () {
   this.nbQuestions = 30// 10,20,30
   this.nbCols = 1
   this.nbColsCorr = 1
-
+  this.comment = `Cet exercice fait partie des annales des Courses aux nombres.<br>
+  Il est composé de 30 questions réparties de la façon suivante :<br>
+  les 10 premières questions parfois communes à plusieurs niveaux font appels à des questions automatisées élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
+  Par défaut, les questions sont rangées dans le même ordre que le sujet officiel avec des données aléatoires. Ainsi, en cliquant sur « Nouvelles données », on obtient une nouvelle course aux nombres avec des données différentes.
+  En choisissant un nombre de questions différents de 30, on fabrique une « mini » course aux nombres qui respecte la proportion de nombre de questions élémentaires par rapport aux autres.
+  Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 questions automatisées élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -199,11 +204,11 @@ export default function SujetCAN2022troisieme () {
           reponse = a3.plus(u)
 
           if (choice([true, false])) {
-            texte = `Ecrire sous forme décimale : $${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}$ `
+            texte = `Ecris sous forme décimale : $${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}$ `
             texteCorr = `$${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}=${u}+${texNombre(a / 10, 1)}+${texNombre(c / 1000, 3)}=
             ${texNombre(reponse, 3)}$`
           } else {
-            texte = `Ecrire sous forme décimale : $${u}+\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}$ `
+            texte = `Ecris sous forme décimale : $${u}+\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}$ `
             texteCorr = `$${u}+\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}=${u}+${texNombre(c / 1000, 3)}+${texNombre(a / 10, 1)}=
             ${texNombre(reponse, 3)}$
              `
@@ -426,20 +431,20 @@ export default function SujetCAN2022troisieme () {
           C = point(6, 0, 'C', 'below')
           poly = polygone([A, B, C], 'black')
           poly.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
-          d = texteParPosition(`$${c} \\text{ cm}^2$`, 1.5, 1.5, 'milieu', 'black', 1, 'middle', false)
-          e = texteParPosition(`$${a} \\text{ cm}$`, -0.7, 2, 'milieu', 'black', 1, 'middle', false)
+          d = texteParPosition(`${stringNombre(c)} cm²`, 1.5, 1.5)
+          e = texteParPosition(`${stringNombre(a)} cm`, -0.7, 2)
           poly.epaisseur = 1
           reponse = b
-          texte = '<br>'
+          texte = 'On donne la figure suivante :<br>'
 
-          texte += mathalea2d({ xmin: -1.5, ymin: -1, xmax: 7.1, ymax: 5, scale: 0.7 }, poly, labelPoint(A, B, C), codageAngleDroit(B, A, C), d, e)
+          texte += mathalea2d({ xmin: -1.5, ymin: -1, xmax: 7.1, ymax: 5, scale: 1 }, poly, labelPoint(A, B, C), codageAngleDroit(B, A, C), d, e)
           texteCorr = `L'aire du triangle est $\\dfrac{\\text{AB}\\times \\text{AC}}{2}=\\dfrac{${a}\\times \\text{AC}}{2}$.<br>
           On obtient ainsi,  $\\dfrac{${a}\\times \\text{AC}}{2}=${c}$ soit $${a}\\times AC=2\\times ${c}$, soit $AC=\\dfrac{${c * 2}}{${a}}=${reponse}$ cm.`
           texte += '<br> $AC= $'
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
-          } else { texte += '$\\ldots $ cm<br>' }
+          } else { texte += ' $\\ldots$ cm' }
           nbChamps = 1
           break
 
@@ -521,15 +526,15 @@ export default function SujetCAN2022troisieme () {
         case 21:
           a = randint(3, 5) + randint(1, 9) / 10
           b = randint(6, 10) - a
-
+          c = b * 10
           A = point(0, 0, 'A', 'below')
           B = point(5, 1, 'B', 'below')
           C = point(6, 4, 'C', 'above')
           D = point(1, 3, 'D', 'above')
           poly = polygone([A, B, C, D], 'black')
           reponse = 2 * (a + b)
-          d = texteParPosition(`$${texNombre(a, 1)} \\text{ cm}$`, 6.2, 2, 'milieu', 'black', 1, 'middle', false)
-          e = texteParPosition(`$${texNombre(b * 10, 1)} \\text{ mm}$`, 3, 4, 'milieu', 'black', 1, 'middle', false)
+          d = texteParPosition(`${stringNombre(a)} cm`, 6.3, 2)
+          e = texteParPosition(`${stringNombre(c)} mm`, 3, 4)
           poly.epaisseur = 1
 
           texte = 'Périmètre du parallélogramme $ABCD$ :<br> '
@@ -652,7 +657,7 @@ export default function SujetCAN2022troisieme () {
             K = point(4, 0, 'K', 'below')
             J = point(0, 6, 'J', 'above')
 
-            xmin = -1
+            xmin = -1.6
             ymin = -1
             xmax = 4.5
             ymax = 6.8
@@ -660,8 +665,8 @@ export default function SujetCAN2022troisieme () {
             objets = []
             objets.push(poly[0])
             objets.push(
-              texteParPosition(`$${a} \\text{ cm}$`, milieu(I, K).x, milieu(I, K).y - 0.3, 'milieu', 'black', 1, 'middle', true)
-              , texteParPosition(`$${b} \\text{ cm}$`, milieu(J, K).x + 0.6, milieu(J, K).y, 'milieu', 'black', 1, 'middle', true)
+              texteParPosition(`${stringNombre(a)} cm`, milieu(I, K).x, milieu(I, K).y - 0.3)
+              , texteParPosition(`${stringNombre(b)} cm`, milieu(J, K).x + 0.7, milieu(J, K).y)
               , labelPoint(I, J, K), codageAngleDroit(J, I, K))
             propositions = shuffle([`$IJ=\\sqrt{${a ** 2 + b ** 2}}$`, `$IJ=\\sqrt{${b ** 2 - a ** 2}}$`, `$IJ=\\sqrt{${a + b}}$`, `$IJ=${b - a}$`])
 
@@ -680,7 +685,7 @@ export default function SujetCAN2022troisieme () {
             K = point(4, 0, 'I', 'below')
             J = point(0, 6, 'J', 'above')
 
-            xmin = -1.2
+            xmin = -1.6
             ymin = -1
             xmax = 4.5
             ymax = 6.8
@@ -688,8 +693,8 @@ export default function SujetCAN2022troisieme () {
             objets = []
             objets.push(poly[0])
             objets.push(
-              texteParPosition(`$${a} \\text{ cm}$`, milieu(I, K).x, milieu(I, K).y - 0.3, 'milieu', 'black', 1, 'middle', true)
-              , texteParPosition(`$${b} \\text{ cm}$`, milieu(J, I).x - 0.6, milieu(J, I).y, 'milieu', 'black', 1, 'middle', true)
+              texteParPosition(`${stringNombre(a)} cm`, milieu(I, K).x, milieu(I, K).y - 0.3)
+              , texteParPosition(`${stringNombre(b)} cm`, milieu(J, I).x - 0.8, milieu(J, I).y)
               , labelPoint(I, J, K), codageAngleDroit(J, I, K))
             propositions = shuffle([`$IJ=\\sqrt{${a ** 2 + b ** 2}}$`, `$IJ=\\sqrt{${b ** 2 - a ** 2}}$`, `$IJ=\\sqrt{${a + b}}$`, `$IJ=${b - a}$`])
 

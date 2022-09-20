@@ -1,5 +1,9 @@
 import APartirDeDivisionsEuclidiennes from '../6e/6C11-3.js'
 export const titre = 'Indiquer une égalité à partir d\'une division euclidienne'
+export const amcReady = true
+export const amcType = 'AMCOpen' // type de question AMC
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 export const dateDePublication = '14/09/2022'
 
@@ -10,6 +14,8 @@ export const dateDePublication = '14/09/2022'
  * @author Eric Elter
  */
 
+export const uuid = 'b0cee'
+export const ref = '3A13-4'
 export default function APartirDeDivisionsEuclidiennes3e () {
   APartirDeDivisionsEuclidiennes.call(this)
 }

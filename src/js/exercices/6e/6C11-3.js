@@ -31,6 +31,8 @@ export const dateDePublication = '09/09/2022'
  * @author Eric Elter (à partir de 6C11)
  * Référence 6C11-3
  */
+export const uuid = 'd0cd7'
+export const ref = '6C11-3'
 export default function APartirDeDivisionsEuclidiennes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 3

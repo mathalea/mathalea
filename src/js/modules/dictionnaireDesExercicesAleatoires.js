@@ -2487,8 +2487,12 @@ export default {
   "3A13-1": {
     "titre": "Poser divisions euclidiennes",
     "url": "/exercices/3e/3A13-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3A13-1",
     "newEx": {
       "isNew": true,
@@ -2502,8 +2506,12 @@ export default {
   "3A13-2": {
     "titre": "Déterminer reste et quotient d'une division euclidienne à partir d'une égalité",
     "url": "/exercices/3e/3A13-2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpenNum✖︎2"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3A13-2",
     "newEx": {
       "isNew": true,
@@ -2517,8 +2525,12 @@ export default {
   "3A13-3": {
     "titre": "Trouver le vocabulaire associé aux termes de l'égalité issue de la division euclidienne",
     "url": "/exercices/3e/3A13-3.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3A13-3",
     "newEx": {
       "isNew": true,
@@ -2532,8 +2544,12 @@ export default {
   "3A13-4": {
     "titre": "Indiquer une égalité à partir d'une division euclidienne",
     "url": "/exercices/3e/3A13-4.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3A13-4",
     "newEx": {
       "isNew": true,
@@ -3289,7 +3305,7 @@ export default {
     }
   },
   "3I1": {
-    "titre": "Instruction conditionelle (scratch)",
+    "titre": "Instruction conditionnelle (scratch)",
     "url": "/exercices/3e/3I1.js",
     "amcReady": false,
     "interactifReady": false,
@@ -3789,6 +3805,36 @@ export default {
     "name": "3S21",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "beta3I12-1": {
+    "titre": "Compléter un script Scratch",
+    "url": "/exercices/3e/beta3I12-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta3I12-1",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "beta3I12-2": {
+    "titre": "Comprendre un script Scratch",
+    "url": "/exercices/3e/beta3I12-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta3I12-2",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -4523,7 +4569,7 @@ export default {
     "interactifType": "qcm",
     "name": "4C32-4",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -8304,7 +8350,7 @@ export default {
     ],
     "name": "6G10-4",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -8841,6 +8887,21 @@ export default {
     "name": "6G44",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "6G52": {
+    "titre": "Se servir des relations entre perpendicularité et parallélisme",
+    "url": "/exercices/6e/6G52.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6G52",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -9480,6 +9541,22 @@ export default {
     "name": "6N12",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "6N13-0": {
+    "titre": "Connaître les préfixes utilisés dans les unités",
+    "url": "/exercices/6e/6N13-0.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "listeDeroulante",
+    "name": "6N13-0",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -11889,12 +11966,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "betaModele30_constructions_géométriques": {
+  "betaModele30_constructions_géométriques": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
+    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele30_constructions_géométriques",
+    "name": "betaModele30_constructions_géométriques",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -12955,6 +13032,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "can1F20": {
+    "titre": "Résoudre une équation du second degré sans $\\Delta$",
+    "url": "/exercices/can/1e/can1F20.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can1F20",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "can1G01": {
     "titre": "Déterminer les valeurs remarquables du cosinus et sinus",
     "url": "/exercices/can/1e/can1G01.js",
@@ -13613,7 +13706,7 @@ export default {
     }
   },
   "can2C03": {
-    "titre": "Calculer avec  des puissances",
+    "titre": "Calculer avec  des puissances*",
     "url": "/exercices/can/2e/can2C03.js",
     "amcReady": true,
     "amcType": {
@@ -13771,6 +13864,25 @@ export default {
     "name": "can2C12",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can2C13": {
+    "titre": "Calculer avec  des puissances",
+    "url": "/exercices/can/2e/can2C13.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2C13",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

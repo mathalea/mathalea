@@ -144,6 +144,7 @@ export default class Alea2iep {
 
   /**
    * Renvoie le code HTML de l'animation
+   * Il est important de spécifier le numéro de l'exercice et de la question pour avoir un identifiant unique sur la page
    * @param {int} numeroExercice - Numéro de l'exercice
    * @param {int} i - Numéro de la question
    */
@@ -169,7 +170,8 @@ export default class Alea2iep {
   }
 
   /**
-   *
+   * Créé un bouton qui permettra d'afficher ou masquer l'animation
+   * Il est important de spécifier le numéro de l'exercice et de la question pour avoir un identifiant unique sur la page
    * @param {int} numeroExercice - Numéro de l'exercice
    * @param {int} i - Numéro de la question
    * @return Code HTML avec le bouton qui affiche ou masque un div avec l'animation
@@ -226,6 +228,7 @@ export default class Alea2iep {
 
   /**
  *
+ * Permet de déplacer le repère utilisé pour l'animation en précisant les bornes xmin et ymax
  * @param {int} xmin
  * @param {int} ymax
  */

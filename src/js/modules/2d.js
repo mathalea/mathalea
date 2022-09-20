@@ -557,7 +557,7 @@ export function pointAdistance (...args) {
  * @param  {...any} args Points mis à la suite
  * @param {string} [color = 'black'] Couleur des points : du type 'blue' ou du type '#f15929'
  * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @property {string} color Couleur des points. À associer obligatoirement à colorToLatexOrHTML().
  * @property {number} taille Taille de la boite contenant le nom des points
  * @property {number} largeur Largeur de la boite contenant le nom des points
@@ -6947,69 +6947,20 @@ export function axeY (
   return new AxeY(ymin, ymax, thick, ystep, epaisseur, color, ytick, titre)
 }
 
-function LabelX (
-  xmin = 1,
-  xmax = 20,
-  step = 1,
-  color = 'black',
-  pos = -0.6,
-  coeff = 1
-) {
-  ObjetMathalea2D.call(this, { })
-  const objets = []
-  for (let x = ceil(xmin / coeff);
-    x * coeff <= xmax;
-    x = x + step
-  ) {
-    objets.push(
-      texteParPoint(
-        Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 })
-          .format(x * coeff)
-          .toString(),
-        point(x, pos),
-        'milieu',
-        color, 1, 'middle', true
-      )
-    )
-  }
-  this.svg = function (coeff) {
-    let code = ''
-    for (const objet of objets) {
-      code += '\n\t' + objet.svg(coeff)
-    }
-    return code
-  }
-  this.tikz = function () {
-    let code = ''
-    for (const objet of objets) {
-      code += '\n\t' + objet.tikz()
-    }
-    return code
-  }
-  this.commentaire = `labelX(xmin=${xmin},xmax=${xmax},step=${step},color=${color},pos=${pos},coeff=${coeff})`
-}
-/**
- * labelX(xmin,xmax,step,color,pos,coeff) // Place des graduations
- *
- * @author Rémi Angot
- */
-export function labelX (...args) {
-  return new LabelX(...args)
-}
-
-/**
- * labelY(ymin,ymax,step,color,pos,coeff) // Place des graduations
- *
+/**  Place des labels sur un axe vertical précédemment
+ * @param  {number} [ymin = 1] Ordonnée minimale sur l'axe
+ * @param  {number} [ymax = 20] Ordonnée maximale sur l'axe
+ * @param  {number} [step = 1] Pas entre chaque label
+ * @param {string} [color = 'black'] Couleur des labels : du type 'blue' ou du type '#f15929'
+ * @param  {number} [pos = -0.6] Décalage entre les labels et l'axe vertical
+ * @param  {number} [coeff = 1] Coefficient multiplicatif sur chaque label
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @author Rémi Angot modifié par Frédéric Piou
+ * @class
  */
-function LabelY (
-  ymin = 1,
-  ymax = 20,
-  step = 1,
-  color = 'black',
-  pos = -0.6,
-  coeff = 1
-) {
+// JSDOC Validee par EE Septembre 2022
+function LabelY (ymin = 1, ymax = 20, step = 1, color = 'black', pos = -0.6, coeff = 1) {
   ObjetMathalea2D.call(this, { })
   const objets = []
   for (let y = ceil(ymin / coeff);
@@ -7039,11 +6990,25 @@ function LabelY (
     }
     return code
   }
-  this.commentaire = `labelX(ymin=${ymin},ymax=${ymax},step=${step},color=${color},pos=${pos})`
 }
 
-export function labelY (...args) {
-  return new LabelY(...args)
+/**  Place des labels sur un axe vertical précédemment
+ * @param  {number} [ymin = 1] Ordonnée minimale sur l'axe
+ * @param  {number} [ymax = 20] Ordonnée maximale sur l'axe
+ * @param  {number} [step = 1] Pas entre chaque label
+ * @param {string} [color = 'black'] Couleur des labels : du type 'blue' ou du type '#f15929'
+ * @param  {number} [pos = -0.6] Décalage entre les labels et l'axe vertical
+ * @param  {number} [coeff = 1] Coefficient multiplicatif sur chaque label
+ * @example labelY()
+ * // Note, sur un axe (prédéfini de 1 en 1), des labels noirs, de 0 à 20, de 2 en 2, avec un décalage de -0,6 par rapport à l'axe
+ * @example labelY(0, 160, 2, 'red', -2, 20)
+ * // Note, sur un axe (prédéfini de 1 en 1), des labels rouges, de 0 à 160, de 40 (2*20) en 40, avec un décalage de -2 par rapport à l'axe.
+ * @author Rémi Angot modifié par Frédéric Piou
+ * @return {LabelY}
+ */
+// JSDOC Validee par EE Septembre 2022
+export function labelY (ymin = 1, ymax = 20, step = 1, color = 'black', pos = -0.6, coeff = 1) {
+  return new LabelY(ymin, ymax, step, color, pos, coeff)
 }
 
 /**  Trace une grille quadrillée dont le coin en bas à gauche est (xmin, ymin) et celui à droite est au maximum (xmax, ymax), de couleur et opacité choisie, avec un pas choisi et avec ou sans pointillés
@@ -9020,7 +8985,8 @@ function DiagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille =
       step = istep * 10
       ytick = 5
     }
-    if (labelAxeVert) diagramme.push(labelY(0, max(hauteursBarres), (fraction(hauteurDiagramme, max(hauteursBarres))).mul(step), 'black', -1.3, max(hauteursBarres) / hauteurDiagramme))
+
+    if (labelAxeVert) diagramme.push(labelY(0, max(hauteursBarres), (fraction(hauteurDiagramme, max(hauteursBarres))).mul(step), 'black', -3, max(hauteursBarres) / hauteurDiagramme))
     if (axeVertical) diagramme.push(axeY(0, hauteurDiagramme + 1, 0.2, (fraction(hauteurDiagramme, max(hauteursBarres))).mul(step), 0.2, 'black', ytick, titreAxeVertical))
   }
   if (titre !== '') diagramme.push(texteParPoint(titre, point((hauteursBarres.length - 1) * coeff / 2, hauteurDiagramme + 1)))
