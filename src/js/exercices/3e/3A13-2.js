@@ -1,5 +1,9 @@
 import DivisionsEuclidiennesEgalite from '../6e/6C11-1.js'
 export const titre = 'Déterminer reste et quotient d\'une division euclidienne à partir d\'une égalité'
+export const amcReady = true
+export const amcType = 'AMCOpenNum✖︎2' // type de question AMC
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 export const dateDePublication = '14/09/2022'
 
@@ -10,6 +14,8 @@ export const dateDePublication = '14/09/2022'
  * @author Eric Elter
  */
 
+export const uuid = 'd8bf2'
+export const ref = '3A13-2'
 export default function DivisionsEuclidiennesEgalite3e () {
   DivisionsEuclidiennesEgalite.call(this)
   this.sup = 1

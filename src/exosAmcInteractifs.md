@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 493 
-- nombre d'exos interactifReady 770 
+- nombre d'exos amcReady 501 
+- nombre d'exos interactifReady 780 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -73,6 +73,10 @@
 |3A10-5|Recourir à une décomposition en facteurs premiers dans des cas simples|KO|KO|OK|mathLive|
 |3A10-6|Trouver un chiffre pour qu'un nombre soit divisible par un autre|KO|KO|OK|mathLive|
 |3A12-1|Résoudre des problèmes avec recherche de diviseurs communs|OK|AMCHybride|OK|mathLive|
+|3A13-1|Poser divisions euclidiennes|OK|AMCOpen|OK|mathLive|
+|3A13-2|Déterminer reste et quotient d'une division euclidienne à partir d'une égalité|OK|AMCOpenNum✖︎2|OK|mathLive|
+|3A13-3|Trouver le vocabulaire associé aux termes de l'égalité issue de la division euclidienne|OK|AMCOpen|OK|mathLive|
+|3A13-4|Indiquer une égalité à partir d'une division euclidienne|OK|AMCOpen|OK|mathLive|
 |3F10-1|Vocabulaire et notations des fonctions (généralités)|OK|qcmMult|OK|qcm|
 |3F10-2|Fonction : calculs d'images (et d'antécédents)|OK|AMCNum|OK|mathLive|
 |3F10|Lectures d'images et d'antécédents depuis un tableau de valeurs|KO|KO|OK|mathLive|
@@ -342,6 +346,7 @@
 |6N11-2|Placer un point d'abscisse entière (grands nombres)|OK|AMCOpen|OK|custom|
 |6N11|Lire l'abscisse entière d'un point (grands nombres)|OK|AMCOpen|OK|mathLive|
 |6N12-1|Par combien multiplier un entier pour que le chiffre des unités devienne le chiffre des ... ?|OK|qcmMono|OK|qcm|
+|6N13-0|Connaître les préfixes utilisés dans les unités|KO|KO|OK|listeDeroulante|
 |6N13|Convertir des longueurs, masses, capacités, prix ou unités informatiques|OK|AMCNum|OK|mathLive|
 |6N14|Représenter des fractions|OK|AMCHybride|KO|KO|
 |6N20-1|Encadrer une fraction entre deux nombres entiers consécutifs|OK|AMCHybride|OK|mathLive|
@@ -462,6 +467,7 @@
 |can1F17|Déterminer la fonction dérivée d’une fonction $1/u(x)$|KO|KO|OK|mathLive|
 |can1F18|Déterminer la fonction dérivée d’une fonction $a/u(x)$|KO|KO|OK|mathLive|
 |can1F19|Calculer une dérivée et écrire le résultat sous la forme d’un quotient|KO|KO|OK|mathLive|
+|can1F20|Résoudre une équation du second degré sans $\Delta$|KO|KO|OK|qcm|
 |can1G01|Déterminer les valeurs remarquables du cosinus et sinus|KO|KO|OK|mathLive|
 |can1G02|Déterminer les valeurs remarquables du cosinus et sinus*|KO|KO|OK|mathLive|
 |can1G03|Simplifier les sinus et cosinus des angles associés|KO|KO|OK|mathLive|
@@ -501,7 +507,7 @@
 |can1a-2022|CAN première sujet 2022|KO|KO|OK|mathLive|
 |can2C01|Trouver le nombre d’entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
 |can2C02|Calculer une différence de deux carrés|OK|AMCNum|OK|mathLive|
-|can2C03|Calculer avec  des puissances|OK|AMCNum|OK|mathLive|
+|can2C03|Calculer avec  des puissances*|OK|AMCNum|OK|mathLive|
 |can2C04|Calculer avec les identités remarquables - simple|KO|KO|OK|mathLive|
 |can2C05|Calculer avec les identités remarquables - Guidé|KO|KO|OK|mathLive|
 |can2C06|Simplifier des racines carrées|KO|KO|OK|mathLive|
@@ -511,6 +517,7 @@
 |can2C10|Passer du taux d’évolution au coefficient multiplicateur|KO|KO|OK|mathLive|
 |can2C11|Passer du coefficient multiplicateur au taux d’évolution|KO|KO|OK|mathLive|
 |can2C12|Déterminer un taux global d’évolution|OK|AMCNum|OK|mathLive|
+|can2C13|Calculer avec  des puissances|OK|AMCNum|OK|mathLive|
 |can2F01|Calculer une image avec le second degré|KO|KO|OK|mathLive|
 |can2F02|Calculer une image avec un quotient|KO|KO|OK|mathLive|
 |can2F03|Déterminer le signe d’une fonction affine (V/F)|KO|KO|OK|qcm|
@@ -610,6 +617,7 @@
 |can4C09|Calculer des puissances de +/-2, 3, 4 ou 5|OK|AMCNum|OK|mathLive|
 |can4C10|Calculer une somme/différence de fractions égyptiennes|OK|AMCNum|OK|mathLive|
 |can4C11|Déterminer le signe d’une puissance|KO|KO|OK|qcm|
+|can4C12|Calculer la moitié d’une fraction|OK|AMCNum|OK|mathLive|
 |can4G01|Déterminer une longueur avec des triangles semblables|OK|AMCNum|OK|mathLive|
 |can4G02|Trouver l’image d’un point par une transformation|KO|KO|OK|mathLive|
 |can4G03|Calculer l’hypoténuse avec le théorème de Pythagore|KO|KO|OK|mathLive|
@@ -714,6 +722,7 @@
 |can6C36|Résoudre un problème de partage*|KO|KO|OK|mathLive|
 |can6C38|Trouver une valeur dans un Yohaku (additif)|OK|AMCNum|OK|mathLive|
 |can6C39|Trouver une valeur dans un Yohaku (multiplicatif)|OK|AMCNum|OK|mathLive|
+|can6C40|Calculer la moitié d’un nombre décimal|OK|AMCNum|OK|mathLive|
 |can6D01|Convertir des Heures/minutes en minutes|OK|AMCNum|OK|mathLive|
 |can6D02|Chercher un reste en minutes|OK|AMCNum|OK|mathLive|
 |can6D03|Calculer une durée en minutes|OK|AMCNum|OK|mathLive|
@@ -776,6 +785,7 @@
 |canc3C08|Résoudre un problème avec "de plus", "de moins"*|OK|AMCNum|OK|mathLive|
 |canc3C09|Résoudre un problème avec "fois plus", "fois moins"|OK|AMCNum|OK|mathLive|
 |canc3C10|Résoudre un problème avec "fois plus", "fois moins"*|OK|AMCNum|OK|mathLive|
+|canc3C11|Calculer la moitié d’un nombre impair|OK|AMCNum|OK|mathLive|
 |canc3D01|Lire l'heure|OK|AMCHybride|OK|mathLive|
 |canc3D02|Lire une durée|KO|KO|OK|mathLive|
 |canc3D03|Ajouter des durées|KO|KO|OK|mathLive|

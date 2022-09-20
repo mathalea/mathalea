@@ -6708,7 +6708,8 @@ ${preambulePersonnalise(listePackages)}
 */
 export function introLatexCan (entete = 'Course aux nombres', listePackages = '') {
   if (entete === '') { entete = 'Course aux nombres' }
-  return `\\documentclass[12pt, landscape]{article}
+  // return `\\documentclass[12pt, landscape]{article}
+  return `\\documentclass[12pt]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
 %\\usepackage[utf8]{inputenc}        
 %\\usepackage[T1]{fontenc}
@@ -6779,15 +6780,87 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 
 \\fancypagestyle{premierePage}
 {
-  \\fancyhead[C]{\\textbf{${entete}}}
-
+  \\fancyhead[C]{\\textsc{${entete}}}
 }
 ${preambulePersonnalise(listePackages)}
 
+% Spécifique sujets CAN
+\\usepackage{longtable}
 
+\\tikzset{
+  mybox/.style={
+    rectangle,
+    drop shadow, 
+    inner sep=17pt,
+    draw=gray,
+    shade,
+    top color=gray,
+    every shadow/.append style={fill=gray!40}, 
+    bottom color=gray!20
+    }
+  }
+  
+  \\newcommand\\MyBox[2][]{%
+    \\tikz\\node[mybox,#1] {#2}; 
+  }
+  \\newcounter{nbEx}
+  \\usepackage{totcount}
+  \\regtotcounter{nbEx}
+  \\def\\checkmark{\\tikz\\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
+  
 \\begin{document}
 \\thispagestyle{premierePage}
 
+\\setcounter{nbEx}{1}
+\\vspace*{-10mm}
+\\textsc{Nom} : \\makebox[.35\\linewidth]{\\dotfill} \\hfill \\textsc{Prénom} : \\makebox[.35\\linewidth]{\\dotfill}
+\\begin{minipage}{0.55\\textwidth}
+  \\vspace{10mm}
+  \\textsc{Classe} : \\makebox[.45\\linewidth]{\\dotfill}
+\\end{minipage}
+\\begin{minipage}{0.35\\textwidth} 
+  \\vspace{5mm}
+  \\MyBox{\\Large\\textsc{Score} : \\makebox[.15\\linewidth]{\\dotfill} / \\total{nbEx}}      
+\\end{minipage}
+\\par\\medskip \\hrulefill \\par
+\\checkmark \\textit{\\textbf{Durée : [À compléter dans le code source] minutes}}
+
+\\smallskip
+\\checkmark \\textit{L'épreuve comporte \total{nbEx} questions.}
+
+\\smallskip  
+\\checkmark \\textit{L'usage de la calculatrice et du brouillon sont interdits.}
+
+\\smallskip
+\\checkmark \\textit{Il n'est pas permis d'écrire des calculs intermédiaires.}
+\\par \\hrulefill \\par\\vspace{5mm}
+\\begin{center}
+\\textsc{Sujet niveau NN - Mois Année}
+
+
+\\par\\vspace{5mm}
+\\def\\arete{3}   \\def\\epaisseur{5}   \\def\\rayon{2}
+
+\\newcommand{\\ruban}{(0,0)
+  ++(0:0.57735*\\arete-0.57735*\\epaisseur+2*\\rayon)
+  ++(-30:\\epaisseur-1.73205*\\rayon)
+  arc (60:0:\\rayon)   -- ++(90:\\epaisseur)
+  arc (0:60:\\rayon)   -- ++(150:\\arete)
+  arc (60:120:\\rayon) -- ++(210:\\epaisseur)
+  arc (120:60:\\rayon) -- cycle}
+
+\\begin{tikzpicture}[very thick,top color=white,bottom color=gray,scale=1.3]
+  \\shadedraw \\ruban;
+  \\shadedraw [rotate=120] \\ruban;
+  \\shadedraw [rotate=-120] \\ruban;
+  \\draw (-60:4) node[scale=5,rotate=30]{CAN};
+  \\draw (180:4) node[scale=3,rotate=-90]{MathALEA};
+  \\clip (0,-6) rectangle (6,6); % pour croiser
+  \\shadedraw  \\ruban;
+  \\draw (60:4) node [gray,xscale=-3,yscale=3,rotate=30]{Ti\\textit{k}Z};
+\\end{tikzpicture}
+\\end{center}
+\\clearpage
 `
 }
 
@@ -7233,6 +7306,8 @@ export function preambulePersonnalise (listePackages) {
         break
       case 'bac':
       case 'crpe':
+        result += '\\usepackage{scratch3}'
+        break
       case 'dnb':
       case 'e3c':
         // result += `

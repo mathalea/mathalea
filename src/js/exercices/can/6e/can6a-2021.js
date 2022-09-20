@@ -5,7 +5,7 @@ import {
   point, droiteGraduee, segment, milieu, texteParPosition, codageSegment, polygone, grille
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, miseEnEvidence, randint, texNombre, shuffle, choice, sp, arrondi } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, miseEnEvidence, randint, texNombre, stringNombre, shuffle, choice, sp, arrondi } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
@@ -35,7 +35,12 @@ export default function SujetCAN2021Sixieme () {
   this.nbQuestions = 30// 10,20,30
   this.nbCols = 1
   this.nbColsCorr = 1
-
+  this.comment = `Cet exercice fait partie des annales des Courses aux nombres.<br>
+  Il est composé de 30 questions réparties de la façon suivante :<br>
+  les 10 premières questions parfois communes à plusieurs niveaux font appels à des questions automatisées élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
+  Par défaut, les questions sont rangées dans le même ordre que le sujet officiel avec des données aléatoires. Ainsi, en cliquant sur « Nouvelles données », on obtient une nouvelle course aux nombres avec des données différentes.
+  En choisissant un nombre de questions différents de 30, on fabrique une « mini » course aux nombres qui respecte la proportion de nombre de questions élémentaires par rapport aux autres.
+  Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 questions automatisées élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -568,15 +573,15 @@ export default function SujetCAN2021Sixieme () {
           D = point(-0.6, 3.4, 'D', 'above')
           code1 = codageSegment(B, C, '|')
           code2 = codageSegment(A, D, '|')
-          xmin = -1.5
+          xmin = -2.5
           ymin = -1
           xmax = 4
-          ymax = 4
+          ymax = 4.5
           objets = []
           objets.push(
-            texteParPosition(`$${texNombre(a)} \\text{ cm}$`, milieu(A, D).x - 0.7, milieu(A, D).y, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${texNombre(b)} \\text{ cm}$`, milieu(A, B).x, milieu(A, B).y - 0.3, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${texNombre(c)} \\text{ cm}$`, milieu(D, C).x, milieu(D, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`${stringNombre(a)} cm`, milieu(A, D).x - 0.9, milieu(A, D).y),
+            texteParPosition(`${stringNombre(b)} cm`, milieu(A, B).x, milieu(A, B).y - 0.4),
+            texteParPosition(`${stringNombre(c)} cm`, milieu(C, D).x, milieu(C, D).y + 0.3),
             segment(A, B), segment(B, C), segment(C, D), segment(D, A), code1, code2)
           reponse = arrondi(2 * a + b + c, 1)
           texte = `Quel est le périmètre de cette figure ? <br>

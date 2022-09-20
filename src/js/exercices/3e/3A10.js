@@ -82,7 +82,7 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
           }
 
           const myChoice = randint(0, 3)
-          texte = `Quel est le plus grand ${myTexte.vocabulaire[myChoice]} possible dans une division euclidienne par ${diviseur}.`
+          texte = `Quel est le plus grand ${myTexte.vocabulaire[myChoice]} possible dans une division euclidienne par ${diviseur} ?`
           texteCorr = `Si on divise par ${diviseur}, `
           texteCorr += myTexte.correction[myChoice]
 

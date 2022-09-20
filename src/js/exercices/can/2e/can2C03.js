@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, calcul, choice, texNombrec, abs, ecritureParentheseSiNegatif, sp } from '../../../modules/outils.js'
-export const titre = 'Calculer avec  des puissances'
+export const titre = 'Calculer avec  des puissances*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

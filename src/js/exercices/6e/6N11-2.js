@@ -4,6 +4,7 @@ import { listeQuestionsToContenu, randint, combinaisonListes, calcul, lettreDepu
 import { pointCliquable } from '../../modules/2dinteractif.js'
 import { afficheScore } from '../../modules/gestionInteractif.js'
 import { droiteGraduee, labelPoint, point, tracePoint } from '../../modules/2d.js'
+import { context } from '../../modules/context.js'
 
 export const titre = 'Placer un point d\'abscisse entière (grands nombres)'
 export const interactifReady = true
@@ -125,7 +126,7 @@ export default function PlacerUnPointAbscisseEntiere2d () {
           }
         }
       }
-      texte += mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 1, pixelsParCm: 20, scale: 0.5 }, mesObjets)
+      texte += (context.isHtml ? '' : '\\\\') + mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 1, pixelsParCm: 20, scale: 0.5 }, mesObjets)
       if (this.interactif) {
         texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
       }

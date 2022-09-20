@@ -1146,7 +1146,15 @@ function miseAJourDuCode () {
       }
       if ($('#style_can:checked').val()) {
         const monSuperExercice = concatExercices(listeObjetsExercice)
-        codeEnonces = monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', '\\begin{enumerate}[itemsep=1em]')
+        codeEnonces = monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', `\\begin{spacing}{1.5}
+        \\begin{longtable}{|c|>{\\centering}p{0.65\\textwidth}|>{\\centering}p{0.15\\textwidth}|c|}%
+        \\hline
+        \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline
+        \\thenbEx \\addtocounter{nbEx}{1}&`).replace('\\item', '').replaceAll('\\item', `&&\\tabularnewline \\hline
+        \\thenbEx  \\addtocounter{nbEx}{1}&`).replace('\\end{enumerate}', `&&\\tabularnewline \\hline
+        \\end{longtable}
+        \\end{spacing}
+        \\addtocounter{nbEx}{-1}`).replace('\\begin{multicols}{2}', '').replace('\\end{multicols}', '').replaceAll('\\\\', '')
         codeCorrections = monSuperExercice.contenuCorrection.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '')
       }
       if ($('#supprimer_correction:checked').val()) {
@@ -1171,8 +1179,16 @@ function miseAJourDuCode () {
           codeExercices += '\\version{' + (v + 1) + '}\n\n'
           codeCorrection += '\n\n\\newpage\n\\version{' + (v + 1) + '}\n\\begin{correction}'
           if ($('#style_can:checked').val()) {
-            const monSuperExercice = concatExercices(listeObjetsExercice)
-            codeExercices += monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', '\\begin{enumerate}[itemsep=1em]')
+            const monSuperExercice = concatExercices(listeObjetsExercice)            
+            codeExercices += monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', `\\begin{spacing}{1.5}
+            \\begin{longtable}{|c|>{\\centering}p{0.65\\textwidth}|>{\\centering}p{0.15\\textwidth}|c|}%
+            \\hline
+            \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline
+            \\thenbEx \\addtocounter{nbEx}{1}&`).replace('\\item', '').replaceAll('\\item', `&&\\tabularnewline \\hline
+            \\thenbEx  \\addtocounter{nbEx}{1}&`).replace('\\end{enumerate}', `&&\\tabularnewline \\hline
+            \\end{longtable}
+            \\end{spacing}
+            \\addtocounter{nbEx}{-1}`).replace('\\begin{multicols}{2}', '').replace('\\end{multicols}', '').replace('\\\\', '')
             codeExercices += '\n\n'
             codeCorrection += monSuperExercice.contenuCorrection.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '')
             codeCorrection += '\n\n'
@@ -3499,6 +3515,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'moodle')}" target="_blank"><i class="share square icon"></i>Export Moodle</a></div>
         <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'latex')}" target="_blank"><i class="cogs icon"></i>Export LaTeX</a></div>
         <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'amc')}" target="_blank"><i class="check square outline icon"></i>Export AMC</a></div>
+        <div class="active item"><a class="mesLiensModaux" href="https://coopmaths.fr/beta/${window.location.search.replaceAll('ex=', 'id=').replaceAll(',', '&')}" target="_blank"><i class="exclamation triangle icon"></i>Version béta</a></div>
       </div>
 
       <h3 class="ui dividing header">Imposer un temps</h3>

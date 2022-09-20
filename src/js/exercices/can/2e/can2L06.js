@@ -32,7 +32,7 @@ export default function DevelopperEgalitesRemarquables () {
       case 2 :
         this.question = ` Développer $(${inconnue}-${a})^2$` // (x-a)²
         this.correction = `On utilise l'égalité remarquable $(a-b)^2=a^2-2ab+b^2$ avec $a=${inconnue}$ et $b=${a}$.<br>
-      $(${inconnue}+${a})^2=${inconnue}^2-2 \\times ${a} \\times ${inconnue}+${a}^2=${inconnue}^2-${2 * a}${inconnue}+${a * a}$`
+      $(${inconnue}-${a})^2=${inconnue}^2-2 \\times ${a} \\times ${inconnue}+${a}^2=${inconnue}^2-${2 * a}${inconnue}+${a * a}$`
         this.reponse = [`${inconnue}^2-${2 * a}${inconnue}+${a * a}`]
         break
       case 3 :

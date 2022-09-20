@@ -3,7 +3,7 @@ import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import FractionX from '../../../modules/FractionEtendue.js'
 import { point, polygoneAvecNom, codageAngleDroit, droite, labelPoint, milieu, texteParPosition } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, randint, ecritureAlgebrique, texPrix, rienSi1, texNombre, shuffle, reduirePolynomeDegre3, choice, reduireAxPlusB, sp, ecritureAlgebriqueSauf1 } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, ecritureAlgebrique, stringNombre, texPrix, rienSi1, texNombre, shuffle, reduirePolynomeDegre3, choice, reduireAxPlusB, sp, ecritureAlgebriqueSauf1 } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
@@ -33,7 +33,12 @@ export default function SujetCAN2022Seconde () {
   this.nbQuestions = 30
   this.nbCols = 1
   this.nbColsCorr = 1
-
+  this.comment = `Cet exercice fait partie des annales des Courses aux nombres.<br>
+  Il est composé de 30 questions réparties de la façon suivante :<br>
+  les 10 premières questions parfois communes à plusieurs niveaux font appels à des questions automatisées élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
+  Par défaut, les questions sont rangées dans le même ordre que le sujet officiel avec des données aléatoires. Ainsi, en cliquant sur « Nouvelles données », on obtient une nouvelle course aux nombres avec des données différentes.
+  En choisissant un nombre de questions différents de 30, on fabrique une « mini » course aux nombres qui respecte la proportion de nombre de questions élémentaires par rapport aux autres.
+  Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 questions automatisées élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -654,8 +659,8 @@ export default function SujetCAN2022Seconde () {
           if (choix === 'a') {
             objets.push(pol[0])
             objets.push(
-              texteParPosition(`${a[0]} cm`, milieu(A, C).x, milieu(A, C).y - 0.3, 'milieu', 'black', 1, 'middle', true)
-              , texteParPosition(`${a[2]} cm`, milieu(B, C).x - 0.6, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true)
+              texteParPosition(`${stringNombre(a[0])} cm`, milieu(A, C).x, milieu(A, C).y - 0.3)
+              , texteParPosition(`${stringNombre(a[2])} cm`, milieu(B, C).x - 0.6, milieu(B, C).y)
               , labelPoint(A, B, C), codageAngleDroit(B, A, C))
             reponse = a[1]
             texte = 'Calculer la longueur $AB$. <br>'
@@ -669,8 +674,8 @@ export default function SujetCAN2022Seconde () {
           if (choix === 'b') {
             objets.push(pol[0])
             objets.push(
-              texteParPosition(`${a[1]} cm`, milieu(A, B).x + 0.5, milieu(A, B).y, 'milieu', 'black', 1, 'middle', true)
-              , texteParPosition(`${a[2]} cm`, milieu(B, C).x - 0.6, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true)
+              texteParPosition(`${stringNombre(a[1])} cm`, milieu(A, B).x + 0.6, milieu(A, B).y)
+              , texteParPosition(`${stringNombre(a[2])} cm`, milieu(B, C).x - 0.6, milieu(B, C).y)
               , labelPoint(A, B, C), codageAngleDroit(B, A, C))
             reponse = a[0]
             texte = 'Calculer la longueur $AC$. <br>'
@@ -684,8 +689,8 @@ export default function SujetCAN2022Seconde () {
           if (choix === 'c') {
             objets.push(pol[0])
             objets.push(
-              texteParPosition(`${a[1]} cm`, milieu(A, B).x + 0.4, milieu(A, B).y, 'milieu', 'black', 1, 'middle', true)
-              , texteParPosition(`${a[0]} cm`, milieu(A, C).x, milieu(A, C).y - 0.3, 'milieu', 'black', 1, 'middle', true)
+              texteParPosition(`${stringNombre(a[1])} cm`, milieu(A, B).x + 0.5, milieu(A, B).y)
+              , texteParPosition(`${stringNombre(a[0])} cm`, milieu(A, C).x, milieu(A, C).y - 0.3)
               , labelPoint(A, B, C), codageAngleDroit(B, A, C))
             reponse = a[2]
             texte = 'Calculer la longueur $BC$. <br>'
@@ -905,10 +910,10 @@ export default function SujetCAN2022Seconde () {
           ymax = 4
           objets = []
           objets.push(
-            texteParPosition(`${a}`, milieu(A, E).x, milieu(A, E).y - 0.3, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition('?', milieu(E, D).x, milieu(E, D).y + 0.5, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`${b}`, milieu(B, E).x, milieu(B, E).y + 0.2, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`${c}`, milieu(E, C).x, milieu(C, E).y - 0.5, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`${stringNombre(a)}`, milieu(A, E).x, milieu(A, E).y - 0.3),
+            texteParPosition('?', milieu(E, D).x, milieu(E, D).y + 0.5),
+            texteParPosition(`${stringNombre(b)}`, milieu(B, E).x, milieu(B, E).y + 0.2),
+            texteParPosition(`${stringNombre(c)}`, milieu(E, C).x, milieu(C, E).y - 0.5),
             labelPoint(A, B, C, D, E), droite(B, C), droite(D, A), droite(C, D), droite(A, B))
           reponse = d
           texte = `$(AB)//(CD)$<br><br>
