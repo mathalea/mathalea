@@ -141,25 +141,28 @@ export default function LectureDiagrammeBarre () {
 
     const lstElementGraph = []
     const bornesAEviter = [calcul(10 * coef * Math.floor(lstNombresAnimaux[lstAnimauxExo.indexOf(lstAnimauxExo[numAnimal])] / (10 * coef)))]
-    for (let i = 0, borne; i < nbAnimaux; i++) {
+    for (let i = 0, borne, reponsea, reponseb, reponsec; i < nbAnimaux; i++) {
       lstElementGraph.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], premiereLettreEnMajuscule(lstAnimauxExo[i]), { unite: 0.1 / coef }))
       if (context.isAmc) {
+        reponsea = i === 0 ? { texte: '1) Animaux les moins nombreux :' } : {}
         if (i === lstNombresAnimaux.indexOf(nMax)) {
-          propa.push({ texte: premiereLettreEnMajuscule(lstAnimauxExo[i]), statut: true })
+          propa.push({ texte: premiereLettreEnMajuscule(lstAnimauxExo[i]), statut: true, reponse: reponsea })
         } else {
-          propa.push({ texte: premiereLettreEnMajuscule(lstAnimauxExo[i]), statut: false })
+          propa.push({ texte: premiereLettreEnMajuscule(lstAnimauxExo[i]), statut: false, reponse: reponsea })
         }
+        reponseb = i === 0 ? { texte: '2) Animaux les plus nombreux :' } : {}
         if (i === lstNombresAnimaux.indexOf(nMin)) {
-          propb.push({ texte: premiereLettreEnMajuscule(lstAnimauxExo[i]), statut: true })
+          propb.push({ texte: premiereLettreEnMajuscule(lstAnimauxExo[i]), statut: true, reponse: reponseb })
         } else {
-          propb.push({ texte: premiereLettreEnMajuscule(lstAnimauxExo[i]), statut: false })
+          propb.push({ texte: premiereLettreEnMajuscule(lstAnimauxExo[i]), statut: false, reponse: reponseb })
         }
+        reponsec = i === 0 ? { texte: `3) encadrement du nombre de ${lstAnimauxExo[numAnimal]} :` } : {}
         if (i === numAnimal) {
-          propc.push({ texte: `entre ${bornesAEviter[0]} et ${bornesAEviter[0] + 10 * coef}`, statut: true })
+          propc.push({ texte: `entre ${bornesAEviter[0]} et ${bornesAEviter[0] + 10 * coef}`, statut: true, reponse: reponsec })
         } else {
           borne = choice(bornesinf, bornesAEviter)
           bornesAEviter.push(borne)
-          propc.push({ texte: `entre ${borne} et ${borne + 10 * coef}`, statut: false })
+          propc.push({ texte: `entre ${borne} et ${borne + 10 * coef}`, statut: false, reponse: reponsec })
         }
       }
     }
