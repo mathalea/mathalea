@@ -31,7 +31,6 @@ export default function completerScriptMultiple () {
       couleur: 'nombres'
     })
 
-    this.consigne = 'Compléter les briques manquantes.'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let briquesATrouver = []
@@ -179,6 +178,9 @@ export default function completerScriptMultiple () {
 
     const texte = texteScratch
     const texteCorr = scratchblock(texteSansTrou.join(''))
+
+    this.consigne = 'Compléter '
+    this.consigne += briquesATrouver.length > 1 ? 'les briques manquantes.' : 'la brique manquante.'
 
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
