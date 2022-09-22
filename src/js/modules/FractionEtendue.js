@@ -461,9 +461,20 @@ export default class FractionX extends Fraction {
 
   /**
   * @param {FractionX | Fraction | nombre} f2
-  * @returns f * FractionX  // retourne un résultat simplifié
+  * @returns f * FractionX  // retourne un non résultat simplifié
   */
-  produitFraction (f2) { return fraction(multiply(this, f2)) }
+  produitFraction (f2) {
+    if (f2 instanceof FractionX) {
+      return new FractionX(this.num * f2.num, this.den * f2.den)
+    } else if (f2 instanceof Fraction) {
+      return new FractionX(this.num * f2.d * f2.s, this.den * f2.d)
+    } else if (typeof f2 === 'number') {
+      return new FractionX(this.num * f2, this.den)
+    } else {
+      window.notify('FractionX.produitFraction() a reçu un argument bizarre', { f2 })
+      return null
+    }
+  }
 
   /**
   * @param  {...any} fractions
@@ -498,7 +509,7 @@ export default class FractionX extends Fraction {
   */
   inverse () {
     const f = this
-    if (this.n !== 0) return fraction(this.den, this.num)
+    if (this.n !== 0) return new FractionX(this.den, this.num)
     else {
       window.notify('FractionX.inverse() : division par zéro', { f })
       return NaN
