@@ -630,7 +630,7 @@ export function numTrie (arr) {
  * @param {number} tolerance La différence minimale entre deux valeurs pour les considérer comme égales
  * @author Jean-Claude Lhote
  **/
-export function enleveDoublonNum (arr, tolerance) {
+export function enleveDoublonNum (arr, tolerance = 0) {
   let k = 0
   while (k < arr.length - 1) {
     let kk = k + 1
@@ -7307,6 +7307,7 @@ export function preambulePersonnalise (listePackages) {
       case 'bac':
       case 'crpe':
         result += '\\usepackage{scratch3}'
+        break
       case 'dnb':
       case 'e3c':
         // result += `

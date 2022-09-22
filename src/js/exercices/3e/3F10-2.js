@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js/decimal.mjs'
-import { listeQuestionsToContenu, randint, combinaisonListes, rangeMinMax, ecritureAlgebrique, choice, texNombre, miseEnEvidence, sp, ecritureParentheseSiNegatif, texNombrec, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, rangeMinMax, ecritureAlgebrique, choice, texNombre, miseEnEvidence, sp, ecritureParentheseSiNegatif, texNombrec, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere, contraindreValeur } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -21,7 +21,8 @@ export const ref = '3F10-2'
 export default function CalculsImagesFonctions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 2
-  this.sup2 = false
+  this.sup2 = 1
+  this.sup3 = 1
   this.consigne = ''
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = false
@@ -34,6 +35,9 @@ export default function CalculsImagesFonctions () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles
+    this.sup = contraindreValeur(1, 5, this.sup, 1)
+    this.sup2 = contraindreValeur(1, 3, this.sup2, 1)
+    this.sup3 = contraindreValeur(1, 5, this.sup3, 1)
     switch (this.sup) {
       case 1:
         typesDeQuestionsDisponibles = ['linéaire']
@@ -53,57 +57,94 @@ export default function CalculsImagesFonctions () {
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     let sousChoix
-    if (parseInt(this.sup2) === 1) {
-      sousChoix = combinaisonListes(rangeMinMax(0, 1), this.nbQuestions) // pour choisir aléatoirement des questions dans chaque catégorie
-    } else if (parseInt(this.sup2) === 2) {
-      sousChoix = combinaisonListes(rangeMinMax(2, 4), this.nbQuestions)
+    if (this.sup2 === 1) { // Pour paramétrer plus finement le type de question
+      if (this.sup3 < 3 || this.sup3 === 4) {
+        sousChoix = combinaisonListes([0], this.nbQuestions)
+      } else if (this.sup3 === 3) {
+        sousChoix = combinaisonListes([1], this.nbQuestions)
+      } else {
+        sousChoix = combinaisonListes([0, 1], this.nbQuestions)
+      }
+    } else if (this.sup2 === 2) {
+      if (this.sup3 < 3 || this.sup3 === 4) {
+        sousChoix = combinaisonListes([2, 3], this.nbQuestions)
+      } else if (this.sup3 === 3) {
+        sousChoix = combinaisonListes([4], this.nbQuestions)
+      } else {
+        sousChoix = combinaisonListes([2, 3, 4], this.nbQuestions)
+      }
     } else {
-      sousChoix = combinaisonListes(rangeMinMax(0, 4), this.nbQuestions)
+      if (this.sup3 < 3 || this.sup3 === 4) {
+        sousChoix = combinaisonListes([0, 2, 3], this.nbQuestions)
+      } else if (this.sup3 === 3) {
+        sousChoix = combinaisonListes([1, 4], this.nbQuestions)
+      } else {
+        sousChoix = combinaisonListes([0, 1, 2, 3, 4], this.nbQuestions)
+      }
     }
     for (let i = 0, texte, texteCorr, x, y, m, n, enonce, correction, reponses = [], tagImage, ant, img, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // on ne choisit que des nombres compris entre 1 et 20
-      x = randint(-9, 9, [0, 1, -1])
-      y = randint(-9, 9, [x, 0])
-      n = choice([2, 4, 5])
-      m = randint(2, 6, [n, n * 2, n * 3])
-
+      if (this.sup3 === 1) {
+        x = randint(2, 9)
+        y = randint(-9, 9, [x, 0])
+        n = choice([2, 4, 5])
+        m = randint(2, 6, [n, n * 2, n * 3])
+      } else if (this.sup3 === 2) {
+        x = randint(-9, 9, [0, 1, -1])
+        y = randint(-9, 9, [x, 0])
+        n = choice([2, 4, 5])
+        m = randint(2, 6, [n, n * 2, n * 3])
+      } else {
+        if (this.sup3 === 3) {
+          x = randint(2, 9)
+        } else {
+          x = randint(-9, 9, [0, 1, -1])
+        }
+        y = randint(-9, 9, [x, 0])
+        n = choice([2, 4, 5])
+        m = randint(2, 6, [n, n * 2, n * 3])
+      }
+      if (this.sup3 === 4) {
+        x = -Math.abs(x)
+      }
       tagImage = true
       switch (listeTypeDeQuestions[i]) {
         case 'linéaire':
           switch (sousChoix[i]) {
             case 0:
-              enonce = `Soit $f$ la fonction définie par $f(x)=\\dfrac{${m}}{${n}}x$. ${sp(5)} Quelle est l'image de $${n * x}$ ?<br>`
-              correction = `$f(x)=\\dfrac{${m}}{${n}}x$ donc ici on a : $f(${n * x})=\\dfrac{${m}}{${n}} \\times ${ecritureParentheseSiNegatif(n * x)}=\\dfrac{${m * x * n}}{${n}}=${m * x}$`
-              ant = n * x
-              tagImage = true
-              reponses[i] = m * x
-              break
-            case 1:
               enonce = `Soit $f: x \\longmapsto ${m}x$. ${sp(5)} Quelle est l'image de $${x}$ ?<br>`
               correction = `$f(x)=${m}x$ donc ici on a : $f(${x})=${m} \\times ${ecritureParentheseSiNegatif(x)}=${m * x}$`
               reponses[i] = m * x
               ant = x
               tagImage = true
               break
-            case 2:
-              enonce = `Soit $f$ la fonction telle que $f(x)=\\dfrac{${m}}{${n}}x$. ${sp(5)} Quel est l'antécédent de $${m * x}$ ?<br>`
-              correction = `$f(x)=\\dfrac{${m}}{${n}}x$ donc ici on a : $\\dfrac{${m}}{${n}}x=${m * x}$<br> soit $x=${m * x}\\times \\dfrac{${n}}{${m}}=${x * n}$`
-              img = m * x
-              reponses[i] = n * x
-              tagImage = false
+            case 1:
+              enonce = `Soit $f$ la fonction définie par $f(x)=\\dfrac{${m}}{${n}}x$. ${sp(5)} Quelle est l'image de $${n * x}$ ?<br>`
+              correction = `$f(x)=\\dfrac{${m}}{${n}}x$ donc ici on a : $f(${n * x})=\\dfrac{${m}}{${n}} \\times ${ecritureParentheseSiNegatif(n * x)}=\\dfrac{${m * x * n}}{${n}}=${m * x}$`
+              ant = n * x
+              tagImage = true
+              reponses[i] = m * x
               break
-            case 3:
+            case 2:
               enonce = `Soit $f$ la fonction qui à $x$ associe $${m}x$. ${sp(5)} Quel est l'antécédent de $${m * x}$ ?<br>`
               correction = `$f(x)=${m}x$ donc ici on a : $${m}x=${m * x}$<br> soit $x=\\dfrac{${m * x}}{${m}}=${x}$`
               reponses[i] = x
               img = m * x
               tagImage = false
               break
-            case 4:
+            case 3:
               enonce = `Soit $f: x \\longmapsto ${-m}x$. ${sp(5)} Quel est l'antécédent de $${m * x}$ ?<br>`
               correction = `$f(x)=${-m}x$ donc ici on a : $${-m}x=${m * x}$<br> soit $x=\\dfrac{${-m * x}}{${m}}=${-x}$`
               img = m * x
               reponses[i] = -x
+              tagImage = false
+              break
+
+            case 4:
+              enonce = `Soit $f$ la fonction telle que $f(x)=\\dfrac{${m}}{${n}}x$. ${sp(5)} Quel est l'antécédent de $${m * x}$ ?<br>`
+              correction = `$f(x)=\\dfrac{${m}}{${n}}x$ donc ici on a : $\\dfrac{${m}}{${n}}x=${m * x}$<br> soit $x=${m * x}\\times \\dfrac{${n}}{${m}}=${x * n}$`
+              img = m * x
+              reponses[i] = n * x
               tagImage = false
               break
           }
@@ -111,16 +152,16 @@ export default function CalculsImagesFonctions () {
         case 'affine':
           switch (sousChoix[i]) {
             case 0:
-              enonce = `Soit $f$ la fonction définie par $f(x)=\\dfrac{${m}}{${n}}x${ecritureAlgebrique(y)}$. ${sp(5)} Quelle est l'image de $${n * x}$ ?<br>`
-              correction = `$f(x)=\\dfrac{${m}}{${n}}x${ecritureAlgebrique(y)}$ donc ici on a : $f(${n * x})=\\dfrac{${m}}{${n}}\\times ${ecritureParentheseSiNegatif(n * x)}${ecritureAlgebrique(y)}=${m * x}${ecritureAlgebrique(y)}=${m * x + y}$`
-              ant = n * x
-              reponses[i] = m * x + y
-              break
-            case 1:
               enonce = `Soit $f: x \\longmapsto ${m}x+${n}$. ${sp(5)} Quelle est l'image de $${x}$ ?<br>`
               correction = `$f(x)=${m}x+${n}$ donc ici on a : $f(${x})=${m}\\times ${ecritureParentheseSiNegatif(x)}+${n}=${m * x}+${n}=${m * x + n}$`
               ant = x
               reponses[i] = m * x + n
+              break
+            case 1:
+              enonce = `Soit $f$ la fonction définie par $f(x)=\\dfrac{${m}}{${n}}x${ecritureAlgebrique(y)}$. ${sp(5)} Quelle est l'image de $${n * x}$ ?<br>`
+              correction = `$f(x)=\\dfrac{${m}}{${n}}x${ecritureAlgebrique(y)}$ donc ici on a : $f(${n * x})=\\dfrac{${m}}{${n}}\\times ${ecritureParentheseSiNegatif(n * x)}${ecritureAlgebrique(y)}=${m * x}${ecritureAlgebrique(y)}=${m * x + y}$`
+              ant = n * x
+              reponses[i] = m * x + y
               break
             case 2:
               enonce = `Soit $f$ la fonction qui à $x$ associe $${m}x+${n}$. ${sp(5)} Quel est l'antécédent de $${m * x + n}$ ?<br>`
@@ -130,17 +171,17 @@ export default function CalculsImagesFonctions () {
               tagImage = false
               break
             case 3:
-              enonce = `Soit $f$ la fonction telle que $f(x)=\\dfrac{${m}}{${n}}x${ecritureAlgebrique(y)}$. ${sp(5)} Quel est l'antécédent de $${m * x + y}$ ?<br>`
-              correction = `$f(x)=\\dfrac{${m}}{${n}}x${ecritureAlgebrique(y)}$ donc ici on a : $\\dfrac{${m}}{${n}}x${ecritureAlgebrique(y)}=${m * x + y}$<br>Soit $x=(${m * x + y}${ecritureAlgebrique(-y)})\\times \\dfrac{${n}}{${m}}=${m * x}\\times \\dfrac{${n}}{${m}}=${n * x}$`
-              img = m * x + y
-              reponses[i] = n * x
-              tagImage = false
-              break
-            case 4:
               enonce = `Soit $f: x \\longmapsto ${-m}x${ecritureAlgebrique(y)}$. ${sp(5)} Quel est l'antécédent de $${m * x + y}$ ?<br>`
               correction = `$f(x)=${-m}x${ecritureAlgebrique(y)}$ donc ici on a : $${-m}x${ecritureAlgebrique(y)}=${m * x + y}$ <br>Soit $x=\\dfrac{(${m * x + y}${ecritureAlgebrique(-y)})}{${-m}}=${-x}$`
               img = m * x + y
               reponses[i] = -x
+              tagImage = false
+              break
+            case 4:
+              enonce = `Soit $f$ la fonction telle que $f(x)=\\dfrac{${m}}{${n}}x${ecritureAlgebrique(y)}$. ${sp(5)} Quel est l'antécédent de $${m * x + y}$ ?<br>`
+              correction = `$f(x)=\\dfrac{${m}}{${n}}x${ecritureAlgebrique(y)}$ donc ici on a : $\\dfrac{${m}}{${n}}x${ecritureAlgebrique(y)}=${m * x + y}$<br>Soit $x=(${m * x + y}${ecritureAlgebrique(-y)})\\times \\dfrac{${n}}{${m}}=${m * x}\\times \\dfrac{${n}}{${m}}=${n * x}$`
+              img = m * x + y
+              reponses[i] = n * x
               tagImage = false
               break
           }
@@ -256,4 +297,5 @@ export default function CalculsImagesFonctions () {
     '1 : Fonction linéaire\n2 : Fonction affine \n3 : Polynome de degré 2 \n4 : Fonction rationnelle \n5 : Mélange'
   ]
   this.besoinFormulaire2Numerique = ['Choix des questions', 3, "1 : Calcul d'image\n2 : Calcul d'antécédent (uniquement pour linéaire et affine)\n3 : Mélange"]
+  this.besoinFormulaire3Numerique = ['Niveau de difficulté', 5, '1 : Que des entiers positifs\n2 : Avec des entiers relatifs\n3 : Avec des fractions dans les coefficients (antécédents positifs)\n4 : Avec des antécédents tous négatifs (pas de fraction)\n5 Mélange']
 }
