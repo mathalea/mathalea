@@ -88,7 +88,7 @@ export default function EncodeurTexte (type = 'générateur') {
 
       if (this.questionJamaisPosee(i, texteAEncoder[i], table)) {
         this.listeQuestions.push(texte)
-        this.listeCorrections.push(this.besoinCorrection ? texteAEncoder[i].replaceAll('~', ' ').replaceAll('/', ' ') : '')
+        this.listeCorrections.push(texteAEncoder[i].replaceAll('~', ' ').replaceAll('/', ' '))
         i++
       }
       cpt++
