@@ -225,7 +225,7 @@ export default class FractionX extends Fraction {
     })
 
     /**
-     * n/d si positif, (- n/d) sinon
+     * num/den si positif, (- num/den) sinon
      * @property texFSP littéralement texFractionSigneParentheses
      * @type {string}
      */
@@ -488,12 +488,36 @@ export default class FractionX extends Fraction {
     return s.simplifie()
   }
 
-  /*
+  /**
     * @param {Fraction} f2 la fraction qui multiplie.
+    *  @param {string} simplification true si on veut afficher la simplification par décomposition false si on veut celle par le pgcd et 'none' si on ne veut pas simplifier
     * @return {string} Le calcul du produit de deux fractions avec étape intermédiaire
     */
-  texProduitFraction (f2) {
-    return `${this.texFraction}\\times ${f2.texFraction}=\\dfrac{${this.num + '\\times' + f2.num}}{${this.den + '\\times' + f2.den}}=\\dfrac{${this.num * f2.num}}{${this.den * f2.den}}`
+  texProduitFraction (f2, simplification = 'none') {
+    return `${this.texFraction}\\times ${f2.texFSP}=\\dfrac{${this.num + '\\times' + ecritureParentheseSiNegatif(f2.num)}}{${this.den + '\\times' + ecritureParentheseSiNegatif(f2.den)}}
+    ${simplification === 'none'
+    ? '=\\dfrac{' + this.num * f2.num + '}{' + this.den * f2.den + '}'
+    : this.produitFraction(f2).texSimplificationAvecEtapes(simplification)}`
+  }
+
+  /**
+  * @param {FractionX} f2 la fraction qui multiplie.
+  * @param {string} simplification true si on veut afficher la simplification par décomposition false si on veut celle par le pgcd et 'none' si on ne veut pas simplifier
+  *  @param {string} symbole '/' pour la forme fractionnaire de la division, ':' ou autre chose pour l'obèle
+  * @return {string} Le calcul du produit de deux fractions avec étape intermédiaire
+  */
+  texDiviseFraction (f2, simplification = 'none', symbole = '/') {
+    if (symbole === '/') {
+      return `\\dfrac{${this.texFraction}}{${f2.texFraction}}=${this.texFraction}\\times${f2.inverse().texFraction}=\\dfrac{${this.num + '\\times' + ecritureParentheseSiNegatif(f2.den)}}{${this.den + '\\times' + ecritureParentheseSiNegatif(f2.num)}}
+      ${simplification === 'none'
+      ? '=\\dfrac{' + this.num * f2.den + '}{' + this.den * f2.num + '}' + '=' + this.diviseFraction(f2).texFraction
+      : this.diviseFraction(f2).texSimplificationAvecEtapes(simplification)}`
+    } else {
+      return `${this.texFraction}\\div${f2.texFraction}=${this.texFraction}\\times${f2.inverse().texFraction}=\\dfrac{${this.num + '\\times' + f2.den}}{${this.den + '\\times' + f2.num}}
+      ${simplification === 'none'
+      ? '=\\dfrac{' + this.num * f2.den + '}{' + this.den * f2.num + '}' + '=' + this.diviseFraction(f2).texFraction
+      : this.diviseFraction(f2).texSimplificationAvecEtapes(simplification)}`
+    }
   }
 
   /**
@@ -522,7 +546,7 @@ export default class FractionX extends Fraction {
     * @return {Fraction} f/f2
     */
   diviseFraction (f2) {
-    if (['Fraction', 'FractionX'].indexOf(f2.type) !== -1) {
+    if (['Fraction', 'FractionX'].indexOf(f2.type) === -1) {
       window.notify('FractionX.diviseFraction() : l\'argument n\'est pas une fraction', { f2 })
       if (!Number().isNaN(f2)) return this.multiplieEntier(1 / f2)
       else window.notify('FractionX.diviseFraction() : l\'argument n\'est pas un nombre', { f2 })
@@ -549,23 +573,88 @@ export default class FractionX extends Fraction {
   /**
  * Si la fraction est réductible, retourne une suite d'égalités permettant d'obtenir la fraction irréductible
  */
-  texSimplificationAvecEtapes () {
-    if (this.estIrreductible && this.num > 0 && this.den > 0) return '' // irreductible et positifs
-    else if (this.estIrreductible && this.num * this.den > 0) { // irréductible mais négatifs
+  texSimplificationAvecEtapes (factorisation = false) {
+    if (this.estIrreductible && this.num > 0 && this.den > 0) return `=${this.texFraction}` // irreductible et positifs
+    else if (this.estIrreductible && this.num * this.den < 0) { // irréductible mais négatifs
       return `=${this.texFSD}`
     } else {
-      const signe = this.signe === -1 ? '-' : ''
-      const num = Math.abs(this.num)
-      const den = Math.abs(this.den)
-      const pgcd = gcd(num, den)
-      if (pgcd !== 1) {
-        let redaction = `=${signe}\\dfrac{${num / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))} }{${den / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))}}=`
-        if (Math.abs(den / pgcd) !== 1) redaction += `${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
-        else redaction += `${signe}${Math.abs(num / pgcd)}`
-        return redaction
+      if (factorisation) {
+        const signe = this.signe === -1 ? '-' : ''
+        const num = Math.abs(this.num)
+        const den = Math.abs(this.den)
+        const listenum = obtenirListeFacteursPremiers(num)
+        const listeden = obtenirListeFacteursPremiers(den)
+        let result = '='
+        const listeNumvf = []
+        const listeDenvf = []
+        listenum.forEach(function aAjouterDansListeAvf (element) {
+          listeNumvf.push([element, true])
+        })
+        listeden.forEach(function aAjouterDansListeBvf (element) {
+          listeDenvf.push([element, true])
+        })
+
+        for (let index = 0; index < listeden.length;) {
+          for (let j = 0; j <= listenum.length;) {
+            if (listeden[index] === listenum[j]) {
+              listeDenvf[index] = [listeden[index], false]
+              listeNumvf[j] = [listenum[j], false]
+              listenum[j] = 1
+              listeden[index] = 1
+              break
+            }
+            j++
+          }
+          index++
+        }
+
+        let a = 1
+        let b = 1
+        for (const k of listenum) {
+          a = a * k
+        }
+        for (const k of listeden) {
+          b = b * k
+        }
+
+        let numerateur = ''
+        let denominateur = ''
+
+        for (const j in listeNumvf) {
+          if (listeNumvf[j][1] === true) {
+            numerateur += listeNumvf[j][0] + '\\times'
+          } else {
+            numerateur += '\\cancel{' + listeNumvf[j][0] + '}\\times'
+          }
+        }
+        numerateur = numerateur.substring(0, numerateur.length - 6)
+
+        for (const j in listeDenvf) {
+          if (listeDenvf[j][1] === true) {
+            denominateur += listeDenvf[j][0] + '\\times'
+          } else {
+            denominateur += '\\cancel{' + listeDenvf[j][0] + '}\\times'
+          }
+        }
+        denominateur = denominateur.substring(0, denominateur.length - 6)
+
+        result += `${signe}\\dfrac{${numerateur}}{${denominateur}}`
+        result += `=${signe}${new FractionX(a, b).simplifie().texFraction}`
+        return result
       } else {
-        if (!egal(Math.abs(den / pgcd), 1)) return `=${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
-        else return `=${signe}${Math.abs(num / pgcd)}`
+        const signe = this.signe === -1 ? '-' : ''
+        const num = Math.abs(this.num)
+        const den = Math.abs(this.den)
+        const pgcd = gcd(num, den)
+        if (pgcd !== 1) {
+          let redaction = `=${signe}\\dfrac{${num / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))} }{${den / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))}}=`
+          if (Math.abs(den / pgcd) !== 1) redaction += `${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
+          else redaction += `${signe}${Math.abs(num / pgcd)}`
+          return redaction
+        } else {
+          if (!egal(Math.abs(den / pgcd), 1)) return `=${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
+          else return `=${signe}${Math.abs(num / pgcd)}`
+        }
       }
     }
   }
