@@ -9,15 +9,16 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
+export const dateDePublication = '23/09/2022'
 
 export default function ProduitsEtQuotientRelatifs () {
   Exercice.call(this)
   this.consigne = 'Calculer :'
   this.sup = 1
   this.sup2 = 1
-  this.nbQuestions = 5
-  this.besoinFormulaireNumerique = ['type d\'opération', 3, '1 : Multiplication\n2 : division\n3 : Mélange']
-  this.besoinFormulaire2Numerique = ['Type des opérandes', 4, '1 : Entiers relatifs (quotient exact)\n2 : Un entier et un décimal (quotient décimal simple)\n3 : rationnels\n4 : Mélange']
+  this.nbQuestions = 10
+  this.besoinFormulaireNumerique = ['Opérations', 3, '1 : Multiplication\n2 : Division\n3 : Mélange']
+  this.besoinFormulaire2Numerique = ['Opérandes', 4, '1 : Entiers relatifs (quotient exact)\n2 : Un entier et un décimal (quotient décimal simple)\n3 : Rationnels\n4 : Mélange']
 
   this.nouvelleVersion = function () {
     this.listeQuestions = []
