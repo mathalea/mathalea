@@ -9,15 +9,16 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
+export const dateDePublication = '23/09/2022'
 
 export default function ProduitsEtQuotientRelatifs () {
   Exercice.call(this)
   this.consigne = 'Calculer :'
   this.sup = 1
   this.sup2 = 1
-  this.nbQuestions = 5
-  this.besoinFormulaireNumerique = ['type d\'opération', 3, '1 : Multiplication\n2 : division\n3 : Mélange']
-  this.besoinFormulaire2Numerique = ['Type des opérandes', 4, '1 : Entiers relatifs (quotient exact)\n2 : Un entier et un décimal (quotient décimal simple)\n3 : rationnels\n4 : Mélange']
+  this.nbQuestions = 10
+  this.besoinFormulaireNumerique = ['Opérations', 3, '1 : Multiplication\n2 : Division\n3 : Mélange']
+  this.besoinFormulaire2Numerique = ['Opérandes', 4, '1 : Entiers relatifs (quotient exact)\n2 : Un entier et un décimal (quotient décimal simple)\n3 : Rationnels\n4 : Mélange']
 
   this.nouvelleVersion = function () {
     this.listeQuestions = []
@@ -31,7 +32,7 @@ export default function ProduitsEtQuotientRelatifs () {
     const listeTypesDeQuestion = combinaisonListes(typesDeQuestions, this.nbQuestions)
     const listeTypesDeNombre = combinaisonListes(typesDeNombre, this.nbQuestions)
     const ponderation = [['-', '-'], ['-', '-'], ['-', '-'], ['-', '+'], ['+', '-'], ['-', '+'], ['+', '-'], ['+', '+']]
-    for (let i = 0, texte, texteCorr, a, b, c, num1, num2, den1, den2, cpt = 0; i < this.nbQuestions && cpt < 50; i++) {
+    for (let i = 0, texte, texteCorr, a, b, c, num1, num2, den1, den2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const signes = choice(ponderation)
       switch (listeTypesDeNombre[i]) {
         case 1: // entiers
@@ -65,7 +66,7 @@ export default function ProduitsEtQuotientRelatifs () {
             setReponse(this, i, listeTypesDeNombre[i] < 3 ? a.mul(b) : a.produitFraction(b))
           } else {
             texte = `$${a.texFSD}\\times ${b.texFSP} = $${ajouteChampTexteMathLive(this, i, 'largeur25 inline')}`
-            texteCorr = texte.split('=')[0] + ' = ' + a.produitFraction(b).texFractionSimplifiee + '$'
+            texteCorr = texte.split('=')[0] + ' = ' + a.texProduitFraction(b, true) + '$'
             setReponse(this, i, a.produitFraction(b), { formatInteractif: 'fractionEgale' })
           }
           break
@@ -81,7 +82,7 @@ export default function ProduitsEtQuotientRelatifs () {
             texte = `$\\dfrac{${c.texFraction}}{${a.texFraction}} = $${ajouteChampTexteMathLive(this, i, 'largeur25 inline')}`
             texteCorr = texte.split('=')[0]
             b = c.produitFraction(a.inverse())
-            texteCorr += ` = ${c.texFraction}\\times ${a.inverse().texFraction}=${b.texFraction}${b.texSimplificationAvecEtapes()}$`
+            texteCorr += ` = ${c.texProduitFraction(a.inverse(), true)}$`
             setReponse(this, i, b.simplifie(), { formatInteractif: 'fractionEgale' })
           }
           break
