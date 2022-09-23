@@ -3575,7 +3575,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2017/tex/dnb_2017_05_pondichery_2.tex',
     urlcor: '/dnb/2017/tex/dnb_2017_05_pondichery_2_cor.tex',
-    tags: ['Probabilités']
+    tags: ['Probabilités', 'Arithmétique']
   },
   dnb_2017_05_pondichery_3: {
     annee: '2017',

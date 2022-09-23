@@ -13,6 +13,8 @@ export const interactifType = 'mathLive'
  * @author Eric Elter
  */
 
+export const uuid = '8741f'
+export const ref = '3A13-1'
 export default function DivisionsEuclidiennes3e () {
   DivisionsEuclidiennes.call(this)
   this.sup = 2

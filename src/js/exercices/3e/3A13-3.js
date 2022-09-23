@@ -14,6 +14,8 @@ export const dateDePublication = '14/09/2022'
  * @author Eric Elter
  */
 
+export const uuid = 'd9cf3'
+export const ref = '3A13-3'
 export default function VocabulaireDivisionEuclidienne3e () {
   VocabulaireDivisionEuclidienne.call(this)
   this.sup4 = 1

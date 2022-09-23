@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 501 
-- nombre d'exos interactifReady 779 
+- nombre d'exos interactifReady 780 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -467,6 +467,7 @@
 |can1F17|Déterminer la fonction dérivée d’une fonction $1/u(x)$|KO|KO|OK|mathLive|
 |can1F18|Déterminer la fonction dérivée d’une fonction $a/u(x)$|KO|KO|OK|mathLive|
 |can1F19|Calculer une dérivée et écrire le résultat sous la forme d’un quotient|KO|KO|OK|mathLive|
+|can1F20|Résoudre une équation du second degré sans $\Delta$|KO|KO|OK|qcm|
 |can1G01|Déterminer les valeurs remarquables du cosinus et sinus|KO|KO|OK|mathLive|
 |can1G02|Déterminer les valeurs remarquables du cosinus et sinus*|KO|KO|OK|mathLive|
 |can1G03|Simplifier les sinus et cosinus des angles associés|KO|KO|OK|mathLive|

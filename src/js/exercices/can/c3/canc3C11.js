@@ -14,6 +14,8 @@ export const dateDePublication = '13/09/2022'
  *
  */
 
+export const uuid = 'aee7c'
+export const ref = 'canc3C11'
 export default function CalculMoitieImpair () {
   Exercice.call(this)
   this.typeExercice = 'simple'

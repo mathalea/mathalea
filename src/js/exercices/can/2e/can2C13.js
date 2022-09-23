@@ -13,6 +13,8 @@ export const dateDePublication = '15/09/2022' // La date de publication initiale
  *
 */
 
+export const uuid = 'b31eb'
+export const ref = 'can2C13'
 export default function CalculPuissancesOperation () {
   Exercice.call(this)
   this.typeExercice = 'simple'
@@ -26,10 +28,10 @@ export default function CalculPuissancesOperation () {
         n = randint(-9, 9, [0, 1, -1])
         p = randint(-9, 9, [0, 1, -1])
         s = n + p
-        this.question = `Écrire sous la forme $a^n$ où $a$ est un nombre relatif et $n$ est un entier relatif. <br>
+        this.question = `Écrire sous la forme $a^n$ où $a$ et $n$ sont des entiers relatifs. <br>
         $${ecritureParentheseSiNegatif(a)}^{${n}}\\times ${ecritureParentheseSiNegatif(a)}^{${p}}=$`
         this.correction = `On utilise la formule $a^n\\times a^m=a^{n+m}$ avec $a=${a}$, $n=${n}$ et $p=${p}$.<br>
-        $${ecritureParentheseSiNegatif(a)}^{${n}}\\times ${ecritureParentheseSiNegatif(a)}^{${p}}=${ecritureParentheseSiNegatif(a)}^{${n}+${p}}=${ecritureParentheseSiNegatif(a)}^{${n + p}}$
+        $${ecritureParentheseSiNegatif(a)}^{${n}}\\times ${ecritureParentheseSiNegatif(a)}^{${p}}=${ecritureParentheseSiNegatif(a)}^{${n}+${ecritureParentheseSiNegatif(p)}}=${ecritureParentheseSiNegatif(a)}^{${n + p}}$
         `
         this.reponse = `${ecritureParentheseSiNegatif(a)}^{${n + p}}`
 
@@ -39,11 +41,11 @@ export default function CalculPuissancesOperation () {
         b = randint(-9, 9, [0, 1, -1])
         n = randint(-9, 9, [0, 1, -1])
         p = a * b
-        this.question = `Écrire sous la forme $a^n$ où $a$ est un nombre relatif et $n$ est un entier relatif. <br>
+        this.question = `Écrire sous la forme $a^n$ où $a$ et $n$ sont des entiers relatifs. <br>
         $${ecritureParentheseSiNegatif(a)}^{${n}}\\times ${ecritureParentheseSiNegatif(b)}^{${n}}=$`
         this.correction = `On utilise la formule $a^n\\times b^n=(a\\times b)^{n}$
         avec $a=${a}$,  $b=${b}$ et $n=${n}$.<br>
-        $${ecritureParentheseSiNegatif(a)}^{${n}}\\times ${ecritureParentheseSiNegatif(b)}^{${n}}=${ecritureParentheseSiNegatif(a)}\\times ${ecritureParentheseSiNegatif(b)}^{${n}}=${ecritureParentheseSiNegatif(p)}^{${n}}$
+        $${ecritureParentheseSiNegatif(a)}^{${n}}\\times ${ecritureParentheseSiNegatif(b)}^{${n}}=(${ecritureParentheseSiNegatif(a)}\\times ${ecritureParentheseSiNegatif(b)})^{${n}}=${ecritureParentheseSiNegatif(p)}^{${n}}$
         `
         this.reponse = `${ecritureParentheseSiNegatif(p)}^{${n}}`
         break
@@ -53,7 +55,7 @@ export default function CalculPuissancesOperation () {
         p = randint(-9, 9, [0, 1])
         n = randint(-9, 9, [0, 1, -1])
         s = n * p
-        this.question = `Écrire sous la forme $a^n$ où $a$ est un nombre relatif et $n$ est un entier relatif. <br>
+        this.question = `Écrire sous la forme $a^n$ où $a$ et $n$ sont des entiers relatifs. <br>
         $\\left(${ecritureParentheseSiNegatif(a)}^{${n}}\\right)^{${p}}=$`
         this.correction = `On utilise la formule $\\left(a^n\\right)^p=a^{n\\times p}$
         avec $a=${a}$,  $n=${n}$ et $p=${p}$.<br>
@@ -67,7 +69,7 @@ export default function CalculPuissancesOperation () {
         p = randint(-9, 9, [0, 1])
         n = randint(-9, 9, [0, 1, -1])
         s = n - p
-        this.question = `Écrire sous la forme $a^n$ où $a$ est un nombre relatif et $n$ est un entier relatif. <br>
+        this.question = `Écrire sous la forme $a^n$ où $a$ et $n$ sont des entiers relatifs. <br>
         $\\dfrac{${ecritureParentheseSiNegatif(a)}^{${n}}}{${ecritureParentheseSiNegatif(a)}^{${p}}}=$`
         this.correction = `On utilise la formule $\\dfrac{a^n}{a^p}=a^{n-p}$ avec $a=${a}$,  $n=${n}$ et $p=${p}$.<br>
         $\\dfrac{${ecritureParentheseSiNegatif(a)}^{${n}}}{${ecritureParentheseSiNegatif(a)}^{${p}}}=${ecritureParentheseSiNegatif(a)}^{${n}- ${ecritureParentheseSiNegatif(p)}}=${ecritureParentheseSiNegatif(a)}^{${n - p}}$
@@ -80,11 +82,11 @@ export default function CalculPuissancesOperation () {
         a = choice([2, 3, 4, 5, 6, 7]) * b
         n = randint(-9, 9, [0, 1, -1])
         s = a / b
-        this.question = `Écrire sous la forme $a^n$ où $a$ est un nombre relatif et $n$ est un entier relatif. <br>
+        this.question = `Écrire sous la forme $a^n$ où $a$ et $n$ sont des entiers relatifs. <br>
         $\\dfrac{${ecritureParentheseSiNegatif(a)}^{${n}}}{${ecritureParentheseSiNegatif(b)}^{${n}}}=$`
         this.correction = `On utilise la formule $\\dfrac{a^n}{b^n}=\\left(\\dfrac{a}{b}\\right)^{n}$ avec 
         $a=${a}$,  $b=${b}$ et $n=${n}$.<br>
-        $\\dfrac{${ecritureParentheseSiNegatif(a)}^{${n}}}{${ecritureParentheseSiNegatif(b)}^{${n}}}=\\left(\\dfrac{${ecritureParentheseSiNegatif(a)}}{${ecritureParentheseSiNegatif(b)}}\\right)^{${n}}=${s}^${n}$
+        $\\dfrac{${ecritureParentheseSiNegatif(a)}^{${n}}}{${ecritureParentheseSiNegatif(b)}^{${n}}}=\\left(\\dfrac{${ecritureParentheseSiNegatif(a)}}{${ecritureParentheseSiNegatif(b)}}\\right)^{${n}}=${s}^{${n}}$
         `
         this.reponse = `${s}^{${n}}`
         break

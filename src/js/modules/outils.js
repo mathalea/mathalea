@@ -630,7 +630,7 @@ export function numTrie (arr) {
  * @param {number} tolerance La différence minimale entre deux valeurs pour les considérer comme égales
  * @author Jean-Claude Lhote
  **/
-export function enleveDoublonNum (arr, tolerance) {
+export function enleveDoublonNum (arr, tolerance = 0) {
   let k = 0
   while (k < arr.length - 1) {
     let kk = k + 1
@@ -1020,12 +1020,17 @@ export function signeMoinsEnEvidence (r, precision = 0) {
 */
 export function ecritureParentheseSiNegatif (a) {
   let result = ''
-  if (a >= 0) {
-    result = a
+  if (a instanceof Decimal) {
+    if (a.gte(0)) return texNombre(a, 8) // On met 8 décimales, mais cette fonctions s'utilise presque exclusivement avec des entiers donc ça ne sert à rien
+    else return `(${texNombre(a, 8)})`
   } else {
-    result = `(${a})`
+    if (a >= 0) {
+      result = texNombre(a, 8) // j'ai passé a dans texNombre, car la fonction ne prenait pas en compte l'écriture décimale !
+    } else {
+      result = `(${texNombre(a, 8)})`
+    }
+    return result
   }
-  return result
 }
 
 /**
@@ -7306,6 +7311,8 @@ export function preambulePersonnalise (listePackages) {
         break
       case 'bac':
       case 'crpe':
+        result += '\\usepackage{scratch3}'
+        break
       case 'dnb':
       case 'e3c':
         // result += `

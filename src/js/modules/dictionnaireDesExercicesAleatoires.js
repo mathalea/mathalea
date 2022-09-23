@@ -3305,7 +3305,7 @@ export default {
     }
   },
   "3I1": {
-    "titre": "Instruction conditionelle (scratch)",
+    "titre": "Instruction conditionnelle (scratch)",
     "url": "/exercices/3e/3I1.js",
     "amcReady": false,
     "interactifReady": false,
@@ -3805,6 +3805,36 @@ export default {
     "name": "3S21",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "beta3I12-1": {
+    "titre": "Compléter un script Scratch",
+    "url": "/exercices/3e/beta3I12-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta3I12-1",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "beta3I12-2": {
+    "titre": "Comprendre un script Scratch",
+    "url": "/exercices/3e/beta3I12-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta3I12-2",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -4539,7 +4569,7 @@ export default {
     "interactifType": "qcm",
     "name": "4C32-4",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -8320,7 +8350,7 @@ export default {
     ],
     "name": "6G10-4",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -8857,6 +8887,21 @@ export default {
     "name": "6G44",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "6G52": {
+    "titre": "Se servir des relations entre perpendicularité et parallélisme",
+    "url": "/exercices/6e/6G52.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6G52",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -12980,6 +13025,22 @@ export default {
     "name": "can1F19",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can1F20": {
+    "titre": "Résoudre une équation du second degré sans $\\Delta$",
+    "url": "/exercices/can/1e/can1F20.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can1F20",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

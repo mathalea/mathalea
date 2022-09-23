@@ -3515,6 +3515,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'moodle')}" target="_blank"><i class="share square icon"></i>Export Moodle</a></div>
         <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'latex')}" target="_blank"><i class="cogs icon"></i>Export LaTeX</a></div>
         <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'amc')}" target="_blank"><i class="check square outline icon"></i>Export AMC</a></div>
+        <div class="active item"><a class="mesLiensModaux" href="https://coopmaths.fr/beta/${window.location.search.replaceAll('ex=', 'id=').replaceAll(',', '&')}" target="_blank"><i class="exclamation triangle icon"></i>Version béta</a></div>
       </div>
 
       <h3 class="ui dividing header">Imposer un temps</h3>

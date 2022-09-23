@@ -12,13 +12,15 @@ export const dateDePublication = '10/09/2022'
  * @author Guillaume Valmont
  * Référence 6G13
 */
+export const uuid = '2203a'
+export const ref = '6G13'
 export default class TracerCarresRectangleslongueurDonnees extends Exercice {
   constructor () {
     super()
     this.titre = titre
     this.nbQuestions = 2
 
-    this.besoinFormulaireNumerique = ['Figure à tracer', 2, '1 : Carré\n2 : Rectangle\n3 : Mélange']
+    this.besoinFormulaireNumerique = ['Figure à tracer', 3, '1 : Carré\n2 : Rectangle\n3 : Mélange']
     this.sup = 3
   }
 
