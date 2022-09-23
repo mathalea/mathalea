@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { choice, combinaisonListes, compteOccurences, contraindreValeur, lampeMessage, lettreDepuisChiffre, listeQuestionsToContenu, numAlpha, randint, rangeMinMax, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { scratchblock } from '../../modules/2d.js'
 import { min } from 'mathjs'
-export const titre = 'Comprendre un script Scratch'
+export const titre = 'Comprendre un script Scratch - 1'
 
 export const dateDePublication = '20/09/2022'
 
@@ -10,7 +10,7 @@ export const dateDePublication = '20/09/2022'
  * Comprendre un script sur les multiples et diviseurs
  * @author Eric Elter
  */
-export default function comprendreScript () {
+export default function comprendreScriptMultiples () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 9

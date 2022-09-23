@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { choice, combinaisonListes, compteOccurences, contraindreValeur, lampeMessage, lettreDepuisChiffre, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { scratchblock } from '../../modules/2d.js'
-export const titre = 'Compléter un script Scratch'
+export const titre = 'Compléter un script Scratch - 1'
 
 export const dateDePublication = '20/09/2022'
 

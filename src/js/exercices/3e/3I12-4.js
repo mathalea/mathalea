@@ -2,15 +2,15 @@ import Exercice from '../Exercice.js'
 import { choice, combinaisonListes, compteOccurences, contraindreValeur, enleveDoublonNum, lampeMessage, lettreDepuisChiffre, listeQuestionsToContenu, numAlpha, randint, range1, shuffle, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { scratchblock } from '../../modules/2d.js'
 import { min, max } from 'mathjs'
-export const titre = 'Compléter un script Scratch'
+export const titre = 'Comprendre un script Scratch - 2'
 
-export const dateDePublication = '20/09/2022'
+export const dateDePublication = '23/09/2022'
 
 /**
  * Compléter un script sur les multiples et diviseurs
  * @author Eric Elter
  */
-export default function completerScriptDiviseurs () {
+export default function comprendreScriptListeMultiples () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 9
