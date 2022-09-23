@@ -62,7 +62,7 @@ function anglesSecantes (A, rot = { O: 60, A: 0 }) {
 */
 export const uuid = '19812'
 export const ref = '5G30-2'
-export default function exercicesAnglesAIC () {
+export default function ExercicesAnglesAIC () {
   Exercice.call(this)
   const formulaire = [
     '1 : Angles marqués alternes-internes ou correspondants ?',

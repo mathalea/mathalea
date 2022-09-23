@@ -9,7 +9,7 @@ export const titre = 'Déterminer une équation cartésienne de droite à partir
 */
 export const uuid = '0ec77'
 export const ref = '2G30-4'
-export default function equationcartesienne () {
+export default function Equationcartesienne () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = 'Déterminer une équation cartésienne de la droite $\\bm(d)$.'

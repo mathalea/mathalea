@@ -18,7 +18,7 @@ export const dateDePublication = '29/08/2022'
 
 export const ref = '3A10-6'
 export const uuid = '5636e'
-export default function trouverChiffre () {
+export default function TrouverChiffre () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 4
   this.besoinFormulaireTexte = ['Nombre de chiffres dans le nombre à découvrir ', ' Choix séparés par des tirets\n2 : 2 chiffres\n3 : 3 chiffres\n4 : 4 chiffres\n5 : 5 chiffres\n6 : 6 chiffres\n7 : Mélange']

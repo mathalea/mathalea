@@ -17,7 +17,7 @@ export const dateDePublication = '20/03/2022' // La date de publication initiale
  * @author Rémi Angot
  * Référence
 */
-export default function testFractions () {
+export default function TestFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
   this.sup = randint(1, 1000)

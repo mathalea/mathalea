@@ -12,7 +12,7 @@ export const titre = 'Représentation graphique d\'une fonction affine'
 */
 export const uuid = 'c360e'
 export const ref = '2F10-3'
-export default function representerfonctionaffine () {
+export default function Representerfonctionaffine () {
   Exercice.call(this)
   this.titre = titre
   this.consigne = 'Représenter graphiquement ' + (this.nbQuestions === 1 ? 'la fonction affine suivante  $f$ définie' : 'les fonctions affines suivantes  $f$ définies') + ' sur $\\mathbb R$ par :'

@@ -13,7 +13,7 @@ export const titre = 'Résoudre un exercice d\'engrenages'
  */
 export const uuid = 'ce352'
 export const ref = '3A12'
-export default function ppcmEngrenages () {
+export default function PpcmEngrenages () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

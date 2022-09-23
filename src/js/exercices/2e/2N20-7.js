@@ -10,7 +10,7 @@ export const dateDeModifImportante = '14/11/2021'
 
 export const uuid = 'c3c84'
 export const ref = '2N20-7'
-export default function ppcmEngrenages2nde () {
+export default function PpcmEngrenages2nde () {
   ppcmEngrenages.call(this)
   this.sup = true
   this.besoinFormulaireCaseACocher = false
