@@ -1020,12 +1020,17 @@ export function signeMoinsEnEvidence (r, precision = 0) {
 */
 export function ecritureParentheseSiNegatif (a) {
   let result = ''
-  if (a >= 0) {
-    result = a
+  if (a instanceof Decimal) {
+    if (a.gte(0)) return texNombre(a, 8) // On met 8 décimales, mais cette fonctions s'utilise presque exclusivement avec des entiers donc ça ne sert à rien
+    else return `(${texNombre(a, 8)})`
   } else {
-    result = `(${a})`
+    if (a >= 0) {
+      result = texNombre(a, 8) // j'ai passé a dans texNombre, car la fonction ne prenait pas en compte l'écriture décimale !
+    } else {
+      result = `(${texNombre(a, 8)})`
+    }
+    return result
   }
-  return result
 }
 
 /**
