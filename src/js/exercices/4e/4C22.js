@@ -71,11 +71,9 @@ export default function ExerciceMultiplierFractions () {
       typesDeQuestions = listeTypeDeQuestions[i]
       do {
         const ab = choice(listeFractions)
-        const cd = choice(listeFractions)
-        a = ab[0]
-        b = ab[1]
-        c = cd[0]
-        d = cd[1]
+        const cd = choice(listeFractions);
+        [a, b] = ab;
+        [c, d] = cd
       } while ((a * c) % (b * d) === 0 || (a * c) % d === 0 || (b * d === 100))
 
       if (this.sup2 === false) {
