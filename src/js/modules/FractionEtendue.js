@@ -492,19 +492,27 @@ export default class FractionX extends Fraction {
     * @param {Fraction} f2 la fraction qui multiplie.
     * @return {string} Le calcul du produit de deux fractions avec étape intermédiaire
     */
-  texProduitFraction (f2) {
+  texProduitFraction (f2, simplification = true) {
     return `${this.texFraction}\\times ${f2.texFraction}=\\dfrac{${this.num + '\\times' + f2.num}}{${this.den + '\\times' + f2.den}}=\\dfrac{${this.num * f2.num}}{${this.den * f2.den}}`
   }
 
-  /*
-    * @param {Fraction} f2 la fraction qui multiplie.
-    * @return {string} Le calcul du produit de deux fractions avec étape intermédiaire
-    */
-  texDiviseFraction (f2, symbole = '/') {
+  /**
+  * @param {FractionX} f2 la fraction qui multiplie.
+  * @param {string} simplification true si on veut afficher la simplification par décomposition false si on veut celle par le pgcd et 'none' si on ne veut pas simplifier
+  *  @param {string} symbole '/' pour la forme fractionnaire de la division, ':' ou autre chose pour l'obèle
+  * @return {string} Le calcul du produit de deux fractions avec étape intermédiaire
+  */
+  texDiviseFraction (f2, simplification = 'none', symbole = '/') {
     if (symbole === '/') {
-      return `\\dfrac{${this.texFraction}}{${f2.texFraction}}=${this.texFraction}\\times${f2.inverse().texFraction}=\\dfrac{${this.num + '\\times' + f2.den}}{${this.den + '\\times' + f2.num}}=\\dfrac{${this.num * f2.den}}{${this.den * f2.num}}`
+      return `\\dfrac{${this.texFraction}}{${f2.texFraction}}=${this.texFraction}\\times${f2.inverse().texFraction}=\\dfrac{${this.num + '\\times' + f2.den}}{${this.den + '\\times' + f2.num}}
+      ${simplification === 'none'
+      ? '=\\dfrac{' + this.num * f2.den + '}{' + this.den * f2.num + '}' + '=' + this.diviseFraction(f2).texFraction
+      : this.diviseFraction(f2).texSimplificationAvecEtapes(simplification)}`
     } else {
-      return `${this.texFraction}\\div${f2.texFraction}=${this.texFraction}\\times${f2.inverse().texFraction}=\\dfrac{${this.num + '\\times' + f2.den}}{${this.den + '\\times' + f2.num}}=\\dfrac{${this.num * f2.den}}{${this.den * f2.num}}`
+      return `${this.texFraction}\\div${f2.texFraction}=${this.texFraction}\\times${f2.inverse().texFraction}=\\dfrac{${this.num + '\\times' + f2.den}}{${this.den + '\\times' + f2.num}}
+      ${simplification === 'none'
+      ? '=\\dfrac{' + this.num * f2.den + '}{' + this.den * f2.num + '}' + '=' + this.diviseFraction(f2).texFraction
+      : this.diviseFraction(f2).texSimplificationAvecEtapes(simplification)}`
     }
   }
 
@@ -562,8 +570,8 @@ export default class FractionX extends Fraction {
  * Si la fraction est réductible, retourne une suite d'égalités permettant d'obtenir la fraction irréductible
  */
   texSimplificationAvecEtapes (factorisation = false) {
-    if (this.estIrreductible && this.num > 0 && this.den > 0) return '' // irreductible et positifs
-    else if (this.estIrreductible && this.num * this.den > 0) { // irréductible mais négatifs
+    if (this.estIrreductible && this.num > 0 && this.den > 0) return `=${this.texFraction}` // irreductible et positifs
+    else if (this.estIrreductible && this.num * this.den < 0) { // irréductible mais négatifs
       return `=${this.texFSD}`
     } else {
       if (factorisation) {
