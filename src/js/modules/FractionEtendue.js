@@ -1,4 +1,4 @@
-import { arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarree, fractionSimplifiee, listeDiviseurs, pgcd, nombreDeChiffresDansLaPartieDecimale, calcul, miseEnEvidence, ecritureParentheseSiNegatif, signeMoinsEnEvidence, texNombre, egal, decompositionFacteursPremiers } from './outils.js'
+import { arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarree, fractionSimplifiee, listeDiviseurs, pgcd, nombreDeChiffresDansLaPartieDecimale, calcul, miseEnEvidence, ecritureParentheseSiNegatif, signeMoinsEnEvidence, texNombre, egal } from './outils.js'
 import { point, vecteur, segment, carre, cercle, arc, translation, rotation, texteParPosition } from './2d.js'
 import { Fraction, equal, largerEq, subtract, add, abs, multiply, gcd, larger, smaller, round, lcm, max, min, pow } from 'mathjs'
 import { fraction } from './fractions.js'
@@ -584,7 +584,7 @@ export default class FractionX extends Fraction {
         const den = Math.abs(this.den)
         const listenum = obtenirListeFacteursPremiers(num)
         const listeden = obtenirListeFacteursPremiers(den)
-        let result = `=\\dfrac{${decompositionFacteursPremiers(num)}}{${decompositionFacteursPremiers(den)}}`
+        let result = '='
         const listeNumvf = []
         const listeDenvf = []
         listenum.forEach(function aAjouterDansListeAvf (element) {
@@ -638,7 +638,7 @@ export default class FractionX extends Fraction {
         }
         denominateur = denominateur.substring(0, denominateur.length - 6)
 
-        result += `=${signe}\\dfrac{${numerateur}}{${denominateur}}`
+        result += `${signe}\\dfrac{${numerateur}}{${denominateur}}`
         result += `=${signe}${new FractionX(a, b).simplifie().texFraction}`
         return result
       } else {

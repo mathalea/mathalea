@@ -67,30 +67,11 @@ export default function ExerciceMultiplierFractions () {
       this.nbQuestions
     )
     for (
-      let i = 0,
-        ab,
-        cd,
-        a,
-        b,
-        c,
-        d,
-        aa,
-        bb,
-        f1,
-        f2,
-        fResult,
-        texte,
-        texteCorr,
-        reponse,
-        typesDeQuestions,
-        cpt = 0;
-      i < this.nbQuestions && cpt < 50;
-
-    ) {
+      let i = 0, a, b, c, d, texte, texteCorr, reponse, typesDeQuestions, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
       do {
-        ab = choice(listeFractions)
-        cd = choice(listeFractions)
+        const ab = choice(listeFractions)
+        const cd = choice(listeFractions)
         a = ab[0]
         b = ab[1]
         c = cd[0]
@@ -122,32 +103,17 @@ export default function ExerciceMultiplierFractions () {
             } while (nombreDeSigneMoins < 2)
             break
         }
-        f1 = new FractionX(a, b)
-        f2 = new FractionX(c, d)
-        if (listeTypesDoperation[i] === 'mul') {
-          fResult = f1.produitFraction(f2)
-          texte = `$${f1.texFSD}\\times${f2.texFraction}=$`
-          texteCorr = `$${f1.texProduitFraction(f2)}`
-          texteCorr += fResult.estIrreductible ? '$' : `${fResult.texSimplificationAvecEtapes()}$`
-          reponse = f1.produitFraction(f2).simplifie()
-        } else {
-          fResult = f1.diviseFraction(f2)
-          texte = `$\\dfrac{${f1.texFSD}}{${f2.texFraction}}=$`
-          texteCorr = `$${f1.texDiviseFraction(f2, 'false')}`
-          texteCorr += fResult.estIrreductible ? '$' : `${fResult.texSimplificationAvecEtapes()}$`
-          reponse = f1.produitFraction(f2).simplifie()
-        }
       } else {
         // méthode 2 : décomposition
         if (a === c) {
           a++
         }
-        aa = obtenirListeNombresPremiers()[randint(1, 5)]
-        bb = obtenirListeNombresPremiers()[randint(1, 5, [aa])]
-        a = a * aa
-        d = d * aa
-        b = b * bb
-        c = c * bb
+        const facteurA = obtenirListeNombresPremiers()[randint(1, 5)]
+        const facteurB = obtenirListeNombresPremiers()[randint(1, 5, [facteurA])]
+        a = a * facteurA
+        d = d * facteurA
+        b = b * facteurB
+        c = c * facteurB
         switch (typesDeQuestions) {
           case 1: // entier * fraction (tout positif)
             b = 1
@@ -165,15 +131,13 @@ export default function ExerciceMultiplierFractions () {
             break
         }
       }
-      f1 = new FractionX(a, b)
-      f2 = new FractionX(c, d)
+      const f1 = new FractionX(a, b)
+      const f2 = new FractionX(c, d)
       if (listeTypesDoperation[i] === 'mul') {
-        fResult = f1.produitFraction(f2)
         texte = `$${f1.texFSD}\\times${f2.texFraction}=$`
         texteCorr = `$${f1.texProduitFraction(f2, this.sup2)}$`
         reponse = f1.produitFraction(f2).simplifie()
       } else {
-        fResult = f1.diviseFraction(f2)
         texte = `$\\dfrac{${f1.texFSD}}{${f2.texFraction}}=$`
         texteCorr = `$${f1.texDiviseFraction(f2, this.sup2)}$`
         reponse = f1.diviseFraction(f2).simplifie()
