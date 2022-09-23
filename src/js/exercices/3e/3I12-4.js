@@ -1,22 +1,21 @@
 import Exercice from '../Exercice.js'
-import { choice, combinaisonListes, compteOccurences, contraindreValeur, lampeMessage, lettreDepuisChiffre, listeQuestionsToContenu, numAlpha, randint, rangeMinMax, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { choice, combinaisonListes, compteOccurences, contraindreValeur, enleveDoublonNum, lampeMessage, lettreDepuisChiffre, listeQuestionsToContenu, numAlpha, randint, range1, shuffle, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { scratchblock } from '../../modules/2d.js'
-import { min } from 'mathjs'
-export const titre = 'Comprendre un script Scratch'
+import { min, max } from 'mathjs'
+export const titre = 'Compléter un script Scratch'
 
 export const dateDePublication = '20/09/2022'
 
 /**
- * Comprendre un script sur les multiples et diviseurs
+ * Compléter un script sur les multiples et diviseurs
  * @author Eric Elter
  */
-export default function comprendreScript () {
+export default function completerScriptDiviseurs () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 9
   this.sup2 = 5
   this.sup3 = 4
-  this.sup4 = 3
   this.spacing = 2
   this.spacingCorr = 2
   this.nbQuestions = 1
@@ -27,9 +26,43 @@ export default function comprendreScript () {
   this.nbQuestionsModifiable = false
   this.listePackages = 'scratch3'
   this.nouvelleVersion = function () {
+    this.introduction = lampeMessage({
+      titre: `${scratchblock('\\begin{scratch}[print,fill,blocks,scale=0.5]\n\\ovaloperator{\\ovalnum{ } modulo \\ovalnum{ }}\\end{scratch}')}`,
+      texte: 'Cette brique donne le reste de la division euclidienne du nombre de gauche par le nombre de droite.',
+      couleur: 'nombres'
+    })
+
+    const nbBriquesATrouver = contraindreValeur(1, 10, this.sup2, randint(1, 10))
+    this.consigne = 'Compléter '
+    this.consigne += nbBriquesATrouver > 1 ? 'les briques manquantes.' : 'la brique manquante.'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    let briquesATrouver = []
     let optionsBriques = []
+    if (!this.sup) { // Si aucune liste n'est saisie
+      briquesATrouver = shuffle(range1(10)).slice(0, nbBriquesATrouver)
+    } else {
+      if (typeof (this.sup) === 'number') {
+        this.sup = contraindreValeur(1, 10, this.sup, 10)
+        briquesATrouver = [this.sup]
+        for (let i = 1; i < nbBriquesATrouver; i++) {
+          briquesATrouver.push(randint(1, 10, briquesATrouver))
+        }
+      } else {
+        briquesATrouver = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+        for (let i = 0; i < briquesATrouver.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+          briquesATrouver[i] = contraindreValeur(1, 10, parseInt(briquesATrouver[i]), randint(1, 10))
+        }
+        briquesATrouver = enleveDoublonNum(briquesATrouver)
+        if (nbBriquesATrouver > briquesATrouver.length) {
+          for (let i = briquesATrouver.length; i < nbBriquesATrouver; i++) {
+            briquesATrouver.push(randint(1, 10, briquesATrouver))
+          }
+        } else if (nbBriquesATrouver < briquesATrouver.length) {
+          briquesATrouver = shuffle(briquesATrouver).slice(0, nbBriquesATrouver)
+        }
+      }
+    }
 
     if (!this.sup2) { // Si aucune liste n'est saisie
       optionsBriques = [randint(1, 4)]
@@ -66,8 +99,6 @@ export default function comprendreScript () {
     }
     const choixScript = optionsBriques[0]
 
-    const diviseurEnPremier = this.sup4 === 3 ? choice([true, false]) : this.sup4 === 2
-
     const tableauTouches = []
     for (let i = 1; i < 27; i++) tableauTouches.push(String.fromCharCode(64 + i).toLowerCase())
     for (let i = 0; i < 10; i++) tableauTouches.push(i)
@@ -79,60 +110,55 @@ export default function comprendreScript () {
     const touchePressee = choice(tableauTouches)
 
     const nb1 = randint(1, 26, [23, 9, 15, 17]) // Pour éviter I,O,Q et W
-    const nb2 = randint(1, 26, [23, 9, 15, 17, nb1]) // Pour éviter I,O,Q et W
-    let var1 = lettreDepuisChiffre(nb1)
-    let var2 = lettreDepuisChiffre(nb2)
-    let colonne1 = '\\begin{scratch}[print,fill,blocks,scale=0.5]\n'
+    const var1 = lettreDepuisChiffre(nb1)
+    let texteScratch = '\\begin{scratch}[print,fill,blocks,scale=0.5]\n'
     const choixBriqueInitiale = [
       ['\\blockinit{quand \\greenflag est cliqué}\n', 'Quand le drapeau vert est cliqué'],
       ['\\blockinit{quand ce sprite est cliqué}\n', 'Quand ce sprite est cliqué'],
       [`\\blockinit{quand la touche \\selectmenu{${touchePressee}} est pressée}\n`, `Quand la touche ${touchePressee} est pressée`],
       ['\\blockinit{quand la touche \\selectmenu{n\'importe laquelle} est pressée}\n', "Quand n'importe quelle touche est pressée"]
     ]
-    colonne1 += choixBriqueInitiale[briqueInitiale - 1][0]
-    colonne1 += '\\blockmove{demander \\ovalnum{Donne-moi un nombre entier.} et attendre}\n'
-    colonne1 += `\\blockvariable{mettre \\selectmenu{${var1}} à \\ovalsensing{réponse}}\n`
-    colonne1 += '\\blockmove{demander \\ovalnum{Donne-moi un second nombre entier.} et attendre}\n'
-    colonne1 += `\\blockvariable{mettre \\selectmenu{${var2}} à \\ovalsensing{réponse}}\n`
-    const var3 = lettreDepuisChiffre(nb1)
-    var1 = diviseurEnPremier ? var2 : var1
-    var2 = diviseurEnPremier ? var3 : var2
-    colonne1 += `\\blockifelse{si \\booloperator{\\ovaloperator{\\ovalmove{${var1}} modulo \\ovalmove{${var2}}} = \\ovalnum{0}} alors}\n`
+    texteScratch += choixBriqueInitiale[briqueInitiale - 1][0]
+    texteScratch += `\\blockvariable{mettre \\selectmenu{${var1}} à \\ovalnum{1}}\n`
+    texteScratch += '\\blockmove{demander \\ovalnum{Donne-moi un nombre entier.} et attendre}\n'
+    texteScratch += '\\blockrepeat{répéter \\ovalsensing{réponse} fois}\n{\n'
+    texteScratch += `\\blockif{si \\booloperator{\\ovaloperator{\\ovalsensing{réponse} modulo \\ovalmove{${var1}}} = \\ovalnum{0}} alors}\n`
+
     switch (choixScript) {
       case 1 : // .... est un multiple de ....
-        colonne1 += `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var1}} et \\ovaloperator{regrouper \\ovalnum{ est un multiple de } et \\ovalmove{${var2}}}} et \\ovalnum{.}}}\n}\n`
-        colonne1 += `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var1}} et \\ovaloperator{regrouper \\ovalnum{ n'est pas un multiple de } et \\ovalmove{${var2}}}} et \\ovalnum{.}}}\n}\n`
+        texteScratch += `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalsensing{réponse} et \\ovaloperator{regrouper \\ovalnum{ est un multiple de } et \\ovalmove{${var1}}}} et \\ovalnum{.}} pendant \\ovalnum{0.5} secondes}\n}\n`
         break
       case 2 : // .... divise ....
-        colonne1 += `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var2}} et \\ovaloperator{regrouper \\ovalnum{ divise } et \\ovalmove{${var1}}}} et \\ovalnum{.}}}\n}\n`
-        colonne1 += `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var2}} et \\ovaloperator{regrouper \\ovalnum{ ne divise pas } et \\ovalmove{${var1}}}} et \\ovalnum{.}}}\n}\n`
+        texteScratch += `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var1}} et \\ovaloperator{regrouper \\ovalnum{ divise } et \\ovalsensing{réponse}}} et \\ovalnum{.}} pendant \\ovalnum{0.5} secondes}\n}\n`
         break
       case 3 : // .... est un diviseur de  ....
-        colonne1 += `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var2}} et \\ovaloperator{regrouper \\ovalnum{ est un diviseur de } et \\ovalmove{${var1}}}} et \\ovalnum{.}}}\n}\n`
-        colonne1 += `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var2}} et \\ovaloperator{regrouper \\ovalnum{ n'est pas un diviseur de } et \\ovalmove{${var1}}}} et \\ovalnum{.}}}\n}\n`
+        texteScratch += `{\\blocklook{dire \\ovaloperator{regrouper \\ovaloperator{regrouper \\ovalmove{${var1}} et \\ovaloperator{regrouper \\ovalnum{ est un diviseur de } et \\ovalsensing{réponse}}} et \\ovalnum{.}} pendant \\ovalnum{0.5} secondes}\n}\n`
         break
     }
-    colonne1 += '\\end{scratch}'
-    colonne1 = scratchblock(colonne1)
+    texteScratch += `\\blockvariable{ajouter \\ovalnum{1} à \\selectmenu{${var1}}}\n`
 
-    const nb02 = choice([2, 3, 5, 9, 10])
-    const nb01 = choice(rangeMinMax(5, 15)) * nb02
-    const nb03 = nb01 + randint(1, nb02 - 1)
+    texteScratch += '}\n\\end{scratch}'
+
+    let texte = scratchblock(texteScratch)
+
+    const nb01 = choice([2, 3, 5, 7])
+    const nb02 = choice([2, 3, 5, 7], [nb01])
+    const nb03 = nb01 * nb02
     const listeQuestions = [ // [Questions, Reponses]
-      ['Combien ce script comporte-t-il de variables ?', `Ce script comporte ${texteEnCouleurEtGras(2)} variables.`],
-      ['Comment se nomment les variables dans ce script ?', `Les variables de ce script se nomment ${texteEnCouleurEtGras(var1)} et ${texteEnCouleurEtGras(var2)}.`],
-      ['Que fait ce script ?', `Ce script demande deux nombres entiers à l'utilisateur, calcule le reste de la division euclidienne du
-      ${diviseurEnPremier ? ' second nombre fourni par le premier ' : ' premier nombre fourni par le second '}
-      puis indique si 
-      ${choixScript === 1 ? (diviseurEnPremier ? ' le second nombre ' : ' le premier nombre ') : (diviseurEnPremier ? ' le premier nombre ' : ' le second nombre ')} ${choixScript === 1 ? ' est un multiple ou pas du ' : choixScript === 2 ? ' divise ou pas le ' : ' est un diviseur ou pas du '} ${choixScript === 1 ? (diviseurEnPremier ? 'premier' : 'second') : (diviseurEnPremier ? 'second' : 'premier')} nombre.`],
-      [`Si les nombres saisis sont d'abord ${diviseurEnPremier ? nb02 : nb01} puis ensuite ${diviseurEnPremier ? nb01 : nb02}, que dit précisement le lutin au final ?`,
-      `${choixScript === 1 ? nb01 + ' est un multiple de ' + nb02 : choixScript === 2 ? nb02 + ' divise ' + nb01 : nb02 + ' est un diviseur de ' + nb01}.`],
-      [`Si les nombres saisis sont d'abord ${diviseurEnPremier ? nb02 : nb03} puis ensuite ${diviseurEnPremier ? nb03 : nb02}, que dit précisement le lutin au final ?`,
-      `${choixScript === 1 ? nb03 + ' n\'est pas un multiple de ' + nb02 : choixScript === 2 ? nb02 + ' ne divise pas ' + nb03 : nb02 + ' n\'est pas un diviseur de ' + nb03}.`],
+      ['Combien ce script comporte-t-il de variables ?', `Ce script comporte ${texteEnCouleurEtGras(1)} variable.`],
+      ['Comment se nomme la variable dans ce script ?', `La variable de ce script se nomme ${texteEnCouleurEtGras(var1)}.`],
+      ['Que fait ce script ?', `Ce script demande un nombre entier à l'utilisateur puis, pour tous les nombres entiers de 1 au nombre fourni, calcule le reste de la division euclidienne 
+      de ce nombre fourni par chacun des entiers et le compare à zéro. Le lutin peut ainsi énoncer pendant une demi-seconde un nouveau diviseur du nombre fourni.`],
+      [`Si le nombre saisi est ${nb03}, que dit précisement le lutin au final ?`,
+      `${choixScript === 1 ? nb03 + ' est un multiple de 1' : choixScript === 2 ? '1 divise ' + nb03 : '1 est un diviseur de ' + nb03}.<br>
+      ${choixScript === 1 ? nb03 + ' est un multiple de ' + min(nb01, nb02) : choixScript === 2 ? min(nb01, nb02) + ' divise ' + nb03 : min(nb01, nb02) + ' est un diviseur de ' + nb03}.<br>
+      ${choixScript === 1 ? nb03 + ' est un multiple de ' + max(nb01, nb02) : choixScript === 2 ? max(nb01, nb02) + ' divise ' + nb03 : max(nb01, nb02) + ' est un diviseur de ' + nb03}.<br>
+      ${choixScript === 1 ? nb03 + ' est un multiple de ' + nb03 : choixScript === 2 ? nb03 + ' divise ' + nb03 : nb03 + ' est un diviseur de ' + nb03}.`],
       ['Quelle action initiale permet de déclencher ce script ?',
-        choixBriqueInitiale[briqueInitiale - 1][1] + '.']
+        choixBriqueInitiale[briqueInitiale - 1][1] + '.'],
+      [`Pourquoi, dans ce script, faut-il ajouter 1 à ${var1} ?`,
+        `Cet ajout, grâce à la boucle, permet à ${var1} de valoir, tour à tour, tous les nombres de 1 jusqu'au nombre choisi par l'utilisateur.`]
     ]
-
     let choixQuestions = []
     let nbDeQuestions = [6]
     if (!this.sup) { // Si aucune liste n'est saisie
@@ -155,29 +181,18 @@ export default function comprendreScript () {
       }
     }
     choixQuestions = combinaisonListes(choixQuestions, choixQuestions.length)
-
-    this.introduction = lampeMessage({
-      titre: `${scratchblock('\\begin{scratch}[print,fill,blocks,scale=0.5]\n\\ovaloperator{\\ovalnum{ } modulo \\ovalnum{ }}\\end{scratch}')}`,
-      texte: 'Cette brique donne le reste de la division euclidienne du nombre de gauche par le nombre de droite.',
-      couleur: 'nombres'
-    })
-
     this.consigne = 'Lire ce script Scratch associé à un lutin et répondre ensuite'
     this.consigne += min(choixQuestions.length, nbDeQuestions[0]) > 1 ? ' aux questions.' : ' à la question.'
-    let colonne2 = ''
     let texteCorr = ''
     for (let i = 0; i < min(choixQuestions.length, nbDeQuestions[0]); i++) {
       if (min(choixQuestions.length, nbDeQuestions[0]) === 1) {
-        colonne2 = choixQuestions[0][0] + '<br>'
+        texte += choixQuestions[0][0] + '<br>'
         texteCorr = choixQuestions[0][1] + '<br>'
       } else {
-        colonne2 += numAlpha(i) + choixQuestions[i][0] + '<br>'
+        texte += numAlpha(i) + choixQuestions[i][0] + '<br>'
         texteCorr += numAlpha(i) + choixQuestions[i][1] + '<br>'
       }
     }
-    // Multicolonnage abandonné à cause de la non-optimation de la fonction deuxColonnes() (septembre 2022) sur SmartPhone
-    // const texte = deuxColonnes(colonne1, colonne2)
-    const texte = colonne1 + colonne2
 
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
@@ -185,7 +200,7 @@ export default function comprendreScript () {
   }
   this.besoinFormulaireTexte = [
     'Question(s) à sélectionner',
-    'Nombres séparés par des tirets\n1 : Nombre de variables\n2 : Nom de variables\n3 : Description du script\n4 : Test du script avec deux nombres multiples\n5 : Test du script avec deux nombres non multiples\n6 : Action initiale\n   ------------   \n7 : Une seule question parmi celles choisies\n8 : Deux questions parmi celles choisies\n9 : Trois questions parmi celles choisies\n10 : Quatre questions parmi celles choisies\n11 : Cinq questions parmi celles choisies\n12 : L\'ensemble des six questions'
+    'Nombres séparés par des tirets\n1 : Nombre de variables\n2 : Nom de variables\n3 : Description du script\n4 : Test du script avec un entier\n5 : Action initiale\n6 : Ajouter 1\n   ------------   \n7 : Une seule question parmi celles choisies\n8 : Deux questions parmi celles choisies\n9 : Trois questions parmi celles choisies\n10 : Quatre questions parmi celles choisies\n11 : Cinq questions parmi celles choisies\n12 : L\'ensemble des six questions'
   ]
   this.besoinFormulaire2Texte = [
     'Choix sur la brique intiale',
@@ -194,9 +209,5 @@ export default function comprendreScript () {
   this.besoinFormulaire3Texte = [
     'Choix sur une des phrases finales',
     'Nombres séparés par des tirets\n1 : Une phrase finale contient : ... est un multiple de ...\n2 : Une phrase finale contient : ... divise ...\n3 : Une phrase finale contient : ... est un diviseur de ...\n4 : Une des possiblités précédentes choisie au hasard'
-  ]
-  this.besoinFormulaire4Numerique = [
-    'Choix de l\'ordre sur la brique modulo', 3,
-    '1 : Premier entier demandé modulo le second\n2 : Second entier demandé modulo le premier \n3 : Une des possiblités précédentes choisie au hasard'
   ]
 }
