@@ -36,7 +36,7 @@ if (typeof window.iMathAlea === 'undefined') {
     */
 
     // Appelé lorsque l'élément est inséré dans le DOM
-    connectedCallback () {
+    connectedCallback() {
       // Si l'attribut serveur est défini, on l'utilise (url non vérifiée / sécurisée)
       // Sinon on utilise l'url du script actuel récupérée soit via
       // document.currentScript si le fichier n'est pas appelé en mode module
@@ -67,8 +67,21 @@ if (typeof window.iMathAlea === 'undefined') {
         questionDiv = questionDiv.parentNode
       }
       if (questionDiv === null) {
-        shadow.appendChild(document.createTextNode('[Erreur de détection de la l’environnement moodle]'))
-        return
+        // début compatibilité moodle 3.5
+        questionDiv = this.parentNode
+        while (questionDiv !== null) { // s'arrêtera lorsqu'il n'y aura plus de parents
+          if (questionDiv.classList.contains('shortanswer')) {
+            questionSeed = this.getAttribute('graine') || questionDiv.querySelector('input[name$=":sequencecheck"]').getAttribute('name')
+            break // la seed a été trouvée
+          }
+          questionDiv = questionDiv.parentNode
+        }
+        // fin compatibilité moodle 3.5
+
+        if (questionDiv === null) {
+          shadow.appendChild(document.createTextNode('[Erreur de détection de la l’environnement moodle]'))
+          return
+        }
       }
 
       questionDiv.classList.add('mathalea-question-type')
@@ -103,11 +116,11 @@ if (typeof window.iMathAlea === 'undefined') {
       shadow.appendChild(iframe)
     }
 
-    attributeChangedCallback (name, oldValue, newValue) {
+    attributeChangedCallback(name, oldValue, newValue) {
       name === 'height' && (this.iframe.height = newValue)
     }
 
-    static get observedAttributes () { return ['height'] }
+    static get observedAttributes() { return ['height'] }
   }
 
   // Define the new element
