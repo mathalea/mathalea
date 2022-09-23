@@ -225,7 +225,7 @@ export default class FractionX extends Fraction {
     })
 
     /**
-     * n/d si positif, (- n/d) sinon
+     * num/den si positif, (- num/den) sinon
      * @property texFSP littéralement texFractionSigneParentheses
      * @type {string}
      */
@@ -494,7 +494,7 @@ export default class FractionX extends Fraction {
     * @return {string} Le calcul du produit de deux fractions avec étape intermédiaire
     */
   texProduitFraction (f2, simplification = 'none') {
-    return `${this.texFraction}\\times ${f2.texFraction}=\\dfrac{${this.num + '\\times' + f2.num}}{${this.den + '\\times' + f2.den}}
+    return `${this.texFraction}\\times ${f2.texFSP}=\\dfrac{${this.num + '\\times' + ecritureParentheseSiNegatif(f2.num)}}{${this.den + '\\times' + ecritureParentheseSiNegatif(f2.den)}}
     ${simplification === 'none'
     ? '=\\dfrac{' + this.num * f2.num + '}{' + this.den * f2.den + '}'
     : this.produitFraction(f2).texSimplificationAvecEtapes(simplification)}`
@@ -508,7 +508,7 @@ export default class FractionX extends Fraction {
   */
   texDiviseFraction (f2, simplification = 'none', symbole = '/') {
     if (symbole === '/') {
-      return `\\dfrac{${this.texFraction}}{${f2.texFraction}}=${this.texFraction}\\times${f2.inverse().texFraction}=\\dfrac{${this.num + '\\times' + f2.den}}{${this.den + '\\times' + f2.num}}
+      return `\\dfrac{${this.texFraction}}{${f2.texFraction}}=${this.texFraction}\\times${f2.inverse().texFraction}=\\dfrac{${this.num + '\\times' + ecritureParentheseSiNegatif(f2.den)}}{${this.den + '\\times' + ecritureParentheseSiNegatif(f2.num)}}
       ${simplification === 'none'
       ? '=\\dfrac{' + this.num * f2.den + '}{' + this.den * f2.num + '}' + '=' + this.diviseFraction(f2).texFraction
       : this.diviseFraction(f2).texSimplificationAvecEtapes(simplification)}`
