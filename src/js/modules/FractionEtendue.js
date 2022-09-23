@@ -488,8 +488,9 @@ export default class FractionX extends Fraction {
     return s.simplifie()
   }
 
-  /*
+  /**
     * @param {Fraction} f2 la fraction qui multiplie.
+    *  @param {string} simplification true si on veut afficher la simplification par décomposition false si on veut celle par le pgcd et 'none' si on ne veut pas simplifier
     * @return {string} Le calcul du produit de deux fractions avec étape intermédiaire
     */
   texProduitFraction (f2, simplification = 'none') {

@@ -171,13 +171,11 @@ export default function ExerciceMultiplierFractions () {
         fResult = f1.produitFraction(f2)
         texte = `$${f1.texFSD}\\times${f2.texFraction}=$`
         texteCorr = `$${f1.texProduitFraction(f2, this.sup2)}$`
-        // texteCorr += fResult.estIrreductible ? '$' : `${fResult.texSimplificationAvecEtapes(this.sup2)}$` // c'est le this.sup2 qui va changer la méthode de simplification !
         reponse = f1.produitFraction(f2).simplifie()
       } else {
         fResult = f1.diviseFraction(f2)
         texte = `$\\dfrac{${f1.texFSD}}{${f2.texFraction}}=$`
         texteCorr = `$${f1.texDiviseFraction(f2, this.sup2)}$`
-        // texteCorr += fResult.estIrreductible ? '$' : `${fResult.texSimplificationAvecEtapes(this.sup2)}$`
         reponse = f1.diviseFraction(f2).simplifie()
       }
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
