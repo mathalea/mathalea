@@ -492,8 +492,11 @@ export default class FractionX extends Fraction {
     * @param {Fraction} f2 la fraction qui multiplie.
     * @return {string} Le calcul du produit de deux fractions avec étape intermédiaire
     */
-  texProduitFraction (f2, simplification = true) {
-    return `${this.texFraction}\\times ${f2.texFraction}=\\dfrac{${this.num + '\\times' + f2.num}}{${this.den + '\\times' + f2.den}}=\\dfrac{${this.num * f2.num}}{${this.den * f2.den}}`
+  texProduitFraction (f2, simplification = 'none') {
+    return `${this.texFraction}\\times ${f2.texFraction}=\\dfrac{${this.num + '\\times' + f2.num}}{${this.den + '\\times' + f2.den}}
+    ${simplification === 'none'
+    ? '=\\dfrac{' + this.num * f2.num + '}{' + this.den * f2.den + '}'
+    : this.produitFraction(f2).texSimplificationAvecEtapes(simplification)}`
   }
 
   /**
