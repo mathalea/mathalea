@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { choice, combinaisonListes, compteOccurences, contraindreValeur, enleveDoublonNum, lampeMessage, lettreDepuisChiffre, listeQuestionsToContenu, numAlpha, randint, range1, shuffle, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { choice, combinaisonListes, compteOccurences, contraindreValeur, lampeMessage, lettreDepuisChiffre, listeQuestionsToContenu, numAlpha, randint, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { scratchblock } from '../../modules/2d.js'
 import { min, max } from 'mathjs'
 export const titre = 'Comprendre un script Scratch - 2'
@@ -37,33 +37,8 @@ export default function comprendreScriptListeMultiples () {
     this.consigne += nbBriquesATrouver > 1 ? 'les briques manquantes.' : 'la brique manquante.'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let briquesATrouver = []
-    let optionsBriques = []
-    if (!this.sup) { // Si aucune liste n'est saisie
-      briquesATrouver = shuffle(range1(10)).slice(0, nbBriquesATrouver)
-    } else {
-      if (typeof (this.sup) === 'number') {
-        this.sup = contraindreValeur(1, 10, this.sup, 10)
-        briquesATrouver = [this.sup]
-        for (let i = 1; i < nbBriquesATrouver; i++) {
-          briquesATrouver.push(randint(1, 10, briquesATrouver))
-        }
-      } else {
-        briquesATrouver = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < briquesATrouver.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          briquesATrouver[i] = contraindreValeur(1, 10, parseInt(briquesATrouver[i]), randint(1, 10))
-        }
-        briquesATrouver = enleveDoublonNum(briquesATrouver)
-        if (nbBriquesATrouver > briquesATrouver.length) {
-          for (let i = briquesATrouver.length; i < nbBriquesATrouver; i++) {
-            briquesATrouver.push(randint(1, 10, briquesATrouver))
-          }
-        } else if (nbBriquesATrouver < briquesATrouver.length) {
-          briquesATrouver = shuffle(briquesATrouver).slice(0, nbBriquesATrouver)
-        }
-      }
-    }
 
+    let optionsBriques = []
     if (!this.sup2) { // Si aucune liste n'est saisie
       optionsBriques = [randint(1, 4)]
     } else {
@@ -165,7 +140,7 @@ export default function comprendreScriptListeMultiples () {
       choixQuestions = listeQuestions
     } else {
       if (typeof (this.sup) === 'number') {
-        this.sup = contraindreValeur(1, 5, this.sup, 5)
+        this.sup = contraindreValeur(1, 12, this.sup, 12)
         if (this.sup < 7) choixQuestions = [listeQuestions[this.sup]]
         else choixQuestions = combinaisonListes(listeQuestions, 6).slice(0, this.sup - 6)
       } else {

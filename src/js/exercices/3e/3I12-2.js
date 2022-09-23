@@ -139,7 +139,7 @@ export default function comprendreScriptMultiples () {
       choixQuestions = listeQuestions
     } else {
       if (typeof (this.sup) === 'number') {
-        this.sup = contraindreValeur(1, 5, this.sup, 5)
+        this.sup = contraindreValeur(1, 12, this.sup, 12)
         if (this.sup < 7) choixQuestions = [listeQuestions[this.sup]]
         else choixQuestions = combinaisonListes(listeQuestions, 6).slice(0, this.sup - 6)
       } else {
