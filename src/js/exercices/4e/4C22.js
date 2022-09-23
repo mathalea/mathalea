@@ -178,7 +178,7 @@ export default function ExerciceMultiplierFractions () {
         texte = `$\\dfrac{${f1.texFSD}}{${f2.texFraction}}=$`
         texteCorr = `$${f1.texDiviseFraction(f2)}`
         texteCorr += fResult.estIrreductible ? '$' : `${fResult.texSimplificationAvecEtapes(this.sup2)}$`
-        reponse = f1.produitFraction(f2).simplifie()
+        reponse = f1.diviseFraction(f2).simplifie()
       }
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
