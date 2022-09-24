@@ -10,7 +10,7 @@ export const dateDeModifImportante = '14/11/2021'
 
 export const uuid = '74939'
 export const ref = '2N20-6'
-export default function listerDiviseursParDecompositionFacteursPremiers2nde () {
+export default function ListerDiviseursParDecompositionFacteursPremiers2nde () {
   listerDiviseursParDecompositionFacteursPremiers.call(this)
   this.sup = true
   this.besoinFormulaireCaseACocher = false

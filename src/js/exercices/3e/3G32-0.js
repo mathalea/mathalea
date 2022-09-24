@@ -28,7 +28,7 @@ export const dateDePublication = '05/03/2022'
 */
 export const uuid = '2045e'
 export const ref = '3G32-0'
-export default function problemesTrigoLongueur () {
+export default function ProblemesTrigoLongueur () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.besoinFormulaireCaseACocher = ['Afficher des questions intermédiaires et éventuellement un schéma']

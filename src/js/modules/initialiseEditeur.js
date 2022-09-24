@@ -22,7 +22,7 @@ function carreIndirect (A, B, color) {
  * Pour l'autocomplétion, importe les fonctions de mathalea2d, les charge dans window et dans l'interpréteur Sval
  * @returns interpreter Objet Sval
  */
-export default function initialiseEditeur () {
+export default function InitialiseEditeur () {
   context.objets2D = [] // Initialise la liste qui se met à jour à chaque création d'objet 2D
   window.randint = randint
   window.texNombre = texNombre

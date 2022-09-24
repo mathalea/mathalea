@@ -62,7 +62,7 @@ function schemaBarre () {
  * Référence
 */
 
-export default function equationsProgression () {
+export default function EquationsProgression () {
   Exercice.call(this)
   const formulaire = []
   for (let i = 0; i < nbCase; i++) formulaire.push(`${i}`)

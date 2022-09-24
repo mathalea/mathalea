@@ -19,7 +19,7 @@ export const titre = 'Décomposer un entier en facteurs premiers'
  */
 export const uuid = '32f33'
 export const ref = '3A10-3'
-export default function decompositionFacteursPremiers () {
+export default function DecompositionFacteursPremiers () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

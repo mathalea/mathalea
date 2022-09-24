@@ -10,7 +10,7 @@ export const titre = 'Lire abscisse décimale avec zoom'
  */
 export const uuid = 'b2f66'
 export const ref = 'c3N23'
-export default function lireUneAbscisseAvecZoomCM () {
+export default function LireUneAbscisseAvecZoomCM () {
   LireUneAbscisseAvecZoom.call(this)
   this.niveau = 'CM'
   this.sup = 1

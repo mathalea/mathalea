@@ -24,7 +24,7 @@ export const dateDePublication = '20/01/2022'
 
 export const uuid = 'c5438'
 export const ref = '6N10-6'
-export default function sommmeFractionsDecimales () {
+export default function SommeFractionsDecimales () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 6
   this.besoinFormulaireTexte = ['Type des calculs', ' Choix séparés par des tirets\n(Les fractions sont décimales et de même dénominateur)\n1 : Somme de 2 fractions\n2 : Différence de 2 fractions\n3 : Somme (sans retenue) d\'un entier et d\'une somme de 2 fractions\n4 : Somme (sans retenue) d\'un entier et d\'une différence de 2 fractions\n5 : Somme d\'un entier et d\'une somme de 2 fractions\n6 : Somme d\'un entier et d\'une différence de 2 fractions\n7 : Mélange']

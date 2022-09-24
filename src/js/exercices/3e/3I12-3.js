@@ -1,15 +1,15 @@
 import Exercice from '../Exercice.js'
 import { choice, combinaisonListes, compteOccurences, contraindreValeur, enleveDoublonNum, lampeMessage, lettreDepuisChiffre, listeQuestionsToContenu, randint, range1, shuffle } from '../../modules/outils.js'
 import { scratchblock } from '../../modules/2d.js'
-export const titre = 'Compléter un script Scratch'
+export const titre = 'Compléter un script Scratch - 2'
 
-export const dateDePublication = '20/09/2022'
+export const dateDePublication = '22/09/2022'
 
 /**
  * Compléter un script sur les multiples et diviseurs
  * @author Eric Elter
  */
-export default function completerScriptDiviseurs () {
+export default function CompleterScriptDiviseurs () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = '1-2-3-4-5-6-7-8-9-10'
