@@ -44,7 +44,7 @@ export default function AbscisseDroiteDecimaux () {
         pointListe: [[x1, 'A']]
       })
       this.reponse = new Decimal(x1).div(100).add(abs0)
-      this.question = 'Determiner l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 1.5, pixelsParCm: 30, scale: 0.8 }, d)
+      this.question = 'Déterminer l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 1.5, pixelsParCm: 30, scale: 0.8 }, d)
       this.correction = `Entre $${texNombre(abs0)}$ et $${texNombre(abs1)}$, il y a $5$ intervalles.<br>
      Une graduation correspond donc à $0,002$. Ainsi, l'abscisse du point $A$ est $${texNombre(this.reponse, 4)}$.`
     }
@@ -68,7 +68,7 @@ export default function AbscisseDroiteDecimaux () {
         pointListe: [[x1, 'A']]
       })
       this.reponse = new Decimal(x1).div(100).add(abs0)
-      this.question = 'Determiner l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 1.5, pixelsParCm: 30, scale: 0.8 }, d)
+      this.question = 'Déterminer l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 1.5, pixelsParCm: 30, scale: 0.8 }, d)
       this.correction = `Entre $${texNombre(abs0)}$ et $${texNombre(abs1)}$, il y a $4$ intervalles.<br>
      Une graduation correspond donc à $0,0025$. Ainsi, l'abscisse du point $A$ est $${texNombre(this.reponse, 4)}$.`
     }
