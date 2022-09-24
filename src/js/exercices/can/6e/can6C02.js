@@ -20,11 +20,12 @@ export default function NombrePairFois5 () {
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
-    this.canEnonce = `Enonce CAN ${ref}`
-    this.canReponseACompleter = `Test repAComp ${ref}`
     const a = randint(11, 49, [20, 30, 40, 15, 25, 35, 45]) * 2
     this.reponse = calcul(a * 5)
     this.question = `$${a}\\times 5=$`
+    // Selon le cas l'endroit d'ajout peut différer
+    this.canEnonce = 'Compléter'
+    this.canReponseACompleter = `${this.question} \\dots\\dots`
     this.correction = `$${a}\\times 5 = ${this.reponse}$`
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
     Pour multiplier par $5$, on peut :  <br>
