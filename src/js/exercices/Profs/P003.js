@@ -12,7 +12,7 @@ export const titre = 'Tracer des droites graduées'
  * publié le ?/2/2020
  * Réécrit le 14/08/2021 avec mathalea2d
  */
-export default function feuilleDAxesGradues () {
+export default function FeuilleDAxesGradues () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

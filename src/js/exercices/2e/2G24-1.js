@@ -10,7 +10,7 @@ export const titre = 'Déterminer les coordonnées d\'un vecteur à partir des c
  */
 export const uuid = 'f71c1'
 export const ref = '2G24-1'
-export default function calculercoordonneesvecteurs () {
+export default function Calculercoordonneesvecteurs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.nbQuestions = 2

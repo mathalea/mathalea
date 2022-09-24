@@ -11,7 +11,7 @@ export const dateDePublication = '16/12/2021'
  */
 export const uuid = 'cf5b7'
 export const ref = '2N50-4'
-export default function modeliserEquationsGeometrie () {
+export default function ModeliserEquationsGeometrie () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
   this.nbQuestions = 1

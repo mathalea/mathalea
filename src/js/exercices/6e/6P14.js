@@ -21,7 +21,7 @@ export const dateDePublication = '13/03/2022'
 */
 export const uuid = '4c6e2'
 export const ref = '6P14'
-export default function agrandirReduireFigure () {
+export default function AgrandirReduireFigure () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.besoinFormulaireTexte = [

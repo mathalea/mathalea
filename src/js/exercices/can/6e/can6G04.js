@@ -60,6 +60,6 @@ export default function ProblemesDeLongueurs () {
     objets.push(texteSurSegment(c, F, E), labelPoint(F), codageSegments('O', 'blue', D, ...pointsSurDE, E), s1, s2)
     this.question = `Sachant que $FE=${c}$ cm et que $CB=DE$, détermine $AB$.<br>` + mathalea2d({ xmin: -0.5, ymin: -1, xmax: 16.5, ymax: 3.5, scale: 0.5, style: 'margin: auto' }, objets)
     this.reponse = abc
-    this.correction = `Commme $AB=${b}\\times DE$ et $DE=${a}\\times FE$, alors $AB=${b}\\times${a}\\times ${c} \\text{ cm} =${this.reponse}$ cm`
+    this.correction = `Comme $AB=${b}\\times DE$ et $DE=${a}\\times FE$, alors $AB=${b}\\times${a}\\times ${c} \\text{ cm} =${this.reponse}$ cm`
   }
 }

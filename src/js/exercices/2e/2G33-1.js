@@ -8,7 +8,7 @@ export const titre = 'Alignement de 3 points'
 */
 export const uuid = 'b1777'
 export const ref = '2G33-1'
-export default function alignementdetroispoints () {
+export default function Alignementdetroispoints () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = 'Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal.  Déterminer si les 3 points $A$, $B$ et $C$ suivants sont ou non alignés.'

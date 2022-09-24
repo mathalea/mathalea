@@ -18,7 +18,7 @@ export const dateDePublication = '29/08/2022'
 
 export const uuid = 'eee79'
 export const ref = '3A10-5'
-export default function recourirDecompositionFacteursPremiers () {
+export default function RecourirDecompositionFacteursPremiers () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 4
   this.besoinFormulaireTexte = ['Nombres premiers utilisés ', ' Choix séparés par des tirets\n1 : 2, 3 et 5\n2 : 2, 3 et 7\n3 : 2, 5 et 7\n4 : 3, 5 et 7\n5 : Mélange']

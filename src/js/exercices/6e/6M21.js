@@ -68,7 +68,7 @@ function translationPuisRotationAnimees (...args) {
 
 export const uuid = '95313'
 export const ref = '6M21'
-export default function compareAireEtPerimetreAvecRectangle () {
+export default function CompareAireEtPerimetreAvecRectangle () {
   Exercice.call(this)
   this.titre = titre
   this.consigne = ''

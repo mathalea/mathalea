@@ -10,7 +10,7 @@ export const dateDePublication = '20/09/2022'
  * Comprendre un script sur les multiples et diviseurs
  * @author Eric Elter
  */
-export default function comprendreScriptMultiples () {
+export default function ComprendreScriptMultiples () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 9

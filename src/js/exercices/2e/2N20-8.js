@@ -9,7 +9,7 @@ export const titre = 'Déterminer la parité d\'une expression'
  */
 export const uuid = '3ec5c'
 export const ref = '2N20-8'
-export default function parite () {
+export default function Parite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = 'Soit $n$ un entier naturel.'
