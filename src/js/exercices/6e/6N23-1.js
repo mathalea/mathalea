@@ -12,12 +12,13 @@ export const interactifType = 'mathLive'
 
 /**
  * Compléter des égalités sur les nombres décimaux
- * * n/100 = .../10 + .../100
- * * n/100 = .../100 + .../10
- * * .../100 = u+ d/10 + c/100
- * * u = .../10
- * * u = .../100
- * * n/10 = ... + .../10 + .../100
+ * * 1) n/100 = ...+.../10 + .../100
+ * * 2) n/100 = ...+.../100 + .../10
+ * * 3).../100 = u + d/10 + c/100
+ * * 4) u = .../10
+ * * 5) u = .../100
+ * * 6) n/10 = ... + .../10 + .../100
+ * * 7) .../100 = u + d/10
  * @author Rémi Angot
  * 6N23-1
  */
@@ -30,6 +31,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
   this.spacingCorr = 2
   this.nbCols = 2
   this.nbColsCorr = 2
+  this.sup = '1-2-3' // Type de question
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -37,19 +39,36 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
     this.autoCorrection = []
     let typesDeQuestions
     const a = context.isAmc
-    const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6]
-    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    if (this.nbQuestions === 3) listeTypeDeQuestions = combinaisonListes([choice([1, 2, 6]), 3, choice([4, 5])], this.nbQuestions)
+    const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7]
+    let listeTypeDeQuestions = []
+    if (!this.sup) { // Si aucune liste n'est saisie ou mélange demandé
+      listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+      if (this.nbQuestions === 3) listeTypeDeQuestions = combinaisonListes([choice([1, 2, 6]), 3, choice([4, 5])], this.nbQuestions)
+    } else {
+      const quests = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+      for (let i = 0; i < quests.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+        const choixtp = parseInt(quests[i])
+        if (choixtp >= 1 && choixtp <= 7) {
+          listeTypeDeQuestions.push(choixtp)
+        }
+      }
+      if (listeTypeDeQuestions.length === 0) { listeTypeDeQuestions = typesDeQuestionsDisponibles }
+      listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
+    }
+
     for (
       let i = 0, indexQ = 0, texte, texteCorr, cpt = 0;
-      i < this.nbQuestions && cpt < 50;
-
-    ) {
+      i < this.nbQuestions && cpt < 50; cpt++) {
       typesDeQuestions = listeTypeDeQuestions[i]
-      const u = randint(2, 9) // chiffre des unités
-      const d = randint(1, 9) // chiffre des dixièmes
-      const c = randint(1, 9) // chiffre des centièmes
+      const u = (typesDeQuestions >= 4 && typesDeQuestions <= 5) ? randint(2, 19) : randint(2, 9) // chiffre des unités
+      const d = (typesDeQuestions >= 4 && typesDeQuestions <= 5) ? 0 : randint(1, 9) // chiffre des dixièmes
+      const c = ((typesDeQuestions >= 4 && typesDeQuestions <= 5) || typesDeQuestions === 7) ? 0 : randint(1, 9) // chiffre des centièmes
       const n = 100 * u + 10 * d + c
+      if (!this.questionJamaisPosee(i, u, d, c)) {
+        // Si la question a été posée, on passe
+        // et pas la fin de la boucle à cause de indexQ++
+        continue
+      }
       let ecritureDecimale
       switch (typesDeQuestions) {
         case 1: // n/100 = .... + .../10 + .../100=...
@@ -258,7 +277,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
           }
 
           break
-        case 3: // .../... = u+ d/10 + c/100=...
+        case 3: // .../... = u + d/10 + c/100=...
           ecritureDecimale = texNombre(calcul(u + d / 10 + c / 100))
           texteCorr = `$${texFraction(n, '100')}=${u}+${texFraction(
             d,
@@ -483,16 +502,81 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
             }
           }
           break
+        case 7: // .../100 = u + d/10 =...
+          ecritureDecimale = texNombre(calcul(u + d / 10))
+          texteCorr = `$${texFraction(n, '100')}=${u}+${texFraction(d, '10')}=${ecritureDecimale}$`
+          if (this.interactif && !context.isAmc) {
+            texte = ajouteChampFractionMathLive(this, indexQ, false, 100)
+            setReponse(this, indexQ, u * 100 + d * 10 + c, { formatInteractif: 'calcul' })
+            indexQ++
+            texte += `$=${u}+${texFraction(d, '10')}=$`
+            texte += ajouteChampTexteMathLive(this, indexQ, 'largeur10 inline nospacebefore')
+            setReponse(this, indexQ, calcul(u + d / 10 + c / 100), { formatInteractif: 'calcul' })
+            indexQ++
+          } else {
+            texte = `$${texFraction(a ? 'a' : '\\ldots\\ldots', '100')}=${u}+${texFraction(d, '10')}=${a ? 'b' : '\\ldots\\ldots'}$`
+            this.autoCorrection[i] = {
+              options: { multicols: true },
+              enonce: texte,
+              propositions: [
+                {
+                  type: 'AMCNum',
+                  propositions: [
+                    {
+                      texte: texteCorr,
+                      reponse: {
+                        texte: 'a',
+                        valeur: n,
+                        param: {
+                          signe: false,
+                          digits: 4,
+                          decimals: 0
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  type: 'AMCNum',
+                  propositions: [
+                    {
+                      texte: '',
+                      reponse: {
+                        texte: 'b',
+                        valeur: calcul(u + d / 10 + c / 100),
+                        param: {
+                          signe: false,
+                          digits: 5,
+                          decimals: 3
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+          break
       }
 
-      if (this.questionJamaisPosee(i, u, d, c)) {
-        // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
-        i++
-      }
-      cpt++
+      // if (this.questionJamaisPosee(i, u, d, c)) {
+      // Si la question n'a jamais été posée, on en crée une autre
+      this.listeQuestions.push(texte)
+      this.listeCorrections.push(texteCorr)
+      i++
     }
     listeQuestionsToContenu(this)
   }
+  this.besoinFormulaireTexte = [
+    'Type de question', [
+      '0) mélange',
+      '1) n/100 = ...+.../10 + .../100',
+      '2) n/100 = ...+.../100 + .../10',
+      '3).../100 = u + d/10 + c/100',
+      '4) u = .../10',
+      '5) u = .../100',
+      '6) n/10 = ... + .../10 + .../100',
+      '7) .../100 = u + d/10'
+    ].join('\n')
+  ]
 }
