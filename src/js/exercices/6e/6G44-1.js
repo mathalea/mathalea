@@ -4,7 +4,7 @@ import { segment } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { setReponse, ajouteChampTexte } from '../../modules/gestionInteractif.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
-import { listeQuestionsToContenuSansNumero, randint, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 export const titre = 'Reconnaitre des solides'
@@ -26,6 +26,7 @@ export default function ReconnaitreDesSolides () {
   this.sup = '1-2-3' // Type de question
   this.sup2 = false // qcm
   this.sup3 = false // axes
+  this.consigne = 'Donner le nom de chacun des solides.'
 
   this.nouvelleVersion = function () {
     this.interactifType = this.sup2 ? 'qcm' : 'mathLive'
@@ -320,49 +321,57 @@ export default function ReconnaitreDesSolides () {
           sphere = sphere3d(point3d(0, 0, 0), 2, 3, 2, 'black')
           break
       }
+      let reponseQcm
 
       switch (choix) {
         case 1: // Prisme  ?
           objets.push(...prisme.c2d, a1.c2d, a2.c2d, a3.c2d)
           this.question = mathalea2d({ xmin: -6, ymin: -2.5, xmax: 6, ymax: 4.5, scale: 0.5, style: 'margin: auto' }, objets)
-          this.reponse = 'prisme'
-          this.correction = `Prisme droit avec une base ayant $${prisme.base1.listePoints.length}$ sommets et selon l'axe=$${axe}$`
+          this.reponse = ['prisme', 'prisme droit']
+          reponseQcm = 'prisme'
+          this.correction = `Prisme droit avec une base ayant $${prisme.base1.listePoints.length}$ sommets.` // et selon l'axe=$${axe}$`
           break
         case 2: // Pyramides  ?
           objets.push(...pyra.c2d, a1.c2d, a2.c2d, a3.c2d)
           this.question = mathalea2d({ xmin: -6, ymin: -2.5, xmax: 6, ymax: 4.5, scale: 0.5, style: 'margin: auto' }, objets)
           this.reponse = 'pyramide'
-          this.correction = `Pyramide avec une base ayant $${pyra.base.listePoints.length}$ sommets et selon l'axe=$${axe}$`
+          reponseQcm = 'pyramide'
+          this.correction = `Pyramide avec une base ayant $${pyra.base.listePoints.length}$ sommets.`// et selon l'axe=$${axe}$`
           break
         case 3: // cône?
           objets.push(...cone.c2d, a1.c2d, a2.c2d, a3.c2d)
           this.question = mathalea2d({ xmin: -6, ymin: -1, xmax: 6, ymax: 4.5, scale: 0.5, style: 'margin: auto' }, objets)
-          this.reponse = 'cône'
-          this.correction = `Cône suivant l'axe=$${axe}$`
+          this.reponse = ['cône', 'cone', 'cône de révolution', 'cone de révolution']
+          reponseQcm = 'cône'
+          this.correction = 'Cône de révolution.' // suivant l'axe=$${axe}$`
           break
         case 4: // cylindre ?
           objets.push(...cylindre.c2d, a1.c2d, a2.c2d, a3.c2d)
           this.question = mathalea2d({ xmin: -6, ymin: -1, xmax: 6, ymax: 4.5, scale: 0.5, style: 'margin: auto' }, objets)
-          this.reponse = 'cylindre'
-          this.correction = `Cylindre de révolution suivant l'axe=$${axe}$`
+          this.reponse = ['cylindre', 'cylindre de révolution']
+          reponseQcm = 'cylindre'
+          this.correction = 'Cylindre de révolution.'// suivant l'axe=$${axe}$`
           break
         case 5: // pave ?
           objets.push(...pave.c2d)
           this.question = mathalea2d({ xmin: -6, ymin: -2.5, xmax: 6, ymax: 3.5, scale: 0.5, style: 'margin: auto' }, objets)
           this.reponse = 'pavé droit'
-          this.correction = `'Pavé droit' selon l'axe=$${axe}$`
+          reponseQcm = 'pavé droit'
+          this.correction = 'Pavé droit.' // selon l'axe=$${axe}$`
           break
         case 6: // cube ?
           objets.push(...pave.c2d)
           this.question = mathalea2d({ xmin: -6, ymin: -2.5, xmax: 6, ymax: 3.5, scale: 0.5, style: 'margin: auto' }, objets)
           this.reponse = 'cube'
-          this.correction = 'Cube'
+          reponseQcm = 'cube'
+          this.correction = 'Cube.'
           break
         case 7: // sphère ?
           objets.push(...sphere.c2d)
           this.question = mathalea2d({ xmin: -6, ymin: -2.5, xmax: 6, ymax: 4.5, scale: 0.5, style: 'margin: auto' }, objets)
           this.reponse = 'sphère'
-          this.correction = 'Sphère'
+          reponseQcm = 'sphère'
+          this.correction = 'Sphère.'
           break
       }
 
@@ -372,53 +381,50 @@ export default function ReconnaitreDesSolides () {
       this.autoCorrection[j].propositions = [
         {
           texte: 'Prisme',
-          statut: (this.reponse === 'prisme')
+          statut: (reponseQcm === 'prisme')
         },
         {
           texte: 'Pyramide',
-          statut: (this.reponse === 'pyramide')
+          statut: (reponseQcm === 'pyramide')
         },
         {
           texte: 'Cône',
-          statut: (this.reponse === 'cône')
+          statut: (reponseQcm === 'cône')
         },
         {
           texte: 'Cylindre',
-          statut: (this.reponse === 'Cylindre')
+          statut: (reponseQcm === 'cylindre')
         },
         {
           texte: 'Pavé',
-          statut: (this.reponse === 'pavé droit')
+          statut: (reponseQcm === 'pavé droit')
         },
         {
           texte: 'Cube',
-          statut: (this.reponse === 'cube')
+          statut: (reponseQcm === 'cube')
         },
         {
           texte: 'Sphère',
-          statut: (this.reponse === 'sphère')
+          statut: (reponseQcm === 'sphère')
         }
       ]
-
-      // this.question += `<br>Q=$${j}$, Type=$${choix}$, Base $${n}$ sommets, axe=$${axe}$`
-      this.question += '<br>Quel est le nom du solide?<br>'
-
       if (this.questionJamaisPosee(j, choix, n, axe)) {
         if (this.sup2) {
           this.question += propositionsQcm(this, j).texte
         } else {
-          setReponse(this, j, this.reponse)
-          this.question += ajouteChampTexte(this, j, this.reponse, { formatInteractif: 'texte' })
+          setReponse(this, j, this.reponse, { formatInteractif: 'ignorerCasse' })
+          this.question += '<br>' + ajouteChampTexte(this, j, this.reponse)
         }
         this.listeQuestions.push(this.question)
         this.listeCorrections.push(this.correction)
         j++
       }
     }
-    listeQuestionsToContenuSansNumero(this)
+    listeQuestionsToContenu(this)
   }
   this.besoinFormulaireTexte = [
     'Type de question', [
+      'Nombres séparés par des tirets',
       '0 : Mélange',
       '1 : Prisme',
       '2 : Pyramide',
@@ -430,5 +436,5 @@ export default function ReconnaitreDesSolides () {
     ].join('\n')
   ]
   this.besoinFormulaire2CaseACocher = ['QCM']
-  this.besoinFormulaire3CaseACocher = ['avec les axes']
+  this.besoinFormulaire3CaseACocher = ['Avec les axes']
 }
