@@ -29,7 +29,7 @@ export default function ScratchMultiScript () {
       texte: 'Cette brique donne la couleur de la case sur laquelle est positionnée le lutin.',
       couleur: 'nombres'
     })
-    const listeQuestions = [2, 2, 2]
+    const listeQuestions = [3, 3, 3]
     let choixQuestions
     this.consigne = 'Donner la série de couleurs affichées par ces programmes'
     this.listeQuestions = [] // Liste de questions
@@ -63,7 +63,8 @@ export default function ScratchMultiScript () {
         ['\\blockinit{quand la touche \\selectmenu{n\'importe laquelle} est pressée}\n', "Quand n'importe quelle touche est pressée"]
       ]
       let texteScratch = '\\begin{scratch}[print,fill,blocks,scale=0.5]\n'
-      const rotation = ['\\turnright{}', '\\turnleft{}']
+      const rotations = ['\\turnright{}', '\\turnleft{}']
+      const orientations = [0, 90, 180]
       texteScratch += choixBriqueInitiale[2][0]
       switch (choixQuestions[i]) {
         case 1:
@@ -102,12 +103,12 @@ export default function ScratchMultiScript () {
           texteScratch += `\\blockrepeat{répéter \\ovalnum{2} fois}{
             \\blockrepeat{répéter \\ovalnum{2} fois}{
               \\blockmove{avancer de \\ovalnum{${x[i % 3 + 1]}} pas}\n
-              \\blockmove{tourner ${rotation[i % 2]} de \\ovalnum{90} degrés}\n
+              \\blockmove{tourner ${rotations[i % 2]} de \\ovalnum{90} degrés}\n
               \\blockmove{avancer de \\ovalnum{${y[i % 3 + 1]}} pas}\n
-              \\blockmove{tourner ${rotation[(i + 1) % 2]} de \\ovalnum{90} degrés}\n
+              \\blockmove{tourner ${rotations[(i + 1) % 2]} de \\ovalnum{90} degrés}\n
               \\blocklist{Note la couleur}\n
             }
-            \\blockmove{tourner ${rotation[(i % 3 === 2 ? 1 : 0)]} de \\ovalnum{90} degrés}\n
+            \\blockmove{tourner ${rotations[(i % 3 === 2 ? 1 : 0)]} de \\ovalnum{90} degrés}\n
           }\n`
           texteScratch += '\\blockpen{relever le stylo}\n'
           texteScratch += '\\blockstop{stop \\selectmenu{tout}}'
@@ -115,6 +116,21 @@ export default function ScratchMultiScript () {
           break
 
         case 3:
+          x.push(randint(-3, 3) * 30 + 15)
+          y.push(randint(-2, 2) * 30 + 15)
+          x.push(-120, 30, 60, 60, 30, -60)
+          y.push(30, -120, -30, 30, 60, -30)
+          texteScratch += '\\blockpen{effacer tout}\n'
+          texteScratch += `\\blockmove{aller à x: \\ovalnum{${x[0]}} y: \\ovalnum{${y[0]}}}\n`
+          texteScratch += `\\blockmove{s'orienter à \\ovalnum{${orientations[i % 3]}}}\n`
+          texteScratch += '\\blockpen{stylo en position d\'écriture}\n'
+          texteScratch += `\\blockrepeat{répéter \\ovalnum{4} fois}{
+\\blockifelse{si \\booloperator{\\ovalvariable{${i % 3 > 0 ? 'abscisse x' : 'ordonnée y'}} > \\ovalnum{120}} alors}
+{\\blockmove{ajouter \\ovalnum{${x[i % 3 + 1]}} à x}\n\\blockmove{ajouter \\ovalnum{${y[i % 3 + 1]}} à y}\n}
+{\\blockmove{ajouter \\ovalnum{${x[i % 3 + 4]}} à x}\n\\blockmove{ajouter \\ovalnum{${y[i % 3 + 4]}} à y}\n}
+\\blocklist{Note la couleur}\n}\n`
+          texteScratch += '\\blockpen{relever le stylo}\n'
+          texteScratch += '\\blockstop{stop \\selectmenu{tout}}'
 
           break
       }
