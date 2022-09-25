@@ -29,7 +29,7 @@ export default function ScratchMultiScript () {
       texte: 'Cette brique donne la couleur de la case sur laquelle est positionnée le lutin.',
       couleur: 'nombres'
     })
-    const listeQuestions = [1, 1, 1]
+    const listeQuestions = [2, 2, 2]
     let choixQuestions
     this.consigne = 'Donner la série de couleurs affichées par ces programmes'
     this.listeQuestions = [] // Liste de questions
@@ -63,6 +63,7 @@ export default function ScratchMultiScript () {
         ['\\blockinit{quand la touche \\selectmenu{n\'importe laquelle} est pressée}\n', "Quand n'importe quelle touche est pressée"]
       ]
       let texteScratch = '\\begin{scratch}[print,fill,blocks,scale=0.5]\n'
+      const rotation = ['\\turnright{}', '\\turnleft{}']
       texteScratch += choixBriqueInitiale[2][0]
       switch (choixQuestions[i]) {
         case 1:
@@ -90,6 +91,26 @@ export default function ScratchMultiScript () {
           break
 
         case 2:
+          x.push(randint(-7, -3) * 30 + 15)
+          y.push(randint(1, 4) * 30 + 15)
+          x.push(30, 60, 60)
+          y.push(60, 30, 30)
+          texteScratch += '\\blockpen{effacer tout}\n'
+          texteScratch += `\\blockmove{aller à x: \\ovalnum{${x[0]}} y: \\ovalnum{${y[0]}}}\n`
+          texteScratch += "\\blockmove{s'orienter à \\ovalnum{90}}\n"
+          texteScratch += '\\blockpen{stylo en position d\'écriture}\n'
+          texteScratch += `\\blockrepeat{répéter \\ovalnum{2} fois}{
+            \\blockrepeat{répéter \\ovalnum{2} fois}{
+              \\blockmove{avancer de \\ovalnum{${x[i % 3 + 1]}} pas}\n
+              \\blockmove{tourner ${rotation[i % 2]} de \\ovalnum{90} degrés}\n
+              \\blockmove{avancer de \\ovalnum{${y[i % 3 + 1]}} pas}\n
+              \\blockmove{tourner ${rotation[(i + 1) % 2]} de \\ovalnum{90} degrés}\n
+              \\blocklist{Note la couleur}\n
+            }
+            \\blockmove{tourner ${rotation[(i % 3 === 2 ? 1 : 0)]} de \\ovalnum{90} degrés}\n
+          }\n`
+          texteScratch += '\\blockpen{relever le stylo}\n'
+          texteScratch += '\\blockstop{stop \\selectmenu{tout}}'
 
           break
 
@@ -100,7 +121,7 @@ export default function ScratchMultiScript () {
       texteScratch += '\\end{scratch}'
       texteScratch = scratchblock(texteScratch)
       const texteCorr = ''
-      if (this.questionJamaisPosee(i, x[0], y[0], listeQuestions[i])) {
+      if (this.questionJamaisPosee(i, texteScratch)) {
         this.listeQuestions.push(texteScratch)
         this.listeCorrections.push(texteCorr)
         i++
