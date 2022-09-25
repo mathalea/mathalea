@@ -186,7 +186,7 @@ export default class FractionX extends Fraction {
      */
     let texFraction // num/den mais sans traitement des signes des numérateur et dénominateur
     definePropRo(this, 'texFraction', () => {
-      if (!texFraction) texFraction = `\\dfrac{${texNombre(this.num)}}{${texNombre(this.den)}}`
+      if (!texFraction) texFraction = this.den === 1 ? `${texNombre(this.num)}` : `\\dfrac{${texNombre(this.num)}}{${texNombre(this.den)}}`
       return texFraction
     })
 
