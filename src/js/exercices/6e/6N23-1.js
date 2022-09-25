@@ -10,6 +10,9 @@ export const amcType = 'AMCHybride'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
+export const dateDeModifImportante = '25/09/2022'
+// Mickael Guironnet a ajouté un type et le paramétrage
+
 /**
  * Compléter des égalités sur les nombres décimaux
  * * 1) n/100 = ...+.../10 + .../100
@@ -569,14 +572,15 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
   }
   this.besoinFormulaireTexte = [
     'Type de question', [
-      '0) mélange',
-      '1) n/100 = ...+.../10 + .../100',
-      '2) n/100 = ...+.../100 + .../10',
-      '3).../100 = u + d/10 + c/100',
-      '4) u = .../10',
-      '5) u = .../100',
-      '6) n/10 = ... + .../10 + .../100',
-      '7) .../100 = u + d/10'
+      'Choix séparés par des tirets',
+      '0 : mélange',
+      '1 : n/100 = ...+.../10 + .../100',
+      '2 : n/100 = ...+.../100 + .../10',
+      '3 : .../100 = u + d/10 + c/100',
+      '4 : u = .../10',
+      '5 : u = .../100',
+      '6 : n/10 = ... + .../10 + .../100',
+      '7 :  .../100 = u + d/10'
     ].join('\n')
   ]
 }
