@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 501 
-- nombre d'exos interactifReady 780 
+- nombre d'exos amcReady 505 
+- nombre d'exos interactifReady 785 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -146,6 +146,7 @@
 |4C10-7|Opérations avec deux entiers relatifs|KO|KO|OK|mathLive|
 |4C10-8|Yohaku multiplicatif nombres relatifs niveau 1|KO|KO|OK|custom|
 |4C10-9|Rose multiplicative relatifs|KO|KO|OK|custom|
+|4C10|Calculer des produits et des quotients de nombres relatifs|OK|AMCNum|OK|mathLive|
 |4C11|Calculs utilisant les priorités opératoires|KO|KO|OK|mathLive|
 |4C20-2|Fractions égales et égalité des produits en croix 4e|OK|qcmMono|OK|qcm|
 |4C20|Comparer deux fractions (dénominateurs multiples)|OK|qcmMono|OK|qcm|
@@ -157,7 +158,7 @@
 |4C22-2|Diviser des fractions|OK|AMCNum|OK|mathLive|
 |4C22-3|Yohaku multiplicatif fractions niveau 1|KO|KO|OK|custom|
 |4C22-4|Rose multiplicative fractions|KO|KO|OK|custom|
-|4C22|Multiplier des fractions|OK|AMCNum|OK|mathLive|
+|4C22|Multiplier ou/et diviser des fractions|OK|AMCNum|OK|mathLive|
 |4C23-1|Fractions et priorités opératoires|OK|AMCNum|OK|mathLive|
 |4C23|Somme, différence ou produit de fractions|KO|KO|OK|mathLive|
 |4C24|Simplifier des fractions à l'aide des nombres premiers|OK|AMCNum|OK|mathLive|
@@ -317,7 +318,9 @@
 |6G33|Reconnaître un quadrilatère particulier à partir de ses propriétés|OK|qcmMult|OK|qcm|
 |6G41|Compléter une représentation en perspective cavalière|OK|AMCOpen|KO|KO|
 |6G43|Compter les cubes manquants ou pas|OK|AMCNum|OK|mathLive|
+|6G44-1|Reconnaitre des solides|OK|qcmMono|OK|qcm,mathLive|
 |6G44|Trouver le nombre de faces ou d'arêtes d'un solide|OK|AMCNum|OK|mathLive|
+|6G52-2|Utiliser les propriétés des droites perpendiculaires|OK|AMCOpen|KO|KO|
 |6I10|Programmer des déplacements (Scratch)|OK|AMCOpen|KO|KO|
 |6I12|Trouver le bon tracé avec Scratch|OK|qcmMono|OK|custom|
 |6M10-1|Problèmes d'aires de rectangles|KO|KO|OK|mathLive|
@@ -468,6 +471,8 @@
 |can1F18|Déterminer la fonction dérivée d’une fonction $a/u(x)$|KO|KO|OK|mathLive|
 |can1F19|Calculer une dérivée et écrire le résultat sous la forme d’un quotient|KO|KO|OK|mathLive|
 |can1F20|Résoudre une équation du second degré sans $\Delta$|KO|KO|OK|qcm|
+|can1F21|Déterminer l’abscisse ou l’ordonnée du sommet d’une parabole|OK|AMCNum|OK|mathLive|
+|can1F22|Reconnaître une fonction polynôme du second degré (V/F)|KO|KO|OK|qcm|
 |can1G01|Déterminer les valeurs remarquables du cosinus et sinus|KO|KO|OK|mathLive|
 |can1G02|Déterminer les valeurs remarquables du cosinus et sinus*|KO|KO|OK|mathLive|
 |can1G03|Simplifier les sinus et cosinus des angles associés|KO|KO|OK|mathLive|
@@ -518,6 +523,7 @@
 |can2C11|Passer du coefficient multiplicateur au taux d’évolution|KO|KO|OK|mathLive|
 |can2C12|Déterminer un taux global d’évolution|OK|AMCNum|OK|mathLive|
 |can2C13|Calculer avec  des puissances|OK|AMCNum|OK|mathLive|
+|can2C14|Calculer avec une racine carrée (définition)|KO|KO|OK|mathLive|
 |can2F01|Calculer une image avec le second degré|KO|KO|OK|mathLive|
 |can2F02|Calculer une image avec un quotient|KO|KO|OK|mathLive|
 |can2F03|Déterminer le signe d’une fonction affine (V/F)|KO|KO|OK|qcm|

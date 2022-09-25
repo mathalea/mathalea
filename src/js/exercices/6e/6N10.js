@@ -27,9 +27,9 @@ export default function EcrirePetitsNombresEntiers () {
   Exercice.call(this)
   this.nbQuestions = 5
 
-  this.besoinFormulaireTexte = ['Type de nombres', ' Choix séparés par des tirets\n2 : À deux chiffres\n3 : À trois chiffres\n4 : À quatre chiffres\n5 : À cinq chiffres\n6 : À six chiffres\n7 : À neuf chiffres\n8 : À douze chiffres']
+  this.besoinFormulaireTexte = ['Type de nombres', 'Choix séparés par des tirets\n2 : À deux chiffres\n3 : À trois chiffres\n4 : À quatre chiffres\n5 : À cinq chiffres\n6 : À six chiffres\n7 : À neuf chiffres\n8 : À douze chiffres']
   this.sup = 4 // Valeur du paramètre par défaut
-  this.besoinFormulaire2Texte = ['Demande particulière', ' Choix séparés par des tirets\n0 : Aucune demande particulière.\n1 : Au moins un nombre se termine par 80.\n2 : Au moins un nombre contient entre 81 et 99.\n3 : Au moins un nombre se termine par un multiple de 100.\n4 : Au moins un nombre commence par mille.\n5 : Au moins un nombre ne possèdant ni centaines ou ni centaines de mille.']
+  this.besoinFormulaire2Texte = ['Demande particulière', 'Choix séparés par des tirets\n0 : Aucune demande particulière.\n1 : Au moins un nombre se termine par 80.\n2 : Au moins un nombre contient entre 81 et 99.\n3 : Au moins un nombre se termine par un multiple de 100.\n4 : Au moins un nombre commence par mille.\n5 : Au moins un nombre ne possèdant ni centaines ou ni centaines de mille.']
   this.sup2 = 0 // Valeur du paramètre par défaut
   this.besoinFormulaire3Numerique = ['Type d\'exercices', 3, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres\n3 : Passer d\'une écriture à l\'autre']
   this.sup3 = 1 // Valeur du paramètre par défaut
