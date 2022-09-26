@@ -1146,15 +1146,56 @@ function miseAJourDuCode () {
       }
       if ($('#style_can:checked').val()) {
         const monSuperExercice = concatExercices(listeObjetsExercice)
-        codeEnonces = monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', `\\begin{spacing}{1.5}
-        \\begin{longtable}{|c|>{\\centering}p{0.65\\textwidth}|>{\\centering}p{0.15\\textwidth}|c|}%
-        \\hline
-        \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline
-        \\thenbEx \\addtocounter{nbEx}{1}&`).replace('\\item', '').replaceAll('\\item', `&&\\tabularnewline \\hline
-        \\thenbEx  \\addtocounter{nbEx}{1}&`).replace('\\end{enumerate}', `&&\\tabularnewline \\hline
-        \\end{longtable}
-        \\end{spacing}
-        \\addtocounter{nbEx}{-1}`).replace('\\begin{multicols}{2}', '').replace('\\end{multicols}', '').replaceAll('\\\\', '')
+        if (listeObjetsExercice.length === 1) {
+          codeEnonces = monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', `\\begin{spacing}{1.5}
+          \\begin{longtable}{|c|>{\\centering}p{0.65\\textwidth}|>{\\centering}p{0.15\\textwidth}|c|}%
+          \\hline
+          \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline
+          \\thenbEx \\addtocounter{nbEx}{1}&`).replace('\\item', '').replaceAll('\\item', `&&\\tabularnewline \\hline
+          \\thenbEx  \\addtocounter{nbEx}{1}&`).replace('\\end{enumerate}', `&&\\tabularnewline \\hline
+          \\end{longtable}
+          \\end{spacing}
+          \\addtocounter{nbEx}{-1}`).replace('\\begin{multicols}{2}', '').replace('\\end{multicols}', '').replaceAll('\\\\', '')
+        } else {
+          let msgAlerteCanEnonce = ''
+          let msgAlerteCanReponseACompleter = ''
+          let canCorpsTableau = ''
+          let msgEnonce
+          let msgRepACompleter
+          for (const exoCan of listeObjetsExercice) {
+            if (!exoCan.hasOwnProperty('canEnonce') || !exoCan.hasOwnProperty('canReponseACompleter')) {
+              msgEnonce = exoCan.contenu.replace('\\exo{}', '').replace(`\\marginpar{\\footnotesize ${exoCan.id}}`, '') //'Propriété canEnonce manquante'
+              msgRepACompleter = ''
+              if (!exoCan.hasOwnProperty('canEnonce')) {
+                msgAlerteCanEnonce += ' ' + exoCan.id
+              }
+              if (!exoCan.hasOwnProperty('canReponseACompleter')) {
+                msgAlerteCanReponseACompleter += ' ' + exoCan.id
+              }
+            } else {
+              msgEnonce = exoCan.canEnonce.replaceAll('<br>', '')
+              msgRepACompleter = exoCan.canReponseACompleter.replaceAll('<br>', '')
+            }
+            canCorpsTableau += `
+            \\thenbEx \\addtocounter{nbEx}{1}&${msgEnonce}&${msgRepACompleter}&\\tabularnewline \\hline
+            `
+          }
+
+          codeEnonces = ` \\textcolor{red}{Les exercices ${msgAlerteCanEnonce} n'ont pas de propriété canEnonce} \\\\`
+          codeEnonces += ` \\textcolor{red}{Les exercices ${msgAlerteCanReponseACompleter} n'ont pas de propriété canReponseACompleter} \\\\`
+          codeEnonces += `\\begin{spacing}{1.5}
+          \\begin{longtable}{|>{\\columncolor{gray!20}}c|>{\\centering}p{0.4\\textwidth}|>{\\centering}p{0.4\\textwidth}|c|}%
+          \\hline
+          \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline`
+
+          codeEnonces += canCorpsTableau
+
+          codeEnonces += `
+          \\end{longtable}
+          \\end{spacing}
+          \\addtocounter{nbEx}{-1}
+          `
+        }
         codeCorrections = monSuperExercice.contenuCorrection.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '')
       }
       if ($('#supprimer_correction:checked').val()) {
@@ -1180,15 +1221,53 @@ function miseAJourDuCode () {
           codeCorrection += '\n\n\\newpage\n\\version{' + (v + 1) + '}\n\\begin{correction}'
           if ($('#style_can:checked').val()) {
             const monSuperExercice = concatExercices(listeObjetsExercice)            
-            codeExercices += monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', `\\begin{spacing}{1.5}
-            \\begin{longtable}{|c|>{\\centering}p{0.65\\textwidth}|>{\\centering}p{0.15\\textwidth}|c|}%
-            \\hline
-            \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline
-            \\thenbEx \\addtocounter{nbEx}{1}&`).replace('\\item', '').replaceAll('\\item', `&&\\tabularnewline \\hline
-            \\thenbEx  \\addtocounter{nbEx}{1}&`).replace('\\end{enumerate}', `&&\\tabularnewline \\hline
-            \\end{longtable}
-            \\end{spacing}
-            \\addtocounter{nbEx}{-1}`).replace('\\begin{multicols}{2}', '').replace('\\end{multicols}', '').replace('\\\\', '')
+            if (listeObjetsExercice.length === 1) {
+              codeExercices += monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', `\\begin{spacing}{1.5}
+              \\begin{longtable}{|c|>{\\centering}p{0.65\\textwidth}|>{\\centering}p{0.15\\textwidth}|c|}%
+              \\hline
+              \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline
+              \\thenbEx \\addtocounter{nbEx}{1}&`).replace('\\item', '').replaceAll('\\item', `&&\\tabularnewline \\hline
+              \\thenbEx  \\addtocounter{nbEx}{1}&`).replace('\\end{enumerate}', `&&\\tabularnewline \\hline
+              \\end{longtable}
+              \\end{spacing}
+              \\addtocounter{nbEx}{-1}`).replace('\\begin{multicols}{2}', '').replace('\\end{multicols}', '').replace('\\\\', '')
+            } else {
+              let msgAlerteCanEnonce = ''
+              let msgAlerteCanReponseACompleter = ''
+              let canCorpsTableau = ''
+              let msgEnonce
+              let msgRepACompleter
+              for (const exoCan of listeObjetsExercice) {
+                if (!exoCan.hasOwnProperty('canEnonce') || !exoCan.hasOwnProperty('canReponseACompleter')) {
+                  msgEnonce = exoCan.contenu.replace('\\exo{}', '').replace(`\\marginpar{\\footnotesize ${exoCan.id}}`, '') //'Propriété canEnonce manquante'
+                  msgRepACompleter = ''
+                  if (!exoCan.hasOwnProperty('canEnonce')) {
+                    msgAlerteCanEnonce += ' ' + exoCan.id
+                  }
+                  if (!exoCan.hasOwnProperty('canReponseACompleter')) {
+                    msgAlerteCanReponseACompleter += ' ' + exoCan.id
+                  }
+                } else {
+                  msgEnonce = exoCan.canEnonce.replaceAll('<br>', '')
+                  msgRepACompleter = exoCan.canReponseACompleter.replaceAll('<br>', '')
+                }
+                canCorpsTableau += `
+                \\thenbEx \\addtocounter{nbEx}{1}&${msgEnonce}&${msgRepACompleter}&\\tabularnewline \\hline
+                `
+              }
+              codeExercices += ` \\textcolor{red}{Les exercices ${msgAlerteCanEnonce} n'ont pas de propriété canEnonce} \\\\`
+              codeExercices += ` \\textcolor{red}{Les exercices ${msgAlerteCanReponseACompleter} n'ont pas de propriété canReponseACompleter} \\\\`
+              codeExercices += `\\begin{spacing}{1.5}
+              \\begin{longtable}{|>{\\columncolor{gray!20}}c|>{\\centering}p{0.4\\textwidth}|>{\\centering}p{0.4\\textwidth}|c|}%
+              \\hline
+              \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline`
+              codeExercices += canCorpsTableau
+              codeExercices += `
+              \\end{longtable}
+              \\end{spacing}
+              \\addtocounter{nbEx}{-1}
+              `
+            }
             codeExercices += '\n\n'
             codeCorrection += monSuperExercice.contenuCorrection.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '')
             codeCorrection += '\n\n'
