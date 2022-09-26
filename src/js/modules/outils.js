@@ -205,7 +205,7 @@ export function centrage (texte) {
  * @param {number} defaut valeur par défaut si non entier
  */
 export function contraindreValeur (min, max, valeur, defaut) {
-  return (Number(valeur) < min) ? min : (Number(valeur) > max) ? max : defaut
+  return !(Number.isNaN(valeur)) ? (Number(valeur) < min) ? min : (Number(valeur) > max) ? max : Number(valeur) : defaut
 }
 
 /** Retourne un nombre décimal entre a et b, sans être trop près de a et de b
