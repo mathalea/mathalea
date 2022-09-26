@@ -6828,10 +6828,10 @@ ${preambulePersonnalise(listePackages)}
   \\MyBox{\\Large\\textsc{Score} : \\makebox[.15\\linewidth]{\\dotfill} / \\total{nbEx}}      
 \\end{minipage}
 \\par\\medskip \\hrulefill \\par
-\\checkmark \\textit{\\textbf{Durée : [À compléter dans le code source] minutes}}
+\\checkmark \\textit{\\textbf{Durée : [Temps total à modifier ici dans le code source] minutes}}
 
 \\smallskip
-\\checkmark \\textit{L'épreuve comporte \total{nbEx} questions.}
+\\checkmark \\textit{L'épreuve comporte \\total{nbEx} questions.}
 
 \\smallskip  
 \\checkmark \\textit{L'usage de la calculatrice et du brouillon sont interdits.}
@@ -6840,6 +6840,8 @@ ${preambulePersonnalise(listePackages)}
 \\checkmark \\textit{Il n'est pas permis d'écrire des calculs intermédiaires.}
 \\par \\hrulefill \\par\\vspace{5mm}
 \\begin{center}
+\\textbf{[Ligne ci-dessous à modifier dans le code source]}
+
 \\textsc{Sujet niveau NN - Mois Année}
 
 
@@ -6862,7 +6864,7 @@ ${preambulePersonnalise(listePackages)}
   \\draw (180:4) node[scale=3,rotate=-90]{MathALEA};
   \\clip (0,-6) rectangle (6,6); % pour croiser
   \\shadedraw  \\ruban;
-  \\draw (60:4) node [gray,xscale=-3,yscale=3,rotate=30]{Ti\\textit{k}Z};
+  \\draw (60:4) node [gray,xscale=2.5,yscale=2.5,rotate=-30]{CoopMaths};
 \\end{tikzpicture}
 \\end{center}
 \\clearpage
