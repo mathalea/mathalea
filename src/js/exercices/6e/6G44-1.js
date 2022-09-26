@@ -1,12 +1,12 @@
 
-import { point3d, polygone3d, prisme3d, pyramide3d, rotation3d, droite3d, arete3d, arc3d, cone3d, vecteur3d, cylindre3d, sphere3d } from '../../modules/3d.js'
-import { segment } from '../../modules/2d.js'
+import { point3d, polygone3d, prisme3d, pyramide3d, rotation3d, droite3d, arete3d, arc3d, vecteur3d, cylindre3d, sphere3d } from '../../modules/3d.js'
+import { segment, cone, point, milieu, homothetie, tracePoint } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { setReponse, ajouteChampTexte } from '../../modules/gestionInteractif.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
-import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, choice, premiereLettreEnMajuscule } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { mathalea2d, fixeBordures, vide2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 export const titre = 'Reconnaitre des solides'
 export const dateDePublication = '24/09/2022'
 export const interactifReady = true
@@ -27,7 +27,7 @@ export default function ReconnaitreDesSolides () {
   this.sup2 = false // qcm
   this.sup3 = false // axes
   this.consigne = 'Donner le nom de chacun des solides.'
-
+  const solides = ['prisme', 'pyramide', 'cône', 'cylindre', 'pavé droit', 'cube', 'sphère']
   this.nouvelleVersion = function () {
     this.interactifType = this.sup2 ? 'qcm' : 'mathLive'
     const isAxe = this.sup3
@@ -67,22 +67,23 @@ export default function ReconnaitreDesSolides () {
       choix = parseInt(type[0])
       context.anglePerspective = 30
       const objets = []
+      let reponseQcm
 
       // les 3 axes
-      const a1 = isAxe ? arete3d(point3d(0, 0, 0), point3d(1, 0, 0), 'green') : {}
-      const a2 = isAxe ? arete3d(point3d(0, 0, 0), point3d(0, 1, 0), 'red') : {}
-      const a3 = isAxe ? arete3d(point3d(0, 0, 0), point3d(0, 0, 1), 'blue') : {}
-
+      const a1 = isAxe ? arete3d(point3d(0, 0, 0), point3d(1, 0, 0), 'green').c2d : vide2d() // il n'est pas prudent d'envoyer des  {} à mathalea2d()
+      const a2 = isAxe ? arete3d(point3d(0, 0, 0), point3d(0, 1, 0), 'red').c2d : vide2d() // j'ai créé l'objet vide() exprès.
+      const a3 = isAxe ? arete3d(point3d(0, 0, 0), point3d(0, 0, 1), 'blue').c2d : vide2d() // l'objet vide() ne fait pas planter fixeBordures... {} oui.
+      // a1, a2, a3 sont des objets 2d ou vides.
       // axe=1 -> base dans XY ;  axe=2 -> base dans YZ ; axe=3 -> base dans XZ ;
       let axe = ((choix >= 1 && choix <= 5) ? (type.length > 1 ? parseInt(type[1]) : randint(1, 3)) : 0)
 
       // nombre de sommet de la base.
       const n = (choix < 3 ? (type.length > 2 ? parseInt(type[2]) : randint(3, 8)) : (choix === 5 || choix === 6 ? 4 : 0))
 
-      let prisme, pyra, cone, cylindre, pave, sphere
-      switch (choix) {
-        case 1: // Prisme  ?
-        case 2: // Pyramides  ?
+      let prisme, pyra, leCone, cylindre, pave, sphere
+      switch (solides[choix - 1]) {
+        case 'prisme': // Prisme  ?
+        case 'pyramide': // Pyramides  ?
           {
             const points3XY = []
             const points3XZ = []
@@ -176,12 +177,22 @@ export default function ReconnaitreDesSolides () {
               }
             }
           }
+          if (choix === 1) {
+            objets.push(...prisme.c2d)
+          } else {
+            objets.push(...pyra.c2d)
+          }
+
+          this.reponse = choix === 1 ? ['prisme', 'prisme droit'] : 'pyramide'
+          this.correction = choix === 1 ? `Prisme droit avec une base ayant $${prisme.base1.listePoints.length}$ sommets.` : `Pyramide avec une base ayant $${pyra.base.listePoints.length}$ sommets.`// et selon l'axe=$${axe}$`
+
           break
-        case 3: // cone  ?
-          if (axe === 3) {
+        case 'cône': // cone  ?
+        {
+          /* if (axe === 3) {
             cone = cone3d(point3d(0, 0, 0), point3d(0, -3, 0), vecteur3d(0, 1, 0), vecteur3d(Math.cos(30 * Math.PI / 180.0), 0, Math.sin(30 * Math.PI / 180.0)))
             /* c1 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'red', 0)
-            c2 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'blue', 0) */
+            c2 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'blue', 0)
             const c1 = arc3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'red', 180, 220)
             const c2 = arc3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'blue', 220, 360 + 180)
             const g1 = arete3d(point3d(0, -3, 0), point3d(1, 0, 0))
@@ -194,11 +205,20 @@ export default function ReconnaitreDesSolides () {
             cone.c2d[4].color = colorToLatexOrHTML('red')
             cone.c2d[5].pointilles = false
             cone.c2d[5].color = colorToLatexOrHTML('blue')
-          } else {
-            cone = cone3d(point3d(0, 0, 0), point3d(0, 0, 3), vecteur3d(0, 0, 1), 2)
-          }
+        } else { */
+          leCone = cone({ centre: point(0, 0), Rx: randint(15, 30) / 10, hauteur: choice([3, 4, 5]) })
+          const t = tracePoint(leCone.centre)
+          const g = homothetie(segment(leCone.centre, leCone.sommet), milieu(leCone.centre, leCone.sommet), 1.5)
+          g.color = colorToLatexOrHTML('red')
+          g.pointilles = 2
+          objets.push(leCone, g, t)
+          this.reponse = ['cône', 'cone', 'cône de révolution', 'cone de révolution']
+          this.correction = 'Cône de révolution.' // suivant l'axe=$${axe}$`
+
+          //  }
           break
-        case 4: // cylindre
+        }
+        case 'cylindre': // cylindre
           if (axe === 3) {
             cylindre = cylindre3d(point3d(0, 0, 2), point3d(0, -3, 2), vecteur3d(0, 1, 0), vecteur3d(1, 0, 0), vecteur3d(1, 0, 0))
             /* c1 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'red', 0)
@@ -253,9 +273,13 @@ export default function ReconnaitreDesSolides () {
           } else {
             cylindre = cylindre3d(point3d(0, 0, 0), point3d(0, 0, 3), vecteur3d(0, 0, 1), vecteur3d(2, 0, 0), vecteur3d(2, 0, 0))
           }
+          objets.push(...cylindre.c2d)
+          this.reponse = ['cylindre', 'cylindre de révolution']
+          this.correction = premiereLettreEnMajuscule(solides[choix - 1]) + ' de révolution.'
+
           break
-        case 5: // pavé droit
-        case 6: // cube
+        case 'pavé droit': // pavé droit
+        case 'cube': // cube
         {
           if (choix === 6) {
             axe = 2 // cube quelquesoit l'axe
@@ -315,65 +339,26 @@ export default function ReconnaitreDesSolides () {
             const k3 = vecteur3d(0, 0, 3)
             pave = prisme3d(base, k3)
           }
+          objets.push(...pave.c2d)
+          this.reponse = solides[choix - 1]
+          reponseQcm = solides[choix - 1]
+          this.correction = premiereLettreEnMajuscule(solides[choix - 1]) + '.'
+
           break
         }
-        case 7: // sphère
+        case 'sphère': // sphère
           sphere = sphere3d(point3d(0, 0, 0), 2, 3, 2, 'black')
-          break
-      }
-      let reponseQcm
-
-      switch (choix) {
-        case 1: // Prisme  ?
-          objets.push(...prisme.c2d, a1.c2d, a2.c2d, a3.c2d)
-          this.question = mathalea2d({ xmin: -6, ymin: -2.5, xmax: 6, ymax: 4.5, scale: 0.5, style: 'margin: auto' }, objets)
-          this.reponse = ['prisme', 'prisme droit']
-          reponseQcm = 'prisme'
-          this.correction = `Prisme droit avec une base ayant $${prisme.base1.listePoints.length}$ sommets.` // et selon l'axe=$${axe}$`
-          break
-        case 2: // Pyramides  ?
-          objets.push(...pyra.c2d, a1.c2d, a2.c2d, a3.c2d)
-          this.question = mathalea2d({ xmin: -6, ymin: -2.5, xmax: 6, ymax: 4.5, scale: 0.5, style: 'margin: auto' }, objets)
-          this.reponse = 'pyramide'
-          reponseQcm = 'pyramide'
-          this.correction = `Pyramide avec une base ayant $${pyra.base.listePoints.length}$ sommets.`// et selon l'axe=$${axe}$`
-          break
-        case 3: // cône?
-          objets.push(...cone.c2d, a1.c2d, a2.c2d, a3.c2d)
-          this.question = mathalea2d({ xmin: -6, ymin: -1, xmax: 6, ymax: 4.5, scale: 0.5, style: 'margin: auto' }, objets)
-          this.reponse = ['cône', 'cone', 'cône de révolution', 'cone de révolution']
-          reponseQcm = 'cône'
-          this.correction = 'Cône de révolution.' // suivant l'axe=$${axe}$`
-          break
-        case 4: // cylindre ?
-          objets.push(...cylindre.c2d, a1.c2d, a2.c2d, a3.c2d)
-          this.question = mathalea2d({ xmin: -6, ymin: -1, xmax: 6, ymax: 4.5, scale: 0.5, style: 'margin: auto' }, objets)
-          this.reponse = ['cylindre', 'cylindre de révolution']
-          reponseQcm = 'cylindre'
-          this.correction = 'Cylindre de révolution.'// suivant l'axe=$${axe}$`
-          break
-        case 5: // pave ?
-          objets.push(...pave.c2d)
-          this.question = mathalea2d({ xmin: -6, ymin: -2.5, xmax: 6, ymax: 3.5, scale: 0.5, style: 'margin: auto' }, objets)
-          this.reponse = 'pavé droit'
-          reponseQcm = 'pavé droit'
-          this.correction = 'Pavé droit.' // selon l'axe=$${axe}$`
-          break
-        case 6: // cube ?
-          objets.push(...pave.c2d)
-          this.question = mathalea2d({ xmin: -6, ymin: -2.5, xmax: 6, ymax: 3.5, scale: 0.5, style: 'margin: auto' }, objets)
-          this.reponse = 'cube'
-          reponseQcm = 'cube'
-          this.correction = 'Cube.'
-          break
-        case 7: // sphère ?
           objets.push(...sphere.c2d)
-          this.question = mathalea2d({ xmin: -6, ymin: -2.5, xmax: 6, ymax: 4.5, scale: 0.5, style: 'margin: auto' }, objets)
-          this.reponse = 'sphère'
-          reponseQcm = 'sphère'
-          this.correction = 'Sphère.'
+          this.reponse = solides[choix - 1]
+          this.correction = premiereLettreEnMajuscule(solides[choix - 1]) + '.'
+
           break
       }
+      reponseQcm = solides[choix - 1]
+      if (this.sup2) this.reponse = solides[choix - 1] // on remplace les éventuelles réponses multiples par l'unique réponse du QCM
+
+      objets.push(a1, a2, a3)
+      this.question = mathalea2d(Object.assign({}, fixeBordures(objets), { scale: 0.5, style: 'margin: auto' }), objets)
 
       this.autoCorrection[j] = {}
       this.autoCorrection[j].options = {}
