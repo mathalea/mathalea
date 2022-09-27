@@ -31,13 +31,14 @@ export default function ScratchMultiScript () {
   this.typeExercice = 'Scratch'
   this.nbCols = 1
   this.nbColsCorr = 1
+  this.sup = ''
   this.correctionDetailleeDisponible = true
   this.correctionDetaille = false
   this.listePackages = ['scratch3', 'bclogo']
   this.nouvelleVersion = function () {
     this.introduction = lampeMessage({
-      titre: `${scratchblock('\\begin{scratch}[print,fill,blocks,scale=0.5]\n\\blockmoreblocks{Note la couleur}\\end{scratch}')}`,
-      texte: 'Cette brique donne la couleur de la case sur laquelle est positionnée le lutins[i].',
+      titre: scratchblock(`\\begin{scratch}[${context.issortieNB ? 'print,' : ''}fill,blocks,scale=0.5]\n\\blockmoreblocks{Note la couleur}\\end{scratch}`),
+      texte: 'Cette brique donne la couleur de la case sur laquelle est positionnée le lutin.',
       couleur: 'nombres'
     })
     const lePlateau = plateau2dNLC(1, false, 0.5, true)
@@ -87,7 +88,7 @@ export default function ScratchMultiScript () {
         ['\\blockinit{quand la touche \\selectmenu{n\'importe laquelle} est pressée}\n', "Quand n'importe quelle touche est pressée"]
       ]
 
-      let texteScratch = '\\begin{scratch}[fill,blocks,scale=0.8]\n'
+      let texteScratch = `\\begin{scratch}[${context.issortieNB ? 'print,' : ''}fill,blocks,scale=0.8]\n`
       const rotations = ['\\turnright{}', '\\turnleft{}']
       const orientations = [0, 90, 180]
       texteScratch += choixBriqueInitiale[2][0]

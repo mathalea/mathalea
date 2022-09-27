@@ -1179,7 +1179,7 @@ function miseAJourDuCode () {
           codeExercices += '\\version{' + (v + 1) + '}\n\n'
           codeCorrection += '\n\n\\newpage\n\\version{' + (v + 1) + '}\n\\begin{correction}'
           if ($('#style_can:checked').val()) {
-            const monSuperExercice = concatExercices(listeObjetsExercice)            
+            const monSuperExercice = concatExercices(listeObjetsExercice)
             codeExercices += monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', `\\begin{spacing}{1.5}
             \\begin{longtable}{|c|>{\\centering}p{0.65\\textwidth}|>{\\centering}p{0.15\\textwidth}|c|}%
             \\hline
@@ -2307,9 +2307,9 @@ function parametresExercice (exercice) {
       formModeNB.addEventListener('change', function (e) {
         // Dès que le statut change, on met à jour
         if ($('#ModeNB:checked').val()) {
-          context.sortieNB = true
+          context.issortieNB = true
         } else {
-          context.sortieNB = false
+          context.issortieNB = false
         }
         miseAJourDuCode()
       })
