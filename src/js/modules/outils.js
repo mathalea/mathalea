@@ -6668,7 +6668,7 @@ export function introLatex (entete = 'Exercices', listePackages = '') {
 \\usepackage{fancybox}
 \\usepackage{setspace}
 \\usepackage{colortbl}
-\\usepackage{xcolor}
+\\usepackage[svgnames]{xcolor}
   \\definecolor{nombres}{cmyk}{0,.8,.95,0}
   \\definecolor{gestion}{cmyk}{.75,1,.11,.12}
   \\definecolor{gestionbis}{cmyk}{.75,1,.11,.12}
@@ -6752,7 +6752,7 @@ export function introLatexCan (entete = 'Course aux nombres', listePackages = ''
 \\usepackage{fancybox}
 \\usepackage{setspace}
 \\usepackage{colortbl}
-\\usepackage{xcolor}
+\\usepackage[svgnames]{xcolor}
   \\definecolor{nombres}{cmyk}{0,.8,.95,0}
   \\definecolor{gestion}{cmyk}{.75,1,.11,.12}
   \\definecolor{gestionbis}{cmyk}{.75,1,.11,.12}
@@ -6911,7 +6911,7 @@ export function introLatexCoop (listePackages) {
 \\pagestyle{fancy}                      
 \\usepackage{fancybox}
 \\usepackage{setspace}
-\\usepackage{xcolor}
+\\usepackage[svgnames]{xcolor}
 \\usepackage{pgf,tikz} % Pour les images et figures gÃ©omÃ©triques
 \\usetikzlibrary{babel,arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
 shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows}
@@ -8757,7 +8757,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   %\\usepackage{pstricks,pst-plot,pstricks-add}
   %   POUR PSTRICKS d'où compilation sans PDFLateX mais : dvi, dvi2ps, ps2PDF...
   %   MAIS ON PRÉFÉRERA UTILISER TIKZ...
-  \\usepackage{xcolor}% [avant tikz] xcolor permet de nommer + de couleurs
+  \\usepackage[svgnames]{xcolor}% [avant tikz] xcolor permet de nommer + de couleurs
   \\usepackage{pgf,tikz}
   \\usepackage{graphicx} % pour inclure une image
   \\usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,

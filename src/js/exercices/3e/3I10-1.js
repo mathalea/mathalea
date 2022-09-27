@@ -31,7 +31,7 @@ export default function ScratchMultiScript () {
   this.typeExercice = 'Scratch'
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.sup = ''
+  this.sup = '1-2-3'
   this.correctionDetailleeDisponible = true
   this.correctionDetaille = false
   this.listePackages = ['scratch3', 'bclogo']
