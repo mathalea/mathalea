@@ -4405,6 +4405,8 @@ export function semiEllipse ({ centre, Rx, Ry, hemisphere = 'nord', pointilles =
 function Cone ({ centre, Rx, hauteur, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2 }) {
   ObjetMathalea2D.call(this, { })
   const sommet = point(centre.x, centre.y + hauteur)
+  this.sommet = sommet
+  this.centre = centre
   this.color = color
   this.couleurDeRemplissage = couleurDeRemplissage
   this.opaciteDeRemplissage = opaciteDeRemplissage
@@ -4414,7 +4416,14 @@ function Cone ({ centre, Rx, hauteur, couleurDeRemplissage = 'none', color = 'bl
     segment(point(centre.x + Rx, centre.y + 0.1), sommet, this.color),
     segment(point(centre.x - Rx, centre.y + 0.1), sommet, this.color)
   ]
-
+  let xMin = 1000; let yMin = 1000; let yMax = -1000; let xMax = -1000
+  for (const obj of objets) {
+    xMin = Math.min(xMin, obj.bordures[0])
+    yMin = Math.min(yMin, obj.bordures[1])
+    xMax = Math.max(xMax, obj.bordures[2])
+    yMax = Math.max(yMax, obj.bordures[3])
+  }
+  this.bordures = [xMin, yMin, xMax, yMax]
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {

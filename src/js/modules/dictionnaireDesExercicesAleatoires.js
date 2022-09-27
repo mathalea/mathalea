@@ -3319,6 +3319,66 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "3I12-1": {
+    "titre": "Compléter un script Scratch - 1",
+    "url": "/exercices/3e/3I12-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "3I12-1",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "3I12-2": {
+    "titre": "Comprendre un script Scratch - 1",
+    "url": "/exercices/3e/3I12-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "3I12-2",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "3I12-3": {
+    "titre": "Compléter un script Scratch - 2",
+    "url": "/exercices/3e/3I12-3.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "3I12-3",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "3I12-4": {
+    "titre": "Comprendre un script Scratch - 2",
+    "url": "/exercices/3e/3I12-4.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "3I12-4",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "3L10-1": {
     "titre": "Additionner ou soustraire une expression entre parenthèses",
     "url": "/exercices/3e/3L10-1.js",
@@ -3812,36 +3872,6 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "beta3I12-1": {
-    "titre": "Compléter un script Scratch",
-    "url": "/exercices/3e/beta3I12-1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta3I12-1",
-    "newEx": {
-      "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "beta3I12-2": {
-    "titre": "Comprendre un script Scratch",
-    "url": "/exercices/3e/beta3I12-2.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta3I12-2",
-    "newEx": {
-      "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
   "4A10": {
     "titre": "Nombre premier ou pas",
     "url": "/exercices/4e/4A10.js",
@@ -3976,7 +4006,7 @@ export default {
     "interactifType": "qcm",
     "name": "4C10-10",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -4110,6 +4140,25 @@ export default {
     "name": "4C10-9",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "4C10": {
+    "titre": "Calculer des produits et des quotients de nombres relatifs",
+    "url": "/exercices/4e/4C10.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "4C10",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -4324,7 +4373,7 @@ export default {
     }
   },
   "4C22": {
-    "titre": "Multiplier des fractions",
+    "titre": "Multiplier ou/et diviser des fractions",
     "url": "/exercices/4e/4C22.js",
     "amcReady": true,
     "amcType": {
@@ -7646,6 +7695,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "6C10-8": {
+    "titre": "Message secret à décoder avec les tables de multiplication",
+    "url": "/exercices/6e/6C10-8.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6C10-8",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "6C10": {
     "titre": "Poser additions, soustractions et multiplications de nombres entiers",
     "url": "/exercices/6e/6C10.js",
@@ -8875,6 +8939,28 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "6G44-1": {
+    "titre": "Reconnaitre des solides",
+    "url": "/exercices/6e/6G44-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": [
+      "qcm",
+      "mathLive"
+    ],
+    "name": "6G44-1",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "6G44": {
     "titre": "Trouver le nombre de faces ou d'arêtes d'un solide",
     "url": "/exercices/6e/6G44.js",
@@ -8892,6 +8978,20 @@ export default {
     "updateEx": {
       "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "6G52-2": {
+    "titre": "Utiliser les propriétés des droites perpendiculaires",
+    "url": "/exercices/6e/6G52-2.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": false,
+    "name": "6G52-2",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     }
   },
   "6G52": {
@@ -13048,6 +13148,41 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "can1F21": {
+    "titre": "Déterminer l’abscisse ou l’ordonnée du sommet d’une parabole",
+    "url": "/exercices/can/1e/can1F21.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1F21",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can1F22": {
+    "titre": "Reconnaître une fonction polynôme du second degré (V/F)",
+    "url": "/exercices/can/1e/can1F22.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can1F22",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "can1G01": {
     "titre": "Déterminer les valeurs remarquables du cosinus et sinus",
     "url": "/exercices/can/1e/can1G01.js",
@@ -13881,6 +14016,22 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can2C13",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can2C14": {
+    "titre": "Calculer avec une racine carrée (définition)",
+    "url": "/exercices/can/2e/can2C14.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2C14",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -17289,7 +17440,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -18787,7 +18938,7 @@ export default {
     "interactifType": "mathLive",
     "name": "canc3M02",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
