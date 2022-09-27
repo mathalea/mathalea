@@ -109,8 +109,11 @@ export default function DivisionsEuclidiennes () {
       texte += ajouteChampTexteMathLive(this, i)
       // Pour AMC question AmcOpen
       if (context.isAmc) {
-        this.autoCorrection[i].enonce = texte
+        this.autoCorrection[i].enonce = 'Poser et effectuer la division euclidienne suivante puis donner l\'égalité fondamentale correspondante.<br>' + texte
         this.autoCorrection[i].propositions[0].texte = texteCorr
+        this.autoCorrection[i].propositions[0].sanscadre = false
+        this.autoCorrection[i].propositions[0].statut = 3
+        this.autoCorrection[i].propositions[0].pointilles = false
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

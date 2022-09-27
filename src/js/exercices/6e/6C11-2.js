@@ -7,7 +7,7 @@ import { max, min, mod } from 'mathjs'
 export const titre = "Trouver le vocabulaire associé aux termes de l'égalité issue de la division euclidienne"
 
 export const amcReady = true
-export const amcType = 'AMCOpen'
+export const amcType = 'qcmMult'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -165,7 +165,34 @@ export default function VocabulaireDivisionEuclidienne () {
         }
         setReponse(this, i, ReponsesCorrectes, { formatInteractif: 'ignorerCasse' })
         if (context.isAmc) {
-          this.autoCorrection[i].propositions = [{ texte: this.listeCorrections[i], statut: '1' }] // Ici, une seule ligne pour chaque zone de texte
+          //   this.autoCorrection[i].propositions = [{ texte: this.listeCorrections[i], statut: '1' }] // Ici, une seule ligne pour chaque zone de texte
+
+          this.autoCorrection[i].enonce = `${texte}\n`
+          this.autoCorrection[i].propositions = [
+            {
+              texte: 'dividende',
+              statut: true,
+              feedback: ReponsesCorrectes.includes('dividende')
+            },
+            {
+              texte: 'diviseur',
+              statut: false,
+              feedback: ReponsesCorrectes.includes('diviseur')
+            },
+            {
+              texte: 'quotient',
+              statut: false,
+              feedback: ReponsesCorrectes.includes('quotient')
+            },
+            {
+              texte: 'reste',
+              statut: false,
+              feedback: ReponsesCorrectes.includes('reste')
+            }
+          ]
+          this.autoCorrection[i].options = {
+            ordered: false
+          }
         }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

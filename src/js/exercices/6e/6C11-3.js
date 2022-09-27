@@ -111,8 +111,9 @@ export default function APartirDeDivisionsEuclidiennes () {
       texte += ajouteChampTexteMathLive(this, i)
       // Pour AMC question AmcOpen
       if (context.isAmc) {
-        this.autoCorrection[i].enonce = texte
+        this.autoCorrection[i].enonce = 'Indiquer une égalité à partir de la  division euclidienne suivante : <br><br>' + texte
         this.autoCorrection[i].propositions[0].texte = texteCorr
+        this.autoCorrection[i].propositions[0].statut = 1
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
