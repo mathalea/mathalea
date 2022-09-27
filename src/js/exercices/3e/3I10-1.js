@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { choice, combinaisonListes, contraindreValeur, lampeMessage, lettreMinusculeDepuisChiffre, listeQuestionsToContenu, randint, texteGras } from '../../modules/outils.js'
+import { choice, combinaisonListes, contraindreValeur, deuxColonnes, lampeMessage, lettreMinusculeDepuisChiffre, listeQuestionsToContenu, randint, texteGras } from '../../modules/outils.js'
 import { point, scratchblock } from '../../modules/2d.js'
 import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur.js'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
@@ -29,19 +29,19 @@ export default function ScratchMultiScript () {
   this.nbQuestions = 1
   this.titre = titre
   this.typeExercice = 'Scratch'
-  this.nbCols = 2
+  this.nbCols = 1
   this.nbColsCorr = 1
   this.correctionDetailleeDisponible = true
   this.correctionDetaille = false
-  this.listePackages = 'scratch3'
+  this.listePackages = ['scratch3', 'bclogo']
   this.nouvelleVersion = function () {
     this.introduction = lampeMessage({
-      titre: `${scratchblock('\\begin{scratch}[print,fill,blocks,scale=0.5]\n\\blocklist{Note la couleur}\\end{scratch}')}`,
+      titre: `${scratchblock('\\begin{scratch}[print,fill,blocks,scale=0.5]\n\\blockmoreblocks{Note la couleur}\\end{scratch}')}`,
       texte: 'Cette brique donne la couleur de la case sur laquelle est positionnée le lutins[i].',
       couleur: 'nombres'
     })
     const lePlateau = plateau2dNLC(1, false, 0.5, true)
-    const listeQuestions = [3, 3, 3]
+    let listeQuestions = []
     const listeCouleurs = ['Blanc', 'Vert', 'Bleu', 'Rouge', 'Noir', 'Rose', 'Orange', 'Jaune', 'Gris']
     let choixQuestions = []
     this.consigne = 'Donner la série de couleurs affichées par ces programmes'
@@ -51,22 +51,22 @@ export default function ScratchMultiScript () {
     const mesQcm = []
     let indexReponse = 0
     if (!this.sup) { // Si aucune liste n'est saisie
-      choixQuestions = combinaisonListes(listeQuestions, this.nbQuestions)
+      listeQuestions = [1, 2, 3]
     } else {
       if (Number(this.sup) > 1 && Number(this.sup) < 3) {
         this.sup = contraindreValeur(1, 3, Number(this.sup), 1)
-        choixQuestions = new Array(this.nbQuestions).fill(this.sup)
+        listeQuestions = new Array(this.nbQuestions).fill(this.sup)
       } else {
         const optionsQuestions = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < optionsQuestions.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          optionsQuestions[i] = contraindreValeur(1, 3, Number(optionsQuestions[i]), 1)
-          choixQuestions.push(optionsQuestions[i])
+          listeQuestions[i] = contraindreValeur(1, 3, Number(optionsQuestions[i]), 1)
         }
-        if (choixQuestions.length === 0) {
-          choixQuestions = combinaisonListes(listeQuestions, this.nbQuestions)
+        if (listeQuestions.length === 0) {
+          listeQuestions = [1, 2, 3]
         }
       }
     }
+    choixQuestions = combinaisonListes(listeQuestions, this.nbQuestions)
     const noteLesCouleurs = []
     const lutins = []
     const couleurs = []
@@ -87,7 +87,7 @@ export default function ScratchMultiScript () {
         ['\\blockinit{quand la touche \\selectmenu{n\'importe laquelle} est pressée}\n', "Quand n'importe quelle touche est pressée"]
       ]
 
-      let texteScratch = '\\begin{scratch}[print,fill,blocks,scale=0.5]\n'
+      let texteScratch = '\\begin{scratch}[fill,blocks,scale=0.8]\n'
       const rotations = ['\\turnright{}', '\\turnleft{}']
       const orientations = [0, 90, 180]
       texteScratch += choixBriqueInitiale[2][0]
@@ -125,7 +125,7 @@ export default function ScratchMultiScript () {
             texteScratch += `\\blockmove{aller à x: \\ovalnum{${x[j]}} y: \\ovalnum{${y[j]}}}\n`
             allerA(x[j], y[j], lutins[i])
             pion.currentPos = { x: x[j], y: y[j] }
-            texteScratch += '\\blocklist{Note la couleur}\n'
+            texteScratch += '\\blockmoreblocks{Note la couleur}\n'
             couleurs[i].push(pion.nlc())
             attendre(5, lutins[i])
           }
@@ -161,7 +161,7 @@ export default function ScratchMultiScript () {
 \\blockmove{tourner ${rotations[i % 2]} de \\ovalnum{90} degrés}
 \\blockmove{avancer de \\ovalnum{${y[i % 3 + 1]}} pas}
 \\blockmove{tourner ${rotations[(i + 1) % 2]} de \\ovalnum{90} degrés}
-\\blocklist{Note la couleur}
+\\blockmoreblocks{Note la couleur}
 }
 \\blockmove{tourner ${rotations[(i % 3 === 2 ? 1 : 0)]} de \\ovalnum{90} degrés}
 }\n`
@@ -259,10 +259,10 @@ export default function ScratchMultiScript () {
           texteScratch += '\\blockpen{stylo en position d\'écriture}\n'
           baisseCrayon(lutins[i])
           texteScratch += `\\blockrepeat{répéter \\ovalnum{4} fois}{
-\\blockifelse{si \\booloperator{\\ovalvariable{${i % 3 < 1 ? 'abscisse x' : 'ordonnée y'}} > \\ovalnum{${i % 3 < 1 ? 120 : 30}}} alors}
+\\blockifelse{si \\booloperator{\\ovalmove{${i % 3 < 1 ? 'abscisse x' : 'ordonnée y'}} > \\ovalnum{${i % 3 < 1 ? 120 : 30}}} alors}
 {\\blockmove{ajouter \\ovalnum{${x[i % 3 + 1]}} à x}\n\\blockmove{ajouter \\ovalnum{${y[i % 3 + 1]}} à y}\n}
 {\\blockmove{ajouter \\ovalnum{${x[i % 3 + 4]}} à x}\n\\blockmove{ajouter \\ovalnum{${y[i % 3 + 4]}} à y}\n}
-\\blocklist{Note la couleur}\n}\n`
+\\blockmoreblocks{Note la couleur}\n}\n`
           for (let k = 0; k < 4; k++) {
             if (i % 3 < 1) {
               if (lutins[i].x > (i % 3 < 1 ? 120 : 30) / context.unitesLutinParCm) {
@@ -311,14 +311,15 @@ export default function ScratchMultiScript () {
           break
       }
       texteScratch += '\\end{scratch}'
-      texteScratch = `${(this.interactif || context.isAmc) ? '' : 'Noter la séquence de couleurs produite sur le cahier.<br>'} ${scratchblock(texteScratch)}`
-      texteScratch += mathalea2d(Object.assign({}, fixeBordures([lePlateau]), { scale: 0.3, style: 'display: inline' }), lePlateau)
+      let texte = `${(this.interactif || context.isAmc) ? '' : 'Noter la séquence de couleurs produite sur le cahier.<br>'}`
+      texte += deuxColonnes(scratchblock(texteScratch), mathalea2d(Object.assign({}, fixeBordures([lePlateau]), { scale: 0.4, style: 'display: inline' }), lePlateau), 35)
 
       let texteCorr = 'On obtient la série de couleurs suivante :<br> '
       texteCorr += `${texteGras(couleurs[i][0])} `
       for (let k = 1; k < couleurs[i].length; k++) {
         texteCorr += `- ${texteGras(couleurs[i][k])} `
       }
+      texteCorr += '<br>'
       lutins[i].animation = `<radialGradient id="Ball" cx="8" cy="-3" r="20" gradientUnits="userSpaceOnUse">
     <stop offset="0" style="stop-color:#FFFF99"/>
     <stop offset="1" style="stop-color:#FF9400"/>
@@ -332,32 +333,9 @@ export default function ScratchMultiScript () {
         lutins[i].animation += ` ${B.xSVG(context.pixelsParCm)} ${B.ySVG(context.pixelsParCm)} `
       }
       lutins[i].animation += '" begin="10s" dur="10s" repeatCount="indefinite" />; </circle>'
-      /* if (this.correctionDetaillee) {
-        for (let k = 1; k < 16; k++) {
-          if (this.relatif) {
-            if (k < 7 || k > 9) {
-              objetsCorrection.push(texteParPositionEchelle(stringNombre(-240 + 30 * k), -12.1 + 1.5 * k, -0.3, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
-            }
-          } else {
-            if (k !== 1) {
-              objetsCorrection.push(texteParPositionEchelle(stringNombre(30 * k), 1.5 * k, -0.3, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
-            }
-          }
-        }
-        for (let k = 1; k < 12; k++) {
-          if (this.relatif) {
-            if (k < 5 || k > 7) {
-              objetsCorrection.push(texteParPositionEchelle(stringNombre(-180 + 30 * k), -0.5, -9 + 1.5 * k, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
-            }
-          } else {
-            if (k !== 1) {
-              objetsCorrection.push(texteParPositionEchelle(stringNombre(30 * k), -0.5, 1.5 * k, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
-            }
-          }
-        }
-      } */
+
       objetsCorrection.push(lePlateau, lutins[i])
-      texteCorr += mathalea2d(Object.assign({}, fixeBordures(objetsCorrection), { style: 'display: inline' }), objetsCorrection)
+      texteCorr += mathalea2d(Object.assign({}, fixeBordures(objetsCorrection), { style: 'display: inline', scale: 0.4 }), objetsCorrection)
       if (!context.isAmc) { // on prépare les
         for (let k = 0; k < couleurs[i].length; k++) {
           this.autoCorrection[indexReponse + k] = {}
@@ -373,8 +351,18 @@ export default function ScratchMultiScript () {
         }
       } else {
         this.autoCorrection[i] = {}
-        this.autoCorrection[i].enonce = `${texteScratch}\n`
+        this.autoCorrection[i].enonce = `${deuxColonnes(scratchblock(texteScratch), mathalea2d(Object.assign({}, fixeBordures([lePlateau]), { scale: 0.4, style: 'display: inline' }), lePlateau), 35)}`
         this.autoCorrection[i].propositions = []
+        this.autoCorrection[i].propositions.push(
+          {
+            type: 'AMCOpen',
+            propositions: [{
+              enonce: 'Tracé',
+              texte: texteCorr,
+              statut: 0,
+              sanscadre: true
+            }]
+          })
         for (let k = 0; k < couleurs[i].length; k++) {
           this.autoCorrection[i].propositions.push(
             {
@@ -384,9 +372,9 @@ export default function ScratchMultiScript () {
             })
         }
         for (let k = 0; k < couleurs[i].length; k++) {
-          this.autoCorrection[i].propositions[k].propositions = []
+          this.autoCorrection[i].propositions[k + 1].propositions = []
           for (let j = 0; j < listeCouleurs.length; j++) {
-            this.autoCorrection[i].propositions[k].propositions.push({
+            this.autoCorrection[i].propositions[k + 1].propositions.push({
               texte: listeCouleurs[j],
               statut: listeCouleurs[j] === couleurs[i][k],
               reponse: j === 0 ? { texte: `couleur N° ${k + 1} : ` } : {}
@@ -401,9 +389,12 @@ export default function ScratchMultiScript () {
           texteCorr += `Couleur N° ${k + 1} : ` + mesQcm[indexReponse + k].texteCorr
         }
       }
-
-      if (this.questionJamaisPosee(i, texteScratch)) {
-        this.listeQuestions.push(texteScratch)
+      if (!context.isHtml && i !== this.nbQuestions - 1) {
+        texte += '\\columnbreak'
+        texteCorr += '\\columnbreak'
+      }
+      if (this.questionJamaisPosee(i, ...couleurs[i])) {
+        this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         if (!context.isAmc) {
           indexReponse += couleurs[i].length

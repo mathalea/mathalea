@@ -8341,7 +8341,7 @@ export function exportQcmAmc (exercice, idExo) {
         if (autoCorrection[j].enonceAGauche) {
           texQr += `\\noindent\\fbox{\\begin{minipage}{${autoCorrection[j].enonceAGauche[0]}\\linewidth}\n`
         }
-        sautDeLigneApresEnonce = '\\\\\n '
+        sautDeLigneApresEnonce = '\n '
         if (!(autoCorrection[j].enonceCentre === undefined) || (autoCorrection[j].enonceCentre)) {
           texQr += '\\begin{center}'
           sautDeLigneApresEnonce = ''
@@ -8893,7 +8893,6 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   const enteteTypeCodeGrid = `\\begin{minipage}{10cm}
   \\champnom{\\fbox{\\parbox{10cm}{    
     Écrivez vos nom, prénom et classe : \\\\
-   \\\\
   }}}
   \\end{minipage}
   
