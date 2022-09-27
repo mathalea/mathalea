@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, texNombrec, choice, calcul } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
-export const titre = 'Donner l’écriture décimale à partir d’un somme d’entiers et de fractions décimales'
+export const titre = 'Donner l\'écriture décimale à partir d\'un somme d\'entiers et de fractions décimales'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -14,6 +14,8 @@ export const amcType = 'AMCNum'
  * 2021-03-24
 */
 
+export const uuid = 'ec7e4'
+export const ref = 'c3N20'
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = "Donner l'écriture décimale des nombres suivants."

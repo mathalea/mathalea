@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { homothetie, codeAngle, longueur, barycentre, milieu, latexParPoint, mathalea2d, point, polygone, rotation, codageAngleDroit, nommePolygone, segment } from '../../modules/2d.js'
-import { calcul, texFraction, arrondi, texNombre2, listeQuestionsToContenu, randint, creerNomDePolygone, choice, arrondiVirgule } from '../../modules/outils.js'
+import { homothetie, codageAngle, longueur, barycentre, milieu, latexParPoint, point, polygone, rotation, codageAngleDroit, nommePolygone, segment } from '../../modules/2d.js'
+import { texFraction, arrondi, texNombre2, listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const interactifReady = true
@@ -17,6 +18,8 @@ export const titre = 'Calculer un angle dans un triangle rectangle en utilisant 
  * * Si this.level=4 alors seul le cosinus sera utilisé.
  * Mars 2021
  */
+export const uuid = '0ac11'
+export const ref = '3G31'
 export default function CalculDAngle () {
   Exercice.call(this)
   this.titre = titre
@@ -64,7 +67,7 @@ export default function CalculDAngle () {
         bc = arrondi(randint(100, 150) / 10, 1)
         ab = arrondi(randint(40, (bc - 2) * 10) / 10, 1)
         angleABC = Math.round(Math.acos(ab / bc) * 180 / Math.PI)
-        ac = calcul(bc * Math.sin(Math.acos(ab / bc)), 1)
+        ac = bc * Math.sin(Math.acos(ab / bc))
         texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,${mEp} $${nom[1] + nom[2]}=${texNombre2(bc)}$ cm et $${nom[0] + nom[1]}=${texNombre2(ab)}$ cm.<br>`
         texte += `Calculer $\\widehat{${nom}}$ à $1 \\degree$ près.`
         break
@@ -72,7 +75,7 @@ export default function CalculDAngle () {
         bc = randint(100, 150) / 10
         ac = randint(40, (bc - 2) * 10) / 10
         angleABC = Math.round(Math.asin(ac / bc) * 180 / Math.PI)
-        ab = calcul(bc * Math.cos(Math.asin(ac / bc)), 1)
+        ab = bc * Math.cos(Math.asin(ac / bc))
         texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,${mEp} $${nom[1] + nom[2]}=${texNombre2(bc)}$ cm et $${nom[0] + nom[2]}=${texNombre2(ac)}$ cm.<br>`
         texte += `Calculer $\\widehat{${nom}}$ à $1 \\degree$ près.`
         break
@@ -80,7 +83,7 @@ export default function CalculDAngle () {
         ab = randint(40, 100) / 10
         ac = randint(40, 100) / 10
         angleABC = Math.round(Math.atan(ac / ab) * 180 / Math.PI)
-        bc = calcul(ab / Math.cos(Math.atan(ac / ab)), 1)
+        bc = ab / Math.cos(Math.atan(ac / ab))
         texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,${mEp} $${nom[0] + nom[1]}=${texNombre2(ab)}$ cm et  $${nom[0] + nom[2]}=${texNombre2(ac)}$ cm.<br>`
         texte += `Calculer $\\widehat{${nom}}$ à $1 \\degree$ près.`
         break
@@ -115,13 +118,10 @@ export default function CalculDAngle () {
     const nomme = nommePolygone(p2, nom)
     const nommeb = nommePolygone(p4, nom)
 
-    const hypo = segment(Cb, Bb)
+    const hypo = segment(Cb, Bb, 'blue')
     hypo.epaisseur = 2
-    hypo.color = 'blue'
-    //   codageAngle.epaisseur = 3
-    //  codageAngle2.epaisseur = 3
-    const codageDeAngle = codeAngle(A, B, C, 2)
-    const codageDeAngleB = codeAngle(A, Bb, Cb, 2)
+    const codageDeAngle = codageAngle(A, B, C, 2)
+    const codageDeAngleB = codageAngle(A, Bb, Cb, 2)
 
     const M1 = milieu(A, B)
     const M2 = milieu(A, C)
@@ -238,10 +238,10 @@ export default function CalculDAngle () {
       this.autoCorrection[0] = {
         enonce: texte,
         propositions: [{ texte: texteCorr, statut: 4, feedback: '' }],
-        reponse: { valeur: angleABC, param: { digits: 2, decimals: 0, signe: false, exposantNbChiffres: 0 } }
+        reponse: { valeur: angleABC.toString(), param: { digits: 2, decimals: 0, signe: false, exposantNbChiffres: 0 } }
       }
     } else if (this.interactif && context.isHtml) {
-      setReponse(this, 0, arrondiVirgule(angleABC))
+      setReponse(this, 0, angleABC)
     }
     texte += ajouteChampTexteMathLive(this, 0, 'largeur25 inline', { texteApres: ' °' })
     /****************************************************/

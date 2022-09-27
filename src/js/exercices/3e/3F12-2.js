@@ -4,7 +4,7 @@ import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
 
-export const titre = 'Déterminer l’image d’un nombre par une fonction d’après sa forme algébrique'
+export const titre = 'Déterminer l\'image d\'un nombre par une fonction d\'après sa forme algébrique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -19,6 +19,8 @@ export const interactifType = 'mathLive'
 * @author Rémi Angot
 * 3F12-2
 */
+export const uuid = '082d7'
+export const ref = '3F12-2'
 export default function ImageFonctionAlgebrique () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

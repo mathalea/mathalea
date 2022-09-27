@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, texNombre, texFraction, calcul } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-export const titre = 'Donner l’écriture décimale d’une fraction décimale'
+export const titre = 'Donner l\'écriture décimale d\'une fraction décimale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -16,12 +16,16 @@ export const amcType = 'AMCNum'
  * @author Rémi Angot
  * 6N23
  */
+export const uuid = '4b9d5'
+export const ref = '6N23'
 export default function ExerciceEcritureDecimaleApartirDeFractionDecimale () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = "Donner l'écriture décimale."
   this.spacing = 2
   this.spacingCorr = 2
   this.nbQuestions = 8
+  this.nbCols = 2
+  this.nbColsCorr = 2
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

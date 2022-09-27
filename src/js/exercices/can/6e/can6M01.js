@@ -1,7 +1,7 @@
-import { context } from '../../../modules/context'
-import { propositionsQcm } from '../../../modules/interactif/questionQcm'
-import { listeQuestionsToContenu, randint, texteEnCouleur } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { context } from '../../../modules/context.js'
+import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
+import { listeQuestionsToContenu, randint, texteEnCouleur } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Comparer des périmètres (V/F)'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -13,6 +13,8 @@ export const amcType = 'qcmMono'
  * Créé pendant l'été 2021
  * Référence can6M01
  */
+export const uuid = '79035'
+export const ref = 'can6M01'
 export default function QuestionDePerimetres () {
   Exercice.call(this)
   this.nbQuestions = 1

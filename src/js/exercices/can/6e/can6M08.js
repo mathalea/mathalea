@@ -1,7 +1,7 @@
-import { context } from '../../../modules/context'
-import { propositionsQcm } from '../../../modules/interactif/questionQcm'
-import { choice, texteExposant, listeQuestionsToContenu, randint, texNombrec } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { context } from '../../../modules/context.js'
+import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
+import { choice, texteExposant, listeQuestionsToContenu, randint, texNombrec } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Comparer des aires (V/F)'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -13,6 +13,8 @@ export const amcType = 'qcmMono'
  * Créé pendant l'été 2021
  * Référence can6M01
  */
+export const uuid = 'bae27'
+export const ref = 'can6M08'
 export default function QuestionDAires () {
   Exercice.call(this)
   this.nbQuestions = 1

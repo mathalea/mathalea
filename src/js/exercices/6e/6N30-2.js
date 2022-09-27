@@ -1,9 +1,10 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, texNombrec, lettreDepuisChiffre, htmlConsigne, egal, calcul } from '../../modules/outils.js'
-import { droiteGraduee2, labelPoint, mathalea2d, point, tracePoint } from '../../modules/2d.js'
+import { droiteGraduee, labelPoint, point, tracePoint } from '../../modules/2d.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
-export const titre = 'Placer un point d’abscisse décimale'
+export const titre = 'Placer un point d\'abscisse décimale'
 export const interactifReady = true
 export const interactifType = 'custom'
 export const amcReady = true
@@ -14,6 +15,8 @@ export const amcType = 'AMCOpen'
  * référence : 6N30-2
  * Relecture : Janvier 2022 par EE
  */
+export const uuid = 'e528e'
+export const ref = '6N30-2'
 export default function PlacerPointsSurAxe () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Placer trois points sur un axe gradué.'
@@ -133,7 +136,7 @@ export default function PlacerPointsSurAxe () {
         }
       }
 
-      const droite = droiteGraduee2({
+      const droite = droiteGraduee({
         Unite: 3 * pas1,
         Min: abs0,
         Max: abs0 + 6.9 / pas1,

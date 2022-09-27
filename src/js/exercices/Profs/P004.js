@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { randint, troncature, calcul, choisitLettresDifferentes } from '../../modules/outils.js'
-import { point, segment, droiteGraduee2, mathalea2d } from '../../modules/2d.js'
+import { point, segment, droiteGraduee } from '../../modules/2d.js'
 
 export const titre = 'Droites graduées avec zoom'
 
@@ -33,7 +34,7 @@ export default function FeuilleDeZooms () {
         x1 = calcul(xmin + 0.2 + randint(1, 5) + randint(2, 8) / 10)
         extremite = '->'
 
-        const d1 = droiteGraduee2({
+        const d1 = droiteGraduee({
           x: 0,
           y: 3,
           Min: xmin,
@@ -56,7 +57,7 @@ export default function FeuilleDeZooms () {
           pointEpaisseur: 2,
           axeStyle: extremite
         })
-        const d2 = droiteGraduee2({
+        const d2 = droiteGraduee({
           x: Math.floor(x1) - xmin + 1.5,
           y: 0,
           Min: Math.floor(x1),
@@ -85,8 +86,8 @@ export default function FeuilleDeZooms () {
         pB2 = point(Math.floor(x1) - xmin + 21.5, 0)
         sA = segment(pA1, pA2)
         sB = segment(pB1, pB2)
-        sA.pointilles = true
-        sB.pointilles = true
+        sA.pointilles = 5
+        sB.pointilles = 5
         objets.push(d1, d2, sA, sB)
         fenetre = { xmin: -1.5, xmax: 35, ymin: -1, ymax: 4.5, pixelsParCm: 25, scale: 0.5 }
       } else {
@@ -102,7 +103,7 @@ export default function FeuilleDeZooms () {
         const thickOff = 0.001
 
         extremite = '->'
-        const d1 = droiteGraduee2({
+        const d1 = droiteGraduee({
           x: 0,
           y: 6,
           Min: xmin,
@@ -127,7 +128,7 @@ export default function FeuilleDeZooms () {
           pointEpaisseur: 3,
           axeStyle: extremite
         })
-        const d2 = droiteGraduee2({
+        const d2 = droiteGraduee({
           x: 6.5,
           y: 3,
           Min: x2,
@@ -152,7 +153,7 @@ export default function FeuilleDeZooms () {
           pointEpaisseur: 2,
           axeStyle: extremite
         })
-        const d3 = droiteGraduee2({
+        const d3 = droiteGraduee({
           x: 6.5,
           y: 0,
           Min: x21,
@@ -182,16 +183,16 @@ export default function FeuilleDeZooms () {
         pB2 = point(26.5, 3)
         sA = segment(pA1, pA2)
         sB = segment(pB1, pB2)
-        sA.pointilles = true
-        sB.pointilles = true
+        sA.pointilles = 5
+        sB.pointilles = 5
         pC1 = point(6.5 + (x21 - x2) * 200, 3)
         pC2 = point(6.5, 0)
         pD1 = point(6.5 + (x31 - x2) * 200, 3)
         pD2 = point(26.5, 0)
         sC = segment(pC1, pC2)
         sD = segment(pD1, pD2)
-        sC.pointilles = true
-        sD.pointilles = true
+        sC.pointilles = 5
+        sD.pointilles = 5
         fenetre = { xmin: -1.5, xmax: 35, ymin: -1.5, ymax: 7.5, pixelsParCm: 25, scale: 0.5 }
         objets.push(d1, d2, d3, sA, sB, sC, sD)
       }

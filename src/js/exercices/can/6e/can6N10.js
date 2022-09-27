@@ -1,5 +1,5 @@
-import { calcul, randint, texNombrec, choice } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { calcul, randint, texNombrec, choice } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Passer d’un calcul de fractions décimales à une écriture décimale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -10,6 +10,8 @@ export const dateDePublication = '15/12/2021' // La date de publication initiale
 /*!
  * @author Gilles Mora
  */
+export const uuid = '93bb5'
+export const ref = 'can6N10'
 export default function FractionDecimaleEcritureDecimale1 () {
   Exercice.call(this)
   this.nbQuestions = 1

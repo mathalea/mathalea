@@ -1,9 +1,9 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { toString, aleaVariables, assignVariables, calculer, toTex, resoudre } from '../../modules/outilsMathjs'
-import { GVGraphicView } from '../../modules/aleaFigure/GraphicView'
-import { name } from '../../modules/aleaFigure/outils'
+import { toString, aleaVariables, assignVariables, calculer, toTex, resoudre } from '../../modules/outilsMathjs.js'
+import { GVGraphicView } from '../../modules/aleaFigure/GraphicView.js'
+import { name } from '../../modules/aleaFigure/outils.js'
 import { create, all } from 'mathjs'
 
 export const math = create(all)
@@ -18,6 +18,8 @@ export const dateDePublication = '04/03/2022'
  * @author Frédéric PIOU
  * Problème à partir de https://twitter.com/blatherwick_sam/status/1497292774621822979
  */
+export const uuid = 'cd2f2'
+export const ref = '3L13-4'
 export default class problemes extends Exercice {
   constructor () {
     super()

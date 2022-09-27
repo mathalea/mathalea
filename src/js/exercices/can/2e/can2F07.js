@@ -1,8 +1,9 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, choice, listeQuestionsToContenu } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
-import { tableauDeVariation, mathalea2d } from '../../../modules/2d.js'
+import { tableauDeVariation } from '../../../modules/2d.js'
 import { context } from '../../../modules/context.js'
 export const titre = 'Lire les extremums dans un tableau de variations'
 export const interactifReady = true
@@ -19,6 +20,8 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
  * @author Gilles Mora
  * Référence
 */
+export const uuid = 'd5b6c'
+export const ref = 'can2F07'
 export default function ExtremumsTableau () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1

@@ -8,6 +8,8 @@ export const titre = 'Multiplications de deux entiers relatifs dans un tableau �
 * @author Rémi Angot
 * 4C10-5
 */
+export const uuid = 'c8f4b'
+export const ref = '4C10-5'
 export default function ExerciceTableauMultiplicationsRelatifs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = false

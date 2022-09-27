@@ -7,10 +7,12 @@ export const titre = 'Écrire le nombre proposé sous la forme $a\\sqrt{b}$'
  * 2N32-3, ex 2N11
  * @author Stéphane Guyon
  */
+export const uuid = 'd9495'
+export const ref = '2N32-3'
 export default function ExtraireUnCarreParfaitDUneRacineCarree () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = 'Ecrire le nombre proposé sous la forme $a\\sqrt{b}$'
-  this.consigne = ' Ecrire le nombre proposé sous la forme $a\\sqrt{b}$ où $a$ est un entier et $b$ le plus petit entier possible:'
+  this.titre = 'Écrire le nombre proposé sous la forme $a\\sqrt{b}$'
+  this.consigne = 'Écrire le nombre proposé sous la forme $a\\sqrt{b}$ où $a$ est un entier et $b$ le plus petit entier possible.'
   this.nbQuestions = 4
   this.nbCols = 2
   this.nbColsCorr = 2

@@ -1,13 +1,13 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  mathalea2d, point, polygoneAvecNom, codageAngleDroit, labelPoint, segment, milieu, texteParPosition, demiDroite, ellipse, codeSegment
+  point, polygoneAvecNom, codageAngleDroit, labelPoint, segment, milieu, texteParPosition, demiDroite, ellipse, codageSegment
 } from '../../../modules/2d.js'
 import { listeQuestionsToContenu, randint, texNombre, shuffle, printlatex, stringNombre, texFraction, miseEnEvidence, simplificationDeFractionAvecEtapes, choice, sp, arrondi } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { round, min } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import { context } from '../../../modules/context.js'
 export const titre = 'CAN 3ième sujet 2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -23,6 +23,8 @@ export const dateDePublication = '30/03/2022' // La date de publication initiale
 function compareNombres (a, b) {
   return a - b
 }
+export const uuid = 'afd9f'
+export const ref = 'can3a-2021'
 export default function SujetCAN20213ieme () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -31,7 +33,12 @@ export default function SujetCAN20213ieme () {
   this.nbQuestions = 30// 10,20,30
   this.nbCols = 1
   this.nbColsCorr = 1
-
+  this.comment = `Cet exercice fait partie des annales des Courses aux nombres.<br>
+  Il est composé de 30 questions réparties de la façon suivante :<br>
+  les 10 premières questions parfois communes à plusieurs niveaux font appels à des questions automatisées élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
+  Par défaut, les questions sont rangées dans le même ordre que le sujet officiel avec des données aléatoires. Ainsi, en cliquant sur « Nouvelles données », on obtient une nouvelle course aux nombres avec des données différentes.
+  En choisissant un nombre de questions différents de 30, on fabrique une « mini » course aux nombres qui respecte la proportion de nombre de questions élémentaires par rapport aux autres.
+  Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 questions automatisées élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -296,11 +303,11 @@ export default function SujetCAN20213ieme () {
           sCote2.styleExtremites = '<->'
           objets = []
           objets.push(
-            texteParPosition(`$${a} $`, milieu(B, E).x + 0.4, milieu(B, E).y, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition('$\\large \\text{?}$', milieu(A, E).x - 0.4, milieu(A, E).y + 1, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${b} $`, milieu(D, C).x + 0.5, milieu(D, C).y, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${d} $`, milieu(A, D).x - 1, milieu(A, D).y + 1.8, 'milieu', 'black', 1, 'middle', true),
-            demiDroite(A, C), demiDroite(A, D), labelPoint(A, B, C, D, E), segment(B, E), segment(D, C), sCote1, sCote2)
+            texteParPosition(`${stringNombre(a)} `, milieu(B, E).x + 0.4, milieu(B, E).y),
+            texteParPosition('?', milieu(A, E).x - 0.4, milieu(A, E).y + 0.7, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`${stringNombre(b)} `, milieu(D, C).x + 0.5, milieu(D, C).y),
+            texteParPosition(`${stringNombre(d)} `, milieu(A, D).x - 1, milieu(A, D).y + 1.5),
+            demiDroite(A, C), demiDroite(A, D), labelPoint(A, B, C, D, E), segment(A, D), segment(A, C), segment(B, E), segment(D, C), sCote1, sCote2)
           reponse = c
           texte = '$(BE)//(DC)$.  Détermine la longueur $AE$.<br>'
           texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
@@ -372,18 +379,18 @@ export default function SujetCAN20213ieme () {
           D = point(0, -4, 'D', 'above')
           c = ellipse(A, 2, 0.5)
           s1 = segment(D, A)
-          s1.pointilles = true
+          s1.pointilles = 5
           s2 = segment(A, C)
-          s2.pointilles = true
+          s2.pointilles = 5
 
           xmin = -3
           ymin = -5
           xmax = 3
-          ymax = 1
+          ymax = 1.5
           objets = []
           objets.push(
-            texteParPosition('$3 \\text{ cm} $', milieu(A, C).x, milieu(A, C).y + 0.25 * context.zoom, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${b} \\text{ cm} $`, milieu(A, D).x + 0.4 * context.zoom, milieu(A, D).y + 0.3, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`${stringNombre(3)} cm`, milieu(A, C).x, milieu(A, C).y + 0.2),
+            texteParPosition(`${stringNombre(b)} cm`, milieu(A, D).x + 0.5, milieu(A, D).y),
             segment(B, D), segment(D, C), s1, s2, c)
           reponse = 3 * b
           texte = 'Donne le volume exact de ce cône.<br>'
@@ -442,13 +449,14 @@ export default function SujetCAN20213ieme () {
           if (choix === 'a') {
             objets.push(pol[0])
             objets.push(
-              texteParPosition(`$${a[0]} \\text{ dm}$`, milieu(A, C).x, milieu(A, C).y - 0.3, 'milieu', 'black', 1, 'middle', true)
-              , texteParPosition(`$${a[2]} \\text{ dm}$`, milieu(B, C).x - 0.6, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true)
+              texteParPosition(`${stringNombre(a[0])} dm`, milieu(A, C).x, milieu(A, C).y - 0.3)
+              , texteParPosition(`${stringNombre(a[2])} dm`, milieu(B, C).x - 0.6, milieu(B, C).y)
+
               , labelPoint(A, B, C), codageAngleDroit(B, A, C))
             reponse = a[1]
             texte = 'Calcule la longueur $AB$. <br>'
 
-            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1.2, style: 'margin: auto' }, objets)
             texte += '<br>$AB=$'
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
@@ -458,8 +466,8 @@ export default function SujetCAN20213ieme () {
           if (choix === 'b') {
             objets.push(pol[0])
             objets.push(
-              texteParPosition(`$${a[1]} \\text{ dm}$`, milieu(A, B).x + 0.5, milieu(A, B).y, 'milieu', 'black', 1, 'middle', true)
-              , texteParPosition(`$${a[2]} \\text{ dm}$`, milieu(B, C).x - 0.6, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true)
+              texteParPosition(`${stringNombre(a[1])} dm`, milieu(A, B).x + 0.5, milieu(A, B).y)
+              , texteParPosition(`${stringNombre(a[2])} dm`, milieu(B, C).x - 0.6, milieu(B, C).y)
               , labelPoint(A, B, C), codageAngleDroit(B, A, C))
             reponse = a[0]
             texte = 'Calcule la longueur $AC$. <br>'
@@ -474,8 +482,8 @@ export default function SujetCAN20213ieme () {
           if (choix === 'c') {
             objets.push(pol[0])
             objets.push(
-              texteParPosition(`$${a[1]} \\text{ dm}$`, milieu(A, B).x + 0.4, milieu(A, B).y, 'milieu', 'black', 1, 'middle', true)
-              , texteParPosition(`$${a[0]} \\text{ dm}$`, milieu(A, C).x, milieu(A, C).y - 0.3, 'milieu', 'black', 1, 'middle', true)
+              texteParPosition(`${stringNombre(a[1])} dm`, milieu(A, B).x + 0.5, milieu(A, B).y)
+              , texteParPosition(`${stringNombre(a[0])} dm`, milieu(A, C).x, milieu(A, C).y - 0.3)
               , labelPoint(A, B, C), codageAngleDroit(B, A, C))
             reponse = a[2]
             texte = 'Calcule la longueur $BC$. <br>'
@@ -489,7 +497,7 @@ export default function SujetCAN20213ieme () {
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'dm' } else { texte += '$\\ldots$ ' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'dm' } else { texte += ' $\\ldots$ dm ' }
           nbChamps = 1
           break
 
@@ -552,26 +560,26 @@ export default function SujetCAN20213ieme () {
             F = point(2, 0)
             G = point(1, 0)
             s1 = segment(A, B)
-            code1 = codeSegment(A, B, '||')
+            code1 = codageSegment(A, B, '||')
             s2 = segment(B, C)
-            code2 = codeSegment(B, C, '||')
+            code2 = codageSegment(B, C, '||')
             s3 = segment(A, G)
-            code3 = codeSegment(A, G, '||')
+            code3 = codageSegment(A, G, '||')
             s4 = segment(G, F)
-            code4 = codeSegment(G, F, '||')
+            code4 = codageSegment(G, F, '||')
             s5 = segment(C, D)
-            code5 = codeSegment(C, D, '|')
+            code5 = codageSegment(C, D, '|')
             s6 = segment(E, F)
-            code6 = codeSegment(E, F, '|')
+            code6 = codageSegment(E, F, '|')
             xmin = -1
             ymin = -2
             xmax = 4
             ymax = 2.5
             objets = []
             objets.push(
-              texteParPosition('$x $', milieu(B, C).x, milieu(B, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
-              texteParPosition(`$${b}  $`, milieu(D, E).x + 0.3, milieu(D, E).y, 'milieu', 'black', 1, 'middle', true),
-              texteParPosition(`$${a}  $`, milieu(D, C).x, milieu(D, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
+              texteParPosition('x', milieu(B, C).x, milieu(B, C).y + 0.3),
+              texteParPosition(`${stringNombre(b)}  `, milieu(D, E).x + 0.3, milieu(D, E).y),
+              texteParPosition(`${stringNombre(a)}  `, milieu(D, C).x, milieu(D, C).y + 0.3),
               s1, s2, s3, s4, s5, s6, code1, code2, code3, code4, code5, code6, segment(D, E))
             reponse = printlatex(`4x+${2 * a + b}`)
             texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
@@ -590,26 +598,26 @@ export default function SujetCAN20213ieme () {
             F = point(2, 0)
             G = point(1, 0)
             s1 = segment(A, B)
-            code1 = codeSegment(A, B, '||')
+            code1 = codageSegment(A, B, '||')
             s2 = segment(B, C)
-            code2 = codeSegment(B, C, '||')
+            code2 = codageSegment(B, C, '||')
             s3 = segment(A, G)
-            code3 = codeSegment(A, G, '||')
+            code3 = codageSegment(A, G, '||')
             s4 = segment(G, F)
-            code4 = codeSegment(G, F, '||')
+            code4 = codageSegment(G, F, '||')
             s5 = segment(C, D)
-            code5 = codeSegment(C, D, '|')
+            code5 = codageSegment(C, D, '|')
             s6 = segment(E, F)
-            code6 = codeSegment(E, F, '|')
+            code6 = codageSegment(E, F, '|')
             xmin = -1
             ymin = -2
             xmax = 4
             ymax = 2.5
             objets = []
             objets.push(
-              texteParPosition(`$${a} $`, milieu(B, C).x, milieu(B, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
-              texteParPosition(`$${b}  $`, milieu(D, E).x + 0.3, milieu(D, E).y, 'milieu', 'black', 1, 'middle', true),
-              texteParPosition('$x$', milieu(D, C).x, milieu(D, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
+              texteParPosition(`${stringNombre(a)}`, milieu(B, C).x, milieu(B, C).y + 0.3),
+              texteParPosition(`${stringNombre(b)}`, milieu(D, E).x + 0.3, milieu(D, E).y),
+              texteParPosition('x', milieu(D, C).x, milieu(D, C).y + 0.3),
               s1, s2, s3, s4, s5, s6, code1, code2, code3, code4, code5, code6, segment(D, E))
             reponse = printlatex(`2x+${4 * a + b}`)
             texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
@@ -628,24 +636,24 @@ export default function SujetCAN20213ieme () {
             F = point(2, 0)
             G = point(1, 0)
             s1 = segment(B, G)
-            code1 = codeSegment(B, G, '||')
+            code1 = codageSegment(B, G, '||')
             s2 = segment(B, C)
-            code2 = codeSegment(B, C, '||')
+            code2 = codageSegment(B, C, '||')
             s4 = segment(G, F)
-            code4 = codeSegment(G, F, '||')
+            code4 = codageSegment(G, F, '||')
             s5 = segment(C, D)
-            code5 = codeSegment(C, D, '|')
+            code5 = codageSegment(C, D, '|')
             s6 = segment(E, F)
-            code6 = codeSegment(E, F, '|')
+            code6 = codageSegment(E, F, '|')
             xmin = -1
             ymin = -2
             xmax = 4
             ymax = 2.5
             objets = []
             objets.push(
-              texteParPosition(`$${a} $`, milieu(B, C).x, milieu(B, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
-              texteParPosition(`$${b}  $`, milieu(D, E).x + 0.3, milieu(D, E).y, 'milieu', 'black', 1, 'middle', true),
-              texteParPosition('$x$', milieu(D, C).x, milieu(D, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
+              texteParPosition(`${stringNombre(a)}`, milieu(B, C).x, milieu(B, C).y + 0.3),
+              texteParPosition(`${stringNombre(b)}`, milieu(D, E).x + 0.3, milieu(D, E).y),
+              texteParPosition('x', milieu(D, C).x, milieu(D, C).y + 0.3),
               s1, s2, s4, s5, s6, code1, code2, code4, code5, code6, segment(D, E))
             reponse = printlatex(`2x+${3 * a + b}`)
             texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
@@ -663,24 +671,24 @@ export default function SujetCAN20213ieme () {
             F = point(2, 0)
             G = point(1, 0)
             s1 = segment(B, G)
-            code1 = codeSegment(B, G, '||')
+            code1 = codageSegment(B, G, '||')
             s2 = segment(B, C)
-            code2 = codeSegment(B, C, '||')
+            code2 = codageSegment(B, C, '||')
             s4 = segment(G, F)
-            code4 = codeSegment(G, F, '||')
+            code4 = codageSegment(G, F, '||')
             s5 = segment(C, D)
-            code5 = codeSegment(C, D, '|')
+            code5 = codageSegment(C, D, '|')
             s6 = segment(E, F)
-            code6 = codeSegment(E, F, '|')
+            code6 = codageSegment(E, F, '|')
             xmin = -1
             ymin = -2
             xmax = 4
             ymax = 2.5
             objets = []
             objets.push(
-              texteParPosition('$x$', milieu(B, C).x, milieu(B, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
-              texteParPosition(`$${b}  $`, milieu(D, E).x + 0.3, milieu(D, E).y, 'milieu', 'black', 1, 'middle', true),
-              texteParPosition(`$${a}$`, milieu(D, C).x, milieu(D, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
+              texteParPosition('x', milieu(B, C).x, milieu(B, C).y + 0.3),
+              texteParPosition(`${stringNombre(b)}`, milieu(D, E).x + 0.3, milieu(D, E).y),
+              texteParPosition(`${stringNombre(a)}`, milieu(D, C).x, milieu(D, C).y + 0.3),
               s1, s2, s4, s5, s6, code1, code2, code4, code5, code6, segment(D, E))
             reponse = printlatex(`3x+${2 * a + b}`)
             texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'

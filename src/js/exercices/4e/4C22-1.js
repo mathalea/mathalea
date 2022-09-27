@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, choice, combinaisonListes, pgcd, texFractionRe
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
-export const titre = 'Trouver l’inverse d’un nombre'
+export const titre = 'Trouver l\'inverse d\'un nombre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -18,6 +18,8 @@ export const interactifType = 'mathLive'
  * @author Jean-Claude Lhote
  * 4C22-1
  */
+export const uuid = '43cea'
+export const ref = '4C22-1'
 export default function ExerciceTrouverInverse () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1 // Avec ou sans relatifs

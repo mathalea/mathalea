@@ -19,6 +19,8 @@ export const amcType = 'AMCHybride'
  * @author Rémi Angot
  * 4L20 et 3L13
  */
+export const uuid = '799c4'
+export const ref = '4L20'
 export default function ExerciceEquation1 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -47,7 +49,7 @@ export default function ExerciceEquation1 () {
         texte: `Résoudre les équations au brouillon et écrire les solutions dans les cases.<br> Pour une solution comme 0,333... seule une fraction (par ex : $${texFraction(1, 3)})$ est correcte`,
         couleur: 'nombres'
       })
-    }
+    } else this.introduction = ''
     let listeTypeDeQuestions
     switch (this.sup2.toString()) {
       case '1':

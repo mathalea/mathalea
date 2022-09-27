@@ -9,6 +9,8 @@ export const titre = 'Trouver ordre de grandeur d\'opérations sur les décimaux
  * @author Sébastien Lozano
  */
 
+export const uuid = '843e5'
+export const ref = '6N31-2'
 export default function OrdreDeGrandeurOperationsDecimaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.beta = false

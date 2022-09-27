@@ -63,12 +63,26 @@ class Grandeur {
       return false
     }
   }
+
+  estUneApproximation (unite2, precision) {
+    const u1 = this.convertirEn(this.uniteDeReference)
+    const u2 = unite2.convertirEn(this.uniteDeReference)
+    if (u1 && u2) {
+      if (Math.abs(u1.mesure - u2.mesure) <= precision + precision / 10) return true
+    } else {
+      return false
+    }
+  }
 }
 
 export default Grandeur
 
 function parseUnite (unite) {
   let puissanceUnite, avantPuissanceUnite
+  if (unite === '°') {
+    puissanceUnite = 1
+    avantPuissanceUnite = '°'
+  }
   if (unite.indexOf('^') > 0) { // m² ou m³ et ses dérivées
     puissanceUnite = unite.split('^')[1]
     avantPuissanceUnite = unite.split('^')[0]

@@ -11,10 +11,11 @@ export const titre = 'Déterminer la forme canonique d\'un polynôme du second d
  * @author Stéphane Guyon
  * Référence 1E11
 */
+export const uuid = '60504'
+export const ref = '1E11-3'
 export default function Formacanonique () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Forme canonique : '
   this.nbQuestions = 4
   this.nbCols = 2
   this.nbColsCorr = 2
@@ -23,8 +24,9 @@ export default function Formacanonique () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.consigne = 'Déterminer la forme canonique ' + (this.nbQuestions === 1 ? 'du polynôme' : 'de chacun des polynômes') + ' $P$, défini pour tout $x \\in \\mathbb{R}$ par : '
     if (this.interactif) {
-      this.consigne += '<br> '
+      // this.consigne += '<br> '
     }
 
     for (let i = 0, texte, texteCorr, a, b, c, alpha, beta, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -35,7 +37,7 @@ export default function Formacanonique () {
       b = -2 * a * alpha
       c = a * alpha * alpha + beta
 
-      texte = `Déterminer la forme canonique du polynôme $P$, défini pour tout $x \\in \\mathbb{R}$ par $P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`
+      texte = `$P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`
       texteCorr = '<br>On sait que si le polynôme, sous forme développée, s\'écrit $P(x)=ax^2+bx+c,$'
       texteCorr += 'alors sa forme canonique est de la forme $P(x)=a(x-\\alpha)^2+\\beta$,'
 

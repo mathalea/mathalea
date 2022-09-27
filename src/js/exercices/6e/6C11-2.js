@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes2, texNombre, texteEnCouleurEtGras, rangeMinMax, combinaisonListes, choice, range, contraindreValeur, enleveElementNo, enleveElement } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes2, texNombre, texteEnCouleurEtGras, rangeMinMax, combinaisonListes, choice, range, contraindreValeur, enleveElementNo, enleveElement, numAlpha } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { max, min, mod } from 'mathjs'
@@ -20,6 +20,8 @@ export const dateDePublication = '25/10/2021'
  * @author Eric ELTER
  * Référence 6C11-2
  */
+export const uuid = '4e35d'
+export const ref = '6C11-2'
 export default function VocabulaireDivisionEuclidienne () {
   Exercice.call(this)
   this.titre = titre
@@ -67,6 +69,13 @@ export default function VocabulaireDivisionEuclidienne () {
           Nbutilises[3] = randint(4, min(Nbutilises[2], Nbutilises[1]) - 1)
           break
         default :
+          if (randint(0, 1) === 0) {
+            Nbutilises[2] = randint(4, Nbutilises[1] - 1)
+            Nbutilises[3] = randint(Nbutilises[2], Nbutilises[1] - 1)
+          } else {
+            Nbutilises[2] = randint(5, 99, [Nbutilises[1]])
+            Nbutilises[3] = randint(4, min(Nbutilises[2], Nbutilises[1]) - 1)
+          }
           Nbutilises[2] = randint(5, 99, [Nbutilises[1]])
           Nbutilises[3] = randint(4, max(Nbutilises[2], Nbutilises[1]) - 1, [min(Nbutilises[2], Nbutilises[1])])
           break
@@ -100,7 +109,7 @@ export default function VocabulaireDivisionEuclidienne () {
           texteCorr = `$${Nbutilises[3]}$ est inférieur à $${Nbutilises[1]}$ et à $${Nbutilises[2]}$ donc l'égalité ` + EgaliteDivEuclidienne + ' peut être associée à deux divisions euclidiennes différentes :<br>'
           TabCorrection[1] = `$${Nbutilises[1]}$ est le diviseur`
           TabCorrection[2] = `$${Nbutilises[2]}$ est le quotient`
-          texteCorr += ` 1. la division euclidienne de $ ${texNombre(Nbutilises[0])} $ par $ ${Nbutilises[1]} $. Alors, `
+          texteCorr += numAlpha(0) + `soit la division euclidienne de $ ${texNombre(Nbutilises[0])} $ par $ ${Nbutilises[1]} $. Alors, `
           for (let kk = 0; kk < 3; kk++) {
             texteCorr += kk === ChoixQuestions[i] ? texteEnCouleurEtGras(TabCorrection[kk]) : TabCorrection[kk]
             texteCorr += kk < 2 ? ', ' : ' et '
@@ -110,7 +119,7 @@ export default function VocabulaireDivisionEuclidienne () {
           TabCorrection[1] = `$${Nbutilises[1]}$ est le quotient`
           TabCorrection[2] = `$${Nbutilises[2]}$ est le diviseur`
           TabCorrection[ChoixQuestions[i]] = texteEnCouleurEtGras(TabCorrection[ChoixQuestions[i]])
-          texteCorr += ` 2. la division euclidienne de $ ${texNombre(Nbutilises[0])} $ par $ ${Nbutilises[2]} $. Alors, `
+          texteCorr += numAlpha(1) + `soit la division euclidienne de $ ${texNombre(Nbutilises[0])} $ par $ ${Nbutilises[2]} $. Alors, `
           for (let kk = 0; kk < 3; kk++) {
             texteCorr += kk === ChoixQuestions[i] ? texteEnCouleurEtGras(TabCorrection[kk]) : TabCorrection[kk]
             texteCorr += kk < 2 ? ', ' : ' et '
@@ -137,8 +146,8 @@ export default function VocabulaireDivisionEuclidienne () {
         }
       } else {
         texteCorr = `$${Nbutilises[3]}$ est inférieur à $${Nbutilises[2]}$ mais pas à $${Nbutilises[1]}$ donc l'égalité ` + EgaliteDivEuclidienne + ' est associée à'
-        TabCorrection[1] = `$${Nbutilises[1]}$ est le diviseur`
-        TabCorrection[2] = `$${Nbutilises[2]}$ est le quotient`
+        TabCorrection[2] = `$${Nbutilises[1]}$ est le diviseur`
+        TabCorrection[1] = `$${Nbutilises[2]}$ est le quotient`
         TabCorrection[ChoixQuestions[i]] = texteEnCouleurEtGras(TabCorrection[ChoixQuestions[i]])
         texteCorr += ` la division euclidienne de $ ${texNombre(Nbutilises[0])} $ par $ ${Nbutilises[2]} $. Alors, `
         for (let kk = 0; kk < 3; kk++) {
@@ -182,7 +191,7 @@ export default function VocabulaireDivisionEuclidienne () {
   ]
   this.besoinFormulaire4Numerique = [
     'Choix sur le nombre de divisions euclidiennes associées à chaque égalité',
-    2,
+    3,
     '1 : Une seule division euclidienne associée\n2 : Deux divisions euclidiennes associées\n3 : Mélange'
   ]
 }

@@ -1,11 +1,12 @@
-import { mathalea2d } from '../../modules/2d.js'
+
 import { homothetie3d, point3d, polygone3d, prisme3d, pyramide3d, pyramideTronquee3d, translation3d, vecteur3d } from '../../modules/3d.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { listeQuestionsToContenuSansNumero, randint, shuffle } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
-export const titre = 'Trouver le nombre de faces ou d\'arêtes d’un solide'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
+export const titre = 'Trouver le nombre de faces ou d\'arêtes d\'un solide'
 export const dateDePublication = '7/11/2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,6 +17,8 @@ export const amcType = 'AMCNum'
  * Créé le 3/11/2021
  * Référence can6G06
  */
+export const uuid = 'da6a4'
+export const ref = '6G44'
 export default function NombreDeFacesEtDAretes () {
   Exercice.call(this)
   this.nbQuestions = 4

@@ -3,11 +3,12 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { parse, create, all, unit } from 'mathjs'
 import { toString, aleaVariables, assignVariables, calculer, toTex, resoudre, aleaName } from '../../modules/outilsMathjs.js'
-import { GVGraphicView } from '../../modules/aleaFigure/GraphicView'
-import { GVGrandeur } from '../../modules/aleaFigure/grandeurs'
-import { GVLine, GVSegment, GVVector, GVPoint } from '../../modules/aleaFigure/elements'
-import { GVAleaThalesConfig } from '../../modules/aleaFigure/outilsThales'
-import { circularPermutation, name } from '../../modules/aleaFigure/outils'
+import { GVGraphicView } from '../../modules/aleaFigure/GraphicView.js'
+import { GVGrandeur } from '../../modules/aleaFigure/grandeurs.js'
+import { GVLine, GVSegment, GVVector, GVPoint } from '../../modules/aleaFigure/elements.js'
+import { GVAleaThalesConfig } from '../../modules/aleaFigure/outilsThales.js'
+import { circularPermutation, name } from '../../modules/aleaFigure/outils.js'
+import { colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 
 // eslint-disable-next-line no-debugger
 debugger
@@ -32,7 +33,7 @@ export const dateDePublication = '03/02/2022' // La date de publication initiale
  * @author Frédéric PIOU
  * Référence
 */
-export default function exercicesThales () {
+export default function ExercicesThales () {
   Exercice.call(this)
   const formulaire = [
     '1 : Angles marqués alternes-internes ou correspondants ?',
@@ -977,7 +978,7 @@ ${consigne[this.sup3 - 1]}` + '<br>' + graph
             }
             rectangles.push(sommets, graphic.addSidesPolygon(...sommets))
           }
-          rectangles.filter((x, i) => (i === 1 || i === 2 * aleaRectangle + 1)).map((y, j) => y.map(z => { z.color = 'blue'; return z }))
+          rectangles.filter((x, i) => (i === 1 || i === 2 * aleaRectangle + 1)).map((y, j) => y.map(z => { z.color = colorToLatexOrHTML('blue'); return z }))
           const cotesRectangles = rectangles.filter(x => x[0] instanceof GVSegment)
           const sommetsRectangles = rectangles.filter(x => x[0] instanceof GVPoint)
           const graph = graphic.getFigure(...sommetsRectangles, ...cotesRectangles, cotesRectangles[0], cotesRectangles[aleaRectangle])
@@ -1072,7 +1073,7 @@ Donc c'est la rotation de centre $${ABCD[1]}$ et d'angle $${angleSolution.toFixe
             }
             rectangles.push(sommets, graphic.addSidesPolygon(...sommets))
           }
-          rectangles.filter((x, i) => (i === 1 || i === 2 * rectangleImage + 1)).map((y, j) => y.map(z => { z.color = 'blue'; return z }))
+          rectangles.filter((x, i) => (i === 1 || i === 2 * rectangleImage + 1)).map((y, j) => y.map(z => { z.color = colorToLatexOrHTML('blue'); return z }))
           const cotesRectangles = rectangles.filter(x => x[0] instanceof GVSegment)
           const sommetsRectangles = rectangles.filter(x => x[0] instanceof GVPoint)
           const graph = graphic.getFigure(...sommetsRectangles, ...cotesRectangles, cotesRectangles[0], cotesRectangles[rectangleImage])

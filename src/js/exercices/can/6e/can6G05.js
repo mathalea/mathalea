@@ -1,6 +1,7 @@
-import { codeSegments, droite, labelPoint, mathalea2d, point, segment, segmentAvecExtremites, tracePointSurDroite } from '../../../modules/2d.js'
+import { codageSegments, droite, labelPoint, point, segment, segmentAvecExtremites, tracePointSurDroite } from '../../../modules/2d.js'
 import { calcul, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 export const titre = 'Résoudre un problème de longueurs (inverse)'
 export const dateDePublication = '2/11/2021'
 export const interactifReady = true
@@ -12,6 +13,8 @@ export const amcType = 'AMCNum'
  * Créé le 7/11/2021
  * Référence can6G04
  */
+export const uuid = '84be1'
+export const ref = 'can6G05'
 export default function ProblemesDeLongueursInverse () {
   Exercice.call(this)
   this.nbQuestions = 1
@@ -36,7 +39,7 @@ export default function ProblemesDeLongueursInverse () {
     }
     pointsSurAB[2 * (b - 2)].nom = 'C'
     pointsSurAB[2 * (b - 2)].positionLabel = 'below'
-    objets.push(codeSegments('//', 'red', A, ...pointsSurAB, B))
+    objets.push(codageSegments('//', 'red', A, ...pointsSurAB, B))
     const D = point((b - 1) * 16 / b, 2, 'D', 'above')
     const x = D.x
     const E = point(16, 2, 'E', 'above')
@@ -49,17 +52,15 @@ export default function ProblemesDeLongueursInverse () {
       pointsSurDE.push(point(x + i * l / a, 2), point(x + i * l / a, 2))
       objets.push(tracePointSurDroite(pointsSurDE[2 * (i - 1)], d))
     }
-    const s1 = segment(pointsSurAB[pointsSurAB.length - 1], D)
-    const s2 = segment(B, E)
+    const s1 = segment(pointsSurAB[pointsSurAB.length - 1], D, 'green')
+    const s2 = segment(B, E, 'green')
     s1.pointilles = 2
-    s1.color = 'green'
     s2.pointilles = 2
-    s2.color = 'green'
     const abc = calcul(a * b * c)
     const ac = calcul(a * c)
-    objets.push(labelPoint(F), codeSegments('O', 'blue', D, ...pointsSurDE, E), s1, s2)
+    objets.push(labelPoint(F), codageSegments('O', 'blue', D, ...pointsSurDE, E), s1, s2)
     this.question = `Sachant que $AB=${calcul(a * b * c)}$ cm et que $CB=DE$, détermine $FE$.<br>` + mathalea2d({ xmin: -0.5, ymin: -1, xmax: 16.5, ymax: 3.5, scale: 0.5, style: 'margin: auto' }, objets)
     this.reponse = c
-    this.correction = `Commme $CB=\\dfrac{AB}{${b}}$, alors $CB=\\dfrac{${abc}\\text{ cm}}{${b}}=${ac}$ cm.<br><br>Comme $DE=CB=${ac}$ cm et $FE=\\dfrac{DE}{${a}}$, alors $FE=\\dfrac{${ac}\\text{ cm}}{${a}}=${c}$ cm.`
+    this.correction = `Comme $CB=\\dfrac{AB}{${b}}$, alors $CB=\\dfrac{${abc}\\text{ cm}}{${b}}=${ac}$ cm.<br><br>Comme $DE=CB=${ac}$ cm et $FE=\\dfrac{DE}{${a}}$, alors $FE=\\dfrac{${ac}\\text{ cm}}{${a}}=${c}$ cm.`
   }
 }

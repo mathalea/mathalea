@@ -1,6 +1,6 @@
-import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
-import { calcul, choice, texteEnCouleur } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
+import { calcul, choice, texteEnCouleur } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Calculer la fraction d’entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -12,6 +12,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can5C12
  */
+export const uuid = 'e4b95'
+export const ref = 'can5C12'
 export default function FractionDEntierQuiVaBien () {
   Exercice.call(this)
   this.typeExercice = 'simple'

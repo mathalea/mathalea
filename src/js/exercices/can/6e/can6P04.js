@@ -1,5 +1,5 @@
-import { calcul, choice, randint, texNombre, texteEnCouleur } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { calcul, choice, randint, texNombre, texteEnCouleur } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Appliquer un pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6P04 Complété par des corrections de Gilles Mora
  */
+export const uuid = 'da0c1'
+export const ref = 'can6P04'
 export default function AppliquerUnPourcentage () {
   Exercice.call(this)
   this.typeExercice = 'simple'

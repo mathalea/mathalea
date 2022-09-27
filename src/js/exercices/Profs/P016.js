@@ -22,7 +22,6 @@ export default function SimulateurDes () {
 
   this.nouvelleVersion = function () {
     let liste = []; let texte
-    console.log(this.sup)
     if (!this.sup || isNaN(this.sup)) {
       liste = [6, 6]
     } else if (typeof this.sup === 'number') {

@@ -1,10 +1,12 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
+import Decimal from 'decimal.js/decimal.mjs'
 import {
-  mathalea2d, point, labelPoint, polygoneAvecNom, milieu, texteParPosition, polygone, codageAngleDroit
+  point, labelPoint, polygoneAvecNom, milieu, texteParPosition, polygone, codageAngleDroit
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, randint, texNombre, shuffle, simplificationDeFractionAvecEtapes, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombre, stringNombre, shuffle, simplificationDeFractionAvecEtapes, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
@@ -24,6 +26,8 @@ export const dateDePublication = '19/04/2022' // La date de publication initiale
 function compareNombres (a, b) {
   return a - b
 }
+export const uuid = '6a087'
+export const ref = 'can3a-2022'
 export default function SujetCAN2022troisieme () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -32,7 +36,12 @@ export default function SujetCAN2022troisieme () {
   this.nbQuestions = 30// 10,20,30
   this.nbCols = 1
   this.nbColsCorr = 1
-
+  this.comment = `Cet exercice fait partie des annales des Courses aux nombres.<br>
+  Il est composé de 30 questions réparties de la façon suivante :<br>
+  les 10 premières questions parfois communes à plusieurs niveaux font appels à des questions automatisées élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
+  Par défaut, les questions sont rangées dans le même ordre que le sujet officiel avec des données aléatoires. Ainsi, en cliquant sur « Nouvelles données », on obtient une nouvelle course aux nombres avec des données différentes.
+  En choisissant un nombre de questions différents de 30, on fabrique une « mini » course aux nombres qui respecte la proportion de nombre de questions élémentaires par rapport aux autres.
+  Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 questions automatisées élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -47,7 +56,7 @@ export default function SujetCAN2022troisieme () {
     ]
     const listeFractions11 = [[2, 3], [5, 8], [3, 5], [5, 6], [5, 7], [5, 9], [3, 7], [6, 7], [5, 4], [4, 5]
     ]
-    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, fraction23, poly, propositions, chiffre, chiffre2, u, moy, k1, k2, e, f, g, choix, a, b, c, d, p, k, A, B, C, D, I, J, K, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, fraction23, poly, propositions, chiffre, chiffre2, u, moy, a3, k1, k2, e, f, g, choix, a, b, c, d, p, k, A, B, C, D, I, J, K, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typeQuestionsDisponibles[i]) {
         case 1:
           a = randint(4, 9)
@@ -191,13 +200,17 @@ export default function SujetCAN2022troisieme () {
           u = randint(21, 99)
           a = randint(1, 9)
           c = randint(1, 9)
-          reponse = u + a * 0.1 + c * 0.001
+          a3 = new Decimal(a / 10).plus(c / 1000)
+          reponse = a3.plus(u)
+
           if (choice([true, false])) {
-            texte = `Ecrire sous forme décimale : $${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}$ `
-            texteCorr = `$${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}=${u}+${texNombre(a / 10, 1)}+${texNombre(c / 1000, 3)}=${texNombre(u + a / 10 + c / 1000, 3)}$`
+            texte = `Ecris sous forme décimale : $${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}$ `
+            texteCorr = `$${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}=${u}+${texNombre(a / 10, 1)}+${texNombre(c / 1000, 3)}=
+            ${texNombre(reponse, 3)}$`
           } else {
-            texte = `Ecrire sous forme décimale : $${u}+\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}$ `
-            texteCorr = `$${u}+\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}=${u}+${texNombre(c / 1000, 3)}+${texNombre(a / 10, 1)}=${texNombre(u + a / 10 + c / 1000, 3)}$
+            texte = `Ecris sous forme décimale : $${u}+\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}$ `
+            texteCorr = `$${u}+\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}=${u}+${texNombre(c / 1000, 3)}+${texNombre(a / 10, 1)}=
+            ${texNombre(reponse, 3)}$
              `
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -356,34 +369,36 @@ export default function SujetCAN2022troisieme () {
 
         case 14:
           if (choice([true, false])) {
-            a = randint(5, 99) / 10
-            b = randint(2, 9) * 5
-            c = 100 - b
-            texte = `$${b}\\times${texNombre(a, 1)} + ${texNombre(a, 1)}\\times${c}=$ 
+            a = new Decimal(randint(2, 9) + randint(1, 9) / 10)
+            b = randint(2, 9, 5)
+            c = 10 - b
+            texte = `$${b}\\times${texNombre(a, 1)} + ${texNombre(a, 1)}\\times${c}=$
+    `
+            texteCorr = ` On factorise : <br>     $\\begin{aligned}
+    ${b}\\times${texNombre(a, 1)} + ${texNombre(a, 1)}\\times${c}&=${texNombre(a, 1)}\\times \\underbrace{(${b}+${c})}_{=10}\\\\
+    &=${texNombre(a, 1)}\\times 10\\\\
+    &=${10 * a}
+    \\end{aligned}$`
+            reponse = a.mul(10)
+          } else {
+            a = new Decimal(randint(5, 99)).div(10)
+            b = new Decimal(randint(2, 9)).mul(5)
+            c = new Decimal(b.sub(100)).mul(-1)
+            texte = `$${texNombre(b, 0)}\\times${texNombre(a, 1)} + ${texNombre(a, 1)}\\times${c}=$
       `
             texteCorr = ` On factorise : <br>     $\\begin{aligned}
       ${b}\\times${texNombre(a, 1)} + ${texNombre(a, 1)}\\times${c}&=${texNombre(a, 1)}\\times \\underbrace{(${b}+${c})}_{=100}\\\\
       &=${texNombre(a, 1)}\\times 100\\\\
-      &=${100 * a}
+      &=${texNombre(100 * a, 0)}
       \\end{aligned}$`
-            reponse = 100 * a
-          } else {
-            a = randint(2, 9) + randint(1, 9) / 10
-            b = randint(2, 9, 5)
-            c = 10 - b
-            texte = `$${b}\\times${texNombre(a, 1)} + ${texNombre(a, 1)}\\times${c}=$ 
-      `
-            texteCorr = ` On factorise : <br>     $\\begin{aligned}
-      ${b}\\times${texNombre(a, 1)} + ${texNombre(a, 1)}\\times${c}&=${texNombre(a, 1)}\\times \\underbrace{(${b}+${c})}_{=10}\\\\
-      &=${texNombre(a, 1)}\\times 10\\\\
-      &=${10 * a}
-      \\end{aligned}$`
-            reponse = 10 * a
+            reponse = a.mul(100)
           }
+
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
           nbChamps = 1
           break
+
         case 15:
 
           moy = randint(10, 15)
@@ -415,21 +430,21 @@ export default function SujetCAN2022troisieme () {
           B = point(0, 4, 'B', 'above')
           C = point(6, 0, 'C', 'below')
           poly = polygone([A, B, C], 'black')
-          poly.couleurDeRemplissage = 'lightgray'
-          d = texteParPosition(`$${c} \\text{ cm}^2$`, 1.5, 1.5, 'milieu', 'black', 1, 'middle', false)
-          e = texteParPosition(`$${a} \\text{ cm}$`, -0.7, 2, 'milieu', 'black', 1, 'middle', false)
+          poly.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
+          d = texteParPosition(`${stringNombre(c)} cm²`, 1.5, 1.5)
+          e = texteParPosition(`${stringNombre(a)} cm`, -0.7, 2)
           poly.epaisseur = 1
           reponse = b
-          texte = '<br>'
+          texte = 'On donne la figure suivante :<br>'
 
-          texte += mathalea2d({ xmin: -1.5, ymin: -1, xmax: 7.1, ymax: 5, scale: 0.7 }, poly, labelPoint(A, B, C), codageAngleDroit(B, A, C), d, e)
+          texte += mathalea2d({ xmin: -1.5, ymin: -1, xmax: 7.1, ymax: 5, scale: 1 }, poly, labelPoint(A, B, C), codageAngleDroit(B, A, C), d, e)
           texteCorr = `L'aire du triangle est $\\dfrac{\\text{AB}\\times \\text{AC}}{2}=\\dfrac{${a}\\times \\text{AC}}{2}$.<br>
           On obtient ainsi,  $\\dfrac{${a}\\times \\text{AC}}{2}=${c}$ soit $${a}\\times AC=2\\times ${c}$, soit $AC=\\dfrac{${c * 2}}{${a}}=${reponse}$ cm.`
           texte += '<br> $AC= $'
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
-          } else { texte += '$\\ldots $ cm<br>' }
+          } else { texte += ' $\\ldots$ cm' }
           nbChamps = 1
           break
 
@@ -493,7 +508,7 @@ export default function SujetCAN2022troisieme () {
           break
 
         case 20:
-          a = randint(2, 9) + randint(2, 9) / 10 + randint(2, 9) / 100
+          a = new Decimal(((randint(1, 9) / 10 + randint(1, 9) / 100))).plus(randint(1, 9))
           b = choice([0.1, 0.01])
 
           reponse = a / b
@@ -511,15 +526,15 @@ export default function SujetCAN2022troisieme () {
         case 21:
           a = randint(3, 5) + randint(1, 9) / 10
           b = randint(6, 10) - a
-
+          c = b * 10
           A = point(0, 0, 'A', 'below')
           B = point(5, 1, 'B', 'below')
           C = point(6, 4, 'C', 'above')
           D = point(1, 3, 'D', 'above')
           poly = polygone([A, B, C, D], 'black')
           reponse = 2 * (a + b)
-          d = texteParPosition(`$${texNombre(a, 1)} \\text{ cm}$`, 6.2, 2, 'milieu', 'black', 1, 'middle', false)
-          e = texteParPosition(`$${texNombre(b * 10, 1)} \\text{ mm}$`, 3, 4, 'milieu', 'black', 1, 'middle', false)
+          d = texteParPosition(`${stringNombre(a)} cm`, 6.3, 2)
+          e = texteParPosition(`${stringNombre(c)} mm`, 3, 4)
           poly.epaisseur = 1
 
           texte = 'Périmètre du parallélogramme $ABCD$ :<br> '
@@ -642,7 +657,7 @@ export default function SujetCAN2022troisieme () {
             K = point(4, 0, 'K', 'below')
             J = point(0, 6, 'J', 'above')
 
-            xmin = -1
+            xmin = -1.6
             ymin = -1
             xmax = 4.5
             ymax = 6.8
@@ -650,8 +665,8 @@ export default function SujetCAN2022troisieme () {
             objets = []
             objets.push(poly[0])
             objets.push(
-              texteParPosition(`$${a} \\text{ cm}$`, milieu(I, K).x, milieu(I, K).y - 0.3, 'milieu', 'black', 1, 'middle', true)
-              , texteParPosition(`$${b} \\text{ cm}$`, milieu(J, K).x + 0.6, milieu(J, K).y, 'milieu', 'black', 1, 'middle', true)
+              texteParPosition(`${stringNombre(a)} cm`, milieu(I, K).x, milieu(I, K).y - 0.3)
+              , texteParPosition(`${stringNombre(b)} cm`, milieu(J, K).x + 0.7, milieu(J, K).y)
               , labelPoint(I, J, K), codageAngleDroit(J, I, K))
             propositions = shuffle([`$IJ=\\sqrt{${a ** 2 + b ** 2}}$`, `$IJ=\\sqrt{${b ** 2 - a ** 2}}$`, `$IJ=\\sqrt{${a + b}}$`, `$IJ=${b - a}$`])
 
@@ -670,7 +685,7 @@ export default function SujetCAN2022troisieme () {
             K = point(4, 0, 'I', 'below')
             J = point(0, 6, 'J', 'above')
 
-            xmin = -1.2
+            xmin = -1.6
             ymin = -1
             xmax = 4.5
             ymax = 6.8
@@ -678,8 +693,8 @@ export default function SujetCAN2022troisieme () {
             objets = []
             objets.push(poly[0])
             objets.push(
-              texteParPosition(`$${a} \\text{ cm}$`, milieu(I, K).x, milieu(I, K).y - 0.3, 'milieu', 'black', 1, 'middle', true)
-              , texteParPosition(`$${b} \\text{ cm}$`, milieu(J, I).x - 0.6, milieu(J, I).y, 'milieu', 'black', 1, 'middle', true)
+              texteParPosition(`${stringNombre(a)} cm`, milieu(I, K).x, milieu(I, K).y - 0.3)
+              , texteParPosition(`${stringNombre(b)} cm`, milieu(J, I).x - 0.8, milieu(J, I).y)
               , labelPoint(I, J, K), codageAngleDroit(J, I, K))
             propositions = shuffle([`$IJ=\\sqrt{${a ** 2 + b ** 2}}$`, `$IJ=\\sqrt{${b ** 2 - a ** 2}}$`, `$IJ=\\sqrt{${a + b}}$`, `$IJ=${b - a}$`])
 

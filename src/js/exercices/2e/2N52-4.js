@@ -1,13 +1,15 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, texteEnCouleur, texFractionSigne, texFractionReduite, reduireAxPlusB, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
-export const titre = 'Résoudre des équations se ramenant au produit-nul.'
+export const titre = 'Résoudre des équations se ramenant au produit-nul'
 
 /**
  * Résoudre des équations se ramenant au produit-nul
 * @author Stéphane Guyon
 * 2N52-4 (ex 2L12-2)
 */
+export const uuid = '93432'
+export const ref = '2N52-4'
 export default function Equationspresqueproduitnulle () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

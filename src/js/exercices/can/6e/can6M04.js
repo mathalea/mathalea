@@ -1,5 +1,5 @@
-import { calcul, choice, randint, texNombre, texteEnCouleur, texNombrec } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { calcul, choice, randint, texNombre, texteEnCouleur, texNombrec } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Convertir en tous sens'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6M04
  */
+export const uuid = 'c0bf1'
+export const ref = 'can6M04'
 export default function ConversionEnTousSens () {
   Exercice.call(this)
   this.typeExercice = 'simple'

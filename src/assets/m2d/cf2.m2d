@@ -1,10 +1,10 @@
 fenetreMathalea2d = [-3,-14,27,6]
 pixelsParCm = 30
-let f = x => Math.sin(x)+3 // La fonction sinus est définie par l'objet Math de JavaScript
-repere({ // On ouvre des crochets pour modifier l'objet de paramétrage du repère
-  xmin : 0, // On utilise les deux points et pas le "égal"
-  ymin : 0, // N'oubliez pas les virgules
-  legendeX : 'Durée (en minutes)', // Ajoute ce texte à la fin de l'axe des abscisses
-  legendeY : '' // Supprime le texte par défaut qui était 'y'
+const f = x => Math.sin(x)+3 // La fonction sinus est définie par l'objet Math de JavaScript
+const r = repere({ // On ouvre des crochets pour modifier l'objet de paramétrage du repère
+  xMin : 0, // On utilise les deux points et pas le "égal"
+  yMin : 0, // N'oubliez pas les virgules
+  xLegende : 'Durée (en minutes)', // Ajoute ce texte à la fin de l'axe des abscisses
+  yLegende : '' // Supprime le texte par défaut qui était 'y'
 })
-let c = courbe(f,0,10,'blue',5) // xmin = 0, xmax = 10, couleur bleue, épaisseur 5
+const c = courbe(f,{repere: r, xMin: 0, xMax: 10, color: 'blue', epaisseur: 1.5}) // xmin = 0, xmax = 10, couleur bleue, épaisseur 1.5

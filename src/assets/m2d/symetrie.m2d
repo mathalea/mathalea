@@ -5,9 +5,9 @@ let p = polygoneRegulierParCentreEtRayon(A,randint(2,5),choice([3,8]))
 let p2 = symetrieAxiale(p,d)
 symetrieAnimee(p,d)
 p.epaisseur = 2
-p.color = 'blue'
+p.color = colorToLatexOrHTML('blue')
 p2.epaisseur = 2
-p2.color = 'blue'
+p2.color = colorToLatexOrHTML('blue')
 d.epaisseur = 3
-d.color = 'red'
+d.color = colorToLatexOrHTML('red')
 texteParPoint('(d)',D,'droite')

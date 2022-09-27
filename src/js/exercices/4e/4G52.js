@@ -1,9 +1,10 @@
-import { labelPoint, mathalea2d, tracePoint } from '../../modules/2d.js'
+import { labelPoint, tracePoint } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { lettreDepuisChiffre, listeQuestionsToContenu, miseEnEvidence, randint } from '../../modules/outils.js'
 import { radians, sin } from '../../modules/fonctionsMaths.js'
 import { point3d, arete3d } from '../../modules/3d.js'
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 export const titre = 'Exercice de repérage dans un pavé droit'
 
 /**
@@ -12,10 +13,12 @@ export const titre = 'Exercice de repérage dans un pavé droit'
  * Référence 4G52
  * publié 9/06/2021
 */
+export const uuid = '9c916'
+export const ref = '4G52'
 export default function ReperagePaveDroit () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Placer les points sur le pavé ci-dessous dans le repère $\\bm{(A;I;J;K)}$ : '
+  this.consigne = 'Placer les points sur le pavé ci-dessous dans le repère $\\bm{(A;I;J;K)}$.'
   this.nbQuestions = 3
   this.nbQuestionsModifiable = false // à modifier si besoin
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
@@ -134,18 +137,17 @@ export default function ReperagePaveDroit () {
       texte = `Placer le point $${lettreDepuisChiffre(i + 12)}$ de coordonnées $(${pointCoord[0]};${pointCoord[1]};${pointCoord[2]})$.`
       pointAplacer = point3d(pointCoord[0] * deltax, pointCoord[1] * deltay, pointCoord[2] * deltaz, lettreDepuisChiffre(i + 12), `${lettreDepuisChiffre(i + 12)}`, 'below right')
       s1 = arete3d(A, point3d(pointAplacer.x, 0, 0), 'blue', true)
-      s2 = arete3d(point3d(pointAplacer.x, 0, 0), point3d(pointAplacer.x, pointAplacer.y, 0), 'orange', true)
+      s2 = arete3d(point3d(pointAplacer.x, 0, 0), point3d(pointAplacer.x, pointAplacer.y, 0), '#f15929', true)
       s3 = arete3d(point3d(pointAplacer.x, pointAplacer.y, 0), pointAplacer, 'red', true)
       s1.c2d.epaisseur = 3
       s2.c2d.epaisseur = 3
       s3.c2d.epaisseur = 3
-      t = tracePoint(pointAplacer)
+      t = tracePoint(pointAplacer, 'red')
       t.epaisseur = 2
-      t.color = 'red'
       t.taille = 6
       objetsAtracerCorr = [s1.c2d, s2.c2d, s3.c2d, t, labelPoint(pointAplacer)].concat(objetsAtracer)
       texteCorr = mathalea2d({ xmin: -1, xmax: 1 + largeur + profondeur * Math.cos(radians(context.anglePerspective)), ymin: -1, ymax: hauteur + profondeur * context.coeffPerspective * sin(context.anglePerspective), style: 'display: block; margin-top:20px;' }, objetsAtracerCorr)
-      texteCorr += `<br>$${lettreDepuisChiffre(i + 12)}$ de coordonnées $(${miseEnEvidence(pointCoord[0], 'blue')};${miseEnEvidence(pointCoord[1], 'orange')};${miseEnEvidence(pointCoord[2], 'red')})$.`
+      texteCorr += `<br>$${lettreDepuisChiffre(i + 12)}$ de coordonnées $(${miseEnEvidence(pointCoord[0], 'blue')};${miseEnEvidence(pointCoord[1], '#f15929')};${miseEnEvidence(pointCoord[2], 'red')})$.`
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

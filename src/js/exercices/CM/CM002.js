@@ -16,12 +16,14 @@ export const amcType = 'AMCNum' // Question numérique
  * @author Rémi Angot
 * Référence CM002
   */
+export const uuid = '77511'
+export const ref = 'CM002'
 export default function TablesDeDivisions (tablesParDefaut = '2-3-4-5-6-7-8-9') {
   // Diviser deux nombres
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = tablesParDefaut
   this.sup2 = 1 // classique|a_trous|melange
-  this.consigne = 'Calculer'
+  this.consigne = 'Calculer :'
   this.spacing = 2
   this.tailleDiaporama = 3
 

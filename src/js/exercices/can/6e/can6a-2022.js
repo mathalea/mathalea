@@ -1,14 +1,16 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  mathalea2d, point, grille, droiteGraduee2, segment, milieu, labelPoint, texteParPosition, codageAngleDroit
+  point, grille, droiteGraduee, segment, milieu, labelPoint, texteParPosition, codageAngleDroit
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 
-import { listeQuestionsToContenu, miseEnEvidence, randint, texNombre, shuffle, choice, sp, arrondi } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, miseEnEvidence, stringNombre, randint, texNombre, shuffle, choice, sp, arrondi } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import Grandeur from '../../../modules/Grandeur.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import Decimal from 'decimal.js'
 export const titre = 'CAN 6ième sujet 2022'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -25,6 +27,8 @@ export const dateDePublication = '13/04/2022' // La date de publication initiale
 function compareNombres (a, b) {
   return a - b
 }
+export const uuid = 'b9634'
+export const ref = 'can6a-2022'
 export default function SujetCAN2022Sixieme () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -33,7 +37,12 @@ export default function SujetCAN2022Sixieme () {
   this.nbQuestions = 30
   this.nbCols = 1
   this.nbColsCorr = 1
-
+  this.comment = `Cet exercice fait partie des annales des Courses aux nombres.<br>
+  Il est composé de 30 questions réparties de la façon suivante :<br>
+  les 10 premières questions parfois communes à plusieurs niveaux font appels à des questions automatisées élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
+  Par défaut, les questions sont rangées dans le même ordre que le sujet officiel avec des données aléatoires. Ainsi, en cliquant sur « Nouvelles données », on obtient une nouvelle course aux nombres avec des données différentes.
+  En choisissant un nombre de questions différents de 30, on fabrique une « mini » course aux nombres qui respecte la proportion de nombre de questions élémentaires par rapport aux autres.
+  Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 questions automatisées élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -121,7 +130,7 @@ export default function SujetCAN2022Sixieme () {
         case 6:
           a = randint(84, 100) // choix de la table = écart entre deux graduations
 
-          d = droiteGraduee2({
+          d = droiteGraduee({
             Unite: 0.5,
             Min: 81,
             Max: 105,
@@ -324,11 +333,11 @@ $${a + 1}$ h et $${reponse}$ min.`
           b = arrondi(randint(1, 9) + randint(1, 9) / 10 + 0.09 + randint(1, 9) / 1000, 3)
 
           if (choice([true, false])) {
-            texte = `Ajoute un dixième à $${texNombre(a)}$ ?`
+            texte = `Ajoute un dixième à $${texNombre(a)}$.`
             texteCorr = `$1$ dixième $=0,1$, d'où $${texNombre(a, 2)}+0,1 =${texNombre(a + 0.1, 2)}$`
             reponse = arrondi(a + 0.1, 2)
           } else {
-            texte = `Ajoute un centième à $${texNombre(b)}$ ?`
+            texte = `Ajoute un centième à $${texNombre(b)}$.`
             texteCorr = `$1$ centième $=0,01$, d'où $${texNombre(b, 3)}+0,01 =${texNombre(b + 0.01, 3)}$`
             reponse = arrondi(b + 0.01, 3)
           }
@@ -364,7 +373,7 @@ $${a + 1}$ h et $${reponse}$ min.`
         case 17:
           a = randint(7, 12) * 2 + 1
           b = randint(3, 6) * 2 + 1
-
+          c = new Decimal(a).div(2)
           A = point(0, 0, 'A', 'below')
           B = point(4, 0, 'B', 'below')
           C = point(4, 3, 'C', 'above')
@@ -379,9 +388,9 @@ $${a + 1}$ h et $${reponse}$ min.`
           ymax = 4
           objets = []
           objets.push(
-            texteParPosition(`$${texNombre(a / 2)} \\text{ cm}$`, milieu(A, B).x, milieu(A, B).y - 0.4, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${texNombre(a / 2)} \\text{ cm}$`, milieu(D, C).x, milieu(D, C).y + 0.4, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition('$\\text{?}$', milieu(B, C).x + 0.3, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`${stringNombre(c)} cm`, milieu(A, B).x, milieu(A, B).y - 0.5),
+            texteParPosition(`${stringNombre(c)} cm`, milieu(D, C).x, milieu(D, C).y + 0.5),
+            texteParPosition('?', milieu(B, C).x + 0.5, milieu(B, C).y),
             segment(A, B), segment(B, C), segment(C, D), segment(D, A), code1, code2, code3, code4)
           reponse = b / 2
           texte = `Le périmètre de cette figure est $${a + b}$ cm. <br>
@@ -492,7 +501,7 @@ $${a + 1}$ h et $${reponse}$ min.`
             ymax = 4
             objets = []
             objets.push(
-              texteParPosition('$\\text{1 unité}$', milieu(C, D).x, milieu(C, D).y + 0.4, 'milieu', 'black', 1, 'middle', true),
+              texteParPosition('1 unité', milieu(C, D).x, milieu(C, D).y + 0.5),
               a, s1, s2, labelPoint(A, B), point(A, B))
             reponse = fraction(b, 4)
             texte = `Quelle est la longueur du segment $[AB]$ ? <br>
@@ -518,7 +527,7 @@ $${a + 1}$ h et $${reponse}$ min.`
             ymax = 4
             objets = []
             objets.push(
-              texteParPosition('1 unité', milieu(C, D).x, milieu(C, D).y + 0.4, 'milieu', 'black', 1, 'middle', true),
+              texteParPosition('1 unité', milieu(C, D).x, milieu(C, D).y + 0.5),
               a, s1, s2, labelPoint(A, B), point(A, B))
             reponse = fraction(b, 5)
             texte = `Quelle est la longueur du segment $[AB]$ ? <br>
@@ -610,7 +619,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           if (choice([true, false])) {
             a = choice([1, 2, 3, 4, 6, 7, 8, 9]) // numérateur
             reponse = arrondi(a / 5, 1)
-            texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee2({
+            texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee({
               Unite: 3,
               Min: 0,
               Max: 3.2,
@@ -631,7 +640,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           } else {
             a = choice([1, 3, 5, 7, 9]) // numérateur
             reponse = arrondi(a / 4, 2)
-            texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee2({
+            texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee({
               Unite: 3,
               Min: 0,
               Max: 3.2,

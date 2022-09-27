@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
-import { pointAdistance, point, mathalea2d, arc, codeSegments, rotation, afficheLongueurSegment } from '../../modules/2d.js'
+import { pointAdistance, point, arc, codageSegments, rotation, afficheLongueurSegment } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, arrondi, texNombre, calcul } from '../../modules/outils.js'
 
@@ -15,6 +16,8 @@ export const titre = 'Calculer périmètre et aire de portions de cercles/disque
  * @author Rémi Angot
  * Rééférence 6M22-2
  */
+export const uuid = 'ff386'
+export const ref = '6M22-2'
 export default function Perimetre_aire_et_portions_de_disques (pa = 3) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -65,7 +68,7 @@ export default function Perimetre_aire_et_portions_de_disques (pa = 3) {
       demiDisque = arc(A2, C2, 180, true, 'white', 'black', 0.2)
       troisQuartDeDisque = arc(A3, C3, 270, true, 'white', 'black', 0.2)
       objetsEnonce.push(quartDeDisque, demiDisque, troisQuartDeDisque,
-        codeSegments('//', 'blue', A1, C1, C1, B1), codeSegments('O', 'green', A3, C3, C3, B3),
+        codageSegments('//', 'blue', A1, C1, C1, B1), codageSegments('O', 'green', A3, C3, C3, B3),
         afficheLongueurSegment(A1, C1), afficheLongueurSegment(A2, B2), afficheLongueurSegment(A3, C3))
 
       if (this.sup === 1) {
@@ -138,7 +141,7 @@ export default function Perimetre_aire_et_portions_de_disques (pa = 3) {
       demiDisque = arc(A3, C3, -180, true, 'white', 'black', 0.2)
       troisQuartDeDisque = arc(A2, C2, 270, true, 'white', 'black', 0.2)
       objetsEnonce.push(quartDeDisque, demiDisque, troisQuartDeDisque,
-        codeSegments('//', 'blue', A1, C1, C1, B1), codeSegments('O', 'green', A2, C2, C2, B2),
+        codageSegments('//', 'blue', A1, C1, C1, B1), codageSegments('O', 'green', A2, C2, C2, B2),
         afficheLongueurSegment(A1, C1), afficheLongueurSegment(B3, A3), afficheLongueurSegment(A2, C2))
       texteCorr = `La première figure est un quart de cercle de rayon ${r} cm auquel il faut ajouter les 2 rayons qui ferment la figure.<br>`
 

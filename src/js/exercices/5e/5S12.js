@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
-import { egalOuApprox, premiereLettreEnMajuscule, listeQuestionsToContenuSansNumero, texcolors, arrondiVirgule, texFraction, combinaisonListes, tableauColonneLigne, choice, randint, rangeMinMax } from '../../modules/outils.js'
-import { traceGraphiqueCartesien, segment, mathalea2d, arc, point, rotation, motifs, tracePoint, vecteur, translation, carre, texteParPosition, repere2, traceBarre, cercleCentrePoint } from '../../modules/2d.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { egalOuApprox, premiereLettreEnMajuscule, listeQuestionsToContenuSansNumero, texcolors, texNombre, texFraction, combinaisonListes, tableauColonneLigne, choice, randint, rangeMinMax } from '../../modules/outils.js'
+import { traceGraphiqueCartesien, segment, arc, point, rotation, motifs, tracePoint, vecteur, translation, carre, texteParPosition, repere, traceBarre, cercleCentrePoint } from '../../modules/2d.js'
 
 export const dateDePublication = '20/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModificationImportante = '17/04/2022'
@@ -10,6 +11,8 @@ export const titre = 'Représenter des données par un diagramme'
  * @author Mickael Guironnet - Jean-Claude Lhote
  * Référence 5S12
  */
+export const uuid = 'd3ca7'
+export const ref = '5S12'
 export default function ConstruireUnDiagramme () {
   'use strict'
   Exercice.call(this)
@@ -54,7 +57,7 @@ export default function ConstruireUnDiagramme () {
     const lstNomParc = ['Dramve', 'Fatenmin', 'Batderfa', 'Vihi', 'Genser', 'Barbetdou', 'Dramrendu', 'Secai', 'Cipeudram', 'Cigel', 'Lisino', 'Fohenlan',
       'Farnfoss', 'Kinecardine', 'Zeffari', 'Barmwich', 'Swadlincote', 'Swordbreak', 'Loshull', 'Ruyron', 'Fluasall', 'Blueross', 'Vlane']
 
-    texte = 'Dans le parc naturel de ' + choice(lstNomParc) + ', il y a beaucoup d’animaux.<br> Voici un tableau qui donne le nombre d’individus de quelques espèces.<br><br>'
+    texte = 'Dans le parc naturel de ' + choice(lstNomParc) + ', il y a beaucoup d\'animaux.<br> Voici un tableau qui donne le nombre d\'individus de quelques espèces.<br><br>'
     texteCorr = ''
     const entete = ['\\text{Animaux}']
     let contenutableau, A, B, T, angle, a, legende, textelegende, hachures, a0, t, alpha
@@ -115,7 +118,7 @@ export default function ConstruireUnDiagramme () {
         }
         contenutableau.push(effectiftotal)
         for (let i = 0; i < nbAnimaux; i++) {
-          contenutableau.push(texFraction(lstNombresAnimaux[i], effectiftotal) + egalOuApprox(lstNombresAnimaux[i] / effectiftotal, 2) + arrondiVirgule(lstNombresAnimaux[i] / effectiftotal, 2))
+          contenutableau.push(texFraction(lstNombresAnimaux[i], effectiftotal) + egalOuApprox(lstNombresAnimaux[i] / effectiftotal, 2) + texNombre(lstNombresAnimaux[i] / effectiftotal, 2))
         }
         contenutableau.push('1')
         for (let i = 0; i < nbAnimaux; i++) {
@@ -143,7 +146,7 @@ export default function ConstruireUnDiagramme () {
           a = arc(rotation(B, A, alpha), A, angle, true, texcolors(i + 1), 'black', 0.7)
           hachures = motifs(listeMotifs[i])
           a.hachures = hachures
-          a.couleurDeRemplissage = texcolors(i + 1)
+          a.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i + 1))
           a.couleurDesHachures = a.couleurDeRemplissage
           objetsCorrection.push(a)
           alpha += angle
@@ -169,7 +172,7 @@ export default function ConstruireUnDiagramme () {
         }
         contenutableau.push(effectiftotal)
         for (let i = 0; i < nbAnimaux; i++) {
-          contenutableau.push(texFraction(lstNombresAnimaux[i], effectiftotal) + egalOuApprox(lstNombresAnimaux[i] / effectiftotal, 2) + arrondiVirgule(lstNombresAnimaux[i] / effectiftotal, 2))
+          contenutableau.push(texFraction(lstNombresAnimaux[i], effectiftotal) + egalOuApprox(lstNombresAnimaux[i] / effectiftotal, 2) + texNombre(lstNombresAnimaux[i] / effectiftotal, 2))
         }
         contenutableau.push('1')
         for (let i = 0; i < nbAnimaux; i++) {
@@ -196,7 +199,7 @@ export default function ConstruireUnDiagramme () {
           a = arc(rotation(B, A, alpha), A, angle, true, texcolors(i + 1), 'black', 0.7)
           hachures = motifs(listeMotifs[i])
           a.hachures = hachures
-          a.couleurDeRemplissage = texcolors(i + 1)
+          a.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i + 1))
           a.couleurDesHachures = a.couleurDeRemplissage
           objetsCorrection.push(a)
           alpha += angle
@@ -223,7 +226,7 @@ export default function ConstruireUnDiagramme () {
             coef = 10
             break
         }
-        r = repere2({
+        r = repere({
           grilleX: false,
           grilleY: 'pointilles',
           xThickListe: [],
@@ -260,7 +263,7 @@ export default function ConstruireUnDiagramme () {
             coef = 10
             break
         }
-        r = repere2({
+        r = repere({
           grilleX: false,
           grilleY: 'pointilles',
           xThickListe: [],
@@ -293,7 +296,7 @@ export default function ConstruireUnDiagramme () {
         objetsCorrection.push(r, g)
 
         paramsEnonce = { xmin: -6.5, ymin: 0, xmax: 6.5, ymax: 0, pixelsParCm: 20, scale: 1, mainlevee: false }
-        paramsCorrection = { xmin: -6.5, ymin: -3, xmax: 20, ymax: 7, pixelsParCm: 20, scale: 1, mainlevee: false }
+        paramsCorrection = { xmin: -6.5, ymin: -3, xmax: 20, ymax: 8, pixelsParCm: 20, scale: 1, mainlevee: false }
 
         break
     }

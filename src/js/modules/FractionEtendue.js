@@ -1,7 +1,8 @@
-import { arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarree, fractionSimplifiee, listeDiviseurs, pgcd, nombreDeChiffresDansLaPartieDecimale, calcul, miseEnEvidence, ecritureParentheseSiNegatif, signeMoinsEnEvidence } from './outils.js'
+import { arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarree, fractionSimplifiee, listeDiviseurs, pgcd, nombreDeChiffresDansLaPartieDecimale, calcul, miseEnEvidence, ecritureParentheseSiNegatif, signeMoinsEnEvidence, texNombre, egal } from './outils.js'
 import { point, vecteur, segment, carre, cercle, arc, translation, rotation, texteParPosition } from './2d.js'
 import { Fraction, equal, largerEq, subtract, add, abs, multiply, gcd, larger, smaller, round, lcm, max, min, pow } from 'mathjs'
 import { fraction } from './fractions.js'
+import { colorToLatexOrHTML } from './2dGeneralites.js'
 
 // Fonction écrite par Daniel Caillibaud pour créer ajouter les propriétés à la première utilisation de celles-ci.
 const definePropRo = (obj, prop, get) => {
@@ -185,7 +186,7 @@ export default class FractionX extends Fraction {
      */
     let texFraction // num/den mais sans traitement des signes des numérateur et dénominateur
     definePropRo(this, 'texFraction', () => {
-      if (!texFraction) texFraction = `\\dfrac{${this.num}}{${this.den}}`
+      if (!texFraction) texFraction = this.den === 1 ? `${texNombre(this.num)}` : `\\dfrac{${texNombre(this.num)}}{${texNombre(this.den)}}`
       return texFraction
     })
 
@@ -207,7 +208,7 @@ export default class FractionX extends Fraction {
        */
     let texFSD
     definePropRo(this, 'texFSD', () => {
-      if (!texFSD) texFSD = this.s === -1 ? Math.abs(this.den) === 1 ? '-' + String(Math.abs(this.num)) : `-\\dfrac{${Math.abs(this.num)}}{${Math.abs(this.den)}}` : Math.abs(this.den) === 1 ? String(Math.abs(this.num)) : `\\dfrac{${Math.abs(this.num)}}{${Math.abs(this.den)}}`
+      if (!texFSD) texFSD = this.s === -1 ? Math.abs(this.den) === 1 ? '-' + String(texNombre(Math.abs(this.num))) : `-\\dfrac{${texNombre(Math.abs(this.num))}}{${texNombre(Math.abs(this.den))}}` : Math.abs(this.den) === 1 ? String(texNombre(Math.abs(this.num))) : `\\dfrac{${texNombre(Math.abs(this.num))}}{${texNombre(Math.abs(this.den))}}`
       return texFSD
     })
 
@@ -224,7 +225,7 @@ export default class FractionX extends Fraction {
     })
 
     /**
-     * n/d si positif, (- n/d) sinon
+     * num/den si positif, (- num/den) sinon
      * @property texFSP littéralement texFractionSigneParentheses
      * @type {string}
      */
@@ -309,7 +310,7 @@ export default class FractionX extends Fraction {
  */
     let estIrreductible
     definePropRo(this, 'estIrreductible', () => {
-      if (!estIrreductible) estIrreductible = gcd(this.num, this.den) === 1
+      if (!estIrreductible) estIrreductible = gcd(this.num, this.den) === 1 && this.den !== 1
       return estIrreductible
     })
 
@@ -460,9 +461,20 @@ export default class FractionX extends Fraction {
 
   /**
   * @param {FractionX | Fraction | nombre} f2
-  * @returns f * FractionX  // retourne un résultat simplifié
+  * @returns f * FractionX  // retourne un non résultat simplifié
   */
-  produitFraction (f2) { return fraction(multiply(this, f2)) }
+  produitFraction (f2) {
+    if (f2 instanceof FractionX) {
+      return new FractionX(this.num * f2.num, this.den * f2.den)
+    } else if (f2 instanceof Fraction) {
+      return new FractionX(this.num * f2.d * f2.s, this.den * f2.d)
+    } else if (typeof f2 === 'number') {
+      return new FractionX(this.num * f2, this.den)
+    } else {
+      window.notify('FractionX.produitFraction() a reçu un argument bizarre', { f2 })
+      return null
+    }
+  }
 
   /**
   * @param  {...any} fractions
@@ -476,12 +488,36 @@ export default class FractionX extends Fraction {
     return s.simplifie()
   }
 
-  /*
+  /**
     * @param {Fraction} f2 la fraction qui multiplie.
+    *  @param {string} simplification true si on veut afficher la simplification par décomposition false si on veut celle par le pgcd et 'none' si on ne veut pas simplifier
     * @return {string} Le calcul du produit de deux fractions avec étape intermédiaire
     */
-  texProduitFraction (f2) {
-    return `${this.texFraction}\\times ${f2.texFraction}=\\dfrac{${this.num + '\\times' + f2.num}}{${this.den + '\\times' + f2.den}}=\\dfrac{${this.num * f2.num}}{${this.den * f2.den}}`
+  texProduitFraction (f2, simplification = 'none') {
+    return `${this.texFraction}\\times ${f2.texFSP}=\\dfrac{${this.num + '\\times' + ecritureParentheseSiNegatif(f2.num)}}{${this.den + '\\times' + ecritureParentheseSiNegatif(f2.den)}}
+    ${simplification === 'none'
+    ? '=\\dfrac{' + this.num * f2.num + '}{' + this.den * f2.den + '}'
+    : '=' + this.produitFraction(f2).texFraction + this.produitFraction(f2).texSimplificationAvecEtapes(simplification)}`
+  }
+
+  /**
+  * @param {FractionX} f2 la fraction qui multiplie.
+  * @param {string} simplification true si on veut afficher la simplification par décomposition false si on veut celle par le pgcd et 'none' si on ne veut pas simplifier
+  *  @param {string} symbole '/' pour la forme fractionnaire de la division, ':' ou autre chose pour l'obèle
+  * @return {string} Le calcul du produit de deux fractions avec étape intermédiaire
+  */
+  texDiviseFraction (f2, simplification = 'none', symbole = '/') {
+    if (symbole === '/') {
+      return `\\dfrac{${this.texFraction}}{${f2.texFraction}}=${this.texFraction}\\times${f2.inverse().texFraction}=\\dfrac{${this.num + '\\times' + ecritureParentheseSiNegatif(f2.den)}}{${this.den + '\\times' + ecritureParentheseSiNegatif(f2.num)}}
+      ${simplification === 'none'
+      ? '=\\dfrac{' + this.num * f2.den + '}{' + this.den * f2.num + '}' + '=' + this.diviseFraction(f2).texFraction
+      : '=' + this.diviseFraction(f2).texFraction + this.diviseFraction(f2).texSimplificationAvecEtapes(simplification)}`
+    } else {
+      return `${this.texFraction}\\div${f2.texFraction}=${this.texFraction}\\times${f2.inverse().texFraction}=\\dfrac{${this.num + '\\times' + f2.den}}{${this.den + '\\times' + f2.num}}
+      ${simplification === 'none'
+      ? '=\\dfrac{' + this.num * f2.den + '}{' + this.den * f2.num + '}' + '=' + this.diviseFraction(f2).texFraction
+      : '=' + this.diviseFraction(f2).texFraction + this.diviseFraction(f2).texSimplificationAvecEtapes(simplification)}`
+    }
   }
 
   /**
@@ -497,7 +533,7 @@ export default class FractionX extends Fraction {
   */
   inverse () {
     const f = this
-    if (this.n !== 0) return fraction(this.den, this.num)
+    if (this.n !== 0) return new FractionX(this.den, this.num)
     else {
       window.notify('FractionX.inverse() : division par zéro', { f })
       return NaN
@@ -510,7 +546,7 @@ export default class FractionX extends Fraction {
     * @return {Fraction} f/f2
     */
   diviseFraction (f2) {
-    if (['Fraction', 'FractionX'].indexOf(f2.type) !== -1) {
+    if (['Fraction', 'FractionX'].indexOf(f2.type) === -1) {
       window.notify('FractionX.diviseFraction() : l\'argument n\'est pas une fraction', { f2 })
       if (!Number().isNaN(f2)) return this.multiplieEntier(1 / f2)
       else window.notify('FractionX.diviseFraction() : l\'argument n\'est pas un nombre', { f2 })
@@ -537,19 +573,88 @@ export default class FractionX extends Fraction {
   /**
  * Si la fraction est réductible, retourne une suite d'égalités permettant d'obtenir la fraction irréductible
  */
-  texSimplificationAvecEtapes () {
+  texSimplificationAvecEtapes (factorisation = false) {
     if (this.estIrreductible && this.num > 0 && this.den > 0) return '' // irreductible et positifs
-    else if (this.estIrreductible && this.num * this.den > 0) { // irréductible mais négatifs
+    else if (this.estIrreductible && this.num * this.den < 0) { // irréductible mais négatifs
       return `=${this.texFSD}`
     } else {
-      const signe = this.signe === -1 ? '-' : ''
-      const num = Math.abs(this.num)
-      const den = Math.abs(this.den)
-      const pgcd = gcd(num, den)
-      if (pgcd !== 1) {
-        return `=${signe}\\dfrac{${num / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))} }{${den / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))}}=${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
+      if (factorisation) {
+        const signe = this.signe === -1 ? '-' : ''
+        const num = Math.abs(this.num)
+        const den = Math.abs(this.den)
+        const listenum = obtenirListeFacteursPremiers(num)
+        const listeden = obtenirListeFacteursPremiers(den)
+        let result = '='
+        const listeNumvf = []
+        const listeDenvf = []
+        listenum.forEach(function aAjouterDansListeAvf (element) {
+          listeNumvf.push([element, true])
+        })
+        listeden.forEach(function aAjouterDansListeBvf (element) {
+          listeDenvf.push([element, true])
+        })
+
+        for (let index = 0; index < listeden.length;) {
+          for (let j = 0; j <= listenum.length;) {
+            if (listeden[index] === listenum[j]) {
+              listeDenvf[index] = [listeden[index], false]
+              listeNumvf[j] = [listenum[j], false]
+              listenum[j] = 1
+              listeden[index] = 1
+              break
+            }
+            j++
+          }
+          index++
+        }
+
+        let a = 1
+        let b = 1
+        for (const k of listenum) {
+          a = a * k
+        }
+        for (const k of listeden) {
+          b = b * k
+        }
+
+        let numerateur = ''
+        let denominateur = ''
+
+        for (const j in listeNumvf) {
+          if (listeNumvf[j][1] === true) {
+            numerateur += listeNumvf[j][0] + '\\times'
+          } else {
+            numerateur += '\\cancel{' + listeNumvf[j][0] + '}\\times'
+          }
+        }
+        numerateur = numerateur.substring(0, numerateur.length - 6)
+
+        for (const j in listeDenvf) {
+          if (listeDenvf[j][1] === true) {
+            denominateur += listeDenvf[j][0] + '\\times'
+          } else {
+            denominateur += '\\cancel{' + listeDenvf[j][0] + '}\\times'
+          }
+        }
+        denominateur = denominateur.substring(0, denominateur.length - 6)
+
+        result += `${signe}\\dfrac{${numerateur}}{${denominateur}}`
+        result += `=${signe}${new FractionX(a, b).simplifie().texFraction}`
+        return result
       } else {
-        return `=${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
+        const signe = this.signe === -1 ? '-' : ''
+        const num = Math.abs(this.num)
+        const den = Math.abs(this.den)
+        const pgcd = gcd(num, den)
+        if (pgcd !== 1) {
+          let redaction = `=${signe}\\dfrac{${num / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))} }{${den / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))}}=`
+          if (Math.abs(den / pgcd) !== 1) redaction += `${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
+          else redaction += `${signe}${Math.abs(num / pgcd)}`
+          return redaction
+        } else {
+          if (!egal(Math.abs(den / pgcd), 1)) return `=${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
+          else return `=${signe}${Math.abs(num / pgcd)}`
+        }
       }
     }
   }
@@ -686,8 +791,7 @@ export default class FractionX extends Fraction {
     const unegraduation = function (x, y, couleur = 'black', epaisseur = 1) {
       const A = point(x, y + 0.2)
       const B = point(x, y - 0.2)
-      const g = segment(A, B)
-      g.color = couleur
+      const g = segment(A, B, couleur)
       g.epaisseur = epaisseur
       return g
     }
@@ -737,8 +841,7 @@ export default class FractionX extends Fraction {
           s.styleExtremites = '|-'
           objets.push(s)
         }
-        a = segment(O, point(O.x + Math.min(num, this.denIrred) * rayon / this.denIrred, O.y))
-        a.color = couleur
+        a = segment(O, point(O.x + Math.min(num, this.denIrred) * rayon / this.denIrred, O.y), couleur)
         a.opacite = 0.4
         a.epaisseur = 6
         objets.push(a)
@@ -754,8 +857,7 @@ export default class FractionX extends Fraction {
         s.styleExtremites = '|-'
         objets.push(s)
       }
-      a = segment(O, point(O.x + Math.min(this.numIrred, this.denIrred) * rayon / this.denIrred, O.y))
-      a.color = couleur
+      a = segment(O, point(O.x + Math.min(this.numIrred, this.denIrred) * rayon / this.denIrred, O.y), couleur)
       a.opacite = 0.4
       a.epaisseur = 6
       objets.push(a)
@@ -778,9 +880,9 @@ export default class FractionX extends Fraction {
           for (let h = 0; h < arrondi(this.denIrred / diviseur); h++) {
             O = point(x + k * (rayon + 1) + j * rayon / diviseur, y + h * rayon / diviseur)
             C = translation(O, vecteur(rayon / diviseur, 0))
-            dep = carre(O, C)
-            dep.color = 'black'
-            dep.couleurDeRemplissage = couleur
+            dep = carre(O, C, 'black')
+
+            dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
             dep.opaciteDeRemplissage = 0.4
             objets.push(dep)
           }
@@ -792,17 +894,17 @@ export default class FractionX extends Fraction {
           for (let h = 0; h < arrondi(this.denIrred / diviseur); h++) {
             O = point(x + k * (rayon + 1) + j * rayon / diviseur, y + h * rayon / diviseur)
             C = translation(O, vecteur(rayon / diviseur, 0))
-            dep = carre(O, C)
-            dep.color = 'black'
+            dep = carre(O, C, 'black')
+
             objets.push(dep)
           }
         }
         for (let i = 0; i < num; i++) {
           O = point(x + k * (rayon + 1) + (i % diviseur) * rayon / diviseur, y + quotientier(i, diviseur) * rayon / diviseur)
           C = translation(O, vecteur(rayon / diviseur, 0))
-          dep = carre(O, C)
-          dep.color = 'black'
-          dep.couleurDeRemplissage = couleur
+          dep = carre(O, C, 'black')
+
+          dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
           dep.opaciteDeRemplissage = 0.4
           objets.push(dep)
         }
@@ -833,8 +935,7 @@ export default class FractionX extends Fraction {
     const unegraduation = function (x, y, couleur = 'black', epaisseur = 1) {
       const A = point(x, y + 0.2)
       const B = point(x, y - 0.2)
-      const g = segment(A, B)
-      g.color = couleur
+      const g = segment(A, B, couleur)
       g.epaisseur = epaisseur
       return g
     }
@@ -888,8 +989,7 @@ export default class FractionX extends Fraction {
           s.styleExtremites = '|-'
           objets.push(s)
         }
-        a = segment(O, point(O.x + Math.min(num, this.den) * rayon / this.den, O.y))
-        a.color = couleur
+        a = segment(O, point(O.x + Math.min(num, this.den) * rayon / this.den, O.y), couleur)
         a.opacite = 0.4
         a.epaisseur = 6
         objets.push(a)
@@ -905,8 +1005,7 @@ export default class FractionX extends Fraction {
         s.styleExtremites = '|-'
         objets.push(s)
       }
-      a = segment(O, point(O.x + Math.min(num, this.den) * rayon / this.den, O.y))
-      a.color = couleur
+      a = segment(O, point(O.x + Math.min(num, this.den) * rayon / this.den, O.y), couleur)
       a.opacite = 0.4
       a.epaisseur = 6
       objets.push(a)
@@ -929,9 +1028,9 @@ export default class FractionX extends Fraction {
           for (let h = 0; h < arrondi(this.den / diviseur); h++) {
             O = point(x + k * (rayon + 1) + j * rayon / diviseur, y + h * rayon / diviseur)
             C = translation(O, vecteur(rayon / diviseur, 0))
-            dep = carre(O, C)
-            dep.color = 'black'
-            dep.couleurDeRemplissage = couleur
+            dep = carre(O, C, 'black')
+
+            dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
             dep.opaciteDeRemplissage = 0.4
             objets.push(dep)
           }
@@ -943,17 +1042,17 @@ export default class FractionX extends Fraction {
           for (let h = 0; h < arrondi(this.den / diviseur); h++) {
             O = point(x + k * (rayon + 1) + j * rayon / diviseur, y + h * rayon / diviseur)
             C = translation(O, vecteur(rayon / diviseur, 0))
-            dep = carre(O, C)
-            dep.color = 'black'
+            dep = carre(O, C, 'black')
+
             objets.push(dep)
           }
         }
         for (let i = 0; i < num; i++) {
           O = point(x + k * (rayon + 1) + (i % diviseur) * rayon / diviseur, y + quotientier(i, diviseur) * rayon / diviseur)
           C = translation(O, vecteur(rayon / diviseur, 0))
-          dep = carre(O, C)
-          dep.color = 'black'
-          dep.couleurDeRemplissage = couleur
+          dep = carre(O, C, 'black')
+
+          dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
           dep.opaciteDeRemplissage = 0.4
           objets.push(dep)
         }

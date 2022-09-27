@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, calcul, choice, texNombrec, abs, ecritureParentheseSiNegatif, sp } from '../../../modules/outils.js'
-export const titre = 'Calculer avec  des puissances'
+export const titre = 'Calculer avec  des puissances*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -12,6 +12,8 @@ export const amcType = 'AMCNum'
  * Référence can2C03
  * Date de publication
 */
+export const uuid = 'b1517'
+export const ref = 'can2C03'
 export default function CalculPuissance1 () {
   Exercice.call(this)
   this.typeExercice = 'simple'

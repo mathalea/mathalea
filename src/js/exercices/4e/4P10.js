@@ -1,13 +1,15 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texteExposant, arrondi, arrondiVirgule, texFractionReduite, produitsEnCroix, quatriemeProportionnelle, calcul, texNombrec, prenomF, prenom, texNombre, nombreAvecEspace, miseEnEvidence, texPrix, katexPopup2, numAlpha, contraindreValeur } from '../../modules/outils.js'
-export const titre = 'Résoudre des problèmes de grandeurs composées et de conversion d’unités complexes'
+import { listeQuestionsToContenu, randint, combinaisonListes, texteExposant, arrondi, texFractionReduite, produitsEnCroix, quatriemeProportionnelle, calcul, texNombrec, prenomF, prenom, texNombre, nombreAvecEspace, miseEnEvidence, texPrix, katexPopup2, numAlpha, contraindreValeur } from '../../modules/outils.js'
+export const titre = 'Résoudre des problèmes de grandeurs composées et de conversion d\'unités complexes'
 
 /**
  * problèmes de grandeurs composées
  * @author Jean-Claude Lhote
  * Référence : 4P10
  */
+export const uuid = '72c5a'
+export const ref = '4P10'
 export default function ProblemesGrandeursComposees () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -110,7 +112,7 @@ export default function ProblemesGrandeursComposees () {
     ]
     const fruits = [
       ['pêches', 4, 10, 30],
-      ['Noix', 5.4, 4, 13],
+      ['noix', 5.4, 4, 13],
       ['cerises', 5.6, 11, 20],
       ['pommes', 2.2, 20, 40],
       ['framboises', 15, 1, 5],
@@ -202,7 +204,7 @@ export default function ProblemesGrandeursComposees () {
               typeAide,
               'énergie',
               'Définition : énergie (grandeur physique)',
-              'C’est le produit de la puissance électrique (Watt) par le temps (s) et se mesure en Joule (J).<br>1 J=1 W × 1 s.<br>Cependant pour mesurer des énergies plus importantes on utilise plutôt le kiloWattheure (kWh).<br>1 kWh=1000 W × 1 h.'
+              'C\'est le produit de la puissance électrique (Watt) par le temps (s) et se mesure en Joule (J).<br>1 J=1 W × 1 s.<br>Cependant pour mesurer des énergies plus importantes on utilise plutôt le kiloWattheure (kWh).<br>1 kWh=1000 W × 1 h.'
             ) +
             ' consommée.<br>'
           texte += numAlpha(1) + ' Calculer la dépense correspondante.'
@@ -237,9 +239,9 @@ export default function ProblemesGrandeursComposees () {
               calcul(puissance * duree * 0.001)
             )}\\text{ kWh}`
           if (!((prixkWh * puissance * duree) / 10 === Math.round((prixkWh * puissance * duree) / 10))) {
-            texteCorr += `\\approx${arrondiVirgule(((prixkWh * puissance) / 1000) * duree, 2)}$ €`
+            texteCorr += `\\approx${texNombre(((prixkWh * puissance) / 1000) * duree, 2)}$ €`
           } else {
-            texteCorr += `=${arrondiVirgule(
+            texteCorr += `=${texNombre(
               ((prixkWh * puissance) / 1000) * duree,
               2
             )}$ €`
@@ -265,7 +267,7 @@ export default function ProblemesGrandeursComposees () {
                   typeAide,
                   'volume',
                   'Définition : volume (grandeur physique)',
-                  `C’est le produit de trois longueurs ou le produit d'une aire et d'une longueur.<br>L'unité de mesure du volume est le mètre cube (m${texteExposant(
+                  `C'est le produit de trois longueurs ou le produit d'une aire et d'une longueur.<br>L'unité de mesure du volume est le mètre cube (m${texteExposant(
                     3
                   )}) mais on peut aussi rencontrer le litre (L) avec comme correspondance 1dm${texteExposant(
                     3
@@ -281,31 +283,31 @@ export default function ProblemesGrandeursComposees () {
                 numAlpha(0) +
                 ` La base de ce prisme droit est un trapèze rectangle de petite base ${h2} cm, de grande base ${h1} cm et de hauteur ${L} m.<br>`
               texteCorr += `$\\mathcal{A}=\\dfrac{\\left(${h1}\\text{ cm}+${h2}\\text{ cm}\\right)}{2}\\times${L}\\text{ m}$`
-              texteCorr += ` $=\\dfrac{\\left(${arrondiVirgule(
-                h1 / 100
-              )}\\text{ m}+${arrondiVirgule(
-                h2 / 100
+              texteCorr += ` $=\\dfrac{\\left(${texNombre(
+                h1 / 100, 2
+              )}\\text{ m}+${texNombre(
+                h2 / 100, 2
               )}\\text{ m}\\right)}{2}\\times${L}\\text{ m}$`
-              texteCorr += ` $=\\dfrac{${arrondiVirgule(
-                (h1 + h2) / 100
+              texteCorr += ` $=\\dfrac{${texNombre(
+                (h1 + h2) / 100, 2
               )}\\text{ m}}{2}\\times${L}\\text{ m}$`
-              texteCorr += ` $=${arrondiVirgule(
-                (h1 + h2) / 200
+              texteCorr += ` $=${texNombre(
+                (h1 + h2) / 200, 2
               )}\\text{ m}\\times${L}\\text{ m}$`
-              texteCorr += ` $=${arrondiVirgule(
-                ((h1 + h2) / 200) * L
+              texteCorr += ` $=${texNombre(
+                ((h1 + h2) / 200) * L, 2
               )}\\text{ m}$${texteExposant(2)}<br>`
               texteCorr += 'Le volume de ce prisme et donc par extension le volume d\'eau conteu dans la piscine est :<br>'
-              texteCorr += `$\\mathcal{A}\\times\\mathcal{h}=${arrondiVirgule(
-                ((h1 + h2) / 200) * L
+              texteCorr += `$\\mathcal{A}\\times\\mathcal{h}=${texNombre(
+                ((h1 + h2) / 200) * L, 2
               )}\\text{ m}^2\\times${l}\\text{ m}$`
-              texteCorr += ` $=${arrondiVirgule(
-                ((h1 + h2) / 200) * L * l
+              texteCorr += ` $=${texNombre(
+                ((h1 + h2) / 200) * L * l, 2
               )}$m${texteExposant(3)}.<br>`
               texteCorr +=
                 numAlpha(1) +
-                ` Convertissons le volume de la piscine en litres : $${arrondiVirgule(
-                  ((h1 + h2) / 200) * L * l
+                ` Convertissons le volume de la piscine en litres : $${texNombre(
+                  ((h1 + h2) / 200) * L * l, 2
                 )}\\text{ m}^3=${texNombre(
                   (h1 + h2) * L * l * 5
                 )}\\text{ dm}^3=${texNombre(
@@ -333,7 +335,7 @@ export default function ProblemesGrandeursComposees () {
                   typeAide,
                   'volume',
                   'Définition : volume (grandeur physique)',
-                  'C’est le produit de trois longueurs ou le produit d\'une aire et d\'une longueur.<br>L\'unité de mesure du volume est le mètre cube ($\\text{m}^3$) mais on peut aussi rencontrer le litre (L) avec comme correspondance $\\text{1dm}^3=\\text{1L}$'
+                  'C\'est le produit de trois longueurs ou le produit d\'une aire et d\'une longueur.<br>L\'unité de mesure du volume est le mètre cube ($\\text{m}^3$) mais on peut aussi rencontrer le litre (L) avec comme correspondance $\\text{1dm}^3=\\text{1L}$'
                 ) +
                 ` en dm${texteExposant(3)} à 0,1 près de ce tonneau.<br>`
               texte +=
@@ -394,7 +396,7 @@ export default function ProblemesGrandeursComposees () {
               typeAide,
               'quantité de mouvement',
               'Définition : quantité de mouvement (grandeur physique)',
-              'C’est le produit de la masse d\'un corps par sa vitesse.<br>L\'unité de mesure de la quantité de mouvement est le ($\\text{kg.m.s}^{-1}$)'
+              'C\'est le produit de la masse d\'un corps par sa vitesse.<br>L\'unité de mesure de la quantité de mouvement est le ($\\text{kg.m.s}^{-1}$)'
             ) +
             ' en $\\text{kg.m.s}^{-1}$.<br>'
           texte +=
@@ -530,12 +532,12 @@ export default function ProblemesGrandeursComposees () {
               typeAide,
               'puissance',
               'Définition : Puissance (grandeur physique)',
-              'C’est le produit de la force électromotrice (tension) exprimée en Volt (V) par l\'intensité du courant électrique exprimée en ampères (A).<br>L\'unité de mesure de la puissance est le Watt (W)'
+              'C\'est le produit de la force électromotrice (tension) exprimée en Volt (V) par l\'intensité du courant électrique exprimée en ampères (A).<br>L\'unité de mesure de la puissance est le Watt (W)'
             ) +
             ' maximale de cet appareil s\'il fonctionne sur le secteur ?<br>'
           texte +=
             numAlpha(1) +
-            ` Un ${appareils[index1][0]} fonctionne à une puissance maximum de ${appareils[index1][1]} W.<br>Quel est l'ampérage minimum nécessaire pour le fusible qui protégera ce ${appareils[index1][0]} des court-ciruits ?<br>`
+            ` Un ${appareils[index1][0]} fonctionne à une puissance maximum de ${appareils[index1][1]} W.<br>Quel est l'ampérage minimum nécessaire pour le fusible qui protégera ${index1 === 3 ? 'cet' : 'ce'} ${appareils[index1][0]} des court-ciruits ?<br>`
           texteCorr =
             numAlpha(0) +
             ` La tension du secteur étant de 230V, la puissance maximale de ce ${appareils[index][0]} est de :<br>`
@@ -938,7 +940,7 @@ export default function ProblemesGrandeursComposees () {
               typeAide,
               'densité de population',
               'Définition : Densité de population',
-              'C’est le quotient du nombre d\'habitants par la superficie en km$^2$.<br>L\'unité de la densité de population est l\'habitant par km$^2$ (hab/km$^2$).'
+              'C\'est le quotient du nombre d\'habitants par la superficie en km$^2$.<br>L\'unité de la densité de population est l\'habitant par km$^2$ (hab/km$^2$).'
             ) +
             ` de ${villes[index2][0]} était de $${texNombrec(villes[index2][1] / villes[index2][2], 8)}$ hab/km$^2$ pour une superficie de $${texNombrec(
               villes[index2][2] * 100

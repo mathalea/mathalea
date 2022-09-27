@@ -1,10 +1,11 @@
-import { combinaisonListes, listeQuestionsToContenu, randint, calcul, htmlConsigne, lettreDepuisChiffre, texNombre } from '../../modules/outils.js'
+import { combinaisonListes, listeQuestionsToContenu, randint, calcul, htmlConsigne, lettreDepuisChiffre, stringNombre } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
+import { droiteGraduee } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-export const titre = 'Lire l’abscisse décimale d’un point'
+export const titre = 'Lire l\'abscisse décimale d\'un point'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -15,6 +16,8 @@ export const amcType = 'AMCOpen'
  * @author Jean-Claude Lhote et Rémi Angot
  * référence 6N30
  */
+export const uuid = 'c1888'
+export const ref = '6N30'
 export default function LireAbscisseDecimale () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = "Lire l'abscisse de chacun des points suivants."
@@ -44,7 +47,7 @@ export default function LireAbscisseDecimale () {
     }
 
     this.contenu = htmlConsigne(this.consigne)
-    for (let i = 0, d = [], abs0, l1, l2, l3, x1, x2, x3, x11, x22, x33, xA, xB, xC, pas1, pas2, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, d = [], abs0, l1, l2, l3, x1, x2, x3, x11, x22, x33, xA, xB, xC, pas1, pas2, thick1, thick2, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
       l1 = lettreDepuisChiffre(i * 3 + 1)
       l2 = lettreDepuisChiffre(i * 3 + 2)
       l3 = lettreDepuisChiffre(i * 3 + 3)
@@ -79,7 +82,9 @@ export default function LireAbscisseDecimale () {
       xA = calcul(x1 + x11 / pas2)
       xB = calcul(x2 + x22 / pas2)
       xC = calcul(x3 + x33 / pas2)
-      d[2 * i] = droiteGraduee2({
+      thick1 = randint(0, 3)
+      thick2 = randint(2, 6, thick1)
+      d[2 * i] = droiteGraduee({
         Unite: 4,
         Min: 0,
         Max: 7.1,
@@ -89,10 +94,10 @@ export default function LireAbscisseDecimale () {
         labelsPrincipaux: false,
         thickSec: true,
         thickSecDist: 1 / pas2,
-        labelListe: [[0, `${texNombre(abs0)}`], [1, `${texNombre(calcul(abs0 + 1 / pas1))}`]],
+        labelListe: [[thick1, `${stringNombre(calcul(abs0 + thick1 / pas1))}`], [thick2, `${stringNombre(calcul(abs0 + thick2 / pas1))}`]],
         pointListe: [[xA, l1], [xB, l2], [xC, l3]]
       })
-      d[2 * i + 1] = droiteGraduee2({
+      d[2 * i + 1] = droiteGraduee({
         Unite: 4,
         Min: 0,
         Max: 7.1,
@@ -103,25 +108,25 @@ export default function LireAbscisseDecimale () {
         thickSec: true,
         thickSecDist: 1 / pas2,
         labelListe: [
-          [0, `${texNombre(abs0)}`],
-          [xA, texNombre(calcul(xA / pas1 + abs0))],
-          [xB, texNombre(calcul(xB / pas1 + abs0))],
-          [xC, texNombre(calcul(xC / pas1 + abs0))]
+          [0, `${stringNombre(abs0)}`],
+          [xA, stringNombre(calcul(xA / pas1 + abs0))],
+          [xB, stringNombre(calcul(xB / pas1 + abs0))],
+          [xC, stringNombre(calcul(xC / pas1 + abs0))]
         ],
         pointListe: [[xA, l1], [xB, l2], [xC, l3]]
 
       })
 
-      texte = mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 1, pixelsParCm: 20, scale: 0.5 }, d[2 * i])
-      texteCorr = mathalea2d({ xmin: -2, ymin: -2, xmax: 30, ymax: 2, pixelsParCm: 20, scale: 0.5 }, d[2 * i + 1])
+      texte = mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 2, pixelsParCm: 20, scale: 0.5 }, d[2 * i])
+      texteCorr = mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 2, pixelsParCm: 20, scale: 0.5 }, d[2 * i + 1])
 
       if (this.interactif && context.isHtml) {
         setReponse(this, 3 * i, calcul(xA / pas1 + abs0))
         setReponse(this, 3 * i + 1, calcul(xB / pas1 + abs0))
         setReponse(this, 3 * i + 2, calcul(xC / pas1 + abs0))
-        texte += l1 + ajouteChampTexteMathLive(this, 3 * i)
-        texte += l2 + ajouteChampTexteMathLive(this, 3 * i + 1)
-        texte += l3 + ajouteChampTexteMathLive(this, 3 * i + 2)
+        texte += `<br><br>$${l1}$` + ajouteChampTexteMathLive(this, 3 * i)
+        texte += `$${l2}$` + ajouteChampTexteMathLive(this, 3 * i + 1)
+        texte += `$${l3}$` + ajouteChampTexteMathLive(this, 3 * i + 2)
       } else {
         if (context.isAmc) {
           this.autoCorrection[i].enonce = texte

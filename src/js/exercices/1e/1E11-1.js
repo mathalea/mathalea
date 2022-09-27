@@ -1,10 +1,10 @@
 
-import Exercice from '../Exercice'
-import { combinaisonListes, contraindreValeur, lettreDepuisChiffre, listeQuestionsToContenu } from '../../modules/outils'
-import { aleaVariables, aleaExpression, toTex } from '../../modules/outilsMathjs'
+import Exercice from '../Exercice.js'
+import { combinaisonListes, contraindreValeur, lettreDepuisChiffre, listeQuestionsToContenu } from '../../modules/outils.js'
+import { aleaVariables, aleaExpression, toTex } from '../../modules/outilsMathjs.js'
 import { create, all } from 'mathjs'
-import { context } from '../../modules/context'
-import { fraction } from '../../modules/fractions'
+import { context } from '../../modules/context.js'
+import { fraction } from '../../modules/fractions.js'
 
 export const titre = 'Calculer le discriminant d\'un polynôme du second degré'
 export const interactifReady = true
@@ -12,6 +12,8 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 
+export const uuid = '731f0'
+export const ref = '1E11-1'
 export default function CalculerDiscriminant () {
   Exercice.call(this)
   this.besoinFormulaireNumerique = ['Niveaux de difficulté', 4, '1 : Coefficients entiers positifs\n2 : Coefficients entiers relatifs\n3 : Coefficients rationnels\n4 : Mélange']

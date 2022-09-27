@@ -1,12 +1,14 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureAlgebrique, pgcd } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
-export const titre = 'Déterminer les termes d’une suite définie de façon explicite'
+export const titre = 'Déterminer les termes d\'une suite définie de façon explicite'
 
 /**
  * 1N10
  * @author Gaelle Morvan
  */
+export const uuid = 'f0c2d'
+export const ref = '1N10'
 export default function TermeDUneSuiteDefinieExplicitement () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

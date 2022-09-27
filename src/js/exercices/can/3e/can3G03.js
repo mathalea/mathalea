@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, choice, calcul, creerNomDePolygone, texNombrec } from '../../../modules/outils.js'
 import {
-  mathalea2d, point, pointAdistance, labelPoint, segment, milieu, texteParPosition
+  point, pointAdistance, labelPoint, segment, milieu, texteParPosition
 } from '../../../modules/2d.js'
 export const titre = 'Calculer une longueur avec le théorème de Thalès'
 export const interactifReady = true
@@ -13,6 +14,8 @@ export const interactifType = 'mathLive'
  * Référence can3G03
  * Date de publication sptembre 2021
 */
+export const uuid = '14145'
+export const ref = 'can3G03'
 export default function CalculLongueurThales2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

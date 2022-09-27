@@ -7,17 +7,19 @@ export const titre = 'Convertir des durées'
  * Conversions de durées.
  * * 1 : H vers min ou H ou min ou Hmin vers s
  * * 2 : h vers j-h
- * * 3 : s vers HMS
+ * * 3 : s vers h min s
  * * 4 : h vers semaines j h
  * * 5 : toutes les conversions
  * @author Rémi Angot
  * Référence 6D10
  */
+export const uuid = '8b0f9'
+export const ref = '6D10'
 export default function ConversionsDeDurees () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 5
   this.titre = titre
-  this.consigne = 'Compléter les égalités suivantes.'
+  this.consigne = 'Convertir.'
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacing = 2
@@ -52,21 +54,21 @@ export default function ConversionsDeDurees () {
         const sousTypeDeQuestion = listeSousTypeDeQuestionV1[i]
         if (sousTypeDeQuestion === 1) {
           h = randint(2, 11)
-          texte = `$${h}~\\text{h en minutes}$`
+          texte = `$${h}~\\text{h en minutes.}$`
           texteCorr = `$${h}~\\text{h} = ${h}\\times60~~\\text{min} = ${texNombre(
               h * 60
             )}~\\text{min}$`
         }
         if (sousTypeDeQuestion === 2) {
           h = choice([1, 2, 10, 20])
-          texte = `$${h}~\\text{h en secondes}$`
+          texte = `$${h}~\\text{h en secondes.}$`
           texteCorr = `$${h}~\\text{h} = ${h}\\times3~600~\\text{s} = ${texNombre(
               h * 3600
             )}~\\text{s}$`
         }
         if (sousTypeDeQuestion === 3) {
           m = randint(2, 59)
-          texte = `$${m}~\\text{min en secondes}$`
+          texte = `$${m}~\\text{min en secondes.}$`
           texteCorr = `$${m}~\\text{min} = ${m}\\times60~\\text{s} = ${texNombre(
               m * 60
             )}~\\text{s}$`
@@ -74,7 +76,7 @@ export default function ConversionsDeDurees () {
         if (sousTypeDeQuestion === 4) {
           h = randint(1, 2)
           m = randint(2, 59)
-          texte = `$${h}~\\text{h}~${m}~\\text{min en secondes}$`
+          texte = `$${h}~\\text{h}~${m}~\\text{min en secondes.}$`
           texteCorr = `$${h}~\\text{h}~${m}~\\text{min} = ${h}\\times3~600~\\text{s} + ${m}\\times60~\\text{s} = ${texNombre(
               h * 3600
             )}+${texNombre(m * 60)}~\\text{s} = ${texNombre(
@@ -85,7 +87,7 @@ export default function ConversionsDeDurees () {
       if (typesDeQuestions[i] === 2) {
         j = randint(1, 6)
         h = randint(1, 23)
-        texte = `$${texNombre(h + 24 * j)}~\\text{h en jours et heures}$`
+        texte = `$${texNombre(h + 24 * j)}~\\text{h en jours et heures.}$`
         texteCorr = `$${texNombre(
             h + 24 * j
           )}~\\text{h} = ${j}\\times24~\\text{h} + ${h}~\\text{h} = ${j}~\\text{j}~${h}~\\text{h}$`
@@ -98,14 +100,14 @@ export default function ConversionsDeDurees () {
         if (h > 0) {
           texte = `$${texNombre(
               h * 3600 + m * 60 + s
-            )}~\\text{s au format HMS}$`
+            )}~\\text{s en heures, minutes et secondes.}$`
           texteCorr = `$${texNombre(
               h * 3600 + m * 60 + s
             )}~\\text{s} = ${texNombre(h * 3600)}~\\text{s}+${
               m * 60 + s
             }~\\text{s} =${h}~\\text{h}+${m}\\times60~\\text{s}+${s}~\\text{s}=${h}~\\text{h}~${m}~\\text{min}~${s}~\\text{s}$`
         } else {
-          texte = `$${texNombre(m * 60 + s)}~\\text{s au format HMS}$`
+          texte = `$${texNombre(m * 60 + s)}~\\text{s en heures, minutes et secondes.}$`
           texteCorr = `$${texNombre(
               m * 60 + s
             )}~\\text{s} = ${m}\\times60~\\text{s}+${s}~\\text{s}=${m}~\\text{min}~${s}~\\text{s}$`
@@ -117,7 +119,7 @@ export default function ConversionsDeDurees () {
         h = randint(1, 23)
         texte = `$${texNombre(
             h + 24 * j + 24 * 7 * s
-          )}~\\text{h en semaines jours et heures}$`
+          )}~\\text{h en semaines jours et heures.}$`
         if (s > 1) {
           // pour la gestion du pluriel de semaines
           texteCorr = `$${texNombre(h + 24 * j + 24 * 7 * s)}~\\text{h} = ${

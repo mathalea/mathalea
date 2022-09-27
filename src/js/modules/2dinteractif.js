@@ -1,14 +1,15 @@
-import { ObjetMathalea2D, point, polygone, tracePoint } from './2d.js'
+import { point, polygone, tracePoint } from './2d.js'
+import { colorToLatexOrHTML, ObjetMathalea2D } from './2dGeneralites.js'
 import { context } from './context.js'
 
 /**
  * @author Rémi ANGOT
  * @param {number} x abscisse du point
  * @param {number} y ordonnée du point
- * @param {object} options over, out et click sont des ojets pour le style css des évènements de la souris, radius, width, color, opacite, size, style sont les paramètres possibles pour la trace du point
+ * @param {object} options over, out et click sont des objets pour le style css des évènements de la souris, radius, width, color, opacite, size, style sont les paramètres possibles pour la trace du point
  */
 function PointCliquable (x, y, options) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   const A = point(x, y)
   this.point = A
   if (!options) options = {}
@@ -18,8 +19,7 @@ function PointCliquable (x, y, options) {
   this.etat = false // Pour récupérer si le point est affiché ou pas
   this.svg = function (coeff) {
     let code
-    const trace = tracePoint(A)
-    trace.color = options.color || options.couleur || 'black'
+    const trace = tracePoint(A, options.color || options.couleur || 'black')
     trace.epaisseur = options.width || options.epaisseur || 1
     trace.taille = options.size || options.taille || 3
     trace.isVisible = false
@@ -100,7 +100,7 @@ export function pointCliquable (...args) {
  * @param {object} options over, out et click sont des ojets pour le style css des évènements de la souris, radius, width, color, size, style sont les paramètres possibles pour la trace du point
  */
 function RectangleCliquable (x1, y1, x2, y2, options) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   const A = point(x1, y1)
   const B = point(x2, y1)
   const C = point(x2, y2)
@@ -119,7 +119,7 @@ function RectangleCliquable (x1, y1, x2, y2, options) {
   this.etat = options.etat || false // Pour récupérer si le rectangle est cliqué ou pas
   this.svg = function (coeff) {
     let code
-    rectangle.couleurDeRemplissage = options.color || options.couleur || options.couleurDeRemplissage || '#f15929'
+    rectangle.couleurDeRemplissage = colorToLatexOrHTML(options.color || options.couleur || options.couleurDeRemplissage || '#f15929')
     rectangle.epaisseur = 0
     rectangle.isVisible = false
     code = `<g id="rectangle${this.id}">\n`
@@ -129,7 +129,7 @@ function RectangleCliquable (x1, y1, x2, y2, options) {
     return code
   }
   this.tikz = (coeff) => {
-    if (this.etat) bordure.couleurDeRemplissage = couleur
+    if (this.etat) bordure.couleurDeRemplissage = colorToLatexOrHTML(couleur)
     bordure.hachures = rectangle.hachures
     return bordure.tikz(coeff)
   }

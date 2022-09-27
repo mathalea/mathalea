@@ -1,5 +1,5 @@
-import { calcul, choice, randint, texNombre, texNombrec, texteEnCouleur } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { calcul, choice, randint, texNombre, texNombrec, texteEnCouleur } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Multiplier astucieusement'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6C05
  */
+export const uuid = 'c8078'
+export const ref = 'can6C05'
 export default function MultiplierAstucieusement () {
   Exercice.call(this)
   this.typeExercice = 'simple'
@@ -53,6 +55,7 @@ export default function MultiplierAstucieusement () {
         break
       case 4:
         this.question = `$50 \\times ${texNombre(d)}\\times 2=$`
+        // Si les exos can avaient toujours cette propriété this.question on pourrait faire un ajout automatique
         this.correction = `$50 \\times ${texNombre(d)}\\times 2 = 100 \\times ${texNombre(d)} = ${texNombrec(100 * d)}$`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
   On remarque dans $50 \\times ${texNombre(d)}\\times 2$ le produit $2\\times 50$ qui donne $100$.<br>
@@ -61,5 +64,7 @@ export default function MultiplierAstucieusement () {
     `)
         break
     }
+    this.canEnonce = 'Compléter'
+    // this.canReponseACompleter = `repAComp ${ref} ${this.question}`
   }
 }

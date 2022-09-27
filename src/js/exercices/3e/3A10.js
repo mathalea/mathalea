@@ -2,19 +2,22 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, egal, randint, shuffle, shuffle2tableaux, combinaisonListesSansChangerOrdre, nombreAvecEspace, texteEnCouleur, modalPdf, listeDiviseurs, contraindreValeur } from '../../modules/outils.js'
 
-export const titre = 'Division Euclidienne - Diviseurs - Multiples'
+export const titre = 'Comprendre le vocabulaire : division euclidienne, diviseurs, multiples'
 
 /**
- * 3A10 - Division Euclidienne; diviseurs, multiples, critères de divisibilité
+ * Division Euclidienne; diviseurs, multiples, critères de divisibilité
  * Exercice bilan
  * @author Sébastien Lozano
+ * Référence 3A10
  */
+export const uuid = '5b60d'
+export const ref = '3A10'
 export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   // pas de différence entre la version html et la version latex pour la consigne
-  this.consigne = 'Divisions euclidiennes - Diviseurs - Multiples.'
+  this.consigne = ''
   // context.isHtml ? this.spacing = 3 : this.spacing = 2;
   context.isHtml ? this.spacing = 1 : this.spacing = 2
   // context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
@@ -26,6 +29,8 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
   this.sup = '3'
   this.sup2 = '10'
   this.sup3 = 13
+  this.correctionDetailleeDisponible = true
+  this.correctionDetaillee = false
 
   this.nouvelleVersion = function (numeroExercice) {
     const nbChiffresMax = combinaisonListesSansChangerOrdre(this.sup.toString().split('-'), this.nbQuestions)
@@ -41,7 +46,7 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
 
     if (context.isHtml) { // les boutons d'aide uniquement pour la version html
       // this.boutonAide = '';
-      this.boutonAide = modalPdf(numeroExercice, 'assets/pdf/FicheArithmetique-3A10.pdf', 'Aide mémoire sur la division euclidienne (Sébastien Lozano)', 'Aide mémoire')
+      this.boutonAide = modalPdf(numeroExercice, 'assets/pdf/FicheArithmetique-3A10.pdf', 'Aide-mémoire sur la division euclidienne (Sébastien Lozano)', 'Aide-mémoire')
       // this.boutonAide += modalVideo('conteMathsNombresPremiers','https://coopmaths.fr/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
     } else { // sortie LaTeX
     };
@@ -59,11 +64,39 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
       typeDeQuestion = listeTypeDeQuestions[i]
 
       switch (typeDeQuestion) {
-        case 1: // plus grand reste dans une division euclidienne
+        case 1: { // plus grand reste dans une division euclidienne
           diviseur = randint(2, 99)
-          texte = `Dire quel est le plus grand reste possible dans une division euclidienne par ${diviseur}.`
-          texteCorr = `Si on divise par ${diviseur}, il ne peut pas rester plus de ${diviseur - 1}, sinon c'est qu'on peut encore ajouter au moins 1 fois ${diviseur} dans le dividende et donc 1 au quotient.`
+          const myTexte = {
+            vocabulaire: [
+              'reste',
+              'dividende',
+              'quotient',
+              'diviseur'
+            ],
+            correction: [
+              `il ne peut pas rester plus de ${diviseur - 1}, sinon c'est qu'on peut encore ajouter au moins 1 fois ${diviseur} dans le dividende et donc 1 au quotient.`,
+              'le dividende peut être quelconque, donc on peut le choisir aussi grand que l\'on veut.',
+              'le quotient dépendra du dividende, donc il sera d\'autant plus grand que le dividende l\'est.',
+              'c\'est que le diviseur est fixé, donc le plus grand c\'est lui-même !'
+            ]
+          }
+
+          const myChoice = randint(0, 3)
+          texte = `Quel est le plus grand ${myTexte.vocabulaire[myChoice]} possible dans une division euclidienne par ${diviseur} ?`
+          texteCorr = `Si on divise par ${diviseur}, `
+          texteCorr += myTexte.correction[myChoice]
+
+          // texte += '<hr>'
+          // texteCorr += '<hr>'
+          // for (let j = 0; j<4; j++) {
+          //   texte += `- Quel est le plus grand ${myTexte.vocabulaire[j]} possible dans une division euclidienne par ${diviseur}.`
+          //   texte += '<br>'
+          //   texteCorr += `Si on divise par ${diviseur}, `
+          //   texteCorr += myTexte.correction[j]
+          //   texteCorr += '<br>'
+          // }
           break
+        }
         case 2: // quotient et reste d'une division euclidienne donnée
           diviseur = randint(2, 99)
           dividende = randint(1001, 99999)
@@ -97,21 +130,21 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
           texte += `Sans calculer, dire si les nombres ${nombreAvecEspace(candidatsDiviseurs[0])}; ${nombreAvecEspace(candidatsDiviseurs[1])}; ${nombreAvecEspace(candidatsDiviseurs[2])} sont des diviseurs de ${nombreAvecEspace(dividende)}. Justifier.`
           texteCorr = ''
           if (egal(dividende % candidatsDiviseurs[0], 0)) { // egal() est une fonction de JC pour éviter les problèmes de virgule flottante
-            texteCorr += `Le reste de la division euclienne de ${nombreAvecEspace(dividende)} par ${nombreAvecEspace(candidatsDiviseurs[0])} vaut 0 donc ${nombreAvecEspace(candidatsDiviseurs[0])} est un diviseur de ${nombreAvecEspace(dividende)}`
+            texteCorr += `Le reste de la division euclienne de ${nombreAvecEspace(dividende)} par ${nombreAvecEspace(candidatsDiviseurs[0])} vaut 0 donc ${nombreAvecEspace(candidatsDiviseurs[0])} est un diviseur de ${nombreAvecEspace(dividende)}.`
           } else {
-            texteCorr += `Le reste de la division euclienne de ${nombreAvecEspace(dividende)} par ${nombreAvecEspace(candidatsDiviseurs[0])} ne vaut pas 0 donc ${nombreAvecEspace(candidatsDiviseurs[0])} n'est pas un diviseur de ${nombreAvecEspace(dividende)}`
+            texteCorr += `Le reste de la division euclienne de ${nombreAvecEspace(dividende)} par ${nombreAvecEspace(candidatsDiviseurs[0])} ne vaut pas 0 donc ${nombreAvecEspace(candidatsDiviseurs[0])} n'est pas un diviseur de ${nombreAvecEspace(dividende)}.`
           }
           texteCorr += '<br>'
           if (egal(dividende % candidatsDiviseurs[1], 0)) { // egal() est une fonction de JC pour éviter les problèmes de virgule flottante
-            texteCorr += `Le reste de la division euclienne de ${nombreAvecEspace(dividende)} par ${nombreAvecEspace(candidatsDiviseurs[1])} vaut 0 donc ${nombreAvecEspace(candidatsDiviseurs[1])} divise ${nombreAvecEspace(dividende)}`
+            texteCorr += `Le reste de la division euclienne de ${nombreAvecEspace(dividende)} par ${nombreAvecEspace(candidatsDiviseurs[1])} vaut 0 donc ${nombreAvecEspace(candidatsDiviseurs[1])} divise ${nombreAvecEspace(dividende)}.`
           } else {
-            texteCorr += `Le reste de la division euclienne de ${nombreAvecEspace(dividende)} par ${nombreAvecEspace(candidatsDiviseurs[1])} ne vaut pas 0 donc ${nombreAvecEspace(candidatsDiviseurs[1])} ne divise pas ${nombreAvecEspace(dividende)}`
+            texteCorr += `Le reste de la division euclienne de ${nombreAvecEspace(dividende)} par ${nombreAvecEspace(candidatsDiviseurs[1])} ne vaut pas 0 donc ${nombreAvecEspace(candidatsDiviseurs[1])} ne divise pas ${nombreAvecEspace(dividende)}.`
           }
           texteCorr += '<br>'
           if (egal(dividende % candidatsDiviseurs[2], 0)) { // egal() est une fonction de JC pour éviter les problèmes de virgule flottante
-            texteCorr += `Le reste de la division euclienne de ${nombreAvecEspace(dividende)} par ${nombreAvecEspace(candidatsDiviseurs[2])} vaut 0 donc ${nombreAvecEspace(dividende)} est divisible par ${nombreAvecEspace(candidatsDiviseurs[2])}`
+            texteCorr += `Le reste de la division euclienne de ${nombreAvecEspace(dividende)} par ${nombreAvecEspace(candidatsDiviseurs[2])} vaut 0 donc ${nombreAvecEspace(dividende)} est divisible par ${nombreAvecEspace(candidatsDiviseurs[2])}.`
           } else {
-            texteCorr += `Le reste de la division euclienne de ${nombreAvecEspace(dividende)} par ${nombreAvecEspace(candidatsDiviseurs[2])} ne vaut pas 0 donc ${nombreAvecEspace(dividende)} n'est pas divisible par ${nombreAvecEspace(candidatsDiviseurs[2])}`
+            texteCorr += `Le reste de la division euclienne de ${nombreAvecEspace(dividende)} par ${nombreAvecEspace(candidatsDiviseurs[2])} ne vaut pas 0 donc ${nombreAvecEspace(dividende)} n'est pas divisible par ${nombreAvecEspace(candidatsDiviseurs[2])}.`
           }
           texteCorr += '<br>'
           break
@@ -136,13 +169,13 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
           };
           // on crée les phrases
           textes[0] = `${diviseurs[0]} $\\ldots\\ldots\\ldots\\ldots$ ${multiples[0]}`
-          textesCorr[0] = `${diviseurs[0]} est un diviseur de ${multiples[0]} car ${multiples[0]}=${diviseurs[0]}$\\times$${quotients[0]}`
+          textesCorr[0] = `${diviseurs[0]} est un diviseur de ${multiples[0]} car ${multiples[0]}=${diviseurs[0]}$\\times$${quotients[0]}.`
           textes[1] = `${diviseurs[1]} $\\ldots\\ldots\\ldots\\ldots$ ${multiples[1]}`
-          textesCorr[1] = `${diviseurs[1]} est un diviseur de ${multiples[1]} car ${multiples[1]}=${diviseurs[1]}$\\times$${quotients[1]}`
+          textesCorr[1] = `${diviseurs[1]} est un diviseur de ${multiples[1]} car ${multiples[1]}=${diviseurs[1]}$\\times$${quotients[1]}.`
           textes[2] = `${multiples[2]} $\\ldots\\ldots\\ldots\\ldots$ ${diviseurs[2]}`
-          textesCorr[2] = `${multiples[2]} est un multiple de ${diviseurs[2]} car ${multiples[2]}=${diviseurs[2]}$\\times$${quotients[2]}`
+          textesCorr[2] = `${multiples[2]} est un multiple de ${diviseurs[2]} car ${multiples[2]}=${diviseurs[2]}$\\times$${quotients[2]}.`
           textes[3] = `${multiples[3]} $\\ldots\\ldots\\ldots\\ldots$ ${diviseurs[3]}`
-          textesCorr[3] = `${multiples[3]} est un multiple de ${diviseurs[3]} car ${multiples[3]}=${diviseurs[3]}$\\times$${quotients[3]}`
+          textesCorr[3] = `${multiples[3]} est un multiple de ${diviseurs[3]} car ${multiples[3]}=${diviseurs[3]}$\\times$${quotients[3]}.`
           // on ajoute deux cas ni multiple ni diviseur
           // on choisit deux nombres
           n1 = nombreAvecEspace(randint(2, 999, [diviseurs[0], diviseurs[1], diviseurs[2], diviseurs[3]]))
@@ -151,12 +184,12 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
           n2 = nombreAvecEspace(randint(2, 999, listeDiviseurs(n1)))
           p2 = nombreAvecEspace(randint(2, 999, listeDiviseurs(p1)))
           textes[4] = `${n1} $\\ldots\\ldots\\ldots\\ldots$ ${n2}`
-          textesCorr[4] = `${n1} n'est ni un multiple ni un diviseur de ${n2} car ${n1}=${n2}$\\times$${Math.trunc(n1 / n2)}+${texteEnCouleur(n1 % n2)} et ${n2}=${n1}$\\times$${Math.trunc(n2 / n1)}+${texteEnCouleur(n2 % n1)}`
+          textesCorr[4] = `${n1} n'est ni un multiple, ni un diviseur de ${n2} car ${n1}=${n2}$\\times$${Math.trunc(n1 / n2)}+${texteEnCouleur(n1 % n2)} et ${n2}=${n1}$\\times$${Math.trunc(n2 / n1)}+${texteEnCouleur(n2 % n1)}.`
           textes[5] = `${p2} $\\ldots\\ldots\\ldots\\ldots$ ${p1}`
-          textesCorr[5] = `${p2} n'est ni un multiple ni un diviseur de ${p1} car ${p1}=${p2}$\\times$${Math.trunc(p1 / p2)}+${texteEnCouleur(p1 % p2)} et ${p2}=${p1}$\\times$${Math.trunc(p2 / p1)}+${texteEnCouleur(p2 % p1)}`
+          textesCorr[5] = `${p2} n'est ni un multiple, ni un diviseur de ${p1} car ${p1}=${p2}$\\times$${Math.trunc(p1 / p2)}+${texteEnCouleur(p1 % p2)} et ${p2}=${p1}$\\times$${Math.trunc(p2 / p1)}+${texteEnCouleur(p2 % p1)}.`
           // on mélange pour que l'ordre change!
           shuffle2tableaux(textes, textesCorr)
-          texte = 'Avec la calculatrice, compléter chaque phrase avec "est un diviseur de" ou "est un multiple de" ou "n\'est ni un diviseur ni un multiple de".'
+          texte = 'Après avoir testé avec la calculatrice, compléter chaque phrase avec "est un diviseur de" ou "est un multiple de" ou "n\'est ni un diviseur, ni un multiple de".'
           texte += '<br>'
           texteCorr = ''
           for (let j = 0; j < 5; j++) {
@@ -180,10 +213,26 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
             nbDiviseursM = listeDiviseursM.length
           } while (nbDiviseursM < Math.max(2, nbDiviseursMax[i] - 3) || nbDiviseursM > nbDiviseursMax[i])
           texte = `Écrire la liste de tous les diviseurs de ${M}.`
-          texteCorr = `Pour trouver la liste des diviseurs de ${M} on cherche tous les produits de deux facteurs qui donnent ${M}. En écrivant toujours le plus petit facteur en premier.<br>`
-          texteCorr += `Il est suffisant de chercher des diviseurs inférieurs au plus grand nombre dont le carré vaut ${M}, par exemple ici, ${Math.trunc(Math.sqrt(M))}$\\times$${Math.trunc(Math.sqrt(M))} = ${Math.trunc(Math.sqrt(M)) * Math.trunc(Math.sqrt(M))}<${M}`
-          texteCorr += ` et ${Math.trunc(Math.sqrt(M)) + 1}$\\times$${Math.trunc(Math.sqrt(M)) + 1} = ${(Math.trunc(Math.sqrt(M)) + 1) * (Math.trunc(Math.sqrt(M)) + 1)}>${M} donc il suffit d'arrêter la recherche de facteur à ${Math.trunc(Math.sqrt(M))}.`
-          texteCorr += ` En effet, si ${M} est le produit de deux entiers p$\\times$q avec p < q alors si p$\\times$p > ${M} c'est que q$\\times$q < ${M} mais dans ce cas p serait supérieur à q sinon p$\\times$q serait inférieur à ${M} ce qui ne doit pas être le cas.<br>`
+          texteCorr = `Pour trouver la liste des diviseurs de ${M}, on cherche tous les produits de deux facteurs qui donnent ${M}, en écrivant toujours le plus petit facteur en premier.<br>`
+          texteCorr += `Il est suffisant de chercher des diviseurs inférieurs au plus grand nombre dont le carré est inférieur à ${M}, par exemple ici, ${Math.trunc(Math.sqrt(M))}$\\times$${Math.trunc(Math.sqrt(M))} = ${Math.trunc(Math.sqrt(M)) * Math.trunc(Math.sqrt(M))}<${M}`
+          texteCorr += ` et ${Math.trunc(Math.sqrt(M)) + 1}$\\times$${Math.trunc(Math.sqrt(M)) + 1} = ${(Math.trunc(Math.sqrt(M)) + 1) * (Math.trunc(Math.sqrt(M)) + 1)}>${M} donc il suffit d'arrêter la recherche de facteurs à ${Math.trunc(Math.sqrt(M))}.`
+          if (this.correctionDetaillee) {
+            context.isHtml ? texteCorr += '<hr>' : texteCorr += '\\par \\hrulefill \\par'
+            texteCorr += `$\\textbf{Preuve du propos précédent}$ <br>
+            Supposons que ${M} soit le produit de deux entiers p$\\times$q avec p < q :`
+            if (context.isHtml) {
+              texteCorr += `<br>- si p$\\times$p > ${M}, c'est que q$\\times$q < ${M}, sinon p$\\times$q ne peut être égal à ${M}.<br>
+              - mais, dans ce cas, p serait supérieur à q sinon p$\\times$q serait inférieur à ${M} ce qui ne doit pas être le cas.<br>`
+            } else {
+              texteCorr += `\\begin{itemize}
+              \\item si p$\\times$p > ${M}, c'est que q$\\times$q < ${M}, sinon p$\\times$q ne peut être égal à ${M}.
+              \\item mais, dans ce cas, p serait supérieur à q sinon p$\\times$q serait inférieur à ${M} ce qui ne doit pas être le cas.
+              \\end{itemize}`
+            }
+            texteCorr += `Donc il est bien suffisant d'arrêter la recherche lorsque le carré de p dépasse ${M}.`
+            context.isHtml ? texteCorr += '<hr>' : texteCorr += '\\par \\hrulefill \\par'
+          }
+          context.isHtml ? texteCorr += '<br>' : texteCorr += '\\par'
           if (listeDiviseursM.length % 2 === 0) { // si il y a un nombre pair de diviseurs
             for (let m = 0; m < (listeDiviseursM.length / 2); m++) {
               texteCorr += '' + listeDiviseursM[m] + '$\\times$' + listeDiviseursM[(listeDiviseursM.length - m - 1)] + ` = ${M}<br>`
@@ -214,6 +263,6 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Nombres de chiffres de l\'entier de la question 5']
-  this.besoinFormulaire2Texte = ['Nombre maximum de diviseurs de l\'entier de la question 5']
+  this.besoinFormulaireNumerique = ['Nombres de chiffres de l\'entier de la question 5', 20]
+  this.besoinFormulaire2Numerique = ['Nombre maximum de diviseurs de l\'entier de la question 5', 20]
 }

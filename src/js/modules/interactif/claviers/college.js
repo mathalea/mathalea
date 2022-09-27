@@ -75,11 +75,11 @@ const collegeKeyboardLayer = {
         { label: 'oui', key: 'oui' },
         { label: 'non', key: 'non' },
         { label: '%', key: '%' },
-        { class: 'separator w10' }
+        { label: '°', latex: '\\operatorname{°}' }
       ],
       [
-        { latex: '(' },
-        { latex: ')' },
+        { latex: '\\lparen' }, // Parenthèses à coder ainsi sinon elles disparaissent lors de certains calculs
+        { latex: '\\rparen' },
 
         { class: 'separator w5' },
         { label: '0', key: '0' },
@@ -130,14 +130,18 @@ export const clavierCollege = {
     '*': { mode: 'math', value: '\\times' },
     '.': { mode: 'math', value: ',' },
     '%': { mode: 'math', value: '\\%' },
-    pi : { mode: 'math', value: '\\pi' },
+    '²': { mode: 'math', value: '^2' },
+    '³': { mode: 'math', value: '^3' },
+    pi: { mode: 'math', value: '\\pi' },
     ang: { mode: 'math', value: '\\widehat{#0}' },
     rac: { mode: 'math', value: '\\sqrt{#0}' },
     frac: { mode: 'math', value: '\\frac{#0}{#1}' },
     '<': '<',
     '>': '>',
     '>=': '\\geq',
-    '<=': '\\leq'
+    '<=': '\\leq',
+    '(': '\\lparen',
+    ')': '\\rparen'
   },
   // virtualKeyboards: 'numeric roman',
   virtualKeyboardMode: 'manual'

@@ -1,11 +1,12 @@
 import Exercice from '../Exercice.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { mathalea2d, point, similitude, longueur, polygone, rotation, codageAngleDroit, nommePolygone, segment, texteSurSegment, droite, projectionOrtho, pointSurSegment, texteParPoint, afficheMesureAngle, fixeBordures } from '../../modules/2d.js'
+import { point, similitude, longueur, polygone, rotation, codageAngleDroit, nommePolygone, segment, texteSurSegment, droite, projectionOrtho, pointSurSegment, texteParPoint, afficheMesureAngle } from '../../modules/2d.js'
 import { listeQuestionsToContenu, randint, creerNomDePolygone, choice, numAlpha } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 
-export const titre = 'Exprimer le cosinus, le sinus ou la tangente d’un angle en fonction des côtés du triangle'
+export const titre = 'Exprimer le cosinus, le sinus ou la tangente d\'un angle en fonction des côtés du triangle'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
@@ -22,6 +23,8 @@ export const interactifType = 'mathLive'
  * janvier 2021
  * Rendu interactif et AMC par EE (Mars 2022)
  */
+export const uuid = '0d1f7'
+export const ref = '3G30-1'
 export default function ExprimerCosSinTan () {
   Exercice.call(this)
   this.titre = titre
@@ -77,9 +80,8 @@ export default function ExprimerCosSinTan () {
       codageAngle = afficheMesureAngle(A, B, C, 'red', 1.5, '\\alpha')
       codageAngle2 = afficheMesureAngle(A, C, B, 'red', 1.5, '\\beta')
     }
-    const hypo = segment(C, B)
+    const hypo = segment(C, B, 'blue')
     hypo.epaisseur = 2
-    hypo.color = 'blue'
     codageAngle.epaisseur = 3
     codageAngle2.epaisseur = 3
     const d = droite(B, C)
@@ -101,9 +103,8 @@ export default function ExprimerCosSinTan () {
       t23 = texteSurSegment('opposé à $\\alpha$', A, H)
       t33 = texteSurSegment('adjacent à $\\alpha$', H, B)
     }
-    const hypo3 = segment(A, B)
+    const hypo3 = segment(A, B, 'blue')
     hypo3.epaisseur = 2
-    hypo3.color = 'blue'
 
     objetsEnonce.push(p2, codage, nomme)
     objetsCorrection.push(p2, codage, nomme, t1, t2, t3, hypo, codageAngle)

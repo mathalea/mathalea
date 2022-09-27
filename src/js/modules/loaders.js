@@ -1,12 +1,13 @@
 /* global jQuery */
 import loadjs from 'loadjs'
-import { context } from './context'
-import { UserFriendlyError } from './messages'
+import { context } from './context.js'
+import { UserFriendlyError } from './messages.js'
 import { clavierLongueur } from './interactif/claviers/longueur_ANCIEN.js'
 import { clavierTrigo } from './interactif/claviers/trigo.js'
 import { clavierCollege } from './interactif/claviers/college.js'
 import { clavierLycee } from './interactif/claviers/lycee.js'
-import { clavierConfiguration } from './interactif/claviers/claviersUnites'
+import { clavierConfiguration } from './interactif/claviers/claviersUnites.js'
+import { clavierCollege6eme } from './interactif/claviers/college6eme.js'
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
  * @type {Object}
@@ -105,11 +106,18 @@ export async function loadIep (elt, xml) {
  */
 export async function loadMG32 (elt, svgOptions, mtgOptions) {
   try {
-    await load('mathgraph')
+    if (typeof window.mtgLoad !== 'function') await load('mathgraph')
     if (typeof window.mtgLoad !== 'function') throw Error('mtgLoad n’existe pas')
     // cf https://www.mathgraph32.org/documentation/loading/global.html#mtgLoad
-    const mtgApp = await window.mtgLoad(elt, svgOptions, mtgOptions)
-    return mtgApp
+    // la syntaxe qui retourne une promesse fonctionne avec un import seulement (il faudrait mettre mathgraph dans nos dépendances et l'importer)
+    // avec le chargement du js via un tag script il faut fournir une callback
+    return new Promise((resolve, reject) => {
+      window.mtgLoad(elt, svgOptions, mtgOptions, (error, mtgApp) => {
+        if (error) return reject(error)
+        if (mtgApp) return resolve(mtgApp)
+        reject(Error('mtgLoad ne retourne ni erreur ni application'))
+      })
+    })
   } catch (error) {
     console.error(error)
     throw new UserFriendlyError('Erreur de chargement de Mathgraph')
@@ -171,6 +179,9 @@ export async function loadMathLive () {
       }
       if (mf.classList.contains('lycee')) {
         mf.setOptions(clavierLycee)
+      }
+      if (mf.classList.contains('college6eme')) {
+        mf.setOptions(clavierCollege6eme)
       }
       if (mf.classList.contains('longueur')) {
         mf.setOptions(clavierLongueur)

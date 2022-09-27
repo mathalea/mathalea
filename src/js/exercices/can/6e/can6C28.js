@@ -10,6 +10,8 @@ export const interactifType = 'mathLive'
  * Référence can6C26
  * Date de publication 21/10/2021
 */
+export const uuid = '2ce71'
+export const ref = 'can6C28'
 export default function PetitsProblemeDeFraction () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

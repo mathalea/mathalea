@@ -1,6 +1,7 @@
-import Exercice from '../ExerciceTs'
+import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { arc, mathalea2d, point, rapporteur, rotation, segment } from '../../modules/2d.js'
+import { arc, point, rapporteur, rotation, segment } from '../../modules/2d.js'
 
 export const titre = 'Exo zéro Mathalea2d'
 

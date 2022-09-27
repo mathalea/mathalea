@@ -8,7 +8,9 @@ export const titre = 'Lire abscisse décimale avec zoom'
  * Publié le 13/11/2020
  * @author Jean-Claude Lhote
  */
-export default function lireUneAbscisseAvecZoomCM () {
+export const uuid = 'b2f66'
+export const ref = 'c3N23'
+export default function LireUneAbscisseAvecZoomCM () {
   LireUneAbscisseAvecZoom.call(this)
   this.niveau = 'CM'
   this.sup = 1

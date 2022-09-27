@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, lettreDepuisChiffre, choice, couleurTab, miseEnEvidence, sp, rangeMinMax, numAlpha, enleveElement, combinaisonListes } from '../../modules/outils.js'
-import { point, mathalea2d, pointSurSegment, segment, polygoneAvecNom, labelPoint, droite, pointIntersectionDD, codeAngle, angleOriente, polyline } from '../../modules/2d.js'
+import { point, pointSurSegment, segment, polygoneAvecNom, labelPoint, droite, pointIntersectionDD, codageAngle, angleOriente, polyline } from '../../modules/2d.js'
 import { min, max } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -20,6 +21,8 @@ export const dateDePublication = '13/04/2022'
  * @author Eric Elter
  * Publié le 13/04/2022
  */
+export const uuid = 'e10d1'
+export const ref = '6G22'
 export default function NommerUnAngle () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
@@ -216,9 +219,9 @@ export default function NommerUnAngle () {
         segmentsCorrection.epaisseur = 3
         const ang = angleOriente(pt1, pt2, pt3)
 
-        objetsEnonce.push(codeAngle(pt1, pt2, ang, tailleAngle, marquageAngle[jj], couleurAngle, 2, 1, couleurRemplissageAngle[0], 1, false, true))
+        objetsEnonce.push(codageAngle(pt1, pt2, ang, tailleAngle, marquageAngle[jj], couleurAngle, 2, 1, couleurRemplissageAngle[0], 1, false, true))
         texteAMC = 'Comment peut-on nommer l\'angle '
-        marquageAngleConsigne.push(codeAngle(M1, O, 79, 1, marquageAngle[jj]))
+        marquageAngleConsigne.push(codageAngle(M1, O, 79, 1, marquageAngle[jj]))
         texteAMC += this.sup3
           ? 'marqué par le symbole' + mathalea2d({ xmin: 0, ymin: 0, xmax: 1.2, ymax: 1.2, pixelsParCm: 20, scale: 0.5, style: 'display:inline' }, marquageAngleConsigne) + `${sp()}?`
           : `${couleurRemplissageAngle[1]}${sp()}?`
@@ -228,7 +231,7 @@ export default function NommerUnAngle () {
           texte += ajouteChampTexteMathLive(this, i * this.sup + jj, 'inline largeur25')
         }
         setReponse(this, i * this.sup + jj, resultat, { formatInteractif: 'texte' })
-        objetsCorrection.push(codeAngle(pt1, pt2, ang, tailleAngle, marquageAngle[jj], couleurAngle, 2, 1, couleurRemplissageAngle[0], 1, false, true), segmentsCorrection)
+        objetsCorrection.push(codageAngle(pt1, pt2, ang, tailleAngle, marquageAngle[jj], couleurAngle, 2, 1, couleurRemplissageAngle[0], 1, false, true), segmentsCorrection)
         texteCorr += this.sup > 1 ? `<br>${numAlpha(jj)}` : ''
         texteCorr += 'L\'angle '
         texteCorr += this.sup3

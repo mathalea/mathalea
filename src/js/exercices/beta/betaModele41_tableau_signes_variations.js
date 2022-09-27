@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { mathalea2d, tableauDeVariation } from '../../modules/2d.js'
+import { tableauDeVariation } from '../../modules/2d.js'
 export const titre = 'Nom de l\'exercice'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -15,6 +16,7 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
 export default class NomExercice extends Exercice {
   constructor () {
     super()
+    this.titre = titre
     this.consigne = 'Consigne'
     this.nbQuestions = 1
     this.nbCols = 2

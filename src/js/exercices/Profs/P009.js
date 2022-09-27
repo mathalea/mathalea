@@ -1,17 +1,18 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, arrondiVirgule, nombreAvecEspace } from '../../modules/outils.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { listeQuestionsToContenu, randint, calcul, texNombre, nombreAvecEspace } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
-import { repere2, traceBarre, mathalea2d } from '../../modules/2d.js'
+import { repere, traceBarre } from '../../modules/2d.js'
 
-export const titre = 'Simulation d’expériences aléatoires'
+export const titre = 'Simulation d\'expériences aléatoires'
 
 /**
  * Reconnaître une fonction affine
 * @author Erwan Duplessy
 * 6C30-1
 * D'après le document "Attendus en fin de 3eme"
-* On donne les fréquences d’apparition de chaque face d’un dé pour 10000 lancers.
-* L’élève interprète les résultats en les comparant aux probabilités théoriques.
+* On donne les fréquences d\'apparition de chaque face d\'un dé pour 10000 lancers.
+* L\'élève interprète les résultats en les comparant aux probabilités théoriques.
 */
 
 export default function SimulateurAleatoire () {
@@ -58,7 +59,7 @@ export default function SimulateurAleatoire () {
     switch (parseInt(this.sup)) { //
       case 1: // Tirages de dés
         f = fraction(1, nbFaces)
-        texteCorr = `Chaque face a la même probabilité de sortir : $${f.texFraction}\\approx ${arrondiVirgule(f.pourcentage)}\\%$.<br>`
+        texteCorr = `Chaque face a la même probabilité de sortir : $${f.texFraction}\\approx ${texNombre(f.pourcentage, 2)}\\%$.<br>`
 
         texte += `On lance un dé à ${nbFaces} faces ${nombreAvecEspace(nbLancers)} fois.<br>On étudie les fréquences d'apparition de chaque face.<br>On obtient les résultats suivants : <br>`
         if (this.sup3) {
@@ -89,7 +90,7 @@ export default function SimulateurAleatoire () {
             tabRes[i] = [i, calcul(tabEff[i] / nbLancers)]
           }
           texteCorr += 'Ici, l\'expérience montre qu\'il y a quelque chose qui semble fausser cette équiprobabilité comme un dé truqué.<br>'
-          texteCorr += `En effet, la fréquence de la face $${face}$ est largement inférieure à $${arrondiVirgule(f.pourcentage)}\\%$.`
+          texteCorr += `En effet, la fréquence de la face $${face}$ est largement inférieure à $${texNombre(f.pourcentage, 2)}\\%$.`
         }
 
         break
@@ -145,7 +146,7 @@ export default function SimulateurAleatoire () {
             tabRes[i] = [i, calcul(tabEff[i] / nbLancers)]
           }
           texteCorr += 'Ici, l\'expérience montre qu\'il y a quelque chose qui semble fausser cette équiprobabilité comme des boules discernables au toucher.<br>'
-          texteCorr += `En effet, la fréquence des boules ${tabcoul[face - 1]} est largement inférieure à $${f.texFraction}\\approx ${arrondiVirgule(f.pourcentage)}\\%$.`
+          texteCorr += `En effet, la fréquence des boules ${tabcoul[face - 1]} est largement inférieure à $${f.texFraction}\\approx ${texNombre(f.pourcentage, 2)}\\%$.`
         }
         break
     }
@@ -160,14 +161,14 @@ export default function SimulateurAleatoire () {
         texte += '\\\\\\hline\n'
         texte += '\\text{Fréquence d\'apparition}'
         for (let i = 0; i < nbFaces; i++) {
-          texte += ` & \\text{${arrondiVirgule(100 * tabRes[i][1], 1)}} \\% `
+          texte += ` & ${texNombre(100 * tabRes[i][1], 1)} \\% `
         }
         texte += '\\\\\\hline\n'
         texte += '\\end{array}\n$'
         texte += '<br>'
         if (this.correctionDetaillee) {
           const coef = 10
-          const r = repere2({
+          const r = repere({
             grilleX: false,
             grilleY: 'pointilles',
             xThickListe: [],
@@ -199,14 +200,14 @@ export default function SimulateurAleatoire () {
         texte += '\\\\\\hline\n'
         texte += '\\text{Fréquence d\'apparition}'
         for (let i = 0; i < nbFaces; i++) {
-          texte += ` & \\text{${arrondiVirgule(100 * tabRes[i][1], 1)}} \\%`
+          texte += ` & ${texNombre(100 * tabRes[i][1], 1)} \\%`
         }
         texte += '\\\\\\hline\n'
         texte += '\\end{array}\n$'
         texte += '<br>'
         if (this.correctionDetaillee) {
           const coef = 10
-          const r = repere2({
+          const r = repere({
             grilleX: false,
             grilleY: 'pointilles',
             xThickListe: [],

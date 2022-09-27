@@ -9,6 +9,8 @@ export const interactifType = ['qcm', 'mathLive']
 /**
  * @author Jean-claude Lhote
  */
+export const uuid = 'acb80'
+export const ref = '3G43'
 export default function CalculDeVolumes3e () {
   CalculDeVolumes.call(this)
   this.titre = titre
@@ -18,5 +20,5 @@ export default function CalculDeVolumes3e () {
   this.interactifType = interactifType
   this.sup = 1
   this.classe = 3
-  this.besoinFormulaire4Texte = ['Type de solides', 'Nombres séparés par des tirets\n1  : Cubes\n2 : Pavés droits\n3 : Cylindres\n4 : Prismes droites\n5 : Cônes\n6 : Pyramides\n7 : Boules\n8: Mélange']
+  this.besoinFormulaire4Texte = ['Type de solides', 'Nombres séparés par des tirets\n1  : Cubes\n2 : Pavés droits\n3 : Cylindres\n4 : Prismes droits\n5 : Cônes\n6 : Pyramides\n7 : Boules\n8: Mélange']
 }

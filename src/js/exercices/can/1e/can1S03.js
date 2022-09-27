@@ -14,6 +14,8 @@ export const dateDePublication = '15/02/2022' // La date de publication initiale
  * @author Gilles Mora
  * Référence
 */
+export const uuid = 'fccb4'
+export const ref = 'can1S03'
 export default function CalculTermeSuiteRec2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import Decimal from 'decimal.js/decimal.mjs'
 import { context } from '../../modules/context.js'
-import { choice, listeQuestionsToContenu, randint, texNombre, arrondi } from '../../modules/outils.js'
+import { choice, listeQuestionsToContenu, randint, texNombre } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { cos } from '../../modules/fonctionsMaths.js'
@@ -15,6 +16,8 @@ export const titre = 'Arrondir une racine carrée'
  * @author Mireille Gain, 27 juin 2021
  */
 
+export const uuid = '41187'
+export const ref = '4G20-4'
 export default function ArrondirUneValeur () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -40,41 +43,41 @@ export default function ArrondirUneValeur () {
       this.autoCorrection[3 * i + 1] = {}
       this.autoCorrection[3 * i + 2] = {}
       if (this.version === 1) {
-        rac = randint(2, 300, [4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256, 289])
-        n = Math.sqrt(rac)
+        rac = new Decimal(randint(2, 300, [4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256, 289]))
+        n = rac.sqrt()
         nb = `\\sqrt{${rac}}`
       } else { // if (this.version === 2)
-        v = randint(11, 99) / 10
+        v = new Decimal(randint(11, 99)).div(10)
         angle = randint(1, 89, 60)
         if (choice([true, false])) {
-          n = v * cos(angle)
-          nb = `${texNombre(v)}\\cos(${angle})`
+          n = v.mul(cos(angle))
+          nb = `${texNombre(v, 1)}\\cos(${angle})`
         } else {
-          n = v / cos(angle)
-          nb = `\\dfrac{${texNombre(v)}}{\\cos(${angle})}`
+          n = v.div(cos(angle))
+          nb = `\\dfrac{${texNombre(v, 1)}}{\\cos(${angle})}`
         }
       }
 
-      texte = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n)}$`
+      texte = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n, 10)}$`
 
       texte += '<br>Arrondi à l\'unité : '
       texte += ajouteChampTexteMathLive(this, 3 * i)
-      texteCorr = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n)}$`
+      texteCorr = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n, 10)}$`
       texteCorr += "<br>Arrondi à l'unité : "
-      texteCorr += `$${texNombre(arrondi(n, 0))}$`
-      setReponse(this, 3 * i, arrondi(n, 0))
+      texteCorr += `$${texNombre(n, 0)}$`
+      setReponse(this, 3 * i, n.round())
 
       texte += '<br>Arrondi au dixième : '
       texte += ajouteChampTexteMathLive(this, 3 * i + 1)
       texteCorr += '<br>Arrondi au dixième : '
-      texteCorr += `$${texNombre(arrondi(n, 1))}$`
-      setReponse(this, 3 * i + 1, arrondi(n, 1))
+      texteCorr += `$${texNombre(n, 1)}$`
+      setReponse(this, 3 * i + 1, n.toDP(1))
 
       texte += '<br>Arrondi au centième : '
       texte += ajouteChampTexteMathLive(this, 3 * i + 2)
       texteCorr += '<br>Arrondi au centième : '
-      texteCorr += `$${texNombre(arrondi(n, 2))}$`
-      setReponse(this, 3 * i + 2, arrondi(n, 2))
+      texteCorr += `$${texNombre(n, 2)}$`
+      setReponse(this, 3 * i + 2, n.toDP(2))
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

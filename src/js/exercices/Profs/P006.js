@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { arrondi, troncature, calcul, choisitLettresDifferentes } from '../../modules/outils.js'
-import { point, segment, droiteGraduee2, mathalea2d } from '../../modules/2d.js'
+import { point, segment, droiteGraduee } from '../../modules/2d.js'
 
 export const titre = 'Placer un nombre décimal avec des zooms successifs'
 
@@ -40,7 +41,7 @@ export default function NombreAPlacer () {
     const thickOff = 0.0001
 
     const extremite = '->'
-    const d1 = droiteGraduee2({
+    const d1 = droiteGraduee({
       x: 0,
       y: 6,
       Min: xmin,
@@ -65,7 +66,7 @@ export default function NombreAPlacer () {
       pointEpaisseur: 3,
       axeStyle: extremite
     })
-    const d2 = droiteGraduee2({
+    const d2 = droiteGraduee({
       x: 6.5,
       y: 3,
       Min: x2,
@@ -90,7 +91,7 @@ export default function NombreAPlacer () {
       pointEpaisseur: 2,
       axeStyle: extremite
     })
-    const d3 = droiteGraduee2({
+    const d3 = droiteGraduee({
       x: 6.5,
       y: 0,
       Min: x21,
@@ -121,16 +122,16 @@ export default function NombreAPlacer () {
     const pB2 = point(26.5, 3)
     const sA = segment(pA1, pA2)
     const sB = segment(pB1, pB2)
-    sA.pointilles = true
-    sB.pointilles = true
+    sA.pointilles = 5
+    sB.pointilles = 5
     const pC1 = point(6.5 + (x21 - x2) * 200, 3)
     const pC2 = point(6.5, 0)
     const pD1 = point(6.5 + (x31 - x2) * 200, 3)
     const pD2 = point(26.5, 0)
     const sC = segment(pC1, pC2)
     const sD = segment(pD1, pD2)
-    sC.pointilles = true
-    sD.pointilles = true
+    sC.pointilles = 5
+    sD.pointilles = 5
     const fenetre = { xmin: -1.5, xmax: 35, ymin: -1.5, ymax: 7.5, pixelsParCm: 25, scale: 0.5 }
     if (this.sup === 3) { objets.push(d1, d2, d3, sA, sB, sC, sD) } else if (this.sup === 2) { objets.push(d1, d2, sA, sB) } else { objets.push(d1) }
 

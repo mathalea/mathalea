@@ -12,13 +12,15 @@ export const titre = 'Calculer une expression numérique en détaillant les calc
  * @author Jean-Claude Lhote
  * Référence 5C12
  */
+export const uuid = 'e61fc'
+export const ref = '5C12'
 export default function CalculerUneExpressionNumerique () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
   this.nbQuestions = 4
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.sup = false
+  this.sup = 3
   this.sup2 = false // si false alors utilisation de nombres entiers (calcul mental), si true alors utilisation de nombres à un chiffre après la virgule.
   this.sup3 = true
   this.sup4 = false
@@ -90,7 +92,8 @@ export default function CalculerUneExpressionNumerique () {
       } else {
         texteCorr = `Pour $x=${val1}$ :<br>${expc}.`
       }
-      reponse = parseInt(expc.split('=')[expc.split('=').length - 1])
+
+      reponse = this.litteral ? parseInt(expc.split('=')[expc.split('=').length - 1]) : resultats[4]
       if (this.questionJamaisPosee(i, expn, expf)) { // Si la question n'a jamais été posée, on en créé une autre
         if (this.interactif) {
           texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: ' Résultat : ' })

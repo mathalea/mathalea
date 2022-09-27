@@ -8,6 +8,8 @@ export { amcReady, amcType } from '../4e/4L20.js'
  *
  * @author Sébastien LOZANO
  */
+export const uuid = 'd02da'
+export const ref = '2N51-4'
 export default function ExerciceEquation12nde () {
   ExerciceEquation1.call(this)
   this.sup = true

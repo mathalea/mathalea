@@ -9,11 +9,12 @@ export const titre = 'Résoudre les équations produit-nul'
 * 2N52-1, ex 2L12
 * publié le 6/02/2021
 */
+export const uuid = '53762'
+export const ref = '2N52-1'
 export default function EquationsProduitsNuls2 () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Résoudre dans $\\mathbb R$ les équations suivantes :'
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacing = 1
@@ -26,6 +27,7 @@ export default function EquationsProduitsNuls2 () {
   this.correctionDetaillee = true
 
   this.nouvelleVersion = function () {
+    this.consigne = 'Résoudre dans $\\mathbb R$ ' + (this.nbQuestions !== 1 ? 'les équations suivantes' : 'l\'équation suivante') + '.'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles = []

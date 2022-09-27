@@ -2,9 +2,9 @@
 import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube, exerciceSimpleToContenu, listeQuestionsToContenu, introLatexCan, arrondi, dataTailleDiaporama, contraindreValeur } from './modules/outils.js'
 import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch, getUserId, setUrlAndGo, replaceQueryParam, goTabVue } from './modules/gestionUrl.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
-import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders'
-import { waitFor } from './modules/outilsDom'
-import { mg32DisplayAll } from './modules/mathgraph'
+import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders.js'
+import { waitFor } from './modules/outilsDom.js'
+import { mg32DisplayAll } from './modules/mathgraph.js'
 import {
   errorHandler,
   getInvalidModuleError, getNoLatexError,
@@ -270,12 +270,13 @@ function contenuExerciceHtml (obj, numeroExercice) {
   // * boutons
   // * formulaires
   // renvoie un objet : { contenu_un_exercice: le html de l'exercice  ,contenu_une_correction: le html de la correction }
+
   let contenuUnExercice = ''
   let contenuUneCorrection = ''
   let paramTooltip = ''
   let iconeInteractif = ''
   // Pour factoriser les entrées des exos statiques
-  const factoExosStatiques = ['crpe', 'dnb', 'bac', 'e3c']
+  const factoExosStatiques = ['crpe', 'dnb', 'bac', 'e3c', 'crpeCoop']
   if (factoExosStatiques.includes(obj.typeExercice)) {
     const crpe = {
       titreEx: `<h3> Exercice ${numeroExercice} − CRPE ${obj.annee} - ${obj.lieu} - ${obj.numeroInitial}</h3>`,
@@ -287,8 +288,14 @@ function contenuExerciceHtml (obj, numeroExercice) {
       return `<h3> Exercice ${numeroExercice} − ${type} ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial})</h3>`
     }
 
-    function titreExCorr (type) {
-      return `<h3 class="ui dividing header">Exercice ${numeroExercice} − ${type} ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial}) - Corrigé par l'APMEP</h3>`
+    function titreExCorr (type, coopmaths = false) {
+      let h3Tag = ''
+      if (coopmaths === true) {
+        h3Tag += `<h3 class="ui dividing header">Exercice ${numeroExercice} − ${type} ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial}) - Corrigé alternatif COOPMATHS</h3>`
+      } else {
+        h3Tag += `<h3 class="ui dividing header">Exercice ${numeroExercice} − ${type} ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial}) - Corrigé par l'APMEP</h3>`
+      }
+      return h3Tag
     }
     const dnb = {
       titreEx: titreEx('DNB'),
@@ -307,6 +314,9 @@ function contenuExerciceHtml (obj, numeroExercice) {
 
     switch (obj.typeExercice) {
       case 'crpe':
+        contenuUnExercice += crpe.titreEx
+        break
+      case 'crpeCoop':
         contenuUnExercice += crpe.titreEx
         break
       case 'dnb':
@@ -331,6 +341,14 @@ function contenuExerciceHtml (obj, numeroExercice) {
         }
       }
         break
+      case 'crpeCoop': {
+        let i = 1
+        for (const png of obj.png) {
+          contenuUnExercice += `<img id="${obj.id}-${i}" width="90%" src="${png}">`
+          i++
+        }
+      }
+        break
       case 'dnb':
       case 'bac':
       case 'e3c':
@@ -341,6 +359,9 @@ function contenuExerciceHtml (obj, numeroExercice) {
 
     switch (obj.typeExercice) {
       case 'crpe':
+        contenuUneCorrection += crpe.titreExCorr
+        break
+      case 'crpeCoop':
         contenuUneCorrection += crpe.titreExCorr
         break
       case 'dnb':
@@ -367,10 +388,22 @@ function contenuExerciceHtml (obj, numeroExercice) {
           }
         }
           break
+        case 'crpeCoop': {
+          let i = 1
+          for (const png of obj.pngCor) {
+            contenuUneCorrection += `<img id="${obj.id}-${i}Cor" width="90%" src="${png}">`
+            i++
+          }
+        }
+          break
         case 'dnb':
         case 'bac':
         case 'e3c':
           contenuUneCorrection += `<img id="${obj.id}Cor" width="90%" src="${obj.pngcor}">`
+          if (typeof obj.pngcorcoop !== 'undefined') {
+            contenuUneCorrection += titreExCorr('DNB', true)
+            contenuUneCorrection += `<img id="${obj.id}Cor" width="90%" src="${obj.pngcorcoop}">`
+          }
           break
       }
       contenuUneCorrection += '</div></div>'
@@ -415,9 +448,9 @@ function contenuExerciceHtml (obj, numeroExercice) {
 
       if (obj.questionJamaisPosee(numQuestion, obj.question)) {
         if (obj.nbQuestions === 1) {
-          contenuUnExercice += `<div><div class="question" id="exercice${numeroExercice - 1}Q${numQuestion}" ${dataTailleDiaporama(obj)}>${obj.question}</div></div>`
+          contenuUnExercice += `<div><div class="question" id="exercice${numeroExercice - 1}Q${numQuestion}" ${dataTailleDiaporama(obj)}>${obj.question.replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....')}</div></div>`
         } else {
-          contenuUnExercice += `<li class="question" id="exercice${numeroExercice - 1}Q${numQuestion}" ${dataTailleDiaporama(obj)}>${obj.question}`
+          contenuUnExercice += `<li class="question" id="exercice${numeroExercice - 1}Q${numQuestion}" ${dataTailleDiaporama(obj)}>${obj.question.replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....')}`
         }
         if (obj.interactif && obj.interactifReady) {
           if (obj.formatChampTexte) {
@@ -449,6 +482,7 @@ function contenuExerciceHtml (obj, numeroExercice) {
         numQuestion++
       }
     }
+
     contenuUnExercice += (obj.nbQuestions !== 1) ? '</ol>' : ''
     contenuUneCorrection += (obj.nbQuestions !== 1) ? '</ol>' : ''
     if (obj.interactif || obj.interactifObligatoire) {
@@ -501,6 +535,7 @@ function contenuExerciceHtml (obj, numeroExercice) {
     }
     contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice}</h3>`
     contenuUneCorrection += obj.correctionIsCachee ? 'Correction masquée' : obj.contenuCorrection
+
     if (obj.typeExercice === 'MG32' && obj.MG32codeBase64corr) {
       contenuUneCorrection += `<div id="MG32divcorr${numeroExercice - 1}" class="MG32"></div>`
     }
@@ -512,7 +547,7 @@ function contenuExerciceHtml (obj, numeroExercice) {
 }
 
 function miseAJourDuCode () {
-  // fonction permettant de mettre à jour la liste des exercices affichées.
+  // fonction permettant de mettre à jour la liste des exercices affichés.
   // puis gère les gestionnaires d'évènements sur les éléments en provenance des exercices (icones pour supprimer/déplacer...)
   // Appelée dès lors que l'on a une modification sur l'affichage d'un ou plusieurs exercices
   //    suppression d'un exercice, nouvelle donnée, changement de paramètre...)
@@ -523,7 +558,13 @@ function miseAJourDuCode () {
   // Active ou désactive l'icone de la course aux nombres
   let tousLesExercicesSontInteractifs = true
   for (const exercice of listeObjetsExercice) {
-    if (!exercice.interactifReady) {
+    if (exercice.interactifReady === undefined) { // Rajout EE : Parfois, certains exos n'ont pas de propriété interactifReady définie
+      tousLesExercicesSontInteractifs = false
+      if (document.getElementById('btnCan') && document.getElementById('btnEval')) {
+        document.getElementById('btnCan').classList.add('disabled')
+        document.getElementById('btnEval').classList.add('disabled')
+      }
+    } else if (!exercice.interactifReady) {
       tousLesExercicesSontInteractifs = false
       if (document.getElementById('btnCan') && document.getElementById('btnEval')) {
         document.getElementById('btnCan').classList.add('disabled')
@@ -550,8 +591,10 @@ function miseAJourDuCode () {
   if (btnTousInteractifs !== null) {
     btnTousInteractifs.addEventListener('click', () => {
       for (let i = 0; i < listeObjetsExercice.length; i++) {
-        if (listeObjetsExercice[i].interactifReady) {
-          listeObjetsExercice[i].interactif = true
+        if (listeObjetsExercice[i] !== undefined) {
+          if (listeObjetsExercice[i].interactifReady) {
+            listeObjetsExercice[i].interactif = true
+          }
         }
       }
       miseAJourDuCode()
@@ -749,20 +792,20 @@ function miseAJourDuCode () {
         if ($('#liste_des_exercices').is(':visible') || $('#exercices_disponibles').is(':visible') || $('#exo_plein_ecran').is(':visible')) {
           // si on n'a plus la liste des exercices il ne faut plus pouvoir en supprimer (pour v=l)
           if (listeDesExercices.length === 1) {
-            // si on a q'un seul exercice, uniquement l'icone poubelle
-            contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i>${contenu.contenu_un_exercice} </div>`
+            // si on a qu'un seul exercice, uniquement l'icone poubelle
+            contenuDesExercices += `<div id="exercice${i}" style="margin-top: 20px"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i>${contenu.contenu_un_exercice} </div>`
           } else if (i === 0) {
             // si c'est le premier exercice icone poubelle plus fleche vers le bas
-            contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i>${contenu.contenu_un_exercice} </div>`
+            contenuDesExercices += `<div id="exercice${i}" style="margin-top: 20px"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i>${contenu.contenu_un_exercice} </div>`
           } else if (i === listeDesExercices.length - 1) {
             // Pour le dernier exercice pas de fleche vers le bas
-            contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle up icon icone_up"></i>${contenu.contenu_un_exercice} </div>`
+            contenuDesExercices += `<div id="exercice${i}" style="margin-top: 20px"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle up icon icone_up"></i>${contenu.contenu_un_exercice} </div>`
           } else {
             // pour les autres exercices affichage de l'icone poubelle et des deux flèches (haut et bas)
-            contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i><i id="${i}" class="arrow circle up icon icone_up"></i>${contenu.contenu_un_exercice} </div>`
+            contenuDesExercices += `<div id="exercice${i}" style="margin-top: 20px"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i><i id="${i}" class="arrow circle up icon icone_up"></i>${contenu.contenu_un_exercice} </div>`
           }
         } else {
-          contenuDesExercices += `<div id="exercice${i}" class="titreExercice"> <h3 class="ui dividing header">${contenu.contenu_un_exercice} </div>`
+          contenuDesExercices += `<div id="exercice${i}" class="titreExercice" style="margin-top: 20px"> <h3 class="ui dividing header">${contenu.contenu_un_exercice} </div>`
         }
         contenuDesCorrections += `<div id="divexcorr${i}" class="titreExercice"> ${contenu.contenu_une_correction} </div>`
       }
@@ -1103,7 +1146,56 @@ function miseAJourDuCode () {
       }
       if ($('#style_can:checked').val()) {
         const monSuperExercice = concatExercices(listeObjetsExercice)
-        codeEnonces = monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', '\\begin{enumerate}[itemsep=1em]')
+        if (listeObjetsExercice.length === 1) {
+          codeEnonces = monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', `\\begin{spacing}{1.5}
+          \\begin{longtable}{|c|>{\\centering}p{0.65\\textwidth}|>{\\centering}p{0.15\\textwidth}|c|}%
+          \\hline
+          \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline
+          \\thenbEx \\addtocounter{nbEx}{1}&`).replace('\\item', '').replaceAll('\\item', `&&\\tabularnewline \\hline
+          \\thenbEx  \\addtocounter{nbEx}{1}&`).replace('\\end{enumerate}', `&&\\tabularnewline \\hline
+          \\end{longtable}
+          \\end{spacing}
+          \\addtocounter{nbEx}{-1}`).replace('\\begin{multicols}{2}', '').replace('\\end{multicols}', '').replaceAll('\\\\', '')
+        } else {
+          let msgAlerteCanEnonce = ''
+          let msgAlerteCanReponseACompleter = ''
+          let canCorpsTableau = ''
+          let msgEnonce
+          let msgRepACompleter
+          for (const exoCan of listeObjetsExercice) {
+            if (!exoCan.hasOwnProperty('canEnonce') || !exoCan.hasOwnProperty('canReponseACompleter')) {
+              msgEnonce = exoCan.contenu.replace('\\exo{}', '').replace(`\\marginpar{\\footnotesize ${exoCan.id}}`, '') //'Propriété canEnonce manquante'
+              msgRepACompleter = ''
+              if (!exoCan.hasOwnProperty('canEnonce')) {
+                msgAlerteCanEnonce += ' ' + exoCan.id
+              }
+              if (!exoCan.hasOwnProperty('canReponseACompleter')) {
+                msgAlerteCanReponseACompleter += ' ' + exoCan.id
+              }
+            } else {
+              msgEnonce = exoCan.canEnonce.replaceAll('<br>', '')
+              msgRepACompleter = exoCan.canReponseACompleter.replaceAll('<br>', '')
+            }
+            canCorpsTableau += `
+            \\thenbEx \\addtocounter{nbEx}{1}&${msgEnonce}&${msgRepACompleter}&\\tabularnewline \\hline
+            `
+          }
+
+          codeEnonces = ` \\textcolor{red}{Les exercices ${msgAlerteCanEnonce} n'ont pas de propriété canEnonce} \\\\`
+          codeEnonces += ` \\textcolor{red}{Les exercices ${msgAlerteCanReponseACompleter} n'ont pas de propriété canReponseACompleter} \\\\`
+          codeEnonces += `\\begin{spacing}{1.5}
+          \\begin{longtable}{|>{\\columncolor{gray!20}}c|>{\\centering}p{0.4\\textwidth}|>{\\centering}p{0.4\\textwidth}|c|}%
+          \\hline
+          \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline`
+
+          codeEnonces += canCorpsTableau
+
+          codeEnonces += `
+          \\end{longtable}
+          \\end{spacing}
+          \\addtocounter{nbEx}{-1}
+          `
+        }
         codeCorrections = monSuperExercice.contenuCorrection.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '')
       }
       if ($('#supprimer_correction:checked').val()) {
@@ -1128,8 +1220,54 @@ function miseAJourDuCode () {
           codeExercices += '\\version{' + (v + 1) + '}\n\n'
           codeCorrection += '\n\n\\newpage\n\\version{' + (v + 1) + '}\n\\begin{correction}'
           if ($('#style_can:checked').val()) {
-            const monSuperExercice = concatExercices(listeObjetsExercice)
-            codeExercices += monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', '\\begin{enumerate}[itemsep=1em]')
+            const monSuperExercice = concatExercices(listeObjetsExercice)            
+            if (listeObjetsExercice.length === 1) {
+              codeExercices += monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', `\\begin{spacing}{1.5}
+              \\begin{longtable}{|c|>{\\centering}p{0.65\\textwidth}|>{\\centering}p{0.15\\textwidth}|c|}%
+              \\hline
+              \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline
+              \\thenbEx \\addtocounter{nbEx}{1}&`).replace('\\item', '').replaceAll('\\item', `&&\\tabularnewline \\hline
+              \\thenbEx  \\addtocounter{nbEx}{1}&`).replace('\\end{enumerate}', `&&\\tabularnewline \\hline
+              \\end{longtable}
+              \\end{spacing}
+              \\addtocounter{nbEx}{-1}`).replace('\\begin{multicols}{2}', '').replace('\\end{multicols}', '').replace('\\\\', '')
+            } else {
+              let msgAlerteCanEnonce = ''
+              let msgAlerteCanReponseACompleter = ''
+              let canCorpsTableau = ''
+              let msgEnonce
+              let msgRepACompleter
+              for (const exoCan of listeObjetsExercice) {
+                if (!exoCan.hasOwnProperty('canEnonce') || !exoCan.hasOwnProperty('canReponseACompleter')) {
+                  msgEnonce = exoCan.contenu.replace('\\exo{}', '').replace(`\\marginpar{\\footnotesize ${exoCan.id}}`, '') //'Propriété canEnonce manquante'
+                  msgRepACompleter = ''
+                  if (!exoCan.hasOwnProperty('canEnonce')) {
+                    msgAlerteCanEnonce += ' ' + exoCan.id
+                  }
+                  if (!exoCan.hasOwnProperty('canReponseACompleter')) {
+                    msgAlerteCanReponseACompleter += ' ' + exoCan.id
+                  }
+                } else {
+                  msgEnonce = exoCan.canEnonce.replaceAll('<br>', '')
+                  msgRepACompleter = exoCan.canReponseACompleter.replaceAll('<br>', '')
+                }
+                canCorpsTableau += `
+                \\thenbEx \\addtocounter{nbEx}{1}&${msgEnonce}&${msgRepACompleter}&\\tabularnewline \\hline
+                `
+              }
+              codeExercices += ` \\textcolor{red}{Les exercices ${msgAlerteCanEnonce} n'ont pas de propriété canEnonce} \\\\`
+              codeExercices += ` \\textcolor{red}{Les exercices ${msgAlerteCanReponseACompleter} n'ont pas de propriété canReponseACompleter} \\\\`
+              codeExercices += `\\begin{spacing}{1.5}
+              \\begin{longtable}{|>{\\columncolor{gray!20}}c|>{\\centering}p{0.4\\textwidth}|>{\\centering}p{0.4\\textwidth}|c|}%
+              \\hline
+              \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline`
+              codeExercices += canCorpsTableau
+              codeExercices += `
+              \\end{longtable}
+              \\end{spacing}
+              \\addtocounter{nbEx}{-1}
+              `
+            }
             codeExercices += '\n\n'
             codeCorrection += monSuperExercice.contenuCorrection.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '')
             codeCorrection += '\n\n'
@@ -1421,32 +1559,49 @@ async function miseAJourDeLaListeDesExercices (preview) {
         throw getUnknownError(id)
       }
 
-      if (dictionnaireDesExercices[id].typeExercice === 'dnb' || dictionnaireDesExercices[id].typeExercice === 'bac' || dictionnaireDesExercices[id].typeExercice === 'e3c') {
+      if (dictionnaireDesExercices[id].typeExercice === 'dnb' || dictionnaireDesExercices[id].typeExercice === 'bac' || dictionnaireDesExercices[id].typeExercice === 'e3c' || dictionnaireDesExercices[id].typeExercice === 'crpe') {
         listeObjetsExercice[i] = dictionnaireDesExercices[id]
-        promises.push(
-          window.fetch(url)
-            .then((response) => response.text())
-            .then((data) => {
-              listeObjetsExercice[i].nbQuestionsModifiable = false
-              listeObjetsExercice[i].video = ''
-              listeObjetsExercice[i].titre = id
-              listeObjetsExercice[i].contenu = data
-            })
-        )
-        promises.push(
-          window.fetch(dictionnaireDesExercices[id].urlcor)
-            .then((response) => response.text())
-            .then((data) => {
-              listeObjetsExercice[i].contenuCorrection = listeObjetsExercice[i].correctionIsCachee ? 'Correction masquée' : data
-            })
-        )
-      } else if (dictionnaireDesExercices[id].typeExercice === 'crpe') {
-        listeObjetsExercice[i] = dictionnaireDesExercices[id]
-        listeObjetsExercice[i].nbQuestionsModifiable = false
-        listeObjetsExercice[i].video = ''
-        listeObjetsExercice[i].titre = id
-        listeObjetsExercice[i].contenu = 'Exercice non disponible en version LaTeX'
-        listeObjetsExercice[i].contenuCorrection = 'Exercice non disponible en version LaTeX'
+        if (url) {
+          promises.push(
+            window.fetch(url)
+              .then((response) => response.text())
+              .then((data) => {
+                listeObjetsExercice[i].nbQuestionsModifiable = false
+                listeObjetsExercice[i].video = ''
+                listeObjetsExercice[i].titre = id
+                listeObjetsExercice[i].contenu = data
+              })
+          )
+          promises.push(
+            window.fetch(dictionnaireDesExercices[id].urlcor)
+              .then((response) => response.text())
+              .then((data) => {
+                listeObjetsExercice[i].contenuCorrection = listeObjetsExercice[i].correctionIsCachee ? 'Correction masquée' : data
+              })
+          )
+        } else {
+          listeObjetsExercice[i].nbQuestionsModifiable = false
+          listeObjetsExercice[i].video = ''
+          listeObjetsExercice[i].titre = id
+          listeObjetsExercice[i].contenu = 'Exercice non disponible en LaTeX.'
+          listeObjetsExercice[i].contenuCorrection = 'Exercice non disponible en LaTeX.'
+        }
+        if (typeof dictionnaireDesExercices[id].urlcorcoop !== 'undefined') {
+          promises.push(
+            window.fetch(dictionnaireDesExercices[id].urlcorcoop)
+              .then((response) => response.text())
+              .then((data) => {
+                listeObjetsExercice[i].contenuCorrection += listeObjetsExercice[i].correctionIsCachee ? 'Correction masquée' : '\\begin{LARGE}\\textbf{Correction alternative COOPMATHS}\\end{LARGE} \\par\\vspace{0.5cm}' + data
+              })
+          )
+        }
+      // } else if (dictionnaireDesExercices[id].typeExercice === 'crpe') {
+      //   listeObjetsExercice[i] = dictionnaireDesExercices[id]
+      //   listeObjetsExercice[i].nbQuestionsModifiable = false
+      //   listeObjetsExercice[i].video = ''
+      //   listeObjetsExercice[i].titre = id
+      //   listeObjetsExercice[i].contenu = 'Exercice non disponible en version LaTeX'
+      //   listeObjetsExercice[i].contenuCorrection = 'Exercice non disponible en version LaTeX'
       } else {
         // avec webpack on ne peut pas faire de import(url), car il faut lui indiquer quels fichiers sont susceptibles d'être chargés
         // ici il ne peut s'agir que de js contenus dans exercices (dnb,bac,e3c,crpe déjà traité dans le if au dessus)
@@ -1567,7 +1722,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
           if (isNumeric(urlVars[i].s2) && listeObjetsExercice[i].besoinFormulaire2Numerique) {
             // Avec sup numérique, on peut récupérer le max définit dans le formulaire
             const max = listeObjetsExercice[i].besoinFormulaire2Numerique[1]
-            listeObjetsExercice[i].sup2 = contraindreValeur(1, max, Number(urlVars[i].s2))
+            listeObjetsExercice[i].sup2 = contraindreValeur(1, max, Number(urlVars[i].s2), 1)
           } else {
             listeObjetsExercice[i].sup2 = typeof urlVars[i].s2 === 'boolean' ? urlVars[i].s2 : urlVars[i].s2.toString()
           }
@@ -1583,7 +1738,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
           if (isNumeric(urlVars[i].s3) && listeObjetsExercice[i].besoinFormulaire3Numerique) {
             // Avec sup numérique, on peut récupérer le max définit dans le formulaire
             const max = listeObjetsExercice[i].besoinFormulaire3Numerique[1]
-            listeObjetsExercice[i].sup3 = contraindreValeur(1, max, Number(urlVars[i].s3))
+            listeObjetsExercice[i].sup3 = contraindreValeur(1, max, Number(urlVars[i].s3), 1)
           } else {
             listeObjetsExercice[i].sup3 = typeof urlVars[i].s3 === 'boolean' ? urlVars[i].s3 : urlVars[i].s3.toString()
           }
@@ -1601,7 +1756,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
           if (isNumeric(urlVars[i].s4) && listeObjetsExercice[i].besoinFormulaire4Numerique) {
             // Avec sup numérique, on peut récupérer le max définit dans le formulaire
             const max = listeObjetsExercice[i].besoinFormulaire4Numerique[1]
-            listeObjetsExercice[i].sup4 = contraindreValeur(1, max, Number(urlVars[i].s4))
+            listeObjetsExercice[i].sup4 = contraindreValeur(1, max, Number(urlVars[i].s4), 1)
           } else {
             listeObjetsExercice[i].sup4 = typeof urlVars[i].s4 === 'boolean' ? urlVars[i].s4 : urlVars[i].s4.toString()
           }
@@ -1615,7 +1770,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
     }
     if (besoinXCas) {
       // On charge le javascript de XCas
-      let div // le div dans lequel on fera apparaitre le cercle de chargement
+      let div // le div dans lequel on fera apparaître le cercle de chargement
       if (context.isHtml) {
         div = document.getElementById('exercices')
       } else {
@@ -1849,6 +2004,8 @@ function parametresExercice (exercice) {
       $('#nombre_de_versions').change(function () {
         miseAJourDuCode()
       })
+      $('#popup_preview .icone_param').remove() // Dans la popup de visualisation pas d'icone engrenage.
+      $('#popup_preview .iconeInteractif').remove() // Dans la popup de visualisation pas d'icone interactif
     } else {
       divParametresGeneraux.innerHTML += '<h4 class="ui dividing header">Exercice n°' + (i + 1) + ' : ' + exercice[i].titre + '</h4>'
 
@@ -1949,7 +2106,7 @@ function parametresExercice (exercice) {
     if (exercice[i].besoinFormulaireTexte) {
       // Création d'un formulaire texte
       const paramTooltip = exercice[i].besoinFormulaireTexte[1] ? `data-tooltip="${exercice[i].besoinFormulaireTexte[1]}"` : ''
-      divParametresGeneraux.innerHTML += `<div style='display: inline'><label for='form_sup${i}'> ${exercice[i].besoinFormulaireTexte[0]} : </label>
+      divParametresGeneraux.innerHTML += `<div><label for='form_sup${i}'> ${exercice[i].besoinFormulaireTexte[0]} : </label>
                     <div style='display: inline' ${paramTooltip} data-inverted=''>
                     <input id='form_sup${i}' type='text' size='20' ></div></div>`
     }
@@ -2031,7 +2188,7 @@ function parametresExercice (exercice) {
     if (exercice[i].besoinFormulaire2Texte) {
       // Création d'un formulaire texte
       const paramTooltip = exercice[i].besoinFormulaire2Texte[1] ? `data-tooltip="${exercice[i].besoinFormulaire2Texte[1]}"` : ''
-      divParametresGeneraux.innerHTML += `<div style='display: inline'><label for='form_sup2${i}'> ${exercice[i].besoinFormulaire2Texte[0]} : </label>
+      divParametresGeneraux.innerHTML += `<div><label for='form_sup2${i}'> ${exercice[i].besoinFormulaire2Texte[0]} : </label>
                     <div style='display: inline' ${paramTooltip} data-inverted=''>
                     <input id='form_sup2${i}' type='text' size='20' ></div></div>`
     }
@@ -2039,7 +2196,7 @@ function parametresExercice (exercice) {
     if (exercice[i].besoinFormulaire3CaseACocher) {
       // Création d'un formulaire texte
       divParametresGeneraux.innerHTML +=
-        "<div style='display: inline'><label for='form_sup3" +
+        "<div><label for='form_sup3" +
         i +
         "'>" +
         exercice[i].besoinFormulaire3CaseACocher[0] +
@@ -2081,7 +2238,7 @@ function parametresExercice (exercice) {
     if (exercice[i].besoinFormulaire3Texte) {
       // Création d'un formulaire texte
       const paramTooltip = exercice[i].besoinFormulaire3Texte[1] ? `data-tooltip="${exercice[i].besoinFormulaire3Texte[1]}"` : ''
-      divParametresGeneraux.innerHTML += `<div style='display: inline'><label for='form_sup2${i}'> ${exercice[i].besoinFormulaire3Texte[0]} : </label>
+      divParametresGeneraux.innerHTML += `<div><label for='form_sup3${i}'> ${exercice[i].besoinFormulaire3Texte[0]} : </label>
                     <div style='display: inline' ${paramTooltip} data-inverted=''>
                     <input id='form_sup3${i}' type='text' size='20' ></div></div>`
     }
@@ -2131,7 +2288,7 @@ function parametresExercice (exercice) {
     if (exercice[i].besoinFormulaire4Texte) {
       // Création d'un formulaire texte
       const paramTooltip = exercice[i].besoinFormulaire4Texte[1] ? `data-tooltip="${exercice[i].besoinFormulaire4Texte[1]}"` : ''
-      divParametresGeneraux.innerHTML += `<div style='display: inline'><label for='form_sup2${i}'> ${exercice[i].besoinFormulaire4Texte[0]} : </label>
+      divParametresGeneraux.innerHTML += `<div><label for='form_sup4${i}'> ${exercice[i].besoinFormulaire4Texte[0]} : </label>
                     <div style='display: inline' ${paramTooltip} data-inverted=''>
                     <input id='form_sup4${i}' type='text' size='20' ></div></div>`
     }
@@ -2274,7 +2431,7 @@ function parametresExercice (exercice) {
       formNbQuestions[i].value = exercice[i].nbQuestions // Rempli le formulaire avec le nombre de questions
       formNbQuestions[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].nbQuestions = e.target.value
+        exercice[i].nbQuestions = parseInt(e.target.value)
         miseAJourDuCode()
       })
     }
@@ -2376,10 +2533,10 @@ function parametresExercice (exercice) {
     if (exercice[i].besoinFormulaireNumerique) {
       const max = exercice[i].besoinFormulaireNumerique[1]
       formSup[i] = document.getElementById('form_sup' + i)
-      formSup[i].value = contraindreValeur(1, max, exercice[i].sup) // Rempli le formulaire avec le paramètre supplémentaire
+      formSup[i].value = contraindreValeur(1, max, exercice[i].sup, 1) // Rempli le formulaire avec le paramètre supplémentaire
       formSup[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup = contraindreValeur(1, max, Number(e.target.value))
+        exercice[i].sup = contraindreValeur(1, max, Number(e.target.value), 1)
         miseAJourDuCode()
       })
     }
@@ -2407,10 +2564,10 @@ function parametresExercice (exercice) {
     if (exercice[i].besoinFormulaire2Numerique) {
       const max = exercice[i].besoinFormulaire2Numerique[1]
       formSup2[i] = document.getElementById('form_sup2' + i)
-      formSup2[i].value = contraindreValeur(1, max, exercice[i].sup2) // Rempli le formulaire avec le paramètre supplémentaire
+      formSup2[i].value = contraindreValeur(1, max, exercice[i].sup2, 1) // Rempli le formulaire avec le paramètre supplémentaire
       formSup2[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup2 = contraindreValeur(1, max, Number(e.target.value))
+        exercice[i].sup2 = contraindreValeur(1, max, Number(e.target.value), 1)
         miseAJourDuCode()
       })
     }
@@ -2445,10 +2602,10 @@ function parametresExercice (exercice) {
     if (exercice[i].besoinFormulaire3Numerique) {
       const max = exercice[i].besoinFormulaire3Numerique[1]
       formSup3[i] = document.getElementById('form_sup3' + i)
-      formSup3[i].value = contraindreValeur(1, max, exercice[i].sup3) // Rempli le formulaire avec le paramètre supplémentaire
+      formSup3[i].value = contraindreValeur(1, max, exercice[i].sup3, 1) // Rempli le formulaire avec le paramètre supplémentaire
       formSup3[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup3 = contraindreValeur(1, max, Number(e.target.value))
+        exercice[i].sup3 = contraindreValeur(1, max, Number(e.target.value), 1)
         miseAJourDuCode()
       })
     }
@@ -2483,10 +2640,10 @@ function parametresExercice (exercice) {
     if (exercice[i].besoinFormulaire4Numerique) {
       const max = exercice[i].besoinFormulaire4Numerique[1]
       formSup4[i] = document.getElementById('form_sup4' + i)
-      formSup4[i].value = contraindreValeur(1, max, exercice[i].sup4) // Rempli le formulaire avec le paramètre supplémentaire
+      formSup4[i].value = contraindreValeur(1, max, exercice[i].sup4, 1) // Rempli le formulaire avec le paramètre supplémentaire
       formSup4[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup4 = contraindreValeur(1, max, Number(e.target.value))
+        exercice[i].sup4 = contraindreValeur(1, max, Number(e.target.value), 1)
         miseAJourDuCode()
       })
     }
@@ -2857,7 +3014,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       } else {
         items = '<span contenteditable="true" class="choix_exercices"><br></span>'
       }
-      return `<div class="evalelem"><input type="checkbox" class="checkeval"><i class="sign-in icon ajoutexoligne"></i><input type="text" style="width:70px" data-tooltip="Nom qui apparaitra sur la copie." value="${nomCopie}">
+      return `<div class="evalelem"><input type="checkbox" class="checkeval"><i class="sign-in icon ajoutexoligne"></i><input type="text" style="width:70px" data-tooltip="Nom qui apparaîtra sur la copie." value="${nomCopie}">
       <div id="choix_exercices_div" style="width:65%" data-tooltip="Identifiants des exercices" ><div class="choix_exo sortable">${items}</div></div><i class="trash alternate outline icon supprexoligne"></i></div>`
     }
 
@@ -3437,6 +3594,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'moodle')}" target="_blank"><i class="share square icon"></i>Export Moodle</a></div>
         <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'latex')}" target="_blank"><i class="cogs icon"></i>Export LaTeX</a></div>
         <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'amc')}" target="_blank"><i class="check square outline icon"></i>Export AMC</a></div>
+        <div class="active item"><a class="mesLiensModaux" href="https://coopmaths.fr/beta/${window.location.search.replaceAll('ex=', 'id=').replaceAll(',', '&')}" target="_blank"><i class="exclamation triangle icon"></i>Version béta</a></div>
       </div>
 
       <h3 class="ui dividing header">Imposer un temps</h3>

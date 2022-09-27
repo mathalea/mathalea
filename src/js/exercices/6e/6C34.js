@@ -4,7 +4,7 @@ import { randint, listeQuestionsToContenu, combinaisonListes, texteGras } from '
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
-export const titre = 'Déterminer le dernier chiffre d’un calcul'
+export const titre = 'Déterminer le dernier chiffre d\'un calcul'
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,6 +16,8 @@ export const amcType = 'AMCNum' // Question numérique
 * 6C34
 */
 
+export const uuid = 'b3843'
+export const ref = '6C34'
 export default function DernierChiffre () {
   Exercice.call(this)
   this.sup = 3

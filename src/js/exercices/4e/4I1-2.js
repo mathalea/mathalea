@@ -1,9 +1,11 @@
 // on importe les fonctions nécessaires.
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, choice, calcul, shuffle, arrondi } from '../../modules/outils.js'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
-import { angleScratchTo2d, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, baisseCrayon, allerA, leveCrayon, tracePoint, point, segment, tournerG, texteParPoint } from '../../modules/2d.js'
+import { scratchblock, tracePoint, point, segment, texteParPoint } from '../../modules/2d.js'
+import { allerA, angleScratchTo2d, avance, baisseCrayon, creerLutin, leveCrayon, orienter, tournerD, tournerG } from '../../modules/2dLutin.js'
 export const interactifReady = true
 export const interactifType = 'cliqueFigure'
 export const amcReady = true
@@ -16,6 +18,8 @@ export const titre = 'Tortue Scratch avec répétitions'
  * @author Jean-Claude Lhote
  * Géné
  */
+export const uuid = '8ded2'
+export const ref = '4I1-2'
 export default function AlgoTortue () { // ça c'est la classe qui permet de créer cet exercice
   'use strict'
   Exercice.call(this) // la classe parente qui définit les attributs commun à tous les exercices
@@ -69,7 +73,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
 
     for (let i = 0; i < 4; i++) { // Ici on crée 4 instance de l'objet Lutin.
       lutins[i] = creerLutin()
-      lutins.color = 'green' // la couleur de la trace
+      lutins.color = colorToLatexOrHTML('green') // la couleur de la trace
       lutins.epaisseur = 3 // son epaisseur
       lutins.pointilles = false // le type de pointillés (on peut mettre false pour avoir un trait plein)
       allerA(xDepart, yDepart, lutins[i]) // ça c'est pour faire bouger le lutin (écrire le programme ne le fait pas exécuter !)
@@ -470,7 +474,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     for (let i = 0; i < 4; i++) { // ajouter le point de départ de chaque tracé
       depart[i] = tracePoint(point(lutins[i].listeTraces[0][0], lutins[i].listeTraces[0][1]))
       depart[i].taille = 5
-      depart[i].color = 'blue'
+      depart[i].color = colorToLatexOrHTML('blue')
       depart[i].epaisseur = 2
       if (i === bonneReponse) {
         objetsCorrection.push(depart[i])
@@ -539,7 +543,6 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     texteCorr += `La bonne figure est la figure ${this.indiceBonneFigure + 1}`
     if (this.interactif && context.isHtml) {
       texte += `<span id="resultatCheckEx${this.numeroExercice}Q0"></span>`
-      console.log(this.numeroExercice)
     }
     this.figures[0] = [{ id: `figure0Ex${this.numeroExercice}Q0`, solution: (ordreLutins.indexOf(bonneReponse) === 0) },
       { id: `figure1Ex${numeroExercice}Q0`, solution: (ordreLutins.indexOf(bonneReponse) === 1) },

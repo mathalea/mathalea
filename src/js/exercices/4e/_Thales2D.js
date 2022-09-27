@@ -1,10 +1,11 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, calcul, texNombrec, creerNomDePolygone, texNombre, creerBoutonMathalea2d, nombreDeChiffresDansLaPartieEntiere, texteGras } from '../../modules/outils.js'
-import { point, pointSurSegment, pointAdistance, polygone, triangle2points2longueurs, homothetie, similitude, texteParPoint, longueur, angle, angleOriente, mathalea2d } from '../../modules/2d.js'
+import { point, pointSurSegment, pointAdistance, polygone, triangle2points2longueurs, homothetie, similitude, texteParPoint, longueur, angle, angleOriente } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import Grandeur from '../../modules/Grandeur'
+import Grandeur from '../../modules/Grandeur.js'
 
 export const amcReady = true
 export const amcType = 'AMCOpenNum✖︎2'
@@ -191,9 +192,9 @@ export default function Thales2D () {
         texte += '<br><br><em>Il faut saisir une unité.</em>'
         texte += `<br><br>$${nomM + nomN} = $`
         setReponse(this, i * 2, new Grandeur(calcul(Math.abs(k) * ab), 'cm'), { formatInteractif: 'unites' }) // 2 réponses par question donc 2i et 2i + 1 ainsi elles restent ordonnées
-        texte += ajouteChampTexteMathLive(this, i * 2, 'unites[longueurs]')
-        texte += `$${nomC + nomB} = $`
-        texte += ajouteChampTexteMathLive(this, i * 2 + 1, 'unites[longueurs]')
+        texte += ajouteChampTexteMathLive(this, i * 2, 'unites[longueurs] inline largeur25')
+        texte += `<br>$${nomC + nomB} = $`
+        texte += ajouteChampTexteMathLive(this, i * 2 + 1, 'unites[longueurs] inline largeur25')
         setReponse(this, i * 2 + 1, new Grandeur(bc, 'cm'), { formatInteractif: 'unites' })
       }
 

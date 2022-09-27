@@ -1,10 +1,11 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  mathalea2d, point, labelPoint, polygoneAvecNom, milieu, texteParPosition, tracePoint, repere2, polygone, codageAngleDroit, latexParCoordonnees
+  point, labelPoint, polygoneAvecNom, milieu, texteParPosition, tracePoint, repere, polygone, codageAngleDroit, latexParCoordonnees
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, arrondi, randint, texNombre, shuffle, ecritureParentheseSiNegatif, simplificationDeFractionAvecEtapes, choice, calcul, sp } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, arrondi, randint, texNombre, stringNombre, shuffle, ecritureParentheseSiNegatif, simplificationDeFractionAvecEtapes, choice, calcul, sp } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
@@ -24,6 +25,8 @@ export const dateDePublication = '01/05/2022' // La date de publication initiale
 function compareNombres (a, b) {
   return a - b
 }
+export const uuid = 'cf47f'
+export const ref = 'can4a-2022'
 export default function SujetCAN2022quatrieme () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -32,7 +35,12 @@ export default function SujetCAN2022quatrieme () {
   this.nbQuestions = 30// 10,20,30
   this.nbCols = 1
   this.nbColsCorr = 1
-
+  this.comment = `Cet exercice fait partie des annales des Courses aux nombres.<br>
+  Il est composé de 30 questions réparties de la façon suivante :<br>
+  les 10 premières questions parfois communes à plusieurs niveaux font appels à des questions automatisées élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
+  Par défaut, les questions sont rangées dans le même ordre que le sujet officiel avec des données aléatoires. Ainsi, en cliquant sur « Nouvelles données », on obtient une nouvelle course aux nombres avec des données différentes.
+  En choisissant un nombre de questions différents de 30, on fabrique une « mini » course aux nombres qui respecte la proportion de nombre de questions élémentaires par rapport aux autres.
+  Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 questions automatisées élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -243,7 +251,7 @@ export default function SujetCAN2022quatrieme () {
 
             propositions = shuffle([`$${texNombre(a * b / 10, 3)}$`, `$${texNombre(a * b * 10, 1)}$`, `$${texNombre(a * b, 2)}$`])
             reponse = arrondi(a * b, 3)
-            texte = `Recopie  le résultat de  :
+            texte = `Recopie  le résultat de  : 
             $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>`
 
             texte += `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
@@ -254,7 +262,7 @@ export default function SujetCAN2022quatrieme () {
             b = randint(2, 5) + randint(1, 9) / 10
             propositions = shuffle([`$${texNombre(a * b / 10, 3)}$`, `$${texNombre(a * b * 10, 1)}$`, `$${texNombre(a * b, 2)}$`])
             reponse = arrondi(a * b, 3)
-            texte = `Recopie  le résultat de  :
+            texte = `Recopie  le résultat de  : 
                 $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>`
 
             texte += `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
@@ -265,7 +273,7 @@ export default function SujetCAN2022quatrieme () {
             b = randint(25, 29) + randint(1, 9) / 10
             propositions = shuffle([`$${texNombre(a * b / 10, 3)}$`, `$${texNombre(a * b * 10, 1)}$`, `$${texNombre(a * b, 2)}$`])
             reponse = arrondi(a * b, 3)
-            texte = `Recopie  le résultat de  :
+            texte = `Recopie  le résultat de  : 
                     $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>`
 
             texte += `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
@@ -350,13 +358,13 @@ export default function SujetCAN2022quatrieme () {
           D = point(1, 3, 'D', 'above')
           poly = polygone([A, B, C, D], 'black')
           reponse = 2 * (a + b)
-          d = latexParCoordonnees(`${b} \\text{ cm}`, 6, 2.5, 'black', 8, 6, 'white', 6)
-          e = latexParCoordonnees(`${a} \\text{ cm}`, 2.8, 4.3, 'black', 8, 6, 'white', 6)
+          d = texteParPosition(`${stringNombre(b)} cm`, 6.3, 2.5)
+          e = texteParPosition(`${stringNombre(a)} cm`, 3, 4.1)
           poly.epaisseur = 1
 
           texte = 'Calcule le périmètre du parallélogramme $ABCD$.<br> '
-          texte += mathalea2d({ xmin: -1.5, ymin: -1, xmax: 8, ymax: 5, scale: 0.5 }, poly, labelPoint(A, B, C, D), d, e)
-          texteCorr = `Le périmètre en cm est donné par :
+          texte += mathalea2d({ xmin: -1.5, ymin: -1, xmax: 8, ymax: 5, scale: 0.8 }, poly, labelPoint(A, B, C, D), d, e)
+          texteCorr = `Le périmètre en cm est donné par : 
             $2\\times ${a}+2\\times ${b} =2\\times(${a}+${b})=${reponse}$ cm`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -502,27 +510,23 @@ export default function SujetCAN2022quatrieme () {
           k1 = choice([3, 4, 5])
           b = randint(-k2 + 1, k2 - 1)
           a = randint(-k1 + 1, k1 - 1)
-          r = repere2({
+          r = repere({
             xUnite: k1,
             yUnite: k2,
-            xMin: -1 - 1 / k1,
-            xMax: 1 + 1 / k1,
-            yMin: -1 - 1 / k2,
-            yMax: 1 + 1 / k2,
+            xMin: -k1 - 1,
+            xMax: k1 + 1,
+            yMin: -k2 - 1,
+            yMax: k2 + 1,
             afficheLabels: false,
             xLabelListe: [-1, 1],
             yLabelListe: [-1, 1],
+            grilleSecondaire: true,
             axeStyleExtremites: true,
-            grilleXDistance: 1 / k1,
-            grilleYDistance: 1 / k2,
-            yThickDistance: 1 / k2,
-            xThickDistance: 1 / k1,
+            grilleSecondaireXDistance: 1 / k1,
+            grilleSecondaireYDistance: 1 / k2,
             axeXStyle: '->',
             axeYStyle: '->'
           })
-
-          // C.color = 'red'
-          // C.epaisseur = 2
 
           A = point(a, b)
           o = latexParCoordonnees('\\text{O}', -0.3, -0.4, 'black', 15, 10, '', 7)
@@ -607,7 +611,7 @@ export default function SujetCAN2022quatrieme () {
           k1 = choice([3, 5, 7, 9])
 
           texte = `Simplifie au maximum la fraction : <br>
-               $\\dfrac{${b.n * k1}}{${b.d * k1}}$
+               $\\dfrac{${b.n * k1}}{${b.d * k1}}$ 
                  `
 
           texteCorr = `$\\dfrac{${b.n * k1}}{${b.d * k1}}=\\dfrac{${b.n}\\times ${k1}}{${b.d}\\times ${k1}}=\\dfrac{${b.n}}{${b.d}}$.`
@@ -625,7 +629,7 @@ export default function SujetCAN2022quatrieme () {
           c = d - a - b
 
           texte = `Quelle est la moyenne de cette série ? <br>
-                $${a}$ ${sp(4)} ; ${sp(4)} $${b}$ ${sp(4)} ; ${sp(4)} $${c}$
+                $${a}$ ${sp(4)} ; ${sp(4)} $${b}$ ${sp(4)} ; ${sp(4)} $${c}$ 
                 `
 
           texteCorr = `La somme des $3$ valeurs est : $${a}+${b}+${c} =${d}$.<br>
@@ -698,8 +702,9 @@ export default function SujetCAN2022quatrieme () {
           if (choix === 'a') {
             objets.push(pol[0])
             objets.push(
-              texteParPosition(`$${a[0]} \\text{ cm}$`, milieu(A, C).x, milieu(A, C).y - 0.3, 'milieu', 'black', 1, 'middle', true)
-              , texteParPosition(`$${a[2]} \\text{ cm}$`, milieu(B, C).x - 0.6, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true)
+              texteParPosition(`${stringNombre(a[0])} cm`, milieu(A, C).x, milieu(A, C).y - 0.3)
+              , texteParPosition(`${stringNombre(a[2])} cm`, milieu(B, C).x - 0.6, milieu(B, C).y)
+
               , labelPoint(A, B, C), codageAngleDroit(B, A, C))
             reponse = a[1]
             texte = 'Calcule la longueur $AB$. <br>'
@@ -708,14 +713,14 @@ export default function SujetCAN2022quatrieme () {
             texte += '<br>$AB=$'
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
-                        On a $AB^2=BC^2-AC^2$, soit $AB^2=${a[2]}^2-${a[0]}^2=${a[2] ** 2 - a[0] ** 2}$.<br>
-                        Par conséquent, $AB=${a[1]}$.`
+              On a $AB^2=BC^2-AC^2$, soit $AB^2=${a[2]}^2-${a[0]}^2=${a[2] ** 2 - a[0] ** 2}$.<br>
+              Par conséquent, $AB=${a[1]}$.`
           }
           if (choix === 'b') {
             objets.push(pol[0])
             objets.push(
-              texteParPosition(`$${a[1]} \\text{ cm}$`, milieu(A, B).x + 0.5, milieu(A, B).y, 'milieu', 'black', 1, 'middle', true)
-              , texteParPosition(`$${a[2]} \\text{ cm}$`, milieu(B, C).x - 0.6, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true)
+              texteParPosition(`${stringNombre(a[1])} cm`, milieu(A, B).x + 0.5, milieu(A, B).y)
+              , texteParPosition(`${stringNombre(a[2])} cm`, milieu(B, C).x - 0.6, milieu(B, C).y)
               , labelPoint(A, B, C), codageAngleDroit(B, A, C))
             reponse = a[0]
             texte = 'Calcule la longueur $AC$. <br>'
@@ -724,14 +729,14 @@ export default function SujetCAN2022quatrieme () {
             texte += '<br>$AC=$'
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
-                          On a $AC^2=BC^2-AB^2$, soit $AC^2=${a[2]}^2-${a[1]}^2=${a[2] ** 2 - a[1] ** 2}$.<br>
-                          Par conséquent, $AC=${a[0]}$.`
+                On a $AC^2=BC^2-AB^2$, soit $AC^2=${a[2]}^2-${a[1]}^2=${a[2] ** 2 - a[1] ** 2}$.<br>
+                Par conséquent, $AC=${a[0]}$.`
           }
           if (choix === 'c') {
             objets.push(pol[0])
             objets.push(
-              texteParPosition(`$${a[1]} \\text{ cm}$`, milieu(A, B).x + 0.4, milieu(A, B).y, 'milieu', 'black', 1, 'middle', true)
-              , texteParPosition(`$${a[0]} \\text{ cm}$`, milieu(A, C).x, milieu(A, C).y - 0.3, 'milieu', 'black', 1, 'middle', true)
+              texteParPosition(`${stringNombre(a[1])} cm`, milieu(A, B).x + 0.5, milieu(A, B).y)
+              , texteParPosition(`${stringNombre(a[0])} cm`, milieu(A, C).x, milieu(A, C).y - 0.3)
               , labelPoint(A, B, C), codageAngleDroit(B, A, C))
             reponse = a[2]
             texte = 'Calcule la longueur $BC$. <br>'
@@ -740,12 +745,11 @@ export default function SujetCAN2022quatrieme () {
             texte += '<br>$BC=$'
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
-                            On a $BC^2=AB^2+AC^2$, soit $BC^2=${a[0]}^2+${a[1]}^2=${a[0] ** 2 + a[1] ** 2}$.<br>
-                            Par conséquent, $BC=${a[2]}$.`
+                  On a $BC^2=AB^2+AC^2$, soit $BC^2=${a[0]}^2+${a[1]}^2=${a[0] ** 2 + a[1] ** 2}$.<br>
+                  Par conséquent, $BC=${a[2]}$.`
           }
-
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm' } else { texte += '$\\ldots$ cm' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm' } else { texte += ' $\\ldots$ cm' }
           nbChamps = 1
           break
 

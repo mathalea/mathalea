@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { combinaisonListes, listeQuestionsToContenuSansNumero, lettreDepuisChiffre, texFraction, randint, miseEnEvidence, choice } from '../../modules/outils.js'
+import { combinaisonListes, listeQuestionsToContenuSansNumero, lettreDepuisChiffre, texFraction, randint, miseEnEvidence, choice, pgcd, simplificationDeFractionAvecEtapes } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -15,6 +15,8 @@ export const interactifReady = true
  * Référence 4C23-1
  * Date de publication septembre 2021
 */
+export const uuid = '374b6'
+export const ref = '4C23'
 export default function SommeOuProduitFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.interactifReady = interactifReady
@@ -22,7 +24,7 @@ export default function SommeOuProduitFractions () {
   this.spacing = context.isHtml ? 4 : 3
   this.spacingCorr = context.isHtml ? 4 : 3
   this.nbColonneModifiable = false
-  this.consigne = 'Effectuer les calculs suivants :'
+  this.consigne = 'Effectuer les calculs suivants.'
   this.nbQuestions = 8 // Nombre de questions par défaut
   this.nbCols = 4 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
@@ -91,7 +93,7 @@ export default function SommeOuProduitFractions () {
                 }
               }
             }
-            texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * k + num2, den2))}$ `
+            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * k + num2, den2)}$ `
             num = num1 * k + num2
             den = den2
           } else {
@@ -110,7 +112,7 @@ export default function SommeOuProduitFractions () {
                 }
               }
             }
-            texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 + num2 * k, den2))}$ `
+            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 + num2 * k, den2)}$ `
             num = num1 + num2 * k
             den = den2
           }
@@ -129,7 +131,7 @@ export default function SommeOuProduitFractions () {
                 }
               }
             }
-            texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 + k * den1, den1))}$`
+            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 + k * den1, den1)}$`
           } else {
             texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} + ${k} $`
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}+${k}$<br>`
@@ -141,7 +143,7 @@ export default function SommeOuProduitFractions () {
                 }
               }
             }
-            texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 + k * den1, den1))}$`
+            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 + k * den1, den1)}$`
           }
           num = num1 + k * den1
           den = den1
@@ -164,7 +166,7 @@ export default function SommeOuProduitFractions () {
                 }
               }
             }
-            texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * k - num2, den2))}$ `
+            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * k - num2, den2)}$ `
             num = num1 * k - num2
             den = den2
           } else {
@@ -183,7 +185,7 @@ export default function SommeOuProduitFractions () {
                 }
               }
             }
-            texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 - num2 * k, den2))}$`
+            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 - num2 * k, den2)}$`
             num = num1 - num2 * k
             den = den2
           }
@@ -202,7 +204,7 @@ export default function SommeOuProduitFractions () {
                 }
               }
             }
-            texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(k * den1 - num1, den1))}$`
+            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(k * den1 - num1, den1)}$`
             num = k * den1 - num1
             den = den1
           } else {
@@ -218,7 +220,7 @@ export default function SommeOuProduitFractions () {
                 }
               }
             }
-            texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 - k * den1, den1))}$ `
+            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 - k * den1, den1)}$ `
             num = num1 - k * den1
             den = den1
           }
@@ -234,7 +236,7 @@ export default function SommeOuProduitFractions () {
                 texteCorr += '\\columnbreak\n'
               }
             }
-          } texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * num2, den1 * den3))}$`
+          } texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * num2, den1 * den3)}$`
           num = num1 * num2
           den = den1 * den3
           break
@@ -251,7 +253,7 @@ export default function SommeOuProduitFractions () {
                 }
               }
             }
-            texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * k2, den1))}$`
+            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * k2, den1)}$`
           } else {
             texte += `$${lettreDepuisChiffre(i + 1)} = ${k2} \\times ${texFraction(num1, den1)} $`
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${k2} \\times ${texFraction(num1, den1)}$<br>`
@@ -263,7 +265,7 @@ export default function SommeOuProduitFractions () {
                 }
               }
             }
-            texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * k2, den1))}$`
+            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * k2, den1)}$`
           }
           num = num1 * k2
           den = den1
@@ -283,7 +285,7 @@ export default function SommeOuProduitFractions () {
                 }
               }
             }
-            texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * den3 + num2 * k2, den1 * den3))}$`
+            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * den3 + num2 * k2, den1 * den3)}$`
             num = num1 * den3 + num2 * k2
             den = den1 * den3
           } else {
@@ -298,7 +300,7 @@ export default function SommeOuProduitFractions () {
                 }
               }
             }
-            texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * den3 - num2 * k2, den1 * den3))}$`
+            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * den3 - num2 * k2, den1 * den3)}$`
             num = num1 * den3 - num2 * k2
             den = den1 * den3
           }
@@ -318,7 +320,7 @@ export default function SommeOuProduitFractions () {
                 }
               }
             }
-            texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num2 * k2 + num1 * den3, den1 * den3))}$`
+            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num2 * k2 + num1 * den3, den1 * den3)}$`
             num = num2 * k2 + num1 * den3
             den = den1 * den3
           } else {
@@ -333,11 +335,14 @@ export default function SommeOuProduitFractions () {
                 }
               }
             }
-            texteCorr += `$${miseEnEvidence(lettreDepuisChiffre(i + 1) + '=' + texFraction(num2 * k2 - num1 * den3, den1 * den3))}$`
+            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num2 * k2 - num1 * den3, den1 * den3)}$`
             num = num2 * k2 - num1 * den3
             den = den1 * den3
           }
           break
+      }
+      if (pgcd(num, den) !== 1) {
+        texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}  ${simplificationDeFractionAvecEtapes(num, den)}$`
       }
       texte += '<br>'
       texteCorr += '\n'

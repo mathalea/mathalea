@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, nombreDeChiffresDansLaPartieEntiere, randint, texNombre } from '../../modules/outils.js'
-import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif'
+import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Effectuer addition de deux entiers'
 export const amcReady = true
@@ -14,6 +14,8 @@ export const interactifType = 'mathLive'
  * @author Rémi Angot
  * Référence 6C10-4
  */
+export const uuid = 'ace0a'
+export const ref = '6C10-4'
 export default function ExerciceTablesAdditions (max = 20) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

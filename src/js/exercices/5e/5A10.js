@@ -5,7 +5,7 @@ import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, li
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const dateDeModifImportante = '28/10/2021'
-export const titre = 'Écrire la liste de tous les diviseurs d’un entier'
+export const titre = 'Écrire la liste de tous les diviseurs d\'un entier'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -15,6 +15,8 @@ export const interactifType = 'mathLive'
  * Exercice bilan
  * @author Sébastien Lozano & Jean Claude Lhote
  */
+export const uuid = '4828d'
+export const ref = '5A10'
 export default function ListeDesDiviseurs5e () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -178,7 +180,7 @@ export default function ListeDesDiviseurs5e () {
           texteCorr += '.'
           break
       };
-      setReponse(this, i, JSON.stringify(listeDiviseurs(M)).replace('[', '').replace(']', ''))
+      setReponse(this, i, JSON.stringify(listeDiviseurs(M)).replace('[', '').replace(']', ''), { formatInteractif: 'texte' })
       texte += ajouteChampTexteMathLive(this, i, 'largeur35 inline', { texte: `<br> Les diviseurs de $${texNombre(M)}$ sont : ` })
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre

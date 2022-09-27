@@ -1,11 +1,12 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { calcul, arrondi, htmlConsigne, lettreDepuisChiffre, combinaisonListes, listeQuestionsToContenu, randint, stringNombre, contraindreValeur } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
+import { droiteGraduee } from '../../modules/2d.js'
 
-export const titre = 'Lire l’abscisse décimale d’un point (niveau 2)'
+export const titre = 'Lire l\'abscisse décimale d\'un point (niveau 2)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -18,9 +19,11 @@ export const dateDeModificationImportante = '01/02/2022'
  * @author Jean-Claude Lhote
  * Référence 6N30-1
  */
+export const uuid = '8418e'
+export const ref = '6N30-1'
 export default function LireAbscisseDecimaleBis2d () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Lire l’abscisse de chacun des points suivants et donner le résultat sous la forme d’un nombre en écriture décimale.'
+  this.consigne = 'Lire l\'abscisse de chacun des points suivants et donner le résultat sous la forme d\'un nombre en écriture décimale.'
   this.nbQuestions = 3
   this.nbQuestionsModifiable = true
   this.nbCols = 1
@@ -55,7 +58,7 @@ export default function LireAbscisseDecimaleBis2d () {
     const typesDeQuestions = combinaisonListes(QuestionsDisponibles, this.nbQuestions)
     const d = []
     this.contenu = htmlConsigne(this.consigne)
-    for (let i = 0, abs0, l1, l2, l3, x1, x2, x3, x11, x22, x33, xA, xB, xC, pas1, pas2, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, abs0, l1, l2, l3, x1, x2, x3, x11, x22, x33, xA, xB, xC, pas1, pas2, thick1, thick2, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
       l1 = lettreDepuisChiffre(i * 3 + 1)
       l2 = lettreDepuisChiffre(i * 3 + 2)
       l3 = lettreDepuisChiffre(i * 3 + 3)
@@ -107,7 +110,11 @@ export default function LireAbscisseDecimaleBis2d () {
       xA = calcul(x1 + x11 / pas2)
       xB = calcul(x2 + x22 / pas2)
       xC = calcul(x3 + x33 / pas2)
-      d[2 * i] = droiteGraduee2({
+
+      thick1 = randint(0, 2)
+      thick2 = randint(2, 6, thick1)
+
+      d[2 * i] = droiteGraduee({
         Unite: 4,
         Min: 0,
         Max: 7.1,
@@ -117,10 +124,10 @@ export default function LireAbscisseDecimaleBis2d () {
         labelsPrincipaux: false,
         thickSec: true,
         thickSecDist: 1 / pas2,
-        labelListe: [[0, `${stringNombre(abs0)}`], [1, `${stringNombre(calcul(abs0 + 1 / pas1))}`]],
+        labelListe: [[thick1, `${stringNombre(calcul(abs0 + thick1 / pas1))}`], [thick2, `${stringNombre(calcul(abs0 + thick2 / pas1))}`]],
         pointListe: [[xA, l1], [xB, l2], [xC, l3]]
       })
-      d[2 * i + 1] = droiteGraduee2({
+      d[2 * i + 1] = droiteGraduee({
         Unite: 4,
         Min: 0,
         Max: 7.1,
@@ -140,8 +147,8 @@ export default function LireAbscisseDecimaleBis2d () {
 
       })
 
-      texte = mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 1, pixelsParCm: 20, scale: 0.5 }, d[2 * i])
-      texteCorr = mathalea2d({ xmin: -2, ymin: -2, xmax: 30, ymax: 2, pixelsParCm: 20, scale: 0.5 }, d[2 * i + 1])
+      texte = mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 2, pixelsParCm: 20, scale: 0.5 }, d[2 * i])
+      texteCorr = mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 2, pixelsParCm: 20, scale: 0.5 }, d[2 * i + 1])
 
       if (this.interactif && context.isHtml) {
         setReponse(this, 3 * i, calcul(xA / pas1 + abs0))

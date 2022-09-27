@@ -1,13 +1,15 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texNombre } from '../../modules/outils.js'
 
-export const titre = 'Déterminer la parité d’une expression'
+export const titre = 'Déterminer la parité d\'une expression'
 
 /**
  * 2N21
  * @author Stéphane Guyon
  */
-export default function parite () {
+export const uuid = '3ec5c'
+export const ref = '2N20-8'
+export default function Parite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = 'Soit $n$ un entier naturel.'

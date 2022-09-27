@@ -5,7 +5,7 @@ import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import FractionX from '../../modules/FractionEtendue.js'
 import { max } from 'mathjs'
-export const titre = 'Donner l’écriture (décimale ou en fraction décimale) d’une somme (ou différence) de nombres avec fractions décimales'
+export const titre = 'Donner l\'écriture (décimale ou en fraction décimale) d\'une somme (ou différence) de nombres avec fractions décimales'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true
@@ -13,7 +13,7 @@ export const interactifType = 'mathLive'
 
 export const dateDePublication = '20/01/2022'
 /**
- * Donner l’écriture (décimale ou en fraction décimale) d’une somme (ou différence) de nombres avec fractions décimales
+ * Donner l\'écriture (décimale ou en fraction décimale) d\'une somme (ou différence) de nombres avec fractions décimales
  *
  * * La somme avec entiers peut être avec retenue (genre 2+23/10) ou sans retenue (3+7/10)
  * * Tous les choix sont paramétrables
@@ -22,10 +22,12 @@ export const dateDePublication = '20/01/2022'
  * Référence 6N10-6
  */
 
-export default function sommmeFractionsDecimales () {
+export const uuid = 'c5438'
+export const ref = '6N10-6'
+export default function SommeFractionsDecimales () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 6
-  this.besoinFormulaireTexte = ['Type des calculs', ' Choix séparés par des tirets\n(Les fractions sont décimales et de même dénominateur)\n1 : Somme de 2 fractions\n2 : Différence de 2 fractions\n3 : Somme (sans retenue) d\'un entier et d\'une somme de 2 fractions\n4 : Somme (sans retenue) d\'un entier et d\'une différence de 2 fractions\n5 : Somme d\'un entier et d\'une somme de 2 fractions\n6 : Somme d\'un entier et d\'une différence de 2 fractions\n7 : Mélange']
+  this.besoinFormulaireTexte = ['Type des calculs', 'Choix séparés par des tirets\n(Les fractions sont décimales et de même dénominateur)\n1 : Somme de 2 fractions\n2 : Différence de 2 fractions\n3 : Somme (sans retenue) d\'un entier et d\'une somme de 2 fractions\n4 : Somme (sans retenue) d\'un entier et d\'une différence de 2 fractions\n5 : Somme d\'un entier et d\'une somme de 2 fractions\n6 : Somme d\'un entier et d\'une différence de 2 fractions\n7 : Mélange']
   this.besoinFormulaire2Numerique = ['Forme de la solution', 3, '1 : Un nombre décimal\n2 : Une fraction décimale\n3 : Les deux']
   this.sup = 7
   this.sup2 = 3

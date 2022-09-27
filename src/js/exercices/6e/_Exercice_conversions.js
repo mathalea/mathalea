@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, arrondi, texNombre, texNombrec, texFraction, texTexte, calcul, texNombre2 } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, arrondi, texNombre, texNombrec, texFraction, texTexte, calcul, texNombre2, contraindreValeur, rangeMinMax, compteOccurences, combinaisonListes } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { format, evaluate } from 'mathjs'
@@ -10,6 +10,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
+export const dateDeModifImportante = '17/09/2022' // Modifications pour les octets. Pas de nombres décimaux => uniquement des multiplications pour convertir
 
 /**
  * Conversions  mètres, litres, grammes, octets (et euros pour la version LaTeX) en utilisant le préfixe pour déterminer la multiplication ou division à faire.
@@ -46,35 +47,37 @@ export default function ExerciceConversions (niveau = 1) {
       ['d', 10],
       ['c', 100],
       ['m', 1000]
-    ] // ['$\\mu{}$',1000000]];
+    ]
+    let listeDesProblemes = []
+    listeDesProblemes[0] = contraindreValeur(1, 5, this.sup, 5)
+    if (compteOccurences(listeDesProblemes, 5) > 0) listeDesProblemes = rangeMinMax(1, 4) // Teste si l'utilisateur a choisi tout
+    listeDesProblemes = combinaisonListes(listeDesProblemes, this.nbQuestions)
+    const listeDesOperations = combinaisonListes([true, false], this.nbQuestions)
     for (let i = 0,
       a,
       k,
       div,
       resultat,
       unite,
-      typesDeQuestions,
       texte,
       texteCorr,
       listeUniteInfo,
       cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
-      if (this.sup < 5) {
-        typesDeQuestions = this.sup
-      } else {
-        typesDeQuestions = randint(1, 4)
-      }
       k = randint(0, 2) // Choix du préfixe
-      if (typesDeQuestions === 1) {
-        // niveau 1
-        div = false // Il n'y aura pas de division
-      } else if (typesDeQuestions === 2) {
-        // niveau 2
-        div = true // Avec des divisions
-      } else if (typesDeQuestions === 3) {
-        div = choice([true, false]) // Avec des multiplications ou des divisions
-      } else if (typesDeQuestions === 4) {
-        listeUniteInfo = ['o', 'ko', 'Mo', 'Go', 'To']
+      switch (listeDesProblemes[i]) {
+        case 1 :
+          div = false // Il n'y aura pas de division
+          break
+        case 2 :
+          div = true // Avec des divisions
+          break
+        case 3 :
+          div = listeDesOperations[i] // Avec des multiplications ou des divisions
+          break
+        case 4 :
+          listeUniteInfo = ['octets', 'ko', 'Mo', 'Go', 'To']
+          break
       }
 
       if (this.sup2) {
@@ -96,7 +99,7 @@ export default function ExerciceConversions (niveau = 1) {
         // X, X0, X00, XX
       }
 
-      if (!div && typesDeQuestions < 4) {
+      if (!div && listeDesProblemes[i] < 4) {
         // Si il faut multiplier pour convertir
         if (k < 2) {
           // Choix de l'unité
@@ -127,7 +130,7 @@ export default function ExerciceConversions (niveau = 1) {
           texTexte(unite) +
           '$'
       } else if (div &&
-        typesDeQuestions < 4 &&
+        listeDesProblemes[i] < 4 &&
         this.correction_avec_des_fractions) {
         unite = choice(['m', 'L', 'g'])
         resultat = math.evaluate(a / prefixeDiv[k][1])
@@ -147,7 +150,7 @@ export default function ExerciceConversions (niveau = 1) {
           texNombre2(resultat) +
           texTexte(unite) +
           '$'
-      } else if (div && typesDeQuestions < 4) {
+      } else if (div && listeDesProblemes[i] < 4) {
         unite = choice(['m', 'L', 'g'])
         resultat = math.evaluate(a / prefixeDiv[k][1])
         texte =
@@ -170,14 +173,19 @@ export default function ExerciceConversions (niveau = 1) {
           '$'
       } else {
         // pour type de question = 4
-        const unite1 = randint(0, 3)
-        if (unite1 === 0 && a < 1) a += 1 // Pas de nombre d'octets inférieurs à 1
-        let ecart = randint(1, 2) // nombre de multiplication par 1000 pour passer de l'un à l'autre
-        if (ecart > 4 - unite1) {
-          ecart = 4 - unite1
+        div = (!this.sup2) ? false : listeDesOperations[i] // Pas de décimaux ? Alors que des multiplications
+        let unite1 // unité de résultat
+        let unite2 // unité du départ
+        if (!div) {
+          unite2 = randint(1, 4)
+          unite1 = randint(0, unite2 - 1)
+        } else {
+          unite1 = randint(1, 4)
+          unite2 = randint(0, unite1 - 1)
         }
-        const unite2 = unite1 + ecart
-        if (randint(0, 1) > 0) {
+        const ecart = unite2 - unite1 // nombre de multiplication par 1000 pour passer de l'un à l'autre
+        if (unite1 === 0 && a % 1 !== 0) a = randint(3, 100) // Pas de nombre d'octets non entiers
+        if (!div) {
           resultat = calcul(a * Math.pow(10, 3 * ecart))
           unite = listeUniteInfo[unite1]
           texte =
@@ -199,21 +207,22 @@ export default function ExerciceConversions (niveau = 1) {
             texTexte(unite) +
             '$'
         } else {
-          resultat = math.evaluate(a / Math.pow(10, 3 * ecart))
-          unite = listeUniteInfo[unite2]
+          a = math.evaluate(a * Math.pow(10, randint(-3 * ecart - 1, -3 * ecart + 1)))
+          resultat = math.evaluate(a / Math.pow(10, -3 * ecart))
+          unite = listeUniteInfo[unite1]
           texte =
             '$ ' +
             texNombre(a) +
-            texTexte(listeUniteInfo[unite1]) +
+            texTexte(listeUniteInfo[unite2]) +
             ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
           texteCorr =
             '$ ' +
           texNombre(a) +
-            texTexte(listeUniteInfo[unite1]) +
+            texTexte(listeUniteInfo[unite2]) +
             ' =  ' +
             texNombre(a) +
             '\\div' +
-            texNombre(Math.pow(10, 3 * ecart)) +
+            texNombre(Math.pow(10, -3 * ecart)) +
             texTexte(unite) +
             ' = ' +
             texNombre2(resultat) +

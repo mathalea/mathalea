@@ -1,11 +1,13 @@
 import DernierChiffre from '../6e/6C34.js'
-export const titre = 'Dernier chiffre d’un calcul'
+export const titre = 'Dernier chiffre d\'un calcul'
 export { interactifReady, interactifType, amcReady, amcType } from '../6e/6C34.js'
 /**
  *Clone de 6C34 pour les CM1-CM2
  *
  * @author Jean-Claude Lhote
  */
+export const uuid = 'e2a48'
+export const ref = 'c3C12'
 export default function DerbierChiffreC3 () {
   DernierChiffre.call(this)
   this.nbQuestions = 4

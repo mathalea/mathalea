@@ -1,4 +1,4 @@
-import { diagrammeBarres, axeY, texteParPointEchelle, angleScratchTo2d, appartientSegment, appartientDroite, appartientDemiDroite, scratchblock, motifs, nomVecteurParPosition, point, tracePoint, tracePointSurDroite, milieu, pointSurSegment, pointSurCercle, pointSurDroite, pointIntersectionDD, pointAdistance, labelPoint, barycentre, droite, droiteParPointEtVecteur, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, droiteHorizontaleParPoint, droiteVerticaleParPoint, droiteParPointEtPente, mediatrice, codageMediatrice, codageMilieu, constructionMediatrice, bissectrice, codageBissectrice, constructionBissectrice, polyline, pave, vecteur, segment, segmentAvecExtremites, demiDroite, demiDroiteAvecExtremite, polygone, polygoneAvecNom, polygoneRegulier, polygoneRegulierIndirect, carre, carreIndirect, codageCarre, polygoneRegulierParCentreEtRayon, triangle2points2longueurs, triangle2points2angles, triangle2points1angle1longueur, triangle2points1angle1longueurOppose, nommePolygone, deplaceLabel, aireTriangle, cercle, ellipse, pointIntersectionLC, pointIntersectionCC, cercleCentrePoint, arc, arcPointPointAngle, traceCompas, courbeDeBezier, segmentMainLevee, cercleMainLevee, droiteMainLevee, polygoneMainLevee, arcMainLevee, dansLaCibleCarree, dansLaCibleRonde, cibleCarree, cibleRonde, cibleCouronne, translation, translation2Points, rotation, sensDeRotation, homothetie, symetrieAxiale, distancePointDroite, projectionOrtho, affiniteOrtho, similitude, translationAnimee, apparitionAnimee, rotationAnimee, homothetieAnimee, symetrieAnimee, affiniteOrthoAnimee, montrerParDiv, cacherParDiv, afficherTempo, afficherTempoId, afficherUnParUn, medianeTriangle, centreGraviteTriangle, hauteurTriangle, codageHauteurTriangle, codageMedianeTriangle, orthoCentre, centreCercleCirconscrit, codageAngleDroit, afficheLongueurSegment, texteSurSegment, afficheMesureAngle, afficheCoteSegment, codeSegment, codeSegments, codeAngle, nomAngleSaillantParPosition, nomAngleRentrantParPosition, droiteGraduee, droiteGraduee2, axes, labelX, labelY, grille, grilleHorizontale, grilleVerticale, seyes, repere, repere2, pointDansRepere, traceGraphiqueCartesien, traceBarre, traceBarreHorizontale, lectureImage, lectureAntecedent, courbe, courbe2, courbeInterpolee, courbeInterpolee2, graphiqueInterpole, imageInterpolee, antecedentInterpole, crochetD, crochetG, intervalle, texteParPoint, texteParPosition, latexParPoint, latexParCoordonnees, fractionParPosition, longueur, norme, angle, angleOriente, angleradian, creerLutin, avance, baisseCrayon, leveCrayon, orienter, tournerG, tournerD, allerA, mettrexA, mettreyA, ajouterAx, ajouterAy, afficherCrayon, codeSvg, codeTikz, mathalea2d, labyrinthe, pavage, tableau, glisseNombre, boite, plot, papierPointe, traceMilieuSegment, positionLabelDroite, fixeBordures } from './2d.js'
+import { polygoneATrous, semiEllipse, diagrammeBarres, axeY, texteParPointEchelle, scratchblock, motifs, nomVecteurParPosition, point, tracePoint, tracePointSurDroite, milieu, pointSurSegment, pointSurCercle, pointSurDroite, pointIntersectionDD, pointAdistance, labelPoint, barycentre, droite, droiteParPointEtVecteur, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, droiteHorizontaleParPoint, droiteVerticaleParPoint, droiteParPointEtPente, mediatrice, codageMediatrice, codageMilieu, codageBissectrice, bissectrice, polyline, pave, vecteur, segment, segmentAvecExtremites, demiDroite, polygone, polygoneAvecNom, polygoneRegulier, carre, codageCarre, polygoneRegulierParCentreEtRayon, triangle2points2longueurs, triangle2points2angles, triangle2points1angle1longueur, triangle2points1angle1longueurOppose, nommePolygone, deplaceLabel, aireTriangle, cercle, ellipse, pointIntersectionLC, pointIntersectionCC, cercleCentrePoint, arc, arcPointPointAngle, traceCompas, dansLaCibleCarree, dansLaCibleRonde, cibleCarree, cibleRonde, cibleCouronne, translation, translation2Points, rotation, sensDeRotation, homothetie, symetrieAxiale, distancePointDroite, projectionOrtho, affiniteOrtho, similitude, medianeTriangle, centreGraviteTriangle, hauteurTriangle, codageHauteurTriangle, codageMedianeTriangle, orthoCentre, centreCercleCirconscrit, codageAngleDroit, afficheLongueurSegment, texteSurSegment, afficheMesureAngle, afficheCoteSegment, codageSegment, codageSegments, codageAngle, nomAngleSaillantParPosition, nomAngleRentrantParPosition, droiteGraduee, axes, labelY, grille, lignesHorizontales, lignesVerticales, seyes, repere, pointDansRepere, traceGraphiqueCartesien, traceBarre, traceBarreHorizontale, lectureImage, lectureAntecedent, courbe, courbeInterpolee, graphiqueInterpole, imageInterpolee, antecedentInterpole, crochetD, crochetG, intervalle, texteParPoint, texteParPosition, latexParPoint, latexParCoordonnees, longueur, norme, angle, angleOriente, angleradian, labyrinthe, pavage, tableau, glisseNombre, boite, plot, papierPointe, traceMilieuSegment, positionLabelDroite, texteSurArc, cone, diagrammeCirculaire } from './2d.js'
 import { sensDeRotation3d, cube, cube3d, plaque3d, paveLPH3d, barre3d, point3d, vecteur3d, arete3d, droite3d, demicercle3d, cercle3d, polygone3d, sphere3d, cone3d, cylindre3d, prisme3d, pave3d, rotationV3d, rotation3d, translation3d, homothetie3d, CodageAngleDroit3D } from './3d.js'
 import { pointCliquable } from './2dinteractif.js'
 import { randint, texNombre, nombreDecimal, calcul } from './outils.js'
@@ -7,12 +7,22 @@ import { context } from './context.js'
 import { calcule } from './fonctionsMaths.js'
 import Sval from 'sval'
 import Alea2iep from './Alea2iep.js'
+import { afficherTempo, afficherUnParUn, affiniteOrthoAnimee, apparitionAnimee, cacherParDiv, cacherTempo, homothetieAnimee, montrerParDiv, rotationAnimee, symetrieAnimee, translationAnimee } from './2dAnimation.js'
+import { codeSvg, codeTikz, colorToLatexOrHTML, fixeBordures, mathalea2d } from './2dGeneralites.js'
+import { ajouterAx, ajouterAy, allerA, angleScratchTo2d, avance, baisseCrayon, creerLutin, leveCrayon, mettrexA, mettreyA, orienter, tournerD, tournerG } from './2dLutin.js'
+import { afficherCrayon } from './2dInstruments.js'
 
+function polygoneRegulierIndirect (A, B, n, color) { // fonction supprimée de 2d.js donc mise ici pour assurer la compatibilité avec les vieux scripts mathalea2d
+  return polygoneRegulier(B, A, n, color)
+}
+function carreIndirect (A, B, color) {
+  return carre(B, A, color)
+}
 /**
  * Pour l'autocomplétion, importe les fonctions de mathalea2d, les charge dans window et dans l'interpréteur Sval
  * @returns interpreter Objet Sval
  */
-export default function initialiseEditeur () {
+export default function InitialiseEditeur () {
   context.objets2D = [] // Initialise la liste qui se met à jour à chaque création d'objet 2D
   window.randint = randint
   window.texNombre = texNombre
@@ -24,9 +34,6 @@ export default function initialiseEditeur () {
   window.numId = 0 // Pour identifier tous les objets MathALEA2D
   window.texteParPointEchelle = texteParPointEchelle
   window.angleScratchTo2d = angleScratchTo2d
-  window.appartientSegment = appartientSegment
-  window.appartientDroite = appartientDroite
-  window.appartientDemiDroite = appartientDemiDroite
   window.scratchblock = scratchblock
   window.motifs = motifs
   window.nomVecteurParPosition = nomVecteurParPosition
@@ -51,21 +58,18 @@ export default function initialiseEditeur () {
   window.mediatrice = mediatrice
   window.codageMediatrice = codageMediatrice
   window.codageMilieu = codageMilieu
-  window.constructionMediatrice = constructionMediatrice
   window.bissectrice = bissectrice
   window.codageBissectrice = codageBissectrice
-  window.constructionBissectrice = constructionBissectrice
   window.polyline = polyline
-  window.pave = pave
   window.vecteur = vecteur
   window.segment = segment
   window.segmentAvecExtremites = segmentAvecExtremites
   window.demiDroite = demiDroite
-  window.demiDroiteAvecExtremite = demiDroiteAvecExtremite
   window.polygone = polygone
   window.polygoneAvecNom = polygoneAvecNom
   window.polygoneRegulier = polygoneRegulier
   window.polygoneRegulierIndirect = polygoneRegulierIndirect
+  window.polygoneATrous = polygoneATrous
   window.carre = carre
   window.carreIndirect = carreIndirect
   window.codageCarre = codageCarre
@@ -79,18 +83,14 @@ export default function initialiseEditeur () {
   window.aireTriangle = aireTriangle
   window.cercle = cercle
   window.ellipse = ellipse
+  window.semiEllipse = semiEllipse
+  window.polygoneATrous = polygoneATrous
   window.pointIntersectionLC = pointIntersectionLC
   window.pointIntersectionCC = pointIntersectionCC
   window.cercleCentrePoint = cercleCentrePoint
   window.arc = arc
   window.arcPointPointAngle = arcPointPointAngle
   window.traceCompas = traceCompas
-  window.courbeDeBezier = courbeDeBezier
-  window.segmentMainLevee = segmentMainLevee
-  window.cercleMainLevee = cercleMainLevee
-  window.droiteMainLevee = droiteMainLevee
-  window.polygoneMainLevee = polygoneMainLevee
-  window.arcMainLevee = arcMainLevee
   window.dansLaCibleCarree = dansLaCibleCarree
   window.dansLaCibleRonde = dansLaCibleRonde
   window.cibleCarree = cibleCarree
@@ -114,8 +114,8 @@ export default function initialiseEditeur () {
   window.affiniteOrthoAnimee = affiniteOrthoAnimee
   window.montrerParDiv = montrerParDiv
   window.cacherParDiv = cacherParDiv
+  window.cacherTempo = cacherTempo
   window.afficherTempo = afficherTempo
-  window.afficherTempoId = afficherTempoId
   window.afficherUnParUn = afficherUnParUn
   window.medianeTriangle = medianeTriangle
   window.centreGraviteTriangle = centreGraviteTriangle
@@ -127,24 +127,23 @@ export default function initialiseEditeur () {
   window.codageAngleDroit = codageAngleDroit
   window.afficheLongueurSegment = afficheLongueurSegment
   window.texteSurSegment = texteSurSegment
+  window.texteSurArc = texteSurArc
   window.afficheMesureAngle = afficheMesureAngle
   window.afficheCoteSegment = afficheCoteSegment
-  window.codeSegment = codeSegment
-  window.codeSegments = codeSegments
-  window.codeAngle = codeAngle
+  window.codageSegment = codageSegment
+  window.codageSegments = codageSegments
+  window.codageAngle = codageAngle
   window.nomAngleSaillantParPosition = nomAngleSaillantParPosition
   window.nomAngleRentrantParPosition = nomAngleRentrantParPosition
   window.droiteGraduee = droiteGraduee
-  window.droiteGraduee2 = droiteGraduee2
   window.axes = axes
-  window.labelX = labelX
   window.labelY = labelY
   window.grille = grille
-  window.grilleHorizontale = grilleHorizontale
-  window.grilleVerticale = grilleVerticale
+  window.lignesHorizontales = lignesHorizontales
+  window.lignesVerticales = lignesVerticales
   window.seyes = seyes
   window.repere = repere
-  window.repere2 = repere2
+  window.repere = repere
   window.pointDansRepere = pointDansRepere
   window.traceGraphiqueCartesien = traceGraphiqueCartesien
   window.traceBarre = traceBarre
@@ -152,9 +151,7 @@ export default function initialiseEditeur () {
   window.lectureImage = lectureImage
   window.lectureAntecedent = lectureAntecedent
   window.courbe = courbe
-  window.courbe2 = courbe2
   window.courbeInterpolee = courbeInterpolee
-  window.courbeInterpolee2 = courbeInterpolee2
   window.graphiqueInterpole = graphiqueInterpole
   window.imageInterpolee = imageInterpolee
   window.antecedentInterpole = antecedentInterpole
@@ -165,7 +162,6 @@ export default function initialiseEditeur () {
   window.texteParPosition = texteParPosition
   window.latexParPoint = latexParPoint
   window.latexParCoordonnees = latexParCoordonnees
-  window.fractionParPosition = fractionParPosition
   window.longueur = longueur
   window.norme = norme
   window.angle = angle
@@ -198,7 +194,11 @@ export default function initialiseEditeur () {
   window.positionLabelDroite = positionLabelDroite
   window.fixeBordures = fixeBordures
   window.diagrammeBarres = diagrammeBarres
+  window.diagrammeCirculaire = diagrammeCirculaire
   window.axeY = axeY
+  window.cone = cone
+  window.pave = pave
+  window.colorToLatexOrHTML = colorToLatexOrHTML
 
   // La 3d
   window.sensDeRotation3d = sensDeRotation3d
@@ -246,9 +246,6 @@ export default function initialiseEditeur () {
     nombreDecimal: window.nombreDecimal,
     texteParPointEchelle: window.texteParPointEchelle,
     angleScratchTo2d: window.angleScratchTo2d,
-    appartientSegment: window.appartientSegment,
-    appartientDroite: window.appartientDroite,
-    appartientDemiDroite: window.appartientDemiDroite,
     scratchblock: window.scratchblock,
     motifs: window.motifs,
     // pattern: window.pattern,
@@ -274,21 +271,20 @@ export default function initialiseEditeur () {
     mediatrice: window.mediatrice,
     codageMediatrice: window.codageMediatrice,
     codageMilieu: window.codageMilieu,
-    constructionMediatrice: window.constructionMediatrice,
     bissectrice: window.bissectrice,
     codageBissectrice: window.codageBissectrice,
-    constructionBissectrice: window.constructionBissectrice,
     polyline: window.polyline,
     pave: window.pave,
+    colorToLatexOrHTML: window.colorToLatexOrHTML,
     vecteur: window.vecteur,
     segment: window.segment,
     segmentAvecExtremites: window.segmentAvecExtremites,
     demiDroite: window.demiDroite,
-    demiDroiteAvecExtremite: window.demiDroiteAvecExtremite,
     polygone: window.polygone,
     polygoneAvecNom: window.polygoneAvecNom,
     polygoneRegulier: window.polygoneRegulier,
     polygoneRegulierIndirect: window.polygoneRegulierIndirect,
+    polygoneATrous: window.polygoneATrous,
     carre: window.carre,
     carreIndirect: window.carreIndirect,
     codageCarre: window.codageCarre,
@@ -302,18 +298,14 @@ export default function initialiseEditeur () {
     aireTriangle: window.aireTriangle,
     cercle: window.cercle,
     ellipse: window.ellipse,
+    cone: window.cone,
+    semiEllipse: window.semiEllipse,
     pointIntersectionLC: window.pointIntersectionLC,
     pointIntersectionCC: window.pointIntersectionCC,
     cercleCentrePoint: window.cercleCentrePoint,
     arc: window.arc,
     arcPointPointAngle: window.arcPointPointAngle,
     traceCompas: window.traceCompas,
-    courbeDeBezier: window.courbeDeBezier,
-    segmentMainLevee: window.segmentMainLevee,
-    cercleMainLevee: window.cercleMainLevee,
-    droiteMainLevee: window.droiteMainLevee,
-    polygoneMainLevee: window.polygoneMainLevee,
-    arcMainLevee: window.arcMainLevee,
     dansLaCibleCarree: window.dansLaCibleCarree,
     dansLaCibleRonde: window.dansLaCibleRonde,
     cibleCarree: window.cibleCarree,
@@ -338,7 +330,7 @@ export default function initialiseEditeur () {
     montrerParDiv: window.montrerParDiv,
     cacherParDiv: window.cacherParDiv,
     afficherTempo: window.afficherTempo,
-    afficherTempoId: window.afficherTempoId,
+    cacherTempo: window.cacherTempo,
     afficherUnParUn: window.afficherUnParUn,
     medianeTriangle: window.medianeTriangle,
     centreGraviteTriangle: window.centreGraviteTriangle,
@@ -351,24 +343,21 @@ export default function initialiseEditeur () {
     codageAngleDroit: window.codageAngleDroit,
     afficheLongueurSegment: window.afficheLongueurSegment,
     texteSurSegment: window.texteSurSegment,
+    texteSurArc: window.texteSurArc,
     afficheMesureAngle: window.afficheMesureAngle,
     afficheCoteSegment: window.afficheCoteSegment,
-    codeSegment: window.codeSegment,
-    codeSegments: window.codeSegments,
-    codeAngle: window.codeAngle,
+    codageSegment: window.codageSegment,
+    codageSegments: window.codageSegments,
+    codageAngle: window.codageAngle,
     nomAngleSaillantParPosition: window.nomAngleSaillantParPosition,
     nomAngleRentrantParPosition: window.nomAngleRentrantParPosition,
     droiteGraduee: window.droiteGraduee,
-    droiteGraduee2: window.droiteGraduee2,
-    axes: window.axes,
-    labelX: window.labelX,
     labelY: window.labelY,
     grille: window.grille,
-    grilleHorizontale: window.grilleHorizontale,
-    grilleVerticale: window.grilleVerticale,
+    lignesHorizontales: window.lignesHorizontales,
+    lignesVerticales: window.lignesVerticales,
     seyes: window.seyes,
     repere: window.repere,
-    repere2: window.repere2,
     pointDansRepere: window.pointDansRepere,
     traceGraphiqueCartesien: window.traceGraphiqueCartesien,
     traceBarre: window.traceBarre,
@@ -376,9 +365,7 @@ export default function initialiseEditeur () {
     lectureImage: window.lectureImage,
     lectureAntecedent: window.lectureAntecedent,
     courbe: window.courbe,
-    courbe2: window.courbe2,
     courbeInterpolee: window.courbeInterpolee,
-    courbeInterpolee2: window.courbeInterpolee2,
     graphiqueInterpole: window.graphiqueInterpole,
     imageInterpolee: window.imageInterpolee,
     antecedentInterpole: window.antecedentInterpole,
@@ -389,7 +376,6 @@ export default function initialiseEditeur () {
     texteParPosition: window.texteParPosition,
     latexParPoint: window.latexParPoint,
     latexParCoordonnees: window.latexParCoordonnees,
-    fractionParPosition: window.fractionParPosition,
     longueur: window.longueur,
     norme: window.norme,
     angle: window.angle,
@@ -423,6 +409,7 @@ export default function initialiseEditeur () {
     positionLabelDroite: window.positionLabelDroite,
     fixeBordures: window.fixeBordures,
     diagrammeBarres: window.diagrammeBarres,
+    diagrammeCirculaire: window.diagrammeCirculaire,
     axeY: window.axeY,
 
     // 3d

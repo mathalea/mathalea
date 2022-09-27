@@ -1,9 +1,12 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
+import Decimal from 'decimal.js/decimal.mjs'
 import { context } from '../../modules/context.js'
-import { homothetie, codeAngle, longueur, barycentre, milieu, latexParPoint, mathalea2d, point, polygone, rotation, codageAngleDroit, nommePolygone, segment } from '../../modules/2d.js'
-import { calcul, texFraction, quatriemeProportionnelle, texNombre, arrondi, texteEnCouleurEtGras, listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js'
+import { homothetie, codageAngle, longueur, barycentre, milieu, latexParPoint, point, polygone, rotation, codageAngleDroit, nommePolygone, segment } from '../../modules/2d.js'
+import { texFraction, quatriemeProportionnelle, texNombre, texteEnCouleurEtGras, listeQuestionsToContenu, randint, creerNomDePolygone, combinaisonListes, choice } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import Grandeur from '../../modules/Grandeur.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -18,7 +21,10 @@ export const titre = 'Calculer une longueur dans un triangle rectangle en utilis
  * Calculer une longueur en utilisant l'un des trois rapport trigonométrique.
  * * Si this.level=4 alors seul le cosinus sera utilisé.
  * Mars 2021
+ * combinaisonListes des questions par Guillaume Valmont le 23/05/2022
  */
+export const uuid = 'bd6b1'
+export const ref = '3G30'
 export default function CalculDeLongueur () {
   Exercice.call(this)
   this.titre = titre
@@ -38,69 +44,71 @@ export default function CalculDeLongueur () {
   }
 
   this.nouvelleVersion = function () {
+    this.consigne = ''
     this.autoCorrection = []
     this.listeQuestions = []
     this.listeCorrections = []
     let reponse
     let listeDeNomsDePolygones
+    let typeQuestionsDisponibles = ['cosinus', 'sinus', 'tangente', 'invCosinus', 'invSinus', 'invTangente']
+    if (this.level === 4) typeQuestionsDisponibles = ['cosinus', 'invCosinus']
+
+    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0; i < this.nbQuestions; i++) {
+      const unite = choice(['m', 'cm', 'dm', 'mm'])
       if (i % 3 === 0) listeDeNomsDePolygones = ['QD']
       const nom = creerNomDePolygone(3, listeDeNomsDePolygones)
       listeDeNomsDePolygones.push(nom)
-      let texte = ''; let texteCorr = ''; const objetsEnonce = []; const objetsCorrection = []; let choixRapportTrigo
+      let texte = ''; let texteCorr = ''; const objetsEnonce = []; const objetsCorrection = []
       let ab, bc, ac
-      if (this.level === 4) {
-        choixRapportTrigo = choice(['cosinus', 'invCosinus'])
-      } else {
-        choixRapportTrigo = choice(['cosinus', 'sinus', 'tangente', 'invCosinus', 'invSinus', 'invTangente'])
-      }
+
       const angleABC = randint(35, 55)
-      const angleABCr = angleABC * Math.PI / 180
+      const angleABCr = Decimal.acos(-1).div(180).mul(angleABC)
       if (!context.isHtml && this.sup) {
         texte += '\\begin{minipage}{.7\\linewidth}\n'
       }
-      switch (choixRapportTrigo) {
+      switch (listeTypeQuestions[i]) {
         case 'cosinus': // AB=BCxcos(B)
-          bc = randint(10, 15)
-          ab = calcul(bc * Math.cos(angleABCr), 3)
-          ac = calcul(bc * Math.sin(angleABCr), 3)
-          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-          texte += `Calculer $${nom[0] + nom[1]}$ à $0,1$ cm près.`
+          bc = new Decimal(randint(10, 15))
+          ab = Decimal.cos(angleABCr).mul(bc)
+          ac = Decimal.sin(angleABCr).mul(bc)
+          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
+          texte += `Calculer $${nom[0] + nom[1]}$ à $0,1$ ${unite} près.`
           break
         case 'sinus':
-          bc = randint(10, 15)
-          ab = calcul(bc * Math.cos(angleABCr), 3)
-          ac = calcul(bc * Math.sin(angleABCr), 3)
-          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-          texte += `Calculer $${nom[0] + nom[2]}$ à $0,1$ cm près.`
+          bc = new Decimal(randint(10, 15))
+          ab = Decimal.cos(angleABCr).mul(bc)
+          ac = Decimal.sin(angleABCr).mul(bc)
+          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
+          texte += `Calculer $${nom[0] + nom[2]}$ à $0,1$ ${unite} près.`
           break
         case 'tangente':
-          ab = randint(7, 10)
-          ac = calcul(ab * Math.tan(angleABCr), 3)
-          bc = calcul(ab / Math.cos(angleABCr), 3)
-          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-          texte += `Calculer $${nom[0] + nom[2]}$ à $0,1$ cm près.`
+          ab = new Decimal(randint(7, 10))
+          ac = Decimal.tan(angleABCr).mul(ab)
+          bc = new Decimal(ab).div(Decimal.cos(angleABCr))
+          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
+          texte += `Calculer $${nom[0] + nom[2]}$ à $0,1$ ${unite} près.`
           break
         case 'invCosinus':
-          ab = randint(7, 10)
-          bc = calcul(ab / Math.cos(angleABCr), 3)
-          ac = calcul(bc * Math.sin(angleABCr), 3)
-          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-          texte += `Calculer $${nom[1] + nom[2]}$ à $0,1$ cm près.`
+          ab = new Decimal(randint(7, 10))
+          bc = new Decimal(ab).div(Decimal.cos(angleABCr))
+          ac = Decimal.sin(angleABCr).mul(bc)
+          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
+          texte += `Calculer $${nom[1] + nom[2]}$ à $0,1$ ${unite} près.`
           break
         case 'invSinus':
-          ac = randint(7, 10)
-          bc = calcul(ac / Math.sin(angleABCr), 3)
-          ab = calcul(bc * Math.cos(angleABCr), 3)
-          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-          texte += `Calculer $${nom[1] + nom[2]}$ à $0,1$ cm près.`
+          ac = new Decimal(randint(7, 10))
+          bc = new Decimal(ac).div(Decimal.sin(angleABCr))
+          ab = Decimal.cos(angleABCr).mul(bc)
+          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
+          texte += `Calculer $${nom[1] + nom[2]}$ à $0,1$ ${unite} près.`
           break
         case 'invTangente':
-          ac = randint(7, 10)
-          bc = calcul(ac / Math.sin(angleABCr), 3)
-          ab = calcul(bc * Math.cos(angleABCr), 3)
-          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-          texte += `Calculer $${nom[0] + nom[1]}$ à $0,1$ cm près.`
+          ac = new Decimal(randint(7, 10))
+          bc = new Decimal(ac).div(Decimal.sin(angleABCr))
+          ab = Decimal.cos(angleABCr).mul(bc)
+          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
+          texte += `Calculer $${nom[0] + nom[1]}$ à $0,1$ ${unite} près.`
           break
       }
 
@@ -121,12 +129,9 @@ export default function CalculDeLongueur () {
       B.nom = nom[1]
       C.nom = nom[2]
       const nomme = nommePolygone(p2, nom)
-      const hypo = segment(C, B)
+      const hypo = segment(C, B, 'blue')
       hypo.epaisseur = 2
-      hypo.color = 'blue'
-      //   codageAngle.epaisseur = 3
-      //  codageAngle2.epaisseur = 3
-      const codageDeAngle = codeAngle(A, B, C, 2)
+      const codageDeAngle = codageAngle(A, B, C, 2)
       const M1 = milieu(A, B)
       const M2 = milieu(A, C)
       const M3 = milieu(B, C)
@@ -136,39 +141,39 @@ export default function CalculDeLongueur () {
       const m2 = homothetie(M2, M3, 1 + 1.5 / longueur(M3, M2), 'm2', 'center')
       let m4
       let t1, t2, t3
-      switch (choixRapportTrigo) {
+      switch (listeTypeQuestions[i]) {
         case 'cosinus': // AB=BCxcos(B)
-          t3 = latexParPoint(`${bc} \\text{ cm}`, m3, 'black', 120, 12, '')
+          t3 = latexParPoint(`${bc} \\text{ ${unite}}`, m3, 'black', 120, 12, '')
           t2 = latexParPoint('?', m1, 'black', 120, 12, '')
           m4 = homothetie(G, B, 2.7 / longueur(B, G), 'B2', 'center')
           t1 = latexParPoint(`${angleABC}\\degree`, m4, 'black', 20, 12, '')
           break
         case 'sinus':
-          t3 = latexParPoint(`${bc} \\text{ cm}`, m3, 'black', 120, 12, '')
+          t3 = latexParPoint(`${bc} \\text{ ${unite}}`, m3, 'black', 120, 12, '')
           t2 = latexParPoint('?', m2, 'black', 120, 12, '')
           m4 = homothetie(G, B, 2.7 / longueur(B, G), 'B2', 'center')
           t1 = latexParPoint(`${angleABC}\\degree`, m4, 'black', 100, 12, '')
           break
         case 'tangente':
-          t1 = latexParPoint(`${ab} \\text{ cm}`, m1, 'black', 120, 12, '')
+          t1 = latexParPoint(`${ab} \\text{ ${unite}}`, m1, 'black', 120, 12, '')
           t2 = latexParPoint('?', m2, 'black', 120, 12, '')
           m4 = homothetie(G, B, 2.7 / longueur(B, G), 'B2', 'center')
           t3 = latexParPoint(`${angleABC}\\degree`, m4, 'black', 100, 12, '')
           break
         case 'invCosinus':
-          t1 = latexParPoint(`${ab} \\text{ cm}`, m1, 'black', 120, 12, '')
+          t1 = latexParPoint(`${ab} \\text{ ${unite}}`, m1, 'black', 120, 12, '')
           t3 = latexParPoint('?', m3, 'black', 120, 12, '')
           m4 = homothetie(G, B, 2.7 / longueur(B, G), 'B2', 'center')
           t2 = latexParPoint(`${angleABC}\\degree`, m4, 'black', 100, 12, '')
           break
         case 'invSinus':
-          t2 = latexParPoint(`${ac} \\text{ cm}`, m2, 'black', 120, 12, '')
+          t2 = latexParPoint(`${ac} \\text{ ${unite}}`, m2, 'black', 120, 12, '')
           t3 = latexParPoint('?', m3, 'black', 120, 12, '')
           m4 = homothetie(G, B, 2.7 / longueur(B, G), 'B2', 'center')
           t1 = latexParPoint(`${angleABC}\\degree`, m4, 'black', 100, 12, '')
           break
         case 'invTangente':
-          t2 = latexParPoint(`${ac} \\text{ cm}`, m2, 'black', 120, 12, '')
+          t2 = latexParPoint(`${ac} \\text{ ${unite}}`, m2, 'black', 120, 12, '')
           t1 = latexParPoint('?', m1, 'black', 120, 12, '')
           m4 = homothetie(G, B, 2.7 / longueur(B, G), 'B2', 'center')
           t3 = latexParPoint(`${angleABC}\\degree`, m4, 'black', 100, 12, '')
@@ -191,7 +196,7 @@ export default function CalculDeLongueur () {
       if (!context.isHtml && this.sup) {
         texte += '\n\\end{minipage}\n'
       }
-      switch (choixRapportTrigo) {
+      switch (listeTypeQuestions[i]) {
         case 'cosinus': // AB=BCxcos(B)
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le cosinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
           texteCorr += `$\\cos\\left(\\widehat{${nom}}\\right)=\\dfrac{${nom[0] + nom[1]}}{${nom[1] + nom[2]}}$.<br>`
@@ -199,8 +204,8 @@ export default function CalculDeLongueur () {
           texteCorr += `$\\dfrac{\\cos\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${texFraction(nom[0] + nom[1], bc)}$<br>`
           texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc ', 'red')}<br>`
           texteCorr += `$${nom[0] + nom[1]}=${quatriemeProportionnelle('\\color{red}{1}', bc, `\\cos\\left(${angleABC}\\degree\\right)`)}$`
-          texteCorr += `soit $${nom[0] + nom[1]}\\approx${texNombre(arrondi(ab, 1))}$ cm.`
-          reponse = arrondi(ab, 1)
+          texteCorr += `soit $${nom[0] + nom[1]}\\approx${texNombre(ab, 1)}$ ${unite}.`
+          reponse = ab.toDP(1)
           break
         case 'sinus':
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le sinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
@@ -209,8 +214,8 @@ export default function CalculDeLongueur () {
           texteCorr += `$\\dfrac{\\sin\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${texFraction(nom[0] + nom[2], bc)}$<br>`
           texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc ', 'red')}<br>`
           texteCorr += `$${nom[0] + nom[2]}=${quatriemeProportionnelle('\\color{red}{1}', bc, `\\sin\\left(${angleABC}\\degree\\right)`)}$`
-          texteCorr += `soit $${nom[0] + nom[2]}\\approx${texNombre(arrondi(ac, 1))}$ cm.`
-          reponse = arrondi(ac, 1)
+          texteCorr += `soit $${nom[0] + nom[2]}\\approx${texNombre(ac, 1)}$ ${unite}.`
+          reponse = ac.toDP(1)
           break
         case 'tangente':
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> la tangente de l'angle $\\widehat{${nom}}$ est défini par :<br>`
@@ -219,8 +224,8 @@ export default function CalculDeLongueur () {
           texteCorr += `$\\dfrac{\\tan\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${texFraction(nom[0] + nom[2], ab)}$<br>`
           texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc ', 'red')}<br>`
           texteCorr += `$${nom[0] + nom[2]}=${quatriemeProportionnelle('\\color{red}{1}', ab, `\\tan\\left(${angleABC}\\degree\\right)`)}$`
-          texteCorr += `soit $${nom[0] + nom[2]}\\approx${texNombre(arrondi(ac, 1))}$ cm.`
-          reponse = arrondi(ac, 1)
+          texteCorr += `soit $${nom[0] + nom[2]}\\approx${texNombre(ac, 1)}$ ${unite}.`
+          reponse = ac.toDP(1)
           break
         case 'invCosinus':
           texteCorr = `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le cosinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
@@ -229,8 +234,8 @@ export default function CalculDeLongueur () {
           texteCorr += `$\\dfrac{\\cos\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${texFraction(ab, nom[1] + nom[2])}$<br>`
           texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc ', 'red')}<br>`
           texteCorr += `$${nom[1] + nom[2]}=${quatriemeProportionnelle(`\\cos\\left(${angleABC}\\degree\\right)`, ab, '\\color{red}{1}')}$`
-          texteCorr += `soit $${nom[1] + nom[2]}\\approx${texNombre(arrondi(bc, 1))}$ cm.`
-          reponse = arrondi(bc, 1)
+          texteCorr += `soit $${nom[1] + nom[2]}\\approx${texNombre(bc, 1)}$ ${unite}.`
+          reponse = bc.toDP(1)
           break
         case 'invSinus':
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le sinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
@@ -239,8 +244,8 @@ export default function CalculDeLongueur () {
           texteCorr += `$\\dfrac{\\sin\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${texFraction(ac, nom[1] + nom[2])}$<br>`
           texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc ', 'red')}<br>`
           texteCorr += `$${nom[1] + nom[2]}=${quatriemeProportionnelle(`\\sin\\left(${angleABC}\\degree\\right)`, ac, '\\color{red}{1}')}$`
-          texteCorr += `soit $${nom[1] + nom[2]}\\approx${texNombre(arrondi(bc, 1))}$ cm.`
-          reponse = arrondi(bc, 1)
+          texteCorr += `soit $${nom[1] + nom[2]}\\approx${texNombre(bc, 1)}$ ${unite}.`
+          reponse = bc.toDP(1)
           break
         case 'invTangente':
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> la tangente de l'angle $\\widehat{${nom}}$ est défini par :<br>`
@@ -249,8 +254,8 @@ export default function CalculDeLongueur () {
           texteCorr += `$\\dfrac{\\tan\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${texFraction(ac, nom[0] + nom[1])}$<br>`
           texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc ', 'red')}<br>`
           texteCorr += `$${nom[0] + nom[1]}=${quatriemeProportionnelle(`\\tan\\left(${angleABC}\\degree\\right)`, ac, '\\color{red}{1}')}$`
-          texteCorr += `soit $${nom[0] + nom[1]}\\approx${texNombre(arrondi(ab, 1))}$ cm.`
-          reponse = arrondi(ab, 1)
+          texteCorr += `soit $${nom[0] + nom[1]}\\approx${texNombre(ab, 1)}$ ${unite}.`
+          reponse = ab.toDP(1)
           break
       }
       if (!context.isHtml && this.correctionDetaillee) {
@@ -270,7 +275,7 @@ export default function CalculDeLongueur () {
           ],
           reponse: {
             texte: 'résultat',
-            valeur: [reponse],
+            valeur: [ab.toDP(1)],
             param: {
               digits: 3,
               decimals: 1,
@@ -283,8 +288,8 @@ export default function CalculDeLongueur () {
         }
       }
       if (context.isHtml) {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' cm' })
-        setReponse(this, i, arrondi(reponse, 1), { formatInteractif: 'calcul' })
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline longueur')
+        setReponse(this, i, new Grandeur(reponse, unite), { formatInteractif: 'unites' })
       }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)

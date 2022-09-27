@@ -1,12 +1,14 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, signe, texNombre, miseEnEvidence, arcenciel } from '../../modules/outils.js'
 
-export const titre = 'Déterminer les termes d’une suite définie par récurrence'
+export const titre = 'Déterminer les termes d\'une suite définie par récurrence'
 
 /**
  * 1N11
  * @author Gaelle Morvan
  */
+export const uuid = 'b8c14'
+export const ref = '1N11'
 export default function TermeDUneSuiteDefinieParRecurrence () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, arrondiVirgule, calcul, texNombrec, creerNomDePolygone, texNombre, arrondi, sp, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, rangeMinMax, contraindreValeur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, texNombre, calcul, texNombrec, creerNomDePolygone, arrondi, sp, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, rangeMinMax, contraindreValeur } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -142,11 +142,11 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
             texteCorr = ''
           }
 
-          texteCorr += `$\\mathcal{P}=2\\times${R}\\times\\pi~\\text{cm}=${2 * R}\\pi~\\text{cm}\\approx${arrondiVirgule(
+          texteCorr += `$\\mathcal{P}=2\\times${R}\\times\\pi~\\text{cm}=${2 * R}\\pi~\\text{cm}\\approx${texNombre(
             2 * R * Math.PI,
             1
           )}~\\text{cm}$<br>`
-          texteCorr += `$\\mathcal{A}=${R}\\times${R}\\times\\pi~\\text{cm}^2=${R * R}\\pi~\\text{cm}^2\\approx${arrondiVirgule(
+          texteCorr += `$\\mathcal{A}=${R}\\times${R}\\times\\pi~\\text{cm}^2=${R * R}\\pi~\\text{cm}^2\\approx${texNombre(
             R * R * Math.PI,
             1
           )}~\\text{cm}^2$`

@@ -1,6 +1,6 @@
-import { context } from './context'
-import { create } from './dom'
-import { getVueFromUrl, setUrl } from './gestionUrl'
+import { context } from './context.js'
+import { create } from './dom.js'
+import { getVueFromUrl, setUrl } from './gestionUrl.js'
 
 export async function gestionVue (vue) {
   if (vue) {

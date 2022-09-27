@@ -1,4 +1,4 @@
-import { fraction } from '../../modules/fractions'
+import { fraction } from '../../modules/fractions.js'
 import Exercice from '../Exercice.js'
 import { randint, texNombrec, miseEnEvidence, texteGras, sp, prenom, itemize, texteEnCouleur, numAlpha, listeQuestionsToContenu, combinaisonListes, texNombre, texFractionReduite, reduireAxPlusB } from '../../modules/outils.js'
 
@@ -9,7 +9,9 @@ export const dateDePublication = '16/12/2021'
  * @author Gilles Mora
  * Référence
  */
-export default function modeliserEquations () {
+export const uuid = '846b8'
+export const ref = '2N50-3'
+export default function ModeliserEquations () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
   this.nbQuestions = 1

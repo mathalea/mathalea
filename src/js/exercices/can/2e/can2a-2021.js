@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  mathalea2d, point, repere2, courbe2, labelPoint, segment, milieu, texteParPosition, codeSegment
+  point, repere, courbe, labelPoint, segment, milieu, texteParPosition, codageSegment
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { listeQuestionsToContenu, stringNombre, randint, ecritureAlgebrique, texNombre, texFractionReduite, printlatex, shuffle, simplificationDeFractionAvecEtapes, choice, calcul, sp } from '../../../modules/outils.js'
@@ -24,6 +25,8 @@ export const dateDePublication = '05/04/2022' // La date de publication initiale
 function compareNombres (a, b) {
   return a - b
 }
+export const uuid = '1f0cd'
+export const ref = 'can2a-2021'
 export default function SujetCAN2021Seconde () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -32,7 +35,12 @@ export default function SujetCAN2021Seconde () {
   this.nbQuestions = 30
   this.nbCols = 1
   this.nbColsCorr = 1
-
+  this.comment = `Cet exercice fait partie des annales des Courses aux nombres.<br>
+  Il est composé de 30 questions réparties de la façon suivante :<br>
+  les 10 premières questions parfois communes à plusieurs niveaux font appels à des questions automatisées élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
+  Par défaut, les questions sont rangées dans le même ordre que le sujet officiel avec des données aléatoires. Ainsi, en cliquant sur « Nouvelles données », on obtient une nouvelle course aux nombres avec des données différentes.
+  En choisissant un nombre de questions différents de 30, on fabrique une « mini » course aux nombres qui respecte la proportion de nombre de questions élémentaires par rapport aux autres.
+  Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 questions automatisées élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -191,14 +199,14 @@ export default function SujetCAN2021Seconde () {
             b = choice([-1, -2])
             texte = `Ecriture décimale de : <br>
                         $10^3+${a}\\times 10^2+10^{${b}}$`
-            texteCorr = `$10^3+${a}\\times 10^2+10^{${b}}=1000+${a * 100}+${texNombre(10 ** b,2)}=${texNombre(1000 + a * 100 + 10 ** b,2)}$`
+            texteCorr = `$10^3+${a}\\times 10^2+10^{${b}}=1000+${a * 100}+${texNombre(10 ** b, 2)}=${texNombre(1000 + a * 100 + 10 ** b, 2)}$`
             reponse = 1000 + a * 100 + 10 ** b
           } else {
             a = randint(2, 9)
             b = choice([-1, -2])
             texte = `Ecriture décimale de : <br>
                          $${a}\\times 10^3+ 10^2+10^{${b}}$`
-            texteCorr = `$${a}\\times10^3+ 10^2+10^{${b}}=${a * 1000}+100+${texNombre(10 ** b,2)}=${texNombre(a * 1000 + 100 + 10 ** b,2)}$`
+            texteCorr = `$${a}\\times10^3+ 10^2+10^{${b}}=${a * 1000}+100+${texNombre(10 ** b, 2)}=${texNombre(a * 1000 + 100 + 10 ** b, 2)}$`
             reponse = a * 1000 + 100 + 10 ** b
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -227,28 +235,28 @@ export default function SujetCAN2021Seconde () {
             a = randint(11, 39, [10, 20, 30]) / 1000
             truc = a * 100
             reponse = `${stringNombre(truc)}\\times 10^{-2}`
-            texte = `Ecriture  scientifique de $${texNombre(a,3)}$`
+            texte = `Ecriture  scientifique de $${texNombre(a, 3)}$`
 
             texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
-            Ici : $${texNombre(a,3)}=\\underbrace{${texNombre(truc,3)}}_{1\\leqslant ${texNombre(truc,3)} <10}\\times 10^{-2}$. `
+            Ici : $${texNombre(a, 3)}=\\underbrace{${texNombre(truc, 3)}}_{1\\leqslant ${texNombre(truc, 3)} <10}\\times 10^{-2}$. `
           }
           if (choix === 'b') {
             a = randint(111, 399, [200, 300]) / 100000
             truc = a * 1000
             reponse = `${stringNombre(truc)}\\times 10^{-3}`
-            texte = `Ecriture  scientifique de $${texNombre(a,5)}$`
+            texte = `Ecriture  scientifique de $${texNombre(a, 5)}$`
 
             texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
-              Ici : $${texNombre(a,5)}=\\underbrace{${texNombre(truc,5)}}_{1\\leqslant ${texNombre(truc,5)} <10}\\times 10^{-3}$. `
+              Ici : $${texNombre(a, 5)}=\\underbrace{${texNombre(truc, 5)}}_{1\\leqslant ${texNombre(truc, 5)} <10}\\times 10^{-3}$. `
           }
           if (choix === 'c') {
             a = randint(111, 399, [200, 300]) / 1000000
             truc = a * 10000
             reponse = `${stringNombre(truc)}\\times 10^{-4}`
-            texte = `Ecriture  scientifique de $${texNombre(a,6)}$`
+            texte = `Ecriture  scientifique de $${texNombre(a, 6)}$`
 
             texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
-                Ici : $${texNombre(a,6)}=\\underbrace{${texNombre(truc,6)}}_{1\\leqslant ${texNombre(truc,6)} <10}\\times 10^{-4}$. `
+                Ici : $${texNombre(a, 6)}=\\underbrace{${texNombre(truc, 6)}}_{1\\leqslant ${texNombre(truc, 6)} <10}\\times 10^{-4}$. `
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -300,17 +308,17 @@ export default function SujetCAN2021Seconde () {
             a = randint(11, 39, [10, 20, 30]) + randint(1, 9) / 10
 
             reponse = a * 1000
-            texte = `$${texNombre(a,1)}$ m$^3=$`
+            texte = `$${texNombre(a, 1)}$ m$^3=$`
 
-            texteCorr = `$1$ m$^3 = 1000$ L, donc  $${texNombre(a,1)}$ m$^3=${texNombre(a,1)}\\times 1000$ L$=${texNombre(a * 1000,1)}$ L`
+            texteCorr = `$1$ m$^3 = 1000$ L, donc  $${texNombre(a, 1)}$ m$^3=${texNombre(a, 1)}\\times 1000$ L$=${texNombre(a * 1000, 1)}$ L`
           }
           if (choix === 'b') {
             a = randint(11, 39, [10, 20, 30]) + randint(11, 99, [10, 20, 30, 40, 50, 60, 70, 80, 90]) / 100
 
             reponse = a * 1000
-            texte = `$${texNombre(a,2)}$ m$^3=$`
+            texte = `$${texNombre(a, 2)}$ m$^3=$`
 
-            texteCorr = `$1$ m$^3 = 1000$ L, donc  $${texNombre(a,2)}$ m$^3=${texNombre(a,2)}\\times 1000$ L$=${texNombre(a * 1000,2)}$ L`
+            texteCorr = `$1$ m$^3 = 1000$ L, donc  $${texNombre(a, 2)}$ m$^3=${texNombre(a, 2)}\\times 1000$ L$=${texNombre(a * 1000, 2)}$ L`
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -366,11 +374,11 @@ export default function SujetCAN2021Seconde () {
           a = randint(5, 99) / 10
           b = randint(2, 9) * 5
           c = 100 - b
-          texte = `$${b}\\times${texNombre(a,1)} + ${texNombre(a,1)}\\times${c}=$ 
+          texte = `$${b}\\times${texNombre(a, 1)} + ${texNombre(a, 1)}\\times${c}=$ 
       `
           texteCorr = ` On factorise : <br>     $\\begin{aligned}
-      ${b}\\times${texNombre(a,1)} + ${texNombre(a,1)}\\times${c}&=${texNombre(a,1)}\\times \\underbrace{(${b}+${c})}_{=100}\\\\
-      &=${texNombre(a,1)}\\times 100\\\\
+      ${b}\\times${texNombre(a, 1)} + ${texNombre(a, 1)}\\times${c}&=${texNombre(a, 1)}\\times \\underbrace{(${b}+${c})}_{=100}\\\\
+      &=${texNombre(a, 1)}\\times 100\\\\
       &=${100 * a}
       \\end{aligned}$`
           reponse = 100 * a
@@ -390,7 +398,7 @@ export default function SujetCAN2021Seconde () {
           texteCorr = `Les coordonnées du milieu sont  données par : 
         $\\left(\\dfrac{${a}+${b}}{2};\\dfrac{${c}+${d}}{2}\\right)=
         \\left(\\dfrac{${a + b}}{2};\\dfrac{${c + d}}{2}\\right)=
-        (${texNombre((a + b) / 2,1)};${texNombre((c + d) / 2,1)})$.`
+        (${texNombre((a + b) / 2, 1)};${texNombre((c + d) / 2, 1)})$.`
           if (this.interactif) {
             setReponse(this, index, fraction(a + b, 2), { formatInteractif: 'fractionEgale' })
             texte += '<br>$\\Bigg($'
@@ -417,13 +425,13 @@ export default function SujetCAN2021Seconde () {
           xmin = -1
           ymin = -2.5
           xmax = 7
-          ymax = 4.7
+          ymax = 5
           objets = []
           objets.push(
-            texteParPosition(`$${d} \\text{ cm}$`, milieu(A, D).x, milieu(A, D).y + 0.3, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition('$\\large \\text{?}$', milieu(B, E).x, milieu(B, E).y - 0.3, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${b} \\text{ cm}$`, milieu(A, C).x - 0.5, milieu(A, C).y, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${a} \\text{ cm}$`, milieu(C, B).x + 0.3, milieu(C, B).y + 0.2, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`${stringNombre(d)} cm`, milieu(A, D).x, milieu(A, D).y + 0.3),
+            texteParPosition(' ?', milieu(B, E).x, milieu(B, E).y - 0.3),
+            texteParPosition(`${stringNombre(b)} cm`, milieu(A, C).x - 0.6, milieu(A, C).y),
+            texteParPosition(`${stringNombre(a)} cm`, milieu(C, B).x + 0.5, milieu(C, B).y + 0.2),
             labelPoint(A, B, C, D, E), segment(B, E), segment(D, E), segment(A, D), segment(A, B))
           reponse = c
           texte = `$(AD)//(EB)$.<br>
@@ -635,18 +643,18 @@ export default function SujetCAN2021Seconde () {
           B = point(4, 0, 'B', 'below')
           C = point(4, 4, 'C', 'above')
           D = point(0, 4, 'D', 'above')
-          code1 = codeSegment(A, B, '|')
-          code2 = codeSegment(B, C, '|')
-          code3 = codeSegment(C, D, '|')
-          code4 = codeSegment(A, D, '|')
+          code1 = codageSegment(A, B, '|')
+          code2 = codageSegment(B, C, '|')
+          code3 = codageSegment(C, D, '|')
+          code4 = codageSegment(A, D, '|')
           xmin = -1
           ymin = -1
           xmax = 5
           ymax = 5
           objets = []
           objets.push(
-            texteParPosition(`$${a} \\text{ cm}$`, milieu(A, B).x, milieu(A, B).y - 0.4, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition('$\\large \\text{?}$', milieu(D, B).x + 0.2, milieu(D, B).y + 0.1, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`${stringNombre(a)} cm`, milieu(A, B).x, milieu(A, B).y - 0.4),
+            texteParPosition('?', milieu(D, B).x + 0.2, milieu(D, B).y + 0.1),
             labelPoint(A, B, C, D), segment(A, B), segment(B, C), segment(C, D), segment(D, A), segment(B, D), code1, code2, code3, code4)
           reponse = [`\\sqrt{${2 * a ** 2}}`, `${Math.sqrt(2 * a ** 2)}`, `${a}\\sqrt{2}`]
           texte = `Compléter : <br>
@@ -671,7 +679,7 @@ export default function SujetCAN2021Seconde () {
           Combien pèse (en kg) ce solide qui a la forme d'un cube  d'arête $${a}$ cm  ? 
       `
           texteCorr = `Le volume du cube est $${a}^3=${a ** 3}$ cm$^3$.<br>
-          Sa masse  est donc donnée par $${a ** 3}\\times 10=${10 * a ** 3}$ g soit $${texNombre(a ** 3 / 100,2)}$ kg.
+          Sa masse  est donc donnée par $${a ** 3}\\times 10=${10 * a ** 3}$ g soit $${texNombre(a ** 3 / 100, 2)}$ kg.
 
           `
 
@@ -684,10 +692,10 @@ export default function SujetCAN2021Seconde () {
           a = randint(-1, 6)
           b = randint(1, 4) + randint(1, 9) / 10
 
-          r = repere2({ xMin: -4, xMax: 4, yMin: -3, yMax: 8, xUnite: 2, yUnite: 1 })
-          // courbe2(x => a * x + b, { repere: repere, color: 'blue' })
+          r = repere({ xMin: -4, xMax: 4, yMin: -3, yMax: 8, xUnite: 2, yUnite: 1 })
+          // courbe(x => a * x + b, { repere: r, color: 'blue' })
           f = x => 0.5 * x ** 3 + b
-          C = courbe2(f, { repere: r, color: 'red' })
+          C = courbe(f, { repere: r, color: 'red' })
 
           reponse = [Math.cbrt(2 * (a - b)) - 0.1, Math.cbrt(2 * (a - b)) + 0.1]
           texte = `Voici la courbe d'une fonction $f$. <br>
@@ -712,7 +720,7 @@ Donner une valeur approchée de l'antécédent de $${a}$ par $f$ ?<br>`
           if (choix === 'b') {
             texte = `On lance deux dés cubiques équilibrés.<br>Quelle est la probabilité d’obtenir un total de $${c}$ ?<br>Donner le résultat sous la forme d'une fraction irréductible.`
             texteCorr = `Sur $36$ cas possibles équiprobables, il y en a $${p[c - 2]}$ qui donnent une somme de $${c}$. Donc la probabilité d'obtenir un total de $${c}$ est $\\dfrac{${p[c - 2]}}{36}${simplificationDeFractionAvecEtapes(p[c - 2], 36)}$.`
-            reponse = texFractionReduite(p[c - 2], 36)
+            reponse = fraction(p[c - 2], 36).simplifie()
           }
           setReponse(this, index, reponse, { formatInteractif: 'fraction' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }

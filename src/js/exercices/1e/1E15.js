@@ -1,6 +1,6 @@
 /* eslint-disable no-eval */
 /* eslint-disable no-unused-vars */
-import { xcas, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { xcas, listeQuestionsToContenu, randint, texteGras } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Equation du second degré avec paramètre'
@@ -11,9 +11,11 @@ export const dateDePublication = '30/10/2021'
  * @author Eric Schrafstetter
  * Référence 1E15
 */
-export default function equationDuSecondDegreAvecUnParametre () {
+export const uuid = 'fe4df'
+export const ref = '1E15'
+export default function EquationDuSecondDegreAvecUnParametre () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Discutez, suivant la valeur du paramètre $m$, le $\\underline{\\text{nombre de solutions}}$ de l\'équation du second degré'
+  this.consigne = `Discuter, suivant la valeur du paramètre $m$, le ${texteGras('nombre de solutions')} de l'équation du second degré.`
   this.nbQuestions = 2
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
@@ -22,7 +24,6 @@ export default function equationDuSecondDegreAvecUnParametre () {
   this.video = '' // Id YouTube ou url
   this.typeExercice = 'XCas'
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
-
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -138,4 +139,4 @@ export default function equationDuSecondDegreAvecUnParametre () {
   // this.besoinFormulaireNumerique = ['Niveau de difficulté', 3]
 }
 
-// python3 list-to-js.py pour faire apparaitre l'exercice dans le menu
+// python3 list-to-js.py pour faire apparaître l'exercice dans le menu

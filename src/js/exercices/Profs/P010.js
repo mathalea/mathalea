@@ -1,14 +1,15 @@
 import Exercice from '../Exercice.js'
-import { reduirePolynomeDegre3, calcul, texFractionSigne, fractionSimplifiee, listeQuestionsToContenu, printlatex, arrondiVirgule, xcas } from '../../modules/outils.js'
-import { tableauDeVariation, mathalea2d, repere2, courbe2, segment, vecteur, rotation, translation, point, tracePoint } from '../../modules/2d.js'
-export const titre = 'étude de fonction de degré 3'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { reduirePolynomeDegre3, calcul, texFractionSigne, fractionSimplifiee, listeQuestionsToContenu, printlatex, texNombre, xcas } from '../../modules/outils.js'
+import { tableauDeVariation, repere, courbe, segment, vecteur, rotation, translation, point, tracePoint } from '../../modules/2d.js'
+export const titre = 'Étude de fonctions de degré 3'
 
 /**
  * tableau de variation d'une fonction et tracé de la courbe (polynomes de degré <= 3)
  * @author Jean-Claude Lhote
  * Référence P010
 */
-export default function variationPolynomeDegre3 () {
+export default function VariationPolynomeDegre3 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''
@@ -122,7 +123,7 @@ export default function variationPolynomeDegre3 () {
                 ['$-\\infty$', 30, `$${rac[2]}$`, 70, `$${rac[3]}$`, 70, '$+\\infty$', 30]],
               tabLines:
               [['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20],
-                ['Var', 10, '+/$+\\infty$', 30, `-/$${arrondiVirgule(mafonction(rac[0]))}$`, 50, `+/$${arrondiVirgule(mafonction(rac[1]))}$`, 50, '-/$-\\infty$', 30]
+                ['Var', 10, '+/$+\\infty$', 30, `-/$${texNombre(mafonction(rac[0]), 2)}$`, 50, `+/$${texNombre(mafonction(rac[1]), 2)}$`, 50, '-/$-\\infty$', 30]
               ]
             })
           }
@@ -135,24 +136,21 @@ export default function variationPolynomeDegre3 () {
           A = point(rac[0] * scalex, mafonction(rac[0]) * scaley)
           B = translation(A, vecteur(1 * scalex, maderivee(rac[0]) * scaley))
           C = rotation(B, A, 180)
-          tangente = segment(C, B)
+          tangente = segment(C, B, 'blue')
           tangente.styleExtremites = '<->'
-          tangente.color = 'blue'
           vecteurs.push(tangente)
           A = point(rac[1] * scalex, mafonction(rac[1]) * scaley)
           B = translation(A, vecteur(1 * scalex, maderivee(rac[1]) * scaley))
           C = rotation(B, A, 180)
-          tangente = segment(C, B)
+          tangente = segment(C, B, 'blue')
           tangente.styleExtremites = '<->'
-          tangente.color = 'blue'
           vecteurs.push(tangente)
           A = point(-b / (3 * a) * scalex, mafonction(-b / (3 * a)) * scaley)
           vecteurs.push(tracePoint(A))
           B = translation(A, vecteur(1 * scalex, maderivee(-b / (3 * a)) * scaley))
           C = rotation(B, A, 180)
-          tangente = segment(C, B)
+          tangente = segment(C, B, 'red')
           tangente.styleExtremites = '<->'
-          tangente.color = 'red'
           vecteurs.push(tangente)
         } else { //  la dérivée croit jusqu'à un maximum <0 , il n'y a pas de zéro donc négatif sur tout l'interval
           tableau = tableauDeVariation({
@@ -178,9 +176,8 @@ export default function variationPolynomeDegre3 () {
           vecteurs.push(tracePoint(A))
           B = translation(A, vecteur(1 * scalex, maderivee(-b / (3 * a)) * scaley))
           C = rotation(B, A, 180)
-          tangente = segment(C, B)
+          tangente = segment(C, B, 'red')
           tangente.styleExtremites = '<->'
-          tangente.color = 'red'
           vecteurs.push(tangente)
         }
       } else {
@@ -208,9 +205,8 @@ export default function variationPolynomeDegre3 () {
           vecteurs.push(tracePoint(A))
           B = translation(A, vecteur(1 * scalex, maderivee(-b / (3 * a)) * scaley))
           C = rotation(B, A, 180)
-          tangente = segment(C, B)
-          tangente.styleExtremites = '<->'
-          tangente.color = 'red'
+          tangente = segment(C, B, 'red')
+          tangente.styleExtremites = '<->' /
           vecteurs.push(tangente)
         } else { // la dérivée décroit jusqu'à un minimum <0 , il y a deux zéros donc positif-négatif-positif
           rac = trouverLesRacines(a1, b1, c1)
@@ -221,7 +217,7 @@ export default function variationPolynomeDegre3 () {
               delatcl: 0.8,
               lgt: 3.5,
               tabInit: [[['$x$', 1.5, 15], ["$f'(x)$", 1, 30], ['$f(x)$', 2.5, 25]],
-                ['$-\\infty$', 30, `$${arrondiVirgule(rac[0])}$`, 60, `$${arrondiVirgule(rac[1])}$`, 60, '$+\\infty$', 30]],
+                ['$-\\infty$', 30, `$${texNombre(rac[0], 2)}$`, 60, `$${texNombre(rac[1], 2)}$`, 60, '$+\\infty$', 30]],
               tabLines:
               [['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20],
                 ['Var', 10, '-/$-\\infty$', 30, `+/$${xcas(`simplifier(subst(${MaFonction},x=${rac[4]}))`)}$`, 90, `-/$${xcas(`simplifier(subst(${MaFonction},x=${rac[5]}))`)}$`, 90, '+/$+\\infty$', 30]
@@ -234,10 +230,10 @@ export default function variationPolynomeDegre3 () {
               delatcl: 0.8,
               lgt: 3.5,
               tabInit: [[['$x$', 1.5, 15], ["$f'(x)$", 1, 30], ['$f(x)$', 2.5, 25]],
-                ['$-\\infty$', 30, `$${arrondiVirgule(rac[0])}$`, 60, `$${arrondiVirgule(rac[1])}$`, 60, '$+\\infty$', 30]],
+                ['$-\\infty$', 30, `$${texNombre(rac[0], 2)}$`, 60, `$${texNombre(rac[1], 2)}$`, 60, '$+\\infty$', 30]],
               tabLines:
               [['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20],
-                ['Var', 10, '-/$-\\infty$', 30, `+/$${arrondiVirgule(mafonction(rac[0]))}$`, 50, `-/$${arrondiVirgule(mafonction(rac[1]))}$`, 50, '+/$+\\infty$', 30]
+                ['Var', 10, '-/$-\\infty$', 30, `+/$${texNombre(mafonction(rac[0]), 2)}$`, 50, `-/$${texNombre(mafonction(rac[1]), 2)}$`, 50, '+/$+\\infty$', 30]
               ]
             })
           }
@@ -250,24 +246,21 @@ export default function variationPolynomeDegre3 () {
           A = point(rac[0] * scalex, mafonction(rac[0]) * scaley)
           B = translation(A, vecteur(1 * scalex, maderivee(rac[0]) * scaley))
           C = rotation(B, A, 180)
-          tangente = segment(C, B)
+          tangente = segment(C, B, 'blue')
           tangente.styleExtremites = '<->'
-          tangente.color = 'blue'
           vecteurs.push(tangente)
           A = point(rac[1] * scalex, mafonction(rac[1]) * scaley)
           B = translation(A, vecteur(1 * scalex, maderivee(rac[1]) * scaley))
           C = rotation(B, A, 180)
-          tangente = segment(C, B)
+          tangente = segment(C, B, 'blue')
           tangente.styleExtremites = '<->'
-          tangente.color = 'blue'
           vecteurs.push(tangente)
           A = point(-b / (3 * a) * scalex, mafonction(-b / (3 * a)) * scaley)
           vecteurs.push(tracePoint(A))
           B = translation(A, vecteur(1 * scalex, maderivee(-b / (3 * a)) * scaley))
           C = rotation(B, A, 180)
-          tangente = segment(C, B)
+          tangente = segment(C, B, 'red')
           tangente.styleExtremites = '<->'
-          tangente.color = 'red'
           vecteurs.push(tangente)
         }
       }
@@ -315,9 +308,8 @@ export default function variationPolynomeDegre3 () {
           A = point(x2 * scalex, mafonction(x2) * scaley)
           B = translation(A, vecteur(1 * scalex, maderivee(x2) * scaley))
           C = rotation(B, A, 180)
-          tangente = segment(C, B)
+          tangente = segment(C, B, 'blue')
           tangente.styleExtremites = '<->'
-          tangente.color = 'blue'
           vecteurs.push(tangente)
         } else if (minima > 0) { // f(x)=0 n'a pas de solution f(x)>0 pour tout x
           tableau = tableauDeVariation({
@@ -342,9 +334,8 @@ export default function variationPolynomeDegre3 () {
           A = point(x2 * scalex, mafonction(x2) * scaley)
           B = translation(A, vecteur(1 * scalex, maderivee(x2) * scaley))
           C = rotation(B, A, 180)
-          tangente = segment(C, B)
+          tangente = segment(C, B, 'blue')
           tangente.styleExtremites = '<->'
-          tangente.color = 'blue'
           vecteurs.push(tangente)
         } else { // f(x)=0 a une solution unique : minima=0
           tableau = tableauDeVariation({
@@ -369,9 +360,8 @@ export default function variationPolynomeDegre3 () {
           A = point(x2 * scalex, mafonction(x2) * scaley)
           B = translation(A, vecteur(1 * scalex, maderivee(x2) * scaley))
           C = rotation(B, A, 180)
-          tangente = segment(C, B)
+          tangente = segment(C, B, 'blue')
           tangente.styleExtremites = '<->'
-          tangente.color = 'blue'
           vecteurs.push(tangente)
         }
       } else { // a<0
@@ -401,9 +391,8 @@ export default function variationPolynomeDegre3 () {
           A = point(x2 * scalex, mafonction(x2) * scaley)
           B = translation(A, vecteur(1 * scalex, maderivee(x2) * scaley))
           C = rotation(B, A, 180)
-          tangente = segment(C, B)
+          tangente = segment(C, B, 'blue')
           tangente.styleExtremites = '<->'
-          tangente.color = 'blue'
           vecteurs.push(tangente)
         } else if (minima < 0) { // f(x)=0 n'a pas de solution f(x)<0 pour tout x
           tableau = tableauDeVariation({
@@ -428,9 +417,8 @@ export default function variationPolynomeDegre3 () {
           A = point(x2 * scalex, mafonction(x2) * scaley)
           B = translation(A, vecteur(1 * scalex, maderivee(x2) * scaley))
           C = rotation(B, A, 180)
-          tangente = segment(C, B)
+          tangente = segment(C, B, 'blue')
           tangente.styleExtremites = '<->'
-          tangente.color = 'blue'
           vecteurs.push(tangente)
         } else { // f(x)=0 a une solution unique : minima=0 désigne ici un maximum
           tableau = tableauDeVariation({
@@ -455,9 +443,8 @@ export default function variationPolynomeDegre3 () {
           A = point(x2 * scalex, mafonction(x2) * scaley)
           B = translation(A, vecteur(1 * scalex, maderivee(x2) * scaley))
           C = rotation(B, A, 180)
-          tangente = segment(C, B)
+          tangente = segment(C, B, 'blue')
           tangente.styleExtremites = '<->'
-          tangente.color = 'blue'
           vecteurs.push(tangente)
         }
       }
@@ -530,7 +517,7 @@ export default function variationPolynomeDegre3 () {
     scalex = Math.abs(10 / (XMAXI - XMINI))
     scaley = calcul(20 / 10 ** Math.ceil(Math.log10(Math.abs(YMAXI - YMINI))))
 
-    const monrepere = repere2({
+    const monrepere = repere({
       xUnite: scalex,
       yUnite: scaley,
       xMin: XMINI,
@@ -541,7 +528,7 @@ export default function variationPolynomeDegre3 () {
       xThickDistance: 1,
       yThickDistance: pas
     })
-    const macourbe = courbe2(mafonction, { repere: monrepere, step: 0.1, epaisseur: 1 })
+    const macourbe = courbe(mafonction, { repere: monrepere, step: 0.1, epaisseur: 1 })
     texte = 'Étude des variations de la fonction $f(x)='
     texte += `${printlatex(fxstring)}$.<br>`
     texte += mathalea2d({ xmin: 0, ymin: -8, xmax: 21, ymax: 1, pixelsParCm: 30 }, tableau)
@@ -553,12 +540,12 @@ export default function variationPolynomeDegre3 () {
       } else {
         texte += 'Par lecture graphique on peut lire les solutions de $f(x)=0$ : '
         if (solutions.length === 1) {
-          texte += `$x\\approx${arrondiVirgule(solutions[0], 1)}$`
+          texte += `$x\\approx${texNombre(solutions[0], 1)}$`
         } else {
           if (solutions.length === 2) {
-            texte += `$x\\approx${arrondiVirgule(solutions[0], 1)}$ et $x\\approx${arrondiVirgule(solutions[1], 1)}$`
+            texte += `$x\\approx${texNombre(solutions[0], 1)}$ et $x\\approx${texNombre(solutions[1], 1)}$`
           } else {
-            texte += `$x\\approx${arrondiVirgule(solutions[0], 1)}$, $x\\approx${arrondiVirgule(solutions[1], 1)}$ et $x\\approx${arrondiVirgule(solutions[2], 1)}$`
+            texte += `$x\\approx${texNombre(solutions[0], 1)}$, $x\\approx${texNombre(solutions[1], 1)}$ et $x\\approx${texNombre(solutions[2], 1)}$`
           }
         }
       }

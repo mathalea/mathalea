@@ -7,6 +7,8 @@ export const titre = 'Calculer des probabilités dans une expérience aléatoire
  *
  * @author Sébastien LOZANO
  */
+export const uuid = '28dfd'
+export const ref = '2S30-2'
 export default function FonctionsProbabilite12nde () {
   FonctionsProbabilite1.call(this)
 }

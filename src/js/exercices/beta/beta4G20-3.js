@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
-import { afficheLongueurSegment, barycentre, carre, latexParPoint, mathalea2d, point, polygone, rotation } from '../../modules/2d.js'
+import { afficheLongueurSegment, barycentre, carre, latexParPoint, point, polygone, rotation } from '../../modules/2d.js'
 
-export const titre = 'Calculer une valeur manquante avec l’égalité de Pythagore'
+export const titre = 'Calculer une valeur manquante avec l\'égalité de Pythagore'
 
 export default function CalculerValeurManquanteVisuelPythagore () {
   'use strict'
@@ -34,15 +35,15 @@ export default function CalculerValeurManquanteVisuelPythagore () {
     const b = p2.listePoints[1]
     const c = p2.listePoints[2]
     const car1 = carre(b, a)
-    car1.couleurDeRemplissage = 'red'
+    car1.couleurDeRemplissage = colorToLatexOrHTML('red')
     const bar1 = barycentre(car1)
     bar1.positionLabel = 'center'
     const car2 = carre(c, b)
-    car2.couleurDeRemplissage = 'blue'
+    car2.couleurDeRemplissage = colorToLatexOrHTML('blue')
     const bar2 = barycentre(car2)
     bar2.positionLabel = 'center'
     const car3 = carre(a, c)
-    car3.couleurDeRemplissage = 'green'
+    car3.couleurDeRemplissage = colorToLatexOrHTML('green')
     const bar3 = barycentre(car3)
     bar3.positionLabel = 'center'
     const q1 = latexParPoint('? \\text{ cm}^2', bar1)

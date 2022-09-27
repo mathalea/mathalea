@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, arrondi, simplificationDeFractionAvecEtapes, calcul, texNombrec, miseEnEvidence, texFraction } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-export const titre = 'Calculer la fraction d’un nombre'
+export const titre = 'Calculer la fraction d\'un nombre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -16,6 +16,8 @@ export const amcType = 'AMCNum'
  * @author Rémi Angot + Jean-Claude Lhote
  * référence 6N33
  */
+export const uuid = 'ddb83'
+export const ref = '6N33'
 export default function FractionDUnNombre () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 5

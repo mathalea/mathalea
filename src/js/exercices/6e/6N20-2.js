@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, texFraction } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-export const titre = 'Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l’écriture décimale'
+export const titre = 'Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l\'écriture décimale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -11,6 +11,8 @@ export const interactifType = 'mathLive'
  * @author Rémi Angot
  * 6N20-2
  */
+export const uuid = 'ab44e'
+export const ref = '6N20-2'
 export default function ExerciceFractionsDifferentesEcritures () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne =

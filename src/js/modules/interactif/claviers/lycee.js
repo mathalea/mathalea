@@ -59,7 +59,8 @@ const lyceeKeyboardLayer = {
           latex: '#0_{#1}',
           insert: '$$#0_{#1}$$' /// Indice n
         },
-        { class: 'separator w10' }
+
+        { label: '=', key: '=' }
 
       ],
       [
@@ -91,7 +92,6 @@ const lyceeKeyboardLayer = {
         { latex: '\\times' },
         { class: 'separator w5' },
         { class: 'small', latex: '\\frac{#0}{#0}' },
-        { label: '=', key: '=' },
         {
           class: 'small',
           latex: '\\widehat{#0}',
@@ -101,6 +101,11 @@ const lyceeKeyboardLayer = {
           class: 'small',
           latex: '\\overrightarrow{#0}',
           insert: '$$\\overrightarrow#0$$' /// Vecteur
+        },
+        {
+          class: 'small',
+          latex: '\\overline{#0}',
+          insert: '$$\\overline{#0}$$' /// Evenement contraire : A barre
         },
         { latex: '<' },
         { latex: '>' }
@@ -195,6 +200,7 @@ export const clavierLycee = {
     '%': { mode: 'math', value: '\\%' },
     '(': { mode: 'math', value: '(#0)' },
     '{': { mode: 'math', value: '\\{#0\\}' },
+    singleton: { mode: 'math', value: '\\{#0\\}' },
     inf: { mode: 'math', value: '\\infty' },
     union: { mode: 'math', value: '\\bigcup' },
     inter: { mode: 'math', value: '\\bigcap' },
@@ -207,11 +213,13 @@ export const clavierLycee = {
     exp: { mode: 'math', value: 'e^#0' }, //
     parmi: { mode: 'math', value: '\\tbinom{#0}{#1}' },
     pasachantb: { mode: 'math', value: 'P_{#0}({#1})' },
+    barre: { mode: 'math', value: '\\overline{#0}' },
     ang: { mode: 'math', value: '\\widehat{#0}' },
     rac: { mode: 'math', value: '\\sqrt{#0}' },
     frac: { mode: 'math', value: '\\frac{#0}{#1}' },
     vec: { mode: 'math', value: '\\overrightarrow{#0}' },
     pow: { mode: 'math', value: '#0^{#1}' },
+
     '<': '<',
     '>': '>',
     '>=': '\\geq',

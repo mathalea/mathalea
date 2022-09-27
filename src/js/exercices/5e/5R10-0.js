@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texNombre, miseEnEvidence, texteEnCouleur, tableauColonneLigne, combinaisonListes } from '../../modules/outils.js'
-export const titre = 'Trouver l’opposé d’un nombre relatif'
+export const titre = 'Trouver l\'opposé d\'un nombre relatif'
 export const dateDeModifImportante = '26/11/2021'
 
 /**
@@ -10,6 +10,8 @@ export const dateDeModifImportante = '26/11/2021'
 * Ajout d'un paramètre pour afficher quelques fois le signe des nombres positif par Guillaume Valmont le 26/11/2021
 */
 
+export const uuid = 'cab80'
+export const ref = '5R10-0'
 export default function TrouverOppose () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

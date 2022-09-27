@@ -1,8 +1,10 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { choice, combinaisonListes, listeQuestionsToContenu, randint, stringNombre, texteEnCouleur, numAlpha } from '../../modules/outils.js'
-import { centreGraviteTriangle, droite, mathalea2d, point, polygone, rotation, symetrieAnimee, symetrieAxiale, texteParPointEchelle, translation, vecteur } from '../../modules/2d.js'
+import { centreGraviteTriangle, droite, point, polygone, rotation, symetrieAxiale, texteParPointEchelle, translation, vecteur } from '../../modules/2d.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { symetrieAnimee } from '../../modules/2dAnimation.js'
 export const titre = 'Utiliser des symétries axiales en pavage triangulaire'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -10,9 +12,12 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 
 /**
+* Référence 6G25-1
 * Relecture : Novembre 2021 par EE
 */
 
+export const uuid = '49cb2'
+export const ref = '6G25-1'
 export default function SymetrieAxialePavageTriangulaire () {
   'use strict'
   Exercice.call(this)
@@ -142,7 +147,6 @@ export default function SymetrieAxialePavageTriangulaire () {
           antecedent = randint(rangA * 2 + 1 + rangM * 14, rangM * 14 + (rangA + 1) * 2)
         }
         deltaRang = rangA - ((antecedent % 14 - antecedent % 2) >> 1)
-        // console.log('delta : ', deltaRang, ' rangM : ', rangM, ' rangA : ', rangA)
         // l'axe est à droite de l'antécédent
         image = antecedent - 10 * deltaRang - 1 + 12 * (antecedent % 2) // ne me demandez pas d'où je sors ça !!!
         distracteurs.push(image - 1)
@@ -358,8 +362,8 @@ export default function SymetrieAxialePavageTriangulaire () {
           d[i].opacite = 0.6
           break
         case 1: // axe vertical
-        case 4: // axe perpendicualire à [BC]
-        case 5: // axe perpendicualire à [AC]
+        case 4: // axe perpendiculaire à [BC]
+        case 5: // axe perpendiculaire à [AC]
           M = triAngles[axes[listeTypesDeQuestions[i]][choix][0]].gra
           N = triAngles[axes[listeTypesDeQuestions[i]][choix][1]].gra
           d[i] = droite(M, N, `$(d_${i + 1})$`, couleurs[i])
@@ -372,12 +376,6 @@ export default function SymetrieAxialePavageTriangulaire () {
       question[i] = choisitTriangle(listeTypesDeQuestions[i], choix)
       triAngles[question[i].antecedent].tri.couleurDeRemplissage = couleurs[i]
       triAngles[question[i].antecedent].tri.opaciteDeRemplissage = 0.7
-      //  triAngles[question[i].image].tri.couleurDeRemplissage = couleurs[i]
-      //  triAngles[question[i].image].tri.opaciteDeRemplissage = 0.2
-      /* for (let j = 0; j < question[i].distracteurs.length; j++) {
-        triAngles[question[i].distracteurs[j]].tri.couleurDeRemplissage = 'brown'
-        triAngles[question[i].distracteurs[j]].tri.opaciteDeRemplissage = 0.3
-      } */
     }
     this.introduction = mathalea2d(paramsEnonce, objetsEnonce)
     for (let i = 0; i < this.nbQuestions; i++) {

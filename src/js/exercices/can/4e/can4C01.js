@@ -1,5 +1,5 @@
-import { choice, ecritureAlgebrique, ecritureParentheseSiNegatif, randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { choice, ecritureAlgebrique, ecritureParentheseSiNegatif, randint } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Utiliser les priorités opératoires avec des relatifs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can4C01
  */
+export const uuid = '1da2d'
+export const ref = 'can4C01'
 export default function PrioriteOperatoireEtRelatifs () {
   Exercice.call(this)
   this.typeExercice = 'simple'

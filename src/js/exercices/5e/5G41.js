@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { texNombrec, choice, texteGras, listeQuestionsToContenu, randint, arrondi, calcul, choisitLettresDifferentes, lettreDepuisChiffre, texNombre, miseEnEvidence } from '../../modules/outils.js'
-import { cercle, demiDroite, droite, cercleCentrePoint, pointIntersectionDD, codeSegments, texteParPosition, pointAdistance, codageAngleDroit, afficheMesureAngle, afficheLongueurSegment, point, labelPoint, similitude, polygoneAvecNom, tracePoint, segment, traceCompas, dansLaCibleCarree, cibleCarree, rotation, longueur, mathalea2d, milieu, pointIntersectionCC } from '../../modules/2d.js'
+import { cercle, demiDroite, droite, cercleCentrePoint, pointIntersectionDD, codageSegments, texteParPosition, pointAdistance, codageAngleDroit, afficheMesureAngle, afficheLongueurSegment, point, labelPoint, similitude, polygoneAvecNom, tracePoint, segment, traceCompas, dansLaCibleCarree, cibleCarree, rotation, longueur, milieu, pointIntersectionCC } from '../../modules/2d.js'
 
 export const titre = 'Construire des quadrilatères particuliers'
 
@@ -10,6 +11,8 @@ export const titre = 'Construire des quadrilatères particuliers'
  * @author Jean-Claude Lhote
  * Publié le 3/02/2020
  */
+export const uuid = '37e37'
+export const ref = '5G41'
 export default function ConstructionsParallelogrammesParticuliers () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -131,8 +134,7 @@ export default function ConstructionsParallelogrammesParticuliers () {
           texteCorr += `Les quatre sommets de ${nom} sont sur le cercle de centre $${noms[4]}$ passant par $${noms[0]}$. $[${noms[0]}${noms[2]}]$ et $[${noms[1]}${noms[3]}]$ sont des diamètres de ce cercle.<br>`
         }
         objetsCorrection.push(afficheLongueurSegment(A, B, 'black', -0.5), afficheLongueurSegment(A, D, 'black', 0.5))
-        t1 = cercleCentrePoint(O, A)
-        t1.color = 'gray'
+        t1 = cercleCentrePoint(O, A, 'gray')
         t1.opacite = 0.5
         t3 = traceCompas(O, C, 20)
         tri = polygoneAvecNom(A, B, D)
@@ -299,17 +301,14 @@ export default function ConstructionsParallelogrammesParticuliers () {
     const result1 = dansLaCibleCarree(B.x, B.y, 5, 0.3, cellule3)
     const result2 = dansLaCibleCarree(C.x, C.y, 5, 0.3, cellule1)
     const result3 = dansLaCibleCarree(D.x, D.y, 5, 0.3, cellule2)
-    const cible1 = cibleCarree({ x: result1[0], y: result1[1], rang: 5, num: '', taille: 0.4 })
+    const cible1 = cibleCarree({ x: result1[0], y: result1[1], rang: 5, num: '', taille: 0.4, color: 'gray' })
     cible1.taille = 0.3
-    cible1.color = 'gray'
     cible1.opacite = 0.7
-    const cible2 = cibleCarree({ x: result2[0], y: result2[1], rang: 5, num: '', taille: 0.4 })
+    const cible2 = cibleCarree({ x: result2[0], y: result2[1], rang: 5, num: '', taille: 0.4, color: 'gray' })
     cible2.taille = 0.3
-    cible2.color = 'gray'
     cible2.opacite = 0.7
-    const cible3 = cibleCarree({ x: result3[0], y: result3[1], rang: 5, num: '', taille: 0.4 })
+    const cible3 = cibleCarree({ x: result3[0], y: result3[1], rang: 5, num: '', taille: 0.4, color: 'gray' })
     cible3.taille = 0.3
-    cible3.color = 'gray'
     cible3.opacite = 0.7
     dd1 = segment(O, A)
     dd2 = segment(O, B)
@@ -321,46 +320,46 @@ export default function ConstructionsParallelogrammesParticuliers () {
         if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objetsCorrection, t1, t2, tri[0], tri[1], afficheLongueurSegment(D, B)) + '<br>'
         objetsEnonce.push(cible3, cible2)
         objetsCorrection.push(p[0], p[1], t3)
-        objetsCorrection.push(cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codeSegments('||', 'red', A, O, O, C), codeSegments('|||', 'blue', B, O, O, D), afficheLongueurSegment(O, B))
+        objetsCorrection.push(cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D), afficheLongueurSegment(O, B))
         break
       case 2:
-        if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, codeSegments('||', 'red', A, O, O, C), t3, dd1, dd3, dd2, afficheMesureAngle(A, O, B, 'black', 1, alpha + '°'), tracePoint(A, O, C), labelPoint(A, O, C), texteParPosition('x', B.x - 0.5, B.y), afficheLongueurSegment(A, O), afficheLongueurSegment(O, C)) + '<br>'
+        if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, codageSegments('||', 'red', A, O, O, C), t3, dd1, dd3, dd2, afficheMesureAngle(A, O, B, 'black', 1, alpha + '°'), tracePoint(A, O, C), labelPoint(A, O, C), texteParPosition('x', B.x - 0.5, B.y), afficheLongueurSegment(A, O), afficheLongueurSegment(O, C)) + '<br>'
         objetsEnonce.push(cible3, cible2, cible1)
         objetsCorrection.push(p[0], p[1], t3, afficheLongueurSegment(O, D))
-        objetsCorrection.push(cible3, cible2, cible1, dd1, dd2, dd3, dd4, labelPoint(O), codeSegments('||', 'red', A, O, O, C), codeSegments('|||', 'blue', B, O, O, D), afficheMesureAngle(A, O, B, 'black', 1, alpha + '°'))
+        objetsCorrection.push(cible3, cible2, cible1, dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D), afficheMesureAngle(A, O, B, 'black', 1, alpha + '°'))
 
         break
       case 3:
         if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objetsCorrection, tri[0], tri[1], codageAngleDroit(D, A, B)) + '<br>'
         objetsEnonce.push(cible3, cible2)
         objetsCorrection.push(p[0], p[1], t1, t3)
-        objetsCorrection.push(cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codeSegments('||', 'red', A, O, O, C), codeSegments('||', 'red', B, O, O, D))
+        objetsCorrection.push(cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('||', 'red', B, O, O, D))
 
         break
       case 4:
         if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objetsCorrection, tri[0], tri[1], afficheLongueurSegment(D, B), t2, traceCompas(A, B, 60), traceCompas(A, D, 60)) + '<br>'
         objetsEnonce.push(cible3, cible2)
         objetsCorrection.push(p[0], p[1], t3, afficheLongueurSegment(O, B))
-        objetsCorrection.push(codageAngleDroit(A, O, D), cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codeSegments('||', 'red', A, O, O, C), codeSegments('|||', 'blue', B, O, O, D))
+        objetsCorrection.push(codageAngleDroit(A, O, D), cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D))
         break
       case 5:
         if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, tri[0], tri[1], demiDroite(A, B), demiDroite(A, D), afficheMesureAngle(B, A, D, 'black', 1, alpha + '°'), afficheLongueurSegment(A, B), afficheLongueurSegment(A, D)) + '<br>'
         objetsEnonce.push(cible3, cible2)
         objetsCorrection.push(p[0], p[1], t3)
-        objetsCorrection.push(cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codeSegments('||', 'red', A, O, O, C), codeSegments('|||', 'blue', B, O, O, D), afficheMesureAngle(B, A, D, 'black', 1, alpha + '°'), afficheLongueurSegment(B, A), afficheLongueurSegment(A, D), afficheLongueurSegment(C, B), afficheLongueurSegment(D, C))
+        objetsCorrection.push(cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D), afficheMesureAngle(B, A, D, 'black', 1, alpha + '°'), afficheLongueurSegment(B, A), afficheLongueurSegment(A, D), afficheLongueurSegment(C, B), afficheLongueurSegment(D, C))
 
         break
       case 6:
         if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objetsCorrection, tri[0], tri[1], afficheLongueurSegment(B, A), afficheLongueurSegment(O, B), afficheLongueurSegment(A, O), t1, t2, t5) + '<br>'
         objetsEnonce.push(cible3, cible2)
         objetsCorrection.push(p[0], p[1], t3, t4)
-        objetsCorrection.push(cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codeSegments('||', 'red', A, O, O, C), codeSegments('|||', 'blue', B, O, O, D))
+        objetsCorrection.push(cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D))
         break
       case 7:
-        if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objetsCorrection, tri[0], tri[1], afficheLongueurSegment(C, O), afficheLongueurSegment(O, A), labelPoint(O), t5, codeSegments('||', 'red', A, O, O, C)) + '<br>'
+        if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objetsCorrection, tri[0], tri[1], afficheLongueurSegment(C, O), afficheLongueurSegment(O, A), labelPoint(O), t5, codageSegments('||', 'red', A, O, O, C)) + '<br>'
         objetsEnonce.push(cible3, cible1)
         objetsCorrection.push(p[0], p[1], t3)
-        objetsCorrection.push(cible3, t1, t2, t3, cible1, dd1, dd2, dd3, dd4, labelPoint(O), codeSegments('||', 'red', A, O, O, C), codeSegments('|||', 'blue', B, O, O, D), afficheMesureAngle(O, A, D, 'red', 1, texNombre(c3) + '°'), afficheMesureAngle(O, C, D, 'blue', 1, texNombre(c2) + '°'))
+        objetsCorrection.push(cible3, t1, t2, t3, cible1, dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D), afficheMesureAngle(O, A, D, 'red', 1, texNombre(c3) + '°'), afficheMesureAngle(O, C, D, 'blue', 1, texNombre(c2) + '°'))
         break
     }
     texte += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 25, scale: 1 }, objetsEnonce)

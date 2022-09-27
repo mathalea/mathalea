@@ -1,5 +1,5 @@
-import { calcul, choice, randint, texPrix } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { calcul, choice, randint, texPrix } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Utiliser une proportionnalité*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6P02
  */
+export const uuid = '5e28d'
+export const ref = 'can6P02'
 export default function ProportionnaliteCompliquee () {
   Exercice.call(this)
   this.typeExercice = 'simple'
@@ -20,7 +22,7 @@ export default function ProportionnaliteCompliquee () {
   this.consigne = ''
   const fruits = [
     ['pêches', 4, 10, 30],
-    ['Noix', 5, 4, 13],
+    ['noix', 5, 4, 13],
     ['cerises', 6, 11, 20],
     ['pommes', 2, 20, 40],
     ['framboises', 15, 1, 5],

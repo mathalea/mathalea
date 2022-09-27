@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, choice, shuffle } from '../../modules/outils.js'
-import { point, segment, polygone, codageAngleDroit, codeSegments, mathalea2d } from '../../modules/2d.js'
+import { point, segment, polygone, codageAngleDroit, codageSegments } from '../../modules/2d.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const amcReady = true
 export const amcType = 'qcmMult' // QCM
@@ -15,6 +16,8 @@ export const titre = 'Reconnaître un quadrilatère particulier à partir de ses
  * @author Rémi Angot
  * Référence 6G33
 */
+export const uuid = '4e52e'
+export const ref = '6G33'
 export default function ReconnaitreQuadrilatereParticulier () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -50,16 +53,16 @@ export default function ReconnaitreQuadrilatereParticulier () {
           O = point(0, 3)
           ABCD = polygone(A, B, C, D)
           // codage = codageAngleDroit(C, O, B);
-          marquesCotes = codeSegments('||', 'blue', A, B, B, C, C, D, D, A)
+          marquesCotes = codageSegments('||', 'blue', A, B, B, C, C, D, D, A)
           // sAC = segment(A, C);
           // sBD = segment(B, D);
           // sOA = segment(O, A);
           // sOB = segment(O, B);
           // sOC = segment(O, C);
           // sOD = segment(O, D);
-          // sAC.pointilles = true;
-          // sBD.pointilles = true;
-          // marquesDemiDiagonales = codeSegments("|", "blue", O, A, O, B, O, C, O, D);
+          // sAC.pointilles = 5;
+          // sBD.pointilles = 5;
+          // marquesDemiDiagonales = codageSegments("|", "blue", O, A, O, B, O, C, O, D);
           if (this.correctionDetaillee) { texteCorr = mathalea2d({ xmin: -3, xmax: 3, ymin: -1, ymax: 7 }, ABCD, marquesCotes) + '<br>' }
           texteCorr += "C'est un losange."
           break
@@ -72,13 +75,13 @@ export default function ReconnaitreQuadrilatereParticulier () {
           O = point(0, 3)
           ABCD = polygone(A, B, C, D)
           codage = codageAngleDroit(C, O, B)
-          // marquesCotes = codeSegments("||", "blue", A, B, B, C, C, D, D, A);
+          // marquesCotes = codageSegments("||", "blue", A, B, B, C, C, D, D, A);
           sAC = segment(A, C)
           sBD = segment(B, D)
-          sAC.pointilles = true
-          sBD.pointilles = true
-          marquesDemiDiagonales1 = codeSegments('|', 'blue', O, A, O, C)
-          marquesDemiDiagonales2 = codeSegments('|||', 'blue', O, B, O, D)
+          sAC.pointilles = 5
+          sBD.pointilles = 5
+          marquesDemiDiagonales1 = codageSegments('|', 'blue', O, A, O, C)
+          marquesDemiDiagonales2 = codageSegments('|||', 'blue', O, B, O, D)
           if (this.correctionDetaillee) { texteCorr = mathalea2d({ xmin: -3, xmax: 3, ymin: -1, ymax: 7 }, ABCD, codage, sAC, sBD, marquesDemiDiagonales1, marquesDemiDiagonales2) + '<br>' }
           texteCorr += "C'est un losange."
           break
@@ -93,16 +96,16 @@ export default function ReconnaitreQuadrilatereParticulier () {
           codage1 = codageAngleDroit(A, B, C)
           codage2 = codageAngleDroit(B, C, D)
           codage3 = codageAngleDroit(C, D, A)
-          // marquesCotes = codeSegments("||", "blue", A, B, B, C, C, D, D, A);
+          // marquesCotes = codageSegments("||", "blue", A, B, B, C, C, D, D, A);
           // sAC = segment(A, C);
           // sBD = segment(B, D);
           // sOA = segment(O, A);
           // sOB = segment(O, B);
           // sOC = segment(O, C);
           // sOD = segment(O, D);
-          // sAC.pointilles = true;
-          // sBD.pointilles = true;
-          // marquesDemiDiagonales = codeSegments("||", "blue", O, A, O, B, O, C, O, D);
+          // sAC.pointilles = 5;
+          // sBD.pointilles = 5;
+          // marquesDemiDiagonales = codageSegments("||", "blue", O, A, O, B, O, C, O, D);
           if (this.correctionDetaillee) { texteCorr = mathalea2d({ xmin: -1, xmax: 6, ymin: -1, ymax: 4 }, ABCD, codage1, codage2, codage3) + '<br>' }
           texteCorr += "C'est un rectangle."
           break
@@ -117,16 +120,16 @@ export default function ReconnaitreQuadrilatereParticulier () {
           // codage1 = codageAngleDroit(A,B,C);
           // codage2 = codageAngleDroit(B,C,D);
           // codage3 = codageAngleDroit(C,D,A);
-          // marquesCotes = codeSegments("||", "blue", A, B, B, C, C, D, D, A);
+          // marquesCotes = codageSegments("||", "blue", A, B, B, C, C, D, D, A);
           sAC = segment(A, C)
           sBD = segment(B, D)
           // sOA = segment(O, A);
           // sOB = segment(O, B);
           // sOC = segment(O, C);
           // sOD = segment(O, D);
-          // sAC.pointilles = true;
-          // sBD.pointilles = true;
-          marquesDemiDiagonales = codeSegments('||', 'blue', O, A, O, B, O, C, O, D)
+          // sAC.pointilles = 5;
+          // sBD.pointilles = 5;
+          marquesDemiDiagonales = codageSegments('||', 'blue', O, A, O, B, O, C, O, D)
           if (this.correctionDetaillee) { texteCorr = mathalea2d({ xmin: -1, xmax: 6, ymin: -1, ymax: 4 }, ABCD, marquesDemiDiagonales, sAC, sBD) + '<br>' }
           texteCorr += "C'est un rectangle."
           break
@@ -141,16 +144,16 @@ export default function ReconnaitreQuadrilatereParticulier () {
           codage1 = codageAngleDroit(A, B, C)
           codage2 = codageAngleDroit(B, C, D)
           codage3 = codageAngleDroit(C, D, A)
-          marquesCotes = codeSegments('||', 'blue', A, B, B, C, C, D, D, A)
+          marquesCotes = codageSegments('||', 'blue', A, B, B, C, C, D, D, A)
           // sAC = segment(A, C);
           // sBD = segment(B, D);
           // sOA = segment(O, A);
           // sOB = segment(O, B);
           // sOC = segment(O, C);
           // sOD = segment(O, D);
-          // sAC.pointilles = true;
-          // sBD.pointilles = true;
-          // marquesDemiDiagonales = codeSegments("||", "blue", O, A, O, B, O, C, O, D);
+          // sAC.pointilles = 5;
+          // sBD.pointilles = 5;
+          // marquesDemiDiagonales = codageSegments("||", "blue", O, A, O, B, O, C, O, D);
           if (this.correctionDetaillee) { texteCorr = mathalea2d({ xmin: -1, xmax: 4, ymin: -1, ymax: 4 }, ABCD, codage1, codage2, codage3, marquesCotes) + '<br>' }
           texteCorr += "C'est un carré."
           break
@@ -166,12 +169,12 @@ export default function ReconnaitreQuadrilatereParticulier () {
           // codage2 = codageAngleDroit(B,C,D);
           // codage3 = codageAngleDroit(C,D,A);
           // codage4 = codageAngleDroit(D,A,B);
-          // marquesCotes = codeSegments("||", "blue", A, B, B, C, C, D, D, A);
+          // marquesCotes = codageSegments("||", "blue", A, B, B, C, C, D, D, A);
           sAC = segment(A, C)
           sBD = segment(B, D)
-          sAC.pointilles = true
-          sBD.pointilles = true
-          marquesDemiDiagonales = codeSegments('||', 'blue', O, A, O, B, O, C, O, D)
+          sAC.pointilles = 5
+          sBD.pointilles = 5
+          marquesDemiDiagonales = codageSegments('||', 'blue', O, A, O, B, O, C, O, D)
           if (this.correctionDetaillee) { texteCorr = mathalea2d({ xmin: -1, xmax: 4, ymin: -1, ymax: 4 }, ABCD, codage, marquesDemiDiagonales, sAC, sBD) + '<br>' }
           texteCorr += "C'est un carré."
           break
@@ -187,16 +190,16 @@ export default function ReconnaitreQuadrilatereParticulier () {
           // codage2 = codageAngleDroit(B,C,D);
           // codage3 = codageAngleDroit(C,D,A);
           // codage4 = codageAngleDroit(D,A,B);
-          marquesCotes = codeSegments('||', 'blue', A, B, B, C, C, D, D, A)
+          marquesCotes = codageSegments('||', 'blue', A, B, B, C, C, D, D, A)
           // sAC = segment(A, C);
           // sBD = segment(B, D);
           // sOA = segment(O, A);
           // sOB = segment(O, B);
           // sOC = segment(O, C);
           // sOD = segment(O, D);
-          // sAC.pointilles = true;
-          // sBD.pointilles = true;
-          // marquesDemiDiagonales = codeSegments("||", "blue", O, A, O, B, O, C, O, D);
+          // sAC.pointilles = 5;
+          // sBD.pointilles = 5;
+          // marquesDemiDiagonales = codageSegments("||", "blue", O, A, O, B, O, C, O, D);
           if (this.correctionDetaillee) { texteCorr = mathalea2d({ xmin: -1, xmax: 4, ymin: -1, ymax: 4 }, ABCD, codage, marquesCotes) + '<br>' }
           texteCorr += "C'est un carré."
           break

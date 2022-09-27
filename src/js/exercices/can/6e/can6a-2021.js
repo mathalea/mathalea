@@ -1,10 +1,11 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  mathalea2d, point, droiteGraduee2, segment, milieu, texteParPosition, codeSegment, polygone, grille
+  point, droiteGraduee, segment, milieu, texteParPosition, codageSegment, polygone, grille
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, miseEnEvidence, randint, texNombre, shuffle, choice, sp, arrondi } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, miseEnEvidence, randint, texNombre, stringNombre, shuffle, choice, sp, arrondi } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
@@ -24,6 +25,8 @@ export const dateDePublication = '11/04/2022' // La date de publication initiale
 function compareNombres (a, b) {
   return a - b
 }
+export const uuid = '90c8c'
+export const ref = 'can6a-2021'
 export default function SujetCAN2021Sixieme () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -32,7 +35,12 @@ export default function SujetCAN2021Sixieme () {
   this.nbQuestions = 30// 10,20,30
   this.nbCols = 1
   this.nbColsCorr = 1
-
+  this.comment = `Cet exercice fait partie des annales des Courses aux nombres.<br>
+  Il est composé de 30 questions réparties de la façon suivante :<br>
+  les 10 premières questions parfois communes à plusieurs niveaux font appels à des questions automatisées élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
+  Par défaut, les questions sont rangées dans le même ordre que le sujet officiel avec des données aléatoires. Ainsi, en cliquant sur « Nouvelles données », on obtient une nouvelle course aux nombres avec des données différentes.
+  En choisissant un nombre de questions différents de 30, on fabrique une « mini » course aux nombres qui respecte la proportion de nombre de questions élémentaires par rapport aux autres.
+  Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 questions automatisées élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -109,7 +117,7 @@ export default function SujetCAN2021Sixieme () {
           for (let i = 0; i < 2; i++) {
             maListe.push([c + a * i, c + a * i])
           }
-          d = droiteGraduee2({
+          d = droiteGraduee({
             Unite: 3 / a,
             Min: c - 2 * a,
             Max: c + 2 * a,
@@ -310,7 +318,7 @@ export default function SujetCAN2021Sixieme () {
         case 15:
           a = choice(listeFractions15)
           b = fraction(a[0], a[1])
-          d = droiteGraduee2(
+          d = droiteGraduee(
             {
               Unite: 6, // nombre de cm pour une unité
               Min: 0, // Là où commence la droite
@@ -435,7 +443,7 @@ export default function SujetCAN2021Sixieme () {
           a = choice(listeFractions20)
           b = fraction(a[0], a[1])
           reponse = Math.round(a[0] / a[1] * 100)
-          propositions = shuffle([`$${texNombre(a[0] / a[1]), 2}\\%$`, `$${reponse}\\%$`, `$${texNombre(a[1])}\\%$`, `$${a[0]},${a[1]}\\%$`])
+          propositions = shuffle([`$${texNombre(a[0] / a[1], 2)}\\%$`, `$${reponse}\\%$`, `$${texNombre(a[1])}\\%$`, `$${a[0]},${a[1]}\\%$`])
           texteCorr = `$\\dfrac{${a[0]}}{${a[1]}}=${texNombre(a[0] / a[1], 2)}=${reponse}\\%$`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -507,7 +515,7 @@ export default function SujetCAN2021Sixieme () {
             texte += `Recopie la réponse vraisemblable.<br>
             Le maître ramasse en tout : <br>
               ${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') +'feuilles'
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'feuilles'
           } else {
             texte += `Entoure la réponse vraisemblable.<br> 
             Le maître ramasse en tout : <br>
@@ -563,17 +571,17 @@ export default function SujetCAN2021Sixieme () {
           B = point(2.8, 0, 'B', 'below')
           C = point(3.4, 3.4, 'C', 'above')
           D = point(-0.6, 3.4, 'D', 'above')
-          code1 = codeSegment(B, C, '|')
-          code2 = codeSegment(A, D, '|')
-          xmin = -1.5
+          code1 = codageSegment(B, C, '|')
+          code2 = codageSegment(A, D, '|')
+          xmin = -2.5
           ymin = -1
           xmax = 4
-          ymax = 4
+          ymax = 4.5
           objets = []
           objets.push(
-            texteParPosition(`$${texNombre(a)} \\text{ cm}$`, milieu(A, D).x - 0.7, milieu(A, D).y, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${texNombre(b)} \\text{ cm}$`, milieu(A, B).x, milieu(A, B).y - 0.3, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${texNombre(c)} \\text{ cm}$`, milieu(D, C).x, milieu(D, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`${stringNombre(a)} cm`, milieu(A, D).x - 0.9, milieu(A, D).y),
+            texteParPosition(`${stringNombre(b)} cm`, milieu(A, B).x, milieu(A, B).y - 0.4),
+            texteParPosition(`${stringNombre(c)} cm`, milieu(C, D).x, milieu(C, D).y + 0.3),
             segment(A, B), segment(B, C), segment(C, D), segment(D, A), code1, code2)
           reponse = arrondi(2 * a + b + c, 1)
           texte = `Quel est le périmètre de cette figure ? <br>
@@ -592,7 +600,7 @@ export default function SujetCAN2021Sixieme () {
           b = choice([a + 1, 2 * a - 1])
           reponse = fraction(b, a)// .simplifie()
           texte = "Quelle est la fraction repérée par le point d'interrogation ?<br>" +
-           mathalea2d({ xmin: -0.5, ymin: -1, xmax: 10, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee2({
+           mathalea2d({ xmin: -0.5, ymin: -1, xmax: 10, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee({
              Unite: 8,
              Min: 1,
              Max: 2,
@@ -653,14 +661,14 @@ export default function SujetCAN2021Sixieme () {
           a = randint(1, 5)
           b = randint(2, 4)
           A = polygone([point(1, 7), point(11, 7), point(11, 6), point(1, 6)], 'black')
-          A.couleurDeRemplissage = 'lightgray'
+          A.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
           B = texteParPosition('1 uA', 6, 6.5, 'milieu', 'black', 1, 'middle', false)
           C = grille(0, 0, 12, 7, 'black', 1, 1, false)
           D = point(1 + a, 4 - b)
           d = polygone([D, point(D.x, D.y + 1), point(11, D.y + 1), point(11, 5), point(1, 5), point(1, D.y)], 'black')
           d.epaisseur = 2
-          d.couleurDeRemplissage = 'white'
-          d.couleurDesHachures = 'gray'
+          d.couleurDeRemplissage = colorToLatexOrHTML('white')
+          d.couleurDesHachures = colorToLatexOrHTML('gray')
           d.distanceDesHachures = 4
           d.hachures = 'north east lines'
 

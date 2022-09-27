@@ -1,8 +1,9 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, listeQuestionsToContenuSansNumero, sp, choice } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
-import { tableauDeVariation, mathalea2d } from '../../../modules/2d.js'
+import { tableauDeVariation } from '../../../modules/2d.js'
 export const titre = 'Encadrer en utilisant un tableau de variations'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,6 +17,8 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
  * @author Gilles Mora
  * Référence
 */
+export const uuid = 'e0405'
+export const ref = 'can2F08'
 export default function EncadrerTableau () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1

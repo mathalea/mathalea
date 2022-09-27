@@ -1,5 +1,5 @@
 import ConstruireParSymetrie from '../6e/_Construire_par_symetrie.js'
-export const titre = 'Construire l’image d’une figure par symétrie centrale'
+export const titre = 'Construire l\'image d\'une figure par symétrie centrale'
 export const dateDeModificationImportante = '14/11/2021'
 /**
  * @author Jean-Claude Lhote
@@ -7,6 +7,8 @@ export const dateDeModificationImportante = '14/11/2021'
  * références  6G24-1, 6G24-2, 5G10-1, 5G10-2, 5G11-1 et 5G11-2
  * Permet une sortie html/pdf sur petits carreaux/gros carreaux/papier blanc
  */
+export const uuid = '49786'
+export const ref = '5G11-2'
 export default class ConstruireParSymetrieCentraleFigure extends ConstruireParSymetrie {
   constructor () {
     super()

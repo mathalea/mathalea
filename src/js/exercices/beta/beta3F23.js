@@ -9,7 +9,7 @@ export const titre = 'Déterminer un antécédent'
 * @author Erwan Duplessy
 * 3F23
 * date : 2021/02/21
-* référentiel 3F23 - Déterminer de manière algébrique l’antécédent par une fonction, dans des cas se ramenant à la résolution d’une équation du premier degré.
+* référentiel 3F23 - Déterminer de manière algébrique l\'antécédent par une fonction, dans des cas se ramenant à la résolution d\'une équation du premier degré.
 * plusieurs cas :
 * f(x) = ax + b avec a et b petits relatifs
 * f(x) = ax + b avec a et b grands relatifs
@@ -17,7 +17,7 @@ export const titre = 'Déterminer un antécédent'
 * f(x) = a(bx + c) + dx + e  avec a, b, c, d petits relatifs
 */
 
-export default function antecedentParCalcul () {
+export default function AntecedentParCalcul () {
   'use strict'
   Exercice.call(this)
   this.titre = titre

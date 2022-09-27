@@ -13,7 +13,7 @@ export const amcType = 'AMCNum'
 
 /**
  * Puissances d'un relatif (1)
- * * L’objectif est de travailler le sens des règles de calcul sur les puissances plutôt que les formules magiques
+ * * L\'objectif est de travailler le sens des règles de calcul sur les puissances plutôt que les formules magiques
  *
  * Paramétrages possibles :
  * * 1 : produit de puissances de même base
@@ -24,6 +24,8 @@ export const amcType = 'AMCNum'
  * @author Sébastien Lozano
  * 4C33-1
  */
+export const uuid = 'bae57'
+export const ref = '4C33-1'
 export default function PuissancesDunRelatif1 () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

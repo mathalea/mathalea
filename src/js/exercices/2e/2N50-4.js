@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { randint, texNombrec, miseEnEvidence, listeQuestionsToContenu, combinaisonListes, sp, rienSi1, texFractionReduite, reduireAxPlusB, stringNombre } from '../../modules/outils.js'
-import { texteSurSegment, codeSegments, codageAngleDroit, segmentAvecExtremites, milieu, labelPoint, point, segment, texteParPosition, mathalea2d } from '../../modules/2d.js'
+import { texteSurSegment, codageSegments, codageAngleDroit, segmentAvecExtremites, milieu, labelPoint, point, segment, texteParPosition } from '../../modules/2d.js'
 export const titre = 'Modéliser une situation géométrique à l\'aide d\'une équation'
 export const dateDePublication = '16/12/2021'
 /**
@@ -8,7 +9,9 @@ export const dateDePublication = '16/12/2021'
  * @author Gilles Mora
  * Référence
  */
-export default function modeliserEquationsGeometrie () {
+export const uuid = 'cf5b7'
+export const ref = '2N50-4'
+export default function ModeliserEquationsGeometrie () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
   this.nbQuestions = 1
@@ -246,7 +249,7 @@ export default function modeliserEquationsGeometrie () {
           D = point(0, 6, 'D')
           E = point(5, 10, 'E')
 
-          objets.push(segment(A, B), segment(B, C), segment(C, D), segment(A, D), segment(E, C), segment(E, D), segment(E, H), codageAngleDroit(E, H, C), labelPoint(A, H, D, B, C, E), codeSegments('//', 'blue', D, E, E, C))
+          objets.push(segment(A, B), segment(B, C), segment(C, D), segment(A, D), segment(E, C), segment(E, D), segment(E, H), codageAngleDroit(E, H, C), labelPoint(A, H, D, B, C, E), codageSegments('//', 'blue', D, E, E, C))
           objets.push(texteParPosition(`${texNombrec(a)}`, milieu(B, C).x + 0.4, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
             texteParPosition(`${texNombrec(b)}`, milieu(E, H).x + 0.4, milieu(E, H).y, 'milieu', 'black', 1, 'middle', true),
             texteParPosition(`x + ${texNombrec(c)}`, milieu(A, B).x + 0.4, milieu(A, B).y - 0.4, 'milieu', 'black', 1, 'middle', true))
@@ -290,7 +293,7 @@ export default function modeliserEquationsGeometrie () {
           K = point(10, -1, 'K')
           L = point(0, -1, 'L')
 
-          objets.push(segment(A, B), segment(A, E), segmentAvecExtremites(K, L), segment(E, M), segment(M, D), segment(B, C), segment(D, C), codageAngleDroit(B, M, D), codageAngleDroit(M, B, C), codageAngleDroit(B, C, D), codageAngleDroit(C, D, M), labelPoint(A, M, B, C, D, E), codeSegments('//', 'blue', A, E, E, M, A, M), codeSegments('/', 'blue', M, B, B, C, C, D, D, M))
+          objets.push(segment(A, B), segment(A, E), segmentAvecExtremites(K, L), segment(E, M), segment(M, D), segment(B, C), segment(D, C), codageAngleDroit(B, M, D), codageAngleDroit(M, B, C), codageAngleDroit(B, C, D), codageAngleDroit(C, D, M), labelPoint(A, M, B, C, D, E), codageSegments('//', 'blue', A, E, E, M, A, M), codageSegments('/', 'blue', M, B, B, C, C, D, D, M))
           objets.push(texteParPosition('$x$', milieu(A, M).x, milieu(A, M).y - 0.3, 0, 'black', 2, 'middle', true), texteParPosition(`${texNombrec(a)}`, milieu(A, B).x, milieu(A, B).y - 1.5, 'milieu', 'black', 1, 'middle', true))
 
           texte = `$[AB]$ est un segment de longueur $${a}$ et $M$ est un point de ce segment.<br>

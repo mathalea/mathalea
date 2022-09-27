@@ -1,5 +1,5 @@
-import { choice, randint, texteEnCouleur } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { choice, randint, texteEnCouleur } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Trouver le reste d’une division euclidienne'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can5C06
  */
+export const uuid = 'bc6a9'
+export const ref = 'can5C06'
 export default function ResteDivision5e () {
   Exercice.call(this)
   this.nbQuestions = 1

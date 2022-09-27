@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, texNombre, miseEnEvidence, texteEnCouleurEtGras } from '../../modules/outils.js'
-export const titre = 'Ranger une liste de nombres entiers dans l’ordre croissant ou décroissant'
+export const titre = 'Ranger une liste de nombres entiers dans l\'ordre croissant ou décroissant'
 
 /**
 * * Ranger une liste de nombres dans l'odre croissant ou décroissant
@@ -9,6 +9,8 @@ export const titre = 'Ranger une liste de nombres entiers dans l’ordre croissa
 * @author Sébastien Lozano
 */
 
+export const uuid = '3bba9'
+export const ref = '6N11-4'
 export default function RangerOrdreCroissantDecroissant () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.beta = false

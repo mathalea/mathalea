@@ -1,10 +1,12 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
+import Decimal from 'decimal.js/decimal.mjs'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, abs, calcul, resolutionSystemeLineaire2x2, resolutionSystemeLineaire3x3, chercheMinMaxFonction, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, abs, resolutionSystemeLineaire2x2, resolutionSystemeLineaire3x3, chercheMinMaxFonction, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { courbe2, mathalea2d, repere2 } from '../../modules/2d.js'
-export const titre = 'Lire l’image d’un nombre à partir d’un graphique'
+import { courbe, repere } from '../../modules/2d.js'
+export const titre = 'Lire l\'image d\'un nombre à partir d\'un graphique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -17,6 +19,8 @@ export const amcType = 'AMCHybride'
 * @author Rémi Angot
 * 3F12-4
 */
+export const uuid = 'b8946'
+export const ref = '3F12-4'
 export default function ImageGraphique () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -54,11 +58,11 @@ export default function ImageGraphique () {
     initialiseVariables()
 
     let texte = 'On a tracé ci-dessous la courbe représentative de la fonction $f$.<br>'; let texteCorr = ''
-    const r = repere2({ xMin: -7, xMax: 9, yMin: -7, yMax: 7 })
+    const r = repere({ xMin: -7, xMax: 9, yMin: -7, yMax: 7 })
     if (this.sup === 1) {
-      a = calcul((fx2 - fx1) / (x2 - x1))
-      b = calcul(fx1 - a * x1)
-      f = x => a * x + b
+      a = new Decimal(fx2 - fx1).div(x2 - x1)
+      b = a.mul(x1).sub(fx1)
+      f = x => a * x - b
 
       texte += `Déterminer par lecture graphique les images de $${x1}$ et de $${x2}$ par cette fonction $f$.<br>`
       texteCorr = `L'image de $${x1}$ est $${fx1}$, on note $f(${x1})=${fx1}$.<br>`
@@ -78,8 +82,8 @@ export default function ImageGraphique () {
         fx3 = randint(-6, 6, c)
         ;[[numa, dena], [numb, denb]] = resolutionSystemeLineaire2x2(x1, x3, fx1, fx3, c)
       }
-      a = numa / dena
-      b = numb / denb
+      a = new Decimal(numa).div(dena)
+      b = new Decimal(numb).div(denb)
       x2 = 0
       fx2 = c
 
@@ -98,9 +102,9 @@ export default function ImageGraphique () {
           [extremum1, extremum2] = chercheMinMaxFonction([numa / dena, numb / denb, numc / denc, d])
         }
       }
-      a = numa / dena
-      b = numb / denb
-      c = numc / denc
+      a = new Decimal(numa).div(dena)
+      b = new Decimal(numb).div(denb)
+      c = new Decimal(numc).div(denc)
 
       f = x => a * x ** 3 + b * x ** 2 + c * x + d
     }
@@ -111,7 +115,7 @@ export default function ImageGraphique () {
       texteCorr += `L'image de $${x2}$ est $${fx2}$, on note $f(${x2})=${fx2}$.<br>`
       texteCorr += `L'image de $${x3}$ est $${fx3}$, on note $f(${x3})=${fx3}$.<br>`
     }
-    const C = courbe2(f, { repere: r, step: 0.25 })
+    const C = courbe(f, { repere: r, step: 0.25 })
     texte += mathalea2d({ xmin: -7.5, xmax: 9.5, ymin: -7.5, ymax: 7.5, scale: 0.6 }, r, C)
 
     if (context.isAmc) {

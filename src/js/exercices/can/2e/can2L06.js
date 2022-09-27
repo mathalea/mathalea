@@ -10,6 +10,8 @@ export const dateDePublication = '25/10/2021'
  * @author Gilles Mora
  * Référence can2L06
 */
+export const uuid = '4c675'
+export const ref = 'can2L06'
 export default function DevelopperEgalitesRemarquables () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
@@ -30,7 +32,7 @@ export default function DevelopperEgalitesRemarquables () {
       case 2 :
         this.question = ` Développer $(${inconnue}-${a})^2$` // (x-a)²
         this.correction = `On utilise l'égalité remarquable $(a-b)^2=a^2-2ab+b^2$ avec $a=${inconnue}$ et $b=${a}$.<br>
-      $(${inconnue}+${a})^2=${inconnue}^2-2 \\times ${a} \\times ${inconnue}+${a}^2=${inconnue}^2-${2 * a}${inconnue}+${a * a}$`
+      $(${inconnue}-${a})^2=${inconnue}^2-2 \\times ${a} \\times ${inconnue}+${a}^2=${inconnue}^2-${2 * a}${inconnue}+${a * a}$`
         this.reponse = [`${inconnue}^2-${2 * a}${inconnue}+${a * a}`]
         break
       case 3 :

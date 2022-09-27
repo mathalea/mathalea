@@ -1,5 +1,6 @@
 import Exercice from '../Exercice.js'
-import { mathalea2d, polygoneAvecNom, codeSegments, codageAngleDroit, afficheMesureAngle, afficheLongueurSegment } from '../../modules/2d.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { polygoneAvecNom, codageSegments, codageAngleDroit, afficheMesureAngle, afficheLongueurSegment } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 import { contraindreValeur, Triangles } from '../../modules/outils.js'
 
@@ -107,7 +108,7 @@ export default function ConstruisMonTriangle () {
         } else {
           triangle = anim.triangleEquilateral(nom, defaut[0], true)
         }
-        objetsEnonceml.push(afficheLongueurSegment(triangle[1], triangle[0]), codeSegments('||', 'red', triangle[0], triangle[1], triangle[2], triangle[0], triangle[1], triangle[2]))
+        objetsEnonceml.push(afficheLongueurSegment(triangle[1], triangle[0]), codageSegments('||', 'red', triangle[0], triangle[1], triangle[2], triangle[0], triangle[1], triangle[2]))
         break
 
       case 6:

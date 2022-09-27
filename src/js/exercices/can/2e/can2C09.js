@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
-import { fraction } from '../../../modules/fractions'
-import { choice, texFraction, texFractionReduite, simplificationDeFractionAvecEtapes, texteEnCouleur } from '../../../modules/outils.js'
-import { mathalea2d, point, segmentAvecExtremites, codeSegments, labelPoint, texteParPosition, fractionParPosition } from '../../../modules/2d.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
+import { choice, texFraction, texFractionReduite, stringNombre, simplificationDeFractionAvecEtapes, texteEnCouleur, randint } from '../../../modules/outils.js'
+import { point, segmentAvecExtremites, segment, codageSegments, texteParPosition, milieu } from '../../../modules/2d.js'
 export const titre = 'Calculer le "milieu" entre 1 et une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -11,11 +11,14 @@ export const interactifType = 'mathLive'
  * Référence can3C07
  * Date de publication sptembre 2021
 */
+export const uuid = '5da59'
+export const ref = 'can2C09'
 export default function MilieuEntre1EtFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
+  this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     const listeFractions1 = [
       [10, 3], [5, 4], [7, 4], [10, 7], [11, 7], [12, 7], [9, 7], [13, 7], [11, 8], [11, 9], [7, 6], [12, 11], [4, 3],
@@ -25,22 +28,28 @@ export default function MilieuEntre1EtFraction () {
     const n = fractionR[0]
     const d = fractionR[1]
     const A = point(0, 0, '1', 'below')
-    const B = point(4, 0, 'M', 'below')
-    const C = point(8, 0)
+    const C = point(randint(8, 12), 0)
+    const B = milieu(A, C, 'M', 'below')
     const objets = []
-    objets.push(segmentAvecExtremites(A, B), segmentAvecExtremites(B, C), labelPoint(B), codeSegments('||', 'blue', A, B, B, C))
-    objets.push(texteParPosition('1', 0, -0.6, 'milieu', 'black', 1, 'middle', true)
-    )
-    objets.push(fractionParPosition({ x: 8, y: -1, fraction: fraction(n, d), couleur: 'black' }))
+    objets.push(segmentAvecExtremites(A, B), segmentAvecExtremites(B, C), codageSegments('||', 'blue', A, B, B, C))
+    objets.push(texteParPosition(`${stringNombre(1)}`, 0, -0.6))
+    objets.push(texteParPosition(`${stringNombre(n)}`, C.x, C.y - 0.5))
+    objets.push(segment(point(C.x - 0.3, C.y - 0.8), point(C.x + 0.3, C.y - 0.8)))
+    objets.push(texteParPosition('M', B.x, B.y - 0.5))
+    // objets.push(texteParPosition(`---`,C.x ,C.y-0.7))
+    objets.push(texteParPosition(`${stringNombre(d)}`, C.x, C.y - 1.1))
+    // objets.push(latexParCoordonnees(fraction(n, d).texFraction, C.x, -1, 'black', 20, 20, 'white', 6))
+    //, labelPoint(B)
+
     this.question = 'Donner l\'abscisse du point $M$ sous forme d’une fraction irréductible.<br>'
     this.question += mathalea2d({
       xmin: -1,
       ymin: -2,
-      xmax: 10,
+      xmax: C.x + 1,
       ymax: 1,
-      pixelsParCm: 20,
+      pixelsParCm: 30,
       mainlevee: false,
-      amplitude: 0.5,
+      amplitude: 0.4,
       scale: 0.7,
       style: 'margin: auto'
     }, objets)
@@ -55,5 +64,3 @@ export default function MilieuEntre1EtFraction () {
     this.reponse = texFractionReduite(d + n, 2 * d)
   }
 }
-// fractionParPosition({ x: 8, y: -0.5, fraction: fraction(n, d) })
-// ${texFraction(n, d)}

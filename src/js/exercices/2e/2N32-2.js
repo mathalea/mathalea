@@ -7,10 +7,12 @@ export const titre = 'Connaître les propriétés calculatoires des racines carr
  * 2N32-2, ex 2N10-1
  * @author Stéphane Guyon
  */
-export default function proprietesracinecarree () {
+export const uuid = '99b29'
+export const ref = '2N32-2'
+export default function Proprietesracinecarree () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Effectuer, si possible, les calculs suivants :'
+  this.consigne = 'Effectuer, si possible, les calculs suivants.'
   this.nbQuestions = 5
   this.nbCols = 2
   this.nbColsCorr = 2

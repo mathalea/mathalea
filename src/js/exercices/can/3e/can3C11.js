@@ -1,6 +1,6 @@
-import { fraction } from '../../../modules/fractions'
-import { calcul, choice, randint, texNombre, texNombrec } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { fraction } from '../../../modules/fractions.js'
+import { calcul, choice, randint, texNombre, texNombrec } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Simplifier des fractions ou des racines carrées'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -10,6 +10,8 @@ export const amcType = 'AMCNum'
 /*!
  * @author Gilles Mora
  */
+export const uuid = '59365'
+export const ref = 'can3C11'
 export default function SimplifieFractionOuRacinesCarrees () {
   Exercice.call(this)
   this.typeExercice = 'simple'

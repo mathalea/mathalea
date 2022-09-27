@@ -7,6 +7,7 @@ import { dictionnaireBAC } from './dictionnaireBAC.js'
 import { dictionnaireE3C } from './dictionnaireE3C.js'
 import { dictionnaireLycee } from './dictionnaireLycee.js'
 import { dictionnaireCrpe } from './dictionnaireCrpe.js'
+import { dictionnaireCrpeCoop } from './dictionnaireCrpeCoop'
 import $ from 'jquery'
 import 'datatables.net-dt/css/jquery.dataTables.css'
 import { getFilterFromUrl, getVueFromUrl } from './gestionUrl.js'
@@ -36,7 +37,7 @@ const tableauTagsBAC = dictionnaireToTableauTags(dictionnaireBAC)
 const tableauTagsE3C = dictionnaireToTableauTags(dictionnaireE3C)
 
 // On concatène les différentes listes d'exercices
-export const dictionnaireDesExercices = { ...dictionnaireDesExercicesAleatoires, ...dictionnaireDNB, ...dictionnaireC3, ...dictionnaireLycee, ...dictionnaireCrpe, ...dictionnaireBAC, ...dictionnaireE3C }
+export const dictionnaireDesExercices = { ...dictionnaireDesExercicesAleatoires, ...dictionnaireDNB, ...dictionnaireC3, ...dictionnaireLycee, ...dictionnaireCrpe, ...dictionnaireCrpeCoop, ...dictionnaireBAC, ...dictionnaireE3C }
 let listeDesExercicesDisponibles
 if (getVueFromUrl() === 'amc') {
   const dictionnaireDesExercicesAMC = {}
@@ -148,6 +149,28 @@ function listeHtmlDesExercicesCrpeAnnee (annee) {
   }
   return liste
 }
+function listeHtmlDesExercicesCrpeCoopAnnee (annee) {
+  let liste = ''
+  const dictionnaire = filtreDictionnaireValeurCle(dictionnaireCrpeCoop, 'annee', annee)
+  for (const id in dictionnaire) {
+    liste += aCrpe(id, dictionnaire, 'annee')
+  }
+  return liste
+}
+function listeHtmlDesExercicesCrpeCoopTheme (theme) {
+  let liste = ''
+  const dictionnaire = filtreDictionnaireValeurTableauCle(dictionnaireCrpeCoop, 'tags', theme)
+  let tableauDesExercices = []
+  for (const id in dictionnaire) {
+    tableauDesExercices.push(id)
+  }
+  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaître les exercices les plus récents
+  tableauDesExercices = tableauDesExercices.sort().reverse()
+  for (const id of tableauDesExercices) {
+    liste += aCrpe(id, dictionnaire, 'theme')
+  }
+  return liste
+}
 function listeHtmlDesExercicesCrpeTheme (theme) {
   let liste = ''
   const dictionnaire = filtreDictionnaireValeurTableauCle(dictionnaireCrpe, 'tags', theme)
@@ -155,7 +178,7 @@ function listeHtmlDesExercicesCrpeTheme (theme) {
   for (const id in dictionnaire) {
     tableauDesExercices.push(id)
   }
-  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaitre les exercices les plus récents
+  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaître les exercices les plus récents
   tableauDesExercices = tableauDesExercices.sort().reverse()
   for (const id of tableauDesExercices) {
     liste += aCrpe(id, dictionnaire, 'theme')
@@ -177,7 +200,7 @@ function listeHtmlDesExercicesDNBTheme (theme) {
   for (const id in dictionnaire) {
     tableauDesExercices.push(id)
   }
-  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaitre les exercices les plus récents
+  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaître les exercices les plus récents
   tableauDesExercices = tableauDesExercices.sort().reverse()
   for (const id of tableauDesExercices) {
     liste += aDnb(id, dictionnaire, 'theme')
@@ -199,7 +222,7 @@ function listeHtmlDesExercicesBACTheme (theme) {
   for (const id in dictionnaire) {
     tableauDesExercices.push(id)
   }
-  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaitre les exercices les plus récents
+  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaître les exercices les plus récents
   tableauDesExercices = tableauDesExercices.sort().reverse()
   for (const id of tableauDesExercices) {
     liste += aBac(id, dictionnaire, 'theme')
@@ -221,7 +244,7 @@ function listeHtmlDesExercicesE3CTheme (theme) {
   for (const id in dictionnaire) {
     tableauDesExercices.push(id)
   }
-  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaitre les exercices les plus récents
+  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaître les exercices les plus récents
   tableauDesExercices = tableauDesExercices.sort().reverse()
   for (const id of tableauDesExercices) {
     liste += aE3c(id, dictionnaire, 'theme')
@@ -268,9 +291,19 @@ function getListeHtmlDesExercicesCrpe () {
   liste += '</div>'
   return liste
 }
+function getListeHtmlDesExercicesCrpeCoop () {
+  let liste = '<div class="accordion">'
+  for (const annee of ['2022']) {
+    liste += `<div class="title"><i class="dropdown icon"></i> ${annee}</div><div class="content">`
+    liste += listeHtmlDesExercicesCrpeCoopAnnee(annee)
+    liste += '</div>'
+  }
+  liste += '</div>'
+  return liste
+}
 function getListeHtmlDesExercicesDNB () {
   let liste = '<div class="accordion">'
-  for (const annee of ['2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013']) {
+  for (const annee of ['2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013']) {
     liste += `<div class="title"><i class="dropdown icon"></i> ${annee}</div><div class="content">`
     liste += listeHtmlDesExercicesDNBAnnee(annee)
     liste += '</div>'
@@ -367,6 +400,19 @@ function getListeHtmlDesExercicesE3CTheme () {
   return liste
 }
 
+function getListeHtmlDesExercicesCrpeCoopTheme () {
+  let liste = '<div class="accordion">'
+  for (const theme of tableauTagsCrpe) {
+    const listeHtml = listeHtmlDesExercicesCrpeCoopTheme(theme)
+    if (listeHtml.length > 1) {
+      liste += `<div class="title"><i class="dropdown icon"></i> ${theme}</div><div class="content">`
+      liste += listeHtml
+      liste += '</div>'
+    }
+  }
+  liste += '</div>'
+  return liste
+}
 function getListeHtmlDesExercicesCrpeTheme () {
   let liste = '<div class="accordion">'
   for (const theme of tableauTagsCrpe) {
@@ -398,7 +444,7 @@ function listeHtmlDesTags (objet) {
 function divNiveau (obj, active, id) {
   // construction de la div contenant l'ensemble d'un niveau.
   let nombreExo = ''
-  if (id !== 'DNB' && id !== 'DNBtheme' && id !== 'CRPE' && id !== 'CrpeTheme' && id !== 'BAC' && id !== 'BACtheme' && id !== 'E3C' && id !== 'E3Ctheme') {
+  if (id !== 'DNB' && id !== 'DNBtheme' && id !== 'CRPE' && id !== 'CRPECoop' && id !== 'CrpeCoopTheme' && id !== 'CrpeTheme' && id !== 'BAC' && id !== 'BACtheme' && id !== 'E3C' && id !== 'E3Ctheme') {
     nombreExo = '(' + obj.nombre_exercices_dispo + ')'
   }
   return `<div id=${id} class="${active ? 'active title fermer_niveau' : 'title ouvrir_niveau'}"><i class="dropdown icon"></i>${obj.label} ${nombreExo}</div><div id="content${id}" class="${active} content">${active ? obj.liste_html_des_exercices : ''}</div>`
@@ -452,7 +498,7 @@ export function apparenceExerciceActif () {
       const elemListe = $(`a.lien_id_exercice[data-id_exercice='${listeExercicesSelectionnes[i]}']:not([data-mode])`)
       // Si un exercice a été mis plus d'une fois, on affiche le nombre de fois où il est demandé
       if (compteOccurences(listeExercicesSelectionnes, listeExercicesSelectionnes[i]) > 1) {
-      // Ajout de first() car un exercice de DNB peut apparaitre à plusieurs endroits
+      // Ajout de first() car un exercice de DNB peut apparaître à plusieurs endroits
         if (document.getElementById(`count¤${listeExercicesSelectionnes[i]}`)) {
           document.getElementById(`count¤${listeExercicesSelectionnes[i]}`).innerText = ` ✖︎ ${compteOccurences(listeExercicesSelectionnes, listeExercicesSelectionnes[i])}`
         } else {
@@ -554,11 +600,11 @@ export function menuDesExercicesDisponibles () {
   const listeThemesCan = [
     ['canc3', 'canc3 - Course aux nombres niveau CM1-CM2', 'canc3C - Calculs', 'canc3D - Durées', 'canc3M - Mesures', 'canc3N - Numération'],
     ['can6', 'can6 - Course aux nombres niveau 6e', 'can6a - Annales aléatoires', 'can6C - Calculs', 'can6D - Durées', 'can6G - Géométrie', 'can6I - Algorithmique', 'can6M - Mesures', 'can6N - Numération', 'can6P - Proportionnalité', 'can6S - Statistiques'],
-    ['can5', 'can5 - Course aux nombres niveau 5e', 'can5a - Annales aléatoires', 'can5A - Algorithmes', 'can5C - Calculs', 'can5D - Durées', 'can5G - Géométrie', 'can5M - Mesures', 'can5N - Numération', 'can5P - Proportionnalité', 'can5S - Statistiques'],
-    ['can4', 'can4 - Course aux nombres niveau 4e', 'can4a - Annales aléatoires', 'can4C - Calculs', 'can4D - Durées', 'can4G - Géométrie', 'can4L - Calcul littéral', 'can4N - Numération', 'can4P - Proportionnalité', 'can4S - Statistiques'],
-    ['can3', 'can3 - Course aux nombres niveau 3e', 'can3a - Annales aléatoires', 'can3C - Calculs', 'can3E - Équations', 'can3F - Fonctions', 'can3G - Géométrie', 'can3L - Calcul littéral', 'can3M - Mesures', 'can3N - Numération', 'can3P - Proportionnalité', 'can3S - Statistiques & probabilités'],
+    ['can5', 'can5 - Course aux nombres niveau 5e', 'can5a - Annales aléatoires', 'can5A - Algorithmes', 'can5C - Calculs', 'can5D - Durées', 'can5G - Géométrie', 'can5L - Calcul littéral', 'can5N - Numération', 'can5P - Proportionnalité'],
+    ['can4', 'can4 - Course aux nombres niveau 4e', 'can4a - Annales aléatoires', 'can4C - Calculs', 'can4G - Géométrie', 'can4L - Calcul littéral', 'can4P - Proportionnalité'],
+    ['can3', 'can3 - Course aux nombres niveau 3e', 'can3a - Annales aléatoires', 'can3C - Calculs', 'can3F - Fonctions', 'can3G - Géométrie', 'can3L - Calcul littéral', 'can3M - Mesures', 'can3P - Proportionnalité', 'can3S - Statistiques & probabilités'],
     ['can2', 'can2 - Course aux nombres niveau 2e', 'can2a - Annales aléatoires', 'can2C - Calculs', 'can2F - Fonctions', 'can2G - Géométrie', 'can2L - Calcul littéral', 'can2N - Numération', 'can2P - Probabilités'],
-    ['can1', 'can1 - Course aux nombres niveau 1e', 'can1C - Calculs', 'can1F - Fonctions', 'can1G - Géométrie', 'can1L - Calcul littéral', 'can1N - Numération', 'can1P - Proportionnalité', 'can1S - Statistiques et probabilités'],
+    ['can1', 'can1 - Course aux nombres niveau 1e', 'can1a - Annales aléatoires', 'can1F - Fonctions', 'can1G - Géométrie', 'can1L - Calcul littéral', 'can1P - Probabilités', 'can1S - Suites'],
     ['canT', 'canT - Course aux nombres niveau Terminale'],
     ['canEx', 'canExpert - Course aux nombres niveau Terminale expert'],
     ['canP', 'canPredef - Courses aux nombres clé en main']]
@@ -568,13 +614,13 @@ export function menuDesExercicesDisponibles () {
   const listeThemes6 = [
     ['6C1', '6C1 - Calculs niveau 1'], ['6C2', '6C2 - Calculs niveau 2'], ['6C3', '6C3 - Calculs niveau 3'],
     ['6D1', '6D1 - Les durées'],
-    ['6G1', '6G1 - Géométrie niveau 1'], ['6G2', '6G2 - Géométrie niveau 2'], ['6G3', '6G3 - Géométrie niveau 3'], ['6G4', '6G4 - Géométrie niveau 4'],
+    ['6G1', '6G1 - Géométrie niveau 1'], ['6G2', '6G2 - Géométrie niveau 2'], ['6G3', '6G3 - Géométrie niveau 3'], ['6G4', '6G4 - Espace'], ['6G5', '6G5 - Alignement, perpendicularité et parallélisme'],
     ['6I1', '6I1 - Algorithmique'],
     ['6M1', '6M1 - Grandeurs et mesures niveau 1'], ['6M2', '6M2 - Grandeurs et mesures niveau 2'], ['6M3', '6M3 - Volumes'],
     ['6N1', '6N1 - Numération et fractions niveau 1'], ['6N2', '6N2 - Numération et fractions niveau 2'], ['6N3', '6N3 - Numération et fractions niveau 3'], ['6N4', '6N4 - Numération et fractions niveau 4'],
     ['6P1', '6P1 - Proportionnalité'], ['6S1', '6S1 - Statistiques']]
   const listeThemes5 = [
-    ['5A1', '5A1 - Arithmetique'], ['5C1', '5C1 - Calculs'],
+    ['5A1', '5A1 - Arithmétique'], ['5C1', '5C1 - Calculs'],
     ['5G1', '5G1 - Symétries'], ['5G2', '5G2 - Triangles'], ['5G3', '5G3 - Angles'], ['5G4', '5G4 - Parallélogrammes'], ['5G5', '5G5 - Espace'],
     ['5I1', '5I1 - Algorithmique'],
     ['5L1', '5L1 - Calcul littéral'],
@@ -590,7 +636,7 @@ export function menuDesExercicesDisponibles () {
     ['4I1', '4I1 - Algorithmique'],
     ['4L1', '4L1 - Calcul littéral'], ['4L2', '4L2 - Équation'], ['4P1', '4P1 - Proportionnalité'], ['4S1', '4S1 - Statistiques'], ['4S2', '4S2 - Probabilités']]
   const listeThemes3 = [
-    ['3A1', '3A1 - Arithmetique'],
+    ['3A1', '3A1 - Arithmétique'],
     ['3F1', '3F1 - Généralités sur les fonctions'], ['3F2', '3F2 - Fonctions affines et linéaires'],
     ['3G1', '3G1 - Homothétie et rotation'], ['3G2', '3G2 - Théorème de Thalès'], ['3G3', '3G3 - Trigonométrie'], ['3G4', '3G4 - Espace'],
     ['3I1', '3I1 - Algorithmique premier niveau'],
@@ -652,6 +698,9 @@ export function menuDesExercicesDisponibles () {
     ['2S3', '2S3 - Modéliser le hasard, calculer des probabiltés', '2S31 - Utiliser des modèles théoriques de référence',
       '2S30 - Calculer des probabilités dans des cas simples'],
     ['2S4', '2S4 - Échantillonnage']
+  ]
+  const listeThemesTechno1 = [
+    ['techno1P', 'techno1P - Proportions'], ['techno1E', 'techno1E - Évolutions']
   ]
   const listeThemesEx = [
     ['ExC1', 'ExC1 - Calculs avec nombres complexes'], ['ExE1', 'ExE1 - Équations'], ['ExL1', 'ExL1 - Calcul littéral']
@@ -751,6 +800,12 @@ export function menuDesExercicesDisponibles () {
       liste_html_des_exercices: '',
       lignes_tableau: ''
     },
+    techno1: {
+      label: 'Première Technologique',
+      nombre_exercices_dispo: 0,
+      liste_html_des_exercices: listeHtmlDesExercicesDUnNiveau(listeThemesTechno1),
+      lignes_tableau: ''
+    },
     T: {
       label: 'Terminale',
       nombre_exercices_dispo: 0,
@@ -787,14 +842,26 @@ export function menuDesExercicesDisponibles () {
       liste_html_des_exercices: listeHtmlDesExercicesDUnNiveau(listeThemesHP),
       lignes_tableau: ''
     },
+    CRPECoop: {
+      label: 'Concours CRPE 2022',
+      nombre_exercices_dispo: 0,
+      liste_html_des_exercices: getListeHtmlDesExercicesCrpeCoop(),
+      lignes_tableau: ''
+    },
+    CrpeCoopTheme: {
+      label: 'Concours CRPE 2022 (classés par thème)',
+      nombre_exercices_dispo: 0,
+      liste_html_des_exercices: getListeHtmlDesExercicesCrpeCoopTheme(),
+      lignes_tableau: ''
+    },
     CRPE: {
-      label: 'Concours CRPE corrigés par la Copirelem (classés par année)',
+      label: 'Concours CRPE 2015-2019 corrigés par la Copirelem (classés par année)',
       nombre_exercices_dispo: 0,
       liste_html_des_exercices: getListeHtmlDesExercicesCrpe(),
       lignes_tableau: ''
     },
     CrpeTheme: {
-      label: 'Concours CRPE corrigés par la Copirelem (classés par thème)',
+      label: 'Concours CRPE 2015-2019 corrigés par la Copirelem (classés par thème)',
       nombre_exercices_dispo: 0,
       liste_html_des_exercices: getListeHtmlDesExercicesCrpeTheme(),
       lignes_tableau: ''
@@ -808,7 +875,6 @@ export function menuDesExercicesDisponibles () {
   for (const id in listeDesExercicesDisponibles) {
     if ((id[0] === 'c' && id[1] === 'a') || (id[0] === 'c' && id[1] === '3') || (id[0] === 'P' && id[1] === '0') || (id[0] === 'P' && id[1] === 'E') || (id[0] === 'b' && id[1] === 'e') || (id[0] === 'E' && id[1] === 'x') || (id[0] === 'H' && id[1] === 'P')) {
       if (filtre === 'interactif') {
-        // avant il y avait un focntionnement avec qcmInteractif qui devient interactifReady cf commit f59bb8e
         if (dictionnaireDesExercices[id].interactifReady) {
           objExercicesDisponibles[id[0] + id[1]].nombre_exercices_dispo += 1
           objExercicesDisponibles[id[0] + id[1]].lignes_tableau += ligneTableau(id)
@@ -820,7 +886,6 @@ export function menuDesExercicesDisponibles () {
     }
     if (id[0] === '6' || id[0] === '5' || id[0] === '4' || id[0] === '3' || id[0] === '2' || id[0] === '1' || id[0] === 'T' || id[0] === 'C') {
       if (filtre === 'interactif') {
-        // avant il y avait un focntionnement avec qcmInteractif qui devient interactifReady cf commit f59bb8e
         if (dictionnaireDesExercices[id].interactifReady) {
           objExercicesDisponibles[id[0]].nombre_exercices_dispo += 1
           objExercicesDisponibles[id[0]].lignes_tableau += ligneTableau(id)
@@ -832,7 +897,6 @@ export function menuDesExercicesDisponibles () {
     }
     if (id[0] === '1' || id[0] === 'T' || id[0] === 'C') {
       if (filtre === 'interactif') {
-        // avant il y avait un focntionnement avec qcmInteractif qui devient interactifReady cf commit f59bb8e
         if (dictionnaireDesExercices[id].interactifReady) {
           objExercicesDisponibles[id[0]].liste_html_des_exercices += spanExercice(id, dictionnaireDesExercices[id].titre)
         }
@@ -855,6 +919,17 @@ export function menuDesExercicesDisponibles () {
         objExercicesDisponibles.CRPE.lignes_tableau += ligneTableau(id)
       }
     }
+    if (id.substring(0, 7) === 'techno1') {
+      if (filtre === 'interactif') {
+        if (dictionnaireDesExercices[id].interactifReady) {
+          objExercicesDisponibles.techno1.nombre_exercices_dispo += 1
+          objExercicesDisponibles.techno1.lignes_tableau += ligneTableau(id)
+        }
+      } else {
+        objExercicesDisponibles.techno1.nombre_exercices_dispo += 1
+        objExercicesDisponibles.techno1.lignes_tableau += ligneTableau(id)
+      }
+    }
     if (id[0] === 'b' && id[1] === 'a' && id[2] === 'c') {
       if (filtre !== 'interactif') {
         objExercicesDisponibles.BAC.lignes_tableau += ligneTableau(id)
@@ -875,7 +950,7 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercicesTab += objExercicesDisponibles.be.lignes_tableau
   } else if (context.vue === 'cm') {
     htmlAffichage = htmlListes({
-      liste_affichage: ['ca', 'C', 'c3', 6, 5, 4, 3, 2, 1, 'T', 'Ex', 'HP', 'PE'],
+      liste_affichage: ['ca', 'C', 'c3', 6, 5, 4, 3, 2, 1, 'techno1', 'T', 'Ex', 'HP', 'PE'],
       active: 'C',
       obj_ex: objExercicesDisponibles
     })
@@ -886,6 +961,7 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercices += '</div>'
     listeHtmlDesExercicesTab += objExercicesDisponibles.P0.lignes_tableau
   } else if (context.vue === 'crpe') {
+    // listeHtmlDesExercices += divNiveau(objExercicesDisponibles.CRPECoop, 'active', 'CrpeTheme')
     listeHtmlDesExercices += divNiveau(objExercicesDisponibles.CrpeTheme, 'active', 'CrpeTheme')
     listeHtmlDesExercices += divNiveau(objExercicesDisponibles.CRPE, 'active', 'CRPE')
     listeHtmlDesExercices += '</div>'
@@ -919,7 +995,7 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercicesTab += htmlAffichage.lignes
   } else if (filtre === 'lycee') {
     htmlAffichage = htmlListes({
-      liste_affichage: ['ca', 2, 1, 'T', 'Ex'],
+      liste_affichage: ['ca', 2, 1, 'techno1', 'T', 'Ex'],
       active: '',
       obj_ex: objExercicesDisponibles
     })
@@ -935,7 +1011,7 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercicesTab += htmlAffichage.lignes
   } else if (context.isAmc) {
     htmlAffichage = htmlListes({
-      liste_affichage: ['ca', 'c3', 6, 5, 4, 3, 2, 1, 'T', 'Ex', 'HP', 'PE', 'C'],
+      liste_affichage: ['ca', 'c3', 6, 5, 4, 3, 2, 1, 'techno1', 'T', 'Ex', 'HP', 'PE', 'C'],
       active: '',
       obj_ex: objExercicesDisponibles
     })
@@ -943,7 +1019,7 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercicesTab += htmlAffichage.lignes
   } else {
     htmlAffichage = htmlListes({
-      liste_affichage: ['ca', 'c3', 6, 5, 4, 3, 'DNB', 'DNBtheme', 2, 1, 'T', 'Ex', 'HP', 'E3C', 'E3Ctheme', 'BAC', 'BACtheme', 'PE', 'CrpeTheme', 'CRPE', 'C'],
+      liste_affichage: ['ca', 'c3', 6, 5, 4, 3, 'DNB', 'DNBtheme', 2, 1, 'techno1', 'T', 'Ex', 'HP', 'E3C', 'E3Ctheme', 'BAC', 'BACtheme', 'PE', 'CrpeCoopTheme', 'CRPECoop', 'CrpeTheme', 'CRPE', 'C'],
       active: '',
       obj_ex: objExercicesDisponibles
     })
@@ -1174,7 +1250,7 @@ export function menuThemeDNB (theme) {
   for (const id in dictionnaire) {
     tableauDesExercices.push(id)
   }
-  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaitre les exercices les plus récents
+  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaître les exercices les plus récents
   tableauDesExercices = tableauDesExercices.sort().reverse()
   for (const id of tableauDesExercices) {
     codeHTML +=

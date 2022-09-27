@@ -21,6 +21,8 @@ export const interactifType = 'mathLive'
 * @author Rémi Angot
 * 4C21
 */
+export const uuid = '5f429'
+export const ref = '4C21'
 export default function ExerciceAdditionnerOuSoustraireDesFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 2 // Niveau de difficulté
@@ -113,7 +115,7 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
           k = d / b
         }
       }
-      texte = `$${texFraction(a, b)}${plusOuMoins}${texFraction(c, d)}=$`
+      texte = `$${texFraction(a, b)}${plusOuMoins}${texFraction(c, d)}$`
       texteCorr = `$${texFraction(a, b)}${plusOuMoins}${texFraction(c, d)}`
 
       // a/b(+ou-)c/d = num/den (résultat non simplifié)
@@ -151,9 +153,9 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
           if (!this.sup2 && plusOuMoins === '-' && n < a / b) {
             n = randint(5, 9) // max(a/b)=9/2
           }
-          texte = `$${n}${plusOuMoins}${texFraction(a, b)}=$`
+          texte = `$${n}${plusOuMoins}${texFraction(a, b)}$`
           texteCorr = texte
-          texteCorr += `$${texFraction(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}${plusOuMoins}${texFraction(a, b)}`
+          texteCorr += `$=${texFraction(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}${plusOuMoins}${texFraction(a, b)}`
           texteCorr += `=${texFraction(n * b + plusOuMoins + ecritureParentheseSiNegatif(a), b)}`
           num = calcul(n * b + plusOuMoinsUn * a)
         } else {
@@ -162,10 +164,10 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
             n = randint(1, 4) //
             a = n * b + randint(1, 9) // (n*b+?)/b-n>0
           }
-          texte = `$${texFraction(a, b)}${plusOuMoins}${ecritureParentheseSiNegatif(n)}=`
+          texte = `$${texFraction(a, b)}${plusOuMoins}${ecritureParentheseSiNegatif(n)}`
           texteCorr = texte
           texte += '$'
-          texteCorr += `${texFraction(a, b)}${plusOuMoins}${texFraction(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}`
+          texteCorr += `=${texFraction(a, b)}${plusOuMoins}${texFraction(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}`
           texteCorr += `=${texFraction(a + plusOuMoins + ecritureParentheseSiNegatif(n * b), b)}`
           num = calcul(a + plusOuMoinsUn * n * b)
         }
@@ -202,7 +204,7 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
       // Pour l'instant pour tester je mets num et den dans reponse
 
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore', { texte: '=' })
       }
       reponse = fraction(num, den).simplifie()
       setReponse(this, i, reponse, { digits: 4, digitsNum: 2, digitsDen: 2, formatInteractif: 'fraction' })

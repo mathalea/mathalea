@@ -1,11 +1,13 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../modules/outils.js'
-export const titre = 'Déterminer une équation cartésienne à partir d\'un point et de la pente.'
+export const titre = 'Déterminer une équation cartésienne à partir d\'un point et de la pente'
 /**
  * Description didactique de l'exercice
  * @author Stéphane Guyon
  * Référence 2G30-5
 */
+export const uuid = 'd1da3'
+export const ref = '2G30-5'
 export default function Determinerequationcartesienneavecpente () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
