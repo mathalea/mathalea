@@ -386,7 +386,7 @@ export default function ScratchMultiScript () {
       if (!context.isAmc && this.interactif) {
         for (let k = 0; k < couleurs[i].length; k++) {
           mesQcm[indexReponse + k] = propositionsQcm(this, indexReponse + k)
-          texteScratch += `Couleur N° ${k + 1} ? ` + mesQcm[indexReponse + k].texte
+          texte += `Couleur N° ${k + 1} ? ` + mesQcm[indexReponse + k].texte
           texteCorr += `Couleur N° ${k + 1} : ` + mesQcm[indexReponse + k].texteCorr
         }
       }
