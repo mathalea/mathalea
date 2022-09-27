@@ -2386,9 +2386,9 @@ function parametresExercice (exercice) {
       formModeNB.addEventListener('change', function (e) {
         // Dès que le statut change, on met à jour
         if ($('#ModeNB:checked').val()) {
-          context.sortieNB = true
+          context.issortieNB = true
         } else {
-          context.sortieNB = false
+          context.issortieNB = false
         }
         miseAJourDuCode()
       })

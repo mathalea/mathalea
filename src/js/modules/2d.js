@@ -11013,7 +11013,7 @@ function pattern ({
         break
     }
     return myPattern
-  } else if (context.sortieNB) {
+  } else if (context.issortieNB) {
     switch (motif) {
       case 'north east lines':
         myPattern = `pattern = ${motif}`
