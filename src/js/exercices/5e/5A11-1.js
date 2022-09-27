@@ -63,7 +63,7 @@ export default function ExerciceLabyrintheDivisibilite () {
     for (let q = 0; q < this.nbQuestions;) {
       laby = labyrinthe({ taille: tailleChiffre })
       laby.niveau = this.sup3 // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
-      laby.chemin = laby.choisitChemin(laby.niveau) // On choisi un chemin
+      laby.chemin = laby.choisitChemin(laby.niveau) // On choisit un chemin
       laby.murs2d = laby.construitMurs(laby.chemin) // On construit le labyrinthe
       laby.chemin2d = laby.traceChemin(laby.chemin) // On trace le chemin solution
       monChemin = laby.chemin
