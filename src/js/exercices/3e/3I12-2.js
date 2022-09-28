@@ -121,16 +121,16 @@ export default function ComprendreScriptMultiples () {
     const nb02 = choice([2, 3, 5, 9, 10])
     const nb01 = choice(rangeMinMax(5, 15)) * nb02
     const nb03 = nb01 + randint(1, nb02 - 1)
-    const listeQuestions = [ // [Questions, Reponses, Nb de lignes pour AMC]
+    const listeQuestions = [ // [Questions, Reponses, Nb de lignes pour le réponse AMC]
       ['Combien ce script comporte-t-il de variables ?', `Ce script comporte ${texteEnCouleurEtGras(2)} variables.`, 1],
       ['Comment se nomment les variables dans ce script ?', `Les variables de ce script se nomment ${texteEnCouleurEtGras(var1)} et ${texteEnCouleurEtGras(var2)}.`, 1],
       ['Que fait ce script ?', `Ce script demande deux nombres entiers à l'utilisateur, calcule le reste de la division euclidienne du
       ${diviseurEnPremier ? ' second nombre fourni par le premier ' : ' premier nombre fourni par le second '}
       puis indique si 
       ${choixScript === 1 ? (diviseurEnPremier ? ' le second nombre ' : ' le premier nombre ') : (diviseurEnPremier ? ' le premier nombre ' : ' le second nombre ')} ${choixScript === 1 ? ' est un multiple ou pas du ' : choixScript === 2 ? ' divise ou pas le ' : ' est un diviseur ou pas du '} ${choixScript === 1 ? (diviseurEnPremier ? 'premier' : 'second') : (diviseurEnPremier ? 'second' : 'premier')} nombre.`, 3],
-      [`Si les nombres saisis sont d'abord ${diviseurEnPremier ? nb02 : nb01} puis ensuite ${diviseurEnPremier ? nb01 : nb02}, que dit précisement le lutin au final ?`,
+      [`Si les nombres saisis sont d'abord ${diviseurEnPremier ? nb02 : nb01} puis ensuite ${diviseurEnPremier ? nb01 : nb02}, que dit précisément le lutin au final ?`,
       `${choixScript === 1 ? nb01 + ' est un multiple de ' + nb02 : choixScript === 2 ? nb02 + ' divise ' + nb01 : nb02 + ' est un diviseur de ' + nb01}.`, 1],
-      [`Si les nombres saisis sont d'abord ${diviseurEnPremier ? nb02 : nb03} puis ensuite ${diviseurEnPremier ? nb03 : nb02}, que dit précisement le lutin au final ?`,
+      [`Si les nombres saisis sont d'abord ${diviseurEnPremier ? nb02 : nb03} puis ensuite ${diviseurEnPremier ? nb03 : nb02}, que dit précisément le lutin au final ?`,
       `${choixScript === 1 ? nb03 + ' n\'est pas un multiple de ' + nb02 : choixScript === 2 ? nb02 + ' ne divise pas ' + nb03 : nb02 + ' n\'est pas un diviseur de ' + nb03}.`, 1],
       ['Quelle action initiale permet de déclencher ce script ?',
         choixBriqueInitiale[briqueInitiale - 1][1] + '.', 1]
@@ -149,7 +149,7 @@ export default function ComprendreScriptMultiples () {
         const optionsQuestions = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < optionsQuestions.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
           optionsQuestions[i] = contraindreValeur(1, 12, parseInt(optionsQuestions[i]), 12)
-          if (optionsQuestions[i] < 7) choixQuestions.push(listeQuestions[optionsQuestions[i]])
+          if (optionsQuestions[i] < 7) choixQuestions.push(listeQuestions[optionsQuestions[i] - 1])
           else nbDeQuestions = [optionsQuestions[i] - 6]
         }
         if (choixQuestions.length === 0) {
