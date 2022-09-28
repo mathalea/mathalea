@@ -6630,7 +6630,7 @@ export function telechargeFichier (text, filename) {
 */
 export function introLatex (entete = 'Exercices', listePackages = '') {
   if (entete === '') { entete = 'Exercices' }
-  return `\\documentclass[12pt]{article}
+  return `\\documentclass[12pt,svgnames]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
 %\\usepackage[utf8]{inputenc}        
 %\\usepackage[T1]{fontenc}
@@ -6668,7 +6668,7 @@ export function introLatex (entete = 'Exercices', listePackages = '') {
 \\usepackage{fancybox}
 \\usepackage{setspace}
 \\usepackage{colortbl}
-\\usepackage[svgnames]{xcolor}
+\\usepackage{xcolor}
   \\definecolor{nombres}{cmyk}{0,.8,.95,0}
   \\definecolor{gestion}{cmyk}{.75,1,.11,.12}
   \\definecolor{gestionbis}{cmyk}{.75,1,.11,.12}
@@ -6714,7 +6714,7 @@ ${preambulePersonnalise(listePackages)}
 export function introLatexCan (entete = 'Course aux nombres', listePackages = '') {
   if (entete === '') { entete = 'Course aux nombres' }
   // return `\\documentclass[12pt, landscape]{article}
-  return `\\documentclass[12pt]{article}
+  return `\\documentclass[12pt,svgnames]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
 %\\usepackage[utf8]{inputenc}        
 %\\usepackage[T1]{fontenc}
@@ -6752,7 +6752,7 @@ export function introLatexCan (entete = 'Course aux nombres', listePackages = ''
 \\usepackage{fancybox}
 \\usepackage{setspace}
 \\usepackage{colortbl}
-\\usepackage[svgnames]{xcolor}
+\\usepackage{xcolor}
   \\definecolor{nombres}{cmyk}{0,.8,.95,0}
   \\definecolor{gestion}{cmyk}{.75,1,.11,.12}
   \\definecolor{gestionbis}{cmyk}{.75,1,.11,.12}
@@ -6876,7 +6876,7 @@ ${preambulePersonnalise(listePackages)}
 * @author Rémi Angot
 */
 export function introLatexCoop (listePackages) {
-  const introLatexCoop = `\\documentclass[12pt]{article}
+  const introLatexCoop = `\\documentclass[12pt,svgnames]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=4cm,bottom=2cm]{geometry}
 %\\usepackage[utf8]{inputenc}        
 %\\usepackage[T1]{fontenc}
@@ -6913,7 +6913,7 @@ export function introLatexCoop (listePackages) {
 \\pagestyle{fancy}                      
 \\usepackage{fancybox}
 \\usepackage{setspace}
-\\usepackage[svgnames]{xcolor}
+\\usepackage{xcolor}
 \\usepackage{pgf,tikz} % Pour les images et figures gÃ©omÃ©triques
 \\usetikzlibrary{babel,arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
 shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows}
@@ -8727,9 +8727,9 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \n`
   if (format === 'A3') {
-    preambule += '\t \\documentclass[10pt,a3paper,landscape,french]{article}\n'
+    preambule += '\t \\documentclass[10pt,a3paper,landscape,french,svgnames]{article}\n'
   } else {
-    preambule += '\t \\documentclass[10pt,a4paper,french]{article}\n'
+    preambule += '\t \\documentclass[10pt,a4paper,french,svgnames]{article}\n'
   }
 
   preambule += `\t
@@ -8763,7 +8763,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   %\\usepackage{pstricks,pst-plot,pstricks-add}
   %   POUR PSTRICKS d'où compilation sans PDFLateX mais : dvi, dvi2ps, ps2PDF...
   %   MAIS ON PRÉFÉRERA UTILISER TIKZ...
-  \\usepackage[svgnames]{xcolor}% [avant tikz] xcolor permet de nommer + de couleurs
+  \\usepackage{xcolor}% [avant tikz] xcolor permet de nommer + de couleurs
   \\usepackage{pgf,tikz}
   \\usepackage{graphicx} % pour inclure une image
   \\usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
