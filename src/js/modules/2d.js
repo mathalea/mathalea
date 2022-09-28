@@ -2495,7 +2495,7 @@ export function demiDroite (A, B, color = 'black', extremites = false) {
  */
 function Polygone (...points) {
   ObjetMathalea2D.call(this, { })
-  this.opaciteDeRemplissage = 1.1
+  this.opaciteDeRemplissage = 1
   this.epaisseurDesHachures = 1
   this.distanceDesHachures = 10
   if (Array.isArray(points[0])) {
@@ -2600,7 +2600,7 @@ function Polygone (...points) {
         opaciteDeRemplissage: this.opaciteDeRemplissage
       }) + `<polygon points="${this.binomesXY(coeff)}" stroke="${this.color[0]}" ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
     } else {
-      if (this.couleurDeRemplissage === '' || this.couleurDeRemplissage === undefined) {
+      if (this.couleurDeRemplissage[0] === '' || this.couleurDeRemplissage[0] === undefined) {
         this.style += ' fill="none" '
       } else {
         this.style += ` fill="${this.couleurDeRemplissage[0]}" `
@@ -2640,11 +2640,9 @@ function Polygone (...points) {
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity=${this.opacite}`)
     }
-    if (this.opaciteDeRemplissage !== 1) {
-      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
-    }
-    if (this.couleurDeRemplissage !== '' && this.couleurDeRemplissage[1] !== 'none') {
-      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage[1]}}`)
+
+    if (this.couleurDeRemplissage[1] !== '' && this.couleurDeRemplissage[1] !== 'none') {
+      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage[1]}${this.opaciteDeRemplissage !== 1 ? ', opacity = ' + this.opaciteDeRemplissage : ''}}`)
     }
 
     if (this.hachures) {
