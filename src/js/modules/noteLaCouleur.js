@@ -278,7 +278,7 @@ class Plateau2dNLC {
         case 'Blanc':
           return 'white'
         case 'Bleu':
-          return 'blue'
+          return 'DodgerBlue'
         case 'Noir':
           return 'black'
         case 'Rouge':
@@ -286,11 +286,11 @@ class Plateau2dNLC {
         case 'Jaune':
           return 'yellow'
         case 'Rose':
-          return 'pink'
+          return 'HotPink'
         case 'Vert':
           return 'green'
         case 'Orange':
-          return '#f15929'
+          return 'DarkOrange'
         case 'Gris':
           return 'gray'
       }

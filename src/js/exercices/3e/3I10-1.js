@@ -31,7 +31,7 @@ export default function ScratchMultiScript () {
   this.typeExercice = 'Scratch'
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.sup = ''
+  this.sup = '1-2-3'
   this.correctionDetailleeDisponible = true
   this.correctionDetaille = false
   this.listePackages = ['scratch3', 'bclogo']
@@ -386,7 +386,7 @@ export default function ScratchMultiScript () {
       if (!context.isAmc && this.interactif) {
         for (let k = 0; k < couleurs[i].length; k++) {
           mesQcm[indexReponse + k] = propositionsQcm(this, indexReponse + k)
-          texteScratch += `Couleur N° ${k + 1} ? ` + mesQcm[indexReponse + k].texte
+          texte += `Couleur N° ${k + 1} ? ` + mesQcm[indexReponse + k].texte
           texteCorr += `Couleur N° ${k + 1} : ` + mesQcm[indexReponse + k].texteCorr
         }
       }
