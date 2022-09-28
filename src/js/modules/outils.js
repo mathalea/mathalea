@@ -3037,9 +3037,9 @@ export function arcenciel (i, fondblanc = true) {
   return couleurs[i % 7]
 }
 export function texcolors (i, fondblanc = true) {
-  const couleurs = ['black', 'blue', 'brown', 'cyan', 'darkgray', 'gray', 'green', 'lightgray', 'lime', 'magenta', 'olive', '#f15929', 'pink', 'purple', 'red', 'teal', 'violet', 'white', 'yellow']
-  if (fondblanc && i % 19 >= 17) i += 2
-  return couleurs[i % 19]
+  const couleurs = ['black', 'blue', 'GreenYellow', 'brown', 'LightSlateBlue', 'cyan', 'darkgray', 'HotPink', 'LightSteelBlue', 'Chocolate', 'gray', 'green', 'lightgray', 'lime', 'magenta', 'olive', 'DarkOrange', 'pink', 'purple', 'red', 'teal', 'violet', 'white', 'yellow']
+  if (fondblanc && i % couleurs.length >= couleurs.length - 2) i += 2
+  return couleurs[i % couleurs.length]
 }
 
 /**
