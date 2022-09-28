@@ -2,7 +2,10 @@ import Exercice from '../Exercice.js'
 import { choice, combinaisonListes, compteOccurences, contraindreValeur, lampeMessage, lettreDepuisChiffre, listeQuestionsToContenu, numAlpha, randint, rangeMinMax, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { scratchblock } from '../../modules/2d.js'
 import { min } from 'mathjs'
+import { context } from '../../modules/context.js'
 export const titre = 'Comprendre un script Scratch - 1'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 
 export const dateDePublication = '20/09/2022'
 
@@ -82,7 +85,7 @@ export default function ComprendreScriptMultiples () {
     const nb2 = randint(1, 26, [23, 9, 15, 17, nb1]) // Pour éviter I,O,Q et W
     let var1 = lettreDepuisChiffre(nb1)
     let var2 = lettreDepuisChiffre(nb2)
-    let colonne1 = '\\begin{scratch}[print,fill,blocks,scale=0.5]\n'
+    let colonne1 = '\\begin{scratch}[print,fill,blocks,scale=1]\n'
     const choixBriqueInitiale = [
       ['\\blockinit{quand \\greenflag est cliqué}\n', 'Quand le drapeau vert est cliqué'],
       ['\\blockinit{quand ce sprite est cliqué}\n', 'Quand ce sprite est cliqué'],
@@ -118,19 +121,19 @@ export default function ComprendreScriptMultiples () {
     const nb02 = choice([2, 3, 5, 9, 10])
     const nb01 = choice(rangeMinMax(5, 15)) * nb02
     const nb03 = nb01 + randint(1, nb02 - 1)
-    const listeQuestions = [ // [Questions, Reponses]
-      ['Combien ce script comporte-t-il de variables ?', `Ce script comporte ${texteEnCouleurEtGras(2)} variables.`],
-      ['Comment se nomment les variables dans ce script ?', `Les variables de ce script se nomment ${texteEnCouleurEtGras(var1)} et ${texteEnCouleurEtGras(var2)}.`],
+    const listeQuestions = [ // [Questions, Reponses, Nb de lignes pour AMC]
+      ['Combien ce script comporte-t-il de variables ?', `Ce script comporte ${texteEnCouleurEtGras(2)} variables.`, 1],
+      ['Comment se nomment les variables dans ce script ?', `Les variables de ce script se nomment ${texteEnCouleurEtGras(var1)} et ${texteEnCouleurEtGras(var2)}.`, 1],
       ['Que fait ce script ?', `Ce script demande deux nombres entiers à l'utilisateur, calcule le reste de la division euclidienne du
       ${diviseurEnPremier ? ' second nombre fourni par le premier ' : ' premier nombre fourni par le second '}
       puis indique si 
-      ${choixScript === 1 ? (diviseurEnPremier ? ' le second nombre ' : ' le premier nombre ') : (diviseurEnPremier ? ' le premier nombre ' : ' le second nombre ')} ${choixScript === 1 ? ' est un multiple ou pas du ' : choixScript === 2 ? ' divise ou pas le ' : ' est un diviseur ou pas du '} ${choixScript === 1 ? (diviseurEnPremier ? 'premier' : 'second') : (diviseurEnPremier ? 'second' : 'premier')} nombre.`],
+      ${choixScript === 1 ? (diviseurEnPremier ? ' le second nombre ' : ' le premier nombre ') : (diviseurEnPremier ? ' le premier nombre ' : ' le second nombre ')} ${choixScript === 1 ? ' est un multiple ou pas du ' : choixScript === 2 ? ' divise ou pas le ' : ' est un diviseur ou pas du '} ${choixScript === 1 ? (diviseurEnPremier ? 'premier' : 'second') : (diviseurEnPremier ? 'second' : 'premier')} nombre.`, 3],
       [`Si les nombres saisis sont d'abord ${diviseurEnPremier ? nb02 : nb01} puis ensuite ${diviseurEnPremier ? nb01 : nb02}, que dit précisement le lutin au final ?`,
-      `${choixScript === 1 ? nb01 + ' est un multiple de ' + nb02 : choixScript === 2 ? nb02 + ' divise ' + nb01 : nb02 + ' est un diviseur de ' + nb01}.`],
+      `${choixScript === 1 ? nb01 + ' est un multiple de ' + nb02 : choixScript === 2 ? nb02 + ' divise ' + nb01 : nb02 + ' est un diviseur de ' + nb01}.`, 1],
       [`Si les nombres saisis sont d'abord ${diviseurEnPremier ? nb02 : nb03} puis ensuite ${diviseurEnPremier ? nb03 : nb02}, que dit précisement le lutin au final ?`,
-      `${choixScript === 1 ? nb03 + ' n\'est pas un multiple de ' + nb02 : choixScript === 2 ? nb02 + ' ne divise pas ' + nb03 : nb02 + ' n\'est pas un diviseur de ' + nb03}.`],
+      `${choixScript === 1 ? nb03 + ' n\'est pas un multiple de ' + nb02 : choixScript === 2 ? nb02 + ' ne divise pas ' + nb03 : nb02 + ' n\'est pas un diviseur de ' + nb03}.`, 1],
       ['Quelle action initiale permet de déclencher ce script ?',
-        choixBriqueInitiale[briqueInitiale - 1][1] + '.']
+        choixBriqueInitiale[briqueInitiale - 1][1] + '.', 1]
     ]
 
     let choixQuestions = []
@@ -161,19 +164,40 @@ export default function ComprendreScriptMultiples () {
       texte: 'Cette brique donne le reste de la division euclidienne du nombre de gauche par le nombre de droite.',
       couleur: 'nombres'
     })
-
+    if (context.isAmc) {
+      this.autoCorrection[0] = {
+        enonce: '',
+        enonceAvant: false, // EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question.
+        propositions: []
+      }
+    }
     this.consigne = 'Lire ce script Scratch associé à un lutin et répondre ensuite'
     this.consigne += min(choixQuestions.length, nbDeQuestions[0]) > 1 ? ' aux questions.' : ' à la question.'
     let colonne2 = ''
     let texteCorr = ''
+    let enonceAMC = ''
     for (let i = 0; i < min(choixQuestions.length, nbDeQuestions[0]); i++) {
       if (min(choixQuestions.length, nbDeQuestions[0]) === 1) {
-        colonne2 = choixQuestions[0][0] + '<br>'
+        enonceAMC = choixQuestions[0][0] + '<br>'
         texteCorr = choixQuestions[0][1] + '<br>'
       } else {
-        colonne2 += numAlpha(i) + choixQuestions[i][0] + '<br>'
+        enonceAMC = numAlpha(i) + choixQuestions[i][0] + '<br>'
         texteCorr += numAlpha(i) + choixQuestions[i][1] + '<br>'
       }
+      if (context.isAmc) {
+        this.autoCorrection[0].propositions[i] = {
+          type: 'AMCOpen',
+          propositions: [
+            {
+              enonce: (i === 0 ? colonne1 + '<br><br>' : '') + enonceAMC,
+              texte: '',
+              statut: choixQuestions[i][2], // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+              pointilles: false // EE : ce champ est facultatif et permet (si false) d'enlever les pointillés sur chaque ligne.
+            }
+          ]
+        }
+      }
+      colonne2 += enonceAMC
     }
     // Multicolonnage abandonné à cause de la non-optimation de la fonction deuxColonnes() (septembre 2022) sur SmartPhone
     // const texte = deuxColonnes(colonne1, colonne2)
