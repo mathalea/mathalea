@@ -85,8 +85,8 @@ export default function ExercicesAnglesAIC () {
   this.video = ''
   this.correctionDetailleeDisponible = false
   this.correctionDetaillee = true
-  context.isHtml ? (this.spacing = 2.5) : (this.spacing = 0)
-  context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 0)
+  context.isHtml ? (this.spacing = 1.75) : (this.spacing = 0)
+  context.isHtml ? (this.spacingCorr = 1.75) : (this.spacingCorr = 0)
   this.sup = 'all' // Type d'exercice
   this.nouvelleVersion = function (numeroExercice, dDebug = false) {
     if (this.sup === 'all') this.nbQuestions = formulaire.length - 1
@@ -302,17 +302,19 @@ export default function ExercicesAnglesAIC () {
             ...Object.keys(anglesB).map(key => { return anglesB[key] })
           ])
           let texte = 'Les droites sont-elles parallèles ?<br>'
-          let sont
+          let sont, coord
           if (epsilon !== 0) {
+            coord = 'mais pas'
             sont = 'ne sont pas'
           } else {
+            coord = 'et'
             sont = 'sont'
           }
           const texteCorr = mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsCorrection) + String.raw`
           <br>
-          ${calculs !== undefined ? calculs : 'Les angles bleu et vert sont opposés par le sommet. Ils sont donc de même mesure.'}
+          ${calculs !== undefined ? calculs : 'Les angles bleu et vert sont opposés par le sommet. <br> Donc ils sont de même mesure.'}
           <br>
-          Les angles rouge et vert sont ${angles} et ${sont} de la même mesure.
+          Donc les angles rouge et vert sont ${angles} ${coord} de la même mesure.
           <br>
           Donc les droites ${sont} parallèles.
           `
@@ -461,17 +463,17 @@ export default function ExercicesAnglesAIC () {
           let texte = `
           Donnée : Les droites sont parallèles.
           <br>
-          En déduire la mesure de l'angle bleu.
+          En déduire la mesure de l'angle bleu.<br>
           `
           const texteCorr = mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsCorrection) + String.raw`
           <br>
           Les angles rouge et vert sont ${angles} et formés par des droites parallèles.
           <br>
           Donc ils sont de même mesure.
+          <br>De plus,
+          ${calculs !== undefined ? calculs : 'De plus, les angles bleu et vert sont opposés par le sommet.<br> Donc ils sont de même mesure.'}
           <br>
-          ${calculs !== undefined ? calculs : 'Les angles bleu et vert sont opposés par le sommet.<br> Ils sont donc de même mesure.'}
-          <br>
-          L'angle bleu mesure donc ${mesure}.
+          Donc l'angle bleu mesure ${mesure}.
           `
           texte += mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsEnonce)
           exercice = { texte: texte, texteCorr: texteCorr }
@@ -852,18 +854,20 @@ export default function ExercicesAnglesAIC () {
             ...Object.keys(anglesB).map(key => { return anglesB[key] })
           ])
           let texte = 'Les droites sont-elles parallèles ?<br>'
-          let sont
+          let sont, coord
           if (epsilon !== 0) {
+            coord = 'mais pas'
             sont = 'ne sont pas'
           } else {
+            coord = 'et'
             sont = 'sont'
           }
           const nomAngleSolution = angles !== 'alternes-internes' ? anglesB[a].nom : a === 'c' ? anglesB.a.nom : anglesB.b.nom
           const texteCorr = mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsCorrection) + String.raw`
           <br>
-          ${calculs !== undefined ? calculs : String.raw`Les angles $\widehat{${anglesB[a].nom}}$ et $\widehat{${anglesB[b].nom}}$ sont opposés par le sommet. Ils sont donc de même mesure.`}
+          ${calculs !== undefined ? calculs : String.raw`Les angles $\widehat{${anglesB[a].nom}}$ et $\widehat{${anglesB[b].nom}}$ sont opposés par le sommet. <br> Donc ils sont de même mesure.`}
           <br>
-          Les angles $\widehat{${anglesA[a].nom}}$ et $\widehat{${nomAngleSolution}}$ sont ${angles} et ${sont} de la même mesure.
+          Donc les angles $\widehat{${anglesA[a].nom}}$ et $\widehat{${nomAngleSolution}}$ sont ${angles} ${coord} de la même mesure.
           <br>
           Donc les droites ${sont} parallèles.
           `
@@ -1053,7 +1057,7 @@ export default function ExercicesAnglesAIC () {
           let texte = String.raw`
           Donnée : Les droites sont parallèles.
           <br>
-          En déduire la mesure de l'angle $\widehat{${anglesB[b].nom}}$.
+          En déduire la mesure de l'angle $\widehat{${anglesB[b].nom}}$.<br>
           `
           const nomAngleSolution = angles !== 'alternes-internes' ? anglesB[a].nom : a === 'c' ? anglesB.a.nom : anglesB.b.nom
           const texteCorr = mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsCorrection) + String.raw`
@@ -1061,10 +1065,10 @@ export default function ExercicesAnglesAIC () {
           Les angles $\widehat{${anglesA[a].nom}}$ et $\widehat{${nomAngleSolution}}$ sont ${angles} et formés par des droites parallèles.
           <br>
           Donc ils sont de même mesure.
+          <br>De plus, 
+          ${calculs !== undefined ? calculs : String.raw`De plus, les angles $\widehat{${anglesB[a].nom}}$ et $\widehat{${anglesB[b].nom}}$ et vert sont opposés par le sommet.<br> Donc ils sont de même mesure.`}
           <br>
-          ${calculs !== undefined ? calculs : String.raw`Les angles $\widehat{${anglesB[a].nom}}$ et $\widehat{${anglesB[b].nom}}$ et vert sont opposés par le sommet.<br> Ils sont donc de même mesure.`}
-          <br>
-          L'angle $\widehat{${anglesB[b].nom}}$ mesure donc ${mesure}.
+          Donc l'angle $\widehat{${anglesB[b].nom}}$ mesure ${mesure}.
           `
           texte += mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsEnonce)
           exercice = { texte: texte, texteCorr: texteCorr }
