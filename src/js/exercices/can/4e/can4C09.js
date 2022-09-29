@@ -61,14 +61,17 @@ export default function PuissancesDe2345 () {
     }
     this.question = `$${ecritureParentheseSiNegatif(a)}^${b}=$`
     this.correction = `$${ecritureParentheseSiNegatif(a)}^${b}=`
-    this.correction += `${ecritureParentheseSiNegatif(a)}`
+
     if (b > 1) {
+      this.correction += `${ecritureParentheseSiNegatif(a)}`
       for (let i = 1; i < b; i++) {
         this.correction += `\\times${ecritureParentheseSiNegatif(a)}`
       }
       this.correction += `=${a ** b}$`
     } else {
-      this.correction += '$'
+      if (b === 1 || b === 0) {
+        this.correction += ` ${a ** b}$`
+      }
     }
     this.reponse = a ** b
   }
