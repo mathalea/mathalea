@@ -107,12 +107,15 @@ export default function ExerciceMultiplierFractions () {
         if (a === c) {
           a++
         }
-        const facteurA = obtenirListeNombresPremiers()[randint(1, 5)]
-        const facteurB = obtenirListeNombresPremiers()[randint(1, 5, [facteurA])]
-        a = a * facteurA
-        d = d * facteurA
-        b = b * facteurB
-        c = c * facteurB
+        let facteurA, facteurB
+        do {
+          facteurA = obtenirListeNombresPremiers()[randint(1, 5)]
+          facteurB = obtenirListeNombresPremiers()[randint(1, 5)]
+          a = a * facteurA
+          d = d * facteurA
+          b = b * facteurB
+          c = c * facteurB
+        } while (Math.abs(a) === Math.abs(b))
         switch (typesDeQuestions) {
           case 1: // entier * fraction (tout positif)
             b = 1

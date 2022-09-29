@@ -515,7 +515,7 @@ export default class FractionX extends Fraction {
   */
   texDiviseFraction (f2, simplification = 'none', symbole = '/') {
     if (this.estEntiere) {
-      if (f2.inverse().estEntiere) {
+      if (f2.inverse().estEntiere && f2.num === 1) {
         if (symbole === '/') {
           return `\\dfrac{${this.texFraction}}{${f2.texFraction}}=${this.simplifie().texFSD}\\times ${f2.inverse().simplifie().texFSP}=${this.simplifie().num * f2.inverse().simplifie().num}`
           // pas de simplification : on multiplie deux entiers !
@@ -537,7 +537,7 @@ export default class FractionX extends Fraction {
         }
       }
     } else {
-      if (f2.inverse().estEntiere) { // && f2.num === 1) {
+      if (f2.inverse().estEntiere && f2.num === 1) {
         if (symbole === '/') {
           return `\\dfrac{${this.texFraction}}{${f2.texFraction}}=${this.texFraction}\\times ${f2.inverse().simplifie().texFSP}=\\dfrac{${this.num + '\\times ' + f2.inverse().simplifie().texFSP}}{${this.den}}
       ${simplification === 'none' || this.diviseFraction(f2).estIrreductible
