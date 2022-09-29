@@ -17,7 +17,7 @@ export const dateDeModifImportante = '18/06/2022'
 */
 export const uuid = 'e2e64'
 export const ref = '5L16'
-export default function NomExercice () {
+export default function SimplifierEcritureLitterale () {
   Exercice.call(this)
   this.nbQuestions = 10
 

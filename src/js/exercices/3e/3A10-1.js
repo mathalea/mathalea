@@ -30,7 +30,7 @@ export default function PremierOuPas () {
   this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = false // Par défaut on n'affiche pas la liste des nombres premiers
-  this.nbQuestionsModifiable = false
+  // this.nbQuestionsModifiable = false (EE : bloquant pour AMC sinon)
   this.listePackages = 'bclogo'
   const prems = cribleEratostheneN(529) // constante contenant tous les nombres premiers jusqu'à 529...
 
