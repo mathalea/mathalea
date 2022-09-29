@@ -41,13 +41,13 @@ export default function EncadrerRacineCarreeEntre2Entiers () {
 
           a = randint(3, 143, [4, 9, 16, 25, 36, 49, 64, 81, 100, 121])
           reponse = Math.floor(Math.sqrt(a))
-          texte = `Encadrer par deux entiers consécutifs  $\\sqrt{${a}}$.<br>`
+          texte = `Encadrer $\\sqrt{${a}}$ par deux entiers consécutifs.<br>`
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline') + `$< \\sqrt{${a}} <$` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline nospacebefore') }
           texteCorr = `Comme $${a}$ n'est pas le carré d'un nombre entier, on encadre $${a}$ par deux carrés d'entiers : <br>
           $${Math.floor(Math.sqrt(a)) ** 2} < ${a} < ${(Math.floor(Math.sqrt(a)) + 1) ** 2}$, soit $${Math.floor(Math.sqrt(a))}^2 < ${a} < ${(Math.floor(Math.sqrt(a)) + 1)}^2$.<br><br>
           En prenant la racine carrée de chacun de ces nombres, on obtient : <br>$\\sqrt{${Math.floor(Math.sqrt(a))}^2} < \\sqrt{${a}} < \\sqrt{${(Math.floor(Math.sqrt(a)) + 1)}^2}$ 
-        (le passage à la racine carrée de chacun des nombres ne change pas le sens des inégalités). <br><br>
-        Finalement, on obtient l'encadrement on obtient l'encadrement par deux entiers consécutifs de  $\\sqrt{${a}}$  : $${Math.floor(Math.sqrt(a))}< \\sqrt{${a}} < ${(Math.floor(Math.sqrt(a)) + 1)}$. 
+        (on ne change pas le sens des inégalités en prenant les racines carrées. Ce résultat admis sera démontré dans le chapitre sur les variations). <br><br>
+        Finalement, on obtient l'encadrement de  $\\sqrt{${a}}$ par deux entiers consécutifs   : $${Math.floor(Math.sqrt(a))}< \\sqrt{${a}} < ${(Math.floor(Math.sqrt(a)) + 1)}$. 
    `
           setReponse(this, 2 * i, reponse)
           setReponse(this, 2 * i + 1, reponse + 1)
@@ -58,13 +58,13 @@ export default function EncadrerRacineCarreeEntre2Entiers () {
           c = randint(-9, 9, [0, 1])
           reponse1 = b + c * Math.floor(Math.sqrt(a))
           reponse2 = b + c * Math.floor(Math.sqrt(a) + 1)
-          texte = `En utilisant un encadrement par  deux entiers consécutifs de $\\sqrt{${a}}$, donner un encadrement le plus précis possible de $${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}}$.<br>`
+          texte = `En utilisant un encadrement  de $\\sqrt{${a}}$ par  deux entiers consécutifs, donner un encadrement de $${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}}$ le plus précis possible.<br>`
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline') + `$< ${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}} <$` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline nospacebefore') }
           texteCorr = `Comme $${a}$ n'est pas le carré d'un nombre entier, on encadre $${a}$ par deux carrés d'entiers : <br>
           $${Math.floor(Math.sqrt(a)) ** 2} < ${a} < ${(Math.floor(Math.sqrt(a)) + 1) ** 2}$, soit $${Math.floor(Math.sqrt(a))}^2 < ${a} < ${(Math.floor(Math.sqrt(a)) + 1)}^2$.<br><br>
           En prenant la racine carrée de chacun de ces nombres, on obtient : <br>$\\sqrt{${Math.floor(Math.sqrt(a))}^2} < \\sqrt{${a}} < \\sqrt{${(Math.floor(Math.sqrt(a)) + 1)}^2}$ 
-        (le passage à la racine carrée de chacun des nombres ne change pas le sens des inégalités). <br><br>
-        Finalement, on obtient l'encadrement par deux entiers consécutifs de  $\\sqrt{${a}}$  : $${Math.floor(Math.sqrt(a))}< \\sqrt{${a}} < ${(Math.floor(Math.sqrt(a)) + 1)}$. <br><br>
+        (on ne change pas le sens des inégalités en prenant les racines carrées. Ce résultat admis sera démontré dans le chapitre sur les variations). <br><br>
+        Finalement, on obtient l'encadrement de  $\\sqrt{${a}}$ par deux entiers consécutifs   : $${Math.floor(Math.sqrt(a))}< \\sqrt{${a}} < ${(Math.floor(Math.sqrt(a)) + 1)}$. <br><br>
         En partant de cet encadrement, on obbtient successivement :<br>`
           if (c > 0) {
             texteCorr += `$\\begin{aligned}
@@ -104,9 +104,9 @@ export default function EncadrerRacineCarreeEntre2Entiers () {
           r2b = new Decimal(arrondi(r2c)).add(b)
           reponse1 = a
           reponse2 = a
-          texte = `En utilisant l'encadrement $${texNombre(r1, 1)}<\\sqrt{${a}}<${texNombre(r2, 1)}$, donner un encadrement le plus précis possible de $${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}}$.<br>`
+          texte = `En utilisant l'encadrement $${texNombre(r1, 1)}<\\sqrt{${a}}<${texNombre(r2, 1)}$, donner un encadrement de $${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}}$ le plus précis possible.<br>`
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline') + `$< ${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}} <$` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline nospacebefore') }
-          texteCorr = `À partir de l'encadrment $${texNombre(r1, 1)}<\\sqrt{${a}}<${texNombre(r2, 1)}$, on obtient successivement :<br>`
+          texteCorr = `À partir de l'encadrement $${texNombre(r1, 1)}<\\sqrt{${a}}<${texNombre(r2, 1)}$, on obtient successivement :<br>`
           if (c > 0) {
             texteCorr += `$\\begin{aligned}
             ${texNombre(r1, 1)} &< \\sqrt{${a}} < ${texNombre(r2, 1)}\\\\
@@ -144,5 +144,5 @@ export default function EncadrerRacineCarreeEntre2Entiers () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix des questions', 4, '\n1 : Encadrer $\\sqrt{a}$\n2 : Encadrer $a+b\\sqrt{c}$ avec des entiers\n3 : Encadrer $a+b\\sqrt{c}$ avec des décimaux\n4 : mélange']
+  this.besoinFormulaireNumerique = ['Choix des questions', 4, '\n1 : Encadrer sqrt(a)\n2 : Encadrer a+b*sqrt(c) avec des entiers\n3 : Encadrer a+b*sqrt(c) avec des décimaux\n4 : mélange']
 }
