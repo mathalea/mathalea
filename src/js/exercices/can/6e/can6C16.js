@@ -17,11 +17,11 @@ export default function DoubleEtMoitie () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const a = randint(1, 25) * 2 // variables aléatoires
-    this.question = `Le double d'un nombre vaut $${2 * a}$, combien vaut sa moitié ?<br>`
+    this.question = `Le double d'un nombre vaut $${2 * a}$, combien vaut sa moitié ?`
     this.correction = `Sa moitié vaut : $${texNombrec(a / 2)}$.
      `
     this.correction += texteEnCouleur(`

@@ -23,7 +23,7 @@ export default function Tables5A9 () {
     const a = randint(3, 9)
     const b = randint(5, 9)
     this.reponse = a * b
-    this.question = `$${a} \\times ${b}=$`
+    this.question = `Calculer $${a} \\times ${b}$.`
     this.correction = `$${a} \\times ${b}=${a * b}$`
   }
 }

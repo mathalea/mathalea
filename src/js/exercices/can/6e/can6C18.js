@@ -17,7 +17,7 @@ export default function ResteDivisionEuclidienne () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let a, b, c, d, q, r

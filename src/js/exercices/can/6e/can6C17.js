@@ -24,7 +24,7 @@ export default function FractionSimpleDeQuantite () {
     const a = randint(2, 6)
     this.reponse = calcul(randint(2, 9) * 10)
     const b = calcul(this.reponse * a)
-    this.question = `$\\dfrac{1}{${a}} \\text{ de } ${b} \\text{ L} = $`
+    this.question = `Calculer $\\dfrac{1}{${a}} \\text{ de } ${b} \\text{ L}$.`
     this.correction = `$\\dfrac{1}{${a}}$ de $${b}$ L = $${this.reponse}$ L`
     this.correction += texteEnCouleur(`
     <br> Mentalement : <br>

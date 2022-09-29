@@ -19,7 +19,7 @@ export default function FractionCommeFacteurManquant () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.formatInteractif = 'fractionEgale'
   this.consigne = ''
@@ -32,7 +32,7 @@ export default function FractionCommeFacteurManquant () {
     } while (pgcd(a, b) !== 1)
     const c = new FractionEtendue(a, b)
     this.reponse = c
-    this.question = `Quel est le nombre qui, multiplié par $${b}$ donne $${a}$ ? (réponse fractionnaire obligatoire)`
+    this.question = `Quel est le nombre qui, multiplié par $${b}$ donne $${a}$ ?`
     this.correction = `Le nombre qui, multiplié par $a$ donne $b$ est le nombre $\\dfrac{b}{a}$.<br>
     Ainsi, le nombre qui,  multiplié par $${b}$ donne $${a}$ est $${c.texFraction}$.<br>
     On a bien : $ ${b} \\times${c.texFraction}= ${a}$`

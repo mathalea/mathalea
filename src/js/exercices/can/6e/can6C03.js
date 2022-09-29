@@ -25,10 +25,10 @@ export default function AdditionATrou () {
     const c = randint(1, 5)
     const d = randint(1, 4)
     this.reponse = d * 10 + b
-    this.question = `$${c * 10 + a} + \\dots = ${calcul((c + d) * 10 + b + a)}$`
+    this.question = `Compléter  $${c * 10 + a} + \\dots = ${calcul((c + d) * 10 + b + a)}$`
     // Si les exos can avaient toujours cette propriété this.question on pourrait faire un ajout automatique
-    this.canEnonce = 'Compléter'
-    this.canReponseACompleter = this.question
+    this.canEnonce = 'Compléter.'
+    this.canReponseACompleter = `$${c * 10 + a} + \\dots = ${calcul((c + d) * 10 + b + a)}$`// this.question
     this.correction = `On obtient le nombre cherché par la différence : $${calcul((c + d) * 10 + b + a)} - ${c * 10 + a} = ${this.reponse}$`
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
     On complète $${c * 10 + a}$ jusqu'à la dizaine la plus proche en ajoutant $${(c + 1) * 10 - (c * 10 + a)}$, on obtient $${(c + 1) * 10}$,
