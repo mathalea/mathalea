@@ -65,14 +65,10 @@ export default function NomExercice () {
           denominateur = denominateur * facteurSurprise
           break
       }
-      texte = `$\\cfrac{${numerateur}}{${denominateur}}$`
-      texteCorr = `${texte} $
-      = \\cfrac{${decompositionFacteursPremiersBarres(numerateur, [facteurCommun1, facteurCommun2, facteurCommun3])}}{${decompositionFacteursPremiersBarres(denominateur, [facteurCommun1, facteurCommun2, facteurCommun3])}}
-      = \\cfrac{${numerateur / (facteurCommun1 * facteurCommun2 * facteurCommun3)}}{${denominateur / (facteurCommun1 * facteurCommun2 * facteurCommun3)}}$`
-      setReponse(this, i, new FractionX(numerateur / (facteurCommun1 * facteurCommun2 * facteurCommun3), denominateur / (facteurCommun1 * facteurCommun2 * facteurCommun3)), { formatInteractif: 'fraction' })
-      if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i, 'inline largeur25', { texte: ' =' })
-      }
+      const f = new FractionX(numerateur, denominateur)
+      texte = `$${f.texFraction}$${ajouteChampTexteMathLive(this, i, 'inline largeur25', { texte: ' =' })}`
+      texteCorr = `$${f.texFraction}${f.texSimplificationAvecEtapes(true)}$`
+      setReponse(this, i, f.simplifie(), { formatInteractif: 'fraction' })
       if (this.questionJamaisPosee(i, numerateur, denominateur)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

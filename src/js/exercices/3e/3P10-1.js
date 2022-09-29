@@ -1,8 +1,9 @@
 /* eslint-disable camelcase */
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombrec, texPrix, modalUrl } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, modalUrl, texNombre, contraindreValeur } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import Decimal from 'decimal.js/decimal.mjs'
 export const titre = 'Coefficient multiplicateur d\'une variation en pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -31,9 +32,8 @@ export default function CoefficientEvolution () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.boutonAide = modalUrl(numeroExercice, 'https://coopmaths.fr/aide/3P10/')
-    this.sup = parseInt(this.sup)
-
     let typesDeQuestionsDisponibles = []
+    this.sup = contraindreValeur(1, 3, this.sup, 1)
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['coef+', 'coef-']
     }
@@ -51,32 +51,38 @@ export default function CoefficientEvolution () {
       switch (listeTypeDeQuestions[i]) {
         case 'coef+':
           texte = `Augmenter de $${taux}~\\%$ revient à multiplier par...`
-          coeff = texPrix(calcul(1 + taux / 100))
-          texteCorr = `Augmenter de $${taux}~\\%$ revient à multiplier par ${coeff} car $100~\\% + ${taux}~\\% = ${100 + taux}~\\%$.`
-          reponse = calcul(1 + taux / 100)
+          coeff = texNombre(1 + taux / 100, 2)
+          texteCorr = `Augmenter de $${taux}~\\%$ revient à multiplier par $${coeff}$ car $100~\\% + ${taux}~\\% = ${100 + taux}~\\%$.`
+          reponse = new Decimal(taux).div(100).add(1)
+          setReponse(this, i, reponse, { formatInteractif: 'calcul' })
+
           break
         case 'coef-':
           texte = `Diminuer de $${taux}~\\%$ revient à multiplier par...`
-          coeff = texPrix(calcul(1 - taux / 100))
-          texteCorr = `Diminuer de $${taux}~\\%$ revient à multiplier par ${coeff} car $100~\\% - ${taux}~\\% = ${100 - taux}~\\%$.`
-          reponse = calcul(1 - taux / 100)
+          coeff = texNombre(1 - taux / 100, 2)
+          texteCorr = `Diminuer de $${taux}~\\%$ revient à multiplier par $${coeff}$ car $100~\\% - ${taux}~\\% = ${100 - taux}~\\%$.`
+          reponse = new Decimal(-taux).div(100).add(1)
+          setReponse(this, i, reponse, { formatInteractif: 'calcul' })
+
           break
         case 'taux+':
-          coeff = texNombrec(1 + taux / 100)
+          coeff = texNombre(1 + taux / 100, 2)
           texte = this.interactif ? `Multiplier par $${coeff}$ revient à faire...` : `Multiplier par $${coeff}$ revient à...`
           texteCorr = `Multiplier par $${coeff}$ revient à augmenter de $${taux}~\\%$ car $${coeff} = ${100 + taux}~\\% = 100~\\% + ${taux}~\\%$.`
           reponse = `+${taux}\\%`
+          setReponse(this, i, reponse, { formatInteractif: 'texte' })
+
           break
         case 'taux-':
-          coeff = texNombrec(1 - taux / 100)
+          coeff = texNombre(1 - taux / 100, 2)
           texte = this.interactif ? `Multiplier par $${coeff}$ revient à faire...` : `Multiplier par $${coeff}$ revient à...`
           texteCorr = `Multiplier par $${coeff}$ revient à diminuer de $${taux}~\\%$ car $${coeff} = ${100 - taux}~\\% = 100~\\% - ${taux}~\\%$.`
           reponse = `-${taux}\\%`
+          setReponse(this, i, reponse, { formatInteractif: 'texte' })
           break
       }
-      setReponse(this, i, reponse)
       texte += ajouteChampTexteMathLive(this, i)
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, taux)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

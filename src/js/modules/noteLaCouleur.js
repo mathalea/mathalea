@@ -233,7 +233,7 @@ class NoteLaCouleur {
 export function noteLaCouleur ({
   x = 15, y = 15, orientation = 90, plateau = [], relatif = true, nx = 16, ny = 12, pas = 30
 } = {}) {
-  return new NoteLaCouleur({ x: x, y: y, orientation: orientation, relatif: relatif, plateau: plateau, nx: nx, ny: ny, pas: pas })
+  return new NoteLaCouleur({ x, y, orientation, relatif, plateau, nx, ny, pas })
 }
 class Plateau2dNLC {
   constructor ({
@@ -278,7 +278,7 @@ class Plateau2dNLC {
         case 'Blanc':
           return 'white'
         case 'Bleu':
-          return 'blue'
+          return 'DodgerBlue'
         case 'Noir':
           return 'black'
         case 'Rouge':
@@ -286,11 +286,11 @@ class Plateau2dNLC {
         case 'Jaune':
           return 'yellow'
         case 'Rose':
-          return 'pink'
+          return 'HotPink'
         case 'Vert':
           return 'green'
         case 'Orange':
-          return '#f15929'
+          return 'DarkOrange'
         case 'Gris':
           return 'gray'
       }
@@ -317,28 +317,6 @@ class Plateau2dNLC {
           return '8'
       }
     }
-    this.traducLettres = function (couleur) {
-      switch (couleur) {
-        case 'Blanc':
-          return 'Blanc'
-        case 'Bleu':
-          return 'Bleu'
-        case 'Noir':
-          return 'Noir'
-        case 'Rouge':
-          return 'Rouge'
-        case 'Jaune':
-          return 'Jaune'
-        case 'Rose':
-          return 'Rose'
-        case 'Vert':
-          return 'Vert'
-        case 'Orange':
-          return 'Orange'
-        case 'Gris':
-          return 'Gris'
-      }
-    }
 
     const plateau2d = []
     let b
@@ -354,7 +332,7 @@ class Plateau2dNLC {
             b.opacite = 0.8
             break
           case 3:
-            b = boite({ Xmin: X * 1.5 + (this.nx >> 1) * (this.relatif ? -1.5 : 0), Ymin: Y * 1.5 + (this.ny >> 1) * (this.relatif ? -1.5 : 0), Xmax: (X + 1) * 1.5 + (this.nx >> 1) * (this.relatif ? -1.5 : 0), Ymax: (Y + 1) * 1.5 + (this.ny >> 1) * (this.relatif ? -1.5 : 0), color: 'black', opaciteDeRemplissage: 1, colorFill: 'white', tailleTexte: 0.9, texteColor: 'black', texteOpacite: 0.9, texteIn: this.traducLettres(this.plateauNLC[ny - 1 - Y][X]), echelleFigure: this.scale })
+            b = boite({ Xmin: X * 1.5 + (this.nx >> 1) * (this.relatif ? -1.5 : 0), Ymin: Y * 1.5 + (this.ny >> 1) * (this.relatif ? -1.5 : 0), Xmax: (X + 1) * 1.5 + (this.nx >> 1) * (this.relatif ? -1.5 : 0), Ymax: (Y + 1) * 1.5 + (this.ny >> 1) * (this.relatif ? -1.5 : 0), color: 'black', opaciteDeRemplissage: 1, colorFill: 'white', tailleTexte: 0.9, texteColor: 'black', texteOpacite: 0.9, texteIn: this.plateauNLC[ny - 1 - Y][X], echelleFigure: this.scale })
             b.opacite = 0.8
             break
           case 4:
@@ -383,7 +361,19 @@ class Plateau2dNLC {
     flechex.styleExtremites = '->'
     plateau2d.push(flechey)
     plateau2d.push(flechex)
-
+    let xmin = 1000
+    let ymin = 1000
+    let xmax = -1000
+    let ymax = -1000
+    for (const objet of plateau2d) {
+      if (objet.bordures !== undefined) {
+        xmin = Math.min(xmin, objet.bordures[0])
+        ymin = Math.min(ymin, objet.bordures[1])
+        xmax = Math.max(xmax, objet.bordures[2])
+        ymax = Math.max(ymax, objet.bordures[3])
+      }
+    }
+    this.bordures = [xmin, ymin, xmax, ymax]
     this.svg = function (coeff) {
       let code = ''
       for (const objet of plateau2d) {
