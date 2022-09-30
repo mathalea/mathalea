@@ -72,21 +72,18 @@ export default function SimplifierFractions () {
       texteCorr = `$${f.texFraction}${f.texSimplificationAvecEtapes(true)}$`
       setReponse(this, i, f.simplifie(), { formatInteractif: 'fraction' })
       if (context.isAmc) {
-        this.autoCorrection[i] = [
+        this.autoCorrection[i] =
           {
             enonce: 'Rendre irréductible la fraction ' + texte + '.<br>La rédaction sera évaluée plus que le résultat en lui-même.',
             propositions: [
               {
                 texte: texteCorr,
                 statut: 3, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-                feedback: '',
-                enonce: 'Texte écrit au dessus ou avant les cases à cocher', // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
                 sanscadre: false, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
                 pointilles: false // EE : ce champ est facultatif et permet (si false) d'enlever les pointillés sur chaque ligne.
               }
             ]
           }
-        ]
       }
       if (this.questionJamaisPosee(i, numerateur, denominateur)) {
         this.listeQuestions.push(texte)
