@@ -34,7 +34,8 @@ export default function ExerciceMultiplierFractions () {
   this.spacingCorr = 2
   this.nbQuestions = 5
   this.nbColsCorr = 1
-  this.sup2 = false // méthode
+  this.sup2 = true // méthode de simplification par défaut = factorisation
+  this.sup4 = 1 // multiplications par défaut
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -106,12 +107,15 @@ export default function ExerciceMultiplierFractions () {
         if (a === c) {
           a++
         }
-        const facteurA = obtenirListeNombresPremiers()[randint(1, 5)]
-        const facteurB = obtenirListeNombresPremiers()[randint(1, 5, [facteurA])]
-        a = a * facteurA
-        d = d * facteurA
-        b = b * facteurB
-        c = c * facteurB
+        let facteurA, facteurB
+        do {
+          facteurA = obtenirListeNombresPremiers()[randint(1, 5)]
+          facteurB = obtenirListeNombresPremiers()[randint(1, 5)]
+          a = a * facteurA
+          d = d * facteurA
+          b = b * facteurB
+          c = c * facteurB
+        } while (Math.abs(a) === Math.abs(b))
         switch (typesDeQuestions) {
           case 1: // entier * fraction (tout positif)
             b = 1
@@ -137,7 +141,7 @@ export default function ExerciceMultiplierFractions () {
         reponse = f1.produitFraction(f2).simplifie()
       } else {
         texte = `$\\dfrac{${f1.texFSD}}{${f2.texFraction}}=$`
-        texteCorr = `$${f1.texDiviseFraction(f2, this.sup2)}$`
+        texteCorr = `$${f1.texDiviseFraction(f2, this.sup2, '/')}$`
         reponse = f1.diviseFraction(f2).simplifie()
       }
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
