@@ -171,25 +171,23 @@ export default function VocabulaireDivisionEuclidienne () {
           this.autoCorrection[i].propositions = [
             {
               texte: 'dividende',
-              statut: true,
-              feedback: ReponsesCorrectes.includes('dividende')
+              statut: ReponsesCorrectes.includes('dividende')
             },
             {
               texte: 'diviseur',
-              statut: false,
-              feedback: ReponsesCorrectes.includes('diviseur')
+              statut: ReponsesCorrectes.includes('diviseur')
             },
             {
               texte: 'quotient',
-              statut: false,
-              feedback: ReponsesCorrectes.includes('quotient')
+              statut: ReponsesCorrectes.includes('quotient')
             },
             {
               texte: 'reste',
-              statut: false,
-              feedback: ReponsesCorrectes.includes('reste')
+              statut: ReponsesCorrectes.includes('reste')
             }
           ]
+          console.log(texte, ReponsesCorrectes)
+          console.log(this.autoCorrection[i].propositions)
           this.autoCorrection[i].options = {
             ordered: false
           }
