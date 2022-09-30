@@ -12,7 +12,7 @@ import { randint, arrondi, calcul, texNombrec, nombreAvecEspace, choice } from '
  * @author Jean-Claude Lhote
  * Fonction utilisée dans plusieurs exercices.
  */
-export default function choisirExpressionNumerique (nbOperations, decimal, timesOn = true, calculMental) {
+export default function ChoisirExpressionNumerique (nbOperations, decimal, timesOn = true, calculMental) {
   let expf; let expn; let expc; let repNum; const arrondir = Math.log10(decimal)
   let a = arrondi(randint(2 * decimal, 10 * decimal) / decimal, arrondir)
   let b = arrondi(randint(2 * decimal, 10 * decimal, [a * decimal]) / decimal, arrondir)

@@ -33,7 +33,7 @@ export const dateDePublication = '03/02/2022' // La date de publication initiale
  * @author Frédéric PIOU
  * Référence
 */
-export default function exercicesThales () {
+export default function ExercicesThales () {
   Exercice.call(this)
   const formulaire = [
     '1 : Angles marqués alternes-internes ou correspondants ?',

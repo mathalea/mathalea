@@ -163,7 +163,7 @@ export default function EvolutionsSuccesives () {
           if (tauxr < 0) {
             nomr = 'baisse'
           }
-          metier = choice(['d\'employés', 'de commmerciaux', 'de stagiaires', 'de jeunes diplomés'])
+          metier = choice(['d\'employés', 'de commerciaux', 'de stagiaires', 'de jeunes diplomés'])
           texte = `Le nombre ${metier} d'une entreprise a ${nom} de $${t}~\\%$.<br>Quelle évolution permettrait de retrouver le nombre de départ ?`
           texte += '<br>On donnera le taux d\'évolution en pourcentage, éventuellement arrondi à 0,1% près.'
           texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texteApres: '%' })

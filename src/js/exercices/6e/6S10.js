@@ -144,13 +144,13 @@ export default function LectureDiagrammeBarre () {
     for (let i = 0, borne, reponsea, reponseb, reponsec; i < nbAnimaux; i++) {
       lstElementGraph.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], premiereLettreEnMajuscule(lstAnimauxExo[i]), { unite: 0.1 / coef }))
       if (context.isAmc) {
-        reponsea = i === 0 ? { texte: '1) Animaux les moins nombreux :' } : {}
+        reponsea = i === 0 ? { texte: '1) Animaux les plus nombreux :' } : {}
         if (i === lstNombresAnimaux.indexOf(nMax)) {
           propa.push({ texte: premiereLettreEnMajuscule(lstAnimauxExo[i]), statut: true, reponse: reponsea })
         } else {
           propa.push({ texte: premiereLettreEnMajuscule(lstAnimauxExo[i]), statut: false, reponse: reponsea })
         }
-        reponseb = i === 0 ? { texte: '2) Animaux les plus nombreux :' } : {}
+        reponseb = i === 0 ? { texte: '2) Animaux les moins nombreux :' } : {}
         if (i === lstNombresAnimaux.indexOf(nMin)) {
           propb.push({ texte: premiereLettreEnMajuscule(lstAnimauxExo[i]), statut: true, reponse: reponseb })
         } else {

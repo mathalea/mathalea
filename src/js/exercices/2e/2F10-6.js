@@ -11,7 +11,7 @@ export const titre = 'Déterminer le sens de variation d\'une fonction affine'
 */
 export const uuid = 'b72b0'
 export const ref = '2F10-6'
-export default function variationsfonctionaffine () {
+export default function Variationsfonctionaffine () {
   Exercice.call(this)
   this.titre = titre
   this.consigne = ''

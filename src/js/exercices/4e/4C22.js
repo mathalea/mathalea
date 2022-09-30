@@ -1,10 +1,10 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, abs, pgcd, texFractionReduite, obtenirListeFacteursPremiers, obtenirListeFractionsIrreductibles, obtenirListeNombresPremiers, decompositionFacteursPremiers, texFraction } from '../../modules/outils.js'
-import { fraction } from '../../modules/fractions.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, obtenirListeFractionsIrreductibles, obtenirListeNombresPremiers, contraindreValeur } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-export const titre = 'Multiplier des fractions'
+import FractionX from '../../modules/FractionEtendue.js'
+export const titre = 'Multiplier ou/et diviser des fractions'
 export const amcReady = true
 export const amcType = 'AMCNum' // type de question AMC
 export const interactifReady = true
@@ -34,7 +34,8 @@ export default function ExerciceMultiplierFractions () {
   this.spacingCorr = 2
   this.nbQuestions = 5
   this.nbColsCorr = 1
-  this.sup2 = false // méthode
+  this.sup2 = true // méthode de simplification par défaut = factorisation
+  this.sup4 = 1 // multiplications par défaut
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -47,53 +48,35 @@ export default function ExerciceMultiplierFractions () {
     } else {
       this.consigne = 'Calculer.'
     }
-
+    this.sup = contraindreValeur(1, 3, this.sup, 1)
+    this.sup4 = contraindreValeur(1, 3, this.sup4, 1)
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1, 2, 2, 2]// 1*nombre entier,3*fraction (pas de négatifs)
     } else if (this.sup === 2) {
-      typesDeQuestionsDisponibles = [2, 2, 3, 3] // fractions, 2*positifs, 2*relatifs
+      typesDeQuestionsDisponibles = [2, 3] // fractions, 50% fractions positives 50% fractions avec relatifs
     } else {
       typesDeQuestionsDisponibles = [3]
     }
+    // On choisit les opérations en fonction de this.sup4
+    const typesDoperation = []
+    if (this.sup4 % 2 === 1) typesDoperation.push('mul')
+    if (this.sup4 > 1) typesDoperation.push('div')
+    const listeTypesDoperation = combinaisonListes(typesDoperation, this.nbQuestions)
     let nombreDeSigneMoins
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
       this.nbQuestions
     )
     for (
-      let i = 0,
-        ab,
-        cd,
-        a,
-        b,
-        c,
-        d,
-        p,
-        aa,
-        bb,
-        cc,
-        dd,
-        signe,
-        numerateur,
-        denominateur,
-        index,
-        texte,
-        texteCorr,
-        reponse,
-        typesDeQuestions,
-        cpt = 0;
-      i < this.nbQuestions && cpt < 50;
-
-    ) {
+      let i = 0, a, b, c, d, texte, texteCorr, reponse, typesDeQuestions, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
       do {
-        ab = choice(listeFractions)
-        cd = choice(listeFractions)
-        a = ab[0]
-        b = ab[1]
-        c = cd[0]
-        d = cd[1]
+        const ab = choice(listeFractions)
+        const cd = choice(listeFractions);
+        [a, b] = ab;
+        [c, d] = cd
       } while ((a * c) % (b * d) === 0 || (a * c) % d === 0 || (b * d === 100))
+
       if (this.sup2 === false) {
         // methode 1 : simplifications finale
         switch (typesDeQuestions) {
@@ -104,85 +87,19 @@ export default function ExerciceMultiplierFractions () {
             if (a === c) {
               a = a + 1
             }
-            texte = `$${texFraction(a, 1)}\\times${texFraction(c, d)}=$`
-            texteCorr = `$${texFraction(a, 1)}\\times${texFraction(c, d)}`
-            texteCorr += `=\\dfrac{${a}}{1}\\times${texFraction(c, d)}`
-            texteCorr += `=${texFraction(
-              a + '\\times' + c,
-              '1\\times' + d
-            )}`
-            texteCorr += `=${texFraction(a * c, d)}`
-            if (pgcd(a * c, d) !== 1) {
-              texteCorr += `=${texFractionReduite(a * c, d)}$`
-            } else texteCorr += '$'
-            reponse = fraction(a * c, d).simplifie()
+            b = 1
             break
-
           case 2: // fraction * fraction tout positif
-            p = pgcd(a * c, b * d)
-            texte = `$${texFraction(a, b)}\\times${texFraction(c, d)}=$`
-            texteCorr = `$${texFraction(a, b)}\\times${texFraction(c, d)}`
-            texteCorr += `=${texFraction(
-              a + '\\times' + c,
-              b + '\\times' + d
-            )}`
-            texteCorr += `=${texFraction(a * c, b * d)}`
-            if (p !== 1) {
-              texteCorr += `=${texFraction(
-                (a * c) / p + '\\times\\cancel{' + p + '}',
-                (b * d) / p + '\\times\\cancel{' + p + '}'
-              )}`
-              texteCorr += `=${texFraction((a * c) / p, (b * d) / p)}$`
-            } else texteCorr += '$'
-            reponse = fraction(a * c, b * d).simplifie()
-
             break
 
           case 3:
-            a = a * randint(-1, 1, [0])
-            b = b * randint(-1, 1, [0])
-            c = c * randint(-1, 1, [0])
-            d = d * randint(-1, 1, [0])
-            nombreDeSigneMoins = (a < 0) + (b < 0) + (c < 0) + (d < 0)
-            if (Math.pow(-1, nombreDeSigneMoins) === 1) {
-              signe = ''
-            } else {
-              signe = '-'
-            }
-
-            texte = `$${texFraction(a, b)}\\times${texFraction(c, d)}$`
-            texteCorr = `$${texFraction(a, b)}\\times${texFraction(c, d)}`
-            aa = abs(a)
-            bb = abs(b)
-            cc = abs(c)
-            dd = abs(d)
-            p = pgcd(aa * cc, bb * dd)
-            texteCorr += `=${signe}${texFraction(
-              aa,
-              bb
-            )}\\times${texFraction(cc, dd)}`
-            texteCorr += `=${signe}${texFraction(
-              aa + '\\times' + cc,
-              bb + '\\times' + dd
-            )}`
-            if (p === 1) {
-              texteCorr += `=${signe}${texFraction(aa * cc, bb * dd)}$`
-            } else {
-              texteCorr += `=${signe}${texFraction(aa * cc, bb * dd)}`
-              if (aa * cc !== bb * dd) {
-                texteCorr += `=${signe}${texFraction(
-                  (aa * cc) / p + '\\times\\cancel{' + p + '}',
-                  (bb * dd) / p + '\\times\\cancel{' + p + '}'
-                )}`
-                texteCorr += `=${signe}${texFraction(
-                  (aa * cc) / p,
-                  (bb * dd) / p
-                )}$`
-              } else {
-                texteCorr += `=${signe}1$`
-              }
-            }
-            reponse = fraction(a * c, b * d).simplifie()
+            do {
+              a = a * choice([-1, 1])
+              b = b * choice([-1, 1])
+              c = c * choice([-1, 1])
+              d = d * choice([-1, 1])
+              nombreDeSigneMoins = (a < 0) + (b < 0) + (c < 0) + (d < 0)
+            } while (nombreDeSigneMoins < 2)
             break
         }
       } else {
@@ -190,262 +107,42 @@ export default function ExerciceMultiplierFractions () {
         if (a === c) {
           a++
         }
-        aa = obtenirListeNombresPremiers()[randint(1, 5)]
-        bb = obtenirListeNombresPremiers()[randint(1, 5, [aa])]
-        a = a * aa
-        d = d * aa
-        b = b * bb
-        c = c * bb
-
-        const listea = obtenirListeFacteursPremiers(a)
-        let listeb = obtenirListeFacteursPremiers(b)
-        const listec = obtenirListeFacteursPremiers(c)
-        const listed = obtenirListeFacteursPremiers(d)
-        let listeAvf, listeBvf
-
+        let facteurA, facteurB
+        do {
+          facteurA = obtenirListeNombresPremiers()[randint(1, 5)]
+          facteurB = obtenirListeNombresPremiers()[randint(1, 5)]
+          a = a * facteurA
+          d = d * facteurA
+          b = b * facteurB
+          c = c * facteurB
+        } while (Math.abs(a) === Math.abs(b))
         switch (typesDeQuestions) {
           case 1: // entier * fraction (tout positif)
-            texte = `$${a}\\times${texFraction(c, d)}=$`
-            texteCorr = `$${a}\\times${texFraction(c, d)}`
-            texteCorr += `=${texFraction(a + '\\times' + c, d)}`
-            texteCorr += `=${texFraction(
-              decompositionFacteursPremiers(a) +
-              '\\times' +
-              decompositionFacteursPremiers(c),
-              decompositionFacteursPremiers(d)
-            )}`
-            // texteCorr += `$=${texFraction(decompositionFacteursPremiers(a * c), decompositionFacteursPremiers(d))}$`
-            for (const k in listec) {
-              listea.push(listec[k])
-            }
-            listeb = listed
-            listeAvf = []
-            listeBvf = []
-
-            listea.forEach(function aAjouterDansListeAvf (element) {
-              listeAvf.push([element, true])
-            })
-            listeb.forEach(function aAjouterDansListeBvf (element) {
-              listeBvf.push([element, true])
-            })
-
-            for (index = 0; index < listeb.length;) {
-              for (let j = 0; j <= listea.length;) {
-                if (listeb[index] === listea[j]) {
-                  listeBvf[index] = [listeb[index], false]
-                  listeAvf[j] = [listea[j], false]
-                  listea[j] = 1
-                  listeb[index] = 1
-                  break
-                }
-                j++
-              }
-              index++
-            }
-
-            a = 1
             b = 1
-            for (const k in listea) {
-              a = a * listea[k]
-            }
-            for (const k in listeb) {
-              b = b * listeb[k]
-            }
-
-            numerateur = ''
-            denominateur = ''
-
-            for (const j in listeAvf) {
-              if (listeAvf[j][1] === true) {
-                numerateur += listeAvf[j][0] + '\\times'
-              } else {
-                numerateur += '\\cancel{' + listeAvf[j][0] + '}\\times'
-              }
-            }
-            numerateur = numerateur.substr(0, numerateur.length - 6)
-
-            for (const j in listeBvf) {
-              if (listeBvf[j][1] === true) {
-                denominateur += listeBvf[j][0] + '\\times'
-              } else {
-                denominateur += '\\cancel{' + listeBvf[j][0] + '}\\times'
-              }
-            }
-            denominateur = denominateur.substr(0, denominateur.length - 6)
-
-            texteCorr += `=\\dfrac{${numerateur}}{${denominateur}}`
-            texteCorr += `=${texFraction(a, b)}$`
-            reponse = fraction(a, b)
             break
-
           case 2: // fraction * fraction tout positif
-            texte = `$${texFraction(a, b)}\\times${texFraction(c, d)}=$`
-            texteCorr = `$${texFraction(a, b)}\\times${texFraction(c, d)}`
-            texteCorr += `=${texFraction(
-              a + '\\times' + c,
-              b + '\\times' + d
-            )}`
-
-            for (const k in listec) {
-              listea.push(listec[k])
-            }
-            for (const k in listed) {
-              listeb.push(listed[k])
-            }
-
-            listeAvf = []
-            listeBvf = []
-
-            listea.forEach(function aAjouterDansListeAvf (element) {
-              listeAvf.push([element, true])
-            })
-            listeb.forEach(function aAjouterDansListeBvf (element) {
-              listeBvf.push([element, true])
-            })
-
-            for (index = 0; index < listeb.length;) {
-              for (let j = 0; j <= listea.length;) {
-                if (listeb[index] === listea[j]) {
-                  listeBvf[index] = [listeb[index], false]
-                  listeAvf[j] = [listea[j], false]
-                  listea[j] = 1
-                  listeb[index] = 1
-                  break
-                }
-                j++
-              }
-              index++
-            }
-
-            a = 1
-            b = 1
-            for (const k in listea) {
-              a = a * listea[k]
-            }
-            for (const k in listeb) {
-              b = b * listeb[k]
-            }
-
-            numerateur = ''
-            denominateur = ''
-
-            for (const j in listeAvf) {
-              if (listeAvf[j][1] === true) {
-                numerateur += listeAvf[j][0] + '\\times'
-              } else {
-                numerateur += '\\cancel{' + listeAvf[j][0] + '}\\times'
-              }
-            }
-            numerateur = numerateur.substr(0, numerateur.length - 6)
-
-            for (const j in listeBvf) {
-              if (listeBvf[j][1] === true) {
-                denominateur += listeBvf[j][0] + '\\times'
-              } else {
-                denominateur += '\\cancel{' + listeBvf[j][0] + '}\\times'
-              }
-            }
-            denominateur = denominateur.substr(0, denominateur.length - 6)
-
-            texteCorr += `=\\dfrac{${numerateur}}{${denominateur}}`
-            texteCorr += `=${texFraction(a, b)}$`
-            reponse = fraction(a, b)
             break
-
           case 3:
-            a = a * randint(-1, 1, [0])
-            b = b * randint(-1, 1, [0])
-            c = c * randint(-1, 1, [0])
-            d = d * randint(-1, 1, [0])
-            nombreDeSigneMoins = (a < 0) + (b < 0) + (c < 0) + (d < 0)
-            if (Math.pow(-1, nombreDeSigneMoins) === 1) {
-              signe = ''
-            } else {
-              signe = '-'
-            }
-
-            texte = `$${texFraction(a, b)}\\times${texFraction(c, d)}$`
-            texteCorr = `$${texFraction(a, b)}\\times${texFraction(c, d)}`
-            aa = abs(a)
-            bb = abs(b)
-            cc = abs(c)
-            dd = abs(d)
-
-            texteCorr += `=${signe}${texFraction(
-              aa,
-              bb
-            )}\\times${texFraction(cc, dd)}`
-            texteCorr += `=${signe}${texFraction(
-              aa + '\\times' + cc,
-              bb + '\\times' + dd
-            )}`
-
-            for (const k in listec) {
-              listea.push(listec[k])
-            }
-            for (const k in listed) {
-              listeb.push(listed[k])
-            }
-
-            listeAvf = []
-            listeBvf = []
-
-            listea.forEach(function aAjouterDansListeAvf (element) {
-              listeAvf.push([element, true])
-            })
-            listeb.forEach(function aAjouterDansListeBvf (element) {
-              listeBvf.push([element, true])
-            })
-
-            for (index = 0; index < listeb.length;) {
-              for (let j = 0; j <= listea.length;) {
-                if (listeb[index] === listea[j]) {
-                  listeBvf[index] = [listeb[index], false]
-                  listeAvf[j] = [listea[j], false]
-                  listea[j] = 1
-                  listeb[index] = 1
-                  break
-                }
-                j++
-              }
-              index++
-            }
-
-            a = 1
-            b = 1
-            for (const k in listea) {
-              a = a * listea[k]
-            }
-            for (const k in listeb) {
-              b = b * listeb[k]
-            }
-
-            numerateur = ''
-            denominateur = ''
-
-            for (const j in listeAvf) {
-              if (listeAvf[j][1] === true) {
-                numerateur += listeAvf[j][0] + '\\times'
-              } else {
-                numerateur += '\\cancel{' + listeAvf[j][0] + '}\\times'
-              }
-            }
-            numerateur = numerateur.substr(0, numerateur.length - 6)
-
-            for (const j in listeBvf) {
-              if (listeBvf[j][1] === true) {
-                denominateur += listeBvf[j][0] + '\\times'
-              } else {
-                denominateur += '\\cancel{' + listeBvf[j][0] + '}\\times'
-              }
-            }
-            denominateur = denominateur.substr(0, denominateur.length - 6)
-
-            texteCorr += `=${signe}\\dfrac{${numerateur}}{${denominateur}}`
-            texteCorr += `=${signe}${texFraction(a, b)}$`
-            reponse = fraction((signe === '-' ? -1 : 1) * a, b)
+            do {
+              a = a * choice([-1, 1])
+              b = b * choice([-1, 1])
+              c = c * choice([-1, 1])
+              d = d * choice([-1, 1])
+              nombreDeSigneMoins = (a < 0) + (b < 0) + (c < 0) + (d < 0)
+            } while (nombreDeSigneMoins < 2)
             break
         }
+      }
+      const f1 = new FractionX(a, b)
+      const f2 = new FractionX(c, d)
+      if (listeTypesDoperation[i] === 'mul') {
+        texte = `$${f1.texFSD}\\times${f2.texFraction}=$`
+        texteCorr = `$${f1.texProduitFraction(f2, this.sup2)}$`
+        reponse = f1.produitFraction(f2).simplifie()
+      } else {
+        texte = `$\\dfrac{${f1.texFSD}}{${f2.texFraction}}=$`
+        texteCorr = `$${f1.texDiviseFraction(f2, this.sup2, '/')}$`
+        reponse = f1.diviseFraction(f2).simplifie()
       }
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
@@ -469,8 +166,9 @@ export default function ExerciceMultiplierFractions () {
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
     3,
-    ' 1 : Fractions à numérateur et dénominateur positifs \n 2 : Type 1 et type 3 pour 50%/50%\n 3 : Ecritures fractionnaires à numérateur et dénominateur entiers relatifs'
+    ' 1 : Tout positif avec une fois sur 4 un entier\n 2 : Deux fractions (50% de type 1 et 50% de type 3)\n3 : Fractions avec nombres relatifs (au moins 2 négatifs)'
   ]
   this.besoinFormulaire2CaseACocher = ['Avec décomposition']
   this.besoinFormulaire3CaseACocher = ['Demander une fraction irréductible']
+  this.besoinFormulaire4Numerique = ['Type d\'opération', 3, '1 : Multiplication\n2 : Division\n3 : Mélange']
 }

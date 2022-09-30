@@ -13,7 +13,7 @@ export const titre = 'Calculer avec les identités remarquables - simple'
 
 export const uuid = '69522'
 export const ref = 'can2C04'
-export default function identitesCalculs2e () {
+export default function IdentitesCalculs2e () {
   identitesCalculs.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1

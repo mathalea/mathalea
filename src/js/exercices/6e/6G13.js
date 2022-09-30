@@ -20,7 +20,7 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
     this.titre = titre
     this.nbQuestions = 2
 
-    this.besoinFormulaireNumerique = ['Figure à tracer', 2, '1 : Carré\n2 : Rectangle\n3 : Mélange']
+    this.besoinFormulaireNumerique = ['Figure à tracer', 3, '1 : Carré\n2 : Rectangle\n3 : Mélange']
     this.sup = 3
   }
 

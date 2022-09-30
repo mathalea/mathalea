@@ -23,7 +23,7 @@ const choixFnct = [
  * @author Eric Schrafstetter
  * Référence
 */
-export default function calculDeProbabilitesAvecDeuxEnsemblesAetB () {
+export default function CalculDeProbabilitesAvecDeuxEnsemblesAetB () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Pour chaque expérience, calculer $P(A)$, $P(B)$, $P(A\\cap B)$ et $P(A\\cup B)$'
   this.nbQuestions = 2

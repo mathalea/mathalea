@@ -13,7 +13,7 @@ export const titre = 'Calcul mental et calcul littéral'
 
 export const uuid = '74c5a'
 export const ref = '2N40-6'
-export default function identitesCalculs2e () {
+export default function IdentitesCalculs2e () {
   identitesCalculs.call(this)
   this.sup = 4
 }

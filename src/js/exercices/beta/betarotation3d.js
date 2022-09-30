@@ -9,7 +9,7 @@ export const titre = 'Rotation 3d de polygones'
  * @author Jean-Claude Lhote
  * essais en vue de faire des animations de patrons de solides
  */
-export default function betaRotation3d () {
+export default function BetaRotation3d () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
   this.spacing = 2

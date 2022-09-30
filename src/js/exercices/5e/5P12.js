@@ -30,6 +30,9 @@ export default function PartagerSelonUnRatio () {
       prenom1 = prenomF()
       prenom2 = prenomM()
       prenom3 = prenom()
+      while (prenom3 === prenom1 || prenom3 === prenom2) {
+        prenom3 = prenom()
+      }
       quantite1 = randint(2, 9)
       quantite2 = randint(2, 9, [quantite1])
       quantite3 = randint(2, 9, [quantite1, quantite2])

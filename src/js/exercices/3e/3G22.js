@@ -165,7 +165,7 @@ export default function AgrandissementReduction () {
           mtg32App.giveFormula2(idDoc, 'c', c.toString())
           mtg32App.giveFormula2(idDoc, 'h1', h1.toString())
           mtg32App.giveFormula2(idDoc, 'h2', h2.toString())
-          // le 2e argument à true sert à recalculer les rand() éventuels contenus dans les formules, 
+          // le 2e argument à true sert à recalculer les rand() éventuels contenus dans les formules,
           // à priori inutile ici (car on initialise une figure), mais ça mange pas de pain
           mtg32App.calculate(idDoc, true)
           return mtg32App.display(idDoc)

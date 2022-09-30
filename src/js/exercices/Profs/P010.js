@@ -9,7 +9,7 @@ export const titre = 'Étude de fonctions de degré 3'
  * @author Jean-Claude Lhote
  * Référence P010
 */
-export default function variationPolynomeDegre3 () {
+export default function VariationPolynomeDegre3 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''

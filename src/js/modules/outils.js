@@ -205,7 +205,7 @@ export function centrage (texte) {
  * @param {number} defaut valeur par défaut si non entier
  */
 export function contraindreValeur (min, max, valeur, defaut) {
-  return !(isNaN(valeur)) ? (valeur < min) ? min : (valeur > max) ? max : Number(valeur) : defaut
+  return !(Number.isNaN(valeur)) ? (Number(valeur) < min) ? min : (Number(valeur) > max) ? max : Number(valeur) : defaut
 }
 
 /** Retourne un nombre décimal entre a et b, sans être trop près de a et de b
@@ -630,7 +630,7 @@ export function numTrie (arr) {
  * @param {number} tolerance La différence minimale entre deux valeurs pour les considérer comme égales
  * @author Jean-Claude Lhote
  **/
-export function enleveDoublonNum (arr, tolerance) {
+export function enleveDoublonNum (arr, tolerance = 0) {
   let k = 0
   while (k < arr.length - 1) {
     let kk = k + 1
@@ -1020,12 +1020,17 @@ export function signeMoinsEnEvidence (r, precision = 0) {
 */
 export function ecritureParentheseSiNegatif (a) {
   let result = ''
-  if (a >= 0) {
-    result = a
+  if (a instanceof Decimal) {
+    if (a.gte(0)) return texNombre(a, 8) // On met 8 décimales, mais cette fonctions s'utilise presque exclusivement avec des entiers donc ça ne sert à rien
+    else return `(${texNombre(a, 8)})`
   } else {
-    result = `(${a})`
+    if (a >= 0) {
+      result = texNombre(a, 8) // j'ai passé a dans texNombre, car la fonction ne prenait pas en compte l'écriture décimale !
+    } else {
+      result = `(${texNombre(a, 8)})`
+    }
+    return result
   }
-  return result
 }
 
 /**
@@ -3032,9 +3037,9 @@ export function arcenciel (i, fondblanc = true) {
   return couleurs[i % 7]
 }
 export function texcolors (i, fondblanc = true) {
-  const couleurs = ['black', 'blue', 'brown', 'cyan', 'darkgray', 'gray', 'green', 'lightgray', 'lime', 'magenta', 'olive', '#f15929', 'pink', 'purple', 'red', 'teal', 'violet', 'white', 'yellow']
-  if (fondblanc && i % 19 >= 17) i += 2
-  return couleurs[i % 19]
+  const couleurs = ['black', 'blue', 'GreenYellow', 'brown', 'LightSlateBlue', 'cyan', 'darkgray', 'HotPink', 'LightSteelBlue', 'Chocolate', 'gray', 'green', 'lightgray', 'lime', 'magenta', 'olive', 'DarkOrange', 'pink', 'purple', 'red', 'teal', 'violet', 'white', 'yellow']
+  if (fondblanc && i % couleurs.length >= couleurs.length - 2) i += 2
+  return couleurs[i % couleurs.length]
 }
 
 /**
@@ -6625,7 +6630,7 @@ export function telechargeFichier (text, filename) {
 */
 export function introLatex (entete = 'Exercices', listePackages = '') {
   if (entete === '') { entete = 'Exercices' }
-  return `\\documentclass[12pt]{article}
+  return `\\documentclass[12pt,svgnames]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
 %\\usepackage[utf8]{inputenc}        
 %\\usepackage[T1]{fontenc}
@@ -6709,7 +6714,7 @@ ${preambulePersonnalise(listePackages)}
 export function introLatexCan (entete = 'Course aux nombres', listePackages = '') {
   if (entete === '') { entete = 'Course aux nombres' }
   // return `\\documentclass[12pt, landscape]{article}
-  return `\\documentclass[12pt]{article}
+  return `\\documentclass[12pt,svgnames]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
 %\\usepackage[utf8]{inputenc}        
 %\\usepackage[T1]{fontenc}
@@ -6823,10 +6828,10 @@ ${preambulePersonnalise(listePackages)}
   \\MyBox{\\Large\\textsc{Score} : \\makebox[.15\\linewidth]{\\dotfill} / \\total{nbEx}}      
 \\end{minipage}
 \\par\\medskip \\hrulefill \\par
-\\checkmark \\textit{\\textbf{Durée : [À compléter dans le code source] minutes}}
+\\checkmark \\textit{\\textbf{Durée : [Temps total à modifier ici dans le code source] minutes}}
 
 \\smallskip
-\\checkmark \\textit{L'épreuve comporte \total{nbEx} questions.}
+\\checkmark \\textit{L'épreuve comporte \\total{nbEx} questions.}
 
 \\smallskip  
 \\checkmark \\textit{L'usage de la calculatrice et du brouillon sont interdits.}
@@ -6835,6 +6840,8 @@ ${preambulePersonnalise(listePackages)}
 \\checkmark \\textit{Il n'est pas permis d'écrire des calculs intermédiaires.}
 \\par \\hrulefill \\par\\vspace{5mm}
 \\begin{center}
+\\textbf{[Ligne ci-dessous à modifier dans le code source]}
+
 \\textsc{Sujet niveau NN - Mois Année}
 
 
@@ -6857,7 +6864,7 @@ ${preambulePersonnalise(listePackages)}
   \\draw (180:4) node[scale=3,rotate=-90]{MathALEA};
   \\clip (0,-6) rectangle (6,6); % pour croiser
   \\shadedraw  \\ruban;
-  \\draw (60:4) node [gray,xscale=-3,yscale=3,rotate=30]{Ti\\textit{k}Z};
+  \\draw (60:4) node [gray,xscale=2.5,yscale=2.5,rotate=-30]{CoopMaths};
 \\end{tikzpicture}
 \\end{center}
 \\clearpage
@@ -6869,7 +6876,7 @@ ${preambulePersonnalise(listePackages)}
 * @author Rémi Angot
 */
 export function introLatexCoop (listePackages) {
-  const introLatexCoop = `\\documentclass[12pt]{article}
+  const introLatexCoop = `\\documentclass[12pt,svgnames]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=4cm,bottom=2cm]{geometry}
 %\\usepackage[utf8]{inputenc}        
 %\\usepackage[T1]{fontenc}
@@ -7888,9 +7895,13 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += `\t\t${autoCorrection[j].enonce} \n `
         texQr += `\t\t\\explain{${autoCorrection[j].propositions[0].texte}}\n`
         texQr += `\t\t\\notation{${autoCorrection[j].propositions[0].statut}}`
-        if (!(isNaN(autoCorrection[j].propositions[0].sanscadre))) {
-          texQr += `[${autoCorrection[j].propositions[0].sanscadre}]` // le statut contiendra le nombre de lignes pour ce type
-        }
+        if (autoCorrection[j].propositions[0].sanscadre !== undefined) {
+          texQr += `[${autoCorrection[j].propositions[0].sanscadre}]` // le statut contiendra si on a un cadre ou pas
+        } else texQr += '[false]'
+        if (autoCorrection[j].propositions[0].pointilles !== undefined) {
+          texQr += `[${autoCorrection[j].propositions[0].pointilles}]` // // le statut contiendra les lignes sont des pointillés ou vierges
+        } else texQr += '[true]'
+
         texQr += '\n\t\\end{question}\n }\n'
         id++
         break
@@ -8336,7 +8347,7 @@ export function exportQcmAmc (exercice, idExo) {
         if (autoCorrection[j].enonceAGauche) {
           texQr += `\\noindent\\fbox{\\begin{minipage}{${autoCorrection[j].enonceAGauche[0]}\\linewidth}\n`
         }
-        sautDeLigneApresEnonce = '\\\\\n '
+        sautDeLigneApresEnonce = '\n '
         if (!(autoCorrection[j].enonceCentre === undefined) || (autoCorrection[j].enonceCentre)) {
           texQr += '\\begin{center}'
           sautDeLigneApresEnonce = ''
@@ -8616,10 +8627,10 @@ export function exportQcmAmc (exercice, idExo) {
               if (propositions[0].numQuestionVisible === undefined) {
                 texQr += `\t\t\\notation{${propositions[0].statut}}`
                 if (!(isNaN(propositions[0].sanscadre))) {
-                  texQr += `[${propositions[0].sanscadre}]` // le statut contiendra le nombre de lignes pour ce type
+                  texQr += `[${propositions[0].sanscadre}]` // le statut contiendra si on a un cadre ou pas
                 } else texQr += '[false]'
-                if (!(isNaN(propositions[0].sanslignes))) {
-                  texQr += `[${!propositions[0].sanslignes}]` // le statut contiendra le nombre de lignes pour ce type
+                if (!(isNaN(propositions[0].pointilles))) {
+                  texQr += `[${propositions[0].pointilles}]` // le statut contiendra les lignes sont des pointillés ou vierges
                 } else texQr += '[true]'
               }
 
@@ -8716,9 +8727,9 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \n`
   if (format === 'A3') {
-    preambule += '\t \\documentclass[10pt,a3paper,landscape,french]{article}\n'
+    preambule += '\t \\documentclass[10pt,a3paper,landscape,french,svgnames]{article}\n'
   } else {
-    preambule += '\t \\documentclass[10pt,a4paper,french]{article}\n'
+    preambule += '\t \\documentclass[10pt,a4paper,french,svgnames]{article}\n'
   }
 
   preambule += `\t
@@ -8888,7 +8899,6 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   const enteteTypeCodeGrid = `\\begin{minipage}{10cm}
   \\champnom{\\fbox{\\parbox{10cm}{    
     Écrivez vos nom, prénom et classe : \\\\
-   \\\\
   }}}
   \\end{minipage}
   
