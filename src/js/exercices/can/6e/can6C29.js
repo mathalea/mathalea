@@ -18,7 +18,7 @@ export default function Partage () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.optionsChampTexte = { texteApres: ' €' }
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
@@ -43,5 +43,7 @@ export default function Partage () {
      $${n}\\times 20=${n * 20}$.<br>
      Il reste alors $${prix}-${n * 20}=${prix - n * 20}$ € à partager en ${b}, 
      soit $${prix - n * 20}\\div ${n}=${(prix - n * 20) / n}$ € qui sont à rajouter aux $20$ €. `)
+    this.canEnonce = this.question
+    this.canReponseACompleter = '$\\ldots$ €'
   }
 }

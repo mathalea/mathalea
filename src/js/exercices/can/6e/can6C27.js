@@ -17,7 +17,7 @@ export default function RenduMonnaie () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
@@ -36,6 +36,8 @@ export default function RenduMonnaie () {
 Combien me rend-on ?`
         this.correction = `On doit me rendre $${50 + 2 * e}-${b}=${this.reponse}$ €.`
         if (this.interactif) { this.optionsChampTexte = { texteApres: ' €' } }
+        this.canEnonce = this.question
+        this.canReponseACompleter = '$\\dots$ €'
         break
 
       case 2:
@@ -46,6 +48,8 @@ Combien me rend-on ?`
 Combien me rend-on ?`
         this.correction = `On doit me rendre $10-${texNombre(a)}=${texNombre(10 - a)}$ €.`
         if (this.interactif) { this.optionsChampTexte = { texteApres: ' €' } }
+        this.canEnonce = this.question
+        this.canReponseACompleter = '$\\dots$ €'
         break
 
       case 3:
@@ -66,6 +70,8 @@ Combien me rend-on ?`
  `
         this.reponse = reponse
         if (this.interactif) { this.optionsChampTexte = { texteApres: ' €' } }
+        this.canEnonce = this.question
+        this.canReponseACompleter = '$\\dots$ €'
         break
 
       case 4:
@@ -89,6 +95,8 @@ Combien me rend-on ?`
           Le prix d'un manga est  $${a}$ €, donc  le nombre de  mangas est  donné par $${a * nbre}\\div ${a}=${nbre}$.`
         }
         if (this.interactif) { this.optionsChampTexte = { texteApres: ' mangas' } }
+        this.canEnonce = this.question
+        this.canReponseACompleter = '$\\dots$ mangas'
         break
     }
   }

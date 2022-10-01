@@ -27,7 +27,7 @@ export default function AdditionATrou () {
     this.reponse = d * 10 + b
     this.question = `$${c * 10 + a} + \\dots = ${calcul((c + d) * 10 + b + a)}$`
     // Si les exos can avaient toujours cette propriété this.question on pourrait faire un ajout automatique
-    this.canEnonce = 'Compléter'
+    this.canEnonce = 'Compléter.'
     this.canReponseACompleter = this.question
     this.correction = `On obtient le nombre cherché par la différence : $${calcul((c + d) * 10 + b + a)} - ${c * 10 + a} = ${this.reponse}$`
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
