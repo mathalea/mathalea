@@ -532,6 +532,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "2F20-2": {
+    "titre": "Calculer des coordonnées de points appartenant à une coube connaissant l'abscisse ou l'ordonnée",
+    "url": "/exercices/2e/2F20-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F20-2",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "2F25-1": {
     "titre": "Propriétés graphiques de la parité d'une fonction",
     "url": "/exercices/2e/2F25-1.js",
@@ -2305,7 +2320,7 @@ export default {
     }
   },
   "3A10-1": {
-    "titre": "Justifier si des nombres sont premiers ou pas",
+    "titre": "Indiquer si des nombres sont premiers ou pas",
     "url": "/exercices/3e/3A10-1.js",
     "amcReady": true,
     "amcType": {
@@ -2343,9 +2358,12 @@ export default {
     }
   },
   "3A10-3": {
-    "titre": "Décomposer un entier en facteurs premiers",
+    "titre": "Décomposer un entier en produit de facteurs premiers",
     "url": "/exercices/3e/3A10-3.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "3A10-3",
@@ -2381,7 +2399,7 @@ export default {
     "interactifType": "mathLive",
     "name": "3A10-5",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -2397,7 +2415,7 @@ export default {
     "interactifType": "mathLive",
     "name": "3A10-6",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -2420,11 +2438,34 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "3A11-0": {
+    "titre": "Simplifier des fractions à l'aide des nombres premiers",
+    "url": "/exercices/3e/3A11-0.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "3A11-0",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "3A11-1": {
     "titre": "Résoudre des problèmes de conjonction de phénomènes",
     "url": "/exercices/3e/3A11-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3A11-1",
     "newEx": {
       "isNew": false,
@@ -2508,7 +2549,7 @@ export default {
     "url": "/exercices/3e/3A13-2.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCOpenNum✖︎2"
+      "text": "AMCHybride"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
@@ -2527,7 +2568,7 @@ export default {
     "url": "/exercices/3e/3A13-3.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCOpen"
+      "text": "qcmMult"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
@@ -3319,64 +3360,79 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "3I10-1": {
+    "titre": "Analyser des scripts Scratch",
+    "url": "/exercices/3e/3I10-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "3I10-1",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "3I12-1": {
     "titre": "Compléter un script Scratch - 1",
     "url": "/exercices/3e/3I12-1.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
     "interactifReady": false,
     "name": "3I12-1",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3I12-2": {
     "titre": "Comprendre un script Scratch - 1",
     "url": "/exercices/3e/3I12-2.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": false,
     "name": "3I12-2",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3I12-3": {
     "titre": "Compléter un script Scratch - 2",
     "url": "/exercices/3e/3I12-3.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
     "interactifReady": false,
     "name": "3I12-3",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3I12-4": {
     "titre": "Comprendre un script Scratch - 2",
     "url": "/exercices/3e/3I12-4.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": false,
     "name": "3I12-4",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3L10-1": {
@@ -3872,6 +3928,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "beta3I12": {
+    "titre": "Différents exercices d'algorithmique",
+    "url": "/exercices/3e/beta3I12.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta3I12",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "4A10": {
     "titre": "Nombre premier ou pas",
     "url": "/exercices/4e/4A10.js",
@@ -3943,7 +4014,7 @@ export default {
     "url": "/exercices/4e/4A12.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCNum"
+      "text": "AMCHybride"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
@@ -4431,7 +4502,7 @@ export default {
     "url": "/exercices/4e/4C24.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCNum"
+      "text": "AMCOpen"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
@@ -7734,7 +7805,7 @@ export default {
     "url": "/exercices/6e/6C11-1.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCOpenNum✖︎2"
+      "text": "AMCHybride"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
@@ -7753,7 +7824,7 @@ export default {
     "url": "/exercices/6e/6C11-2.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCOpen"
+      "text": "qcmMult"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
@@ -9857,7 +9928,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -12066,12 +12137,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "betaModele30_constructions_géométriques": {
+  "betaModele30_constructions_géométriques": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
+    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele30_constructions_géométriques",
+    "name": "betaModele30_constructions_géométriques",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -18107,7 +18178,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can6M12",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -18405,7 +18476,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can6N16",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -18421,7 +18492,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can6N17",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

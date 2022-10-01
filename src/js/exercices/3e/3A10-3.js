@@ -50,6 +50,7 @@ export default function DecompositionFacteursPremiers () {
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
 
@@ -239,10 +240,12 @@ export default function DecompositionFacteursPremiers () {
       }
       texte += ajouteChampTexteMathLive(this, i, 'largeur20 inline', { texte: `<br> <b>Écrire les facteurs premiers dans l'ordre croissant et la décomposition à l'aide de puissances lorsque l'exposant est supérieur ou égal à deux.</b> <br> La décomposition de $${texNombre(nombre)}$ est : ` })
       if (context.isAmc) {
-        this.autoCorrection[i] = [{
+        this.autoCorrection[i] = {
           enonce: texte,
-          propositions: [{ statut: 3, sanscadre: false, pointilles: false }]
-        }]
+          propositions: [
+            { statut: 3, sanscadre: false, pointilles: false }
+          ]
+        }
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre

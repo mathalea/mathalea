@@ -2910,10 +2910,12 @@ function afficherNombre (nb, precision, fonction, force = false) {
     if (Math.abs(nb) < 1) {
       nbChiffresPartieEntiere = 0
     } else {
-      nbChiffresPartieEntiere = Math.abs(nb).toFixed(0).length
+      // attention 9.7 donner 10 avec Math.abs(9.7).toFixed(0)
+      nbChiffresPartieEntiere = Math.floor(Math.abs(nb)).toFixed(0).length
     }
-    if (Number.isInteger(nb)) precision = 0
-    else {
+    if (Number.isInteger(nb) && !force) {
+      precision = 0
+    } else {
       if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
         precision = 15 - nbChiffresPartieEntiere
       } else if (precision < 0) {
@@ -3037,9 +3039,9 @@ export function arcenciel (i, fondblanc = true) {
   return couleurs[i % 7]
 }
 export function texcolors (i, fondblanc = true) {
-  const couleurs = ['black', 'blue', 'brown', 'cyan', 'darkgray', 'gray', 'green', 'lightgray', 'lime', 'magenta', 'olive', '#f15929', 'pink', 'purple', 'red', 'teal', 'violet', 'white', 'yellow']
-  if (fondblanc && i % 19 >= 17) i += 2
-  return couleurs[i % 19]
+  const couleurs = ['black', 'blue', 'GreenYellow', 'brown', 'LightSlateBlue', 'cyan', 'darkgray', 'HotPink', 'LightSteelBlue', 'Chocolate', 'gray', 'green', 'lightgray', 'lime', 'magenta', 'olive', 'DarkOrange', 'pink', 'purple', 'red', 'teal', 'violet', 'white', 'yellow']
+  if (fondblanc && i % couleurs.length >= couleurs.length - 2) i += 2
+  return couleurs[i % couleurs.length]
 }
 
 /**
@@ -6630,7 +6632,7 @@ export function telechargeFichier (text, filename) {
 */
 export function introLatex (entete = 'Exercices', listePackages = '') {
   if (entete === '') { entete = 'Exercices' }
-  return `\\documentclass[12pt]{article}
+  return `\\documentclass[12pt,svgnames]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
 %\\usepackage[utf8]{inputenc}        
 %\\usepackage[T1]{fontenc}
@@ -6668,7 +6670,7 @@ export function introLatex (entete = 'Exercices', listePackages = '') {
 \\usepackage{fancybox}
 \\usepackage{setspace}
 \\usepackage{colortbl}
-\\usepackage[svgnames]{xcolor}
+\\usepackage{xcolor}
   \\definecolor{nombres}{cmyk}{0,.8,.95,0}
   \\definecolor{gestion}{cmyk}{.75,1,.11,.12}
   \\definecolor{gestionbis}{cmyk}{.75,1,.11,.12}
@@ -6714,7 +6716,7 @@ ${preambulePersonnalise(listePackages)}
 export function introLatexCan (entete = 'Course aux nombres', listePackages = '') {
   if (entete === '') { entete = 'Course aux nombres' }
   // return `\\documentclass[12pt, landscape]{article}
-  return `\\documentclass[12pt]{article}
+  return `\\documentclass[12pt,svgnames]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
 %\\usepackage[utf8]{inputenc}        
 %\\usepackage[T1]{fontenc}
@@ -6752,7 +6754,7 @@ export function introLatexCan (entete = 'Course aux nombres', listePackages = ''
 \\usepackage{fancybox}
 \\usepackage{setspace}
 \\usepackage{colortbl}
-\\usepackage[svgnames]{xcolor}
+\\usepackage{xcolor}
   \\definecolor{nombres}{cmyk}{0,.8,.95,0}
   \\definecolor{gestion}{cmyk}{.75,1,.11,.12}
   \\definecolor{gestionbis}{cmyk}{.75,1,.11,.12}
@@ -6876,7 +6878,7 @@ ${preambulePersonnalise(listePackages)}
 * @author Rémi Angot
 */
 export function introLatexCoop (listePackages) {
-  const introLatexCoop = `\\documentclass[12pt]{article}
+  const introLatexCoop = `\\documentclass[12pt,svgnames]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=4cm,bottom=2cm]{geometry}
 %\\usepackage[utf8]{inputenc}        
 %\\usepackage[T1]{fontenc}
@@ -6913,7 +6915,7 @@ export function introLatexCoop (listePackages) {
 \\pagestyle{fancy}                      
 \\usepackage{fancybox}
 \\usepackage{setspace}
-\\usepackage[svgnames]{xcolor}
+\\usepackage{xcolor}
 \\usepackage{pgf,tikz} % Pour les images et figures gÃ©omÃ©triques
 \\usetikzlibrary{babel,arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
 shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows}
@@ -8727,9 +8729,9 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \n`
   if (format === 'A3') {
-    preambule += '\t \\documentclass[10pt,a3paper,landscape,french]{article}\n'
+    preambule += '\t \\documentclass[10pt,a3paper,landscape,french,svgnames]{article}\n'
   } else {
-    preambule += '\t \\documentclass[10pt,a4paper,french]{article}\n'
+    preambule += '\t \\documentclass[10pt,a4paper,french,svgnames]{article}\n'
   }
 
   preambule += `\t
@@ -8763,7 +8765,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   %\\usepackage{pstricks,pst-plot,pstricks-add}
   %   POUR PSTRICKS d'où compilation sans PDFLateX mais : dvi, dvi2ps, ps2PDF...
   %   MAIS ON PRÉFÉRERA UTILISER TIKZ...
-  \\usepackage[svgnames]{xcolor}% [avant tikz] xcolor permet de nommer + de couleurs
+  \\usepackage{xcolor}% [avant tikz] xcolor permet de nommer + de couleurs
   \\usepackage{pgf,tikz}
   \\usepackage{graphicx} % pour inclure une image
   \\usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
