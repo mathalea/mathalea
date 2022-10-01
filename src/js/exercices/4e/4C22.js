@@ -27,11 +27,13 @@ export const uuid = '72ce7'
 export const ref = '4C22'
 export default function ExerciceMultiplierFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
+  const space = '\\phantom{\\dfrac{(_(^(}{(_(^(}}' // Utilisé pour mettre de l'espace dans une fraction de fraction
+  const space2 = '\\phantom{(_(^(}' // Utilisé pour mettre de l'espace dans une fraction de fraction lorsque le numérateur ou le dénominateur est entier
   this.sup = 1 // Avec ou sans relatifs
   this.sup3 = true
   if (context.isAmc) this.titre = 'Multiplier des fractions et donner le résultat sous forme irréductible'
-  this.spacing = 2
-  this.spacingCorr = 2
+  this.spacing = 3
+  this.spacingCorr = 3
   this.nbQuestions = 5
   this.nbColsCorr = 1
   this.sup2 = true // méthode de simplification par défaut = factorisation
@@ -140,7 +142,7 @@ export default function ExerciceMultiplierFractions () {
         texteCorr = `$${f1.texProduitFraction(f2, this.sup2)}$`
         reponse = f1.produitFraction(f2).simplifie()
       } else {
-        texte = `$\\dfrac{${f1.texFSD}}{${f2.texFraction}}=$`
+        texte = `$\\dfrac{${(f1.estEntiere ? space2 : space) + f1.texFSD + (f1.estEntiere ? space2 : space)}}{${(f2.estEntiere ? space2 : space) + f2.texFraction + (f2.estEntiere ? space2 : space)}}=$`
         texteCorr = `$${f1.texDiviseFraction(f2, this.sup2, '/')}$`
         reponse = f1.diviseFraction(f2).simplifie()
       }
