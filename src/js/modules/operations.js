@@ -51,7 +51,6 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       objets.push(segment(upos - P.length - 0.5, 9.6 - i * 2, upos + 0.2 - 1, 9.6 - i * 2))
     }
     const ecrirereste = function (upos, R) {
-      // objets.push(segment(0, 9.6 - i * 2, 5, 9.6 - i * 2))
       for (let k = 0; k < R.length; k++) {
         objets.push(texteParPosition(R[R.length - k - 1], upos - k - 1, 9 - i * 2, 'milieu', 'black', 1.2, 'middle', false))
       }
@@ -96,9 +95,10 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
           P[i] += '0'
         }
       } else {
+        for (let ee = 0; ee < divd[i].length - divis.mul(parseInt(Q[i])).toString().length; ee++) { P[i] += '0' }
         P[i] += divis.mul(parseInt(Q[i])).toString()
       }
-      ecriresoustraction(upos, P[i])
+      ecriresoustraction(upos, divd[i])
       if (upos < n) {
         R[i] += dividende.substr(upos, 1)
         ecrirereste(upos + 1, R[i])
@@ -416,20 +416,19 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
   operande2 = new Decimal(operande2)
   switch (type) {
     case 'addition':
-      if (context.isHtml) { Code = AdditionPosee3d(operande1, operande2, base, retenuesOn) } else { Code = `$\\opadd[decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
-
+      if (context.isHtml) { Code = AdditionPosee3d(operande1, operande2, base, retenuesOn) } else { Code = `\\opadd[decimalsepsymbol={,}]{${operande1}}{${operande2}}` }
       break
     case 'soustraction':
-      if (context.isHtml) { Code = SoustractionPosee3d(operande1, operande2, base, retenuesOn) } else { Code = `$\\opsub[carrysub,lastcarry,decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
+      if (context.isHtml) { Code = SoustractionPosee3d(operande1, operande2, base, retenuesOn) } else { Code = `\\opsub[carrysub,lastcarry,decimalsepsymbol={,}]{${operande1}}{${operande2}}` }
       break
     case 'multiplication':
-      if (context.isHtml) { Code = MultiplicationPosee3d(operande1, operande2, base) } else { Code = `$\\opmul[displayshiftintermediary=all,decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
+      if (context.isHtml) { Code = MultiplicationPosee3d(operande1, operande2, base) } else { Code = `\\opmul[displayshiftintermediary=all,decimalsepsymbol={,}]{${operande1}}{${operande2}}` }
       break
     case 'division':
-      if (context.isHtml) { Code = DivisionPosee3d(operande1, operande2, precision, retenuesOn) } else { Code = `$\\opdiv[displayintermediary=all,voperation=top,period,decimalsepsymbol={,},shiftdecimalsep=none]{${operande1}}{${operande2}}$` }
+      if (context.isHtml) { Code = DivisionPosee3d(operande1, operande2, precision, retenuesOn) } else { Code = `\\opdiv[displayintermediary=all,voperation=top,period,decimalsepsymbol={,},shiftdecimalsep=none]{${operande1}}{${operande2}}` }
       break
     case 'divisionE':
-      if (context.isHtml) { Code = DivisionPosee3d(operande1, operande2, 0, retenuesOn) } else { Code = `$\\opidiv{${operande1}}{${operande2}}$` }
+      if (context.isHtml) { Code = DivisionPosee3d(operande1, operande2, 0, retenuesOn) } else { Code = `\\opidiv{${operande1}}{${operande2}}` }
       break
   }
   return Code

@@ -98,11 +98,11 @@ export default function DivisionsEuclidiennes () {
       a = b * q + r
       texte = `$${texNombre(a)}\\div${b}$`
       if (r === 0) {
-        texteCorr = `${Operation({ operande1: a, operande2: b, type: 'divisionE' })}$${texNombre(a)}\\div${b}=${texNombre(q)}$`
+        texteCorr = Operation({ operande1: a, operande2: b, type: 'divisionE' }) + `$${texNombre(a)}\\div${b}=${texNombre(q)}$`
         setReponse(this, i, [`${a}=${b}\\times${texNombre(q)}`, `${a}=${texNombre(q)}\\times${b}`,
         `${b}\\times${texNombre(q)}`, `${texNombre(q)}\\times${b}=${a}`])
       } else {
-        texteCorr = `${Operation({ operande1: a, operande2: b, type: 'divisionE' })}$${texNombre(a)}=${b}\\times${texNombre(q)}+${r}$`
+        texteCorr = Operation({ operande1: a, operande2: b, type: 'divisionE' }) + `$${texNombre(a)}=${b}\\times${texNombre(q)}+${r}$`
         setReponse(this, i, [`${a}=${b}\\times${texNombre(q)}+${r}`, `${a}=${texNombre(q)}\\times${b}+${r}`,
         `${b}\\times${texNombre(q)}+${r}=${a}`, `${texNombre(q)}\\times${b}+${r}=${a}`])
       }
