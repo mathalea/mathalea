@@ -2910,10 +2910,12 @@ function afficherNombre (nb, precision, fonction, force = false) {
     if (Math.abs(nb) < 1) {
       nbChiffresPartieEntiere = 0
     } else {
-      nbChiffresPartieEntiere = Math.abs(nb).toFixed(0).length
+      // attention 9.7 donner 10 avec Math.abs(9.7).toFixed(0)
+      nbChiffresPartieEntiere = Math.floor(Math.abs(nb)).toFixed(0).length
     }
-    if (Number.isInteger(nb)) precision = 0
-    else {
+    if (Number.isInteger(nb) && !force) {
+      precision = 0
+    } else {
       if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
         precision = 15 - nbChiffresPartieEntiere
       } else if (precision < 0) {
