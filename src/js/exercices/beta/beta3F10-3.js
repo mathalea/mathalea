@@ -309,7 +309,7 @@ export default function VocabulaireNotationsFonctions2 () {
             texte = `La fonction $${nomF}$ est représentée par la droite rouge ci-dessous.<br>
             Le point $${PointC}$ est sur la droite. Donner l'égalité correspondante.<br>`
             texte += mathalea2d({ xmin: -5.1, ymin: -4.1, xmax: 5.1, ymax: 4.1, pixelsParCm: 30, scale: 0.7 }, r, d, o, t, labelPoint(A))
-            texteCorr = `L'égalité traduisant que $${nomF}$ est sur la courbe représentant $${nomF}$ est : $${nomF}(${x})=${y}$
+            texteCorr = `L'égalité traduisant que $${PointC}$ est sur la courbe représentant $${nomF}$ est : $${nomF}(${x})=${y}$
             `
             if (this.interactif) {
               this.autoCorrection[i] = { options: { ordered: false, horizontal: true } }
@@ -329,7 +329,7 @@ export default function VocabulaireNotationsFonctions2 () {
           if (choix === 1) {
             texte = `Le point $${PointC}(${x};${y})$  est un point de la courbe représentant la fonction $${nomF}$.<br>
               Donner l'égalité correspondante.`
-            texteCorr = `L'égalité traduisant que $${nomF}$ est sur la courbe représentant $${nomF}$ est : $${nomF}(${x})=${y}$.
+            texteCorr = `L'égalité traduisant que $${PointC}$ est sur la courbe représentant $${nomF}$ est : $${nomF}(${x})=${y}$.
               `
             if (this.interactif) {
               this.autoCorrection[i] = { options: { ordered: false, horizontal: true } }
@@ -350,7 +350,7 @@ export default function VocabulaireNotationsFonctions2 () {
           if (choix === 2) {
             texte = ` La courbe représentant la fonction $${nomF}$ passe par le point $${PointC}(${x};${y})$.<br>
               Donner l'égalité correspondante. `
-            texteCorr = `L'égalité traduisant que $${nomF}$ est sur la courbe représentant $${nomF}$ est : $${nomF}(${x})=${y}$
+            texteCorr = `L'égalité traduisant que $${PointC}$ est sur la courbe représentant $${nomF}$ est : $${nomF}(${x})=${y}$
               `
             if (this.interactif) {
               this.autoCorrection[i] = { options: { ordered: false, horizontal: true } }
