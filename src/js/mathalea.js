@@ -3525,6 +3525,22 @@ document.addEventListener('DOMContentLoaded', async () => {
       modalTimer()
     })
   }
+  
+  const btnSon = document.getElementById('son_diap')
+  if (btnSon !== null) {
+    btnSon.addEventListener('click', () => {
+      if (context.son === 1) {
+          context.son = 0
+          document.getElementById('iconeSon').classList.remove('off')
+          document.getElementById('iconeSon').classList.add('up')
+        } else {
+          context.son = 1
+          document.getElementById('iconeSon').classList.remove('up')
+          document.getElementById('iconeSon').classList.add('off')
+        }
+    })
+  }
+        
   const btnMulti = document.getElementById('btnMulti')
   if (btnMulti !== null) {
     btnMulti.addEventListener('click', () => {
