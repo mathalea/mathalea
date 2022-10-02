@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 513 
-- nombre d'exos interactifReady 788 
+- nombre d'exos amcReady 515 
+- nombre d'exos interactifReady 794 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -25,6 +25,7 @@
 |2N10-3|Utiliser les abscisses fractionnaires|KO|KO|OK|custom|
 |2N12-1|Encadrer une fraction entre deux nombres entiers|OK|AMCHybride|OK|mathLive|
 |2N12-2|Encadrer avec des puissances de 10|KO|KO|OK|mathLive|
+|2N12-3|Encadrer avec les racines carrées|KO|KO|OK|mathLive|
 |2N13-1|Arrondir une valeur|OK|qcmMult|OK|qcm|
 |2N14-1|Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient|OK|AMCOpen|OK|mathLive|
 |2N20-1|Écrire la liste de tous les diviseurs d'un entier|KO|KO|OK|mathLive|
@@ -81,6 +82,7 @@
 |3A13-4|Indiquer une égalité à partir d'une division euclidienne|OK|AMCOpen|OK|mathLive|
 |3F10-1|Vocabulaire et notations des fonctions (généralités)|OK|qcmMult|OK|qcm|
 |3F10-2|Fonction : calculs d'images (et d'antécédents)|OK|AMCNum|OK|mathLive|
+|3F10-3|Vocabulaire et notations des fonctions|OK|qcmMult|OK|qcm|
 |3F10|Lectures d'images et d'antécédents depuis un tableau de valeurs|KO|KO|OK|mathLive|
 |3F12-2|Déterminer l'image d'un nombre par une fonction d'après sa forme algébrique|KO|KO|OK|mathLive|
 |3F12-3|Compléter un tableau de valeurs|OK|AMCHybride|OK|mathLive|
@@ -373,6 +375,7 @@
 |6N23-5|Donner une écriture fractionnaire|OK|qcmMono|OK|qcm|
 |6N23-6|Calculer la valeur décimale d'une fraction|OK|AMCNum|OK|mathLive|
 |6N23-7|Recomposer un nombre décimal représenté par des fractions du cube unité|OK|AMCNum|OK|mathLive|
+|6N23-8|Donner l'écriture décimale d'une fraction décimale|OK|AMCNum|OK|mathLive|
 |6N23|Donner l'écriture décimale d'une fraction décimale|OK|AMCNum|OK|mathLive|
 |6N24|Utiliser les préfixes multiplicateurs et diviseurs (milli à kilo)|OK|AMCNum|OK|mathLive|
 |6N30-1|Lire l'abscisse décimale d'un point (niveau 2)|OK|AMCOpen|OK|mathLive|
@@ -380,6 +383,8 @@
 |6N30|Lire l'abscisse décimale d'un point|OK|AMCOpen|OK|mathLive|
 |6N31-3|Arrondir une valeur|OK|qcmMult|OK|qcm|
 |6N31-4|Intercaler un nombre décimal entre deux nombres décimaux|OK|AMCOpen|OK|mathLive|
+|6N31-5|Encadrer un décimal|KO|KO|OK|mathLive|
+|6N31-6|Trouver une valeur approchée ou un arrondi d'un décimal|KO|KO|OK|mathLive|
 |6N31|Comparer des nombres décimaux|OK|AMCOpen|KO|KO|
 |6N33-0|Calculer la fraction d'une quantité|OK|AMCNum|OK|mathLive|
 |6N33-1|Calculer mentalement le pourcentage d'un nombre|OK|AMCNum|OK|mathLive|
@@ -544,6 +549,7 @@
 |can2F11|Utiliser la fonction carré pour comparer deux images|KO|KO|OK|qcm|
 |can2F12|Utiliser une fonction de référence (inverse, cube, racine) pour comparer deux images|KO|KO|OK|qcm|
 |can2F13|Déterminer l’image d’un nombre par une fonction de référence|OK|AMCNum|OK|mathLive|
+|can2F14|Calculer une ordonnée à partir de l’abscisse d’un point|KO|KO|OK|mathLive|
 |can2G01|Déterminer un agrandissement/réduction avec fraction|OK|AMCNum|OK|mathLive|
 |can2G02|Calculer une longueur avec le théorème de Pythagore|KO|KO|OK|mathLive|
 |can2G03|Calculer l’hypoténuse avec le théorème de Pythagore|KO|KO|OK|mathLive|
