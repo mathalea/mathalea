@@ -1162,9 +1162,19 @@ function miseAJourDuCode () {
           let canCorpsTableau = ''
           let msgEnonce
           let msgRepACompleter
+          codeCorrections = '\\begin{enumerate}'
           for (const exoCan of listeObjetsExercice) {
+            if (exoCan.typeExercice === 'simple') {
+              codeCorrections += `\\item ${exoCan.correction}`.replaceAll('<br>', `
+              
+              `)
+            } else {
+              codeCorrections += `\\item ${exoCan.listeCorrections[0]}`.replaceAll('<br>', `
+              
+              `)
+            }
             if (!exoCan.hasOwnProperty('canEnonce') || !exoCan.hasOwnProperty('canReponseACompleter')) {
-              msgEnonce = exoCan.contenu.replace('\\exo{}', '').replace(`\\marginpar{\\footnotesize ${exoCan.id}}`, '') //'Propriété canEnonce manquante'
+              msgEnonce = exoCan.contenu.replace('\\exo{}', '').replace(`\\marginpar{\\footnotesize ${exoCan.id}}`, '') // 'Propriété canEnonce manquante'
               msgRepACompleter = ''
               if (!exoCan.hasOwnProperty('canEnonce')) {
                 msgAlerteCanEnonce += ' ' + exoCan.id
@@ -1181,9 +1191,15 @@ function miseAJourDuCode () {
             `
           }
 
-          codeEnonces = ` \\textcolor{red}{Les exercices ${msgAlerteCanEnonce} n'ont pas de propriété canEnonce} \\\\`
-          codeEnonces += ` \\textcolor{red}{Les exercices ${msgAlerteCanReponseACompleter} n'ont pas de propriété canReponseACompleter} \\\\`
-          codeEnonces += `\\begin{spacing}{1.5}
+          codeCorrections += '\\end{enumerate}'
+          codeEnonces = ''
+          if (msgAlerteCanEnonce !== '') {
+            codeEnonces += ` \\textcolor{red}{Les exercices ${msgAlerteCanEnonce} n'ont pas de propriété canEnonce} \\\\`
+          }
+          if (msgAlerteCanReponseACompleter !== '') {
+            codeEnonces += ` \\textcolor{red}{Les exercices ${msgAlerteCanReponseACompleter} n'ont pas de propriété canReponseACompleter} \\\\`
+          }
+          codeEnonces += `\\begin{spacing}{1.1}
           \\begin{longtable}{|>{\\columncolor{gray!20}}c|>{\\centering}p{0.4\\textwidth}|>{\\centering}p{0.4\\textwidth}|c|}%
           \\hline
           \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline`
@@ -1196,7 +1212,7 @@ function miseAJourDuCode () {
           \\addtocounter{nbEx}{-1}
           `
         }
-        codeCorrections = monSuperExercice.contenuCorrection.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '')
+        // codeCorrections = monSuperExercice.contenuCorrection.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '')
       }
       if ($('#supprimer_correction:checked').val()) {
         codeMoodle = codeEnonces
@@ -1220,7 +1236,7 @@ function miseAJourDuCode () {
           codeExercices += '\\version{' + (v + 1) + '}\n\n'
           codeCorrection += '\n\n\\newpage\n\\version{' + (v + 1) + '}\n\\begin{correction}'
           if ($('#style_can:checked').val()) {
-            const monSuperExercice = concatExercices(listeObjetsExercice)            
+            const monSuperExercice = concatExercices(listeObjetsExercice)
             if (listeObjetsExercice.length === 1) {
               codeExercices += monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', `\\begin{spacing}{1.5}
               \\begin{longtable}{|c|>{\\centering}p{0.65\\textwidth}|>{\\centering}p{0.15\\textwidth}|c|}%
@@ -1237,9 +1253,19 @@ function miseAJourDuCode () {
               let canCorpsTableau = ''
               let msgEnonce
               let msgRepACompleter
+              codeCorrection = '\\begin{enumerate}'
               for (const exoCan of listeObjetsExercice) {
+                if (exoCan.typeExercice === 'simple') {
+                  codeCorrection += `\\item ${exoCan.correction}`.replaceAll('<br>', `
+                  
+                  `)
+                } else {
+                  codeCorrection += `\\item ${exoCan.listeCorrections[0]}`.replaceAll('<br>', `
+                  
+                  `)
+                }
                 if (!exoCan.hasOwnProperty('canEnonce') || !exoCan.hasOwnProperty('canReponseACompleter')) {
-                  msgEnonce = exoCan.contenu.replace('\\exo{}', '').replace(`\\marginpar{\\footnotesize ${exoCan.id}}`, '') //'Propriété canEnonce manquante'
+                  msgEnonce = exoCan.contenu.replace('\\exo{}', '').replace(`\\marginpar{\\footnotesize ${exoCan.id}}`, '') // 'Propriété canEnonce manquante'
                   msgRepACompleter = ''
                   if (!exoCan.hasOwnProperty('canEnonce')) {
                     msgAlerteCanEnonce += ' ' + exoCan.id
@@ -1255,13 +1281,22 @@ function miseAJourDuCode () {
                 \\thenbEx \\addtocounter{nbEx}{1}&${msgEnonce}&${msgRepACompleter}&\\tabularnewline \\hline
                 `
               }
-              codeExercices += ` \\textcolor{red}{Les exercices ${msgAlerteCanEnonce} n'ont pas de propriété canEnonce} \\\\`
-              codeExercices += ` \\textcolor{red}{Les exercices ${msgAlerteCanReponseACompleter} n'ont pas de propriété canReponseACompleter} \\\\`
-              codeExercices += `\\begin{spacing}{1.5}
+
+              codeCorrection += '\\end{enumerate}'
+              codeExercices = ''
+              if (msgAlerteCanEnonce !== '') {
+                codeExercices += ` \\textcolor{red}{Les exercices ${msgAlerteCanEnonce} n'ont pas de propriété canEnonce} \\\\`
+              }
+              if (msgAlerteCanReponseACompleter !== '') {
+                codeExercices += ` \\textcolor{red}{Les exercices ${msgAlerteCanReponseACompleter} n'ont pas de propriété canReponseACompleter} \\\\`
+              }
+              codeExercices += `\\begin{spacing}{1.1}
               \\begin{longtable}{|>{\\columncolor{gray!20}}c|>{\\centering}p{0.4\\textwidth}|>{\\centering}p{0.4\\textwidth}|c|}%
               \\hline
               \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline`
+
               codeExercices += canCorpsTableau
+
               codeExercices += `
               \\end{longtable}
               \\end{spacing}
@@ -1269,7 +1304,7 @@ function miseAJourDuCode () {
               `
             }
             codeExercices += '\n\n'
-            codeCorrection += monSuperExercice.contenuCorrection.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '')
+            // codeCorrection += monSuperExercice.contenuCorrection.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '')
             codeCorrection += '\n\n'
           } else {
             for (let i = 0; i < listeDesExercices.length; i++) {
@@ -3525,22 +3560,30 @@ document.addEventListener('DOMContentLoaded', async () => {
       modalTimer()
     })
   }
-  
+
   const btnSon = document.getElementById('son_diap')
   if (btnSon !== null) {
     btnSon.addEventListener('click', () => {
       if (context.son === 1) {
-          context.son = 0
-          document.getElementById('iconeSon').classList.remove('off')
-          document.getElementById('iconeSon').classList.add('up')
-        } else {
-          context.son = 1
-          document.getElementById('iconeSon').classList.remove('up')
-          document.getElementById('iconeSon').classList.add('off')
-        }
+        context.son = 0
+        document.getElementById('iconeSon').classList.remove('up')
+        document.getElementById('iconeSon').classList.add('off')
+      } else {
+        context.son = 1
+        document.getElementById('iconeSon').classList.remove('off')
+        document.getElementById('iconeSon').classList.add('up')
+        // On ajoute une lecture sans volume pour gérer l'autoplay policy
+        // Le premier son doit venir d'une action de l'utilisateur pour que les suivants soient autorisés
+        const son = new Audio('assets/sons/changediapo.mp3')
+        son.addEventListener('canplaythrough', (event) => {
+          son.volume = 0
+          son.play().catch(() => {
+          })
+        })
+      }
     })
   }
-        
+
   const btnMulti = document.getElementById('btnMulti')
   if (btnMulti !== null) {
     btnMulti.addEventListener('click', () => {

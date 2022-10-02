@@ -25,7 +25,7 @@ export default function NombrePairFois5 () {
     this.question = `$${a}\\times 5=$`
     // Selon le cas l'endroit d'ajout peut différer
     this.canEnonce = 'Compléter'
-    this.canReponseACompleter = `${this.question} \\dots\\dots`
+    this.canReponseACompleter = `${this.question} \\makebox[20mm]{\\dotfill}`
     this.correction = `$${a}\\times 5 = ${this.reponse}$`
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
     Pour multiplier par $5$, on peut :  <br>
