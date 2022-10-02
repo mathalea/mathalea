@@ -20,8 +20,6 @@ export default function VocabulaireNotationsFonctions2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 5
   this.consigne = ''
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = false
   this.spacing = 1.5
   this.nbQuestions = 3
   this.nbQuestionsModifiable = true
@@ -69,7 +67,7 @@ export default function VocabulaireNotationsFonctions2 () {
           y = randint(-9, 9, x)
           if (this.interactif) { choix = randint(0, 5) } else { choix = randint(0, 3) }
           if (choix === 0) {
-            texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase contenant le mot "image".`
+            texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase contenant le mot « image ».`
             if (this.interactif) { texte += '<br>Une ou plusieurs réponses correctes.' }
             texteCorr = `L'égalité  $${nomF}(${x})=${y}$ se traduit par : <br>
             $\\bullet$ L'image de $${x}$ par la fonction $${nomF}$ est $${y}$.<br>
@@ -97,7 +95,7 @@ export default function VocabulaireNotationsFonctions2 () {
             ]
           }
           if (choix === 1) {
-            texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase contenant le mot "image".`
+            texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase contenant le mot « image ».`
             if (this.interactif) { texte += '<br>Une ou plusieurs réponses correctes.' }
             if (this.interactif) {
               texteCorr = `L'égalité  $${nomF}(${x})=${y}$ se traduit par : <br>
@@ -133,7 +131,7 @@ export default function VocabulaireNotationsFonctions2 () {
           }
 
           if (choix === 2) {
-            texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase contenant le mot "antécédent".`
+            texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase contenant le mot « antécédent ».`
             if (this.interactif) { texte += '<br>Une ou plusieurs réponses correctes.' }
             texteCorr = `L'égalité  $${nomF}(${x})=${y}$ se traduit par : <br>
             $\\bullet$ Un antécédent de $${y}$ par la fonction $${nomF}$ est $${x}$.<br>
@@ -161,7 +159,7 @@ export default function VocabulaireNotationsFonctions2 () {
             ]
           }
           if (choix === 3) {
-            texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase contenant le mot "antécédent".`
+            texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase contenant le mot « antécédent ».`
             if (this.interactif) { texte += '<br>Une ou plusieurs réponses correctes.' }
             if (this.interactif) {
               texteCorr = `L'égalité  $${nomF}(${x})=${y}$ se traduit par : <br>
@@ -170,7 +168,7 @@ export default function VocabulaireNotationsFonctions2 () {
             } else {
               texteCorr = `L'égalité  $${nomF}(${x})=${y}$ se traduit par : <br>
             $\\bullet$ Un antécédent de $${y}$ par la fonction $${nomF}$ est $${x}$.<br>
-            $\\bullet$ $${x}$ est un antécédent de $${y}$ par la focntion $${nomF}$.}
+            $\\bullet$ $${x}$ est un antécédent de $${y}$ par la focntion $${nomF}$.
             `
             }
             this.autoCorrection[i] = { options: { ordered: false, vertical: true } }
@@ -327,7 +325,7 @@ export default function VocabulaireNotationsFonctions2 () {
             }
           }
           if (choix === 1) {
-            texte = `Le point $${PointC}(${x};${y})$  est un point de la courbe représentant la fonction $${nomF}$.<br>
+            texte = `Le point $${PointC}(${x}\\;;\\;${y})$  est un point de la courbe représentant la fonction $${nomF}$.<br>
               Donner l'égalité correspondante.`
             texteCorr = `L'égalité traduisant que $${PointC}$ est sur la courbe représentant $${nomF}$ est : $${nomF}(${x})=${y}$.
               `
@@ -348,7 +346,7 @@ export default function VocabulaireNotationsFonctions2 () {
           }
 
           if (choix === 2) {
-            texte = ` La courbe représentant la fonction $${nomF}$ passe par le point $${PointC}(${x};${y})$.<br>
+            texte = ` La courbe représentant la fonction $${nomF}$ passe par le point $${PointC}(${x}\\;;\\;${y})$.<br>
               Donner l'égalité correspondante. `
             texteCorr = `L'égalité traduisant que $${PointC}$ est sur la courbe représentant $${nomF}$ est : $${nomF}(${x})=${y}$
               `
@@ -371,14 +369,14 @@ export default function VocabulaireNotationsFonctions2 () {
             texte = `
            Les coordonnées du point $${PointC}$ de la courbe représentant $${nomF}$ vérifient $${nomF}(${x})=${y}$.<br>
            Quelles sont les coordonnées du point $${PointC}$ ? `
-            texteCorr = `L'égalité $${nomF}(${x})=${y}$ permet d'affirmer que le point  $${PointC}(${x};${y})$ est sur la courbe représentant $${nomF}$.
+            texteCorr = `L'égalité $${nomF}(${x})=${y}$ permet d'affirmer que le point  $${PointC}(${x}\\;;\\;${y})$ est sur la courbe représentant $${nomF}$.
               `
             if (this.interactif) {
               this.autoCorrection[i] = { options: { ordered: false, horizontal: true } }
               this.autoCorrection[i].enonce = `${texte}\n`
               this.autoCorrection[i].propositions = [
                 {
-                  texte: `$${PointC}(${x};${y})$`,
+                  texte: `$${PointC}(${x}\\;;\\;${y})$`,
                   statut: true
                 },
                 {
@@ -521,6 +519,6 @@ export default function VocabulaireNotationsFonctions2 () {
   this.besoinFormulaireNumerique = [
     'Choix des questions',
     5,
-    '1 : Traduire une égalité par une phrase\n2 : Traduire une phrase par une égalité \n3 : Interprétation graphique\n4 : Expression littérale\n5 : mélange'
+    '1 : Traduire une égalité par une phrase\n2 : Traduire une phrase par une égalité\n3 : Interprétation graphique\n4 : Expression littérale\n5 : Mélange'
   ]
 }
