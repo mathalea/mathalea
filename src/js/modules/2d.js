@@ -1,5 +1,5 @@
 import { calcul, arrondi, egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, lettreDepuisChiffre, nombreAvecEspace, stringNombre, inferieurouegal, numberFormat, nombreDeChiffresDe, superieurouegal, combinaisonListes, texcolors, texNombre } from './outils.js'
-import { radians } from './fonctionsMaths.js'
+import { cos, radians, sin } from './fonctionsMaths.js'
 import { context } from './context.js'
 import { fraction, Fraction, max, ceil, isNumeric, floor, random, round, abs } from 'mathjs'
 import earcut from 'earcut'
@@ -4468,6 +4468,79 @@ export function courbeDeBezier (...args) {
 }
 */
 
+function Engrenage ({ rayon = 1, nbDents = 12, xCenter = 0, yCenter = 0, couleur = 'black', couleurDeRemplissage = 'black', couleurDuTrou = 'white' }) {
+  ObjetMathalea2D.call(this)
+  this.rayon = rayon
+  this.nbDents = nbDents
+  this.xCenter = xCenter
+  this.yCenter = yCenter
+  this.color = colorToLatexOrHTML(couleur)
+  this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
+  this.couleurDuTrou = colorToLatexOrHTML(couleurDuTrou)
+  this.svg = function (coeff) {
+    const xC = this.xCenter * coeff
+    const yC = this.yCenter * coeff
+    const R1 = this.rayon * coeff
+    const R2 = round(R1 * 4 / 3)
+    const angle = 360 / this.nbDents
+    const r1x = R2 - R1
+    const r1y = R1 * sin(0.125 * angle)
+    const Ax = round(xC + R1 * cos(angle * 0.25 + 90))
+    const Ay = round(yC + R1 * sin(angle * 0.25 + 90))
+    let code = `<path id=${this.id} stroke="${this.color[0]}" fill="${this.couleurDeRemplissage[0]}"  d="M ${Ax},${Ay} `
+    for (let i = 0; i < this.nbDents; i++) {
+      const Bx = round(xC + R1 * cos(angle * (-i - 0.25) + 90))
+      const By = round(yC + R1 * sin(angle * (-i - 0.25) + 90))
+      const Cx = round(xC + R2 * cos(angle * (-i + 0.125) + 90))
+      const Cy = round(yC + R2 * sin(angle * (-i + 0.125) + 90))
+      const Dx = round(xC + R2 * cos(angle * (-i - 0.125) + 90))
+      const Dy = round(yC + R2 * sin(angle * (-i - 0.125) + 90))
+      const Ex = round(xC + R1 * cos(angle * (-i - 0.75) + 90))
+      const Ey = round(yC + R1 * sin(angle * (-i - 0.75) + 90))
+      // code += `${Cx},${Cy} ${Dx},${Dy} ${Bx},${By} ${Ex},${Ey} `
+      code += `A${r1x} ${r1y} ${270 - (i + 0.25) * angle} 0 0 ${Cx} ${Cy} L${Dx} ${Dy} A${r1x} ${r1y} ${270 - (i - 0.125) * angle} 0 0 ${Bx} ${By} A${R1} ${R1} 0 0 0 ${Ex} ${Ey} `
+    }
+    code += 'Z"/>'
+    code += `<circle cx="${xC}" cy="${yC}" r="${round(R1 * 3 / 4)}" stroke="${this.color[0]}" fill="${this.couleurDuTrou[0]}" />`
+    return code
+  }
+  this.tikz = function () {
+    return `% engrenage de rayon ${this.rayon}, avec ${this.nbDents} dents centré en (${this.xCenter};${this.yCenter})
+    \\foreach \\i in {1,2,...,${this.nbDents}}
+      {
+      \\pgfmathparse{360*(\\i-1)/${this.nbDents}}\\let\\angle\\pgfmathresult
+      \\begin{scope}[shift={(${this.xCenter},${this.yCenter})}]
+      \\pgfmathparse{${this.rayon}*cos(90+90/${this.nbDents})}\\let\\Ax\\pgfmathresult 
+      \\pgfmathparse{${this.rayon}*sin(90+90/${this.nbDents})}\\let\\Ay\\pgfmathresult
+      \\pgfmathparse{${this.rayon}*cos(90-90/${this.nbDents})}\\let\\Bx\\pgfmathresult
+      \\pgfmathparse{${this.rayon}*sin(90-90/${this.nbDents})}\\let\\By\\pgfmathresult
+      \\pgfmathparse{4*${this.rayon}*cos(90+45/${this.nbDents})/3}\\let\\Cx\\pgfmathresult
+      \\pgfmathparse{4*${this.rayon}*sin(90+45/${this.nbDents})/3}\\let\\Cy\\pgfmathresult
+      \\pgfmathparse{4*${this.rayon}*cos(90-45/${this.nbDents})/3}\\let\\Dx\\pgfmathresult
+      \\pgfmathparse{4*${this.rayon}*sin(90-45/${this.nbDents})/3}\\let\\Dy\\pgfmathresult
+      \\pgfmathparse{90-90/${this.nbDents}}\\let\\a\\pgfmathresult
+      \\pgfmathparse{90-270/${this.nbDents}}\\let\\b\\pgfmathresult
+      \\draw[rotate=\\angle] (\\Ax,\\Ay) to[bend left=15] (\\Cx,\\Cy) -- (\\Dx,\\Dy) to[bend left=15] (\\Bx,\\By) arc (\\a:\\b:${this.rayon}cm); 
+      \\end{scope}
+      }`
+  }
+}
+
+/**
+ *
+ * @param {object} parametres paramètres de l'objet voir ci-dessous
+ * @param {number} [parametres.rayon] rayon du disque (le rayon avec les dents est 4/3 du rayon)
+ * @param {number} [parametres.nbDents] nombre de dents souhaitées
+ * @param {xCenter} [parametres.xCenter] abscisse du centre
+ * @param {yCenter} [parametres.yCenter] ordonnée du centre
+ * @param {string} [parametres.couleur] couleur du tracé
+ * @param {string} [parametres.couleurDeRemplissage] couleur du remplissage
+ * @param {string} [parametres.couleurDuTrou] couleur du disque intérieur
+ * @returns
+ */
+export function engrenage ({ rayon = 1, nbDents = 12, xCenter = 0, yCenter = 0, couleur = 'black', couleurDeRemplissage = 'black', couleurDuTrou = 'white' }) {
+  return new Engrenage({ rayon, nbDents, xCenter, yCenter, couleur, couleurDeRemplissage, couleurDuTrou })
+}
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% LES TRANSFORMATIONS %%%%%%%%%%
