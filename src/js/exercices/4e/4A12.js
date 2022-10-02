@@ -286,7 +286,7 @@ export default function ProblemesEvenementsRecurrents () {
                 texte: '',
                 statut: '',
                 reponse: {
-                  texte: 'Réponse : ',
+                  texte: saveurs[i] === 'guirlande' ? 'Nombre de secondes : ' : saveurs[i] === 'engrenages' ? 'Réponse : ' : 'Nombre de secondes : ',
                   valeur: [bonneReponse],
                   param: {
                     digits: nombreDeChiffresDe(bonneReponse),
