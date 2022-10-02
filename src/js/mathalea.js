@@ -1174,7 +1174,7 @@ function miseAJourDuCode () {
               `)
             }
             if (!exoCan.hasOwnProperty('canEnonce') || !exoCan.hasOwnProperty('canReponseACompleter')) {
-              msgEnonce = exoCan.contenu.replace('\\exo{}', '').replace(`\\marginpar{\\footnotesize ${exoCan.id}}`, '') //'Propriété canEnonce manquante'
+              msgEnonce = exoCan.contenu.replace('\\exo{}', '').replace(`\\marginpar{\\footnotesize ${exoCan.id}}`, '') // 'Propriété canEnonce manquante'
               msgRepACompleter = ''
               if (!exoCan.hasOwnProperty('canEnonce')) {
                 msgAlerteCanEnonce += ' ' + exoCan.id
@@ -1265,7 +1265,7 @@ function miseAJourDuCode () {
                   `)
                 }
                 if (!exoCan.hasOwnProperty('canEnonce') || !exoCan.hasOwnProperty('canReponseACompleter')) {
-                  msgEnonce = exoCan.contenu.replace('\\exo{}', '').replace(`\\marginpar{\\footnotesize ${exoCan.id}}`, '') //'Propriété canEnonce manquante'
+                  msgEnonce = exoCan.contenu.replace('\\exo{}', '').replace(`\\marginpar{\\footnotesize ${exoCan.id}}`, '') // 'Propriété canEnonce manquante'
                   msgRepACompleter = ''
                   if (!exoCan.hasOwnProperty('canEnonce')) {
                     msgAlerteCanEnonce += ' ' + exoCan.id
@@ -3560,22 +3560,30 @@ document.addEventListener('DOMContentLoaded', async () => {
       modalTimer()
     })
   }
-  
+
   const btnSon = document.getElementById('son_diap')
   if (btnSon !== null) {
     btnSon.addEventListener('click', () => {
       if (context.son === 1) {
-          context.son = 0
-          document.getElementById('iconeSon').classList.remove('off')
-          document.getElementById('iconeSon').classList.add('up')
-        } else {
-          context.son = 1
-          document.getElementById('iconeSon').classList.remove('up')
-          document.getElementById('iconeSon').classList.add('off')
-        }
+        context.son = 0
+        document.getElementById('iconeSon').classList.remove('up')
+        document.getElementById('iconeSon').classList.add('off')
+      } else {
+        context.son = 1
+        document.getElementById('iconeSon').classList.remove('off')
+        document.getElementById('iconeSon').classList.add('up')
+        // On ajoute une lecture sans volume pour gérer l'autoplay policy
+        // Le premier son doit venir d'une action de l'utilisateur pour que les suivants soient autorisés
+        const son = new Audio('assets/sons/changediapo.mp3')
+        son.addEventListener('canplaythrough', (event) => {
+          son.volume = 0
+          son.play().catch(() => {
+          })
+        })
+      }
     })
   }
-        
+
   const btnMulti = document.getElementById('btnMulti')
   if (btnMulti !== null) {
     btnMulti.addEventListener('click', () => {
