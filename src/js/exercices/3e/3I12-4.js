@@ -127,7 +127,7 @@ export default function ComprendreScriptListeMultiples () {
       ['Comment se nomme la variable dans ce script ?', `La variable de ce script se nomme ${texteEnCouleurEtGras(var1)}.`, 1],
       ['Que fait ce script ?', `Ce script demande un nombre entier à l'utilisateur puis, pour tous les nombres entiers de 1 au nombre fourni, calcule le reste de la division euclidienne 
       de ce nombre fourni par chacun des entiers et le compare à zéro. Le lutin peut ainsi énoncer pendant une demi-seconde un nouveau diviseur du nombre fourni.`, 3],
-      [`Si le nombre saisi est ${nb03}, que dit précisément le lutin au final ?`,
+      [`Si le nombre saisi est ${nb03}, que dit précisément le lutin ?`,
       `${choixScript === 1 ? nb03 + ' est un multiple de 1' : choixScript === 2 ? '1 divise ' + nb03 : '1 est un diviseur de ' + nb03}.<br>
       ${choixScript === 1 ? nb03 + ' est un multiple de ' + min(nb01, nb02) : choixScript === 2 ? min(nb01, nb02) + ' divise ' + nb03 : min(nb01, nb02) + ' est un diviseur de ' + nb03}.<br>
       ${choixScript === 1 ? nb03 + ' est un multiple de ' + max(nb01, nb02) : choixScript === 2 ? max(nb01, nb02) + ' divise ' + nb03 : max(nb01, nb02) + ' est un diviseur de ' + nb03}.<br>
