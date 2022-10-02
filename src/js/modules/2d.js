@@ -1,4 +1,4 @@
-import { calcul, arrondi, egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, lettreDepuisChiffre, nombreAvecEspace, stringNombre, inferieurouegal, numberFormat, nombreDeChiffresDe, superieurouegal, combinaisonListes, texcolors, texNombre, enleveElement } from './outils.js'
+import { calcul, arrondi, egal, randint, rangeMinMax, unSiPositifMoinsUnSinon, lettreDepuisChiffre, nombreAvecEspace, stringNombre, inferieurouegal, numberFormat, nombreDeChiffresDe, superieurouegal, combinaisonListes, texcolors, texNombre, enleveElement } from './outils.js'
 import { radians } from './fonctionsMaths.js'
 import { context } from './context.js'
 import { fraction, Fraction, max, ceil, isNumeric, floor, random, round, abs } from 'mathjs'
@@ -11086,19 +11086,13 @@ function pattern ({
     return `${myPattern}`
   }
 }
-/**
- * Fonction créant
- *
- *
- * @author Jean-Claude Lhote
- * Publié le 6/12/2020
- */
+
 /**  Crée un labyrinthe de nombres.
  * @param {Object} parametres À saisir entre accolades
  * @param {number} [parametres.taille = 1]
- * @param {string} [parametres.format = 'texte']
+ * @param {string} [parametres.color = 'texte']
  * @property {number[]} bordures Coordonnées de la fenêtre d'affichage du genre [-2,-2,5,5]
- * @author Jean-Claude Lhote
+ * @author Jean-Claude Lhote & Eric Elter (améliorée par EE pour choisir le nombre de lignes et de colonnes)
  * Publié le 6/12/2020
  * @class
  */
@@ -11106,56 +11100,18 @@ function pattern ({
 function Labyrinthe (
   {
     taille = 1,
-    format = 'texte',
-    couleur = 'brown',
+    color = 'brown',
     nbLignes = 3,
     nbColonnes = 6
-    //   nbLignes = 3,
-    // nbColonnes = 6
   } = {}
 ) {
-  // this.niveau = 3 // Le niveau doit être un entier entre 1 et 6 inclus
   this.nombres = [[]] // Le tableau de nombres doit être de format [6][3]
 
-  /// / A SUPPRIMER
-  const chemins = [
-    [[1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [5, 1], [6, 1]],
-    [[1, 0], [2, 0], [3, 0], [4, 0], [4, 1], [5, 1], [6, 1]],
-    [[1, 0], [2, 0], [2, 1], [3, 1], [4, 1], [5, 1], [6, 1]],
-    [[1, 0], [1, 1], [2, 1], [3, 1], [4, 1], [5, 1], [6, 1]],
-    [[1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [5, 1], [5, 2], [6, 2]],
-    [[1, 0], [2, 0], [3, 0], [4, 0], [4, 1], [5, 1], [5, 2], [6, 2]],
-    [[1, 0], [2, 0], [3, 0], [4, 0], [4, 1], [4, 2], [5, 2], [6, 2]],
-    [[1, 0], [2, 0], [3, 0], [3, 1], [4, 1], [5, 1], [5, 2], [6, 2]],
-    [[1, 0], [2, 0], [3, 0], [3, 1], [3, 2], [4, 2], [5, 2], [6, 2]],
-    [[1, 0], [2, 0], [2, 1], [3, 1], [4, 1], [4, 2], [5, 2], [6, 2]],
-    [[1, 0], [1, 1], [2, 1], [2, 2], [3, 2], [4, 2], [5, 2], [6, 2]],
-    [[1, 0], [1, 1], [2, 1], [3, 1], [4, 1], [4, 0], [5, 0], [6, 0]],
-    [[1, 0], [1, 1], [2, 1], [3, 1], [4, 1], [5, 1], [5, 2], [6, 2]],
-    [[1, 0], [1, 1], [1, 2], [2, 2], [3, 2], [4, 2], [5, 2], [6, 2]],
-    [[1, 0], [1, 1], [2, 1], [2, 2], [3, 2], [4, 2], [5, 2], [5, 1], [6, 1]],
-    [[1, 0], [2, 0], [3, 0], [3, 1], [3, 2], [4, 2], [5, 2], [5, 1], [6, 1]],
-    [[1, 0], [1, 1], [1, 2], [2, 2], [3, 2], [3, 1], [4, 1], [5, 1], [6, 1]],
-    [[1, 0], [1, 1], [1, 2], [2, 2], [3, 2], [4, 2], [4, 1], [5, 1], [6, 1]],
-    [[1, 0], [2, 0], [3, 0], [3, 1], [3, 2], [4, 2], [5, 2], [5, 1], [5, 0], [6, 0]],
-    [[1, 0], [1, 1], [2, 1], [2, 2], [3, 2], [4, 2], [4, 1], [4, 0], [5, 0], [6, 0]],
-    [[1, 0], [1, 1], [2, 1], [2, 2], [3, 2], [4, 2], [5, 2], [5, 1], [5, 0], [6, 0]],
-    [[1, 0], [1, 1], [1, 2], [2, 2], [3, 2], [4, 2], [4, 1], [4, 0], [5, 0], [6, 0]],
-    [[1, 0], [1, 1], [1, 2], [2, 2], [3, 2], [3, 1], [3, 0], [4, 0], [5, 0], [5, 1], [5, 2], [6, 2]],
-    [[1, 0], [1, 1], [1, 2], [2, 2], [3, 2], [3, 1], [3, 0], [4, 0], [5, 0], [5, 1], [5, 2], [6, 2]]]
-  let elementchemin
-  for (let i = 0; i < 24; i++) { // on double le nombre de chemins par Symétrie.
-    elementchemin = []
-    for (let j = 0; j < chemins[i].length; j++) {
-      elementchemin.push([chemins[i][j][0], 2 - chemins[i][j][1]])
-    }
-    chemins.push(elementchemin)
-  }
-  /// FIN DE A SUPPRIMER
   function arrayCopy (arr) {
     return JSON.parse(JSON.stringify(arr))
   }
 
+  // Permet de tester si un tableau est contenu dans un autre.
   // tableauDansTableau([0, 1, 0, 0, 1, 1, 1, 0],[1, 1]) Permet de tester si [1, 1] est contenu dans [[0, 1], [0, 0], [1, 1], [1, 0]]
   function tableauDansTableau (gdTableau, petitTableau) {
     let test = false
@@ -11168,26 +11124,19 @@ function Labyrinthe (
     return test
   }
 
-  // const elementcheminEE = [1, 1] // [colonne,ligne]
-  let cheminsEE = [[1, 0]]
+  let cheminsEE = [[1, 0]] // [[colonne,ligne]]
   const casesVoisinesTableau = [[-1, 0], [0, 1], [1, 0], [0, -1]] // Nord ; Est ; Sud ; Ouest
 
-  function rechercheCheminsPossibles (caseActuelle, indiceCheminActuel, dejaParcourus, casesImpossibles) {
-    // if (indiceCheminActuel === 0) console.log('------------ caseActuelle ', caseActuelle, 'indiceCheminActuel ', indiceCheminActuel)
+  function rechercheCheminsPossibles (caseActuelle, indiceCheminActuel, dejaParcourus) {
     const casesPossibles = []
     let prochaineCasePossible = []
 
     for (const element of Visitables) {
       prochaineCasePossible = [caseActuelle[0] + element[0], caseActuelle[1] + element[1]] // Test de l'ouest
-      // if (indiceCheminActuel === 0) console.log(prochaineCasePossible, dejaParcourus, casesImpossibles)
-      if (prochaineCasePossible[0] === nbColonnes) {
-      // if (prochaineCasePossible[0] === 6 && prochaineCasePossible[1] === arrivee) {
-        // if (indiceCheminActuel === 0) console.log('chemins SEE2 return : ', cheminsEE[indiceCheminActuel])
+      if (prochaineCasePossible[0] === nbColonnes) { // On est arrivé
         return [nbColonnes, prochaineCasePossible[1]]
-      } else if (!tableauDansTableau(dejaParcourus, prochaineCasePossible) && !tableauDansTableau(casesImpossibles, prochaineCasePossible)) {
-        // console.log('prochaineCasePossible ', prochaineCasePossible)
+      } else if (!tableauDansTableau(dejaParcourus, prochaineCasePossible)) {
         if (prochaineCasePossible[0] < nbColonnes + 1 && prochaineCasePossible[0] > 0 && prochaineCasePossible[1] < nbLignes && prochaineCasePossible[1] > -1) {
-        //  if (prochaineCasePossible[0] < 7 && prochaineCasePossible[0] > 0 && prochaineCasePossible[1] < 5 && prochaineCasePossible[1] > 0) {
           const casesVoisines = []
           const elementPrecedent = [-1 * element[0], -1 * element[1]] // D'où vient la case actuelle ?
           for (let k = 0; k < 4; k++) {
@@ -11195,126 +11144,86 @@ function Labyrinthe (
           }
 
           let nonVoisin = true // Les cases voisines sont accessibles
-          // console.log('casesVoisines : ', casesVoisines)
           for (const element2 of casesVoisines) { // Recherche si les cases voisines à la prochaine case possible n'ont pas déjà été parcourues.
             nonVoisin &&= !tableauDansTableau(dejaParcourus, [prochaineCasePossible[0] + element2[0], prochaineCasePossible[1] + element2[1]])
-            // console.log('nonVoisin ', nonVoisin, element2)
           }
           if (nonVoisin) casesPossibles.push(prochaineCasePossible) // Cette prochaine case possible est validée.
-        } else casesImpossibles.push(prochaineCasePossible) /// A MODIFIER
-      }
-    }
-    //    console.log('casesPossibles ', casesPossibles)
-    if (casesPossibles.length === 0) {
-      //    if (indiceCheminActuel === 0) console.log('************* chemin terminé ****************')
-      return [0, 0] // Case impossible, retour en arriere
-    } else {
-      let aVenir
-      const tototo = []
-      for (let ee = casesPossibles.length - 1; ee > 0; ee--) {
-        //      if (indiceCheminActuel === 0) console.log('dejaParcourus ', dejaParcourus.concat(casesPossibles[ee]))
-        cheminsEE.push([])
-        tototo[ee] = cheminsEE.length - 1
-      }
-      for (let ee = casesPossibles.length - 1; ee > 0; ee--) {
-        // console.log('chemins SEE : ', cheminsEE, 'tototo[ee] : ', tototo[ee], 'indiceCheminActuel : ', indiceCheminActuel)
-
-        cheminsEE[tototo[ee]] = cheminsEE[indiceCheminActuel].concat(casesPossibles[ee])
-        // if (indiceCheminActuel === 0) console.log('chemins SEE : ', cheminsEE[cheminsEE.length - 1])
-        // if (indiceCheminActuel === 0) console.log(casesPossibles[ee], cheminsEE.length / 2 - 1, dejaParcourus.concat(casesPossibles[ee]), casesImpossibles)
-        aVenir = rechercheCheminsPossibles(casesPossibles[ee], tototo[ee], dejaParcourus.concat(casesPossibles[ee]), casesImpossibles)
-        // if (indiceCheminActuel === 0) console.log('aVenir : ', aVenir)
-        if (aVenir !== undefined) {
-          cheminsEE[tototo[ee]].push(aVenir[0])
-          cheminsEE[tototo[ee]].push(aVenir[1])
         }
       }
-      //        if (indiceCheminActuel === 0) console.log('cheminsEE for : ', cheminsEE[tototo])
-
-      // if (indiceCheminActuel === 0) console.log('dejaParcourus ', dejaParcourus.concat(casesPossibles[0]))
-      // if (indiceCheminActuel === 0) console.log('chemins SEE2 Avant : ', cheminsEE[indiceCheminActuel])
+    }
+    if (casesPossibles.length === 0) {
+      return [0, 0] // Case impossible, retour en arriere
+    } else {
+      let cheminAVenir
+      const tableauIndiceFuturChemin = []
+      for (let ee = casesPossibles.length - 1; ee > 0; ee--) { // Préparation à la création d'un nouveau chemin
+        cheminsEE.push([])
+        tableauIndiceFuturChemin[ee] = cheminsEE.length - 1
+      }
+      for (let ee = casesPossibles.length - 1; ee > 0; ee--) {
+        cheminsEE[tableauIndiceFuturChemin[ee]] = cheminsEE[indiceCheminActuel].concat(casesPossibles[ee]) // Le début du nouveau chemin correspond au chemin déjà en cours
+        cheminAVenir = rechercheCheminsPossibles(casesPossibles[ee], tableauIndiceFuturChemin[ee], dejaParcourus.concat(casesPossibles[ee]))
+        if (cheminAVenir !== undefined) {
+          cheminsEE[tableauIndiceFuturChemin[ee]].push(cheminAVenir[0])
+          cheminsEE[tableauIndiceFuturChemin[ee]].push(cheminAVenir[1])
+        }
+      }
       cheminsEE[indiceCheminActuel].push(casesPossibles[0][0])
       cheminsEE[indiceCheminActuel].push(casesPossibles[0][1])
-      // if (indiceCheminActuel === 0) console.log('chemins SEE2 Après : ', cheminsEE[indiceCheminActuel])
-      // if (indiceCheminActuel === 0) console.log(casesPossibles[0], indiceCheminActuel, dejaParcourus.concat(casesPossibles[0]), casesImpossibles)
-      const tuut = rechercheCheminsPossibles(casesPossibles[0], indiceCheminActuel, dejaParcourus.concat(casesPossibles[0]), casesImpossibles)
-      // if (indiceCheminActuel === 0) console.log('tuut : ', tuut)
-      if (tuut !== undefined) {
-        // if (indiceCheminActuel === 0) console.log('chemins SEE avant tuut : ', cheminsEE[indiceCheminActuel])
-        cheminsEE[indiceCheminActuel].push(tuut[0])
-        cheminsEE[indiceCheminActuel].push(tuut[1])
-        // if (indiceCheminActuel === 0) console.log('chemins SEE dans tuut : ', cheminsEE[indiceCheminActuel])
+      const prochainChemin = rechercheCheminsPossibles(casesPossibles[0], indiceCheminActuel, dejaParcourus.concat(casesPossibles[0]))
+      if (prochainChemin !== undefined) {
+        cheminsEE[indiceCheminActuel].push(prochainChemin[0])
+        cheminsEE[indiceCheminActuel].push(prochainChemin[1])
       }
     }
   }
-  console.log('Debut du test')
-  let dejaParcourux = [1, 0]
-  let casesImpossibles = [1, 0]
+  let cheminDejaParcouru = [1, 0]
   const Visitables = [[1, 0], [0, -1], [-1, 0], [0, 1]] // Nord ; Est ; Sud ; Ouest
-  cheminsEE[0].push(rechercheCheminsPossibles([1, 0], 0, dejaParcourux, casesImpossibles))
+  cheminsEE[0].push(rechercheCheminsPossibles([1, 0], 0, cheminDejaParcouru))
   enleveElement(cheminsEE[0], undefined) // Obligé d'enlever un undefined qui traine sans savoir pourquoi.
-  let cheminsX = [[]]
-  cheminsX = arrayCopy(cheminsEE)
+  let cheminTableauSimple = [[]]
+  cheminTableauSimple = arrayCopy(cheminsEE)
 
-  cheminsEE = [[1, 1]]
-  dejaParcourux = [1, 1]
-  casesImpossibles = [1, 1]
-  cheminsEE[0].push(rechercheCheminsPossibles([1, 1], 0, dejaParcourux, casesImpossibles))
-  enleveElement(cheminsEE[0], undefined) // Obligé d'enlever un undefined qui traine sans savoir pourquoi.
-  cheminsX = cheminsX.concat(cheminsEE)
-
-  cheminsEE = [[1, 2]]
-  dejaParcourux = [1, 2]
-  casesImpossibles = [1, 2]
-  cheminsEE[0].push(rechercheCheminsPossibles([1, 2], 0, dejaParcourux, casesImpossibles))
-  enleveElement(cheminsEE[0], undefined) // Obligé d'enlever un undefined qui traine sans savoir pourquoi.
-  cheminsX = cheminsX.concat(cheminsEE)
-
-  // console.log('cheminsEE : ', cheminsEE)
-  for (let k = cheminsX.length - 1; k >= 0; k--) { // On élimine les voies sans issues, celles se terminant par 0, 0
-    if (cheminsX[k][cheminsX[k].length - 2] === 0) cheminsX.splice(k, 1)
+  for (let k = 1; k < nbLignes; k++) {
+    cheminsEE = [[1, k]]
+    cheminDejaParcouru = [1, k]
+    cheminsEE[0].push(rechercheCheminsPossibles([1, k], 0, cheminDejaParcouru))
+    enleveElement(cheminsEE[0], undefined) // Obligé d'enlever un undefined qui traine sans savoir pourquoi.
+    cheminTableauSimple = cheminTableauSimple.concat(cheminsEE)
   }
-  cheminsX.sort((a, b) => a.length - b.length) // On trie les chemins du plus court au plus long...
 
-  console.log('cheminsX : ', cheminsX)
+  for (let k = cheminTableauSimple.length - 1; k >= 0; k--) { // On élimine les voies sans issues, celles se terminant par 0, 0
+    if (cheminTableauSimple[k][cheminTableauSimple[k].length - 2] === 0) cheminTableauSimple.splice(k, 1)
+  }
+  cheminTableauSimple.sort((a, b) => b.length - a.length) // On trie les chemins du plus court au plus long...
+
+  const chemins = []
+  let elementchemin = []
+
+  // Le passage ci-dessous est obligatoire pour passer d'un tableau 2d à un tableau 3d
+  // afin d'être en adéquation avec la fonction Labyrinthe() Version 1
+
+  for (let i = 0; i < cheminTableauSimple.length; i++) { // on double le nombre de chemins par Symétrie.
+    elementchemin = []
+    for (let j = 0; j < cheminTableauSimple[i].length / 2; j++) {
+      elementchemin.push([cheminTableauSimple[i][2 * j], cheminTableauSimple[i][2 * j + 1]])
+    }
+    chemins.push(elementchemin)
+  }
+
+  // Gestion des vitesses : Escargot, ..., Guépard
 
   let tableauDeVitesses = [] // Plus la vitesse est grande, moins le trajet est long
-  const vitesseGrande = cheminsX[0].length
-  const vitessePetite = cheminsX[cheminsX.length - 1].length
+  const vitessePetite = cheminTableauSimple[0].length
+  const vitesseGrande = cheminTableauSimple[cheminTableauSimple.length - 1].length
   const ecartVitesse = (vitessePetite - vitesseGrande) / 4
   for (let k = 0; k < 4; k++) {
-    console.log(vitesseGrande + k * ecartVitesse)
-    tableauDeVitesses.push(cheminsX.findIndex((element) => element.length > vitesseGrande + k * ecartVitesse))
+    tableauDeVitesses.push(cheminTableauSimple.findIndex((element) => element.length < vitessePetite - k * ecartVitesse))
   }
-  tableauDeVitesses[4] = cheminsX.length
-  console.log(tableauDeVitesses)
+  tableauDeVitesses[4] = cheminTableauSimple.length
   tableauDeVitesses = tableauDeVitesses.map(element => element - 1)
   console.log(tableauDeVitesses)
-
-  console.log('Fin du test')
-
-  /// Faire choisir le chemin dans le chemin dynamique
   this.choisitChemin = function (niveau) { // retourne un chemin en fonction du niveau de difficulté
-    const choix = choice([0, 24]); let choixchemin
-    switch (niveau) { // on choisit le chemin parmi les 23*2
-      case 1: choixchemin = randint(0, 3) + choix
-        break
-      case 2: choixchemin = randint(4, 13) + choix
-        break
-      case 3: choixchemin = randint(14, 17) + choix
-        break
-      case 4: choixchemin = randint(18, 21) + choix
-        break
-      case 5: choixchemin = randint(22, 23) + choix
-        break
-      case 6: choixchemin = randint(0, 23) + choix
-        break
-    }
-    choixchemin = 0
-    return chemins[choixchemin]
-  }
-
-  this.choisitCheminX = function (niveau) { // retourne un chemin en fonction du niveau de difficulté
     let choixchemin
     switch (niveau) {
       case 1: choixchemin = randint(0, tableauDeVitesses[0])
@@ -11325,7 +11234,7 @@ function Labyrinthe (
       case 5:
         choixchemin = randint(tableauDeVitesses[niveau - 2] + 1, tableauDeVitesses[niveau - 1])
         break
-      case 6: choixchemin = randint(0, cheminsX.length - 1)
+      case 6: choixchemin = randint(0, cheminTableauSimple.length - 1)
         break
     }
     return chemins[choixchemin]
@@ -11333,95 +11242,8 @@ function Labyrinthe (
 
   // Retourne le tableau d'objets des murs en fonction du point d'entrée de chemin
   this.construitMurs = function (chemin) {
-    const objets = []; let s1; let s2; let s3; let s4; let s5
+    const objets = []; let s1; let s2
     const choix = chemin[0][1]
-    for (let i = 0; i < 6; i++) { // Construction des T supérieurs et inférieurs
-      // T inférieurs
-      s1 = segment(point(i * 3, 1), point(i * 3, 2))
-      s1.epaisseur = 2
-      objets.push(s1)
-      // T supérieurs
-      s2 = segment(point(i * 3, 10), point(i * 3, 9))
-      s2.epaisseur = 2
-      objets.push(s2)
-    }
-
-    // Construction du bord gauche entre le départ et le labyrinthe
-    s1 = segment(point(0, 10), point(0, 3 + choix * 3))
-    s1.epaisseur = 3
-    objets.push(s1)
-    s1 = segment(point(0, 1), point(0, 2 + choix * 3))
-    s1.epaisseur = 3
-    objets.push(s1)
-
-    // Construction case départ
-    s1 = segment(point(-3, 1 + choix * 3), point(0, 1 + choix * 3), 'green')
-    s1.epaisseur = 3
-    objets.push(s1)
-    s1 = segment(point(-3, 1 + choix * 3), point(-3, 4 + choix * 3), 'green')
-    s1.epaisseur = 3
-    objets.push(s1)
-    s1 = segment(point(-3, 4 + choix * 3), point(0, 4 + choix * 3), 'green')
-    s1.epaisseur = 3
-    objets.push(s1)
-    objets.push(texteParPoint('Départ', point(-1.5, 2.5 + choix * 3), 'milieu', 'blue', taille, 0, false))
-
-    // les croix centrales communes à A et B
-    for (let i = 1; i < 6; i++) {
-      s1 = segment(point(i * 3, 8), point(i * 3, 6), 'black')
-      s1.epaisseur = 2
-      s2 = segment(point(i * 3 - 0.5, 7), point(i * 3 + 0.5, 7), 'black')
-      s2.epaisseur = 2
-      s3 = segment(point(i * 3, 5), point(i * 3, 3), 'black')
-      s3.epaisseur = 2
-      s4 = segment(point(i * 3 - 0.5, 4), point(i * 3 + 0.5, 4), 'black')
-      s4.epaisseur = 2
-      objets.push(s2, s3, s4, s1)
-    }
-    // le pourtour commun à A et B
-    s1 = segment(point(18, 9), point(18, 10))
-    s1.epaisseur = 3
-    objets.push(s1)
-    s1 = segment(point(0, 10), point(18, 10))
-    s1.epaisseur = 3
-    objets.push(s1)
-    s1 = segment(point(18, 9), point(18, 10))
-    s1.epaisseur = 3
-    objets.push(s1)
-    s1 = segment(point(18, 1), point(18, 2))
-    s1.epaisseur = 3
-    objets.push(s1)
-    s1 = segment(point(0, 1), point(18, 1))
-    s1.epaisseur = 3
-    objets.push(s1)
-    // les sorties communes à A et B
-    for (let i = 0; i < 2; i++) {
-      s1 = segment(point(18, 6 - i * 3), point(20, 6 - i * 3))
-      s1.epaisseur = 3
-      s2 = segment(point(18, 7 - i * 3), point(17, 7 - i * 3))
-      s2.epaisseur = 3
-      s3 = segment(point(18, 8 - i * 3), point(20, 8 - i * 3))
-      s3.epaisseur = 3
-      s4 = segment(point(18, 8 - i * 3), point(18, 6 - i * 3))
-      s4.epaisseur = 3
-      s5 = segment(point(0, 7 - i * 3), point(1, 7 - i * 3))
-      s5.epaisseur = 3
-      objets.push(s1, s2, s3, s4, s5)
-    }
-    for (let i = 1; i <= 3; i++) {
-      objets.push(texteParPoint(`Sortie ${i}`, point(19.5, 11.5 - 3 * i), 'milieu', 'blue', taille, 0, false))
-    }
-    s1 = segment(point(18, 9), point(20, 9))
-    s1.epaisseur = 3
-    s2 = segment(point(18, 2), point(20, 2))
-    s2.epaisseur = 3
-    objets.push(s1, s2)
-    return objets
-  }
-
-  this.construitMursX = function (chemin) {
-    const objets = []; let s1; let s2; let s3; let s4; let s5
-    const choix = chemin[1]
     for (let i = 0; i < nbColonnes; i++) { // Construction des T supérieurs et inférieurs
       // T inférieurs
       s1 = segment(point(i * 3, 1), point(i * 3, 2))
@@ -11456,57 +11278,46 @@ function Labyrinthe (
     // les croix centrales communes à A et B
     for (let i = 1; i < nbColonnes; i++) {
       for (let k = 0; k < nbLignes - 1; k++) {
-        /// Factoriser ce qui est en dessous
+        s1 = segment(point(i * 3, 5 + 3 * k), point(i * 3, 3 + 3 * k), 'black')
+        s1.epaisseur = 2
+        s2 = segment(point(i * 3 - 0.5, 4 + 3 * k), point(i * 3 + 0.5, 4 + 3 * k), 'black')
+        s2.epaisseur = 2
+        objets.push(s2, s1)
       }
+    }
+    // le pourtour commun
+    s1 = segment(point(0, 1 + 3 * nbLignes), point(3 * nbColonnes, 1 + 3 * nbLignes))
+    s1.epaisseur = 3
+    objets.push(s1)
+    s1 = segment(point(3 * nbColonnes, 1 + 3 * nbLignes - 1), point(3 * nbColonnes, 1 + 3 * nbLignes))
+    s1.epaisseur = 3
+    objets.push(s1)
+    s1 = segment(point(3 * nbColonnes, 1), point(3 * nbColonnes, 2))
+    s1.epaisseur = 3
+    objets.push(s1)
+    s1 = segment(point(0, 1), point(3 * nbColonnes, 1))
+    s1.epaisseur = 3
+    objets.push(s1)
 
-      s1 = segment(point(i * 3, 8), point(i * 3, 6), 'black')
-      s1.epaisseur = 2
-      s2 = segment(point(i * 3 - 0.5, 7), point(i * 3 + 0.5, 7), 'black')
-      s2.epaisseur = 2
-      s3 = segment(point(i * 3, 5), point(i * 3, 3), 'black')
-      s3.epaisseur = 2
-      s4 = segment(point(i * 3 - 0.5, 4), point(i * 3 + 0.5, 4), 'black')
-      s4.epaisseur = 2
-      objets.push(s2, s3, s4, s1)
-    }
-    // le pourtour commun à A et B
-    s1 = segment(point(18, 9), point(18, 10))
-    s1.epaisseur = 3
-    objets.push(s1)
-    s1 = segment(point(0, 10), point(18, 10))
-    s1.epaisseur = 3
-    objets.push(s1)
-    s1 = segment(point(18, 9), point(18, 10))
-    s1.epaisseur = 3
-    objets.push(s1)
-    s1 = segment(point(18, 1), point(18, 2))
-    s1.epaisseur = 3
-    objets.push(s1)
-    s1 = segment(point(0, 1), point(18, 1))
-    s1.epaisseur = 3
-    objets.push(s1)
-    // les sorties communes à A et B
-    for (let i = 0; i < 2; i++) {
-      s1 = segment(point(18, 6 - i * 3), point(20, 6 - i * 3))
+    // les sorties
+    // La partie verticale
+    for (let i = 0; i < nbLignes - 1; i++) {
+      s1 = segment(point(3 * nbColonnes, 3 + i * 3), point(3 * nbColonnes, 5 + i * 3))
       s1.epaisseur = 3
-      s2 = segment(point(18, 7 - i * 3), point(17, 7 - i * 3))
+      objets.push(s1)
+    }
+    // La partie horizontale
+    for (let i = 0; i < nbLignes; i++) {
+      s1 = segment(point(3 * nbColonnes, 2 + i * 3), point(3 * nbColonnes + 2, 2 + i * 3))
+      s1.epaisseur = 3
+      s2 = segment(point(3 * nbColonnes, 3 + i * 3), point(3 * nbColonnes + 2, 3 + i * 3))
       s2.epaisseur = 3
-      s3 = segment(point(18, 8 - i * 3), point(20, 8 - i * 3))
-      s3.epaisseur = 3
-      s4 = segment(point(18, 8 - i * 3), point(18, 6 - i * 3))
-      s4.epaisseur = 3
-      s5 = segment(point(0, 7 - i * 3), point(1, 7 - i * 3))
-      s5.epaisseur = 3
-      objets.push(s1, s2, s3, s4, s5)
+      objets.push(s1, s2)
     }
-    for (let i = 1; i <= 3; i++) {
-      objets.push(texteParPoint(`Sortie ${i}`, point(19.5, 11.5 - 3 * i), 'milieu', 'blue', taille, 0, false))
+    // Le texte
+    for (let i = 1; i <= nbLignes; i++) {
+      objets.push(texteParPoint(`Sortie ${i}`, point(3 * nbColonnes + 1.5, 2.5 + 3 * nbLignes - 3 * i), 'milieu', 'blue', taille, 0, false))
     }
-    s1 = segment(point(18, 9), point(20, 9))
-    s1.epaisseur = 3
-    s2 = segment(point(18, 2), point(20, 2))
-    s2.epaisseur = 3
-    objets.push(s1, s2)
     return objets
   }
 
@@ -11515,7 +11326,7 @@ function Labyrinthe (
     let y = monchemin[0][1]
     let x = 0; const chemin2d = []; let s1
     for (let j = 0; j < monchemin.length; j++) {
-      s1 = segment(point(x * 3 - 1.5, y * 3 + 2.5), point(monchemin[j][0] * 3 - 1.5, monchemin[j][1] * 3 + 2.5), couleur)
+      s1 = segment(point(x * 3 - 1.5, y * 3 + 2.5), point(monchemin[j][0] * 3 - 1.5, monchemin[j][1] * 3 + 2.5), color)
       s1.pointilles = 5
       s1.stylePointilles = 2
       s1.epaisseur = 5
@@ -11524,7 +11335,7 @@ function Labyrinthe (
       x = monchemin[j][0]
       y = monchemin[j][1]
     }
-    s1 = segment(point(x * 3 - 1.5, y * 3 + 2.5), point(x * 3 + 1.5, y * 3 + 2.5), couleur)
+    s1 = segment(point(x * 3 - 1.5, y * 3 + 2.5), point(x * 3 + 1.5, y * 3 + 2.5), color)
     s1.pointilles = 5
     s1.stylePointilles = 2
     s1.epaisseur = 5
@@ -11535,8 +11346,8 @@ function Labyrinthe (
   // Retourne le tableau d'objets des nombres
   this.placeNombres = function (nombres, taille) {
     const objets = []
-    for (let a = 1; a < 7; a++) {
-      for (let b = 0; b < 3; b++) {
+    for (let a = 1; a < nbColonnes + 1; a++) {
+      for (let b = 0; b < nbLignes; b++) {
         if (typeof (nombres[a - 1][b]) === 'number') {
           objets.push(texteParPoint(nombreAvecEspace(nombres[a - 1][b]), point(-1.5 + a * 3, 2.5 + b * 3), 'milieu', 'black', taille, 0, true))
         } else if (typeof (nombres[a - 1][b]) === 'string') { // écriture mode Maths
@@ -11549,8 +11360,8 @@ function Labyrinthe (
     return objets
   }
 } // fin de la classe labyrinthe
-export function labyrinthe ({ taille = 1, format = 'texte' } = {}) {
-  return new Labyrinthe({ taille, format })
+export function labyrinthe ({ taille = 1, color = 'brown', nbLignes = 3, nbColonnes = 6 } = {}) {
+  return new Labyrinthe({ taille: taille, color: color, nbLignes: nbLignes, nbColonnes: nbColonnes })
 }
 
 /**

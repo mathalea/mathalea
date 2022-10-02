@@ -13,7 +13,7 @@ export const titre = 'Labyrinthe de multiples avec critères choisis équilibré
  */
 export const uuid = '5618d'
 export const ref = '5A11-2'
-export default function ExerciceLabyrintheDivisibilite () {
+export default function ExerciceLabyrintheDivisibilite2 () {
   Exercice.call(this)
   this.titre = titre
   this.consigne = ''

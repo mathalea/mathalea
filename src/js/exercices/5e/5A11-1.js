@@ -2,6 +2,7 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleurEtGras, contraindreValeur, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
 import { labyrinthe } from '../../modules/2d.js'
+import { max } from 'mathjs'
 export const dateDeModifImportante = '14/11/2021'
 
 export const titre = 'Labyrinthe de multiples basé sur les critères de divisibilité'
@@ -14,7 +15,7 @@ export const titre = 'Labyrinthe de multiples basé sur les critères de divisib
  */
 export const uuid = 'a3870'
 export const ref = '5A11-1'
-export default function ExerciceLabyrintheDivisibilite () {
+export default function ExerciceLabyrintheDivisibilite1 () {
   Exercice.call(this)
   this.titre = titre
   this.consigne = ''
@@ -24,17 +25,20 @@ export default function ExerciceLabyrintheDivisibilite () {
   this.nbColsCorr = 1
   this.pasDeVersionLatex = false
   this.pas_de_version_HMTL = false
-  this.sup3 = 3
   this.sup = '2-5-10'
+  this.sup3 = 3
+  this.sup4 = 6
   if (this.niveau === 'CM') {
-    this.sup3 = 3
+    this.sup2 = 3
   } else {
-    this.sup3 = 4
+    this.sup2 = 4
   }
   // this.consigne=`Trouve la sortie en ne passant que par les cases contenant un nombre divisible par $${parseInt(this.sup)}$.`
   this.nouvelleVersion = function () {
-    this.sup3 = Number(this.sup3)
+    this.sup2 = Number(this.sup2)
     const tailleChiffre = 0.8
+    const nbL = max(2, this.sup3) // nombre de lignes
+    const nbC = max(2, this.sup4) // nombre de colonnes
 
     this.listeCorrections = []
     this.listeQuestions = []
@@ -61,25 +65,25 @@ export default function ExerciceLabyrintheDivisibilite () {
       tables[i] = contraindreValeur(2, 50, parseInt(tables[i]), 5)
     }
     for (let q = 0; q < this.nbQuestions;) {
-      laby = labyrinthe({ taille: tailleChiffre })
-      laby.niveau = this.sup3 // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
+      laby = labyrinthe({ taille: tailleChiffre, nbLignes: nbL, nbColonnes: nbC })
+      laby.niveau = this.sup2 // Le niveau (de 1 à 6 = mélange) définit le nombre d'étapes
       laby.chemin = laby.choisitChemin(laby.niveau) // On choisit un chemin
       laby.murs2d = laby.construitMurs(laby.chemin) // On construit le labyrinthe
       laby.chemin2d = laby.traceChemin(laby.chemin) // On trace le chemin solution
       monChemin = laby.chemin
       texte = `${texteEnCouleurEtGras('Trouve la sortie en ne passant que par les cases contenant un nombre divisible par ', 'black')}$${tables[q]}$.<br>`
-      texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en marron et la sortie était la numéro $${2 - monChemin[monChemin.length - 1][1] + 1}$.`, 'black')}<br>`
-      // Zone de construction du tableau de nombres : Si ils sont sur monChemin et seulement si, ils doivent vérifier la consigne
+      texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en marron et la sortie est le numéro $${nbL - 1 - monChemin[monChemin.length - 1][1] + 1}$.`, 'black')}<br>`
+      // Zone de construction du tableau de nombres : S'ils sont sur monChemin et seulement si, ils doivent vérifier la consigne
       let listeMultiples = []; let index = 0
       for (let i = 200; i <= 12000; i += randint(1, 100)) {
         listeMultiples.push(tables[q] * i)
       }
       listeMultiples = combinaisonListes(listeMultiples, 12)
-      for (let a = 1; a < 7; a++) {
+      for (let a = 1; a < nbC + 1; a++) {
         laby.nombres.push([0, 0, 0])
       }
-      for (let a = 1; a < 7; a++) {
-        for (let b = 0; b < 3; b++) {
+      for (let a = 1; a < nbC + 1; a++) {
+        for (let b = 0; b < nbL; b++) {
           trouve = false
           for (let k = 0; k < monChemin.length; k++) {
             if (monChemin[k][0] === a && monChemin[k][1] === b) { trouve = true }
@@ -93,7 +97,7 @@ export default function ExerciceLabyrintheDivisibilite () {
         }
       } // Le tableau de nombre étant fait, on place les objets nombres.
       laby.nombres2d = laby.placeNombres(laby.nombres, tailleChiffre)
-      const params = { xmin: -4, ymin: 0, xmax: 22, ymax: 11, pixelsParCm: 20, scale: 0.7 }
+      const params = { xmin: -4, ymin: 0, xmax: 5 + 3 * nbC, ymax: 2 + 3 * nbL, pixelsParCm: 20, scale: 0.7 }
       texte += mathalea2d(params, laby.murs2d, laby.nombres2d)
       texteCorr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
       if (this.questionJamaisPosee(q, laby.nombres[0], laby.nombres[1])) {
@@ -105,5 +109,7 @@ export default function ExerciceLabyrintheDivisibilite () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireTexte = ['Critère de divisibilité séparés par des tirets (exemple : 3-5-10) ', '2-5-10']
-  this.besoinFormulaire3Numerique = ['Niveau de rapidité', 6, '1 : Escargot\n2 : Tortue\n3 : Lièvre\n4 : Antilope\n5 : Guépard\n6 : Au hasard']
+  this.besoinFormulaire2Numerique = ['Niveau de rapidité', 6, '1 : Escargot\n2 : Tortue\n3 : Lièvre\n4 : Antilope\n5 : Guépard\n6 : Au hasard']
+  this.besoinFormulaire3Numerique = ['Nombre de lignes du labyrinthe', 8, 'Entre 2 et 8']
+  this.besoinFormulaire4Numerique = ['Nombre de colonnes du labyrinthe', 8, 'Entre 2 et 8']
 } // Fin de l'exercice.
