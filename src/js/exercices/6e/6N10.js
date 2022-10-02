@@ -4,6 +4,8 @@ import { randint, listeQuestionsToContenu, texNombre, combinaisonListes, choice,
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Écrire un nombre entier en chiffres ou en lettres'
+export const amcReady = true
+export const amcType = 'AMCOpen' // type de question AMC
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,7 +18,6 @@ export const dateDeModifImportante = '14/09/2022'
  * Ecrire en chiffres ou en lettres un nombre entier inférieur à 1 000 000.
  * Avec des paramètres sur le nombre de chiffres des nombres voulus
  * Avec des paramètres sur la présence obligatoire de nombres avec 80 (et ses copains qui n'aiment pas mettre de S dans leur vin) et avec 100 (et ses copains comme ceux de 80)
- * Inspiration de 3A14
  * @author Eric Elter
  * Référence 6N10
  * Relecture : Novembre 2021 par EE
@@ -181,6 +182,20 @@ export default function EcrirePetitsNombresEntiers () {
         else texte = `${nombreEnLettres(NombreAEcrire)}`
         if (context.vue !== 'diap') texteCorr = `${nombreEnLettres(NombreAEcrire)} : $${texNombre(NombreAEcrire)}$`
         else texteCorr = `$${texNombre(NombreAEcrire)}$`
+      }
+
+      if (context.isAmc) {
+        this.autoCorrection[i] =
+        {
+          enonce: texte + '<br>',
+          propositions: [
+            {
+              texte: texteCorr,
+              statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+              sanscadre: true
+            }
+          ]
+        }
       }
 
       // Si la question n'a jamais été posée, on l'enregistre

@@ -130,55 +130,6 @@ export default function DivisionsEuclidiennesEgalite () {
             }
           ]
         }
-        /*
-        this.autoCorrection[i] = {
-          enonce: texte,
-          propositions: [
-            {
-              type: 'AMCNum',
-              propositions: [
-                {
-                  texte: texteCorr,
-                  statut: true,
-                  feedback: '',
-                  reponse: {
-                    texte: 'Quotient',
-                    valeur: 13,
-                    param: {
-                      digits: 2,
-                      decimals: 0,
-                      signe: false,
-                      exposantNbChiffres: 0,
-                      approx: 0
-                    }
-                  }
-                }
-              ]
-            },
-            {
-              type: 'AMCNum',
-              propositions: [
-                {
-                  texte: texteCorr,
-                  statut: true,
-                  feedback: '',
-                  reponse2: {
-                    texte: 'Reste',
-                    valeur: 7,
-                    param: {
-                      digits: 2,
-                      decimals: 0,
-                      signe: false,
-                      exposantNbChiffres: 0,
-                      approx: 0
-                    }
-                  }
-                }
-              ]
-            }
-          ]
-        }
-        */
       }
       if (this.questionJamaisPosee(this, i, a, b, q, r)) {
         // Si la question n'a jamais été posée, on en crée une autre
