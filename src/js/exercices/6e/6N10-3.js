@@ -1,8 +1,9 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, texNombre, miseEnEvidence, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, texNombre, miseEnEvidence, combinaisonListes, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { pow } from 'mathjs'
 export const titre = 'Décomposer un nombre entier (nombre de ..., chiffres des ...)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -195,6 +196,31 @@ export default function ChiffreNombreDe () {
       texte = `${enonces[listeTypeDeQuestions[i]].enonce}`
       texteCorr = `${enonces[listeTypeDeQuestions[i]].correction}`
       setReponse(this, i, reponses[listeTypeDeQuestions[i]])
+
+      if (context.isAmc) {
+        const nbDigitsSupplementaires = randint(1, 2)
+        this.autoCorrection[i] = {
+          enonce: texte, // Si vide, l'énoncé est celui de l'exercice.
+          propositions: [
+            {
+              texte: texteCorr // Si vide, le texte est la correction de l'exercice.
+            }
+          ],
+          reponse: {
+            texte: 'le texte affiché au dessus du formulaire numerique dans AMC', // facultatif
+            valeur: [reponses[listeTypeDeQuestions[i]]], // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9. Cette valeur doit être passée dans un tableau d'où la nécessité des crochets.
+            alignement: 'flushleft', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
+            param: {
+              aussiCorrect: reponses[listeTypeDeQuestions[i]] * pow(10, nbDigitsSupplementaires),
+              digits: nbDigitsSupplementaires + nombreDeChiffresDansLaPartieEntiere(reponses[listeTypeDeQuestions[i]]), // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
+              decimals: 0, // facultatif. S'il n'est pas mis, il sera mis à 0 et sera déterminé automatiquement comme décrit ci-dessus
+              signe: false, // (présence d'une case + ou - pour AMC)
+              approx: 0 // (0 = valeur exacte attendue, sinon valeur de tolérance... voir plus bas pour un point technique non intuitif)
+            }
+          }
+        }
+      }
+
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], nb)) { // Si la question n'a jamais été posée, on en crée une autre
         texte += ajouteChampTexteMathLive(this, i, 'largeur25')
         this.listeQuestions.push(texte)
