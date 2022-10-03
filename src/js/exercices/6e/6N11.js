@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { randint, combinaisonListes, calcul, lettreDepuisChiffre, listeQuestionsToContenu, stringNombre, texNombre, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
+import { randint, combinaisonListes, calcul, listeQuestionsToContenu, stringNombre, texNombre, nombreDeChiffresDansLaPartieEntiere, lettreIndiceeDepuisChiffre } from '../../modules/outils.js'
 import { droiteGraduee } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -51,9 +51,9 @@ export default function LireAbscisseEntiere2d () {
       this.autoCorrection[3 * i] = { propositions: [{ statut: 4, feedback: '' }] }
       this.autoCorrection[3 * i + 1] = { propositions: [{ statut: 4, feedback: '' }] }
       this.autoCorrection[3 * i + 2] = { propositions: [{ statut: 4, feedback: '' }] }
-      l1 = lettreDepuisChiffre(i * 3 + 1)
-      l2 = lettreDepuisChiffre(i * 3 + 2)
-      l3 = lettreDepuisChiffre(i * 3 + 3)
+      l1 = lettreIndiceeDepuisChiffre(i * 3 + 1)
+      l2 = lettreIndiceeDepuisChiffre(i * 3 + 2)
+      l3 = lettreIndiceeDepuisChiffre(i * 3 + 3)
       switch (typesDeQuestions[i]) {
         case 1: // Placer des entiers sur un axe (milliers)
           abs0 = randint(1, 9) * 1000
@@ -129,7 +129,7 @@ export default function LireAbscisseEntiere2d () {
                 texte: '',
                 statut: '',
                 reponse: {
-                  texte: 'Lire l\'abscisse de chacun des points.<br>' + texte + `<br>Abscisse de ${l1} :`,
+                  texte: 'Lire l\'abscisse de chacun des points.<br>' + texte + `<br>Abscisse de $${l1}$ :`,
                   valeur: reponse1,
                   param: {
                     digits: nombreDeChiffresDansLaPartieEntiere(reponse1),
@@ -146,7 +146,7 @@ export default function LireAbscisseEntiere2d () {
                 texte: '',
                 statut: '',
                 reponse: {
-                  texte: `Abscisse de ${l2} :`,
+                  texte: `Abscisse de $${l2}$ :`,
                   valeur: reponse2,
                   param: {
                     digits: nombreDeChiffresDansLaPartieEntiere(reponse2),
@@ -163,7 +163,7 @@ export default function LireAbscisseEntiere2d () {
                 texte: '',
                 statut: '',
                 reponse: {
-                  texte: `Abscisse de ${l3} :`,
+                  texte: `Abscisse de $${l3}$ :`,
                   valeur: reponse3,
                   param: {
                     digits: nombreDeChiffresDansLaPartieEntiere(reponse3),
