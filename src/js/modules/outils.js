@@ -3024,10 +3024,10 @@ export function couleurTab (choixCouleur = 999) {
     ['red', 'rouge', 'rouge'],
     ['green', 'vert', 'verte'],
     ['blue', 'bleu', 'bleue'],
-    ['hotpink', 'rose', 'rose'],
-    ['sienna', 'marron', 'marron'],
+    ['HotPink', 'rose', 'rose'],
+    ['Sienna', 'marron', 'marron'],
     ['darkgray', 'gris', 'grise'],
-    ['darkorange', 'orange', 'orange']
+    ['DarkOrange', 'orange', 'orange']
   ]
   return (choixCouleur === 999 || choixCouleur >= panelCouleurs.length || !isInteger(choixCouleur)) ? choice(panelCouleurs) : panelCouleurs[choixCouleur]
 }
@@ -8910,7 +8910,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   
   Puis remplir les cases des trois premières lettres de votre \\textbf{nom de famille} PUIS des deux premières lettres de votre \\textbf{prénom}
   \\vspace{1mm}
-  
+
   \\def\\AMCchoiceLabelFormat##1{\\textcolor{black!70}{{\\tiny ##1}}}  % pour alléger la couleur des lettres dans les cases et les réduire
   \\AMCcodeGrid[h]{ID}{ABCDEFGHIJKLMNOPQRSTUVWXYZ,
   ABCDEFGHIJKLMNOPQRSTUVWXYZ,
