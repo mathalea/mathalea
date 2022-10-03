@@ -4,11 +4,12 @@ import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js/decimal.mjs'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Recomposer un décimal ou un entier'
 export const interactifReady = true
 export const interactifType = 'custom'
 export const amcReady = true
-export const amcType = 'AMCNum'
+export const amcType = 'AMCOpen'
 export const dateDePublication = '14/08/2022'
 
 function remplaceParZero (chaine, place) {
@@ -583,7 +584,22 @@ export default function RecomposerEntierC3 () {
           this.nombreDeChamps[i] = indexChamp - this.premierChamp[i]
           break
       }
+
+      if (context.isAmc) {
+        this.autoCorrection[i] =
+        {
+          enonce: texte + '<br>',
+          propositions: [
+            {
+              texte: texteCorr,
+              statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+              sanscadre: true
+            }
+          ]
+        }
+      }
       texte += `<div id=divDuSmiley${this.numeroExercice}Q${i} style= "display: inline-block"></div>`
+
       if (this.questionJamaisPosee(i, nombre)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

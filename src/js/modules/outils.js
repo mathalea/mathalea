@@ -7821,7 +7821,7 @@ export function exportQcmAmc (exercice, idExo) {
       if (!Array.isArray(autoCorrection[j].reponse.valeur)) autoCorrection[j].reponse.valeur = [autoCorrection[j].reponse.valeur]
       valeurAMCNum = autoCorrection[j].reponse.valeur[0]
       if (typeof valeurAMCNum === 'string') {
-        valeurAMCNum = valeurAMCNum.replace(/\s/g, '').replace(',', '.')
+        valeurAMCNum = valeurAMCNum.replace(/\s/g, '').replaceAll(',', '.')
       }
     }
     switch (type) {
