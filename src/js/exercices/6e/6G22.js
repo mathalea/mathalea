@@ -83,8 +83,8 @@ export default function NommerUnAngle () {
       const objetsCorrection = []
       const sommetsDejaTrouves = []
       const choixCouleurRemplissage = rangeMinMax(0, 7)
-      couleurRemplissageAngle = ['none'] // Par défaut, on ne remplit pas l'angle.
-      couleurAngle = this.sup3 ? 'black' : 'none'
+      //  couleurRemplissageAngle = ['none'] // Correction J-C : on définira ces couleurs en testant this.sup3
+      // couleurAngle = 'black'
       let texte = ''
       const O = point(0, 0) // Sert à construire les symboles pour les questions
       const M1 = point(4, 0) // Sert à construire les symboles pour les questions
@@ -98,7 +98,11 @@ export default function NommerUnAngle () {
         if (!this.sup3) {
           aleaChoixCouleurRemplissage = choice(choixCouleurRemplissage)
           couleurRemplissageAngle = couleurTab(aleaChoixCouleurRemplissage)
+          couleurAngle = couleurRemplissageAngle[0]
           enleveElement(choixCouleurRemplissage, aleaChoixCouleurRemplissage)
+        } else {
+          couleurRemplissageAngle = ['none']
+          couleurAngle = 'black'
         }
         sommetsDejaTrouves[jj] = choixSommet
         switch (choixSommet) {
@@ -187,7 +191,7 @@ export default function NommerUnAngle () {
 
         pt1 = choice(listePt1) // Une fois la possibilité d'angle choisie, il y a deux points possibles.
         pt3 = choice(listePt3)
-        segmentsCorrection = polyline([listePt1[0], pt2, listePt3[0]], couleurRemplissageAngle[0])
+        segmentsCorrection = polyline([listePt1[0], pt2, listePt3[0]], this.sup3 ? 'black' : couleurRemplissageAngle[0])
         resultat = []
         for (const item1 in listePt1) {
           for (const item3 in listePt3) {
@@ -225,21 +229,21 @@ export default function NommerUnAngle () {
         texteAMC += this.sup3
           ? 'marqué par le symbole' + mathalea2d({ xmin: 0, ymin: 0, xmax: 1.2, ymax: 1.2, pixelsParCm: 20, scale: 0.5, style: 'display:inline' }, marquageAngleConsigne) + `${sp()}?`
           : `${couleurRemplissageAngle[1]}${sp()}?`
-        texte += this.sup > 1 ? `<br>${numAlpha(jj)}` : ''
+        texte += this.sup > 1 ? `${jj === 0 ? '' : '<br>'}${numAlpha(jj)}` : ''
         texte += texteAMC
         if (this.interactif && this.interactifType === 'mathLive') {
           texte += ajouteChampTexteMathLive(this, i * this.sup + jj, 'inline largeur25')
         }
         setReponse(this, i * this.sup + jj, resultat, { formatInteractif: 'texte' })
         objetsCorrection.push(codageAngle(pt1, pt2, ang, tailleAngle, marquageAngle[jj], couleurAngle, 2, 1, couleurRemplissageAngle[0], 1, false, true), segmentsCorrection)
-        texteCorr += this.sup > 1 ? `<br>${numAlpha(jj)}` : ''
+        texteCorr += this.sup > 1 ? `${jj === 0 ? '' : '<br>'}${numAlpha(jj)}` : ''
         texteCorr += 'L\'angle '
         texteCorr += this.sup3
           ? 'marqué par le symbole' + mathalea2d({ xmin: 0, ymin: 0, xmax: 1.2, ymax: 1.2, pixelsParCm: 20, scale: 0.5, style: 'display:inline' }, marquageAngleConsigne)
           : `${couleurRemplissageAngle[1]}`
-        texteCorr += ` se nomme, au choix : $${miseEnEvidence(resultat[0], couleurRemplissageAngle[0])}$`
+        texteCorr += ` se nomme, au choix : $${this.sup3 ? miseEnEvidence(resultat[0], 'black') : miseEnEvidence(resultat[0], couleurRemplissageAngle[0])}$`
         for (let ee = 1; ee < resultat.length; ee++) {
-          texteCorr += `, $${miseEnEvidence(resultat[ee], couleurRemplissageAngle[0])}$`
+          texteCorr += `, $${this.sup3 ? miseEnEvidence(resultat[0], 'black') : miseEnEvidence(resultat[ee], couleurRemplissageAngle[0])}$`
         }
         texteCorr += '.'
         propositionsDuQcm = [{
