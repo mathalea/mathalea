@@ -55,7 +55,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           break
         case 'calcul':
         // Le format par défaut
-          saisie = champTexte.value.replace(',', '.')
+          saisie = champTexte.value.replaceAll(',', '.') // EE : Le All est nécessaire pour l'usage du clavier spécial 6ème
           // La réponse est transformée en chaine compatible avec engine.parse()
           reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
           saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
