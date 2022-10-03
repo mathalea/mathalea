@@ -27,7 +27,9 @@ export default function OrdreDeGrandeur () {
     const c = randint(1, 9)
     const d = randint(5, 9)
     const resultat = calcul((a * 100 + b * 10 + c) * d)
-    let texte = `$${texNombrec(a * 100 + b * 10 + c)}\\times ${d}$<br> Choisir la bonne réponse sans effectuer précisément le calcul :<br>`
+    let texte = `$${texNombrec(a * 100 + b * 10 + c)}\\times ${d}$
+    
+    Choisir la bonne réponse sans effectuer précisément le calcul :<br>`
     // Ajout avant l'ajout des propositions de réponse
     // ça serait mieux en uniformisant avec this.question pour tous les exos can
     this.canEnonce = texte
