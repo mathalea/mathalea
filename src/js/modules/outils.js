@@ -3024,10 +3024,10 @@ export function couleurTab (choixCouleur = 999) {
     ['red', 'rouge', 'rouge'],
     ['green', 'vert', 'verte'],
     ['blue', 'bleu', 'bleue'],
-    ['hotpink', 'rose', 'rose'],
-    ['sienna', 'marron', 'marron'],
+    ['HotPink', 'rose', 'rose'],
+    ['Sienna', 'marron', 'marron'],
     ['darkgray', 'gris', 'grise'],
-    ['darkorange', 'orange', 'orange']
+    ['DarkOrange', 'orange', 'orange']
   ]
   return (choixCouleur === 999 || choixCouleur >= panelCouleurs.length || !isInteger(choixCouleur)) ? choice(panelCouleurs) : panelCouleurs[choixCouleur]
 }
@@ -7821,7 +7821,7 @@ export function exportQcmAmc (exercice, idExo) {
       if (!Array.isArray(autoCorrection[j].reponse.valeur)) autoCorrection[j].reponse.valeur = [autoCorrection[j].reponse.valeur]
       valeurAMCNum = autoCorrection[j].reponse.valeur[0]
       if (typeof valeurAMCNum === 'string') {
-        valeurAMCNum = valeurAMCNum.replace(/\s/g, '').replace(',', '.')
+        valeurAMCNum = valeurAMCNum.replace(/\s/g, '').replaceAll(',', '.')
       }
     }
     switch (type) {
@@ -8027,6 +8027,7 @@ export function exportQcmAmc (exercice, idExo) {
           }
           if (autoCorrection[j].reponse.textePosition === 'left') texQr += `${autoCorrection[j].reponse.texte} `
           texQr += `\\AMCnumericChoices{${valeurAMCNum}}{digits=${nbChiffresPe + nbChiffresPd},decimals=${nbChiffresPd},sign=${autoCorrection[j].reponse.param.signe},`
+          if (autoCorrection[j].reponse.param.aussiCorrect !== undefined) texQr += `alsocorrect=${autoCorrection[j].reponse.param.aussiCorrect},`
           if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
             texQr += `exponent=${nbChiffresExpo},exposign=${autoCorrection[j].reponse.param.exposantSigne},`
           }
@@ -8909,7 +8910,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   
   Puis remplir les cases des trois premières lettres de votre \\textbf{nom de famille} PUIS des deux premières lettres de votre \\textbf{prénom}
   \\vspace{1mm}
-  
+
   \\def\\AMCchoiceLabelFormat##1{\\textcolor{black!70}{{\\tiny ##1}}}  % pour alléger la couleur des lettres dans les cases et les réduire
   \\AMCcodeGrid[h]{ID}{ABCDEFGHIJKLMNOPQRSTUVWXYZ,
   ABCDEFGHIJKLMNOPQRSTUVWXYZ,
