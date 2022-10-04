@@ -168,7 +168,7 @@ export default function CalculAvecRacineDef () {
 
         this.correction = `Comme $\\sqrt{${a ** 2}}=${a}$, le nombre dont la racine carrée est $${a}$ est $${a ** 2}$.`
 
-        this.reponse = a ** 2
+        this.reponse = a * a
 
         break
     }
