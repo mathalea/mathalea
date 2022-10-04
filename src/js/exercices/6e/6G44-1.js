@@ -26,7 +26,6 @@ export default function ReconnaitreDesSolides () {
   this.sup = '1-2-3' // Type de question
   this.sup2 = false // qcm
   this.sup3 = false // axes
-  this.consigne = 'Donner le nom de chacun des solides.'
   const solides = ['prisme', 'pyramide', 'cône', 'cylindre', 'pavé droit', 'cube', 'sphère']
   this.nouvelleVersion = function () {
     this.interactifType = this.sup2 ? 'qcm' : 'mathLive'
@@ -36,6 +35,7 @@ export default function ReconnaitreDesSolides () {
     this.autoCorrection = []
     let typeDeQuestion = []
     this.nbQuestions = Math.min(this.nbQuestions, 50) // Comme il n'y a que 70 questions différentes on limite pour éviter que la boucle ne cherche trop longtemps
+    this.consigne = this.nbQuestions === 1 || context.vue === 'diap' ? 'Donner le nom de ce solide.' : 'Donner le nom de chacun des solides.'
     /* const listePrimes = [
       '1,1,3', '1,1,4', '1,1,5', '1,1,6', '1,1,7', '1,1,8', // prisme de 3 à 8 sommets sur la base suivant l'axe z
       '1,2,3', '1,2,4', '1,2,5', '1,2,6', '1,2,7', '1,2,8', // prisme de 3 à 8 sommets sur la base suivant l'axe x
