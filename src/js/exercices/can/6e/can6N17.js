@@ -1,4 +1,4 @@
-import { droiteGraduee } from '../../../modules/2d.js'
+import { droiteGraduee, texteParPosition } from '../../../modules/2d.js'
 import Decimal from 'decimal.js/decimal.mjs'
 import { randint, choice, texNombre, stringNombre } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
@@ -20,7 +20,7 @@ export default function AbscisseDroiteDecimaux () {
   this.formatChampTexte = 'largeur15 inline'
   this.formatInteractif = 'calcul'
   this.consigne = ''
-
+  this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     let d, abs0, abs1, abs2, x1
 
@@ -36,15 +36,15 @@ export default function AbscisseDroiteDecimaux () {
         Max: 2.1,
         thickSecDist: 0.2,
         axeStyle: '->',
-        pointTaille: 5,
+        pointTaille: 4,
         pointStyle: 'x',
         labelsPrincipaux: false,
         thickSec: true,
         labelListe: [[0, `${stringNombre(abs0)}`], [1, `${stringNombre(abs1)}`], [2, `${stringNombre(abs2)}`]],
-        pointListe: [[x1, 'A']]
+        pointListe: [[x1, '']]
       })
       this.reponse = new Decimal(x1).div(100).add(abs0)
-      this.question = 'Déterminer l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 1.5, pixelsParCm: 30, scale: 0.8 }, d)
+      this.question = 'Déterminer l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 1.5, pixelsParCm: 35, scale: 0.8 }, texteParPosition('A', 4 * x1, 0.6, 'milieu', 'blue', 2), d)
       this.correction = `Entre $${texNombre(abs0)}$ et $${texNombre(abs1)}$, il y a $5$ intervalles.<br>
      Une graduation correspond donc à $0,002$. Ainsi, l'abscisse du point $A$ est $${texNombre(this.reponse, 4)}$.`
     }
@@ -60,15 +60,15 @@ export default function AbscisseDroiteDecimaux () {
         Max: 2.1,
         thickSecDist: 0.25,
         axeStyle: '->',
-        pointTaille: 5,
+        pointTaille: 4,
         pointStyle: 'x',
         labelsPrincipaux: false,
         thickSec: true,
         labelListe: [[0, `${stringNombre(abs0)}`], [1, `${stringNombre(abs1)}`], [2, `${stringNombre(abs2)}`]],
-        pointListe: [[x1, 'A']]
+        pointListe: [[x1, '']]
       })
       this.reponse = new Decimal(x1).div(100).add(abs0)
-      this.question = 'Déterminer l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 1.5, pixelsParCm: 30, scale: 0.8 }, d)
+      this.question = 'Déterminer l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 1.5, pixelsParCm: 35, scale: 0.8 }, texteParPosition('A', 4 * x1, 0.6, 'milieu', 'blue', 2), d)
       this.correction = `Entre $${texNombre(abs0)}$ et $${texNombre(abs1)}$, il y a $4$ intervalles.<br>
      Une graduation correspond donc à $0,0025$. Ainsi, l'abscisse du point $A$ est $${texNombre(this.reponse, 4)}$.`
     }
