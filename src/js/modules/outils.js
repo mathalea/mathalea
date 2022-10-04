@@ -8326,12 +8326,13 @@ export function exportQcmAmc (exercice, idExo) {
         if (type !== 'AMCHybride') {
           window.notify('exportQcmAMC : Il doit y avoir une erreur de type AMC, je ne connais pas le type : ', { type })
         }
+
         if (autoCorrection[j].enonce === undefined) { // Si l'énoncé n'a pas été défini, on va le chercher dans la question
           autoCorrection[j].enonce = exercice.listeQuestions[j]
+          if (autoCorrection[j].enonce === undefined) break // Toujours vide car exercice.listeQuestions[j] vide. Ce cas se produit lorsqu'on a un exercice avec multi-réponses en interactif mais un seul AMChybride avec plusieurs AMCNum, comme 6N11
         }
-        if (autoCorrection[j].propositions === undefined) {
-          break
-        }
+        if (autoCorrection[j].propositions === undefined) break
+
         if (autoCorrection[j].melange !== undefined) {
           melange = autoCorrection[j].melange
         }
@@ -8388,7 +8389,7 @@ export function exportQcmAmc (exercice, idExo) {
 
           propositions = prop.propositions
           switch (qrType) {
-            case 'qcmMono':
+            case 'qcmMono': // qcmMono de Hybride
               if (elimineDoublons(propositions)) {
                 console.log('doublons trouvés')
               }
@@ -8431,7 +8432,7 @@ export function exportQcmAmc (exercice, idExo) {
               texQr += '\\end{question}\n'
               id++
               break
-            case 'qcmMult':
+            case 'qcmMult': // qcmMult de Hybride
               if (elimineDoublons(propositions)) {
                 console.log('doublons trouvés')
               }
@@ -8470,7 +8471,7 @@ export function exportQcmAmc (exercice, idExo) {
               texQr += ' \\end{questionmult}\n'
               id++
               break
-            case 'AMCNum':
+            case 'AMCNum': // AMCNum de Hybride
               rep = prop.propositions[0].reponse
               if (!Array.isArray(rep.valeur)) { // rep.valeur est un tableau si la réponse est une fraction
                 rep.valeur = [rep.valeur]
