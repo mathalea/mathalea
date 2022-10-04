@@ -21,7 +21,7 @@ export default function CalculAvecRacineDef () {
 
   this.nouvelleVersion = function () {
     let a, choix
-    switch (choice([1, 2, 3, 4, 5, 6, 7])) { //
+    switch (choice([1, 2, 3, 4, 5, 6, 7, 8])) { //
       case 1 :
         a = choice([1, 4, 9, 16, 25, 36, 49, 64, 81, 100])
         if (choice([true, false])) {
@@ -160,8 +160,15 @@ export default function CalculAvecRacineDef () {
           this.correction = `Par définition, le nombre positif dont le carré est $${a}$ est $\\sqrt{${a}}$.<br>`
           this.correction += `${choix ? '' : `Ainsi, le nombre négatif dont le carré est $${a}$ est $-\\sqrt{${a}}$`}.`
         }
+        break
+      case 8 :
+        a = randint(1, 12)
 
-        this.reponse = choix ? [`\\sqrt{${a}}`, Math.sqrt(a)] : [`-\\sqrt{${a}}`, -Math.sqrt(a)]
+        this.question = `Quel est le nombre dont la racine carrée vaut $${a}$ ?`
+
+        this.correction = `Comme $\\sqrt{${a ** 2}}=${a}$, le nombre dont la racine carrée est $${a}$ est $${a ** 2}$.`
+
+        this.reponse = a ** 2
 
         break
     }
