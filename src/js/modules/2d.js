@@ -4510,7 +4510,7 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
     }
     code += `Z"/>
     <circle cx="${xC}" cy="${yC}" r="${R0}" stroke="${this.color[0]}" fill="${this.couleurDuTrou[0]}" />`
-    if (typeof this.marqueur === 'number') code += `<circle cx="${round(xC + 0.9 * R1 * cos(this.marqueur))}" cy="${round(yC + 0.9 * R1 * sin(this.marqueur))}" r="2" stroke="HotPink" fill="Sienna" />`
+    if (typeof this.marqueur === 'number') code += `<circle cx="${round(xC + 0.8 * R1 * cos(this.marqueur))}" cy="${round(yC + 0.8 * R1 * sin(this.marqueur))}" r="3" stroke="HotPink" fill="Sienna" />`
     code += `<animateTransform
       attributeName="transform"
       attributeType="XML"
@@ -4527,7 +4527,7 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
     const R1 = this.rayon
     const R2 = this.rayonExt
     const R0 = this.rayonInt
-    return `% engrenage de rayon ${this.rayon}, avec ${this.nbDents} dents centré en (${this.xCenter};${this.yCenter})
+    let code = `% engrenage de rayon ${this.rayon}, avec ${this.nbDents} dents centré en (${this.xCenter};${this.yCenter})
     \\foreach \\i in {1,2,...,${this.nbDents}}{
                   \\pgfmathparse{360*(\\i-1)/${this.nbDents}}\\let\\angle\\pgfmathresult
                   \\begin{scope}[shift={(${this.xCenter},${this.yCenter})}]
@@ -4545,7 +4545,12 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
                   \\draw[${this.color[1]},rotate=\\angle] (\\Ax,\\Ay) to[bend left=15] (\\Cx,\\Cy) -- (\\Dx,\\Dy) to[bend left=15] (\\Bx,\\By) arc (\\a:\\b:${R1}cm); 
                   \\end{scope}}
               \\fill[${this.couleurDuTrou[1]},draw=${this.color[1]}] (${this.xCenter},${this.yCenter}) circle (${R0});
-  }`
+  `
+    if (typeof this.marqueur === 'number') {
+      code += `\\fill[HotPink,draw=black] (${arrondi(this.xCenter + 0.8 * R1 * cos(this.marqueur),2)},${arrondi(this.yCenter + 0.8 * R1 * sin(this.marqueur),2)}) circle (0.15);
+`
+    }
+    return code
   }
 }
 
