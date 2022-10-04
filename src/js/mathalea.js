@@ -431,7 +431,7 @@ function contenuExerciceHtml (obj, numeroExercice) {
       paramTooltip += obj.besoinFormulaire2Numerique[0] + ' : \n' + obj.besoinFormulaire2Numerique[2]
     }
     paramTooltip = paramTooltip ? `data-tooltip="${paramTooltip}" data-position="right center"` : ''
-    contenuUnExercice += `<span ${paramTooltip}> Exercice ${numeroExercice} − ${obj.id} <i class="cog icon icone_param"></i></span>${iconeInteractif}</h3>`
+    contenuUnExercice += `<span ${paramTooltip}> Exercice ${numeroExercice} − ${obj.id} − ${obj.titre} <i class="cog icon icone_param"></i></span>${iconeInteractif}</h3>`
     contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice}</h3>`
     if (obj.consigne) {
       contenuUnExercice += `<h4> ${obj.consigne} </h4>`
@@ -512,7 +512,7 @@ function contenuExerciceHtml (obj, numeroExercice) {
         context.vue === 'l' || context.vue === 'light' || context.vue === 'embed' || context.vue === 'e' || context.vue === 'eval' || context.vue === 'multi'
     ) {
       // Dans v=l on ne met pas les raccourcis vers interactif et paramètres.
-      contenuUnExercice += `Exercice ${numeroExercice} − ${obj.id} </h3>`
+      contenuUnExercice += `Exercice ${numeroExercice} − ${obj.id} − ${obj.titre} </h3>`
     } else {
       if (obj.besoinFormulaireNumerique && obj.besoinFormulaireNumerique[2]) {
         paramTooltip += obj.besoinFormulaireNumerique[0] + ' : \n' + obj.besoinFormulaireNumerique[2] + '\n'
@@ -521,7 +521,7 @@ function contenuExerciceHtml (obj, numeroExercice) {
         paramTooltip += obj.besoinFormulaire2Numerique[0] + ' : \n' + obj.besoinFormulaire2Numerique[2]
       }
       paramTooltip = paramTooltip ? `data-tooltip="${paramTooltip}" data-position="right center"` : ''
-      contenuUnExercice += `<span ${paramTooltip}> Exercice ${numeroExercice} − ${obj.id} <i class="cog icon icone_param"></i></span>${iconeInteractif}</h3>`
+      contenuUnExercice += `<span ${paramTooltip}> Exercice ${numeroExercice} − ${obj.id} − ${obj.titre} <i class="cog icon icone_param"></i></span>${iconeInteractif}</h3>`
     }
     if (obj.video.length > 3) {
       contenuUnExercice += `<div id=video${numeroExercice - 1}>` + modalYoutube(numeroExercice - 1, obj.video, '', 'Aide', 'youtube') + '</div>'

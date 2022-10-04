@@ -9550,23 +9550,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N10-4": {
     "titre": "Écrire correctement les grands nombres entiers",
     "url": "/exercices/6e/6N10-4.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
     "interactifReady": false,
     "name": "6N10-4",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N10-5": {
@@ -9607,7 +9606,7 @@ export default {
     "url": "/exercices/6e/6N10-7.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCNum"
+      "text": "AMCOpen"
     },
     "interactifReady": true,
     "interactifType": "custom",
@@ -9624,7 +9623,10 @@ export default {
   "6N10": {
     "titre": "Écrire un nombre entier en chiffres ou en lettres",
     "url": "/exercices/6e/6N10.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "6N10",
@@ -9706,7 +9708,7 @@ export default {
     "url": "/exercices/6e/6N11.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCOpen"
+      "text": "AMCHybride"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
@@ -9742,8 +9744,12 @@ export default {
   "6N12": {
     "titre": "Multiplier ou diviser un entier par 10, 100, 1 000... (résultat entier)",
     "url": "/exercices/6e/6N12.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N12",
     "newEx": {
       "isNew": false,
@@ -12865,7 +12871,7 @@ export default {
     "url": "/exercices/c3/c3N10-1.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCNum"
+      "text": "AMCOpen"
     },
     "interactifReady": true,
     "interactifType": "custom",
@@ -12899,7 +12905,7 @@ export default {
     "url": "/exercices/c3/c3N11.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCOpen"
+      "text": "AMCHybride"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
@@ -17051,7 +17057,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can5a-2020",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

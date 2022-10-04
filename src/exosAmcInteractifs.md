@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 515 
-- nombre d'exos interactifReady 794 
+- nombre d'exos amcReady 518 
+- nombre d'exos interactifReady 795 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -351,13 +351,15 @@
 |6N10-1|Écrire un nombre à partir de son nombre de dizaines, de centaines, de milliers...|OK|AMCNum|OK|mathLive|
 |6N10-2|Décomposer un nombre décimal (nombre de..., chiffre des..., partie entière, partie décimale)|OK|AMCNum|OK|mathLive|
 |6N10-3|Décomposer un nombre entier (nombre de ..., chiffres des ...)|OK|AMCNum|OK|mathLive|
+|6N10-4|Écrire correctement les grands nombres entiers|OK|AMCOpen|KO|KO|
 |6N10-5|Parcourir un labyrinthe de numération décimale|OK|AMCOpen|KO|KO|
 |6N10-6|Donner l'écriture (décimale ou en fraction décimale) d'une somme (ou différence) de nombres avec fractions décimales|OK|AMCNum|OK|mathLive|
-|6N10-7|Recomposer un décimal ou un entier|OK|AMCNum|OK|custom|
-|6N10|Écrire un nombre entier en chiffres ou en lettres|KO|KO|OK|mathLive|
+|6N10-7|Recomposer un décimal ou un entier|OK|AMCOpen|OK|custom|
+|6N10|Écrire un nombre entier en chiffres ou en lettres|OK|AMCOpen|OK|mathLive|
 |6N11-2|Placer un point d'abscisse entière (grands nombres)|OK|AMCOpen|OK|custom|
-|6N11|Lire l'abscisse entière d'un point (grands nombres)|OK|AMCOpen|OK|mathLive|
+|6N11|Lire l'abscisse entière d'un point (grands nombres)|OK|AMCHybride|OK|mathLive|
 |6N12-1|Par combien multiplier un entier pour que le chiffre des unités devienne le chiffre des ... ?|OK|qcmMono|OK|qcm|
+|6N12|Multiplier ou diviser un entier par 10, 100, 1 000... (résultat entier)|OK|AMCNum|OK|mathLive|
 |6N13-0|Connaître les préfixes utilisés dans les unités|KO|KO|OK|listeDeroulante|
 |6N13|Convertir des longueurs, masses, capacités, prix ou unités informatiques|OK|AMCNum|OK|mathLive|
 |6N14|Représenter des fractions|OK|AMCHybride|KO|KO|
@@ -458,8 +460,8 @@
 |c3C30|Additions, soustractions et multiplications posées de nombres entiers|OK|AMCNum|OK|mathLive|
 |c3C31|Problème - Les courses|OK|AMCNum|OK|mathLive|
 |c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
-|c3N10-1|Recomposer un entier|OK|AMCNum|OK|custom|
-|c3N11|Lire l'abscisse entière d'un point (grands nombres)|OK|AMCOpen|OK|mathLive|
+|c3N10-1|Recomposer un entier|OK|AMCOpen|OK|custom|
+|c3N11|Lire l'abscisse entière d'un point (grands nombres)|OK|AMCHybride|OK|mathLive|
 |c3N20|Donner l'écriture décimale à partir d'un somme d'entiers et de fractions décimales|OK|AMCNum|OK|mathLive|
 |c3N22|Lire abscisse décimale sous trois formes|OK|AMCHybride|OK|mathLive|
 |c3N30|Conversion d'unités des préfixes k,h,da vers unité de référence|OK|AMCNum|OK|mathLive|
