@@ -29,7 +29,7 @@ export default function MultiplierDeuxDecimaux () {
         b = (new Decimal(a)).div(10)
         c = randint(2, 9)
         this.reponse = b.mul(c)
-        this.question = `$${texNombre(b, 1)}\\times ${c}=$`
+        this.question = `Calculer $${texNombre(b, 1)}\\times ${c}$.`
         this.correction = `$${texNombre(b, 1)}\\times ${c}=${texNombre(this.reponse, 1)}$`
 
         this.correction += texteEnCouleur(`
@@ -42,7 +42,7 @@ export default function MultiplierDeuxDecimaux () {
         b = (new Decimal(a)).div(100)
         c = randint(2, 9)
         this.reponse = b.mul(c)
-        this.question = `$${texNombre(b, 2)}\\times ${c}=$`
+        this.question = `Calculer $${texNombre(b, 2)}\\times ${c}$.`
         this.correction = `$${texNombre(b, 2)}\\times ${c}=${texNombre(this.reponse, 2)}$`
 
         this.correction += texteEnCouleur(`
@@ -57,7 +57,7 @@ export default function MultiplierDeuxDecimaux () {
         c = randint(2, 9)
         d = (new Decimal(c)).div(10)
         this.reponse = b.mul(d)
-        this.question = `$${texNombre(b, 1)}\\times ${texNombre(d, 1)}=$`
+        this.question = `Calculer $${texNombre(b, 1)}\\times ${texNombre(d, 1)}$.`
         this.correction = `$${texNombre(b, 1)}\\times ${texNombre(d, 1)}=${texNombre(this.reponse, 2)}$`
 
         this.correction += texteEnCouleur(`
@@ -72,7 +72,7 @@ export default function MultiplierDeuxDecimaux () {
         c = randint(2, 9)
         d = (new Decimal(c)).div(100)
         this.reponse = b.mul(d)
-        this.question = `$${texNombre(b, 1)}\\times ${texNombre(d, 2)}=$`
+        this.question = `Calculer $${texNombre(b, 1)}\\times ${texNombre(d, 2)}$.`
         this.correction = `$${texNombre(b, 1)}\\times ${texNombre(d, 2)}=${texNombre(this.reponse, 3)}$`
 
         this.correction += texteEnCouleur(`
@@ -81,5 +81,7 @@ export default function MultiplierDeuxDecimaux () {
     alors $${texNombre(b, 1)}\\times ${texNombre(d, 2)}=${a}\\times ${c}\\times 0,01 \\times 0,1=${a * c}\\times 0,001=${texNombre(this.reponse, 3)}$ `)
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }
