@@ -34,7 +34,7 @@ export default class constructionElementaire extends Exercice {
     for (let i = 0, texte, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const objetsEnonce = []
       const objetsCorrection = []
-      const indLettre = 1 // randint(1, 15)
+      const indLettre = randint(1, 15)
       const A = point(0, 0, lettreDepuisChiffre(indLettre), 'above left')
       const B = point(randint(10, 11), randint(-4, 4, [-1, 0, 1]), lettreDepuisChiffre(indLettre + 1), 'above right')
       const d = droite(A, B, '', 'blue')
