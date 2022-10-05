@@ -2,7 +2,6 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleurEtGras, shuffle, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
 import { labyrinthe } from '../../modules/2d.js'
-import { max } from 'mathjs'
 export const dateDePublication = '16/11/2021'
 export const dateDeModifImportante = '05/10/2022' // Le nb de lignes et celui de colonnes du labyrinthe sont paramétrables.
 export const titre = 'Labyrinthe de multiples avec critères choisis équilibrés '
@@ -45,8 +44,8 @@ export default function ExerciceLabyrintheDivisibilite2 () {
     }
     tables = combinaisonListesSansChangerOrdre(tables, this.nbQuestions)
     for (let q = 0; q < this.nbQuestions;) {
-      const nbL = this.sup3 === 1 ? randint(2, 8) : max(2, this.sup3)
-      const nbC = this.sup4 === 1 ? randint(3, 11 - nbL) : max(3, this.sup4)
+      const nbL = this.sup3 === 1 ? randint(2, 8) : Math.max(2, this.sup3)
+      const nbC = this.sup4 === 1 ? randint(3, 11 - nbL) : Math.max(3, this.sup4)
       laby = labyrinthe({ nbLignes: nbL, nbColonnes: nbC })
       laby.niveau = this.sup // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
       monChemin = laby.choisitChemin(laby.niveau) // On choisit un chemin

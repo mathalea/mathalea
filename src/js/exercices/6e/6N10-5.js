@@ -3,7 +3,6 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, miseEnEvidence, texteEnCouleurEtGras, calcul, choice } from '../../modules/outils.js'
 import { labyrinthe } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
-import { max } from 'mathjs'
 export const titre = 'Parcourir un labyrinthe de numération décimale'
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -39,8 +38,8 @@ export default function ExerciceLabyrintheNumeration () {
     this.autoCorrection = []
     const tailleChiffre = 0.7
     let texte, texteCorr
-    const nbL = this.sup3 === 1 ? randint(2, 8) : max(2, this.sup3)
-    const nbC = this.sup4 === 1 ? randint(3, 11 - nbL) : max(3, this.sup4)
+    const nbL = this.sup3 === 1 ? randint(2, 8) : Math.max(2, this.sup3)
+    const nbC = this.sup4 === 1 ? randint(3, 11 - nbL) : Math.max(3, this.sup4)
     const laby = labyrinthe({ nbLignes: nbL, nbColonnes: nbC })
     laby.niveau = randint(1, 6) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
     const monchemin = laby.choisitChemin(laby.niveau) // On choisit un chemin
