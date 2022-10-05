@@ -8,7 +8,7 @@ export const titre = 'Simplifier des fractions à l\'aide des nombres premiers'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 'AMCOpen'
+export const amcType = 'AMCHybride'
 
 export const dateDePublication = '17/03/2022'
 // export const dateDeModifImportante = '24/10/2021'
@@ -28,7 +28,7 @@ export default function SimplifierFractions () {
   this.besoinFormulaire2Numerique = ['Facteurs premiers utilisés', 2, '1 : De 2 à 7\n2 : De 2 à 23']
   this.sup = 2
   this.sup2 = 1
-
+  this.sup3 = 1
   this.nbCols = 2
   this.nbColsCorr = 2
   this.tailleDiaporama = 3
@@ -72,18 +72,48 @@ export default function SimplifierFractions () {
       texteCorr = `$${f.texFraction}${f.texSimplificationAvecEtapes(true)}$`
       setReponse(this, i, f.simplifie(), { formatInteractif: 'fraction' })
       if (context.isAmc) {
-        this.autoCorrection[i] =
-          {
-            enonce: 'Rendre irréductible la fraction ' + texte + '.<br>La rédaction sera évaluée plus que le résultat en lui-même.',
+        if (this.sup3 === 1) {
+          this.autoCorrection[i] = {
+            enonce: '',
+            enonceAvant: false,
             propositions: [
               {
-                texte: texteCorr,
-                statut: 3, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-                sanscadre: false, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
-                pointilles: false // EE : ce champ est facultatif et permet (si false) d'enlever les pointillés sur chaque ligne.
+                type: 'AMCOpen',
+                propositions: [{
+                  enonce: 'Rendre irréductible la fraction ' + texte + '.<br>La rédaction sera évaluée plus que le résultat en lui-même.',
+                  texte: texteCorr,
+                  statut: 3, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                  sanscadre: false, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                  pointilles: false // EE : ce champ est facultatif et permet (si false) d'enlever les pointillés sur chaque ligne.
+                }]
               }
             ]
           }
+        } else {
+          this.autoCorrection[i] = {
+            enonce: '',
+            enonceAvant: false,
+            propositions: [
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'Rendre irréductible la fraction ' + texte + '.',
+                    valeur: [f.simplifie()],
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: false,
+                      approx: 0
+                    }
+                  }
+                }]
+              }
+            ]
+          }
+        }
       }
       if (this.questionJamaisPosee(i, numerateur, denominateur)) {
         this.listeQuestions.push(texte)
@@ -92,6 +122,8 @@ export default function SimplifierFractions () {
       }
       cpt++
     }
+
     listeQuestionsToContenu(this)
   }
+  if (context.isAmc) this.besoinFormulaire3Numerique = ['Type de réponses AMC', 2, '1 : Question ouverte\n2 : Réponse numérique']
 }

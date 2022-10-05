@@ -45,7 +45,7 @@ export default function ExerciceNumerationEntier () {
       this.consigne = 'Compléter.'
     }
     this.consigne += this.interactif ? ' Penser à mettre les espaces nécessaires.' : ''
-    if (this.sup2) { this.sup3 = 1 } // Si entiers à 1 chiffres choisis, chevauchement impossible.
+    if (this.sup) { this.sup3 = 1 } // Si entiers à 1 chiffre choisis, chevauchement impossible.
     if (this.sup3 === 1) { // Sans chevauchement
       listeTypeDeQuestions = combinaisonListes(
         [1],
@@ -53,7 +53,7 @@ export default function ExerciceNumerationEntier () {
       )
     } else if (this.sup3 === 2) { // Avec chevauchement
       listeTypeDeQuestions = combinaisonListes(
-        [1],
+        [2],
         this.nbQuestions
       )
     } else {
@@ -154,6 +154,6 @@ export default function ExerciceNumerationEntier () {
   }
   this.besoinFormulaireCaseACocher = ['Décomposition avec que des entiers à un chiffre']
   this.besoinFormulaire2CaseACocher = ['Décomposition vers les unités']
-  this.besoinFormulaire3Numerique = ['Chevauchement des classes', 3, '1 : Sans chevauchement des classes\n2 : Avec chevauchement des classes\n3 : Mélange']
+  this.besoinFormulaire3Numerique = ['Chevauchement des unités', 3, '1 : Sans chevauchement des unités\n2 : Avec chevauchement des unités\n3 : Mélange']
   this.besoinFormulaire4Numerique = ['Variante', 3, '1 : Jusqu\'aux millions\n2 : Jusqu\'aux centaines de milliards\n3 : Mélange']
 }
