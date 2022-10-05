@@ -314,7 +314,6 @@ export default function PpcmEngrenages () {
         i++
       }
       cpt++
-      console.log(i, cpt,typesDeQuestions)
     }
 
     listeQuestionsToContenu(this)

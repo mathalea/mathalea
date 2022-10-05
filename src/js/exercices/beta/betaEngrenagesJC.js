@@ -51,6 +51,7 @@ export default class SuperExoMathalea2d extends Exercice {
       const objetsEnonce = []
       const objetsCorrection = []
       let nbDentsRoueA, nbDentsRoueB, nbDentsRoueC
+      let nbToursA, nbToursB, nbTourC
       let rayonA, rayonB, rayonC
       let roueA, roueB, roueC
       let roueACorr, roueBCorr, roueCCorr
@@ -58,8 +59,12 @@ export default class SuperExoMathalea2d extends Exercice {
       let texteCorr = '' // Idem pour le texte de la correction.
       switch (listeTypesDeQuestions[i]) {
         case 1:
-          nbDentsRoueA = randint(8, 20)
-          nbDentsRoueB = randint(8, 20, nbDentsRoueA)
+          do {
+            nbDentsRoueA = randint(8, 25)
+            nbDentsRoueB = randint(8, 25, nbDentsRoueA)
+            nbToursA = ppcm(nbDentsRoueA, nbDentsRoueB) / nbDentsRoueA
+            nbToursB = ppcm(nbDentsRoueA, nbDentsRoueB) / nbDentsRoueB
+          } while (nbToursA > 4 && nbToursB > 4) // au moins une des deux roues fait moins de 5 tours
           texte += `La roue dentée de gauche possède $${nbDentsRoueA}$ dents et celle de droite possède $${nbDentsRoueB}$ dents.<br>`
           texte += `${numAlpha(0)} Au bout de combien de tours pour la roue de gauche les deux roues retrouveront leur position initiale ?<br>`
           texte += `${numAlpha(1)} Combien de tours aura fait la roue de droite ?<br>`
@@ -78,7 +83,7 @@ export default class SuperExoMathalea2d extends Exercice {
           roueA = engrenage({ rayon: rayonA, rayonInt: 0.8, rayonExt: rayonA + 1, nbDents: nbDentsRoueA, xCenter: 0, yCenter: 0, angleStart: 0, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: 0, marqueur: 0 })
           roueB = engrenage({ rayon: rayonB, rayonInt: 0.8, rayonExt: rayonB + 1, nbDents: nbDentsRoueB, xCenter: rayonA + rayonB + 1.1, yCenter: 0, angleStart: 180 - 180 / nbDentsRoueB, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: 0, marqueur: 180 })
           roueACorr = engrenage({ rayon: rayonA, rayonInt: 0.8, rayonExt: rayonA + 1, nbDents: nbDentsRoueA, xCenter: 0, yCenter: 0, angleStart: 0, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: nbDentsRoueA / 2, marqueur: 0 })
-          roueBCorr = engrenage({ rayon: rayonB, rayonInt: 0.8, rayonExt: rayonB + 1, nbDents: nbDentsRoueB, xCenter: rayonA + rayonB + 1.1, yCenter: 0, angleStart: 180 - 180 / nbDentsRoueB, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: -nbDentsRoueB / 2, marqueur: 180 })
+          roueBCorr = engrenage({ rayon: rayonB, rayonInt: 0.8, rayonExt: rayonB + 1, nbDents: nbDentsRoueB, xCenter: rayonA + rayonB + 1.3, yCenter: 0, angleStart: 180 - 180 / nbDentsRoueB, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: -nbDentsRoueB / 2, marqueur: 180 })
           break
         case 2:
 

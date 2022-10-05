@@ -4510,7 +4510,7 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
     }
     code += `Z"/>
     <circle cx="${xC}" cy="${yC}" r="${R0}" stroke="${this.color[0]}" fill="${this.couleurDuTrou[0]}" />`
-    if (typeof this.marqueur === 'number') code += `<circle cx="${round(xC + 0.8 * R1 * cos(this.marqueur))}" cy="${round(yC + 0.8 * R1 * sin(this.marqueur))}" r="3" stroke="HotPink" fill="Sienna" />`
+    if (typeof this.marqueur === 'number') code += `<circle cx="${round(xC + (R1 - 5) * cos(this.marqueur))}" cy="${round(yC + (R1 - 5) * sin(this.marqueur))}" r="3" stroke="HotPink" fill="Sienna" />`
     code += `<animateTransform
       id="anim${this.id}"
       attributeName="transform"
@@ -4548,7 +4548,7 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
               \\fill[${this.couleurDuTrou[1]},draw=${this.color[1]}] (${this.xCenter},${this.yCenter}) circle (${R0});
   `
     if (typeof this.marqueur === 'number') {
-      code += `\\fill[HotPink,draw=black] (${arrondi(this.xCenter + 0.8 * R1 * cos(this.marqueur), 2)},${arrondi(this.yCenter + 0.8 * R1 * sin(this.marqueur), 2)}) circle (0.15);
+      code += `\\fill[HotPink,draw=black] (${arrondi(this.xCenter + (R1 - 0.2) * cos(this.marqueur), 2)},${arrondi(this.yCenter + (R1 - 0.2) * sin(this.marqueur), 2)}) circle (0.15);
 `
     }
     return code
