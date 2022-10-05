@@ -107,18 +107,23 @@ export function propositionsQcm (exercice, i) {
   if (context.isHtml) {
     texte += `<br>  <form id="formEx${exercice.numeroExercice}Q${i}">`
     texte += '<table>\n\t'
+    texteCorr += '<table>\n\t'
     if (vertical) {
       texte += '<tr>\n\t'
+      texteCorr += '<tr>\n\t'
     }
   } else {
     texte += nbCols === 1 ? '\t' : `\n\n\\begin{multicols}{${nbCols}}\n\t`
+    texteCorr += nbCols === 1 ? '\t' : `\n\n\\begin{multicols}{${nbCols}}\n\t`
   }
   for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
     if (context.isHtml) {
       if (vertical && (rep % nbCols === 0) && rep > 0) {
         texte += '</tr>\n<tr>\n'
+        texteCorr += '</tr>\n<tr>\n'
       }
       texte += '<td>\n'
+      texteCorr += '<td>\n'
       if (exercice.interactif) {
         texte += `<div class="ui checkbox ex${exercice.numeroExercice} monQcm">
             <input type="checkbox" tabindex="0" class="hidden" id="checkEx${exercice.numeroExercice}Q${i}R${rep}">
@@ -150,12 +155,15 @@ export function propositionsQcm (exercice, i) {
   if (context.isHtml) {
     if (vertical) {
       texte += '</tr>\n\t'
+      texteCorr += '</tr>\n\t'
     }
     texte += '</table>\n\t'
+    texteCorr += '</table>\n\t'
     texte += `<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
     texte += `\n<div id="feedbackEx${exercice.numeroExercice}Q${i}"></div></form>`
   } else {
     texte += nbCols === 1 ? '' : '\\end{multicols}'
+    texteCorr += nbCols === 1 ? '' : '\\end{multicols}'
   }
 
   // GESTION DE LA V3

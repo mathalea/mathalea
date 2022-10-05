@@ -1,14 +1,15 @@
-import { randint, texNombre, contraindreValeur, listeQuestionsToContenu, shuffle2tableaux, compteOccurences, rangeMinMax, combinaisonListes } from '../../modules/outils.js'
+import { randint, texNombre, contraindreValeur, listeQuestionsToContenu, shuffle2tableaux, compteOccurences, rangeMinMax, combinaisonListes, combinaisonListesSansChangerOrdre, sp } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
 import Decimal from 'decimal.js/decimal.mjs'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Recomposer un décimal ou un entier'
 export const interactifReady = true
 export const interactifType = 'custom'
 export const amcReady = true
-export const amcType = 'AMCNum'
+export const amcType = 'AMCOpen'
 export const dateDePublication = '14/08/2022'
 
 function remplaceParZero (chaine, place) {
@@ -43,7 +44,8 @@ export default function RecomposerEntierC3 () {
       listeTypeDeQuestionsDemandees[k] = contraindreValeur(1, 15, listeTypeDeQuestionsDemandees[k], 1)
     }
     if (compteOccurences(listeTypeDeQuestionsDemandees, 15) > 0) listeTypeDeQuestionsDemandees = rangeMinMax(1, 14)
-    const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDemandees, this.nbQuestions)
+    // const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDemandees, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(listeTypeDeQuestionsDemandees, this.nbQuestions)
     let listeNombresDemandes = this.sup4.toString().split('-')
     listeNombresDemandes[0] = contraindreValeur(0, 4, listeNombresDemandes[0], 4)
     if (listeNombresDemandes[0] === 4) listeNombresDemandes = rangeMinMax(0, 3)
@@ -54,7 +56,7 @@ export default function RecomposerEntierC3 () {
     this.morceaux = []
     this.exposantMorceaux = []
     const glossaire = [['millième', 'millièmes'], ['centième', 'centièmes'], ['dixième', 'dixièmes'], ['unité', 'unités'], ['dizaine', 'dizaines'], ['centaine', 'centaines'], ['mille', 'mille'], ['dizaine de mille', 'dizaines de mille'], ['centaine de mille', 'centaines de mille'], ['million', 'millions'], ['dizaine de millions', 'dizaines de millions']]
-    for (let i = 0, cpt = 0, nbChiffres, nombreDeChiffresMin, nombreDeChiffresMax, texte, texteCorr, indexChamp = 0, place; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0, ee, nbChiffres, nombreDeChiffresMin, nombreDeChiffresMax, texte, texteCorr, indexChamp = 0, place; i < this.nbQuestions && cpt < 50;) {
       texte = ''
       texteCorr = ''
       let nombreStr = ''
@@ -153,7 +155,7 @@ export default function RecomposerEntierC3 () {
               }
             } else {
               if (this.morceaux[i][k] !== '0') {
-                texte += `(${this.morceaux[i][k]}\\times \\ldots)+`
+                texte += `(${this.morceaux[i][k]}\\times \\ldots\\ldots\\ldots\\ldots)+`
               }
             }
             if (this.morceaux[i][k] !== '0') {
@@ -187,7 +189,7 @@ export default function RecomposerEntierC3 () {
               }
             } else {
               if (this.morceaux[i][k] !== '0') {
-                texte += `(${this.morceaux[i][k]}\\times \\ldots)+`
+                texte += `(${this.morceaux[i][k]}\\times \\ldots\\ldots\\ldots\\ldots)+`
               }
             }
             if (this.morceaux[i][k] !== '0') {
@@ -297,7 +299,7 @@ export default function RecomposerEntierC3 () {
               }
             } else {
               if (this.morceaux[i][k] !== '0') {
-                texte += `(${this.morceaux[i][k]}\\times \\ldots)+`
+                texte += `(${this.morceaux[i][k]}\\times \\ldots\\ldots\\ldots\\ldots)+`
               }
             }
             if (this.morceaux[i][k] !== '0') {
@@ -334,7 +336,7 @@ export default function RecomposerEntierC3 () {
               }
             } else {
               if (this.morceaux[i][k] !== '0') {
-                texte += `(${this.morceaux[i][k]}\\times \\ldots)+`
+                texte += `(${this.morceaux[i][k]}\\times \\ldots\\ldots\\ldots\\ldots)+`
               }
             }
             if (this.morceaux[i][k] !== '0') {
@@ -351,27 +353,28 @@ export default function RecomposerEntierC3 () {
             nombreStr += randint(1, 9).toString()
           }
           nombre = new Decimal(nombreStr)
-          texte += 'Donner le nombre correspondant au premier membre de l\'égalité.<br>$'
+          texte += 'Donner le nombre correspondant à <br>$'
           this.premierChamp[i] = indexChamp
           for (let k = 0; k < nbChiffres; k++) {
             this.morceaux[i][k] = nombreStr[k]
             this.exposantMorceaux[i][k] = nbChiffres - 1 - k - nombreDeChiffresDec[i]
           }
           texteCorr = '$'
-          for (let k = 0; k < this.morceaux[i].length; k++) {
+          for (let k = 0; k < this.morceaux[i].length - 1; k++) {
             if (this.morceaux[i][k] !== '0') {
-              texte += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k] + 3][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$+`
-              texteCorr += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k] + 3][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$+`
+              texte += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k] + 3][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$${sp(2)}+${sp(2)}`
+              texteCorr += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k] + 3][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$${sp(2)}+${sp(2)}`
             }
           }
-          texte = texte.substring(0, texte.length - 2)
-          texteCorr = texteCorr.substring(0, texteCorr.length - 2)
+          ee = this.morceaux[i].length - 1
+          texte += `${this.morceaux[i][ee]}$ ${glossaire[this.exposantMorceaux[i][ee] + 3][Number(this.morceaux[i][ee]) > 1 ? 1 : 0]}${sp(2)}`
+          texteCorr += `${this.morceaux[i][ee]}$ ${glossaire[this.exposantMorceaux[i][ee] + 3][Number(this.morceaux[i][ee]) > 1 ? 1 : 0]}${sp(2)}`
           texteCorr += `$=${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$`
           if (!this.interactif) {
-            texte += '$= \\ldots\\ldots\\ldots$'
+            texte += ' : $\\ldots\\ldots\\ldots$'
           } else {
             setReponse(this, indexChamp, nombre.div(10 ** nombreDeChiffresDec[i]))
-            texte += '$=$' + ajouteChampTexteMathLive(this, indexChamp, 'inline', { tailleExtensible: true })
+            texte += ' :' + ajouteChampTexteMathLive(this, indexChamp, 'inline', { tailleExtensible: true })
             indexChamp++
           }
           this.nombreDeChamps[i] = indexChamp - this.premierChamp[i]
@@ -382,7 +385,7 @@ export default function RecomposerEntierC3 () {
             nombreStr += randint(1, 9).toString()
           }
           nombre = new Decimal(nombreStr)
-          texte += 'Donner le nombre correspondant au premier membre de l\'égalité.<br>$'
+          texte += 'Donner le nombre correspondant à <br>$'
           texteCorr = '$'
           this.premierChamp[i] = indexChamp
           for (let k = 0, j, index = 0; index < nbChiffres; k++) { // on prépare la correction pour l'exo non interactif
@@ -398,19 +401,20 @@ export default function RecomposerEntierC3 () {
             }
             index += j
           }
-          for (let k = 0; k < this.morceaux[i].length; k++) {
+          for (let k = 0; k < this.morceaux[i].length - 1; k++) {
             if (this.morceaux[i][k] !== '0') {
-              texte += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k] + 3][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$+`
-              texteCorr += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k] + 3][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$+`
+              texte += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k] + 3][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$${sp(2)}+${sp(2)}`
+              texteCorr += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k] + 3][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$${sp(2)}+${sp(2)}`
             }
           }
-          texte = texte.substring(0, texte.length - 2)
-          texteCorr = texteCorr.substring(0, texteCorr.length - 2)
+          ee = this.morceaux[i].length - 1
+          texte += `${this.morceaux[i][ee]}$ ${glossaire[this.exposantMorceaux[i][ee] + 3][Number(this.morceaux[i][ee]) > 1 ? 1 : 0]}${sp(2)}`
+          texteCorr += `${this.morceaux[i][ee]}$ ${glossaire[this.exposantMorceaux[i][ee] + 3][Number(this.morceaux[i][ee]) > 1 ? 1 : 0]}${sp(2)}`
           if (!this.interactif) {
-            texte += '$ = \\ldots\\ldots\\ldots$'
+            texte += ': $ \\ldots\\ldots\\ldots$'
           } else {
             setReponse(this, indexChamp, nombre.div(10 ** nombreDeChiffresDec[i]))
-            texte += '$=$' + ajouteChampTexteMathLive(this, indexChamp, 'inline', { tailleExtensible: true })
+            texte += ':' + ajouteChampTexteMathLive(this, indexChamp, 'inline', { tailleExtensible: true })
             indexChamp++
           }
           texteCorr += `$=${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$`
@@ -426,7 +430,7 @@ export default function RecomposerEntierC3 () {
             nombreStr = remplaceParZero(nombreStr, randint(1, nombreStr.length - 1))
           }
           nombre = new Decimal(nombreStr)
-          texte += 'Donner le nombre correspondant au premier membre de l\'égalité.<br>$'
+          texte += 'Donner le nombre correspondant à <br>$'
           texteCorr = '$'
           this.premierChamp[i] = indexChamp
           for (let k = 0, j, index = 0; index < nbChiffres; k++) { // on prépare la correction pour l'exo non interactif
@@ -442,19 +446,20 @@ export default function RecomposerEntierC3 () {
             }
             index += j
           }
-          for (let k = 0; k < this.morceaux[i].length; k++) {
+          for (let k = 0; k < this.morceaux[i].length - 1; k++) {
             if (this.morceaux[i][k] !== '0') {
-              texte += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k] + 3][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$+`
-              texteCorr += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k] + 3][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$+`
+              texte += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k] + 3][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$${sp(2)}+${sp(2)}`
+              texteCorr += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k] + 3][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$${sp(2)}+${sp(2)}`
             }
           }
-          texte = texte.substring(0, texte.length - 2)
-          texteCorr = texteCorr.substring(0, texteCorr.length - 2)
+          ee = this.morceaux[i].length - 1
+          texte += `${this.morceaux[i][ee]}$ ${glossaire[this.exposantMorceaux[i][ee] + 3][Number(this.morceaux[i][ee]) > 1 ? 1 : 0]}${sp(2)}`
+          texteCorr += `${this.morceaux[i][ee]}$ ${glossaire[this.exposantMorceaux[i][ee] + 3][Number(this.morceaux[i][ee]) > 1 ? 1 : 0]}${sp(2)}`
           if (!this.interactif) {
-            texte += '$ = \\ldots\\ldots\\ldots$'
+            texte += ': $ \\ldots\\ldots\\ldots$'
           } else {
             setReponse(this, indexChamp, nombre.div(10 ** nombreDeChiffresDec[i]))
-            texte += '$=$' + ajouteChampTexteMathLive(this, indexChamp, 'inline', { tailleExtensible: true })
+            texte += ' : ' + ajouteChampTexteMathLive(this, indexChamp, 'inline', { tailleExtensible: true })
             indexChamp++
           }
           texteCorr += `$=${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$`
@@ -479,24 +484,37 @@ export default function RecomposerEntierC3 () {
             this.exposantMorceaux[i][k] = nbChiffres - 1 - k - nombreDeChiffresDec[i]
           }
           shuffle2tableaux(this.morceaux[i], this.exposantMorceaux[i])
-          for (let k = 0; k < this.morceaux[i].length; k++) {
+          for (let k = 0; k < this.morceaux[i].length - 1; k++) {
             if (this.interactif) {
               if (this.morceaux[i][k] !== '0') {
-                texte += `$${ajouteChampTexteMathLive(this, indexChamp, 'inline', { tailleExtensible: true })} ${glossaire[this.exposantMorceaux[i][k] + 3][Number(this.morceaux[i][k]) > 1 ? 1 : 0]} $+`
+                texte += `$${ajouteChampTexteMathLive(this, indexChamp, 'inline', { tailleExtensible: true })} ${glossaire[this.exposantMorceaux[i][k] + 3][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$${sp(2)}+${sp(2)}`
                 setReponse(this, indexChamp, this.morceaux[i][k])
                 indexChamp++
               }
             } else {
               if (this.morceaux[i][k] !== '0') {
-                texte += `\\ldots $ ${glossaire[this.exposantMorceaux[i][k] + 3][Number(this.morceaux[i][k]) > 1 ? 1 : 0]} $+`
+                texte += `\\ldots $ ${glossaire[this.exposantMorceaux[i][k] + 3][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$${sp(2)}+${sp(2)}`
               }
             }
             if (this.morceaux[i][k] !== '0') {
-              texteCorr += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k] + 3][Number(this.morceaux[i][k]) > 1 ? 1 : 0]} $+`
+              texteCorr += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k] + 3][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$${sp(2)}+${sp(2)}`
             }
           }
-          texte = texte.substring(0, texte.length - 2)
-          texteCorr = texteCorr.substring(0, texteCorr.length - 2)
+          ee = this.morceaux[i].length - 1
+          if (this.interactif) {
+            if (this.morceaux[i][ee] !== '0') {
+              texte += `$${ajouteChampTexteMathLive(this, indexChamp, 'inline', { tailleExtensible: true })} ${glossaire[this.exposantMorceaux[i][ee] + 3][Number(this.morceaux[i][ee]) > 1 ? 1 : 0]}${sp(2)}`
+              setReponse(this, indexChamp, this.morceaux[i][ee])
+              indexChamp++
+            }
+          } else {
+            if (this.morceaux[i][ee] !== '0') {
+              texte += `\\ldots $ ${glossaire[this.exposantMorceaux[i][ee] + 3][Number(this.morceaux[i][ee]) > 1 ? 1 : 0]}${sp(2)}`
+            }
+          }
+          if (this.morceaux[i][ee] !== '0') {
+            texteCorr += `${this.morceaux[i][ee]}$ ${glossaire[this.exposantMorceaux[i][ee] + 3][Number(this.morceaux[i][ee]) > 1 ? 1 : 0]}${sp(2)}`
+          }
           this.nombreDeChamps[i] = indexChamp - this.premierChamp[i]
           break
         case 13: // décomposer avec les puissances de 10 en désordre présence de deux zéros consécutifs
@@ -525,7 +543,7 @@ export default function RecomposerEntierC3 () {
               }
             } else {
               if (this.morceaux[i][k] !== '0') {
-                texte += `(${this.morceaux[i][k]}\\times \\ldots)+`
+                texte += `(${this.morceaux[i][k]}\\times \\ldots\\ldots\\ldots\\ldots)+`
               }
             }
             if (this.morceaux[i][k] !== '0') {
@@ -571,7 +589,7 @@ export default function RecomposerEntierC3 () {
               }
             } else {
               if (this.morceaux[i][k] !== '0') {
-                texte += `(${this.morceaux[i][k]}\\times \\ldots)+`
+                texte += `(${this.morceaux[i][k]}\\times \\ldots\\ldots\\ldots\\ldots)+`
               }
             }
             if (this.morceaux[i][k] !== '0') {
@@ -583,7 +601,22 @@ export default function RecomposerEntierC3 () {
           this.nombreDeChamps[i] = indexChamp - this.premierChamp[i]
           break
       }
+
+      if (context.isAmc) {
+        this.autoCorrection[i] =
+        {
+          enonce: texte + '<br>',
+          propositions: [
+            {
+              texte: texteCorr,
+              statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+              sanscadre: true
+            }
+          ]
+        }
+      }
       texte += `<div id=divDuSmiley${this.numeroExercice}Q${i} style= "display: inline-block"></div>`
+
       if (this.questionJamaisPosee(i, nombre)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -595,7 +628,7 @@ export default function RecomposerEntierC3 () {
   }
   this.besoinFormulaireNumerique = ['Nombre de chiffres minimum des nombres à décomposer']
   this.besoinFormulaire2Numerique = ['Nombre de chiffres maximum des nombres à décomposer']
-  this.besoinFormulaire3Texte = ['Types de question séparés par des tirets', '1 : Chiffrée en ordre sans zéro\n2 : Chiffrée en désordre sans zéro\n3 : Puissances de dix en ordre sans zéro\n4 : Puissances de dix en désordre sans zéro\n5 : Chiffrée en ordre avec zéros possibles\n6 : Chiffrée en désordre avec zéros possibles\n7 : Puissances de dix en ordre avec zéros possibles\n8 : Puissances de dix en désordre avec zéros possibles\n9 : Trouver le nombre en ordre sans zéro\n11 : Trouver le nombre en désordre sans zéro avec groupement\n12 : Trouver le nombre en ordre avec zéros possibles avec groupement\n13 : Trouver le nombre en désordre avec zéros possibles\n14 : Puissances de dix en désordre deux zéros consécutifs sans groupement\n15 : Puissances de dix en désordre deux zéros consécutifs avec groupement\n16 : Mélange']
+  this.besoinFormulaire3Texte = ['Types de question séparés par des tirets', '1 : Chiffrée en ordre sans zéro\n2 : Chiffrée en désordre sans zéro\n3 : Puissances de dix en ordre sans zéro\n4 : Puissances de dix en désordre sans zéro\n5 : Chiffrée en ordre avec zéros possibles\n6 : Chiffrée en désordre avec zéros possibles\n7 : Puissances de dix en ordre avec zéros possibles\n8 : Puissances de dix en désordre avec zéros possibles\n9 : Trouver le nombre en ordre sans zéro\n11 : Trouver le nombre en désordre sans zéro avec groupement\n12 : Trouver le nombre en ordre avec zéros possibles avec groupement\n13 : Trouver le nombre en désordre avec zéros possibles\n14 : Puissances de dix en désordre deux zéros consécutifs sans groupement\n15 : Mélange']
   this.besoinFormulaire4Texte = ['Nombre de chiffres de la partie décimale', '0 : Aucun chiffre dans la partie décimale\n1 : Un seul chiffre dans la partie décimale\n2 : Que deux chiffres dans la partie décimale\n3 : Que trois chiffres dans la partie décimale\n4 : Mélange']
   this.correctionInteractive = (i) => {
     const champsTexte = []

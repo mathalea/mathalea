@@ -195,6 +195,14 @@ const gestionTimerDiap = (pause = false) => {
           clearInterval(context.timer)
           divTimer.textContent = ''
           const btn = document.querySelector(`button[data-num="${parseInt(context.questionCanEnCours) + 1}"]`)
+          if (context.son === 1) {
+            const son = new Audio('assets/sons/changediapo.mp3')
+            son.addEventListener('canplaythrough', (event) => {
+              son.play().catch(() => {
+
+              })
+            })
+          }
           if (btn) {
             btn.click()
             divTimer.hasMathaleaTimer = false

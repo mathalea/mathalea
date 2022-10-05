@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Écrire un nombre à partir de son nombre de dizaines, de centaines, de milliers...'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -44,7 +45,7 @@ export default function ExerciceNumerationEntier () {
       this.consigne = 'Compléter.'
     }
     this.consigne += this.interactif ? ' Penser à mettre les espaces nécessaires.' : ''
-    if (this.sup2) { this.sup3 = 1 } // Si entiers à 1 chiffres choisis, chevauchement impossible.
+    if (this.sup) { this.sup3 = 1 } // Si entiers à 1 chiffre choisis, chevauchement impossible.
     if (this.sup3 === 1) { // Sans chevauchement
       listeTypeDeQuestions = combinaisonListes(
         [1],
@@ -52,7 +53,7 @@ export default function ExerciceNumerationEntier () {
       )
     } else if (this.sup3 === 2) { // Avec chevauchement
       listeTypeDeQuestions = combinaisonListes(
-        [1],
+        [2],
         this.nbQuestions
       )
     } else {
@@ -110,16 +111,39 @@ export default function ExerciceNumerationEntier () {
           b * Math.pow(10, rangB - rangRef) + a * Math.pow(10, rangA - rangRef)
         )} ${rangs[rangRef]}}$`
       }
+      const reponse = this.sup2 ? b * Math.pow(10, rangB) + a * Math.pow(10, rangA) : b * Math.pow(10, rangB - rangRef) + a * Math.pow(10, rangA - rangRef)
 
+      setReponse(this, i, texNombre(reponse), { formatInteractif: 'texte' })
+      if (this.sup2) {
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline college6eme')
+      } else {
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline college6eme', { texteApres: `$\\text{ ${rangs[rangRef]}.}$` })
+      }
+
+      if (context.isAmc) {
+        const nbDigitsSupplementaires = randint(0, 2)
+        this.autoCorrection[i] = {
+          enonce: texte, // Si vide, l'énoncé est celui de l'exercice.
+          propositions: [
+            {
+              texte: 'texteCorr' // Si vide, le texte est la correction de l'exercice.
+            }
+          ],
+          reponse: {
+            texte: 'AMC', // facultatif
+            valeur: [reponse], // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9. Cette valeur doit être passée dans un tableau d'où la nécessité des crochets.
+            alignement: 'flushleft', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
+            param: {
+              digits: nbDigitsSupplementaires + nombreDeChiffresDansLaPartieEntiere(reponse), // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
+              decimals: 0, // facultatif. S'il n'est pas mis, il sera mis à 0 et sera déterminé automatiquement comme décrit ci-dessus
+              signe: false, // (présence d'une case + ou - pour AMC)
+              approx: 0 // (0 = valeur exacte attendue, sinon valeur de tolérance... voir plus bas pour un point technique non intuitif)
+            }
+          }
+        }
+      }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        if (this.sup2) {
-          setReponse(this, i, texNombre(b * Math.pow(10, rangB) + a * Math.pow(10, rangA)), { formatInteractif: 'texte' })
-          texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline college6eme')
-        } else {
-          setReponse(this, i, texNombre(b * Math.pow(10, rangB - rangRef) + a * Math.pow(10, rangA - rangRef)), { formatInteractif: 'texte' })
-          texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline college6eme', { texteApres: `$\\text{ ${rangs[rangRef]}.}$` })
-        }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
@@ -130,6 +154,6 @@ export default function ExerciceNumerationEntier () {
   }
   this.besoinFormulaireCaseACocher = ['Décomposition avec que des entiers à un chiffre']
   this.besoinFormulaire2CaseACocher = ['Décomposition vers les unités']
-  this.besoinFormulaire3Numerique = ['Chevauchement des classes', 3, '1 : Sans chevauchement des classes\n2 : Avec chevauchement des classes\n3 : Mélange']
+  this.besoinFormulaire3Numerique = ['Chevauchement des unités', 3, '1 : Sans chevauchement des unités\n2 : Avec chevauchement des unités\n3 : Mélange']
   this.besoinFormulaire4Numerique = ['Variante', 3, '1 : Jusqu\'aux millions\n2 : Jusqu\'aux centaines de milliards\n3 : Mélange']
 }

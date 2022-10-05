@@ -98,19 +98,22 @@ export default function DivisionsEuclidiennes () {
       a = b * q + r
       texte = `$${texNombre(a)}\\div${b}$`
       if (r === 0) {
-        texteCorr = `${Operation({ operande1: a, operande2: b, type: 'divisionE' })}$${texNombre(a)}\\div${b}=${texNombre(q)}$`
+        texteCorr = Operation({ operande1: a, operande2: b, type: 'divisionE' }) + `$${texNombre(a)}\\div${b}=${texNombre(q)}$`
         setReponse(this, i, [`${a}=${b}\\times${texNombre(q)}`, `${a}=${texNombre(q)}\\times${b}`,
         `${b}\\times${texNombre(q)}`, `${texNombre(q)}\\times${b}=${a}`])
       } else {
-        texteCorr = `${Operation({ operande1: a, operande2: b, type: 'divisionE' })}$${texNombre(a)}=${b}\\times${texNombre(q)}+${r}$`
+        texteCorr = Operation({ operande1: a, operande2: b, type: 'divisionE' }) + `$${texNombre(a)}=${b}\\times${texNombre(q)}+${r}$`
         setReponse(this, i, [`${a}=${b}\\times${texNombre(q)}+${r}`, `${a}=${texNombre(q)}\\times${b}+${r}`,
         `${b}\\times${texNombre(q)}+${r}=${a}`, `${texNombre(q)}\\times${b}+${r}=${a}`])
       }
       texte += ajouteChampTexteMathLive(this, i)
       // Pour AMC question AmcOpen
       if (context.isAmc) {
-        this.autoCorrection[i].enonce = texte
+        this.autoCorrection[i].enonce = 'Poser et effectuer la division euclidienne suivante puis donner l\'égalité fondamentale correspondante.<br>' + texte
         this.autoCorrection[i].propositions[0].texte = texteCorr
+        this.autoCorrection[i].propositions[0].sanscadre = false
+        this.autoCorrection[i].propositions[0].statut = 3
+        this.autoCorrection[i].propositions[0].pointilles = false
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

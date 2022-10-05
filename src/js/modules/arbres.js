@@ -1,5 +1,5 @@
 import { add, number, multiply } from 'mathjs'
-import { barycentre, latexParCoordonnees, latexParPoint, milieu, point, polygone, segment } from './2d.js'
+import { homothetie, latexParCoordonnees, latexParPoint, point, segment, translation, vecteur } from './2d.js'
 import { fraction } from './fractions.js'
 import { arrondi, calcul } from './outils.js'
 
@@ -10,13 +10,29 @@ export function texProba (proba, rationnel, precision) {
  * classe pour faire des arbres de probabilités
  * @author Jean-Claude Lhote
  * la classe Arbre permet de définir un arbre de probabilité.
- * à son sommet, il y a un Arbre qui parent = null
- * Ses enfants sont eux-mêmes Arbre(s) qui l'ont comme parent.
+ * à son sommet, il y a un Arbre dont la proba est 1 et qui a la propriété racine = true (c'est le seul)
+ * Ses enfants sont eux-mêmes Arbre(s).
+ * Une terminaison de l'arbre est un arbre qui a pour enfants []
  * Un Arbre possède un nom (de type string) qui l'identifie de façon unique (c'est important si on veut éviter des proba aléatoires)
  * chaque Arbre possède une proba. C'est la probabilité qu'on a d'atteindre cet arbre à partir de son parent.
- * Exemple: const pin = new Arbre(null, 'pin', 1) (c'est une forêt de pins)
+ * exemple : const pins = new Arbre({nom: 'pins',proba: 1, rationnel: true, racine: true) définit la racine de l'arbre
+ * pins.enfants[0] = new Arbre(nom: 'malade', proba: 0.3, rationnel: true)
+ * pins.enfants[1] = new Arbre(nom: 'sain', rationnel: true, proba: 0.7)
+ * Note : on peut aussi utiliser la méthode setFils()
+ * par exemple, la dernière assertions peut être remplacée par
+ * pins.setFils('sain', 0.7, true)
  */
 export class Arbre {
+  /**
+   * @param {object} parametres
+   * @param {string} [parametres.nom]
+   * @param {numberparametres.rationnel | FractionX} [parametres.proba]
+   * @param {Arbre[]} [parametres.enfants]
+   * @param {boolean} [parametres.rationnel]
+   * @param {boolean} [parametres.visible]
+   * @param {string} [parametres.alter]
+   * @param {boolean} [parametres.racine]
+   */
   constructor ({ nom, proba, enfants, rationnel, visible, alter, racine } = {}) {
     this.racine = racine !== undefined ? Boolean(racine) : false
     this.enfants = enfants !== undefined ? Array(...enfants) : []
@@ -64,6 +80,7 @@ export class Arbre {
    *
    * @param {String} nom Le nom de l'Arbre recherché dans les fils
    * @param {Number} proba La probabilité du fils pour le père.
+   * @param {boolean} rationnel true si la proba doit être mise sous la forme d'une fraction
    * @returns l'Arbre-fils.
    */
   setFilsProba (nom, proba, rationnel) { // si le fils nommé nom existe, on fixe sa proba (en gros, on la modifie)
@@ -81,12 +98,11 @@ export class Arbre {
     return (typeof obj === 'object' && ['Fraction', 'FractionX'].indexOf(obj.type) !== -1)
   }
 
-  // Essai de fonction récursive pour calculer la probabilité d'un événement.
   /**
-   *
+   * fonction récursive pour calculer la probabilité d'atteindre un enfant à partir de l'arbre courant.
+   * exemple : pin.getProba('malade', true)
    * @param {String} nom Le nom d'un descendant ou pas
-   * @param {Number} proba facultatif : Si elle est fixée à 1, alors on obtient la probabilité conditionnelle.
-   * Si elle n'est pas fixée, c'est la probabilité de l'arbre duquel on part qui est pris pour le calcul.
+   * @param {boolean} rationnel si true alors on retourne une fraction
    * @returns Probabilité conditionnelle ou pas d'atteindre l'arbre nommé à partir du père.
    * Exemple : si pin.getFilsProba('sylvestre')===0.8 et si sylvestre.getFilsProba('malade')===0.5
    * alors pin.getProba('malade')===0.4 et sylvestre.getProba('malade')===0.4 aussi ! par contre
@@ -145,6 +161,13 @@ export class Arbre {
   }
 
   /**
+   * @param {number} xOrigine
+   * @param {number} yOrigine
+   * @param {number} decalage
+   * @param {number} echelle
+   * @param {boolean} vertical true : vertical, false : horizontal
+   * @param {number} sens -1 ou 1 définit le sens de l'arbre gauche/droite ou haut/bas
+   * @param {number} tailleCaracteres définit la taille pour ce qui est écrit.
    * xOrigine et yOrigine définissent le point de référence de l'arbre... c'est un angle du cadre dans lequel l'arbre est construit par la position de la racine
    * decalage vaut 0 lors de l'appel initial... cette valeur est modifiée pendant le parcours de l'arbre.
    * echelle est à fixé à 3 si on utilise des fractions et peut être déscendu à 2 si on utilise des nombres décimaux... echelle peut être décimal.
@@ -169,9 +192,9 @@ export class Arbre {
       : yOrigine - sens * 5
     )
     const labelA = latexParCoordonnees(this.nom, A.x + (vertical ? 0.5 * sens : 0), A.y + (vertical ? 0 : 0.5 * sens), 'black', 15 * this.nom.length, 20, 'white', tailleCaracteres)
-    const positionProba = vertical ? barycentre(polygone(A, A, A, B, B), '', 'center') : milieu(A, B, '', 'center') // Proba au 2/5 de [AB] en partant de A.
+    const positionProba = vertical ? translation(homothetie(A, B, 0.6), vecteur(0, A.y > B.y ? 0.5 : -0.5), '', 'center') : translation(homothetie(A, B, 0.6), vecteur(A.x > B.x ? 0.5 : -0.5, 0), '', 'center') // Proba au 2/5 de [AB] en partant de A.
     const probaA = this.visible
-      ? latexParPoint(texProba(this.proba, this.rationnel, 2), positionProba, 'black', 20, 24, 'white', tailleCaracteres)
+      ? latexParPoint(texProba(this.proba, this.rationnel, 2), positionProba, 'black', 20, 24, '', tailleCaracteres)
       : latexParPoint(this.alter, positionProba, 'black', 20, 24, 'white', tailleCaracteres)
     if (this.enfants.length === 0) {
       return [segment(B, A), labelA, probaA]

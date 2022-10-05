@@ -25,7 +25,7 @@ export default function DivisionPar9 () {
     switch (choice([1, 2, 3])) {
       case 1:
         a = b * 90 + 9
-        this.question = `$${a}\\div 9=$`
+        this.question = `Calculer $${a}\\div 9$.`
         this.reponse = calcul(a / 9)
         this.correction = `$${a}\\div 9 = ${this.reponse}$`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
@@ -36,7 +36,7 @@ On obtient donc comme résultat : $${a}\\div 9=${b * 10}+1$, soit $${a / 9}$.
         break
       case 2:
         a = b * 900 + 9
-        this.question = `$${a}\\div 9=$`
+        this.question = `Calculer $${a}\\div 9$.`
         this.reponse = calcul(a / 9)
         this.correction = `$${a}\\div 9 = ${this.reponse}$`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
@@ -47,7 +47,7 @@ On obtient donc comme résultat : $${a}\\div 9=${b * 100}+1$, soit $${a / 9}$.
         break
       case 3:
         a = b * 900 + 90
-        this.question = `$${a}\\div 9=$`
+        this.question = `Calculer $${a}\\div 9$.`
         this.reponse = calcul(a / 9)
         this.correction = `$${a}\\div 9 = ${this.reponse}$`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
@@ -57,5 +57,7 @@ On obtient donc comme résultat : $${a}\\div 9=${b * 100}+10$, soit $${a / 9}$.
           `)
         break
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

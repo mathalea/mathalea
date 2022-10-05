@@ -20,7 +20,7 @@ export const dateDeModifImportante = '15/03/2022'
  * - 2 Comme le 1 mais avec 25% et 75% en plus ;
  * - 3 valeurs entières et 13%, 28%...;
  * - 4 valeurs décimale comme 13,5%...;
- * @author Laurence CANDILLE (Rajout de 25% et 50% par Eric ELter)
+ * @author Laurence CANDILLE (Rajout de 25% et 50% par Eric Elter)
  * Référence 6P13
  * Date de Publication : 23/07/2021
  * Relecture : Novembre 2021 par EE

@@ -431,7 +431,7 @@ function contenuExerciceHtml (obj, numeroExercice) {
       paramTooltip += obj.besoinFormulaire2Numerique[0] + ' : \n' + obj.besoinFormulaire2Numerique[2]
     }
     paramTooltip = paramTooltip ? `data-tooltip="${paramTooltip}" data-position="right center"` : ''
-    contenuUnExercice += `<span ${paramTooltip}> Exercice ${numeroExercice} − ${obj.id} <i class="cog icon icone_param"></i></span>${iconeInteractif}</h3>`
+    contenuUnExercice += `<span ${paramTooltip}> Exercice ${numeroExercice} − ${obj.id} − ${obj.titre} <i class="cog icon icone_param"></i></span>${iconeInteractif}</h3>`
     contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice}</h3>`
     if (obj.consigne) {
       contenuUnExercice += `<h4> ${obj.consigne} </h4>`
@@ -512,7 +512,7 @@ function contenuExerciceHtml (obj, numeroExercice) {
         context.vue === 'l' || context.vue === 'light' || context.vue === 'embed' || context.vue === 'e' || context.vue === 'eval' || context.vue === 'multi'
     ) {
       // Dans v=l on ne met pas les raccourcis vers interactif et paramètres.
-      contenuUnExercice += `Exercice ${numeroExercice} − ${obj.id} </h3>`
+      contenuUnExercice += `Exercice ${numeroExercice} − ${obj.id} − ${obj.titre} </h3>`
     } else {
       if (obj.besoinFormulaireNumerique && obj.besoinFormulaireNumerique[2]) {
         paramTooltip += obj.besoinFormulaireNumerique[0] + ' : \n' + obj.besoinFormulaireNumerique[2] + '\n'
@@ -521,7 +521,7 @@ function contenuExerciceHtml (obj, numeroExercice) {
         paramTooltip += obj.besoinFormulaire2Numerique[0] + ' : \n' + obj.besoinFormulaire2Numerique[2]
       }
       paramTooltip = paramTooltip ? `data-tooltip="${paramTooltip}" data-position="right center"` : ''
-      contenuUnExercice += `<span ${paramTooltip}> Exercice ${numeroExercice} − ${obj.id} <i class="cog icon icone_param"></i></span>${iconeInteractif}</h3>`
+      contenuUnExercice += `<span ${paramTooltip}> Exercice ${numeroExercice} − ${obj.id} − ${obj.titre} <i class="cog icon icone_param"></i></span>${iconeInteractif}</h3>`
     }
     if (obj.video.length > 3) {
       contenuUnExercice += `<div id=video${numeroExercice - 1}>` + modalYoutube(numeroExercice - 1, obj.video, '', 'Aide', 'youtube') + '</div>'
@@ -1146,16 +1146,73 @@ function miseAJourDuCode () {
       }
       if ($('#style_can:checked').val()) {
         const monSuperExercice = concatExercices(listeObjetsExercice)
-        codeEnonces = monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', `\\begin{spacing}{1.5}
-        \\begin{longtable}{|c|>{\\centering}p{0.65\\textwidth}|>{\\centering}p{0.15\\textwidth}|c|}%
-        \\hline
-        \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline
-        \\thenbEx \\addtocounter{nbEx}{1}&`).replace('\\item', '').replaceAll('\\item', `&&\\tabularnewline \\hline
-        \\thenbEx  \\addtocounter{nbEx}{1}&`).replace('\\end{enumerate}', `&&\\tabularnewline \\hline
-        \\end{longtable}
-        \\end{spacing}
-        \\addtocounter{nbEx}{-1}`).replace('\\begin{multicols}{2}', '').replace('\\end{multicols}', '').replaceAll('\\\\', '')
-        codeCorrections = monSuperExercice.contenuCorrection.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '')
+        if (listeObjetsExercice.length === 1) {
+          codeEnonces = monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', `\\begin{spacing}{1.5}
+          \\begin{longtable}{|c|>{\\centering}p{0.65\\textwidth}|>{\\centering}p{0.15\\textwidth}|c|}%
+          \\hline
+          \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline
+          \\thenbEx \\addtocounter{nbEx}{1}&`).replace('\\item', '').replaceAll('\\item', `&&\\tabularnewline \\hline
+          \\thenbEx  \\addtocounter{nbEx}{1}&`).replace('\\end{enumerate}', `&&\\tabularnewline \\hline
+          \\end{longtable}
+          \\end{spacing}
+          \\addtocounter{nbEx}{-1}`).replace('\\begin{multicols}{2}', '').replace('\\end{multicols}', '').replaceAll('\\\\', '')
+        } else {
+          let msgAlerteCanEnonce = ''
+          let msgAlerteCanReponseACompleter = ''
+          let canCorpsTableau = ''
+          let msgEnonce
+          let msgRepACompleter
+          codeCorrections = '\\begin{enumerate}'
+          for (const exoCan of listeObjetsExercice) {
+            if (exoCan.typeExercice === 'simple') {
+              codeCorrections += `\\item ${exoCan.correction}`.replaceAll('<br>', `
+              
+              `)
+            } else {
+              codeCorrections += `\\item ${exoCan.listeCorrections[0]}`.replaceAll('<br>', `
+              
+              `)
+            }
+            if (!exoCan.hasOwnProperty('canEnonce') || !exoCan.hasOwnProperty('canReponseACompleter')) {
+              msgEnonce = exoCan.contenu.replace('\\exo{}', '').replace(`\\marginpar{\\footnotesize ${exoCan.id}}`, '') // 'Propriété canEnonce manquante'
+              msgRepACompleter = ''
+              if (!exoCan.hasOwnProperty('canEnonce')) {
+                msgAlerteCanEnonce += ' ' + exoCan.id
+              }
+              if (!exoCan.hasOwnProperty('canReponseACompleter')) {
+                msgAlerteCanReponseACompleter += ' ' + exoCan.id
+              }
+            } else {
+              msgEnonce = exoCan.canEnonce.replaceAll('<br>', '')
+              msgRepACompleter = exoCan.canReponseACompleter.replaceAll('<br>', '')
+            }
+            canCorpsTableau += `
+            \\thenbEx \\addtocounter{nbEx}{1}&${msgEnonce}&${msgRepACompleter}&\\tabularnewline \\hline
+            `
+          }
+
+          codeCorrections += '\\end{enumerate}'
+          codeEnonces = ''
+          if (msgAlerteCanEnonce !== '') {
+            codeEnonces += ` \\textcolor{red}{Les exercices ${msgAlerteCanEnonce} n'ont pas de propriété canEnonce} \\\\`
+          }
+          if (msgAlerteCanReponseACompleter !== '') {
+            codeEnonces += ` \\textcolor{red}{Les exercices ${msgAlerteCanReponseACompleter} n'ont pas de propriété canReponseACompleter} \\\\`
+          }
+          codeEnonces += `\\begin{spacing}{1.1}
+          \\begin{longtable}{|>{\\columncolor{gray!20}}c|>{\\centering}p{0.4\\textwidth}|>{\\centering}p{0.4\\textwidth}|c|}%
+          \\hline
+          \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline`
+
+          codeEnonces += canCorpsTableau
+
+          codeEnonces += `
+          \\end{longtable}
+          \\end{spacing}
+          \\addtocounter{nbEx}{-1}
+          `
+        }
+        // codeCorrections = monSuperExercice.contenuCorrection.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '')
       }
       if ($('#supprimer_correction:checked').val()) {
         codeMoodle = codeEnonces
@@ -1179,18 +1236,75 @@ function miseAJourDuCode () {
           codeExercices += '\\version{' + (v + 1) + '}\n\n'
           codeCorrection += '\n\n\\newpage\n\\version{' + (v + 1) + '}\n\\begin{correction}'
           if ($('#style_can:checked').val()) {
-            const monSuperExercice = concatExercices(listeObjetsExercice)            
-            codeExercices += monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', `\\begin{spacing}{1.5}
-            \\begin{longtable}{|c|>{\\centering}p{0.65\\textwidth}|>{\\centering}p{0.15\\textwidth}|c|}%
-            \\hline
-            \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline
-            \\thenbEx \\addtocounter{nbEx}{1}&`).replace('\\item', '').replaceAll('\\item', `&&\\tabularnewline \\hline
-            \\thenbEx  \\addtocounter{nbEx}{1}&`).replace('\\end{enumerate}', `&&\\tabularnewline \\hline
-            \\end{longtable}
-            \\end{spacing}
-            \\addtocounter{nbEx}{-1}`).replace('\\begin{multicols}{2}', '').replace('\\end{multicols}', '').replace('\\\\', '')
+            const monSuperExercice = concatExercices(listeObjetsExercice)
+            if (listeObjetsExercice.length === 1) {
+              codeExercices += monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', `\\begin{spacing}{1.5}
+              \\begin{longtable}{|c|>{\\centering}p{0.65\\textwidth}|>{\\centering}p{0.15\\textwidth}|c|}%
+              \\hline
+              \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline
+              \\thenbEx \\addtocounter{nbEx}{1}&`).replace('\\item', '').replaceAll('\\item', `&&\\tabularnewline \\hline
+              \\thenbEx  \\addtocounter{nbEx}{1}&`).replace('\\end{enumerate}', `&&\\tabularnewline \\hline
+              \\end{longtable}
+              \\end{spacing}
+              \\addtocounter{nbEx}{-1}`).replace('\\begin{multicols}{2}', '').replace('\\end{multicols}', '').replace('\\\\', '')
+            } else {
+              let msgAlerteCanEnonce = ''
+              let msgAlerteCanReponseACompleter = ''
+              let canCorpsTableau = ''
+              let msgEnonce
+              let msgRepACompleter
+              codeCorrection = '\\begin{enumerate}'
+              for (const exoCan of listeObjetsExercice) {
+                if (exoCan.typeExercice === 'simple') {
+                  codeCorrection += `\\item ${exoCan.correction}`.replaceAll('<br>', `
+                  
+                  `)
+                } else {
+                  codeCorrection += `\\item ${exoCan.listeCorrections[0]}`.replaceAll('<br>', `
+                  
+                  `)
+                }
+                if (!exoCan.hasOwnProperty('canEnonce') || !exoCan.hasOwnProperty('canReponseACompleter')) {
+                  msgEnonce = exoCan.contenu.replace('\\exo{}', '').replace(`\\marginpar{\\footnotesize ${exoCan.id}}`, '') // 'Propriété canEnonce manquante'
+                  msgRepACompleter = ''
+                  if (!exoCan.hasOwnProperty('canEnonce')) {
+                    msgAlerteCanEnonce += ' ' + exoCan.id
+                  }
+                  if (!exoCan.hasOwnProperty('canReponseACompleter')) {
+                    msgAlerteCanReponseACompleter += ' ' + exoCan.id
+                  }
+                } else {
+                  msgEnonce = exoCan.canEnonce.replaceAll('<br>', '')
+                  msgRepACompleter = exoCan.canReponseACompleter.replaceAll('<br>', '')
+                }
+                canCorpsTableau += `
+                \\thenbEx \\addtocounter{nbEx}{1}&${msgEnonce}&${msgRepACompleter}&\\tabularnewline \\hline
+                `
+              }
+
+              codeCorrection += '\\end{enumerate}'
+              codeExercices = ''
+              if (msgAlerteCanEnonce !== '') {
+                codeExercices += ` \\textcolor{red}{Les exercices ${msgAlerteCanEnonce} n'ont pas de propriété canEnonce} \\\\`
+              }
+              if (msgAlerteCanReponseACompleter !== '') {
+                codeExercices += ` \\textcolor{red}{Les exercices ${msgAlerteCanReponseACompleter} n'ont pas de propriété canReponseACompleter} \\\\`
+              }
+              codeExercices += `\\begin{spacing}{1.1}
+              \\begin{longtable}{|>{\\columncolor{gray!20}}c|>{\\centering}p{0.4\\textwidth}|>{\\centering}p{0.4\\textwidth}|c|}%
+              \\hline
+              \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline`
+
+              codeExercices += canCorpsTableau
+
+              codeExercices += `
+              \\end{longtable}
+              \\end{spacing}
+              \\addtocounter{nbEx}{-1}
+              `
+            }
             codeExercices += '\n\n'
-            codeCorrection += monSuperExercice.contenuCorrection.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '')
+            // codeCorrection += monSuperExercice.contenuCorrection.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '')
             codeCorrection += '\n\n'
           } else {
             for (let i = 0; i < listeDesExercices.length; i++) {
@@ -1643,7 +1757,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
           if (isNumeric(urlVars[i].s2) && listeObjetsExercice[i].besoinFormulaire2Numerique) {
             // Avec sup numérique, on peut récupérer le max définit dans le formulaire
             const max = listeObjetsExercice[i].besoinFormulaire2Numerique[1]
-            listeObjetsExercice[i].sup2 = contraindreValeur(1, max, Number(urlVars[i].s2))
+            listeObjetsExercice[i].sup2 = contraindreValeur(1, max, Number(urlVars[i].s2), 1)
           } else {
             listeObjetsExercice[i].sup2 = typeof urlVars[i].s2 === 'boolean' ? urlVars[i].s2 : urlVars[i].s2.toString()
           }
@@ -1659,7 +1773,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
           if (isNumeric(urlVars[i].s3) && listeObjetsExercice[i].besoinFormulaire3Numerique) {
             // Avec sup numérique, on peut récupérer le max définit dans le formulaire
             const max = listeObjetsExercice[i].besoinFormulaire3Numerique[1]
-            listeObjetsExercice[i].sup3 = contraindreValeur(1, max, Number(urlVars[i].s3))
+            listeObjetsExercice[i].sup3 = contraindreValeur(1, max, Number(urlVars[i].s3), 1)
           } else {
             listeObjetsExercice[i].sup3 = typeof urlVars[i].s3 === 'boolean' ? urlVars[i].s3 : urlVars[i].s3.toString()
           }
@@ -1677,7 +1791,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
           if (isNumeric(urlVars[i].s4) && listeObjetsExercice[i].besoinFormulaire4Numerique) {
             // Avec sup numérique, on peut récupérer le max définit dans le formulaire
             const max = listeObjetsExercice[i].besoinFormulaire4Numerique[1]
-            listeObjetsExercice[i].sup4 = contraindreValeur(1, max, Number(urlVars[i].s4))
+            listeObjetsExercice[i].sup4 = contraindreValeur(1, max, Number(urlVars[i].s4), 1)
           } else {
             listeObjetsExercice[i].sup4 = typeof urlVars[i].s4 === 'boolean' ? urlVars[i].s4 : urlVars[i].s4.toString()
           }
@@ -2307,9 +2421,9 @@ function parametresExercice (exercice) {
       formModeNB.addEventListener('change', function (e) {
         // Dès que le statut change, on met à jour
         if ($('#ModeNB:checked').val()) {
-          context.sortieNB = true
+          context.issortieNB = true
         } else {
-          context.sortieNB = false
+          context.issortieNB = false
         }
         miseAJourDuCode()
       })
@@ -2454,10 +2568,10 @@ function parametresExercice (exercice) {
     if (exercice[i].besoinFormulaireNumerique) {
       const max = exercice[i].besoinFormulaireNumerique[1]
       formSup[i] = document.getElementById('form_sup' + i)
-      formSup[i].value = contraindreValeur(1, max, exercice[i].sup) // Rempli le formulaire avec le paramètre supplémentaire
+      formSup[i].value = contraindreValeur(1, max, exercice[i].sup, 1) // Rempli le formulaire avec le paramètre supplémentaire
       formSup[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup = contraindreValeur(1, max, Number(e.target.value))
+        exercice[i].sup = contraindreValeur(1, max, Number(e.target.value), 1)
         miseAJourDuCode()
       })
     }
@@ -2485,10 +2599,10 @@ function parametresExercice (exercice) {
     if (exercice[i].besoinFormulaire2Numerique) {
       const max = exercice[i].besoinFormulaire2Numerique[1]
       formSup2[i] = document.getElementById('form_sup2' + i)
-      formSup2[i].value = contraindreValeur(1, max, exercice[i].sup2) // Rempli le formulaire avec le paramètre supplémentaire
+      formSup2[i].value = contraindreValeur(1, max, exercice[i].sup2, 1) // Rempli le formulaire avec le paramètre supplémentaire
       formSup2[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup2 = contraindreValeur(1, max, Number(e.target.value))
+        exercice[i].sup2 = contraindreValeur(1, max, Number(e.target.value), 1)
         miseAJourDuCode()
       })
     }
@@ -2523,10 +2637,10 @@ function parametresExercice (exercice) {
     if (exercice[i].besoinFormulaire3Numerique) {
       const max = exercice[i].besoinFormulaire3Numerique[1]
       formSup3[i] = document.getElementById('form_sup3' + i)
-      formSup3[i].value = contraindreValeur(1, max, exercice[i].sup3) // Rempli le formulaire avec le paramètre supplémentaire
+      formSup3[i].value = contraindreValeur(1, max, exercice[i].sup3, 1) // Rempli le formulaire avec le paramètre supplémentaire
       formSup3[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup3 = contraindreValeur(1, max, Number(e.target.value))
+        exercice[i].sup3 = contraindreValeur(1, max, Number(e.target.value), 1)
         miseAJourDuCode()
       })
     }
@@ -2561,10 +2675,10 @@ function parametresExercice (exercice) {
     if (exercice[i].besoinFormulaire4Numerique) {
       const max = exercice[i].besoinFormulaire4Numerique[1]
       formSup4[i] = document.getElementById('form_sup4' + i)
-      formSup4[i].value = contraindreValeur(1, max, exercice[i].sup4) // Rempli le formulaire avec le paramètre supplémentaire
+      formSup4[i].value = contraindreValeur(1, max, exercice[i].sup4, 1) // Rempli le formulaire avec le paramètre supplémentaire
       formSup4[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup4 = contraindreValeur(1, max, Number(e.target.value))
+        exercice[i].sup4 = contraindreValeur(1, max, Number(e.target.value), 1)
         miseAJourDuCode()
       })
     }
@@ -3446,6 +3560,30 @@ document.addEventListener('DOMContentLoaded', async () => {
       modalTimer()
     })
   }
+
+  const btnSon = document.getElementById('son_diap')
+  if (btnSon !== null) {
+    btnSon.addEventListener('click', () => {
+      if (context.son === 1) {
+        context.son = 0
+        document.getElementById('iconeSon').classList.remove('up')
+        document.getElementById('iconeSon').classList.add('off')
+      } else {
+        context.son = 1
+        document.getElementById('iconeSon').classList.remove('off')
+        document.getElementById('iconeSon').classList.add('up')
+        // On ajoute une lecture sans volume pour gérer l'autoplay policy
+        // Le premier son doit venir d'une action de l'utilisateur pour que les suivants soient autorisés
+        const son = new Audio('assets/sons/changediapo.mp3')
+        son.addEventListener('canplaythrough', (event) => {
+          son.volume = 0
+          son.play().catch(() => {
+          })
+        })
+      }
+    })
+  }
+
   const btnMulti = document.getElementById('btnMulti')
   if (btnMulti !== null) {
     btnMulti.addEventListener('click', () => {

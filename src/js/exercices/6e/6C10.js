@@ -160,13 +160,16 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           setReponse(this, i, reponse, { digits: 0 }) // fonction qui va renseigner this.autocorrection[i]
         } else {
           this.autoCorrection[i] = {
-            enonce: texte,
+            enonce: '',
+            enonceAvant: false,
             propositions: [
               {
                 type: 'AMCOpen',
                 propositions: [{
+                  enonce: 'Poser et effectuer l\'opération suivante : ' + texte,
                   texte: texteCorr,
-                  statut: 3
+                  statut: 3,
+                  pointilles: false
                 }]
               },
               {
@@ -175,7 +178,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
                   texte: '',
                   statut: '',
                   reponse: {
-                    texte: 'Résultat',
+                    texte: 'Résultat de l\'opération : ',
                     valeur: [reponse],
                     param: {
                       digits: nombreDeChiffresDe(reponse),

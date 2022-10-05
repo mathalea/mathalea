@@ -55,7 +55,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           break
         case 'calcul':
         // Le format par défaut
-          saisie = champTexte.value.replace(',', '.')
+          saisie = champTexte.value.replaceAll(',', '.') // EE : Le All est nécessaire pour l'usage du clavier spécial 6ème
           // La réponse est transformée en chaine compatible avec engine.parse()
           reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
           saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
@@ -308,16 +308,21 @@ export function ajouteChampTexteMathLive (exercice, i, style = '', { texteApres 
 export function ajouteChampFractionMathLive (exercice, i, numerateur = false, denominateur = 100, style = '', { texte = '', texteApres = '' } = {}) {
   let code = ''
   if (context.isHtml && exercice.interactif) {
-    code += `<label>${texte}</label><table style="border-collapse:collapse;text-align:center;font-size: small;font-family:Arial,Times,serif;display:inline;"><tr><td style="padding:0px 0px 5px;margin:0px;border-bottom:1px solid #000;">`
+    code += `<label>${texte}</label>
+             <table style="border-collapse:collapse;text-align:center;font-size: small;font-family:Arial,Times,serif;display:inline;"><tr>
+             <td style="${!numerateur ? style : ''} ;padding:0px 0px 5px;margin:0px;border-bottom:1px solid #000;">`
     if (!numerateur) {
-      code += `<math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field></td><td><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+      code += `<math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>
+              </td><td><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
       i++
     } else {
       code += `${numerateur} `
     }
-    code += '</td></tr><tr><td width=50px style="padding:0px;margin:0px;">'
+    code += `</td></tr><tr>
+             <td width=50px style="padding:0px;margin:0px;">`
     if (!denominateur) {
-      code += `<math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field></td><td><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+      code += `<math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>
+              </td><td><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
     } else {
       code += `${denominateur}`
     }

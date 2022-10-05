@@ -42,5 +42,7 @@ export default function QuartOuTiers () {
       
       `)
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

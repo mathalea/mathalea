@@ -5,8 +5,9 @@ import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-
-export const titre = 'Décomposer un entier en facteurs premiers'
+export const amcReady = true
+export const amcType = 'AMCOpen'
+export const titre = 'Décomposer un entier en produit de facteurs premiers'
 
 /**
  * Décomposer un nombre en facteurs premiers et compter son nombre de diviseurs à partir d'un tableau
@@ -14,7 +15,7 @@ export const titre = 'Décomposer un entier en facteurs premiers'
  * type 1 : 3 à 5 facteurs premiers max, multiplicités 0,1,2 ou 3 max à préciser
  * type 2 : un produit de deux premiers entre 30 et 100, multiplicité 1 ... suffisamment de possibilités?
  * type 3 : un grand nombre premier au delà de 1000 et inférieur à 2 000
- * @author Sébastien Lozano (Rajout par EE du this.sup2)
+ * @author Sébastien Lozano (Rajout par EE du this.sup2 et de l'AMC)
  * Référence 3A10-3
  */
 export const uuid = '32f33'
@@ -49,6 +50,7 @@ export default function DecompositionFacteursPremiers () {
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
 
@@ -237,6 +239,14 @@ export default function DecompositionFacteursPremiers () {
           break
       }
       texte += ajouteChampTexteMathLive(this, i, 'largeur20 inline', { texte: `<br> <b>Écrire les facteurs premiers dans l'ordre croissant et la décomposition à l'aide de puissances lorsque l'exposant est supérieur ou égal à deux.</b> <br> La décomposition de $${texNombre(nombre)}$ est : ` })
+      if (context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: texte,
+          propositions: [
+            { statut: 3, sanscadre: false, pointilles: false }
+          ]
+        }
+      }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

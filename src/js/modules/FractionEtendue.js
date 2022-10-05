@@ -186,7 +186,7 @@ export default class FractionX extends Fraction {
      */
     let texFraction // num/den mais sans traitement des signes des numérateur et dénominateur
     definePropRo(this, 'texFraction', () => {
-      if (!texFraction) texFraction = `\\dfrac{${texNombre(this.num)}}{${texNombre(this.den)}}`
+      if (!texFraction) texFraction = this.den === 1 ? `${texNombre(this.num)}` : `\\dfrac{${texNombre(this.num)}}{${texNombre(this.den)}}`
       return texFraction
     })
 
@@ -336,7 +336,7 @@ export default class FractionX extends Fraction {
   /**
  * @returns la FractionX irreductible
  */
-  simplifie () { return fraction(this.n * this.s / gcd(this.n, this.d), this.d / gcd(this.n, this.d)) }
+  simplifie () { return new FractionX(abs(this.num) * this.s / gcd(abs(this.num), abs(this.den)), abs(this.den) / gcd(abs(this.num), abs(this.den))) }
 
   /**
  * Convertit la FractionX en Fraction
@@ -494,10 +494,17 @@ export default class FractionX extends Fraction {
     * @return {string} Le calcul du produit de deux fractions avec étape intermédiaire
     */
   texProduitFraction (f2, simplification = 'none') {
-    return `${this.texFraction}\\times ${f2.texFSP}=\\dfrac{${this.num + '\\times' + ecritureParentheseSiNegatif(f2.num)}}{${this.den + '\\times' + ecritureParentheseSiNegatif(f2.den)}}
-    ${simplification === 'none'
+    if (this.estEntiere) {
+      return `${this.texFraction}\\times ${f2.texFSP}=\\dfrac{${this.simplifie().num + '\\times' + ecritureParentheseSiNegatif(f2.num)}}{${ecritureParentheseSiNegatif(f2.den)}}
+      ${simplification === 'none' || this.produitFraction(f2).estIrreductible
+      ? '=\\dfrac{' + this.num * f2.num + '}{' + this.den * f2.den + '}'
+      : this.produitFraction(f2).texSimplificationAvecEtapes(simplification)}`
+    } else {
+      return `${this.texFraction}\\times ${f2.texFSP}=\\dfrac{${this.num + '\\times' + ecritureParentheseSiNegatif(f2.num)}}{${this.den + '\\times' + ecritureParentheseSiNegatif(f2.den)}}
+    ${simplification === 'none' || this.produitFraction(f2).estIrreductible
     ? '=\\dfrac{' + this.num * f2.num + '}{' + this.den * f2.den + '}'
     : this.produitFraction(f2).texSimplificationAvecEtapes(simplification)}`
+    }
   }
 
   /**
@@ -507,16 +514,56 @@ export default class FractionX extends Fraction {
   * @return {string} Le calcul du produit de deux fractions avec étape intermédiaire
   */
   texDiviseFraction (f2, simplification = 'none', symbole = '/') {
-    if (symbole === '/') {
-      return `\\dfrac{${this.texFraction}}{${f2.texFraction}}=${this.texFraction}\\times${f2.inverse().texFraction}=\\dfrac{${this.num + '\\times' + ecritureParentheseSiNegatif(f2.den)}}{${this.den + '\\times' + ecritureParentheseSiNegatif(f2.num)}}
-      ${simplification === 'none'
-      ? '=\\dfrac{' + this.num * f2.den + '}{' + this.den * f2.num + '}' + '=' + this.diviseFraction(f2).texFraction
-      : this.diviseFraction(f2).texSimplificationAvecEtapes(simplification)}`
+    const space = '\\phantom{\\dfrac{(_(^(}{(_(^(}}' // Utilisé pour mettre de l'espace dans une fraction de fraction
+    const space2 = '\\phantom{(_(^(}' // Utilisé pour mettre de l'espace dans une fraction de fraction lorsque le numérateur ou le dénominateur est entier
+    if (this.estEntiere) {
+      if (f2.inverse().estEntiere && f2.num === 1) {
+        if (symbole === '/') {
+          return `\\dfrac{${space2 + this.texFraction + space2}}{${(f2.estEntiere ? space2 : space) + f2.texFraction + (f2.estEntiere ? space2 : space)}}=${this.simplifie().texFSD}\\times ${f2.inverse().simplifie().texFSP}=${this.simplifie().num * f2.inverse().simplifie().num}`
+          // pas de simplification : on multiplie deux entiers !
+        } else {
+          return `${this.simplifie().texFraction}\\div${f2.texFraction}=${this.simplifie().texFSD}\\times ${f2.inverse().simplifie().texFSP}=${this.simplifie().num * f2.inverse().simplifie().num}`
+          // pas de simplification : on multiplie deux entiers !
+        }
+      } else {
+        if (symbole === '/') {
+          return `\\dfrac{${space2 + this.texFraction + space2}}{${(f2.estEntiere ? space2 : space) + f2.texFraction + (f2.estEntiere ? space2 : space)}}=${this.texFractionSimplifiee}\\times ${f2.inverse().texFraction}=\\dfrac{${this.texFractionSimplifiee + '\\times ' + ecritureParentheseSiNegatif(f2.den)}}{${ecritureParentheseSiNegatif(f2.num)}}
+      ${simplification === 'none' || this.diviseFraction(f2).estIrreductible
+      ? '=\\dfrac{' + this.simplifie().num * f2.den + '}{' + f2.num + '}'
+      : this.simplifie().diviseFraction(f2).texSimplificationAvecEtapes(simplification)}`
+        } else {
+          return `${this.texFraction}\\div${f2.texFraction}=${this.texFractionSimplifiee}\\times ${f2.inverse().texFraction}=\\dfrac{${this.texFractionSimplifiee + '\\times ' + ecritureParentheseSiNegatif(f2.den)}}{${ecritureParentheseSiNegatif(f2.num)}}
+      ${simplification === 'none' || this.diviseFraction(f2).estIrreductible
+      ? '=\\dfrac{' + this.simplifie().num * f2.den + '}{' + f2.num + '}'
+      : this.simplifie().diviseFraction(f2).texSimplificationAvecEtapes(simplification)}`
+        }
+      }
     } else {
-      return `${this.texFraction}\\div${f2.texFraction}=${this.texFraction}\\times${f2.inverse().texFraction}=\\dfrac{${this.num + '\\times' + f2.den}}{${this.den + '\\times' + f2.num}}
-      ${simplification === 'none'
-      ? '=\\dfrac{' + this.num * f2.den + '}{' + this.den * f2.num + '}' + '=' + this.diviseFraction(f2).texFraction
+      if (f2.inverse().estEntiere && f2.num === 1) {
+        if (symbole === '/') {
+          return `\\dfrac{${space + this.texFraction + space}}{${(f2.estEntiere ? space2 : space) + f2.texFraction + (f2.estEntiere ? space2 : space)}}=${this.texFraction}\\times ${f2.inverse().simplifie().texFSP}=\\dfrac{${this.num + '\\times ' + f2.inverse().simplifie().texFSP}}{${this.den}}
+      ${simplification === 'none' || this.diviseFraction(f2).estIrreductible
+      ? '=\\dfrac{' + this.num * f2.den + '}{' + this.den * f2.num + '}'
       : this.diviseFraction(f2).texSimplificationAvecEtapes(simplification)}`
+        } else {
+          return `${this.texFraction}\\div${f2.texFraction}=${this.texFraction}\\times ${f2.inverse().texFractionSimplifiee}=\\dfrac{${this.num + '\\times ' + f2.inverse().texFractionSimplifiee}}{${this.den}}
+      ${simplification === 'none' || this.diviseFraction(f2).estIrreductible
+      ? '=\\dfrac{' + this.num * f2.den + '}{' + this.den * f2.num + '}'
+      : this.diviseFraction(f2).texSimplificationAvecEtapes(simplification)}`
+        }
+      } else {
+        if (symbole === '/') {
+          return `\\dfrac{${space + this.texFraction + space}}{${(f2.estEntiere ? space2 : space) + f2.texFraction + (f2.estEntiere ? space2 : space)}}=${this.texFraction}\\times ${f2.inverse().texFraction}=\\dfrac{${this.num + '\\times ' + ecritureParentheseSiNegatif(f2.den)}}{${this.den + '\\times ' + ecritureParentheseSiNegatif(f2.num)}}
+      ${simplification === 'none' || this.diviseFraction(f2).estIrreductible
+      ? '=\\dfrac{' + this.num * f2.den + '}{' + this.den * f2.num + '}'
+      : this.diviseFraction(f2).texSimplificationAvecEtapes(simplification)}`
+        } else {
+          return `${this.texFraction}\\div${f2.texFraction}=${this.texFraction}\\times ${f2.inverse().texFraction}=\\dfrac{${this.num + '\\times ' + f2.den}}{${this.den + '\\times ' + f2.num}}
+      ${simplification === 'none' || this.diviseFraction(f2).estIrreductible
+      ? '=\\dfrac{' + this.num * f2.den + '}{' + this.den * f2.num + '}'
+      : this.diviseFraction(f2).texSimplificationAvecEtapes(simplification)}`
+        }
+      }
     }
   }
 
@@ -574,7 +621,7 @@ export default class FractionX extends Fraction {
  * Si la fraction est réductible, retourne une suite d'égalités permettant d'obtenir la fraction irréductible
  */
   texSimplificationAvecEtapes (factorisation = false) {
-    if (this.estIrreductible && this.num > 0 && this.den > 0) return `=${this.texFraction}` // irreductible et positifs
+    if (this.estIrreductible && this.num > 0 && this.den > 0) return '' // irreductible et positifs
     else if (this.estIrreductible && this.num * this.den < 0) { // irréductible mais négatifs
       return `=${this.texFSD}`
     } else {
