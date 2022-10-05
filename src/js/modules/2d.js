@@ -4468,7 +4468,7 @@ export function courbeDeBezier (...args) {
 }
 */
 
-function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, yCenter = 0, couleur = 'black', couleurDeRemplissage = 'black', couleurDuTrou = 'white', dureeTour = 10, angleStart = 90 } = {}) {
+function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, yCenter = 0, couleur = 'black', couleurDeRemplissage = 'black', couleurDuTrou = 'white', dureeTour = 10, angleStart = 90, marqueur = null } = {}) {
   ObjetMathalea2D.call(this)
   this.rayon = rayon
   this.rayonExt = rayonExt > rayon ? rayonExt : round(rayon * 4 / 3)
@@ -4477,6 +4477,7 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
   this.xCenter = xCenter
   this.yCenter = yCenter
   this.dureeTour = dureeTour
+  this.marqueur = marqueur
   this.color = colorToLatexOrHTML(couleur)
   this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
   this.couleurDuTrou = colorToLatexOrHTML(couleurDuTrou)
@@ -4493,7 +4494,7 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
     const r1y = round(R1 * sin(0.125 * angle))
     const Ax = round(xC + R1 * cos(angle * 0.25 + this.angleStart))
     const Ay = round(yC + R1 * sin(angle * 0.25 + this.angleStart))
-    let code = `<g id=${this.id}>+
+    let code = `<g id=${this.id}>
     <path stroke="${this.color[0]}" fill="${this.couleurDeRemplissage[0]}"
       d="M ${Ax},${Ay} `
     for (let i = 0; i < this.nbDents; i++) {
@@ -4508,7 +4509,9 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
       code += `A${r1x} ${r1y} ${round(180 + this.angleStart - (i + 0.25) * angle)} 0 0 ${Cx} ${Cy} L${Dx} ${Dy} A${r1x} ${r1y} ${round(180 + this.angleStart - (i - 0.125) * angle)} 0 0 ${Bx} ${By} A${R1} ${R1} 0 0 0 ${Ex} ${Ey} `
     }
     code += `Z"/>
-    <animateTransform
+    <circle cx="${xC}" cy="${yC}" r="${R0}" stroke="${this.color[0]}" fill="${this.couleurDuTrou[0]}" />`
+    if (typeof this.marqueur === 'number') code += `<circle cx="${round(xC + 0.8 * R1 * cos(this.marqueur))}" cy="${round(yC + 0.8 * R1 * sin(this.marqueur))}" r="3" stroke="HotPink" fill="Sienna" />`
+    code += `<animateTransform
       attributeName="transform"
       attributeType="XML"
       type="rotate"
@@ -4518,14 +4521,13 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
       repeatCount="indefinite"
       />
       </g>`
-    code += `<circle cx="${xC}" cy="${yC}" r="${R0}" stroke="${this.color[0]}" fill="${this.couleurDuTrou[0]}" />`
     return code
   }
   this.tikz = function () {
     const R1 = this.rayon
     const R2 = this.rayonExt
     const R0 = this.rayonInt
-    return `% engrenage de rayon ${this.rayon}, avec ${this.nbDents} dents centré en (${this.xCenter};${this.yCenter})
+    let code = `% engrenage de rayon ${this.rayon}, avec ${this.nbDents} dents centré en (${this.xCenter};${this.yCenter})
     \\foreach \\i in {1,2,...,${this.nbDents}}{
                   \\pgfmathparse{360*(\\i-1)/${this.nbDents}}\\let\\angle\\pgfmathresult
                   \\begin{scope}[shift={(${this.xCenter},${this.yCenter})}]
@@ -4543,7 +4545,12 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
                   \\draw[${this.color[1]},rotate=\\angle] (\\Ax,\\Ay) to[bend left=15] (\\Cx,\\Cy) -- (\\Dx,\\Dy) to[bend left=15] (\\Bx,\\By) arc (\\a:\\b:${R1}cm); 
                   \\end{scope}}
               \\fill[${this.couleurDuTrou[1]},draw=${this.color[1]}] (${this.xCenter},${this.yCenter}) circle (${R0});
-  }`
+  `
+    if (typeof this.marqueur === 'number') {
+      code += `\\fill[HotPink,draw=black] (${arrondi(this.xCenter + 0.8 * R1 * cos(this.marqueur),2)},${arrondi(this.yCenter + 0.8 * R1 * sin(this.marqueur),2)}) circle (0.15);
+`
+    }
+    return code
   }
 }
 
@@ -4561,12 +4568,13 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
  * @param {string} [parametres.couleurDuTrou] couleur du disque intérieur
  * @param {number} [parametres.dureeTour] temps en secondes mis par la roue pour effectuer un tout en SVG
  * @param {number} [parametres.angleStart] angle de départ de la première dent (90 par défaut) utile pour synchroniser deux roues
+ * @param {number | null} marqueur position angulaire en degrés d'un marqueur si de type number
  * @returns
  */
-export function engrenage ({ rayon = 1, rayonExt = 1.3, rayonInt = 0.75, nbDents = 12, xCenter = 0, yCenter = 0, couleur = 'black', couleurDeRemplissage = 'black', couleurDuTrou = 'white', dureeTour = 10, angleStart = 90 } = {}) {
+export function engrenage ({ rayon = 1, rayonExt = 1.3, rayonInt = 0.75, nbDents = 12, xCenter = 0, yCenter = 0, couleur = 'black', couleurDeRemplissage = 'black', couleurDuTrou = 'white', dureeTour = 10, angleStart = 90, marqueur = null } = {}) {
   if (rayonExt < rayon) rayonExt = round(rayon * 4 / 3)
   if (rayonInt > rayon) rayonInt = round(rayon * 3 / 4)
-  return new Engrenage({ rayon, rayonExt, rayonInt, nbDents, xCenter, yCenter, couleur, couleurDeRemplissage, couleurDuTrou, dureeTour, angleStart })
+  return new Engrenage({ rayon, rayonExt, rayonInt, nbDents, xCenter, yCenter, couleur, couleurDeRemplissage, couleurDuTrou, dureeTour, angleStart, marqueur })
 }
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
