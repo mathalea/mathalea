@@ -1,4 +1,4 @@
-import { calcul, arrondi, egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, lettreDepuisChiffre, nombreAvecEspace, stringNombre, inferieurouegal, numberFormat, nombreDeChiffresDe, superieurouegal, combinaisonListes, texcolors, texNombre } from './outils.js'
+import { calcul, arrondi, egal, randint, rangeMinMax, unSiPositifMoinsUnSinon, lettreDepuisChiffre, nombreAvecEspace, stringNombre, inferieurouegal, numberFormat, nombreDeChiffresDe, superieurouegal, combinaisonListes, texcolors, texNombre, enleveElement, combinaisonListesSansChangerOrdre } from './outils.js'
 import { cos, radians, sin } from './fonctionsMaths.js'
 import { context } from './context.js'
 import { fraction, Fraction, max, ceil, isNumeric, floor, random, round, abs } from 'mathjs'
@@ -4547,7 +4547,7 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
               \\fill[${this.couleurDuTrou[1]},draw=${this.color[1]}] (${this.xCenter},${this.yCenter}) circle (${R0});
   `
     if (typeof this.marqueur === 'number') {
-      code += `\\fill[HotPink,draw=black] (${arrondi(this.xCenter + 0.8 * R1 * cos(this.marqueur),2)},${arrondi(this.yCenter + 0.8 * R1 * sin(this.marqueur),2)}) circle (0.15);
+      code += `\\fill[HotPink,draw=black] (${arrondi(this.xCenter + 0.8 * R1 * cos(this.marqueur), 2)},${arrondi(this.yCenter + 0.8 * R1 * sin(this.marqueur), 2)}) circle (0.15);
 `
     }
     return code
@@ -11202,26 +11202,17 @@ function pattern ({
   }
 }
 
-/**  Crée un labyrinthe de nombres.
+/**  Crée un ensemble de chemins possibles dans un labyrinthe. Cette fonction est à associer aux méthodes conçues pour.
  * @param {Object} parametres À saisir entre accolades
- * @param {number} [parametres.taille = 1]
- * @param {string} [parametres.color = 'texte']
- * @property {number[]} bordures Coordonnées de la fenêtre d'affichage du genre [-2,-2,5,5]
+ * @param {number} [parametres.nbLignes = 3]
+ * @param {number} [parametres.nbColonnes = 6]
  * @author Jean-Claude Lhote & Eric Elter (améliorée par EE pour choisir le nombre de lignes et de colonnes)
- * Publié le 6/12/2020
+ * Publié le 6/12/2020 (Modifié le 05/10/2022)
  * @class
  */
 // JSDOC Validee par EE Septembre 2022
-function Labyrinthe (
-  {
-    taille = 1,
-    color = 'brown',
-    nbLignes = 3,
-    nbColonnes = 6
-  } = {}
-) {
-  this.nombres = [[]] // Le tableau de nombres doit être de format [6][3]
-
+function Labyrinthe ({ nbLignes = 3, nbColonnes = 6 } = {}) {
+  // Fonction qui permet de copier des tableaux
   function arrayCopy (arr) {
     return JSON.parse(JSON.stringify(arr))
   }
@@ -11242,6 +11233,7 @@ function Labyrinthe (
   let cheminsEE = [[1, 0]] // [[colonne,ligne]]
   const casesVoisinesTableau = [[-1, 0], [0, 1], [1, 0], [0, -1]] // Nord ; Est ; Sud ; Ouest
 
+  // Fonction récursive qui recherche tous les chemins possibles à partir du point de départ caseActuelle, des points déjà parcourus et avec l'indice du chemin actuel dans le tableau actuel
   function rechercheCheminsPossibles (caseActuelle, indiceCheminActuel, dejaParcourus) {
     const casesPossibles = []
     let prochaineCasePossible = []
@@ -11292,6 +11284,8 @@ function Labyrinthe (
       }
     }
   }
+  // Fin de construction récursive de chemin
+
   let cheminDejaParcouru = [1, 0]
   const Visitables = [[1, 0], [0, -1], [-1, 0], [0, 1]] // Nord ; Est ; Sud ; Ouest
   cheminsEE[0].push(rechercheCheminsPossibles([1, 0], 0, cheminDejaParcouru))
@@ -11325,9 +11319,9 @@ function Labyrinthe (
     }
     chemins.push(elementchemin)
   }
+  // Fin de construction de chemin (qui contient tous les chemins du labyrinthe)
 
   // Gestion des vitesses : Escargot, ..., Guépard
-
   let tableauDeVitesses = [] // Plus la vitesse est grande, moins le trajet est long
   const vitessePetite = cheminTableauSimple[0].length
   const vitesseGrande = cheminTableauSimple[cheminTableauSimple.length - 1].length
@@ -11337,8 +11331,21 @@ function Labyrinthe (
   }
   tableauDeVitesses[4] = cheminTableauSimple.length
   tableauDeVitesses = tableauDeVitesses.map(element => element - 1)
-  console.log(tableauDeVitesses)
-  this.choisitChemin = function (niveau) { // retourne un chemin en fonction du niveau de difficulté
+
+  // Fin de la fonction Labytinthe()
+
+  // Mise en place des méthodes de cette fonction
+
+  /**
+   * Retourne un chemin en fonction du niveau de rapidité
+   * @memberof Labyrinthe
+   * @param {number} niveau Niveau de résolution du labyrinthe entre 1 (le plus lent) et 6 (le plus rapide).
+   * @example monCheminChoisi = laby.traceChemin(3) // Renvoie un chemin parmi tous ceux possibles, du labyrinthe laby, dont le niveau de rapidité est 3
+   * @author Jean-Claude Lhote (et EE pour la partie "choix du nombre de lignes et de colonnes")
+   * @return {Array.number[]}
+   */
+  // JSDOC Validee par EE Octobre 2022
+  this.choisitChemin = function (niveau) {
     let choixchemin
     switch (niveau) {
       case 1: choixchemin = randint(0, tableauDeVitesses[0])
@@ -11355,8 +11362,19 @@ function Labyrinthe (
     return chemins[choixchemin]
   }
 
-  // Retourne le tableau d'objets des murs en fonction du point d'entrée de chemin
-  this.construitMurs = function (chemin) {
+  /**
+   * Retourne un ensemble d'objets correspondant aux murs du labyrinthe, par rapport à un chemin choisi
+   * @memberof Labyrinthe
+   * @param {Array.number[]} chemin Un chemin choisi parmi tous les chemins possibles.
+   * @param {number} [taille = 1] Taille des éléments de départ et de sortie
+   * @example lesMursDeMonLabyrinthe = laby.construitMurs(monCheminChoisi)
+   * // Renvoie les murs du labyrinthe laby correspondants au chemin monCheminChoisi.
+   * // Penser à faire mathalea2d(param, lesMursDeMonLabyrinthe) ensuite
+   * @author Jean-Claude Lhote (et EE pour la partie "choix du nombre de lignes et de colonnes")
+   * @return {ObjecMathalea2d[]}
+   */
+  // JSDOC Validee par EE Octobre 2022
+  this.construitMurs = function (chemin, taille) {
     const objets = []; let s1; let s2
     const choix = chemin[0][1]
     for (let i = 0; i < nbColonnes; i++) { // Construction des T supérieurs et inférieurs
@@ -11436,8 +11454,17 @@ function Labyrinthe (
     return objets
   }
 
-  // Retourne le tableau d'objets du chemin correction
-  this.traceChemin = function (monchemin) {
+  /**
+   * Retourne les traits signifiant le chemin correction
+   * @memberof Labyrinthe
+   * @param {Array.number[]} monchemin Un chemin choisi parmi tous les chemins possibles.
+   * @param {string} [color = 'brown'] Couleur du tracé de la correction : du type 'blue' ou du type '#f15929'
+   * @example laCorrectionDeMonLabyrinthe = laby.traceChemin(monCheminChoisi) // Renvoie les traits signifiant le chemin correction du labyrinthe laby correspondant au chemin monCheminChoisi
+   * @author Jean-Claude Lhote (et EE pour la partie "choix du nombre de lignes et de colonnes")
+   * @return {ObjecMathalea2d[]}
+   */
+  // JSDOC Validee par EE Octobre 2022
+  this.traceChemin = function (monchemin, color = 'brown') {
     let y = monchemin[0][1]
     let x = 0; const chemin2d = []; let s1
     for (let j = 0; j < monchemin.length; j++) {
@@ -11458,9 +11485,47 @@ function Labyrinthe (
     chemin2d.push(s1)
     return chemin2d
   }
-  // Retourne le tableau d'objets des nombres
-  this.placeNombres = function (nombres, taille) {
+
+  /**
+   * Retourne la position convenable de tous les éléments (bons ou faux) du labyrinthe (nombre, texte, fraction)
+   * @memberof Labyrinthe
+   * @param {Array.number[]} monchemin Un chemin choisi parmi tous les chemins possibles.
+   * @param {number[]|string[]|Fraction[]} bonnesReponses Tableau de bonnes réponses
+   * @param {number[]|string[]|Fraction[]} mauvaisesReponses Tableau de mauvaises réponses
+   * @param {number} taille Taille des écritures dans les cases du labyrinthe
+   * @example aVotrePlace = laby.placeNombres(monCheminChoisi,reponsesOK,reponsesPasOK,1)
+   * // Place les bonnes (reponsesOK) et les mauvaises (reponsesPasOK) réponses dans les cases adéquates du labyrinthe laby correspondant au chemin monCheminChoisi
+   * @author Jean-Claude Lhote (et EE pour la partie "choix du nombre de lignes et de colonnes")
+   * @return {ObjecMathalea2d[]}
+   */
+  // JSDOC Validee par EE Octobre 2022
+  this.placeNombres = function (monChemin, bonnesReponses, mauvaisesReponses, taille) {
+    bonnesReponses = combinaisonListesSansChangerOrdre(bonnesReponses, monChemin.length)
+    mauvaisesReponses = combinaisonListesSansChangerOrdre(mauvaisesReponses, nbColonnes * nbLignes - monChemin.length)
     const objets = []
+    const nombres = []
+    let trouve
+    let indexBonnesRep = 0
+    let indexMauvaisesRep = 0
+
+    for (let a = 0; a < nbColonnes; a++) {
+      nombres.push([0, 0])
+    }
+    for (let a = 1; a < nbColonnes + 1; a++) {
+      for (let b = 0; b < nbLignes; b++) {
+        trouve = false
+        for (let k = 0; k < monChemin.length; k++) {
+          if (monChemin[k][0] === a && monChemin[k][1] === b) trouve = true
+        }
+        if (!trouve) {
+          nombres[a - 1][b] = mauvaisesReponses[indexMauvaisesRep]
+          indexMauvaisesRep++
+        } else {
+          nombres[a - 1][b] = bonnesReponses[indexBonnesRep]
+          indexBonnesRep++
+        }
+      }
+    }
     for (let a = 1; a < nbColonnes + 1; a++) {
       for (let b = 0; b < nbLignes; b++) {
         if (typeof (nombres[a - 1][b]) === 'number') {
@@ -11474,9 +11539,20 @@ function Labyrinthe (
     }
     return objets
   }
-} // fin de la classe labyrinthe
-export function labyrinthe ({ taille = 1, color = 'brown', nbLignes = 3, nbColonnes = 6 } = {}) {
-  return new Labyrinthe({ taille: taille, color: color, nbLignes: nbLignes, nbColonnes: nbColonnes })
+}
+
+/**  Crée un ensemble de chemins possibles dans un labyrinthe. Cette fonction est à associer aux méthodes conçues pour.
+ * @param {Object} parametres À saisir entre accolades
+ * @param {number} [parametres.nbLignes = 3]
+ * @param {number} [parametres.nbColonnes = 6]
+ * @example laby = labyrinthe ({ nbLignes: 4, nbColonnes: 5 })
+ * // Crée l'ensemble de chemins possibles dans un labyrinthe à 4 lignes et 5 colonnes
+ * @author Jean-Claude Lhote & Eric Elter (améliorée par EE pour choisir le nombre de lignes et de colonnes)
+ * @return {Labyrinthe}
+ */
+// JSDOC Validee par EE Septembre 2022
+export function labyrinthe ({ nbLignes = 3, nbColonnes = 6 } = {}) {
+  return new Labyrinthe({ nbLignes: nbLignes, nbColonnes: nbColonnes })
 }
 
 /**
