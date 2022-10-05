@@ -3,13 +3,15 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleurEtGras, choice, contraindreValeur, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
 import { labyrinthe } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
+import { max } from 'mathjs'
 export const amcReady = true
 export const amcType = 'AMCOpen' // type de question AMC
 export const interactifReady = false
 export const titre = 'Parcourir un labyrinthe de multiples'
+export const dateDeModifImportante = '05/10/2022' // Le nb de lignes et celui de colonnes du labyrinthe sont paramétrables.
 
 /**
- * @author Jean-Claude Lhote
+ * @author Jean-Claude Lhote (remaniée par EE pour la prise en compte du nb de lignes et de colonnes du labyrinthe)
  * Publié le 6/12/2020
  * Ref : c3C10-2 et 6C10-5
  * Parcourir un labyrinthe de nombres en passant par les multiples du nombre choisi.
@@ -30,15 +32,12 @@ export default function ExerciceLabyrintheMultiples () {
   this.pasDeVersionLatex = false
   this.pas_de_version_HMTL = false
   this.tailleDiaporama = 2
-  this.sup3 = 3
   this.sup = 4
-  if (this.niveau === 'CM') {
-    this.sup2 = 10
-    this.sup3 = 3
-  } else {
-    this.sup2 = 13
-    this.sup3 = 4
-  }
+  const maximum = this.niveau === 'CM' ? 10 : 13
+  this.sup2 = this.niveau === 'CM' ? 3 : 4
+  this.sup3 = 1
+  this.sup4 = 1
+
   this.nouvelleVersion = function () {
     this.listeCorrections = []
     this.listeQuestions = []
@@ -55,45 +54,33 @@ export default function ExerciceLabyrintheMultiples () {
       table = combinaisonListesSansChangerOrdre([choice([2, 5, 10]), choice([3, 9]), choice([4, 6, 7, 8]), 2, 3, 4, 5, 6, 7, 8, 9])
     }
     const tailleChiffre = 1.5
-    const maximum = parseInt(this.sup2)
 
-    for (let q = 0, texte, params, texteCorr, monChemin, laby, trouve, listeMultiples, index; q < this.nbQuestions;) {
-      laby = labyrinthe({ taille: tailleChiffre })
-      laby.niveau = parseInt(this.sup3) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
-      laby.chemin = laby.choisitChemin(laby.niveau) // On choisit un chemin
-      laby.murs2d = laby.construitMurs(laby.chemin) // On construit le labyrinthe
-      laby.chemin2d = laby.traceChemin(laby.chemin) // On trace le chemin solution
-      monChemin = laby.chemin
-      //   this.consigne=`Trouve la sortie en ne passant que par les cases contenant un multiple de $${table}$.`
+    for (let q = 0, texte, texteCorr, monChemin, laby, listeMultiples; q < this.nbQuestions;) {
+      const nbL = this.sup3 === 1 ? randint(2, 8) : max(2, this.sup3)
+      const nbC = this.sup4 === 1 ? randint(3, 11 - nbL) : max(3, this.sup4)
+      laby = labyrinthe({ nbLignes: nbL, nbColonnes: nbC })
+      laby.niveau = parseInt(this.sup2) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
+      monChemin = laby.choisitChemin(laby.niveau) // On choisit un chemin
+      laby.murs2d = laby.construitMurs(monChemin) // On construit le labyrinthe
+      laby.chemin2d = laby.traceChemin(monChemin) // On trace le chemin solution
 
       texte = `${texteEnCouleurEtGras('Trouve la sortie en ne passant que par les cases contenant un multiple de ', 'black')}$${table[q]}$.<br>`
-      texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en marron et la sortie était la numéro $${2 - monChemin[monChemin.length - 1][1] + 1}$.`, 'black')}<br>`
-      // Zone de construction du tableau de nombres : S'ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
+      texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en couleur et la sortie était le numéro $${2 - monChemin[monChemin.length - 1][1] + 1}$.`, 'black')}<br>`
+      // Zone de construction des tableaux de nombres
       listeMultiples = []
-      index = 0
+      const listeNonMultiples = []
       for (let i = 2; i <= maximum; i++) {
         listeMultiples.push(table[q] * i)
       }
-      listeMultiples = combinaisonListes(listeMultiples, 12)
-      for (let a = 1; a < 7; a++) {
-        laby.nombres.push([0, 0, 0])
+      for (let i = 1; i <= nbC * nbL; i++) {
+        listeNonMultiples.push(randint(2, maximum) * table[q] + randint(1, table[q] - 1))
       }
-      for (let a = 1; a < 7; a++) {
-        for (let b = 0; b < 3; b++) {
-          trouve = false
-          for (let k = 0; k < monChemin.length; k++) {
-            if (monChemin[k][0] === a && monChemin[k][1] === b) trouve = true
-          }
-          if (!trouve) {
-            laby.nombres[a - 1][b] = randint(2, maximum) * table[q] + randint(1, table[q] - 1)
-          } else {
-            laby.nombres[a - 1][b] = listeMultiples[index]
-            index++
-          }
-        }
-      } // Le tableau de nombre étant fait, on place les objets nombres.
-      laby.nombres2d = laby.placeNombres(laby.nombres, tailleChiffre)
-      params = { xmin: -4, ymin: 0, xmax: 22, ymax: 11, pixelsParCm: 20, scale: 0.5 }
+
+      listeMultiples = combinaisonListes(listeMultiples, nbC * nbL)
+
+      // Le tableau de nombre étant fait, on place les objets nombres.
+      laby.nombres2d = laby.placeNombres(monChemin, listeMultiples, listeNonMultiples, tailleChiffre)
+      const params = { xmin: -4, ymin: 0, xmax: 5 + 3 * nbC, ymax: 2 + 3 * nbL, pixelsParCm: 20, scale: 0.7 }
       texte += mathalea2d(params, laby.murs2d, laby.nombres2d)
       if ((1 + q) % 3 === 0 && !context.isHtml && !context.isAmc && this.nbQuestions > 3) { // en contexte Latex, on évite que la consigne soit sur un page différente du labyrinthe
         texte += '\\newpage'
@@ -103,7 +90,7 @@ export default function ExerciceLabyrintheMultiples () {
       /** ********************** AMC Open *****************************/
       this.autoCorrection = [{ enonce: texte, propositions: [{ texte: texteCorr, statut: 3, feedback: '' }] }]
       /****************************************************/
-      if (this.questionJamaisPosee(q, ...laby.nombres)) {
+      if (this.questionJamaisPosee(q, listeMultiples[0], listeNonMultiples[0])) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         q++
@@ -111,7 +98,8 @@ export default function ExerciceLabyrintheMultiples () {
       listeQuestionsToContenu(this)
     }
   }
-  this.besoinFormulaireNumerique = ['Tables', 4, '1: tables de 2,5 et 10\n2: tables de 3 et 9\n3: tables de 4,6,7 et 8\n4: mélange']
-  this.besoinFormulaire2Numerique = ['Facteur maximum']
-  this.besoinFormulaire3Numerique = ['Niveau de rapidité', 6, ' 1 : Guépard\n 2 : Antilope\n 3 : Lièvre\n 4 : Tortue\n 5 : Escargot\n 6 : Au hasard']
-} // Fin de l'exercice.
+  this.besoinFormulaireNumerique = ['Tables', 4, '1 : Tables de 2,5 et 10\n2 : Tables de 3 et 9\n3 : Tables de 4,6,7 et 8\n4 : Mélange']
+  this.besoinFormulaire2Numerique = ['Niveau de rapidité', 6, '1 : Escargot\n2 : Tortue\n3 : Lièvre\n4 : Antilope\n5 : Guépard\n6 : Au hasard']
+  this.besoinFormulaire3Numerique = ['Nombre de lignes du labyrinthe', 8, 'Entre 2 et 8\n1 si vous laissez le hasard décider']
+  this.besoinFormulaire4Numerique = ['Nombre de colonnes du labyrinthe', 8, 'Entre 3 et 8\n1 si vous laissez le hasard décider']
+}
