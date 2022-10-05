@@ -4556,7 +4556,7 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
 }
 
 /**
- *
+ * @author Jean-Claude Lhote (Sébastien Lozano et Sylvain Chambon pour la partie tikz)
  * @param {object} parametres paramètres de l'objet voir ci-dessous
  * @param {number} [parametres.rayon] rayon du disque sans les dents
  * @param {number} [parametres.rayonExt] rayon du disque avec les dents
