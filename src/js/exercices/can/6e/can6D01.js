@@ -17,7 +17,7 @@ export default function ConversionHeuresEtMinutesVersMinutes () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   if (!this.interactif) {
     this.question += ' .... minutes'
@@ -34,5 +34,7 @@ export default function ConversionHeuresEtMinutesVersMinutes () {
     this.correction = `Il y a $60$ minutes dans une heure.<br>
     Comme $${a} \\times 60 + ${b}=${d}$ alors $${a}$h $${b}$min = $${d}$ minutes`
     this.reponse = d
+    this.canEnonce = 'Compléter.'
+    this.canReponseACompleter = `$${a}$ heures $${b} $ minutes $=$ $\\ldots$ minutes`
   }
 }
