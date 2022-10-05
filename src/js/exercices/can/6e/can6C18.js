@@ -17,7 +17,7 @@ export default function ResteDivisionEuclidienne () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let a, b, c, d, q, r
@@ -54,5 +54,7 @@ export default function ResteDivisionEuclidienne () {
       this.correction = `Puisque $${r}$ est strictement inférieur à $${b}$, le reste est $${r}$.`
       this.reponse = r
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

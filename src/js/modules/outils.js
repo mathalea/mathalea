@@ -1999,15 +1999,17 @@ export function codeCesar (mots, decal) {
 
 /**
 * Renvoie une lettre majuscule depuis un nombre compris entre 1 et 702
+* Le 2e paramètre est un booléen qui permet d'éviter la lettre D (et donc décale tout d'une lettre après le C) en vue du bug de MathLive
 * @author Rémi Angot
 *@Example
 * // 0 -> @ 1->A ; 2->B...
 * // 27->AA ; 28 ->AB ...
 */
-export function lettreDepuisChiffre (i) {
+export function lettreDepuisChiffre (i, saufD = false) {
   let result = ''
   if (i <= 26) {
     result = String.fromCharCode(64 + i)
+    if (saufD && i >= 4) result = String.fromCharCode(64 + i + 1)
   } else {
     if (i % 26 === 0) {
       result = String.fromCharCode(64 + Math.floor(i / 26) - 1)

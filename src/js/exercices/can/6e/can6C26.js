@@ -29,7 +29,7 @@ export default function MultiplierDiviserPar10Par100Par1000 () {
         a /= choice([10, 100, 1000, 10000])
         b = choice([10, 100, 1000])
         resultat = arrondi(a * b, 3)
-        this.question = `$${texNombre(a, 4)}\\times ${texNombre(b, 0)}=$`
+        this.question = `Calculer $${texNombre(a, 4)}\\times ${texNombre(b, 0)}$.`
         this.correction = `$${texNombre(a, 4)}\\times ${texNombre(b, 0)} = ${texNombre(resultat, 3)}$`
         this.reponse = resultat
         break
@@ -38,7 +38,7 @@ export default function MultiplierDiviserPar10Par100Par1000 () {
         a = randint(10, 1000)
         b = choice([0.1, 0.01, 0.001])
         resultat = arrondi(a * b, 3)
-        this.question = `$${texNombre(a, 0)}\\times${texNombre(b, 3)}=$`
+        this.question = `Calculer $${texNombre(a, 0)}\\times${texNombre(b, 3)}$.`
         this.correction = `$${texNombre(a)}\\times ${texNombre(b, 3)} = ${texNombrec(resultat, 3)}$`
         this.reponse = resultat
         break
@@ -47,12 +47,14 @@ export default function MultiplierDiviserPar10Par100Par1000 () {
         den = choice([10, 100, 1000])
         b = choice([10, 100, 1000])
         resultat = arrondi(a * b / den, 3)
-        this.question = `$${texFraction(a, den)}\\times${texNombre(b)}=$`
+        this.question = `Calculer $${texFraction(a, den)}\\times${texNombre(b)}$.`
         this.correction = `$${texFraction(a, den)} \\times ${texNombre(
                 b)} = ${texFraction(a * b, den)} = ${texNombre((a / den) * b, 3)}$`
         this.reponse = resultat
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }
 
