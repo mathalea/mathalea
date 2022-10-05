@@ -24,14 +24,15 @@ export default function Somme4EntiersQuiSeMarient () {
     const b = randint(1, 9, a)
     const c = randint(3, 7) * 10
     const d = randint(10, 15) * 10 - c
-    this.consigne = 'Calculer.'
     this.reponse = calcul(2 * (c + d))
-    this.question = `$${c - a} + ${d + b} + ${c + a} + ${d - b}=$`
+    this.question = `Calculer $${c - a} + ${d + b} + ${c + a} + ${d - b}$.`
     this.correction = `$${c - a} + ${d + b} + ${c + a} + ${d - b} =  ${2 * (c + d)}$`
     this.correction += texteEnCouleur(`
     <br> Mentalement : <br>
 On change l'ordre des termes pour simplifier le calcul  :<br>
   $\\underbrace{${c - a}+${c + a}}_{${2 * c}}+
 \\underbrace{${d + b}+${d - b}}_{${2 * d}}=${2 * c}+${2 * d}=${2 * c + 2 * d}$. `)
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }
