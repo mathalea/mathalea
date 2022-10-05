@@ -10,7 +10,6 @@ export const titre = 'Appartient ou n\'appartient pas'
  * @author Mickael Guironnet
  */
 
-export const ref = '6G10-6'
 export default class constructionElementaire extends Exercice {
 //  'use strict'
   constructor () {
