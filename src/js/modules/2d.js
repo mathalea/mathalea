@@ -4512,6 +4512,7 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
     <circle cx="${xC}" cy="${yC}" r="${R0}" stroke="${this.color[0]}" fill="${this.couleurDuTrou[0]}" />`
     if (typeof this.marqueur === 'number') code += `<circle cx="${round(xC + 0.8 * R1 * cos(this.marqueur))}" cy="${round(yC + 0.8 * R1 * sin(this.marqueur))}" r="3" stroke="HotPink" fill="Sienna" />`
     code += `<animateTransform
+      id="anim${this.id}"
       attributeName="transform"
       attributeType="XML"
       type="rotate"
