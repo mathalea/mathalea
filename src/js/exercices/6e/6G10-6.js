@@ -77,7 +77,7 @@ export default class constructionElementaire extends Exercice {
         objetsEnonce
       ) + (context.vue === 'diap' ? '</center>' : '<br>')
 
-      enonce += 'Compléter avec $\\in$ ou $\\notin$ <br>'
+      enonce += 'Compléter avec $\\in$ ou $\\notin$. <br>'
       let correction = enonce
       let questind = 0
       const points = [A, AA, BB, CC, DD, B, C, D]
