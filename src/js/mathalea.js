@@ -1199,8 +1199,9 @@ function miseAJourDuCode () {
           if (msgAlerteCanReponseACompleter !== '') {
             codeEnonces += ` \\textcolor{red}{Les exercices ${msgAlerteCanReponseACompleter} n'ont pas de propriété canReponseACompleter} \\\\`
           }
-          codeEnonces += `\\begin{spacing}{1.1}
-          \\begin{longtable}{|>{\\columncolor{gray!20}}c|>{\\centering}p{0.4\\textwidth}|>{\\centering}p{0.4\\textwidth}|c|}%
+          codeEnonces += `\\renewcommand*{\\arraystretch}{2.5}
+          \\begin{spacing}{1.1}
+          \\begin{longtable}{|>{\\columncolor{gray!20}}c|>{\\centering}p{0.45\\textwidth}|>{\\centering}p{0.35\\textwidth}|c|}%
           \\hline
           \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline`
 
@@ -1209,6 +1210,7 @@ function miseAJourDuCode () {
           codeEnonces += `
           \\end{longtable}
           \\end{spacing}
+          \\renewcommand*{\\arraystretch}{1}
           \\addtocounter{nbEx}{-1}
           `
         }
@@ -1290,8 +1292,9 @@ function miseAJourDuCode () {
               if (msgAlerteCanReponseACompleter !== '') {
                 codeExercices += ` \\textcolor{red}{Les exercices ${msgAlerteCanReponseACompleter} n'ont pas de propriété canReponseACompleter} \\\\`
               }
-              codeExercices += `\\begin{spacing}{1.1}
-              \\begin{longtable}{|>{\\columncolor{gray!20}}c|>{\\centering}p{0.4\\textwidth}|>{\\centering}p{0.4\\textwidth}|c|}%
+              codeExercices += `\\renewcommand*{\\arraystretch}{2.5}
+              \\begin{spacing}{1.1}
+              \\begin{longtable}{|>{\\columncolor{gray!20}}c|>{\\centering}p{0.45\\textwidth}|>{\\centering}p{0.35\\textwidth}|c|}%
               \\hline
               \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline`
 
@@ -1300,6 +1303,7 @@ function miseAJourDuCode () {
               codeExercices += `
               \\end{longtable}
               \\end{spacing}
+              \\renewcommand*{\\arraystretch}{1}
               \\addtocounter{nbEx}{-1}
               `
             }
