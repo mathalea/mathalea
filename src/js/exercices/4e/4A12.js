@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { combinaisonListes, listeNombresPremiersStrictJusqua, listeQuestionsToContenu, nombreAvecEspace, randint, texteEnCouleurEtGras, personne, warnMessage } from '../../modules/outils.js'
+import { combinaisonListes, listeNombresPremiersStrictJusqua, listeQuestionsToContenu, nombreAvecEspace, randint, texteEnCouleurEtGras, personne, warnMessage, nombreDeChiffresDe } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { svgEngrenages } from '../../modules/macroSvgJs.js'
@@ -7,7 +7,7 @@ import { context } from '../../modules/context.js'
 export const interactifReady = true // pour définir qu'exercice peut s'afficher en mode interactif.
 export const interactifType = 'mathLive'
 export const amcReady = true // pour définir que l'exercice est exportable AMC
-export const amcType = 'AMCNum'
+export const amcType = 'AMCHybride'
 
 export const titre = 'Résoudre des problèmes de conjonction de phénomènes'
 
@@ -134,18 +134,18 @@ export default function ProblemesEvenementsRecurrents () {
           cycles = ' sorties'
           break
         case 'engrenages':
-          texte = `Une première roue possède ${nombreAvecEspace(Commun * A)} dents et une seconde en possède ${nombreAvecEspace(Commun * B)}.<br>
-          Elles tournent jusqu'à revenir (pour la première fois) en position initiale<br>`
-          if (this.interactif) {
+          texte = `Une première roue possède ${nombreAvecEspace(Commun * A)} dents et une seconde en possède ${nombreAvecEspace(Commun * B)}. 
+          Elles tournent jusqu'à revenir (pour la première fois) en position initiale. `
+          if (this.interactif || context.isAmc) {
             switch (variableEngrenages) {
               case 1:
                 texte += 'De combien de dents chaque roue aura tourné ?'
                 break
               case 2:
-                texte += 'Combien de tours aura fait la première roue ?'
+                texte += 'Combien de tours aura effectué la première roue ?'
                 break
               case 3:
-                texte += 'Combien de tours aura fait la deuxième roue ?'
+                texte += 'Combien de tours aura effectué la deuxième roue ?'
                 break
               default:
                 break
@@ -245,23 +245,20 @@ export default function ProblemesEvenementsRecurrents () {
          (${decompositionCommun} $\\times$ ${decompositionB}) $\\times$ ${decompositionA} =
          ${texteEnCouleurEtGras(nombreAvecEspace(Commun * B), 'green')} $\\times$ ${texteEnCouleurEtGras(nombreAvecEspace(A), 'red')}.<br>`
       }
+      let bonneReponse = Commun * A * B
       if (saveurs[i] === 'engrenages') {
         switch (variableEngrenages) {
-          case 1:
-            setReponse(this, i, Commun * A * B)
-            break
           case 2:
-            setReponse(this, i, B)
+            bonneReponse = B
             break
           case 3:
-            setReponse(this, i, A)
-            break
-          default:
+            bonneReponse = A
             break
         }
-      } else {
-        setReponse(this, i, Commun * A * B)
       }
+
+      setReponse(this, i, bonneReponse)
+
       if (this.interactif && !context.isAmc) { // Si l'exercice est interactif
         if (saveurs[i] === 'engrenages' && variableEngrenages > 1) {
           texte += ajouteChampTexteMathLive(this, i, 'inline largeur 25', { texteApres: ' tours' })
@@ -269,6 +266,41 @@ export default function ProblemesEvenementsRecurrents () {
           texte += ajouteChampTexteMathLive(this, i, 'inline largeur 25', { texteApres: ' ' + unite })
         }
       }
+      if (context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: '',
+          enonceAvant: false,
+          propositions: [
+            {
+              type: 'AMCOpen',
+              propositions: [{
+                texte: texteCorr,
+                enonce: texte + '<br>',
+                statut: 4,
+                pointilles: false
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: saveurs[i] === 'guirlande' ? 'Nombre de secondes : ' : saveurs[i] === 'engrenages' ? 'Réponse : ' : 'Nombre de secondes : ',
+                  valeur: [bonneReponse],
+                  param: {
+                    digits: nombreDeChiffresDe(bonneReponse),
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
+                  }
+                }
+              }]
+            }
+          ]
+        }
+      }
+
       if (this.questionJamaisPosee(i, Commun, A * B)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

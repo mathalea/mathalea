@@ -14,7 +14,7 @@ import { context } from './context.js'
 // import { setUrl, setUrlAndGo } from './gestionUrl.js'
 import { setUrlAndGo } from './gestionUrl.js'
 
-export default function gestionScores () {
+export default function GestionScores () {
   // On vérfie s'il faut remettre à zéro le répertoire de stockage des espaces de scores
   async function myCleanSpacesFetch () {
     const response = await fetch('scoresCleanSpaces.php', {

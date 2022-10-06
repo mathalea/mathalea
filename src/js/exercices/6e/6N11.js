@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { randint, combinaisonListes, calcul, lettreDepuisChiffre, listeQuestionsToContenu, stringNombre } from '../../modules/outils.js'
+import { randint, combinaisonListes, calcul, listeQuestionsToContenu, stringNombre, texNombre, nombreDeChiffresDansLaPartieEntiere, lettreIndiceeDepuisChiffre } from '../../modules/outils.js'
 import { droiteGraduee } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -9,7 +9,7 @@ export const titre = 'Lire l\'abscisse entière d\'un point (grands nombres)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 'AMCOpen'
+export const amcType = 'AMCHybride'
 
 /**
  * Lire l'abscisse entière d'un point
@@ -46,14 +46,14 @@ export default function LireAbscisseEntiere2d () {
       )
     }
     const d = []
-    for (let i = 0, abs0, l1, l2, l3, x1, x2, x3, pas1, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, abs0, l1, l2, l3, x1, x2, x3, reponse1, reponse2, reponse3, pas1, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // La ligne suivante ne doit pas être mise après les setReponses car sinon elle les efface
       this.autoCorrection[3 * i] = { propositions: [{ statut: 4, feedback: '' }] }
       this.autoCorrection[3 * i + 1] = { propositions: [{ statut: 4, feedback: '' }] }
       this.autoCorrection[3 * i + 2] = { propositions: [{ statut: 4, feedback: '' }] }
-      l1 = lettreDepuisChiffre(i * 3 + 1)
-      l2 = lettreDepuisChiffre(i * 3 + 2)
-      l3 = lettreDepuisChiffre(i * 3 + 3)
+      l1 = lettreIndiceeDepuisChiffre(i * 3 + 1)
+      l2 = lettreIndiceeDepuisChiffre(i * 3 + 2)
+      l3 = lettreIndiceeDepuisChiffre(i * 3 + 3)
       switch (typesDeQuestions[i]) {
         case 1: // Placer des entiers sur un axe (milliers)
           abs0 = randint(1, 9) * 1000
@@ -73,7 +73,9 @@ export default function LireAbscisseEntiere2d () {
       x1 = calcul(randint(0, 27) / 10)
       x2 = calcul(randint(33, 47) / 10)
       x3 = calcul(randint(53, 67) / 10)
-
+      reponse1 = calcul(x1 / pas1 + abs0)
+      reponse2 = calcul(x2 / pas1 + abs0)
+      reponse3 = calcul(x3 / pas1 + abs0)
       d[2 * i] = droiteGraduee({
         Unite: 4,
         Min: 0,
@@ -84,7 +86,7 @@ export default function LireAbscisseEntiere2d () {
         labelsPrincipaux: false,
         thickSec: true,
         step1: 10,
-        labelListe: [[0, `${stringNombre(abs0)}`], [1, `${stringNombre(calcul(abs0 + 1 / pas1))}`]],
+        labelListe: [[0, context.isAmc ? `${texNombre(abs0, 0)}` : `${stringNombre(abs0)}`], [1, context.isAmc ? `${texNombre(calcul(abs0 + 1 / pas1), 0)}` : `${stringNombre(calcul(abs0 + 1 / pas1))}`]],
         pointListe: [[x1, l1], [x2, l2], [x3, l3]]
       })
       d[2 * i + 1] = droiteGraduee({
@@ -98,9 +100,9 @@ export default function LireAbscisseEntiere2d () {
         thickSec: true,
         step1: 10,
         labelListe: [
-          [x1, stringNombre(calcul(x1 / pas1 + abs0))],
-          [x2, stringNombre(calcul(x2 / pas1 + abs0))],
-          [x3, stringNombre(calcul(x3 / pas1 + abs0))]
+          [x1, !context.isAmc ? stringNombre(reponse1) : texNombre(reponse1, 0)],
+          [x2, !context.isAmc ? stringNombre(reponse2) : texNombre(reponse2, 0)],
+          [x3, !context.isAmc ? stringNombre(reponse3) : texNombre(reponse3, 0)]
         ],
         pointListe: [[x1, l1], [x2, l2], [x3, l3]]
 
@@ -110,18 +112,72 @@ export default function LireAbscisseEntiere2d () {
       texteCorr = mathalea2d({ xmin: -2, ymin: -2, xmax: 30, ymax: 2, pixelsParCm: 20, scale: 0.5 }, d[2 * i + 1])
 
       if (this.interactif && context.isHtml) {
-        setReponse(this, 3 * i, calcul(x1 / pas1 + abs0))
-        setReponse(this, 3 * i + 1, calcul(x2 / pas1 + abs0))
-        setReponse(this, 3 * i + 2, calcul(x3 / pas1 + abs0))
+        setReponse(this, 3 * i, reponse1)
+        setReponse(this, 3 * i + 1, reponse2)
+        setReponse(this, 3 * i + 2, reponse3)
         texte += '<br>' + ajouteChampTexteMathLive(this, 3 * i, 'inline largeur75', { texte: l1 })
         texte += '<br>' + ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur75', { texte: l2 })
         texte += '<br>' + ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur75', { texte: l3 })
-      } else {
-        if (context.isAmc) {
-          this.autoCorrection[i].enonce = texte
-          this.autoCorrection[i].propositions[0].texte = texteCorr
+      } else if (context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: texte,
+          enonceAvant: false,
+          propositions: [
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: 'Lire l\'abscisse de chacun des points.<br>' + texte + `<br>Abscisse de $${l1}$ :`,
+                  valeur: reponse1,
+                  param: {
+                    digits: nombreDeChiffresDansLaPartieEntiere(reponse1),
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
+                  }
+                }
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: `Abscisse de $${l2}$ :`,
+                  valeur: reponse2,
+                  param: {
+                    digits: nombreDeChiffresDansLaPartieEntiere(reponse2),
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
+                  }
+                }
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: `Abscisse de $${l3}$ :`,
+                  valeur: reponse3,
+                  param: {
+                    digits: nombreDeChiffresDansLaPartieEntiere(reponse3),
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
+                  }
+                }
+              }]
+            }
+          ]
         }
       }
+
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

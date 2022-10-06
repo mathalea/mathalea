@@ -1,4 +1,4 @@
-import { polygoneATrous, semiEllipse, diagrammeBarres, axeY, texteParPointEchelle, scratchblock, motifs, nomVecteurParPosition, point, tracePoint, tracePointSurDroite, milieu, pointSurSegment, pointSurCercle, pointSurDroite, pointIntersectionDD, pointAdistance, labelPoint, barycentre, droite, droiteParPointEtVecteur, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, droiteHorizontaleParPoint, droiteVerticaleParPoint, droiteParPointEtPente, mediatrice, codageMediatrice, codageMilieu, codageBissectrice, bissectrice, polyline, pave, vecteur, segment, segmentAvecExtremites, demiDroite, polygone, polygoneAvecNom, polygoneRegulier, carre, codageCarre, polygoneRegulierParCentreEtRayon, triangle2points2longueurs, triangle2points2angles, triangle2points1angle1longueur, triangle2points1angle1longueurOppose, nommePolygone, deplaceLabel, aireTriangle, cercle, ellipse, pointIntersectionLC, pointIntersectionCC, cercleCentrePoint, arc, arcPointPointAngle, traceCompas, dansLaCibleCarree, dansLaCibleRonde, cibleCarree, cibleRonde, cibleCouronne, translation, translation2Points, rotation, sensDeRotation, homothetie, symetrieAxiale, distancePointDroite, projectionOrtho, affiniteOrtho, similitude, medianeTriangle, centreGraviteTriangle, hauteurTriangle, codageHauteurTriangle, codageMedianeTriangle, orthoCentre, centreCercleCirconscrit, codageAngleDroit, afficheLongueurSegment, texteSurSegment, afficheMesureAngle, afficheCoteSegment, codageSegment, codageSegments, codageAngle, nomAngleSaillantParPosition, nomAngleRentrantParPosition, droiteGraduee, axes, labelY, grille, lignesHorizontales, lignesVerticales, seyes, repere, pointDansRepere, traceGraphiqueCartesien, traceBarre, traceBarreHorizontale, lectureImage, lectureAntecedent, courbe, courbeInterpolee, graphiqueInterpole, imageInterpolee, antecedentInterpole, crochetD, crochetG, intervalle, texteParPoint, texteParPosition, latexParPoint, latexParCoordonnees, longueur, norme, angle, angleOriente, angleradian, labyrinthe, pavage, tableau, glisseNombre, boite, plot, papierPointe, traceMilieuSegment, positionLabelDroite, texteSurArc, cone, diagrammeCirculaire } from './2d.js'
+import { engrenage, polygoneATrous, semiEllipse, diagrammeBarres, axeY, texteParPointEchelle, scratchblock, motifs, nomVecteurParPosition, point, tracePoint, tracePointSurDroite, milieu, pointSurSegment, pointSurCercle, pointSurDroite, pointIntersectionDD, pointAdistance, labelPoint, barycentre, droite, droiteParPointEtVecteur, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, droiteHorizontaleParPoint, droiteVerticaleParPoint, droiteParPointEtPente, mediatrice, codageMediatrice, codageMilieu, codageBissectrice, bissectrice, polyline, pave, vecteur, segment, segmentAvecExtremites, demiDroite, polygone, polygoneAvecNom, polygoneRegulier, carre, codageCarre, polygoneRegulierParCentreEtRayon, triangle2points2longueurs, triangle2points2angles, triangle2points1angle1longueur, triangle2points1angle1longueurOppose, nommePolygone, deplaceLabel, aireTriangle, cercle, ellipse, pointIntersectionLC, pointIntersectionCC, cercleCentrePoint, arc, arcPointPointAngle, traceCompas, dansLaCibleCarree, dansLaCibleRonde, cibleCarree, cibleRonde, cibleCouronne, translation, translation2Points, rotation, sensDeRotation, homothetie, symetrieAxiale, distancePointDroite, projectionOrtho, affiniteOrtho, similitude, medianeTriangle, centreGraviteTriangle, hauteurTriangle, codageHauteurTriangle, codageMedianeTriangle, orthoCentre, centreCercleCirconscrit, codageAngleDroit, afficheLongueurSegment, texteSurSegment, afficheMesureAngle, afficheCoteSegment, codageSegment, codageSegments, codageAngle, nomAngleSaillantParPosition, nomAngleRentrantParPosition, droiteGraduee, axes, labelY, grille, lignesHorizontales, lignesVerticales, seyes, repere, pointDansRepere, traceGraphiqueCartesien, traceBarre, traceBarreHorizontale, lectureImage, lectureAntecedent, courbe, courbeInterpolee, graphiqueInterpole, imageInterpolee, antecedentInterpole, crochetD, crochetG, intervalle, texteParPoint, texteParPosition, latexParPoint, latexParCoordonnees, longueur, norme, angle, angleOriente, angleradian, labyrinthe, pavage, tableau, glisseNombre, boite, plot, papierPointe, traceMilieuSegment, positionLabelDroite, texteSurArc, cone, diagrammeCirculaire } from './2d.js'
 import { sensDeRotation3d, cube, cube3d, plaque3d, paveLPH3d, barre3d, point3d, vecteur3d, arete3d, droite3d, demicercle3d, cercle3d, polygone3d, sphere3d, cone3d, cylindre3d, prisme3d, pave3d, rotationV3d, rotation3d, translation3d, homothetie3d, CodageAngleDroit3D } from './3d.js'
 import { pointCliquable } from './2dinteractif.js'
 import { randint, texNombre, nombreDecimal, calcul } from './outils.js'
@@ -22,7 +22,7 @@ function carreIndirect (A, B, color) {
  * Pour l'autocomplétion, importe les fonctions de mathalea2d, les charge dans window et dans l'interpréteur Sval
  * @returns interpreter Objet Sval
  */
-export default function initialiseEditeur () {
+export default function InitialiseEditeur () {
   context.objets2D = [] // Initialise la liste qui se met à jour à chaque création d'objet 2D
   window.randint = randint
   window.texNombre = texNombre
@@ -30,6 +30,7 @@ export default function initialiseEditeur () {
   window.calcul = calcul
   window.calcule = calcule
   window.fraction = fraction
+  window.engrenage = engrenage
 
   window.numId = 0 // Pour identifier tous les objets MathALEA2D
   window.texteParPointEchelle = texteParPointEchelle
@@ -248,6 +249,7 @@ export default function initialiseEditeur () {
     angleScratchTo2d: window.angleScratchTo2d,
     scratchblock: window.scratchblock,
     motifs: window.motifs,
+    engrenage: window.engrenage,
     // pattern: window.pattern,
     nomVecteurParPosition: window.nomVecteurParPosition,
     point: window.point,

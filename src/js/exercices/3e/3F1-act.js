@@ -15,7 +15,7 @@ export const titre = 'Fonctions : Notion et vocabulaire'
  */
 export const uuid = '77d18'
 export const ref = '3F1-act'
-export default function fonctionNotionVocabulaire () {
+export default function FonctionNotionVocabulaire () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1

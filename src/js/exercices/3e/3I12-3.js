@@ -1,7 +1,10 @@
 import Exercice from '../Exercice.js'
 import { choice, combinaisonListes, compteOccurences, contraindreValeur, enleveDoublonNum, lampeMessage, lettreDepuisChiffre, listeQuestionsToContenu, randint, range1, shuffle } from '../../modules/outils.js'
 import { scratchblock } from '../../modules/2d.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Compléter un script Scratch - 2'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 
 export const dateDePublication = '22/09/2022'
 
@@ -9,7 +12,7 @@ export const dateDePublication = '22/09/2022'
  * Compléter un script sur les multiples et diviseurs
  * @author Eric Elter
  */
-export default function completerScriptDiviseurs () {
+export default function CompleterScriptDiviseurs () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = '1-2-3-4-5-6-7-8-9-10'
@@ -120,7 +123,7 @@ export default function completerScriptDiviseurs () {
 
     const nb1 = randint(1, 26, [23, 9, 15, 17]) // Pour éviter I,O,Q et W
     const var1 = lettreDepuisChiffre(nb1)
-    let texteScratch = '\\begin{scratch}[print,fill,blocks,scale=0.5]\n'
+    let texteScratch = '\\begin{scratch}[print,fill,blocks,scale=1]\n'
     switch (briqueInitiale) {
       case 1 :
         texteScratch += '\\blockinit{quand \\greenflag est cliqué}\n'
@@ -181,6 +184,13 @@ export default function completerScriptDiviseurs () {
 
     const texte = texteScratch
     const texteCorr = scratchblock(texteSansTrou.join(''))
+
+    if (context.isAmc) {
+      this.autoCorrection = [{
+        enonce: this.consigne + '<br>' + texte + '<br>',
+        propositions: [{ statut: 3, sanscadre: true }]
+      }]
+    }
 
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)

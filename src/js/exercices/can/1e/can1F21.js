@@ -13,7 +13,7 @@ export const dateDePublication = '21/09/2022'
  * @author Gilles Mora
  */
 
-export default function econdDegreAbscisseOrdonneeSommet () {
+export default function EcondDegreAbscisseOrdonneeSommet () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1

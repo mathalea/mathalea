@@ -18,7 +18,7 @@ export const interactifType = 'mathLive'
  */
 export const uuid = 'edbd5'
 export const ref = '3L11-5'
-export default function identitesCalculs () {
+export default function IdentitesCalculs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.debug = false // pour avoir la correction et l'enoncé en même temps
   this.can = false // pour décliner en version CAN

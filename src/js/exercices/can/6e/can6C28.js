@@ -16,7 +16,7 @@ export default function PetitsProblemeDeFraction () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
@@ -53,5 +53,7 @@ export default function PetitsProblemeDeFraction () {
       Il en reste donc $${a}-${texNombrec(a / 6)}=${this.reponse}$`
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

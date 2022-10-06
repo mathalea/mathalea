@@ -11,7 +11,7 @@ export const titre = 'Nature de parallélogrammes'
 */
 export const uuid = '8812e'
 export const ref = '5G42'
-export default function demonstrationsParallelogrammes () {
+export default function DemonstrationsParallelogrammes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''

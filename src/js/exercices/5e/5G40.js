@@ -132,7 +132,7 @@ export default function ConstructionsParallelogrammes () {
           objetsCorrection.push(p[0], p[1], cible, traceCompas(D, C, 30), traceCompas(B, C, 30), codageSegments('||', 'red', A, B, D, C), codageSegments('///', 'blue', A, D, B, C))
 
           break
-        case 3: // deux sommmets consécutifs plus le centre
+        case 3: // deux sommets consécutifs plus le centre
           this.consigne = `Construire le parallélogramme $${nom}$ de centre $${noms[4]}$.`
           texteCorr += `O est le centre de symétrie du parallélogramme $${nom}$.<br>`
           if (this.correctionDetaillee) {

@@ -17,7 +17,7 @@ export const interactifType = 'mathLive'
 
 export const uuid = 'f4b95'
 export const ref = '3S12'
-export default function calculEffectifFrequence () {
+export default function CalculEffectifFrequence () {
   Exercice.call(this)
   this.titre = titre
   this.interactifReady = interactifReady

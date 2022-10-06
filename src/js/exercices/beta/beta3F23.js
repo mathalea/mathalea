@@ -17,7 +17,7 @@ export const titre = 'Déterminer un antécédent'
 * f(x) = a(bx + c) + dx + e  avec a, b, c, d petits relatifs
 */
 
-export default function antecedentParCalcul () {
+export default function AntecedentParCalcul () {
   'use strict'
   Exercice.call(this)
   this.titre = titre

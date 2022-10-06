@@ -13,7 +13,7 @@ export const titre = 'Résoudre un exercice d\'engrenages'
  */
 export const uuid = 'ce352'
 export const ref = '3A12'
-export default function ppcmEngrenages () {
+export default function PpcmEngrenages () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -48,7 +48,7 @@ export default function ppcmEngrenages () {
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
 
-    const typesDeQuestionsDisponibles = [1, 2, 3, 4]
+    const typesDeQuestionsDisponibles = [1, 2, 3]
     // let typesDeQuestionsDisponibles = [1];
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
     let txtIntro = 'Boîte de vitesse, transmission de vélo, de moto, perceuse électrique, tout cela fonctionne avec des engrenages ! Mais au fait, comment ça fonctionne, les engrenages ?'
@@ -308,7 +308,7 @@ export default function ppcmEngrenages () {
           break
       };
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, nbDentsr1, nbDentsr2)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

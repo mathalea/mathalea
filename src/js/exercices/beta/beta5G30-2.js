@@ -41,7 +41,7 @@ function anglesSecantes (A, rot = { O: 60, A: 0 }) {
  * @author Frédéric PIOU
  * Référence
 */
-export default function exercicesAnglesAIC () {
+export default function ExercicesAnglesAIC () {
   Exercice.call(this)
   const formulaire = [
     '0 : Mélange des types de questions',

@@ -18,7 +18,7 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
 */
 export const uuid = 'a0ad1'
 export const ref = '3G22-1'
-export default function agrandissement () {
+export default function Agrandissement () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
   this.nbQuestions = 3 // Nombre de questions par défaut

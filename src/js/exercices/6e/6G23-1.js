@@ -36,7 +36,7 @@ export default function MesurerUnAngle () {
     this.autoCorrection = []
     let delta, arrondiA10Pres
     let angle; let anglerot; let Apos; let Bpos; let Cpos; let p; let texte; let texteCorr; let A; let B; let C; let s2; let s1; let bis; const signes = []
-    let labels, secteur, xMin, xMax, yMin, yMax, objetsEnonce, objetsCorrection, secteur0
+    let labels, xMin, xMax, yMin, yMax, objetsEnonce, secteur0
     let typeDeQuestions
     this.sup = contraindreValeur(1, 4, this.sup, 1)
     if (this.sup < 4) typeDeQuestions = [this.sup]
@@ -80,7 +80,6 @@ export default function MesurerUnAngle () {
       Cpos = texteParPoint(p[2], similitude(A, homothetie(C, A, 0.95), -signes[i] * 90, 0.1), 'milieu', 'black', 1.5, 'middle', true)
       s2 = demiDroite(A, C)
       labels = labelPoint(A, B, C)
-      secteur = afficheMesureAngle(B, A, C)
       secteur0 = afficheMesureAngle(B, A, C, 'black', 1.5, ' ')
       texteCorr = ''
       xMin = Math.min(A.x, C.x, B.x) - 1
@@ -89,9 +88,8 @@ export default function MesurerUnAngle () {
       yMax = Math.max(A.y, C.y, B.y) + 1
       context.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
       objetsEnonce = [s1, s2, labels, Apos, Bpos, Cpos, secteur0]
-      objetsCorrection = [s1, s2, labels, Apos, Bpos, Cpos, secteur]
       texte += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objetsEnonce)
-      texteCorr += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.6 }, objetsCorrection)
+      texteCorr += `$${Math.abs(angle)}\\degree$`
       this.autoCorrection[i] = {}
       this.autoCorrection[i].enonce = `${texte}\n`
       if (!this.sup2) {

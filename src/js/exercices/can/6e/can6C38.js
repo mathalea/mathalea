@@ -27,5 +27,7 @@ export default function YohakuCan6a () {
     yohaku1.solution = true
     this.correction = `la valeur de la case ${yohaku1.cellulesPreremplies[indexReponse]} est : ${this.reponse}<br>`
     this.correction += yohaku1.representation()
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }
