@@ -41,7 +41,7 @@ export default function ConversionHeuresMinutesOuMinutesEtSecondes (can = false)
       if (listeTypeQuestions[i] === 'min vers h et min') {
         texte = `Convertir $${d}$ minutes en heures(h) et minutes(min) :` + ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: sp(5), texteApres: ' h ' }) +
         ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texte: sp(5), texteApres: ' min ' })
-        this.canEnonce = `Convertir $${d}$ minutes en heures et minutes .`
+        this.canEnonce = `Convertir $${d}$ minutes en heures et minutes.`
         this.canReponseACompleter = '$\\ldots$ h $\\ldots$ min'
       } else {
         texte = `Convertir $${d}$ secondes en minutes(min) et secondes(s) :` + ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: sp(5), texteApres: ' min ' }) +
