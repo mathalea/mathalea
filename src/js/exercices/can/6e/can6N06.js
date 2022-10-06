@@ -19,7 +19,7 @@ export default function ArrondiDixiemeCentième () {
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   this.consigne = ''
-
+  this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     const a = randint(1, 20)
     const b = randint(0, 9, 5)
@@ -49,5 +49,7 @@ export default function ArrondiDixiemeCentième () {
         this.reponse = arrondi(d, 2)
       }
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

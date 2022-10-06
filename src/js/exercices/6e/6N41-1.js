@@ -3,7 +3,6 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, pgcd, texFractionReduite, calcul, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { labyrinthe } from '../../modules/2d.js'
 import { fraction } from '../../modules/fractions.js'
-import { max } from 'mathjs'
 export const dateDeModifImportante = '05/10/2022' // Le nb de lignes et celui de colonnes du labyrinthe sont paramétrables.
 
 export const titre = 'Parcourir un labyrinthe de fractions égales'
@@ -45,8 +44,8 @@ export default function ExerciceLabyrintheFractionsEgales () {
     this.autoCorrection = []
     const mesfractions = []
     let texte, texteCorr
-    const nbL = this.sup3 === 1 ? randint(2, 8) : max(2, this.sup3)
-    const nbC = this.sup4 === 1 ? randint(3, 11 - nbL) : max(3, this.sup4)
+    const nbL = this.sup3 === 1 ? randint(2, 8) : Math.max(2, this.sup3)
+    const nbC = this.sup4 === 1 ? randint(3, 11 - nbL) : Math.max(3, this.sup4)
     const laby = labyrinthe({ taille: tailleChiffre, nbLignes: nbL, nbColonnes: nbC })
     laby.niveau = parseInt(this.sup2) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
     const monchemin = laby.choisitChemin(laby.niveau) // On choisi un chemin
