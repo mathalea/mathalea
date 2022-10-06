@@ -23,6 +23,7 @@ export default function VolumePaveCubes () {
   this.nbQuestions = 1
   this.sup = 1
   this.tailleDiaporama = 2
+  this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const l = randint(2, 5)
     const L = randint(2, 4)
@@ -32,5 +33,7 @@ export default function VolumePaveCubes () {
   ${mathalea2d({ xmin: 0, ymin: 0, xmax: 7, ymax: (h + l * 0.5) * 0.8 }, pav.c2d)}`
     this.reponse = L * l * h
     this.correction = `Le volume de ce pavé droit est : $${L}\\times ${l}\\times ${h}=${this.reponse}$`
+    this.canEnonce = this.question
+    this.canReponseACompleter = '$\\dots$ unités'
   }
 }
