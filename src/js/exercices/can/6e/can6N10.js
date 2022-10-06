@@ -28,10 +28,10 @@ export default function FractionDecimaleEcritureDecimale1 () {
 
         this.reponse = calcul(a * 0.1 + b * 0.01 + c * 0.001)
         if (choice([true, false])) {
-          this.question = `Ecrire sous forme décimale : $\\dfrac{${b}}{100}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}$ `
+          this.question = `Ecrire sous forme décimale $\\dfrac{${b}}{100}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}$. `
           this.correction = `$\\dfrac{${b}}{100}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}=${texNombrec(b / 100)}+${texNombrec(a / 10)}+${texNombrec(c / 1000)}=${texNombrec(a / 10 + b / 100 + c / 1000)}$`
         } else {
-          this.question = `Ecrire sous forme décimale : $\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}+\\dfrac{${b}}{100}$ `
+          this.question = `Ecrire sous forme décimale $\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}+\\dfrac{${b}}{100}$. `
           this.correction = `$\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}+\\dfrac{${b}}{100}=${texNombrec(c / 1000)}+${texNombrec(a / 10)}+${texNombrec(b / 100)}=${texNombrec(a / 10 + b / 100 + c / 1000)}$`
         }
         break
@@ -41,10 +41,10 @@ export default function FractionDecimaleEcritureDecimale1 () {
         c = randint(1, 9)
         this.reponse = calcul(u + a * 0.1 + c * 0.001)
         if (choice([true, false])) {
-          this.question = `Ecrire sous forme décimale : $${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}$ `
+          this.question = `Ecrire sous forme décimale $${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}$. `
           this.correction = `$${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}=${u}+${texNombrec(a / 10)}+${texNombrec(c / 1000)}=${texNombrec(u + a / 10 + c / 1000)}$`
         } else {
-          this.question = `Ecrire sous forme décimale : $${u}+\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}$ `
+          this.question = `Ecrire sous forme décimale $${u}+\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}$. `
           this.correction = `$${u}+\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}=${u}+${texNombrec(c / 1000)}+${texNombrec(a / 10)}=${texNombrec(u + a / 10 + c / 1000)}$
          `
         }
@@ -55,10 +55,10 @@ export default function FractionDecimaleEcritureDecimale1 () {
         c = randint(1, 9)
         this.reponse = calcul(u + b * 0.01 + c * 0.001)
         if (choice([true, false])) {
-          this.question = `Ecrire sous forme décimale : $${u}+\\dfrac{${b}}{100}+\\dfrac{${c}}{1000}$ `
+          this.question = `Ecrire sous forme décimale $${u}+\\dfrac{${b}}{100}+\\dfrac{${c}}{1000}$. `
           this.correction = `$${u}+\\dfrac{${b}}{100}+\\dfrac{${c}}{1000}=${u}+${texNombrec(b / 100)}+${texNombrec(c / 1000)}=${texNombrec(u + b / 100 + c / 1000)}$`
         } else {
-          this.question = `Ecrire sous forme décimale : $${u}+\\dfrac{${c}}{1000}+\\dfrac{${b}}{100}$ `
+          this.question = `Ecrire sous forme décimale : $${u}+\\dfrac{${c}}{1000}+\\dfrac{${b}}{100}$. `
           this.correction = `$${u}+\\dfrac{${c}}{1000}+\\dfrac{${b}}{100}=${u}+${texNombrec(c / 1000)}+${texNombrec(b / 100)}=${texNombrec(u + b / 100 + c / 1000)}$`
         }
         break
@@ -67,10 +67,10 @@ export default function FractionDecimaleEcritureDecimale1 () {
         c = randint(1, 9)
         this.reponse = calcul(a * 0.1 + c * 0.001)
         if (choice([true, false])) {
-          this.question = `Ecrire sous forme décimale : $\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}$ `
+          this.question = `Ecrire sous forme décimale $\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}$. `
           this.correction = `$\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}=${texNombrec(a / 10)}+${texNombrec(c / 1000)}=${texNombrec(a / 10 + c / 1000)}$`
         } else {
-          this.question = `Ecrire sous forme décimale : $\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}$ `
+          this.question = `Ecrire sous forme décimale : $\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}$. `
           this.correction = `$\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}=${texNombrec(c / 1000)}+${texNombrec(a / 10)}=${texNombrec(a / 10 + c / 1000)}$`
         }
         break
@@ -80,13 +80,15 @@ export default function FractionDecimaleEcritureDecimale1 () {
         c = randint(1, 9)
         this.reponse = calcul(u + b * 0.01 + c * 0.001)
         if (choice([true, false])) {
-          this.question = `Ecrire sous forme décimale : $${u}+\\dfrac{${b}}{100}+\\dfrac{${c}}{1000}$ `
+          this.question = `Ecrire sous forme décimale $${u}+\\dfrac{${b}}{100}+\\dfrac{${c}}{1000}$. `
           this.correction = `$${u}+\\dfrac{${b}}{100}+\\dfrac{${c}}{1000}=${u}+${texNombrec(b / 100)}+${texNombrec(c / 1000)}=${texNombrec(u + b / 100 + c / 1000)}$`
         } else {
-          this.question = `Ecrire sous forme décimale : $${u}+\\dfrac{${c}}{1000}+\\dfrac{${b}}{100}$ `
+          this.question = `Ecrire sous forme décimale $${u}+\\dfrac{${c}}{1000}+\\dfrac{${b}}{100}$. `
           this.correction = `$${u}+\\dfrac{${c}}{1000}+\\dfrac{${b}}{100}=${u}+${texNombrec(c / 1000)}+${texNombrec(b / 100)}=${texNombrec(u + b / 100 + c / 1000)}$`
         }
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }
