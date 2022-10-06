@@ -17,6 +17,7 @@ export default function RecomposerEntier () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const a = randint(2, 5)
@@ -24,7 +25,7 @@ export default function RecomposerEntier () {
     const c = randint(2, 9)
     this.reponse = calcul(a * 1000 + b * 10 + c * 100)
     if (choice([true, false])) {
-      this.question = `$${texNombre(a)}\\times 1000 + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100=$`
+      this.question = `Calculer $${texNombre(a)}\\times 1000 + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100$.`
       this.correction = `$${texNombre(a)}\\times 1000 + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100 =${texNombre(this.reponse)}$`
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
     On décompose le calcul (milliers, centaines puis dizaines) : <br>
@@ -37,7 +38,7 @@ export default function RecomposerEntier () {
   &=${texNombre(this.reponse)}
   \\end{aligned}$.`)
     } else {
-      this.question = `$ ${texNombre(c)}\\times 100+ ${texNombre(b)}\\times 10 + ${texNombre(a)}\\times 1000 =$`
+      this.question = `Calculer $ ${texNombre(c)}\\times 100+ ${texNombre(b)}\\times 10 + ${texNombre(a)}\\times 1000$.`
       this.correction = `$ ${texNombre(c)}\\times 100+ ${texNombre(b)}\\times 10 + ${texNombre(a)}\\times 1000  =${texNombre(this.reponse)}$`
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
   On décompose le calcul (milliers, centaines puis dizaines) : <br>
@@ -50,5 +51,7 @@ export default function RecomposerEntier () {
   &=${texNombre(this.reponse)}
   \\end{aligned}$. `)
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

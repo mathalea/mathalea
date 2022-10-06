@@ -19,7 +19,7 @@ export default function ChiffreDes () {
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   this.consigne = ''
-
+  this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     const a = randint(1, 3)
     const b = randint(1, 9, a)
@@ -54,5 +54,7 @@ export default function ChiffreDes () {
     this.correction += `\\\\\n${a}&${b}&${c} & \\Large{\\textbf{,}}& ${d}&${e}& ${f} \\\\\n \\\\\n`
     this.correction += '\\hline\n'
     this.correction += '\\end{array}\n$'
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }
