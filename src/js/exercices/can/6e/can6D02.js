@@ -16,7 +16,7 @@ export const ref = 'can6D02'
 export default function ResteEnMinutes () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
   this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
@@ -27,5 +27,7 @@ export default function ResteEnMinutes () {
     Quelle est la valeur de $b$ sachant que $a$ est le plus grand possible?`
     this.correction = `$${d} = ${a} \\times 60 + ${b}$ donc $${d}$ minutes = $${a}h ${b}$ min, donc $b=${b}$.`
     this.reponse = b
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }
