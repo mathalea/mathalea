@@ -3,7 +3,6 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleurEtGras, choice, contraindreValeur, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
 import { labyrinthe } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
-import { max } from 'mathjs'
 export const amcReady = true
 export const amcType = 'AMCOpen' // type de question AMC
 export const interactifReady = false
@@ -56,8 +55,8 @@ export default function ExerciceLabyrintheMultiples () {
     const tailleChiffre = 1.5
 
     for (let q = 0, texte, texteCorr, monChemin, laby, listeMultiples; q < this.nbQuestions;) {
-      const nbL = this.sup3 === 1 ? randint(2, 8) : max(2, this.sup3)
-      const nbC = this.sup4 === 1 ? randint(3, 11 - nbL) : max(3, this.sup4)
+      const nbL = this.sup3 === 1 ? randint(2, 8) : Math.max(2, this.sup3)
+      const nbC = this.sup4 === 1 ? randint(3, 11 - nbL) : Math.max(3, this.sup4)
       laby = labyrinthe({ nbLignes: nbL, nbColonnes: nbC })
       laby.niveau = parseInt(this.sup2) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
       monChemin = laby.choisitChemin(laby.niveau) // On choisit un chemin

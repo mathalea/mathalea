@@ -11253,7 +11253,7 @@ function Labyrinthe ({ nbLignes = 3, nbColonnes = 6 } = {}) {
 
           let nonVoisin = true // Les cases voisines sont accessibles
           for (const element2 of casesVoisines) { // Recherche si les cases voisines à la prochaine case possible n'ont pas déjà été parcourues.
-            nonVoisin &&= !tableauDansTableau(dejaParcourus, [prochaineCasePossible[0] + element2[0], prochaineCasePossible[1] + element2[1]])
+            nonVoisin = nonVoisin && !tableauDansTableau(dejaParcourus, [prochaineCasePossible[0] + element2[0], prochaineCasePossible[1] + element2[1]])
           }
           if (nonVoisin) casesPossibles.push(prochaineCasePossible) // Cette prochaine case possible est validée.
         }
