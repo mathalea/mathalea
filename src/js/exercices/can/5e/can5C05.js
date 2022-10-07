@@ -24,7 +24,7 @@ export default function Division5e () {
     const b = randint(3, 6)
     const c = a * b
     this.reponse = a
-    this.question = `$${c} \\div ${b}=$`
+    this.question = `Calculer $${c} \\div ${b}$.`
     this.correction = `$${c} \\div ${b}=${a}$`
     this.correction += texteEnCouleur(`
     <br> Mentalement : <br>
@@ -32,5 +32,7 @@ export default function Division5e () {
         Ainsi : 
      $${c} \\div ${b}=10+${(c - 10 * b) / b}=${a}$.<br>
      `)
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

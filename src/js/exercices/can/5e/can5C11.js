@@ -22,12 +22,14 @@ export default function DifferenceNegative () {
   this.nouvelleVersion = function () {
     const a = randint(8, 15)
     const b = randint(18, 30)
-    this.question = `$${a}-${b}=$`
+    this.question = `Calculer $${a}-${b}$.`
     this.correction = `$${a}-${b}=${a - b}$`
     this.reponse = a - b
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
     On décompose $${b}$ en $${a}+${b - a}$, ce qui donne :<br>
      $${a}-${b}=${a}-${a}-${b - a}=${a - b}$.
        `)
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }
