@@ -27,19 +27,21 @@ export default function CompositionDeNombreDecimalC3 () {
     switch (choice([1, 2, 3])) {
       case 1:
         this.reponse = calcul(a + b / 10 + c / 100)
-        this.question = `$${a} + ${texNombrec(b / 10 + c / 100)}=$`
+        this.question = `Calculer $${a} + ${texNombrec(b / 10 + c / 100)}$.`
         this.correction = `$${a} + ${texNombrec(b / 10 + c / 100)}=${texNombrec(this.reponse)}$`
         break
       case 2:
         this.reponse = calcul(a + b / 100 + c / 1000)
-        this.question = `$${a} + ${texNombrec(b / 100 + c / 1000)}=$`
+        this.question = `Calculer $${a} + ${texNombrec(b / 100 + c / 1000)}$.`
         this.correction = `$${a}+ ${texNombrec(b / 100 + c / 1000)}=${texNombrec(this.reponse)}$`
         break
       case 3:
         this.reponse = calcul(a + b / 10 + c / 1000)
-        this.question = `$${a} + ${texNombrec(b / 10 + c / 1000)}=$`
+        this.question = `Calculer $${a} + ${texNombrec(b / 10 + c / 1000)}$.`
         this.correction = `$${a} + ${texNombrec(b / 10 + c / 1000)}=${texNombrec(this.reponse)}$`
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

@@ -25,24 +25,26 @@ export default function CalculsAutomatiques () {
       switch (choice([1, 2, 3])) {
         case 1:
           this.reponse = a << 1
-          this.question = `Le double de ${a} est égal à : `
+          this.question = `Calculer le double de $${a}$. `
           this.correction = `$${a}\\times 2 = ${a << 1}$`
           break
         case 2:
           this.reponse = a * 3
-          this.question = `Le triple de ${a} est égal à :`
+          this.question = `Calculer le triple de $${a}$.`
           this.correction = `$${a}\\times 3 = ${a * 3}$`
           break
         case 3:
           this.reponse = a * 10
-          this.question = `Le nombre dix fois plus grand que ${a} est égal à : `
+          this.question = `Quel est le nombre dix fois plus grand que $${a}$ ? `
           this.correction = `$${a}\\times 10 = ${a * 10}$`
           break
       }
     } else {
-      this.question = `La moitié de ${a} est égale à :`
+      this.question = `Calculer la moitié de $${a}$.`
       this.reponse = a >> 1
       this.correction = `$${a}\\div 2 = ${a >> 1}$`
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

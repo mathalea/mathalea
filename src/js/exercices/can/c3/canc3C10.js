@@ -18,7 +18,7 @@ export default function FoisPlusFoisMoins2 () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const listeObjets = [['biscuits'], ['billes'], ['bonbons'], ['ballons'], ['vis'], ['clous']]
@@ -131,5 +131,7 @@ export default function FoisPlusFoisMoins2 () {
 
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }
