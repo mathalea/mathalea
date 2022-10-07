@@ -6,6 +6,21 @@ import { context } from '../../modules/context.js'
 
 export const titre = 'Problèmes avec des engrenages'
 export const dateDePublication = '05/10/2022'
+export const numerosId = []
+window.remiseAZero = function () {
+  document.querySelectorAll('animateTransform').forEach((el) => el.beginElement())
+  for (let i = 0; i < numerosId.length; i++) {
+    console.log(document, 'compteur' + numerosId[i].toString())
+    const compteur = document.getElementById('compteur' + numerosId[i].toString())
+    console.log(compteur, 'animRoue' + numerosId[i].toString())
+    const roue = document.getElementById('animRoue' + numerosId[i].toString())
+    console.log(roue)
+    const dureeTour = parseInt(roue.getAttribute('dur')) * 1000
+    console.log(dureeTour)
+    console.log(compteur, compteur.innerHTML, compteur.textContent)
+    if (dureeTour !== 0) setInterval(() => Boolean(compteur.innerHTML = compteur.innerHTML.replace(compteur.texteContent, (parseInt(compteur.texteContent) + 1).toString())), dureeTour)
+  }
+}
 
 /**
  * @author Jean-Claude Lhote
@@ -20,12 +35,15 @@ export default class EngrenagesAnimes extends Exercice {
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Facile (2 engrenages)\n2 : Difficile (3 engrenages)\n3 : Mélange']
   }
 
+  // eslint-disable-next-line no-unused-vars
+
   nouvelleVersion () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.sup = contraindreValeur(1, 2, this.sup, 1)
     const typeDeQuestionsDisponibles = this.sup === 1 ? [1, 2, 3, 4] : this.sup === 2 ? [5] : [1, 2, 3, 4, 5]
     const listeTypesDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
+
     /**
      * Liste les multiples de nbDentsRoueA par séries de 5 jusqu'à mettre en évidence un multiple de nbDentsRoueB
      * @param {number} nbDentsRoueA
@@ -81,7 +99,7 @@ export default class EngrenagesAnimes extends Exercice {
           texteCorr += `${numAlpha(0)}Il faudra donc $${nbToursA}$ tours de la roue de gauche pour que les roues retrouvent leur position initiale.<br>`
           texteCorr += `${numAlpha(1)}La roue de droite aura effectué alors $${nbToursB}$ tours.<br>`
           if (context.isHtml) {
-            texteCorr += '<button class="btn ui labeled icon button"  style="margin:10px" onclick="document.querySelectorAll(\'animateTransform\').forEach((el)=>el.beginElement())"><i class="redo circle icon"></i>Relancer l\'animation</button>'
+            texteCorr += '<button class="btn ui labeled icon button"  style="margin:10px" onclick="window.remiseAZero()"><i class="redo circle icon"></i>Relancer l\'animation</button>'
           }
           rayonA = nbDentsRoueA / 5
           rayonB = nbDentsRoueB / 5
@@ -89,6 +107,7 @@ export default class EngrenagesAnimes extends Exercice {
           roueB = engrenage({ rayon: rayonB, rayonInt: 0.8, rayonExt: rayonB + 1, nbDents: nbDentsRoueB, xCenter: rayonA + rayonB + 1.3, yCenter: 0, angleStart: 180 - 180 / nbDentsRoueB, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: 0, marqueur: 180 })
           roueACorr = engrenage({ rayon: rayonA, rayonInt: 0.8, rayonExt: rayonA + 1, nbDents: nbDentsRoueA, xCenter: 0, yCenter: 0, angleStart: 0, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: nbDentsRoueA / 2, marqueur: 0 })
           roueBCorr = engrenage({ rayon: rayonB, rayonInt: 0.8, rayonExt: rayonB + 1, nbDents: nbDentsRoueB, xCenter: rayonA + rayonB + 1.3, yCenter: 0, angleStart: 180 - 180 / nbDentsRoueB, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: -nbDentsRoueB / 2, marqueur: 180 })
+          numerosId.push(roueACorr.id, roueBCorr.id)
           break
         case 2:
           do {
@@ -106,7 +125,7 @@ export default class EngrenagesAnimes extends Exercice {
           texteCorr += `On en déduit que $n=\\dfrac{${nbDentsRoueA * nbToursA}}{${nbToursB}}=${nbDentsRoueB}$<br>`
           texteCorr += `La roue de droite a donc $${nbDentsRoueB}$ dents.<br>`
           if (context.isHtml) {
-            texteCorr += '<button class="btn ui labeled icon button"  style="margin:10px" onclick="document.querySelectorAll(\'animateTransform\').forEach((el)=>el.beginElement())"><i class="redo circle icon"></i>Relancer l\'animation</button>'
+            texteCorr += '<button class="btn ui labeled icon button"  style="margin:10px" onclick="window.remiseAZero()"><i class="redo circle icon"></i>Relancer l\'animation</button>'
           }
           rayonA = nbDentsRoueA / 5
           rayonB = nbDentsRoueB / 5
@@ -114,6 +133,7 @@ export default class EngrenagesAnimes extends Exercice {
           roueB = engrenage({ rayon: nbDentsRoueA > nbDentsRoueB ? 1.5 : 2.5, rayonInt: 0.8, rayonExt: nbDentsRoueA > nbDentsRoueB ? 2 : 3, nbDents: nbDentsRoueA > nbDentsRoueB ? 13 : 19, xCenter: 4.7, yCenter: 0, angleStart: 180 - 180 / (nbDentsRoueA > nbDentsRoueB ? 13 : 19), couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: 0, marqueur: 180 })
           roueACorr = engrenage({ rayon: rayonA, rayonInt: 0.8, rayonExt: rayonA + 1, nbDents: nbDentsRoueA, xCenter: 0, yCenter: 0, angleStart: 0, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: nbDentsRoueA / 2, marqueur: 0 })
           roueBCorr = engrenage({ rayon: rayonB, rayonInt: 0.8, rayonExt: rayonB + 1, nbDents: nbDentsRoueB, xCenter: rayonA + rayonB + 1.3, yCenter: 0, angleStart: 180 - 180 / nbDentsRoueB, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: -nbDentsRoueB / 2, marqueur: 180 })
+          numerosId.push(roueACorr.id, roueBCorr.id)
 
           break
         case 3:
@@ -132,7 +152,7 @@ export default class EngrenagesAnimes extends Exercice {
           texteCorr += `On en déduit que $n=\\dfrac{${nbDentsRoueA * nbToursA}}{${nbToursB}}=${nbDentsRoueB}$<br>`
           texteCorr += `La roue de droite a donc $${nbDentsRoueB}$ dents.<br>`
           if (context.isHtml) {
-            texteCorr += '<button class="btn ui labeled icon button"  style="margin:10px" onclick="document.querySelectorAll(\'animateTransform\').forEach((el)=>el.beginElement())"><i class="redo circle icon"></i>Relancer l\'animation</button>'
+            texteCorr += '<button class="btn ui labeled icon button"  style="margin:10px" onclick="window.remiseAZero()"><i class="redo circle icon"></i>Relancer l\'animation</button>'
           }
           rayonA = nbDentsRoueA / 5
           rayonB = nbDentsRoueB / 5
@@ -140,6 +160,7 @@ export default class EngrenagesAnimes extends Exercice {
           roueB = engrenage({ rayon: nbDentsRoueA > nbDentsRoueB ? 1.5 : 2.5, rayonInt: 0.8, rayonExt: nbDentsRoueA > nbDentsRoueB ? 2 : 3, nbDents: nbDentsRoueA > nbDentsRoueB ? 13 : 19, xCenter: 4.7, yCenter: 0, angleStart: 180 - 180 / (nbDentsRoueA > nbDentsRoueB ? 13 : 19), couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: 0, marqueur: 180 })
           roueACorr = engrenage({ rayon: rayonA, rayonInt: 0.8, rayonExt: rayonA + 1, nbDents: nbDentsRoueA, xCenter: 0, yCenter: 0, angleStart: 0, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: nbDentsRoueA / 2, marqueur: 0 })
           roueBCorr = engrenage({ rayon: rayonB, rayonInt: 0.8, rayonExt: rayonB + 1, nbDents: nbDentsRoueB, xCenter: rayonA + rayonB + 1.3, yCenter: 0, angleStart: 180 - 180 / nbDentsRoueB, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: -nbDentsRoueB / 2, marqueur: 180 })
+          numerosId.push(roueACorr.id, roueBCorr.id)
 
           break
         case 4:
@@ -157,7 +178,7 @@ export default class EngrenagesAnimes extends Exercice {
           texteCorr += `On en déduit que $n=\\dfrac{${nbDentsRoueA * nbToursA}}{${nbDentsRoueB}}=${nbToursB}$<br>`
           texteCorr += `La roue de droite a donc effectué $${nbToursB}$ tours pendant que la roue de gauche en a effectués $${nbToursA}$.<br>`
           if (context.isHtml) {
-            texteCorr += '<button class="btn ui labeled icon button"  style="margin:10px" onclick="document.querySelectorAll(\'animateTransform\').forEach((el)=>el.beginElement())"><i class="redo circle icon"></i>Relancer l\'animation</button>'
+            texteCorr += '<button class="btn ui labeled icon button"  style="margin:10px" onclick="window.remiseAZero()"><i class="redo circle icon"></i>Relancer l\'animation</button>'
           }
           rayonA = nbDentsRoueA / 5
           rayonB = nbDentsRoueB / 5
@@ -165,6 +186,7 @@ export default class EngrenagesAnimes extends Exercice {
           roueB = engrenage({ rayon: nbDentsRoueA > nbDentsRoueB ? 1.5 : 2.5, rayonInt: 0.8, rayonExt: nbDentsRoueA > nbDentsRoueB ? 2 : 3, nbDents: nbDentsRoueA > nbDentsRoueB ? 13 : 19, xCenter: 4.7, yCenter: 0, angleStart: 180 - 180 / (nbDentsRoueA > nbDentsRoueB ? 13 : 19), couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: 0, marqueur: 180 })
           roueACorr = engrenage({ rayon: rayonA, rayonInt: 0.8, rayonExt: rayonA + 1, nbDents: nbDentsRoueA, xCenter: 0, yCenter: 0, angleStart: 0, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: nbDentsRoueA / 2, marqueur: 0 })
           roueBCorr = engrenage({ rayon: rayonB, rayonInt: 0.8, rayonExt: rayonB + 1, nbDents: nbDentsRoueB, xCenter: rayonA + rayonB + 1.3, yCenter: 0, angleStart: 180 - 180 / nbDentsRoueB, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: -nbDentsRoueB / 2, marqueur: 180 })
+          numerosId.push(roueACorr.id, roueACorr.id)
           break
         case 5:
           do {
@@ -209,7 +231,10 @@ export default class EngrenagesAnimes extends Exercice {
           texteCorr += `${numAlpha(2)}Dans cette situation la roue du milieu tourne, elle aussi de $${nbToursC * nbDentsRoueC}$ dents.<br>`
           texteCorr += nbToursC * nbDentsRoueC % nbDentsRoueB === 0 ? `Ce nombre est un multiple du nombre de dents de la roue du milieu, donc elle a effectué exactement \\dfrac{${nbToursC * nbDentsRoueC}}{${nbDentsRoueB}}=${nbToursC * nbDentsRoueC / nbDentsRoueB}$ tours.<br>` : 'Ce nombre n\'est un multiple du nombre de dents de la roue du milieu, donc elle ne sera pas dans sa position initiale.<br>'
           texteCorr += `Il faudra attendre que la roue de gauche tourne de $${nbToursAbc * nbDentsRoueA}$ dents soit $${nbToursAbc}$ tours, la roue du milieu en fera $${nbToursAbc * nbDentsRoueA / nbDentsRoueB}$ et la roue de droite en fera $${nbToursAbc * nbDentsRoueA / nbDentsRoueC}$.<br>`
-
+          if (context.isHtml) {
+            texteCorr += '<button class="btn ui labeled icon button"  style="margin:10px" onclick="window.remiseAZero()"><i class="redo circle icon"></i>Relancer l\'animation</button>'
+          }
+          numerosId.push(roueACorr.id, roueBCorr.id, roueCCorr.id)
           break
       }
 
