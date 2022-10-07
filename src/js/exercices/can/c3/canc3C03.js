@@ -29,9 +29,13 @@ export default function TableMultiplicationTrous () {
     if (choice([true, false])) {
       this.question = `Compléter : <br>$${a}\\times .... =${c}$`
       this.correction = `$${a}\\times ${miseEnEvidence(b)} =${c}$`
+      this.canEnonce = 'Compléter.'
+      this.canReponseACompleter = `$${a}\\times .... =${c}$`
     } else {
       this.question = `Compléter :<br> $ .... \\times ${a}=${c}$`
       this.correction = `$ ${miseEnEvidence(b)} \\times ${a}=${c}$`
+      this.canEnonce = 'Compléter.'
+      this.canReponseACompleter = `$ .... \\times ${a}=${c}$`
     }
     this.reponse = b
   }
