@@ -34,6 +34,8 @@ export default function EcrirePourcentage () {
         if (this.interactif) { this.optionsChampTexte = { texteApres: ' $\\%$' } }
         this.correction = `$${texNombrec(a)}=\\dfrac{${texNombrec(a * 100)}}{100}=${texNombrec(a * 100)} \\%$`
         this.reponse = a * 100
+        this.canEnonce = 'Compléter.'
+        this.canReponseACompleter = `$${texNombrec(a)}=.... \\%$`
         break
       case 'b':
         a = calcul(randint(0, 9) / 100)
@@ -43,7 +45,8 @@ export default function EcrirePourcentage () {
         if (this.interactif) { this.optionsChampTexte = { texteApres: ' $\\%$' } }
         this.correction = `$${texNombrec(a + b)}=\\dfrac{${texNombrec((a + b) * 100)}}{100}=${texNombrec((a + b) * 100)} \\%$`
         this.reponse = (a + b) * 100
-
+        this.canEnonce = 'Compléter.'
+        this.canReponseACompleter = `$${texNombrec(a + b)}=.... \\%$`
         break
       case 'c':
         fraction = choice(listeFractions1)
@@ -55,7 +58,8 @@ export default function EcrirePourcentage () {
         this.correction = `$${texFraction(n, d)}=\\dfrac{${texNombrec(n)}\\times ${texNombrec(100 / d)}}{${texNombrec(d)}\\times ${texNombrec(100 / d)}}=
         \\dfrac{${texNombrec((n * 100) / d)}}{100}=${texNombrec((n * 100) / d)} \\%$`
         this.reponse = (n * 100) / d
-
+        this.canEnonce = 'Compléter.'
+        this.canReponseACompleter = `$${texFraction(texNombrec(n), d)}=.... \\%$`
         break
     }
   }
