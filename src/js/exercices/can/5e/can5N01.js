@@ -25,7 +25,7 @@ export default function SommeDecimale5e () {
     const c = randint(1, 9, [a, b])
     const d = randint(1, 9, [a, b, c])
     this.reponse = calcul(10 + (b + d) * 0.1 + c * 0.01)
-    this.question = `$${texNombrec(a + b * 0.1 + c * 0.01)}+${texNombrec(10 - a + d * 0.1)}=$`
+    this.question = `Calculer $${texNombrec(a + b * 0.1 + c * 0.01)}+${texNombrec(10 - a + d * 0.1)}$.`
     this.correction = `$${texNombrec(a + b * 0.1 + c * 0.01)}+${texNombrec(10 - a + d * 0.1)}=${texNombrec(10 + (b + d) * 0.1 + c * 0.01)}$`
     this.correction += texteEnCouleur(`
     <br> Mentalement : <br>
@@ -34,5 +34,7 @@ export default function SommeDecimale5e () {
 $${texNombrec(b * 0.1 + c * 0.01)}+${texNombrec(d * 0.1)}=${texNombrec(b * 0.1 + c * 0.01 + d * 0.1)}$.<br>
 Ainsi, $${texNombrec(a + b * 0.1 + c * 0.01)}+${texNombrec(10 - a + d * 0.1)}=${texNombrec(10 + (b + d) * 0.1 + c * 0.01)}$.
     `)
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

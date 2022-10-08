@@ -17,7 +17,7 @@ export default function PoucentageP1 () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let b, caractere
@@ -27,6 +27,7 @@ export default function PoucentageP1 () {
         b = randint(3, 7) * 5
         caractere = choice(['des lunettes', 'un frère', 'un chien', 'un abonnement à une revue', 'une licence à l’UNSS', 'un sac à roulette'])
         this.question = `$\\dfrac{1}{5}$ des élèves d'une classe de $${b}$ élèves a ${caractere}.<br>
+        
               Quel est le nombre d'élèves n'en ayant pas ?`
         this.correction = `On calcule d'abord $\\dfrac{1}{5}$ de $${b}$ .<br>
         $\\dfrac{1}{5}\\times ${b}=\\dfrac{${b}}{5}=${texNombrec(b / 5)}$.<br>
@@ -41,6 +42,7 @@ export default function PoucentageP1 () {
         b = randint(3, 6) * 6
         caractere = choice(['des lunettes', 'un frère', ' un chien', 'un abonnement à une revue', 'une licence à l’UNSS', 'un sac à roulette'])
         this.question = `$\\dfrac{1}{6}$ des élèves d'une classe de $${b}$ élèves a ${caractere}.<br>
+
             Quel est le nombre d'élèves n'en ayant pas ?`
         this.correction = `On calcule d'abord $\\dfrac{1}{6}$ de $${b}$ .<br>
         $\\dfrac{1}{6}\\times ${b}=\\dfrac{${b}}{6}=${texNombrec(b / 6)}$.<br>
@@ -55,6 +57,7 @@ export default function PoucentageP1 () {
         b = randint(2, 5) * 7
         caractere = choice(['des lunettes', 'un frère', 'un chien', 'un abonnement à une revue', 'une licence à l’UNSS', 'un sac à roulette'])
         this.question = `$\\dfrac{1}{7}$ d'une classe de $${b}$ élèves a ${caractere}.<br>
+
         Quel est le nombre d'élèves n'en ayant pas ?`
         this.correction = `On calcule d'abord $\\dfrac{1}{7}$ de $${b}$ .<br>
         $\\dfrac{1}{7}\\times ${b}=\\dfrac{${b}}{7}=${texNombrec(b / 7)}$.<br>
@@ -69,6 +72,7 @@ export default function PoucentageP1 () {
         b = randint(3, 9) * 4
         caractere = choice(['des lunettes', 'un frère', 'un chien', 'un abonnement à une revue', 'une licence à l’UNSS', 'un sac à roulette'])
         this.question = `$\\dfrac{1}{4}$ d'une classe de $${b}$ élèves a ${caractere}.<br>
+
             Quel est le nombre d'élèves n'en ayant pas ?`
         this.correction = `On calcule d'abord $\\dfrac{1}{4}$ de $${b}$ .<br>
             $\\dfrac{1}{4}\\times ${b}=\\dfrac{${b}}{4}=${texNombrec(b / 4)}$.<br>
@@ -95,6 +99,7 @@ export default function PoucentageP1 () {
         b = randint(3, 9) * 4
         caractere = choice(['des lunettes', 'un frère', 'un chien', 'un abonnement à une revue', 'une licence à l’UNSS', 'un sac à roulette'])
         this.question = `$25\\%$  des élèves d'une classe de $${b}$ élèves ont ${caractere}.<br>
+
                   Quel est le nombre d'élèves n'en ayant pas ?`
         this.correction = `On calcule d'abord $25 \\%$  de $${b}$ .<br>
                   Prendre $25 \\%$  d'une quantité revient à en prendre le quart, c'est-à-dire à la diviser par $4$.<br>
@@ -104,5 +109,7 @@ export default function PoucentageP1 () {
         this.reponse = calcul(b - 0.25 * b)
         break
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

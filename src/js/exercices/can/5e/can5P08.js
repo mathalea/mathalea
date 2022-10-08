@@ -42,7 +42,9 @@ export default function Proportionnalite3 () {
           frac = new FractionX(5 * prix2, prix1)
           this.reponse = frac
           this.question = `$5$ kg de ${fruits[0]} coûtent $${texPrix(prix1)}$ €.<br> 
+
         Quelle masse de ${fruits[0]} faut-il acheter pour payer $${texPrix(prix2)}$ € ?<br>
+        
         Donner la valeur exacte de cette masse.`
           if (this.interactif) { this.optionsChampTexte = { texteApres: ' kg' } }
           this.correction = `La masse que l'on peut acheter avec $1$ € est $\\dfrac{5}{${prix1}}$ kg. <br>
@@ -53,19 +55,23 @@ export default function Proportionnalite3 () {
         if (choix === 'b') {
           prix1 = randint(5, 14, [6, 9, 12])// prix de 3 kg
           prix2 = prix1 - randint(1, 3)// prix pour masse cherchée
-          fruits2 = choice(listefruits2)
+          fruits = choice(listefruits1)
           this.formatInteractif = 'fractionEgale'
           frac = new FractionX(3 * prix2, prix1)
           this.reponse = frac
-          this.question = `$3$ ${fruits2[0]} coûtent $${texPrix(prix1)}$ €.<br> 
+          this.question = `$3$ ${fruits[0]} coûtent $${texPrix(prix1)}$ €.<br>
+
         Quelle masse de ${fruits[0]} faut-il acheter pour payer $${texPrix(prix2)}$ € ?<br>
+
         Donner la valeur exacte de cette masse.`
-          if (this.interactif) { this.optionsChampTexte = { texteApres: `${fruits2[0]}` } }
+          if (this.interactif) { this.optionsChampTexte = { texteApres: 'kg' } }
           this.correction = `La masse que l'on peut acheter avec $1$ € est $\\dfrac{3}{${prix1}}$ kg. <br>
         Ainsi, pour payer $${texPrix(prix2)}$ €, il faut acheter $\\dfrac{3\\times ${prix2}}{${prix1}}=\\dfrac{ ${3 * prix2}}{${prix1}}${frac.texSimplificationAvecEtapes()}$ kg.
        
         `
         }
+        this.canEnonce = this.question// 'Compléter'
+        this.canReponseACompleter = '$\\ldots$ kg'
         break
       case 2:// proportionnalité avec nombre de pastèques / melons
         choix = choice(['a', 'b', 'c'])//, 'b', 'c'
@@ -77,7 +83,9 @@ export default function Proportionnalite3 () {
           frac = new FractionX(3 * poids2, poids1)
           this.reponse = frac
           this.question = `$3$ ${fruits2[0]} (identiques) ont une masse $${poids1}$ kg.<br>
+
       Combien faut-il acheter de  ces mêmes ${fruits2[0]} pour totaliser une masse de $${poids2}$ kg ? <br>
+
       Donner la valeur exacte de ce nombre.`
           if (this.interactif) { this.optionsChampTexte = { texteApres: `  de ${fruits2[0]}.` } }
           this.correction = `La quantité de ${fruits2[0]} par kg est $\\dfrac{3}{${poids1}}$ de ${fruits2[1]}. <br>
@@ -114,7 +122,8 @@ export default function Proportionnalite3 () {
             Ainsi, pour obtenir une masse de $${texPrix(poids2)}$ kg, il faut acheter $\\dfrac{2\\times ${poids2}}{${poids1}}=\\dfrac{ ${5 * poids2}}{${poids1}}${frac.texSimplificationAvecEtapes()}$ de ${fruits2[0]}.
             `
         }
-
+        this.canEnonce = this.question// 'Compléter'
+        this.canReponseACompleter = `de ${fruits2[0]}`
         break
     }
   }
