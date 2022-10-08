@@ -19,8 +19,7 @@ export const ref = 'c3C13'
 export default class QuestionsPrixCM extends QuestionsPrix {
   constructor () {
     super()
-    this.titre = titre
-    // this.sup = '1-2-3-4-5-6' // Par défaut, pas de divisions
-    // this.sup3 = false // Par défaut, que des entiers
+    this.sup = '1-2-3-4-5-6' // Par défaut, pas de divisions
+    this.sup3 = false // Par défaut, que des entiers
   }
 }
