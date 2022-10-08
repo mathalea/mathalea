@@ -11,6 +11,8 @@ export const dateDePublication = '06/10/22'
 * Source : http://cache.media.education.gouv.fr/file/Geometrie_et_espace/47/1/RA16_C4_MATH_geo_espace_flash_567471.pdf
 */
 
+export const uuid = '136dd'
+export const ref = '3G41'
 export default function VuesEmpilementCubes () {
   'use strict'
   Exercice.call(this)

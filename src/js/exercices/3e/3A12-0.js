@@ -11,6 +11,8 @@ export const dateDePublication = '05/10/2022'
  * @author Jean-Claude Lhote
  * Résoudre des problèmes de ppcm avec les engrenages.
  */
+export const uuid = '6b37f'
+export const ref = '3A12-0'
 export default class EngrenagesAnimes extends Exercice {
   constructor () {
     super()

@@ -13,6 +13,8 @@ export const titre = 'Tracer des droites, segments,...'
  * @author Mickael Guironnet
  */
 
+export const uuid = '3dbda'
+export const ref = '6G10-5'
 export default class constructionElementaire extends Exercice {
 //  'use strict'
   constructor () {

@@ -14,6 +14,8 @@ export const dateDePublication = '27/09/2022' // La date de publication initiale
  * Date de publication
 */
 
+export const uuid = '1d7cc'
+export const ref = 'can2F14'
 export default function CalculOrdonneePoint () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

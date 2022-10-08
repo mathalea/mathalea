@@ -12,6 +12,8 @@ export const dateDePublication = '28/09/2022' // La date de publication initiale
  * @author Gilles Mora
 */
 
+export const uuid = 'ed2ee'
+export const ref = '2N12-3'
 export default function EncadrerRacineCarreeEntre2Entiers () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 2
