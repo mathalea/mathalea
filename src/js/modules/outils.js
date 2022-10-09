@@ -918,6 +918,22 @@ export function texteExposant (texte) {
 }
 
 /**
+* Gère l'écriture de l'indice en mode text (ne doit pas s'utiliser entre $ $)
+* Pour le mode maths (entre $ $) on utilisera tout _3 pour mettre un indice 3 ou _{42} pour l'indice 42.
+* @param {string} texte
+* @Example
+* // `(d${texteIndice(3)})`
+* @author Jean-Claude Lhote
+*/
+export function texteIndice (texte) {
+  if (context.isHtml) {
+    return `<sub>${texte}</sub>`
+  } else {
+    return `\\textsubscript{${texte}}`
+  }
+}
+
+/**
 * Ajoute les parenthèses et le signe
 * @Example
 * //(+3) ou (-3)
@@ -1983,15 +1999,17 @@ export function codeCesar (mots, decal) {
 
 /**
 * Renvoie une lettre majuscule depuis un nombre compris entre 1 et 702
+* Le 2e paramètre est un booléen qui permet d'éviter la lettre D (et donc décale tout d'une lettre après le C) en vue du bug de MathLive
 * @author Rémi Angot
 *@Example
 * // 0 -> @ 1->A ; 2->B...
 * // 27->AA ; 28 ->AB ...
 */
-export function lettreDepuisChiffre (i) {
+export function lettreDepuisChiffre (i, saufD = false) {
   let result = ''
   if (i <= 26) {
     result = String.fromCharCode(64 + i)
+    if (saufD && i >= 4) result = String.fromCharCode(64 + i + 1)
   } else {
     if (i % 26 === 0) {
       result = String.fromCharCode(64 + Math.floor(i / 26) - 1)
@@ -2946,6 +2964,7 @@ ${texte}
 \\end{center}`
   }
 }
+
 /**
 * Met en couleur et en gras
 *
@@ -2962,6 +2981,24 @@ export function miseEnEvidence (texte, couleur = '#f15929') {
       return `\\mathbf{{\\color[HTML]{${couleur.replace('#', '')}}${texte}}}`
     } else {
       return `\\mathbf{{\\color{${couleur.replace('#', '')}}${texte}}}`
+    }
+  }
+}
+/**
+* Met en couleur
+* Met en couleur un texte. JCL dit : "S'utilise entre $ car utilise des commandes qui fonctionnent en math inline"
+* @param {string} texte à mettre en couleur
+* @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
+* @author Guillaume Valmont d'après MiseEnEvidence() de Rémi Angot
+*/
+export function miseEnCouleur (texte, couleur = '#f15929') {
+  if (context.isHtml) {
+    return `{\\color{${couleur}} ${texte}}`
+  } else {
+    if (couleur[0] === '#') {
+      return `{\\color[HTML]{${couleur.replace('#', '')}} ${texte}}`
+    } else {
+      return `{\\color{${couleur.replace('#', '')}} ${texte}}`
     }
   }
 }

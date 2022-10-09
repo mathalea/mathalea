@@ -15,6 +15,8 @@ export const dateDePublication = '17/09/2022' // La date de publication initiale
  * Référence
 */
 
+export const uuid = '5283f'
+export const ref = 'can1F20'
 export default function ResoudreEquationsSecondDegreSansDelta () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1

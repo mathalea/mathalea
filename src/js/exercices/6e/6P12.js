@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, calcul, stringNombre, prenomF, prenomM, texteEnCouleur, texPrix, texteEnCouleurEtGras, rangeMinMax, contraindreValeur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, calcul, stringNombre, prenomF, prenomM, texteEnCouleur, texPrix, texteEnCouleurEtGras, rangeMinMax, contraindreValeur, miseEnCouleur } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { getVueFromUrl } from '../../modules/gestionUrl.js'
@@ -185,18 +185,18 @@ function questionAchat (exo, i) { // questions d'origine du 6P11 : achat.
     }
   }
   const texte = `${prenoms[0]} a repéré, ${listeDeLieux[index1]}, des ${objet} qui l'intéressent.<br>
-  Elle lit que ${n} ${objet} coûtent ${texPrix(x)} €. Elle veut en acheter ${y}.<br>
+  Elle lit que $${n}$ ${objet} coûtent $${texPrix(x)}$ €. Elle veut en acheter $${y}$.<br>
   Combien va-t-elle dépenser ?` + ajouteChampTexteMathLive(exo, i, 'largeur25 inline', { texteApres: ' €' })
   const texteCorr = `Commençons par trouver le prix d'${listeDeChose[index1][index2]}. <br>` +
-`Si ${n} ${objet} coûtent ${texPrix(x)} €, alors ${listeDeChose[index1][index2]} coûte ${texteEnCouleur(n)} fois moins cher.<br>` +
-`${texPrix(x)} € $\\div $ ${texteEnCouleur(n)} = ${texPrix(x / n)} € <br>` +
+`Si $${n}$ ${objet} coûtent $${texPrix(x)}$ €, alors ${listeDeChose[index1][index2]} coûte $${miseEnCouleur(n)}$ fois moins cher.<br>` +
+`$${texPrix(x)}$ € $ \\div ${miseEnCouleur(n)} = ${texPrix(x / n)} $ € <br>` +
 texteEnCouleurEtGras(' Conclusion intermédiaire : ', 'black') +
-`${listeDeChose[index1][index2]} coûte ${texteEnCouleur(texPrix(x / n), 'blue')} €.<br>` +
-        `Cherchons maintenant le prix de ${y} ${objet}. <br>` +
-`${y} ${objet}, c'est ${texteEnCouleur(y)} fois plus qu'${listeDeChose[index1][index2]}. <br>` +
-`${y} ${objet} coûtent donc ${texteEnCouleur(y)} fois plus que ${texteEnCouleur(texPrix(x / n), 'blue')} €, le prix d'${listeDeChose[index1][index2]}.` +
-`<br> ${texteEnCouleur(texPrix(x / n), 'blue')} € $\\times$ ${texteEnCouleur(y)} = ${texPrix(x * y / n)} €<br>` +
-` ${texteEnCouleurEtGras('Conclusion :', 'black')} ${y} ${objet} coûtent ${texPrix(x * y / n)} €.`
+`${listeDeChose[index1][index2]} coûte $${miseEnCouleur(texPrix(x / n), 'blue')}$ €.<br>` +
+        `Cherchons maintenant le prix de $${y}$ ${objet}. <br>` +
+`$${y}$ ${objet}, c'est $${miseEnCouleur(y)}$ fois plus qu'${listeDeChose[index1][index2]}. <br>` +
+`$${y}$ ${objet} coûtent donc $${miseEnCouleur(y)}$ fois plus que $${miseEnCouleur(texPrix(x / n), 'blue')}$ €, le prix d'${listeDeChose[index1][index2]}.` +
+`<br> $${miseEnCouleur(texPrix(x / n), 'blue')}$ € $\\times ${miseEnCouleur(y)} = ${texPrix(x * y / n)}$ €<br>` +
+` ${texteEnCouleurEtGras('Conclusion :', 'black')} $${y}$ ${objet} coûtent $${texPrix(x * y / n)}$ €.`
   setReponse(exo, i, calcul(x * y / n))
 
   return {

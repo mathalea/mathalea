@@ -16,6 +16,8 @@ export const dateDePublication = '29/09/2022'
 * 3F10-1
 */
 
+export const uuid = '4daef'
+export const ref = '3F10-3'
 export default function VocabulaireNotationsFonctions2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 5

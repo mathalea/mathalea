@@ -22,10 +22,10 @@ export default function NombrePairFois5 () {
   this.nouvelleVersion = function () {
     const a = randint(11, 49, [20, 30, 40, 15, 25, 35, 45]) * 2
     this.reponse = calcul(a * 5)
-    this.question = `$${a}\\times 5=$`
+    this.question = `Calculer $${a}\\times 5$.`
     // Selon le cas l'endroit d'ajout peut différer
-    this.canEnonce = 'Compléter'
-    this.canReponseACompleter = `${this.question} \\makebox[20mm]{\\dotfill}`
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
     this.correction = `$${a}\\times 5 = ${this.reponse}$`
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
     Pour multiplier par $5$, on peut :  <br>

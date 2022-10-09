@@ -18,6 +18,8 @@ export const dateDePublication = '27/09/2022'
  * Analyser un programme scratch utilisant NoteLaCouleur
  * @author Jean-Claude Lhote
  */
+export const uuid = '2ecd9'
+export const ref = '3I10-1'
 export default function ScratchMultiScript () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

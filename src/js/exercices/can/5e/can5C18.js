@@ -37,7 +37,7 @@ export default function ReconnaitreExp () {
             c = randint(2, 10)
             texte = `Quelle est la nature de l'expression numérique suivante ?<br>
             $${a}+${b}\\times ${c}$`
-
+            this.canEnonce = texte
             this.autoCorrection[i] = {
               enonce: texte,
               options: { horizontal: true },
@@ -72,7 +72,7 @@ export default function ReconnaitreExp () {
             c = randint(2, 10)
             texte = `Quelle est la nature de l'expression numérique suivante ?<br>
             $${a}\\times${b}+ ${c}$`
-
+            this.canEnonce = texte
             this.autoCorrection[i] = {
               enonce: texte,
               options: { horizontal: true },
@@ -107,7 +107,7 @@ export default function ReconnaitreExp () {
             c = randint(2, 10)
             texte = `Quelle est la nature de l'expression numérique suivante ?<br>
             $${a}\\times${b}- ${c}$`
-
+            this.canEnonce = texte
             this.autoCorrection[i] = {
               enonce: texte,
               options: { horizontal: true },
@@ -147,7 +147,7 @@ export default function ReconnaitreExp () {
             d = randint(2, 10)
             texte = `Quelle est la nature de l'expression numérique suivante ?<br>
             $${a}\\times${b}+${c}\\times ${d}$`
-
+            this.canEnonce = texte
             this.autoCorrection[i] = {
               enonce: texte,
               options: { horizontal: true },
@@ -183,7 +183,7 @@ export default function ReconnaitreExp () {
             d = randint(2, 5)
             texte = `Quelle est la nature de l'expression numérique suivante ?<br>
             $${a}\\times${b}-${c}\\times ${d}$`
-
+            this.canEnonce = texte
             this.autoCorrection[i] = {
               enonce: texte,
               options: { horizontal: true },
@@ -223,7 +223,7 @@ export default function ReconnaitreExp () {
             choix = choice([true, false])
             texte = `Quelle est la nature de l'expression numérique suivante ?<br>
             $${a}${choix ? '\\times' : ''}(${b}+${c})$`
-
+            this.canEnonce = texte
             this.autoCorrection[i] = {
               enonce: texte,
               options: { horizontal: true },
@@ -259,7 +259,7 @@ export default function ReconnaitreExp () {
             c = randint(2, 10)
             texte = `Quelle est la nature de l'expression numérique suivante ?<br>
             $(${b}+${c})\\times ${a}$`
-
+            this.canEnonce = texte
             this.autoCorrection[i] = {
               enonce: texte,
               options: { horizontal: true },
@@ -294,7 +294,7 @@ export default function ReconnaitreExp () {
             c = randint(2, 10)
             texte = `Quelle est la nature de l'expression numérique suivante ?<br>
             $(${a}+${b})\\div${c}$`
-
+            this.canEnonce = texte
             this.autoCorrection[i] = {
               enonce: texte,
               options: { horizontal: true },
@@ -331,7 +331,7 @@ export default function ReconnaitreExp () {
             d = randint(2, 10)
             texte = `Quelle est la nature de l'expression numérique suivante ?<br>
             $${a}\\times (${b}+ ${c})\\times ${d}$`
-
+            this.canEnonce = texte
             this.autoCorrection[i] = {
               enonce: texte,
               options: { horizontal: true },
@@ -367,7 +367,7 @@ export default function ReconnaitreExp () {
             d = randint(2, 10)
             texte = `Quelle est la nature de l'expression numérique suivante ?<br>
             $${a}\\times (${b}+ ${c})+ ${d}$`
-
+            this.canEnonce = texte
             this.autoCorrection[i] = {
               enonce: texte,
               options: { horizontal: true },
@@ -403,7 +403,7 @@ export default function ReconnaitreExp () {
             d = randint(2, 10)
             texte = `Quelle est la nature de l'expression numérique suivante ?<br>
             $${a}\\times (${b}+ ${c})- ${d}$`
-
+            this.canEnonce = texte
             this.autoCorrection[i] = {
               enonce: texte,
               options: { horizontal: true },
@@ -447,7 +447,7 @@ export default function ReconnaitreExp () {
 
             texte = `Quelle est la nature de l'expression numérique suivante ?<br>
             $\\dfrac{${a}}{${b}}+${c}$`
-
+            this.canEnonce = texte
             this.autoCorrection[i] = {
               enonce: texte,
               options: { horizontal: true },
@@ -488,7 +488,7 @@ export default function ReconnaitreExp () {
 
             texte = `Quelle est la nature de l'expression numérique suivante ?<br>
             $\\dfrac{${a}}{${b}}-${c}$`
-
+            this.canEnonce = texte
             this.autoCorrection[i] = {
               enonce: texte,
               options: { horizontal: true },
@@ -529,7 +529,7 @@ export default function ReconnaitreExp () {
 
             texte = `Quelle est la nature de l'expression numérique suivante ?<br>
             $${c}-\\dfrac{${a}}{${b}}$`
-
+            this.canEnonce = texte
             this.autoCorrection[i] = {
               enonce: texte,
               options: { horizontal: true },
@@ -566,7 +566,7 @@ export default function ReconnaitreExp () {
 
             texte = `Quelle est la nature de l'expression numérique suivante ?<br>
             $\\dfrac{${a}+${b}}{${c}}$`
-
+            this.canEnonce = texte
             this.autoCorrection[i] = {
               enonce: texte,
               options: { horizontal: true },
@@ -606,5 +606,6 @@ export default function ReconnaitreExp () {
       cpt++
     }
     listeQuestionsToContenu(this)
+    this.canReponseACompleter = propositionsQcm(this, 0).texte
   }
 }

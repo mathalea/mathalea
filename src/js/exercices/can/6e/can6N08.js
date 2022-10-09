@@ -46,5 +46,7 @@ export default function NombreDeDizaines () {
         this.reponse = b * 10 + c
       }
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

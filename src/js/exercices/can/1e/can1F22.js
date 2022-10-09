@@ -12,6 +12,8 @@ export const dateDePublication = '24/09/2022'
  *
 */
 
+export const uuid = '6e9df'
+export const ref = 'can1F22'
 export default function ReconnaitreFonctionDegre2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1

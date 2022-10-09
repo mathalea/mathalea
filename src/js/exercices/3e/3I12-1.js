@@ -12,6 +12,8 @@ export const dateDePublication = '20/09/2022'
  * Compléter un script sur les multiples et diviseurs
  * @author Eric Elter
  */
+export const uuid = '39a32'
+export const ref = '3I12-1'
 export default function CompleterScriptMultiple () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

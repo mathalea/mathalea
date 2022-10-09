@@ -1,4 +1,4 @@
-import { calcul, arrondi, egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, lettreDepuisChiffre, nombreAvecEspace, stringNombre, inferieurouegal, numberFormat, nombreDeChiffresDe, superieurouegal, combinaisonListes, texcolors, texNombre } from './outils.js'
+import { calcul, arrondi, egal, randint, rangeMinMax, unSiPositifMoinsUnSinon, lettreDepuisChiffre, nombreAvecEspace, stringNombre, inferieurouegal, numberFormat, nombreDeChiffresDe, superieurouegal, combinaisonListes, texcolors, texNombre, enleveElement, combinaisonListesSansChangerOrdre } from './outils.js'
 import { cos, radians, sin } from './fonctionsMaths.js'
 import { context } from './context.js'
 import { fraction, Fraction, max, ceil, isNumeric, floor, random, round, abs } from 'mathjs'
@@ -4468,7 +4468,7 @@ export function courbeDeBezier (...args) {
 }
 */
 
-function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, yCenter = 0, couleur = 'black', couleurDeRemplissage = 'black', couleurDuTrou = 'white', dureeTour = 10, angleStart = 90 } = {}) {
+function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, yCenter = 0, couleur = 'black', couleurDeRemplissage = 'black', couleurDuTrou = 'white', dureeTour = 10, angleStart = 90, marqueur = null } = {}) {
   ObjetMathalea2D.call(this)
   this.rayon = rayon
   this.rayonExt = rayonExt > rayon ? rayonExt : round(rayon * 4 / 3)
@@ -4477,6 +4477,7 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
   this.xCenter = xCenter
   this.yCenter = yCenter
   this.dureeTour = dureeTour
+  this.marqueur = marqueur
   this.color = colorToLatexOrHTML(couleur)
   this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
   this.couleurDuTrou = colorToLatexOrHTML(couleurDuTrou)
@@ -4493,7 +4494,7 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
     const r1y = round(R1 * sin(0.125 * angle))
     const Ax = round(xC + R1 * cos(angle * 0.25 + this.angleStart))
     const Ay = round(yC + R1 * sin(angle * 0.25 + this.angleStart))
-    let code = `<g id=${this.id}>+
+    let code = `<g class="roueEngrenage" id=roue${this.id}>
     <path stroke="${this.color[0]}" fill="${this.couleurDeRemplissage[0]}"
       d="M ${Ax},${Ay} `
     for (let i = 0; i < this.nbDents; i++) {
@@ -4507,8 +4508,11 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
       const Ey = round(yC + R1 * sin(angle * (-i - 0.75) + this.angleStart))
       code += `A${r1x} ${r1y} ${round(180 + this.angleStart - (i + 0.25) * angle)} 0 0 ${Cx} ${Cy} L${Dx} ${Dy} A${r1x} ${r1y} ${round(180 + this.angleStart - (i - 0.125) * angle)} 0 0 ${Bx} ${By} A${R1} ${R1} 0 0 0 ${Ex} ${Ey} `
     }
-    code += `Z"/>
-    <animateTransform
+    code += 'Z"/>'
+    if (typeof this.marqueur === 'number') code += `<circle cx="${round(xC + (R1 - 5) * cos(this.marqueur))}" cy="${round(yC + (R1 - 5) * sin(this.marqueur))}" r="3" stroke="HotPink" fill="Sienna" />`
+    if (this.dureeTour !== 0) {
+      code += `<animateTransform
+      id="animRoue${this.id}"
       attributeName="transform"
       attributeType="XML"
       type="rotate"
@@ -4517,15 +4521,20 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
       dur="${abs(this.dureeTour)}"
       repeatCount="indefinite"
       />
-      </g>`
-    code += `<circle cx="${xC}" cy="${yC}" r="${R0}" stroke="${this.color[0]}" fill="${this.couleurDuTrou[0]}" />`
+      </g>
+      <circle cx="${xC}" cy="${yC}" r="${R0}" stroke="${this.color[0]}" fill="${this.couleurDuTrou[0]}" />
+      <text class="compteurDeTours" id="compteur${this.id}" fill="red" align="middle" dominant-baseline="middle" text-anchor="middle" x="${xC}" y="${yC}">0</text>`
+    } else {
+      code += `</g>
+      <circle cx="${xC}" cy="${yC}" r="${R0}" stroke="${this.color[0]}" fill="${this.couleurDuTrou[0]}" />`
+    }
     return code
   }
   this.tikz = function () {
     const R1 = this.rayon
     const R2 = this.rayonExt
     const R0 = this.rayonInt
-    return `% engrenage de rayon ${this.rayon}, avec ${this.nbDents} dents centré en (${this.xCenter};${this.yCenter})
+    let code = `% engrenage de rayon ${this.rayon}, avec ${this.nbDents} dents centré en (${this.xCenter};${this.yCenter})
     \\foreach \\i in {1,2,...,${this.nbDents}}{
                   \\pgfmathparse{360*(\\i-1)/${this.nbDents}}\\let\\angle\\pgfmathresult
                   \\begin{scope}[shift={(${this.xCenter},${this.yCenter})}]
@@ -4543,12 +4552,17 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
                   \\draw[${this.color[1]},rotate=\\angle] (\\Ax,\\Ay) to[bend left=15] (\\Cx,\\Cy) -- (\\Dx,\\Dy) to[bend left=15] (\\Bx,\\By) arc (\\a:\\b:${R1}cm); 
                   \\end{scope}}
               \\fill[${this.couleurDuTrou[1]},draw=${this.color[1]}] (${this.xCenter},${this.yCenter}) circle (${R0});
-  }`
+  `
+    if (typeof this.marqueur === 'number') {
+      code += `\\fill[HotPink,draw=black] (${arrondi(this.xCenter + (R1 - 0.2) * cos(this.marqueur), 2)},${arrondi(this.yCenter + (R1 - 0.2) * sin(this.marqueur), 2)}) circle (0.15);
+`
+    }
+    return code
   }
 }
 
 /**
- *
+ * @author Jean-Claude Lhote (Sébastien Lozano et Sylvain Chambon pour la partie tikz)
  * @param {object} parametres paramètres de l'objet voir ci-dessous
  * @param {number} [parametres.rayon] rayon du disque sans les dents
  * @param {number} [parametres.rayonExt] rayon du disque avec les dents
@@ -4561,12 +4575,13 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
  * @param {string} [parametres.couleurDuTrou] couleur du disque intérieur
  * @param {number} [parametres.dureeTour] temps en secondes mis par la roue pour effectuer un tout en SVG
  * @param {number} [parametres.angleStart] angle de départ de la première dent (90 par défaut) utile pour synchroniser deux roues
+ * @param {number | null} marqueur position angulaire en degrés d'un marqueur si de type number
  * @returns
  */
-export function engrenage ({ rayon = 1, rayonExt = 1.3, rayonInt = 0.75, nbDents = 12, xCenter = 0, yCenter = 0, couleur = 'black', couleurDeRemplissage = 'black', couleurDuTrou = 'white', dureeTour = 10, angleStart = 90 } = {}) {
+export function engrenage ({ rayon = 1, rayonExt = 1.3, rayonInt = 0.75, nbDents = 12, xCenter = 0, yCenter = 0, couleur = 'black', couleurDeRemplissage = 'black', couleurDuTrou = 'white', dureeTour = 10, angleStart = 90, marqueur = null } = {}) {
   if (rayonExt < rayon) rayonExt = round(rayon * 4 / 3)
   if (rayonInt > rayon) rayonInt = round(rayon * 3 / 4)
-  return new Engrenage({ rayon, rayonExt, rayonInt, nbDents, xCenter, yCenter, couleur, couleurDeRemplissage, couleurDuTrou, dureeTour, angleStart })
+  return new Engrenage({ rayon, rayonExt, rayonInt, nbDents, xCenter, yCenter, couleur, couleurDeRemplissage, couleurDuTrou, dureeTour, angleStart, marqueur })
 }
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -11193,220 +11208,274 @@ function pattern ({
     return `${myPattern}`
   }
 }
-/**
- * Fonction créant un labyrinthe de nombres
- * Le tableau de nombres doit être de format [6][3]
- * Le niveau doit être un entier entre 1 et 6 inclus
- * @author Jean-Claude Lhote
- * Publié le 6/12/2020
+
+/**  Crée un ensemble de chemins possibles dans un labyrinthe. Cette fonction est à associer aux méthodes conçues pour.
+ * @param {Object} parametres À saisir entre accolades
+ * @param {number} [parametres.nbLignes = 3]
+ * @param {number} [parametres.nbColonnes = 6]
+ * @author Jean-Claude Lhote & Eric Elter (améliorée par EE pour choisir le nombre de lignes et de colonnes)
+ * Publié le 6/12/2020 (Modifié le 05/10/2022)
+ * @class
  */
-function Labyrinthe (
-  {
-    taille = 1,
-    format = 'texte'
+// JSDOC Validee par EE Septembre 2022
+function Labyrinthe ({ nbLignes = 3, nbColonnes = 6 } = {}) {
+  // Fonction qui permet de copier des tableaux
+  function arrayCopy (arr) {
+    return JSON.parse(JSON.stringify(arr))
   }
-) {
-  this.murs2d = []
-  this.chemin2d = []
-  this.nombres2d = []
-  this.chemin = []
-  this.niveau = 3
-  this.nombres = [[]]
-  const couleur = 'brown'
-  const chemins = [
-    [[1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [5, 1], [6, 1]],
-    [[1, 0], [2, 0], [3, 0], [4, 0], [4, 1], [5, 1], [6, 1]],
-    [[1, 0], [2, 0], [2, 1], [3, 1], [4, 1], [5, 1], [6, 1]],
-    [[1, 0], [1, 1], [2, 1], [3, 1], [4, 1], [5, 1], [6, 1]],
-    [[1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [5, 1], [5, 2], [6, 2]],
-    [[1, 0], [2, 0], [3, 0], [4, 0], [4, 1], [5, 1], [5, 2], [6, 2]],
-    [[1, 0], [2, 0], [3, 0], [4, 0], [4, 1], [4, 2], [5, 2], [6, 2]],
-    [[1, 0], [2, 0], [3, 0], [3, 1], [4, 1], [5, 1], [5, 2], [6, 2]],
-    [[1, 0], [2, 0], [3, 0], [3, 1], [3, 2], [4, 2], [5, 2], [6, 2]],
-    [[1, 0], [2, 0], [2, 1], [3, 1], [4, 1], [4, 2], [5, 2], [6, 2]],
-    [[1, 0], [1, 1], [2, 1], [2, 2], [3, 2], [4, 2], [5, 2], [6, 2]],
-    [[1, 0], [1, 1], [2, 1], [3, 1], [4, 1], [4, 0], [5, 0], [6, 0]],
-    [[1, 0], [1, 1], [2, 1], [3, 1], [4, 1], [5, 1], [5, 2], [6, 2]],
-    [[1, 0], [1, 1], [1, 2], [2, 2], [3, 2], [4, 2], [5, 2], [6, 2]],
-    [[1, 0], [1, 1], [2, 1], [2, 2], [3, 2], [4, 2], [5, 2], [5, 1], [6, 1]],
-    [[1, 0], [2, 0], [3, 0], [3, 1], [3, 2], [4, 2], [5, 2], [5, 1], [6, 1]],
-    [[1, 0], [1, 1], [1, 2], [2, 2], [3, 2], [3, 1], [4, 1], [5, 1], [6, 1]],
-    [[1, 0], [1, 1], [1, 2], [2, 2], [3, 2], [4, 2], [4, 1], [5, 1], [6, 1]],
-    [[1, 0], [2, 0], [3, 0], [3, 1], [3, 2], [4, 2], [5, 2], [5, 1], [5, 0], [6, 0]],
-    [[1, 0], [1, 1], [2, 1], [2, 2], [3, 2], [4, 2], [4, 1], [4, 0], [5, 0], [6, 0]],
-    [[1, 0], [1, 1], [2, 1], [2, 2], [3, 2], [4, 2], [5, 2], [5, 1], [5, 0], [6, 0]],
-    [[1, 0], [1, 1], [1, 2], [2, 2], [3, 2], [4, 2], [4, 1], [4, 0], [5, 0], [6, 0]],
-    [[1, 0], [1, 1], [1, 2], [2, 2], [3, 2], [3, 1], [3, 0], [4, 0], [5, 0], [5, 1], [5, 2], [6, 2]],
-    [[1, 0], [1, 1], [1, 2], [2, 2], [3, 2], [3, 1], [3, 0], [4, 0], [5, 0], [5, 1], [5, 2], [6, 2]]]
-  let elementchemin
-  for (let i = 0; i < 24; i++) { // on double le nombre de chemins par Symétrie.
+
+  // Permet de tester si un tableau est contenu dans un autre.
+  // tableauDansTableau([0, 1, 0, 0, 1, 1, 1, 0],[1, 1]) Permet de tester si [1, 1] est contenu dans [[0, 1], [0, 0], [1, 1], [1, 0]]
+  function tableauDansTableau (gdTableau, petitTableau) {
+    let test = false
+    let k = 0
+    do {
+      if (gdTableau[k] === petitTableau[0] && gdTableau[k + 1] === petitTableau[1]) test = true
+      k++
+      k++
+    } while (!test && k < gdTableau.length)
+    return test
+  }
+
+  let cheminsEE = [[1, 0]] // [[colonne,ligne]]
+  const casesVoisinesTableau = [[-1, 0], [0, 1], [1, 0], [0, -1]] // Nord ; Est ; Sud ; Ouest
+
+  // Fonction récursive qui recherche tous les chemins possibles à partir du point de départ caseActuelle, des points déjà parcourus et avec l'indice du chemin actuel dans le tableau actuel
+  function rechercheCheminsPossibles (caseActuelle, indiceCheminActuel, dejaParcourus) {
+    const casesPossibles = []
+    let prochaineCasePossible = []
+
+    for (const element of Visitables) {
+      prochaineCasePossible = [caseActuelle[0] + element[0], caseActuelle[1] + element[1]] // Test de l'ouest
+      if (prochaineCasePossible[0] === nbColonnes) { // On est arrivé
+        return [nbColonnes, prochaineCasePossible[1]]
+      } else if (!tableauDansTableau(dejaParcourus, prochaineCasePossible)) {
+        if (prochaineCasePossible[0] < nbColonnes + 1 && prochaineCasePossible[0] > 0 && prochaineCasePossible[1] < nbLignes && prochaineCasePossible[1] > -1) {
+          const casesVoisines = []
+          const elementPrecedent = [-1 * element[0], -1 * element[1]] // D'où vient la case actuelle ?
+          for (let k = 0; k < 4; k++) {
+            if (!(casesVoisinesTableau[k][0] === elementPrecedent[0] && casesVoisinesTableau[k][1] === elementPrecedent[1])) casesVoisines.push(casesVoisinesTableau[k])
+          }
+
+          let nonVoisin = true // Les cases voisines sont accessibles
+          for (const element2 of casesVoisines) { // Recherche si les cases voisines à la prochaine case possible n'ont pas déjà été parcourues.
+            nonVoisin = nonVoisin && !tableauDansTableau(dejaParcourus, [prochaineCasePossible[0] + element2[0], prochaineCasePossible[1] + element2[1]])
+          }
+          if (nonVoisin) casesPossibles.push(prochaineCasePossible) // Cette prochaine case possible est validée.
+        }
+      }
+    }
+    if (casesPossibles.length === 0) {
+      return [0, 0] // Case impossible, retour en arriere
+    } else {
+      let cheminAVenir
+      const tableauIndiceFuturChemin = []
+      for (let ee = casesPossibles.length - 1; ee > 0; ee--) { // Préparation à la création d'un nouveau chemin
+        cheminsEE.push([])
+        tableauIndiceFuturChemin[ee] = cheminsEE.length - 1
+      }
+      for (let ee = casesPossibles.length - 1; ee > 0; ee--) {
+        cheminsEE[tableauIndiceFuturChemin[ee]] = cheminsEE[indiceCheminActuel].concat(casesPossibles[ee]) // Le début du nouveau chemin correspond au chemin déjà en cours
+        cheminAVenir = rechercheCheminsPossibles(casesPossibles[ee], tableauIndiceFuturChemin[ee], dejaParcourus.concat(casesPossibles[ee]))
+        if (cheminAVenir !== undefined) {
+          cheminsEE[tableauIndiceFuturChemin[ee]].push(cheminAVenir[0])
+          cheminsEE[tableauIndiceFuturChemin[ee]].push(cheminAVenir[1])
+        }
+      }
+      cheminsEE[indiceCheminActuel].push(casesPossibles[0][0])
+      cheminsEE[indiceCheminActuel].push(casesPossibles[0][1])
+      const prochainChemin = rechercheCheminsPossibles(casesPossibles[0], indiceCheminActuel, dejaParcourus.concat(casesPossibles[0]))
+      if (prochainChemin !== undefined) {
+        cheminsEE[indiceCheminActuel].push(prochainChemin[0])
+        cheminsEE[indiceCheminActuel].push(prochainChemin[1])
+      }
+    }
+  }
+  // Fin de construction récursive de chemin
+
+  let cheminDejaParcouru = [1, 0]
+  const Visitables = [[1, 0], [0, -1], [-1, 0], [0, 1]] // Nord ; Est ; Sud ; Ouest
+  cheminsEE[0].push(rechercheCheminsPossibles([1, 0], 0, cheminDejaParcouru))
+  enleveElement(cheminsEE[0], undefined) // Obligé d'enlever un undefined qui traine sans savoir pourquoi.
+  let cheminTableauSimple = [[]]
+  cheminTableauSimple = arrayCopy(cheminsEE)
+
+  for (let k = 1; k < nbLignes; k++) {
+    cheminsEE = [[1, k]]
+    cheminDejaParcouru = [1, k]
+    cheminsEE[0].push(rechercheCheminsPossibles([1, k], 0, cheminDejaParcouru))
+    enleveElement(cheminsEE[0], undefined) // Obligé d'enlever un undefined qui traine sans savoir pourquoi.
+    cheminTableauSimple = cheminTableauSimple.concat(cheminsEE)
+  }
+
+  for (let k = cheminTableauSimple.length - 1; k >= 0; k--) { // On élimine les voies sans issues, celles se terminant par 0, 0
+    if (cheminTableauSimple[k][cheminTableauSimple[k].length - 2] === 0) cheminTableauSimple.splice(k, 1)
+  }
+  cheminTableauSimple.sort((a, b) => b.length - a.length) // On trie les chemins du plus court au plus long...
+
+  const chemins = []
+  let elementchemin = []
+
+  // Le passage ci-dessous est obligatoire pour passer d'un tableau 2d à un tableau 3d
+  // afin d'être en adéquation avec la fonction Labyrinthe() Version 1
+
+  for (let i = 0; i < cheminTableauSimple.length; i++) { // on double le nombre de chemins par Symétrie.
     elementchemin = []
-    for (let j = 0; j < chemins[i].length; j++) {
-      elementchemin.push([chemins[i][j][0], 2 - chemins[i][j][1]])
+    for (let j = 0; j < cheminTableauSimple[i].length / 2; j++) {
+      elementchemin.push([cheminTableauSimple[i][2 * j], cheminTableauSimple[i][2 * j + 1]])
     }
     chemins.push(elementchemin)
   }
-  this.choisitChemin = function (niveau) { // retourne un chemin en fonction du niveau
-    const choix = choice([0, 24]); let choixchemin
-    switch (niveau) { // on choisit le chemin parmi les 23*2
-      case 1: choixchemin = randint(0, 3) + choix
+  // Fin de construction de chemin (qui contient tous les chemins du labyrinthe)
+
+  // Gestion des vitesses : Escargot, ..., Guépard
+  let tableauDeVitesses = [] // Plus la vitesse est grande, moins le trajet est long
+  const vitessePetite = cheminTableauSimple[0].length
+  const vitesseGrande = cheminTableauSimple[cheminTableauSimple.length - 1].length
+  const ecartVitesse = (vitessePetite - vitesseGrande) / 4
+  for (let k = 0; k < 4; k++) {
+    tableauDeVitesses.push(cheminTableauSimple.findIndex((element) => element.length < vitessePetite - k * ecartVitesse))
+  }
+  tableauDeVitesses[4] = cheminTableauSimple.length
+  tableauDeVitesses = tableauDeVitesses.map(element => element - 1)
+
+  // Fin de la fonction Labytinthe()
+
+  // Mise en place des méthodes de cette fonction
+
+  /**
+   * Retourne un chemin en fonction du niveau de rapidité
+   * @memberof Labyrinthe
+   * @param {number} niveau Niveau de résolution du labyrinthe entre 1 (le plus lent) et 6 (le plus rapide).
+   * @example monCheminChoisi = laby.traceChemin(3) // Renvoie un chemin parmi tous ceux possibles, du labyrinthe laby, dont le niveau de rapidité est 3
+   * @author Jean-Claude Lhote (et EE pour la partie "choix du nombre de lignes et de colonnes")
+   * @return {Array.number[]}
+   */
+  // JSDOC Validee par EE Octobre 2022
+  this.choisitChemin = function (niveau) {
+    let choixchemin
+    switch (niveau) {
+      case 1: choixchemin = randint(0, tableauDeVitesses[0])
         break
-      case 2: choixchemin = randint(4, 13) + choix
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+        choixchemin = randint(tableauDeVitesses[niveau - 2] + 1, tableauDeVitesses[niveau - 1])
         break
-      case 3: choixchemin = randint(14, 17) + choix
-        break
-      case 4: choixchemin = randint(18, 21) + choix
-        break
-      case 5: choixchemin = randint(22, 23) + choix
-        break
-      case 6: choixchemin = randint(0, 23) + choix
+      case 6: choixchemin = randint(0, cheminTableauSimple.length - 1)
         break
     }
     return chemins[choixchemin]
   }
 
-  // Retourne le tableau d'objets des murs en fonction du point d'entrée de chemin
-  this.construitMurs = function (chemin) {
-    let choix; const objets = []; let s1; let s2; let s3; let s4; let s5
-    if (chemin[0][1] === 0) choix = 0
-    else choix = 2
-    for (let i = 0; i < 6; i++) {
-      // éléments symétriques pour A et B
-      if (choix === 0) {
-        // T inférieurs
-        s1 = segment(point(i * 3, 1), point(i * 3, 2))
-        s1.epaisseur = 2
-        // s1.styleExtremites = '-'
-        objets.push(s1)
-
-        // T supérieurs
-        if (i > 0) {
-          s2 = segment(point(i * 3, 10), point(i * 3, 9))
-          s2.epaisseur = 2
-          // s2.styleExtremites = '-|'
-          objets.push(s2)
-        }
-      } else {
-        // T supérieurs
-        s1 = segment(point(i * 3, 10), point(i * 3, 9))
-        s1.epaisseur = 2
-        // s1.styleExtremites = '-|'
-        objets.push(s1)
-
-        // T inférieurs
-        if (i > 0) {
-          s2 = segment(point(i * 3, 1), point(i * 3, 2))
-          s2.epaisseur = 2
-          // s2.styleExtremites = '-|'
-          objets.push(s2)
-        }
-      }
+  /**
+   * Retourne un ensemble d'objets correspondant aux murs du labyrinthe, par rapport à un chemin choisi
+   * @memberof Labyrinthe
+   * @param {Array.number[]} chemin Un chemin choisi parmi tous les chemins possibles.
+   * @param {number} [taille = 1] Taille des éléments de départ et de sortie
+   * @example lesMursDeMonLabyrinthe = laby.construitMurs(monCheminChoisi)
+   * // Renvoie les murs du labyrinthe laby correspondants au chemin monCheminChoisi.
+   * // Penser à faire mathalea2d(param, lesMursDeMonLabyrinthe) ensuite
+   * @author Jean-Claude Lhote (et EE pour la partie "choix du nombre de lignes et de colonnes")
+   * @return {ObjecMathalea2d[]}
+   */
+  // JSDOC Validee par EE Octobre 2022
+  this.construitMurs = function (chemin, taille) {
+    const objets = []; let s1; let s2
+    const choix = chemin[0][1]
+    for (let i = 0; i < nbColonnes; i++) { // Construction des T supérieurs et inférieurs
+      // T inférieurs
+      s1 = segment(point(i * 3, 1), point(i * 3, 2))
+      s1.epaisseur = 2
+      objets.push(s1)
+      // T supérieurs
+      s2 = segment(point(i * 3, 1 + 3 * nbLignes), point(i * 3, 3 * nbLignes))
+      s2.epaisseur = 2
+      objets.push(s2)
     }
-    if (choix === 0) { // éléments uniques symétriques
-      // bord gauche
-      s1 = segment(point(0, 10), point(0, 3))
-      s1.epaisseur = 3
-      // s1.styleExtremites = '-|'
-      objets.push(s1)
-      // case départ
-      s1 = segment(point(-3, 1), point(0, 1), 'green')
-      s1.epaisseur = 3
-      objets.push(s1)
-      s1 = segment(point(-3, 1), point(-3, 4), 'green')
-      s1.epaisseur = 3
-      objets.push(s1)
-      s1 = segment(point(-3, 4), point(0, 4), 'green')
-      s1.epaisseur = 3
-      objets.push(s1)
-      objets.push(texteParPoint('Départ', point(-1.5, 2.5), 'milieu', 'blue', taille, 0, false))
-    } else {
-      // bord gauche
-      s1 = segment(point(0, 1), point(0, 8))
-      s1.epaisseur = 3
-      // s1.styleExtremites = '-|'
-      objets.push(s1)
-      // case départ
-      s1 = segment(point(-3, 10), point(0, 10), 'green')
-      s1.epaisseur = 3
-      objets.push(s1)
-      s1 = segment(point(-3, 7), point(-3, 10), 'green')
-      s1.epaisseur = 3
-      objets.push(s1)
-      s1 = segment(point(-3, 7), point(0, 7), 'green')
-      s1.epaisseur = 3
-      objets.push(s1)
-      objets.push(texteParPoint('Départ', point(-1.5, 8.5), 'milieu', 'blue', taille, 0, false))
-    }
+
+    // Construction du bord gauche entre le départ et le labyrinthe
+    s1 = segment(point(0, 1 + 3 * nbLignes), point(0, 3 + choix * 3))
+    s1.epaisseur = 3
+    objets.push(s1)
+    s1 = segment(point(0, 1), point(0, 2 + choix * 3))
+    s1.epaisseur = 3
+    objets.push(s1)
+
+    // Construction case départ
+    s1 = segment(point(-3, 1 + choix * 3), point(0, 1 + choix * 3), 'green')
+    s1.epaisseur = 3
+    objets.push(s1)
+    s1 = segment(point(-3, 1 + choix * 3), point(-3, 4 + choix * 3), 'green')
+    s1.epaisseur = 3
+    objets.push(s1)
+    s1 = segment(point(-3, 4 + choix * 3), point(0, 4 + choix * 3), 'green')
+    s1.epaisseur = 3
+    objets.push(s1)
+    objets.push(texteParPoint('Départ', point(-1.5, 2.5 + choix * 3), 'milieu', 'blue', taille, 0, false))
 
     // les croix centrales communes à A et B
-    for (let i = 1; i < 6; i++) {
-      s1 = segment(point(i * 3, 8), point(i * 3, 6), 'black')
-      s1.epaisseur = 2
-      // s1.styleExtremites = '|-|'
-      s2 = segment(point(i * 3 - 0.5, 7), point(i * 3 + 0.5, 7), 'black')
-      s2.epaisseur = 2
-      // s2.styleExtremites = '|-|'
-      s3 = segment(point(i * 3, 5), point(i * 3, 3), 'black')
-      s3.epaisseur = 2
-      // s3.styleExtremites = '|-|'
-      s4 = segment(point(i * 3 - 0.5, 4), point(i * 3 + 0.5, 4), 'black')
-      s4.epaisseur = 2
-      // s4.styleExtremites = '|-|'
-      objets.push(s2, s3, s4, s1)
+    for (let i = 1; i < nbColonnes; i++) {
+      for (let k = 0; k < nbLignes - 1; k++) {
+        s1 = segment(point(i * 3, 5 + 3 * k), point(i * 3, 3 + 3 * k), 'black')
+        s1.epaisseur = 2
+        s2 = segment(point(i * 3 - 0.5, 4 + 3 * k), point(i * 3 + 0.5, 4 + 3 * k), 'black')
+        s2.epaisseur = 2
+        objets.push(s2, s1)
+      }
     }
-    // le pourtour commun à A et B
-    s1 = segment(point(18, 9), point(18, 10))
+    // le pourtour commun
+    s1 = segment(point(0, 1 + 3 * nbLignes), point(3 * nbColonnes, 1 + 3 * nbLignes))
     s1.epaisseur = 3
     objets.push(s1)
-    s1 = segment(point(0, 10), point(18, 10))
+    s1 = segment(point(3 * nbColonnes, 1 + 3 * nbLignes - 1), point(3 * nbColonnes, 1 + 3 * nbLignes))
     s1.epaisseur = 3
     objets.push(s1)
-    s1 = segment(point(18, 9), point(18, 10))
+    s1 = segment(point(3 * nbColonnes, 1), point(3 * nbColonnes, 2))
     s1.epaisseur = 3
     objets.push(s1)
-    s1 = segment(point(18, 1), point(18, 2))
+    s1 = segment(point(0, 1), point(3 * nbColonnes, 1))
     s1.epaisseur = 3
     objets.push(s1)
-    s1 = segment(point(0, 1), point(18, 1))
-    s1.epaisseur = 3
-    objets.push(s1)
-    // les sorties communes à A et B
-    for (let i = 0; i < 2; i++) {
-      s1 = segment(point(18, 6 - i * 3), point(20, 6 - i * 3))
+
+    // les sorties
+    // La partie verticale
+    for (let i = 0; i < nbLignes - 1; i++) {
+      s1 = segment(point(3 * nbColonnes, 3 + i * 3), point(3 * nbColonnes, 5 + i * 3))
       s1.epaisseur = 3
-      // s1.styleExtremites = '-|'
-      s2 = segment(point(18, 7 - i * 3), point(17, 7 - i * 3))
+      objets.push(s1)
+    }
+    // La partie horizontale
+    for (let i = 0; i < nbLignes; i++) {
+      s1 = segment(point(3 * nbColonnes, 2 + i * 3), point(3 * nbColonnes + 2, 2 + i * 3))
+      s1.epaisseur = 3
+      s2 = segment(point(3 * nbColonnes, 3 + i * 3), point(3 * nbColonnes + 2, 3 + i * 3))
       s2.epaisseur = 3
-      // s2.styleExtremites = '-|'
-      s3 = segment(point(18, 8 - i * 3), point(20, 8 - i * 3))
-      s3.epaisseur = 3
-      // s3.styleExtremites = '-|'
-      s4 = segment(point(18, 8 - i * 3), point(18, 6 - i * 3))
-      s4.epaisseur = 3
-      s5 = segment(point(0, 7 - i * 3), point(1, 7 - i * 3))
-      s5.epaisseur = 3
-      // s5.styleExtremites = '-|'
-      objets.push(s1, s2, s3, s4, s5)
+      objets.push(s1, s2)
     }
-    for (let i = 1; i <= 3; i++) {
-      objets.push(texteParPoint(`Sortie ${i}`, point(19.5, 11.5 - 3 * i), 'milieu', 'blue', taille, 0, false))
+    // Le texte
+    for (let i = 1; i <= nbLignes; i++) {
+      objets.push(texteParPoint(`Sortie ${i}`, point(3 * nbColonnes + 1.5, 2.5 + 3 * nbLignes - 3 * i), 'milieu', 'blue', taille, 0, false))
     }
-    s1 = segment(point(18, 9), point(20, 9))
-    s1.epaisseur = 3
-    // s1.styleExtremites = '-|'
-    s2 = segment(point(18, 2), point(20, 2))
-    s2.epaisseur = 3
-    // s2.styleExtremites = '-|'
-    objets.push(s1, s2)
     return objets
   }
 
-  // Retourne le tableau d'objets du chemin
-  this.traceChemin = function (monchemin) {
+  /**
+   * Retourne les traits signifiant le chemin correction
+   * @memberof Labyrinthe
+   * @param {Array.number[]} monchemin Un chemin choisi parmi tous les chemins possibles.
+   * @param {string} [color = 'brown'] Couleur du tracé de la correction : du type 'blue' ou du type '#f15929'
+   * @example laCorrectionDeMonLabyrinthe = laby.traceChemin(monCheminChoisi) // Renvoie les traits signifiant le chemin correction du labyrinthe laby correspondant au chemin monCheminChoisi
+   * @author Jean-Claude Lhote (et EE pour la partie "choix du nombre de lignes et de colonnes")
+   * @return {ObjecMathalea2d[]}
+   */
+  // JSDOC Validee par EE Octobre 2022
+  this.traceChemin = function (monchemin, color = 'brown') {
     let y = monchemin[0][1]
     let x = 0; const chemin2d = []; let s1
     for (let j = 0; j < monchemin.length; j++) {
-      s1 = segment(point(x * 3 - 1.5, y * 3 + 2.5), point(monchemin[j][0] * 3 - 1.5, monchemin[j][1] * 3 + 2.5), couleur)
+      s1 = segment(point(x * 3 - 1.5, y * 3 + 2.5), point(monchemin[j][0] * 3 - 1.5, monchemin[j][1] * 3 + 2.5), color)
       s1.pointilles = 5
       s1.stylePointilles = 2
       s1.epaisseur = 5
@@ -11415,7 +11484,7 @@ function Labyrinthe (
       x = monchemin[j][0]
       y = monchemin[j][1]
     }
-    s1 = segment(point(x * 3 - 1.5, y * 3 + 2.5), point(x * 3 + 1.5, y * 3 + 2.5), couleur)
+    s1 = segment(point(x * 3 - 1.5, y * 3 + 2.5), point(x * 3 + 1.5, y * 3 + 2.5), color)
     s1.pointilles = 5
     s1.stylePointilles = 2
     s1.epaisseur = 5
@@ -11423,11 +11492,49 @@ function Labyrinthe (
     chemin2d.push(s1)
     return chemin2d
   }
-  // Retourne le tableau d'objets des nombres
-  this.placeNombres = function (nombres, taille) {
+
+  /**
+   * Retourne la position convenable de tous les éléments (bons ou faux) du labyrinthe (nombre, texte, fraction)
+   * @memberof Labyrinthe
+   * @param {Array.number[]} monchemin Un chemin choisi parmi tous les chemins possibles.
+   * @param {number[]|string[]|Fraction[]} bonnesReponses Tableau de bonnes réponses
+   * @param {number[]|string[]|Fraction[]} mauvaisesReponses Tableau de mauvaises réponses
+   * @param {number} taille Taille des écritures dans les cases du labyrinthe
+   * @example aVotrePlace = laby.placeNombres(monCheminChoisi,reponsesOK,reponsesPasOK,1)
+   * // Place les bonnes (reponsesOK) et les mauvaises (reponsesPasOK) réponses dans les cases adéquates du labyrinthe laby correspondant au chemin monCheminChoisi
+   * @author Jean-Claude Lhote (et EE pour la partie "choix du nombre de lignes et de colonnes")
+   * @return {ObjecMathalea2d[]}
+   */
+  // JSDOC Validee par EE Octobre 2022
+  this.placeNombres = function (monChemin, bonnesReponses, mauvaisesReponses, taille) {
+    bonnesReponses = combinaisonListesSansChangerOrdre(bonnesReponses, monChemin.length)
+    mauvaisesReponses = combinaisonListesSansChangerOrdre(mauvaisesReponses, nbColonnes * nbLignes - monChemin.length)
     const objets = []
-    for (let a = 1; a < 7; a++) {
-      for (let b = 0; b < 3; b++) {
+    const nombres = []
+    let trouve
+    let indexBonnesRep = 0
+    let indexMauvaisesRep = 0
+
+    for (let a = 0; a < nbColonnes; a++) {
+      nombres.push([0, 0])
+    }
+    for (let a = 1; a < nbColonnes + 1; a++) {
+      for (let b = 0; b < nbLignes; b++) {
+        trouve = false
+        for (let k = 0; k < monChemin.length; k++) {
+          if (monChemin[k][0] === a && monChemin[k][1] === b) trouve = true
+        }
+        if (!trouve) {
+          nombres[a - 1][b] = mauvaisesReponses[indexMauvaisesRep]
+          indexMauvaisesRep++
+        } else {
+          nombres[a - 1][b] = bonnesReponses[indexBonnesRep]
+          indexBonnesRep++
+        }
+      }
+    }
+    for (let a = 1; a < nbColonnes + 1; a++) {
+      for (let b = 0; b < nbLignes; b++) {
         if (typeof (nombres[a - 1][b]) === 'number') {
           objets.push(texteParPoint(nombreAvecEspace(nombres[a - 1][b]), point(-1.5 + a * 3, 2.5 + b * 3), 'milieu', 'black', taille, 0, true))
         } else if (typeof (nombres[a - 1][b]) === 'string') { // écriture mode Maths
@@ -11439,9 +11546,20 @@ function Labyrinthe (
     }
     return objets
   }
-} // fin de la classe labyrinthe
-export function labyrinthe ({ taille = 1, format = 'texte' } = {}) {
-  return new Labyrinthe({ taille, format })
+}
+
+/**  Crée un ensemble de chemins possibles dans un labyrinthe. Cette fonction est à associer aux méthodes conçues pour.
+ * @param {Object} parametres À saisir entre accolades
+ * @param {number} [parametres.nbLignes = 3]
+ * @param {number} [parametres.nbColonnes = 6]
+ * @example laby = labyrinthe ({ nbLignes: 4, nbColonnes: 5 })
+ * // Crée l'ensemble de chemins possibles dans un labyrinthe à 4 lignes et 5 colonnes
+ * @author Jean-Claude Lhote & Eric Elter (améliorée par EE pour choisir le nombre de lignes et de colonnes)
+ * @return {Labyrinthe}
+ */
+// JSDOC Validee par EE Septembre 2022
+export function labyrinthe ({ nbLignes = 3, nbColonnes = 6 } = {}) {
+  return new Labyrinthe({ nbLignes: nbLignes, nbColonnes: nbColonnes })
 }
 
 /**

@@ -22,10 +22,13 @@ export default function YohakuCan6a () {
     const yohaku1 = new Yohaku({ type: 'entiers', largeur: 2, hauteur: 2, taille: 2, operation: 'addition', valeurMax: 10, solution: false, cellulesPreremplies: Array.from('abcd'), Case: laCase })
     yohaku1.calculeResultats()
     this.question = 'Les nombres en bout de ligne ou de colonne sont les sommes des nombres contenus dans la ligne ou la colonne.<br>'
-    this.question += `Donner la valeur de la case ${yohaku1.cellulesPreremplies[indexReponse]}<br>${yohaku1.representation()}`
+    this.question += `Donner la valeur de la case ${yohaku1.cellulesPreremplies[indexReponse]}.
+    <br>${yohaku1.representation()}`
     this.reponse = yohaku1.cellules[indexReponse]
     yohaku1.solution = true
     this.correction = `la valeur de la case ${yohaku1.cellulesPreremplies[indexReponse]} est : ${this.reponse}<br>`
     this.correction += yohaku1.representation()
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

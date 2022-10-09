@@ -54,7 +54,9 @@ export default function ProblemesDeLongueursEtPerimetreCM () {
             texteParPosition('?', milieu(A, B).x, milieu(A, B).y - 0.8),
             codageAngleDroit(D, A, B), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), codageAngleDroit(C, D, A), s1, s2, s3, s4)
           this.question = `Le périmètre  de ce carré est $${4 * a}$ cm.<br>
-            Quelle est la longueur de son côté ? <br>` + mathalea2d({ xmin: -0.5, ymin: -1.2, xmax: 7, ymax: 7, scale: 0.5, style: 'margin: auto' }, objets)
+            Quelle est la longueur de son côté ? <br>
+            
+            ` + mathalea2d({ xmin: -0.5, ymin: -1.5, xmax: 7, ymax: 7, scale: 0.5, style: 'margin: auto' }, objets)
           this.optionsChampTexte = { texteApres: ' cm' }
 
           this.reponse = a
@@ -83,7 +85,9 @@ export default function ProblemesDeLongueursEtPerimetreCM () {
           texteParPosition(`${b} cm`, milieu(B, C).x + 1.5, milieu(B, C).y),
           codageAngleDroit(D, A, B), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), codageAngleDroit(C, D, A), s1, s2, s3, s4)
         this.question = `${choix ? 'Quel' : 'Quelle'} est ${choix ? 'le périmètre' : 'l’aire'} de ce rectangle ? <br>
-        La figure n'est pas à l'échelle. <br>` + mathalea2d({ xmin: -0.5, ymin: -1.2, xmax: 11, ymax: 7, scale: 0.5, style: 'margin: auto' }, objets)
+        La figure n'est pas à l'échelle. <br>
+        
+        ` + mathalea2d({ xmin: -0.5, ymin: -1.5, xmax: 11, ymax: 7, scale: 0.5, style: 'margin: auto' }, objets)
         this.optionsChampTexte = { texteApres: choix ? ' cm' : ' cm$^2$' }
 
         this.reponse = choix ? 2 * a + 2 * b : a * b
@@ -107,7 +111,9 @@ export default function ProblemesDeLongueursEtPerimetreCM () {
             codageSegments('||', 'blue', C, A),
             texteParPosition(`${a} cm`, milieu(A, B).x, milieu(A, B).y - 0.8),
             s1, s2, s3)
-          this.question = 'Quel est  le périmètre de ce triangle ? <br>' + mathalea2d({ xmin: -0.5, ymin: -1.2, xmax: 7, ymax: 6, scale: 0.5, style: 'margin: auto' }, objets)
+          this.question = `Quel est  le périmètre de ce triangle ? <br>
+          
+          ` + mathalea2d({ xmin: -0.5, ymin: -1.5, xmax: 7, ymax: 6, scale: 0.5, style: 'margin: auto' }, objets)
           this.optionsChampTexte = { texteApres: ' cm' }
 
           this.reponse = 3 * a
@@ -118,7 +124,9 @@ export default function ProblemesDeLongueursEtPerimetreCM () {
             codageSegments('||', 'blue', C, A),
             texteParPosition('?', milieu(A, B).x, milieu(A, B).y - 0.7),
             s1, s2, s3)
-          this.question = `Le périmètre de ce triangle est  $${3 * a}$ cm, quelle est la longueur de son côté ?<br>` + mathalea2d({ xmin: -0.5, ymin: -1.2, xmax: 7, ymax: 6, scale: 0.5, style: 'margin: auto' }, objets)
+          this.question = `Le périmètre de ce triangle est  $${3 * a}$ cm, quelle est la longueur de son côté ?<br>
+          
+          ` + mathalea2d({ xmin: -0.5, ymin: -1.5, xmax: 7, ymax: 6, scale: 0.5, style: 'margin: auto' }, objets)
           this.optionsChampTexte = { texteApres: ' cm' }
 
           this.reponse = a
@@ -145,11 +153,15 @@ export default function ProblemesDeLongueursEtPerimetreCM () {
             texteParPosition(`${a} cm`, milieu(B, C).x + 1, milieu(B, C).y + 0.5),
             s1, s2, s3)
           this.question = `Quel est  le périmètre de ce triangle ? <br>
-        La figure n'est pas à l'échelle. <br>` + mathalea2d({ xmin: -0.5, ymin: -1.2, xmax: 6, ymax: 3, scale: 0.7, style: 'margin: auto' }, objets)
+
+        La figure n'est pas à l'échelle. <br>
+        
+        ` + mathalea2d({ xmin: -0.5, ymin: -1.5, xmax: 6, ymax: 3, scale: 0.7, style: 'margin: auto' }, objets)
           this.optionsChampTexte = { texteApres: ' cm' }
 
           this.reponse = 2 * a + b
           this.correction = `Le triangle est isocèle.<br>
+
         Son périmètre est : $2\\times ${a}+${b}=${2 * a + b}$ cm.`
         }
         if (choix === 'b') {
@@ -159,7 +171,10 @@ export default function ProblemesDeLongueursEtPerimetreCM () {
             texteParPosition('?', milieu(B, C).x + 1, milieu(B, C).y + 0.5),
             s1, s2, s3)
           this.question = `Le périmètre de ce triangle est  $${2 * a + b}$ cm, quelle est la longueur manquante ?<br>
-            La figure n'est pas à l'échelle. <br>` + mathalea2d({ xmin: -0.5, ymin: -1.2, xmax: 6, ymax: 2.5, scale: 0.7, style: 'margin: auto' }, objets)
+           
+          La figure n'est pas à l'échelle. <br>
+            
+            ` + mathalea2d({ xmin: -0.5, ymin: -1.5, xmax: 6, ymax: 2.5, scale: 0.7, style: 'margin: auto' }, objets)
           this.optionsChampTexte = { texteApres: ' cm' }
 
           this.reponse = a
@@ -174,7 +189,10 @@ export default function ProblemesDeLongueursEtPerimetreCM () {
             texteParPosition(`${a} cm`, milieu(B, C).x + 1, milieu(B, C).y + 0.5),
             s1, s2, s3)
           this.question = `Le périmètre de ce triangle est  $${2 * a + b}$ cm, quelle est la longueur manquante ?<br>
-                La figure n'est pas à l'échelle. <br>` + mathalea2d({ xmin: -0.5, ymin: -1.2, xmax: 6, ymax: 2.5, scale: 0.7, style: 'margin: auto' }, objets)
+              
+          La figure n'est pas à l'échelle. <br>
+                
+                ` + mathalea2d({ xmin: -0.5, ymin: -1.5, xmax: 6, ymax: 2.5, scale: 0.7, style: 'margin: auto' }, objets)
           this.optionsChampTexte = { texteApres: ' cm' }
 
           this.reponse = b
@@ -183,5 +201,7 @@ export default function ProblemesDeLongueursEtPerimetreCM () {
         }
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = '$\\ldots$ cm'
   }
 }

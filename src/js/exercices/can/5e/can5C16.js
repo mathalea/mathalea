@@ -27,7 +27,7 @@ export default function CalculAstucieuxAvecFactorisation () {
         a = randint(5, 99) / 10
         b = calcul(randint(2, 9) * 5)
         c = 100 - b
-        this.question = `$${b}\\times${texNombrec(a)} + ${texNombrec(a)}\\times${c}=$ 
+        this.question = `Calculer $${b}\\times${texNombrec(a)} + ${texNombrec(a)}\\times${c}$. 
 `
         this.correction = `On remarque de part et d'autre  du signe "$+$" un facteur commun : $${texNombrec(a)}$.<br>
 En factorisant par ce nombre, on obtient : <br>
@@ -43,7 +43,7 @@ ${texNombrec(b)}\\times${texNombrec(a)} + ${texNombrec(a)}\\times${c}&=${texNomb
         a = randint(5, 99) / 100
         b = randint(2, 8)
         c = 10 - b
-        this.question = `$ ${b}\\times${texNombrec(a)}+ ${c}\\times${texNombrec(a)}=$ 
+        this.question = `Calculer $ ${b}\\times${texNombrec(a)}+ ${c}\\times${texNombrec(a)}$. 
 `
         this.correction = `On remarque de part et d'autre  du signe "$+$" un facteur commun : $${texNombrec(a)}$.<br>
         En factorisant par ce nombre, on obtient : <br>
@@ -60,7 +60,7 @@ ${texNombrec(b)}\\times${texNombrec(a)} + ${texNombrec(a)}\\times${c}&=${texNomb
         b = randint(2, 8) / 10
         d = randint(1, 2)
         c = d - b
-        this.question = `$ ${texNombrec(b)}\\times${texNombrec(a)}+ ${texNombrec(c)}\\times${texNombrec(a)}=$ 
+        this.question = `Calculer $ ${texNombrec(b)}\\times${texNombrec(a)}+ ${texNombrec(c)}\\times${texNombrec(a)}$. 
 `
         this.correction = `On remarque de part et d'autre  du signe "$+$" un facteur commun : $${texNombrec(a)}$.<br>
         En factorisant par ce nombre, on obtient : <br>
@@ -75,7 +75,7 @@ ${texNombrec(a)}\\times ${texNombrec(b)}+${texNombrec(a)}\\times ${texNombrec(c)
         a = calcul(randint(5, 99) / 100)
         b = calcul(randint(2, 99) / 10)
         c = 10 - b
-        this.question = `$ ${texNombrec(b)}\\times${texNombrec(a)}+ ${texNombrec(c)}\\times${texNombrec(a)}=$ 
+        this.question = `Calculer $ ${texNombrec(b)}\\times${texNombrec(a)}+ ${texNombrec(c)}\\times${texNombrec(a)}$. 
     `
         this.correction = `On remarque de part et d'autre  du signe "$+$" un facteur commun : $${texNombrec(a)}$.<br>
             En factorisant par ce nombre, on obtient : <br>
@@ -90,7 +90,7 @@ ${texNombrec(a)}\\times ${texNombrec(b)}+${texNombrec(a)}\\times ${texNombrec(c)
         a = calcul(randint(1, 12) * 10)
         b = calcul(randint(2, 9) / 10)
         c = 5 - b
-        this.question = `$ ${texNombrec(a)}\\times${texNombrec(b)}+ ${texNombrec(c)}\\times${texNombrec(a)}=$ 
+        this.question = `Calculer $ ${texNombrec(a)}\\times${texNombrec(b)}+ ${texNombrec(c)}\\times${texNombrec(a)}$. 
     `
         this.correction = `On remarque de part et d'autre  du signe "$+$" un facteur commun : $${texNombrec(a)}$.<br>
             En factorisant par ce nombre, on obtient : <br>
@@ -102,5 +102,7 @@ ${texNombrec(a)}\\times ${texNombrec(b)}+${texNombrec(a)}\\times ${texNombrec(c)
         this.reponse = 5 * a
         break
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

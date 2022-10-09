@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 515 
-- nombre d'exos interactifReady 794 
+- nombre d'exos amcReady 519 
+- nombre d'exos interactifReady 796 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -73,7 +73,7 @@
 |3A10-3|Décomposer un entier en produit de facteurs premiers|OK|AMCOpen|OK|mathLive|
 |3A10-5|Recourir à une décomposition en facteurs premiers dans des cas simples|KO|KO|OK|mathLive|
 |3A10-6|Trouver un chiffre pour qu'un nombre soit divisible par un autre|KO|KO|OK|mathLive|
-|3A11-0|Simplifier des fractions à l'aide des nombres premiers|OK|AMCOpen|OK|mathLive|
+|3A11-0|Simplifier des fractions à l'aide des nombres premiers|OK|AMCHybride|OK|mathLive|
 |3A11-1|Résoudre des problèmes de conjonction de phénomènes|OK|AMCHybride|OK|mathLive|
 |3A12-1|Résoudre des problèmes avec recherche de diviseurs communs|OK|AMCHybride|OK|mathLive|
 |3A13-1|Poser divisions euclidiennes|OK|AMCOpen|OK|mathLive|
@@ -170,7 +170,7 @@
 |4C22|Multiplier ou/et diviser des fractions|OK|AMCNum|OK|mathLive|
 |4C23-1|Fractions et priorités opératoires|OK|AMCNum|OK|mathLive|
 |4C23|Somme, différence ou produit de fractions|KO|KO|OK|mathLive|
-|4C24|Simplifier des fractions à l'aide des nombres premiers|OK|AMCOpen|OK|mathLive|
+|4C24|Simplifier des fractions à l'aide des nombres premiers|OK|AMCHybride|OK|mathLive|
 |4C30-1|Encadrer avec des puissances de 10|KO|KO|OK|mathLive|
 |4C30-2|Écriture décimale d'une puissance de 10|OK|AMCNum|OK|mathLive|
 |4C30-4|Puissances de 10 et préfixes|KO|KO|OK|listeDeroulante|
@@ -204,6 +204,7 @@
 |4G41|Utiliser le cosinus pour calculer la mesure d'un angle dans un triangle rectangle|OK|AMCOpenNum|OK|mathLive|
 |4G53|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
 |4I1-2|Tortue Scratch avec répétitions|OK|qcmMono|OK|cliqueFigure|
+|4L10-1|Réduire, si possible, une expression littérale simple|KO|KO|OK|mathLive|
 |4L10-3|Yohaku additif expressions littérales niveau 1|KO|KO|OK|custom|
 |4L10-4|Rose additive littéraux|KO|KO|OK|custom|
 |4L10|Utiliser la simple distributivité|KO|KO|OK|mathLive|
@@ -306,6 +307,7 @@
 |6D13|Convertir en min vers h et min ou en s vers min et s|OK|AMCHybride|OK|mathLive|
 |6G10-3|Choisir la bonne figure|OK|qcmMono|OK|cliqueFigure|
 |6G10-4|Connaître le vocabulaire du cercle|KO|KO|OK|qcm,mathLive|
+|6G10-5|Tracer des droites, segments,...|OK|AMCOpen|KO|KO|
 |6G11|Tracer des perpendiculaires|OK|AMCOpen|KO|KO|
 |6G12-1|Tracer des parallèles et des perpendiculaires|OK|AMCOpen|KO|KO|
 |6G12|Tracer des parallèles|OK|AMCOpen|KO|KO|
@@ -351,13 +353,15 @@
 |6N10-1|Écrire un nombre à partir de son nombre de dizaines, de centaines, de milliers...|OK|AMCNum|OK|mathLive|
 |6N10-2|Décomposer un nombre décimal (nombre de..., chiffre des..., partie entière, partie décimale)|OK|AMCNum|OK|mathLive|
 |6N10-3|Décomposer un nombre entier (nombre de ..., chiffres des ...)|OK|AMCNum|OK|mathLive|
+|6N10-4|Écrire correctement les grands nombres entiers|OK|AMCOpen|KO|KO|
 |6N10-5|Parcourir un labyrinthe de numération décimale|OK|AMCOpen|KO|KO|
 |6N10-6|Donner l'écriture (décimale ou en fraction décimale) d'une somme (ou différence) de nombres avec fractions décimales|OK|AMCNum|OK|mathLive|
-|6N10-7|Recomposer un décimal ou un entier|OK|AMCNum|OK|custom|
-|6N10|Écrire un nombre entier en chiffres ou en lettres|KO|KO|OK|mathLive|
+|6N10-7|Recomposer un décimal ou un entier|OK|AMCOpen|OK|custom|
+|6N10|Écrire un nombre entier en chiffres ou en lettres|OK|AMCOpen|OK|mathLive|
 |6N11-2|Placer un point d'abscisse entière (grands nombres)|OK|AMCOpen|OK|custom|
-|6N11|Lire l'abscisse entière d'un point (grands nombres)|OK|AMCOpen|OK|mathLive|
+|6N11|Lire l'abscisse entière d'un point (grands nombres)|OK|AMCHybride|OK|mathLive|
 |6N12-1|Par combien multiplier un entier pour que le chiffre des unités devienne le chiffre des ... ?|OK|qcmMono|OK|qcm|
+|6N12|Multiplier ou diviser un entier par 10, 100, 1 000... (résultat entier)|OK|AMCNum|OK|mathLive|
 |6N13-0|Connaître les préfixes utilisés dans les unités|KO|KO|OK|listeDeroulante|
 |6N13|Convertir des longueurs, masses, capacités, prix ou unités informatiques|OK|AMCNum|OK|mathLive|
 |6N14|Représenter des fractions|OK|AMCHybride|KO|KO|
@@ -458,8 +462,8 @@
 |c3C30|Additions, soustractions et multiplications posées de nombres entiers|OK|AMCNum|OK|mathLive|
 |c3C31|Problème - Les courses|OK|AMCNum|OK|mathLive|
 |c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
-|c3N10-1|Recomposer un entier|OK|AMCNum|OK|custom|
-|c3N11|Lire l'abscisse entière d'un point (grands nombres)|OK|AMCOpen|OK|mathLive|
+|c3N10-1|Recomposer un entier|OK|AMCOpen|OK|custom|
+|c3N11|Lire l'abscisse entière d'un point (grands nombres)|OK|AMCHybride|OK|mathLive|
 |c3N20|Donner l'écriture décimale à partir d'un somme d'entiers et de fractions décimales|OK|AMCNum|OK|mathLive|
 |c3N22|Lire abscisse décimale sous trois formes|OK|AMCHybride|OK|mathLive|
 |c3N30|Conversion d'unités des préfixes k,h,da vers unité de référence|OK|AMCNum|OK|mathLive|
