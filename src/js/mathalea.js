@@ -49,6 +49,8 @@ const urlParams = new URLSearchParams(queryString)
 let typeEntete = ''
 let format = ''
 
+context.versionMathalea = 2
+
 // création des figures MG32 (géométrie dynamique)
 window.listeScriptsIep = {} // Dictionnaire de tous les scripts xml IEP
 window.listeAnimationsIepACharger = [] // Liste des id des scripts qui doivent être chargés une fois le code HTML mis à jour
