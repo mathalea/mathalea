@@ -137,7 +137,7 @@ export default class EngrenagesAnimes extends Exercice {
           texte += `Elle tourne de $${nbToursA * nbDentsRoueA}$ dents. Pendant ce temps, la roue de droite fait $${nbToursB}$ tour${nbToursB > 1 ? 's' : ''}.<br>`
           texte += 'Combien la roue de droite possède-t-elle de dents ?<br>'
           texteCorr += 'Le nombre de dents multiplié par le nombre de tours de chaque roue doit donner le même résultat.<br>'
-          texteCorr += `La roue de gauche tourne de $${nbToursA * nbDentsRoueA}$ dents en $${nbToursB}$ tours.<br>`
+          texteCorr += `La roue de gauche tourne de $${nbToursA * nbDentsRoueA}$ dents en $${nbToursA}$ tours.<br>`
           texteCorr += `Soit $n$ le nombre de dents de la roue de droite, on a alors : $n\\times${nbToursB} = ${nbDentsRoueA * nbToursA}$.<br>`
           texteCorr += `On en déduit que $n=\\dfrac{${nbDentsRoueA * nbToursA}}{${nbToursB}}=${nbDentsRoueB}$<br>`
           texteCorr += `La roue de droite a donc $${nbDentsRoueB}$ dents.<br>`
@@ -382,8 +382,8 @@ export default class EngrenagesAnimes extends Exercice {
           button.onclick = remiseAZero
           div.appendChild(button)
           button.classList.add('btn', 'ui', 'icon', 'button')
-          document.removeEventListener('exercicesAffiches', insertInDom)
           document.removeEventListener('exerciceAffiches', remiseAZero)
+          document.removeEventListener('exercicesAffiches', insertInDom)
         }
       }
       document.addEventListener('exercicesAffiches', remiseAZero)
