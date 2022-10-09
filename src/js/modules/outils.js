@@ -2964,6 +2964,7 @@ ${texte}
 \\end{center}`
   }
 }
+
 /**
 * Met en couleur et en gras
 *
@@ -2980,6 +2981,24 @@ export function miseEnEvidence (texte, couleur = '#f15929') {
       return `\\mathbf{{\\color[HTML]{${couleur.replace('#', '')}}${texte}}}`
     } else {
       return `\\mathbf{{\\color{${couleur.replace('#', '')}}${texte}}}`
+    }
+  }
+}
+/**
+* Met en couleur
+* Met en couleur un texte. JCL dit : "S'utilise entre $ car utilise des commandes qui fonctionnent en math inline"
+* @param {string} texte à mettre en couleur
+* @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
+* @author Guillaume Valmont d'après MiseEnEvidence() de Rémi Angot
+*/
+export function miseEnCouleur (texte, couleur = '#f15929') {
+  if (context.isHtml) {
+    return `{\\color{${couleur}} ${texte}}`
+  } else {
+    if (couleur[0] === '#') {
+      return `{\\color[HTML]{${couleur.replace('#', '')}} ${texte}}`
+    } else {
+      return `{\\color{${couleur.replace('#', '')}} ${texte}}`
     }
   }
 }
