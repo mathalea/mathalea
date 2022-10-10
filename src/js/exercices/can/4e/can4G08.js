@@ -23,6 +23,7 @@ export default function QuestionsAiresEtPerimetres () {
   this.date = 1635092507483
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {
@@ -41,13 +42,16 @@ export default function QuestionsAiresEtPerimetres () {
           this.reponse = 'oui'
         }
         this.ignoreCasse = true
+        this.canEnonce = this.question// 'Compléter'
+        this.canReponseACompleter = ''
         break
       case 2:// aire d'un carré connaissant son perimètre
         a = randint(2, 10)
         this.reponse = calcul(a * a)
         this.question = `Quelle est l'aire d'un carré en cm$^2$ dont le périmètre est $${4 * a}$ cm ? `
         this.correction = `Le côté du carré est $${4 * a}\\div 4=${a}$, donc son aire est : $${a}\\times ${a}=${a ** 2}$ cm$^2$.`
-
+        this.canEnonce = this.question// 'Compléter'
+        this.canReponseACompleter = '$\\ldots$ cm'
         break
       case 3:// perimètre d'un carré connaissant son aire
         a = randint(1, 10)
@@ -55,6 +59,8 @@ export default function QuestionsAiresEtPerimetres () {
         this.reponse = calcul(4 * a)
         this.question = `Déterminer le périmètre (en cm) d'un carré d'aire $${c}$ cm$^2$. `
         this.correction = `Le côté du carré est $\\sqrt{${c}}=${a}$. Son périmètre est donc $4\\times ${a}=${4 * a}$ cm.`
+        this.canEnonce = this.question// 'Compléter'
+        this.canReponseACompleter = '$\\ldots$ cm'
         break
 
       case 4:// côté d'un carré connaissant son perimètre
@@ -62,7 +68,8 @@ export default function QuestionsAiresEtPerimetres () {
         this.reponse = calcul(a / 4)
         this.question = `Le périmètre d'un carré est $${a}$ cm. Quelle est la longueur (en cm) du côté du carré ? `
         this.correction = `Le côté du carré est $${a}\\div 4=${a / 4}$.`
-
+        this.canEnonce = this.question// 'Compléter'
+        this.canReponseACompleter = '$\\ldots$ cm'
         break
       case 5:// périmètre d'une figure
         a = randint(1, 3)//
@@ -76,16 +83,19 @@ export default function QuestionsAiresEtPerimetres () {
         D = point(2, 5, 'R')
 
         objets.push(segment(A, B), segment(B, C), segment(C, D), segment(D, A), tracePoint(A, B, C, D))
-        objets.push(texteParPosition(`${texNombrec(b)} m`, milieu(A, D).x - 0.5, milieu(A, D).y, 'milieu', 'black', 1, 'middle', true),
-          texteParPosition(`${texNombrec(a)} m`, milieu(B, C).x + 0.5, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
-          texteParPosition(`${texNombrec(c)} m`, milieu(A, B).x, milieu(A, B).y - 0.5, 'milieu', 'black', 1, 'middle', true),
-          texteParPosition(`${texNombrec(d)} m`, milieu(C, D).x, milieu(C, D).y + 0.5, 'milieu', 'black', 1, 'middle', true))
+        objets.push(texteParPosition(`${texNombrec(b)} m`, milieu(A, D).x - 0.5, milieu(A, D).y),
+          texteParPosition(`${texNombrec(a)} m`, milieu(B, C).x + 0.5, milieu(B, C).y),
+          texteParPosition(`${texNombrec(c)} m`, milieu(A, B).x, milieu(A, B).y - 0.5),
+          texteParPosition(`${texNombrec(d)} m`, milieu(C, D).x, milieu(C, D).y + 0.5))
 
-        this.question = 'Quel est le périmètre de cette figure (en m) ?<br>'
+        this.question = `Quel est le périmètre de cette figure (en m) ?<br>
+        
+        `
         this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 8, ymax: 6, pixelsParCm: 20, mainlevee: true, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
         this.correction = ` Le périmètre est donné par : $${texNombrec(a)}+${texNombrec(b)}+${texNombrec(c)}+${texNombrec(d)}=${texNombrec(a + b + c + d)}$.<br>`
         this.reponse = a + b + c + d
-
+        this.canEnonce = this.question// 'Compléter'
+        this.canReponseACompleter = '$\\ldots$ m'
         break
       case 6:// agrandissement/réduction
         N = choice(['a', 'b', 'c'])
@@ -93,6 +103,7 @@ export default function QuestionsAiresEtPerimetres () {
           a = randint(2, 7)// aire
           c = randint(2, 4)// coefficient
           this.question = `Les longueurs d'un rectangle de $${a}$ cm$^2$  sont multipliées par $${c}$.<br>
+
           Quelle est l'aire (en cm$^2$) du rectangle ainsi obtenu ?
           `
 
@@ -101,6 +112,8 @@ export default function QuestionsAiresEtPerimetres () {
       <br>`
 
           this.reponse = a * c * c
+          this.canEnonce = this.question// 'Compléter'
+          this.canReponseACompleter = '$\\ldots$ cm$^2$'
         }
 
         if (N === 'b') {
@@ -108,6 +121,7 @@ export default function QuestionsAiresEtPerimetres () {
           d = randint(n + 1, 10)
           maFraction = fraction(n, d).simplifie()
           this.question = `Les longueurs d'un triangle sont multipliées par $${maFraction.texFraction}$.<br>
+
           Par combien est multipliée son aire  ?
           `
 
@@ -117,12 +131,15 @@ export default function QuestionsAiresEtPerimetres () {
 
           this.reponse = fraction(n * n, d * d)
           this.formatInteractif = 'fraction'
+          this.canEnonce = this.question// 'Compléter'
+          this.canReponseACompleter = ''
         }
         if (N === 'c') {
           n = randint(1, 3)
           d = randint(n + 1, 10)
           maFraction = fraction(n, d).simplifie()
           this.question = `L'aire d'un parallélogramme a été multipliée par $\\dfrac{${n * n}}{${d * d}}$.<br>
+          
           Par combien ont été multipliées les longueurs de ses côtés ?
           `
 
@@ -131,6 +148,8 @@ export default function QuestionsAiresEtPerimetres () {
       <br>`
           this.reponse = fraction(n * n, d * d)
           this.formatInteractif = 'fraction'
+          this.canEnonce = this.question// 'Compléter'
+          this.canReponseACompleter = ''
         }
         break
       case 7:// longueur à trouver à partir d'une aire triangle rectangle
@@ -141,16 +160,20 @@ export default function QuestionsAiresEtPerimetres () {
         C = point(6, 3.46, 'C')
 
         objets.push(segment(A, B), segment(B, C), segment(C, A), labelPoint(A, B, C), tracePoint(A, B, C), codageAngleDroit(A, C, B))
-        objets.push(texteParPosition(`${texNombrec(a)} m`, milieu(B, C).x + 0.5, milieu(B, C).y + 0.5, 'milieu', 'black', 1, 'middle', true)
+        objets.push(texteParPosition(`${texNombrec(a)} m`, milieu(B, C).x + 0.5, milieu(B, C).y + 0.5)
         )
 
-        this.question = ` L'aire du triangle $ABC$ est $${b}$ m$^2$. Donner la longueur $AC$ (en m).<br>`
+        this.question = ` L'aire du triangle $ABC$ est $${b}$ m$^2$. Donner la longueur $AC$ (en m).<br>
+        
+        `
         this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 9, ymax: 4.5, pixelsParCm: 20, mainlevee: true, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
         this.correction = ` L'aire de ce triangle rectangle est donnée par : $\\dfrac{BC\\times AC}{2}$.<br>
           On cherche $AC$ telle que $\\dfrac{${a}\\times AC}{2}=${b}$. <br>
           $AC=\\dfrac{2\\times ${b}}{${a}}=${texFractionReduite(2 * b, a)}$ m.
       <br>`
         this.reponse = calcul(2 * b / a)
+        this.canEnonce = this.question// 'Compléter'
+        this.canReponseACompleter = '$\\ldots$ m'
         break
     }
   }
