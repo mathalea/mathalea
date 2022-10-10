@@ -123,7 +123,7 @@ export default function Proportionnalite3 () {
             `
         }
         this.canEnonce = this.question// 'Compléter'
-        this.canReponseACompleter = `de ${fruits2[0]}`
+        this.canReponseACompleter = `$\\ldots$ de ${fruits2[0]}`
         break
     }
   }
