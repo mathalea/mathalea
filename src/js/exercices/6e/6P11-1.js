@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, prenom, texPrix, numAlpha, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, arrondi, checkSum, shuffle, choice, texteEnCouleurEtGras, miseEnEvidence, combinaisonListes, rangeMinMax, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, prenom, texPrix, numAlpha, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, arrondi, shuffle, choice, texteEnCouleurEtGras, miseEnEvidence, combinaisonListes, rangeMinMax, sp } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export let titre = 'Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité'
@@ -37,7 +37,6 @@ export default function ProportionnaliteParLineariteBis () {
   }
 
   this.nouvelleVersion = function () {
-    const tabHash = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -208,8 +207,7 @@ export default function ProportionnaliteParLineariteBis () {
         <br> ${texteEnCouleurEtGras(`Avec $${miseEnEvidence(texPrix(nMax * situation.pu))}$${sp()}€, ${prenomliste[5]} peut donc acheter $${miseEnEvidence(nMax)}$ ${pluriel(nMax, situation)}.`)}
         `
 
-      if (tabHash.indexOf(checkSum(prenomliste[3], n3, n2, nMax)) === -1) { // Si la question n'a jamais été posée, on en crée une autre
-        tabHash.push(checkSum(prenomliste[3], n3, n2, nMax))
+      if (this.questionJamaisPosee(i, prenomliste[3], n3, n2, nMax)) { // Si la question n'a jamais été posée, on en crée une autre
         if (!context.isAmc) {
           setReponse(this, 4 * i, arrondi(consigneQuestions[0] * situation.pu, 2))
           setReponse(this, 4 * i + 1, arrondi(consigneQuestions[1] * situation.pu, 2))

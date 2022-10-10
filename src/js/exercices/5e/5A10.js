@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, listeDiviseurs, texteOuPas, contraindreValeur, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, listeDiviseurs, contraindreValeur, texNombre } from '../../modules/outils.js'
 
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -31,7 +31,15 @@ export default function ListeDesDiviseurs5e () {
   this.sup = '2-2-2'
   this.sup2 = '6-6-6'
   this.sup3 = 10
-
+  function texteOuPas (texte) {
+    'use strict'
+    const bool = randint(0, 1)
+    if (bool === 0) {
+      return '\\ldots'
+    } else {
+      return texte
+    }
+  }
   this.nouvelleVersion = function () {
     let typesDeQuestions
     this.listeQuestions = [] // Liste de questions

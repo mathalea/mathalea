@@ -1,7 +1,7 @@
 import { pointAdistance, point, segment, rotation, cercle, tracePoint, afficheLongueurSegment, latexParPoint } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, arrondi, texNombre, contraindreValeur, randint, interactivite, texNombrec, stringNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, arrondi, texNombre, contraindreValeur, randint, texNombrec, stringNombre } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -32,7 +32,14 @@ export default function PerimetreAireDisques (pa = 3) {
   this.spacing = 2
   this.spacingCorr = 2
   this.nbQuestions = 4
-
+  function interactivite (exercice) {
+    if (context.isHtml) {
+      if (exercice.interactif) return 'I-html'
+      else return 'html'
+    } else if (context.isAmc) return 'AMC'
+    else if (exercice.interactif) return 'I-latex'
+    else return 'latex'
+  }
   this.nouvelleVersion = function (numeroExercice) {
     this.sup = contraindreValeur(1, 3, this.sup, 3)
     this.listeQuestions = []

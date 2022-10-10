@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, choice, compareNombres, texNombre, combinaisonListes, texFactorisation, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { listeQuestionsToContenu, choice, texNombre, combinaisonListes, texFactorisation, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const interactifReady = true
@@ -24,7 +24,9 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
   this.sup4 = false
   this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.
   this.correctionDetaillee = false // booléen indiquant si la correction détaillée doit être affiché par défaut (récupéré dans l'url avec le paramètre `,cd=`).
-
+  function compareNombres (a, b) {
+    return a - b
+  }
   this.nouvelleVersion = function () {
     if (this.level === 2) {
       this.sup = 3
