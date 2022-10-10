@@ -23,9 +23,7 @@ export default function NombreSolutionsSecondDegre () {
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let a, b, c, d, maFraction
-    const ee = 2
-    // switch (choice([1, 2])) {
-    switch (ee) {
+    switch (choice([1, 2])) {
       case 1 :
         a = randint(1, 4) * choice([-1, 1])
         b = randint(-4, 4, 0)
@@ -72,7 +70,6 @@ et évaluez le signe de leur différence. `)
         break
       case 2 :
         a = randint(-10, 10, 0)
-        a = 1
         b = randint(-5, 5, 0)
         c = randint(-5, 5)
         maFraction = fraction(-c, a)
