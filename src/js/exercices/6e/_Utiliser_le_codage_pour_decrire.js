@@ -18,7 +18,7 @@ export default function UtiliserLeCodagePourDecrire () {
     let nom; let sommets = []; let paramsEnonce; let paramsCorrection; let objetsEnonce; let objetsCorrection
     let A, B, C, D, E, F, s1, s2, s3, s4, s5, s6, s7, s8, medAC, medBC, dBD, dBC, dAC, dAF
     if (this.classe === 6) { typesDeQuestionsDisponibles = [1, 2, 3] } else { typesDeQuestionsDisponibles = [1, 2, 3, 4] }
-    let listeTypeDeQuestions
+    let listeTypeDeQuestions = []
     if (!this.sup) { // Si aucune liste n'est saisie
       listeTypeDeQuestions = typesDeQuestionsDisponibles
     } else {
