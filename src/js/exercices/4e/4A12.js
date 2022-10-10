@@ -77,7 +77,7 @@ export default function ProblemesEvenementsRecurrents () {
           break
       }
       let unite, phenomene1, phenomene2, texte1, texte2, texte3, texte4, texte5
-      const typeDeQuestion = randint(3, 3)
+      const typeDeQuestion = randint(1, 3)
       const Robert = personne()
       switch (saveurs[i]) {
         case 'guirlande':
