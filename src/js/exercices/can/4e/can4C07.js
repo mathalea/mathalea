@@ -25,7 +25,7 @@ export default function DifferenceFractionsCompatibles () {
     const a = choice(obtenirListeFractionsIrreductibles())
     const c = choice([2, 3])
     const b = fraction(1, a.d * c)
-    this.question = `$${a.texFraction} - ${b.texFraction}=$`
+    this.question = `Calculer $${a.texFraction} - ${b.texFraction}$.`
     this.correction = `Pour soustraire des fractions, on les met au même dénominateur.<br>
     <br>
     Pour écrire $${a.texFraction}$ avec le même dénominateur que $${b.texFraction}$, 
@@ -35,5 +35,7 @@ export default function DifferenceFractionsCompatibles () {
    \\dfrac{${a.n}\\times ${c}}{${a.d}\\times ${c}}- ${b.texFraction}
     =${a.reduire(c).texFraction} - ${b.texFraction}=\\dfrac{${a.n * c}-${b.n}}{${b.d}}=\\dfrac{${a.n * c - b.n}}{${b.d}}${simplificationDeFractionAvecEtapes(a.n * c - b.n, b.d)}$`
     this.reponse = a.differenceFraction(b).simplifie()
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

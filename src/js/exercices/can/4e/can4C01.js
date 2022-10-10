@@ -27,14 +27,16 @@ export default function PrioriteOperatoireEtRelatifs () {
       a = -a
     }
     if (choice([true, false])) {
-      this.question = `$${a}${ecritureAlgebrique(b)}\\times ${c}=$`
+      this.question = `Calculer $${a}${ecritureAlgebrique(b)}\\times ${c}$.`
       this.correction = `La multiplication étant priotitaire sur l'addition, on commence par effectuer  le produit $${b}\\times ${ecritureParentheseSiNegatif(c)}=${b * c}$.<br>
       Ainsi, $${a}${ecritureAlgebrique(b)}\\times ${c}=${a}${ecritureAlgebrique(b * c)}=${a + b * c}$`
     } else {
-      this.question = `$${a}${ecritureAlgebrique(c)}\\times ${ecritureParentheseSiNegatif(b)}$`
+      this.question = `Calculer $${a}${ecritureAlgebrique(c)}\\times ${ecritureParentheseSiNegatif(b)}$.`
       this.correction = `La multiplication étant priotitaire sur l'addition, on commence par effectuer  le produit $${c}\\times ${ecritureParentheseSiNegatif(b)}=${b * c}$.<br>
       Ainsi, $${a}${ecritureAlgebrique(c)}\\times ${ecritureParentheseSiNegatif(b)}=${a}${ecritureAlgebrique(b * c)}=${a + b * c}$`
     }
     this.reponse = a + b * c
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }
