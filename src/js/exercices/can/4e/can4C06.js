@@ -23,8 +23,10 @@ export default function NombreDeNombresEntiersEntreDeuxValeurs () {
   this.nouvelleVersion = function () {
     const a = randint(1, 15)
     const b = randint(18, 35)
-    this.question = `Le nombre d'entiers strictement compris entre $${a}$ et $${b}$ est :`
+    this.question = `Donner le nombre d'entiers strictement compris entre $${a}$ et $${b}$.`
     this.correction = `Il y en a $(${b}-${a})-1$ soit $${b - a - 1}$ entiers strictement compris entre $${a}$ et $${b}$ `
     this.reponse = calcul(b - a - 1)
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

@@ -25,7 +25,7 @@ export default function QuotientEntierQuiVaBienParFraction () {
     const a = choice(obtenirListeFractionsIrreductibles())
     const c = choice([2, 3, 4, 5, 6])
     const b = a.n * c
-    this.question = `$${b}\\div ${a.texFraction}=$`
+    this.question = `Calculer $${b}\\div ${a.texFraction}$.`
     this.reponse = calcul(a.d * c)
     if (a.n === 1) {
       this.correction = `Diviser par un nombre revient à multiplier par son inverse. <br>
@@ -43,5 +43,7 @@ export default function QuotientEntierQuiVaBienParFraction () {
     on commence par diviser $${b}$ par $${a.n}$,ce qui donne $${b / a.n}$,
      puis on multiplie par $${a.d}$, ce qui donne $${b / a.n}\\times ${a.d}=${c * a.d}$.      `)
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }
