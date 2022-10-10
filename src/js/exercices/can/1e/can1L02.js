@@ -23,7 +23,9 @@ export default function NombreSolutionsSecondDegre () {
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let a, b, c, d, maFraction
-    switch (choice([1, 2])) {
+    const ee = 2
+    // switch (choice([1, 2])) {
+    switch (ee) {
       case 1 :
         a = randint(1, 4) * choice([-1, 1])
         b = randint(-4, 4, 0)
@@ -70,17 +72,21 @@ et évaluez le signe de leur différence. `)
         break
       case 2 :
         a = randint(-10, 10, 0)
+        a = 1
         b = randint(-5, 5, 0)
         c = randint(-5, 5)
         maFraction = fraction(-c, a)
         if (-c / a > 0) {
           this.question = `Le nombre de solutions de l'équation  
-       $${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}=0$ est :`
+       $${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}=0$ est :`
           this.correction = `On isole le carré : <br>
         $\\begin{aligned}
-        ${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}&=0\\\\
-        ${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}${miseEnEvidence(ecritureAlgebrique(-c))}&=0${miseEnEvidence(ecritureAlgebrique(-c))}\\\\
-        \\dfrac{${reduireAxPlusB(0, a)}}{${miseEnEvidence(reduireAxPlusB(0, a))}}(${reduireAxPlusB(1, b)})^2&=\\dfrac{${-c}}{${miseEnEvidence(reduireAxPlusB(0, a))}}\\\\
+        ${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}&=0\\\\
+        ${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}${miseEnEvidence(ecritureAlgebrique(-c))}&=0${miseEnEvidence(ecritureAlgebrique(-c))}\\\\`
+          this.correction += a === 1
+            ? ''
+            : `\\dfrac{${a}}{${miseEnEvidence(a)}}(${reduireAxPlusB(1, b)})^2&=\\dfrac{${-c}}{${miseEnEvidence(a)}}\\\\`
+          this.correction += `             
         (${reduireAxPlusB(1, b)})^2&=${maFraction.texFractionSimplifiee} 
                 \\end{aligned}$<br>
         Puisque $${maFraction.texFractionSimplifiee}$ est strictement positif, il y a deux nombres dont le carré est égal à $${maFraction.texFractionSimplifiee}$, donc l'équation a deux solutions. `
@@ -94,8 +100,11 @@ et évaluez le signe de leur différence. `)
             this.correction = `On isole le carré : <br>
              $\\begin{aligned}
              -(${reduireAxPlusB(1, b)})^2&=0\\\\
-             ${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2&=0\\\\
-                         \\dfrac{${reduireAxPlusB(0, a)}}{${miseEnEvidence(reduireAxPlusB(0, a))}}(${reduireAxPlusB(1, b)})^2&=\\dfrac{${-c}}{${miseEnEvidence(reduireAxPlusB(0, a))}}\\\\
+             ${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2&=0\\\\`
+            this.correction += a === 1
+              ? ''
+              : `\\dfrac{${a}}{${miseEnEvidence(a)}}(${reduireAxPlusB(1, b)})^2&=\\dfrac{${-c}}{${miseEnEvidence(a)}}\\\\`
+            this.correction += `              
              (${reduireAxPlusB(1, b)})^2&=${maFraction.texFractionSimplifiee} 
                      \\end{aligned}$<br>
              Il y a un nombre dont le carré est nul, donc l'équation a une solution. `
@@ -103,11 +112,14 @@ et évaluez le signe de leur différence. `)
             this.reponse = 1
           } else {
             this.question = `Le nombre de solutions de l'équation  
-          $${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2=0$ est :`
+          $${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2=0$ est :`
             this.correction = `On isole le carré : <br>
                 $\\begin{aligned}
-                ${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2&=0\\\\
-                \\dfrac{${reduireAxPlusB(0, a)}}{${miseEnEvidence(reduireAxPlusB(0, a))}}(${reduireAxPlusB(1, b)})^2&=\\dfrac{${-c}}{${miseEnEvidence(reduireAxPlusB(0, a))}}\\\\
+                ${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2&=0\\\\`
+            this.correction += a === 1
+              ? ''
+              : `\\dfrac{${a}}{${miseEnEvidence(a)}}(${reduireAxPlusB(1, b)})^2&=\\dfrac{${-c}}{${miseEnEvidence(a)}}\\\\`
+            this.correction += `
                 (${reduireAxPlusB(1, b)})^2&=${maFraction.texFractionSimplifiee} 
                         \\end{aligned}$<br>
                 Il y a un nombre dont le carré est nul, donc l'équation a une solution. `
@@ -117,13 +129,15 @@ et évaluez le signe de leur différence. `)
         }
         if (-c / a < 0) {
           this.question = `Le nombre de solutions de l'équation  
-       $${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}=0$ est :`
+       $${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}=0$ est :`
           this.correction = `On isole le carré : <br>
                  $\\begin{aligned}
-                 ${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}&=0\\\\
-                 ${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}${miseEnEvidence(ecritureAlgebrique(-c))}&=0${miseEnEvidence(ecritureAlgebrique(-c))}\\\\
-                 \\dfrac{${reduireAxPlusB(0, a)}}{${miseEnEvidence(reduireAxPlusB(0, a))}}(${reduireAxPlusB(1, b)})^2&=\\dfrac{${-c}}{${miseEnEvidence(reduireAxPlusB(0, a))}}\\\\
-                 (${reduireAxPlusB(1, b)})^2&=${maFraction.texFractionSimplifiee} 
+                 ${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}&=0\\\\
+                 ${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}${miseEnEvidence(ecritureAlgebrique(-c))}&=0${miseEnEvidence(ecritureAlgebrique(-c))}\\\\`
+          this.correction += a === 1
+            ? ''
+            : `\\dfrac{${a}}{${miseEnEvidence(a)}}(${reduireAxPlusB(1, b)})^2&=\\dfrac{${-c}}{${miseEnEvidence(a)}}\\\\`
+          this.correction += `(${reduireAxPlusB(1, b)})^2&=${maFraction.texFractionSimplifiee} 
                          \\end{aligned}$<br>
                          Puisque $${maFraction.texFractionSimplifiee}$ est strictement négatif, il n'existe pas de nombres réels dont le carré est strictement négatif, donc l'équation n'a pas de solution. `
 

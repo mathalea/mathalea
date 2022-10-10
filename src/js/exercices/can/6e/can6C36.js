@@ -51,7 +51,7 @@ export default function PetitsProblemePartage2 () {
 
         this.reponse = choix ? `${new Decimal(a).div(nbre2)}` : `${new Decimal(a).mul(100).div(nbre1)}`
         this.question = `  Pour son anniversaire, ${prenom1} a acheté $${a}$ litres de jus de fruits.<br>
-         Les verres de  ${prenom1} contiennent ${choix ? `$${texNombre(nbre2, 2, true)}$ litre` : `$${texNombre(nbre1, 2, true)}$ centilitres`}.<br>
+         Les verres de  ${prenom1} contiennent ${choix ? `$${texNombre(nbre2, 2, true)}$ litre` : `$${texNombre(nbre1, 0, true)}$ centilitres`}.<br>
 
             Combien de verres de jus de fruits ${prenom1} pourra-t-elle servir ? `
         this.correction = `Dans un litre, il y a ${choix ? `$${texNombre(1 / nbre2, 0, true)}\\times ${texNombre(nbre2, 2, true)}$ litre ` : `$${texNombre(100 / nbre1, 0, true)}\\times ${texNombre(nbre1, 0, true)}$ centilitres`}.<br>
