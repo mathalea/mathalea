@@ -40,6 +40,8 @@ export default function HeuresFractionHeuresMinutes2 () {
             setReponse(this, i, a * 60 / b)
           }
           texteCorr = `$\\dfrac{${a}}{${b}}$ h $= \\dfrac{${a}}{${b}}\\times 60$ min  $= ${a}\\times \\dfrac{60}{${b}}$ min $= ${a}\\times ${texNombrec(60 / b)}$ min$=${texNombrec(a * 60 / b)}$ min`
+          this.canEnonce = 'Compléter.'
+          this.canReponseACompleter = `$\\dfrac{${a}}{${b}}$ h $=\\ldots$ min`
           break
 
         case 2 :
@@ -54,6 +56,8 @@ export default function HeuresFractionHeuresMinutes2 () {
             setReponse(this, i, [`${texFractionReduite(a, 60)}`])
           }
           texteCorr = `$${a}$ min  $= \\dfrac{${a}}{60}$ h$=${texFractionReduite(a, 60)}$ h`
+          this.canEnonce = 'Compléter par une fraction irréductible.'
+          this.canReponseACompleter = `$${a}$ min  $= \\ldots$ h`
           break
       }
       if (this.questionJamaisPosee(i, a, b, d)) {

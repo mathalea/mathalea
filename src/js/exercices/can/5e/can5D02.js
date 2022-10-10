@@ -41,6 +41,8 @@ export default function HeuresDecimalesHeuresMinutes2 () {
             setReponse(this, index + 1, d)
             nbChamps = 2
           }
+          this.canEnonce = 'Compléter.'
+          this.canReponseACompleter = `$${texNombrec(a + b)}$ h $=\\ldots$ h $\\ldots$ min`
           break
 
         case 2 :
@@ -60,6 +62,8 @@ export default function HeuresDecimalesHeuresMinutes2 () {
             setReponse(this, index, a + b)
             nbChamps = 1
           }
+          this.canEnonce = 'Compléter par un nombre décimal.'
+          this.canReponseACompleter = `$${texNombrec(a)}$ h $${texNombrec(b * 60)}$ min  $= \\ldots$`
           break
       }
       if (this.questionJamaisPosee(i, a, b, d)) {

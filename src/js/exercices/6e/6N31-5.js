@@ -14,6 +14,7 @@ export const interactifType = 'mathLive'
  * @author Mickael Guironnet
  */
 export const ref = '6N31-5'
+export const uuid = 'a8c21'
 export default function EncadrerUnDecimal () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = '1-2-3' // Type de question

@@ -45,6 +45,7 @@ export default function EcritureDeNombreEntier () {
         break
     }
     let texte = `Le nombre $${texNombre(N1)}$ s'écrit (coche la bonne réponse) :<br>`
+    this.canEnonce = `Quelle est l'écriture du nombre $${texNombre(N1)}$ ?`
     this.autoCorrection[0] = {
       enonce: texte,
       options: { vertical: true },
@@ -70,5 +71,6 @@ export default function EcritureDeNombreEntier () {
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
+    this.canReponseACompleter = propositionsQcm(this, 0).texte
   }
 }

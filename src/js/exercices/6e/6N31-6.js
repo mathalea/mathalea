@@ -14,6 +14,7 @@ export const interactifType = 'mathLive'
  * @author Mickael Guironnet
  */
 export const ref = '6N31-6'
+export const uuid = 'd2b82'
 export default function ArrondirUnDecimal () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = '1-2-3-4-5-6' // Type de question

@@ -12,6 +12,8 @@ export const dateDePublication = '28/09/2022'
  * @author Eric Elter
  */
 
+export const uuid = '1871d'
+export const ref = '3A11-0'
 export default function SimplifierFractions3e () {
   SimplifierFractions.call(this)
   this.titre = titre

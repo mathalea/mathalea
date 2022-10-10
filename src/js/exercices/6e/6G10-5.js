@@ -13,6 +13,8 @@ export const titre = 'Tracer des droites, segments,...'
  * @author Mickael Guironnet
  */
 
+export const uuid = '3dbda'
+export const ref = '6G10-5'
 export default class constructionElementaire extends Exercice {
 //  'use strict'
   constructor () {
@@ -70,10 +72,10 @@ export default class constructionElementaire extends Exercice {
         `Tracer $[${C.nom}${D.nom})$ en vert.<br>`
       enonce +=
         numAlpha(questind++) +
-        `Tracer le point $${E.nom}$ point d'intersection de $(${A.nom}${B.nom})$ et $[${C.nom}${D.nom})$.<br>`
+        `Placer $${E.nom}$ le point d'intersection de $(${A.nom}${B.nom})$ et $[${C.nom}${D.nom})$.<br>`
       enonce +=
         numAlpha(questind++) +
-        `Tracer le point $${F.nom}$ tel que ${F.nom}$ \\notin [${A.nom}${B.nom}]$ et $${F.nom} \\in (${A.nom}${B.nom})$.<br>`
+        `Placer le point $${F.nom}$ tel que ${F.nom}$ \\notin [${A.nom}${B.nom}]$ et $${F.nom} \\in (${A.nom}${B.nom})$.<br>`
       const Xmin = Math.floor(Math.min(A.x, B.x, C.x, D.x, E.x, F.x) - 1)
       const Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, E.x, F.x) + 1)
       const Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, E.y, F.y) - 1)

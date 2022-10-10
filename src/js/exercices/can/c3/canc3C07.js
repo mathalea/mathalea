@@ -45,10 +45,13 @@ export default function PlusOuMoins () {
             if (choice([true, false])) {
               this.question = `${prenom1} a $${a}$ ans. Il a $${b}$ ans ${choix1 ? 'de plus' : ' de moins '}
                 que ${prenom2}. <br>
+
                 Quel est l'âge de ${prenom2} ?`
             } else {
               this.question = `${prenom1} a $${b}$ ans ${choix1 ? 'de plus' : ' de moins '}
-                que ${prenom2}. Sachant qu'il a $${a}$ ans, quel est l'âge de ${prenom2} ?`
+                que ${prenom2}. <br>
+                
+                Sachant qu'il a $${a}$ ans, quel est l'âge de ${prenom2} ?`
             }
             this.correction = `${prenom1} a $${b}$ ans ${choix1 ? 'de plus' : ' de moins '} que ${prenom2} donc ${prenom2}  a $${b}$ années ${choix1 ? 'de moins' : ' de plus '} que ${prenom1}.<br>
                 Il a donc  (${choix1 ? `$${a}-${b}$` : `$${a}+${b}$`}) ans, soit  ${choix1 ? `$${a - b}$` : `$${a + b}$`} ans. `
@@ -60,6 +63,7 @@ export default function PlusOuMoins () {
             if (choice([true, false])) {
               this.question = `${prenom1} a $${a}$ ans. ${prenom2} a $${b}$ ans ${choix1 ? 'de plus' : ' de moins '}
                 que ${prenom1}. <br>
+
                 Quel est l'âge de ${prenom2} ?`
             } else {
               this.question = `${prenom2} a $${b}$ ans ${choix1 ? 'de plus' : ' de moins '}
@@ -85,10 +89,12 @@ export default function PlusOuMoins () {
             if (choice([true, false])) {
               this.question = `${prenom1} a $${a}$ ans. Il a $${b}$ ans ${choix1 ? 'de plus' : ' de moins '}
                   que sa soeur. <br>
+
                   Quel est l'âge de sa soeur ?`
             } else {
               this.question = `${prenom1} a $${a}$ ans soit $${b}$ ans ${choix1 ? 'de plus' : ' de moins '}
                   que sa soeur. <br>
+
                   Quel est l'âge de sa soeur ?`
             }
             this.correction = `${prenom1} a $${b}$ ans ${choix1 ? 'de plus' : ' de moins '} que sa soeur donc sa soeur a $${b}$ années ${choix1 ? 'de moins' : ' de plus '} que son frère.<br>
@@ -100,6 +106,7 @@ export default function PlusOuMoins () {
             if (choice([true, false])) {
               this.question = `${prenom1} a $${a}$ ans. Sa soeur a $${b}$ ans ${choix1 ? 'de plus' : ' de moins '}
                             que lui. <br>
+
                             Quel est l'âge de sa soeur ?`
             } else {
               this.question = `La soeur de ${prenom1} a $${b}$ ans ${choix1 ? 'de plus' : ' de moins '}
@@ -129,10 +136,12 @@ export default function PlusOuMoins () {
           if (choice([true, false])) {
             this.question = `${prenom1} a $${a}$ ${objets}. Elle en  a $${b}$ ${choix1 ? 'de plus' : ' de moins '}
                     que ${prenom2}. <br>
+
                     Combien ${prenom2} a-t-il de ${objets} ?`
           } else {
             this.question = `${prenom1} a $${b}$ ${objets} ${choix1 ? 'de plus' : ' de moins '} que ${prenom2}. <br>
-                    Sachant que ${prenom1} a $${a}$ ${objets}, combien ${prenom2} en a-t-il ?`
+                    
+            Sachant que ${prenom1} a $${a}$ ${objets}, combien ${prenom2} en a-t-il ?`
           }
           this.correction = `${prenom1} a $${b}$ ${objets} ${choix1 ? 'de plus' : ' de moins '} que ${prenom2} donc ${prenom2}  a $${b}$ ${objets} ${choix1 ? 'de moins' : ' de plus '} que ${prenom1}.<br>
                     Il a donc  (${choix1 ? `$${a}-${b}$` : `$${a}+${b}$`}) ${objets}, soit  ${choix1 ? `$${a - b}$` : `$${a + b}$`} ${objets}. `
@@ -151,10 +160,12 @@ export default function PlusOuMoins () {
             if (choice([true, false])) {
               this.question = `${prenom1} a $${a}$ ${objets}. Il a $${b}$ ${objets} ${choix1 ? 'de plus' : ' de moins '}
                 que ${prenom2}. <br>
+
                 Combien ${prenom2} a-t-il de ${objets} ?`
             } else {
               this.question = `${prenom1} a $${b}$ ${objets} ${choix1 ? 'de plus' : ' de moins '}
                 que ${prenom2}. <br>
+
                 Sachant qu'il a $${a}$ ${objets}, combien de ${objets} possède ${prenom2} ?`
             }
             this.correction = `${prenom1} a $${b}$ ${objets} ${choix1 ? 'de plus' : ' de moins '} que ${prenom2} donc ${prenom2}  a $${b}$ ${objets} ${choix1 ? 'de moins' : ' de plus '} que ${prenom1}.<br>
@@ -166,10 +177,12 @@ export default function PlusOuMoins () {
             if (choice([true, false])) {
               this.question = `${prenom1} a $${a}$ ${objets}. ${prenom2} a $${b}$ ${objets} ${choix1 ? 'de plus' : ' de moins '}
                 que lui. <br>
+
                 Combien ${prenom2} a-t-il de ${objets} ?`
             } else {
               this.question = `${prenom2} a $${b}$ ${objets} ${choix1 ? 'de plus' : ' de moins '}
                 que ${prenom1} qui en a $${a}$.  <br>
+
                 Combien ${prenom2} a-t-il de ${objets} ?`
             }
             this.correction = `${prenom1} a $${b}$ ${objets} ${choix1 ? 'de plus' : ' de moins '} que ${prenom2}.
@@ -197,6 +210,7 @@ export default function PlusOuMoins () {
           this.question = `Dans un club de ${clubs}, il y a $${a}$ ${choix2 ? ' garçons ' : ' filles'}. <br>
               Il y a $${b}$ ${choix2 ? ' filles ' : ' garçons'} ${choix1 ? 'de plus' : ' de moins '}
                       que de ${choix2 ? ' garçons ' : ' filles'}. <br>
+
                       Combien y a-t-il de ${choix2 ? ' filles' : ' garçons '} dans ce club ? `
 
           this.correction = ` Il y a $${b}$ ${choix2 ? ' filles ' : ' garçons'} ${choix1 ? 'de plus' : ' de moins '}
@@ -218,7 +232,8 @@ export default function PlusOuMoins () {
           this.reponse = choix1 ? reponse2 : reponse1
 
           this.question = `Dans un club de ${clubs}, il y a $${a}$ ${choix2 ? ' filles ' : ' garçons'}.<br>
-                        Sachant qu'il y a $${b}$ ${choix2 ? ' filles ' : ' garçons'} ${choix1 ? 'de plus' : ' de moins '} que de ${choix2 ? ' garçons ' : ' filles'}, combien y a-t-il de ${choix2 ? 'garçons' : 'filles'} dans ce club ? `
+                        
+          Sachant qu'il y a $${b}$ ${choix2 ? ' filles ' : ' garçons'} ${choix1 ? 'de plus' : ' de moins '} que de ${choix2 ? ' garçons ' : ' filles'}, combien y a-t-il de ${choix2 ? 'garçons' : 'filles'} dans ce club ? `
 
           this.correction = ` Il y a $${b}$ ${choix2 ? ' filles ' : ' garçons'} ${choix1 ? 'de plus' : ' de moins '}
                       que de ${choix2 ? ' garçons ' : ' filles'}, il y a donc  $${b}$ ${choix2 ? ' garçons ' : ' filles'} ${choix1 ? 'de moins' : ' de plus '}
@@ -230,5 +245,7 @@ export default function PlusOuMoins () {
 
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

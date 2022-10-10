@@ -4494,7 +4494,7 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
     const r1y = round(R1 * sin(0.125 * angle))
     const Ax = round(xC + R1 * cos(angle * 0.25 + this.angleStart))
     const Ay = round(yC + R1 * sin(angle * 0.25 + this.angleStart))
-    let code = `<g id=${this.id}>
+    let code = `<g class="roueEngrenage" id=roue${this.id}>
     <path stroke="${this.color[0]}" fill="${this.couleurDeRemplissage[0]}"
       d="M ${Ax},${Ay} `
     for (let i = 0; i < this.nbDents; i++) {
@@ -4508,11 +4508,11 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
       const Ey = round(yC + R1 * sin(angle * (-i - 0.75) + this.angleStart))
       code += `A${r1x} ${r1y} ${round(180 + this.angleStart - (i + 0.25) * angle)} 0 0 ${Cx} ${Cy} L${Dx} ${Dy} A${r1x} ${r1y} ${round(180 + this.angleStart - (i - 0.125) * angle)} 0 0 ${Bx} ${By} A${R1} ${R1} 0 0 0 ${Ex} ${Ey} `
     }
-    code += `Z"/>
-    <circle cx="${xC}" cy="${yC}" r="${R0}" stroke="${this.color[0]}" fill="${this.couleurDuTrou[0]}" />`
+    code += 'Z"/>'
     if (typeof this.marqueur === 'number') code += `<circle cx="${round(xC + (R1 - 5) * cos(this.marqueur))}" cy="${round(yC + (R1 - 5) * sin(this.marqueur))}" r="3" stroke="HotPink" fill="Sienna" />`
-    code += `<animateTransform
-      id="anim${this.id}"
+    if (this.dureeTour !== 0) {
+      code += `<animateTransform
+      id="animRoue${this.id}"
       attributeName="transform"
       attributeType="XML"
       type="rotate"
@@ -4521,7 +4521,13 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
       dur="${abs(this.dureeTour)}"
       repeatCount="indefinite"
       />
-      </g>`
+      </g>
+      <circle cx="${xC}" cy="${yC}" r="${R0}" stroke="${this.color[0]}" fill="${this.couleurDuTrou[0]}" />
+      <text class="compteurDeTours" id="compteur${this.id}" fill="red" align="middle" dominant-baseline="middle" text-anchor="middle" x="${xC}" y="${yC}">0</text>`
+    } else {
+      code += `</g>
+      <circle cx="${xC}" cy="${yC}" r="${R0}" stroke="${this.color[0]}" fill="${this.couleurDuTrou[0]}" />`
+    }
     return code
   }
   this.tikz = function () {

@@ -17,6 +17,7 @@ export default function PoucentageE () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur25 inline'
   this.optionsChampTexte = { texteApres: ' €' }
   this.nouvelleVersion = function () {
@@ -27,6 +28,7 @@ export default function PoucentageE () {
         n = choice(['pull', 'pantalon', 'tee-shirt', 'vêtement', 'blouson', 'sweat'])
         b = choice([10, 20])
         this.question = `Le prix d'un ${n} est $${a}$ €. Il baisse de $${b}\\%$ . <br>
+
         Quel est son nouveau prix ? `
         this.optionsChampTexte = { texteApres: '€' }
         this.correction = `Le nouveau prix est de $${texNombrec(a - (b * a) / 100)} $ €.`
@@ -59,6 +61,7 @@ export default function PoucentageE () {
         n = choice(['pull', 'pantalon', 'tee-shirt', 'vêtement', 'blouson', 'sweat'])
         b = choice([5, 15])
         this.question = `Le prix d'un ${n} est $${a}$ €. Il baisse de $${b}\\%$ . <br>
+
         Quel est son nouveau prix ? `
         this.optionsChampTexte = { texteApres: '€' }
         this.correction = `
@@ -96,6 +99,7 @@ export default function PoucentageE () {
         n = choice(['pull', 'pantalon', 'tee-shirt', 'vêtement', 'blouson'])
         b = choice([10, 20])
         this.question = `Le prix d'un ${n} est $${a}$ €. Il augmente de $${b}\\%$ . <br>
+
         Quel est son nouveau prix ? `
         this.optionsChampTexte = { texteApres: '€' }
         this.correction = `
@@ -128,6 +132,7 @@ export default function PoucentageE () {
         a = calcul(randint(10, 20) * 1000)
         b = randint(1, 5)
         this.question = `Le prix d'une voiture est $${texNombre(a)}$ €. Il augmente de $${b}\\%$ . <br>
+
         Quel est son nouveau prix ? `
         this.optionsChampTexte = { texteApres: '€' }
         this.correction = `
@@ -174,6 +179,7 @@ export default function PoucentageE () {
         a = calcul(randint(10, 20) * 1000)
         b = randint(1, 5)
         this.question = `Le prix d'une voiture est $${texNombre(a)}$ €. Il baisse de $${b}\\%$ . <br>
+        
           Quel est son nouveau prix ? `
         this.optionsChampTexte = { texteApres: '€' }
         this.correction = `
@@ -216,5 +222,7 @@ export default function PoucentageE () {
         }
         break
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = '$\\ldots$ €'
   }
 }

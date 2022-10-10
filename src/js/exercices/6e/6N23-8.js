@@ -19,6 +19,7 @@ export const dateDePublication = '28/09/22'
  * 6N23-8
  */
 export const ref = '6N23-8'
+export const uuid = '708a9'
 export default function ExerciceEcritureDecimaleOuFractionDecimale () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = "Donner l'écriture décimale ou la fraction décimale."

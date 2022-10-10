@@ -29,5 +29,7 @@ export default function ArrondiUnite () {
     this.question = `Quel est l'arrondi à l'unité de $${texNombre(d)}$ ?`
     this.correction = `$${texNombre(d)} \\approx ${Math.round(d)}$`
     this.reponse = Math.round(d)
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }
