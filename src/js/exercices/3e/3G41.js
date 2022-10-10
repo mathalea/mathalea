@@ -3,7 +3,7 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice, numAlpha, range1, contraindreValeur, compteOccurences, shuffle, enleveDoublonNum } from '../../modules/outils.js'
 import { cube } from '../../modules/3d.js'
 export const titre = "Dessiner différentes vues d'un empilement de cubes"
-export const dateDePublication = '06/10/22'
+export const dateDePublication = '06/10/2022'
 
 /**
 * Dessiner différentes vues d'un empilement de cubes
