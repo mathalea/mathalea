@@ -120,9 +120,11 @@ export default function VuesEmpilementCubes () {
       texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { style: 'block' }), objetsEnonce) + '<br>'
       for (let ee = 0; ee < this.sup3; ee++) {
         vuePossible = listeVuesPossibles[ee]
-        texte += `${numAlpha(ee)} Dessiner la vue de ${vue[vuePossible][0]} de ce solide. <br>`
+        texte += this.sup3 > 1 ? numAlpha(ee) + ' ' : ''
+        texte += `Dessiner la vue de ${vue[vuePossible][0]} de ce solide. <br>`
         // correction :
-        texteCorr += `${numAlpha(ee)} Voici la vue de ${vue[vuePossible][0]} de ce solide. <br>`
+        texteCorr += this.sup3 > 1 ? numAlpha(ee) + ' ' : ''
+        texteCorr += `Voici la vue de ${vue[vuePossible][0]} de ce solide. <br>`
         alpha = vue[vuePossible][1]
         beta = vue[vuePossible][2]
         objetsCorrection = []
