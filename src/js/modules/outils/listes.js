@@ -1,3 +1,5 @@
+import { choice, shuffle } from './arrays'
+
 /**
 * Concatène liste à elle-même en changeant l'ordre à chaque cycle
 *

@@ -1,3 +1,7 @@
+import { isPrime } from 'mathjs'
+import { egal } from './comparateurs'
+import { obtenirListeFacteursPremiers } from './factorisation'
+
 /**
 * Retourne la liste des nombres premiers inférieurs à 300
 * @author Rémi Angot
@@ -182,4 +186,3 @@ export function decompositionFacteursPremiersArray (n) {
   }
   return decomposition
 }
-

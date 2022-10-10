@@ -1,3 +1,5 @@
+import { choice, shuffle } from './arrays'
+
 /**
 * Renvoie un prénom féminin au hasard
 * @author Rémi Angot

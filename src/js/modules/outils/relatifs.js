@@ -1,3 +1,4 @@
+import { randint } from './entiers'
 
 /**
 * Renvoie un tableau (somme des termes positifs, somme des termes négatifs)

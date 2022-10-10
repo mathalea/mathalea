@@ -1,3 +1,4 @@
+/* globals UI */
 /**
  *
  * @param {'string | array'} expression ou tableau d'expressions à évaluer avec XCas

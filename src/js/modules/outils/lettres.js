@@ -1,3 +1,5 @@
+import { choisitNombresEntreMetN, quotientier } from './entiers'
+
 /**
  * retourne une liste de lettres majuscules (ou minuscule si majuscule=false)
  * il y aura nombre lettres dans un ordre aléatoire

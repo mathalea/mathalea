@@ -1,4 +1,7 @@
 import { estentier } from './comparateurs'
+import Algebrite from 'algebrite'
+import { gcd } from 'mathjs'
+import { shuffle, rangeMinMax } from './arrays'
 
 /**
  * Retourne le quotient entier (donc sans le reste) de a/b si a & b sont entiers, false sinon

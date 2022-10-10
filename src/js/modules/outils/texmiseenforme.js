@@ -1,3 +1,4 @@
+import Algebrite from 'algebrite'
 // Fonctions LaTeX
 
 /**

@@ -1,3 +1,6 @@
+import { choice } from './arrays'
+import { egal } from './comparateurs'
+
 /**
  * @class
  * @classdesc Classe Triangles - Méthodes utiles pour les triangles *

@@ -1,3 +1,7 @@
+import Decimal from 'decimal.js/decimal.mjs'
+import { round } from 'mathjs'
+import { ecritureParentheseSiNegatif } from './ecritures'
+
 /**
  * Fonction pour simplifier l'ecriture lorsque l'exposant vaut 0 ou 1
  * retourne 1, la base ou rien

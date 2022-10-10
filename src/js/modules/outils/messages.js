@@ -1,3 +1,5 @@
+import { context } from '../context'
+
 /**
  * Renvoie un encart sur fond d'alert semantic ui en HTML ou dans un cadre bclogo en LaTeX avec le texte
  * @param {string} texte

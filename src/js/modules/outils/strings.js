@@ -1,3 +1,6 @@
+import { shuffle } from './arrays'
+import { randint } from './entiers'
+
 /**
 * Créé un string aléatoire
 *

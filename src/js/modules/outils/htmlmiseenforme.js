@@ -1,3 +1,7 @@
+import { context } from '../context'
+import { dataTaille } from './taille'
+import { texEnumerate } from './texmiseenforme'
+
 /**
 *  Renvoie une liste HTML à partir d'une liste
 *
@@ -104,7 +108,6 @@ export function htmlLigne (liste, spacing, classe = 'question') {
 * @author Rémi Angot
 */
 export function htmlConsigne (consigne) {
-    if (consigne) return '<h4>' + consigne + '</h4>\n\n'
-    else return ''
-  }
-  
+  if (consigne) return '<h4>' + consigne + '</h4>\n\n'
+  else return ''
+}

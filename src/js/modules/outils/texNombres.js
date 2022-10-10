@@ -1,4 +1,12 @@
-
+import Decimal from 'decimal.js/decimal.mjs'
+import { evaluate, format } from 'mathjs'
+import { texFraction } from './anciennesfractions'
+import { egal } from './comparateurs'
+import { arrondi } from './nombres'
+import Algebrite from 'algebrite'
+import { miseEnEvidence, sp } from './contextsensitif'
+import { afficherNombre, stringNombre } from './stringnombre'
+const math = { format: format, evaluate: evaluate }
 /**
 * Utilise un arrondi au millionième pour éviter les flottants à rallonge (erreurs d'arrondis des flottants)
 * Le 2e argument facultatif permet de préciser l'arrondi souhaité : c'est le nombre max de chiffres après la virgule souhaités

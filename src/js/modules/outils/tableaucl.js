@@ -1,3 +1,7 @@
+import { context } from '../context'
+import { stringNombre } from './stringnombre'
+import { texNombre } from './texNombres'
+
 /**
  * Crée un tableau avec un nombre de lignes et de colonnes déterminées
  * par la longueur des tableaux des entetes passés en paramètre

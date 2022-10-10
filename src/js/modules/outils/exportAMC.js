@@ -4,6 +4,13 @@
  * @param {number} idExo c'est un numéro unique pour gérer les noms des éléments d'un groupe de question, il est incrémenté par creerDocumentAmc()
  */
 
+import { elimineDoublons } from '../interactif/questionQcm'
+import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere } from './decimales'
+import { randint } from './entiers'
+import { lettreDepuisChiffre } from './lettres'
+import { arrondi } from './nombres'
+import { decimalToScientifique } from './puissances'
+
 export function exportQcmAmc (exercice, idExo) {
   const ref = `${exercice.id}${exercice.sup ? 'S:' + exercice.sup : ''}${exercice.sup2 ? 'S2:' + exercice.sup2 : ''}${exercice.sup3 ? 'S3:' + exercice.sup3 : ''}${exercice.sup4 ? 'S4:' + exercice.sup4 : ''}`
   const autoCorrection = exercice.autoCorrection

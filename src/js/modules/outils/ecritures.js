@@ -1,3 +1,13 @@
+import Decimal from 'decimal.js/decimal.mjs'
+import { equal, Fraction } from 'mathjs'
+import { context } from '../context'
+import FractionX from '../FractionEtendue'
+import { fraction } from '../fractions'
+import { miseEnEvidence } from './contextsensitif'
+import { lettreDepuisChiffre } from './lettres'
+import { stringNombre } from './stringnombre'
+import { texNombre, texNombrec } from './texNombres'
+
 /**
 * N'écrit pas un nombre s'il est égal à 1
 * @Example
@@ -177,12 +187,11 @@ export function ecritureParentheseSiMoins (expr) {
  * @param {etapes} tableau de chaines comportant les expressions à afficher dans le membre de droite.
  */
 
- export function calculAligne (numero, etapes) {
-    let script = `$\\begin{aligned}${miseEnEvidence(lettreDepuisChiffre(numero))}&=${etapes[0]}`
-    for (let i = 1; i < etapes.length - 1; i++) {
-      script += `\\\\&=${etapes[i]}`
-    }
-    script += `\\\\${miseEnEvidence(lettreDepuisChiffre(numero) + '&=' + etapes[etapes.length - 1])}$`
-    return script
+export function calculAligne (numero, etapes) {
+  let script = `$\\begin{aligned}${miseEnEvidence(lettreDepuisChiffre(numero))}&=${etapes[0]}`
+  for (let i = 1; i < etapes.length - 1; i++) {
+    script += `\\\\&=${etapes[i]}`
   }
-  
+  script += `\\\\${miseEnEvidence(lettreDepuisChiffre(numero) + '&=' + etapes[etapes.length - 1])}$`
+  return script
+}

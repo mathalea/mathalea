@@ -1,3 +1,5 @@
+import { shuffle, choice } from './arrays'
+
 /**
  * @author Jean-Claude Lhote
  * @param {number} min Valeur minimum pour la solution

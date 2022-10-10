@@ -1,3 +1,5 @@
+import { context } from '../context'
+
 export function dataTailleDiaporama (exercice) {
   if (context.vue !== 'diap') {
     return ''
@@ -5,7 +7,7 @@ export function dataTailleDiaporama (exercice) {
     return `data-taille = "${exercice.tailleDiaporama}"`
   }
 }
-function dataTaille (taille) {
+export function dataTaille (taille) {
   if (context.vue !== 'diap' || taille === 1) {
     return ''
   } else if (taille !== 1) {

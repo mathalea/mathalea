@@ -1,3 +1,7 @@
+import Decimal from 'decimal.js/decimal.mjs'
+import { estentier } from './comparateurs'
+import { nombreDeChiffresDansLaPartieEntiere } from './decimales'
+
 export function nombreEnLettres (nb, type = 1) {
   let partieEntiere, partieDecimale, nbstring, nbDec, decstring
   if (estentier(nb)) return partieEntiereEnLettres(nb)

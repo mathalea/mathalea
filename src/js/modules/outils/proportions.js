@@ -4,6 +4,9 @@
  * @author Jean-Claude Lhote
  */
 
+import Decimal from 'decimal.js/decimal.mjs'
+import { texNombre, texNombrec } from './texNombres'
+
 export function quatriemeProportionnelle (a, b, c, precision) { // calcul de b*c/a
   let result = ''
   if ((typeof a) === 'number' && (typeof b) === 'number' && (typeof c) === 'number') {

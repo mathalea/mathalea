@@ -1,3 +1,6 @@
+import { choice } from './arrays'
+import { randint } from './entiers'
+
 /**
 * Renvoie un tableau avec les résultats des tirages successifs
 * @param nombreTirages Combien de tirages ?

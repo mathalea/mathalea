@@ -1,3 +1,5 @@
+import Decimal from 'decimal.js/decimal.mjs'
+
 /**
 * Renvoie la valeur du chiffre (8->8, A->10, B->11...)
 *

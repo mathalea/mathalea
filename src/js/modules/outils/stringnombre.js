@@ -1,3 +1,7 @@
+import Decimal from 'decimal.js/decimal.mjs'
+import { context } from '../context'
+import { nombreDeChiffresDansLaPartieDecimale } from './decimales'
+
 /**
 * Renvoie un nombre dans le format français (séparateur de classes)
 * Fonctionne sans le mode maths contrairement à texNombre()
@@ -83,7 +87,7 @@ export function stringNombre (nb, precision = 8, force = false) {
    * @param {number} precision nombre de décimales demandé
    * @param {string} fonction nom de la fonction qui appelle afficherNombre (texNombre ou stringNombre) -> sert pour le message envoyé à bugsnag
    */
-function afficherNombre (nb, precision, fonction, force = false) {
+export function afficherNombre (nb, precision, fonction, force = false) {
   /**
      * Fonction auxiliaire de stringNombre pour une meilleure lisibilité
      * Elle renvoie un nombre dans le format français (avec virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)

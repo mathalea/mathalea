@@ -1,3 +1,5 @@
+import { context } from '../context'
+
 /**
 * Fonction créant le bouton d'aide utilisée par les différentes fonctions modal_ type de contenu
 * @param numeroExercice

@@ -1,3 +1,7 @@
+import Decimal from 'decimal.js/decimal.mjs'
+import { round } from 'mathjs'
+import { egal } from './comparateurs'
+
 /**
 * Retourne le signe d'un nombre
 * @Example

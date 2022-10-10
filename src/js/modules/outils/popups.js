@@ -1,3 +1,6 @@
+import { context } from '../context'
+import { modalImage, modalTexteLong } from './modaux'
+
 /**
  * Crée un popup html avec un icon info, éventuellement avec du contenu LaTeX
  * @param {string} texte

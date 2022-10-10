@@ -1,3 +1,8 @@
+import { miseEnEvidence } from './contextsensitif'
+import { ecritureParentheseSiNegatif } from './ecritures'
+import { pgcd } from './entiers'
+import { texNombre } from './texNombres'
+
 /**
 * Retourne le numérateur et le dénominateur de la fraction passée en argument sous la forme (numérateur,dénominateur)réduite au maximum dans un tableau [numérateur,dénominateur]
 * * **ATTENTION Fonction clonée dans la classe FractionX()**

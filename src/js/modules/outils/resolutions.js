@@ -1,3 +1,8 @@
+import { fraction } from '../fractions'
+import { egal } from './comparateurs'
+import { randint } from './entiers'
+import { matriceCarree } from './matrices'
+
 /**
  * Fonction qui retourne les coefficients a et b de f(x)=ax²+bx+c à partir des données de x1,x2,f(x1),f(x2) et c.
  *

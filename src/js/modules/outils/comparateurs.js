@@ -1,3 +1,7 @@
+import { round } from 'mathjs'
+import { randint } from './entiers'
+import { arrondi } from './nombres'
+
 const epsilon = 0.000001
 
 /**

@@ -1,3 +1,6 @@
+import { isInteger } from 'mathjs'
+import { choice } from './arrays'
+
 /**
  * couleurAleatoire() renvoie le code d'une couleur au hasard
  *

@@ -1,3 +1,6 @@
+import Decimal from 'decimal.js/decimal.mjs'
+import { ecritureAlgebrique } from './ecritures'
+import { stringNombre } from './stringnombre'
 
 /**
  * renvoie une chaine correspondant à l'écriture réduite de ax+b selon les valeurs de a et b
@@ -123,7 +126,6 @@ export function reduirePolynomeDegre3 (a, b, c, d) {
  * @returns expression en LaTeX avec multication implicite
  * @author Jean-Léon Henry
  */
- export function prettyTex (expression) {
-    return expression.toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')
-  }
-s  
+export function prettyTex (expression) {
+  return expression.toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')
+}

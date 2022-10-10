@@ -1,3 +1,5 @@
+import { loadScratchblocks } from '../loaders'
+
 /**
  * Charge scratchblocks puis sa traduction fr
  * retourne une promesse rejetée en cas de pb de chargement (à gérer par l'appelant)
