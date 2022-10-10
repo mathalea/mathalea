@@ -22,6 +22,7 @@ export default class constructionPerpendiculaires extends Exercice {
     this.sup = 1
     this.sup2 = '1'
     this.typeExercice = 'IEP'
+    this.spacing = (context.isHtml) ? 2 : 1
     this.besoinFormulaireNumerique = [
       'Type de cahier',
       3,
@@ -33,8 +34,8 @@ export default class constructionPerpendiculaires extends Exercice {
         '0 : Mélange',
         '1 : Orthocentre (intérieur du triangle)',
         '2 : Orthocentre (extérieur du triangle)',
-        '3 : centre du cercle circonscrit  (intérieur du triangle)',
-        '4 : centre du cercle circonscrit  (extérieur du triangle)'
+        '3 : Centre du cercle circonscrit  (intérieur du triangle)',
+        '4 : Centre du cercle circonscrit  (extérieur du triangle)'
       ].join('\n')
     ]
   }
@@ -201,34 +202,34 @@ export default class constructionPerpendiculaires extends Exercice {
         enonce +=
           numAlpha(questind++) +
           `Tracer la droite $(d_3)$ perpendiculaire à $(${B.nom}${C.nom})$ passant par $${A.nom}$.<br>`
-        enonce +=
-          numAlpha(questind++) +
-          'Tracer le point d\'intersection des droites $(d_1)$, $(d_2)$ et $(d_3)$.<br>'
+        // enonce +=
+        //   numAlpha(questind++) +
+        //   'Tracer le point d\'intersection des droites $(d_1)$, $(d_2)$ et $(d_3)$.<br>'
       } else {
         enonce +=
           numAlpha(questind++) +
           `Tracer $(${A.nom}${B.nom})$, $(${A.nom}${C.nom})$ et $(${B.nom}${C.nom})$.<br>`
         enonce +=
           numAlpha(questind++) +
-          `Tracer le milieu de $[${A.nom}${B.nom}]$.<br>`
+          `Placer le milieu de $[${A.nom}${B.nom}]$.<br>`
         enonce +=
           numAlpha(questind++) +
           `Tracer la droite $(d_1)$ perpendiculaire à $(${A.nom}${B.nom})$ passant par le milieu de $[${A.nom}${B.nom}]$.<br>`
         enonce +=
           numAlpha(questind++) +
-          `Tracer le milieu de $[${A.nom}${C.nom}]$.<br>`
+          `Placer le milieu de $[${A.nom}${C.nom}]$.<br>`
         enonce +=
           numAlpha(questind++) +
           `Tracer la droite $(d_2)$ perpendiculaire à $(${A.nom}${C.nom})$ passant par le milieu de $[${A.nom}${C.nom}]$.<br>`
         enonce +=
           numAlpha(questind++) +
-          `Tracer le milieu de $[${B.nom}${C.nom}]$.<br>`
+          `Placer le milieu de $[${B.nom}${C.nom}]$.<br>`
         enonce +=
           numAlpha(questind++) +
           `Tracer la droite $(d_3)$ perpendiculaire à $(${B.nom}${C.nom})$ passant par le milieu de $[${B.nom}${C.nom}]$.<br>`
-        enonce +=
-          numAlpha(questind++) +
-          'Tracer le point d\'intersection des droites $(d_1)$, $(d_2)$ et $(d_3)$.<br>'
+        // enonce +=
+        //   numAlpha(questind++) +
+        //   'Tracer le point d\'intersection des droites $(d_1)$, $(d_2)$ et $(d_3)$.<br>'
       }
       anim.taille((Xmax - Xmin + 5) * 30, (Ymax - Ymin + 5) * 30)
       anim.recadre(Xmin - 3, Ymax)
@@ -299,6 +300,7 @@ export default class constructionPerpendiculaires extends Exercice {
 
       /****************************************************/
       correction += anim.htmlBouton(this.numeroExercice, i)
+      if (context.isHtml) correction += '<br><br>Remarque : les droites $(d_1)$, $(d_2)$ et $(d_3)$ ont un seul point d\'intersection. On dit qu\'elles sont concourantes.'
       if (this.listeQuestions.indexOf(texte) === -1) {
       // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(enonce + '<br>')
