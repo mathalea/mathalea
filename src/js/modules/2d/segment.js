@@ -9,9 +9,8 @@ import { randint } from '../outils'
 import { angleOriente, longueur } from './calculs'
 import { Cercle } from './cercle'
 import { Droite, droite } from './droites'
-import { pointIntersectionLC } from './ellipse'
 import { point, Point } from './point'
-import { pointIntersectionDD, pointSurSegment } from './pointsur'
+import { pointIntersectionDD, pointIntersectionLC, pointSurSegment } from './pointsur'
 import { rotation } from './transformations'
 
 /**
