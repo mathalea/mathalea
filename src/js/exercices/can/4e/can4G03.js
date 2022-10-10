@@ -21,6 +21,7 @@ export default function CalculHypotenusePythagore () {
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   let a, b
   this.nouvelleVersion = function () {
@@ -47,10 +48,12 @@ export default function CalculHypotenusePythagore () {
         reductible = (reduction[0] !== 1)
         entiere = (reduction[1] === 1)
         objets.push(pol[0], pol[1], codageAngleDroit(A, B, C)) // pol[0], c'est le tracé et pol[1] ce sont les labels
-        objets.push(texteParPosition(`${texNombrec(a)}`, milieu(A, B).x, milieu(A, B).y + 0.2, 'milieu', 'black', 1, 'middle', true),
-          texteParPosition(`${texNombrec(b)}`, milieu(B, C).x + 0.2, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true)
+        objets.push(texteParPosition(`${texNombrec(a)}`, milieu(A, B).x, milieu(A, B).y + 0.4),
+          texteParPosition(`${texNombrec(b)}`, milieu(B, C).x + 0.4, milieu(B, C).y)
         )
-        this.question = `Sur cette figure, calculer la valeur exacte de $${nom[0]}${nom[2]}$.<br>`
+        this.question = `Sur cette figure, calculer la valeur exacte de $${nom[0]}${nom[2]}$.<br>
+        
+        `
         this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 22, mainlevee: false, amplitude: 0.3, scale: 0.3, style: 'margin: auto' }, objets)
 
         if (entiere) {
@@ -89,6 +92,8 @@ La valeur cherchée est donc : $\\sqrt{${c2}}$.
 `)
         }
         this.reponse = [`\\sqrt{${c2}}`, `${Math.sqrt(c2)}`, texRacineCarree(c2)]
+        this.canEnonce = this.question// 'Compléter'
+        this.canReponseACompleter = `$${nom[0]}${nom[2]}=\\ldots$`
         break
 
       case 'b':
@@ -101,6 +106,7 @@ La valeur cherchée est donc : $\\sqrt{${c2}}$.
         if (entiere) {
           this.question = `$${nom[0]}${nom[1]}${nom[2]}$ est un triangle rectangle en $${nom[0]}$ dans lequel 
                   $${nom[0]}${nom[1]}=${a}$ et $${nom[0]}${nom[2]}=\\sqrt{${b}}$.<br>
+
                    Calculer la valeur exacte de $${nom[1]}${nom[2]}$ .<br>
         `
           this.correction = ` On utilise le théorème de Pythagore dans le triangle $${nom[0]}${nom[1]}${nom[2]}$,  rectangle en $${nom[0]}$.<br>
@@ -123,6 +129,7 @@ La valeur cherchée est donc : $\\sqrt{${c2}}$.
         } else {
           this.question = `$${nom[0]}${nom[1]}${nom[2]}$ est un triangle rectangle en $${nom[0]}$ dans lequel 
       $${nom[0]}${nom[1]}=${a}$ et $${nom[0]}${nom[2]}=\\sqrt{${b}}$.<br>
+
        Calculer la valeur exacte de $${nom[1]}${nom[2]}$ .<br>
 `
           this.correction = ` On utilise le théorème de Pythagore dans le triangle $${nom[0]}${nom[1]}${nom[2]}$,  rectangle en $${nom[0]}$.<br>
@@ -144,6 +151,8 @@ La valeur cherchée est donc : $\\sqrt{${c2}}${reductible ? '=' + texRacineCarre
 `)
         }
         this.reponse = [`\\sqrt{${c2}}`, texRacineCarree(c2), `${Math.sqrt(c2)}`]
+        this.canEnonce = this.question// 'Compléter'
+        this.canReponseACompleter = `$${nom[1]}${nom[2]}=\\ldots$`
         break
     }
   }
