@@ -1,4 +1,4 @@
-import { miseEnEvidence } from './contextensitif'
+import { miseEnEvidence } from './contextSensitif'
 import { ecritureParentheseSiNegatif } from './ecritures'
 import { pgcd } from './entiers'
 import { texNombre } from './texNombres'

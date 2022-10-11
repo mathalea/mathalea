@@ -4,7 +4,7 @@ import { texFraction } from './arrayFractions'
 import { egal } from './comparateurs'
 import { arrondi } from './nombres'
 import Algebrite from 'algebrite'
-import { miseEnEvidence, sp } from './contextensitif'
+import { miseEnEvidence, sp } from './contextSensitif'
 import { afficherNombre, stringNombre } from './stringNombre'
 const math = { format: format, evaluate: evaluate }
 /**
