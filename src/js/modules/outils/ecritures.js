@@ -3,9 +3,9 @@ import { equal, Fraction } from 'mathjs'
 import { context } from '../context'
 import FractionX from '../FractionEtendue'
 import { fraction } from '../fractions'
-import { miseEnEvidence } from './contextsensitif'
+import { miseEnEvidence } from './contextensitif'
 import { lettreDepuisChiffre } from './lettres'
-import { stringNombre } from './stringnombre'
+import { stringNombre } from './stringNombre'
 import { texNombre, texNombrec } from './texNombres'
 
 /**

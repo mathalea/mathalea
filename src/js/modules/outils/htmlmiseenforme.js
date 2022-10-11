@@ -1,6 +1,6 @@
 import { context } from '../context'
 import { dataTaille } from './taille'
-import { texEnumerate } from './texmiseenforme'
+import { texEnumerate } from './texMiseEnForme'
 
 /**
 *  Renvoie une liste HTML à partir d'une liste

@@ -6,7 +6,7 @@
 */
 
 import { ObjetMathalea2D } from '../2dGeneralites'
-import { pointSurSegment } from './pointsur'
+import { pointSurSegment } from './pointSur'
 import { Segment } from './segment'
 
 /**  Trace la demi-droite d'origine A passant par B

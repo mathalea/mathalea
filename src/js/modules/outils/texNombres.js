@@ -1,11 +1,11 @@
 import Decimal from 'decimal.js/decimal.mjs'
 import { evaluate, format } from 'mathjs'
-import { texFraction } from './anciennesfractions'
+import { texFraction } from './arrayFractions'
 import { egal } from './comparateurs'
 import { arrondi } from './nombres'
 import Algebrite from 'algebrite'
-import { miseEnEvidence, sp } from './contextsensitif'
-import { afficherNombre, stringNombre } from './stringnombre'
+import { miseEnEvidence, sp } from './contextensitif'
+import { afficherNombre, stringNombre } from './stringNombre'
 const math = { format: format, evaluate: evaluate }
 /**
 * Utilise un arrondi au millionième pour éviter les flottants à rallonge (erreurs d'arrondis des flottants)

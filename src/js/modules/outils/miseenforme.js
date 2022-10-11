@@ -3,8 +3,8 @@ import { setReponse } from '../gestionInteractif'
 import { getVueFromUrl } from '../gestionUrl'
 import { htmlConsigne, htmlEnumerate, htmlParagraphe, texConsigne, texIntroduction } from '../outils'
 import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from './decimales'
-import { htmlLigne } from './htmlmiseenforme'
-import { texEnumerate, texMulticols, texParagraphe } from './texmiseenforme'
+import { htmlLigne } from './htmlMiseEnForme'
+import { texEnumerate, texMulticols, texParagraphe } from './texMiseEnForme'
 
 /**
  * Affecte les propriétés contenu et contenuCorrection (d'après les autres propriétés de l'exercice)
