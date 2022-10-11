@@ -1,7 +1,11 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, ecritureAlgebrique, rienSi1, sp } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { ecritureAlgebrique, rienSi1 } from '../../modules/outils/ecritures.js'
+import { sp } from '../../modules/outils/contextSensitif.js'
 export const titre = 'Mesure principale d\'un angle'
 export const interactifReady = true
 export const interactifType = 'mathLive'

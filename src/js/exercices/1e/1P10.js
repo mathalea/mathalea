@@ -1,10 +1,15 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, arrondi, contraindreValeur, egalOuApprox } from '../../modules/outils.js'
 import { number, fraction } from 'mathjs'
 import { point } from '../../modules/2d/point.js'
 import { segment } from '../../modules/2d/segment.js'
 import { latexParCoordonnees } from '../../modules/2d/textes.js'
+import { arrondi, egalOuApprox } from '../../modules/outils/nombres.js'
+import { contraindreValeur } from '../../modules/outils/comparateurs.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { texFraction } from '../../modules/outils/arrayFractions.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
 export const titre = 'Probabilités conditionnelles'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle

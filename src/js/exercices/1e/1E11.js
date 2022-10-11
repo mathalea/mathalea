@@ -1,5 +1,11 @@
+import { texFraction, texFractionReduite, texFractionSigne } from '../../modules/outils/arrayFractions.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, rienSi1 } from '../../modules/outils/ecritures.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
+import { texNombre } from '../../modules/outils/texNombres.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, texFractionReduite, texFractionSigne, texFraction, texNombre } from '../../modules/outils.js'
 
 export const titre = 'Résoudre une équation du second degré'
 

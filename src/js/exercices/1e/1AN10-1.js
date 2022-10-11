@@ -1,6 +1,10 @@
+import { contraindreValeur } from '../../modules/outils/comparateurs.js'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif } from '../../modules/outils/ecritures.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
+import { reduireAxPlusB } from '../../modules/outils/reductions.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, ecritureAlgebrique, randint, ecritureParentheseSiNegatif, ecritureAlgebriqueSauf1, contraindreValeur, reduireAxPlusB } from '../../modules/outils.js'
-import { } from '../../modules/2d.js'
 export const titre = 'Nombre dérivé de fonctions de références'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle

@@ -1,6 +1,10 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, ecritureAlgebriqueSauf1, lettreMinusculeDepuisChiffre, rienSi1 } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
 import { simplify, parse, derivative } from 'mathjs'
+import { lettreMinusculeDepuisChiffre } from '../../modules/outils/lettres.js'
 const math = { simplify: simplify, parse: parse, derivative: derivative }
 export const titre = 'Calculs de dérivées'
 

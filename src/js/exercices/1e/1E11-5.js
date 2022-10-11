@@ -1,8 +1,12 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, extraireRacineCarree, pgcd, ecritureParentheseSiNegatif } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
 import { choisiDelta } from '../../modules/fonctionsMaths.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, rienSi1 } from '../../modules/outils/ecritures.js'
+import { extraireRacineCarree } from '../../modules/outils/factorisation.js'
+import { pgcd } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
 export const interactifReady = false
 // export const interactifType = 'mathLive'
 export const titre = 'Résoudre une équation du second degré avec le discriminant'

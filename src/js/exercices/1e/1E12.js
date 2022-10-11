@@ -1,8 +1,16 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, texNombrec, lettreMinusculeDepuisChiffre, texNombre, miseEnEvidence, premierMultipleInferieur, premierMultipleSuperieur } from '../../modules/outils.js'
-import { repere, courbe } from '../../modules/2d.js'
 import { calcule } from '../../modules/fonctionsMaths.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { lettreMinusculeDepuisChiffre } from '../../modules/outils/lettres.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, rienSi1 } from '../../modules/outils/ecritures.js'
+import { miseEnEvidence } from '../../modules/outils/contextSensitif.js'
+import { texNombre, texNombrec } from '../../modules/outils/texNombres.js'
+import { repere } from '../../modules/2d/reperes.js'
+import { premierMultipleInferieur, premierMultipleSuperieur } from '../../modules/outils/premiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
+import { courbe } from '../../modules/2d/courbes.js'
 
 export const titre = 'Trouver l\'équation d\'une parabole'
 

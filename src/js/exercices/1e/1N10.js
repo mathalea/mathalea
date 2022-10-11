@@ -1,6 +1,10 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureAlgebrique, pgcd } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { ecritureAlgebrique } from '../../modules/outils/ecritures.js'
+import { pgcd, randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
 import { fraction } from '../../modules/fractions.js'
+import { choice } from '../../modules/outils/arrays.js'
 export const titre = 'Déterminer les termes d\'une suite définie de façon explicite'
 
 /**

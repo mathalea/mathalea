@@ -1,8 +1,13 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre, premierMultipleInferieur, premierMultipleSuperieur } from '../../modules/outils.js'
-import { repere, courbe } from '../../modules/2d.js'
 import { calcule } from '../../modules/fonctionsMaths.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { lettreMinusculeDepuisChiffre } from '../../modules/outils/lettres.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { repere } from '../../modules/2d/reperes.js'
+import { premierMultipleInferieur, premierMultipleSuperieur } from '../../modules/outils/premiers.js'
+import { courbe } from '../../modules/2d/courbes.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
 
 export const titre = 'Lecture graphique d\'éléments caractéristiques d\'un trinôme'
 
