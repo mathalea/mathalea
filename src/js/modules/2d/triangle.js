@@ -222,7 +222,7 @@ export function hauteurTriangle (A, B, C, color = 'black') {
    */
 // JSDOC Validee par EE Juin 2022
 export function CodageHauteurTriangle (A, B, C, color = 'black') {
-  ObjetMathalea2D().call(this, { })
+  ObjetMathalea2D.call(this, { })
   this.color = color
   const d = droite(B, C)
   const p = projectionOrtho(A, d)

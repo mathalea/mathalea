@@ -38,7 +38,7 @@ import { homothetie, rotation } from './transformations'
 
 // JSDOC Validee par EE Juin 2022
 export function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2, couleurDesHachures = 'none') {
-  ObjetMathalea2D().call(this, { })
+  ObjetMathalea2D.call(this, { })
   this.color = colorToLatexOrHTML(color)
   this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
   this.opaciteDeRemplissage = opaciteDeRemplissage

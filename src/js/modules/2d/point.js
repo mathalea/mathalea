@@ -22,8 +22,8 @@ import { Segment } from './segment'
  * @class
  */
 export function Point (arg1, arg2, arg3, positionLabel = 'above') {
+  ObjetMathalea2D.call(this, { classe: false })
   this.typeObjet = 'point'
-  ObjetMathalea2D().call(this, { classe: false })
   if (arguments.length === 1) {
     this.nom = arg1
   } else if (arguments.length === 2) {

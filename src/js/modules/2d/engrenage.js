@@ -3,7 +3,7 @@ import { colorToLatexOrHTML, ObjetMathalea2D } from '../2dGeneralites'
 import { arrondi } from '../outils'
 
 function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, yCenter = 0, couleur = 'black', couleurDeRemplissage = 'black', couleurDuTrou = 'white', dureeTour = 10, angleStart = 90, marqueur = null } = {}) {
-  ObjetMathalea2D().call(this)
+  ObjetMathalea2D.call(this)
   this.rayon = rayon
   this.rayonExt = rayonExt > rayon ? rayonExt : round(rayon * 4 / 3)
   this.rayonInt = rayonInt < rayon ? rayonInt : round(rayon * 3 / 4)

@@ -44,7 +44,7 @@ import { vecteur } from './vecteur'
 
 // JSDOC Validee par EE Juin 2022
 function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 1) {
-  ObjetMathalea2D().call(this, { })
+  ObjetMathalea2D.call(this, { })
   this.sommet = O
   this.depart = A
   this.arrivee = B

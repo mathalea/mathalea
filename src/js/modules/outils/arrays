@@ -252,7 +252,5 @@ export function shuffle2tableaux (obj1, obj2) {
  * Copié sur https://delicious-insights.com/fr/articles/le-piege-de-array-sort/
  */
 export function numTrie (arr) {
-  return arr.sort(function (a, b) {
-    return a - b
-  })
+  return arr.sort((a, b) => a - b)
 }

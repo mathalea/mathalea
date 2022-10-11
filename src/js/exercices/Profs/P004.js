@@ -1,7 +1,12 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { randint, troncature, calcul, choisitLettresDifferentes } from '../../modules/outils.js'
-import { point, segment, droiteGraduee } from '../../modules/2d.js'
+import { choisitLettresDifferentes } from '../../modules/outils/lettres.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { calcul } from '../../modules/outils/texNombres.js'
+import { droiteGraduee } from '../../modules/2d/reperes.js'
+import { point } from '../../modules/2d/point.js'
+import { segment } from '../../modules/2d/segment.js'
+import { troncature } from '../../modules/outils/nombres.js'
 
 export const titre = 'Droites graduées avec zoom'
 

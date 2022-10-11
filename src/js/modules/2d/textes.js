@@ -22,7 +22,7 @@ import { point } from './point'
  * @author Rémi Angot
  */
 export function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false) {
-  ObjetMathalea2D().call(this, { })
+  ObjetMathalea2D.call(this, { })
   this.color = colorToLatexOrHTML(color)
   this.contour = false
   this.taille = 10 * scale

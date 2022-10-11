@@ -3,7 +3,8 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 
 import { fraction } from '../../modules/fractions.js'
-import { combinaisonListesSansChangerOrdre, contraindreValeur } from '../../modules/outils.js'
+import { contraindreValeur } from '../../modules/outils/comparateurs.js'
+import { combinaisonListesSansChangerOrdre } from '../../modules/outils/listes.js'
 
 export const titre = 'Faire des camemberts pour travailler les fractions'
 

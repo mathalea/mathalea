@@ -59,7 +59,7 @@ function Tableau ({
   flecheDroite = false, // à remplacer par un string
   flecheDroiteSens = 'bas'
 } = {}) {
-  ObjetMathalea2D().call(this, { })
+  ObjetMathalea2D.call(this, { })
   if (ligne1 && ligne2) {
     nbColonnes = Math.max(ligne1.length, ligne2.length, nbColonnes)
   }

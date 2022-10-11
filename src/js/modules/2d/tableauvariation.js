@@ -24,7 +24,7 @@ import { vecteur } from './vecteur'
  * @author Jean-Claude Lhote
  */
 function TableauDeVariation ({ tabInit, tabLines, lgt, escpl, deltacl, colors, hauteurLignes, colorBackground }) {
-  ObjetMathalea2D().call(this, { })
+  ObjetMathalea2D.call(this, { })
   this.tabInit = tabInit
   this.tabLines = tabLines
   this.colors = colors

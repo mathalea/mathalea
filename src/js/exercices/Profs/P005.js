@@ -1,6 +1,10 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { point, segment, polygone, carre, grille, lignesHorizontales, texteParPosition, lignesVerticales } from '../../modules/2d.js'
+import { point } from '../../modules/2d/point.js'
+import { carre, polygone } from '../../modules/2d/polygone.js'
+import { texteParPosition } from '../../modules/2d/textes.js'
+import { grille, lignesHorizontales, lignesVerticales } from '../../modules/2d/grilles.js'
+import { segment } from '../../modules/2d/segment.js'
 
 export const titre = 'Grilles décimales'
 

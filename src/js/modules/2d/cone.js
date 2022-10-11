@@ -15,7 +15,7 @@ import { segment } from './segment'
  * @private
  */
 function Cone ({ centre, Rx, hauteur, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2 }) {
-  ObjetMathalea2D().call(this, { })
+  ObjetMathalea2D.call(this, { })
   const sommet = point(centre.x, centre.y + hauteur)
   this.sommet = sommet
   this.centre = centre

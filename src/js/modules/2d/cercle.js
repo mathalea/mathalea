@@ -45,7 +45,7 @@ import { pattern } from './motif'
  */
 // JSDOC Validee par EE Juin 2022
 export function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDesHachures = 'none', epaisseur = 1, pointilles = 0, opacite = 1, opaciteDeRemplissage = 1.1, epaisseurDesHachures = 1, distanceDesHachures = 10) {
-  ObjetMathalea2D().call(this, { })
+  ObjetMathalea2D.call(this, { })
   this.color = colorToLatexOrHTML(color)
   this.centre = O
   this.rayon = r

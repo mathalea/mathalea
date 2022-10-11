@@ -325,7 +325,7 @@ function Bissectrice (
   opaciteBissectrice = 1,
   pointillesBissectrice = ''
 ) {
-  ObjetMathalea2D().call(this, { })
+  ObjetMathalea2D.call(this, { })
   this.color = color
   this.tailleLosange = tailleLosange
   this.mark = mark

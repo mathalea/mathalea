@@ -6,7 +6,7 @@ import { texteParPosition } from './textes'
 import { vecteur } from './vecteur'
 
 export function GlisseNombre (nombre = '', decalage = 0) {
-  ObjetMathalea2D().call(this, { })
+  ObjetMathalea2D.call(this, { })
   const objets = []
   const chiffresADecaler = []
   const largeurColonne = 2

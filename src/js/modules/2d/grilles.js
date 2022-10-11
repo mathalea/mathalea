@@ -25,7 +25,7 @@ import { plot } from './tracepoint'
 
 // JSDOC Validee par EE Aout 2022
 function Grille (xmin = -30, ymin = -30, xmax = 30, ymax = 30, color = 'gray', opacite = 0.4, step = 1, pointilles = 0) {
-  ObjetMathalea2D().call(this, { })
+  ObjetMathalea2D.call(this, { })
   this.color = color
   this.opacite = opacite
   const objets = []

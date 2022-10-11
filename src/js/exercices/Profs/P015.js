@@ -1,8 +1,11 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { point } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
-import { randint, enumerate, enumerateSansPuceSansNumero, infoMessage, texteGras } from '../../modules/outils.js'
+import { texteGras } from '../../modules/outils/contextsensitif.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { enumerate, enumerateSansPuceSansNumero } from '../../modules/outils/htmlmiseenforme.js'
+import { point } from '../../modules/2d/point.js'
+import { infoMessage } from '../../modules/outils/messages.js'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '14/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag

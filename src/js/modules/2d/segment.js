@@ -22,7 +22,7 @@ import { rotation } from './transformations'
  * @author Rémi Angot
  */
 export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
-  ObjetMathalea2D().call(this, { })
+  ObjetMathalea2D.call(this, { })
 
   /**
    * Teste si un segment coupe un cercle, une droite, une demi-cercle ou un autre segment

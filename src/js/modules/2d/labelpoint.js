@@ -17,7 +17,7 @@ import { latexParCoordonnees, texteParPosition } from './textes'
 
 // JSDOC Validee par EE Septembre 2022
 function LabelPoint (...points) {
-  ObjetMathalea2D().call(this, { })
+  ObjetMathalea2D.call(this, { })
   if (!this.taille) this.taille = 10
   if (!this.largeur) this.largeur = 10
   if (typeof points[points.length - 1] === 'string') {

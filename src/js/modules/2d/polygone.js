@@ -28,7 +28,7 @@ import { aireTriangle } from './triangle'
  * @class
  */
 export function Polygone (...points) {
-  ObjetMathalea2D().call(this, { })
+  ObjetMathalea2D.call(this, { })
   this.opaciteDeRemplissage = 1
   this.epaisseurDesHachures = 1
   this.distanceDesHachures = 10

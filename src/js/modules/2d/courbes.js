@@ -10,7 +10,7 @@ import { texteParPosition } from './textes'
 import { tracePoint } from './tracepoint'
 
 function LectureImage (x, y, xscale = 1, yscale = 1, color = 'red', textAbs = '', textOrd = '') {
-  ObjetMathalea2D().call(this, { })
+  ObjetMathalea2D.call(this, { })
   this.x = x
   this.y = y
   this.xscale = xscale

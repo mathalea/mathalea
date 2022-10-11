@@ -1,4 +1,14 @@
 
+import { ceil, fraction, Fraction } from 'mathjs'
+import { ObjetMathalea2D } from '../2dGeneralites'
+import { context } from '../context'
+import FractionX from '../FractionEtendue'
+import { arrondi, nombreAvecEspace, rangeMinMax, stringNombre } from '../outils'
+import { point } from './point'
+import { segment } from './segment'
+import { latexParCoordonnees, texteParPoint, texteParPosition } from './textes'
+import { tracePoint } from './tracepoint'
+
 /**  Trace un axe gradué
  * @param {Object} parametres À saisir entre accolades
  * @param {number} [parametres.Unite = 10] Nombre de cm par unité
@@ -45,19 +55,8 @@
  * @author Jean-Claude Lhote
  * @class
  */
-
-import { ceil, fraction, Fraction } from 'mathjs'
-import { ObjetMathalea2D } from '../2dGeneralites'
-import { context } from '../context'
-import FractionX from '../FractionEtendue'
-import { arrondi, nombreAvecEspace, rangeMinMax, stringNombre } from '../outils'
-import { point } from './point'
-import { segment } from './segment'
-import { latexParCoordonnees, texteParPoint, texteParPosition } from './textes'
-import { tracePoint } from './tracepoint'
-
 // JSDOC Validee par EE Aout 2022
-function DroiteGraduee ({
+export function DroiteGraduee ({
   Unite = 10, Min = 0, Max = 2, x = 0, y = 0, axeEpaisseur = 2, axeCouleur = 'black', axeStyle = '->', axeHauteur = 4, axePosition = 'H',
   thickEpaisseur = 2, thickCouleur = axeCouleur, thickDistance = 1, thickOffset = 0,
   thickSecDist = 0.1, thickSec = false, thickTerDist = 0.01, thickTer = false,
@@ -67,7 +66,7 @@ function DroiteGraduee ({
   labelDistance = (axeHauteur + 10) / context.pixelsParCm,
   labelListe = [], Legende = '', LegendePosition = (Max - Min) * Unite + 1.5
 } = {}) {
-  ObjetMathalea2D().call(this, { })
+  ObjetMathalea2D.call(this, { })
 
   // Les propriétés exportables
   this.Unite = Unite

@@ -31,7 +31,7 @@ function TraceGraphiqueCartesien (data, repere = {}, {
   tailleDesPoints = 3
 
 } = {}) {
-  ObjetMathalea2D().call(this, { })
+  ObjetMathalea2D.call(this, { })
   const objets = []
   const listePoints = []
   for (const [x, y] of data) {

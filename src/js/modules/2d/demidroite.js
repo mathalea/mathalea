@@ -20,7 +20,7 @@ import { Segment } from './segment'
  */
 // JSDOC Validee par EE Aout 2022
 export function DemiDroite (A, B, color = 'black', extremites = false) {
-  ObjetMathalea2D().call(this, { })
+  ObjetMathalea2D.call(this, { })
   const B1 = pointSurSegment(B, A, -10)
   this.color = color
   if (extremites) return new Segment(A, B1, this.color, '|-')

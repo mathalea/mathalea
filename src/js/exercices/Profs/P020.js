@@ -1,5 +1,9 @@
+import { shuffle, choice } from '../../modules/outils/arrays'
+
+import { contraindreValeur } from '../../modules/outils/comparateurs.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseenforme'
+import { tableauColonneLigne } from '../../modules/outils/tableaucl'
 import Exercice from '../Exercice.js'
-import { choice, contraindreValeur, listeQuestionsToContenu, shuffle, tableauColonneLigne } from '../../modules/outils.js'
 export const titre = 'Encodeur de texte'
 export default function EncodeurTexte (type = 'générateur') {
   Exercice.call(this)

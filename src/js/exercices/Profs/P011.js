@@ -1,8 +1,10 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { polygoneAvecNom, codageSegments, codageAngleDroit, afficheMesureAngle, afficheLongueurSegment } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
-import { contraindreValeur, Triangles } from '../../modules/outils.js'
+import { contraindreValeur } from '../../modules/outils/comparateurs.js'
+import { Triangles } from '../../modules/outils/triangles.js'
+import { afficheLongueurSegment, afficheMesureAngle, codageAngleDroit, codageSegments } from '../../modules/2d/codages.js'
+import { polygoneAvecNom } from '../../modules/2d/polygone.js'
 
 export const titre = 'Construis mon triangle'
 

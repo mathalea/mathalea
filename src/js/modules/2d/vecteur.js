@@ -22,7 +22,7 @@ import { rotation, similitude, translation } from './transformations'
  * @author Jean-Claude Lhote et Rémi Angot
  */
 export function Vecteur (arg1, arg2, nom = '') {
-  ObjetMathalea2D().call(this, { })
+  ObjetMathalea2D.call(this, { })
   if (arguments.length === 1) {
     this.nom = arg1
   } else {

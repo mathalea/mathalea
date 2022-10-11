@@ -62,7 +62,7 @@ export function crochetD (...args) {
 }
 
 function CrochetG (A, color = 'blue') {
-  ObjetMathalea2D().call(this, { })
+  ObjetMathalea2D.call(this, { })
   this.epaisseur = 2
   this.color = colorToLatexOrHTML(color)
   this.taille = 0.2

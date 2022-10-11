@@ -14,7 +14,7 @@ import { segment } from './segment'
  * @author Rémi Angot
  */
 function Polyline (...points) {
-  ObjetMathalea2D().call(this, { })
+  ObjetMathalea2D.call(this, { })
   if (Array.isArray(points[0])) {
     // Si le premier argument est un tableau
     this.listePoints = points[0]

@@ -147,7 +147,7 @@ export function rotation (A, O, angle, nom = '', positionLabel = 'above', color 
    * sens Le sens (+1 ou -1) de la rotation. +1=sens trig
    */
 function SensDeRotation (A1, centre, sens, color = 'black') {
-  ObjetMathalea2D().call(this, { })
+  ObjetMathalea2D.call(this, { })
   const objets = []
   const arc1 = arc(A1, centre, 20 * sens)
   arc1.color = colorToLatexOrHTML(color)

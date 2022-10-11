@@ -28,7 +28,7 @@ import { homothetie, rotation } from './transformations'
 
 // JSDOC Validee par EE Aout 2022
 function Ellipse (O, rx, ry, color = 'black') {
-  ObjetMathalea2D().call(this, { })
+  ObjetMathalea2D.call(this, { })
   this.color = colorToLatexOrHTML(color)
   this.centre = O
   this.rx = rx

@@ -7,7 +7,7 @@ import { texteParPoint } from './textes'
 import { homothetie, rotation } from './transformations'
 
 function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecNombre = 'deuxSens', precisionAuDegre = 1, stepGraduation = 10, rayonsVisibles = true, color = 'gray' }) {
-  ObjetMathalea2D().call(this, { })
+  ObjetMathalea2D.call(this, { })
   this.x = x
   this.y = y
   this.taille = taille

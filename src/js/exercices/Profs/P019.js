@@ -1,4 +1,5 @@
-import { contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
+import { contraindreValeur } from '../../modules/outils/comparateurs.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
 import Shikaku from '../6e/_Shikaku.js'
 import Exercice from '../Exercice.js'
 export const titre = 'Générateur de Shikaku'

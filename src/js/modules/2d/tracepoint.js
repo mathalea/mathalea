@@ -249,7 +249,7 @@ export function tracePoint (...args) {
    * @author Rémi Angot et Jean-Claude Lhote
    */
 function TracePointSurDroite (A, O, color = 'black') {
-  ObjetMathalea2D().call(this, { })
+  ObjetMathalea2D.call(this, { })
   this.color = color
   this.lieu = A
   this.taille = 0.2

@@ -62,7 +62,7 @@ export function dansLaCibleCarree (x, y, rang, taille, cellule) {
    */
 // JSDOC Validee par EE Juin 2022
 function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray', opacite = 0.5 }) {
-  ObjetMathalea2D().call(this, { })
+  ObjetMathalea2D.call(this, { })
   this.x = x
   this.y = y
   this.rang = rang
