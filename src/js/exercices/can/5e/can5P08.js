@@ -21,7 +21,7 @@ export default function Proportionnalite3 () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
-
+  this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     let prix1, prix2, fruits, fruits2, poids1, poids2, frac, choix
     const listefruits1 = [
