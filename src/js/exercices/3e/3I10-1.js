@@ -40,14 +40,14 @@ export default function ScratchMultiScript () {
   this.nouvelleVersion = function () {
     this.introduction = lampeMessage({
       titre: scratchblock(`\\begin{scratch}[${context.issortieNB ? 'print,' : ''}fill,blocks,scale=0.5]\n\\blockmoreblocks{Note la couleur}\\end{scratch}`),
-      texte: 'Cette brique donne la couleur de la case sur laquelle est positionnée le lutin.',
+      texte: 'Cette brique donne la couleur de la case sur laquelle est positionné le lutin.',
       couleur: 'nombres'
     })
     const lePlateau = plateau2dNLC(1, false, 0.5, true)
     let listeQuestions = []
     const listeCouleurs = ['Blanc', 'Vert', 'Bleu', 'Rouge', 'Noir', 'Rose', 'Orange', 'Jaune', 'Gris']
     let choixQuestions = []
-    this.consigne = 'Donner la série de couleurs affichées par ces programmes'
+    this.consigne = 'Donner la série de couleurs affichées par ce' + (this.nbQuestions > 1 ? 's' : '') + ' programme' + (this.nbQuestions > 1 ? 's.' : '.')
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -314,7 +314,7 @@ export default function ScratchMultiScript () {
           break
       }
       texteScratch += '\\end{scratch}'
-      let texte = `${(this.interactif || context.isAmc) ? '' : 'Noter la séquence de couleurs produite sur le cahier.<br>'}`
+      let texte = `${(this.interactif || context.isAmc) ? '' : 'Noter la séquence de couleurs produite.<br>'}`
       texte += deuxColonnes(scratchblock(texteScratch), mathalea2d(Object.assign({}, fixeBordures([lePlateau]), { scale: 0.4, style: 'display: inline' }), lePlateau), 35)
 
       let texteCorr = 'On obtient la série de couleurs suivante :<br> '
