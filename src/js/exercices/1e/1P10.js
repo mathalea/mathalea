@@ -9,7 +9,7 @@ import { contraindreValeur } from '../../modules/outils/comparateurs.js'
 import { combinaisonListes } from '../../modules/outils/listes.js'
 import { randint } from '../../modules/outils/entiers.js'
 import { texFraction } from '../../modules/outils/arrayFractions.js'
-import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 export const titre = 'Probabilités conditionnelles'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle

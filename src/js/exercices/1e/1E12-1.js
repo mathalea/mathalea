@@ -7,7 +7,7 @@ import { randint } from '../../modules/outils/entiers.js'
 import { repere } from '../../modules/2d/reperes.js'
 import { premierMultipleInferieur, premierMultipleSuperieur } from '../../modules/outils/premiers.js'
 import { courbe } from '../../modules/2d/courbes.js'
-import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 
 export const titre = 'Lecture graphique d\'éléments caractéristiques d\'un trinôme'
 

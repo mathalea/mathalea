@@ -10,7 +10,7 @@ import { point } from '../../modules/2d/point.js'
 import { repere } from '../../modules/2d/reperes.js'
 import { courbe } from '../../modules/2d/courbes.js'
 import { modalTexteLong } from '../../modules/outils/modaux.js'
-import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 
 export const titre = 'Calcul du discriminant d\'une équation du second degré'
 

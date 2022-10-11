@@ -3,7 +3,7 @@ import { choice } from '../../modules/outils/arrays.js'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, rienSi1 } from '../../modules/outils/ecritures.js'
 import { randint } from '../../modules/outils/entiers.js'
 import { combinaisonListes } from '../../modules/outils/listes.js'
-import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { texNombre } from '../../modules/outils/texNombres.js'
 import Exercice from '../Exercice.js'
 

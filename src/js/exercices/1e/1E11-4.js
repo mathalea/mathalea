@@ -7,7 +7,7 @@ import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../modu
 import { pgcd } from '../../modules/outils/entiers.js'
 import { extraireRacineCarree } from '../../modules/outils/factorisation.js'
 import { egal } from '../../modules/outils/comparateurs.js'
-import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 export const interactifReady = false
 // export const interactifType = 'mathLive'
 export const titre = 'Résoudre une équation du second degré à partir de la forme canonique'

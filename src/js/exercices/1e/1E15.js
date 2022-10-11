@@ -5,7 +5,7 @@ import { context } from '../../modules/context.js'
 import { texteGras } from '../../modules/outils/contextSensitif.js'
 import { randint } from '../../modules/outils/entiers.js'
 import { xcas } from '../../modules/outils/xcas.js'
-import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 export const titre = 'Equation du second degré avec paramètre'
 export const dateDePublication = '30/10/2021'
 

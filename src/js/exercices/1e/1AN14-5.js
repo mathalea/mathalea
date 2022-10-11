@@ -8,7 +8,7 @@ import { randint } from '../../modules/outils/entiers.js'
 import { lettreMinusculeDepuisChiffre } from '../../modules/outils/lettres.js'
 import { prettyTex } from '../../modules/outils/reductions.js'
 import { ecritureAlgebrique } from '../../modules/outils/ecritures.js'
-import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 const math = { simplify: simplify, parse: parse, derivative: derivative, fraction: fraction }
 export const titre = 'Dérivée d\'un quotient'
 export const dateDePublication = '22/01/2022'

@@ -3,7 +3,7 @@ import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { randint } from '../../modules/outils/entiers.js'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, rienSi1 } from '../../modules/outils/ecritures.js'
-import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Déterminer la forme canonique d\'un polynôme du second degré'

@@ -11,7 +11,7 @@ import { segment } from '../../modules/2d/segment.js'
 import { cercle, cercleCentrePoint } from '../../modules/2d/cercle.js'
 import { shuffle } from '../../modules/outils/arrays.js'
 import { combinaisonListes } from '../../modules/outils/listes.js'
-import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 export const titre = 'Valeurs remarquables du cosinus et sinus'
 export const interactifReady = true
 export const interactifType = 'mathLive'

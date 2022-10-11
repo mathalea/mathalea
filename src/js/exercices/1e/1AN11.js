@@ -1,7 +1,7 @@
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif } from '../../modules/outils/ecritures.js'
 import { randint } from '../../modules/outils/entiers.js'
 import { combinaisonListes } from '../../modules/outils/listes.js'
-import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { reduireAxPlusB } from '../../modules/outils/reductions.js'
 import Exercice from '../Exercice.js'
 export const titre = 'Equation de tangente'

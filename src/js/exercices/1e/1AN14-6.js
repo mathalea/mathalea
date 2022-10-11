@@ -6,7 +6,7 @@ import { randint } from '../../modules/outils/entiers.js'
 import { rienSi1 } from '../../modules/outils/ecritures.js'
 import { lettreMinusculeDepuisChiffre } from '../../modules/outils/lettres.js'
 import { prettyTex } from '../../modules/outils/reductions.js'
-import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 const math = { simplify: simplify, parse: parse, derivative: derivative }
 export const titre = 'Dérivée d\'une composée affine'
 

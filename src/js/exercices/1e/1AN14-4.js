@@ -9,7 +9,7 @@ import { prettyTex } from '../../modules/outils/reductions.js'
 import { lettreMinusculeDepuisChiffre } from '../../modules/outils/lettres.js'
 import { ecritureAlgebrique, rienSi1 } from '../../modules/outils/ecritures.js'
 import { signe } from '../../modules/outils/nombres.js'
-import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 const math = { simplify: simplify, parse: parse, derivative: derivative }
 export const titre = 'Dérivée d\'un produit'
 export const dateDePublication = '22/01/2022'

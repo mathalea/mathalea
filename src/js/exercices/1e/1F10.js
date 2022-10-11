@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { combinaisonListes } from '../../modules/outils/listes.js'
 import { randint } from '../../modules/outils/entiers.js'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../modules/outils/ecritures.js'
-import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { simplify, parse, derivative } from 'mathjs'
 import { lettreMinusculeDepuisChiffre } from '../../modules/outils/lettres.js'
 const math = { simplify: simplify, parse: parse, derivative: derivative }

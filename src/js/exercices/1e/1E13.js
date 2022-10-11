@@ -7,7 +7,7 @@ import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegati
 import { pgcd } from '../../modules/outils/entiers.js'
 import { extraireRacineCarree } from '../../modules/outils/factorisation.js'
 import { egal } from '../../modules/outils/comparateurs.js'
-import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 export const interactifReady = false
 // export const interactifType = 'mathLive'
 export const titre = 'Factoriser, si possible, un polynôme du second degré'

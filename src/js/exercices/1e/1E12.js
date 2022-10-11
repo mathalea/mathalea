@@ -9,7 +9,7 @@ import { miseEnEvidence } from '../../modules/outils/contextSensitif.js'
 import { texNombre, texNombrec } from '../../modules/outils/texNombres.js'
 import { repere } from '../../modules/2d/reperes.js'
 import { premierMultipleInferieur, premierMultipleSuperieur } from '../../modules/outils/premiers.js'
-import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { courbe } from '../../modules/2d/courbes.js'
 
 export const titre = 'Trouver l\'équation d\'une parabole'

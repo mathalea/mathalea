@@ -5,7 +5,7 @@ import { randint } from '../../modules/outils/entiers.js'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, rienSi1 } from '../../modules/outils/ecritures.js'
 import { tableauDeVariation } from '../../modules/2d/tableauDeVariation.js'
 import { choice } from '../../modules/outils/arrays.js'
-import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 export const titre = 'Résoudre une inéquation du second degré'
 
 /**

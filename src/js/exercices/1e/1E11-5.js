@@ -6,7 +6,7 @@ import { combinaisonListes } from '../../modules/outils/listes.js'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, rienSi1 } from '../../modules/outils/ecritures.js'
 import { extraireRacineCarree } from '../../modules/outils/factorisation.js'
 import { pgcd } from '../../modules/outils/entiers.js'
-import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 export const interactifReady = false
 // export const interactifType = 'mathLive'
 export const titre = 'Résoudre une équation du second degré avec le discriminant'

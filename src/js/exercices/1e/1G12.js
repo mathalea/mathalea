@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { combinaisonListes } from '../../modules/outils/listes.js'
-import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 export const titre = 'cos et sin associés à un réel x '
 export const interactifReady = true
 export const interactifType = 'mathLive'
