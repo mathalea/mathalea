@@ -1,9 +1,10 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, lettreDepuisChiffre, numAlpha, rangeMinMax } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, lettreDepuisChiffre, numAlpha, rangeMinMax, sp } from '../../modules/outils.js'
 import { point, tracePoint, pointSurDroite, labelPoint, droite, grille, seyes } from '../../modules/2d.js'
-export const titre = 'Appartient ou n\'appartient pas'
+export const titre = 'Appartient ou n\'appartient pas ?'
+export const dateDePublication = '05/10/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  * Fonction générale pour la notion d'appartenance
@@ -21,10 +22,16 @@ export default class constructionElementaire extends Exercice {
     this.nbCols = 1
     this.nbColsCorr = 1
     this.sup = 1
+    this.sup2 = 4
     this.besoinFormulaireNumerique = [
       'Type de cahier',
       3,
       ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
+    ]
+    this.besoinFormulaire2Numerique = [
+      'Nombre de phrases à compléter',
+      10,
+      ' Choisir un nombre entier entre 2 et 10'
     ]
   }
 
@@ -32,7 +39,7 @@ export default class constructionElementaire extends Exercice {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    for (let i = 0, texte, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, colonne1, colonne2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const objetsEnonce = []
       const objetsCorrection = []
       const indLettre = randint(1, 15)
@@ -66,7 +73,7 @@ export default class constructionElementaire extends Exercice {
       objetsEnonce.push(g, carreaux)
       objetsCorrection.push(g, carreaux)
       const ppc = 20
-      let enonce = '<br>' + (context.vue === 'diap' ? '<center>' : '') + mathalea2d(
+      colonne1 = '<br>' + (context.vue === 'diap' ? '<center>' : '') + mathalea2d(
         {
           xmin: Xmin,
           ymin: Ymin,
@@ -78,13 +85,13 @@ export default class constructionElementaire extends Exercice {
         objetsEnonce
       ) + (context.vue === 'diap' ? '</center>' : '<br>')
 
-      enonce += 'Compléter avec $\\in$ ou $\\notin$. <br>'
-      let correction = enonce
+      colonne2 = 'Compléter avec $\\in$ ou $\\notin$. <br>'
+      let correction = colonne1 + colonne2
       let questind = 0
       const points = [A, AA, BB, CC, DD, B, C, D]
       const tirage = []
       const typeOld = []
-      for (let k = 0; k < 10; k++) {
+      for (let k = 0; k < Math.max(2, this.sup2); k++) {
         const ind = randint(0, 7)
         const ind1 = randint(0, 4, [ind])
         const ind2 = randint(0, 5, rangeMinMax(0, ind1))
@@ -119,14 +126,15 @@ export default class constructionElementaire extends Exercice {
             if (ind <= 5 && ind <= ind2) { sol = '\\in' } else { sol = '\\notin' }
             break
         }
-        enonce +=
+        colonne2 +=
           numAlpha(questind) +
-          `$${points[ind].nom} \\ldots\\ldots\\ldots\\ldots ${lettre[0]}${points[ind1].nom}${points[ind2].nom}${lettre[1]}$.<br>`
+          `$${points[ind].nom}${sp(3)}\\ldots\\ldots\\ldots${sp(3)}${lettre[0]}${points[ind1].nom}${points[ind2].nom}${lettre[1]}$<br>`
         correction +=
           numAlpha(questind++) +
-          `$${points[ind].nom} ${sol} ${lettre[0]}${points[ind1].nom}${points[ind2].nom}${lettre[1]}$.<br>`
+          `$${points[ind].nom} ${sol} ${lettre[0]}${points[ind1].nom}${points[ind2].nom}${lettre[1]}$<br>`
       }
-
+      // const enonce = deuxColonnes(colonne1, colonne2, 50) // Non fonctionnel actuellement en mode diaporama
+      const enonce = colonne1 + colonne2
       /****************************************************/
       if (this.listeQuestions.indexOf(texte) === -1) {
       // Si la question n'a jamais été posée, on en crée une autre
