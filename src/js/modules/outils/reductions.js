@@ -1,6 +1,6 @@
 import Decimal from 'decimal.js/decimal.mjs'
 import { ecritureAlgebrique } from './ecritures'
-import { stringNombre } from './stringnombre'
+import { stringNombre } from './stringNombre'
 
 /**
  * renvoie une chaine correspondant à l'écriture réduite de ax+b selon les valeurs de a et b

@@ -3,8 +3,8 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { pavage } from '../../modules/2d/pavage.js'
 import { texteParPosition } from '../../modules/2d/textes.js'
-import { nombreAvecEspace } from '../../modules/outils/stringnombre.js'
-import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
+import { nombreAvecEspace } from '../../modules/outils/stringNombre.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 
 export const titre = 'Fabriquer des pavages pour travailler les transformations'
 

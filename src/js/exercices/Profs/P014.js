@@ -3,7 +3,7 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { repere } from '../../modules/2d/reperes.js'
 import { courbeSpline } from '../../modules/2d/courbes.js'
-import { tracePoint } from '../../modules/2d/tracepoint.js'
+import { tracePoint } from '../../modules/2d/tracePoint.js'
 import { point } from '../../modules/2d/point.js'
 export const titre = 'Interpollation de Catmull-Rom'
 

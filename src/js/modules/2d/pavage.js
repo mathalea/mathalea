@@ -3,7 +3,7 @@ import { barycentre } from './barycentre'
 import { point } from './point'
 import { polygone, polygoneRegulier } from './polygone'
 import { texteParPosition } from './textes'
-import { tracePoint } from './tracepoint'
+import { tracePoint } from './tracePoint'
 import { homothetie, rotation, similitude, translation } from './transformations'
 import { vecteur } from './vecteur'
 

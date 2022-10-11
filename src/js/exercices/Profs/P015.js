@@ -1,9 +1,9 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import Alea2iep from '../../modules/Alea2iep.js'
-import { texteGras } from '../../modules/outils/contextsensitif.js'
+import { texteGras } from '../../modules/outils/contextSensitif.js'
 import { randint } from '../../modules/outils/entiers.js'
-import { enumerate, enumerateSansPuceSansNumero } from '../../modules/outils/htmlmiseenforme.js'
+import { enumerate, enumerateSansPuceSansNumero } from '../../modules/outils/htmlMiseEnForme.js'
 import { point } from '../../modules/2d/point.js'
 import { infoMessage } from '../../modules/outils/messages.js'
 

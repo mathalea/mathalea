@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, combinaisonListes, shuffle } from '../../modul
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
-import { pointSurCercle } from '../../modules/2d/pointsur.js'
+import { pointSurCercle } from '../../modules/2d/pointSur.js'
 import { latexParPoint } from '../../modules/2d/textes.js'
 import { codageAngle } from '../../modules/2d/codages.js'
 import { point } from '../../modules/2d/point.js'

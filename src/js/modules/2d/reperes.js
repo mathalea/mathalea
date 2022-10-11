@@ -7,7 +7,7 @@ import { arrondi, nombreAvecEspace, rangeMinMax, stringNombre } from '../outils'
 import { point } from './point'
 import { segment } from './segment'
 import { latexParCoordonnees, texteParPoint, texteParPosition } from './textes'
-import { tracePoint } from './tracepoint'
+import { tracePoint } from './tracePoint'
 
 /**  Trace un axe gradué
  * @param {Object} parametres À saisir entre accolades

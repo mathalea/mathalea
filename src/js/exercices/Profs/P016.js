@@ -1,6 +1,6 @@
-import { sp } from '../../modules/outils/contextsensitif.js'
+import { sp } from '../../modules/outils/contextSensitif.js'
 import { randint } from '../../modules/outils/entiers.js'
-import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import Exercice from '../Exercice.js'
 export const titre = 'Simulateur de Dés'
 export const dateDePublication = '06/04/2022'

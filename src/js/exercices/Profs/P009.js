@@ -2,11 +2,11 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { fraction } from '../../modules/fractions.js'
 import { randint } from '../../modules/outils/entiers.js'
-import { nombreAvecEspace } from '../../modules/outils/stringnombre.js'
+import { nombreAvecEspace } from '../../modules/outils/stringNombre.js'
 import { calcul, texNombre } from '../../modules/outils/texNombres.js'
 import { repere } from '../../modules/2d/reperes.js'
 import { traceBarre } from '../../modules/2d/graphiques.js'
-import { listeQuestionsToContenu } from '../../modules/outils/miseenforme.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 
 export const titre = 'Simulation d\'expériences aléatoires'
 

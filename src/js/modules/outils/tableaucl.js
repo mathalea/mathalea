@@ -1,5 +1,5 @@
 import { context } from '../context'
-import { stringNombre } from './stringnombre'
+import { stringNombre } from './stringNombre'
 import { texNombre } from './texNombres'
 
 /**

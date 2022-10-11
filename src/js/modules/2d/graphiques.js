@@ -10,7 +10,7 @@ import { polyline } from './polyline'
 import { axeY, labelY, pointDansRepere } from './reperes'
 import { segment } from './segment'
 import { latexParPoint, texteParPoint, texteParPosition } from './textes'
-import { tracePoint } from './tracepoint'
+import { tracePoint } from './tracePoint'
 import { rotation, similitude, translation } from './transformations'
 import { vecteur } from './vecteur'
 

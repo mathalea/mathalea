@@ -21,7 +21,7 @@
 import { ObjetMathalea2D } from '../2dGeneralites'
 import { arrondi } from '../outils'
 import { segment } from './segment'
-import { plot } from './tracepoint'
+import { plot } from './tracePoint'
 
 // JSDOC Validee par EE Aout 2022
 function Grille (xmin = -30, ymin = -30, xmax = 30, ymax = 30, color = 'gray', opacite = 0.4, step = 1, pointilles = 0) {
