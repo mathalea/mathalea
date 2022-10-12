@@ -1,9 +1,15 @@
 /* eslint-disable camelcase */
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, modalUrl, texNombre, contraindreValeur } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { modalUrl } from '../../modules/outils/modaux.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { texNombre } from '../../modules/outils/texNombres.js'
 import Decimal from 'decimal.js/decimal.mjs'
+import { contraindreValeur } from '../../modules/outils/comparateurs.js'
 export const titre = 'Coefficient multiplicateur d\'une variation en pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'

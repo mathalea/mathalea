@@ -1,10 +1,14 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { numAlpha, combinaisonListes, randint, choisitLettresDifferentes, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
-import { tracePoint, labelPoint } from '../../modules/2d.js'
-import { point3d, droite3d, vecteur3d, arete3d, sphere3d, rotation3d, rotationV3d, demicercle3d, sensDeRotation3d } from '../../modules/3d.js'
-
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenuSansNumero } from '../../modules/outils/miseEnForme.js'
+import { numAlpha } from '../../modules/outils/contextSensitif.js'
+import { tracePoint } from '../../modules/2d/tracePoint.js'
+import { labelPoint } from '../../modules/2d/labelPoint.js'
+import { choisitLettresDifferentes } from '../../modules/outils/lettres.js'
+import { arete3d, demicercle3d, droite3d, point3d, rotation3d, rotationV3d, sensDeRotation3d, sphere3d, vecteur3d } from '../../modules/3d.js'
 export const titre = 'Repérage sur la sphère'
 
 export const uuid = '75ea2'

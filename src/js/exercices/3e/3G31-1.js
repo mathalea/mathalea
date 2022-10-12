@@ -1,10 +1,18 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, creerNomDePolygone, texNombre, choice } from '../../modules/outils.js'
-import { point, labelPoint, polygone, similitude, codageAngleDroit, codageAngle, afficheMesureAngle, afficheLongueurSegment, longueur, angle, texteSurSegment } from '../../modules/2d.js'
-import { radians, degres } from '../../modules/fonctionsMaths.js'
-
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { similitude } from '../../modules/2d/transformations.js'
+import { labelPoint } from '../../modules/2d/labelPoint.js'
+import { texNombre } from '../../modules/outils/texNombres.js'
+import { polygone } from '../../modules/2d/polygone.js'
+import { angle, longueur } from '../../modules/2d/calculs.js'
+import { afficheLongueurSegment, afficheMesureAngle, codageAngle, codageAngleDroit, texteSurSegment } from '../../modules/2d/codages.js'
+import { degres, radians } from '../../modules/fonctionsMaths.js'
+import { creerNomDePolygone } from '../../modules/outils/strings.js'
 export const titre = 'Calculer toutes les mesures d\'angle d\'une figure complexe'
 
 /**

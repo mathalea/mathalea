@@ -1,11 +1,16 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, shuffle, combinaisonListesSansChangerOrdre, texNombre, texteEnCouleurEtGras, tableauColonneLigne, warnMessage } from '../../modules/outils.js'
-import FractionX from '../../modules/FractionEtendue.js'
-
+import { combinaisonListesSansChangerOrdre } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice, shuffle } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-
+import { texteEnCouleurEtGras } from '../../modules/outils/contextSensitif.js'
+import { texNombre } from '../../modules/outils/texNombres.js'
+import FractionX from '../../modules/FractionEtendue.js'
+import { warnMessage } from '../../modules/outils/messages.js'
+import { tableauColonneLigne } from '../../modules/outils/tableaucl.js'
 export const titre = 'Equations résolvantes pour le théorème de Thalès'
 
 export const interactifReady = true

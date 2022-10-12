@@ -1,6 +1,9 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'// eslint-disable-next-line camelcase
-import { listeQuestionsToContenu, randint, choice, combinaisonListes } from '../../modules/outils.js'
+import { context } from '../../modules/context.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Résoudre une équation $x^2 = a$'

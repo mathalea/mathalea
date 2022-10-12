@@ -1,5 +1,10 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, ecritureAlgebriqueSauf1, ecritureAlgebrique, rienSi1, texFraction, texFractionReduite, randint, pgcd, choice } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { pgcd, randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texFraction, texFractionReduite } from '../../modules/outils/arrayFractions.js'
 export const titre = 'Équations du second degré se ramenant au premier degré'
 
 /**

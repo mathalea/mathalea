@@ -1,9 +1,16 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureParentheseSiNegatif, signe, abs, pgcd, texFractionReduite, miseEnEvidence, texFraction, lampeMessage } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { pgcd, randint } from '../../modules/outils/entiers.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texFraction, texFractionReduite } from '../../modules/outils/arrayFractions.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import { miseEnEvidence } from '../../modules/outils/contextSensitif.js'
+import { abs, signe } from '../../modules/outils/nombres.js'
+import { lampeMessage } from '../../modules/outils/messages.js'
+import FractionX from '../../modules/FractionEtendue.js'
 export const titre = 'Équation du premier degré (utilisant la distributivité)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -65,7 +72,7 @@ export default function ExerciceEquation1Tiret2 () {
         texteCorr = texte
         if (this.interactif) {
           texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
-          setReponse(this, i, new FractionEtendue(d - b, a - c), { formatInteractif: 'fractionEgale' })
+          setReponse(this, i, new FractionX(d - b, a - c), { formatInteractif: 'fractionEgale' })
         }
         if (this.correctionDetaillee) {
           if (c > 0) {
@@ -101,7 +108,7 @@ export default function ExerciceEquation1Tiret2 () {
         texteCorr = texte
         if (this.interactif) {
           texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
-          setReponse(this, i, new FractionEtendue(d - k * b, a * k - c), { formatInteractif: 'fractionEgale' })
+          setReponse(this, i, new FractionX(d - k * b, a * k - c), { formatInteractif: 'fractionEgale' })
         }
         if (this.correctionDetaillee) {
           texteCorr += 'On développe le membre de gauche.<br>'
@@ -141,7 +148,7 @@ export default function ExerciceEquation1Tiret2 () {
         texteCorr = texte
         if (this.interactif) {
           texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
-          setReponse(this, i, new FractionEtendue(k - b - d, a + c), { formatInteractif: 'fractionEgale' })
+          setReponse(this, i, new FractionX(k - b - d, a + c), { formatInteractif: 'fractionEgale' })
         }
         if (this.correctionDetaillee) {
           texteCorr += 'On développe le membre de gauche.<br>'

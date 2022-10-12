@@ -1,11 +1,9 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { toString, aleaVariables, assignVariables, calculer, toTex, resoudre } from '../../modules/outilsMathjs.js'
-import { GVGraphicView } from '../../modules/aleaFigure/GraphicView.js'
-import { name } from '../../modules/aleaFigure/outils.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { create, all } from 'mathjs'
-
+import { aleaVariables, assignVariables, calculer, resoudre, toTex } from '../../modules/outilsMathjs.js'
+import { GVGraphicView } from '../../modules/aleaFigure/GraphicView.js'
 export const math = create(all)
 math.config({
   number: 'number',
@@ -76,7 +74,7 @@ export default class problemes extends Exercice {
           exercice.texte = name`$${ABCD}$ est un rectangle.
 
 $x$ est un nombre tel que $ {${AB}=${toTex(exprAB)}}$ et $ {${BC}=${toTex(exprBC)}}$ (en $cm$).
-
+toTex
 Le périmètre de $${ABCD}$ mesure $${p}~cm$.
 
 Déterminer son aire en $cm^2$.

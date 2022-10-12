@@ -1,7 +1,13 @@
 import Exercice from '../Exercice.js'
-import Decimal from 'decimal.js/decimal.mjs'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, texteExposant, pgcd, fractionSimplifiee, texFractionReduite, texNombre, sp, katexPopup2, numAlpha } from '../../modules/outils.js'
+import { pgcd, randint } from '../../modules/outils/entiers.js'
+import { texteExposant } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { fractionSimplifiee, texFractionReduite } from '../../modules/outils/arrayFractions.js'
+import { numAlpha, sp } from '../../modules/outils/contextSensitif.js'
+import { texNombre } from '../../modules/outils/texNombres.js'
+import Decimal from 'decimal.js/decimal.mjs'
+import { katexPopup2 } from '../../modules/outils/popups.js'
 export const titre = 'Connaître les effets des agrandissements/réductions sur les aires et les volumes'
 
 /**

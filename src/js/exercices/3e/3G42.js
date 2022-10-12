@@ -1,11 +1,16 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { randint, listeQuestionsToContenu, combinaisonListes, nombreDecimal, texteExposant, texteGras, stringNombre, texNombre } from '../../modules/outils.js'
-
-import { point3d, vecteur3d, sphere3d, cylindre3d } from '../../modules/3d.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { texteExposant } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { texteGras } from '../../modules/outils/contextSensitif.js'
+import { nombreDecimal, texNombre } from '../../modules/outils/texNombres.js'
 import Decimal from 'decimal.js/decimal.mjs'
+import { stringNombre } from '../../modules/outils/stringNombre.js'
+import { cylindre3d, point3d, sphere3d, vecteur3d } from '../../modules/3d.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
