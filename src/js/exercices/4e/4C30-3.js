@@ -1,5 +1,8 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, texNombre, puissanceEnProduit } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texNombre } from '../../modules/outils/texNombres.js'
+import { puissanceEnProduit } from '../../modules/outils/puissances.js'
 export const titre = 'Écriture décimale ou fractionnaire d\'une puissance'
 
 /**

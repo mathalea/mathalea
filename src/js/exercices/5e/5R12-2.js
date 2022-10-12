@@ -1,8 +1,14 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenuSansNumero, creerCouples, randint, calcul, lettreDepuisChiffre, texNombre, shuffle2tableaux } from '../../modules/outils.js'
-import { point, repere, labelPoint, tracePoint } from '../../modules/2d.js'
-
+import { randint } from '../../modules/outils/entiers.js'
+import { shuffle2tableaux, creerCouples } from '../../modules/outils/arrays.js'
+import { point } from '../../modules/2d/point.js'
+import { repere } from '../../modules/2d/reperes.js'
+import { listeQuestionsToContenuSansNumero } from '../../modules/outils/miseEnForme.js'
+import { tracePoint } from '../../modules/2d/tracePoint.js'
+import { labelPoint } from '../../modules/2d/labelPoint.js'
+import { calcul, texNombre } from '../../modules/outils/texNombres.js'
+import { lettreDepuisChiffre } from '../../modules/outils/lettres.js'
 export const titre = 'Déterminer les coordonnées (relatives) d\'un point'
 
 /**

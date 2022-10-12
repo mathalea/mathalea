@@ -1,6 +1,10 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, calcul, choice, texNombre } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { calcul, texNombre } from '../../modules/outils/texNombres.js'
 export const titre = 'Problèmes avec des puissances de 10 et des conversions'
 
 /**

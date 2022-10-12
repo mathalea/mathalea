@@ -1,9 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, listeDiviseurs, contraindreValeur, texNombre } from '../../modules/outils.js'
-
+import { combinaisonListesSansChangerOrdre } from '../../modules/outils/listes.js'
+import { listeDiviseurs, randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { texNombre } from '../../modules/outils/texNombres.js'
+import { contraindreValeur } from '../../modules/outils/comparateurs.js'
 export const dateDeModifImportante = '28/10/2021'
 export const titre = 'Écrire la liste de tous les diviseurs d\'un entier'
 

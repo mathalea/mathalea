@@ -1,7 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, compareFractions, calcul, shuffle, miseEnEvidence, texFraction, combinaisonListes } from '../../modules/outils.js'
-
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice, enleveElement, shuffle } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { compareFractions, texFraction } from '../../modules/outils/arrayFractions.js'
+import { miseEnEvidence } from '../../modules/outils/contextSensitif.js'
+import { calcul } from '../../modules/outils/texNombres.js'
 export const titre = 'Comparer quatre fractions (dénominateurs multiples) et un nombre entier'
 
 /**

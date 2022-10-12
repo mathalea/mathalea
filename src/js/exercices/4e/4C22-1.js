@@ -1,8 +1,14 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, choice, combinaisonListes, pgcd, texFractionReduite, texNombrec, texFraction, sp } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { pgcd } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texFraction, texFractionReduite } from '../../modules/outils/arrayFractions.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import { sp } from '../../modules/outils/contextSensitif.js'
+import { texNombrec } from '../../modules/outils/texNombres.js'
+import FractionX from '../../modules/FractionX.js'
 export const titre = 'Trouver l\'inverse d\'un nombre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -157,7 +163,7 @@ export default function ExerciceTrouverInverse () {
             }
           }
           texte = `Quel est l'inverse de $${texNombrec(nombreChoisi)}$ ?`
-          setReponse(this, i, new FractionEtendue(1, nombreChoisi), { formatInteractif: 'fractionEgale' })
+          setReponse(this, i, new FractionX(1, nombreChoisi), { formatInteractif: 'fractionEgale' })
           break
         case 2:
           couplesDInverses = choice(listeDecimaux)
@@ -166,7 +172,7 @@ export default function ExerciceTrouverInverse () {
           nombreInverseDen = couplesDInverses[2]
           if (choice([true, false])) {
             // nombre positif
-            setReponse(this, i, new FractionEtendue(nombreInverseNum, nombreInverseDen), { formatInteractif: 'fractionEgale' })
+            setReponse(this, i, new FractionX(nombreInverseNum, nombreInverseDen), { formatInteractif: 'fractionEgale' })
             if (pgcd(nombreInverseNum, nombreInverseDen) === 1) {
               // non simplifiable après inversion
               texteCorr = `Comme $${texNombrec(nombreChoisi)}=${texFraction(
@@ -208,7 +214,7 @@ export default function ExerciceTrouverInverse () {
           } else {
             // nombre négatif
             nombreChoisi = -nombreChoisi
-            setReponse(this, i, new FractionEtendue(-nombreInverseNum, nombreInverseDen), { formatInteractif: 'fractionEgale' })
+            setReponse(this, i, new FractionX(-nombreInverseNum, nombreInverseDen), { formatInteractif: 'fractionEgale' })
             if (pgcd(nombreInverseNum, nombreInverseDen) === 1) {
               // non simplifiable après inversion
               texteCorr = `L'inverse de $${texNombrec(
@@ -271,7 +277,7 @@ export default function ExerciceTrouverInverse () {
           nombreInverseDen = couplesDInverses[1]
           nombreChoisi = nombreInverseNum / nombreInverseDen
           if (choice([true, false])) {
-            setReponse(this, i, new FractionEtendue(nombreInverseDen, nombreInverseNum), { formatInteractif: 'fractionEgale' })
+            setReponse(this, i, new FractionX(nombreInverseDen, nombreInverseNum), { formatInteractif: 'fractionEgale' })
             // fraction positive
             if (couplesDInverses[2] === true) {
               // inverse décimal
@@ -312,7 +318,7 @@ export default function ExerciceTrouverInverse () {
             )}$ ?`
           } else {
             // fraction négative
-            setReponse(this, i, new FractionEtendue(-nombreInverseDen, nombreInverseNum), { formatInteractif: 'fractionEgale' })
+            setReponse(this, i, new FractionX(-nombreInverseDen, nombreInverseNum), { formatInteractif: 'fractionEgale' })
             if (couplesDInverses[2] === true) {
               // inverse décimal
               texteCorr = `L'inverse de $-${texFraction(

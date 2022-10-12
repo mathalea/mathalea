@@ -1,10 +1,15 @@
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, scientifiqueToDecimal, sp, stringNombre, texNombre } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
-import Decimal from 'decimal.js/decimal.mjs'
 import { context } from '../../modules/context.js'
-
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { sp } from '../../modules/outils/contextSensitif.js'
+import { scientifiqueToDecimal, texNombre } from '../../modules/outils/texNombres.js'
+import Decimal from 'decimal.js/decimal.mjs'
+import { stringNombre } from '../../modules/outils/stringNombre.js'
 export const titre = 'Notation scientifique'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,6 +1,13 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, shuffle, combinaisonListesSansChangerOrdre, ecritureParentheseSiNegatif, fractionSimplifiee, prenomF, prenomM, miseEnEvidence, texteEnCouleur, texteGras } from '../../modules/outils.js'
+import { combinaisonListesSansChangerOrdre } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice, shuffle } from '../../modules/outils/arrays.js'
+import { ecritureParentheseSiNegatif } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { fractionSimplifiee } from '../../modules/outils/arrayFractions.js'
+import { miseEnEvidence, texteEnCouleur, texteGras } from '../../modules/outils/contextSensitif.js'
+import { prenomF, prenomM } from '../../modules/outils/objetsPersonnes.js'
 export const titre = 'Trouver l\'erreur dans une résolution d\'équation du premier degré'
 
 /**

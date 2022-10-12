@@ -1,6 +1,11 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureParentheseSiNegatif, calcul, texteEnCouleur } from '../../modules/outils.js'
-
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { ecritureParentheseSiNegatif } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texteEnCouleur } from '../../modules/outils/contextSensitif.js'
+import { calcul } from '../../modules/outils/texNombres.js'
 export const titre = 'Tester si un nombre est solution d\'une équation'
 
 /**

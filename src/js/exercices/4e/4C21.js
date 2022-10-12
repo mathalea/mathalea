@@ -1,10 +1,17 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureParentheseSiNegatif, pgcd, simplificationDeFractionAvecEtapes, calcul, miseEnEvidence, texFraction, ppcm, lettreDepuisChiffre } from '../../modules/outils.js'
+import { context } from '../../modules/context.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { pgcd, ppcm, randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { ecritureParentheseSiNegatif } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { simplificationDeFractionAvecEtapes, texFraction } from '../../modules/outils/arrayFractions.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { miseEnEvidence } from '../../modules/outils/contextSensitif.js'
+import { calcul } from '../../modules/outils/texNombres.js'
 import { fraction } from '../../modules/fractions.js'
-import { context } from '../../modules/context.js'
-
+import { lettreDepuisChiffre } from '../../modules/outils/lettres.js'
 export const amcReady = true
 export const amcType = 'AMCNum' // type de question AMC
 export const titre = 'Additionner ou soustraire deux fractions'

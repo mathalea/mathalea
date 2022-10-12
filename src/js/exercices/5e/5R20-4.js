@@ -1,6 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, prenomF, prenomM, texteEnCouleur, texteGras, texPrix, numAlpha } from '../../modules/outils.js'
+import { combinaisonListesSansChangerOrdre } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { numAlpha, texteEnCouleur, texteGras } from '../../modules/outils/contextSensitif.js'
+import { calcul, texPrix } from '../../modules/outils/texNombres.js'
+import { prenomF, prenomM } from '../../modules/outils/objetsPersonnes.js'
 export const titre = 'Résoudre un problème en utilisant une somme algébrique de relatifs'
 
 /**

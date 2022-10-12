@@ -1,6 +1,11 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombrec, texNombre, miseEnEvidence } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { miseEnEvidence } from '../../modules/outils/contextSensitif.js'
+import { calcul, texNombre, texNombrec } from '../../modules/outils/texNombres.js'
 export const titre = 'Calcul avec les puissances de dix'
 
 export const amcReady = true // tant qu'il n'a pas été adapté à la version 2.6

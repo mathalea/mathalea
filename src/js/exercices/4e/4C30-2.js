@@ -1,10 +1,14 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, puissanceEnProduit, sp } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import pkg from 'decimal.js'
-const { Decimal } = pkg
+import { sp } from '../../modules/outils/contextSensitif.js'
+import { texNombre } from '../../modules/outils/texNombres.js'
+import Decimal from 'decimal.js/decimal.mjs'
+import { puissanceEnProduit } from '../../modules/outils/puissances.js'
 export const titre = 'Écriture décimale d\'une puissance de 10'
 export const interactifReady = true
 export const interactifType = 'mathLive'

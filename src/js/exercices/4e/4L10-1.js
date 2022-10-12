@@ -1,7 +1,12 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, ecritureParentheseSiMoins, lettreDepuisChiffre, rienSi1 } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { ecritureAlgebrique, ecritureParentheseSiMoins, ecritureParentheseSiNegatif, rienSi1 } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { lettreDepuisChiffre } from '../../modules/outils/lettres.js'
 export const titre = 'Réduire, si possible, une expression littérale simple'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -66,7 +71,7 @@ export default function ReductionsPiegesClassiques () {
         b *= choice([-1, 1])
       }
       let reponse
-      let saufD = this.interactif
+      const saufD = this.interactif
       switch (typesDeQuestions) {
         case 'ax+b':
           texte = `$${lettreDepuisChiffre(i + 1, saufD)}=${a}x${ecritureAlgebrique(b)}$`

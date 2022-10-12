@@ -1,7 +1,15 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, Triangles } from '../../modules/outils.js'
-import { point, mediatrice, codageMediatrice, codageBissectrice, bissectrice, polygone, nommePolygone, rotation, similitude, medianeTriangle, centreGraviteTriangle, hauteurTriangle, codageHauteurTriangle, codageMedianeTriangle } from '../../modules/2d.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { rotation, similitude } from '../../modules/2d/transformations.js'
+import { nommePolygone, polygone } from '../../modules/2d/polygone.js'
+import { centreGraviteTriangle, codageHauteurTriangle, codageMedianeTriangle, hauteurTriangle, medianeTriangle } from '../../modules/2d/triangle.js'
+import { bissectrice, codageBissectrice, codageMediatrice, mediatrice } from '../../modules/2d/droitesRemarquables.js'
+import { Triangles } from '../../modules/outils/triangles.js'
 export const titre = 'Déterminer la nature d\'une droite remarquable'
 
 /**

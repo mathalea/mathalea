@@ -1,4 +1,8 @@
-import { randint, arrondi, calcul, texNombrec, nombreAvecEspace, choice } from '../../modules/outils.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { arrondi } from '../../modules/outils/nombres.js'
+import { calcul, texNombrec } from '../../modules/outils/texNombres.js'
+import { nombreAvecEspace } from '../../modules/outils/stringNombre.js'
 
 /**
  * Chosis aléatoirement une expressions numérique parmi de nombreuses variantes.

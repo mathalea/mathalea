@@ -1,7 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, simplificationDeFractionAvecEtapes, prenom, texFraction, numAlpha, range } from '../../modules/outils.js'
-
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { range } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { simplificationDeFractionAvecEtapes, texFraction } from '../../modules/outils/arrayFractions.js'
+import { numAlpha } from '../../modules/outils/contextSensitif.js'
+import { prenom } from '../../modules/outils/objetsPersonnes.js'
 export const titre = 'Calculer des probabilités dans une expérience aléatoire à une épreuve'
 
 /**

@@ -1,8 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, calcul, texPrix, texFraction } from '../../modules/outils.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texFraction } from '../../modules/outils/arrayFractions.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { calcul, texPrix } from '../../modules/outils/texNombres.js'
 import { fraction } from '../../modules/fractions.js'
 export const titre = 'Variation en pourcentages'
 export const interactifReady = true

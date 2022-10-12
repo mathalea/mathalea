@@ -1,9 +1,13 @@
+import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { combinaisonListes, listeQuestionsToContenu, randint, lettreDepuisChiffre, contraindreValeur } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
-import choisirExpressionNumerique from './_choisirExpressionNumerique.js'
+import { lettreDepuisChiffre } from '../../modules/outils/lettres.js'
+import { contraindreValeur } from '../../modules/outils/comparateurs.js'
+import ChoisirExpressionNumerique from './_choisirExpressionNumerique.js'
 import ChoisirExpressionLitterale from './_Choisir_expression_litterale.js'
 export { interactifReady, interactifType, amcType, amcReady } from './_Ecrire_une_expression_numerique.js'
 export const titre = 'Calculer une expression numérique en détaillant les calculs'
@@ -53,7 +57,7 @@ export default function CalculerUneExpressionNumerique () {
       val1 = randint(2, 5)
       val2 = randint(6, 9)
       if (this.version > 2 && nbOperations === 1 && !this.litteral) nbOperations++
-      if (!this.litteral) { resultats = choisirExpressionNumerique(nbOperations, decimal, this.sup3, !this.sup2) } else { resultats = ChoisirExpressionLitterale(nbOperations, decimal, val1, val2, this.sup3, !this.sup2) }
+      if (!this.litteral) { resultats = ChoisirExpressionNumerique(nbOperations, decimal, this.sup3, !this.sup2) } else { resultats = ChoisirExpressionLitterale(nbOperations, decimal, val1, val2, this.sup3, !this.sup2) }
       expf = resultats[0]
       expn = resultats[1]
       expc = resultats[2]

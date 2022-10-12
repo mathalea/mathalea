@@ -1,6 +1,8 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
-import ChoisirUneExpressionLitterale from './_Choisir_expression_litterale.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import ChoisirExpressionLitterale from './_Choisir_expression_litterale.js'
 
 export const titre = 'Déterminer la dernière opération à effectuer dans une expression numérique'
 
@@ -34,7 +36,7 @@ export default function DeterminerDerniereOperationExpNum () {
       nbOperations = parseInt(listeTypeDeQuestions[i])
       val1 = randint(2, 5)
       val2 = randint(6, 9)
-      resultats = ChoisirUneExpressionLitterale(nbOperations, decimal, val1, val2, this.sup)
+      resultats = ChoisirExpressionLitterale(nbOperations, decimal, val1, val2, this.sup)
       expn = resultats[1]
       expc = resultats[2]
       lastOp = resultats[4]

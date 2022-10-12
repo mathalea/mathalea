@@ -1,10 +1,16 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, arrondi, texNombre, calcul, prenom, tirerLesDes, listeDeNotes, joursParMois, unMoisDeTemperature, nomDuMois, texFraction } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import FractionX from '../../modules/FractionEtendue.js'
 import { context } from '../../modules/context.js'
-
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texFraction } from '../../modules/outils/arrayFractions.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { arrondi } from '../../modules/outils/nombres.js'
+import { calcul, texNombre } from '../../modules/outils/texNombres.js'
+import FractionX from '../../modules/FractionEtendue.js'
+import { joursParMois, listeDeNotes, nomDuMois, tirerLesDes, unMoisDeTemperature } from '../../modules/outils/statistiques.js'
+import { prenom } from '../../modules/outils/objetsPersonnes.js'
 export const titre = 'Calculer des fréquences'
 
 export const interactifReady = true

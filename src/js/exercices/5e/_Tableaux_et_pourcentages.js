@@ -1,5 +1,11 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, texNombrec, texNombre, miseEnEvidence, texPrix, tableauColonneLigne } from '../../modules/outils.js'
+import { combinaisonListesSansChangerOrdre } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { miseEnEvidence } from '../../modules/outils/contextSensitif.js'
+import { calcul, texNombre, texNombrec, texPrix } from '../../modules/outils/texNombres.js'
+import { tableauColonneLigne } from '../../modules/outils/tableaucl.js'
 
 /**
  * * Tableaux et pourcentages

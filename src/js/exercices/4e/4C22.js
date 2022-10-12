@@ -1,9 +1,15 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, obtenirListeFractionsIrreductibles, obtenirListeNombresPremiers, contraindreValeur } from '../../modules/outils.js'
+import { context } from '../../modules/context.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { obtenirListeFractionsIrreductibles } from '../../modules/outils/arrayFractions.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { context } from '../../modules/context.js'
 import FractionX from '../../modules/FractionEtendue.js'
+import { obtenirListeNombresPremiers } from '../../modules/outils/premiers.js'
+import { contraindreValeur } from '../../modules/outils/comparateurs.js'
 export const titre = 'Multiplier ou/et diviser des fractions'
 export const amcReady = true
 export const amcType = 'AMCNum' // type de question AMC

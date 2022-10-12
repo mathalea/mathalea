@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, prenom, TrouverSolutionMathador } from '../../modules/outils.js'
-
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { prenom } from '../../modules/outils/objetsPersonnes.js'
+import { TrouverSolutionMathador } from '../../modules/outils/mathador.js'
 export const titre = 'Traduire une succession des opérations par une expression'
 
 /**

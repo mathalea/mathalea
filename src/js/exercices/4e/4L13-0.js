@@ -1,7 +1,14 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, prenom, texteEnCouleur } from '../../modules/outils.js'
-import { point, segment, codageCarre, polygoneRegulierParCentreEtRayon, nommePolygone, afficheCoteSegment, codageSegments } from '../../modules/2d.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { segment } from '../../modules/2d/segment.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texteEnCouleur } from '../../modules/outils/contextSensitif.js'
+import { codageCarre, nommePolygone, polygoneRegulierParCentreEtRayon } from '../../modules/2d/polygone.js'
+import { codageSegments, afficheCoteSegment } from '../../modules/2d/codages.js'
+import { prenom } from '../../modules/outils/objetsPersonnes.js'
 export const titre = 'Mettre en équation un problème sans objectif de résolution'
 
 /**

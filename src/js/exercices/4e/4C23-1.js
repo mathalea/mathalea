@@ -1,9 +1,16 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, pgcd, produitDeDeuxFractions, simplificationDeFractionAvecEtapes, miseEnEvidence, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles, texFraction, ppcm, lettreDepuisChiffre, ecritureParentheseSiNegatif } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { pgcd, ppcm, randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { ecritureParentheseSiNegatif } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles, produitDeDeuxFractions, simplificationDeFractionAvecEtapes, texFraction } from '../../modules/outils/arrayFractions.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { miseEnEvidence } from '../../modules/outils/contextSensitif.js'
 import { fraction } from '../../modules/fractions.js'
+import { lettreDepuisChiffre } from '../../modules/outils/lettres.js'
 export const titre = 'Fractions et priorités opératoires'
 export const amcReady = true
 export const amcType = 'AMCNum' // type de question AMC

@@ -1,11 +1,17 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, arrondi, texNombre, listeDeNotes, joursParMois, unMoisDeTemperature, nomDuMois, texFraction, personne, prenomF } from '../../modules/outils.js'
-import { getVueFromUrl } from '../../modules/gestionUrl.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import FractionX from '../../modules/FractionEtendue.js'
 import { context } from '../../modules/context.js'
-
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texFraction } from '../../modules/outils/arrayFractions.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { arrondi } from '../../modules/outils/nombres.js'
+import { texNombre } from '../../modules/outils/texNombres.js'
+import FractionX from '../../modules/FractionEtendue.js'
+import { joursParMois, listeDeNotes, nomDuMois, unMoisDeTemperature } from '../../modules/outils/statistiques.js'
+import { personne, prenomF } from '../../modules/outils/objetsPersonnes.js'
+import { getVueFromUrl } from '../../modules/gestionUrl.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

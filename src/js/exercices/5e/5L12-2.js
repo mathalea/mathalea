@@ -1,8 +1,14 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, range1, combinaisonListes, printlatex, calcul, texNombrec, lettreDepuisChiffre, texNombre, contraindreValeur } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice, range1 } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-
+import { calcul, texNombre, texNombrec } from '../../modules/outils/texNombres.js'
+import { printlatex } from '../../modules/outils/texMiseEnForme.js'
+import { lettreDepuisChiffre } from '../../modules/outils/lettres.js'
+import { contraindreValeur } from '../../modules/outils/comparateurs.js'
 export const titre = 'Réduire une expression littérale (somme et produit)'
 export const interactifReady = true
 export const interactifType = 'mathLive'

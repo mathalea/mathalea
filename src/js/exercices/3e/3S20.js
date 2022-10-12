@@ -6,7 +6,7 @@ import { choice } from '../../modules/outils/arrays.js'
 import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { fractionSimplifiee, simplificationDeFractionAvecEtapes, texFraction, texFractionReduite } from '../../modules/outils/arrayFractions.js'
 import { numAlpha } from '../../modules/outils/contextSensitif.js'
-import { prenomF, prenomM } from '../../modules/outils/objetspersonnes.js'
+import { prenomF, prenomM } from '../../modules/outils/objetsPersonnes.js'
 export const titre = 'Calculer des probabilités dans une expérience aléatoire à deux épreuves'
 
 /**

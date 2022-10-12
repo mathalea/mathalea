@@ -1,5 +1,9 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleur, contraindreValeur } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texteEnCouleur } from '../../modules/outils/contextSensitif.js'
+import { contraindreValeur } from '../../modules/outils/comparateurs.js'
 import ChoisirExpressionLitterale from './_Choisir_expression_litterale.js'
 export const titre = 'Déterminer la dernière opération à effectuer dans une expression littérale'
 
