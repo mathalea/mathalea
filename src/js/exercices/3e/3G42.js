@@ -37,7 +37,7 @@ export default function VolumeBoule () {
   this.interactifType = interactifType
   this.amcReady = amcReady
   this.amcType = amcType
-  this.consigne = 'On arrondira les résultats à ' + nombreDecimal(0.1) + ' cm' + texteExposant(3) + '. <br>'
+  // this.consigne = 'On arrondira les résultats à ' + nombreDecimal(0.1) + ' cm' + texteExposant(3) + '. <br>'
   this.video = 'YQF7CBY-uEk'
   this.nbQuestions = 4 // Ici le nombre de questions
   this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
@@ -78,7 +78,7 @@ export default function VolumeBoule () {
         case 1:
           r = randint(2, 30)
           reponse = new Decimal(r).pow(3).mul(Decimal.acos(-1)).mul(4).div(3).toDP(1)
-          texte += `Calculer le volume d'une boule de rayon ${r} cm. `
+          texte += `Calculer le volume d'une boule de rayon ${r} cm. Arrondir au dixième. `
           texteCorr += 'Le volume d\'une boule est donné par la formule : $V = \\dfrac{4}{3}\\pi r^3$. <br>'
           texteCorr += `On a donc : $V = \\dfrac{4}{3} \\times \\pi \\times (${r} \\text{ cm})^3$. <br>`
           texteCorr += texteGras('Le volume de la boule est donc environ : ' + stringNombre(reponse, 1) + ' cm' + texteExposant(3) + '. <br>')
@@ -87,7 +87,7 @@ export default function VolumeBoule () {
         case 2:
           d = randint(2, 30)
           reponse = new Decimal(d).pow(3).mul(Decimal.acos(-1)).mul(4).div(3).toDP(1)
-          texte += `Calculer le volume d'une boule de diamètre ${2 * d} cm. `
+          texte += `Calculer le volume d'une boule de diamètre ${2 * d} cm. Arrondir au dixième. `
           texteCorr += 'Le volume d\'une boule est donné par la formule : $V = \\dfrac{4}{3}\\pi r^3$. <br>'
           texteCorr += `Le rayon de la boule est la moitié de son diamètre soit : ${d} cm. <br>`
           texteCorr += `On a donc : $V = \\dfrac{4}{3} \\times \\pi \\times (${d} \\text{ cm})^3$. <br>`
@@ -96,7 +96,7 @@ export default function VolumeBoule () {
 
         case 3:
           A = randint(2, 30)
-          texte += `Calculer le volume d'une boule d'aire ${A} cm². `
+          texte += `Calculer le volume d'une boule d'aire ${A} cm². Arrondir au dixième.`
           texteCorr += 'Le volume d\'une boule est donné par la formule : $V = \\dfrac{4}{3}\\pi r^3$. <br>'
           texteCorr += 'Il faut donc trouver le rayon de la boule. <br>'
           texteCorr += 'L\'aire d\'une boule est donnée par la formule : $A = 4\\pi r^2$. <br>'
@@ -113,7 +113,7 @@ export default function VolumeBoule () {
         case 4:
           rayon = randint(2, 30)
           texte += `Une boîte cylindrique de ${2 * rayon} cm de diamètre et de ${2 * rayon} cm de hauteur contient une boule de diamètre ${2 * rayon} cm. <br>`
-          texte += 'Calculer le volume dans la boîte laissée libre par la boule. '
+          texte += 'Calculer le volume dans la boîte laissée libre par la boule. Arrondir au dixième.'
 
           texteCorr += 'Représentons la situation par un petit schéma : <br>'
           O = point3d(0, 0, 0)
