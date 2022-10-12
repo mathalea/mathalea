@@ -23,7 +23,10 @@ export default class EngrenagesAnimes extends Exercice {
     this.nbQuestions = 1
     this.nbCols = 1
     this.nbColsCorr = 1
+    this.sup = 1
+    this.sup2 = false
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Calculer le nombre de dents\n2 : Calculer le nombre de tours\n3 : Synchroniser 3 roues\n4 : Mélange']
+    this.besoinFormulaire2CaseACocher = ['Arrêt de l\'animation après un cycle']
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -64,7 +67,7 @@ export default class EngrenagesAnimes extends Exercice {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const objetsEnonce = []
       const objetsCorrection = []
-      let interA, interB, interC
+      let interA, interB, interC, interABC
       let nbDentsRoueA, nbDentsRoueB, nbDentsRoueC
       let nbToursA, nbToursB, nbToursC, nbToursAbc
       let rayonA, rayonB, rayonC
@@ -98,6 +101,7 @@ export default class EngrenagesAnimes extends Exercice {
           roueACorr = engrenage({ rayon: rayonA, rayonInt: 0.8, rayonExt: rayonA + 1, nbDents: nbDentsRoueA, xCenter: 0, yCenter: 0, angleStart: 0, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: nbDentsRoueA / 2, marqueur: 0 })
           roueBCorr = engrenage({ rayon: rayonB, rayonInt: 0.8, rayonExt: rayonB + 1, nbDents: nbDentsRoueB, xCenter: rayonA + rayonB + 1.3, yCenter: 0, angleStart: 180 - 180 / nbDentsRoueB, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: -nbDentsRoueB / 2, marqueur: 180 })
           remiseAZero = () => {
+            clearInterval(interABC)
             clearInterval(interA)
             clearInterval(interB)
             clearInterval(interC)
@@ -115,6 +119,14 @@ export default class EngrenagesAnimes extends Exercice {
             interB = setInterval(() => {
               compteurRoueB.innerHTML = parseInt(compteurRoueB.innerHTML) + 1
             }, animRoueB.getAttribute('dur') * 1000)
+            if (this.sup2) {
+              interABC = setInterval(() => {
+                animRoueA.endElement()
+                animRoueB.endElement()
+                clearInterval(interA)
+                clearInterval(interB)
+              }, ppcm(2 * parseFloat(animRoueA.getAttribute('dur')), 2 * parseFloat(animRoueB.getAttribute('dur'))) * 500)
+            }
           }
 
           break
@@ -129,7 +141,7 @@ export default class EngrenagesAnimes extends Exercice {
           texte += `Elle tourne de $${nbToursA * nbDentsRoueA}$ dents. Pendant ce temps, la roue de droite fait $${nbToursB}$ tour${nbToursB > 1 ? 's' : ''}.<br>`
           texte += 'Combien la roue de droite possède-t-elle de dents ?<br>'
           texteCorr += 'Le nombre de dents multiplié par le nombre de tours de chaque roue doit donner le même résultat.<br>'
-          texteCorr += `La roue de gauche tourne de $${nbToursA * nbDentsRoueA}$ dents en $${nbToursB}$ tours.<br>`
+          texteCorr += `La roue de gauche tourne de $${nbToursA * nbDentsRoueA}$ dents en $${nbToursA}$ tours.<br>`
           texteCorr += `Soit $n$ le nombre de dents de la roue de droite, on a alors : $n\\times${nbToursB} = ${nbDentsRoueA * nbToursA}$.<br>`
           texteCorr += `On en déduit que $n=\\dfrac{${nbDentsRoueA * nbToursA}}{${nbToursB}}=${nbDentsRoueB}$<br>`
           texteCorr += `La roue de droite a donc $${nbDentsRoueB}$ dents.<br>`
@@ -140,6 +152,7 @@ export default class EngrenagesAnimes extends Exercice {
           roueACorr = engrenage({ rayon: rayonA, rayonInt: 0.8, rayonExt: rayonA + 1, nbDents: nbDentsRoueA, xCenter: 0, yCenter: 0, angleStart: 0, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: nbDentsRoueA / 2, marqueur: 0 })
           roueBCorr = engrenage({ rayon: rayonB, rayonInt: 0.8, rayonExt: rayonB + 1, nbDents: nbDentsRoueB, xCenter: rayonA + rayonB + 1.3, yCenter: 0, angleStart: 180 - 180 / nbDentsRoueB, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: -nbDentsRoueB / 2, marqueur: 180 })
           remiseAZero = () => {
+            clearInterval(interABC)
             clearInterval(interA)
             clearInterval(interB)
             clearInterval(interC)
@@ -157,6 +170,14 @@ export default class EngrenagesAnimes extends Exercice {
             interB = setInterval(() => {
               compteurRoueB.innerHTML = parseInt(compteurRoueB.innerHTML) + 1
             }, animRoueB.getAttribute('dur') * 1000)
+            if (this.sup2) {
+              interABC = setInterval(() => {
+                animRoueA.endElement()
+                animRoueB.endElement()
+                clearInterval(interA)
+                clearInterval(interB)
+              }, ppcm(2 * parseFloat(animRoueA.getAttribute('dur')), 2 * parseFloat(animRoueB.getAttribute('dur'))) * 500)
+            }
           }
 
           break
@@ -184,6 +205,7 @@ export default class EngrenagesAnimes extends Exercice {
           roueACorr = engrenage({ rayon: rayonA, rayonInt: 0.8, rayonExt: rayonA + 1, nbDents: nbDentsRoueA, xCenter: 0, yCenter: 0, angleStart: 0, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: nbDentsRoueA / 2, marqueur: 0 })
           roueBCorr = engrenage({ rayon: rayonB, rayonInt: 0.8, rayonExt: rayonB + 1, nbDents: nbDentsRoueB, xCenter: rayonA + rayonB + 1.3, yCenter: 0, angleStart: 180 - 180 / nbDentsRoueB, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: -nbDentsRoueB / 2, marqueur: 180 })
           remiseAZero = () => {
+            clearInterval(interABC)
             clearInterval(interA)
             clearInterval(interB)
             clearInterval(interC)
@@ -201,6 +223,14 @@ export default class EngrenagesAnimes extends Exercice {
             interB = setInterval(() => {
               compteurRoueB.innerHTML = parseInt(compteurRoueB.innerHTML) + 1
             }, animRoueB.getAttribute('dur') * 1000)
+            if (this.sup2) {
+              interABC = setInterval(() => {
+                animRoueA.endElement()
+                animRoueB.endElement()
+                clearInterval(interA)
+                clearInterval(interB)
+              }, ppcm(2 * parseFloat(animRoueA.getAttribute('dur')), 2 * parseFloat(animRoueB.getAttribute('dur'))) * 500)
+            }
           }
           break
         case 4:
@@ -224,6 +254,7 @@ export default class EngrenagesAnimes extends Exercice {
           roueACorr = engrenage({ rayon: rayonA, rayonInt: 0.8, rayonExt: rayonA + 1, nbDents: nbDentsRoueA, xCenter: 0, yCenter: 0, angleStart: 0, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: nbDentsRoueA / 2, marqueur: 0 })
           roueBCorr = engrenage({ rayon: rayonB, rayonInt: 0.8, rayonExt: rayonB + 1, nbDents: nbDentsRoueB, xCenter: rayonA + rayonB + 1.3, yCenter: 0, angleStart: 180 - 180 / nbDentsRoueB, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: -nbDentsRoueB / 2, marqueur: 180 })
           remiseAZero = () => {
+            clearInterval(interABC)
             clearInterval(interA)
             clearInterval(interB)
             clearInterval(interC)
@@ -241,6 +272,14 @@ export default class EngrenagesAnimes extends Exercice {
             interB = setInterval(() => {
               compteurRoueB.innerHTML = parseInt(compteurRoueB.innerHTML) + 1
             }, animRoueB.getAttribute('dur') * 1000)
+            if (this.sup2) {
+              interABC = setInterval(() => {
+                animRoueA.endElement()
+                animRoueB.endElement()
+                clearInterval(interA)
+                clearInterval(interB)
+              }, ppcm(2 * parseFloat(animRoueA.getAttribute('dur')), 2 * parseFloat(animRoueB.getAttribute('dur'))) * 500)
+            }
           }
           break
         case 5:
@@ -284,9 +323,10 @@ export default class EngrenagesAnimes extends Exercice {
             texteCorr += `Remarque : Quand le plus petit multiple commun de deux nombres est le produit de ces nombres, on dit qu'ils sont premiers entre eux. $${nbDentsRoueC}$ et $${nbDentsRoueA}$ sont premiers entre eux.<br>`
           }
           texteCorr += `${numAlpha(2)}Dans cette situation la roue du milieu tourne, elle aussi de $${nbToursC * nbDentsRoueC}$ dents.<br>`
-          texteCorr += nbToursC * nbDentsRoueC % nbDentsRoueB === 0 ? `Ce nombre est un multiple du nombre de dents de la roue du milieu, donc elle a effectué exactement \\dfrac{${nbToursC * nbDentsRoueC}}{${nbDentsRoueB}}=${nbToursC * nbDentsRoueC / nbDentsRoueB}$ tours.<br>` : 'Ce nombre n\'est un multiple du nombre de dents de la roue du milieu, donc elle ne sera pas dans sa position initiale.<br>'
+          texteCorr += nbToursC * nbDentsRoueC % nbDentsRoueB === 0 ? `Ce nombre est un multiple du nombre de dents de la roue du milieu, donc elle a effectué exactement $\\dfrac{${nbToursC * nbDentsRoueC}}{${nbDentsRoueB}}=${nbToursC * nbDentsRoueC / nbDentsRoueB}$ tours.<br>` : 'Ce nombre n\'est un multiple du nombre de dents de la roue du milieu, donc elle ne sera pas dans sa position initiale.<br>'
           texteCorr += `Il faudra attendre que la roue de gauche tourne de $${nbToursAbc * nbDentsRoueA}$ dents soit $${nbToursAbc}$ tours, la roue du milieu en fera $${nbToursAbc * nbDentsRoueA / nbDentsRoueB}$ et la roue de droite en fera $${nbToursAbc * nbDentsRoueA / nbDentsRoueC}$.<br>`
           remiseAZero = () => {
+            clearInterval(interABC)
             clearInterval(interA)
             clearInterval(interB)
             clearInterval(interC)
@@ -311,6 +351,16 @@ export default class EngrenagesAnimes extends Exercice {
             interC = setInterval(() => {
               compteurRoueC.innerHTML = parseInt(compteurRoueC.innerHTML) + 1
             }, animRoueC.getAttribute('dur') * 1000)
+            if (this.sup2) {
+              interABC = setInterval(() => {
+                animRoueA.endElement()
+                animRoueB.endElement()
+                animRoueC.endElement()
+                clearInterval(interA)
+                clearInterval(interB)
+                clearInterval(interC)
+              }, ppcm(ppcm(2 * parseFloat(animRoueA.getAttribute('dur')), 2 * parseFloat(animRoueB.getAttribute('dur'))), 2 * parseFloat(animRoueC.getAttribute('dur'))) * 500)
+            }
           }
           break
       }
@@ -335,9 +385,14 @@ export default class EngrenagesAnimes extends Exercice {
           button.innerText = 'Relancer l\'animation'
           button.onclick = remiseAZero
           div.appendChild(button)
-          button.classList.add('btn', 'ui', 'icon', 'button')
-          document.removeEventListener('exercicesAffiches', insertInDom)
+          if (context.versionMathalea === 2) {
+            button.classList.add('btn', 'ui', 'icon', 'button')
+          } else {
+            button.classList.add('px-6', 'py-2.5', 'mr-10', 'my-5', 'ml-6', 'bg-coopmaths', 'text-white', 'font-medium', 'text-xs', 'leading-tight', 'uppercase', 'rounded', 'shadow-md',
+              'transform', 'hover:scale-110', 'hover:bg-coopmaths-dark', 'hover:shadow-lg', 'focus:bg-coopmaths-dark', 'focus:shadow-lg', 'focus:outline-none', 'focus:ring-0', 'active:bg-coopmaths-dark', 'active:shadow-lg', 'transition', 'duration-150', 'ease-in-out')
+          }
           document.removeEventListener('exerciceAffiches', remiseAZero)
+          document.removeEventListener('exercicesAffiches', insertInDom)
         }
       }
       document.addEventListener('exercicesAffiches', remiseAZero)

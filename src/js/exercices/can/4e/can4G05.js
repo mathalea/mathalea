@@ -17,7 +17,7 @@ export default function DiagonaleCarre () {
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {
@@ -29,8 +29,7 @@ export default function DiagonaleCarre () {
         c2 = 2 * a ** 2
         reduction = extraireRacineCarree(c2)
         reductible = reduction[0] !== 1
-        this.question = `La longueur de la diagonale d'un carré de côté $${a}$ est :<br>
-    (donner la valeur exacte)`
+        this.question = `Calculer la valeur exacte de la longueur de la diagonale d'un carré de côté $${a}$.`
 
         this.correction = ` En utilisant le théorème de Pythagore dans un carré de côté $${a}$ et de diagonale $d$, on a :<br>
     $\\begin{aligned}\n
@@ -52,8 +51,7 @@ export default function DiagonaleCarre () {
         reduction = extraireRacineCarree(c2)
         reductible = reduction[0] !== 1
         entiere = reduction[1] === 1
-        this.question = `La longueur de la diagonale d'un carré de côté $\\sqrt{${a}}$ est :<br>
-        (donner la valeur exacte)`
+        this.question = `Calculer la valeur exacte de la longueur de la diagonale d'un carré de côté $\\sqrt{${a}}$.`
 
         if (entiere) {
           this.correction = ` En utilisant le théorème de Pythagore dans un carré de côté $c=\\sqrt{${a}}$ 
@@ -93,5 +91,7 @@ export default function DiagonaleCarre () {
         this.reponse = [`\\sqrt{${c2}}`, `${Math.sqrt(c2)}`, texRacineCarree(c2)]
         break
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

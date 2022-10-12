@@ -59,7 +59,7 @@ export default function PuissancesDe2345 () {
         b = randint(2, 4)
         break
     }
-    this.question = `$${ecritureParentheseSiNegatif(a)}^${b}=$`
+    this.question = `Calculer $${ecritureParentheseSiNegatif(a)}^${b}$.`
     this.correction = `$${ecritureParentheseSiNegatif(a)}^${b}=`
 
     if (b > 1) {
@@ -74,5 +74,7 @@ export default function PuissancesDe2345 () {
       }
     }
     this.reponse = a ** b
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

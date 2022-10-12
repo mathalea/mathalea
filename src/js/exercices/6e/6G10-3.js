@@ -25,7 +25,7 @@ export default function CliqueFigure () {
   this.nouvelleVersion = function () {
     this.autoCorrection = []
     this.interactifType = 'cliqueFigure'
-    this.consigne = (this.interactif) ? 'Cliquer sur la bonne figure.' : 'Entourer la bonne figure.' /// Penser ici à AMC aussi.
+    this.consigne = (this.interactif) ? 'Cliquer sur la bonne figure.' : context.vue !== 'diap' ? 'Entourer la bonne figure.' : 'Choisir la bonne figure.' /// Penser ici à AMC aussi.
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

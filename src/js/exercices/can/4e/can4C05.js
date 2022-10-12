@@ -26,7 +26,7 @@ export default function SommeFractionsCompatibles () {
     const c = choice([2, 4])
     const b = fraction(1, a.d * c)
     if (choice([true, false])) {
-      this.question = `$${a.texFraction} + ${b.texFraction}=$`
+      this.question = `Calculer $${a.texFraction} + ${b.texFraction}$.`
       this.correction = `Pour additionner des fractions, on les met au même dénominateur.<br>
      <br>
      Pour écrire $${a.texFraction}$ avec le même dénominateur que $${b.texFraction}$, 
@@ -37,7 +37,7 @@ export default function SommeFractionsCompatibles () {
     =\\dfrac{${a.n * c}+${b.n}}{${b.d}}
     =\\dfrac{${a.n * c + b.n}}{${b.d}}${simplificationDeFractionAvecEtapes(a.n * c + b.n, b.d)}$`
     } else {
-      this.question = `$ ${b.texFraction}+${a.texFraction}=$`
+      this.question = `Calculer $ ${b.texFraction}+${a.texFraction}$.`
       this.correction = `Pour additionner des fractions, on les met au même dénominateur.<br>
      <br>
      Pour écrire $${a.texFraction}$ avec le même dénominateur que $${b.texFraction}$, 
@@ -50,5 +50,7 @@ export default function SommeFractionsCompatibles () {
     }
 
     this.reponse = a.sommeFraction(b).simplifie()
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }
