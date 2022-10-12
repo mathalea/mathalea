@@ -1,5 +1,6 @@
-import { abs, cos, round, sin } from 'mathjs'
+import { abs, round } from 'mathjs'
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../2dGeneralites'
+import { cos, sin } from '../fonctionsMaths'
 import { arrondi } from '../outils'
 
 function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, yCenter = 0, couleur = 'black', couleurDeRemplissage = 'black', couleurDuTrou = 'white', dureeTour = 10, angleStart = 90, marqueur = null } = {}) {
