@@ -1,6 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, shuffle, combinaisonListesSansChangerOrdre, calcul, texNombre, texteEnCouleurEtGras, tableauColonneLigne } from '../../modules/outils.js'
+import { combinaisonListesSansChangerOrdre } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice, shuffle } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texteEnCouleurEtGras } from '../../modules/outils/contextSensitif.js'
+import { calcul, texNombre } from '../../modules/outils/texNombres.js'
+import { tableauColonneLigne } from '../../modules/outils/tableaucl.js'
 export const titre = 'Reconnaître des tableaux de proportionnalité'
 
 /**

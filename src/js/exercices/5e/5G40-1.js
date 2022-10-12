@@ -1,5 +1,7 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, texteEnCouleurEtGras, combinaisonListes } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texteEnCouleurEtGras } from '../../modules/outils/contextSensitif.js'
 export const titre = 'Citer les propriétés des parallélogrammes'
 
 export const dateDeModifImportante = '08/05/2022'

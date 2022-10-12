@@ -1,7 +1,10 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, range1, combinaisonListes, texFraction } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice, enleveElement, range1 } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
-
+import { texFraction } from '../../modules/outils/arrayFractions.js'
 export const amcReady = true
 export const amcType = 'qcmMult' // type de question AMC qcm Mult
 export const interactifReady = true

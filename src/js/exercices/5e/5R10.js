@@ -1,8 +1,14 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, ecritureParentheseSiMoins, texNombrec, texNombre, arrondi, choice, combinaisonListes, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { ecritureParentheseSiMoins } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
-
+import { arrondi } from '../../modules/outils/nombres.js'
+import { texNombre, texNombrec } from '../../modules/outils/texNombres.js'
+import { nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils/decimales.js'
 export const interactifReady = true
 
 export const amcReady = true

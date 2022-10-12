@@ -1,10 +1,15 @@
 import Exercice from '../Exercice.js'
-import { combinaisonListes, listeQuestionsToContenuSansNumero, lettreDepuisChiffre, texFraction, randint, miseEnEvidence, choice, pgcd, simplificationDeFractionAvecEtapes } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { pgcd, randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenuSansNumero } from '../../modules/outils/miseEnForme.js'
+import { simplificationDeFractionAvecEtapes, texFraction } from '../../modules/outils/arrayFractions.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { miseEnEvidence } from '../../modules/outils/contextSensitif.js'
 import { fraction } from '../../modules/fractions.js'
-
+import { lettreDepuisChiffre } from '../../modules/outils/lettres.js'
 export const titre = 'Somme, différence ou produit de fractions'
 export const interactifType = 'mathLive'
 export const interactifReady = true

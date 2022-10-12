@@ -1,8 +1,15 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, texNombre, numAlpha, tableauColonneLigne } from '../../modules/outils.js'
-import { point, polygone } from '../../modules/2d.js'
+import { combinaisonListesSansChangerOrdre } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { numAlpha } from '../../modules/outils/contextSensitif.js'
+import { texNombre } from '../../modules/outils/texNombres.js'
+import { polygone } from '../../modules/2d/polygone.js'
+import { tableauColonneLigne } from '../../modules/outils/tableaucl.js'
 export const titre = 'Produire une formule à partir d\'un tableau'
 
 /**

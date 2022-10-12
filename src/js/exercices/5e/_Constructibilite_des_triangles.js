@@ -1,6 +1,10 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, calcul, texNombrec, texNombre, texteEnCouleur, Triangles } from '../../modules/outils.js'
-
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texteEnCouleur } from '../../modules/outils/contextSensitif.js'
+import { calcul, texNombre, texNombrec } from '../../modules/outils/texNombres.js'
+import { Triangles } from '../../modules/outils/triangles.js'
 export const titre = 'Constructibilité des triangles via les longueurs'
 
 /**

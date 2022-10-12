@@ -1,7 +1,11 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, listeDiviseurs, texFactorisation, texNombre, miseEnEvidence } from '../../modules/outils.js'
+import { listeDiviseurs, randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
-
+import { miseEnEvidence } from '../../modules/outils/contextSensitif.js'
+import { texFactorisation } from '../../modules/outils/factorisation.js'
+import { texNombre } from '../../modules/outils/texNombres.js'
 export const amcReady = true // tant qu'il n'a pas été adapté à la version 2.6
 export const amcType = 'qcmMono' // QCM
 export const interactifType = 'qcm'

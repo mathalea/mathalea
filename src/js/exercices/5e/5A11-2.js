@@ -1,7 +1,11 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleurEtGras, shuffle, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
-import { labyrinthe } from '../../modules/2d.js'
+import { combinaisonListes, combinaisonListesSansChangerOrdre } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { shuffle } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texteEnCouleurEtGras } from '../../modules/outils/contextSensitif.js'
+import { labyrinthe } from '../../modules/2d/labyrinthe.js'
 export const dateDePublication = '16/11/2021'
 export const dateDeModifImportante = '05/10/2022' // Le nb de lignes et celui de colonnes du labyrinthe sont paramétrables.
 export const titre = 'Labyrinthe de multiples avec critères choisis équilibrés '

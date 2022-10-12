@@ -1,9 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { fraction } from '../../modules/fractions.js'
-import { listeQuestionsToContenu, randint, choice, calcul, texNombre, miseEnEvidence } from '../../modules/outils.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
-
+import { miseEnEvidence } from '../../modules/outils/contextSensitif.js'
+import { calcul, texNombre } from '../../modules/outils/texNombres.js'
+import { fraction } from '../../modules/fractions.js'
 export const titre = 'Fractions égales et égalité des produits en croix'
 
 export const amcReady = true

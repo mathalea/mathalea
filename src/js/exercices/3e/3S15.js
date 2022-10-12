@@ -9,7 +9,7 @@ import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathL
 import { miseEnEvidence, sp } from '../../modules/outils/contextSensitif.js'
 import { texNombre } from '../../modules/outils/texNombres.js'
 import { listeDeNotes, nomDuMois, unMoisDeTemperature } from '../../modules/outils/statistiques.js'
-import { prenom } from '../../modules/outils/objetspersonnes.js'
+import { prenom } from '../../modules/outils/objetsPersonnes.js'
 export const titre = 'Calculer des étendues'
 export const interactifReady = true
 export const interactifType = 'mathLive'

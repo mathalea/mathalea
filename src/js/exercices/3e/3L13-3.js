@@ -15,7 +15,7 @@ import { aleaVariables, resoudre } from '../../modules/outilsMathjs.js'
 import { texNombre, texPrix } from '../../modules/outils/texNombres.js'
 import { polygone, polygoneAvecNom } from '../../modules/2d/polygone.js'
 import { codageSegments } from '../../modules/2d/codages.js'
-import { prenom } from '../../modules/outils/objetspersonnes.js'
+import { prenom } from '../../modules/outils/objetsPersonnes.js'
 export const titre = 'Problèmes à mettre en équation et à résoudre'
 export const interactifReady = true
 export const interactifType = 'mathLive'

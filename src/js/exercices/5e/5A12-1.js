@@ -1,8 +1,15 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, nombreAvecEspace, texteEnCouleurEtGras, modalPdf, modalVideo, cribleEratostheneN, warnMessage } from '../../modules/outils.js'
+import { combinaisonListesSansChangerOrdre } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { shuffle } from '../../modules/outils/arrays.js'
+import { modalPdf, modalVideo } from '../../modules/outils/modaux.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
-
+import { texteEnCouleurEtGras } from '../../modules/outils/contextSensitif.js'
+import { nombreAvecEspace } from '../../modules/outils/stringNombre.js'
+import { warnMessage } from '../../modules/outils/messages.js'
+import { cribleEratostheneN } from '../../modules/outils/premiers.js'
 export const titre = 'Primalité ou pas'
 export const interactifReady = true
 export const interactifType = 'qcm'

@@ -1,9 +1,14 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, shuffle, texteEnCouleurEtGras } from '../../modules/outils.js'
-import { point, tracePoint, segment, texteParPosition, latexParCoordonnees } from '../../modules/2d.js'
-
+import { randint } from '../../modules/outils/entiers.js'
+import { choice, shuffle } from '../../modules/outils/arrays.js'
+import { segment } from '../../modules/2d/segment.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { latexParCoordonnees, texteParPosition } from '../../modules/2d/textes.js'
+import { texteEnCouleurEtGras } from '../../modules/outils/contextSensitif.js'
+import { tracePoint } from '../../modules/2d/tracePoint.js'
 export const titre = 'Placer un événement sur une échelle de probabilités'
 
 /**

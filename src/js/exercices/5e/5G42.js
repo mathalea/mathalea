@@ -1,7 +1,15 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, choisitLettresDifferentes } from '../../modules/outils.js'
-import { point, rotation, codageSegments, segment, polygoneAvecNom, codageAngleDroit, labelPoint, similitude } from '../../modules/2d.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { segment } from '../../modules/2d/segment.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { rotation, similitude } from '../../modules/2d/transformations.js'
+import { labelPoint } from '../../modules/2d/labelPoint.js'
+import { polygoneAvecNom } from '../../modules/2d/polygone.js'
+import { codageAngleDroit, codageSegments } from '../../modules/2d/codages.js'
+import { choisitLettresDifferentes } from '../../modules/outils/lettres.js'
 export const titre = 'Nature de parallélogrammes'
 
 /**

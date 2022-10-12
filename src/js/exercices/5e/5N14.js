@@ -1,7 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, miseEnEvidence, obtenirListeFractionsIrreductibles, texFraction, texFractionSigne, combinaisonListes } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice, enleveElement } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { obtenirListeFractionsIrreductibles, texFraction, texFractionSigne } from '../../modules/outils/arrayFractions.js'
+import { miseEnEvidence } from '../../modules/outils/contextSensitif.js'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true

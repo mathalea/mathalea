@@ -1,10 +1,12 @@
 import Exercice from '../Exercice.js'
-import {
-  listeQuestionsToContenu, randint, combinaisonListes,
-  Relatif, lettreDepuisChiffre, ecritureNombreRelatif,
-  texteEnCouleurEtGras
-} from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { ecritureNombreRelatif } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { texteEnCouleurEtGras } from '../../modules/outils/contextSensitif.js'
+import { lettreDepuisChiffre } from '../../modules/outils/lettres.js'
+import { Relatif } from '../../modules/outils/relatifs.js'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true

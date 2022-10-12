@@ -1,6 +1,14 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, texNombre2, arrondi, sp, personnes, personne, miseEnEvidence, combinaisonListes, texFraction, randint, numAlpha, choice, premiereLettreEnMajuscule, ppcm, calcul } from '../../modules/outils.js'
-
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { ppcm, randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texFraction } from '../../modules/outils/arrayFractions.js'
+import { miseEnEvidence, numAlpha, sp } from '../../modules/outils/contextSensitif.js'
+import { arrondi } from '../../modules/outils/nombres.js'
+import { calcul, texNombre2 } from '../../modules/outils/texNombres.js'
+import { premiereLettreEnMajuscule } from '../../modules/outils/lettres.js'
+import { personne, personnes } from '../../modules/outils/objetsPersonnes.js'
 export const titre = 'Problèmes de ratio'
 
 export const uuid = '0a637'

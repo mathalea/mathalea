@@ -1,6 +1,11 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, range1, combinaisonListes, rienSi1, calcul, texNombrec, lettreDepuisChiffre, texNombre } from '../../modules/outils.js'
-
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice, range1 } from '../../modules/outils/arrays.js'
+import { rienSi1 } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { calcul, texNombre, texNombrec } from '../../modules/outils/texNombres.js'
+import { lettreDepuisChiffre } from '../../modules/outils/lettres.js'
 export const titre = 'Réduire une expression littérale'
 
 /**

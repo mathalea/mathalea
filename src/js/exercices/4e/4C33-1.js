@@ -1,9 +1,15 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, choice, combinaisonListes, lettreDepuisChiffre, texteGras, simpNotPuissance, eclatePuissance, reorganiseProduitPuissance, modalPdf } from '../../modules/outils.js'
-
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { modalPdf } from '../../modules/outils/modaux.js'
+import { listeQuestionsToContenuSansNumero } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { texteGras } from '../../modules/outils/contextSensitif.js'
+import { lettreDepuisChiffre } from '../../modules/outils/lettres.js'
+import { eclatePuissance, reorganiseProduitPuissance, simpNotPuissance } from '../../modules/outils/puissances.js'
 export const titre = 'Puissances : Le sens des règles de calculs'
 
 export const interactifReady = true

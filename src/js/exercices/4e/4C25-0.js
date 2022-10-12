@@ -1,8 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { enleveElementBis, listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, prenomF, prenomM, prenom, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { combinaisonListesSansChangerOrdre } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice, enleveElementBis } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texteEnCouleurEtGras } from '../../modules/outils/contextSensitif.js'
 import { fraction, listeFractions } from '../../modules/fractions.js'
-
+import { prenom, prenomF, prenomM } from '../../modules/outils/objetsPersonnes.js'
 export const titre = 'Problèmes additifs et de comparaison sur les rationnels'
 
 /**

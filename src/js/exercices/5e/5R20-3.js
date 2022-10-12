@@ -1,21 +1,15 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {
-  listeQuestionsToContenu,
-  randint,
-  choice,
-  ecritureNombreRelatif,
-  ecritureNombreRelatifc,
-  ecritureAlgebrique,
-  ecritureAlgebriquec,
-  signe,
-  sommeDesTermesParSigne,
-  triePositifsNegatifs,
-  lettreDepuisChiffre,
-  nombreDeChiffresDansLaPartieEntiere
-} from '../../modules/outils.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { ecritureAlgebrique, ecritureAlgebriquec, ecritureNombreRelatif, ecritureNombreRelatifc } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { signe } from '../../modules/outils/nombres.js'
+import { lettreDepuisChiffre } from '../../modules/outils/lettres.js'
+import { nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils/decimales.js'
+import { sommeDesTermesParSigne, triePositifsNegatifs } from '../../modules/outils/relatifs.js'
 export const titre = 'Additions de 5 nombres relatifs'
 export const interactifReady = true
 

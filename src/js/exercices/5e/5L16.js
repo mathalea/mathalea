@@ -1,7 +1,11 @@
 import Exercice from '../Exercice.js'
-import { randint, listeQuestionsToContenu, combinaisonListes, choice, contraindreValeur } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { contraindreValeur } from '../../modules/outils/comparateurs.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Simplifier l\'écriture d\'une expression littérale'

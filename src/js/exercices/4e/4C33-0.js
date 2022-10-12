@@ -1,8 +1,10 @@
 import Exercice from '../Exercice.js'
-import { randint, combinaisonListes, listeQuestionsToContenu } from '../../modules/outils.js'
+import { context } from '../../modules/context.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { context } from '../../modules/context.js'
 export const titre = 'Utiliser la notation puissance'
 export const interactifReady = true
 export const interactifType = 'mathLive'

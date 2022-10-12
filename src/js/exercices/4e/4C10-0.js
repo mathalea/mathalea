@@ -1,8 +1,12 @@
 /* eslint-disable camelcase */
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, ecritureNombreRelatif, texteEnCouleurEtGras, Relatif, combinaisonListes } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { ecritureNombreRelatif } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
-
+import { texteEnCouleurEtGras } from '../../modules/outils/contextSensitif.js'
+import { Relatif } from '../../modules/outils/relatifs.js'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true

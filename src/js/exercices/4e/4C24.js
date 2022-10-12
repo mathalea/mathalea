@@ -1,9 +1,10 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, choice } from '../../modules/outils.js'
+import { context } from '../../modules/context.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import FractionX from '../../modules/FractionEtendue.js'
-import { context } from '../../modules/context.js'
 export const titre = 'Simplifier des fractions à l\'aide des nombres premiers'
 export const interactifReady = true
 export const interactifType = 'mathLive'

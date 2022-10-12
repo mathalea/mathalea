@@ -1,8 +1,13 @@
 import Exercice from '../Exercice.js'
-import { randint, listeQuestionsToContenu, choice, combinaisonListes, texNombre, arrondi } from '../../modules/outils.js'
-import FractionX from '../../modules/FractionEtendue.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { arrondi } from '../../modules/outils/nombres.js'
+import { texNombre } from '../../modules/outils/texNombres.js'
+import FractionX from '../../modules/FractionEtendue.js'
 export const titre = "Passer d'une fraction à une écriture décimale et inversement"
 export const interactifReady = true
 export const interactifType = 'mathLive'

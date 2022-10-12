@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
-import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Déterminer la racine carrée d\'un carré parfait (calcul mental)'
 export const amcReady = true
 export const amcType = 'AMCNum'

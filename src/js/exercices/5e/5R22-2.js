@@ -1,6 +1,8 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, ecritureNombreRelatif, ecritureAlgebrique, combinaisonListes } from '../../modules/outils.js'
-
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { ecritureAlgebrique, ecritureNombreRelatif } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 export const titre = 'Simplifier l\'écriture d\'une somme de 2 relatifs et calculer'
 
 /**

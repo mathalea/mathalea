@@ -1,9 +1,18 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, creerNomDePolygone } from '../../modules/outils.js'
-import { point, tracePoint, milieu, labelPoint, segment, translation2Points, similitude, grille, seyes } from '../../modules/2d.js'
-
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { segment } from '../../modules/2d/segment.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { similitude, translation2Points } from '../../modules/2d/transformations.js'
+import { tracePoint } from '../../modules/2d/tracePoint.js'
+import { labelPoint } from '../../modules/2d/labelPoint.js'
+import { milieu } from '../../modules/2d/barycentre.js'
+import { creerNomDePolygone } from '../../modules/outils/strings.js'
+import { grille, seyes } from '../../modules/2d/grilles.js'
 export const titre = 'Compléter une représentation en perspective cavalière'
 
 /**

@@ -1,9 +1,20 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, calcul, choisitLettresDifferentes, lettreDepuisChiffre, arcenciel } from '../../modules/outils.js'
-import { point, tracePoint, labelPoint, codageMilieu, segment, traceCompas, dansLaCibleCarree, cibleCarree, rotation, longueur } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
-
+import { randint } from '../../modules/outils/entiers.js'
+import { segment } from '../../modules/2d/segment.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { rotation } from '../../modules/2d/transformations.js'
+import { tracePoint } from '../../modules/2d/tracePoint.js'
+import { labelPoint } from '../../modules/2d/labelPoint.js'
+import { calcul } from '../../modules/outils/texNombres.js'
+import { longueur } from '../../modules/2d/calculs.js'
+import { choisitLettresDifferentes, lettreDepuisChiffre } from '../../modules/outils/lettres.js'
+import { traceCompas } from '../../modules/2d/arc.js'
+import { cibleCarree, dansLaCibleCarree } from '../../modules/2d/cibles.js'
+import { arcenciel } from '../../modules/outils/couleurs.js'
+import { codageMilieu } from '../../modules/2d/droitesRemarquables.js'
 export const titre = 'Construire le symétrique d\'un point avec cible auto-corrective'
 
 /**

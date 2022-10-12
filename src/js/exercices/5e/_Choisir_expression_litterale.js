@@ -1,4 +1,10 @@
-import { estentier, randint, arrondi, simplificationDeFractionAvecEtapes, calcul, texNombrec, texNombre, nombreAvecEspace, texFraction, rienSi1 } from '../../modules/outils.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { rienSi1 } from '../../modules/outils/ecritures.js'
+import { simplificationDeFractionAvecEtapes, texFraction } from '../../modules/outils/arrayFractions.js'
+import { arrondi } from '../../modules/outils/nombres.js'
+import { calcul, texNombre, texNombrec } from '../../modules/outils/texNombres.js'
+import { nombreAvecEspace } from '../../modules/outils/stringNombre.js'
+import { estentier } from '../../modules/outils/comparateurs.js'
 /**
  * Fork de la fonction de JC avec ajout de la dernière opération dans le tableau de sortie
  * @param {number} nbOperations

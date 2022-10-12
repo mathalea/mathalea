@@ -1,9 +1,18 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, arrondi, choisitLettresDifferentes, miseEnEvidence, numAlpha } from '../../modules/outils.js'
-import { point, pointSurSegment, pointIntersectionDD, labelPoint, droite, droiteParPointEtParallele, rotation, similitude, codageAngle, longueur, angle } from '../../modules/2d.js'
-
+import { randint } from '../../modules/outils/entiers.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { droite, droiteParPointEtParallele } from '../../modules/2d/droites.js'
+import { miseEnEvidence, numAlpha } from '../../modules/outils/contextSensitif.js'
+import { arrondi } from '../../modules/outils/nombres.js'
+import { rotation, similitude } from '../../modules/2d/transformations.js'
+import { labelPoint } from '../../modules/2d/labelPoint.js'
+import { pointIntersectionDD, pointSurSegment } from '../../modules/2d/pointSur.js'
+import { angle, longueur } from '../../modules/2d/calculs.js'
+import { codageAngle } from '../../modules/2d/codages.js'
+import { choisitLettresDifferentes } from '../../modules/outils/lettres.js'
 export const titre = 'Déterminer des angles en utilisant les cas d\'égalité'
 
 /**

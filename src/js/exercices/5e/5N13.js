@@ -1,10 +1,13 @@
 /* eslint-disable camelcase */
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, texFraction } from '../../modules/outils.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice, enleveElement } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texFraction } from '../../modules/outils/arrayFractions.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionX from '../../modules/FractionEtendue.js'
 export const amcReady = true
 export const amcType = 'AMCOpen' // type de question AMC
 export const interactifReady = true
@@ -104,9 +107,9 @@ export default function Exercice_fractions_simplifier (max = 11) {
       // Pour AMC question AmcOpen
       this.autoCorrection[i] = { enonce: texte, propositions: [{ texte: texteCorr, statut: 1, feedback: '' }] }
       if (this.sup2) {
-        setReponse(this, i, new FractionEtendue(a, b), { formatInteractif: 'fraction' })
+        setReponse(this, i, new FractionX(a, b), { formatInteractif: 'fraction' })
       } else {
-        setReponse(this, i, new FractionEtendue(k * a, k * b), { formatInteractif: 'fractionPlusSimple' })
+        setReponse(this, i, new FractionX(k * a, k * b), { formatInteractif: 'fractionPlusSimple' })
       }
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.

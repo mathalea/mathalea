@@ -1,11 +1,13 @@
 import Exercice from '../Exercice.js'
-import Decimal from 'decimal.js/decimal.mjs'
 import { context } from '../../modules/context.js'
-import { choice, listeQuestionsToContenu, randint, texNombre } from '../../modules/outils.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { cos } from '../../modules/fonctionsMaths.js'
-
+import { cos } from 'mathjs'
+import { texNombre } from '../../modules/outils/texNombres.js'
+import Decimal from 'decimal.js/decimal.mjs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Arrondir une racine carrée'

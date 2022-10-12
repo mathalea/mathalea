@@ -1,8 +1,16 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { calcul, listeQuestionsToContenuSansNumero, lettreDepuisChiffre, randint, choice, range1, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, miseEnEvidence, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice, range1 } from '../../modules/outils/arrays.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenuSansNumero } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { miseEnEvidence } from '../../modules/outils/contextSensitif.js'
+import { calcul } from '../../modules/outils/texNombres.js'
+import { lettreDepuisChiffre } from '../../modules/outils/lettres.js'
+import { nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils/decimales.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

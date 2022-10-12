@@ -1,7 +1,14 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texEnumerateSansNumero, texNombre, modalTexteLong, lampeMessage, Triangles } from '../../modules/outils.js'
-
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { modalTexteLong } from '../../modules/outils/modaux.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { calcul, texNombre } from '../../modules/outils/texNombres.js'
+import { texEnumerateSansNumero } from '../../modules/outils/texMiseEnForme.js'
+import { lampeMessage } from '../../modules/outils/messages.js'
+import { Triangles } from '../../modules/outils/triangles.js'
 export const titre = 'Vocabulaire des triangles'
 
 /**
