@@ -1,8 +1,13 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, calcul, texNombrec, texNombre, nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
+import { combinaisonListesSansChangerOrdre } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { shuffle } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { calcul, texNombre, texNombrec } from '../../modules/outils/texNombres.js'
+import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils/decimales.js'
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'mathLive'

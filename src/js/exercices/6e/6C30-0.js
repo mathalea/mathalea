@@ -1,9 +1,11 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul, texNombre } from '../../modules/outils.js'
-import Operation from '../../modules/operations.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { calcul, texNombre } from '../../modules/outils/texNombres.js'
+import Operation from '../../modules/operations.js'
 export const amcReady = true
 export const amcType = 'AMCNum' // Question numérique
 export const interactifReady = true

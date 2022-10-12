@@ -1,9 +1,15 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes2, texNombre, texteEnCouleurEtGras, rangeMinMax, combinaisonListes, choice, range, contraindreValeur, enleveElementNo, enleveElement, numAlpha } from '../../modules/outils.js'
+import { combinaisonListes, combinaisonListes2 } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice, enleveElement, rangeMinMax, range, enleveElementNo } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { max, min, mod } from 'mathjs'
+import { numAlpha, texteEnCouleurEtGras } from '../../modules/outils/contextSensitif.js'
+import { min, max, mod } from 'mathjs'
+import { texNombre } from '../../modules/outils/texNombres.js'
+import { contraindreValeur } from '../../modules/outils/comparateurs.js'
 export const titre = "Trouver le vocabulaire associé aux termes de l'égalité issue de la division euclidienne"
 
 export const amcReady = true

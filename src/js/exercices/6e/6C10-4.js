@@ -1,8 +1,11 @@
 /* eslint-disable camelcase */
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, nombreDeChiffresDansLaPartieEntiere, randint, texNombre } from '../../modules/outils.js'
-import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { texNombre } from '../../modules/outils/texNombres.js'
+import { nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils/decimales.js'
 export const titre = 'Effectuer addition de deux entiers'
 export const amcReady = true
 export const amcType = 'AMCNum' // Question numérique

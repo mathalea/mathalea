@@ -1,8 +1,13 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleurEtGras, choice, contraindreValeur, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
-import { labyrinthe } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
+import { combinaisonListes, combinaisonListesSansChangerOrdre } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texteEnCouleurEtGras } from '../../modules/outils/contextSensitif.js'
+import { contraindreValeur } from '../../modules/outils/comparateurs.js'
+import { labyrinthe } from '../../modules/2d/labyrinthe.js'
 export const amcReady = true
 export const amcType = 'AMCOpen' // type de question AMC
 export const interactifReady = false

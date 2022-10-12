@@ -1,9 +1,13 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, creerCouples, randint, choice, texNombre, texNombre2, calcul, contraindreValeur } from '../../modules/outils.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice, creerCouples } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { calcul, texNombre, texNombre2 } from '../../modules/outils/texNombres.js'
+import { contraindreValeur } from '../../modules/outils/comparateurs.js'
 export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true

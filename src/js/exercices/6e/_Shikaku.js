@@ -1,6 +1,10 @@
-import { boite, grille, nommePolygone, point, polygone, texteParPosition } from '../../modules/2d.js'
 import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites.js'
-import { shuffle, randint } from '../../modules/outils.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { shuffle } from '../../modules/outils/arrays.js'
+import { point } from '../../modules/2d/point.js'
+import { texteParPosition } from '../../modules/2d/textes.js'
+import { boite, nommePolygone, polygone } from '../../modules/2d/polygone.js'
+import { grille } from '../../modules/2d/grilles.js'
 
 /**
  * Cette fonction permet de créer un polygone rapidement à partir d'une liste des coordonnées de ses sommets et éventuellement de leur noms

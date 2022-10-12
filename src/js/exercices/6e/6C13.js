@@ -1,6 +1,11 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenuSansNumero, randint, combinaisonListes, numAlpha, rangeMinMax, contraindreValeur, compteOccurences } from '../../modules/outils.js'
-import choisirExpressionNumerique from '../5e/_choisirExpressionNumerique.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { compteOccurences, rangeMinMax } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenuSansNumero } from '../../modules/outils/miseEnForme.js'
+import { numAlpha } from '../../modules/outils/contextSensitif.js'
+import { contraindreValeur } from '../../modules/outils/comparateurs.js'
+import ChoisirExpressionNumerique from './_choisirExpressionNumerique.js'
 export const titre = 'Traduire des phrases en calculs et réciproquement'
 
 /**
@@ -55,7 +60,7 @@ export default function VocabulaireEtOperations () {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      resultats = choisirExpressionNumerique(1, decimal)
+      resultats = ChoisirExpressionNumerique(1, decimal)
       expf = resultats[0]
       expn = resultats[1]
       expc = resultats[2]

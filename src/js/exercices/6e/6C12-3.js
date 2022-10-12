@@ -1,7 +1,16 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, stringNombre, texteEnCouleurEtGras, texteGras, prenomM, arrondi, prenomF, nomDuMois, jour, rangeMinMax, compteOccurences, contraindreValeur, combinaisonListes, sp } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice, compteOccurences, rangeMinMax } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { sp, texteEnCouleurEtGras, texteGras } from '../../modules/outils/contextSensitif.js'
+import { arrondi } from '../../modules/outils/nombres.js'
+import { stringNombre } from '../../modules/outils/stringNombre.js'
+import { contraindreValeur } from '../../modules/outils/comparateurs.js'
+import { jour, nomDuMois } from '../../modules/outils/statistiques.js'
+import { prenomF, prenomM } from '../../modules/outils/objetsPersonnes.js'
 export const amcReady = true
 export const amcType = 'qcmMult' // type de question AMC
 export const interactifReady = true

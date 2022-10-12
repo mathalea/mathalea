@@ -1,7 +1,9 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, creerCouples, choice, texNombre, texNombre2, calcul, contraindreValeur } from '../../modules/outils.js'
+import { choice, creerCouples } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
-
+import { calcul, texNombre, texNombre2 } from '../../modules/outils/texNombres.js'
+import { contraindreValeur } from '../../modules/outils/comparateurs.js'
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'qcm'

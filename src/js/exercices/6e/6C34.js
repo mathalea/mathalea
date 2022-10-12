@@ -1,9 +1,11 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { randint, listeQuestionsToContenu, combinaisonListes, texteGras } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-
+import { texteGras } from '../../modules/outils/contextSensitif.js'
 export const titre = 'Déterminer le dernier chiffre d\'un calcul'
 export const amcReady = true
 export const interactifReady = true

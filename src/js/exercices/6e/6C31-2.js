@@ -1,7 +1,12 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, shuffle, texNombre, numAlpha, arrondi } from '../../modules/outils.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice, shuffle } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { numAlpha } from '../../modules/outils/contextSensitif.js'
+import { arrondi } from '../../modules/outils/nombres.js'
+import { texNombre } from '../../modules/outils/texNombres.js'
 export const titre = 'Donner des valeurs approchées d\'un quotient décimal'
 export const interactifReady = true
 export const interactifType = 'mathLive'

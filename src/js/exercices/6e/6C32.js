@@ -1,8 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, calcul, choice, texNombre, texPrix, arrondi, egalOuApprox } from '../../modules/outils.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenuSansNumero } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { arrondi, egalOuApprox } from '../../modules/outils/nombres.js'
+import { calcul, texNombre, texPrix } from '../../modules/outils/texNombres.js'
 export const titre = 'Résoudre des problèmes de courses au marché'
 export const interactifReady = true
 export const interactifType = 'mathLive'

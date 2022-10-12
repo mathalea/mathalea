@@ -1,8 +1,19 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, stringNombre, texteEnCouleurEtGras, prenomM, arrondi, prenomF, nomDuMois, jour, rangeMinMax, compteOccurences, contraindreValeur, combinaisonListes, sp, minToHour, minToHoraire, minToHeuresMinutes, estentier, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice, compteOccurences, rangeMinMax } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { sp, texteEnCouleurEtGras } from '../../modules/outils/contextSensitif.js'
+import { arrondi } from '../../modules/outils/nombres.js'
+import { stringNombre } from '../../modules/outils/stringNombre.js'
+import { contraindreValeur, estentier } from '../../modules/outils/comparateurs.js'
+import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../modules/outils/decimales.js'
+import { jour, nomDuMois } from '../../modules/outils/statistiques.js'
+import { prenomF, prenomM } from '../../modules/outils/objetsPersonnes.js'
+import { minToHeuresMinutes, minToHoraire, minToHour } from '../../modules/outils/horaires.js'
 export const amcReady = true
 export const amcType = 'AMCHybride' // type de question AMC
 export const interactifReady = true

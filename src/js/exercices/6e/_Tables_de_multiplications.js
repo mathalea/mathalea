@@ -1,7 +1,11 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, creerCouples, choice, texNombre, randint } from '../../modules/outils.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice, creerCouples } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { texNombre } from '../../modules/outils/texNombres.js'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

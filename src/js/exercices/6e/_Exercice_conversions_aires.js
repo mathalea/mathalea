@@ -1,10 +1,15 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import Decimal from 'decimal.js/decimal.mjs'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombre, texTexte } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { texNombre } from '../../modules/outils/texNombres.js'
+import Decimal from 'decimal.js/decimal.mjs'
+import { texTexte } from '../../modules/outils/texMiseEnForme.js'
 export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true

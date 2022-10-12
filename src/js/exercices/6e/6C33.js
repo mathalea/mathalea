@@ -1,8 +1,15 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, range1, combinaisonListes, miseEnEvidence, listeDesDiviseurs, nombreDeChiffresDansLaPartieEntiere, lettreDepuisChiffre } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice, enleveElement, range1 } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { miseEnEvidence } from '../../modules/outils/contextSensitif.js'
+import { lettreDepuisChiffre } from '../../modules/outils/lettres.js'
+import { listeDesDiviseurs } from '../../modules/outils/premiers.js'
+import { nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils/decimales.js'
 export const titre = 'Calculer en utilisant les priorités opératoires'
 export const amcReady = true
 export const interactifReady = true

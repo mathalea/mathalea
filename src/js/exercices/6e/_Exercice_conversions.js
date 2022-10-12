@@ -1,9 +1,17 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, arrondi, texNombre, texNombrec, texFraction, texTexte, calcul, texNombre2, contraindreValeur, rangeMinMax, compteOccurences, combinaisonListes } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice, compteOccurences, rangeMinMax } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texFraction } from '../../modules/outils/arrayFractions.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { format, evaluate } from 'mathjs'
+import { arrondi } from '../../modules/outils/nombres.js'
+import { evaluate, format } from 'mathjs'
+import { calcul, texNombre, texNombre2, texNombrec } from '../../modules/outils/texNombres.js'
+import { texTexte } from '../../modules/outils/texMiseEnForme.js'
+import { contraindreValeur } from '../../modules/outils/comparateurs.js'
 
 const math = { format: format, evaluate: evaluate }
 export const interactifReady = true
