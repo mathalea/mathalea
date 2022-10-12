@@ -4,7 +4,7 @@ import { context } from '../../modules/context.js'
 import { choice, listeQuestionsToContenu, randint, texNombre } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { cos } from '../../modules/fonctionsMaths.js'
+import { degCos } from '../../modules/fonctionsMaths.js'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -50,10 +50,10 @@ export default function ArrondirUneValeur () {
         v = new Decimal(randint(11, 99)).div(10)
         angle = randint(1, 89, 60)
         if (choice([true, false])) {
-          n = v.mul(cos(angle))
+          n = v.mul(degCos(angle))
           nb = `${texNombre(v, 1)}\\cos(${angle})`
         } else {
-          n = v.div(cos(angle))
+          n = v.div(degCos(angle))
           nb = `\\dfrac{${texNombre(v, 1)}}{\\cos(${angle})}`
         }
       }

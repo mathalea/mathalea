@@ -1,5 +1,5 @@
 import { calcul, arrondi, egal, randint, rangeMinMax, unSiPositifMoinsUnSinon, lettreDepuisChiffre, nombreAvecEspace, stringNombre, inferieurouegal, numberFormat, nombreDeChiffresDe, superieurouegal, combinaisonListes, texcolors, texNombre, enleveElement, combinaisonListesSansChangerOrdre } from './outils.js'
-import { cos, radians, sin } from './fonctionsMaths.js'
+import { degCos, radians, degSin } from './fonctionsMaths.js'
 import { context } from './context.js'
 import { fraction, Fraction, max, ceil, isNumeric, floor, random, round, abs } from 'mathjs'
 import earcut from 'earcut'
@@ -490,8 +490,8 @@ export function pointSurSegment (A, B, l, nom = '', positionLabel = 'above') {
  */
 export function pointSurCercle (c, angle, nom, positionLabel = 'above') {
   if (typeof angle !== 'number') angle = randint(-180, 180)
-  const x = c.centre.x + c.rayon * Math.cos(radians(angle))
-  const y = c.centre.y + c.rayon * Math.sin(radians(angle))
+  const x = c.centre.x + c.rayon * Math.degCos(radians(angle))
+  const y = c.centre.y + c.rayon * Math.degSin(radians(angle))
   return point(x, y, nom, positionLabel)
 }
 /**
@@ -3455,7 +3455,7 @@ function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDe
     let compteur = 1
     for (let k = 1, variation; k < 181; k++) {
       variation = (random(0, 2) - 1) * amp / 10
-      code += `${O.xSVG(coeff) + round((r + variation) * Math.cos(2 * k * Math.PI / 180) * coeff, 2)} ${O.ySVG(coeff) + round((r + variation) * Math.sin(2 * k * Math.PI / 180) * coeff, 2)}, `
+      code += `${O.xSVG(coeff) + round((r + variation) * Math.degCos(2 * k * Math.PI / 180) * coeff, 2)} ${O.ySVG(coeff) + round((r + variation) * Math.degSin(2 * k * Math.PI / 180) * coeff, 2)}, `
       compteur++
     }
     if (compteur % 2 === 0) code += ` ${O.xSVG(coeff) + r * coeff} ${O.ySVG(coeff)}, `
@@ -3627,7 +3627,7 @@ function Ellipse (O, rx, ry, color = 'black') {
     let compteur = 1
     for (let k = 1, variation; k < 181; k++) {
       variation = (random(0, 2) - 1) * amp / 10
-      code += `${O.xSVG(coeff) + round((rx + variation) * Math.cos(2 * k * Math.PI / 180) * coeff, 2)} ${O.ySVG(coeff) + round((ry + variation) * Math.sin(2 * k * Math.PI / 180) * coeff, 2)}, `
+      code += `${O.xSVG(coeff) + round((rx + variation) * Math.degCos(2 * k * Math.PI / 180) * coeff, 2)} ${O.ySVG(coeff) + round((ry + variation) * Math.degSin(2 * k * Math.PI / 180) * coeff, 2)}, `
       compteur++
     }
     if (compteur % 2 === 0) code += ` ${O.xSVG(coeff) + rx * coeff} ${O.ySVG(coeff)}, `
@@ -4491,25 +4491,25 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
     const R0 = round(this.rayonInt * coeff)
     const angle = 360 / this.nbDents
     const r1x = round(R2 - R1)
-    const r1y = round(R1 * sin(0.125 * angle))
-    const Ax = round(xC + R1 * cos(angle * 0.25 + this.angleStart))
-    const Ay = round(yC + R1 * sin(angle * 0.25 + this.angleStart))
+    const r1y = round(R1 * degSin(0.125 * angle))
+    const Ax = round(xC + R1 * degCos(angle * 0.25 + this.angleStart))
+    const Ay = round(yC + R1 * degSin(angle * 0.25 + this.angleStart))
     let code = `<g class="roueEngrenage" id=roue${this.id}>
     <path stroke="${this.color[0]}" fill="${this.couleurDeRemplissage[0]}"
       d="M ${Ax},${Ay} `
     for (let i = 0; i < this.nbDents; i++) {
-      const Bx = round(xC + R1 * cos(angle * (-i - 0.25) + this.angleStart))
-      const By = round(yC + R1 * sin(angle * (-i - 0.25) + this.angleStart))
-      const Cx = round(xC + R2 * cos(angle * (-i + 0.125) + this.angleStart))
-      const Cy = round(yC + R2 * sin(angle * (-i + 0.125) + this.angleStart))
-      const Dx = round(xC + R2 * cos(angle * (-i - 0.125) + this.angleStart))
-      const Dy = round(yC + R2 * sin(angle * (-i - 0.125) + this.angleStart))
-      const Ex = round(xC + R1 * cos(angle * (-i - 0.75) + this.angleStart))
-      const Ey = round(yC + R1 * sin(angle * (-i - 0.75) + this.angleStart))
+      const Bx = round(xC + R1 * degCos(angle * (-i - 0.25) + this.angleStart))
+      const By = round(yC + R1 * degSin(angle * (-i - 0.25) + this.angleStart))
+      const Cx = round(xC + R2 * degCos(angle * (-i + 0.125) + this.angleStart))
+      const Cy = round(yC + R2 * degSin(angle * (-i + 0.125) + this.angleStart))
+      const Dx = round(xC + R2 * degCos(angle * (-i - 0.125) + this.angleStart))
+      const Dy = round(yC + R2 * degSin(angle * (-i - 0.125) + this.angleStart))
+      const Ex = round(xC + R1 * degCos(angle * (-i - 0.75) + this.angleStart))
+      const Ey = round(yC + R1 * degSin(angle * (-i - 0.75) + this.angleStart))
       code += `A${r1x} ${r1y} ${round(180 + this.angleStart - (i + 0.25) * angle)} 0 0 ${Cx} ${Cy} L${Dx} ${Dy} A${r1x} ${r1y} ${round(180 + this.angleStart - (i - 0.125) * angle)} 0 0 ${Bx} ${By} A${R1} ${R1} 0 0 0 ${Ex} ${Ey} `
     }
     code += 'Z"/>'
-    if (typeof this.marqueur === 'number') code += `<circle cx="${round(xC + (R1 - 5) * cos(this.marqueur))}" cy="${round(yC + (R1 - 5) * sin(this.marqueur))}" r="3" stroke="HotPink" fill="Sienna" />`
+    if (typeof this.marqueur === 'number') code += `<circle cx="${round(xC + (R1 - 5) * degCos(this.marqueur))}" cy="${round(yC + (R1 - 5) * degSin(this.marqueur))}" r="3" stroke="HotPink" fill="Sienna" />`
     if (this.dureeTour !== 0) {
       code += `<animateTransform
       id="animRoue${this.id}"
@@ -4538,14 +4538,14 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
     \\foreach \\i in {1,2,...,${this.nbDents}}{
                   \\pgfmathparse{360*(\\i-1)/${this.nbDents}}\\let\\angle\\pgfmathresult
                   \\begin{scope}[shift={(${this.xCenter},${this.yCenter})}]
-                      \\pgfmathparse{${this.rayon}*cos(${this.angleStart}+90/${this.nbDents})}\\let\\Ax\\pgfmathresult 
-                  \\pgfmathparse{${R1}*sin(${this.angleStart}+90/${this.nbDents})}\\let\\Ay\\pgfmathresult
-                  \\pgfmathparse{${R1}*cos(${this.angleStart}-90/${this.nbDents})}\\let\\Bx\\pgfmathresult
-                  \\pgfmathparse{${R1}*sin(${this.angleStart}-90/${this.nbDents})}\\let\\By\\pgfmathresult
-                  \\pgfmathparse{${R2}*cos(${this.angleStart}+45/${this.nbDents})}\\let\\Cx\\pgfmathresult
-                  \\pgfmathparse{${R2}*sin(${this.angleStart}+45/${this.nbDents})}\\let\\Cy\\pgfmathresult
-                  \\pgfmathparse{${R2}*cos(${this.angleStart}-45/${this.nbDents})}\\let\\Dx\\pgfmathresult
-                  \\pgfmathparse{${R2}*sin(${this.angleStart}-45/${this.nbDents})}\\let\\Dy\\pgfmathresult
+                      \\pgfmathparse{${this.rayon}*degCos(${this.angleStart}+90/${this.nbDents})}\\let\\Ax\\pgfmathresult 
+                  \\pgfmathparse{${R1}*degSin(${this.angleStart}+90/${this.nbDents})}\\let\\Ay\\pgfmathresult
+                  \\pgfmathparse{${R1}*degCos(${this.angleStart}-90/${this.nbDents})}\\let\\Bx\\pgfmathresult
+                  \\pgfmathparse{${R1}*degSin(${this.angleStart}-90/${this.nbDents})}\\let\\By\\pgfmathresult
+                  \\pgfmathparse{${R2}*degCos(${this.angleStart}+45/${this.nbDents})}\\let\\Cx\\pgfmathresult
+                  \\pgfmathparse{${R2}*degSin(${this.angleStart}+45/${this.nbDents})}\\let\\Cy\\pgfmathresult
+                  \\pgfmathparse{${R2}*degCos(${this.angleStart}-45/${this.nbDents})}\\let\\Dx\\pgfmathresult
+                  \\pgfmathparse{${R2}*degSin(${this.angleStart}-45/${this.nbDents})}\\let\\Dy\\pgfmathresult
                   \\pgfmathparse{${this.angleStart}-90/${this.nbDents}}\\let\\a\\pgfmathresult
                   \\pgfmathparse{${this.angleStart}-270/${this.nbDents}}\\let\\b\\pgfmathresult
                   \\fill[${this.couleurDeRemplissage[1]},draw,rotate=\\angle] (0,0) -- (\\Ax,\\Ay) to[bend left=15] (\\Cx,\\Cy) -- (\\Dx,\\Dy) to[bend left=15] (\\Bx,\\By) arc (\\a:\\b:${R1}cm) -- cycle; 
@@ -4554,7 +4554,7 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
               \\fill[${this.couleurDuTrou[1]},draw=${this.color[1]}] (${this.xCenter},${this.yCenter}) circle (${R0});
   `
     if (typeof this.marqueur === 'number') {
-      code += `\\fill[HotPink,draw=black] (${arrondi(this.xCenter + (R1 - 0.2) * cos(this.marqueur), 2)},${arrondi(this.yCenter + (R1 - 0.2) * sin(this.marqueur), 2)}) circle (0.15);
+      code += `\\fill[HotPink,draw=black] (${arrondi(this.xCenter + (R1 - 0.2) * degCos(this.marqueur), 2)},${arrondi(this.yCenter + (R1 - 0.2) * degSin(this.marqueur), 2)}) circle (0.15);
 `
     }
     return code
@@ -5165,11 +5165,11 @@ export function translation2Points (O, A, B, nom = '', positionLabel = 'above', 
 export function rotation (A, O, angle, nom = '', positionLabel = 'above', color = 'black') {
   if (A.constructor === Point) {
     const x = O.x +
-      (A.x - O.x) * Math.cos((angle * Math.PI) / 180) -
-      (A.y - O.y) * Math.sin((angle * Math.PI) / 180)
+      (A.x - O.x) * Math.degCos((angle * Math.PI) / 180) -
+      (A.y - O.y) * Math.degSin((angle * Math.PI) / 180)
     const y = O.y +
-      (A.x - O.x) * Math.sin((angle * Math.PI) / 180) +
-      (A.y - O.y) * Math.cos((angle * Math.PI) / 180)
+      (A.x - O.x) * Math.degSin((angle * Math.PI) / 180) +
+      (A.y - O.y) * Math.degCos((angle * Math.PI) / 180)
     return point(x, y, nom, positionLabel)
   }
   if (A.constructor === Polygone) {
@@ -5193,10 +5193,10 @@ export function rotation (A, O, angle, nom = '', positionLabel = 'above', color 
     return s
   }
   if (A.constructor === Vecteur) {
-    const x = A.x * Math.cos((angle * Math.PI) / 180) -
-      A.y * Math.sin((angle * Math.PI) / 180)
-    const y = A.x * Math.sin((angle * Math.PI) / 180) +
-      A.y * Math.cos((angle * Math.PI) / 180)
+    const x = A.x * Math.degCos((angle * Math.PI) / 180) -
+      A.y * Math.degSin((angle * Math.PI) / 180)
+    const y = A.x * Math.degSin((angle * Math.PI) / 180) +
+      A.y * Math.degCos((angle * Math.PI) / 180)
     const v = vecteur(x, y)
     return v
   }
@@ -5475,8 +5475,8 @@ export function affiniteOrtho (A, d, k, nom = '', positionLabel = 'above', color
 export function similitude (A, O, a, k, nom = '', positionLabel = 'above', color = 'black') {
   if (A.constructor === Point) {
     const ra = radians(a)
-    const x = O.x + k * (Math.cos(ra) * (A.x - O.x) - Math.sin(ra) * (A.y - O.y))
-    const y = O.y + k * (Math.cos(ra) * (A.y - O.y) + Math.sin(ra) * (A.x - O.x))
+    const x = O.x + k * (Math.degCos(ra) * (A.x - O.x) - Math.degSin(ra) * (A.y - O.y))
+    const y = O.y + k * (Math.degCos(ra) * (A.y - O.y) + Math.degSin(ra) * (A.x - O.x))
     return point(x, y, nom, positionLabel)
   }
   if (A.constructor === Polygone) {
@@ -9844,7 +9844,7 @@ export function courbeSpline (f, { repere = {}, color = 'black', epaisseur = 2, 
 // mu: the current frame of the interpolation,
 //     in a linear range from 0-1.
 const cosineInterpolate = (y1, y2, mu) => {
-  const mu2 = (1 - Math.cos(mu * Math.PI)) / 2
+  const mu2 = (1 - Math.degCos(mu * Math.PI)) / 2
   return y1 * (1 - mu2) + y2 * mu2
 }
 
@@ -10557,7 +10557,7 @@ export function angle (A, O, B, precision = 2) {
     else if (v.y * w.y > 0) return 0
     else return 180
   } else {
-    return arrondi((Math.acos(arrondi((AB ** 2 - OA ** 2 - OB ** 2) / (-2 * OA * OB), 12)) * 180) / Math.PI, precision)
+    return arrondi((Math.adegCos(arrondi((AB ** 2 - OA ** 2 - OB ** 2) / (-2 * OA * OB), 12)) * 180) / Math.PI, precision)
   }
 }
 
@@ -10621,7 +10621,7 @@ export function angleradian (A, O, B, precision = 2) {
   const OA = longueur(O, A)
   const OB = longueur(O, B)
   const AB = longueur(A, B)
-  return calcul(Math.acos(arrondi((AB ** 2 - OA ** 2 - OB ** 2) / (-2 * OA * OB), 12)), precision)
+  return calcul(Math.adegCos(arrondi((AB ** 2 - OA ** 2 - OB ** 2) / (-2 * OA * OB), 12)), precision)
 }
 
 /**
