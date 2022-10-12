@@ -29,13 +29,13 @@ export default function EntierPlusFractionVersDecimal () {
         if (choice([true, false])) {
           maFraction = fraction(a, 5)
           resultat = calcul(a / 5)
-          this.question = `La valeur décimale de  $${maFraction.texFraction}$ est :`
+          this.question = `Quelle est la valeur décimale de  $${maFraction.texFraction}$ ?`
           this.correction = `$${maFraction.texFraction}=${texNombre(resultat)}$`
           this.reponse = resultat
         } else {
           maFraction = fraction(b, 4)
           resultat = calcul(b / 4)
-          this.question = `La valeur décimale de  $${maFraction.texFraction}$ est :`
+          this.question = `Quelle est la valeur décimale de  $${maFraction.texFraction}$ ?`
           this.correction = `$${maFraction.texFraction}=${texNombre(resultat)}$`
           this.reponse = resultat
         }
@@ -46,8 +46,7 @@ export default function EntierPlusFractionVersDecimal () {
         maFraction = fraction(b, c)
         a = randint(1, 4)
         resultat = calcul(a + b / c)
-        this.question = ` $${a}+${maFraction.texFraction}=$<br>
-        (résultat sous forme décimale)`
+        this.question = `Quelle est la valeur décimale de  $${a}+${maFraction.texFraction}$ ?`
         this.correction = `$${a}+${maFraction.texFraction} = ${a} + ${texNombre(maFraction.valeurDecimale)}= ${texNombre(resultat)}$`
         this.reponse = resultat
         break
@@ -59,8 +58,8 @@ export default function EntierPlusFractionVersDecimal () {
         maFraction = fraction(c, b)
         resultat = calcul(a + c / b)
 
-        this.question = ` $${a}+${maFraction.texFraction}=$<br>
-        (résultat sous forme décimale)`
+        this.question = `Quelle est la valeur décimale de $${a}+${maFraction.texFraction}$ ?
+        `
         this.correction = `$${a}+${maFraction.texFraction} = ${texNombre(resultat)}$`
         this.reponse = resultat
         break
@@ -71,8 +70,8 @@ export default function EntierPlusFractionVersDecimal () {
         maFraction = fraction(b, 100)
         maFraction2 = fraction(c, 1000)
         resultat = calcul(a + b / 100 + c / 1000)
-        this.question = `$${a}+${maFraction.texFraction}+${maFraction2.texFraction}=$<br>
-        (résultat sous forme décimale)`
+        this.question = `Quelle est la valeur décimale de $${a}+${maFraction.texFraction}+${maFraction2.texFraction}$ ?
+       `
         this.correction = `$${a}+${maFraction.texFraction}+${maFraction2.texFraction}=${a}+${texNombrec(b / 100)}+${texNombrec(c / 1000)}=${texNombrec(resultat)}$.`
         this.reponse = resultat
         break
@@ -83,11 +82,13 @@ export default function EntierPlusFractionVersDecimal () {
         maFraction = fraction(b, 1000)
         maFraction2 = fraction(c, 100)
         resultat = calcul(a + b / 1000 + c / 100)
-        this.question = ` $${a}+${maFraction.texFraction}+${maFraction2.texFraction}=$<br>
-        (résultat sous forme décimale)`
+        this.question = `Quelle est la valeur décimale de $${a}+${maFraction.texFraction}+${maFraction2.texFraction}$ ?
+        `
         this.correction = `$${a}+${maFraction.texFraction}+${maFraction2.texFraction}=${a}+${texNombrec(b / 1000)}+${texNombrec(c / 100)}=${texNombre(resultat)}$.`
         this.reponse = resultat
         break
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

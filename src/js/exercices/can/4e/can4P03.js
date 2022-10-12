@@ -18,6 +18,7 @@ export default function QuatriemeProportionnelle () {
   this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     const a = randint(1, 6)
     const b = randint(4, 8, a) * 2
@@ -25,8 +26,13 @@ export default function QuatriemeProportionnelle () {
     this.reponse = calcul(b * c)
     switch (randint(0, 3)) {
       case 0:
-        this.question = 'Complète le tableau de proportionnalité ci-dessous :<br>'
+        this.question = `Complèter le tableau de proportionnalité.<br>
+        
+        `
         this.question += tableauColonneLigne([b, a], [' '], [calcul(a * c)])
+        this.question += `<br>
+        
+        `
         this.correction = `La quatrième proportionnelle est donnée par  : $\\dfrac{${calcul(a * c)}\\times ${b}}{${a}}=\\dfrac{${a * b * c}}{${a}}=${calcul(b * c)}$`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
     Pour passer de la première ligne du tableau à la deuxième, on multiplie par
@@ -34,8 +40,13 @@ export default function QuatriemeProportionnelle () {
      Ainsi, le nombre manquant est donné par : $${b}\\times ${c}=${b * c}$.`)
         break
       case 1:
-        this.question = 'Complète le tableau de proportionnalité ci-dessous :<br>'
+        this.question = `Complèter le tableau de proportionnalité.<br>
+        
+        `
         this.question += tableauColonneLigne([a, calcul(a * c)], [b], [' '])
+        this.question += `<br>
+        
+        `
         this.correction = `La quatrième proportionnelle est donnée par : $\\dfrac{${calcul(a * c)}\\times ${b}}{${a}}=\\dfrac{${a * b * c}}{${a}}=${calcul(b * c)}$`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
         Pour passer de la première colonne du tableau à la deuxième, on multiplie par
@@ -43,8 +54,13 @@ export default function QuatriemeProportionnelle () {
          Ainsi, le nombre manquant est donné par : $${b}\\times ${c}=${b * c}$.`)
         break
       case 2:
-        this.question = 'Complète le tableau de proportionnalité ci-dessous :<br>'
+        this.question = `Complèter le tableau de proportionnalité.<br>
+        
+        `
         this.question += tableauColonneLigne([' ', calcul(a * c)], [b], [a])
+        this.question += `<br>
+        
+        `
         this.correction = `La quatrième proportionnelle est donnée par : $\\dfrac{${calcul(a * c)}\\times ${b}}{${a}}=\\dfrac{${a * b * c}}{${a}}=${calcul(b * c)}$`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
         Pour passer de la deuxième ligne du tableau à la première, on multiplie par
@@ -52,8 +68,13 @@ export default function QuatriemeProportionnelle () {
          Ainsi, le nombre manquant est donné par : $${b}\\times ${c}=${b * c}$.`)
         break
       case 3:
-        this.question = 'Complète le tableau de proportionnalité ci-dessous :<br>'
+        this.question = `Complèter le tableau de proportionnalité.<br>
+        
+        `
         this.question += tableauColonneLigne([b, ' '], [a], [calcul(a * c)])
+        this.question += `<br>
+        
+        `
         this.correction = `La quatrième proportionnelle est donnée par : $\\dfrac{${calcul(a * c)}\\times ${b}}{${a}}=\\dfrac{${a * b * c}}{${a}}=${calcul(b * c)}$`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
         Pour passer de la première colonne du tableau à la deuxième, on multiplie par
@@ -61,5 +82,7 @@ export default function QuatriemeProportionnelle () {
          Ainsi, le nombre manquant est donné par : $${b}\\times ${c}=${b * c}$.`)
         break
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

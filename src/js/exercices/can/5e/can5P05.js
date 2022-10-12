@@ -59,5 +59,7 @@ export default function PoucentageP2 () {
         this.reponse = (u + a) / 100
         break
     }
+    this.canEnonce = 'Compléter.'
+    this.canReponseACompleter = this.question
   }
 }

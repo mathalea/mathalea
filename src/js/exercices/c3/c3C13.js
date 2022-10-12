@@ -15,9 +15,11 @@ export const dateDePublication = '02/11/2021'
  */
 export const uuid = 'b0311'
 export const ref = 'c3C13'
-export default function QuestionsPrixCM () {
-  QuestionsPrix.call(this)
-  this.titre = titre
-  this.sup = '1-2-3-4-5-6' // Par défaut, pas de divisions
-  this.sup3 = false // Par défaut, que des entiers
+
+export default class QuestionsPrixCM extends QuestionsPrix {
+  constructor () {
+    super()
+    this.sup = '1-2-3-4-5-6' // Par défaut, pas de divisions
+    this.sup3 = false // Par défaut, que des entiers
+  }
 }

@@ -24,9 +24,9 @@ export default function ConversionM3EtLitres () {
       case 'a':
         a = calcul(randint(1, 12) + randint(1, 9) / 10)
         resultat = calcul(a * 1000)
-        this.question = ` $${texNombre(a)}$ m$^3=$`
+        this.question = ` $${texNombre(a)}$ m$^3=$ `
         if (!this.interactif) {
-          this.question += ' $....$ L'
+          this.question += '$ ....$ L'
         }
         this.formatChampTexte = 'largeur15 inline'
         this.optionsChampTexte = { texteApres: ' L' }
@@ -34,17 +34,20 @@ export default function ConversionM3EtLitres () {
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
         Comme $1$ m$^3$= $1000$ L,  pour passer des "m$^3$" au "L", on multiplie par $1000$.<br>
           Comme : $${texNombre(a)}\\times 1000 =${texNombrec(a * 1000)}$, alors $${texNombrec(a)}$ m$^3=${resultat}$ L.  `)
-
+        this.canEnonce = 'Compléter.'
+        this.canReponseACompleter = `$${texNombre(a)}$ m$^3 = \\dots$ L`
         break
       case 'b':
         a = calcul(randint(1, 9) + randint(1, 9) * 10 + randint(0, 9) * 100)
         resultat = calcul(a / 1000)
-        this.question = `$${texNombre(a)}$  L$=$`
+        this.question = `$${texNombre(a)}$  L $=$ `
         if (!this.interactif) {
-          this.question += '.... m$^3$ '
+          this.question += ' .... m$^3$ '
         }
         this.formatChampTexte = 'largeur15 inline'
         this.optionsChampTexte = { texteApres: ' m$^3$' }
+        this.canEnonce = 'Compléter.'
+        this.canReponseACompleter = `$${texNombre(a)}$ L $= \\dots$ m$^3$`
         this.correction = ` $${texNombre(a)}$ L$=${texNombrec(a / 1000)}$ m$^3$.`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
            Comme $1$ m$^3$= $1000$ L alors $1$ L$=0,001$ m$^3$. Donc,    pour passer des "L" au "m$^3$", on divise par $1000$.<br>

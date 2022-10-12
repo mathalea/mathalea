@@ -28,6 +28,8 @@ export default function CalculMoitieImpair () {
     this.reponse = new Decimal(a).div(2)
     this.question = `Calculer la moitié de $${a}$. `
     this.correction = `$${a}\\div 2=${texNombre(this.reponse)}$
-          `
+         `
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

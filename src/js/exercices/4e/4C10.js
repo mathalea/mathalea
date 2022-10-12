@@ -11,6 +11,8 @@ export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '23/09/2022'
 
+export const uuid = '745ba'
+export const ref = '4C10'
 export default function ProduitsEtQuotientRelatifs () {
   Exercice.call(this)
   this.consigne = 'Calculer :'

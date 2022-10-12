@@ -23,7 +23,9 @@ export default function RecomposerEntierMoinsSimple () {
     const a = randint(20, 70)
     const b = randint(20, 70, a)
     this.reponse = a * 100 + b * 10
-    this.question = `$${a}$ centaines et $${b}$ dizaines = `
+    this.question = `Calculer $${a}$ centaines et $${b}$ dizaines.`
     this.correction = `$${a} \\times 100 + ${b} \\times 10 = ${a * 100} + ${b * 10}=${a * 100 + b * 10}$`
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

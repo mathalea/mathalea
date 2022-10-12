@@ -20,20 +20,21 @@ export default function LaBonneUnite () {
   this.nbQuestions = 1
 
   const hauteurs = [
-    ['chaise', 75, 115, 'cm'],
-    ['grue', 120, 250, 'dm'],
-    ['tour', 50, 180, 'm'],
-    ['girafe', 40, 50, 'dm'],
-    ['coline', 75, 150, 'm']
+    ['chaise', 75, 115, ' cm'],
+    ['grue', 120, 250, ' dm'],
+    ['tour', 50, 180, ' m'],
+    ['girafe', 40, 50, ' dm'],
+    ['coline', 75, 150, ' m']
   ]
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
-    const unites = ['cm', 'dm', 'm']
+    const unites = [' cm', ' dm', ' m']
     const a = randint(0, 4)
     const b = randint(hauteurs[a][1], hauteurs[a][2])
     enleveElement(unites, hauteurs[a][3])
     let texte = `Choisir parmi les propositions suivantes la hauteur d'une ${hauteurs[a][0]}.<br>`
+    this.canEnonce = texte
     this.autoCorrection[0] = {
       enonce: texte,
       propositions: [
@@ -58,5 +59,6 @@ export default function LaBonneUnite () {
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
+    this.canReponseACompleter = propositionsQcm(this, 0).texte
   }
 }

@@ -36,7 +36,7 @@ export default function CalculDeVolumes () {
   this.sup3 = 2
   this.sup4 = 8
   this.nouvelleVersion = function (numeroExercice) {
-    this.consigne = this.interactif ? '' : "Calculer, en détaillant, le volume des solides donnés. Arrondir à l'unité."
+    // this.consigne = this.interactif ? '' : "Calculer, en détaillant, le volume des solides donnés. Arrondir à l'unité."
     this.interactifType = this.sup3 === 2 ? 'mathLive' : 'qcm'
     this.autoCorrection = []
     let typesDeQuestionsDisponibles = []

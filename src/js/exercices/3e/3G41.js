@@ -3,7 +3,7 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice, numAlpha, range1, contraindreValeur, compteOccurences, shuffle, enleveDoublonNum } from '../../modules/outils.js'
 import { cube } from '../../modules/3d.js'
 export const titre = "Dessiner différentes vues d'un empilement de cubes"
-export const dateDePublication = '06/10/22'
+export const dateDePublication = '06/10/2022'
 
 /**
 * Dessiner différentes vues d'un empilement de cubes
@@ -11,6 +11,8 @@ export const dateDePublication = '06/10/22'
 * Source : http://cache.media.education.gouv.fr/file/Geometrie_et_espace/47/1/RA16_C4_MATH_geo_espace_flash_567471.pdf
 */
 
+export const uuid = '136dd'
+export const ref = '3G41'
 export default function VuesEmpilementCubes () {
   'use strict'
   Exercice.call(this)
@@ -118,9 +120,11 @@ export default function VuesEmpilementCubes () {
       texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { style: 'block' }), objetsEnonce) + '<br>'
       for (let ee = 0; ee < this.sup3; ee++) {
         vuePossible = listeVuesPossibles[ee]
-        texte += `${numAlpha(ee)} Dessiner la vue de ${vue[vuePossible][0]} de ce solide. <br>`
+        texte += this.sup3 > 1 ? numAlpha(ee) + ' ' : ''
+        texte += `Dessiner la vue de ${vue[vuePossible][0]} de ce solide. <br>`
         // correction :
-        texteCorr += `${numAlpha(ee)} Voici la vue de ${vue[vuePossible][0]} de ce solide. <br>`
+        texteCorr += this.sup3 > 1 ? numAlpha(ee) + ' ' : ''
+        texteCorr += `Voici la vue de ${vue[vuePossible][0]} de ce solide. <br>`
         alpha = vue[vuePossible][1]
         beta = vue[vuePossible][2]
         objetsCorrection = []

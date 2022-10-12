@@ -17,6 +17,7 @@ export default function ProportionnaliteSimple () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.optionsChampTexte = { texteApres: ' €' }
   const fruits = [
@@ -40,5 +41,7 @@ export default function ProportionnaliteSimple () {
     La masse de ${fruits[a][0]} est proportionnelle au prix.<br>
     On remarque qu'on demande le prix pour une quantité double ($${texNombrec(c / 5)}=2\\times ${texNombrec(c / 10)}$).<br> 
     Ainsi, le prix à payer pour $${texNombrec(c / 5)}$ kg de ${fruits[a][0]} est :  $${texNombrec(c / 10 * b)} \\times 2 = ${texNombre(this.reponse)}$ €`
+    this.canEnonce = this.question
+    this.canReponseACompleter = '$\\dots$ €'
   }
 }

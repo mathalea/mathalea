@@ -23,11 +23,13 @@ export default function SommeEntiers5e () {
     const b = randint(51, 89, [60, 70, 80])
     const a = randint(2, 39, [10, 20, 30]) + 100
     this.reponse = calcul(a + b)
-    this.question = `$${a} + ${b}=$`
+    this.question = `Calculer $${a} + ${b}$.`
     this.correction = `$${a} + ${b}=${a + b}$`
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
     On décompose le calcul $${a} + ${b}$ en  $(100+${a - 100})+ ${b}=100+ (\\underbrace{${a - 100} +${b}}_{${a - 100 + b}})$ .<br>
        Cela donne :  $100+${a - 100 + b}=${this.reponse}$.
       `)
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

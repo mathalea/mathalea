@@ -31,6 +31,8 @@ export default function CompleterVolumeAuLitre () {
    `)
 
         this.reponse = calcul(100 - a)
+        this.canEnonce = 'Compléter.'
+        this.canReponseACompleter = `$${a}$ cL $+ \\ldots$ cL $ = 1 $ L`
         break
       case 'b':
         a = randint(2, 8) * 10
@@ -40,24 +42,30 @@ export default function CompleterVolumeAuLitre () {
    Comme $1$ L$=100$ cL, le nombre cherché est donné par la différence : $100-${a}=${100 - a}$.
    `)
         this.reponse = calcul(100 - a)
+        this.canEnonce = 'Compléter.'
+        this.canReponseACompleter = `$\\ldots$ cL $ + ${a}$ cL$ = 1 $ L`
         break
       case 'c':
         a = randint(20, 80)
-        this.question = `Compléter : <br>$${a * 10}$ mL$ + \\ldots$ mL$ = 1$ L`
+        this.question = `Compléter : <br>$${a * 10}$ mL$ + \\ldots$ mL $ = 1$ L`
         this.correction = `$${a * 10}$ mL$ + ${miseEnEvidence(1000 - a * 10)}$ mL$ = 1$ L`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
    Comme $1$ L$=1000$ mL, le nombre cherché est donné par la différence : $1000-${a * 10}=${1000 - a * 10}$.
    `)
         this.reponse = calcul(1000 - a * 10)
+        this.canEnonce = 'Compléter.'
+        this.canReponseACompleter = `$${a * 10}$ mL $ + \\ldots$ mL $ = 1 $ L`
         break
       case 'd':
         a = randint(20, 80)
-        this.question = `Compléter : <br>$\\ldots$ mL$ + ${a * 10}$ mL$ = 1$ L`
+        this.question = `Compléter : <br>$\\ldots$ mL $ +$ $${a * 10}$ mL $ = 1$ L`
         this.correction = `$${miseEnEvidence(1000 - a * 10)}$ mL$ + ${a * 10}$ mL$ = 1$ L`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
    Comme $1$ L$=1000$ mL, le nombre cherché est donné par la différence : $1000-${a * 10}=${1000 - a * 10}$.
    `)
         this.reponse = calcul(1000 - a * 10)
+        this.canEnonce = 'Compléter.'
+        this.canReponseACompleter = `$\\ldots$ mL $+$ $${a * 10}$ mL $ = 1 $ L`
         break
     }
   }

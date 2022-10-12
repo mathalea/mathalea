@@ -49,6 +49,8 @@ const urlParams = new URLSearchParams(queryString)
 let typeEntete = ''
 let format = ''
 
+context.versionMathalea = 2
+
 // création des figures MG32 (géométrie dynamique)
 window.listeScriptsIep = {} // Dictionnaire de tous les scripts xml IEP
 window.listeAnimationsIepACharger = [] // Liste des id des scripts qui doivent être chargés une fois le code HTML mis à jour
@@ -1173,13 +1175,15 @@ function miseAJourDuCode () {
               
               `)
             }
-            if (!exoCan.hasOwnProperty('canEnonce') || !exoCan.hasOwnProperty('canReponseACompleter')) {
+            const canEnonceProperty = Object.prototype.hasOwnProperty.call(exoCan, 'canEnonce')
+            const canReponseACompleterProperty = Object.prototype.hasOwnProperty.call(exoCan, 'canReponseACompleter')
+            if (!canEnonceProperty || !canReponseACompleterProperty) {
               msgEnonce = exoCan.contenu.replace('\\exo{}', '').replace(`\\marginpar{\\footnotesize ${exoCan.id}}`, '') // 'Propriété canEnonce manquante'
               msgRepACompleter = ''
-              if (!exoCan.hasOwnProperty('canEnonce')) {
+              if (!canEnonceProperty) {
                 msgAlerteCanEnonce += ' ' + exoCan.id
               }
-              if (!exoCan.hasOwnProperty('canReponseACompleter')) {
+              if (!canReponseACompleterProperty) {
                 msgAlerteCanReponseACompleter += ' ' + exoCan.id
               }
             } else {
@@ -1199,8 +1203,9 @@ function miseAJourDuCode () {
           if (msgAlerteCanReponseACompleter !== '') {
             codeEnonces += ` \\textcolor{red}{Les exercices ${msgAlerteCanReponseACompleter} n'ont pas de propriété canReponseACompleter} \\\\`
           }
-          codeEnonces += `\\begin{spacing}{1.1}
-          \\begin{longtable}{|>{\\columncolor{gray!20}}c|>{\\centering}p{0.4\\textwidth}|>{\\centering}p{0.4\\textwidth}|c|}%
+          codeEnonces += `\\renewcommand*{\\arraystretch}{2.5}
+          \\begin{spacing}{1.1}
+          \\begin{longtable}{|>{\\columncolor{gray!20}}c|>{\\centering}p{0.45\\textwidth}|>{\\centering}p{0.35\\textwidth}|c|}%
           \\hline
           \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline`
 
@@ -1209,6 +1214,7 @@ function miseAJourDuCode () {
           codeEnonces += `
           \\end{longtable}
           \\end{spacing}
+          \\renewcommand*{\\arraystretch}{1}
           \\addtocounter{nbEx}{-1}
           `
         }
@@ -1255,6 +1261,8 @@ function miseAJourDuCode () {
               let msgRepACompleter
               codeCorrection = '\\begin{enumerate}'
               for (const exoCan of listeObjetsExercice) {
+                // let canEnonceProperty
+                // let canReponseACompleterProperty
                 if (exoCan.typeExercice === 'simple') {
                   codeCorrection += `\\item ${exoCan.correction}`.replaceAll('<br>', `
                   
@@ -1264,13 +1272,15 @@ function miseAJourDuCode () {
                   
                   `)
                 }
-                if (!exoCan.hasOwnProperty('canEnonce') || !exoCan.hasOwnProperty('canReponseACompleter')) {
+                const canEnonceProperty = Object.prototype.hasOwnProperty.call(exoCan, 'canEnonce')
+                const canReponseACompleterProperty = Object.prototype.hasOwnProperty.call(exoCan, 'canReponseACompleter')
+                if (!canEnonceProperty || !canReponseACompleterProperty) {
                   msgEnonce = exoCan.contenu.replace('\\exo{}', '').replace(`\\marginpar{\\footnotesize ${exoCan.id}}`, '') // 'Propriété canEnonce manquante'
                   msgRepACompleter = ''
-                  if (!exoCan.hasOwnProperty('canEnonce')) {
+                  if (!canEnonceProperty) {
                     msgAlerteCanEnonce += ' ' + exoCan.id
                   }
-                  if (!exoCan.hasOwnProperty('canReponseACompleter')) {
+                  if (!canReponseACompleterProperty) {
                     msgAlerteCanReponseACompleter += ' ' + exoCan.id
                   }
                 } else {
@@ -1290,8 +1300,9 @@ function miseAJourDuCode () {
               if (msgAlerteCanReponseACompleter !== '') {
                 codeExercices += ` \\textcolor{red}{Les exercices ${msgAlerteCanReponseACompleter} n'ont pas de propriété canReponseACompleter} \\\\`
               }
-              codeExercices += `\\begin{spacing}{1.1}
-              \\begin{longtable}{|>{\\columncolor{gray!20}}c|>{\\centering}p{0.4\\textwidth}|>{\\centering}p{0.4\\textwidth}|c|}%
+              codeExercices += `\\renewcommand*{\\arraystretch}{2.5}
+              \\begin{spacing}{1.1}
+              \\begin{longtable}{|>{\\columncolor{gray!20}}c|>{\\centering}p{0.45\\textwidth}|>{\\centering}p{0.35\\textwidth}|c|}%
               \\hline
               \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline`
 
@@ -1300,6 +1311,7 @@ function miseAJourDuCode () {
               codeExercices += `
               \\end{longtable}
               \\end{spacing}
+              \\renewcommand*{\\arraystretch}{1}
               \\addtocounter{nbEx}{-1}
               `
             }
