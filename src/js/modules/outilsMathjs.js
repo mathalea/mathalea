@@ -1,5 +1,6 @@
 import { context } from './context.js'
-import { texNombre2, obtenirListeFacteursPremiers } from './outils.js'
+import { obtenirListeFacteursPremiers } from './outils/factorisation.js'
+import { texNombre2 } from './outils/texNombres.js'
 import { all, create, format, number, SymbolNode, ConstantNode, OperatorNode, ParenthesisNode, simplify, parse, round } from 'mathjs'
 import { Node, Negative, solveEquation, simplifyExpression, factor } from 'mathsteps'
 import { getNewChangeNodes } from './Change.js'

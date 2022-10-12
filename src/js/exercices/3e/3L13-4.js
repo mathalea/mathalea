@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { create, all } from 'mathjs'
-import { aleaVariables, assignVariables, calculer, resoudre, toTex } from '../../modules/outilsMathjs.js'
+import { toString, aleaVariables, assignVariables, calculer, resoudre, toTex } from '../../modules/outilsMathjs.js'
 import { GVGraphicView } from '../../modules/aleaFigure/GraphicView.js'
 export const math = create(all)
 math.config({
