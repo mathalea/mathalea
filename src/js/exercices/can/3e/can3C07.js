@@ -18,6 +18,7 @@ export default function MilieuEntre1EtFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const a = randint(1, 5)
@@ -32,7 +33,9 @@ export default function MilieuEntre1EtFraction () {
     )
     objets.push(texteParPosition(`$${texNum(b)}$`, 8, -1, 'milieu', 'black', 1, 'middle', true)
     )
-    this.question = 'Donner l\'abscisse du point $M$ sous forme décimale.<br>'
+    this.question = `Donner l'abscisse du point $M$ sous forme décimale.<br>
+    
+    `
     this.question += mathalea2d({
       xmin: -1,
       ymin: -2,
@@ -50,5 +53,7 @@ export default function MilieuEntre1EtFraction () {
     \\dfrac{${texNombrec(a + b)}}{2}=${texNombrec((a + b) / 2)}$`
 
     this.reponse = (a + b) / 2
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }
