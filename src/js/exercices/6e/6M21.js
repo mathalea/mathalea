@@ -1,11 +1,27 @@
 import Exercice from '../Exercice.js'
-import { mathalea2d, colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, contraindreValeur, combinaisonListes, arrondi, numAlpha, choice, compteOccurences, rangeMinMax, entreDeux } from '../../modules/outils.js'
-import { arc, codageSegment, droite, droiteParPointEtPente, homothetie, longueur, milieu, point, pointIntersectionDD, pointSurSegment, polygone, projectionOrtho, rotation, segment, translation, vecteur } from '../../modules/2d.js'
-import { min, max } from 'mathjs'
-import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { afficherTempo, cacherTempo } from '../../modules/2dAnimation.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice, compteOccurences, rangeMinMax } from '../../modules/outils/arrays.js'
+import { segment } from '../../modules/2d/segment.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { droite, droiteParPointEtPente } from '../../modules/2d/droites.js'
+import { numAlpha } from '../../modules/outils/contextSensitif.js'
+import { arrondi } from '../../modules/outils/nombres.js'
+import { homothetie, projectionOrtho, rotation, translation } from '../../modules/2d/transformations.js'
+import { vecteur } from '../../modules/2d/vecteur.js'
+import { min, max } from 'mathjs'
+import { translationPuisRotationAnimees } from '../../modules/2dAnimation.js'
+import { pointIntersectionDD, pointSurSegment } from '../../modules/2d/pointsur.js'
+import { polygone } from '../../modules/2d/polygone.js'
+import { longueur } from '../../modules/2d/calculs.js'
+import { milieu } from '../../modules/2d/barycentre.js'
+import { codageSegment } from '../../modules/2d/codages.js'
+import { contraindreValeur, entreDeux } from '../../modules/outils/comparateurs.js'
+import { arc } from '../../modules/2d/arc.js'
 export const dateDePublication = '08/06/2022'
 export const titre = 'Comparer périmètres et/ou aires de figures'
 export const interactifReady = true
@@ -17,54 +33,6 @@ export const interactifType = 'qcm'
  * @author Eric Elter
  * Publié le 08/06/2022
  */
-function TranslationPuisRotationAnimee (numId, figure1, v, figure2, O, angle, t1 = 5, t2 = 2) {
-  ObjetMathalea2D.call(this, { })
-  this.svg = function (coeff) {
-    afficherTempo(figure2, t1, t1 + t2, 1)
-    let code = '<g> '
-    // Translation de figure1 de vecteur v
-    if (Array.isArray(figure1)) { // Si la figure1 est constituée d'une liste d'éléments
-      for (const objet of figure1) {
-        code += '\n' + objet.svg(coeff)
-      }
-    } else { // Si la figure1 n'est constituée que d'un élément
-      code += '\n' + figure1.svg(coeff)
-    }
-    code += `<animateTransform
-    attributeName="transform"
-    attributeType="XML"
-    type="translate"
-    from="0 0"
-    to="${arrondi(v.xSVG(coeff), 0)} ${arrondi(v.ySVG(coeff), 0)}"
-    begin="0s" dur="${t1}s" fill="freeze"  repeatCount="1" id="translat${numId}"
-    /></path></g>`
-
-    cacherTempo(figure1, t1, 0, 1)
-
-    // Rotation de figure2 de centre O et de angle angle
-    code += '<g>'
-    if (Array.isArray(figure2)) { // Si la figure2 est constituée d'une liste d'éléments
-      for (const objet of figure2) {
-        code += '\n' + objet.svg(coeff)
-      }
-    } else { // Si la figure2 n'est constituée que d'un élément
-      code += '\n' + figure2.svg(coeff)
-    }
-    code += `<animateTransform
-  attributeName="transform"
-  type="rotate"
-  from="0 ${O.xSVG(coeff)} ${O.ySVG(coeff)}"
-  to="${-angle} ${O.xSVG(coeff)} ${O.ySVG(coeff)}"
-  begin="translat${numId}.end" dur="${t2}s" fill="freeze" repeatCount="1" id="rotat-${numId}"
-  /></path>`
-
-    code += '</g>'
-    return code
-  }
-}
-function translationPuisRotationAnimees (...args) {
-  return new TranslationPuisRotationAnimee(...args)
-}
 
 export const uuid = '95313'
 export const ref = '6M21'

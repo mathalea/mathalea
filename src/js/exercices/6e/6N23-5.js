@@ -1,7 +1,12 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, calcul, choice, texNombre2 } from '../../modules/outils.js'
-import { fraction } from '../../modules/fractions.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { texFraction } from '../../modules/outils/arrayFractions.js'
+import { calcul, texNombre2 } from '../../modules/outils/texNombres.js'
+import { fraction } from '../../modules/fractions.js'
 
 export const amcReady = true
 export const amcType = 'qcmMono' // QCM

@@ -1,9 +1,13 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, miseEnEvidence, texFraction } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice, enleveElement } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texFraction } from '../../modules/outils/arrayFractions.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
-import { fraction as fractionX } from '../../modules/fractions.js'
 import { ajouteChampFractionMathLive } from '../../modules/interactif/questionMathLive.js'
+import { miseEnEvidence } from '../../modules/outils/contextSensitif.js'
 export const titre = 'Compléter les égalités entre fractions simples'
 export const amcReady = true
 export const amcType = 'qcmMono' // QCM
@@ -96,7 +100,7 @@ export default function EgalitesEntreFractions () {
           case 0 :
             texte = `$${texFraction(a, b)} = ${texFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
             if (this.interactif && context.isHtml) {
-              setReponse(this, i, fractionX(c, d), { formatInteractif: 'Num' })
+              setReponse(this, i, fraction(c, d), { formatInteractif: 'Num' })
               texte += ajouteChampFractionMathLive(this, i, false, d)
             } else {
               texte += `$${texFraction('\\phantom{0000}', d)}$`
@@ -132,7 +136,7 @@ export default function EgalitesEntreFractions () {
           case 1 :
             texte = `$${texFraction(a, b)} = ${texFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
             if (this.interactif && context.isHtml) {
-              setReponse(this, i, fractionX(c, d), { formatInteractif: 'Den' })
+              setReponse(this, i, fraction(c, d), { formatInteractif: 'Den' })
               texte += ajouteChampFractionMathLive(this, i, c, false)
             } else {
               texte += `$${texFraction(c, '\\phantom{0000}')}$`
@@ -184,7 +188,7 @@ export default function EgalitesEntreFractions () {
           case 0 :
             texte = `$${a} = ${texFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
             if (this.interactif && context.isHtml) {
-              setReponse(this, i, fractionX(c, d), { formatInteractif: 'Num' })
+              setReponse(this, i, fraction(c, d), { formatInteractif: 'Num' })
               texte += ajouteChampFractionMathLive(this, i, false, d)
             } else {
               texte += `$${texFraction('\\phantom{0000}', d)}$`
@@ -223,7 +227,7 @@ export default function EgalitesEntreFractions () {
           case 1 :
             texte = `$${a} = ${texFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
             if (this.interactif && context.isHtml) {
-              setReponse(this, i, fractionX(c, d), { formatInteractif: 'Den' })
+              setReponse(this, i, fraction(c, d), { formatInteractif: 'Den' })
               texte += ajouteChampFractionMathLive(this, i, c, false)
             } else {
               texte += `$${texFraction(c, '\\phantom{0000}')}$`

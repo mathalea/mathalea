@@ -1,9 +1,13 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, texNombre, nombreAvecEspace } from '../../modules/outils.js'
-import Operation from '../../modules/operations.js'
 import { context } from '../../modules/context.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
+import { texNombre } from '../../modules/outils/texNombres.js'
+import { nombreAvecEspace } from '../../modules/outils/stringNombre.js'
 import { choixDeroulant } from '../../modules/interactif/questionListeDeroulante.js'
+import Operation from '../../modules/operations.js'
 
 export const titre = 'Trouver des phrases avec les mots : divisible, diviseur et multiple'
 export const interactifReady = true

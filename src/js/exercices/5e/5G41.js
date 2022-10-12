@@ -11,9 +11,9 @@ import { miseEnEvidence, texteGras } from '../../modules/outils/contextSensitif.
 import { arrondi } from '../../modules/outils/nombres.js'
 import { rotation, similitude } from '../../modules/2d/transformations.js'
 import { tracePoint } from '../../modules/2d/tracePoint.js'
-import { labelPoint } from '../../modules/2d/labelPoint.js'
+import { labelPoint } from '../../modules/2d/labelpoint.js'
 import { calcul, texNombre, texNombrec } from '../../modules/outils/texNombres.js'
-import { pointAdistance, pointIntersectionCC, pointIntersectionDD } from '../../modules/2d/pointSur.js'
+import { pointAdistance, pointIntersectionCC, pointIntersectionDD } from '../../modules/2d/pointsur.js'
 import { polygoneAvecNom } from '../../modules/2d/polygone.js'
 import { longueur } from '../../modules/2d/calculs.js'
 import { milieu } from '../../modules/2d/barycentre.js'
@@ -22,7 +22,7 @@ import { choisitLettresDifferentes, lettreDepuisChiffre } from '../../modules/ou
 import { cercle, cercleCentrePoint } from '../../modules/2d/cercle.js'
 import { traceCompas } from '../../modules/2d/arc.js'
 import { cibleCarree, dansLaCibleCarree } from '../../modules/2d/cibles.js'
-import { demiDroite } from '../../modules/2d/demiDroite.js'
+import { demiDroite } from '../../modules/2d/demidroite.js'
 export const titre = 'Construire des quadrilatères particuliers'
 
 /**

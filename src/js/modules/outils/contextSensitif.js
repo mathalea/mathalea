@@ -135,3 +135,22 @@ export function numAlpha (k, nospace = false) {
   if (context.isHtml) return '<span style="color:#f15929; font-weight:bold">' + String.fromCharCode(97 + k) + ')' + (nospace ? '' : '&nbsp;') + '</span>'
   else return '\\textbf {' + String.fromCharCode(97 + k) + '.}' + (nospace ? '' : ' ')
 }
+
+/**
+* Met en couleur
+* Met en couleur un texte. JCL dit : "S'utilise entre $ car utilise des commandes qui fonctionnent en math inline"
+* @param {string} texte à mettre en couleur
+* @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
+* @author Guillaume Valmont d'après MiseEnEvidence() de Rémi Angot
+*/
+export function miseEnCouleur (texte, couleur = '#f15929') {
+  if (context.isHtml) {
+    return `{\\color{${couleur}} ${texte}}`
+  } else {
+    if (couleur[0] === '#') {
+      return `{\\color[HTML]{${couleur.replace('#', '')}} ${texte}}`
+    } else {
+      return `{\\color{${couleur.replace('#', '')}} ${texte}}`
+    }
+  }
+}

@@ -1,11 +1,14 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { modalTexteCourt, combinaisonListes, listeQuestionsToContenu, randint, rangeMinMax } from '../../modules/outils.js'
-
-import { fraction } from '../../modules/fractions.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { rangeMinMax } from '../../modules/outils/arrays.js'
+import { modalTexteCourt } from '../../modules/outils/modaux.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { fraction } from '../../modules/fractions.js'
 export const titre = 'Encadrer une fraction entre deux nombres entiers consécutifs'
 export const interactifReady = true
 export const interactifType = 'mathLive'

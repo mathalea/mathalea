@@ -7,6 +7,7 @@
 
 import { affiniteOrtho, homothetie, symetrieAxiale } from './2d.js'
 import { ObjetMathalea2D } from './2dGeneralites.js'
+import { arrondi } from './outils/nombres.js'
 
 // JSDOC Validee par EE Juin 2022
 export function montrerParDiv (id) {
@@ -345,4 +346,53 @@ function AffiniteOrthoAnimee (
 }
 export function affiniteOrthoAnimee (...args) {
   return new AffiniteOrthoAnimee(...args)
+}
+
+function TranslationPuisRotationAnimee (numId, figure1, v, figure2, O, angle, t1 = 5, t2 = 2) {
+  ObjetMathalea2D.call(this, { })
+  this.svg = function (coeff) {
+    afficherTempo(figure2, t1, t1 + t2, 1)
+    let code = '<g> '
+    // Translation de figure1 de vecteur v
+    if (Array.isArray(figure1)) { // Si la figure1 est constituée d'une liste d'éléments
+      for (const objet of figure1) {
+        code += '\n' + objet.svg(coeff)
+      }
+    } else { // Si la figure1 n'est constituée que d'un élément
+      code += '\n' + figure1.svg(coeff)
+    }
+    code += `<animateTransform
+    attributeName="transform"
+    attributeType="XML"
+    type="translate"
+    from="0 0"
+    to="${arrondi(v.xSVG(coeff), 0)} ${arrondi(v.ySVG(coeff), 0)}"
+    begin="0s" dur="${t1}s" fill="freeze"  repeatCount="1" id="translat${numId}"
+    /></path></g>`
+
+    cacherTempo(figure1, t1, 0, 1)
+
+    // Rotation de figure2 de centre O et de angle angle
+    code += '<g>'
+    if (Array.isArray(figure2)) { // Si la figure2 est constituée d'une liste d'éléments
+      for (const objet of figure2) {
+        code += '\n' + objet.svg(coeff)
+      }
+    } else { // Si la figure2 n'est constituée que d'un élément
+      code += '\n' + figure2.svg(coeff)
+    }
+    code += `<animateTransform
+  attributeName="transform"
+  type="rotate"
+  from="0 ${O.xSVG(coeff)} ${O.ySVG(coeff)}"
+  to="${-angle} ${O.xSVG(coeff)} ${O.ySVG(coeff)}"
+  begin="translat${numId}.end" dur="${t2}s" fill="freeze" repeatCount="1" id="rotat-${numId}"
+  /></path>`
+
+    code += '</g>'
+    return code
+  }
+}
+export function translationPuisRotationAnimees (...args) {
+  return new TranslationPuisRotationAnimee(...args)
 }

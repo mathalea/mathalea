@@ -1,9 +1,13 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, choice, shuffle } from '../../modules/outils.js'
-import { point, segment, polygone, codageAngleDroit, codageSegments } from '../../modules/2d.js'
+import { choice, shuffle } from '../../modules/outils/arrays.js'
+import { segment } from '../../modules/2d/segment.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { polygone } from '../../modules/2d/polygone.js'
+import { codageAngleDroit, codageSegments } from '../../modules/2d/codages.js'
 export const amcReady = true
 export const amcType = 'qcmMult' // QCM
 export const interactifReady = true

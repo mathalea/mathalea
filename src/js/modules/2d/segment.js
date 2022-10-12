@@ -10,7 +10,7 @@ import { angleOriente, longueur } from './calculs'
 import { Cercle } from './cercle'
 import { Droite, droite } from './droites'
 import { point, Point } from './point'
-import { pointIntersectionDD, pointIntersectionLC, pointSurSegment } from './pointSur'
+import { pointIntersectionDD, pointIntersectionLC, pointSurSegment } from './pointsur'
 import { rotation } from './transformations'
 
 /**

@@ -1,7 +1,10 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, listeQuestionsToContenu, choice, combinaisonListes, texNombre2 } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu, listeQuestionsToContenuSansNumero } from '../../modules/outils/miseEnForme.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { texNombre2 } from '../../modules/outils/texNombres.js'
 export const amcReady = true
 export const amcType = 'qcmMult' // type de question AMC
 export const interactifReady = true

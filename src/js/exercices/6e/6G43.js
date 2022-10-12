@@ -1,10 +1,11 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
-
-import { cube } from '../../modules/3d.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { cube } from '../../modules/3d.js'
 export const titre = 'Compter les cubes manquants ou pas'
 export const interactifReady = true
 export const interactifType = 'mathLive'

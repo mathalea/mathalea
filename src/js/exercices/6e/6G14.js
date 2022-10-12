@@ -1,8 +1,16 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, range, rangeMinMax, shuffle, combinaisonListes, contraindreValeur, choice } from '../../modules/outils.js'
-import { point, pointIntersectionDD, droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, droiteParPointEtPente, rotation, codageAngleDroit } from '../../modules/2d.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice, rangeMinMax, shuffle, range } from '../../modules/outils/arrays.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { droite, droiteParPointEtPente, droiteParPointEtPerpendiculaire, droiteParPointEtParallele } from '../../modules/2d/droites.js'
+import { rotation } from '../../modules/2d/transformations.js'
+import { pointIntersectionDD } from '../../modules/2d/pointSur.js'
+import { codageAngleDroit } from '../../modules/2d/codages.js'
+import { contraindreValeur } from '../../modules/outils/comparateurs.js'
 export const amcReady = true
 export const amcType = 'AMCOpen' // type de question AMC
 export const titre = 'Utiliser les propriétés des droites perpendiculaires'

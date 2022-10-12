@@ -1,7 +1,10 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, minToHoraire, minToHour, prenomF, prenom } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
-
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { prenom, prenomF } from '../../modules/outils/objetsPersonnes.js'
+import { minToHoraire, minToHour } from '../../modules/outils/horaires.js'
 export const titre = 'Calculer des durées ou déterminer un horaire'
 
 export const amcReady = true // pour définir que l'exercice peut servir à AMC

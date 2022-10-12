@@ -1,9 +1,20 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, lettreDepuisChiffre, contraindreValeur, combinaisonListes } from '../../modules/outils.js'
-import { point, labelPoint, rotation, afficheMesureAngle, homothetie, demiDroite, texteParPoint, similitude, pointSurSegment } from '../../modules/2d.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { texteParPoint } from '../../modules/2d/textes.js'
+import { homothetie, rotation, similitude } from '../../modules/2d/transformations.js'
+import { labelPoint } from '../../modules/2d/labelPoint.js'
+import { pointSurSegment } from '../../modules/2d/pointSur.js'
+import { afficheMesureAngle } from '../../modules/2d/codages.js'
+import { lettreDepuisChiffre } from '../../modules/outils/lettres.js'
+import { contraindreValeur } from '../../modules/outils/comparateurs.js'
+import { demiDroite } from '../../modules/2d/demiDroite.js'
 
 export const amcReady = true
 export const amcType = 'qcmMono' // QCM

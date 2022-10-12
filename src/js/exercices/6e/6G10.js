@@ -1,8 +1,14 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, creerNomDePolygone, combinaisonListes } from '../../modules/outils.js'
-import { point, labelPoint, droite, segment, demiDroite } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { segment } from '../../modules/2d/segment.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { droite } from '../../modules/2d/droites.js'
+import { labelPoint } from '../../modules/2d/labelPoint.js'
+import { creerNomDePolygone } from '../../modules/outils/strings.js'
+import { demiDroite } from '../../modules/2d/demiDroite.js'
 export const titre = 'Utiliser la notation de droites, segments et demi-droites'
 
 /**

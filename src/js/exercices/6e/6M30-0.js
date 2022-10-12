@@ -1,11 +1,12 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, texteEnCouleur } from '../../modules/outils.js'
-
-import { barre3d, cube3d, paveLPH3d, plaque3d } from '../../modules/3d.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { texteEnCouleur } from '../../modules/outils/contextSensitif.js'
+import { barre3d, cube3d, paveLPH3d, plaque3d } from '../../modules/3d.js'
 export const titre = 'Déterminer le volume de pavés droit par dénombrement'
 export const interactifReady = true
 export const amcReady = true

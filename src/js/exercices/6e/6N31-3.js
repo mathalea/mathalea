@@ -1,8 +1,16 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeNombresPremiersStrictJusqua, shuffle2tableaux, choice, listeQuestionsToContenu, randint, troncature, calcul, texNombre, miseEnEvidence, texFraction, combinaisonListes } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice, shuffle2tableaux } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
-import { cos } from '../../modules/fonctionsMaths.js'
+import { texFraction } from '../../modules/outils/arrayFractions.js'
+import { miseEnEvidence } from '../../modules/outils/contextSensitif.js'
+import { troncature } from '../../modules/outils/nombres.js'
+import { cos } from 'mathjs'
+import { calcul, texNombre } from '../../modules/outils/texNombres.js'
+import { listeNombresPremiersStrictJusqua } from '../../modules/outils/premiers.js'
 
 export const amcReady = true
 export const amcType = 'qcmMult' // type de question AMC

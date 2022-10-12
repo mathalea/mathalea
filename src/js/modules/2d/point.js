@@ -9,7 +9,7 @@ import { longueur, polygone, polygoneToFlatArray, vecteur } from '../2d'
 import { ObjetMathalea2D } from '../2dGeneralites'
 import { egal, inferieurouegal, superieurouegal } from '../outils'
 import { Cercle } from './cercle'
-import { DemiDroite } from './demiDroite'
+import { DemiDroite } from './demidroite'
 import { Droite } from './droites'
 import { Segment } from './segment'
 

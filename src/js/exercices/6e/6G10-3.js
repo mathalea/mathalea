@@ -1,8 +1,16 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { combinaisonListes, enleveElement, lettreDepuisChiffre, listeQuestionsToContenu, randint, shuffle } from '../../modules/outils.js'
-import { demiDroite, droite, labelPoint, point, segmentAvecExtremites } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { enleveElement, shuffle } from '../../modules/outils/arrays.js'
+import { segmentAvecExtremites } from '../../modules/2d/segment.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { droite } from '../../modules/2d/droites.js'
+import { labelPoint } from '../../modules/2d/labelPoint.js'
+import { lettreDepuisChiffre } from '../../modules/outils/lettres.js'
+import { demiDroite } from '../../modules/2d/demiDroite.js'
 export const titre = 'Choisir la bonne figure'
 export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC

@@ -1,7 +1,15 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, creerNomDePolygone, texNombre } from '../../modules/outils.js'
-import { point, pointSurSegment, pointIntersectionDD, droite, segment, rotation, longueur } from '../../modules/2d.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { segment } from '../../modules/2d/segment.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { droite } from '../../modules/2d/droites.js'
+import { rotation } from '../../modules/2d/transformations.js'
+import { calcul, texNombre } from '../../modules/outils/texNombres.js'
+import { pointIntersectionDD, pointSurSegment } from '../../modules/2d/pointSur.js'
+import { longueur } from '../../modules/2d/calculs.js'
 import Alea2iep from '../../modules/Alea2iep.js'
+import { creerNomDePolygone } from '../../modules/outils/strings.js'
 
 export const titre = 'Tracer un triangle dont on connaît une longueur et 2 angles'
 

@@ -1,8 +1,12 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, choice } from '../../modules/outils.js'
-import { point, polygone, grille, texteParPosition } from '../../modules/2d.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texteParPosition } from '../../modules/2d/textes.js'
+import { polygone } from '../../modules/2d/polygone.js'
+import { grille } from '../../modules/2d/grilles.js'
 
 export const amcReady = true
 export const amcType = 'AMCOpen'

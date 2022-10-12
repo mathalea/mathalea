@@ -1,8 +1,9 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { combinaisonListes, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { fraction } from '../../modules/fractions.js'
 export const titre = 'Représenter des fractions'
 export const amcReady = true

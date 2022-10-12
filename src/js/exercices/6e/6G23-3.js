@@ -1,7 +1,16 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, creerNomDePolygone, texNombre, contraindreValeur } from '../../modules/outils.js'
-import { point, pointSurSegment, pointIntersectionDD, droite, segment, rotation, longueur } from '../../modules/2d.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { segment } from '../../modules/2d/segment.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { droite } from '../../modules/2d/droites.js'
+import { rotation } from '../../modules/2d/transformations.js'
+import { calcul, texNombre } from '../../modules/outils/texNombres.js'
+import { pointIntersectionDD, pointSurSegment } from '../../modules/2d/pointSur.js'
+import { longueur } from '../../modules/2d/calculs.js'
 import Alea2iep from '../../modules/Alea2iep.js'
+import { contraindreValeur } from '../../modules/outils/comparateurs.js'
+import { creerNomDePolygone } from '../../modules/outils/strings.js'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '04/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag

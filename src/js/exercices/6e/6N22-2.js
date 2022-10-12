@@ -1,12 +1,14 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, nombreDeChiffresDe } from '../../modules/outils.js'
-
-import { fraction } from '../../modules/fractions.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
-import FractionX from '../../modules/FractionEtendue.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import FractionX from '../../modules/FractionEtendue.js'
+import { fraction } from '../../modules/fractions.js'
+import { nombreDeChiffresDe } from '../../modules/outils/decimales.js'
 export const titre = 'Mettre bout à bout des segments'
 export const interactifReady = true
 export const interactifType = 'mathLive'

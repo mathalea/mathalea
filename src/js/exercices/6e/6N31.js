@@ -1,6 +1,11 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombre, texPrix, sp } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { sp } from '../../modules/outils/contextSensitif.js'
+import { calcul, texNombre, texPrix } from '../../modules/outils/texNombres.js'
 export const titre = 'Comparer des nombres décimaux'
 export const amcReady = true
 export const amcType = 'AMCOpen'

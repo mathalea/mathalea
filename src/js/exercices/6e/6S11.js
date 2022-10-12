@@ -1,6 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, shuffle, texNombre, prenom, premiereLettreEnMajuscule, numAlpha } from '../../modules/outils.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice, shuffle } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { numAlpha } from '../../modules/outils/contextSensitif.js'
+import { texNombre } from '../../modules/outils/texNombres.js'
+import { premiereLettreEnMajuscule } from '../../modules/outils/lettres.js'
+import { prenom } from '../../modules/outils/objetsPersonnes.js'
 export const titre = 'Organiser des données dans un tableau'
 
 /**

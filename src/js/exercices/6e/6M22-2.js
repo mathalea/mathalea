@@ -1,9 +1,15 @@
-/* eslint-disable camelcase */
-import { pointAdistance, point, arc, codageSegments, rotation, afficheLongueurSegment } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, arrondi, texNombre, calcul } from '../../modules/outils.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { arrondi } from '../../modules/outils/nombres.js'
+import { rotation } from '../../modules/2d/transformations.js'
+import { calcul, texNombre } from '../../modules/outils/texNombres.js'
+import { pointAdistance } from '../../modules/2d/pointsur.js'
+import { afficheLongueurSegment, codageSegments } from '../../modules/2d/codages.js'
+import { arc } from '../../modules/2d/arc.js'
 
 export const titre = 'Calculer périmètre et aire de portions de cercles/disques'
 
@@ -18,7 +24,7 @@ export const titre = 'Calculer périmètre et aire de portions de cercles/disque
  */
 export const uuid = 'ff386'
 export const ref = '6M22-2'
-export default function Perimetre_aire_et_portions_de_disques (pa = 3) {
+export default function PerimetreAireEtPortionsDeDisques (pa = 3) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne =
