@@ -1,11 +1,12 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { randint, listeQuestionsToContenu, combinaisonListes, nombreDecimal, texteExposant, texteGras, stringNombre, texNombre } from '../../modules/outils.js'
+import { randint, listeQuestionsToContenu, combinaisonListes, nombreDecimal, texteExposant, texteGras, stringNombre, texNombre, range1, contraindreValeur, compteOccurences } from '../../modules/outils.js'
 
 import { point3d, vecteur3d, sphere3d, cylindre3d } from '../../modules/3d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import Decimal from 'decimal.js/decimal.mjs'
+import Grandeur from '../../modules/Grandeur.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -29,7 +30,7 @@ export default function VolumeBoule () {
   this.interactifType = interactifType
   this.amcReady = amcReady
   this.amcType = amcType
-  this.consigne = 'On arrondira les résultats à ' + nombreDecimal(0.1) + ' cm' + texteExposant(3) + '. <br>'
+  // this.consigne = 'On arrondira les résultats à ' + nombreDecimal(0.1) + ' cm' + texteExposant(3) + '. <br>'
   this.video = 'YQF7CBY-uEk'
   this.nbQuestions = 4 // Ici le nombre de questions
   this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
@@ -37,56 +38,58 @@ export default function VolumeBoule () {
   this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
   this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
-  this.sup = 1
+  this.sup = '1-2-4'
 
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
   this.nouvelleVersion = function () {
     // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
-    this.sup = Number(this.sup)
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
     this.autoCorrection = []
 
-    let typesDeQuestionsDisponibles = [] // tableau à compléter par valeurs possibles des types de questions
-    typesDeQuestionsDisponibles = [1, 2, 3, 4]
     let listeTypeDeQuestions = []
-    typesDeQuestionsDisponibles.splice(this.sup, 5 - parseInt(this.sup))
-    listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    let r, d, A, rayon, O, B, OO, o, R, s, c, normal
-    // boucle pour fabriquer les nbQuestions questions en s'assurant que si il n'y a pas nbQuestions différentes
-    // La boucle s'arrête après 50 tentatives.
-    for (let i = 0, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    if (!this.sup) { // Si aucune liste n'est saisie
+      listeTypeDeQuestions = range1(4)
+    } else {
+      if (!isNaN(this.sup)) { // Si c'est un nombre c'est qu'il y a qu'un problème
+        listeTypeDeQuestions[0] = contraindreValeur(1, 5, parseInt(this.sup), 4)
+      } else {
+        listeTypeDeQuestions = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+        for (let i = 0; i < listeTypeDeQuestions.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+          listeTypeDeQuestions[i] = contraindreValeur(1, 5, parseInt(listeTypeDeQuestions[i]), 5) // parseInt en fait un tableau d'entiers
+        }
+      }
+    }
+    if (compteOccurences(listeTypeDeQuestions, 5)) listeTypeDeQuestions = range1(4)
+    listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
+    for (let i = 0, r, d, A, rayon, O, B, OO, o, R, s, c, normal, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
       texteCorr = '' // Idem pour le texte de la correction.
-      let typesDeQuestions = []
-      typesDeQuestions = listeTypeDeQuestions[i]
 
-      switch (typesDeQuestions) {
+      switch (listeTypeDeQuestions[i]) {
         case 1:
           r = randint(2, 30)
           reponse = new Decimal(r).pow(3).mul(Decimal.acos(-1)).mul(4).div(3).toDP(1)
-          texte += `Calculer le volume d'une boule de rayon ${r} cm. `
+          texte += `Calculer le volume d'une boule de rayon ${r} cm. Arrondir au dixième. `
           texteCorr += 'Le volume d\'une boule est donné par la formule : $V = \\dfrac{4}{3}\\pi r^3$. <br>'
           texteCorr += `On a donc : $V = \\dfrac{4}{3} \\times \\pi \\times (${r} \\text{ cm})^3$. <br>`
           texteCorr += texteGras('Le volume de la boule est donc environ : ' + stringNombre(reponse, 1) + ' cm' + texteExposant(3) + '. <br>')
-          setReponse(this, i, reponse)
           break
 
         case 2:
           d = randint(2, 30)
           reponse = new Decimal(d).pow(3).mul(Decimal.acos(-1)).mul(4).div(3).toDP(1)
-          texte += `Calculer le volume d'une boule de diamètre ${2 * d} cm. `
+          texte += `Calculer le volume d'une boule de diamètre ${2 * d} cm. Arrondir au dixième. `
           texteCorr += 'Le volume d\'une boule est donné par la formule : $V = \\dfrac{4}{3}\\pi r^3$. <br>'
           texteCorr += `Le rayon de la boule est la moitié de son diamètre soit : ${d} cm. <br>`
           texteCorr += `On a donc : $V = \\dfrac{4}{3} \\times \\pi \\times (${d} \\text{ cm})^3$. <br>`
           texteCorr += texteGras('Le volume de la boule est donc environ : ' + stringNombre(reponse, 1) + ' cm' + texteExposant(3) + '. <br>')
-          setReponse(this, i, reponse)
           break
 
         case 3:
           A = randint(2, 30)
-          texte += `Calculer le volume d'une boule d'aire ${A} cm². `
+          texte += `Calculer le volume d'une boule d'aire ${A} cm². Arrondir au dixième.`
           texteCorr += 'Le volume d\'une boule est donné par la formule : $V = \\dfrac{4}{3}\\pi r^3$. <br>'
           texteCorr += 'Il faut donc trouver le rayon de la boule. <br>'
           texteCorr += 'L\'aire d\'une boule est donnée par la formule : $A = 4\\pi r^2$. <br>'
@@ -98,13 +101,12 @@ export default function VolumeBoule () {
           texteCorr += 'On obtient donc une valeur approchée de $r$ : $r \\approx ' + texNombre(rayon, 2) + '$. <br>'
           texteCorr += 'On a donc : $V \\approx \\dfrac{4}{3} \\times \\pi \\times (' + texNombre(rayon, 2) + ' \\text{ cm})^3$. <br>'
           texteCorr += texteGras('Le volume de la boule est donc environ : ' + stringNombre(reponse, 1) + ' cm' + texteExposant(3) + '. <br>')
-          setReponse(this, i, reponse)
           break
 
         case 4:
           rayon = randint(2, 30)
-          texte += `Un boîte cylindrique de ${2 * rayon} cm de diamètre et de ${2 * rayon} cm de hauteur contient une boule de diamètre ${2 * rayon} cm. <br>`
-          texte += 'Calculer le volume dans la boîte laissée libre par la boule. '
+          texte += `Une boîte cylindrique de ${2 * rayon} cm de diamètre et de ${2 * rayon} cm de hauteur contient une boule de diamètre ${2 * rayon} cm. <br>`
+          texte += 'Calculer le volume dans la boîte laissée libre par la boule. Arrondir au dixième.'
 
           texteCorr += 'Représentons la situation par un petit schéma : <br>'
           O = point3d(0, 0, 0)
@@ -115,7 +117,6 @@ export default function VolumeBoule () {
           normal = vecteur3d(0, 0, 1)
           s = sphere3d(o, 2.5, 5, 5, 'blue')
           c = cylindre3d(O, OO, normal, R, R, 'black')
-          // context.anglePerspective=20;
           reponse = Decimal.acos(-1).mul(2 * rayon ** 3).div(3).toDP(1)
           texteCorr += '<br>' + mathalea2d({ xmin: -5, max: 9, ymin: -1.5, ymax: 6, scale: 0.8 }, ...s.c2d, ...c.c2d) + '<br>'
           texteCorr += 'Méthode : on calcule le volume du cylindre auquel on va retrancher le volume de la boule. <br>'
@@ -126,10 +127,10 @@ export default function VolumeBoule () {
           texteCorr += `Le volume de la boule est : $V_b = \\dfrac{4}{3} \\times \\pi \\times (${rayon} \\text{ cm})^3$. <br>`
           texteCorr += `Le volume cherché est donc donné par : $\\pi \\times (${rayon} \\text{ cm})^2 \\times (${2 * rayon}\\text{ cm}) - \\dfrac{4}{3} \\times \\pi \\times (${rayon} \\text{ cm})^3$. <br>`
           texteCorr += texteGras('Le volume cherché est environ : ' + stringNombre(reponse, 1) + ' cm' + texteExposant(3) + '. <br>')
-          setReponse(this, i, reponse)
           break
       }
-      texte += ajouteChampTexteMathLive(this, i)
+      setReponse(this, i, new Grandeur(reponse.toNumber(), 'cm^3'), { formatInteractif: 'unites' })
+      texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline unites[Longueurs,Aires,Volumes]')
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions.push(texte)
@@ -140,5 +141,6 @@ export default function VolumeBoule () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = ['Type de questions', 4, ' 1 : À partir du rayon\n 2 : À partir du rayon ou du diamètre\n 3 : À partir du rayon, du diamètre ou de l\'aire\n 4 : À partir du rayon, du diamètre, de l\'aire ou en résolvant un problème']
+  // this.besoinFormulaireNumerique = ['Type de questions', 5, '1 : À partir du rayon\n2 : À partir du rayon ou du diamètre\n3 : À partir du rayon, du diamètre ou de l\'aire\n4 : À partir du rayon, du diamètre, de l\'aire ou en résolvant un problème\n5 : Mélange']
+  this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : À partir du rayon\n2 : À partir du diamètre\n3 : À partir de l\'aire\n4 : En résolvant un problème\n5 : Mélange']
 } // Fin de l'exercice.

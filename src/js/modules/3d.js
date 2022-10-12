@@ -623,9 +623,9 @@ class Cube3d {
     const faceAV = polygone([A.c2d, B.c2d, C.c2d, D.c2d], color)
     const faceDr = polygone([B.c2d, F.c2d, G.c2d, C.c2d], color)
     const faceTOP = polygone([D.c2d, C.c2d, G.c2d, H.c2d], color)
-    faceAV.couleurDeRemplissage = colorAV
-    faceTOP.couleurDeRemplissage = colorTOP
-    faceDr.couleurDeRemplissage = colorDr
+    faceAV.couleurDeRemplissage = colorToLatexOrHTML(colorAV)
+    faceTOP.couleurDeRemplissage = colorToLatexOrHTML(colorTOP)
+    faceDr.couleurDeRemplissage = colorToLatexOrHTML(colorDr)
     this.c2d = [faceAV, faceDr, faceTOP]
   }
 }

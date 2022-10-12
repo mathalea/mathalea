@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { choice, combinaisonListes, listeQuestionsToContenu, randint, stringNombre, texteEnCouleur, numAlpha } from '../../modules/outils.js'
 import { centreGraviteTriangle, droite, point, polygone, rotation, symetrieAxiale, texteParPointEchelle, translation, vecteur } from '../../modules/2d.js'
@@ -374,7 +374,7 @@ export default function SymetrieAxialePavageTriangulaire () {
       objetsEnonce.push(d[i])
       // ici on choisit les figures et on crée les questions
       question[i] = choisitTriangle(listeTypesDeQuestions[i], choix)
-      triAngles[question[i].antecedent].tri.couleurDeRemplissage = couleurs[i]
+      triAngles[question[i].antecedent].tri.couleurDeRemplissage = colorToLatexOrHTML(couleurs[i])
       triAngles[question[i].antecedent].tri.opaciteDeRemplissage = 0.7
     }
     this.introduction = mathalea2d(paramsEnonce, objetsEnonce)
@@ -439,7 +439,7 @@ export default function SymetrieAxialePavageTriangulaire () {
       }
       objetsEnonce.push(symetrieAnimee(triAngles[question[i].antecedent].tri, d[i], `id="anim${numeroExercice}-${i}" dur="2s" repeatCount="2" `))
       images[i] = symetrieAxiale(triAngles[question[i].antecedent].tri, d[i])
-      images[i].couleurDeRemplissage = couleurs[i]
+      images[i].couleurDeRemplissage = colorToLatexOrHTML(couleurs[i])
       images[i].opaciteDeRemplissage = 0.3
       objetsEnonce.push(images[i])
       // On ajoute au texte de la correction, la figure de la correction
