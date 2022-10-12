@@ -354,7 +354,7 @@ export default function SymetrieAxialePavageTriangulaire () {
       typesDeQuestionsDisponibles = [0, 1, 2, 3, 4, 5]
     }
     const listeTypesDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, 3)
-    const couleurs = [colorToLatexOrHTML('blue'), colorToLatexOrHTML('green'), colorToLatexOrHTML('red'), colorToLatexOrHTML('gray'), colorToLatexOrHTML('magenta'), colorToLatexOrHTML('purple')]
+    const couleurs = ['blue', 'green', 'red', 'gray', 'magenta', 'purple']
     let M
     let N
     const d = []
@@ -385,7 +385,7 @@ export default function SymetrieAxialePavageTriangulaire () {
       objetsEnonce.push(d[i])
       // ici on choisit les figures et on crée les questions
       question[i] = choisitTriangle(listeTypesDeQuestions[i], choix)
-      triAngles[question[i].antecedent].tri.couleurDeRemplissage = couleurs[i]
+      triAngles[question[i].antecedent].tri.couleurDeRemplissage = colorToLatexOrHTML(couleurs[i])
       triAngles[question[i].antecedent].tri.opaciteDeRemplissage = 0.7
     }
     this.introduction = mathalea2d(paramsEnonce, objetsEnonce)
@@ -450,7 +450,7 @@ export default function SymetrieAxialePavageTriangulaire () {
       }
       objetsEnonce.push(symetrieAnimee(triAngles[question[i].antecedent].tri, d[i], `id="anim${numeroExercice}-${i}" dur="2s" repeatCount="2" `))
       images[i] = symetrieAxiale(triAngles[question[i].antecedent].tri, d[i])
-      images[i].couleurDeRemplissage = couleurs[i]
+      images[i].couleurDeRemplissage = colorToLatexOrHTML(couleurs[i])
       images[i].opaciteDeRemplissage = 0.3
       objetsEnonce.push(images[i])
       // On ajoute au texte de la correction, la figure de la correction
