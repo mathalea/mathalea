@@ -1,8 +1,9 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { number, fraction } from 'mathjs'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { fraction } from '../../modules/fractions.js'
 import { Arbre, texProba } from '../../modules/arbres.js'
+import { number } from 'mathjs'
 
 export const titre = 'Probabilités simples'
 

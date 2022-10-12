@@ -1,7 +1,14 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, lampeMessage, prenomF, prenomM, calcul, texPrix, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { texteEnCouleurEtGras } from '../../modules/outils/contextSensitif.js'
+import { calcul, texPrix } from '../../modules/outils/texNombres.js'
+import { lampeMessage } from '../../modules/outils/messages.js'
+import { prenomF, prenomM } from '../../modules/outils/objetsPersonnes.js'
+
 export const titre = 'Augmenter ou diminuer d\'un pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'

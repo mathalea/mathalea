@@ -1,9 +1,17 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { courbe, repere } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texFractionReduite, ecritureAlgebrique, texRacineCarree, ecritureParentheseSiNegatif, calcul, lettreMinusculeDepuisChiffre, texNombre } from '../../modules/outils.js'
-import { simplify, floor } from 'mathjs'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../modules/outils/ecritures.js'
+import { repere } from '../../modules/2d/reperes.js'
+import { courbe } from '../../modules/2d/courbes.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texFractionReduite } from '../../modules/outils/arrayFractions.js'
+import { calcul, texNombre } from '../../modules/outils/texNombres.js'
+import { lettreMinusculeDepuisChiffre } from '../../modules/outils/lettres.js'
+import { texRacineCarree } from '../../modules/outils/factorisation.js'
+import { floor, simplify } from 'mathjs'
 
 const EgalEnviron = (v, d = 3) => ((Math.abs(v) * 10 ** d) % 1 > 0 ? '\\approx' : '=') + texNombre(calcul(v, 3))
 

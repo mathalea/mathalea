@@ -1,5 +1,10 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, range, randint, texNombre, choice, egalOuApprox } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice, range } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { egalOuApprox } from '../../modules/outils/nombres.js'
+import { texNombre } from '../../modules/outils/texNombres.js'
 
 export const titre = 'Problèmes concret et pourcentages'
 

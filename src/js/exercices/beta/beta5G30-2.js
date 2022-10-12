@@ -1,10 +1,16 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, choice } from '../../modules/outils.js'
-import { texteSurArc, homothetie, point, rotation, droite, translation, vecteur, arcPointPointAngle } from '../../modules/2d.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { droite } from '../../modules/2d/droites.js'
+import { homothetie, rotation, translation } from '../../modules/2d/transformations.js'
+import { vecteur } from '../../modules/2d/vecteur.js'
 import { pickRandom } from 'mathjs'
 import { aleaVariables } from '../../modules/outilsMathjs.js'
+import { texteSurArc } from '../../modules/2d/codages.js'
+import { arcPointPointAngle } from '../../modules/2d/arc.js'
 export const titre = 'Angles et parallèles'
 // eslint-disable-next-line no-debugger
 debugger

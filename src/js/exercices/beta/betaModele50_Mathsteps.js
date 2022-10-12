@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
-import { toTex, resoudre, calculer, aleaVariables } from '../../modules/outilsMathjs.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { resoudre, calculer, aleaVariables, toTex } from '../../modules/outilsMathjs.js'
 import { simplify } from 'mathjs'
 export const titre = 'Nom de l\'exercice'
 

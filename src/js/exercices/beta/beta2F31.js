@@ -1,7 +1,12 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, combinaisonListes, choice, randint } from '../../modules/outils.js'
-import { courbe, droite, repere } from '../../modules/2d.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { repere } from '../../modules/2d/reperes.js'
+import { courbe } from '../../modules/2d/courbes.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { droite } from '../../modules/2d/droites.js'
 export const titre = 'Croissance de fonction ?'
 
 /**

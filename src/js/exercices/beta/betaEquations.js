@@ -1,11 +1,14 @@
 import Exercice from '../Exercice.js'
-import { fixeBordures, mathalea2d, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
+import { mathalea2d, fixeBordures, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { polygone, segment, point, texteParPosition } from '../../modules/2d.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { parse, simplify, compare, evaluate } from 'mathjs'
-import { aleaName, aleaExpression, resoudre, toTex, calculer, calculExpression2, resoudreEquation, aleaEquation, expressionLitterale, aleaVariables, traduireProgrammeCalcul, appliquerProgrammeCalcul, remonterProgrammeCalcul, ecrireProgrammeCalcul } from '../../modules/outilsMathjs.js'
+import { segment } from '../../modules/2d/segment.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texteParPosition } from '../../modules/2d/textes.js'
+import { compare, evaluate, parse, simplify } from 'mathjs'
+import { polygone } from '../../modules/2d/polygone.js'
 import Algebrite from 'algebrite'
+import { resoudre, calculer, aleaVariables, toTex, aleaName, traduireProgrammeCalcul, resoudreEquation, aleaEquation, aleaExpression, ecrireProgrammeCalcul, appliquerProgrammeCalcul, remonterProgrammeCalcul, calculExpression2, expressionLitterale } from '../../modules/outilsMathjs.js'
 
 // eslint-disable-next-line no-debugger
 debugger

@@ -1,8 +1,11 @@
-import { xcas, listeQuestionsToContenu, randint, texMasse } from '../../modules/outils.js'
-import { tableauDeVariation } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texMasse } from '../../modules/outils/texNombres.js'
+import { tableauDeVariation } from '../../modules/2d/tableauDeVariation.js'
+import { xcas } from '../../modules/outils/xcas.js'
 export const titre = 'Equation avec une valeur absolue'
 
 /**

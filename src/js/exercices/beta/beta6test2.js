@@ -1,6 +1,9 @@
 
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, modalTexteCourt, randint, combinaisonListes } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { modalTexteCourt } from '../../modules/outils/modaux.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 
 export const titre = 'Mon test'
 

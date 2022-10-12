@@ -1,7 +1,13 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
-import { afficheLongueurSegment, point, polygone, segment } from '../../modules/2d.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { segment } from '../../modules/2d/segment.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { polygone } from '../../modules/2d/polygone.js'
+import { afficheLongueurSegment } from '../../modules/2d/codages.js'
+
 export const titre = 'Aire d\'assemblages de rectangles'
 export const interactifReady = true
 export const interactifType = 'mathLive'

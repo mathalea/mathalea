@@ -1,8 +1,10 @@
 import Exercice from '../Exercice.js'
-import { texNombre, listeQuestionsToContenu, stringNombre, sp } from '../../modules/outils.js'
-import pkg from 'decimal.js'
-import { all, create } from 'mathjs'
-const { Decimal } = pkg
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { sp } from '../../modules/outils/contextSensitif.js'
+import { create, all } from 'mathjs'
+import { texNombre } from '../../modules/outils/texNombres.js'
+import Decimal from 'decimal.js/decimal.mjs'
+import { stringNombre } from '../../modules/outils/stringNombre.js'
 export const titre = 'Somme de deux entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'

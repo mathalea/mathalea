@@ -1,7 +1,14 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, creerNomDePolygone } from '../../modules/outils.js'
-import { point, tracePoint, labelPoint, polygoneRegulier, codageAngleDroit } from '../../modules/2d.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { tracePoint } from '../../modules/2d/tracePoint.js'
+import { labelPoint } from '../../modules/2d/labelPoint.js'
+import { polygoneRegulier } from '../../modules/2d/polygone.js'
+import { codageAngleDroit } from '../../modules/2d/codages.js'
+import { creerNomDePolygone } from '../../modules/outils/strings.js'
 export const titre = 'Nom de l\'exercice'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle

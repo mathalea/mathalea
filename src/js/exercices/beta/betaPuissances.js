@@ -1,6 +1,12 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenuSansNumero, combinaisonListes, randint, texNombrec, lettreDepuisChiffre, texFractionReduite, ecritureParentheseSiNegatif, choice } from '../../modules/outils.js'
-
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { ecritureParentheseSiNegatif } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenuSansNumero } from '../../modules/outils/miseEnForme.js'
+import { texFractionReduite } from '../../modules/outils/arrayFractions.js'
+import { texNombrec } from '../../modules/outils/texNombres.js'
+import { lettreDepuisChiffre } from '../../modules/outils/lettres.js'
 export const titre = 'Exercice exemple'
 
 /**

@@ -1,6 +1,8 @@
-import { listeQuestionsToContenu, randint, ecritureParentheseSiNegatif } from '../../modules/outils.js'
-import { context } from '../../modules/context.js'
 import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { ecritureParentheseSiNegatif } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { complex } from 'mathjs'
 export const titre = 'Racine carrée nombre complexe'
 

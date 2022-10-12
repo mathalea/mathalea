@@ -1,5 +1,8 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, contraindreValeur, compteOccurences, rangeMinMax } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { compteOccurences, rangeMinMax } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { contraindreValeur } from '../../modules/outils/comparateurs.js'
 export const titre = 'Nom de l\'exercice'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle

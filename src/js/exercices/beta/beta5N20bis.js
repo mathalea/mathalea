@@ -1,11 +1,15 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, texFraction, texFractionReduite } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { texFraction, texFractionReduite } from '../../modules/outils/arrayFractions.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
 import { calculer } from '../../modules/outilsMathjs.js'
+import FractionX from '../../modules/FractionEtendue.js'
 
 export const amcReady = true
 export const amcType = 'qcmMono' // QCM
@@ -143,9 +147,9 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         }
         if (context.isHtml && this.interactifType === 'mathLive') {
           if (this.sup3 && this.level !== 6) {
-            setReponse(this, i, (new FractionEtendue(numerateur1 * denominateur2 + numerateur2 * denominateur1, denominateur1 * denominateur2)).simplifie(), { formatInteractif: 'fraction' })
+            setReponse(this, i, (new FractionX(numerateur1 * denominateur2 + numerateur2 * denominateur1, denominateur1 * denominateur2)).simplifie(), { formatInteractif: 'fraction' })
           } else {
-            setReponse(this, i, (new FractionEtendue(numerateur1 * denominateur2 + numerateur2 * denominateur1, denominateur1 * denominateur2)).simplifie(), { formatInteractif: 'fractionEgale' })
+            setReponse(this, i, (new FractionX(numerateur1 * denominateur2 + numerateur2 * denominateur1, denominateur1 * denominateur2)).simplifie(), { formatInteractif: 'fractionEgale' })
           }
         }
       } else { // une soustraction
@@ -183,9 +187,9 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         }
         if (context.isHtml && this.interactifType === 'mathLive') {
           if (this.sup3 && this.level !== 6) {
-            setReponse(this, i, (new FractionEtendue(Math.abs(numerateur1 * denominateur2 - numerateur2 * denominateur1), denominateur1 * denominateur2)).simplifie(), { formatInteractif: 'fraction' })
+            setReponse(this, i, (new FractionX(Math.abs(numerateur1 * denominateur2 - numerateur2 * denominateur1), denominateur1 * denominateur2)).simplifie(), { formatInteractif: 'fraction' })
           } else {
-            setReponse(this, i, (new FractionEtendue(Math.abs(numerateur1 * denominateur2 - numerateur2 * denominateur1), denominateur1 * denominateur2)).simplifie(), { formatInteractif: 'fractionEgale' })
+            setReponse(this, i, (new FractionX(Math.abs(numerateur1 * denominateur2 - numerateur2 * denominateur1), denominateur1 * denominateur2)).simplifie(), { formatInteractif: 'fractionEgale' })
           }
         }
       }

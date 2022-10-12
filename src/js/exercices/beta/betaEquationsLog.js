@@ -1,6 +1,12 @@
-import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, calcul, texRacineCarree, ecritureParentheseSiNegatif, texNombre, fractionSimplifiee, texFraction } from '../../modules/outils.js'
-import { context } from '../../modules/context.js'
 import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { fractionSimplifiee, texFraction } from '../../modules/outils/arrayFractions.js'
+import { calcul, texNombre } from '../../modules/outils/texNombres.js'
+import { texRacineCarree } from '../../modules/outils/factorisation.js'
 export const titre = 'Equations avec logarithmes'
 const drteParab = l => l.length === 2 ? `${l[0]}x${ecritureAlgebrique(l[1])}` : `${l[0]}x^2${ecritureAlgebrique(l[1])}x${ecritureAlgebrique(l[2])}`
 const EgalEnviron = (v, d = 3) => ((Math.abs(v) * 10 ** d) % 1 > 0 ? '\\approx' : '=') + texNombre(calcul(v, 3))

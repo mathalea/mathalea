@@ -1,6 +1,10 @@
-import { listeQuestionsToContenu, randint, combinaisonListes, choice, texFraction, texFractionReduite } from '../../modules/outils.js'
-import { context } from '../../modules/context.js'
 import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texFraction, texFractionReduite } from '../../modules/outils/arrayFractions.js'
 export const titre = '2S30-6' // Probabilité A ou B dans situation concrète
 
 const multiple = (n, d) => n % d === 0

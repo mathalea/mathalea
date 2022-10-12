@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { randint } from '../../modules/outils.js'
+import { randint } from '../../modules/outils/entiers.js'
 export const titre = 'Somme de deux entiers'
 export const interactifReady = true
 export const interactifType = 'mathLive'

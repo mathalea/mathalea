@@ -1,7 +1,9 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { mediatrice, point, segment } from '../../modules/2d.js'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
+import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites.js'
+import { segment } from '../../modules/2d/segment.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { mediatrice } from '../../modules/2d/droitesRemarquables.js'
 
 export const titre = 'Exo zéro Mathalea2d'
 

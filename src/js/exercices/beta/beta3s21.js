@@ -1,6 +1,11 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, calcul, texNombre, nombreAvecEspace, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texteEnCouleurEtGras } from '../../modules/outils/contextSensitif.js'
+import { calcul, texNombre } from '../../modules/outils/texNombres.js'
+import { nombreAvecEspace } from '../../modules/outils/stringNombre.js'
 
 export const titre = 'Stabilisation des fréquences'
 

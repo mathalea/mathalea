@@ -1,8 +1,12 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { arc, point, rapporteur, rotation, segment } from '../../modules/2d.js'
-
+import { randint } from '../../modules/outils/entiers.js'
+import { segment } from '../../modules/2d/segment.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { rotation } from '../../modules/2d/transformations.js'
+import { arc } from '../../modules/2d/arc.js'
+import { rapporteur } from '../../modules/2d/rapporteur.js'
 export const titre = 'Exo zéro Mathalea2d'
 
 export default class SuperExoMathalea2d extends Exercice {

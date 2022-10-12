@@ -1,8 +1,11 @@
-import { simplify } from 'mathjs'
-import { listeQuestionsToContenu, randint, matriceCarree, abs, ppcm, ecritureParentheseSiNegatif, rienSi1, ecritureAlgebriqueSauf1, ecritureAlgebrique } from '../../modules/outils.js'
-
-import { context } from '../../modules/context.js'
 import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import { ppcm, randint } from '../../modules/outils/entiers.js'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, rienSi1 } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { abs } from '../../modules/outils/nombres.js'
+import { simplify } from 'mathjs'
+import { matriceCarree } from '../../modules/outils/matrices.js'
 export const titre = '2G35-3' // Résoudre un système 2x2 par combinaisons linéaire
 
 // Représentation d'un système 2x2

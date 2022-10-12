@@ -1,5 +1,6 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 export const titre = 'Ceci est le titre de l\'exercice BetaExosimpleMatthieu'
 
 /**

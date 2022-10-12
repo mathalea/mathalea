@@ -1,7 +1,16 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
-import { point, tracePoint, labelPoint, carre, rotation, segmentAvecExtremites, pointAdistance, triangle2points2longueurs } from '../../modules/2d.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { segmentAvecExtremites } from '../../modules/2d/segment.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { rotation } from '../../modules/2d/transformations.js'
+import { tracePoint } from '../../modules/2d/tracePoint.js'
+import { labelPoint } from '../../modules/2d/labelPoint.js'
+import { pointAdistance } from '../../modules/2d/pointSur.js'
+import { carre } from '../../modules/2d/polygone.js'
+import { triangle2points2longueurs } from '../../modules/2d/triangle.js'
 export const titre = 'Nom de l\'exercice'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
