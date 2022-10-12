@@ -12,6 +12,8 @@ import Decimal from 'decimal.js/decimal.mjs'
 import { stringNombre } from '../../modules/outils/stringNombre.js'
 import { cylindre3d, point3d, sphere3d, vecteur3d } from '../../modules/3d.js'
 import Grandeur from '../../modules/Grandeur.js'
+import { compteOccurences, range1 } from '../../modules/outils/arrays.js'
+import { contraindreValeur } from '../../modules/outils/comparateurs.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
