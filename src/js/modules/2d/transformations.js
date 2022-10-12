@@ -60,12 +60,12 @@ export function translation (O, v, nom = '', positionLabel = 'above', color = 'b
    */
 
 export function translation2Points (O, A, B, nom = '', positionLabel = 'above', color = 'black') {
-  if (O.constructor === Point) {
+  if (O instanceof Point) {
     const x = O.x + B.x - A.x
     const y = O.y + B.y - A.y
     return point(x, y, nom, positionLabel)
   }
-  if (O.constructor === Polygone) {
+  if (O instanceof Polygone) {
     const p2 = []
     for (let i = 0; i < O.listePoints.length; i++) {
       p2[i] = translation2Points(O.listePoints[i], O, A, B)
@@ -73,19 +73,19 @@ export function translation2Points (O, A, B, nom = '', positionLabel = 'above', 
     }
     return polygone(p2, color)
   }
-  if (O.constructor === Droite) {
+  if (O instanceof Droite) {
     const M = translation2Points(point(O.x1, O.y1), A, B)
     const N = translation2Points(point(O.x2, O.y2), A, B)
     return droite(M, N, color)
   }
-  if (O.constructor === Segment) {
+  if (O instanceof Segment) {
     const M = translation2Points(O.extremite1, A, B)
     const N = translation2Points(O.extremite2, A, B)
     const s = segment(M, N, color)
     s.styleExtremites = O.styleExtremites
     return s
   }
-  if (A.constructor === Vecteur) {
+  if (A instanceof Vecteur) {
     return A
   }
 }

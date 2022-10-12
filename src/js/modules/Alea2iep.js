@@ -1,13 +1,20 @@
 // Le premier import et l'utilisation de iepLoadPromise est à commenter pour que le build:dicos fonctionne dans la v3
 import iepLoadPromise from 'instrumenpoche'
-import { angleOriente, droite, homothetie, longueur, milieu, norme, point, pointAdistance, pointSurSegment, rotation, segment, translation, translation2Points, vecteur } from './2d.js'
 import { context } from './context.js'
-import { bissectriceAuCompas, cercleCirconscrit, hauteur, mediane, mediatriceAuCompas, mediatriceRegleEquerre } from './iepMacros/droitesRemarquables.js'
-import { paralleleAuCompas, paralleleAuCompasAvecDescription, paralleleRegleEquerre2points3epoint, paralleleRegleEquerreDroitePointAvecDescription, perpendiculaireCompasPoint, perpendiculaireCompasPointSurLaDroite, perpendiculaireRegleEquerre2points3epoint, perpendiculaireRegleEquerreDroitePoint, perpendiculaireRegleEquerrePointSurLaDroite } from './iepMacros/parallelesEtPerpendiculaires.js'
-import { parallelogramme2sommetsConsecutifsCentre, parallelogramme3sommetsConsecutifs, parallelogrammeAngleCentre, partageSegment } from './iepMacros/parallelogrammes.js'
-import { carre1point1longueur } from './iepMacros/quadrilateres.js'
+import { segment } from './2d/segment.js'
+import { point } from './2d/point.js'
+import { droite } from './2d/droites.js'
+import { homothetie, rotation, translation, translation2Points } from './2d/transformations.js'
+import { vecteur } from './2d/vecteur.js'
+import { pointAdistance, pointSurSegment } from './2d/pointSur.js'
+import { angleOriente, longueur, norme } from './2d/calculs.js'
+import { milieu } from './2d/barycentre.js'
 import { demiTourPoint, demiTourPolygone, homothetiePoint, homothetiePolygone, rotationPoint, rotationPolygone, symetrieAxialePoint, symetrieAxialePolygone, translationPoint, translationPolygone } from './iepMacros/transformations.js'
+import { parallelogramme2sommetsConsecutifsCentre, parallelogramme3sommetsConsecutifs, parallelogrammeAngleCentre, partageSegment } from './iepMacros/parallelogrammes.js'
+import { paralleleAuCompas, paralleleAuCompasAvecDescription, paralleleRegleEquerre2points3epoint, paralleleRegleEquerreDroitePointAvecDescription, perpendiculaireCompasPoint, perpendiculaireCompasPointSurLaDroite, perpendiculaireRegleEquerre2points3epoint, perpendiculaireRegleEquerreDroitePoint, perpendiculaireRegleEquerrePointSurLaDroite } from './iepMacros/parallelesEtPerpendiculaires.js'
+import { bissectriceAuCompas, cercleCirconscrit, hauteur, mediane, mediatriceAuCompas, mediatriceRegleEquerre } from './iepMacros/droitesRemarquables.js'
 import { triangle1longueur2angles, triangle2longueurs1angle, triangle3longueurs, triangleEquilateral, triangleEquilateral2Sommets, triangleRectangle2Cotes, triangleRectangleCoteHypotenuse } from './iepMacros/triangles.js'
+import { carre1point1longueur } from './iepMacros/quadrilateres.js'
 
 const store = {}
 

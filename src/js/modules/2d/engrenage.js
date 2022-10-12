@@ -1,6 +1,6 @@
 import { abs, round } from 'mathjs'
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../2dGeneralites'
-import { cos, sin } from '../fonctionsMaths'
+import { degCos, degSin } from '../fonctionsMaths'
 import { arrondi } from '../outils'
 
 function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, yCenter = 0, couleur = 'black', couleurDeRemplissage = 'black', couleurDuTrou = 'white', dureeTour = 10, angleStart = 90, marqueur = null } = {}) {
@@ -26,25 +26,25 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
     const R0 = round(this.rayonInt * coeff)
     const angle = 360 / this.nbDents
     const r1x = round(R2 - R1)
-    const r1y = round(R1 * sin(0.125 * angle))
-    const Ax = round(xC + R1 * cos(angle * 0.25 + this.angleStart))
-    const Ay = round(yC + R1 * sin(angle * 0.25 + this.angleStart))
+    const r1y = round(R1 * degSin(0.125 * angle))
+    const Ax = round(xC + R1 * degCos(angle * 0.25 + this.angleStart))
+    const Ay = round(yC + R1 * degSin(angle * 0.25 + this.angleStart))
     let code = `<g class="roueEngrenage" id=roue${this.id}>
       <path stroke="${this.color[0]}" fill="${this.couleurDeRemplissage[0]}"
         d="M ${Ax},${Ay} `
     for (let i = 0; i < this.nbDents; i++) {
-      const Bx = round(xC + R1 * cos(angle * (-i - 0.25) + this.angleStart))
-      const By = round(yC + R1 * sin(angle * (-i - 0.25) + this.angleStart))
-      const Cx = round(xC + R2 * cos(angle * (-i + 0.125) + this.angleStart))
-      const Cy = round(yC + R2 * sin(angle * (-i + 0.125) + this.angleStart))
-      const Dx = round(xC + R2 * cos(angle * (-i - 0.125) + this.angleStart))
-      const Dy = round(yC + R2 * sin(angle * (-i - 0.125) + this.angleStart))
-      const Ex = round(xC + R1 * cos(angle * (-i - 0.75) + this.angleStart))
-      const Ey = round(yC + R1 * sin(angle * (-i - 0.75) + this.angleStart))
+      const Bx = round(xC + R1 * degCos(angle * (-i - 0.25) + this.angleStart))
+      const By = round(yC + R1 * degSin(angle * (-i - 0.25) + this.angleStart))
+      const Cx = round(xC + R2 * degCos(angle * (-i + 0.125) + this.angleStart))
+      const Cy = round(yC + R2 * degSin(angle * (-i + 0.125) + this.angleStart))
+      const Dx = round(xC + R2 * degCos(angle * (-i - 0.125) + this.angleStart))
+      const Dy = round(yC + R2 * degSin(angle * (-i - 0.125) + this.angleStart))
+      const Ex = round(xC + R1 * degCos(angle * (-i - 0.75) + this.angleStart))
+      const Ey = round(yC + R1 * degSin(angle * (-i - 0.75) + this.angleStart))
       code += `A${r1x} ${r1y} ${round(180 + this.angleStart - (i + 0.25) * angle)} 0 0 ${Cx} ${Cy} L${Dx} ${Dy} A${r1x} ${r1y} ${round(180 + this.angleStart - (i - 0.125) * angle)} 0 0 ${Bx} ${By} A${R1} ${R1} 0 0 0 ${Ex} ${Ey} `
     }
     code += 'Z"/>'
-    if (typeof this.marqueur === 'number') code += `<circle cx="${round(xC + (R1 - 5) * cos(this.marqueur))}" cy="${round(yC + (R1 - 5) * sin(this.marqueur))}" r="3" stroke="HotPink" fill="Sienna" />`
+    if (typeof this.marqueur === 'number') code += `<circle cx="${round(xC + (R1 - 5) * degCos(this.marqueur))}" cy="${round(yC + (R1 - 5) * degSin(this.marqueur))}" r="3" stroke="HotPink" fill="Sienna" />`
     if (this.dureeTour !== 0) {
       code += `<animateTransform
         id="animRoue${this.id}"
@@ -89,7 +89,7 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
                 \\fill[${this.couleurDuTrou[1]},draw=${this.color[1]}] (${this.xCenter},${this.yCenter}) circle (${R0});
     `
     if (typeof this.marqueur === 'number') {
-      code += `\\fill[HotPink,draw=black] (${arrondi(this.xCenter + (R1 - 0.2) * cos(this.marqueur), 2)},${arrondi(this.yCenter + (R1 - 0.2) * sin(this.marqueur), 2)}) circle (0.15);
+      code += `\\fill[HotPink,draw=black] (${arrondi(this.xCenter + (R1 - 0.2) * degCos(this.marqueur), 2)},${arrondi(this.yCenter + (R1 - 0.2) * degSin(this.marqueur), 2)}) circle (0.15);
   `
     }
     return code

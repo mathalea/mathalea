@@ -1,5 +1,8 @@
-import { point, pointAdistance, rotation, pointSurSegment, polygoneAvecNom } from '../2d.js'
-import { randint } from '../outils.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { point } from '../../modules/2d/point.js'
+import { rotation } from '../../modules/2d/transformations.js'
+import { pointAdistance, pointSurSegment } from '../../modules/2d/pointSur.js'
+import { polygoneAvecNom } from '../../modules/2d/polygone.js'
 
 /**
    * Macro crée par Sophie Desruelle

@@ -4,8 +4,10 @@
  ************************************************
  */
 
-import { translation2Points, longueur, pointSurSegment, similitude, pointAdistance, droite, homothetie } from '../2d.js'
-
+import { homothetie, similitude, translation2Points } from '../../modules/2d/transformations.js'
+import { pointAdistance, pointSurSegment } from '../../modules/2d/pointSur.js'
+import { longueur } from '../../modules/2d/calculs.js'
+import { droite } from '../2d/droites.js'
 /**
    * Trace un parallélogramme à partir de la donnée de 3 sommets consécutifs
    * @param {point} A

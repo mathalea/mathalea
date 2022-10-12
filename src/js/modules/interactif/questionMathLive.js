@@ -1,11 +1,12 @@
 
-import FractionEtendue from '../FractionEtendue.js'
+import FractionX from '../FractionEtendue.js'
 import { number } from 'mathjs'
-import Grandeur from '../Grandeur.js'
 import { context } from '../context.js'
-import { afficheScore } from '../gestionInteractif.js'
 import { gestionCan } from './gestionCan.js'
-import { sp, texteExposant } from '../outils.js'
+import { texteExposant } from '../../modules/outils/ecritures.js'
+import { afficheScore } from '../../modules/gestionInteractif.js'
+import { sp } from '../../modules/outils/contextSensitif.js'
+import Grandeur from '../../modules/Grandeur.js'
 import * as pkg from '@cortex-js/compute-engine'
 const { ComputeEngine } = pkg
 export function verifQuestionMathLive (exercice, i, writeResult = true) {
@@ -39,7 +40,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           num = parseInt(champTexte.value.replace(',', '.'))
           if (isNaN(num) || num === undefined) num = 9999
           den = reponse.den
-          fSaisie = new FractionEtendue(num, den)
+          fSaisie = new FractionX(num, den)
           if (fSaisie.isEqual(reponse)) {
             resultat = 'OK'
           }
@@ -48,7 +49,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           den = parseInt(champTexte.value.replace(',', '.'))
           if (isNaN(den) || den === undefined) den = 9999
           num = reponse.num
-          fSaisie = new FractionEtendue(num, den)
+          fSaisie = new FractionX(num, den)
           if (fSaisie.isEqual(reponse)) {
             resultat = 'OK'
           }
@@ -117,7 +118,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
         // Si l'utilisateur entre un nombre décimal n, on transforme en n/1
           saisie = champTexte.value.replace(',', '.') // On remplace la virgule éventuelle par un point.
           if (!isNaN(parseFloat(saisie))) {
-            const newFraction = new FractionEtendue(parseFloat(saisie))
+            const newFraction = new FractionX(parseFloat(saisie))
             saisieParsee = engine.parse(`${newFraction.toLatex().replace('dfrac', 'frac')}`).canonical
           } else {
             saisieParsee = engine.parse(saisie).canonical
@@ -130,7 +131,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
         case 'fraction': // Pour les exercices où l'on attend un écriture donnée d'une fraction
           saisie = champTexte.value.replace(',', '.')
           if (!isNaN(parseFloat(saisie))) {
-            saisieParsee = engine.parse(new FractionEtendue(saisie, 1).texFSD)
+            saisieParsee = engine.parse(new FractionX(saisie, 1).texFSD)
           } else {
             saisieParsee = engine.parse(saisie.replace('frac', 'dfrac').replace('ddfrac', 'dfrac'))
           }
