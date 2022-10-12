@@ -7,7 +7,7 @@
 import { ObjetMathalea2D } from '../2dGeneralites'
 import { afficheCoteSegment } from './codages'
 import { point } from './point'
-import { pointAdistance } from './pointsur'
+import { pointAdistance } from './pointSur.js'
 import { polygone } from './polygone'
 import { segment } from './segment'
 import { translation } from './transformations'

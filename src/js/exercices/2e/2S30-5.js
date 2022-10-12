@@ -10,7 +10,7 @@ import FractionX from '../../modules/FractionEtendue.js'
 import { fraction } from '../../modules/fractions.js'
 import { Arbre, texProba } from '../../modules/arbres.js'
 import { premiereLettreEnMajuscule } from '../../modules/outils/lettres.js'
-import { tableauColonneLigne } from '../../modules/outils/tableaucl.js'
+import { tableauColonneLigne } from '../../modules/outils/tableauCL.js'
 export const titre = 'Expérience aléatoire à deux épreuves'
 export const dateDePublication = '28/12/2021'
 export const dateDeModifImportante = '30/08/2022' // Passage en intégralité interactif

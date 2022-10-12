@@ -10,7 +10,7 @@ import { texteEnCouleurEtGras } from '../../modules/outils/contextSensitif.js'
 import { texNombre } from '../../modules/outils/texNombres.js'
 import FractionX from '../../modules/FractionEtendue.js'
 import { warnMessage } from '../../modules/outils/messages.js'
-import { tableauColonneLigne } from '../../modules/outils/tableaucl.js'
+import { tableauColonneLigne } from '../../modules/outils/tableauCL.js'
 export const titre = 'Equations résolvantes pour le théorème de Thalès'
 
 export const interactifReady = true

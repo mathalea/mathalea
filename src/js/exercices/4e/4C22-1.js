@@ -8,7 +8,7 @@ import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { sp } from '../../modules/outils/contextSensitif.js'
 import { texNombrec } from '../../modules/outils/texNombres.js'
-import FractionX from '../../modules/FractionX.js'
+import FractionX from '../../modules/FractionEtendue.js'
 export const titre = 'Trouver l\'inverse d\'un nombre'
 export const interactifReady = true
 export const interactifType = 'mathLive'

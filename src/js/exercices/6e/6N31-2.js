@@ -6,7 +6,7 @@ import { choice, shuffle } from '../../modules/outils/arrays.js'
 import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { miseEnEvidence } from '../../modules/outils/contextSensitif.js'
 import { texNombre } from '../../modules/outils/texNombres.js'
-import { tableauColonneLigne } from '../../modules/outils/tableaucl.js'
+import { tableauColonneLigne } from '../../modules/outils/tableauCL.js'
 export const titre = 'Trouver ordre de grandeur d\'opérations sur les décimaux'
 
 /**

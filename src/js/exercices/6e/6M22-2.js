@@ -7,7 +7,7 @@ import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { arrondi } from '../../modules/outils/nombres.js'
 import { rotation } from '../../modules/2d/transformations.js'
 import { calcul, texNombre } from '../../modules/outils/texNombres.js'
-import { pointAdistance } from '../../modules/2d/pointsur.js'
+import { pointAdistance } from '../../modules/2d/pointSur.js'
 import { afficheLongueurSegment, codageSegments } from '../../modules/2d/codages.js'
 import { arc } from '../../modules/2d/arc.js'
 

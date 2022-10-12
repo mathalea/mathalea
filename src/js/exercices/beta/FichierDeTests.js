@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { point } from '../../modules/2d/point.js'
@@ -9,6 +10,7 @@ import { codageAngle } from '../../modules/2d/codages.js'
 import { cercle } from '../../modules/2d/cercle.js'
 import { arc } from '../../modules/2d/arc.js'
 import { rapporteur } from '../../modules/2d/rapporteur.js'
+import { lignesHorizontales } from '../../modules/2d/grilles.js'
 export const titre = 'Calculer un angle, déduit de figures simples'
 export const interactifType = 'mathLive'
 export const interactifReady = true

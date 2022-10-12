@@ -5,7 +5,7 @@ import { modalPdf, modalVideo } from '../../modules/outils/modaux.js'
 import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { miseEnEvidence, numAlpha } from '../../modules/outils/contextSensitif.js'
 import { texNombre } from '../../modules/outils/texNombres.js'
-import { tableauColonneLigne } from '../../modules/outils/tableaucl.js'
+import { tableauColonneLigne } from '../../modules/outils/tableauCL.js'
 import { cribleEratostheneN } from '../../modules/outils/premiers.js'
 export const titre = 'Compter et lister les diviseurs d\'un entier à partir de sa décomposition en facteurs premiers'
 

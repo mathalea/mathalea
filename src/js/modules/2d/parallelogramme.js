@@ -4,7 +4,7 @@
 /*********************************************/
 
 import { randint } from '../outils'
-import { pointAdistance, pointSurSegment } from './pointsur'
+import { pointAdistance, pointSurSegment } from './pointSur.js'
 import { polygoneAvecNom } from './polygone'
 import { homothetie, rotation, translation } from './transformations'
 import { vecteur } from './vecteur'

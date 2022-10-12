@@ -6,19 +6,19 @@
 */
 
 import earcut from 'earcut'
-import { colorToLatexOrHTML, ObjetMathalea2D } from '../2dGeneralites'
-import { context } from '../context'
-import { barycentre } from './barycentre'
-import { longueur } from './calculs'
-import { codageAngleDroit, codageSegments } from './codages'
-import { labelPoint } from './labelpoint'
-import { pattern } from './motif'
-import { point } from './point'
-import { pointSurSegment } from './pointsur'
-import { segment } from './segment'
-import { latexParCoordonnees, texteParPoint, texteParPositionEchelle } from './textes'
-import { rotation } from './transformations'
-import { aireTriangle } from './triangle'
+import { colorToLatexOrHTML, ObjetMathalea2D } from '../2dGeneralites.js'
+import { context } from '../context.js'
+import { barycentre } from './barycentre.js'
+import { longueur } from './calculs.js'
+import { codageAngleDroit, codageSegments } from './codages.js'
+import { labelPoint } from './labelPoint.js'
+import { pattern } from './motif.js'
+import { point } from './point.js'
+import { pointSurSegment } from './pointSur.js'
+import { segment } from './segment.js'
+import { latexParCoordonnees, texteParPoint, texteParPositionEchelle } from './textes.js'
+import { rotation } from './transformations.js'
+import { aireTriangle } from './triangle.js'
 
 /**
  * polygone(A,B,C,D,E) //Trace ABCDE

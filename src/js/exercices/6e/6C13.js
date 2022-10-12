@@ -5,7 +5,7 @@ import { compteOccurences, rangeMinMax } from '../../modules/outils/arrays.js'
 import { listeQuestionsToContenuSansNumero } from '../../modules/outils/miseEnForme.js'
 import { numAlpha } from '../../modules/outils/contextSensitif.js'
 import { contraindreValeur } from '../../modules/outils/comparateurs.js'
-import ChoisirExpressionNumerique from './_choisirExpressionNumerique.js'
+import ChoisirExpressionNumerique from '../5e/_choisirExpressionNumerique.js'
 export const titre = 'Traduire des phrases en calculs et réciproquement'
 
 /**

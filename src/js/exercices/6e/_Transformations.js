@@ -22,7 +22,7 @@ import { afficheMesureAngle, codageSegments } from '../../modules/2d/codages.js'
 import { lettreDepuisChiffre } from '../../modules/outils/lettres.js'
 import { contraindreValeur, egal } from '../../modules/outils/comparateurs.js'
 import { imagePointParTransformation } from '../../modules/outils/matrices.js'
-import { labelLatexPoint } from '../../modules/2d/labelpoint.js'
+import { labelLatexPoint } from '../../modules/2d/labelPoint.js'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

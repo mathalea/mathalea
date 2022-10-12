@@ -12,7 +12,7 @@ import { codageAngleDroit } from './codages'
 import { Droite, droite } from './droites'
 import { codageMilieu, mediatrice } from './droitesRemarquables'
 import { point, Point } from './point'
-import { pointIntersectionCC, pointIntersectionDD, pointIntersectionLC, pointSurSegment } from './pointsur'
+import { pointIntersectionCC, pointIntersectionDD, pointIntersectionLC, pointSurSegment } from './pointSur.js'
 import { polygone } from './polygone'
 import { projectionOrtho, rotation, similitude } from './transformations'
 

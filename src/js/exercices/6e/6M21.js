@@ -15,7 +15,7 @@ import { homothetie, projectionOrtho, rotation, translation } from '../../module
 import { vecteur } from '../../modules/2d/vecteur.js'
 import { min, max } from 'mathjs'
 import { translationPuisRotationAnimees } from '../../modules/2dAnimation.js'
-import { pointIntersectionDD, pointSurSegment } from '../../modules/2d/pointsur.js'
+import { pointIntersectionDD, pointSurSegment } from '../../modules/2d/pointSur.js'
 import { polygone } from '../../modules/2d/polygone.js'
 import { longueur } from '../../modules/2d/calculs.js'
 import { milieu } from '../../modules/2d/barycentre.js'

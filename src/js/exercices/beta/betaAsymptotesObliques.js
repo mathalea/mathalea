@@ -41,6 +41,8 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           etape = `${xcas('P:=piecewise(numer(f-Q)>0,\'dessus\',\'dessous\')')}` // par le dessus ou le dessous
           signe = `${xcas('P')}`.includes('dessus') ? '+' : '-'
           // Etapes de la division
+
+          // eslint-disable-next-line no-unused-vars
           etape = [
             'E1:=simplify(lcoeff(N)*x*D)',
             'E2:=simplify(N-E1)',

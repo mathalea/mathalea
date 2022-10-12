@@ -26,7 +26,7 @@ export function translation (O, v, nom = '', positionLabel = 'above', color = 'b
     const y = O.y + v.y
     return point(x, y, nom, positionLabel)
   }
-  if (O instanceof Polygone()) {
+  if (O instanceof Polygone) {
     const p2 = []
     for (let i = 0; i < O.listePoints.length; i++) {
       p2[i] = translation(O.listePoints[i], v)

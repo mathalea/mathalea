@@ -11,19 +11,19 @@
  * @author Jean-Claude Lhote
  */
 
-import { colorToLatexOrHTML, ObjetMathalea2D } from '../2dGeneralites'
-import { arrondi, lettreDepuisChiffre, nombreAvecEspace, randint } from '../outils'
-import { arc } from './arc'
-import { milieu } from './barycentre'
-import { longueur } from './calculs'
-import { cercle } from './cercle'
-import { grille } from './grilles'
-import { labelPoint } from './labelpoint'
-import { point } from './point'
-import { pointSurSegment } from './pointsur'
-import { segment } from './segment'
-import { texteParPoint, texteParPosition } from './textes'
-import { rotation, similitude } from './transformations'
+import { colorToLatexOrHTML, ObjetMathalea2D } from '../2dGeneralites.js'
+import { arrondi, lettreDepuisChiffre, nombreAvecEspace, randint } from '../outils.js'
+import { arc } from './arc.js'
+import { milieu } from './barycentre.js'
+import { longueur } from './calculs.js'
+import { cercle } from './cercle.js'
+import { grille } from './grilles.js'
+import { labelPoint } from './labelPoint.js'
+import { point } from './point.js'
+import { pointSurSegment } from './pointSur.js'
+import { segment } from './segment.js'
+import { texteParPoint, texteParPosition } from './textes.js'
+import { rotation, similitude } from './transformations.js'
 
 // JSDOC Validee par EE Aout 2022
 export function dansLaCibleCarree (x, y, rang, taille, cellule) {

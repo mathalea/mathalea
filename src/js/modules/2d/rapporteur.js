@@ -1,7 +1,7 @@
 import { ObjetMathalea2D } from '../2dGeneralites'
 import { arc } from './arc'
 import { point } from './point'
-import { pointSurSegment } from './pointsur'
+import { pointSurSegment } from './pointSur.js'
 import { segment } from './segment'
 import { texteParPoint } from './textes'
 import { homothetie, rotation } from './transformations'

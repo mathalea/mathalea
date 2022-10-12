@@ -5,7 +5,7 @@ import { choice } from '../../modules/outils/arrays.js'
 import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { miseEnEvidence } from '../../modules/outils/contextSensitif.js'
 import { calcul, texNombre, texNombrec, texPrix } from '../../modules/outils/texNombres.js'
-import { tableauColonneLigne } from '../../modules/outils/tableaucl.js'
+import { tableauColonneLigne } from '../../modules/outils/tableauCL.js'
 
 /**
  * * Tableaux et pourcentages

@@ -9,7 +9,7 @@ import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { numAlpha } from '../../modules/outils/contextSensitif.js'
 import { texNombre } from '../../modules/outils/texNombres.js'
 import { polygone } from '../../modules/2d/polygone.js'
-import { tableauColonneLigne } from '../../modules/outils/tableaucl.js'
+import { tableauColonneLigne } from '../../modules/outils/tableauCL.js'
 export const titre = 'Produire une formule à partir d\'un tableau'
 
 /**

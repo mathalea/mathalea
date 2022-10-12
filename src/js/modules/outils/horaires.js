@@ -1,4 +1,4 @@
-import { sp } from './contextsensitif'
+import { sp } from './contextSensitif'
 
 /**
 * @author Rémi Angot
