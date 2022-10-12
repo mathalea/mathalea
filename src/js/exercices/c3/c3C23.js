@@ -1,5 +1,6 @@
 import Exercice from '../Exercice.js'
-import { choice, randint } from '../../modules/outils.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
 import FractionX from '../../modules/FractionEtendue.js'
 export const titre = 'Opérations simples avec des fractions'
 export const interactifReady = true
