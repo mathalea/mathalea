@@ -5,10 +5,10 @@ import { randint } from '../../modules/outils/entiers.js'
 import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { miseEnEvidence } from '../../modules/outils/contextSensitif.js'
 import { tracePoint } from '../../modules/2d/tracePoint.js'
-import { sin } from 'mathjs'
+import { degSin, radians } from '../../modules/fonctionsMaths.js'
 import { labelPoint } from '../../modules/2d/labelPoint.js'
 import { lettreDepuisChiffre } from '../../modules/outils/lettres.js'
-import { radians } from '../../modules/fonctionsMaths.js'
+
 import { arete3d, point3d } from '../../modules/3d.js'
 export const titre = 'Exercice de repérage dans un pavé droit'
 
@@ -151,7 +151,7 @@ export default function ReperagePaveDroit () {
       t.epaisseur = 2
       t.taille = 6
       objetsAtracerCorr = [s1.c2d, s2.c2d, s3.c2d, t, labelPoint(pointAplacer)].concat(objetsAtracer)
-      texteCorr = mathalea2d({ xmin: -1, xmax: 1 + largeur + profondeur * Math.cos(radians(context.anglePerspective)), ymin: -1, ymax: hauteur + profondeur * context.coeffPerspective * sin(context.anglePerspective), scale: 0.6, style: 'display: block; margin-top:20px;' }, objetsAtracerCorr)
+      texteCorr = mathalea2d({ xmin: -1, xmax: 1 + largeur + profondeur * Math.cos(radians(context.anglePerspective)), ymin: -1, ymax: hauteur + profondeur * context.coeffPerspective * degSin(context.anglePerspective), scale: 0.6, style: 'display: block; margin-top:20px;' }, objetsAtracerCorr)
       texteCorr += `<br>$${lettreDepuisChiffre(i + 12)}$ de coordonnées $(${miseEnEvidence(pointCoord[0], 'blue')};${miseEnEvidence(pointCoord[1], '#f15929')};${miseEnEvidence(pointCoord[2], 'red')})$.<br>`
 
       if (this.listeQuestions.indexOf(texte) === -1) {
@@ -162,7 +162,7 @@ export default function ReperagePaveDroit () {
       }
       cpt++
     }
-    this.introduction = (context.vue === 'diap' ? '<center>' : '') + mathalea2d({ xmin: -1, xmax: 1 + largeur + (profondeur * context.coeffPerspective) * Math.cos(radians(context.anglePerspective)), ymin: -1, ymax: hauteur + profondeur * context.coeffPerspective * sin(context.anglePerspective), style: 'display: block; margin-top:20px;' }, objetsAtracer) + (context.vue === 'diap' ? '</center>' : '')
+    this.introduction = (context.vue === 'diap' ? '<center>' : '') + mathalea2d({ xmin: -1, xmax: 1 + largeur + (profondeur * context.coeffPerspective) * Math.cos(radians(context.anglePerspective)), ymin: -1, ymax: hauteur + profondeur * context.coeffPerspective * degSin(context.anglePerspective), style: 'display: block; margin-top:20px;' }, objetsAtracer) + (context.vue === 'diap' ? '</center>' : '')
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Angle de la perspective', 3, '1 : 30°\n2 : 45°\n3 : 60°']

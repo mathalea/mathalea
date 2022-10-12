@@ -5,7 +5,7 @@ import { choice } from '../../modules/outils/arrays.js'
 import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { cos } from 'mathjs'
+import { degCos } from '../../modules/fonctionsMaths.js'
 import { texNombre } from '../../modules/outils/texNombres.js'
 import Decimal from 'decimal.js/decimal.mjs'
 export const interactifReady = true
@@ -52,10 +52,10 @@ export default function ArrondirUneValeur () {
         v = new Decimal(randint(11, 99)).div(10)
         angle = randint(1, 89, 60)
         if (choice([true, false])) {
-          n = v.mul(cos(angle))
+          n = v.mul(degCos(angle))
           nb = `${texNombre(v, 1)}\\cos(${angle})`
         } else {
-          n = v.div(cos(angle))
+          n = v.div(degCos(angle))
           nb = `\\dfrac{${texNombre(v, 1)}}{\\cos(${angle})}`
         }
       }

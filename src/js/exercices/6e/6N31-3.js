@@ -8,7 +8,7 @@ import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { texFraction } from '../../modules/outils/arrayFractions.js'
 import { miseEnEvidence } from '../../modules/outils/contextSensitif.js'
 import { troncature } from '../../modules/outils/nombres.js'
-import { cos } from 'mathjs'
+import { degCos } from '../../modules/fonctionsMaths.js'
 import { calcul, texNombre } from '../../modules/outils/texNombres.js'
 import { listeNombresPremiersStrictJusqua } from '../../modules/outils/premiers.js'
 
@@ -110,13 +110,13 @@ export default function ArrondirUneValeur () {
           v = randint(11, 99) / 10
           angle = randint(1, 89, 60)
           if (choice([true, false])) {
-            n = v * cos(angle)
+            n = v * degCos(angle)
             nb = `${texNombre(v)}\\cos(${angle})`
             di = 10 * (troncature(n - troncature(n, 0), 1))
             ci = 100 * (troncature(n - troncature(n, 1), 2))
             mi = 1000 * (troncature(n - troncature(n, 2), 3))
           } else {
-            n = v / cos(angle)
+            n = v / degCos(angle)
             nb = `\\dfrac{${texNombre(v)}}{\\cos(${angle}\\degree)}`
             di = 10 * (troncature(n - troncature(n, 0), 1))
             ci = 100 * (troncature(n - troncature(n, 1), 2))
