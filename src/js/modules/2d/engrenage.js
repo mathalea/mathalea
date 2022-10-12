@@ -26,7 +26,7 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
     const R0 = round(this.rayonInt * coeff)
     const angle = 360 / this.nbDents
     const r1x = round(R2 - R1)
-    const r1y = round(R1 * sin(0.125 * angle))
+    const r1y = round(R1 * degSin(0.125 * angle))
     const Ax = round(xC + R1 * degCos(angle * 0.25 + this.angleStart))
     const Ay = round(yC + R1 * degSin(angle * 0.25 + this.angleStart))
     let code = `<g class="roueEngrenage" id=roue${this.id}>
@@ -89,7 +89,7 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
                 \\fill[${this.couleurDuTrou[1]},draw=${this.color[1]}] (${this.xCenter},${this.yCenter}) circle (${R0});
     `
     if (typeof this.marqueur === 'number') {
-      code += `\\fill[HotPink,draw=black] (${arrondi(this.xCenter + (R1 - 0.2) * degCos(this.marqueur), 2)},${arrondi(this.yCenter + (R1 - 0.2) * sin(this.marqueur), 2)}) circle (0.1degS);
+      code += `\\fill[HotPink,draw=black] (${arrondi(this.xCenter + (R1 - 0.2) * degCos(this.marqueur), 2)},${arrondi(this.yCenter + (R1 - 0.2) * degSin(this.marqueur), 2)}) circle (0.1degS);
   `
     }
     return code
