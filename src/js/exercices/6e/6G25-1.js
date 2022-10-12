@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { combinaisonListes } from '../../modules/outils/listes.js'
 import { randint } from '../../modules/outils/entiers.js'
@@ -354,7 +354,7 @@ export default function SymetrieAxialePavageTriangulaire () {
       typesDeQuestionsDisponibles = [0, 1, 2, 3, 4, 5]
     }
     const listeTypesDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, 3)
-    const couleurs = ['blue', 'green', 'red', 'gray', 'magenta', 'purple']
+    const couleurs = [colorToLatexOrHTML('blue'), colorToLatexOrHTML('green'), colorToLatexOrHTML('red'), colorToLatexOrHTML('gray'), colorToLatexOrHTML('magenta'), colorToLatexOrHTML('purple')]
     let M
     let N
     const d = []
