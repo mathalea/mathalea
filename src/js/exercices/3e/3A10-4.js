@@ -1,6 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, texNombre, miseEnEvidence, modalPdf, modalVideo, listeDiviseurs, numAlpha, cribleEratostheneN, tableauColonneLigne } from '../../modules/outils.js'
+import { listeDiviseurs, randint } from '../../modules/outils/entiers.js'
+import { modalPdf, modalVideo } from '../../modules/outils/modaux.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { miseEnEvidence, numAlpha } from '../../modules/outils/contextSensitif.js'
+import { texNombre } from '../../modules/outils/texNombres.js'
+import { tableauColonneLigne } from '../../modules/outils/tableaucl.js'
+import { cribleEratostheneN } from '../../modules/outils/premiers.js'
 export const titre = 'Compter et lister les diviseurs d\'un entier à partir de sa décomposition en facteurs premiers'
 
 /**

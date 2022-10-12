@@ -1,7 +1,15 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, ecritureParentheseSiNegatif, texNombre, texFraction, choice, arrondi } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { ecritureParentheseSiNegatif } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texFraction } from '../../modules/outils/arrayFractions.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { arrondi } from '../../modules/outils/nombres.js'
+
+import { texNombre } from '../../modules/outils/texNombres.js'
 import FractionX from '../../modules/FractionEtendue.js'
 export const titre = 'Déterminer l\'image d\'un nombre par une fonction de référence'
 export const interactifReady = true

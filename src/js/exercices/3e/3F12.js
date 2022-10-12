@@ -1,7 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texEnumerate, miseEnEvidence, itemize, tikzMachineDiag, numAlpha, texCadreParOrange } from '../../modules/outils.js'
+import { combinaisonListesSansChangerOrdre } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { itemize, miseEnEvidence, numAlpha } from '../../modules/outils/contextSensitif.js'
+import { texEnumerate } from '../../modules/outils/texMiseEnForme.js'
 import { SvgMachineDiag3F12 } from '../../modules/macroSvgJs.js'
+import { texCadreParOrange, tikzMachineDiag } from '../../modules/outils/3F1actfonctions.js'
 export const titre = 'Calculer, de manières différentes, des images par une fonction'
 
 /**

@@ -1,5 +1,12 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureParentheseSiNegatif, extraireRacineCarree, texRacineCarree, texNombre } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { ecritureParentheseSiNegatif } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+
+import { extraireRacineCarree, texRacineCarree } from '../../modules/outils/factorisation.js'
+import { texNombre } from '../../modules/outils/texNombres.js'
 
 export const titre = 'Utiliser la distance entre deux points dans un repère orthonormé'
 

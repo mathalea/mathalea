@@ -1,7 +1,21 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, abs, ecritureParentheseSiNegatif, fractionSimplifiee, texNombre } from '../../modules/outils.js'
-import { point, tracePoint, codageSegments, labelPoint, segment, axes, grille } from '../../modules/2d.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { ecritureParentheseSiNegatif } from '../../modules/outils/ecritures.js'
+import { segment } from '../../modules/2d/segment.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { abs } from '../../modules/outils/nombres.js'
+import { tracePoint } from '../../modules/2d/tracePoint.js'
+
+import { labelPoint } from '../../modules/2d/labelPoint.js'
+import { texNombre } from '../../modules/outils/texNombres.js'
+import { fractionSimplifiee } from '../../modules/outils/arrayFractions.js'
+import { grille } from '../../modules/2d/grilles.js'
+import { axes } from '../../modules/2d/reperes.js'
+import { codageSegments } from '../../modules/2d/codages.js'
 
 export const titre = 'Démontrer qu\'un quadrilatère est ou non un parallélogramme'
 

@@ -1,6 +1,13 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, reduireAxPlusB, texteEnCouleur, choice, ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../modules/outils.js'
-import { fraction, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { obtenirListeFractionsIrreductiblesFaciles } from '../../modules/outils/arrayFractions.js'
+import { reduireAxPlusB } from '../../modules/outils/reductions.js'
+import { texteEnCouleur } from '../../modules/outils/contextSensitif.js'
+import { fraction } from '../../modules/fractions.js'
 export const titre = 'Résoudre les équations produit-nul'
 
 /**

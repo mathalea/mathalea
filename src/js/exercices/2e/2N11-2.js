@@ -1,7 +1,12 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
-import { point, segment, crochetD, crochetG, intervalle } from '../../modules/2d.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { segment } from '../../modules/2d/segment.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+
+import { crochetD, crochetG, intervalle } from '../../modules/2d/intervalles.js'
 
 export const titre = 'Utiliser et comprendre les symboles $\\cup $ et $\\cap $ avec les intervalles de $\\mathbb{R}$'
 

@@ -1,8 +1,10 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, shuffle2tableaux } from '../../modules/outils.js'
+import { context } from '../../modules/context.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice, shuffle2tableaux } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { context } from '../../modules/context.js'
 export const titre = 'Lectures d\'images et d\'antécédents depuis un tableau de valeurs'
 export const interactifReady = true
 export const interactifType = 'mathLive'

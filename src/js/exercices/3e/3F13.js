@@ -1,10 +1,13 @@
 /* eslint-disable no-sequences */
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import Decimal from 'decimal.js/decimal.mjs'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, resolutionSystemeLineaire2x2 } from '../../modules/outils.js'
-import { courbe, repere } from '../../modules/2d.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { repere } from '../../modules/2d/reperes.js'
+import { courbe } from '../../modules/2d/courbes.js'
+import { listeQuestionsToContenuSansNumero } from '../../modules/outils/miseEnForme.js'
+import Decimal from 'decimal.js/decimal.mjs'
+import { resolutionSystemeLineaire2x2 } from '../../modules/outils/resolutions.js'
 export const titre = 'Lire les antécédents d\'un nombre à partir d\'un graphique'
 
 /**

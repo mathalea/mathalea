@@ -254,3 +254,24 @@ export function shuffle2tableaux (obj1, obj2) {
 export function numTrie (arr) {
   return arr.sort((a, b) => a - b)
 }
+/**
+ * retourne un tableau dans lequel les doublons ont été supprimés s'il y en a MAIS SANS TRI
+ * @param {array} arr Tableau duquel ont veut supprimer les doublons numériques
+ * @param {number} tolerance La différence minimale entre deux valeurs pour les considérer comme égales
+ * @author Jean-Claude Lhote
+ **/
+export function enleveDoublonNum (arr, tolerance = 0) {
+  let k = 0
+  while (k < arr.length - 1) {
+    let kk = k + 1
+    while (kk < arr.length - 1) {
+      if (egal(arr[k], arr[kk], tolerance)) {
+        arr[k] = (arr[k] + arr[kk]) / 2 // On remplace la valeur dont on a trouvé un double par la moyenne des deux valeurs
+        arr.splice(kk, 1) // on supprime le doublon.
+      }
+      kk++
+    }
+    k++
+  }
+  return arr
+}

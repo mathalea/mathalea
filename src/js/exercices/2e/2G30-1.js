@@ -1,8 +1,14 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, texFractionReduite, pgcd, ecritureParentheseSiNegatif, unSiPositifMoinsUnSinon } from '../../modules/outils.js'
+import { context } from '../../modules/context.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { pgcd, randint } from '../../modules/outils/entiers.js'
+import { ecritureParentheseSiNegatif } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texFraction, texFractionReduite } from '../../modules/outils/arrayFractions.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { context } from '../../modules/context.js'
+import { unSiPositifMoinsUnSinon } from '../../modules/outils/nombres.js'
+
 export const titre = "Déterminer le coefficient directeur d'une droite"
 export const interactifReady = true
 export const interactifType = 'mathLive'

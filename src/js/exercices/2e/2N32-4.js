@@ -1,8 +1,12 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, ecritureAlgebrique, lettreDepuisChiffre } from '../../modules/outils.js'
+import { context } from '../../modules/context.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { ecritureAlgebrique } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { context } from '../../modules/context.js'
+import { lettreDepuisChiffre } from '../../modules/outils/lettres.js'
 
 export const titre = 'Simplifier une somme de racines carrées'
 export const interactifReady = true

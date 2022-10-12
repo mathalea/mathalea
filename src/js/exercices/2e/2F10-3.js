@@ -1,8 +1,19 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, reduireAxPlusB, choice, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite } from '../../modules/outils.js'
-import { repere, droite, point, tracePoint, labelPoint, texteParPosition } from '../../modules/2d.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../modules/outils/ecritures.js'
+import { point } from '../../modules/2d/point.js'
+import { repere } from '../../modules/2d/reperes.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texFractionReduite } from '../../modules/outils/arrayFractions.js'
+import { reduireAxPlusB } from '../../modules/outils/reductions.js'
+import { texteParPosition } from '../../modules/2d/textes.js'
+import { droite } from '../../modules/2d/droites.js'
+import { tracePoint } from '../../modules/2d/tracePoint.js'
+
 import { min, max } from 'mathjs'
+import { labelPoint } from '../../modules/2d/labelPoint.js'
 
 export const titre = 'Représentation graphique d\'une fonction affine'
 

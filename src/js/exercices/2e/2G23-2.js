@@ -1,7 +1,16 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, choice, ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../modules/outils.js'
-import { repere, point, vecteur, nomVecteurParPosition, texteParPosition, longueur, homothetie, latexParPoint } from '../../modules/2d.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../modules/outils/ecritures.js'
+import { point } from '../../modules/2d/point.js'
+import { repere } from '../../modules/2d/reperes.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { latexParPoint, texteParPosition } from '../../modules/2d/textes.js'
+import { homothetie } from '../../modules/2d/transformations.js'
+import { nomVecteurParPosition, vecteur } from '../../modules/2d/vecteur.js'
+
+import { longueur } from '../../modules/2d/calculs.js'
 
 export const titre = 'Coordonnées de vecteurs et translations'
 

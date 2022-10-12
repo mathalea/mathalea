@@ -1,9 +1,13 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite, lettreMinusculeDepuisChiffre } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texFractionReduite } from '../../modules/outils/arrayFractions.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
-
+import { lettreMinusculeDepuisChiffre } from '../../modules/outils/lettres.js'
 export const titre = 'Déterminer l\'image d\'un nombre par une fonction d\'après sa forme algébrique'
 export const interactifReady = true
 export const interactifType = 'mathLive'

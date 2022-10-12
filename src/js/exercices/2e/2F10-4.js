@@ -1,8 +1,16 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { quotientier, randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../modules/outils/ecritures.js'
+import { point } from '../../modules/2d/point.js'
+import { repere } from '../../modules/2d/reperes.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texFractionReduite } from '../../modules/outils/arrayFractions.js'
+import { tracePoint } from '../../modules/2d/tracePoint.js'
 
-import { listeQuestionsToContenu, randint, choice, quotientier, combinaisonListes, ecritureParentheseSiNegatif, texFractionReduite, ecritureAlgebrique } from '../../modules/outils.js'
-import { repere, point, tracePoint, labelPoint } from '../../modules/2d.js'
+import { labelPoint } from '../../modules/2d/labelPoint.js'
 export const titre = 'Déterminer une fonction affine à partir de deux images'
 
 /**

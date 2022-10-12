@@ -1,9 +1,15 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, rangeMinMax } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { rangeMinMax } from '../../modules/outils/arrays.js'
+import { point } from '../../modules/2d/point.js'
+import { repere } from '../../modules/2d/reperes.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
-import { droiteParPointEtPente, point, repere, tracePoint } from '../../modules/2d.js'
+import { droiteParPointEtPente } from '../../modules/2d/droites.js'
+import { tracePoint } from '../../modules/2d/tracePoint.js'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true

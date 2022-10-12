@@ -1,7 +1,16 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texNombre, nombreAvecEspace, modalPdf, modalVideo, listeDiviseurs, tikzMachineMaths, tikzMachineDiag, katexPopup, numAlpha, machineMathsVideo, infoMessage, lampeMessage } from '../../modules/outils.js'
-import { SvgMachineDiag3F1ActMono, SvgMachineDiag3F12 } from '../../modules/macroSvgJs.js'
+import { combinaisonListesSansChangerOrdre } from '../../modules/outils/listes.js'
+import { listeDiviseurs, randint } from '../../modules/outils/entiers.js'
+import { modalPdf, modalVideo } from '../../modules/outils/modaux.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { numAlpha } from '../../modules/outils/contextSensitif.js'
+import { texNombre } from '../../modules/outils/texNombres.js'
+import { nombreAvecEspace } from '../../modules/outils/stringNombre.js'
+import { infoMessage, lampeMessage } from '../../modules/outils/messages.js'
+import { katexPopup } from '../../modules/outils/popups.js'
+import { SvgMachineDiag3F12, SvgMachineDiag3F1ActMono } from '../../modules/macroSvgJs.js'
+import { machineMathsVideo, tikzMachineDiag, tikzMachineMaths } from '../../modules/outils/3F1actfonctions.js'
 export const titre = 'Fonctions : Notion et vocabulaire'
 
 /**

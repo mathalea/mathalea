@@ -1,9 +1,13 @@
 import Exercice from '../Exercice.js'
-import { combinaisonListes, contraindreValeur, listeQuestionsToContenu, miseEnEvidence, numAlpha, ppcm, randint, texNombre } from '../../modules/outils.js'
-import { engrenage } from '../../modules/2d.js'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
+import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { ppcm, randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { miseEnEvidence, numAlpha } from '../../modules/outils/contextSensitif.js'
+import { texNombre } from '../../modules/outils/texNombres.js'
+import { contraindreValeur } from '../../modules/outils/comparateurs.js'
+import { engrenage } from '../../modules/2d/engrenage.js'
 export const titre = 'Problèmes avec des engrenages'
 export const dateDePublication = '05/10/2022'
 

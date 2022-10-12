@@ -1,7 +1,13 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, reduireAxPlusB, texFractionSigne, ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { texFractionSigne } from '../../modules/outils/arrayFractions.js'
+import { reduireAxPlusB } from '../../modules/outils/reductions.js'
 
 export const titre = 'Reconnaître une fonction affine'
 export const interactifReady = true

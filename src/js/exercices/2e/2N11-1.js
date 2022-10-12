@@ -1,8 +1,13 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
-import { point, segment, crochetD, crochetG, intervalle } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { segment } from '../../modules/2d/segment.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+
+import { crochetD, crochetG, intervalle } from '../../modules/2d/intervalles.js'
 
 export const titre = 'Associer un intervalle de  $\\mathbb{R}$ à une inéquation et son schéma sur une droite graduée'
 

@@ -1,9 +1,19 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, choice } from '../../modules/outils.js'
-import { point, tracePoint, vecteur, polygoneAvecNom, translation, pointAdistance, longueur, homothetie, latexParPoint, similitude } from '../../modules/2d.js'
-import Alea2iep from '../../modules/Alea2iep.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { latexParPoint } from '../../modules/2d/textes.js'
+import { homothetie, similitude, translation } from '../../modules/2d/transformations.js'
+import { vecteur } from '../../modules/2d/vecteur.js'
+import { tracePoint } from '../../modules/2d/tracePoint.js'
+
 import { translationAnimee } from '../../modules/2dAnimation.js'
+import { pointAdistance } from '../../modules/2d/pointSur.js'
+import { polygoneAvecNom } from '../../modules/2d/polygone.js'
+import { longueur } from '../../modules/2d/calculs.js'
+import Alea2iep from '../../modules/Alea2iep.js'
 export const titre = 'Construire les images de points par une translation'
 
 /**

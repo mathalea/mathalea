@@ -1,6 +1,13 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texNombre, modalPdf, numAlpha, premiersEntreBornes, warnMessage, decompositionFacteursPremiersArray } from '../../modules/outils.js'
+import { combinaisonListesSansChangerOrdre } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { modalPdf } from '../../modules/outils/modaux.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { numAlpha } from '../../modules/outils/contextSensitif.js'
+import { texNombre } from '../../modules/outils/texNombres.js'
+import { warnMessage } from '../../modules/outils/messages.js'
+import { decompositionFacteursPremiersArray, premiersEntreBornes } from '../../modules/outils/premiers.js'
 export const titre = 'Rendre irréductible une fraction'
 
 /**

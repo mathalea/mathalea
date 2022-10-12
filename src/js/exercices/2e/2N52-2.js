@@ -1,5 +1,8 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleur } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texteEnCouleur } from '../../modules/outils/contextSensitif.js'
 
 export const titre = 'Résoudre des équations carrées'
 

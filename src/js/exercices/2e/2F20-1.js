@@ -1,9 +1,14 @@
 import Exercice from '../Exercice.js'
-import { fraction, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions.js'
-import {
-  listeQuestionsToContenu, reduireAxPlusB, simplificationDeFractionAvecEtapes, reduirePolynomeDegre3, rienSi1, randint, texteCentre, combinaisonListes, ecritureAlgebrique, choice,
-  ecritureParentheseSiNegatif, pgcd
-} from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { pgcd, randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles, simplificationDeFractionAvecEtapes } from '../../modules/outils/arrayFractions.js'
+import { reduireAxPlusB, reduirePolynomeDegre3 } from '../../modules/outils/reductions.js'
+import { texteCentre } from '../../modules/outils/contextSensitif.js'
+
+import { fraction } from '../../modules/fractions.js'
 export const titre = 'Montrer qu\'un point appartient ou non à une courbe'
 
 /**

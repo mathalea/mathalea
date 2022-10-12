@@ -1,6 +1,9 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, texFraction } from '../../modules/outils.js'
-
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texFraction } from '../../modules/outils/arrayFractions.js'
 export const titre = 'Factoriser avec les identités remarquables'
 
 /**

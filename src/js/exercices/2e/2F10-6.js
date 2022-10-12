@@ -1,7 +1,14 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, reduireAxPlusB, choice, ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../modules/outils.js'
-import { tableauDeVariation, courbe, repere } from '../../modules/2d.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../modules/outils/ecritures.js'
+import { repere } from '../../modules/2d/reperes.js'
+import { courbe } from '../../modules/2d/courbes.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { reduireAxPlusB } from '../../modules/outils/reductions.js'
+
+import { tableauDeVariation } from '../../modules/2d/tableauDeVariation.js'
 
 export const titre = 'Déterminer le sens de variation d\'une fonction affine'
 

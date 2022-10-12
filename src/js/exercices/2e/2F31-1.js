@@ -1,5 +1,13 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, choice, randint, texNombre, miseEnEvidence, texFraction, stringNombre } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { ecritureParentheseSiNegatif } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texFraction } from '../../modules/outils/arrayFractions.js'
+import { miseEnEvidence } from '../../modules/outils/contextSensitif.js'
+
+import { texNombre } from '../../modules/outils/texNombres.js'
 import Decimal from 'decimal.js/decimal.mjs'
 export const titre = 'Utiliser les variations des fonctions de référence pour comparer des images'
 export const dateDePublication = '07/01/2022'
@@ -8,13 +16,15 @@ export const dateDePublication = '07/01/2022'
  * @author Gilles Mora // Suppression de calcul et mise en place de Decimal par Jean-Claude Lhote
  * Référence
 */
-function ecritureParentheseSiNegatif (a, maximumFractionDigits = 15) {
+/* Pourquoi cette fonction est-elle copiée localement ?
+ function ecritureParentheseSiNegatif (a, maximumFractionDigits = 15) {
   if (a instanceof Decimal) {
     return a.isNeg() ? `(${stringNombre(a, maximumFractionDigits)})` : `${stringNombre(a, maximumFractionDigits)}`
   }
   const result = Intl.NumberFormat('fr-FR', { maximumFractionDigits: maximumFractionDigits }).format(a).replace(',', '{,}')
   return a < 0 ? `(${result})` : result
 }
+*/
 export const uuid = '1803c'
 export const ref = '2F31-1'
 export default function ComparerAvecFctRef () {

@@ -1,7 +1,12 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombrec, texNombre } from '../../modules/outils.js'
-import { setReponse, ajouteChampTexte } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+
+import { texNombre, texNombrec } from '../../modules/outils/texNombres.js'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const interactifReady = true

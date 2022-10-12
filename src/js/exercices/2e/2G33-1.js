@@ -1,5 +1,10 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, texFractionReduite, pgcd, ecritureParentheseSiNegatif } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { pgcd, randint } from '../../modules/outils/entiers.js'
+import { ecritureParentheseSiNegatif } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texFraction, texFractionReduite } from '../../modules/outils/arrayFractions.js'
+
 export const titre = 'Alignement de 3 points'
 /**
  * Description didactique de l'exercice Démontrer alignement de 3 points avec coefficient directeur

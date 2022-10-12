@@ -1,7 +1,17 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { axes, point, polygoneAvecNom, repere } from '../../modules/2d.js'
-import { extraireRacineCarree, listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureParentheseSiNegatif, fractionSimplifiee, texNombre } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { ecritureParentheseSiNegatif } from '../../modules/outils/ecritures.js'
+import { point } from '../../modules/2d/point.js'
+import { axes, repere } from '../../modules/2d/reperes.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { fractionSimplifiee } from '../../modules/outils/arrayFractions.js'
+
+import { extraireRacineCarree } from '../../modules/outils/factorisation.js'
+import { texNombre } from '../../modules/outils/texNombres.js'
+import { polygoneAvecNom } from '../../modules/2d/polygone.js'
 export const titre = 'Déterminer la nature d\'un polygone'
 
 /**

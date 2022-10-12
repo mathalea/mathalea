@@ -1,7 +1,12 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, reduireAxPlusB, ecritureParentheseSiNegatif, ecritureAlgebrique, ecritureAlgebriqueSauf1, fractionSimplifiee } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { reduireAxPlusB } from '../../modules/outils/reductions.js'
+import { fractionSimplifiee } from '../../modules/outils/arrayFractions.js'
 
 export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC

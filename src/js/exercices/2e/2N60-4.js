@@ -1,6 +1,14 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureParentheseSiNegatif, signe, abs, pgcd, texFractionReduite, miseEnEvidence, texFraction, texSymbole } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { pgcd, randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texFraction, texFractionReduite } from '../../modules/outils/arrayFractions.js'
+import { miseEnEvidence } from '../../modules/outils/contextSensitif.js'
+import { abs, signe } from '../../modules/outils/nombres.js'
+import { texSymbole } from '../../modules/outils/texMiseEnForme.js'
 
 export const titre = 'Inéquation du premier degré'
 

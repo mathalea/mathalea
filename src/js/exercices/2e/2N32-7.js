@@ -1,6 +1,9 @@
 import Exercice from '../Exercice.js'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, abs, listeQuestionsToContenu, pgcd, randint, texFractionReduite } from '../../modules/outils.js'
-
+import { pgcd, randint } from '../../modules/outils/entiers.js'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texFractionReduite } from '../../modules/outils/arrayFractions.js'
+import { abs } from '../../modules/outils/nombres.js'
 export const titre = 'Rendre entier le dénominateur d\'une fraction'
 
 /**

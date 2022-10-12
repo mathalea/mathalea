@@ -1,26 +1,14 @@
 import Exercice from '../Exercice.js'
-import {
-  listeQuestionsToContenu,
-  texNombre,
-  calcul,
-  decimalToScientifique,
-  combinaisonListes,
-  randint,
-  egalOuApprox,
-  arrondi
-} from '../../modules/outils.js'
-import {
-  setReponse
-} from '../../modules/gestionInteractif.js'
-import {
-  ajouteChampTexteMathLive
-} from '../../modules/interactif/questionMathLive.js'
-import {
-  context
-} from '../../modules/context.js'
-import {
-  round
-} from 'mathjs'
+import { context } from '../../modules/context.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { arrondi, egalOuApprox } from '../../modules/outils/nombres.js'
+import { calcul, texNombre } from '../../modules/outils/texNombres.js'
+import { round } from 'mathjs'
+import { decimalToScientifique } from '../../modules/outils/puissances.js'
 
 export const titre = 'Calculer avec des nombres en écriture scientifique'
 export const interactifReady = true

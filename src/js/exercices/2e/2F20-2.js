@@ -1,10 +1,15 @@
 import Exercice from '../Exercice.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { pgcd, randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles, simplificationDeFractionAvecEtapes } from '../../modules/outils/arrayFractions.js'
+import { reduireAxPlusB, reduirePolynomeDegre3 } from '../../modules/outils/reductions.js'
+import { miseEnEvidence, sp, texteCentre } from '../../modules/outils/contextSensitif.js'
+
 import FractionX from '../../modules/FractionEtendue.js'
-import { fraction, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions.js'
-import {
-  listeQuestionsToContenu, reduireAxPlusB, simplificationDeFractionAvecEtapes, miseEnEvidence, sp, reduirePolynomeDegre3, rienSi1, randint, texteCentre, combinaisonListes, ecritureAlgebrique, choice,
-  ecritureParentheseSiNegatif, pgcd
-} from '../../modules/outils.js'
+import { fraction } from '../../modules/fractions.js'
 export const titre = 'Calculer des coordonnées de points appartenant à une coube connaissant l\'abscisse ou l\'ordonnée'
 export const dateDePublication = '24/09/2022'
 /**

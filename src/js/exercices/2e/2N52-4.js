@@ -1,5 +1,10 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, texteEnCouleur, texFractionSigne, texFractionReduite, reduireAxPlusB, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
+import { combinaisonListesSansChangerOrdre } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texFractionReduite, texFractionSigne } from '../../modules/outils/arrayFractions.js'
+import { reduireAxPlusB } from '../../modules/outils/reductions.js'
+import { texteEnCouleur } from '../../modules/outils/contextSensitif.js'
 import { fraction } from '../../modules/fractions.js'
 export const titre = 'Résoudre des équations se ramenant au produit-nul'
 

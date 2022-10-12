@@ -1,5 +1,9 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../modules/outils.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+
 export const titre = 'Déterminer une équation cartésienne à partir d\'un point et de la pente'
 /**
  * Description didactique de l'exercice

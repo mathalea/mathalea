@@ -1,6 +1,11 @@
 import Exercice from '../Exercice.js'
 
-import { listeQuestionsToContenu, combinaisonListes, randint, ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { reduireAxPlusB } from '../../modules/outils/reductions.js'
+
 export const titre = 'Déterminer si des droites $(d)$ et $(d\')$ sont parallèles, sécantes ou confondues :'
 
 /**
