@@ -1,5 +1,7 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, modalTexteCourt } from '../../modules/outils.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { modalTexteCourt } from '../../modules/outils/modaux.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Ajouter 9'

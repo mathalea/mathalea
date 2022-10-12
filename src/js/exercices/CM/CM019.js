@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
-import TrouverSolutionMathador from './_TrouverSolutionMathador.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { TrouverSolutionMathador } from '../../modules/outils/mathador.js'
 export const titre = 'Générateur de compte est bon'
 export const amcReady = true
 export const interactifReady = false

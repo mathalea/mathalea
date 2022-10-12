@@ -1,7 +1,11 @@
 import Exercice from '../Exercice.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { range1 } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
-import { listeQuestionsToContenu, randint, range1, combinaisonListes, texNombrec, texNombre, calcul } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { calcul, texNombre, texNombrec } from '../../modules/outils/texNombres.js'
 export const titre = 'Moitié'
 export const amcReady = true
 export const interactifReady = true

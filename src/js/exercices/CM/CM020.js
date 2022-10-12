@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
-import { contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
-import TrouverSolutionMathador from './_TrouverSolutionMathador.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { contraindreValeur } from '../../modules/outils/comparateurs.js'
+import { TrouverSolutionMathador } from '../../modules/outils/mathador.js'
 export const titre = 'Générateur de compte est bon version semi-aléatoire'
 
 /**

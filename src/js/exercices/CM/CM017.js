@@ -1,7 +1,10 @@
 import Exercice from '../Exercice.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
-import { listeQuestionsToContenu, randint, choice, calcul, texNombrec, texNombre } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { calcul, texNombre, texNombrec } from '../../modules/outils/texNombres.js'
 export const titre = 'Diviser un nombre décimal par 10, 100 ou 1000'
 export const amcReady = true
 export const interactifReady = true

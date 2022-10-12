@@ -1,6 +1,10 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, creerCouples, choice, combinaisonListes, randint, contraindreValeur } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice, creerCouples } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { contraindreValeur } from '../../modules/outils/comparateurs.js'
 export const titre = 'Tables de multiplication et de divisions'
 export const amcReady = true
 export const amcType = 'AMCNum'
