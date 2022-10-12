@@ -1175,13 +1175,15 @@ function miseAJourDuCode () {
               
               `)
             }
-            if (!exoCan.hasOwnProperty('canEnonce') || !exoCan.hasOwnProperty('canReponseACompleter')) {
+            const canEnonceProperty = Object.prototype.hasOwnProperty.call(exoCan, 'canEnonce')
+            const canReponseACompleterProperty = Object.prototype.hasOwnProperty.call(exoCan, 'canReponseACompleter')
+            if (!canEnonceProperty || !canReponseACompleterProperty) {
               msgEnonce = exoCan.contenu.replace('\\exo{}', '').replace(`\\marginpar{\\footnotesize ${exoCan.id}}`, '') // 'Propriété canEnonce manquante'
               msgRepACompleter = ''
-              if (!exoCan.hasOwnProperty('canEnonce')) {
+              if (!canEnonceProperty) {
                 msgAlerteCanEnonce += ' ' + exoCan.id
               }
-              if (!exoCan.hasOwnProperty('canReponseACompleter')) {
+              if (!canReponseACompleterProperty) {
                 msgAlerteCanReponseACompleter += ' ' + exoCan.id
               }
             } else {
@@ -1259,6 +1261,8 @@ function miseAJourDuCode () {
               let msgRepACompleter
               codeCorrection = '\\begin{enumerate}'
               for (const exoCan of listeObjetsExercice) {
+                // let canEnonceProperty
+                // let canReponseACompleterProperty
                 if (exoCan.typeExercice === 'simple') {
                   codeCorrection += `\\item ${exoCan.correction}`.replaceAll('<br>', `
                   
@@ -1268,13 +1272,15 @@ function miseAJourDuCode () {
                   
                   `)
                 }
-                if (!exoCan.hasOwnProperty('canEnonce') || !exoCan.hasOwnProperty('canReponseACompleter')) {
+                const canEnonceProperty = Object.prototype.hasOwnProperty.call(exoCan, 'canEnonce')
+                const canReponseACompleterProperty = Object.prototype.hasOwnProperty.call(exoCan, 'canReponseACompleter')
+                if (!canEnonceProperty || !canReponseACompleterProperty) {
                   msgEnonce = exoCan.contenu.replace('\\exo{}', '').replace(`\\marginpar{\\footnotesize ${exoCan.id}}`, '') // 'Propriété canEnonce manquante'
                   msgRepACompleter = ''
-                  if (!exoCan.hasOwnProperty('canEnonce')) {
+                  if (!canEnonceProperty) {
                     msgAlerteCanEnonce += ' ' + exoCan.id
                   }
-                  if (!exoCan.hasOwnProperty('canReponseACompleter')) {
+                  if (!canReponseACompleterProperty) {
                     msgAlerteCanReponseACompleter += ' ' + exoCan.id
                   }
                 } else {
