@@ -21,6 +21,7 @@ export default function CalculPuissancesOperation () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let a, b, n, p, s
@@ -31,7 +32,7 @@ export default function CalculPuissancesOperation () {
         p = randint(-9, 9, [0, 1, -1])
         s = n + p
         this.question = `Écrire sous la forme $a^n$ où $a$ et $n$ sont des entiers relatifs. <br>
-        $${ecritureParentheseSiNegatif(a)}^{${n}}\\times ${ecritureParentheseSiNegatif(a)}^{${p}}=$`
+        $${ecritureParentheseSiNegatif(a)}^{${n}}\\times ${ecritureParentheseSiNegatif(a)}^{${p}}$`
         this.correction = `On utilise la formule $a^n\\times a^m=a^{n+m}$ avec $a=${a}$, $n=${n}$ et $p=${p}$.<br>
         $${ecritureParentheseSiNegatif(a)}^{${n}}\\times ${ecritureParentheseSiNegatif(a)}^{${p}}=${ecritureParentheseSiNegatif(a)}^{${n}+${ecritureParentheseSiNegatif(p)}}=${ecritureParentheseSiNegatif(a)}^{${n + p}}$
         `
@@ -44,7 +45,7 @@ export default function CalculPuissancesOperation () {
         n = randint(-9, 9, [0, 1, -1])
         p = a * b
         this.question = `Écrire sous la forme $a^n$ où $a$ et $n$ sont des entiers relatifs. <br>
-        $${ecritureParentheseSiNegatif(a)}^{${n}}\\times ${ecritureParentheseSiNegatif(b)}^{${n}}=$`
+        $${ecritureParentheseSiNegatif(a)}^{${n}}\\times ${ecritureParentheseSiNegatif(b)}^{${n}}$`
         this.correction = `On utilise la formule $a^n\\times b^n=(a\\times b)^{n}$
         avec $a=${a}$,  $b=${b}$ et $n=${n}$.<br>
         $${ecritureParentheseSiNegatif(a)}^{${n}}\\times ${ecritureParentheseSiNegatif(b)}^{${n}}=(${ecritureParentheseSiNegatif(a)}\\times ${ecritureParentheseSiNegatif(b)})^{${n}}=${ecritureParentheseSiNegatif(p)}^{${n}}$
@@ -58,7 +59,7 @@ export default function CalculPuissancesOperation () {
         n = randint(-9, 9, [0, 1, -1])
         s = n * p
         this.question = `Écrire sous la forme $a^n$ où $a$ et $n$ sont des entiers relatifs. <br>
-        $\\left(${ecritureParentheseSiNegatif(a)}^{${n}}\\right)^{${p}}=$`
+        $\\left(${ecritureParentheseSiNegatif(a)}^{${n}}\\right)^{${p}}$`
         this.correction = `On utilise la formule $\\left(a^n\\right)^p=a^{n\\times p}$
         avec $a=${a}$,  $n=${n}$ et $p=${p}$.<br>
         $\\left(${ecritureParentheseSiNegatif(a)}^{${n}}\\right)^{${p}}=${ecritureParentheseSiNegatif(a)}^{${n}\\times ${ecritureParentheseSiNegatif(p)}}=${ecritureParentheseSiNegatif(a)}^{${n * p}}$
@@ -72,7 +73,7 @@ export default function CalculPuissancesOperation () {
         n = randint(-9, 9, [0, 1, -1])
         s = n - p
         this.question = `Écrire sous la forme $a^n$ où $a$ et $n$ sont des entiers relatifs. <br>
-        $\\dfrac{${ecritureParentheseSiNegatif(a)}^{${n}}}{${ecritureParentheseSiNegatif(a)}^{${p}}}=$`
+        $\\dfrac{${ecritureParentheseSiNegatif(a)}^{${n}}}{${ecritureParentheseSiNegatif(a)}^{${p}}}$`
         this.correction = `On utilise la formule $\\dfrac{a^n}{a^p}=a^{n-p}$ avec $a=${a}$,  $n=${n}$ et $p=${p}$.<br>
         $\\dfrac{${ecritureParentheseSiNegatif(a)}^{${n}}}{${ecritureParentheseSiNegatif(a)}^{${p}}}=${ecritureParentheseSiNegatif(a)}^{${n}- ${ecritureParentheseSiNegatif(p)}}=${ecritureParentheseSiNegatif(a)}^{${n - p}}$
         `
@@ -85,7 +86,7 @@ export default function CalculPuissancesOperation () {
         n = randint(-9, 9, [0, 1, -1])
         s = a / b
         this.question = `Écrire sous la forme $a^n$ où $a$ et $n$ sont des entiers relatifs. <br>
-        $\\dfrac{${ecritureParentheseSiNegatif(a)}^{${n}}}{${ecritureParentheseSiNegatif(b)}^{${n}}}=$`
+        $\\dfrac{${ecritureParentheseSiNegatif(a)}^{${n}}}{${ecritureParentheseSiNegatif(b)}^{${n}}}$`
         this.correction = `On utilise la formule $\\dfrac{a^n}{b^n}=\\left(\\dfrac{a}{b}\\right)^{n}$ avec 
         $a=${a}$,  $b=${b}$ et $n=${n}$.<br>
         $\\dfrac{${ecritureParentheseSiNegatif(a)}^{${n}}}{${ecritureParentheseSiNegatif(b)}^{${n}}}=\\left(\\dfrac{${ecritureParentheseSiNegatif(a)}}{${ecritureParentheseSiNegatif(b)}}\\right)^{${n}}=${s}^{${n}}$
@@ -93,5 +94,7 @@ export default function CalculPuissancesOperation () {
         this.reponse = `${s}^{${n}}`
         break
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

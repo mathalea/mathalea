@@ -25,6 +25,7 @@ export default function MilieuEntre1EtFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
@@ -49,16 +50,17 @@ export default function MilieuEntre1EtFraction () {
     // objets.push(latexParCoordonnees(fraction(n, d).texFraction, C.x, -1, 'black', 20, 20, 'white', 6))
     //, labelPoint(B)
 
-    this.question = 'Donner l\'abscisse du point $M$ sous forme d’une fraction irréductible.<br>'
+    this.question = `Donner l'abscisse du point $M$ sous forme d’une fraction irréductible.<br>
+    `
     this.question += mathalea2d({
-      xmin: -1,
+      xmin: -0.5,
       ymin: -2,
       xmax: C.x + 1,
       ymax: 1,
       pixelsParCm: 30,
       mainlevee: false,
       amplitude: 0.4,
-      scale: 0.7,
+      scale: 0.6,
       style: 'margin: auto'
     }, objets)
     this.correction = `On calcule la moyenne de $1$ et $${texFraction(n, d)}$ :<br>  
@@ -70,5 +72,7 @@ export default function MilieuEntre1EtFraction () {
         On calcule d'abord  $1+${texFraction(n, d)}$ en n'oubliant pas que $1=\\dfrac{${d}}{${d}}$, puis on multiplie le résultat par $\\dfrac{1}{2}$. `)
 
     this.reponse = texFractionReduite(d + n, 2 * d)
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

@@ -20,6 +20,7 @@ export default function NombreDeNombresEntiersEntreDeuxValeurs2 () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let a, b
@@ -27,7 +28,7 @@ export default function NombreDeNombresEntiersEntreDeuxValeurs2 () {
       case 'a':
         a = randint(3, 5)
         b = randint(8, 18)
-        this.question = `Combien y a-t-il d'entiers $n$ tels que : $${a}\\leqslant n \\leqslant ${b}$ ?`
+        this.question = `Combien y a-t-il d'entiers $n$ tels que : <br>$${a}\\leqslant n \\leqslant ${b}$ ?`
         this.correction = `Il y en a $${b}-${a}+1$, soit $${b - a + 1}$.`
         this.reponse = calcul(b - a + 1)
         break
@@ -35,17 +36,19 @@ export default function NombreDeNombresEntiersEntreDeuxValeurs2 () {
       case 'b':
         a = randint(3, 5)
         b = randint(8, 18)
-        this.question = `Combien y a-t-il d'entiers $n$ tels que : $${a}< n \\leqslant ${b}$ ?`
+        this.question = `Combien y a-t-il d'entiers $n$ tels que :<br> $${a}< n \\leqslant ${b}$ ?`
         this.correction = `Il y en a $${b}-${a}$, soit $${b - a}$.`
         this.reponse = calcul(b - a)
         break
       case 'c':
         a = randint(3, 5)
         b = randint(8, 18)
-        this.question = `Combien y a-t-il d'entiers $n$ tels que : $${a}\\leqslant n < ${b}$ ?`
+        this.question = `Combien y a-t-il d'entiers $n$ tels que : <br>$${a}\\leqslant n < ${b}$ ?`
         this.correction = `Il y en a $${b}-${a}$, soit $${b - a}$.`
         this.reponse = calcul(b - a)
         break
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

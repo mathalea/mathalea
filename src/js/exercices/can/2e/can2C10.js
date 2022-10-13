@@ -20,6 +20,7 @@ export default function TauxCoeff () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
@@ -38,6 +39,8 @@ export default function TauxCoeff () {
         Autre formulation : <br>Augmenter de $${taux}~\\%$ une valeur revient à en prendre $${texNombrec(100 + taux)}~\\%$ car $100~\\% + ${taux} ~\\%=${texNombrec(100 + taux)}~\\%$.<br>
         Ainsi, le coefficient multiplicateur associé à une augmentation de  $${texNombrec(taux)}~\\%$ est $\\dfrac{${texNombrec(100 + taux)}}{100}$ soit $${texNombrec(1 + taux / 100)}$.`
         this.reponse = calcul(1 + taux / 100)
+        this.canEnonce = 'Compléter.'
+        this.canReponseACompleter = `Augmenter une valeur de $${taux}~\\%$ revient à la multiplier par $\\ldots$`
         break
       case 'b':
         taux = choice([randint(1, 9) * 10, randint(1, 9), randint(1, 9) * 10 + randint(1, 9)])
@@ -50,6 +53,8 @@ export default function TauxCoeff () {
         Autre formulation : <br>Diminuer de $${taux}~\\%$ une valeur revient à en prendre $${texNombrec(100 - taux)}~\\%$ car $100~\\% - ${texNombrec(taux)} ~\\%=${texNombrec(100 - taux)}~\\%$.<br>
         Ainsi, le coefficient multiplicateur associé à une réduction de  $${taux}~\\%$ est $\\dfrac{${texNombrec(100 - taux)}}{100}$ soit $${texNombrec(1 - taux / 100)}$.`
         this.reponse = calcul(1 - taux / 100)
+        this.canEnonce = 'Compléter.'
+        this.canReponseACompleter = `Diminuer une valeur de $${taux}~\\%$ revient à la multiplier par $\\ldots$`
         break
     }
   }
