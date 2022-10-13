@@ -56,14 +56,19 @@ export default function CalculLongueurThales2 () {
         texteParPosition(`${texNombrec(c)}`, milieu(B, C).x + 0.5, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
         texteParPosition(`${texNombrec(a)}`, milieu(A, D).x + 0.5, milieu(A, D).y + 0.5, 'milieu', 'black', 1, 'middle', true))
       this.question = `Les droites $(${nom[1]}${nom[2]})$ et $(${nom[3]}${nom[4]})$ sont parallèles.
-        Calculer $${nom[3]}${nom[4]}$.<br>`
-      this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 8, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+       
+      Calculer $${nom[3]}${nom[4]}$.<br>
+      
+      `
+      this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 8, mainlevee: false, amplitude: 0.5, scale: 0.3, style: 'margin: auto' }, objets)
       this.correction = ` Le triangle $${nom[0]}${nom[3]}${nom[4]}$ est un agrandissement du triangle $${nom[0]}${nom[1]}${nom[2]}$.<br>
     Le coefficient d'agrandissement est  donné par :  $\\dfrac{${nom[0]}${nom[3]}}{${nom[0]}${nom[1]}}=\\dfrac{${texNombrec(a)}}{${b}}=${texNombrec(a / b)}$.<br>
     On en déduit que les longueurs du triangle $${nom[0]}${nom[3]}${nom[4]}$ sont $${texNombrec(a / b)}$ fois plus grandes que les longueurs du triangle $${nom[0]}${nom[1]}${nom[2]}$. <br>
         Ainsi, $${nom[3]}${nom[4]}=${texNombrec(a / b)}\\times ${c}=${texNombrec(a * c / b)}$.
                   <br>`
       this.reponse = calcul(a * c / b)
+      this.canEnonce = this.question// 'Compléter'
+      this.canReponseACompleter = `$${nom[3]}${nom[4]}=\\ldots$`
     } else {
       nom = creerNomDePolygone(5, ['QD'])
       k = choice([1.5, 2, 2.5])
@@ -88,14 +93,20 @@ export default function CalculLongueurThales2 () {
       objets.push(texteParPosition(`${texNombrec(b)}`, milieu(B, C).x + 0.5, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
         texteParPosition(`${texNombrec(c)}`, milieu(A, B).x, milieu(A, B).y - 0.5, 'milieu', 'black', 1, 'middle', true),
         texteParPosition(`${texNombrec(a)}`, milieu(D, E).x - 0.8, milieu(D, E).y, 'milieu', 'black', 1, 'middle', true))
-      this.question = `Les droites $(${nom[1]}${nom[2]})$ et $(${nom[3]}${nom[4]})$ sont parallèles. Calculer $${nom[3]}${nom[0]}$.<br>`
-      this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 8, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+      this.question = `Les droites $(${nom[1]}${nom[2]})$ et $(${nom[3]}${nom[4]})$ sont parallèles.<br>
+      
+      Calculer $${nom[3]}${nom[0]}$.<br>
+
+      `
+      this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 8, mainlevee: false, amplitude: 0.5, scale: 0.3, style: 'margin: auto' }, objets)
       this.correction = ` Le triangle $${nom[0]}${nom[3]}${nom[4]}$ est un agrandissement du triangle $${nom[0]}${nom[1]}${nom[2]}$.<br>
        Le coefficient d'agrandissement est  donné par : $\\dfrac{${nom[3]}${nom[4]}}{${nom[2]}${nom[1]}}=\\dfrac{${texNombrec(a)}}{${b}}=${texNombrec(a / b)}$.<br>
        On en déduit que les longueurs du triangle $${nom[0]}${nom[3]}${nom[4]}$ sont $${texNombrec(a / b)}$ fois plus grandes que les longueurs du triangle $${nom[0]}${nom[1]}${nom[2]}$. <br>
            Ainsi, $${nom[3]}${nom[0]}=${texNombrec(a / b)}\\times ${c}=${texNombrec(a * c / b)}$.
                      <br>`
       this.reponse = calcul(a * c / b)
+      this.canEnonce = this.question// 'Compléter'
+      this.canReponseACompleter = `$${nom[3]}${nom[0]}=\\ldots$`
     }
   }
 }

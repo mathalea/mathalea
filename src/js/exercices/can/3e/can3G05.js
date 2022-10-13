@@ -53,8 +53,9 @@ export default function Trigo () {
     switch (choice(['a', 'b', 'c', 'd', 'e', 'f'])) { //, 'b'
       case 'a':
 
-        this.question = `$\\cos\\widehat{${nom[2]}}=$<br>
-        (Sous forme d'une fraction irréductible)<br>`
+        this.question = `Donner la valeur de $\\cos\\widehat{${nom[2]}}$  sous la forme d'une fraction irréductible.<br>
+
+        `
         this.question += mathalea2d({
           xmin: xmin,
           ymin: ymin,
@@ -74,8 +75,8 @@ export default function Trigo () {
         break
       case 'b':
 
-        this.question = `$\\sin\\widehat{${nom[2]}}=$<br>
-        (Sous forme d'une fraction irréductible)<br>`
+        this.question = `Donner la valeur de $\\sin\\widehat{${nom[2]}}$ sous forme d'une fraction irréductible.<br>
+        `
         this.question += mathalea2d({
           xmin: xmin,
           ymin: ymin,
@@ -95,8 +96,8 @@ export default function Trigo () {
         break
       case 'c':
 
-        this.question = `$\\tan\\widehat{${nom[2]}}=$<br>
-        (Sous forme d'une fraction irréductible)<br>`
+        this.question = `Donner la valeur de $\\tan\\widehat{${nom[2]}}$ sous forme d'une fraction irréductible.<br>
+        `
         this.question += mathalea2d({
           xmin: xmin,
           ymin: ymin,
@@ -116,8 +117,8 @@ export default function Trigo () {
         break
       case 'd':
 
-        this.question = `$\\cos\\widehat{${nom[0]}}=$<br>
-        (Sous forme d'une fraction irréductible)<br>`
+        this.question = `Donner la valeur de  $\\cos\\widehat{${nom[0]}}$ sous forme d'une fraction irréductible.<br>
+        `
         this.question += mathalea2d({
           xmin: xmin,
           ymin: ymin,
@@ -137,8 +138,8 @@ export default function Trigo () {
         break
       case 'e':
 
-        this.question = `$\\sin\\widehat{${nom[0]}}=$<br>
-        (Sous forme d'une fraction irréductible)<br>`
+        this.question = `Donner la valeur de $\\sin\\widehat{${nom[0]}}$ sous forme d'une fraction irréductible.<br>
+        `
         this.question += mathalea2d({
           xmin: xmin,
           ymin: ymin,
@@ -158,8 +159,8 @@ export default function Trigo () {
         break
       case 'f':
 
-        this.question = `$\\tan\\widehat{${nom[0]}}=$<br>
-        (Sous forme d'une fraction irréductible)<br>`
+        this.question = `Donner la valeur de $\\tan\\widehat{${nom[0]}}$ sous forme d'une fraction irréductible.<br>
+        `
         this.question += mathalea2d({
           xmin: xmin,
           ymin: ymin,
@@ -178,5 +179,7 @@ export default function Trigo () {
         this.reponse = `\\dfrac{${b}}{${a}}`
         break
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }
