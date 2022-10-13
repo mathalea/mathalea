@@ -1,6 +1,9 @@
-import Exercice from '../../Exercice.js'
-import { choice, randint, texteEnCouleur, simplificationDeFractionAvecEtapes } from '../../../modules/outils.js'
 import { fraction } from '../../../modules/fractions.js'
+import { simplificationDeFractionAvecEtapes } from '../../../modules/outils/arrayFractions.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { texteEnCouleur } from '../../../modules/outils/contextSensitif.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une somme/différence de fractions égyptiennes'
 export const interactifReady = true
 export const interactifType = 'mathLive'

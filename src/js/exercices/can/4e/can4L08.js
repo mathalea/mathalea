@@ -1,6 +1,9 @@
-import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, rienSi1, ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../modules/outils/ecritures.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../../modules/outils/miseEnForme.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Reconnaître une expression littérale (QCM)'
 export const interactifReady = true
 export const interactifType = 'qcm'

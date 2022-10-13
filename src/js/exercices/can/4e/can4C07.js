@@ -1,5 +1,6 @@
-import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
-import { choice, simplificationDeFractionAvecEtapes } from '../../../modules/outils.js'
+import { fraction } from '../../../modules/fractions.js'
+import { obtenirListeFractionsIrreductibles, simplificationDeFractionAvecEtapes } from '../../../modules/outils/arrayFractions.js'
+import { choice } from '../../../modules/outils/arrays.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer la différence de fractions à dénominateurs compatibles'
 export const interactifReady = true

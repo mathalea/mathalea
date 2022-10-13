@@ -1,9 +1,18 @@
-import Exercice from '../../Exercice.js'
+import { milieu } from '../../../modules/2d/barycentre.js'
+import { droite } from '../../../modules/2d/droites.js'
+import { labelPoint } from '../../../modules/2d/labelPoint.js'
+import { point } from '../../../modules/2d/point.js'
+import { pointAdistance } from '../../../modules/2d/pointSur.js'
+import { polygoneAvecNom } from '../../../modules/2d/polygone.js'
+import { segment, segmentAvecExtremites } from '../../../modules/2d/segment.js'
+import { texteParPosition } from '../../../modules/2d/textes.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, choice, calcul, creerNomDePolygone, texNombrec, stringNombre } from '../../../modules/outils.js'
-import {
-  point, pointAdistance, polygoneAvecNom, labelPoint, segmentAvecExtremites, droite, segment, milieu, texteParPosition
-} from '../../../modules/2d.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { stringNombre } from '../../../modules/outils/stringNombre.js'
+import { creerNomDePolygone } from '../../../modules/outils/strings.js'
+import { calcul, texNombrec } from '../../../modules/outils/texNombres.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une longueur avec le théorème de Thalès'
 export const interactifReady = true
 export const interactifType = 'mathLive'

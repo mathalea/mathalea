@@ -1,14 +1,27 @@
-import Exercice from '../../Exercice.js'
+import { min, round } from 'mathjs'
+import { milieu } from '../../../modules/2d/barycentre.js'
+import { codageAngleDroit } from '../../../modules/2d/codages.js'
+import { labelPoint } from '../../../modules/2d/labelPoint.js'
+import { point } from '../../../modules/2d/point.js'
+import { polygoneAvecNom } from '../../../modules/2d/polygone.js'
+import { segment } from '../../../modules/2d/segment.js'
+import { texteParPosition } from '../../../modules/2d/textes.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
-import {
-  point, polygoneAvecNom, codageAngleDroit, labelPoint, segment, milieu, texteParPosition
-} from '../../../modules/2d.js'
-import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, randint, texNombre, texFractionReduite, stringNombre, tableauColonneLigne, combinaisonListes, texFraction, miseEnEvidence, shuffle, simplificationDeFractionAvecEtapes, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
+import FractionX from '../../../modules/FractionEtendue.js'
+import { fraction } from '../../../modules/fractions.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { obtenirListeFractionsIrreductibles, simplificationDeFractionAvecEtapes, texFraction, texFractionReduite } from '../../../modules/outils/arrayFractions.js'
+import { choice, shuffle } from '../../../modules/outils/arrays.js'
+import { miseEnEvidence, sp } from '../../../modules/outils/contextSensitif.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { combinaisonListes } from '../../../modules/outils/listes.js'
+import { listeQuestionsToContenu } from '../../../modules/outils/miseEnForme.js'
+import { arrondi } from '../../../modules/outils/nombres.js'
+import { stringNombre } from '../../../modules/outils/stringNombre.js'
+import { tableauColonneLigne } from '../../../modules/outils/tableauCL.js'
+import { calcul, texNombre } from '../../../modules/outils/texNombres.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'CAN 4ième sujet 2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -498,7 +511,7 @@ export default function SujetCAN20214ieme () {
            <br>
           `
 
-          setReponse(this, index, (new FractionEtendue(-fraction2[0], fraction2[1])).simplifie(), { formatInteractif: 'fraction' })
+          setReponse(this, index, (new FractionX(-fraction2[0], fraction2[1])).simplifie(), { formatInteractif: 'fraction' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
           break

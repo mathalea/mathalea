@@ -1,9 +1,16 @@
-import Exercice from '../../Exercice.js'
+import { milieu } from '../../../modules/2d/barycentre.js'
+import { codageAngleDroit } from '../../../modules/2d/codages.js'
+import { point } from '../../../modules/2d/point.js'
+import { pointAdistance } from '../../../modules/2d/pointSur.js'
+import { polygoneAvecNom } from '../../../modules/2d/polygone.js'
+import { texteParPosition } from '../../../modules/2d/textes.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, creerNomDePolygone, texNombrec, texteEnCouleur, extraireRacineCarree, texRacineCarree } from '../../../modules/outils.js'
-import {
-  point, pointAdistance, polygoneAvecNom, codageAngleDroit, texteParPosition, milieu
-} from '../../../modules/2d.js'
+import { texteEnCouleur } from '../../../modules/outils/contextSensitif.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { extraireRacineCarree, texRacineCarree } from '../../../modules/outils/factorisation.js'
+import { creerNomDePolygone } from '../../../modules/outils/strings.js'
+import { texNombrec } from '../../../modules/outils/texNombres.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Calculer un côté avec le théorème de Pythagore'
 export const interactifReady = true
 export const interactifType = 'mathLive'

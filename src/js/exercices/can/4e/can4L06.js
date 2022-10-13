@@ -1,4 +1,5 @@
-import { calcul, randint } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { calcul } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une expression pour une valeur particulière*'
 export const interactifReady = true

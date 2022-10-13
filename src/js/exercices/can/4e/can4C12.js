@@ -1,6 +1,6 @@
 
-import { choice } from '../../../modules/outils.js'
 import FractionX from '../../../modules/FractionEtendue.js'
+import { choice } from '../../../modules/outils/arrays.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer la moitié d’une fraction'
 export const interactifReady = true

@@ -1,5 +1,8 @@
+import { texteEnCouleur } from '../../../modules/outils/contextSensitif.js'
+import { ecritureAlgebrique } from '../../../modules/outils/ecritures.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { calcul } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
-import { randint, calcul, ecritureAlgebrique, texteEnCouleur } from '../../../modules/outils.js'
 export const titre = 'Calculer une expression pour une valeur particulière'
 export const interactifReady = true
 export const interactifType = 'mathLive'

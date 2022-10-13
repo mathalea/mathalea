@@ -1,5 +1,10 @@
+import { choice } from '../../../modules/outils/arrays.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../modules/outils/ecritures.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { signe } from '../../../modules/outils/nombres.js'
+import { printlatex } from '../../../modules/outils/texMiseEnForme.js'
+import { calcul, texNombre } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
-import { randint, calcul, printlatex, texNombre, rienSi1, choice, ecritureAlgebrique, signe, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
 export const titre = 'Réduire une expression littérale'
 export const interactifReady = true
 export const interactifType = 'mathLive'

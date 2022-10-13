@@ -1,5 +1,8 @@
+import { choice } from '../../../modules/outils/arrays.js'
+import { texteEnCouleur } from '../../../modules/outils/contextSensitif.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { extraireRacineCarree, texRacineCarree } from '../../../modules/outils/factorisation.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, texteEnCouleur, extraireRacineCarree, texRacineCarree } from '../../../modules/outils.js'
 export const titre = 'Calculer la diagonale d’un carré'
 export const interactifReady = true
 export const interactifType = 'mathLive'

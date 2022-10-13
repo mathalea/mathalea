@@ -1,10 +1,17 @@
-import Exercice from '../../Exercice.js'
+import { milieu } from '../../../modules/2d/barycentre.js'
+import { codageAngleDroit } from '../../../modules/2d/codages.js'
+import { labelPoint } from '../../../modules/2d/labelPoint.js'
+import { point } from '../../../modules/2d/point.js'
+import { segment } from '../../../modules/2d/segment.js'
+import { texteParPosition } from '../../../modules/2d/textes.js'
+import { tracePoint } from '../../../modules/2d/tracePoint.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, calcul, choice, texNombrec, texFractionReduite } from '../../../modules/outils.js'
-import {
-  point, labelPoint, segment, texteParPosition, milieu, tracePoint, codageAngleDroit
-} from '../../../modules/2d.js'
 import { fraction } from '../../../modules/fractions.js'
+import { texFractionReduite } from '../../../modules/outils/arrayFractions.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { calcul, texNombrec } from '../../../modules/outils/texNombres.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une aire ou un périmètre (carré et rectangle)'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,9 +1,18 @@
-import Exercice from '../../Exercice.js'
+import { milieu } from '../../../modules/2d/barycentre.js'
+import { codageAngleDroit } from '../../../modules/2d/codages.js'
+import { point } from '../../../modules/2d/point.js'
+import { pointAdistance } from '../../../modules/2d/pointSur.js'
+import { polygoneAvecNom } from '../../../modules/2d/polygone.js'
+import { texteParPosition } from '../../../modules/2d/textes.js'
+import { similitude } from '../../../modules/2d/transformations.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, choice, creerNomDePolygone, texNombrec, texteEnCouleur, extraireRacineCarree, texRacineCarree } from '../../../modules/outils.js'
-import {
-  point, pointAdistance, polygoneAvecNom, milieu, codageAngleDroit, similitude, texteParPosition
-} from '../../../modules/2d.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { texteEnCouleur } from '../../../modules/outils/contextSensitif.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { extraireRacineCarree, texRacineCarree } from '../../../modules/outils/factorisation.js'
+import { creerNomDePolygone } from '../../../modules/outils/strings.js'
+import { texNombrec } from '../../../modules/outils/texNombres.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Calculer l’hypoténuse avec le théorème de Pythagore'
 export const interactifReady = true
 export const interactifType = 'mathLive'
