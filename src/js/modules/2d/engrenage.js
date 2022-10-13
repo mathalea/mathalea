@@ -113,7 +113,7 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
    * @param {number} [parametres.dureeTour] temps en secondes mis par la roue pour effectuer un tout en SVG
    * @param {number} [parametres.angleStart] angle de départ de la première dent (90 par défaut) utile pour synchroniser deux roues
    * @param {number | null} marqueur position angulaire en degrés d'un marqueur si de type number
-   * @returns
+   * @returns {ObjetMathalea2D}
    */
 export function engrenage ({ rayon = 1, rayonExt = 1.3, rayonInt = 0.75, nbDents = 12, xCenter = 0, yCenter = 0, couleur = 'black', couleurDeRemplissage = 'black', couleurDuTrou = 'white', dureeTour = 10, angleStart = 90, marqueur = null } = {}) {
   if (rayonExt < rayon) rayonExt = round(rayon * 4 / 3)
