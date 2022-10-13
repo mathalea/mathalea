@@ -1,4 +1,9 @@
+/** @module barycentre */
 
+import { longueur } from './calculs'
+import { Point } from './point'
+
+// JSDOC Validee par EE Juin 2022
 /**
  * Crée le barycentre d'un polygone
  * @param {Polygone} p Polygone dont on veut créer le barycentre
@@ -9,11 +14,6 @@
  * @author Jean-Claude Lhote
  * @return {Point}
  */
-
-import { longueur } from './calculs'
-import { Point } from './point'
-
-// JSDOC Validee par EE Juin 2022
 export function barycentre (p, nom = '', positionLabel = 'above') {
   let sommex = 0
   let sommey = 0
@@ -28,10 +28,13 @@ export function barycentre (p, nom = '', positionLabel = 'above') {
   return new Point(x, y, nom, positionLabel)
 }
 /**
- * M = milieu(A,B) //M est le milieu de [AB]
- * M = milieu(A,B,'M') //M est le milieu [AB] et se nomme M
- * M = milieu(A,B,'M','below') //M est le milieu [AB], se nomme M et le nom est en dessous du point
- *
+ * M = milieu(A,B) M est le milieu de [AB]
+ * M = milieu(A,B,'M') M est le milieu [AB] et se nomme M
+ * M = milieu(A,B,'M','below') M est le milieu [AB], se nomme M et le nom est en dessous du point
+ * @param {Point} A
+ * @param {Point} B
+ * @param {string} nom
+ * @param {string} positionLabel
  * @author Rémi Angot
  */
 export function milieu (A, B, nom, positionLabel = 'above') {

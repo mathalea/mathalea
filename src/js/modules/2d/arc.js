@@ -1,4 +1,4 @@
-
+/** @module arc */
 /** Trace un arc de cercle, connaissant une extrémité, son centre et la mesure de l'angle
  * @param {Point} M Extrémité de départ de l'arc
  * @param {Point} Omega Centre de l'arc

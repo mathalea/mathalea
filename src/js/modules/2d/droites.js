@@ -17,15 +17,11 @@ import { homothetie, translation } from './transformations'
 import { vecteur } from './vecteur'
 
 /**
+ * Trace la droite passant par A et B
  * d = droite(A,B) // La droite passant par A et B
  * d = droite(A,B,'(d)') // La droite passant par A et B se nommant (d)
  * d = droite(a,b,c,'(d)') // La droite définie par les coefficients de ax +by + c=0 (équation de la droite (a,b)!==(0,0))
  * d = droite(A,B,'(d)','blue') //La droite passant par A et B se nommant (d) et de couleur bleue
- *
- * @author
- */
-
-/**  Trace la demi-droite d'origine A passant par B
  * @param {Point | number} arg1 Premier point de la droite OU BIEN coefficient a de l'équation de la droite ax+by+c=0
  * @param {Point | number} arg2 Deuxième point de la droite OU BIEN coefficient b de l'équation de la droite ax+by+c=0
  * @param {string | number} arg3 Nom affichée de la droite OU BIEN coefficient c de l'équation de la droite ax+by+c=0
