@@ -36,7 +36,7 @@ import { afficherTempo, afficherUnParUn, affiniteOrthoAnimee, apparitionAnimee, 
 import { codeSvg, codeTikz, colorToLatexOrHTML, fixeBordures, mathalea2d } from './2dGeneralites.js'
 import { pointCliquable } from './2dinteractif.js'
 import { ajouterAx, ajouterAy, allerA, angleScratchTo2d, avance, baisseCrayon, creerLutin, leveCrayon, mettrexA, mettreyA, orienter, tournerD, tournerG } from './2dLutin.js'
-import { arete3d, barre3d, cercle3d, CodageAngleDroit3D, cone3d, cube, cube3d, cylindre3d, demicercle3d, droite3d, homothetie3d, pave3d, paveLPH3d, plaque3d, point3d, polygone3d, prisme3d, rotation3d, rotationV3d, sensDeRotation3d, sphere3d, translation3d, vecteur3d } from './3d.js'
+import { arete3d, barre3d, cercle3d, codageAngleDroit3D, cone3d, cube, cube3d, cylindre3d, demicercle3d, droite3d, homothetie3d, pave3d, paveLPH3d, plaque3d, point3d, polygone3d, prisme3d, rotation3d, rotationV3d, sensDeRotation3d, sphere3d, translation3d, vecteur3d } from './3d.js'
 import Alea2iep from './Alea2iep.js'
 import { context } from './context.js'
 import { calcule } from './fonctionsMaths.js'
@@ -260,7 +260,7 @@ export default function InitialiseEditeur () {
   window.rotation3d = rotation3d
   window.translation3d = translation3d
   window.homothetie3d = homothetie3d
-  window.CodageAngleDroit3D = CodageAngleDroit3D
+  window.codageAngleDroit3D = codageAngleDroit3D
 
   // Interactions
   window.pointCliquable = pointCliquable
@@ -473,7 +473,7 @@ export default function InitialiseEditeur () {
     rotation3d: window.rotation3d,
     translation3d: window.translation3d,
     homothetie3d: window.homothetie3d,
-    CodageAngleDroit3D: window.CodageAngleDroit3D,
+    codageAngleDroit3D: window.codageAngleDroit3D,
 
     // Interactions
     pointCliquable: window.pointCliquable
