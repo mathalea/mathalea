@@ -1,3 +1,5 @@
+/** @module engrenage */
+
 import { abs, round } from 'mathjs'
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../2dGeneralites'
 import { degCos, degSin } from '../fonctionsMaths'

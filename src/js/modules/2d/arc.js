@@ -1,3 +1,4 @@
+/** @module arc */
 
 /** Trace un arc de cercle, connaissant une extrémité, son centre et la mesure de l'angle
  * @param {Point} M Extrémité de départ de l'arc
@@ -28,7 +29,7 @@
 
 import { abs, random, round } from 'mathjs'
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../2dGeneralites'
-import { arrondi } from '../outils'
+import { arrondi } from '../outils/nombres'
 import { angleModulo, angleOriente, longueur } from './calculs'
 import { droite } from './droites'
 import { mediatrice } from './droitesRemarquables'

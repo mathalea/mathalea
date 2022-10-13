@@ -1,3 +1,4 @@
+/** @module codages */
 
 /**
  * Code un angle droit

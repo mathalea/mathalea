@@ -1,10 +1,14 @@
+/** @module calculs (2d) */
+
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%% LES FONCTIONS - CALCULS %%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
 
-import { arrondi, calcul, egal, unSiPositifMoinsUnSinon } from '../outils'
+import { egal } from '../outils/comparateurs'
+import { arrondi, unSiPositifMoinsUnSinon } from '../outils/nombres'
+import { calcul } from '../outils/texNombres'
 import { rotation } from './transformations'
 import { vecteur } from './vecteur'
 

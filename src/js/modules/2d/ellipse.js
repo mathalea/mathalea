@@ -1,3 +1,4 @@
+/** @module ellipse */
 
 /**  Trace l'ellipse de centre O et de rayon rx et ry (la construction, dite “par réduction d’ordonnée”, montre que l'ellipse est la transformée de Newton de 2 cercles concentriques)
  * @param {Point} O Centre de l'ellipse

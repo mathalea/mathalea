@@ -1,3 +1,4 @@
+/** @module droites */
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -5,7 +6,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
 
-import { colorToLatexOrHTML, vide2d, ObjetMathalea2D } from '../2dGeneralites'
+import { colorToLatexOrHTML, ObjetMathalea2D, vide2d } from '../2dGeneralites'
 import { context } from '../context'
 import { egal } from '../outils'
 import { angleOriente, norme } from './calculs'

@@ -8,6 +8,7 @@ import { polyline } from './polyline'
 import { segment } from './segment'
 import { texteParPosition } from './textes'
 import { tracePoint } from './tracePoint'
+/** @module courbe */
 
 function LectureImage (x, y, xscale = 1, yscale = 1, color = 'red', textAbs = '', textOrd = '') {
   ObjetMathalea2D.call(this, { })

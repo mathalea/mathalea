@@ -1,3 +1,4 @@
+/** @module barycentre */
 
 /**
  * Crée le barycentre d'un polygone

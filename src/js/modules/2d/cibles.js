@@ -1,3 +1,4 @@
+/** @module cibles */
 
 /**  Retourne un couple de coordonnées correspondant au centre d'une cible, connaissant les coordonnées du point réponse et de la cellule dans laquelle on veut qu'il soit
  * @param {number} x Abscisse du point réponse

@@ -1,3 +1,5 @@
+/** @module glisseNombre */
+
 import { apparitionAnimee, translationAnimee } from '../2dAnimation'
 import { ObjetMathalea2D } from '../2dGeneralites'
 import { point } from './point'

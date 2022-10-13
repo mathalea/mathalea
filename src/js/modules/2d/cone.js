@@ -2,6 +2,7 @@ import { colorToLatexOrHTML, ObjetMathalea2D } from '../2dGeneralites'
 import { semiEllipse } from './ellipse'
 import { point } from './point'
 import { segment } from './segment'
+/** @module cone */
 
 /**
  * Trace un cône

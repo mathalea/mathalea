@@ -1,3 +1,4 @@
+/** @module grilles */
 
 /**  Trace une grille quadrillée dont le coin en bas à gauche est (xmin, ymin) et celui à droite est au maximum (xmax, ymax), de couleur et opacité choisie, avec un pas choisi et avec ou sans pointillés
  * @param {number} [xmin = -30] Abscisse du coin en bas à gauche de la grille

@@ -1,3 +1,5 @@
+/** @module graphiques */
+
 import { fraction, max } from 'mathjs'
 import { colorToLatexOrHTML, ObjetMathalea2D, vide2d } from '../2dGeneralites'
 import { combinaisonListes, numberFormat, texcolors, texNombre } from '../outils'

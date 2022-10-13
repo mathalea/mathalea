@@ -4,6 +4,7 @@ import { texteExposant } from '../../../modules/outils/ecritures.js'
 import { randint } from '../../../modules/outils/entiers.js'
 import { calcul } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
+export const titre = 'Calculer le volume d\'une pyramide'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

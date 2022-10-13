@@ -8,6 +8,7 @@
 import { ObjetMathalea2D } from '../2dGeneralites'
 import { pointSurSegment } from './pointSur.js'
 import { Segment } from './segment'
+/** @module demiDroite */
 
 /**  Trace la demi-droite d'origine A passant par B
  * @param {Point} A Origine de la droite
