@@ -1,6 +1,10 @@
 import Exercice from '../../Exercice.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../modules/outils/ecritures.js'
+import { reduireAxPlusB, reduirePolynomeDegre3 } from '../../../modules/outils/reductions.js'
+import { miseEnEvidence, texteEnCouleur } from '../../../modules/outils/contextSensitif.js'
 import { fraction } from '../../../modules/fractions.js'
-import { randint, choice, texteEnCouleur, reduirePolynomeDegre3, reduireAxPlusB, ecritureAlgebrique, ecritureParentheseSiNegatif, miseEnEvidence } from '../../../modules/outils.js'
 export const titre = 'Déterminer le nombre de solutions d’une équation du second degré'
 export const interactifReady = true
 export const interactifType = 'mathLive'

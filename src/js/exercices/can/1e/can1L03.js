@@ -1,7 +1,10 @@
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenu, reduireAxPlusB, rienSi1 } from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { rienSi1 } from '../../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../../modules/outils/miseEnForme.js'
+import { reduireAxPlusB } from '../../../modules/outils/reductions.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 export const titre = 'Trouver les racines à partir d’une forme factorisée'
 export const interactifReady = true
 export const interactifType = 'mathLive'

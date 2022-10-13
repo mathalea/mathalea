@@ -1,11 +1,17 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, choice, texNombre } from '../../../modules/outils.js'
-import {
-  point, labelPoint, afficheLongueurSegment, codageAngleDroit, afficheMesureAngle, codageSegment, pointAdistance, polygone, milieu, segment
-} from '../../../modules/2d.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { segment } from '../../../modules/2d/segment.js'
+import { point } from '../../../modules/2d/point.js'
+import { labelPoint } from '../../../modules/2d/labelPoint.js'
+import { texNombre } from '../../../modules/outils/texNombres.js'
 import Decimal from 'decimal.js/decimal.mjs'
 import FractionX from '../../../modules/FractionEtendue.js'
+import { pointAdistance } from '../../../modules/2d/pointSur.js'
+import { polygone } from '../../../modules/2d/polygone.js'
+import { milieu } from '../../../modules/2d/barycentre.js'
+import { afficheLongueurSegment, afficheMesureAngle, codageAngleDroit, codageSegment } from '../../../modules/2d/codages.js'
 export const titre = 'Déterminer un produit scalaire sur des figures géométriques classiques '
 export const interactifReady = true
 export const interactifType = 'mathLive'

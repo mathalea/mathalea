@@ -1,6 +1,9 @@
 
 import Exercice from '../../Exercice.js'
-import { choice, randint, reduirePolynomeDegre3, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { ecritureParentheseSiNegatif } from '../../../modules/outils/ecritures.js'
+import { reduirePolynomeDegre3 } from '../../../modules/outils/reductions.js'
 export const titre = 'Calculer un discriminant'
 export const interactifReady = true
 export const interactifType = 'mathLive'

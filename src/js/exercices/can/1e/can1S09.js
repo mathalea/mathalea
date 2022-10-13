@@ -1,7 +1,11 @@
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, choice, texFraction, texNombrec } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../../modules/outils/miseEnForme.js'
+import { texFraction } from '../../../modules/outils/arrayFractions.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { calcul, texNombrec } from '../../../modules/outils/texNombres.js'
 export const titre = 'Déterminer une relation de récurrence'
 export const interactifReady = true
 export const interactifType = 'mathLive'

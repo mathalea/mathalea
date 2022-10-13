@@ -1,5 +1,8 @@
 import Exercice from '../../Exercice.js'
-import { choice, randint, sp, ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../modules/outils/ecritures.js'
+import { sp } from '../../../modules/outils/contextSensitif.js'
 import FractionX from '../../../modules/FractionEtendue.js'
 export const titre = 'Déterminer une coordonnée avec un produit scalaire'
 export const interactifReady = true

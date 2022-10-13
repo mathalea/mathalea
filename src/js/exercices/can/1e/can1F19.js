@@ -1,5 +1,9 @@
 import Exercice from '../../Exercice.js'
-import { randint, choice, ecritureAlgebrique, texteCentre, reduireAxPlusB, reduirePolynomeDegre3 } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { ecritureAlgebrique } from '../../../modules/outils/ecritures.js'
+import { reduireAxPlusB, reduirePolynomeDegre3 } from '../../../modules/outils/reductions.js'
+import { texteCentre } from '../../../modules/outils/contextSensitif.js'
 export const titre = 'Calculer une dérivée et écrire le résultat sous la forme d’un quotient'
 export const interactifReady = true
 export const interactifType = 'mathLive'

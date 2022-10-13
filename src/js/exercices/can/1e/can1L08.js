@@ -1,5 +1,7 @@
 import Exercice from '../../Exercice.js'
-import { randint, ecritureAlgebriqueSauf1, reduireAxPlusB, rienSi1, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, rienSi1 } from '../../../modules/outils/ecritures.js'
+import { reduireAxPlusB } from '../../../modules/outils/reductions.js'
 export const titre = 'Déterminer un coefficient dans un développement*'
 export const interactifReady = true
 export const interactifType = 'mathLive'

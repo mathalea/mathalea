@@ -1,6 +1,11 @@
 import Exercice from '../../Exercice.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../../modules/outils/ecritures.js'
+import { reduireAxPlusB } from '../../../modules/outils/reductions.js'
+import { texteCentre } from '../../../modules/outils/contextSensitif.js'
+import { texNombre } from '../../../modules/outils/texNombres.js'
 import Decimal from 'decimal.js/decimal.mjs'
-import { randint, choice, ecritureAlgebrique, ecritureAlgebriqueSauf1, texNombre, reduireAxPlusB, texteCentre } from '../../../modules/outils.js'
 import FractionX from '../../../modules/FractionEtendue.js'
 export const titre = 'Déterminer la fonction dérivée d’une fonction affine'
 export const interactifReady = true

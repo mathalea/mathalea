@@ -1,6 +1,11 @@
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, ecritureAlgebriqueSauf1, randint, rienSi1, sp, abs, choice, ecritureAlgebrique } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../../modules/outils/miseEnForme.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
+import { sp } from '../../../modules/outils/contextSensitif.js'
+import { abs } from '../../../modules/outils/nombres.js'
 import FractionX from '../../../modules/FractionEtendue.js'
 export const titre = 'Résoudre une équation du second degré sans $\\Delta$'
 export const interactifReady = true

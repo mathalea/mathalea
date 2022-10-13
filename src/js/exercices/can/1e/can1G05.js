@@ -1,5 +1,7 @@
 import Exercice from '../../Exercice.js'
-import { randint, sp, ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../modules/outils/ecritures.js'
+import { sp } from '../../../modules/outils/contextSensitif.js'
 export const titre = 'Déterminer un produit scalaire avec les coordonnées'
 export const interactifReady = true
 export const interactifType = 'mathLive'

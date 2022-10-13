@@ -1,7 +1,10 @@
 
 import Exercice from '../../Exercice.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../modules/outils/ecritures.js'
+import { reduirePolynomeDegre3 } from '../../../modules/outils/reductions.js'
 import FractionX from '../../../modules/FractionEtendue.js'
-import { choice, randint, reduirePolynomeDegre3, ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../../modules/outils.js'
 export const titre = 'Déterminer l’abscisse ou l’ordonnée du sommet d’une parabole'
 export const interactifReady = true
 export const interactifType = 'mathLive'

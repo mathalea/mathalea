@@ -1,6 +1,12 @@
 import Exercice from '../../Exercice.js'
-
-import { randint, choice, ecritureAlgebrique, calcul, texNombre, ecritureParentheseSiNegatif, texFraction, arcenciel, miseEnEvidence, signe } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../modules/outils/ecritures.js'
+import { texFraction } from '../../../modules/outils/arrayFractions.js'
+import { miseEnEvidence } from '../../../modules/outils/contextSensitif.js'
+import { signe } from '../../../modules/outils/nombres.js'
+import { calcul, texNombre } from '../../../modules/outils/texNombres.js'
+import { arcenciel } from '../../../modules/outils/couleurs.js'
 export const titre = 'Calculer un terme d’une suite récurrente*'
 export const interactifReady = true
 export const interactifType = 'mathLive'

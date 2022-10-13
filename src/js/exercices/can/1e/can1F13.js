@@ -1,5 +1,7 @@
 import Exercice from '../../Exercice.js'
-import { randint, choice, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { ecritureParentheseSiNegatif } from '../../../modules/outils/ecritures.js'
 import FractionX from '../../../modules/FractionEtendue.js'
 export const titre = 'Déterminer le coefficient directeur d’une tangente (fonctions de référence)'
 export const interactifReady = true

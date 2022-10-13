@@ -1,5 +1,8 @@
 import Exercice from '../../Exercice.js'
-import { randint, choice, ecritureAlgebrique, sp } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { ecritureAlgebrique } from '../../../modules/outils/ecritures.js'
+import { sp } from '../../../modules/outils/contextSensitif.js'
 export const titre = 'Donner le résultat d’un programme Python'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,6 +1,11 @@
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, choice, ecritureAlgebrique, texNombrec, texFractionReduite, ecritureParentheseSiNegatif, rienSi1 } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../../modules/outils/miseEnForme.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
+import { texFractionReduite } from '../../../modules/outils/arrayFractions.js'
+import { calcul, texNombrec } from '../../../modules/outils/texNombres.js'
 export const titre = 'Donner la nature d’une suite (formule explicite)'
 export const interactifReady = true
 export const interactifType = 'qcm'

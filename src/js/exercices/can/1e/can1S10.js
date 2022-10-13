@@ -1,6 +1,11 @@
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, choice, ecritureAlgebrique, texNombrec, ecritureParentheseSiNegatif, rienSi1, texFraction } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../../modules/outils/miseEnForme.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
+import { texFraction } from '../../../modules/outils/arrayFractions.js'
+import { calcul, texNombrec } from '../../../modules/outils/texNombres.js'
 export const titre = 'Trouver le sens de variation d’une suite (QCM)'
 export const interactifReady = true
 export const interactifType = 'qcm'

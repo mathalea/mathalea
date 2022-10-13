@@ -1,5 +1,9 @@
 import Exercice from '../../Exercice.js'
-import { randint, choice, ecritureAlgebrique, reduirePolynomeDegre3, texteCentre, reduireAxPlusB, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../modules/outils/ecritures.js'
+import { reduireAxPlusB, reduirePolynomeDegre3 } from '../../../modules/outils/reductions.js'
+import { texteCentre } from '../../../modules/outils/contextSensitif.js'
 export const titre = 'Déterminer la fonction dérivée d’une fonction $a/u(x)$'
 export const interactifReady = true
 export const interactifType = 'mathLive'

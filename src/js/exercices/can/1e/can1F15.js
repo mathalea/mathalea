@@ -1,8 +1,11 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, choice } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { repere } from '../../../modules/2d/reperes.js'
+import { courbe } from '../../../modules/2d/courbes.js'
+import { texteParPosition } from '../../../modules/2d/textes.js'
 import FractionX from '../../../modules/FractionEtendue.js'
-import { repere, courbe, texteParPosition } from '../../../modules/2d.js'
 import { calcule } from '../../../modules/fonctionsMaths.js'
 export const titre = 'Lire graphiquement un nombre dérivé'
 export const interactifReady = true

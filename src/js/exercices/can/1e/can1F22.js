@@ -1,6 +1,11 @@
 import Exercice from '../../Exercice.js'
-import { randint, rienSi1, reduirePolynomeDegre3, ecritureAlgebrique, choice, abs, listeQuestionsToContenu, ecritureAlgebriqueSauf1 } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../../modules/outils/miseEnForme.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
+import { reduirePolynomeDegre3 } from '../../../modules/outils/reductions.js'
+import { abs } from '../../../modules/outils/nombres.js'
 export const titre = 'Reconnaître une fonction polynôme du second degré (V/F)'
 export const interactifReady = true
 export const interactifType = 'qcm'
