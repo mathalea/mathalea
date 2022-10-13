@@ -16,6 +16,7 @@ export default function EncadrementRacineCarree () {
   this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     const a = randint(3, 99, [4, 9, 16, 25, 36, 49, 64, 81]) // numérateur
     if (choice([true, false])) {
