@@ -5,7 +5,7 @@
     },
     "source": {
         "include": [
-            "./src/js/modules/fractionEtendue.js"
+            "./src/js/modules/FractionEtendue.js"
         ]
     },
     "plugins": [

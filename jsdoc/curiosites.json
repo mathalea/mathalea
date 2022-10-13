@@ -5,13 +5,13 @@
     },
     "source": {
         "include": [
-            "./src/js/modules/pyramides.js",
+            "./src/js/modules/pyramide.js",
             "./src/js/modules/fractions.js",
             "./src/js/modules/Grandeur.js",
-            "./src/js/modules/macroSVGJS.js",
+            "./src/js/modules/macroSvgJs.js",
             "./src/js/modules/noteLaCouleur.js",
-            "./src/js/modules/scrathBlocksFr.js",
-            "./src/js/modules/aleaFigure/",
+            "./src/js/modules/scratchBlocksFr.js",
+            "./src/js/modules/aleaFigure/"
         ]
     },
     "plugins": [

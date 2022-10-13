@@ -16,9 +16,3 @@ Il y en a d'autres similaires :
 * [AleaFigure](JC/aleaFigure)
 * [curiosités](JC/curiosites)
 * [tout](tout/) La doc complète. À priori pour les développeurs du moteur, mais si vous avez besoin d'une fonction particulière lorsque vous créez un exercice, vous pouvez y jeter un oeil pour voir si quelqu'un d'autre ne l'a pas déjà créé.
-
-
-
-<script type="text/javascript">
-        document.location.href="https://github.com/mathalea/mathalea/wiki";
-</script>
