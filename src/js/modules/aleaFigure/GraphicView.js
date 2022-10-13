@@ -3,8 +3,8 @@ import { randomInt } from 'mathjs'
 import { GVCartesian } from './coordinates.js'
 import { GVRectangle, GVTriangle, GVPolygon, GVVector, GVAngle, GVPoint, GVLine, GVSegment, GVGraphicObject, GVCircle, barycentre } from './elements.js'
 import { getMathalea2DExport } from './getMathalea2DExport.js'
-import { circularPermutation, quotient } from './outils.js'
 import { aleaName } from '../outilsMathjs.js'
+import { circularPermutation, quotient } from './outils.js'
 /**
  * Donne une liste d'entiers relatifs dont on connait la somme.
  * @example > listeEntiersSommeConnue(4,10,-2)

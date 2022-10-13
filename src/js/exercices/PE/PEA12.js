@@ -1,7 +1,10 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, base10VersBaseN, combinaisonListes } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import Operation from '../../modules/operations.js'
+import { base10VersBaseN } from '../../modules/outils/bases.js'
 export const titre = 'Additions et soustractions dans d\'autres bases'
 export const dateDePublication = '31/10/2021'
 

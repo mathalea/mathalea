@@ -1,8 +1,11 @@
-import { ordreDeGrandeur, base10VersBaseN, nombreDeChiffresDansLaPartieEntiere } from './outils.js'
 import Decimal from 'decimal.js/decimal.mjs'
-import { texteParPosition, segment } from './2d.js'
 import { context } from './context.js'
 import { mathalea2d } from './2dGeneralites.js'
+import { texteParPosition } from './2d/textes.js'
+import { segment } from './2d/segment.js'
+import { ordreDeGrandeur } from './outils/puissances.js'
+import { nombreDeChiffresDansLaPartieEntiere } from './outils/decimales.js'
+import { base10VersBaseN } from './outils/bases.js'
 /**
  *
  * Pose une opération

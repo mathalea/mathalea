@@ -1,5 +1,4 @@
 /* globals UI */
-import { texteParPosition } from './2d.js'
 import { fraction } from './fractions.js'
 import Algebrite from 'algebrite'
 import { format, evaluate, isPrime, gcd, round, equal, Fraction, isInteger } from 'mathjs'
@@ -10,6 +9,7 @@ import { getVueFromUrl } from './gestionUrl.js'
 import FractionX from './FractionEtendue.js'
 import { elimineDoublons } from './interactif/questionQcm.js'
 import Decimal from 'decimal.js/decimal.mjs'
+import { texteParPosition } from './2d/textes.js'
 
 const math = { format: format, evaluate: evaluate }
 const epsilon = 0.000001

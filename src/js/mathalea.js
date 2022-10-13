@@ -1,5 +1,4 @@
 /* global $ jQuery JSZip saveAs */
-import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube, exerciceSimpleToContenu, listeQuestionsToContenu, introLatexCan, arrondi, dataTailleDiaporama, contraindreValeur } from './modules/outils.js'
 import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch, getUserId, setUrlAndGo, replaceQueryParam, goTabVue } from './modules/gestionUrl.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders.js'
@@ -28,6 +27,16 @@ import gestionScores from './modules/gestionScores.js'
 import { modalTimer } from './modules/modalTimer.js'
 import { zoomAffichage } from './modules/zoom.js'
 import { ajouteChampTexteMathLive } from './modules/interactif/questionMathLive.js'
+import { scratchTraductionFr } from './modules/outils/scratchblockTraductionFr.js'
+import { dataTailleDiaporama } from './modules/outils/taille.js'
+import { modalYoutube } from './modules/outils/modaux.js'
+import { strRandom } from './modules/outils/strings.js'
+import { exerciceSimpleToContenu, listeQuestionsToContenu } from './modules/outils/miseEnForme.js'
+import { creerDocumentAmc } from './modules/outils/exportAMC.js'
+import { telechargeFichier } from './modules/outils/fichier.js'
+import { introLatex, introLatexCan, introLatexCoop } from './modules/outils/preambules.js'
+import { contraindreValeur } from './modules/outils/comparateurs.js'
+import { arrondi } from './modules/outils/nombres.js'
 
 // "3" isNumeric (pour gérer le sup venant de l'URL)
 function isNumeric (n) {

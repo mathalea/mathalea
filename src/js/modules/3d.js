@@ -1,7 +1,12 @@
-import { point, vecteur, droite, segment, polyline, polygone } from './2d.js'
 import { matrix, multiply, norm, cross, dot } from 'mathjs'
 import { context } from './context.js'
 import { colorToLatexOrHTML } from './2dGeneralites.js'
+import { point } from './2d/point.js'
+import { vecteur } from './2d/vecteur.js'
+import { segment } from './2d/segment.js'
+import { droite } from './2d/droites.js'
+import { polyline } from './2d/polyline.js'
+import { polygone } from './2d/polygone.js'
 const math = { matrix: matrix, multiply: multiply, norm: norm, cross: cross, dot: dot }
 
 /*

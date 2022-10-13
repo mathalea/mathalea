@@ -1,6 +1,13 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, valeurBase, texNombre, nombreAvecEspace, miseEnEvidence } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { miseEnEvidence } from '../../modules/outils/contextSensitif.js'
+import { texNombre } from '../../modules/outils/texNombres.js'
+import { nombreAvecEspace } from '../../modules/outils/stringNombre.js'
+import { valeurBase } from '../../modules/outils/bases.js'
 export const titre = 'Passer de la base 12 ou 16 à la base 10 et inversement'
 
 /**

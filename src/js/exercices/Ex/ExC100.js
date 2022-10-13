@@ -1,7 +1,11 @@
-import { listeQuestionsToContenu, randint, fractionSimplifiee, abs, texFraction, miseEnEvidence } from '../../modules/outils.js'
-
 import Exercice from '../Exercice.js'
-import { complex, multiply } from 'mathjs'
+import { randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { fractionSimplifiee, texFraction } from '../../modules/outils/arrayFractions.js'
+import { miseEnEvidence } from '../../modules/outils/contextSensitif.js'
+import { abs } from '../../modules/outils/nombres.js'
+import { multiply, complex } from 'mathjs'
+
 export const titre = 'Equation du premier degré dans C'
 export const dateDePublication = '30/10/2021'
 

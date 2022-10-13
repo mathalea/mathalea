@@ -1,7 +1,9 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, base10VersBaseN, baseNVersBase10 } from '../../modules/outils.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import Operation from '../../modules/operations.js'
+import { base10VersBaseN, baseNVersBase10 } from '../../modules/outils/bases.js'
 export const titre = 'Multiplications dans d\'autres bases'
 export const dateDePublication = '2/11/2021'
 

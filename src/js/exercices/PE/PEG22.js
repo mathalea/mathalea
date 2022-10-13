@@ -1,6 +1,11 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, texteGras } from '../../modules/outils.js'
-import { longueur, point, pointAdistance, pointSurSegment, similitude } from '../../modules/2d.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texteGras } from '../../modules/outils/contextSensitif.js'
+import { similitude } from '../../modules/2d/transformations.js'
+import { pointAdistance, pointSurSegment } from '../../modules/2d/pointSur.js'
+import { longueur } from '../../modules/2d/calculs.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 export const titre = 'Tracer une racine au compas et à la règle non graduée à l\'aide du théorème de Pythagore'
 

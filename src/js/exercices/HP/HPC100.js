@@ -1,9 +1,8 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-sequences */
-/* eslint-disable no-unexpected-multiline */
-import { xcas, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { xcas } from '../../modules/outils/xcas.js'
 export const dateDePublication = '30/10/2021'
 export const titre = 'Division de polynômes'
 
@@ -35,6 +34,8 @@ export default function DivisionDePolynomes () {
       // Boucle principale où i+1 correspond au numéro de la question
       a = randint(-5, 5, 0)
       // Diviseur D(x)
+
+      // eslint-disable-next-line no-unused-vars
       etape = [`D:=x+${a}`,
         'P:=simplify(D*product(randint(2)*x+(2*randint(1)-1)*randint(1,3),k,1,2)))',
         'E1:=simplify(lcoeff(P)*x^2*D)', // Etapes de la division

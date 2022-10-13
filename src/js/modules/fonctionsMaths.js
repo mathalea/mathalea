@@ -1,6 +1,11 @@
 import { number, add, unequal, largerEq, fraction, equal, multiply, inv, matrix, max } from 'mathjs'
 import FractionX from './FractionEtendue.js'
-import { calcul, arrondi, ecritureAlgebrique, egal, randint, rienSi1, ecritureAlgebriqueSauf1, choice } from './outils.js'
+import { choice } from './outils/arrays.js'
+import { egal } from './outils/comparateurs.js'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from './outils/ecritures.js'
+import { randint } from './outils/entiers.js'
+import { arrondi } from './outils/nombres.js'
+import { calcul } from './outils/texNombres.js'
 /**
 * Convertit un angle de radian vers degrés et fonction inverse
 * @Example

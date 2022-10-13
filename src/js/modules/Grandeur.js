@@ -1,4 +1,4 @@
-import { calcul } from './outils.js'
+import { calcul } from './outils/texNombres'
 
 /**
  * @class

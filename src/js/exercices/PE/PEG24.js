@@ -1,7 +1,11 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, texteGras } from '../../modules/outils.js'
-import { milieu, point, pointAdistance } from '../../modules/2d.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texteGras } from '../../modules/outils/contextSensitif.js'
+import { pointAdistance } from '../../modules/2d/pointSur.js'
 import Alea2iep from '../../modules/Alea2iep.js'
+import { milieu } from '../../modules/2d/barycentre.js'
 export const titre = 'Réaliser le quotient de deux longueurs à la règle non graduée et au compas'
 
 export const dateDePublication = '1/11/2021'

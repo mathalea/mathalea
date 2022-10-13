@@ -13,8 +13,8 @@ import 'codemirror/addon/hint/show-hint.css'
 import 'codemirror/addon/edit/closebrackets.js'
 import initialiseEditeur from './initialiseEditeur.js'
 import '../../css/style_mathalea.css'
-import { telechargeFichier } from './outils.js'
 import { context } from './context.js'
+import { telechargeFichier } from './outils/fichier.js'
 
 // Pour le menu du haut
 document.addEventListener('DOMContentLoaded', (event) => {

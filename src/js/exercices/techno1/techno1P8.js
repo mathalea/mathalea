@@ -1,6 +1,9 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, texNombre } from '../../modules/outils.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { min } from 'mathjs'
+import { texNombre } from '../../modules/outils/texNombres.js'
 export const titre = 'Union et Intersection de proportions'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle

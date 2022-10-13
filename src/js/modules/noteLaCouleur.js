@@ -12,10 +12,12 @@
  * this.testSequence([...code]) est une méthode qui retourne true si la séquence d'instructions est valide.
  */
 
-import { boite, segment, texteParPositionEchelle } from './2d.js'
+import { boite } from './2d/polygone.js'
+import { segment } from './2d/segment.js'
+import { texteParPositionEchelle } from './2d/textes.js'
 import { ObjetMathalea2D } from './2dGeneralites.js'
 import { avance, tournerD, tournerG } from './2dLutin.js'
-import { randint } from './outils.js'
+import { randint } from './outils/entiers.js'
 
 class NoteLaCouleur {
   constructor ({

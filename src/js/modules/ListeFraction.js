@@ -1,5 +1,5 @@
 import { lcm } from 'mathjs'
-import { listeDiviseurs } from './outils.js'
+import { listeDiviseurs } from './outils/entiers'
 
 function ppcm ([...n]) {
   return parseInt(lcm(...n))

@@ -1,4 +1,6 @@
-import { point, polygone, tracePoint } from './2d.js'
+import { point } from './2d/point.js'
+import { polygone } from './2d/polygone.js'
+import { tracePoint } from './2d/tracePoint.js'
 import { colorToLatexOrHTML, ObjetMathalea2D } from './2dGeneralites.js'
 import { context } from './context.js'
 

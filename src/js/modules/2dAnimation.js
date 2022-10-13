@@ -5,7 +5,7 @@
  * @author Rémi Angot
  */
 
-import { affiniteOrtho, homothetie, symetrieAxiale } from './2d.js'
+import { affiniteOrtho, homothetie, symetrieAxiale } from './2d/transformations.js'
 import { ObjetMathalea2D } from './2dGeneralites.js'
 import { arrondi } from './outils/nombres.js'
 

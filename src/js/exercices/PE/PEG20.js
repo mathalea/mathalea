@@ -1,6 +1,10 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, texFraction, texteGras } from '../../modules/outils.js'
-import { point, pointAdistance } from '../../modules/2d.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { point } from '../../modules/2d/point.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { texFraction } from '../../modules/outils/arrayFractions.js'
+import { texteGras } from '../../modules/outils/contextSensitif.js'
+import { pointAdistance } from '../../modules/2d/pointSur.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 export const titre = 'Partager un segment au compas et à la règle non graduée'
 

@@ -1,6 +1,8 @@
+import { boite } from './2d/polygone.js'
 import { fraction } from './fractions.js'
-import { randint, stringNombre, choice } from './outils.js'
-import { boite } from './2d.js'
+import { choice } from './outils/arrays.js'
+import { randint } from './outils/entiers.js'
+import { stringNombre } from './outils/stringNombre.js'
 
 export default class Pyramide {
   /**

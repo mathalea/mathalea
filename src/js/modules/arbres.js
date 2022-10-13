@@ -1,7 +1,12 @@
 import { add, number, multiply } from 'mathjs'
-import { homothetie, latexParCoordonnees, latexParPoint, point, segment, translation, vecteur } from './2d.js'
+import { point } from './2d/point.js'
+import { segment } from './2d/segment.js'
+import { latexParCoordonnees, latexParPoint } from './2d/textes.js'
+import { homothetie, translation } from './2d/transformations.js'
+import { vecteur } from './2d/vecteur.js'
 import { fraction } from './fractions.js'
-import { arrondi, calcul } from './outils.js'
+import { arrondi } from './outils/nombres.js'
+import { calcul } from './outils/texNombres.js'
 
 export function texProba (proba, rationnel, precision) {
   return rationnel ? fraction(proba, 1).toLatex() : number(arrondi(proba, precision)).toString().replace('.', '{,}')

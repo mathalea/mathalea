@@ -1,5 +1,8 @@
 import Exercice from '../Exercice.js'
-import { randint, calcul, choice, arrondi } from '../../modules/outils.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { arrondi } from '../../modules/outils/nombres.js'
+import { calcul } from '../../modules/outils/texNombres.js'
 export const titre = 'Déterminer un effectif à partir d\'une proportion'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -9,7 +9,6 @@
  @example   http://coopmaths.fr/alacarte
 */
 
-import { telechargeFichier, introLatex, introLatexCoop, exerciceSimpleToContenu } from './modules/outils.js'
 import dictionnaireDesExercicesAleatoires from './modules/dictionnaireDesExercicesAleatoires.js'
 import { dictionnaireC3 } from './modules/dictionnaireC3.js'
 import { dictionnaireDNB } from './modules/dictionnaireDNB.js'
@@ -17,6 +16,9 @@ import { dictionnaireLycee } from './modules/dictionnaireLycee.js'
 import { loadPrism } from './modules/loaders.js'
 import { setOutputLatex } from './modules/context.js'
 import '../css/style_mathalea.css'
+import { exerciceSimpleToContenu } from './modules/outils/miseEnForme.js'
+import { telechargeFichier } from './modules/outils/fichier.js'
+import { introLatex, introLatexCoop } from './modules/outils/preambules.js'
 
 const dictionnaireDesExercices = { ...dictionnaireDesExercicesAleatoires, ...dictionnaireDNB, ...dictionnaireC3, ...dictionnaireLycee }
 
