@@ -188,6 +188,75 @@ export function deuxColonnes (cont1, cont2, largeur1 = 50) {
   }
 }
 /**
+ * Renvoie le html ou le latex qui mets les 2 chaines de caractères fournies sur 2 colonnes différentes
+ * Si en sortie html, il n'y a pas assez de places alors on passe en momocolonne!
+ * @author Mickael Guironnet
+ * @param {string} cont1 - Contenu de la première colonne
+ * @param {string} cont2 - Contenu de la deuxième colonne
+ * @param {eleId, largeur1, widthmincol1, widthmincol2} options
+ *          eleId : identifiant ID pour retrouver la colonne
+ *          largeur1 : largeur de la première colonne en latex en pourcentage
+ *          widthmincol1 : largeur de la première minimum en html en px
+ *          widthmincol2 : largeur de la deuxième  minimum en html en px
+ *  ex : deuxColonnesResp (enonce, correction, {eleId : '1_1', largeur1:50, widthmincol1: 400px, widthmincol2: 200px})
+ * @return {string}
+ */
+export function deuxColonnesResp (cont1, cont2, options) {
+  if (options === undefined) {
+    options = { largeur1: 50 }
+  } else if (typeof options === 'number') {
+    options = { largeur1: options }
+  }
+  if (options.largeur1 === undefined) {
+    options.largeur1 = 50
+  }
+  if (options.stylecol1 === undefined) {
+    options.stylecol1 = ''
+  }
+  if (options.stylecol2 === undefined) {
+    options.stylecol2 = ''
+  }
+  if (options.widthmincol1 === undefined) {
+    options.widthmincol1 = '0px'
+  }
+  if (options.widthmincol2 === undefined) {
+    options.widthmincol2 = '0px'
+  }
+
+  if (context.isHtml) {
+    return `
+    <style>
+    .cols-responsive {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-gap: 1rem;
+    }    
+    /* Screen larger than 900px? 2 column */
+    @media (min-width: 900px) {
+      .cols-responsive { grid-template-columns: repeat(2, 1fr); }
+    }    
+    </style>
+    <div class='cols-responsive'>
+      <div id='cols-responsive1-${options.eleId}'style='min-width:${options.widthmincol1};${options.stylecol1}' >
+      ${cont1}
+      </div>
+      <div id='cols-responsive2-${options.eleId}' style='min-width:${options.widthmincol2};${options.stylecol2}' >
+      ${cont2}
+      </div>
+    </div>
+`
+  } else {
+    return `\\begin{minipage}{${options.largeur1 / 100}\\linewidth}
+    ${cont1.replaceAll('<br>', '\\\\\n')}
+    \\end{minipage}
+    \\begin{minipage}{${(100 - options.largeur1) / 100}\\linewidth}
+    ${cont2.replaceAll('<br>', '\\\\\n')}
+    \\end{minipage}
+    `
+  }
+}
+/**
  *
  * @param {string} texte
  * @returns le texte centré dans la page selon le contexte.
