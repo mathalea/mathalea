@@ -1,3 +1,5 @@
+/** @module pavage */
+
 import { egal, nombreAvecEspace } from '../outils'
 import { barycentre } from './barycentre'
 import { point } from './point'

@@ -1,3 +1,5 @@
+/** @module mise en forme */
+
 import { context } from '../context'
 import { setReponse } from '../gestionInteractif'
 import { getVueFromUrl } from '../gestionUrl'

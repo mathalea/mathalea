@@ -1,3 +1,5 @@
+/** @module préambules pour LaTeX */
+
 // Gestion des styles LaTeX
 
 /**

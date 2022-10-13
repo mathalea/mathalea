@@ -1,3 +1,5 @@
+/** @module fractions en tableau (deprécié) */
+
 import { miseEnEvidence } from './contextSensitif'
 import { ecritureParentheseSiNegatif } from './ecritures'
 import { pgcd } from './entiers'

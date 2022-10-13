@@ -1,3 +1,4 @@
+/** @module labelPoint */
 
 /**  Nomme les points passés en argument, le nombre d'arguments n'est pas limité.
  * @param  {...any} args Points mis à la suite

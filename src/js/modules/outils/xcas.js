@@ -1,3 +1,5 @@
+/** @module xcas calcul formel */
+
 /* globals UI */
 /**
  *

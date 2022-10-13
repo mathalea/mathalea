@@ -1,3 +1,5 @@
+/** @module horaires */
+
 import { sp } from './contextSensitif'
 
 /**

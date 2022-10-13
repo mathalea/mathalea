@@ -1,3 +1,5 @@
+/** @module tableau (2d) */
+
 import { ObjetMathalea2D } from '../2dGeneralites'
 import { context } from '../context'
 import { milieu } from './barycentre'

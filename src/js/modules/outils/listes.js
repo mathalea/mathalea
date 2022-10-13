@@ -1,3 +1,5 @@
+/** @module listes */
+
 import { choice, shuffle } from './arrays'
 
 /**

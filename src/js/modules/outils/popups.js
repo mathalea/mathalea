@@ -1,3 +1,5 @@
+/** @module popups */
+
 import { context } from '../context'
 import { modalImage, modalTexteLong } from './modaux'
 

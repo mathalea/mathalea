@@ -1,3 +1,5 @@
+/** @module stringNombre */
+
 import Decimal from 'decimal.js/decimal.mjs'
 import { context } from '../context'
 import { nombreDeChiffresDansLaPartieDecimale } from './decimales'

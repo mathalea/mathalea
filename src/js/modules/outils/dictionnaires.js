@@ -1,3 +1,5 @@
+/** @module dictionnaires */
+
 /**
 * Trie un dictionnaire suivant ses clés
 *

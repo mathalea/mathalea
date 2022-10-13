@@ -1,3 +1,5 @@
+/** @module tableau de variations */
+
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../2dGeneralites'
 import { point } from './point'
 import { polygone } from './polygone'
@@ -20,7 +22,15 @@ import { vecteur } from './vecteur'
     colorC (comme couleur de la colonne) pour la zone 3
     colorT (comme couleur du tableau) pour la zone 4.
 
- * @param {*} param0
+ * @param {object} param0
+ * @param {string[]} [param0.tabInit]
+ * @param {string[]} [param0.tabLines]
+ * @param {number} [param0.lgt] largeur première colonne
+ * @param {number} [param0.escpl] espacement entre deux valeurs
+ * @param {number} [param0.deltacl] espacement aux extrémités
+ * @param {string} [param0.colors] propre à la sortie LaTeX
+ * @param {number[]} [param0.hauteurLignes] un tableau des hauteurs par ligne
+ * @param {string} [param0.colorBackground] indiquer none pour avoir un fond transparent pour le texte, sinon indiquer une couleur de fond
  * @author Jean-Claude Lhote
  */
 function TableauDeVariation ({ tabInit, tabLines, lgt, escpl, deltacl, colors, hauteurLignes, colorBackground }) {

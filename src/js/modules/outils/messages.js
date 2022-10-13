@@ -1,3 +1,5 @@
+/** @module messages */
+
 import { context } from '../context'
 
 /**

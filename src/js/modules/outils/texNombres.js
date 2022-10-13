@@ -1,3 +1,5 @@
+/** @module texNombre */
+
 import Decimal from 'decimal.js/decimal.mjs'
 import { evaluate, format } from 'mathjs'
 import { texFraction } from './arrayFractions'

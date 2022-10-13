@@ -1,3 +1,5 @@
+/** @module chaines de caractères */
+
 import { shuffle } from './arrays'
 import { randint } from './entiers'
 

@@ -1,3 +1,5 @@
+/** @module tableau colonne * ligne */
+
 import { context } from '../context'
 import { stringNombre } from './stringNombre'
 import { texNombre } from './texNombres'

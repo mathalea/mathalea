@@ -1,3 +1,5 @@
+/** @module écritures algébriques */
+
 import Decimal from 'decimal.js/decimal.mjs'
 import { equal, Fraction } from 'mathjs'
 import { context } from '../context'

@@ -1,3 +1,5 @@
+/** @module scrathblock traducteur anglais->français */
+
 import { loadScratchblocks } from '../loaders'
 
 /**

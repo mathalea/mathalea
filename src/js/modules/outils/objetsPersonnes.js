@@ -1,3 +1,5 @@
+/** @module objets et personnes */
+
 import { choice, shuffle } from './arrays'
 
 /**

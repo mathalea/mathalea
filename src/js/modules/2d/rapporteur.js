@@ -1,3 +1,5 @@
+/** @module rapporteur */
+
 import { ObjetMathalea2D } from '../2dGeneralites'
 import { arc } from './arc'
 import { point } from './point'
@@ -5,7 +7,17 @@ import { pointSurSegment } from './pointSur.js'
 import { segment } from './segment'
 import { texteParPoint } from './textes'
 import { homothetie, rotation } from './transformations'
-
+/**
+   * place un rapporteur centré en (x,y) avec le zéro orienté à depart degrés.
+   * @param {boolean} semi si semi === false alors les graduations vont de 0 à 180° sinon de 0 à 360°
+   * @param {string} avecNombre === "", il n'y a pas de graduations, si avecNombre === "deuxSens" il est gradué dans les deux directions
+   * si avecNombre === "unSens" il est gradué dans le sens trigo.
+   * @param {number} precisionAuDegre === 10 alors il n'y aura pas de graduations entre les multiples de 10°, les autres valeurs sont 5 et 1.
+   * @param {number} stepGraduation est un multiple de 10 qui divise 180 (c'est mieux) donc 10 (par défaut), ou 20, ou 30, ou 60 ou 90.
+   * @param {boolean} rayonsVisibles = false permet de supprimer les rayons et le cercle central
+   * @param {object} param0 = {x: 'number', y: 'number', taille: 'number', semi: boolean, avecNombre: string}
+   * @return {Rapporteur} // crée un instance de l'objet 2d Rapporteur
+   */
 function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecNombre = 'deuxSens', precisionAuDegre = 1, stepGraduation = 10, rayonsVisibles = true, color = 'gray' }) {
   ObjetMathalea2D.call(this, { })
   this.x = x

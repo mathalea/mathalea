@@ -1,3 +1,5 @@
+/** @module fonctions sensibles au contexte */
+
 import { context } from '../context'
 
 /**

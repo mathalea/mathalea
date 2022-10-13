@@ -1,3 +1,5 @@
+/** @module statistiques */
+
 import { choice } from './arrays'
 import { randint } from './entiers'
 

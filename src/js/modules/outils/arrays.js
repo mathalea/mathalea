@@ -1,3 +1,5 @@
+/** @module fonctions sur les arrays */
+
 import { egal } from './comparateurs'
 
 /**

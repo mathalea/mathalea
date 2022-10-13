@@ -1,3 +1,5 @@
+/** @module couleurs */
+
 import { isInteger } from 'mathjs'
 import { choice } from './arrays'
 

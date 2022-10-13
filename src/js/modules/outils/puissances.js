@@ -1,3 +1,5 @@
+/** @module puissances */
+
 import Decimal from 'decimal.js/decimal.mjs'
 import { round } from 'mathjs'
 import { ecritureParentheseSiNegatif } from './ecritures'

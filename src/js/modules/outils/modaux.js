@@ -1,3 +1,5 @@
+/** @module boutons modaux */
+
 import { context } from '../context'
 
 /**

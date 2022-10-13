@@ -1,4 +1,4 @@
-/** @module droitesRemarquables */
+/** @module droites Remarquables */
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

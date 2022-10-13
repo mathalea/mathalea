@@ -1,3 +1,5 @@
+/** @module triangles (class) */
+
 import { choice } from './arrays'
 import { egal } from './comparateurs'
 

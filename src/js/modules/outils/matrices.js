@@ -1,3 +1,6 @@
+/** @module matrices */
+
+import { egal } from './comparateurs'
 /**
  *
  * @param {array} matrice M tableau 3x3 nombres
@@ -6,9 +9,6 @@
  * elle retourne le vecteur [x,y,z] résultat de M.A
  * @author Jean-Claude Lhote
  */
-
-import { egal } from './comparateurs'
-
 export function produitMatriceVecteur3x3 (matrice, vecteur) { // matrice est un tableau 3x3 sous la forme [[ligne 1],[ligne 2],[ligne 3]] et vecteur est un tableau de 3 nombres [x,y,z]
   const resultat = [0, 0, 0]
   for (let j = 0; j < 3; j++) { // Chaque ligne de la matrice
