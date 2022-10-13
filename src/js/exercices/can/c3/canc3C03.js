@@ -1,5 +1,7 @@
+import { choice } from '../../../modules/outils/arrays.js'
+import { miseEnEvidence } from '../../../modules/outils/contextSensitif.js'
+import { randint } from '../../../modules/outils/entiers.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, miseEnEvidence } from '../../../modules/outils.js'
 export const titre = 'Trouver le nombre dans une table de multiplication '
 export const interactifReady = true
 export const interactifType = 'mathLive'

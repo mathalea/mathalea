@@ -1,5 +1,8 @@
+import { choice } from '../../../modules/outils/arrays.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { prenomF, prenomM } from '../../../modules/outils/objetsPersonnes.js'
+import { texPrix } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
-import { choice, randint, prenomF, prenomM, texPrix } from '../../../modules/outils.js'
 export const titre = 'Résoudre un problème avec "de plus", "de moins"*'
 export const interactifReady = true
 export const interactifType = 'mathLive'

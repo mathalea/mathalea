@@ -1,4 +1,5 @@
-import { calcul, randint, texNombre } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { calcul, texNombre } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Arrondir à l\'unité'
 export const interactifReady = true

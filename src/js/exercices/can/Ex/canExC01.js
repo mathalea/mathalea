@@ -1,6 +1,6 @@
+import { complex } from 'mathjs'
+import { randint } from '../../../modules/outils/entiers.js'
 import Exercice from '../../Exercice.js'
-import { randint } from '../../../modules/outils.js'
-import { complex, add } from 'mathjs'
 export const titre = 'Somme de nombres complexes'
 export const interactifReady = true
 export const interactifType = 'mathLive'

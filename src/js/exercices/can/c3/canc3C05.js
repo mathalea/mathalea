@@ -1,6 +1,10 @@
 import { context } from '../../../modules/context.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
-import { choice, listeQuestionsToContenu, randint, texNombre, texteEnCouleur } from '../../../modules/outils.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { texteEnCouleur } from '../../../modules/outils/contextSensitif.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../../modules/outils/miseEnForme.js'
+import { texNombre } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Déterminer si un nombre est pair (V/F)'
 export const interactifReady = true

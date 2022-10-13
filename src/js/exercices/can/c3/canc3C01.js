@@ -1,4 +1,4 @@
-import { choice } from '../../../modules/outils.js'
+import { choice } from '../../../modules/outils/arrays.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Déterminer un nombre à partir d’une phrase'
 export const interactifReady = true

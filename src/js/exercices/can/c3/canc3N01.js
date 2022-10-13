@@ -1,6 +1,10 @@
 import { context } from '../../../modules/context.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
-import { choice, listeQuestionsToContenu, nombreEnLettres, randint, texNombre } from '../../../modules/outils.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../../modules/outils/miseEnForme.js'
+import { nombreEnLettres } from '../../../modules/outils/nombreenlettres.js'
+import { texNombre } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Écrire en lettres un nombre entier (QCM)'
 export const interactifReady = true

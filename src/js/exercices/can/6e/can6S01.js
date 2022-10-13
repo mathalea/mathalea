@@ -1,3 +1,4 @@
+import { traceBarreHorizontale } from '../../../modules/2d/graphiques.js'
 import { repere } from '../../../modules/2d/reperes.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils/entiers.js'

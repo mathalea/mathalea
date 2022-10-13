@@ -1,5 +1,7 @@
 import { context } from '../../../modules/context.js'
-import { choice, randint, texNombrec } from '../../../modules/outils.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { texNombrec } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Trouver la bonne unité'
 export const dateDePublication = '5/11/2021'

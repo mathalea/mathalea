@@ -1,4 +1,5 @@
-import { numTrie, randint } from '../../../modules/outils.js'
+import { numTrie } from '../../../modules/outils/arrays.js'
+import { randint } from '../../../modules/outils/entiers.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Trouver le plus grand nombre entier'
 export const interactifReady = true
