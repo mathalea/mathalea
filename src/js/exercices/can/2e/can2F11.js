@@ -1,6 +1,11 @@
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, abs, miseEnEvidence, randint, calcul, choice, texNombrec } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../../modules/outils/miseEnForme.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
+import { miseEnEvidence } from '../../../modules/outils/contextSensitif.js'
+import { abs } from '../../../modules/outils/nombres.js'
+import { calcul, texNombrec } from '../../../modules/outils/texNombres.js'
 export const titre = 'Utiliser la fonction carré pour comparer deux images'
 export const interactifReady = true
 export const interactifType = 'qcm'

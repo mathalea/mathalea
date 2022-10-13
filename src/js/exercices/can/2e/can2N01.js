@@ -1,5 +1,8 @@
 import Exercice from '../../Exercice.js'
-import { randint, choice, sp, texNombrec, texteEnCouleur, calcul } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { sp, texteEnCouleur } from '../../../modules/outils/contextSensitif.js'
+import { calcul, texNombrec } from '../../../modules/outils/texNombres.js'
 export const titre = 'Utiliser les intervalles'
 export const interactifReady = true
 export const interactifType = 'mathLive'

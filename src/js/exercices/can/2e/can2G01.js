@@ -1,6 +1,6 @@
-import { choice } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import FractionX from '../../../modules/FractionEtendue.js'
 export const titre = 'Déterminer un agrandissement/réduction avec fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -37,7 +37,7 @@ export default function AgrandissementReductionGFraction () {
         Par quelle fraction est multipliée son aire  ?
         `
 
-        this.reponse = new FractionEtendue(n * n, d * d)
+        this.reponse = new FractionX(n * n, d * d)
         this.correction = ` Si les longueurs sont multiplées par $k$, les aires sont multipliées par $k^2$.<br>
         Ainsi, l'aire a été multipliée par : $\\left(\\dfrac{${n}}{${d}}\\right)^2=\\dfrac{${n * n}}{${d * d}}$.
           `
@@ -51,7 +51,7 @@ export default function AgrandissementReductionGFraction () {
         Par quelle fraction ont été multipliées les longueurs de ses côtés ?
         `
         this.optionsChampTexte = { texteApres: '' }
-        this.reponse = new FractionEtendue(n, d)
+        this.reponse = new FractionX(n, d)
         this.correction = `Si les aires sont multiplées par $k$, les longueurs sont multipliées par $\\sqrt{k}$.<br>
         Ainsi, les longueurs ont été multipliées par  : $\\sqrt{\\dfrac{${n * n}}{${d * d}}}=\\dfrac{${n}}{${d}}$.
     <br>`

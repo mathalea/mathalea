@@ -1,5 +1,7 @@
-import { choice, randint, texRacineCarree } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { texRacineCarree } from '../../../modules/outils/factorisation.js'
 export const titre = 'Déterminer le nombre de solutions d’une équation se ramenant à $x^2=a$'
 export const interactifReady = true
 export const interactifType = 'mathLive'

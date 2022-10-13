@@ -1,9 +1,16 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, choice, calcul, creerNomDePolygone, texNombrec } from '../../../modules/outils.js'
-import {
-  point, texteParPosition, pointAdistance, polygoneAvecNom, milieu, codageAngleDroit, similitude
-} from '../../../modules/2d.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { point } from '../../../modules/2d/point.js'
+import { texteParPosition } from '../../../modules/2d/textes.js'
+import { similitude } from '../../../modules/2d/transformations.js'
+import { calcul, texNombrec } from '../../../modules/outils/texNombres.js'
+import { pointAdistance } from '../../../modules/2d/pointSur.js'
+import { polygoneAvecNom } from '../../../modules/2d/polygone.js'
+import { milieu } from '../../../modules/2d/barycentre.js'
+import { codageAngleDroit } from '../../../modules/2d/codages.js'
+import { creerNomDePolygone } from '../../../modules/outils/strings.js'
 export const titre = 'Calculer l’hypoténuse avec le théorème de Pythagore'
 export const interactifReady = true
 export const interactifType = 'mathLive'

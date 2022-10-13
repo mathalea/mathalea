@@ -1,5 +1,11 @@
 import Exercice from '../../Exercice.js'
-import { randint, choice, texNombre, ecritureParentheseSiNegatif, texteEnCouleur, creerNomDePolygone, arrondi } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { ecritureParentheseSiNegatif } from '../../../modules/outils/ecritures.js'
+import { texteEnCouleur } from '../../../modules/outils/contextSensitif.js'
+import { arrondi } from '../../../modules/outils/nombres.js'
+import { texNombre } from '../../../modules/outils/texNombres.js'
+import { creerNomDePolygone } from '../../../modules/outils/strings.js'
 export const titre = 'Calculer les coordonnées du milieu'
 export const interactifReady = true
 export const interactifType = 'mathLive'

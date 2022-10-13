@@ -1,7 +1,10 @@
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenuSansNumero, ecritureParentheseSiNegatif, sp } from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { ecritureParentheseSiNegatif } from '../../../modules/outils/ecritures.js'
+import { listeQuestionsToContenuSansNumero } from '../../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { sp } from '../../../modules/outils/contextSensitif.js'
 export const titre = 'Déterminer le déterminant de deux vecteurs.'
 export const interactifReady = true
 export const interactifType = 'mathLive'

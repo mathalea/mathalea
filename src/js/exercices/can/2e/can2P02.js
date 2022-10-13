@@ -1,5 +1,8 @@
 import Exercice from '../../Exercice.js'
-import { randint, calcul, choice, prenomM } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { calcul } from '../../../modules/outils/texNombres.js'
+import { prenomM } from '../../../modules/outils/objetsPersonnes.js'
 export const titre = 'Dénombrer dans une situation concrète'
 export const interactifReady = true
 export const interactifType = 'mathLive'

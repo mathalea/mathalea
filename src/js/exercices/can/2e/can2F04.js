@@ -1,5 +1,10 @@
 import Exercice from '../../Exercice.js'
-import { randint, texFractionReduite, choice, reduireAxPlusB, rienSi1, sp } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { rienSi1 } from '../../../modules/outils/ecritures.js'
+import { texFractionReduite } from '../../../modules/outils/arrayFractions.js'
+import { reduireAxPlusB } from '../../../modules/outils/reductions.js'
+import { sp } from '../../../modules/outils/contextSensitif.js'
 export const titre = 'Trouver les valeurs interdites d’une fonction'
 export const interactifReady = true
 export const interactifType = 'mathLive'

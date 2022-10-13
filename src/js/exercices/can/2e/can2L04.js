@@ -1,7 +1,11 @@
 import Exercice from '../../Exercice.js'
-import { randint, sp, listeQuestionsToContenuSansNumero, texFractionReduite, rienSi1, texteCentre } from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { rienSi1 } from '../../../modules/outils/ecritures.js'
+import { listeQuestionsToContenuSansNumero } from '../../../modules/outils/miseEnForme.js'
+import { texFractionReduite } from '../../../modules/outils/arrayFractions.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { sp, texteCentre } from '../../../modules/outils/contextSensitif.js'
 export const titre = 'Calculer les coordonnées du point d’intersection entre l’axe des ordonnées/droite'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,5 +1,8 @@
 import Exercice from '../../Exercice.js'
-import { randint, choice, ecritureAlgebrique, ecritureParentheseSiNegatif, abs } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../modules/outils/ecritures.js'
+import { abs } from '../../../modules/outils/nombres.js'
 export const titre = 'Résoudre une équation du type $\\dfrac{x+a}{b}=c$'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,8 +1,9 @@
 import Exercice from '../../Exercice.js'
-import {
-  randint, ecritureParentheseSiNegatif,
-  ecritureAlgebrique, texteEnCouleur, texFractionReduite, reduireAxPlusB, simplificationDeFractionAvecEtapes, texFraction
-} from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../modules/outils/ecritures.js'
+import { simplificationDeFractionAvecEtapes, texFraction, texFractionReduite } from '../../../modules/outils/arrayFractions.js'
+import { reduireAxPlusB } from '../../../modules/outils/reductions.js'
+import { texteEnCouleur } from '../../../modules/outils/contextSensitif.js'
 export const titre = 'Calculer une image avec un quotient'
 export const interactifReady = true
 export const interactifType = 'mathLive'

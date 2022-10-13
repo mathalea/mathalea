@@ -1,5 +1,9 @@
 import Exercice from '../../Exercice.js'
-import { randint, choice, ecritureParentheseSiNegatif, creerNomDePolygone, texteEnCouleur } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { ecritureParentheseSiNegatif } from '../../../modules/outils/ecritures.js'
+import { texteEnCouleur } from '../../../modules/outils/contextSensitif.js'
+import { creerNomDePolygone } from '../../../modules/outils/strings.js'
 export const titre = 'Calculer une distance avec les coordonnées'
 export const interactifReady = true
 export const interactifType = 'mathLive'

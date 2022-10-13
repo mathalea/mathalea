@@ -1,7 +1,11 @@
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenu, sp, texteCentre, ecritureAlgebrique, egal, rienSi1, ecritureAlgebriqueSauf1 } from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { sp, texteCentre } from '../../../modules/outils/contextSensitif.js'
+import { egal } from '../../../modules/outils/comparateurs.js'
 export const titre = 'Déterminer un vecteur directeur avec une équation cartésienne'
 export const interactifReady = true
 export const interactifType = 'custom'

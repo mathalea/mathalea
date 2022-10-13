@@ -1,6 +1,12 @@
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, extraireRacineCarree, randint, sp, calcul, choice, texFractionReduite } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../../modules/outils/miseEnForme.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
+import { texFractionReduite } from '../../../modules/outils/arrayFractions.js'
+import { sp } from '../../../modules/outils/contextSensitif.js'
+import { extraireRacineCarree } from '../../../modules/outils/factorisation.js'
+import { calcul } from '../../../modules/outils/texNombres.js'
 export const titre = 'Résoudre une équation avec une fonction de référence'
 export const interactifReady = true
 export const interactifType = 'qcm'

@@ -1,8 +1,9 @@
 import Exercice from '../../Exercice.js'
-import {
-  randint, calcul, choice, ecritureParentheseSiNegatif, texNombrec,
-  ecritureAlgebrique, rienSi1, texteEnCouleur
-} from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../modules/outils/ecritures.js'
+import { texteEnCouleur } from '../../../modules/outils/contextSensitif.js'
+import { calcul, texNombrec } from '../../../modules/outils/texNombres.js'
 export const titre = 'Calculer une image avec le second degré'
 export const interactifReady = true
 export const interactifType = 'mathLive'

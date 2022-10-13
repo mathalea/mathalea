@@ -1,5 +1,7 @@
 import Exercice from '../../Exercice.js'
-import { randint, texNombrec, choice, calcul } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { calcul, texNombrec } from '../../../modules/outils/texNombres.js'
 export const titre = 'Passer du coefficient multiplicateur au taux d’évolution'
 export const interactifReady = true
 export const interactifType = 'mathLive'

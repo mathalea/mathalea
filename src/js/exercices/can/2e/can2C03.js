@@ -1,5 +1,10 @@
 import Exercice from '../../Exercice.js'
-import { randint, calcul, choice, texNombrec, abs, ecritureParentheseSiNegatif, sp } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { ecritureParentheseSiNegatif } from '../../../modules/outils/ecritures.js'
+import { sp } from '../../../modules/outils/contextSensitif.js'
+import { abs } from '../../../modules/outils/nombres.js'
+import { calcul, texNombrec } from '../../../modules/outils/texNombres.js'
 export const titre = 'Calculer avec  des puissances*'
 export const interactifReady = true
 export const interactifType = 'mathLive'

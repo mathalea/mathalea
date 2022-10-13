@@ -1,6 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { miseEnEvidence } from '../../../modules/outils/contextSensitif.js'
+import { calcul } from '../../../modules/outils/texNombres.js'
 import { fraction } from '../../../modules/fractions.js'
-import { randint, calcul, miseEnEvidence } from '../../../modules/outils.js'
 export const titre = 'Déterminer un antécédent avec la racine carrée'
 export const interactifReady = true
 export const interactifType = 'mathLive'

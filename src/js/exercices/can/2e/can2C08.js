@@ -1,5 +1,7 @@
 import Exercice from '../../Exercice.js'
-import { choice, extraireRacineCarree, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { ecritureParentheseSiNegatif } from '../../../modules/outils/ecritures.js'
+import { extraireRacineCarree } from '../../../modules/outils/factorisation.js'
 export const titre = 'Calculer avec une racine carrée*'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,5 +1,7 @@
 import Exercice from '../../Exercice.js'
-import { randint, calcul, choice } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { calcul } from '../../../modules/outils/texNombres.js'
 export const titre = 'Calculer une différence de deux carrés'
 export const interactifReady = true
 export const interactifType = 'mathLive'

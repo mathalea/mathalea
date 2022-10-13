@@ -1,5 +1,8 @@
 import Exercice from '../../Exercice.js'
-import { randint, choice, texNombrec, sp, calcul, shuffle } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice, shuffle } from '../../../modules/outils/arrays.js'
+import { sp } from '../../../modules/outils/contextSensitif.js'
+import { calcul, texNombrec } from '../../../modules/outils/texNombres.js'
 export const titre = 'Déterminer un taux global d’évolution'
 export const interactifReady = true
 export const interactifType = 'mathLive'

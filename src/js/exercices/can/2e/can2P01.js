@@ -1,6 +1,8 @@
-import { fraction } from '../../../modules/fractions.js'
-import { choice, randint, simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../modules/outils/arrayFractions.js'
+import { fraction } from '../../../modules/fractions.js'
 export const titre = 'Calculer une probabilité'
 export const interactifReady = true
 export const interactifType = 'mathLive'

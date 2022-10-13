@@ -1,8 +1,9 @@
 import Exercice from '../../Exercice.js'
-import {
-  randint, choice, ecritureParentheseSiNegatif, reduirePolynomeDegre3, texteCentre, reduireAxPlusB,
-  ecritureAlgebrique
-} from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../modules/outils/ecritures.js'
+import { reduireAxPlusB, reduirePolynomeDegre3 } from '../../../modules/outils/reductions.js'
+import { texteCentre } from '../../../modules/outils/contextSensitif.js'
 export const titre = 'Calculer une ordonnée à partir de l’abscisse d’un point'
 export const interactifReady = true
 export const interactifType = 'mathLive'

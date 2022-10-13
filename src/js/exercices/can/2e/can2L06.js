@@ -1,5 +1,6 @@
 import Exercice from '../../Exercice.js'
-import { randint, choice } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
 export const titre = 'Développer avec les égalités remarquables'
 export const interactifReady = true
 export const interactifType = 'mathLive'

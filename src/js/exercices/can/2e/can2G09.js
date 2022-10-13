@@ -1,5 +1,7 @@
 import Exercice from '../../Exercice.js'
-import { randint, choice, sp } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { sp } from '../../../modules/outils/contextSensitif.js'
 export const titre = 'Déterminer le coefficient de colinéarité entre deux vecteurs'
 export const interactifReady = true
 export const interactifType = 'mathLive'

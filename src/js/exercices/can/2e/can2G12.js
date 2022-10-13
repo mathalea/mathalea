@@ -1,6 +1,11 @@
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, texteEnCouleur, ecritureParentheseSiNegatif, randint, choice, calcul } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { ecritureParentheseSiNegatif } from '../../../modules/outils/ecritures.js'
+import { listeQuestionsToContenu } from '../../../modules/outils/miseEnForme.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
+import { texteEnCouleur } from '../../../modules/outils/contextSensitif.js'
+import { calcul } from '../../../modules/outils/texNombres.js'
 export const titre = 'Reconnaître des vecteurs colinéaires (V/F)'
 export const interactifReady = true
 export const interactifType = 'qcm'

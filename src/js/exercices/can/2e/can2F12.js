@@ -1,6 +1,10 @@
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, abs, miseEnEvidence, randint, calcul, choice, texNombrec } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { listeQuestionsToContenu } from '../../../modules/outils/miseEnForme.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
+import { miseEnEvidence } from '../../../modules/outils/contextSensitif.js'
+import { calcul, texNombrec } from '../../../modules/outils/texNombres.js'
 export const titre = 'Utiliser une fonction de référence (inverse, cube, racine) pour comparer deux images'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -14,9 +18,9 @@ export const dateDePublication = '03/01/2022' // La date de publication initiale
  * Référence
 */
 function ecritureParentheseSiNegatif (a, maximumFractionDigits = 15) {
-    const result = Intl.NumberFormat('fr-FR', { maximumFractionDigits: maximumFractionDigits }).format(a).replace(',', '{,}')
-    return a < 0 ? `(${result})` : result
-  }
+  const result = Intl.NumberFormat('fr-FR', { maximumFractionDigits: maximumFractionDigits }).format(a).replace(',', '{,}')
+  return a < 0 ? `(${result})` : result
+}
 export const uuid = '25143'
 export const ref = 'can2F12'
 export default function ComparerAvecFctRef () {
@@ -29,12 +33,118 @@ export default function ComparerAvecFctRef () {
     this.listeQuestions = []
     this.listeCorrections = []
     let texte, texteCorr, a, b, N
-    switch (choice([1,2,3])) { //
+    switch (choice([1, 2, 3])) { //
       case 1 :
         N = randint(1, 2)
         if (N === 1) {
-        a = calcul(randint(1, 9) + randint(5, 9) / 10)
-        b = calcul(a + (randint(1, 9) / 10) * choice([1, -1]))
+          a = calcul(randint(1, 9) + randint(5, 9) / 10)
+          b = calcul(a + (randint(1, 9) / 10) * choice([1, -1]))
+          if (this.interactif) {
+            texte = 'Sélectionner l’affirmation correcte. '
+            if (a < b) {
+              this.autoCorrection[0] = {
+                enonce: texte,
+                options: { horizontal: true },
+                propositions: [
+                  {
+                    texte: `$\\dfrac{1}{${texNombrec(a)}}>\\dfrac{1}{${texNombrec(b)}}$`,
+                    statut: true
+                  },
+                  {
+                    texte: `$\\dfrac{1}{${texNombrec(a)}}<\\dfrac{1}{${texNombrec(b)}}$`,
+                    statut: false
+                  }
+                ]
+              }
+            } else {
+              this.autoCorrection[0] = {
+                enonce: texte,
+                options: { horizontal: true },
+                propositions: [
+                  {
+                    texte: `$\\dfrac{1}{${texNombrec(a)}}<\\dfrac{1}{${texNombrec(b)}}$`,
+                    statut: true
+                  },
+                  {
+                    texte: `$\\dfrac{1}{${texNombrec(a)}}>\\dfrac{1}{${texNombrec(b)}}$`,
+                    statut: false
+                  }
+                ]
+              }
+            }
+
+            texte += propositionsQcm(this, 0).texte
+          } else {
+            texte = `Comparer $\\dfrac{1}{${texNombrec(a)}}$ et $\\dfrac{1}{${texNombrec(b)}}$.`
+          }
+
+          texteCorr = `         La fonction inverse étant strictement décroissante sur $]0;+\\infty[$, elle change l'ordre. 
+        Cela signifie que deux nombres strictement positifs  sont rangés dans l'ordre inverse de leurs inverses.<br>
+        Autrement dit, si $a$ et $b$ sont deux nombres strictement positifs et si $a < b$, alors $\\dfrac{1}{a} > \\dfrac{1}{b}$.<br>`
+
+          if (a < b) {
+            texteCorr += `Comme $${texNombrec(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(b)}$, alors  $\\dfrac{1}{${texNombrec(a)}}${miseEnEvidence('\\boldsymbol{>}', 'blue')}\\dfrac{1}{${texNombrec(b)}}$`
+          } else {
+            texteCorr += `Comme $${texNombrec(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(a)}$, alors  $\\dfrac{1}{${texNombrec(b)}}${miseEnEvidence('\\boldsymbol{>}', 'blue')}\\dfrac{1}{${texNombrec(a)}}$`
+          }
+        }
+        if (N === 2) {
+          a = calcul(((randint(1, 9) + randint(5, 9) / 10)) * (-1))
+          b = calcul(a + (randint(1, 9) / 10) * choice([1, -1]))
+          if (this.interactif) {
+            texte = 'Sélectionner l’affirmation correcte. '
+            if (a < b) {
+              this.autoCorrection[0] = {
+                enonce: texte,
+                options: { horizontal: true },
+                propositions: [
+                  {
+                    texte: `$\\dfrac{1}{${texNombrec(a)}}>\\dfrac{1}{${texNombrec(b)}}$`,
+                    statut: true
+                  },
+                  {
+                    texte: `$\\dfrac{1}{${texNombrec(a)}}<\\dfrac{1}{${texNombrec(b)}}$`,
+                    statut: false
+                  }
+                ]
+              }
+            } else {
+              this.autoCorrection[0] = {
+                enonce: texte,
+                options: { horizontal: true },
+                propositions: [
+                  {
+                    texte: `$\\dfrac{1}{${texNombrec(a)}}<\\dfrac{1}{${texNombrec(b)}}$`,
+                    statut: true
+                  },
+                  {
+                    texte: `$\\dfrac{1}{${texNombrec(a)}}>\\dfrac{1}{${texNombrec(b)}}$`,
+                    statut: false
+                  }
+                ]
+              }
+            }
+
+            texte += propositionsQcm(this, 0).texte
+          } else {
+            texte = `Comparer $\\dfrac{1}{${texNombrec(a)}}$ et $\\dfrac{1}{${texNombrec(b)}}$.`
+          }
+
+          texteCorr = `     La fonction inverse étant strictement décroissante sur $]-\\infty;0[$, elle change l'ordre. 
+    Cela signifie que deux nombres strictement négatifs  sont rangés dans l'ordre inverse de leurs inverses.<br>
+    Autrement dit, si $a$ et $b$ sont deux nombres strictement négatifs et si $a < b$, alors $\\dfrac{1}{a} > \\dfrac{1}{b}$.<br>`
+
+          if (a < b) {
+            texteCorr += `Comme $${texNombrec(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(b)}$, alors  $\\dfrac{1}{${texNombrec(a)}}${miseEnEvidence('\\boldsymbol{>}', 'blue')}\\dfrac{1}{${texNombrec(b)}}$`
+          } else {
+            texteCorr += `Comme $${texNombrec(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(a)}$, alors  $\\dfrac{1}{${texNombrec(b)}}${miseEnEvidence('\\boldsymbol{>}', 'blue')}\\dfrac{1}{${texNombrec(a)}}$`
+          }
+        }
+
+        break
+      case 2 :
+        a = calcul(randint(-10, 10) + (randint(-9, 9, 0) / 10) * choice([-1, 1]))
+        b = calcul((a + randint(1, 9) / 10) * choice([-1, 1]))
         if (this.interactif) {
           texte = 'Sélectionner l’affirmation correcte. '
           if (a < b) {
@@ -43,11 +153,11 @@ export default function ComparerAvecFctRef () {
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: `$\\dfrac{1}{${texNombrec(a)}}>\\dfrac{1}{${texNombrec(b)}}$`,
+                  texte: `$${ecritureParentheseSiNegatif(b)}^3>${ecritureParentheseSiNegatif(a)}^3$`,
                   statut: true
                 },
                 {
-                  texte: `$\\dfrac{1}{${texNombrec(a)}}<\\dfrac{1}{${texNombrec(b)}}$`,
+                  texte: `$${ecritureParentheseSiNegatif(a)}^3>${ecritureParentheseSiNegatif(b)}^3$`,
                   statut: false
                 }
               ]
@@ -58,11 +168,11 @@ export default function ComparerAvecFctRef () {
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: `$\\dfrac{1}{${texNombrec(a)}}<\\dfrac{1}{${texNombrec(b)}}$`,
+                  texte: `$${ecritureParentheseSiNegatif(b)}^3<${ecritureParentheseSiNegatif(a)}^3$`,
                   statut: true
                 },
                 {
-                  texte: `$\\dfrac{1}{${texNombrec(a)}}>\\dfrac{1}{${texNombrec(b)}}$`,
+                  texte: `$(${ecritureParentheseSiNegatif(a)})^3<${ecritureParentheseSiNegatif(b)}^3$`,
                   statut: false
                 }
               ]
@@ -71,183 +181,73 @@ export default function ComparerAvecFctRef () {
 
           texte += propositionsQcm(this, 0).texte
         } else {
-          texte = `Comparer $\\dfrac{1}{${texNombrec(a)}}$ et $\\dfrac{1}{${texNombrec(b)}}$.`
+          texte = `Comparer $${ecritureParentheseSiNegatif(a)}^3$ et $${ecritureParentheseSiNegatif(b)}^3$.`
         }
 
-        texteCorr = `         La fonction inverse étant strictement décroissante sur $]0;+\\infty[$, elle change l'ordre. 
-        Cela signifie que deux nombres strictement positifs  sont rangés dans l'ordre inverse de leurs inverses.<br>
-        Autrement dit, si $a$ et $b$ sont deux nombres strictement positifs et si $a < b$, alors $\\dfrac{1}{a} > \\dfrac{1}{b}$.<br>`
-
-      if (a < b) {
-        texteCorr += `Comme $${texNombrec(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(b)}$, alors  $\\dfrac{1}{${texNombrec(a)}}${miseEnEvidence('\\boldsymbol{>}', 'blue')}\\dfrac{1}{${texNombrec(b)}}$`
-      } else { texteCorr += `Comme $${texNombrec(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(a)}$, alors  $\\dfrac{1}{${texNombrec(b)}}${miseEnEvidence('\\boldsymbol{>}', 'blue')}\\dfrac{1}{${texNombrec(a)}}$` 
-    }
-}
-if(N===2){
-    a = calcul(((randint(1, 9) + randint(5, 9) / 10))*(-1))
-    b = calcul(a + (randint(1, 9) / 10) * choice([1, -1]))
-    if (this.interactif) {
-      texte = 'Sélectionner l’affirmation correcte. '
-      if (a < b) {
-        this.autoCorrection[0] = {
-          enonce: texte,
-          options: { horizontal: true },
-          propositions: [
-            {
-              texte: `$\\dfrac{1}{${texNombrec(a)}}>\\dfrac{1}{${texNombrec(b)}}$`,
-              statut: true
-            },
-            {
-              texte: `$\\dfrac{1}{${texNombrec(a)}}<\\dfrac{1}{${texNombrec(b)}}$`,
-              statut: false
-            }
-          ]
-        }
-      } else {
-        this.autoCorrection[0] = {
-          enonce: texte,
-          options: { horizontal: true },
-          propositions: [
-            {
-              texte: `$\\dfrac{1}{${texNombrec(a)}}<\\dfrac{1}{${texNombrec(b)}}$`,
-              statut: true
-            },
-            {
-              texte: `$\\dfrac{1}{${texNombrec(a)}}>\\dfrac{1}{${texNombrec(b)}}$`,
-              statut: false
-            }
-          ]
-        }
-      }
-
-      texte += propositionsQcm(this, 0).texte
-    } else {
-      texte = `Comparer $\\dfrac{1}{${texNombrec(a)}}$ et $\\dfrac{1}{${texNombrec(b)}}$.`
-    }
-
-    texteCorr = `     La fonction inverse étant strictement décroissante sur $]-\\infty;0[$, elle change l'ordre. 
-    Cela signifie que deux nombres strictement négatifs  sont rangés dans l'ordre inverse de leurs inverses.<br>
-    Autrement dit, si $a$ et $b$ sont deux nombres strictement négatifs et si $a < b$, alors $\\dfrac{1}{a} > \\dfrac{1}{b}$.<br>`
-
-  if (a < b) {
-    texteCorr += `Comme $${texNombrec(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(b)}$, alors  $\\dfrac{1}{${texNombrec(a)}}${miseEnEvidence('\\boldsymbol{>}', 'blue')}\\dfrac{1}{${texNombrec(b)}}$`
-  } else { texteCorr += `Comme $${texNombrec(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(a)}$, alors  $\\dfrac{1}{${texNombrec(b)}}${miseEnEvidence('\\boldsymbol{>}', 'blue')}\\dfrac{1}{${texNombrec(a)}}$` 
-}}
-
-
-
-
-
-
-        break
-        case 2 :
-            a = calcul(randint(-10, 10) + (randint(-9, 9, 0) / 10) * choice([-1, 1]))
-              b = calcul((a + randint(1, 9) / 10) * choice([-1, 1]))
-            if (this.interactif) {
-              texte = 'Sélectionner l’affirmation correcte. '
-              if (a < b) {
-                this.autoCorrection[0] = {
-                  enonce: texte,
-                  options: { horizontal: true },
-                  propositions: [
-                    {
-                      texte: `$${ecritureParentheseSiNegatif(b)}^3>${ecritureParentheseSiNegatif(a)}^3$`,
-                      statut: true
-                    },
-                    {
-                      texte: `$${ecritureParentheseSiNegatif(a)}^3>${ecritureParentheseSiNegatif(b)}^3$`,
-                      statut: false
-                    }
-                  ]
-                }
-              } else {
-                this.autoCorrection[0] = {
-                  enonce: texte,
-                  options: { horizontal: true },
-                  propositions: [
-                    {
-                      texte: `$${ecritureParentheseSiNegatif(b)}^3<${ecritureParentheseSiNegatif(a)}^3$`,
-                      statut: true
-                    },
-                    {
-                      texte: `$(${ecritureParentheseSiNegatif(a)})^3<${ecritureParentheseSiNegatif(b)}^3$`,
-                      statut: false
-                    }
-                  ]
-                }
-              }
-    
-              texte += propositionsQcm(this, 0).texte
-            } else {
-              texte = `Comparer $${ecritureParentheseSiNegatif(a)}^3$ et $${ecritureParentheseSiNegatif(b)}^3$.`
-            }
-    
-            texteCorr = ` La fonction cube étant strictement croissante sur $\\mathbb{R}$, elle conserve l'ordre.
+        texteCorr = ` La fonction cube étant strictement croissante sur $\\mathbb{R}$, elle conserve l'ordre.
             Cela signifie que deux nombres réels  sont rangés dans le même ordre que leurs cubes.<br>
             Autrement dit, si $a$ et $b$ sont deux nombres réels et si $a < b$, alors $a^3 < b^3$.<br>`
-            if (a < b)
-            { texteCorr += `Comme $${texNombrec(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(b)}$,
-            alors $${ecritureParentheseSiNegatif(a)}^3${miseEnEvidence('\\boldsymbol{<}', 'blue')}${ecritureParentheseSiNegatif(b)}^3$.` }
-            else
-            { texteCorr += `Comme $${texNombrec(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(a)}$, alors $${ecritureParentheseSiNegatif(b)}^3${miseEnEvidence('\\boldsymbol{<}', 'blue')}${ecritureParentheseSiNegatif(a)}^3$.` }
-    
-    
-            break
-            case 3 :
-                a = calcul(randint(0, 10) + (randint(6, 9) / 10))
-          b = calcul((a + (randint(1, 5, 0) / 10) * choice([-1, 1])))
-          if(b===1){b= 2}
-                if (this.interactif) {
-                  texte = 'Sélectionner l’affirmation correcte. '
-                  if (a < b) {
-                    this.autoCorrection[0] = {
-                      enonce: texte,
-                      options: { horizontal: true },
-                      propositions: [
-                        {
-                          texte: `$\\sqrt{${texNombrec(b)}}>\\sqrt{${texNombrec(a)}}$`,
-                          statut: true
-                        },
-                        {
-                          texte: `$\\sqrt{${texNombrec(a)}}>\\sqrt{${texNombrec(b)}}$`,
-                          statut: false
-                        }
-                      ]
-                    }
-                  } else {
-                    this.autoCorrection[0] = {
-                      enonce: texte,
-                      options: { horizontal: true },
-                      propositions: [
-                        {
-                          texte: `$\\sqrt{${texNombrec(b)}}<\\sqrt{${texNombrec(a)}}$`,
-                          statut: true
-                        },
-                        {
-                          texte: `$\\sqrt{${texNombrec(b)}}>\\sqrt{${texNombrec(a)}}$`,
-                          statut: false
-                        }
-                      ]
-                    }
-                  }
-        
-                  texte += propositionsQcm(this, 0).texte
-                } else {
-                  texte = `Comparer $\\sqrt{${texNombrec(a)}}$  et $\\sqrt{${texNombrec(b)}}$.`
+        if (a < b) {
+          texteCorr += `Comme $${texNombrec(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(b)}$,
+            alors $${ecritureParentheseSiNegatif(a)}^3${miseEnEvidence('\\boldsymbol{<}', 'blue')}${ecritureParentheseSiNegatif(b)}^3$.`
+        } else { texteCorr += `Comme $${texNombrec(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(a)}$, alors $${ecritureParentheseSiNegatif(b)}^3${miseEnEvidence('\\boldsymbol{<}', 'blue')}${ecritureParentheseSiNegatif(a)}^3$.` }
+
+        break
+      case 3 :
+        a = calcul(randint(0, 10) + (randint(6, 9) / 10))
+        b = calcul((a + (randint(1, 5, 0) / 10) * choice([-1, 1])))
+        if (b === 1) { b = 2 }
+        if (this.interactif) {
+          texte = 'Sélectionner l’affirmation correcte. '
+          if (a < b) {
+            this.autoCorrection[0] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `$\\sqrt{${texNombrec(b)}}>\\sqrt{${texNombrec(a)}}$`,
+                  statut: true
+                },
+                {
+                  texte: `$\\sqrt{${texNombrec(a)}}>\\sqrt{${texNombrec(b)}}$`,
+                  statut: false
                 }
-        
-                texteCorr = `                La fonction racine carrée étant strictement croissante sur $[0;+\\infty[$, elle conserve l'ordre. 
+              ]
+            }
+          } else {
+            this.autoCorrection[0] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `$\\sqrt{${texNombrec(b)}}<\\sqrt{${texNombrec(a)}}$`,
+                  statut: true
+                },
+                {
+                  texte: `$\\sqrt{${texNombrec(b)}}>\\sqrt{${texNombrec(a)}}$`,
+                  statut: false
+                }
+              ]
+            }
+          }
+
+          texte += propositionsQcm(this, 0).texte
+        } else {
+          texte = `Comparer $\\sqrt{${texNombrec(a)}}$  et $\\sqrt{${texNombrec(b)}}$.`
+        }
+
+        texteCorr = `                La fonction racine carrée étant strictement croissante sur $[0;+\\infty[$, elle conserve l'ordre. 
                 Cela signifie que deux nombres réels positifs sont rangés dans le même ordre que leurs racines carrées.<br>
                 Autrement dit, si $a$ et $b$ sont deux nombres réels positifs et si $a < b$, alors $\\sqrt{a} < \\sqrt{b}$.<br>`
-                if (a < b) {
-                  texteCorr += ` Comme $${texNombrec(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(b)}$, alors 
+        if (a < b) {
+          texteCorr += ` Comme $${texNombrec(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(b)}$, alors 
                 $\\sqrt{${texNombrec(a)}}${miseEnEvidence('\\boldsymbol{<}', 'blue')}\\sqrt{${texNombrec(b)}}$.`
-                } else {
-                  texteCorr += ` Comme $${texNombrec(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(a)}$, 
+        } else {
+          texteCorr += ` Comme $${texNombrec(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(a)}$, 
                 alors $\\sqrt{${texNombrec(b)}}${miseEnEvidence('\\boldsymbol{<}', 'blue')}\\sqrt{${texNombrec(a)}}$.`
-                }
-        
-                break
+        }
+
+        break
     }
 
     this.listeQuestions.push(texte)

@@ -1,9 +1,14 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, calcul, creerNomDePolygone, texNombrec } from '../../../modules/outils.js'
-import {
-  point, texteParPosition, pointAdistance, polygoneAvecNom, milieu, codageAngleDroit
-} from '../../../modules/2d.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { point } from '../../../modules/2d/point.js'
+import { texteParPosition } from '../../../modules/2d/textes.js'
+import { calcul, texNombrec } from '../../../modules/outils/texNombres.js'
+import { pointAdistance } from '../../../modules/2d/pointSur.js'
+import { polygoneAvecNom } from '../../../modules/2d/polygone.js'
+import { milieu } from '../../../modules/2d/barycentre.js'
+import { codageAngleDroit } from '../../../modules/2d/codages.js'
+import { creerNomDePolygone } from '../../../modules/outils/strings.js'
 export const titre = 'Calculer une longueur avec le théorème de Pythagore'
 export const interactifReady = true
 export const interactifType = 'mathLive'
