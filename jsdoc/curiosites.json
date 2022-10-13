@@ -1,0 +1,40 @@
+{
+    "comment": "cf http://usejsdoc.org/about-configuring-jsdoc.html",
+    "tags": {
+        "allowUnknownTags": true
+    },
+    "source": {
+        "include": [
+            "./src/js/modules/pyramides.js",
+            "./src/js/modules/fractions.js",
+            "./src/js/modules/Grandeur.js",
+            "./src/js/modules/macroSVGJS.js",
+            "./src/js/modules/noteLaCouleur.js",
+            "./src/js/modules/scrathBlocksFr.js",
+            "./src/js/modules/aleaFigure/",
+        ]
+    },
+    "plugins": [
+        "plugins/markdown"
+    ],
+    "markdown": {
+        "idInHeadings": true
+    },
+    "opts": {
+        "destination": "./documentation/JC/curiosites",
+        "recurse": true,
+        "private": false,
+        "template": "node_modules/docdash"
+    },
+    "docdash": {
+        "comment": "Cf https://github.com/clenemt/docdash (options)",
+        "static": true,
+        "sort": true,
+        "search": true,
+        "collapse": true,
+        "commonNav": true
+    },
+    "templates": {
+        "cleverLinks": true
+    }
+}

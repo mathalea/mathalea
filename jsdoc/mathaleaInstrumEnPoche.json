@@ -6,6 +6,7 @@
     "source"   : {
       "include": [
         "./src/js/modules/Alea2iep.js",
+        "./src/js/modules/iepMacros/",
         "./jsdoc/iep.md"
       ]
     },
