@@ -1,5 +1,8 @@
+import { texFraction } from '../../../modules/outils/arrayFractions.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { calcul, texNombrec } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
-import { randint, texNombrec, choice, calcul, texFraction } from '../../../modules/outils.js'
 export const titre = 'Ecrire sous la forme d’un pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,5 +1,9 @@
+import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../modules/outils/arrayFractions.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { texteEnCouleur } from '../../../modules/outils/contextSensitif.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { calcul, texNombre, texNombrec } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
-import { calcul, choice, texNombrec, randint, texNombre, texFractionReduite, texteEnCouleur, simplificationDeFractionAvecEtapes } from '../../../modules/outils.js'
 export const titre = 'Déterminer (ou calculer avec) un pourcentage de proportion'
 export const interactifReady = true
 export const interactifType = 'mathLive'

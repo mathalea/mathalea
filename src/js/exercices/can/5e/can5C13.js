@@ -1,6 +1,8 @@
+import { choice } from '../../../modules/outils/arrays.js'
+import { texteEnCouleur } from '../../../modules/outils/contextSensitif.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { calcul, texNombre, texNombrec } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
-import { randint, calcul, choice, texNombre, texNombrec, texteEnCouleur } from '../../../modules/outils.js'
-
 export const titre = 'Calculer astucieusement avec 100 ou 10'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,6 +1,8 @@
-import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, choice } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../../modules/outils/miseEnForme.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Reconnaître une expression numérique (QCM)'
 export const interactifReady = true
 export const interactifType = 'qcm'

@@ -1,11 +1,16 @@
-import Exercice from '../../Exercice.js'
+import { droiteGraduee } from '../../../modules/2d/reperes.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, calcul, texNombrec, choice, texNombre, sp, shuffle, texPrix, combinaisonListesSansChangerOrdre } from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import FractionX from '../../../modules/FractionEtendue.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
 import Grandeur from '../../../modules/Grandeur.js'
-import { droiteGraduee } from '../../../modules/2d.js'
+import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { choice, shuffle } from '../../../modules/outils/arrays.js'
+import { sp } from '../../../modules/outils/contextSensitif.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { combinaisonListesSansChangerOrdre } from '../../../modules/outils/listes.js'
+import { listeQuestionsToContenu } from '../../../modules/outils/miseEnForme.js'
+import { calcul, texNombre, texNombrec, texPrix } from '../../../modules/outils/texNombres.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Course aux nombres début de 5e'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -359,7 +364,7 @@ export default function CourseAuxNombres5e (numeroExercice) {
         case 'q29':
           a = randint(3, 5) // dénominateur
           b = randint(2, a * 4 - 1) // numérateur
-          c = new FractionEtendue(b, a)
+          c = new FractionX(b, a)
           resultat = calcul(b / a)
 
           texte = 'Determiner l\'abscisse du point A situé ci-dessous :<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5 }, droiteGraduee({

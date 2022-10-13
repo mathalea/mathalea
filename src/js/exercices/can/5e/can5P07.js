@@ -1,6 +1,7 @@
-import Exercice from '../../Exercice.js'
-import { choice, randint } from '../../../modules/outils.js'
 import FractionX from '../../../modules/FractionEtendue.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Résoudre un problème de proportionnalité*'
 export const interactifReady = true
 export const interactifType = 'mathLive'

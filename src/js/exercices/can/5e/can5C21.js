@@ -1,4 +1,7 @@
-import { randint, texNombre, choice, arrondi } from '../../../modules/outils.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { arrondi } from '../../../modules/outils/nombres.js'
+import { texNombre } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer la somme de décimaux qui se marient'
 export const interactifReady = true

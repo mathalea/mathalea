@@ -1,4 +1,5 @@
-import { randint, texteEnCouleur } from '../../../modules/outils.js'
+import { texteEnCouleur } from '../../../modules/outils/contextSensitif.js'
+import { randint } from '../../../modules/outils/entiers.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Utiliser une priorité opératoire'
 export const interactifReady = true

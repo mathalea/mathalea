@@ -1,5 +1,9 @@
+import { texteEnCouleur } from '../../../modules/outils/contextSensitif.js'
+import { ecritureParentheseSiNegatif } from '../../../modules/outils/ecritures.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { abs } from '../../../modules/outils/nombres.js'
+import { calcul } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
-import { randint, ecritureParentheseSiNegatif, texteEnCouleur, calcul, abs } from '../../../modules/outils.js'
 export const titre = 'Rechercher un nombre à ajouter'
 export const interactifReady = true
 export const interactifType = 'mathLive'

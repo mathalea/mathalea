@@ -1,11 +1,13 @@
-import Exercice from '../../Exercice.js'
+import { afficheMesureAngle, codageSegments } from '../../../modules/2d/codages.js'
+import { point } from '../../../modules/2d/point.js'
+import { polygoneAvecNom } from '../../../modules/2d/polygone.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, choice, calcul, creerNomDePolygone, texNombrec } from '../../../modules/outils.js'
-import {
-  // eslint-disable-next-line no-unused-vars
-  point, afficheMesureAngle, codageSegments, longueur, polygoneAvecNom
-} from '../../../modules/2d.js'
 import { degTan } from '../../../modules/fonctionsMaths.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { creerNomDePolygone } from '../../../modules/outils/strings.js'
+import { calcul, texNombrec } from '../../../modules/outils/texNombres.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Calculer un angle dans un triangle isocèle'
 export const interactifReady = true
 export const interactifType = 'mathLive'

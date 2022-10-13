@@ -1,4 +1,7 @@
-import { randint, texNombre, texteEnCouleur, arrondi } from '../../../modules/outils.js'
+import { texteEnCouleur } from '../../../modules/outils/contextSensitif.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { arrondi } from '../../../modules/outils/nombres.js'
+import { texNombre } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Soustraire deux décimaux*'
 export const interactifReady = true

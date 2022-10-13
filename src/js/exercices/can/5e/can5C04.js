@@ -1,4 +1,6 @@
-import { calcul, randint, texteEnCouleur, texNombrec } from '../../../modules/outils.js'
+import { texteEnCouleur } from '../../../modules/outils/contextSensitif.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { calcul, texNombrec } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer avec triple et moitié'
 export const interactifReady = true

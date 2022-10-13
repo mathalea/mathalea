@@ -1,6 +1,10 @@
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import { choice, listeQuestionsToContenu, sp, texNombrec, texFractionReduite } from '../../../modules/outils.js'
+import { texFractionReduite } from '../../../modules/outils/arrayFractions.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { sp } from '../../../modules/outils/contextSensitif.js'
+import { listeQuestionsToContenu } from '../../../modules/outils/miseEnForme.js'
+import { texNombrec } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Convertir des fractions d’heures en minutes et inversement'
 export const interactifReady = true

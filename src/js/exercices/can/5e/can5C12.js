@@ -1,5 +1,7 @@
-import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
-import { calcul, choice, texteEnCouleur } from '../../../modules/outils.js'
+import { obtenirListeFractionsIrreductibles } from '../../../modules/outils/arrayFractions.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { texteEnCouleur } from '../../../modules/outils/contextSensitif.js'
+import { calcul } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer la fraction d’entier'
 export const interactifReady = true

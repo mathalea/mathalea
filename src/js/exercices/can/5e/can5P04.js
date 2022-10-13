@@ -1,5 +1,8 @@
+import { choice } from '../../../modules/outils/arrays.js'
+import { texteEnCouleur } from '../../../modules/outils/contextSensitif.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { calcul, texNombrec } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
-import { randint, calcul, choice, texNombrec, texteEnCouleur } from '../../../modules/outils.js'
 export const titre = 'Calculer avec une proportion'
 export const interactifReady = true
 export const interactifType = 'mathLive'

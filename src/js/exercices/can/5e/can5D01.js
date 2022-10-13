@@ -1,6 +1,11 @@
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import { calcul, choice, listeQuestionsToContenu, randint, sp, texNombrec, texFractionReduite } from '../../../modules/outils.js'
+import { texFractionReduite } from '../../../modules/outils/arrayFractions.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { sp } from '../../../modules/outils/contextSensitif.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../../modules/outils/miseEnForme.js'
+import { calcul, texNombrec } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Convertir des heures décimales en heures/minutes et inversement'
 export const interactifReady = true

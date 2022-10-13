@@ -1,5 +1,7 @@
 import { fraction } from '../../../modules/fractions.js'
-import { calcul, choice, randint, texNombre, texNombrec } from '../../../modules/outils.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { calcul, texNombre, texNombrec } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Convertir une fraction ou une somme vers un décimal'
 export const interactifReady = true

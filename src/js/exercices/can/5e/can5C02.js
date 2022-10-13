@@ -1,4 +1,6 @@
-import { calcul, randint, texteEnCouleur } from '../../../modules/outils.js'
+import { texteEnCouleur } from '../../../modules/outils/contextSensitif.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { calcul } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une somme d’entiers'
 export const interactifReady = true
