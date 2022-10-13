@@ -1,11 +1,9 @@
 import CalculDeVolumes from '../6e/6M30.js'
-
 export const titre = 'Calculs de volumes'
-export { interactifReady, interactifType } from '../6e/6M30.js'
-export { amcReady, amcType } from '../6e/6M30.js'
+export { interactifReady, interactifType, amcReady, amcType } from '../6e/6M30.js'
 
 /**
- * @author Jean-claude Lhote
+ * @author Jean-Claude Lhote
  */
 export const uuid = 'e26ca'
 export const ref = '5M20'
