@@ -1,5 +1,8 @@
+import { sp } from '../../../modules/outils/contextSensitif.js'
+import { ecritureParentheseSiNegatif } from '../../../modules/outils/ecritures.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { reduireAxPlusB } from '../../../modules/outils/reductions.js'
 import Exercice from '../../Exercice.js'
-import { randint, reduireAxPlusB, ecritureParentheseSiNegatif, sp } from '../../../modules/outils.js'
 export const titre = 'Utiliser la proportionnalité sur une expression algébrique'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,9 +1,14 @@
-import Exercice from '../../Exercice.js'
+import { milieu } from '../../../modules/2d/barycentre.js'
+import { point } from '../../../modules/2d/point.js'
+import { polygoneAvecNom } from '../../../modules/2d/polygone.js'
+import { segment } from '../../../modules/2d/segment.js'
+import { texteParPosition } from '../../../modules/2d/textes.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, choice, texNombrec, creerNomDePolygone } from '../../../modules/outils.js'
-import {
-  point, segment, milieu, polygoneAvecNom, texteParPosition
-} from '../../../modules/2d.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { creerNomDePolygone } from '../../../modules/outils/strings.js'
+import { texNombrec } from '../../../modules/outils/texNombres.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Rechercher une valeur avec le théorème de Pythagore'
 export const interactifReady = true
 export const interactifType = 'mathLive'

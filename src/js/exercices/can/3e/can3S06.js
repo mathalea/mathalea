@@ -1,5 +1,7 @@
+import { texFractionReduite } from '../../../modules/outils/arrayFractions.js'
+import { sp } from '../../../modules/outils/contextSensitif.js'
+import { randint } from '../../../modules/outils/entiers.js'
 import Exercice from '../../Exercice.js'
-import { randint, texFractionReduite, sp } from '../../../modules/outils.js'
 export const titre = 'Déterminer le rang d’une médiane'
 export const interactifReady = true
 export const interactifType = 'mathLive'

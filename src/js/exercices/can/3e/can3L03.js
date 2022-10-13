@@ -1,4 +1,5 @@
-import { ecritureAlgebrique, randint } from '../../../modules/outils.js'
+import { ecritureAlgebrique } from '../../../modules/outils/ecritures.js'
+import { randint } from '../../../modules/outils/entiers.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Résoudre une équation du type ax+b=c'
 export const interactifReady = true

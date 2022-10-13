@@ -1,5 +1,8 @@
+import { simplificationDeFractionAvecEtapes, texFraction, texFractionReduite } from '../../../modules/outils/arrayFractions.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { texNombrec } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, texFractionReduite, texNombrec, texFraction, simplificationDeFractionAvecEtapes } from '../../../modules/outils.js'
 export const titre = 'Calculer une probabilités*'
 export const interactifReady = true
 export const interactifType = 'mathLive'

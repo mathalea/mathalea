@@ -1,4 +1,6 @@
-import { ecritureAlgebrique, randint, texFraction } from '../../../modules/outils.js'
+import { texFraction } from '../../../modules/outils/arrayFractions.js'
+import { ecritureAlgebrique } from '../../../modules/outils/ecritures.js'
+import { randint } from '../../../modules/outils/entiers.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Résoudre une équation du type ax+b=0'
 export const interactifReady = true

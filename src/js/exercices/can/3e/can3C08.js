@@ -1,5 +1,9 @@
+import { choice } from '../../../modules/outils/arrays.js'
+import { texteEnCouleur } from '../../../modules/outils/contextSensitif.js'
+import { ecritureParentheseSiNegatif } from '../../../modules/outils/ecritures.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { calcul, texNombrec } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, texNombrec, texteEnCouleur, calcul, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
 export const titre = 'Calculer avec un programme de calcul'
 export const interactifReady = true
 export const interactifType = 'mathLive'

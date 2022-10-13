@@ -1,9 +1,14 @@
-import Exercice from '../../Exercice.js'
+import { afficheLongueurSegment, codageAngleDroit } from '../../../modules/2d/codages.js'
+import { point } from '../../../modules/2d/point.js'
+import { pointAdistance } from '../../../modules/2d/pointSur.js'
+import { polygoneAvecNom } from '../../../modules/2d/polygone.js'
+import { segment } from '../../../modules/2d/segment.js'
+import { rotation, similitude } from '../../../modules/2d/transformations.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { choice, creerNomDePolygone, randint } from '../../../modules/outils.js'
-import {
-  point, segment, polygoneAvecNom, codageAngleDroit, rotation, afficheLongueurSegment, pointAdistance, similitude
-} from '../../../modules/2d.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { creerNomDePolygone } from '../../../modules/outils/strings.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Utiliser la trigonométrie'
 export const interactifReady = true
 export const interactifType = 'mathLive'

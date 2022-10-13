@@ -1,7 +1,7 @@
-import { texteParPosition } from '../../../modules/2d.js'
+import { texteParPosition } from '../../../modules/2d/textes.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import Pyramide from '../../../modules/pyramide.js'
 import Exercice from '../../Exercice.js'
-import { mathalea2d } from '../../../modules/2dGeneralites.js'
 export const titre = 'Pyramide additive fractions'
 export const interactifReady = true
 export const interactifType = 'mathLive'

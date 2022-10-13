@@ -1,6 +1,8 @@
-import { fraction } from '../../../modules/fractions.js'
-import { obtenirListeFractionsIrreductibles, choice, texFraction, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { obtenirListeFractionsIrreductibles, texFraction } from '../../../modules/outils/arrayFractions.js'
+import { fraction } from '../../../modules/fractions.js'
 export const titre = 'Calculer une somme entre fraction et entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'

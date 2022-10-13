@@ -1,5 +1,9 @@
+import { sp } from '../../../modules/outils/contextSensitif.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { prenom } from '../../../modules/outils/objetsPersonnes.js'
+import { listeDeNotes } from '../../../modules/outils/statistiques.js'
+import { texNombre } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
-import { randint, prenom, texNombre, listeDeNotes, sp } from '../../../modules/outils.js'
 export const titre = 'Calculer une étendue'
 export const interactifReady = true
 export const interactifType = 'mathLive'

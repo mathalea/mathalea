@@ -1,5 +1,6 @@
+import { texFraction, texFractionReduite } from '../../../modules/outils/arrayFractions.js'
+import { choice } from '../../../modules/outils/arrays.js'
 import Exercice from '../../Exercice.js'
-import { choice, texFractionReduite, texFraction } from '../../../modules/outils.js'
 export const titre = 'Calculer la probabilité d’ un évènement contraire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
