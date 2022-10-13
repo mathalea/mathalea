@@ -1,6 +1,6 @@
 import { context } from '../../../modules/context.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
-import { pgcd, randint } from '../../../modules/outils.js'
+import FractionX from '../../../modules/FractionEtendue.js'
+import { pgcd, randint } from '../../../modules/outils/entiers.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Trouver la fraction (définition)'
 export const interactifReady = true
@@ -30,7 +30,7 @@ export default function FractionCommeFacteurManquant () {
       a = randint(2, 25)
       b = randint(2, 25, a)
     } while (pgcd(a, b) !== 1)
-    const c = new FractionEtendue(a, b)
+    const c = new FractionX(a, b)
     this.reponse = c
     this.question = `Quel est le nombre qui, multiplié par $${b}$ donne $${a}$ ?`
     this.correction = `Le nombre qui, multiplié par $a$ donne $b$ est le nombre $\\dfrac{b}{a}$.<br>

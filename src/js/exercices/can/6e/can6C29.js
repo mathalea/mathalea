@@ -1,5 +1,7 @@
+import { choice } from '../../../modules/outils/arrays.js'
+import { texteEnCouleur } from '../../../modules/outils/contextSensitif.js'
+import { randint } from '../../../modules/outils/entiers.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, texteEnCouleur } from '../../../modules/outils.js'
 export const titre = 'Résoudre un problème de partage'
 export const interactifReady = true
 export const interactifType = 'mathLive'

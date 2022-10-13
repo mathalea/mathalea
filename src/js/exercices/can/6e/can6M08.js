@@ -1,6 +1,10 @@
 import { context } from '../../../modules/context.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
-import { choice, texteExposant, listeQuestionsToContenu, randint, texNombrec } from '../../../modules/outils.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { texteExposant } from '../../../modules/outils/ecritures.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../../modules/outils/miseEnForme.js'
+import { texNombrec } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Comparer des aires (V/F)'
 export const interactifReady = true

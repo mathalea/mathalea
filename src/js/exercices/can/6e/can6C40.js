@@ -1,6 +1,8 @@
 
-import { texNombre, randint, choice } from '../../../modules/outils.js'
 import Decimal from 'decimal.js/decimal.mjs'
+import { choice } from '../../../modules/outils/arrays.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { texNombre } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer la moitié d’un nombre décimal'
 export const interactifReady = true

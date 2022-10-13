@@ -1,6 +1,9 @@
-import Exercice from '../../Exercice.js'
 import Decimal from 'decimal.js/decimal.mjs'
-import { randint, choice, texNombre, prenomF, prenomM } from '../../../modules/outils.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { prenomF, prenomM } from '../../../modules/outils/objetsPersonnes.js'
+import { texNombre } from '../../../modules/outils/texNombres.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Résoudre un problème de partage*'
 export const interactifReady = true
 export const interactifType = 'mathLive'

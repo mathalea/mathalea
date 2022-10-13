@@ -1,4 +1,6 @@
-import { prenomM, randint, texteEnCouleur } from '../../../modules/outils.js'
+import { texteEnCouleur } from '../../../modules/outils/contextSensitif.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { prenomM } from '../../../modules/outils/objetsPersonnes.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une durée en minutes'
 export const interactifReady = true

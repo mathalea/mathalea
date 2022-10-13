@@ -1,4 +1,5 @@
-import { calcul, randint } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { calcul } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Convertir des Heures/minutes en minutes'
 export const interactifReady = true

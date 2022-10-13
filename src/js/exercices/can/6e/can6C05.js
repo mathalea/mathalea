@@ -1,4 +1,7 @@
-import { calcul, choice, randint, texNombre, texNombrec, texteEnCouleur } from '../../../modules/outils.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { texteEnCouleur } from '../../../modules/outils/contextSensitif.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { calcul, texNombre, texNombrec } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Multiplier astucieusement'
 export const interactifReady = true

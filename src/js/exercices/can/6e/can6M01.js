@@ -1,6 +1,8 @@
 import { context } from '../../../modules/context.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
-import { listeQuestionsToContenu, randint, texteEnCouleur } from '../../../modules/outils.js'
+import { texteEnCouleur } from '../../../modules/outils/contextSensitif.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../../modules/outils/miseEnForme.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Comparer des périmètres (V/F)'
 export const interactifReady = true

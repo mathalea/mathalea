@@ -1,9 +1,11 @@
-import { droiteGraduee, texteParPosition } from '../../../modules/2d.js'
-import { context } from '../../../modules/context.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
-import { pgcd, randint, texFractionReduite } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import { droiteGraduee } from '../../../modules/2d/reperes.js'
+import { texteParPosition } from '../../../modules/2d/textes.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
+import { context } from '../../../modules/context.js'
+import FractionX from '../../../modules/FractionEtendue.js'
+import { texFractionReduite } from '../../../modules/outils/arrayFractions.js'
+import { pgcd, randint } from '../../../modules/outils/entiers.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Lire une abscisse sur une droite graduée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -32,7 +34,7 @@ export default function AbscisseFractionnaire () {
     do {
       b = randint(2, a * 4 - 1) // numérateur
     } while (b % a === 0)
-    const c = new FractionEtendue(b, a)
+    const c = new FractionX(b, a)
     this.reponse = c
     this.question = `Determiner l'abscisse du point $A$.<br>
     

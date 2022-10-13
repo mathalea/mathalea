@@ -1,7 +1,9 @@
-import { droiteGraduee, texteParPosition } from '../../../modules/2d.js'
-import { calcul, choice, texNombre } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import { droiteGraduee } from '../../../modules/2d/reperes.js'
+import { texteParPosition } from '../../../modules/2d/textes.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { calcul, texNombre } from '../../../modules/outils/texNombres.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Lire l\'abscisse décimale d\'un point sur une droite graduée'
 export const interactifReady = true
 export const interactifType = 'mathLive'

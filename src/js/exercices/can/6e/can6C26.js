@@ -1,5 +1,9 @@
+import { texFraction } from '../../../modules/outils/arrayFractions.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { arrondi } from '../../../modules/outils/nombres.js'
+import { texNombre, texNombrec } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
-import { randint, choice, texNombrec, texNombre, texFraction, arrondi } from '../../../modules/outils.js'
 export const titre = 'Multiplier ou diviser par 10, 100,  1000 ou 0,1 ou 0,01'
 export const interactifReady = true
 export const interactifType = 'mathLive'

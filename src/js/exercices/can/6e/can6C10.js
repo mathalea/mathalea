@@ -1,4 +1,4 @@
-import { randint } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Connaître les tables de multiplication (de 5 à 9)'
 export const interactifReady = true

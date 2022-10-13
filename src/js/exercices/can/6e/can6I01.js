@@ -1,11 +1,19 @@
-/* eslint-disable camelcase */
-import Exercice from '../../Exercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
-import { context } from '../../../modules/context.js'
-import { randint, choice, texteGras, modalUrl, modalPdf, contraindreValeur, listeQuestionsToContenu, stringNombre } from '../../../modules/outils.js'
-import { scratchblock, point, texteParPositionEchelle, tracePoint } from '../../../modules/2d.js'
-import { noteLaCouleur, plateau2dNLC } from '../../../modules/noteLaCouleur.js'
+import { point } from '../../../modules/2d/point.js'
+import { scratchblock } from '../../../modules/2d/scratchblock.js'
+import { texteParPositionEchelle } from '../../../modules/2d/textes.js'
+import { tracePoint } from '../../../modules/2d/tracePoint.js'
+import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites.js'
 import { allerA, angleScratchTo2d, attendre, baisseCrayon, clone, creerLutin, orienter } from '../../../modules/2dLutin.js'
+import { context } from '../../../modules/context.js'
+import { noteLaCouleur, plateau2dNLC } from '../../../modules/noteLaCouleur.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { contraindreValeur } from '../../../modules/outils/comparateurs.js'
+import { texteGras } from '../../../modules/outils/contextSensitif.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { listeQuestionsToContenu } from '../../../modules/outils/miseEnForme.js'
+import { modalPdf, modalUrl } from '../../../modules/outils/modaux.js'
+import { stringNombre } from '../../../modules/outils/stringNombre.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Noter la couleur (scratch)'
 
 /**
@@ -52,7 +60,7 @@ export default function CanNoteLaCouleur6 () {
     let j, test
     let objetsEnonce = []; let objetsCorrection = []
     const paramsCorrection = { xmin: -1, ymin: -1, xmax: 16, ymax: 13, pixelsParCm: 20, scale: echelleDessin }
-    let commandes_disponibles; const sequences_disponibles = []; let sequence; let result; let nb_couleurs; let instruction; let couleurs; let liste_instructions
+    let commandesDisponibles; const sequencesDisponibles = []; let sequence; let result; let nbCouleurs; let instruction; let couleurs; let listeInstructions
 
     let lutin, lutindepart
     let angledepart
@@ -70,20 +78,20 @@ export default function CanNoteLaCouleur6 () {
       let texte = ''
       let texteCorr = ''
       let compteur = 0
-      let retour_a_la_case_depart
-      let compteur_essais_sequence
-      commandes_disponibles = [['AV20', 'AV40'], ['TD90', 'TG90']]
+      let retourALaCaseDepart
+      let compteurEssaisSequence
+      commandesDisponibles = [['AV20', 'AV40'], ['TD90', 'TG90']]
       for (let m = 0; m < 2; m++) {
         for (let n = 0, ins1, ins2, ins3, ins4; n < 2; n++) {
-          ins1 = commandes_disponibles[0][m]
-          ins2 = commandes_disponibles[1][n]
-          ins3 = commandes_disponibles[0][1 - m]
-          ins4 = commandes_disponibles[1][1 - n]
-          sequences_disponibles.push([ins1, ins2, ins3, 'NLC'], [ins3, ins2, ins1, 'NLC'], [ins1, ins4, ins3, 'NLC'], [ins3, ins4, ins1, 'NLC'])
+          ins1 = commandesDisponibles[0][m]
+          ins2 = commandesDisponibles[1][n]
+          ins3 = commandesDisponibles[0][1 - m]
+          ins4 = commandesDisponibles[1][1 - n]
+          sequencesDisponibles.push([ins1, ins2, ins3, 'NLC'], [ins3, ins2, ins1, 'NLC'], [ins1, ins4, ins3, 'NLC'], [ins3, ins4, ins1, 'NLC'])
         }
       }
-      retour_a_la_case_depart = true
-      while (retour_a_la_case_depart) {
+      retourALaCaseDepart = true
+      while (retourALaCaseDepart) {
         objetsEnonce.length = 1
         lutin = creerLutin()
         angledepart = choice([90, 0, -90, 180])
@@ -105,29 +113,29 @@ export default function CanNoteLaCouleur6 () {
         if (compteur > 5) break
         pion.codeScratch = ''
         couleurs = []
-        nb_couleurs = parseInt(this.sup3)
-        liste_instructions = []
+        nbCouleurs = parseInt(this.sup3)
+        listeInstructions = []
         j = 0
-        compteur_essais_sequence = 0
+        compteurEssaisSequence = 0
         pion.codeScratch = '\\begin{scratch}[print,fill,blocks,scale=0.7]\n \\blockinit{quand \\greenflag est cliqué}\n '
         pion.codeScratch += `\\blockmove{aller à x: \\ovalnum{${xdepart}} y: \\ovalnum{${ydepart}}}\n \\blockmove{s'orienter à \\ovalnum{${angledepart}}}\n`
         pion.currentIndex += pion.codeScratch.length
-        while (nb_couleurs > j && compteur_essais_sequence < 10) {
-          compteur_essais_sequence = 0
-          sequence = choice(sequences_disponibles)
+        while (nbCouleurs > j && compteurEssaisSequence < 10) {
+          compteurEssaisSequence = 0
+          sequence = choice(sequencesDisponibles)
           test = pion.testSequence(sequence)
-          while (!test[0] && compteur_essais_sequence < 10) {
-            compteur_essais_sequence++
-            sequence = choice(sequences_disponibles)
+          while (!test[0] && compteurEssaisSequence < 10) {
+            compteurEssaisSequence++
+            sequence = choice(sequencesDisponibles)
             test = pion.testSequence(sequence)
           }
-          if (compteur_essais_sequence < 10) {
-            retour_a_la_case_depart = false
+          if (compteurEssaisSequence < 10) {
+            retourALaCaseDepart = false
             for (let i = 0; i < sequence.length; i++) {
               instruction = sequence[i]
               result = pion.testInstruction(instruction, lutin)
               if (instruction === 'NLC') {
-                liste_instructions.push(instruction)
+                listeInstructions.push(instruction)
                 couleurs.push(pion.nlc())
                 j++
                 pion.codeScratch += result[4] + '\n'
@@ -135,7 +143,7 @@ export default function CanNoteLaCouleur6 () {
                 lutin = result[5]
                 attendre(5, lutin)
               } else {
-                liste_instructions.push(instruction)
+                listeInstructions.push(instruction)
                 pion.currentPos.x = result[1]
                 pion.currentPos.y = result[2]
                 pion.currentOrientation = result[3]

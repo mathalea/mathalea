@@ -1,7 +1,7 @@
-import { pave } from '../../../modules/2d.js'
-import { randint } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import { pave } from '../../../modules/2d/pave.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Volume de pavé droit'
 export const interactifReady = true
 export const interactifType = 'mathLive'

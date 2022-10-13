@@ -1,4 +1,7 @@
-import { calcul, choice, randint, texNombre, texteEnCouleur } from '../../../modules/outils.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { texteEnCouleur } from '../../../modules/outils/contextSensitif.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { calcul, texNombre } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Appliquer un pourcentage'
 export const interactifReady = true

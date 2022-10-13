@@ -1,4 +1,6 @@
-import { calcul, choice, randint, texPrix } from '../../../modules/outils.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { calcul, texPrix } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Utiliser une proportionnalité*'
 export const interactifReady = true

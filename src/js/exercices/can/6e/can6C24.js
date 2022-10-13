@@ -1,4 +1,7 @@
-import { calcul, choice, randint, texNombre, texteEnCouleur } from '../../../modules/outils.js'
+import { choice } from '../../../modules/outils/arrays.js'
+import { texteEnCouleur } from '../../../modules/outils/contextSensitif.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { calcul, texNombre } from '../../../modules/outils/texNombres.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Multiplier par 0,1 ou 0,01 ou 0,001'
 export const interactifReady = true

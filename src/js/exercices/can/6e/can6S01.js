@@ -1,7 +1,8 @@
-import { repere, traceBarreHorizontale } from '../../../modules/2d.js'
-import { prenom, randint } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import { repere } from '../../../modules/2d/reperes.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
+import { randint } from '../../../modules/outils/entiers.js'
+import { prenom } from '../../../modules/outils/objetsPersonnes.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Lire un diagramme en barres'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,4 +1,4 @@
-import { randint } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils/entiers.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Recomposer un entier*'
 export const interactifReady = true
