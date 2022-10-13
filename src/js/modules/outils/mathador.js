@@ -1,3 +1,5 @@
+/** @module mathador */
+
 import { shuffle, choice } from './arrays'
 
 /**

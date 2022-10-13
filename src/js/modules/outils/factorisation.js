@@ -1,3 +1,5 @@
+/** @module factorisation */
+
 /**
  * Donne la liste des facteurs premiers d'un nombre
  * @param {Entier} n - Nombre à décomposer

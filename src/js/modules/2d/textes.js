@@ -1,3 +1,4 @@
+/** @module textes (2d) */
 
 /*
 

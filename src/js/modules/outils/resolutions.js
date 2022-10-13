@@ -1,3 +1,5 @@
+/** @module résolution de systèmes */
+
 import { fraction } from '../fractions'
 import { egal } from './comparateurs'
 import { randint } from './entiers'

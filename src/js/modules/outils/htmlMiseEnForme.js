@@ -1,3 +1,5 @@
+/** @module mise en forme HTML */
+
 import { context } from '../context'
 import { dataTaille } from './taille'
 import { texEnumerate } from './texMiseEnForme'

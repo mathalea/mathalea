@@ -1,7 +1,14 @@
+/** @module nombre en lettres */
+
 import Decimal from 'decimal.js/decimal.mjs'
 import { estentier } from './comparateurs'
 import { nombreDeChiffresDansLaPartieEntiere } from './decimales'
-
+/**
+ *
+ * @param {number} nb nombre à traduire
+ * @param {number} type avec le mot virgule ou sans
+ * @returns {string}
+ */
 export function nombreEnLettres (nb, type = 1) {
   let partieEntiere, partieDecimale, nbstring, nbDec, decstring
   if (estentier(nb)) return partieEntiereEnLettres(nb)

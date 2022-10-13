@@ -1,3 +1,5 @@
+/** @module pavé */
+
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%% 3D EN PERSPECTIVE CAVALIERES %%%%%
@@ -18,7 +20,7 @@ import { vecteur } from './vecteur'
  * @param {int} Longueur
  * @param {int} largeur
  * @param {int} profondeur
- *
+ * @author Jean-Claude Lhote
  */
 function Pave (L = 10, l = 5, h = 5, origine = point(0, 0), cote = true, angleDeFuite = 30, coefficientDeFuite = 0.5) {
   ObjetMathalea2D.call(this, { })

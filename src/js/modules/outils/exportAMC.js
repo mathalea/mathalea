@@ -1,3 +1,5 @@
+/** @module export AutoMultipleChoice */
+
 /**
  *
  * @param {array} thisAmc tableau this.amc d'un exercice : [référence de l'exercice,this.autoCorrection de l'exercice,titre de l'exercice, type de question AMC,{options ?}]

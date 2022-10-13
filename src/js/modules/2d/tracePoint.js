@@ -1,3 +1,5 @@
+/** @module tracePoint */
+
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../2dGeneralites'
 import { context } from '../context'
 import { milieu } from './barycentre'

@@ -4,6 +4,7 @@ Cette documentation technique est générée automatiquement à partir des comme
 
 Il y en a d'autres similaires :
 * [mathalea2D](2d/)
+* [2d](JC/2d/)
 * [mathaleaInstrumenpoche](instrumenpoche/)
 * [tout](tout/) La doc complète. À priori pour les développeurs du moteur, mais si vous avez besoin d'une fonction particulière lorsque vous créez un exercice, vous pouvez y jeter un oeil pour voir si quelqu'un d'autre ne l'a pas déjà créé.
 

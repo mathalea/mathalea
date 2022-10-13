@@ -1,3 +1,5 @@
+/** @module décimales */
+
 /**
 * Renvoie le nombre de chiffres de la partie décimale
 * @param nb : nombre décimal

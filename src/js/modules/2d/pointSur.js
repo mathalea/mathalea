@@ -1,3 +1,5 @@
+/** @module point sur */
+
 import { radians } from '../fonctionsMaths'
 import { egal, randint } from '../outils'
 import { longueur } from './calculs'
@@ -79,7 +81,8 @@ export function pointIntersectionDD (d, f, nom = '', positionLabel = 'above') {
   return point(x, y, nom, positionLabel)
 }
 /**
-   * @example pointAdistance(A,d,angle,nom="",positionLabel="above") // Seuls le point A et la distance d sont obligatoires, angle peut être choisi : il s'agit de l'angle signé avec l'axe [OI) sinon, il est choisi aléatoirement.
+   * @example pointAdistance(A,d,angle,nom="",positionLabel="above") // Seuls le point A et la distance d sont obligatoires,
+   *  angle peut être choisi : il s'agit de l'angle signé avec l'axe [OI) sinon, il est choisi aléatoirement.
    * @example p=pointAdistance(A,5,'M') // Place un point aléatoirement à 5 unités de A et lui donne le nom de 'M'.
    * @author Jean-Claude Lhote
    */

@@ -1,3 +1,5 @@
+/** @module lettres */
+
 import { choisitNombresEntreMetN, quotientier } from './entiers'
 
 /**

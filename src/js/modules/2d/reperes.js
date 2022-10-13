@@ -1,3 +1,4 @@
+/** @module repères et axes */
 
 import { ceil, fraction, Fraction } from 'mathjs'
 import { ObjetMathalea2D } from '../2dGeneralites'

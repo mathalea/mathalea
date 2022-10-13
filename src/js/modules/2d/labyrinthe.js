@@ -1,3 +1,10 @@
+/** @module labyrinthe */
+
+import { combinaisonListesSansChangerOrdre, enleveElement, nombreAvecEspace, randint } from '../outils'
+import { point } from './point'
+import { segment } from './segment'
+import { latexParCoordonnees, texteParPoint, texteParPosition } from './textes'
+
 /**  Crée un ensemble de chemins possibles dans un labyrinthe. Cette fonction est à associer aux méthodes conçues pour.
  * @param {Object} parametres À saisir entre accolades
  * @param {number} [parametres.nbLignes = 3]
@@ -6,12 +13,6 @@
  * Publié le 6/12/2020 (Modifié le 05/10/2022)
  * @class
  */
-
-import { combinaisonListesSansChangerOrdre, enleveElement, nombreAvecEspace, randint } from '../outils'
-import { point } from './point'
-import { segment } from './segment'
-import { latexParCoordonnees, texteParPoint, texteParPosition } from './textes'
-
 // JSDOC Validee par EE Septembre 2022
 function Labyrinthe ({ nbLignes = 3, nbColonnes = 6 } = {}) {
   // Fonction qui permet de copier des tableaux

@@ -1,3 +1,6 @@
+/** @module scrathblock */
+
+import { context } from '../context'
 /**
  * Traducteur scratch3 (Latex) -> scratchblocks
  * On lui passe une chaine de caractères contenant une série de commande Latex du package Latex Scratch3
@@ -7,9 +10,6 @@
  * https://scratchblocks.github.io
  * @author Jean-Claude Lhote.
  */
-
-import { context } from '../context'
-
 export function scratchblock (stringLatex) {
   const regex1 = /[\\{}]/
   const regex3 = /[[]<>]/

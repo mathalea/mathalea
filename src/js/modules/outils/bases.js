@@ -1,3 +1,5 @@
+/** @module bases de numération */
+
 import Decimal from 'decimal.js/decimal.mjs'
 
 /**

@@ -1,3 +1,5 @@
+/** @module taille diaporama */
+
 import { context } from '../context'
 
 export function dataTailleDiaporama (exercice) {

@@ -1,3 +1,5 @@
+/** @module transformations */
+
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../2dGeneralites'
 import { radians } from '../fonctionsMaths'
 import { egal } from '../outils'

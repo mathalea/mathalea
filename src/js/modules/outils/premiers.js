@@ -1,3 +1,5 @@
+/** @module nombres premiers */
+
 import { isPrime } from 'mathjs'
 import { egal } from './comparateurs'
 import { obtenirListeFacteursPremiers } from './factorisation'

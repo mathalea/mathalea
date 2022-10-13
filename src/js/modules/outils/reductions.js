@@ -1,3 +1,5 @@
+/** @module réductions algébriques */
+
 import Decimal from 'decimal.js/decimal.mjs'
 import { ecritureAlgebrique } from './ecritures'
 import { stringNombre } from './stringNombre'

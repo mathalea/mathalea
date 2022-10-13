@@ -1,3 +1,5 @@
+/** @module nombres */
+
 import Decimal from 'decimal.js/decimal.mjs'
 import { round } from 'mathjs'
 import { egal } from './comparateurs'

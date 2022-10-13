@@ -1,3 +1,5 @@
+/** @module entiers */
+
 import { estentier } from './comparateurs'
 import Algebrite from 'algebrite'
 import { gcd } from 'mathjs'

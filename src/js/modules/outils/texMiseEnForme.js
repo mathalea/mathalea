@@ -1,3 +1,5 @@
+/** @module mise en forme LaTeX */
+
 import Algebrite from 'algebrite'
 // Fonctions LaTeX
 

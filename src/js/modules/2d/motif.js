@@ -1,3 +1,5 @@
+/** @module motif */
+
 import { context } from '../context'
 
 /**

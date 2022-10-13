@@ -1,3 +1,5 @@
+/** @module nombres relatifs */
+
 import { randint } from './entiers'
 
 /**
