@@ -94,12 +94,12 @@ export default function SignefonctionaffineVariation () {
        Comme $${nom}$ est une fonction ${a > 0 ? 'croissante' : 'décroissante'}, on doit choisir un coefficient directeur 
        $a$ ${a > 0 ? 'positif' : 'négatif'}.<br>
        Prenons ${a > 0 ? '$a=1$' : '$a=-1$'}.<br>
-       $${nom}$ est donc de la forme : $${nom}(x)=${a > 0 ? '' : '-'}x + b$.<br>
-       On cherche $b$ et on sait que : $${nom}(${texNombre(sol, 1)})=0$.<br>
-       On end éduit : $${nom}(x)=${a > 0 ? '' : '-'} \\times ${texNombre(sol, 1)} + b=0$.<br>
+       $${nom}$ est alors de la forme : $${nom}(x)=${a > 0 ? '' : '-'}x + b$.<br>
+       On cherche maintenant $b$ : <br>
+       Comme on sait que : $${nom}(${texNombre(sol, 1)})=0$, on en déduit : $${nom}(x)=${a > 0 ? `${texNombre(sol, 1)}` : `${texNombre(-sol, 1)}`}   + b=0$.<br>
        d'où $b=${texNombre(-sol, 1)}$.<br>
-       On obtient la fonction $${nom}$ définie par $${nom}(x)=${a > 0 ? '' : '-'}x${ecritureAlgebrique(sol)}$.<br>
-       La fonction $${nom}$ définie par $${nom}(x)=${reduireAxPlusB(a, b)}$ est une autre candidate. <br>
+       On obtient la fonction $${nom}$ définie par $${nom}(x)=${a > 0 ? '' : '-'}x${ecritureAlgebrique(-sol)}$.<br>
+       La fonction $${nom}$ définie par $${nom}(x)=${reduireAxPlusB(a * 3, b * 3)}$ est une autre candidate. <br>
        Il existe une infinité de fonctions qui possèdent ces trois propriétés.`
           }
           if (choix === 1) {
@@ -116,8 +116,10 @@ export default function SignefonctionaffineVariation () {
             if (x > sol) {
               texteCorr = ` $${nom}$ est une fonction affine (non constante, puisque $${nom}(${x})\\neq ${nom}(${texNombre(sol, 1)})$), elle 
           est donc soit strictement croissante, soit strictement décroissante.<br>
-         Comme ${a > 0 ? `$${nom}(${sol}) < ${nom}(${x})$` : `$${nom}(${sol}) > ${nom}(${x})$`}, alors $${nom}$ est strictement ${a > 0 ? 'croissante' : 'décroissante'} sur $\\mathbb R$. <br>
-          Les images sont ${a > 0 ? 'd\'abord négatives, puis positives' : 'd\'abord positives, puis négatives'}.<br>
+         On observe que $${sol}<${x}$ et que ${a > 0 ? `$${nom}(${sol}) < ${nom}(${x})$` : `$${nom}(${sol}) > ${nom}(${x})$`}, alors $${nom}$ est strictement ${a > 0 ? 'croissante' : 'décroissante'} sur $\\mathbb R$. <br>
+          Les images et les antécédents sont donc rangés ${a > 0 ? 'dans le même ordre' : 'dans l\'ordre inverse'}.<br>
+          On en déduit que la fonction $${nom}$ est${a > 0 ? 'croissante' : 'décroissante'} sur $\\mathbb R$.<br>
+          Les images sont donc ${a > 0 ? 'd\'abord négatives, puis positives' : 'd\'abord positives, puis négatives'}.<br>
           Sachant que $${nom}$ s'annule en $${texNombre(sol, 1)}$, le changement de signe intervient donc en $x=${texNombre(sol, 1)}$. <br>
           On obtient ainsi le tableau de signes suivant : <br>
            `
