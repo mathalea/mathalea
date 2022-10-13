@@ -95,11 +95,15 @@ export default function SignefonctionaffineVariation () {
        Prenons ${a > 0 ? '$a=1$' : '$a=-1$'}.<br>
        $${nom}$ est alors de la forme : $${nom}(x)=${a > 0 ? '' : '-'}x + b$.<br>
        On cherche maintenant $b$ : <br>
-       Comme on sait que : $${nom}(${texNombre(sol, 1)})=0$, on en déduit : $${nom}(${texNombre(sol, 1)})=${a > 0 ? `${texNombre(sol, 1)}` : `${texNombre(-sol, 1)}`}   + b=0$.<br>
-       d'où $b=${texNombre(-sol, 1)}$.<br>
-       On obtient la fonction $${nom}$ définie par $${nom}(x)=${a > 0 ? '' : '-'}x${ecritureAlgebrique(-sol)}$.<br>
-       La fonction $${nom}$ définie par $${nom}(x)=${reduireAxPlusB(a * 3, b * 3)}$ est une autre candidate. <br>
-       Il existe une infinité de fonctions qui possèdent ces trois propriétés.`
+       Comme on sait que : $${nom}(${texNombre(sol, 1)})=0$, on en déduit :
+        $${nom}(${texNombre(sol, 1)})=${a > 0 ? `${texNombre(sol, 1)}` : `${texNombre(-sol, 1)}`}   + b=0$.<br>
+       d'où $b=${a > 0 ? `${texNombre(-sol, 1)}` : `${texNombre(sol, 1)}`}$.<br>
+       On obtient la fonction $${nom}$ définie par $${nom}(x)=${a > 0 ? '' : '-'}x${a > 0 ? `${ecritureAlgebrique(-sol, 1)}` : `${ecritureAlgebrique(sol, 1)}`}$.<br>
+       En partant d'une autre valeur pour $a$, on aurait obtenu une autre expression pour $${nom}$.<br>
+       Il existe une infinité de fonctions qui possèdent ces trois propriétés. <br>
+       Toutes les fonctions de la forme $${nom}(x)= k\\times\\left( ${a > 0 ? '' : '-'}x${a > 0 ? `${ecritureAlgebrique(-sol, 1)}` : `${ecritureAlgebrique(sol, 1)}`}\\right)$ avec $k$ un réel non-nul est solution de l'exercice.
+       
+       `
           }
           if (choix === 1) {
             nom = choice(nomF)
@@ -201,7 +205,7 @@ export default function SignefonctionaffineVariation () {
           texteCorr = `${numAlpha(0)} D'après le tableau de signes, les images sont  ${a > 0 ? 'd\'abord négatives, puis positives' : 'd\'abord positives, puis négatives'}.<br>
         On en déduit que la fonction $${nom}$ est ${a > 0 ? 'strictement croissante' : 'strictement décroissante'} sur $\\mathbb R$.<br>`
           texteCorr += `${numAlpha(1)} Comme $${nom}$ est une fonction affine ${a > 0 ? 'strictement croissante' : 'strictement décroissante'}, 
-          les nombres et les images sont rangées ${a > 0 ? 'dans le même ordre' : 'dans l\'ordre inverse'}. <br>
+          les antécédents et les images sont rangées ${a > 0 ? 'dans le même ordre' : 'dans l\'ordre inverse'}. <br>
          `
           if (x2 > x1) {
             texteCorr += ` Comme $${x1} < ${x2}$, alors  ${a > 0 ? `$${nom}(${x1}) < ${nom}(${x2})$` : `$${nom}(${x1}) > ${nom}(${x2})$`}
