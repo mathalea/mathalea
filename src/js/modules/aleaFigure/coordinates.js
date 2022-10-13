@@ -1,5 +1,5 @@
 import { round } from 'mathjs'
-import { texNombre2 } from '../../modules/outils/texNombres.js'
+import { texNombre2 } from '../outils/texNombres.js'
 /**
   * @class for coordinates
   */

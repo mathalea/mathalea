@@ -1,12 +1,12 @@
-import { randint } from '../../modules/outils/entiers.js'
-import { point } from '../../modules/2d/point.js'
-import { droite, droiteParPointEtPerpendiculaire } from '../../modules/2d/droites.js'
-import { homothetie, rotation } from '../../modules/2d/transformations.js'
-import { pointAdistance, pointIntersectionDD, pointIntersectionLC, pointSurSegment } from '../../modules/2d/pointSur.js'
-import { longueur } from '../../modules/2d/calculs.js'
-import { nombreAvecEspace } from '../../modules/outils/stringNombre.js'
-import { cercle } from '../../modules/2d/cercle.js'
-import { triangle2points2longueurs } from '../../modules/2d/triangle.js'
+import { randint } from '../outils/entiers.js'
+import { point } from '../2d/point.js'
+import { droite, droiteParPointEtPerpendiculaire } from '../2d/droites.js'
+import { homothetie, rotation } from '../2d/transformations.js'
+import { pointAdistance, pointIntersectionDD, pointIntersectionLC, pointSurSegment } from '../2d/pointSur.js'
+import { longueur } from '../2d/calculs.js'
+import { nombreAvecEspace } from '../outils/stringNombre.js'
+import { cercle } from '../2d/cercle.js'
+import { triangle2points2longueurs } from '../2d/triangle.js'
 
 /**
    * Macro de construction d'un triangle à partir de ses 3 dimensions. Le premier point aura pour coordonnées (6,0).

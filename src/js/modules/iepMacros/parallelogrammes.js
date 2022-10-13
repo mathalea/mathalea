@@ -4,9 +4,9 @@
  ************************************************
  */
 
-import { homothetie, similitude, translation2Points } from '../../modules/2d/transformations.js'
-import { pointAdistance, pointSurSegment } from '../../modules/2d/pointSur.js'
-import { longueur } from '../../modules/2d/calculs.js'
+import { homothetie, similitude, translation2Points } from '../2d/transformations.js'
+import { pointAdistance, pointSurSegment } from '../2d/pointSur.js'
+import { longueur } from '../2d/calculs.js'
 import { droite } from '../2d/droites.js'
 /**
    * Trace un parallélogramme à partir de la donnée de 3 sommets consécutifs

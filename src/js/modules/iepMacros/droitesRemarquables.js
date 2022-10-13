@@ -1,8 +1,8 @@
-import { droite } from '../../modules/2d/droites.js'
-import { projectionOrtho, rotation } from '../../modules/2d/transformations.js'
-import { pointSurSegment } from '../../modules/2d/pointSur.js'
-import { angleOriente, longueur } from '../../modules/2d/calculs.js'
-import { milieu } from '../../modules/2d/barycentre.js'
+import { droite } from '../2d/droites.js'
+import { projectionOrtho, rotation } from '../2d/transformations.js'
+import { pointSurSegment } from '../2d/pointSur.js'
+import { angleOriente, longueur } from '../2d/calculs.js'
+import { milieu } from '../2d/barycentre.js'
 import { centreCercleCirconscrit } from '../2d/triangle.js'
 
 /**

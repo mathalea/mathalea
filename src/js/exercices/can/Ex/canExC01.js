@@ -1,4 +1,4 @@
-import { complex } from 'mathjs'
+import { add, complex } from 'mathjs'
 import { randint } from '../../../modules/outils/entiers.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Somme de nombres complexes'

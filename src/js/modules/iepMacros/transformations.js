@@ -1,9 +1,9 @@
-import { randint } from '../../modules/outils/entiers.js'
-import { homothetie, rotation, symetrieAxiale, translation } from '../../modules/2d/transformations.js'
-import { vecteur } from '../../modules/2d/vecteur.js'
-import { longueur } from '../../modules/2d/calculs.js'
-import { milieu } from '../../modules/2d/barycentre.js'
-import { stringNombre } from '../../modules/outils/stringNombre.js'
+import { randint } from '../outils/entiers.js'
+import { homothetie, rotation, symetrieAxiale, translation } from '../2d/transformations.js'
+import { vecteur } from '../2d/vecteur.js'
+import { longueur } from '../2d/calculs.js'
+import { milieu } from '../2d/barycentre.js'
+import { stringNombre } from '../outils/stringNombre.js'
 
 /**
    *

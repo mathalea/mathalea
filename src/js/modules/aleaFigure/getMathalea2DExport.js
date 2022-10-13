@@ -1,5 +1,5 @@
 import { GVPolygon, GVAngle, GVPoint, GVLine, GVSegment, GVCircle } from './elements.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { mathalea2d } from '../2dGeneralites.js'
 import { polygone } from '../2d/polygone.js'
 import { point } from '../2d/point.js'
 import { segment } from '../2d/segment.js'

@@ -1,6 +1,6 @@
 import { droiteGraduee } from '../../../modules/2d/reperes.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import FractionX from '../../../modules/FractionX.js'
+import FractionX from '../../../modules/FractionEtendue.js'
 import { ajouteChampTexte, setReponse } from '../../../modules/gestionInteractif.js'
 import Grandeur from '../../../modules/Grandeur.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
