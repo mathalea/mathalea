@@ -18,6 +18,7 @@ export default function EncadrementAvecPuissancesDe10 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
@@ -28,7 +29,8 @@ export default function EncadrementAvecPuissancesDe10 () {
 
         a = randint(2, 9) * 10 ** 4 + randint(1, 9) * 10 ** 3 + randint(1, 9) * 10 ** 2 + randint(1, 9) * 10 + randint(1, 9)
         this.question = `L'encadrement de $${texNombrec(a)}$ par  deux puissances de $10$ d'exposants consécutifs est $10^a<${texNombrec(a)}<10^b$.<br>
-  Quelle est la valeur de ${choix} ?
+  
+        Quelle est la valeur de ${choix} ?
   `
         if (choix === '$b$') {
           this.correction = `Comme $10000<${texNombrec(a)}<100000$, alors :<br>
@@ -44,7 +46,8 @@ export default function EncadrementAvecPuissancesDe10 () {
       case 'b':
         a = randint(2, 9) * 10 ** 5 + randint(1, 9) * 10 ** 4 + randint(1, 9) * 10 ** 3 + randint(1, 9) * 10 ** 2 + randint(1, 9) * 10 + randint(1, 9)
         this.question = `L'encadrement de $${texNombrec(a)}$ par  deux puissances de $10$ d'exposants consécutifs est $10^a<${texNombrec(a)}<10^b$.<br>
-      Quelle est la valeur de ${choix} ?
+      
+        Quelle est la valeur de ${choix} ?
       `
         if (choix === '$b$') {
           this.correction = `Comme $100000<${texNombrec(a)}<1000000$, alors :<br>
@@ -60,7 +63,8 @@ export default function EncadrementAvecPuissancesDe10 () {
       case 'c':
         a = randint(2, 9) * 0.001 + randint(1, 9) * 0.01
         this.question = `L'encadrement de $${texNombrec(a)}$ par  deux puissances de $10$ d'exposants consécutifs est $10^a<${texNombrec(a)}<10^b$.<br>
-            Quelle est la valeur de ${choix} ?
+            
+        Quelle est la valeur de ${choix} ?
             `
         if (choix === '$b$') {
           this.correction = `Comme $0,01<${texNombrec(a)}<0,1$, alors :<br>
@@ -75,7 +79,8 @@ export default function EncadrementAvecPuissancesDe10 () {
       case 'd':
         a = randint(2, 9) * 0.001
         this.question = `L'encadrement de $${texNombrec(a)}$ par  deux puissances de $10$ d'exposants consécutifs est $10^a<${texNombrec(a)}<10^b$.<br>
-              Quelle est la valeur de ${choix} ?
+             
+        Quelle est la valeur de ${choix} ?
               `
         if (choix === '$a$') {
           this.correction = `Comme $0,001<${texNombrec(a)}<0,01$, alors :<br>
@@ -91,7 +96,8 @@ export default function EncadrementAvecPuissancesDe10 () {
         a = randint(2, 9) * 0.01 + randint(1, 5) * 0.1
 
         this.question = `L'encadrement de $${texNombrec(a)}$ par  deux puissances de $10$ d'exposants consécutifs est $10^a<${texNombrec(a)}<10^b$.<br>
-                Quelle est la valeur de ${choix} ?
+                
+        Quelle est la valeur de ${choix} ?
                 `
         if (choix === '$a$') {
           this.correction = `Comme $0,1<${texNombrec(a)}<1$, alors :<br>
@@ -104,5 +110,7 @@ export default function EncadrementAvecPuissancesDe10 () {
         }
         break
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

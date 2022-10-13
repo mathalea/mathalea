@@ -30,7 +30,9 @@ export default function SommeEntierEtFractionIrred () {
     const c = maFraction[1]
     const d = fraction(a * c + b, c).simplifie()
     this.reponse = d
-    this.question = `Calculer sous la forme d'une fraction irréductible :  $${a}+${texFraction(b, c)}$`
+    this.question = `Calculer sous la forme d'une fraction irréductible :  $${a}+${texFraction(b, c)}$.`
     this.correction = `$${a}+${texFraction(b, c)} = \\dfrac{${a} \\times ${c}}{${c}} + \\dfrac{${b}}{${c}} = \\dfrac{${a * c}}{${c}} + \\dfrac{${b}}{${c}}  =${d.texFraction}$`
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

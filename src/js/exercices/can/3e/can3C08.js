@@ -20,6 +20,7 @@ export default function ProgrammeCalcul () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   // ${texNombrec(ecritureParenthesesSiNegatif(a / 5 - e))}^2=${texNombrec((a / 5 - e) * (a / 5 - e))}$
@@ -33,6 +34,7 @@ export default function ProgrammeCalcul () {
 
     if (N === 'cinquième') {
       this.question = `Prendre le ${N} de $${a}$, puis soustraire $${e}$ et élever le résultat au carré. <br>
+      
      Quel nombre obtient-on ?`
       this.correction = `$\\bullet$ On prend le ${N} de $${a}$ : $\\dfrac{1}{5}\\times ${a}=${texNombrec(a / 5)}$.
     <br>
@@ -48,6 +50,7 @@ export default function ProgrammeCalcul () {
     }
     if (N === 'quart') {
       this.question = `Prendre le ${N} de $${b}$, puis soustraire $${e}$ et élever le résultat au carré. <br>
+
       Quel nombre obtient-on ?`
       this.correction = `$\\bullet$ On prend le ${N} de $${b}$ : $\\dfrac{1}{4}\\times ${b}=${texNombrec(b / 4)}$.
       <br>
@@ -62,6 +65,7 @@ export default function ProgrammeCalcul () {
     }
     if (N === 'tiers') {
       this.question = `Prendre le ${N} de $${c}$, puis soustraire $${e}$ et élever le résultat au carré. <br>
+
      Quel nombre obtient-on ?`
       this.correction = `$\\bullet$ On prend le ${N} de $${c}$ : $\\dfrac{1}{3}\\times ${c}=${texNombrec(c / 3)}$.
       <br>
@@ -88,5 +92,7 @@ export default function ProgrammeCalcul () {
       `)
       this.reponse = (d / 6 - e) * (d / 6 - e)
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

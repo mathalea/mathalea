@@ -150,6 +150,7 @@ export default function CalculAvecRacineDef () {
           this.correction = `Par définition, le nombre positif dont le carré est $${a}$ est $\\sqrt{${a}}$.<br>`
           this.correction += `${choix ? '' : `Ainsi, le nombre négatif dont le carré est $${a}$ est $-\\sqrt{${a}}$`}.`
         }
+        this.reponse = choix ? [`\\sqrt{${a}}`, Math.sqrt(a)] : [`-\\sqrt{${a}}`, -Math.sqrt(a)]
         break
       case 8 :
         a = randint(1, 12)

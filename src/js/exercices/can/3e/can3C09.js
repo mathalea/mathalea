@@ -29,15 +29,17 @@ export default function CalculAvecRacineCarree1 () {
     d = randint(1, 10)
     while (c === d) { d = randint(1, 10) }
     if (choice([true, false])) {
-      this.question = `$${a}\\sqrt{${c ** 2}}+${b}\\sqrt{${d ** 2}}=$`
+      this.question = `Calculer $${a}\\sqrt{${c ** 2}}+${b}\\sqrt{${d ** 2}}$.`
       this.correction = `$\\sqrt{${c ** 2}}=${c}$ et $\\sqrt{${d ** 2}}=${d}$, ainsi:<br>
        $${a}\\sqrt{${c ** 2}}+${b}\\sqrt{${d ** 2}}=${a}\\times ${c}+${b}\\times ${d}=${a * c + b * d}$`
       this.reponse = a * c + b * d
     } else {
-      this.question = `$${a}\\sqrt{${c ** 2}}-${b}\\sqrt{${d ** 2}}=$`
+      this.question = `Calculer $${a}\\sqrt{${c ** 2}}-${b}\\sqrt{${d ** 2}}$.`
       this.correction = `$\\sqrt{${c ** 2}}=${c}$ et $\\sqrt{${d ** 2}}=${d}$, ainsi:<br>
        $${a}\\sqrt{${c ** 2}}-${b}\\sqrt{${d ** 2}}=${a}\\times ${c}-${b}\\times ${d}=${a * c - b * d}$`
       this.reponse = a * c - b * d
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

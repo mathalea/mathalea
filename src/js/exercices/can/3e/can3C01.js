@@ -22,7 +22,7 @@ export const ref = 'can3C01'
 export default function CalculPuissanceSimple () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     this.listeQuestions = []
@@ -34,12 +34,12 @@ export default function CalculPuissanceSimple () {
       index = randint(0, 3)
       a = bases[index]
       b = randint(20, 50)
-      c = [['Le double', 'La moitié'], ['Le triple', 'Le tiers'], ['Le quintuple', 'Le cinquième'], ['Le septuple', 'Le septième']]
-      switch (choice(['a', 'b', 'c', 'd'])) { // 'b', 'c'
+      c = [['e double', 'a moitié'], ['e triple', 'e tiers'], ['e quintuple', 'e cinquième'], ['e septuple', 'e septième']]
+      switch (choice(['a', 'b', 'c', 'd'])) { //
         case 'a':
-          texte = `${c[index][0]} de  $${a}^{${b}}$ est égal à : ` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte = `Donner l${c[index][0]} de  $${a}^{${b}}$. ` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           setReponse(this, i, [`${a}^{${b + 1}}`], { formatInteractif: 'texte' })
-          texteCorr = `${c[index][0]} de $${a}^{${b}}$ se calcule  par 
+          texteCorr = `L${c[index][0]} de $${a}^{${b}}$ se calcule  par
        : <br>
        $${a}\\times ${a}^{${b}}=${a}^{${b} + 1}=${a}^{${miseEnEvidence(b + 1)}}$`
           if (context.isAmc) {
@@ -49,11 +49,12 @@ export default function CalculPuissanceSimple () {
             this.autoCorrection[i].reponse.param.baseNbChiffres = 1
             this.autoCorrection[i].reponse.param.exposantNbChiffres = 2
           }
+          this.canEnonce = texte
           break
         case 'b':
-          texte = `${c[index][1]} de $${a}^{${b}}$ est égal à : ` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte = `Donner l${c[index][1]} de $${a}^{${b}}$. ` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           setReponse(this, i, [`${a}^{${b - 1}}`], { formatInteractif: 'texte' })
-          texteCorr = `${c[index][1]} de $${a}^{${b}}$ se calcule  par 
+          texteCorr = `L${c[index][1]} de $${a}^{${b}}$ se calcule  par 
       : <br> 
       
       $ ${a}^{${b}}\\div ${a}=\\dfrac{${a}^{${b}}}{${a}}=${a}^{${b} - 1}=${a}^{${miseEnEvidence(b - 1)}}$`
@@ -64,11 +65,12 @@ export default function CalculPuissanceSimple () {
             this.autoCorrection[i].reponse.param.baseNbChiffres = 1
             this.autoCorrection[i].reponse.param.exposantNbChiffres = 2
           }
+          this.canEnonce = texte
           break
         case 'c' :
-          texte = ` $${a ** 2}\\times ${a}^{${b}}=$`
+          texte = `Calculer $${a ** 2}\\times ${a}^{${b}}$ `
           if (!context.isAmc) {
-            texte += `<br>Donner le résultat sous la forme d'une puissance de $${a}$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+            texte += `sous la forme d'une puissance de $${a}$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           }
 
           setReponse(this, i, [`${a}^{${b + 2}}`], { formatInteractif: 'texte' })
@@ -80,11 +82,12 @@ export default function CalculPuissanceSimple () {
             this.autoCorrection[i].reponse.param.baseNbChiffres = 1
             this.autoCorrection[i].reponse.param.exposantNbChiffres = 2
           }
+          this.canEnonce = texte
           break
         case 'd' :
-          texte = ` $${a}^{${b}}\\div ${a ** 2}=$`
+          texte = `Calculer $${a}^{${b}}\\div ${a ** 2}$ `
           if (!context.isAmc) {
-            texte += `<br>Donner le résultat sous la forme d'une puissance de $${a}$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+            texte += `sous la forme d'une puissance de $${a}$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           }
 
           setReponse(this, i, [`${a}^{${b - 2}}`], { formatInteractif: 'texte' })
@@ -97,6 +100,7 @@ export default function CalculPuissanceSimple () {
             this.autoCorrection[i].reponse.param.baseNbChiffres = 1
             this.autoCorrection[i].reponse.param.exposantNbChiffres = 2
           }
+          this.canEnonce = texte
           break
     // this.optionsChampTexte = { texteApres: "(juste l'exposant)" }
       }
@@ -104,5 +108,6 @@ export default function CalculPuissanceSimple () {
       this.listeCorrections.push(texteCorr)
     }
     listeQuestionsToContenu(this)
+    this.canReponseACompleter = ''
   }
 }
