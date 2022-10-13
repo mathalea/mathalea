@@ -636,11 +636,16 @@ export function exportQcmAmc (exercice, idExo) {
                 }
               }
               texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{question}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
+              if (prop.enonce !== undefined) {
+                texQr += prop.enonce + '\n'
+              }
+              /* EE 13/10/1022 : A mon avis, ne sert à rien. Je le laisse car si pb, on saura que c'est peut-être cela la raison.
               if (propositions[0].reponse !== undefined) {
                 if (propositions[0].reponse.texte) {
                   texQr += propositions[0].reponse.texte + '\n'
                 }
               }
+              */
               texQr += `\t\\begin{${horizontalite}}`
               if (ordered) {
                 texQr += '[o]'
