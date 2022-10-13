@@ -91,8 +91,14 @@ export default function SignefonctionaffineVariation () {
         $\\bullet$ être une fonction affine ; <br>
         $\\bullet$ être strictement ${a > 0 ? 'croissante' : 'décroissante'} ;<br>
         $\\bullet$ s'annuler en $${texNombre(sol, 1)}$.<br>
-       En prenant ${a > 0 ? '$a=1$' : '$a=-1$'} (qui assure ${a > 0 ? 'la croissance' : 'la décroissance'}  de la fonction) et $b=${texNombre(-sol, 1)}$, on obtient la 
-       fonction $${nom}$ définie par $${nom}(x)=${a > 0 ? '' : '-'}x${ecritureAlgebrique(sol)}$.<br>
+       Comme $${nom}$ est une fonction ${a > 0 ? 'croissante' : 'décroissante'}, on doit choisir un coefficient directeur 
+       $a$ ${a > 0 ? 'positif' : 'négatif'}.<br>
+       Prenons ${a > 0 ? '$a=1$' : '$a=-1$'}.<br>
+       $${nom}$ est donc de la forme : $${nom}(x)=${a > 0 ? '' : '-'}x + b$.<br>
+       On cherche $b$ et on sait que : $${nom}(${texNombre(sol, 1)})=0$.<br>
+       On end éduit : $${nom}(x)=${a > 0 ? '' : '-'} \\times ${texNombre(sol, 1)} + b=0$.<br>
+       d'où $b=${texNombre(-sol, 1)}$.<br>
+       On obtient la fonction $${nom}$ définie par $${nom}(x)=${a > 0 ? '' : '-'}x${ecritureAlgebrique(sol)}$.<br>
        La fonction $${nom}$ définie par $${nom}(x)=${reduireAxPlusB(a, b)}$ est une autre candidate. <br>
        Il existe une infinité de fonctions qui possèdent ces trois propriétés.`
           }
