@@ -409,16 +409,16 @@ export default function ReconnaitreDesSolides () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireTexte = [
-    'Type de question', [
+    'Type de solides', [
       'Nombres séparés par des tirets',
-      '0 : Mélange',
       '1 : Prisme',
       '2 : Pyramide',
       '3 : Cône',
       '4 : Cylindre',
       '5 : Pavé',
       '6 : Cube',
-      '7 : Sphère'
+      '7 : Sphère',
+      '8 : Mélange'
     ].join('\n')
   ]
   this.besoinFormulaire2CaseACocher = ['QCM']
