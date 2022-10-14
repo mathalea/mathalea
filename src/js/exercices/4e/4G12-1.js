@@ -5,11 +5,11 @@ import { randint } from '../../modules/outils/entiers.js'
 import { choice } from '../../modules/outils/arrays.js'
 import { segment } from '../../modules/2d/segment.js'
 import { point } from '../../modules/2d/point.js'
-import { deuxColonnes, listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { texteParPointEchelle } from '../../modules/2d/textes.js'
 import { droite } from '../../modules/2d/droites.js'
-import { sp, texteEnCouleurEtGras } from '../../modules/outils/contextSensitif.js'
+import { deuxColonnesResp, sp, texteEnCouleurEtGras } from '../../modules/outils/contextSensitif.js'
 import { homothetie, rotation, symetrieAxiale, translation } from '../../modules/2d/transformations.js'
 import { vecteur } from '../../modules/2d/vecteur.js'
 import { tracePoint } from '../../modules/2d/tracePoint.js'
@@ -255,8 +255,8 @@ export default function TrouverLaTransformations () {
       this.listeCorrections.push(texteCorr)
     }
     listeQuestionsToContenu(this)
-    this.contenu = deuxColonnes(this.contenu, mathalea2d(paramsEnonce, objetsEnonce), 50)
-    this.contenuCorrection = deuxColonnes(this.contenuCorrection, mathalea2d(paramsCorrection, objetsCorrection), 50)
+    this.contenu = deuxColonnesResp(this.contenu, mathalea2d(paramsEnonce, objetsEnonce), 50)
+    this.contenuCorrection = deuxColonnesResp(this.contenuCorrection, mathalea2d(paramsCorrection, objetsCorrection), 50)
   }
   this.besoinFormulaireNumerique = ['Types de transformations possibles', 3, '1 : Symétries axiales et centrales\n2 : Symétries et translations\n3 : Symétries, translations et quarts de tour']
 }

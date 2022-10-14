@@ -7,11 +7,11 @@ import { randint } from '../../modules/outils/entiers.js'
 import { choice, rangeMinMax, shuffle, range } from '../../modules/outils/arrays.js'
 import { segment } from '../../modules/2d/segment.js'
 import { point } from '../../modules/2d/point.js'
-import { deuxColonnes, listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { texteParPosition } from '../../modules/2d/textes.js'
-import { sp, texteEnCouleurEtGras } from '../../modules/outils/contextSensitif.js'
+import { deuxColonnesResp, sp, texteEnCouleurEtGras } from '../../modules/outils/contextSensitif.js'
 import { max } from 'mathjs'
 import { polygone } from '../../modules/2d/polygone.js'
 import { jour } from '../../modules/outils/statistiques.js'
@@ -427,7 +427,7 @@ export default function ModelisationProblemes () {
       }
     }
     if (context.isHtml & this.sup3) {
-      this.contenu = deuxColonnes(this.contenu, colonne2, 35)
+      this.contenu = deuxColonnesResp(this.contenu, colonne2, 35)
     } else {
       this.contenu += colonne2
     }

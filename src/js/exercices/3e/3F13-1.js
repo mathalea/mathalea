@@ -4,10 +4,9 @@ import { context } from '../../modules/context.js'
 import { randint } from '../../modules/outils/entiers.js'
 import { repere } from '../../modules/2d/reperes.js'
 import { graphiqueInterpole } from '../../modules/2d/courbes.js'
-import { deuxColonnes } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { numAlpha } from '../../modules/outils/contextSensitif.js'
+import { deuxColonnesResp, numAlpha } from '../../modules/outils/contextSensitif.js'
 import { texConsigne } from '../../modules/outils/texMiseEnForme.js'
 export const titre = 'Lecture graphique d\'images et d\'antécédents'
 export const interactifReady = true
@@ -76,7 +75,7 @@ export default function AntecedentEtImageGraphique () {
       cont2 += `<br>${numAlpha(3)} Déterminer le (ou les) antécédent(s) de $${b}$.`
       cont2 += ajouteChampTexteMathLive(this, 3)
     }
-    this.contenu += deuxColonnes(cont1, cont2)
+    this.contenu += deuxColonnesResp(cont1, cont2)
     this.contenu += mathalea2d({ xmin: -7, ymin: -4.5, xmax: 7, ymax: 4.5, pixelsParCm: 30 }, r, gr)
     this.contenuCorrection = (context.isHtml) ? '' : '\n\\exo{}\n\n'
     this.contenuCorrection += `${numAlpha(0)} L'image de $${x0}$ est $${a}$, on note $f(${x0})=${a}$.`

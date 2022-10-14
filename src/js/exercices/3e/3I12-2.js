@@ -4,7 +4,7 @@ import { combinaisonListes } from '../../modules/outils/listes.js'
 import { randint } from '../../modules/outils/entiers.js'
 import { choice, compteOccurences, rangeMinMax } from '../../modules/outils/arrays.js'
 import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
-import { numAlpha, texteEnCouleurEtGras } from '../../modules/outils/contextSensitif.js'
+import { deuxColonnesResp, numAlpha, texteEnCouleurEtGras } from '../../modules/outils/contextSensitif.js'
 import { min } from 'mathjs'
 import { lampeMessage } from '../../modules/outils/messages.js'
 import { lettreDepuisChiffre } from '../../modules/outils/lettres.js'
@@ -208,9 +208,7 @@ export default function ComprendreScriptMultiples () {
       }
       colonne2 += enonceAMC
     }
-    // Multicolonnage abandonné à cause de la non-optimation de la fonction deuxColonnes() (septembre 2022) sur SmartPhone
-    // const texte = deuxColonnes(colonne1, colonne2)
-    const texte = colonne1 + colonne2
+    const texte = deuxColonnesResp(colonne1, colonne2)
 
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)

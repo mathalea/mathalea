@@ -133,39 +133,6 @@ export function listeQuestionsToContenuSansNumeroEtSansConsigne (exercice) {
   // exercice.contenuCorrection = texConsigne(exercice.consigneCorrection) + texMulticols(texEnumerateSansNumero(exercice.listeCorrections,exercice.spacingCorr),exercice.nbColsCorr)
   exercice.contenuCorrection = texMulticols(texParagraphe(exercice.listeCorrections, exercice.spacingCorr), exercice.nbColsCorr)
 }
-
-/**
-   * Renvoie le html ou le latex qui mets les 2 chaines de caractères fournies sur 2 colonnes différentes
-   * @author Rémi Angot
-   * @param {string} cont1 - Contenu de la première colonne
-   * @param {string} cont2 - Contenu de la deuxième colonne
-   * @param {number} [largeur1=50] Largeur de la première colonne
-   * @return {string}
-   */
-export function deuxColonnes (cont1, cont2, largeur1 = 50) {
-  if (context.isHtml) {
-    return `
-      <div>
-      <div class="question" style="float:left;max-width: ${largeur1}%;margin-right: 30px">
-      ${cont1}
-     </div>
-     <div style="float:left; max-width: ${90 - largeur1}%">
-      ${cont2}
-     </div>
-     <div style="clear:both"></div>
-     <div class="ui hidden divider"></div>
-     </div>
-  `
-  } else {
-    return `\\begin{minipage}{${largeur1 / 100}\\linewidth}
-      ${cont1.replaceAll('<br>', '\\\\\n')}
-      \\end{minipage}
-      \\begin{minipage}{${(100 - largeur1) / 100}\\linewidth}
-      ${cont2.replaceAll('<br>', '\\\\\n')}
-      \\end{minipage}
-      `
-  }
-}
 /**
    *
    * @param {string} texte

@@ -5,9 +5,9 @@ import { combinaisonListes } from '../../modules/outils/listes.js'
 import { randint } from '../../modules/outils/entiers.js'
 import { choice } from '../../modules/outils/arrays.js'
 import { point } from '../../modules/2d/point.js'
-import { deuxColonnes, listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
-import { texteGras } from '../../modules/outils/contextSensitif.js'
+import { deuxColonnesResp, texteGras } from '../../modules/outils/contextSensitif.js'
 import { lampeMessage } from '../../modules/outils/messages.js'
 import { lettreMinusculeDepuisChiffre } from '../../modules/outils/lettres.js'
 import { contraindreValeur } from '../../modules/outils/comparateurs.js'
@@ -323,7 +323,7 @@ export default function ScratchMultiScript () {
       }
       texteScratch += '\\end{scratch}'
       let texte = `${(this.interactif || context.isAmc) ? '' : 'Noter la séquence de couleurs produite.<br>'}`
-      texte += deuxColonnes(scratchblock(texteScratch), mathalea2d(Object.assign({}, fixeBordures([lePlateau]), { scale: 0.4, style: 'display: inline' }), lePlateau), 35)
+      texte += deuxColonnesResp(scratchblock(texteScratch), mathalea2d(Object.assign({}, fixeBordures([lePlateau]), { scale: 0.4, style: 'display: inline' }), lePlateau), 35)
 
       let texteCorr = 'On obtient la série de couleurs suivante :<br> '
       texteCorr += `${texteGras(couleurs[i][0])} `
@@ -362,7 +362,7 @@ export default function ScratchMultiScript () {
         }
       } else {
         this.autoCorrection[i] = {}
-        this.autoCorrection[i].enonce = `${deuxColonnes(scratchblock(texteScratch), mathalea2d(Object.assign({}, fixeBordures([lePlateau]), { scale: 0.4, style: 'display: inline' }), lePlateau), 35)}`
+        this.autoCorrection[i].enonce = `${deuxColonnesResp(scratchblock(texteScratch), mathalea2d(Object.assign({}, fixeBordures([lePlateau]), { scale: 0.4, style: 'display: inline' }), lePlateau), 35)}`
         this.autoCorrection[i].propositions = []
         this.autoCorrection[i].propositions.push(
           {

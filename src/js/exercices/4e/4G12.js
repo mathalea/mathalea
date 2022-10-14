@@ -4,12 +4,12 @@ import { context } from '../../modules/context.js'
 import { choice, compteOccurences, enleveElement } from '../../modules/outils/arrays.js'
 import { segment } from '../../modules/2d/segment.js'
 import { point } from '../../modules/2d/point.js'
-import { centrage, deuxColonnes, listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { centrage, listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { texteParPointEchelle } from '../../modules/2d/textes.js'
 import { droite } from '../../modules/2d/droites.js'
-import { miseEnEvidence, sp, texteEnCouleur, texteEnCouleurEtGras } from '../../modules/outils/contextSensitif.js'
+import { deuxColonnesResp, miseEnEvidence, sp, texteEnCouleur, texteEnCouleurEtGras } from '../../modules/outils/contextSensitif.js'
 import { homothetie, rotation, symetrieAxiale, translation } from '../../modules/2d/transformations.js'
 import { vecteur } from '../../modules/2d/vecteur.js'
 import { tracePoint } from '../../modules/2d/tracePoint.js'
@@ -372,8 +372,8 @@ export default function SerieDeTransformations () {
       }
       if (context.isHtml) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur75 inline')
-        texte = deuxColonnes(texte, mathalea2d(paramsEnonce, objetsEnonce), 50)
-        texteCorr = deuxColonnes(texteCorr, mathalea2d(paramsCorrection, objetsCorrection), 50)
+        texte = deuxColonnesResp(texte, mathalea2d(paramsEnonce, objetsEnonce), 50)
+        texteCorr = deuxColonnesResp(texteCorr, mathalea2d(paramsCorrection, objetsCorrection), 50)
       } else {
         texte += '\n' + centrage(mathalea2d(paramsEnonce, objetsEnonce))
         texteCorr += '\n' + centrage(mathalea2d(paramsCorrection, objetsCorrection))
