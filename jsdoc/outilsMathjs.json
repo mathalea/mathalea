@@ -15,7 +15,7 @@
         "idInHeadings": true
     },
     "opts": {
-        "destination": "./documentation/JC/outilsMathjs",
+        "destination": "./documentation/outilsMathjs",
         "recurse": true,
         "private": false,
         "template": "node_modules/docdash"

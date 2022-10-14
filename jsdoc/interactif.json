@@ -15,7 +15,7 @@
         "idInHeadings": true
     },
     "opts": {
-        "destination": "./documentation/JC/interactif",
+        "destination": "./documentation/interactif",
         "recurse": true,
         "private": false,
         "template": "node_modules/docdash"

@@ -21,7 +21,7 @@
         "idInHeadings": true
     },
     "opts": {
-        "destination": "./documentation/JC/curiosites",
+        "destination": "./documentation/curiosites",
         "recurse": true,
         "private": false,
         "template": "node_modules/docdash"

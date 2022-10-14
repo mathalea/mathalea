@@ -15,7 +15,7 @@
         "idInHeadings": true
     },
     "opts": {
-        "destination": "./documentation/JC/fonctionsMaths",
+        "destination": "./documentation/fonctionsMaths",
         "recurse": true,
         "private": false,
         "template": "node_modules/docdash"

@@ -5,7 +5,7 @@
   },
   "source"   : {
     "include": [
-      "./src/js/modules/outils.js",
+      "./src/js/modules/outils",
       "./src/js/modules/fractions.js",
       "./src/js/modules/FractionEtendue.js",
       "./src/js/modules/ListeFraction.js",
@@ -17,7 +17,7 @@
     "idInHeadings": true
   },
   "opts"     : {
-    "destination": "./documentation",
+    "destination": "./documentation/base",
     "recurse"    : true,
     "private"    : false,
     "template": "node_modules/docdash"

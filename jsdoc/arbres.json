@@ -15,7 +15,7 @@
         "idInHeadings": true
     },
     "opts": {
-        "destination": "./documentation/JC/arbres",
+        "destination": "./documentation/arbres",
         "recurse": true,
         "private": false,
         "template": "node_modules/docdash"

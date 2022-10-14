@@ -5,7 +5,7 @@
     },
     "source"   : {
       "include": [
-        "./src/js/modules/2d.js",
+        "./src/js/modules/2d/",
         "./jsdoc/2d.md"
       ]
     },

@@ -15,7 +15,7 @@
         "idInHeadings": true
     },
     "opts": {
-        "destination": "./documentation/JC/2dLutin",
+        "destination": "./documentation/2dLutin",
         "recurse": true,
         "private": false,
         "template": "node_modules/docdash"

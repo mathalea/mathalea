@@ -16,7 +16,7 @@
         "idInHeadings": true
     },
     "opts": {
-        "destination": "./documentation/JC/3d",
+        "destination": "./documentation/3d",
         "recurse": true,
         "private": false,
         "template": "node_modules/docdash"

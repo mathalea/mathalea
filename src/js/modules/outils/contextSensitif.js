@@ -162,11 +162,11 @@ export function miseEnCouleur (texte, couleur = '#f15929') {
  * @author Mickael Guironnet
  * @param {string} cont1 - Contenu de la première colonne
  * @param {string} cont2 - Contenu de la deuxième colonne
- * @param {eleId, largeur1, widthmincol1, widthmincol2} options
- *          eleId : identifiant ID pour retrouver la colonne
- *          largeur1 : largeur de la première colonne en latex en pourcentage
- *          widthmincol1 : largeur de la première minimum en html en px
- *          widthmincol2 : largeur de la deuxième  minimum en html en px
+ * @param {number | object} options
+ * @param {string} [options.eleId] identifiant ID pour retrouver la colonne
+ * @param {number} [options.largeur1] largeur de la première colonne en latex en pourcentage
+ * @param {number} [options.widthmincol1] largeur de la première minimum en html en px
+ * @param {number} [options.widthmincol2] largeur de la deuxième  minimum en html en px
  *  ex : deuxColonnesResp (enonce, correction, {eleId : '1_1', largeur1:50, widthmincol1: 400px, widthmincol2: 200px})
  * @return {string}
  */
@@ -224,4 +224,13 @@ export function deuxColonnesResp (cont1, cont2, options) {
     \\end{minipage}
     `
   }
+}
+/**
+   *
+   * @param {string} texte
+   * @returns le texte centré dans la page selon le contexte.
+   * @author Jean-Claude Lhote
+   */
+export function centrage (texte) {
+  return context.isHtml ? `<center>${texte}</center>` : `\\begin{center}\n\t${texte}\n\\end{center}\n`
 }

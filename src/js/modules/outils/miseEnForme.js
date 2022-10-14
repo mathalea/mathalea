@@ -133,12 +133,3 @@ export function listeQuestionsToContenuSansNumeroEtSansConsigne (exercice) {
   // exercice.contenuCorrection = texConsigne(exercice.consigneCorrection) + texMulticols(texEnumerateSansNumero(exercice.listeCorrections,exercice.spacingCorr),exercice.nbColsCorr)
   exercice.contenuCorrection = texMulticols(texParagraphe(exercice.listeCorrections, exercice.spacingCorr), exercice.nbColsCorr)
 }
-/**
-   *
-   * @param {string} texte
-   * @returns le texte centré dans la page selon le contexte.
-   * @author Jean-Claude Lhote
-   */
-export function centrage (texte) {
-  return context.isHtml ? `<center>${texte}</center>` : `\\begin{center}\n\t${texte}\n\\end{center}\n`
-}

@@ -15,7 +15,7 @@
         "idInHeadings": true
     },
     "opts": {
-        "destination": "./documentation/JC/fractionEtendue",
+        "destination": "./documentation/fractionEtendue",
         "recurse": true,
         "private": false,
         "template": "node_modules/docdash"
