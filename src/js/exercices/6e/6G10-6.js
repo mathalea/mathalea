@@ -182,7 +182,6 @@ export default class constructionElementaire extends Exercice {
         }
 
         const removelistener = function () {
-          alert('removeListener' + options.eleId)
           document.removeEventListener('exercicesAffiches', reportWindowSize)
           document.removeEventListener('exercicesDiap', reportWindowSize)
           document.removeEventListener('zoominOrout', reportWindowSize)

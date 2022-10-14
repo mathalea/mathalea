@@ -17,7 +17,7 @@
 |2F11-1|Déterminer l'image d'un nombre par une fonction de référence|OK|AMCNum|OK|mathLive|
 |2F25-2|Étudier la parité d'une fonction|OK|qcmMono|OK|qcm|
 |2F32-2|Déterminer graphiquement les extremums|OK|AMCHybride|OK|mathLive|
-|2G11-5|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
+|2G11-5|Calculs de volumes|OK|AMCHybride|OK|qcm,mathLive|
 |2G30-1|Déterminer le coefficient directeur d'une droite|OK|AMCHybride|OK|mathLive|
 |2G35-7|Lecture graphique des coefficients d'une équation réduite |OK|AMCHybride|OK|mathLive|
 |2N10-1|Lire l’abscisse décimale d’un point repéré par une fraction|OK|AMCHybride|OK|mathLive|
@@ -110,7 +110,7 @@
 |3G32-5|Triangle rectangle inscrit dans un triangle rectangle|OK|AMCHybride|OK|mathLive|
 |3G32|Calculer la largeur d'une rivière|OK|AMCHybride|OK|mathLive|
 |3G42|Volume d'une boule|OK|AMCNum|OK|mathLive|
-|3G43|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
+|3G43|Calculs de volumes|OK|AMCHybride|OK|qcm,mathLive|
 |3I10-1|Analyser des scripts Scratch|OK|AMCHybride|OK|qcm|
 |3I12-1|Compléter un script Scratch - 1|OK|AMCOpen|KO|KO|
 |3I12-2|Comprendre un script Scratch - 1|OK|AMCHybride|KO|KO|
@@ -202,7 +202,7 @@
 |4G31|Contrôler si deux droites sont parallèles|OK|AMCHybride|OK|mathLive|
 |4G40|Utiliser le cosinus pour calculer une longueur dans un triangle rectangle|OK|AMCOpenNum|OK|mathLive|
 |4G41|Utiliser le cosinus pour calculer la mesure d'un angle dans un triangle rectangle|OK|AMCOpenNum|OK|mathLive|
-|4G53|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
+|4G53|Calculs de volumes|OK|AMCHybride|OK|qcm,mathLive|
 |4I1-2|Tortue Scratch avec répétitions|OK|qcmMono|OK|cliqueFigure|
 |4L10-1|Réduire, si possible, une expression littérale simple|KO|KO|OK|mathLive|
 |4L10-3|Yohaku additif expressions littérales niveau 1|KO|KO|OK|custom|
@@ -238,7 +238,7 @@
 |5L14-2|Substitution|OK|AMCNum|OK|mathLive|
 |5L14|Calculer la valeur d'une expression littérale|KO|KO|OK|mathLive|
 |5L16|Simplifier l'écriture d'une expression littérale|KO|KO|OK|mathLive|
-|5M20|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
+|5M20|Calculs de volumes|OK|AMCHybride|OK|qcm,mathLive|
 |5N10|Passer d'une fraction à une écriture décimale et inversement|KO|KO|OK|mathLive|
 |5N11-3|Écrire une fraction sur 100 puis sous la forme d'un pourcentage|OK|AMCNum|OK|mathLive|
 |5N11-4|Exprimer une fraction sous la forme d'une valeur approchée d'un pourcentage|KO|KO|OK|mathLive|
@@ -346,7 +346,7 @@
 |6M22|Calculer périmètre et aire de disques (à partir d'un texte)|OK|AMCHybride|OK|mathLive|
 |6M23|Convertir des aires|OK|qcmMono|OK|qcm,mathLive|
 |6M30-0|Déterminer le volume de pavés droit par dénombrement|OK|AMCNum|OK|mathLive|
-|6M30|Calculer le volume de solides donnés|OK|qcmMono|OK|qcm,mathLive|
+|6M30|Calculer le volume de solides donnés|OK|AMCHybride|OK|qcm,mathLive|
 |6M31-2|Convertir des volumes ou des capacités|OK|AMCNum|OK|mathLive|
 |6M31|Convertir des volumes|OK|qcmMono|OK|qcm,mathLive|
 |6N10-0|Écrire un nombre en chiffres ou en lettres|KO|KO|OK|mathLive|
