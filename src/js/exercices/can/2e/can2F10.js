@@ -18,7 +18,7 @@ export const ref = 'can2F10'
 export default function ResoudreEquationsFonctionDeReference2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
   this.spacing = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.nouvelleVersion = function () {
@@ -161,17 +161,22 @@ export default function ResoudreEquationsFonctionDeReference2 () {
           texte += propositionsQcm(this, 0).texte
         } else {
           texte = `Résoudre dans $\\mathbb{R}$ :<br>
-      ${sp(50)} $x^2${ecritureAlgebrique(b)}=${c}$`
+
+      $x^2${ecritureAlgebrique(b)}=${c}$`
         }
 
         if (b > 0) {
-          texteCorr = `$\\begin{aligned}
+          texteCorr = `On isole $x^2$ :<br>
+          
+          $\\begin{aligned}
          x^2${ecritureAlgebrique(b)}&=${c}\\\\
          x^2${ecritureAlgebrique(b)}-${miseEnEvidence(b)}&=${c}-${miseEnEvidence(b)}\\\\
          x^2&=${c - b}
          \\end{aligned}$`
         } else {
-          texteCorr = `$\\begin{aligned}
+          texteCorr = `On isole $x^2$ :<br>
+          
+          $\\begin{aligned}
          x^2${ecritureAlgebrique(b)}&=${c}\\\\
          x^2${ecritureAlgebrique(b)}+${miseEnEvidence(-b)}&=${c}+${miseEnEvidence(-b)}\\\\
          x^2&=${c - b}
@@ -197,13 +202,17 @@ export default function ResoudreEquationsFonctionDeReference2 () {
           }
         }
         if (k === 0) {
-          texteCorr += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombrec(k)}$, alors l'équation a une solution : $0$.<br>
+          texteCorr += `
+          <br>L'équation est de la forme $x^2=k$ avec $k=${texNombrec(k)}$, alors l'équation a une solution : $0$.<br>
           Ainsi, $S=\\{0\\}$. `
         }
         if (k < 0) {
-          texteCorr += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombrec(c - b)}$, alors l'équation n'a pas de solution.
+          texteCorr += `
+          <br>L'équation est de la forme $x^2=k$ avec $k=${texNombrec(c - b)}$, alors l'équation n'a pas de solution.
             <br>Ainsi, $S=\\emptyset$. `
         }
+        this.canEnonce = `Résoudre dans $\\mathbb{R}$ l'équation $x^2${ecritureAlgebrique(b)}=${c}$.`
+        this.canReponseACompleter = ''
         break
       case 2 :
         b = randint(-5, 5, 0)
@@ -340,17 +349,22 @@ export default function ResoudreEquationsFonctionDeReference2 () {
           texte += propositionsQcm(this, 0).texte
         } else {
           texte = `Résoudre dans $\\mathbb{R}$ :<br>
-${sp(50)} $-x^2${ecritureAlgebrique(b)}=${c}$`
+
+ $-x^2${ecritureAlgebrique(b)}=${c}$`
         }
 
         if (b > 0) {
-          texteCorr = `$\\begin{aligned}
+          texteCorr = `On isole $x^2$ :<br>
+          
+          $\\begin{aligned}
    -x^2${ecritureAlgebrique(b)}&=${c}\\\\
    -x^2${ecritureAlgebrique(b)}-${miseEnEvidence(b)}&=${c}-${miseEnEvidence(b)}\\\\
    x^2&=${b - c}
    \\end{aligned}$`
         } else {
-          texteCorr = `$\\begin{aligned}
+          texteCorr = `On isole $x^2$ :<br>
+
+          $\\begin{aligned}
    -x^2${ecritureAlgebrique(b)}&=${c}\\\\
   - x^2${ecritureAlgebrique(b)}+${miseEnEvidence(-b)}&=${c}+${miseEnEvidence(-b)}\\\\
    x^2&=${b - c}
@@ -358,31 +372,39 @@ ${sp(50)} $-x^2${ecritureAlgebrique(b)}=${c}$`
         }
         if (k > 0) {
           if (k === 1 || k === 4 || k === 9 || k === 16 || k === 25) {
-            texteCorr += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombrec(k)}>0$, donc l'équation a deux solutions : $-\\sqrt{${texNombrec(k)}}$ et $\\sqrt{${texNombrec(k)}}$.
+            texteCorr += `<br>
+
+            L'équation est de la forme $x^2=k$ avec $k=${texNombrec(k)}>0$, donc l'équation a deux solutions : $-\\sqrt{${texNombrec(k)}}$ et $\\sqrt{${texNombrec(k)}}$.
       <br> Comme $-\\sqrt{${texNombrec(k)}}=-${extraireRacineCarree(k)[0]}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}$ alors
       les solutions de l'équation peuvent s'écrire plus simplement : $-${extraireRacineCarree(k)[0]}$ et $${extraireRacineCarree(k)[0]}$.<br>
       Ainsi,  $S=\\{-${extraireRacineCarree(k)[0]}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\}$.`
           } else {
             if (extraireRacineCarree(k)[1] !== k) {
-              texteCorr += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombrec(k)}>0$, donc l'équation a deux solutions : $-\\sqrt{${texNombrec(k)}}$ et $\\sqrt{${texNombrec(k)}}$. <br>
+              texteCorr += `<br>
+              L'équation est de la forme $x^2=k$ avec $k=${texNombrec(k)}>0$, donc l'équation a deux solutions : $-\\sqrt{${texNombrec(k)}}$ et $\\sqrt{${texNombrec(k)}}$. <br>
           Comme $-\\sqrt{${k}}=-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ alors
           les solutions de l'équation peuvent s'écrire plus simplement : $-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ et $${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$.<br>
           Ainsi,  $S=\\{-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}\\}$.`
             } else {
-              texteCorr += `<br>L'équation est de la forme $x^2=k$ avec $k=${k}>0$,
+              texteCorr += `<br>
+              L'équation est de la forme $x^2=k$ avec $k=${k}>0$,
           donc l'équation a deux solutions : $-\\sqrt{${k}}$ et $\\sqrt{${k}}$.<br>
           Ainsi,  $S=\\{-\\sqrt{${k}}${sp(1)};${sp(1)}\\sqrt{${k}}\\}$.`
             }
           }
         }
         if (k === 0) {
-          texteCorr += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombrec(k)}$, alors l'équation a une solution : $0$.<br>
+          texteCorr += `<br>          
+          L'équation est de la forme $x^2=k$ avec $k=${texNombrec(k)}$, alors l'équation a une solution : $0$.<br>
     Ainsi, $S=\\{0\\}$. `
         }
         if (k < 0) {
-          texteCorr += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombrec(k)}$, alors l'équation n'a pas de solution.
+          texteCorr += `<br>
+          L'équation est de la forme $x^2=k$ avec $k=${texNombrec(k)}$, alors l'équation n'a pas de solution.
       <br>Ainsi, $S=\\emptyset$. `
         }
+        this.canEnonce = `Résoudre dans $\\mathbb{R}$ l'équation $-x^2${ecritureAlgebrique(b)}=${c}$.`
+        this.canReponseACompleter = ''
         break
 
       case 3 :
@@ -478,17 +500,22 @@ ${sp(50)} $-x^2${ecritureAlgebrique(b)}=${c}$`
           texte += propositionsQcm(this, 0).texte
         } else {
           texte = `Résoudre dans $[0${sp(1)};${sp(1)}+\\infty[$ :<br>
-            ${sp(50)} $\\sqrt{x}${ecritureAlgebrique(b)}=${c}$`
+
+             $\\sqrt{x}${ecritureAlgebrique(b)}=${c}$`
         }
         if (b > 0) {
-          texteCorr = `On isole $\\sqrt{x}$ dans le membre de gauche pour obtenir une équation du type $\\sqrt{x}=k$.<br>
+          texteCorr = `
+          
+          On isole $\\sqrt{x}$ dans le membre de gauche pour obtenir une équation du type $\\sqrt{x}=k$.<br>
             $\\begin{aligned}
             \\sqrt{x}${ecritureAlgebrique(b)}&=${c}\\\\
             \\sqrt{x}${ecritureAlgebrique(b)}-${miseEnEvidence(b)}&=${c}-${miseEnEvidence(b)}\\\\
             \\sqrt{x}&=${c - b}
                            \\end{aligned}$<br>`
         } else {
-          texteCorr = `On isole $\\sqrt{x}$ dans le membre de gauche pour obtenir une équation du type $\\sqrt{x}=k$.<br>
+          texteCorr = `
+          
+          On isole $\\sqrt{x}$ dans le membre de gauche pour obtenir une équation du type $\\sqrt{x}=k$.<br>
                            $\\begin{aligned}
                            \\sqrt{x}${ecritureAlgebrique(b)}&=${c}\\\\
                            \\sqrt{x}${ecritureAlgebrique(b)}+${miseEnEvidence(-b)}&=${c}+${miseEnEvidence(-b)}\\\\
@@ -496,15 +523,19 @@ ${sp(50)} $-x^2${ecritureAlgebrique(b)}=${c}$`
                                           \\end{aligned}$<br>`
         }
         if (c - b < 0) {
-          texteCorr += `L'équation est de la forme $\\sqrt{x}=k$ avec $k=${k}$. Comme $${k}<0$ alors l'équation n'admet pas de solution. <br>
+          texteCorr += `
+          L'équation est de la forme $\\sqrt{x}=k$ avec $k=${k}$. Comme $${k}<0$ alors l'équation n'admet pas de solution. <br>
 Ainsi,   $S=\\emptyset$.<br>
 `
         }
         if (c - b > 0 || c - b === 0) {
-          texteCorr += `L'équation est de la forme $\\sqrt{x}=k$ avec $k=${c - b}$. Comme $${c - b}\\geqslant 0$ alors l'équation admet une solution : $${k}^2=${k ** 2}$.<br>
+          texteCorr += `
+          L'équation est de la forme $\\sqrt{x}=k$ avec $k=${c - b}$. Comme $${c - b}\\geqslant 0$ alors l'équation admet une solution : $${k}^2=${k ** 2}$.<br>
 Ainsi $S=\\{${k ** 2}\\}$.
 `
         }
+        this.canEnonce = `Résoudre dans $[0${sp(1)};${sp(1)}+\\infty[$ l'équation $\\sqrt{x}${ecritureAlgebrique(b)}=${c}$.`
+        this.canReponseACompleter = ''
         break
       case 4 :
         b = randint(-5, 5, 0)
@@ -620,7 +651,8 @@ Ainsi $S=\\{${k ** 2}\\}$.
           texte += propositionsQcm(this, 0).texte
         } else {
           texte = `Résoudre dans $[0${sp(1)};${sp(1)}+\\infty[$ :<br>
-                ${sp(50)} $-\\sqrt{x}${ecritureAlgebrique(b)}=${c}$`
+
+                $-\\sqrt{x}${ecritureAlgebrique(b)}=${c}$`
         }
         if (b > 0) {
           texteCorr = `On isole $\\sqrt{x}$ dans le membre de gauche pour obtenir une équation du type $\\sqrt{x}=k$.<br>
@@ -649,6 +681,8 @@ Ainsi,   $S=\\emptyset$.<br>
    Ainsi $S=\\{${k ** 2}\\}$.
   `
         }
+        this.canEnonce = `Résoudre dans $[0${sp(1)};${sp(1)}+\\infty[$ l'équation $-\\sqrt{x}${ecritureAlgebrique(b)}=${c}$.`
+        this.canReponseACompleter = ''
         break
       case 5 :
         b = randint(-10, 10, 0)
@@ -744,13 +778,14 @@ Ainsi,   $S=\\emptyset$.<br>
         } else {
           texte = `
                      Résoudre dans $\\mathbb{R}^*$ :<br>
-                    ${sp(50)} $\\dfrac{1}{x}${ecritureAlgebrique(b)}=${c}$`
+
+                      $\\dfrac{1}{x}${ecritureAlgebrique(b)}=${c}$`
         }
 
         texteCorr = `On isole $\\dfrac{1}{x}$ dans le membre de gauche pour obtenir une équation du type $\\dfrac{1}{x}=k$.<br>
             $\\begin{aligned}
             \\dfrac{1}{x}${ecritureAlgebrique(b)}&=${c}\\\\
-            \\dfrac{1}{x}${ecritureAlgebrique(b)}+${ecritureParentheseSiNegatif(miseEnEvidence(-b))}&=${c}+${miseEnEvidence(-b)}\\\\
+            \\dfrac{1}{x}${ecritureAlgebrique(b)}+${miseEnEvidence(ecritureParentheseSiNegatif(-b))}&=${c}+${miseEnEvidence(-b)}\\\\
             \\dfrac{1}{x}&=${c - b}
                                         \\end{aligned}$<br>`
 
@@ -765,7 +800,8 @@ $${texFractionReduite(1, k)}$.<br>
 Ainsi $S=\\left\\{${texFractionReduite(1, k)}\\right\\}$.
 `
         }
-
+        this.canEnonce = `Résoudre dans $\\mathbb{R}^*$ l'équation $\\dfrac{1}{x}${ecritureAlgebrique(b)}=${c}$.`
+        this.canReponseACompleter = ''
         break
       case 6 :
         b = randint(-10, 10, 0)
@@ -861,13 +897,14 @@ Ainsi $S=\\left\\{${texFractionReduite(1, k)}\\right\\}$.
         } else {
           texte = `
                          Résoudre dans $\\mathbb{R}^*$ :<br>
-                        ${sp(50)} $${b}-\\dfrac{1}{x}=${c}$`
+
+                         $${b}-\\dfrac{1}{x}=${c}$`
         }
 
         texteCorr = `On isole $\\dfrac{1}{x}$ dans le membre de gauche pour obtenir une équation du type $\\dfrac{1}{x}=k$.<br>
                 $\\begin{aligned}
                 ${b}-\\dfrac{1}{x}&=${c}\\\\
-                ${b}-\\dfrac{1}{x}+${ecritureParentheseSiNegatif(miseEnEvidence(-b))}&=${c}+${ecritureParentheseSiNegatif(miseEnEvidence(-b))}\\\\
+                ${b}-\\dfrac{1}{x}+${miseEnEvidence(ecritureParentheseSiNegatif(-b))}&=${c}+${miseEnEvidence(ecritureParentheseSiNegatif(-b))}\\\\
                 \\dfrac{1}{x}&=${b - c}
                                             \\end{aligned}$<br>`
 
@@ -882,7 +919,8 @@ Ainsi $S=\\left\\{${texFractionReduite(1, k)}\\right\\}$.
     Ainsi $S=\\left\\{${texFractionReduite(1, k)}\\right\\}$.
     `
         }
-
+        this.canEnonce = `Résoudre dans $\\mathbb{R}^*$ l'équation $${b}-\\dfrac{1}{x}=${c}$.`
+        this.canReponseACompleter = ''
         break
     }
 

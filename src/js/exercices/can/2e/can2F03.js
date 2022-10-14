@@ -18,6 +18,7 @@ export default function SigneFonctionAffine () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.date = 1635094684684
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.nouvelleVersion = function () {
     this.listeQuestions = []
@@ -32,6 +33,7 @@ export default function SigneFonctionAffine () {
         b = n * a
         maFraction = fraction(-b, a)
         texte = `$${reduireAxPlusB(a, b)}$ est strictement positif pour $x>${maFraction.texFractionSimplifiee}$ .<br>`
+        this.canEnonce = texte
         this.autoCorrection[0] = {
           enonce: texte,
           propositions: [
@@ -73,6 +75,7 @@ export default function SigneFonctionAffine () {
         b = n * a
         maFraction = fraction(-b, a)
         texte = `$${reduireAxPlusB(a, b)}$ est strictement positif pour $x<${maFraction.texFractionSimplifiee}$ .<br>`
+        this.canEnonce = texte
         this.autoCorrection[0] = {
           enonce: texte,
           propositions: [
@@ -112,5 +115,6 @@ export default function SigneFonctionAffine () {
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenuSansNumero(this)
+    this.canReponseACompleter = propositionsQcm(this, 0).texte
   }
 }
