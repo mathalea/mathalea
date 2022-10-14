@@ -1,6 +1,7 @@
 /** @module pavage */
 
-import { egal, nombreAvecEspace } from '../outils'
+import { egal } from '../outils/comparateurs'
+import { nombreAvecEspace } from '../outils/stringNombre'
 import { barycentre } from './barycentre'
 import { point } from './point'
 import { polygone, polygoneRegulier } from './polygone'

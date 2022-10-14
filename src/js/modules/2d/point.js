@@ -9,7 +9,7 @@
 import earcut from 'earcut'
 import { longueur, polygone, polygoneToFlatArray, vecteur } from '../2d'
 import { ObjetMathalea2D } from '../2dGeneralites'
-import { egal, inferieurouegal, superieurouegal } from '../outils'
+import { egal, inferieurouegal, superieurouegal } from '../outils/comparateurs'
 import { Cercle } from './cercle'
 import { DemiDroite } from './demiDroite'
 import { Droite } from './droites'

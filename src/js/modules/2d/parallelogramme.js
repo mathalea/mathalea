@@ -4,7 +4,7 @@
 /** ************* Parallélogrammes ***********/
 /*********************************************/
 
-import { randint } from '../outils'
+import { randint } from '../outils/entiers.js'
 import { pointAdistance, pointSurSegment } from './pointSur.js'
 import { polygoneAvecNom } from './polygone'
 import { homothetie, rotation, translation } from './transformations'

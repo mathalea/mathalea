@@ -20,7 +20,7 @@
  */
 
 import { ObjetMathalea2D } from '../2dGeneralites'
-import { arrondi } from '../outils'
+import { arrondi } from '../outils/nombres'
 import { segment } from './segment'
 import { plot } from './tracePoint'
 

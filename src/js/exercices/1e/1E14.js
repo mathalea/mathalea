@@ -4,11 +4,7 @@ import { randint } from '../../modules/outils/entiers.js'
 import { combinaisonListes } from '../../modules/outils/listes.js'
 import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 import Exercice from '../Exercice.js'
-// import { setReponse } from '../../modules/gestionInteractif.js'
-// import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-// import { courbeSpline } from '../../modules/2d.js'
-// export const interactifReady = true
-// export const interactifType = 'mathLive'
+
 export const titre = 'Factoriser un polynôme du second degré avec racines entières'
 
 /**

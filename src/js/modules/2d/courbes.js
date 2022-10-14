@@ -1,7 +1,7 @@
 /** @module courbe */
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../2dGeneralites'
 import { context } from '../context'
-import { inferieurouegal } from '../outils'
+import { inferieurouegal } from '../outils/comparateurs'
 import { motifs } from './motif'
 import { point } from './point'
 import { polygone } from './polygone'

@@ -1,7 +1,11 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleurEtGras, choice } from '../../modules/outils.js'
-import { labyrinthe } from '../../modules/2d.js'
+import { randint } from '../../modules/outils/entiers.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { texteEnCouleurEtGras } from '../../modules/outils/contextSensitif.js'
+import { combinaisonListes } from '../../modules/outils/listes.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
+import { labyrinthe } from '../../modules/2d/labyrinthe.js'
 export const dateDePublication = '12/10/2022'
 export const titre = 'Explorer un labyrinthe de nombres premiers'
 

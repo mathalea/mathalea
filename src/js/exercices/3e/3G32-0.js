@@ -31,7 +31,7 @@ import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../
 import { cercle } from '../../modules/2d/cercle.js'
 import { creerNomDePolygone } from '../../modules/outils/strings.js'
 import Grandeur from '../../modules/Grandeur.js'
-import { arete3d, CodageAngleDroit3D, demicercle3d, point3d, rotationV3d, sphere3d, vecteur3d } from '../../modules/3d.js'
+import { arete3d, codageAngleDroit3D, demicercle3d, point3d, rotationV3d, sphere3d, vecteur3d } from '../../modules/3d.js'
 export const titre = 'Problèmes nécessitant un calcul de longueur à l\'aide de la trigonométrie'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -335,7 +335,7 @@ export default function ProblemesTrigoLongueur () {
           Sph = sphere3d(O, 5, 2, 3)
           HP = arete3d(H, P)
           OP = arete3d(O, P)
-          objets.push(...Sph.c2d, Axe.c2d, HP.c2d, OP.c2d, new CodageAngleDroit3D(P, H, O), tracePoint(H.c2d, P.c2d, O.c2d, M.c2d), labelPoint(H.c2d, P.c2d, O.c2d, M.c2d))
+          objets.push(...Sph.c2d, Axe.c2d, HP.c2d, OP.c2d, codageAngleDroit3D(P, H, O), tracePoint(H.c2d, P.c2d, O.c2d, M.c2d), labelPoint(H.c2d, P.c2d, O.c2d, M.c2d))
           objets.push(demicercle3d(H, normalV, R2, 'caché', 'red', 0), demicercle3d(H, normalV, R2, 'visible', 'red', 0))
           objets.push(arete3d(O, M).c2d)
           objets.push(afficheMesureAngle(M.c2d, O.c2d, P.c2d, 'black', 1.5, `${alpha}`))

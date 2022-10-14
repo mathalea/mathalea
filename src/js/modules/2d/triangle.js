@@ -6,7 +6,7 @@
 
 import { floor } from 'mathjs'
 import { ObjetMathalea2D } from '../2dGeneralites'
-import { randint } from '../outils'
+import { randint } from '../outils/entiers'
 import { milieu } from './barycentre'
 import { longueur } from './calculs'
 import { cercle } from './cercle'

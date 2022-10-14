@@ -2,7 +2,8 @@
 
 import { fraction, max } from 'mathjs'
 import { colorToLatexOrHTML, ObjetMathalea2D, vide2d } from '../2dGeneralites'
-import { combinaisonListes, numberFormat, texcolors, texNombre } from '../outils'
+import { combinaisonListes } from '../outils/listes'
+import { numberFormat, texNombre } from '../outils/texNombres'
 import { arc } from './arc'
 import { cercle } from './cercle'
 import { motifs } from './motif'
@@ -15,6 +16,7 @@ import { latexParPoint, texteParPoint, texteParPosition } from './textes'
 import { tracePoint } from './tracePoint'
 import { rotation, similitude, translation } from './transformations'
 import { vecteur } from './vecteur'
+import { texcolors } from '../outils/couleurs'
 
 /**
  * Trace un graphique cartésien dans un repère

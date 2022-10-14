@@ -12,12 +12,11 @@ import 'codemirror/addon/hint/javascript-hint.js'
 import 'codemirror/addon/hint/show-hint.js'
 import 'codemirror/addon/hint/show-hint.css'
 import 'codemirror/addon/edit/closebrackets.js'
-
+import { telechargeFichier } from './outils/fichier.js'
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import 'katex/dist/katex.min.css'
 import '../../css/style_mathalea.css'
 import initialiseEditeur from './initialiseEditeur.js'
-import { telechargeFichier } from './outils.js'
 import { context } from './context.js'
 
 // Les variables globales utiles pour l'autocomplétion

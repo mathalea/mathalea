@@ -1,7 +1,8 @@
 /** @module point sur */
 
 import { radians } from '../fonctionsMaths'
-import { egal, randint } from '../outils'
+import { egal } from '../outils/comparateurs'
+import { randint } from '../outils/entiers'
 import { longueur } from './calculs'
 import { point } from './point'
 import { homothetie, similitude } from './transformations'

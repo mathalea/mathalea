@@ -1,5 +1,4 @@
 /* global Event event */
-import { tridictionnaire, filtreDictionnaire, filtreDictionnaireValeurCle, filtreDictionnaireValeurTableauCle, enleveElement, compteOccurences } from './outils.js'
 import dictionnaireDesExercicesAleatoires from './dictionnaireDesExercicesAleatoires.js'
 import { dictionnaireC3 } from './dictionnaireC3.js'
 import { dictionnaireDNB } from './dictionnaireDNB.js'
@@ -13,6 +12,8 @@ import 'datatables.net-dt/css/jquery.dataTables.css'
 import { getFilterFromUrl, getVueFromUrl } from './gestionUrl.js'
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import { context } from './context.js'
+import { compteOccurences, enleveElement } from './outils/arrays.js'
+import { filtreDictionnaire, filtreDictionnaireValeurCle, filtreDictionnaireValeurTableauCle, tridictionnaire } from './outils/dictionnaires.js'
 
 // Liste tous les tags qui ont été utilisé dans un dictionnaire
 function dictionnaireToTableauTags (dictionnaire) {

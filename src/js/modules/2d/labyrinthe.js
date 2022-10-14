@@ -1,6 +1,9 @@
 /** @module labyrinthe */
 
-import { combinaisonListesSansChangerOrdre, enleveElement, nombreAvecEspace, randint } from '../outils'
+import { enleveElement } from '../outils/arrays'
+import { randint } from '../outils/entiers'
+import { combinaisonListesSansChangerOrdre } from '../outils/listes'
+import { nombreAvecEspace } from '../outils/stringNombre'
 import { point } from './point'
 import { segment } from './segment'
 import { latexParCoordonnees, texteParPoint, texteParPosition } from './textes'

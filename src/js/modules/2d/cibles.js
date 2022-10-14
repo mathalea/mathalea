@@ -13,7 +13,10 @@
  */
 
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../2dGeneralites.js'
-import { arrondi, lettreDepuisChiffre, nombreAvecEspace, randint } from '../outils.js'
+import { randint } from '../outils/entiers.js'
+import { lettreDepuisChiffre } from '../outils/lettres.js'
+import { arrondi } from '../outils/nombres.js'
+import { nombreAvecEspace } from '../outils/stringNombre.js'
 import { arc } from './arc.js'
 import { milieu } from './barycentre.js'
 import { longueur } from './calculs.js'

@@ -2,7 +2,7 @@
 
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../2dGeneralites'
 import { radians } from '../fonctionsMaths'
-import { egal } from '../outils'
+import { egal } from '../outils/comparateurs'
 import { arc } from './arc'
 import { longueur } from './calculs'
 import { droite, Droite } from './droites'

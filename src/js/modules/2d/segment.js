@@ -7,7 +7,7 @@
 
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../2dGeneralites'
 import { context } from '../context'
-import { randint } from '../outils'
+import { randint } from '../outils/entiers'
 import { angleOriente, longueur } from './calculs'
 import { Cercle } from './cercle'
 import { Droite, droite } from './droites'

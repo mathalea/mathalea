@@ -10,7 +10,7 @@
 import Decimal from 'decimal.js/decimal.mjs'
 import { colorToLatexOrHTML, ObjetMathalea2D, vide2d } from '../2dGeneralites'
 import { context } from '../context'
-import { stringNombre } from '../outils'
+import { stringNombre } from '../outils/stringNombre'
 import { point } from './point'
 
 /**

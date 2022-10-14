@@ -1,12 +1,13 @@
 
-import { choice, listeQuestionsToContenu, texteEnCouleurEtGras } from '../../modules/outils.js'
-
 import Exercice from '../Exercice.js'
 
 import comprendreScriptMultiples from './3I12-2.js'
 import completerScriptDiviseurs from './3I12-3.js'
 import comprendreScriptListeMultiples from './3I12-4.js'
 import completerScriptMultiple from './3I12-1.js'
+import { choice } from '../../modules/outils/arrays.js'
+import { texteEnCouleurEtGras } from '../../modules/outils/contextSensitif.js'
+import { listeQuestionsToContenu } from '../../modules/outils/miseEnForme.js'
 export const titre = 'Différents exercices d\'algorithmique'
 
 export default function ExosScratch () {

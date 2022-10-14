@@ -8,7 +8,7 @@
 
 import { colorToLatexOrHTML, ObjetMathalea2D, vide2d } from '../2dGeneralites'
 import { context } from '../context'
-import { egal } from '../outils'
+import { egal } from '../outils/comparateurs'
 import { angleOriente, norme } from './calculs'
 import { point } from './point'
 import { pointSurDroite, pointSurSegment } from './pointSur.js'
