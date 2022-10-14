@@ -2752,6 +2752,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         copierExercicesFormVersAffichage(listeDesExercices)
       }
       miseAJourDeLaListeDesExercices()
+      const event = new CustomEvent('buildex', { detail: 'miseAJourDeLaListeDesExercices' })
+      document.dispatchEvent(event)
     }
   }
   // À l'appui sur précédent ou suivant, on relance l'analyse de l'URL
@@ -2806,6 +2808,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
       copierExercicesFormVersAffichage(listeDesExercices)
       miseAJourDeLaListeDesExercices()
+      const event = new CustomEvent('buildex', { detail: 'miseAJourDeLaListeDesExercices' })
+      document.dispatchEvent(event)
     })
   }
 
@@ -3545,6 +3549,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         gestionVue('menu')
       }
     }
+    const pleinEcran = new window.Event('pleinEcran', { bubbles: true })
+    document.dispatchEvent(pleinEcran)
   })
 
   const buttonDiap = document.getElementById('buttonDiap')
