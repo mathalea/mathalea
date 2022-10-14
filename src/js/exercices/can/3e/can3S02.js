@@ -1,4 +1,5 @@
-import { texFraction, texFractionReduite } from '../../../modules/outils/arrayFractions.js'
+import FractionX from '../../../modules/FractionEtendue.js'
+import { texFraction } from '../../../modules/outils/arrayFractions.js'
 import { choice } from '../../../modules/outils/arrays.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer la probabilité d’ un évènement contraire'
