@@ -132,7 +132,7 @@ export default function VolumeBoule () {
           texteCorr += texteGras('Le volume cherché est environ : ' + stringNombre(reponse, 1) + ` ${choixUnites}` + texteExposant(3) + '. <br>')
           break
       }
-      setReponse(this, i, new Grandeur(reponse, 'cm^3'), { formatInteractif: 'unites' })
+      setReponse(this, i, new Grandeur(reponse.toNumber(), `${choixUnites}^3`), { formatInteractif: 'unites' })
       texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline unites[Longueurs,Aires,Volumes]')
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
