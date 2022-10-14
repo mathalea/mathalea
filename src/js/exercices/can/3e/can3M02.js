@@ -21,6 +21,7 @@ export default function CalculVolumePyramide () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.optionsChampTexte = { texteApres: `cm${texteExposant(3)}` }
   this.nouvelleVersion = function () {
@@ -29,7 +30,9 @@ export default function CalculVolumePyramide () {
     const b = triplet[1]
     const h = triplet[2]
     this.reponse = calcul(a * b * h / 3)
-    this.question = `Une pyramide a une hauteur de $${h}$ cm et pour base un rectangle de dimensions $${a}$ cm et $${b}$ cm. Calculer son volume en cm${texteExposant(3)}.`
+    this.question = `Une pyramide a une hauteur de $${h}$ cm et pour base un rectangle de dimensions $${a}$ cm et $${b}$ cm.<br>
+    
+    Calculer son volume en cm${texteExposant(3)}.`
     this.correction = `Le volume de cette pyramide est : $\\dfrac{1}{3} \\times ${a} \\times ${b} \\times ${h}=${this.reponse}$ cm${texteExposant(3)}`
     if (h === 3) {
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
@@ -55,5 +58,7 @@ export default function CalculVolumePyramide () {
     Comme l'une des trois longueur est $3$ et que $\\dfrac{1}{3}\\times 3=1$, on obtient le volume en multipliant les deux autres longueurs : $${a} \\times ${h}=${h * a}$.
       `)
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = '$\\ldots$ cm$^3$'
   }
 }

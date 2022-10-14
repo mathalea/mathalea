@@ -17,6 +17,7 @@ export default function SolutionsEquationProduit () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
@@ -24,7 +25,7 @@ export default function SolutionsEquationProduit () {
     const d = randint(1, 10, [b])
     switch (choice([1, 2, 3])) {
       case 1 :
-        this.question = `Le produit des solutions de l'équation $(x+${b})(x+${d})=0$ est égal à : ` //
+        this.question = `Calculer le produit des solutions de l'équation $(x+${b})(x+${d})=0$.` //
         this.correction = 'On reconnaît une équation produit nul. <br>'
         this.correction += 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
         this.correction += '<br>' + `$(x+${b})(x+${d})=0$`
@@ -34,7 +35,7 @@ export default function SolutionsEquationProduit () {
         this.reponse = b * d
         break
       case 2 :
-        this.question = `Le produit des solutions de l'équation $(x-${b})(x+${d})=0$ est égal à : ` //
+        this.question = `Calculer le produit des solutions de l'équation $(x-${b})(x+${d})=0$.` //
         this.correction = 'On reconnaît une équation produit nul. <br>'
         this.correction += 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
         this.correction += '<br>' + `$(x-${b})(x+${d})=0$`
@@ -44,7 +45,7 @@ export default function SolutionsEquationProduit () {
         this.reponse = b * (-d)
         break
       case 3 :
-        this.question = `Le produit des solutions de l'équation $(x-${b})(x-${d})=0$ est égal à : ` //
+        this.question = `Calculer le produit des solutions de l'équation $(x-${b})(x-${d})=0$.` //
         this.correction = 'On reconnaît une équation produit nul. <br>'
         this.correction += 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
         this.correction += '<br>' + `$(x-${b})(x-${d})=0$`
@@ -54,5 +55,7 @@ export default function SolutionsEquationProduit () {
         this.reponse = b * d
         break
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

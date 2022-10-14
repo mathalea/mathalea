@@ -19,7 +19,7 @@ export default function EquationAXPlusBEgalZero () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const a = randint(-5, 5, [0, -1, 1])
@@ -37,5 +37,7 @@ export default function EquationAXPlusBEgalZero () {
     x&=${this.reponse}
     \\end{aligned}$
    `
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

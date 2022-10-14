@@ -20,7 +20,7 @@ export default function ProportionnaliteExpressionAlgebrique () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
@@ -29,7 +29,7 @@ export default function ProportionnaliteExpressionAlgebrique () {
     const c = randint(-5, 5, 0)
     const n = randint(-7, -1)
 
-    this.question = `Si ${sp(1)}  $${reduireAxPlusB(a, b)}=${c}$,${sp(1)}  alors  ${sp(1)} $${reduireAxPlusB(n * a, n * b)}=$<br>
+    this.question = `Si ${sp(1)}  $${reduireAxPlusB(a, b)}=${c}$, quelle est la valeur de  ${sp(1)} $${reduireAxPlusB(n * a, n * b)}$ ?
                 
       `
     this.correction = `Comme ${sp(1)} $${reduireAxPlusB(n * a, n * b)}=${n}\\times (${reduireAxPlusB(a, b)})$, <br>
@@ -37,5 +37,7 @@ export default function ProportionnaliteExpressionAlgebrique () {
       $${reduireAxPlusB(n * a, n * b)}=${n}\\times ${ecritureParentheseSiNegatif(c)}=${n * c}$`
 
     this.reponse = n * c
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }
