@@ -7,13 +7,15 @@
 */
 
 import earcut from 'earcut'
-import { longueur, polygone, polygoneToFlatArray, vecteur } from '../2d'
 import { ObjetMathalea2D } from '../2dGeneralites'
 import { egal, inferieurouegal, superieurouegal } from '../outils/comparateurs'
+import { longueur } from './calculs'
 import { Cercle } from './cercle'
 import { DemiDroite } from './demiDroite'
 import { Droite } from './droites'
+import { polygone, polygoneToFlatArray } from './polygone'
 import { Segment } from './segment'
+import { vecteur } from './vecteur'
 
 /**
  * A = point('A') //son nom
