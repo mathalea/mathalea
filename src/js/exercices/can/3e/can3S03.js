@@ -16,6 +16,7 @@ export default function CalculsProbabilite2 () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let a, b
@@ -25,10 +26,11 @@ export default function CalculsProbabilite2 () {
         a = randint(2, 9)
         b = randint(5, 15)
 
-        this.question = `Dans une urne, il y a $${a}$ boules noires et $${b}$ boules blanches.<br>
-              On tire une boule de manière équiprobable. <br>
-              La probabilité d'obtenir une boule ${choix ? 'noire' : 'blanche'}  est : <br>
-             (donner le résultat sous la forme d'une fraction irréductible)`
+        this.question = `On tire une boule au hasard dans une urne contenant $${a}$ boules noires et $${b}$ boules blanches.<br>
+
+             Quelle est la probabilité d'obtenir une boule ${choix ? 'noire' : 'blanche'} ? <br>
+
+             (résultat sous  forme d'une fraction irréductible)`
         this.optionsChampTexte = { texteApres: '' }
         this.correction = `Dans une situation d'équiprobabilité, 
         on calcule la probabilité d'un événement par le quotient : 
@@ -45,7 +47,9 @@ export default function CalculsProbabilite2 () {
           b = 10 - a
           this.question = `Une urne contient $${a}$ boules bleues et $${b}$ boules rouges. <br>
         On tire une boule au hasard.<br>
+
         Quelle est la probabilité de tirer une boule ${choix ? 'bleue' : 'rouge'} ?<br>
+
         On donnera le résultat sous forme décimale.`
           this.optionsChampTexte = { texteApres: '' }
           this.correction = `Dans une situation d'équiprobabilité, 
@@ -61,7 +65,9 @@ export default function CalculsProbabilite2 () {
           b = 100 - a
           this.question = `Une urne contient $${a}$ boules bleues et $${b}$ boules rouges. <br>
             On tire une boule au hasard.<br>
+
             Quelle est la probabilité de tirer une boule ${choix ? 'bleue' : 'rouge'} ?<br>
+
             On donnera le résultat sous forme décimale.`
           this.optionsChampTexte = { texteApres: '' }
           this.correction = `Dans une situation d'équiprobabilité, 
@@ -75,5 +81,7 @@ export default function CalculsProbabilite2 () {
         }
         break
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }
