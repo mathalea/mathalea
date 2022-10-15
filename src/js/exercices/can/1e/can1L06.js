@@ -26,19 +26,23 @@ export default function FormeCanonique () {
     if (c !== 0) {
       if (!this.interactif) {
         this.question = `Soit $f(x)= x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$.<br>
+
        Donner la forme canonique de $f(x)$.`
       } else {
         this.question = `Soit $f(x)= x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$.<br>
+
         La forme canonique de $f(x)$ est : $f(x)=$`
       }
     } else {
       if (!this.interactif) {
         this.question = `Soit 
         $f(x)= x^2${ecritureAlgebriqueSauf1(b)}x$.<br>
+
         Donner la forme canonique de $f(x)$.`
       } else {
         this.question = `Soit 
         $f(x)= x^2${ecritureAlgebriqueSauf1(b)}x$.<br>
+        
        La forme canonique de $f(x)$ est : $f(x)=$`
       }
     }
@@ -52,5 +56,7 @@ export default function FormeCanonique () {
     this.correction += `(x ${ecritureAlgebrique(-alpha)})^2${ecritureAlgebrique(beta)}$`
 
     this.reponse = [`(x+${b / 2})^2+${beta}`, `${beta}+(x+${b / 2})^2`]
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

@@ -29,7 +29,7 @@ export default function NombreSolutionsSecondDegre () {
         b = randint(-4, 4, 0)
         c = randint(-4, 4, 0)
         d = b * b - 4 * a * c
-        this.question = `Le nombre de solutions de l'équation  $${reduirePolynomeDegre3(0, a, b, c)}=0$ est :`
+        this.question = `Donner le nombre de solutions de l'équation  $${reduirePolynomeDegre3(0, a, b, c)}=0$.`
 
         if (d < 0) {
           this.correction = `Le nombre de solutions est donné par le signe de $\\Delta$ :<br>
@@ -74,8 +74,8 @@ et évaluez le signe de leur différence. `)
         c = randint(-5, 5)
         maFraction = fraction(-c, a)
         if (-c / a > 0) {
-          this.question = `Le nombre de solutions de l'équation  
-       $${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}=0$ est :`
+          this.question = `Donner le nombre de solutions de l'équation  
+       $${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}=0$.`
           this.correction = `On isole le carré : <br>
         $\\begin{aligned}
         ${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}&=0\\\\
@@ -92,8 +92,8 @@ et évaluez le signe de leur différence. `)
         }
         if (-c / a === 0) {
           if (a === -1) {
-            this.question = `Le nombre de solutions de l'équation  
-       $-(${reduireAxPlusB(1, b)})^2=0$ est :`
+            this.question = `Donner le nombre de solutions de l'équation  
+       $-(${reduireAxPlusB(1, b)})^2=0$.`
             this.correction = `On isole le carré : <br>
              $\\begin{aligned}
              -(${reduireAxPlusB(1, b)})^2&=0\\\\
@@ -108,8 +108,8 @@ et évaluez le signe de leur différence. `)
 
             this.reponse = 1
           } else {
-            this.question = `Le nombre de solutions de l'équation  
-          $${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2=0$ est :`
+            this.question = `Donner le nombre de solutions de l'équation  
+          $${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2=0$.`
             this.correction = `On isole le carré : <br>
                 $\\begin{aligned}
                 ${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2&=0\\\\`
@@ -125,8 +125,8 @@ et évaluez le signe de leur différence. `)
           }
         }
         if (-c / a < 0) {
-          this.question = `Le nombre de solutions de l'équation  
-       $${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}=0$ est :`
+          this.question = `Donner le nombre de solutions de l'équation  
+       $${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}=0$.`
           this.correction = `On isole le carré : <br>
                  $\\begin{aligned}
                  ${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}&=0\\\\
@@ -142,5 +142,7 @@ et évaluez le signe de leur différence. `)
         }
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

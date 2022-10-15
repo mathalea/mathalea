@@ -51,5 +51,7 @@ export default function DeveloppementCoeff () {
     }
 
     this.reponse = a * d + b * c
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }
