@@ -18,8 +18,8 @@ export const ref = 'can2F11'
 export default function ComparerAvecFctCarre () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
-  this.tailleDiaporama = 1
-  this.spacing = 2
+  this.tailleDiaporama = 2
+  this.spacing = 1.2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.nouvelleVersion = function () {
     this.listeQuestions = []
@@ -30,7 +30,7 @@ export default function ComparerAvecFctCarre () {
         a = calcul(randint(0, 5) + randint(5, 9) / 10 + randint(5, 9) / 100 + randint(0, 2) / 1000)
         b = calcul(a + (2 * randint(1, 9) / 1000) * choice([1, -1]))
         if (this.interactif) {
-          texte = 'Sélectionner la réponse correcte. '
+          texte = 'Sélectionner1111111 la réponse correcte. '
           if (a < b) {
             this.autoCorrection[0] = {
               enonce: texte,
@@ -78,13 +78,14 @@ export default function ComparerAvecFctCarre () {
           texteCorr += `<br>Comme $${texNombrec(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(a)}$, 
           alors  $${texNombrec(b)}^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(a)}^2$.`
         }
-
+        this.canEnonce = `Comparer $${texNombrec(a)}^2$ et $${texNombrec(b)}^2$.`
+        this.canReponseACompleter = ''
         break
       case 2 :
         a = calcul((randint(0, 5) + randint(5, 9) / 10 + randint(5, 9) / 100 + randint(0, 2) / 1000) * (-1))
         b = calcul(a + (2 * randint(1, 9) / 1000) * choice([1, -1]))
         if (this.interactif) {
-          texte = 'Sélectionner la réponse correcte. '
+          texte = 'Sélectionner2222222 la réponse correcte. '
           if (a < b) {
             this.autoCorrection[0] = {
               enonce: texte,
@@ -133,13 +134,14 @@ export default function ComparerAvecFctCarre () {
           texteCorr += `<br>Comme $${texNombrec(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombrec(a)}$, 
         alors  $(${texNombrec(b)})^2${miseEnEvidence('\\boldsymbol{>}', 'blue')}(${texNombrec(a)})^2$.`
         }
-
+        this.canEnonce = `Comparer $(${texNombrec(a)})^2$ et $(${texNombrec(b)})^2$.`
+        this.canReponseACompleter = ''
         break
       case 3 :
         a = calcul(randint(1, 6) + randint(5, 9) / 10 + randint(5, 9) / 100 + randint(0, 2) / 1000)
         b = calcul((-1) * a + (2 * randint(1, 9) / 1000) * choice([1, -1]))
         if (this.interactif) {
-          texte = 'Sélectionner la réponse correcte. '
+          texte = 'Sélectionner 333333la réponse correcte. '
           if (abs(a) < abs(b)) {
             this.autoCorrection[0] = {
               enonce: texte,
@@ -174,7 +176,13 @@ export default function ComparerAvecFctCarre () {
 
           texte += propositionsQcm(this, 0).texte
         } else {
-          if (choice([true, false])) { texte = `Comparer $${texNombrec(a)}^2$ et $(${texNombrec(b)})^2$.` } else { texte = `Comparer  $(${texNombrec(b)})^2$ et $${texNombrec(a)}^2$.` }
+          if (choice([true, false])) {
+            texte = `Comparer $${texNombrec(a)}^2$ et $(${texNombrec(b)})^2$.`
+            this.canEnonce = `Comparer $${texNombrec(a)}^2$ et $(${texNombrec(b)})^2$.`
+            this.canReponseACompleter = ''
+          } else { texte = `Comparer  $(${texNombrec(b)})^2$ et $${texNombrec(a)}^2$.` }
+          this.canEnonce = `Comparer  $(${texNombrec(b)})^2$ et $${texNombrec(a)}^2$.`
+          this.canReponseACompleter = ''
         }
 
         texteCorr = ` Le nombre $${texNombrec(b)}$ est négatif, alors que le nombre $${texNombrec(a)}$ est positif. 

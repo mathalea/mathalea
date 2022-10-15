@@ -20,6 +20,7 @@ export default function CalculImageSecondDegre () {
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {
@@ -33,6 +34,7 @@ export default function CalculImageSecondDegre () {
 
         expression = `${rienSi1(a)}x^2+${rienSi1(b)}x+${c}`
         this.question = `On considère la fonction $f$ définie par $f(x)= ${expression}$. <br>
+
     Calculer $f(${x})$.`
 
         if (a === 1 & b !== 1) {
@@ -96,6 +98,7 @@ export default function CalculImageSecondDegre () {
 
         expression = `(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(c)}x${ecritureAlgebrique(d)})`
         this.question = `On considère la fonction $f$ définie par $f(x)= ${expression}$. <br>
+
           Calculer $f(${x})$.`
         if (a === 1 & c === 1) {
           this.correction = `$f(${x})=\\left(${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}\\right)\\left(${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}\\right)=(${a * x}${ecritureAlgebrique(b)})(${c * x}${ecritureAlgebrique(d)})=
@@ -145,6 +148,7 @@ export default function CalculImageSecondDegre () {
 
         expression = `${a}-${rienSi1(b)}x^2`
         this.question = `On considère la fonction $f$ définie par $f(x)= ${expression}$. <br>
+
           Calculer $f(${x})$.`
 
         this.correction = `$f(${x})=${a}- ${ecritureParentheseSiNegatif(x)}^2=${a - b * x * x}$.<br>`
@@ -171,6 +175,7 @@ export default function CalculImageSecondDegre () {
 
         expression = `(${a}x${ecritureAlgebrique(b)})^2`
         this.question = `On considère la fonction $f$ définie par $f(x)= ${expression}$. <br>
+
         Calculer $f(${x})$.`
 
         this.correction = `$f(${x})=
@@ -185,5 +190,7 @@ export default function CalculImageSecondDegre () {
 
         break
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }
