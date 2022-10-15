@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, choice, ecritureAlgebrique, texteCentre, reduireAxPlusB, reduirePolynomeDegre3 } from '../../../modules/outils.js'
+import { randint, choice, ecritureAlgebrique, reduireAxPlusB, reduirePolynomeDegre3 } from '../../../modules/outils.js'
 export const titre = 'Calculer une dérivée et écrire le résultat sous la forme d’un quotient'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -31,9 +31,11 @@ export default function CalculFonctionDeriveeQuotient () {
         a = randint(1, 10)
         m = randint(-10, 10, 0)
         p = randint(-10, 10, 0)
-        this.question = `Soit $f$ la fonction définie  par : 
-            ${texteCentre(`$f(x)=${reduireAxPlusB(m, p)}+\\dfrac{${a}}{x}$`)}  
-            Déterminer la  dérivée de la fonction $f$ (écrire le résultat sous la fomre d'un seul quotient).<br>     `
+        this.question = `Soit $f$ la fonction définie  par : <br>
+
+           $f(x)=${reduireAxPlusB(m, p)}+\\dfrac{${a}}{x}$.<br>
+
+            Déterminer $f'(x)$ (écrire le résultat sous la fomre d'un seul quotient).<br>     `
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f$est de la forme $u+v$ avec $u(x)=${reduireAxPlusB(m, p)}$ et $v(x)=\\dfrac{${a}}{x}$.<br>
                  On a $u'(x)=${m}$ et $v'(x)=\\dfrac{-${a}}{x^2}$.<br>
@@ -48,9 +50,11 @@ export default function CalculFonctionDeriveeQuotient () {
         a = randint(1, 10)
         m = randint(-10, 10, 0)
         p = randint(-10, 10, 0)
-        this.question = `Soit $f$ la fonction définie  par : 
-              ${texteCentre(`$f(x)=${reduireAxPlusB(m, p)}-\\dfrac{${a}}{x}$`)}  
-              Déterminer la  dérivée de la fonction $f$ (écrire le résultat sous la fomre d'un seul quotient).<br>     `
+        this.question = `Soit $f$ la fonction définie  par :<br>
+
+             $f(x)=${reduireAxPlusB(m, p)}-\\dfrac{${a}}{x}$. <br>
+
+              Déterminer  $f'(x)$ (écrire le résultat sous la fomre d'un seul quotient).<br>     `
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f$est de la forme $u-v$ avec $u(x)=${reduireAxPlusB(m, p)}$ et $v(x)=\\dfrac{${a}}{x}$.<br>
                    On a $u'(x)=${m}$ et $v'(x)=\\dfrac{-${a}}{x^2}$.<br>
@@ -65,9 +69,11 @@ export default function CalculFonctionDeriveeQuotient () {
         a = randint(1, 10)
         m = randint(-10, 10, 0)
         p = randint(-10, 10, 0)
-        this.question = `Soit $f$ la fonction définie  par : 
-                ${texteCentre(`$f(x)=${p}${ecritureAlgebrique(m)}x+\\dfrac{${a}}{x}$`)}  
-                Déterminer la  dérivée de la fonction $f$ (écrire le résultat sous la fomre d'un seul quotient).<br>     `
+        this.question = `Soit $f$ la fonction définie  par : <br>
+
+               $f(x)=${p}${ecritureAlgebrique(m)}x+\\dfrac{${a}}{x}$. <br>
+
+                Déterminer  $f'(x)$ (écrire le résultat sous la fomre d'un seul quotient).<br>     `
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f$est de la forme $u+v$ avec $u(x)=${p}${ecritureAlgebrique(m)}x$ et $v(x)=\\dfrac{${a}}{x}$.<br>
                      On a $u'(x)=${m}$ et $v'(x)=\\dfrac{-${a}}{x^2}$.<br>
@@ -81,9 +87,11 @@ export default function CalculFonctionDeriveeQuotient () {
         a = randint(1, 10)
         m = randint(-10, 10, 0)
         p = randint(-10, 10, 0)
-        this.question = `Soit $f$ la fonction définie  par : 
-                  ${texteCentre(`$f(x)=${p}${ecritureAlgebrique(m)}x-\\dfrac{${a}}{x}$`)}  
-                  Déterminer la  dérivée de la fonction $f$ (écrire le résultat sous la fomre d'un seul quotient).<br>     `
+        this.question = `Soit $f$ la fonction définie  par : <br>
+
+                  $f(x)=${p}${ecritureAlgebrique(m)}x-\\dfrac{${a}}{x}$. <br>
+
+                  Déterminer  $f'(x)$ (écrire le résultat sous la fomre d'un seul quotient).<br>     `
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f$est de la forme $u+v$ avec $u(x)=${p}${ecritureAlgebrique(m)}x$ et $v(x)=\\dfrac{${a}}{x}$.<br>
                        On a $u'(x)=${m}$ et $v'(x)=\\dfrac{-${a}}{x^2}$.<br>
@@ -98,9 +106,11 @@ export default function CalculFonctionDeriveeQuotient () {
         a = randint(1, 10)
         m = randint(-10, 10, 0)
         p = randint(-10, 10, 0)
-        this.question = `Soit $f$ la fonction définie  par : 
-            ${texteCentre(`$f(x)=${reduirePolynomeDegre3(0, m, 0, p)}+\\dfrac{${a}}{x}$`)}  
-            Déterminer la  dérivée de la fonction $f$ (écrire le résultat sous la fomre d'un seul quotient).<br>     `
+        this.question = `Soit $f$ la fonction définie  par : <br>
+
+            $f(x)=${reduirePolynomeDegre3(0, m, 0, p)}+\\dfrac{${a}}{x}$. <br>
+
+            Déterminer  $f'(x)$ (écrire le résultat sous la fomre d'un seul quotient).<br>     `
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f$est de la forme $u+v$ avec $u(x)=${reduirePolynomeDegre3(0, m, 0, p)}$ et $v(x)=\\dfrac{${a}}{x}$.<br>
                  On a $u'(x)=${2 * m}x$ et $v'(x)=\\dfrac{-${a}}{x^2}$.<br>
@@ -114,9 +124,11 @@ export default function CalculFonctionDeriveeQuotient () {
         a = randint(1, 10)
         m = randint(-10, 10, 0)
         p = randint(-10, 10, 0)
-        this.question = `Soit $f$ la fonction définie  par : 
-          ${texteCentre(`$f(x)=${p}${ecritureAlgebrique(m)}x^2+\\dfrac{${a}}{x}$`)}  
-          Déterminer la  dérivée de la fonction $f$ (écrire le résultat sous la fomre d'un seul quotient).<br>     `
+        this.question = `Soit $f$ la fonction définie  par : <br>
+
+         $f(x)=${p}${ecritureAlgebrique(m)}x^2+\\dfrac{${a}}{x}$. <br>
+
+          Déterminer  $f'(x)$ (écrire le résultat sous la fomre d'un seul quotient).<br>     `
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f$est de la forme $u+v$ avec $u(x)=${p}${ecritureAlgebrique(m)}x^2$ et $v(x)=\\dfrac{${a}}{x}$.<br>
                On a $u'(x)=${2 * m}x$ et $v'(x)=\\dfrac{-${a}}{x^2}$.<br>
@@ -131,9 +143,11 @@ export default function CalculFonctionDeriveeQuotient () {
         a = randint(1, 10)
         m = randint(-10, 10, 0)
         p = randint(-10, 10, 0)
-        this.question = `Soit $f$ la fonction définie  par : 
-        ${texteCentre(`$f(x)=${reduirePolynomeDegre3(0, m, 0, p)}-\\dfrac{${a}}{x}$`)}  
-        Déterminer la  dérivée de la fonction $f$ (écrire le résultat sous la fomre d'un seul quotient).<br>     `
+        this.question = `Soit $f$ la fonction définie  par : <br>
+
+       $f(x)=${reduirePolynomeDegre3(0, m, 0, p)}-\\dfrac{${a}}{x}$.<br>
+
+        Déterminer  $f'(x)$ (écrire le résultat sous la fomre d'un seul quotient).<br>     `
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f$est de la forme $u-v$ avec $u(x)=${reduirePolynomeDegre3(0, m, 0, p)}$ et $v(x)=\\dfrac{${a}}{x}$.<br>
              On a $u'(x)=${2 * m}x$ et $v'(x)=\\dfrac{-${a}}{x^2}$.<br>
@@ -144,5 +158,7 @@ export default function CalculFonctionDeriveeQuotient () {
 
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

@@ -39,39 +39,60 @@ export default function ReconnaitreFonctionDegre2 () {
           nom = choice(nomF)
           choix = choice(['a', 'b', 'c', 'd', 'e', 'f', 'g'])//
           if (choix === 'a') {
-            texte = `Soit $${nom}$ la fonction définie  par :
+            texte = `Soit $${nom}$ la fonction définie  par :<br>
+
             $${nom}(x)=${reduirePolynomeDegre3(0, a, b, c)}$. <br>
+
             $${nom}$ est une fonction polynôme du second degré.`
+            this.canEnonce = texte
           }
           if (choix === 'b') {
-            texte = `Soit $${nom}$ la fonction définie  par :
+            texte = `Soit $${nom}$ la fonction définie  par :<br>
+
             $${nom}(x)=${reduirePolynomeDegre3(0, a, 0, c)}$. <br>
+
             $${nom}$ est une fonction polynôme du second degré.`
+            this.canEnonce = texte
           }
           if (choix === 'c') {
-            texte = `Soit $${nom}$ la fonction définie  par :
+            texte = `Soit $${nom}$ la fonction définie  par :<br>
+
             $${nom}(x)=${reduirePolynomeDegre3(0, a, b, 0)}$. <br>
+
             $${nom}$ est une fonction polynôme du second degré.`
+            this.canEnonce = texte
           }
           if (choix === 'd') {
-            texte = `Soit $${nom}$ la fonction définie  par :
+            texte = `Soit $${nom}$ la fonction définie  par :<br>
+
             $${nom}(x)=${rienSi1(b)}x${ecritureAlgebrique(c)}${ecritureAlgebriqueSauf1(a)}x^2$. <br>
+
             $${nom}$ est une fonction polynôme du second degré.`
+            this.canEnonce = texte
           }
           if (choix === 'e') {
-            texte = `Soit $${nom}$ la fonction définie  par :
+            texte = `Soit $${nom}$ la fonction définie  par :<br>
+
             $${nom}(x)=${rienSi1(b)}x${ecritureAlgebriqueSauf1(a)}x^2${ecritureAlgebrique(c)}$. <br>
+
             $${nom}$ est une fonction polynôme du second degré.`
+            this.canEnonce = texte
           }
           if (choix === 'f') {
-            texte = `Soit $${nom}$ la fonction définie  par :
+            texte = `Soit $${nom}$ la fonction définie  par :<br>
+
             $${nom}(x)=\\dfrac{${reduirePolynomeDegre3(0, a, 0, c)}}{${d}}$. <br>
+
             $${nom}$ est une fonction polynôme du second degré.`
+            this.canEnonce = texte
           }
           if (choix === 'g') {
-            texte = `Soit $${nom}$ la fonction définie  par :
+            texte = `Soit $${nom}$ la fonction définie  par :<br>
+
             $${nom}(x)=${rienSi1(a)}x^2+\\sqrt{${r1}}x${ecritureAlgebrique(c)}$. <br>
+
             $${nom}$ est une fonction polynôme du second degré.`
+            this.canEnonce = texte
           }
           this.autoCorrection[i] = {
             enonce: texte,
@@ -137,34 +158,52 @@ export default function ReconnaitreFonctionDegre2 () {
           r2 = choice([2, 3, 5, 6, 7, 10])
           choix = choice(['a', 'b', 'c', 'd', 'e', 'f'])//
           if (choix === 'a') {
-            texte = `Soit $${nom}$ la fonction définie  par :
+            texte = `Soit $${nom}$ la fonction définie  par :<br>
+
               $${nom}(x)=${rienSi1(a)}(x${ecritureAlgebrique(x1)})(x${ecritureAlgebrique(x2)})$. <br>
+
               $${nom}$ est une fonction polynôme du second degré.`
+            this.canEnonce = texte
           }
           if (choix === 'b') {
-            texte = `Soit $${nom}$ la fonction définie  par :
+            texte = `Soit $${nom}$ la fonction définie  par :<br>
+
               $${nom}(x)=${rienSi1(a)}x(x${ecritureAlgebrique(x2)})$. <br>
+
               $${nom}$ est une fonction polynôme du second degré.`
+            this.canEnonce = texte
           }
           if (choix === 'c') {
-            texte = `Soit $${nom}$ la fonction définie  par :
+            texte = `Soit $${nom}$ la fonction définie  par :<br>
+
               $${nom}(x)=x(x${ecritureAlgebrique(x2)})$. <br>
+
               $${nom}$ est une fonction polynôme du second degré.`
+            this.canEnonce = texte
           }
           if (choix === 'd') {
-            texte = `Soit $${nom}$ la fonction définie  par :
+            texte = `Soit $${nom}$ la fonction définie  par :<br>
+
                 $${nom}(x)=(${x1}-x)(x${ecritureAlgebrique(x2)})$. <br>
+
                 $${nom}$ est une fonction polynôme du second degré.`
+            this.canEnonce = texte
           }
           if (choix === 'e') {
-            texte = `Soit $${nom}$ la fonction définie  par :
+            texte = `Soit $${nom}$ la fonction définie  par :<br>
+
               $${nom}(x)=${rienSi1(a)}(x+\\sqrt{${r1}})(x-\\sqrt{${r2}})$. <br>
+
               $${nom}$ est une fonction polynôme du second degré.`
+            this.canEnonce = texte
           }
           if (choix === 'f') {
-            texte = `Soit $${nom}$ la fonction définie  par :
+            texte = `Soit $${nom}$ la fonction définie  par :<br>
+
               $${nom}(x)=\\sqrt{${r1}}(x${ecritureAlgebrique(x1)})(x${ecritureAlgebrique(x2)})$. <br>
+
               $${nom}$ est une fonction polynôme du second degré.`
+            this.canEnonce = texte
           }
           this.autoCorrection[i] = {
             enonce: texte,
@@ -218,24 +257,36 @@ export default function ReconnaitreFonctionDegre2 () {
           nom = choice(nomF)
           choix = choice(['a', 'b', 'c'])//
           if (choix === 'a') {
-            texte = `Soit $${nom}$ la fonction définie  par :
+            texte = `Soit $${nom}$ la fonction définie  par :<br>
+
                   $${nom}(x)=${rienSi1(a)}(x${ecritureAlgebrique(alpha)})^2${ecritureAlgebrique(beta)}$. <br>
+               
                   $${nom}$ est une fonction polynôme du second degré.`
+            this.canEnonce = texte
           }
           if (choix === 'b') {
-            texte = `Soit $${nom}$ la fonction définie  par :
+            texte = `Soit $${nom}$ la fonction définie  par :<br>
+
                   $${nom}(x)=${rienSi1(a)}(x${ecritureAlgebrique(alpha)})^2$. <br>
+
                   $${nom}$ est une fonction polynôme du second degré.`
+            this.canEnonce = texte
           }
           if (choix === 'c') {
-            texte = `Soit $${nom}$ la fonction définie  par :
+            texte = `Soit $${nom}$ la fonction définie  par :<br>
+
                   $${nom}(x)=(x${ecritureAlgebrique(alpha)})^2$. <br>
+
                   $${nom}$ est une fonction polynôme du second degré.`
+            this.canEnonce = texte
           }
           if (choix === 'd') {
-            texte = `Soit $${nom}$ la fonction définie  par :
+            texte = `Soit $${nom}$ la fonction définie  par :<br>
+
                     $${nom}(x)=(${x1}-x)(x${ecritureAlgebrique(x2)})$. <br>
+
                     $${nom}$ est une fonction polynôme du second degré.`
+            this.canEnonce = texte
           }
           this.autoCorrection[i] = {
             enonce: texte,
@@ -282,24 +333,36 @@ export default function ReconnaitreFonctionDegre2 () {
           nom = choice(nomF)
           choix = choice(['a', 'b', 'c', 'd'])
           if (choix === 'a') {
-            texte = `Soit $${nom}$ la fonction définie  par :
+            texte = `Soit $${nom}$ la fonction définie  par :<br>
+
               $${nom}(x)=${reduirePolynomeDegre3(a, b, c, 0)}$. <br>
+
               $${nom}$ est une fonction polynôme du second degré.`
+            this.canEnonce = texte
           }
           if (choix === 'b') {
-            texte = `Soit $${nom}$ la fonction définie  par :
+            texte = `Soit $${nom}$ la fonction définie  par :<br>
+
               $${nom}(x)=${b}${ecritureAlgebriqueSauf1(c)}x^3$. <br>
+
               $${nom}$ est une fonction polynôme du second degré.`
+            this.canEnonce = texte
           }
           if (choix === 'c') {
-            texte = `Soit $${nom}$ la fonction définie  par :
+            texte = `Soit $${nom}$ la fonction définie  par :<br>
+
               $${nom}(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x+\\dfrac{${abs(c)}}{x}$. <br>
+
               $${nom}$ est une fonction polynôme du second degré.`
+            this.canEnonce = texte
           }
           if (choix === 'd') {
-            texte = `Soit $${nom}$ la fonction définie  par :
+            texte = `Soit $${nom}$ la fonction définie  par :<br>
+
               $${nom}(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}\\sqrt{x}${ecritureAlgebrique(c)}$. <br>
+             
               $${nom}$ est une fonction polynôme du second degré.`
+            this.canEnonce = texte
           }
 
           this.autoCorrection[i] = {
@@ -346,14 +409,20 @@ export default function ReconnaitreFonctionDegre2 () {
           nom = choice(nomF)
           choix = choice(['a', 'b'])//, 'b', 'c', 'd'
           if (choix === 'a') {
-            texte = `Soit $${nom}$ la fonction définie  par :
+            texte = `Soit $${nom}$ la fonction définie  par :<br>
+
                     $${nom}(x)=${rienSi1(a)}x(x${ecritureAlgebrique(x1)})(x${ecritureAlgebrique(x2)})$. <br>
+                 
                     $${nom}$ est une fonction polynôme du second degré.`
+            this.canEnonce = texte
           }
           if (choix === 'b') {
-            texte = `Soit $${nom}$ la fonction définie  par :
+            texte = `Soit $${nom}$ la fonction définie  par :<br>
+
                   $${nom}(x)=${rienSi1(a)}x(\\sqrt{x}${ecritureAlgebrique(x1)})(x${ecritureAlgebrique(x2)})$. <br>
+               
                   $${nom}$ est une fonction polynôme du second degré.`
+            this.canEnonce = texte
           }
 
           this.autoCorrection[i] = {
@@ -392,19 +461,28 @@ export default function ReconnaitreFonctionDegre2 () {
           nom = choice(nomF)
           choix = choice(['a', 'b', 'c'])//, 'b', 'c'
           if (choix === 'a') {
-            texte = `Soit $${nom}$ la fonction définie  par :
+            texte = `Soit $${nom}$ la fonction définie  par :<br>
+
                             $${nom}(x)=${rienSi1(a)}x(x${ecritureAlgebrique(alpha)})^2${ecritureAlgebrique(beta)}$. <br>
+                           
                             $${nom}$ est une fonction polynôme du second degré.`
+            this.canEnonce = texte
           }
           if (choix === 'b') {
-            texte = `Soit $${nom}$ la fonction définie  par :
+            texte = `Soit $${nom}$ la fonction définie  par :<br>
+
                             $${nom}(x)=${rienSi1(a)}(x${ecritureAlgebrique(alpha)})^2+\\sqrt{x}$. <br>
+
                             $${nom}$ est une fonction polynôme du second degré.`
+            this.canEnonce = texte
           }
           if (choix === 'c') {
-            texte = `Soit $${nom}$ la fonction définie  par :
+            texte = `Soit $${nom}$ la fonction définie  par :<br>
+
                               $${nom}(x)=${rienSi1(a)}(\\sqrt{x}${ecritureAlgebrique(alpha)})^2${ecritureAlgebrique(beta)}$. <br>
+                             
                               $${nom}$ est une fonction polynôme du second degré.`
+            this.canEnonce = texte
           }
 
           this.autoCorrection[i] = {
@@ -448,5 +526,6 @@ export default function ReconnaitreFonctionDegre2 () {
       cpt++
     }
     listeQuestionsToContenu(this)
+    this.canReponseACompleter = propositionsQcm(this, 0).texte
   }
 }
