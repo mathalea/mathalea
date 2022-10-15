@@ -9,7 +9,7 @@ export const interactifType = 'qcm'
 
 export const titre = 'Traduire un programme de calcul par une expression littérale'
 
-export const dateDeModifImportante = '11/05/2022'
+export const dateDeModifImportante = '15/10/2022' // Ajout du programme équivalent dans la correction
 
 /**
 * Traduire un programme de calcul par une expression littérale de la forme ax+b après simplification
@@ -50,6 +50,9 @@ export default function TraduireUnProgrammeDeCalcul () {
       const b = randint(2, 11)
       const c = randint(2, 11)
       const d = randint(2, 5)
+      // Le programme équivalent est de la forme Ax + B
+      let A
+      let B
       switch (listeTypeDeQuestions[i]) {
         case 1: // (x+a)*b+c
           texte = 'Voici un programme de calcul : \n'
@@ -62,6 +65,7 @@ export default function TraduireUnProgrammeDeCalcul () {
           texteCorr += '$<br>'
           texteCorr += 'Le résultat du programme est donc '
           this.sup ? texteCorr += `$${b}x+${a * b + c}$.` : texteCorr += `$(x+${a})\\times  ${b} + ${c}$.`
+          if (this.sup) [A, B] = [b, a * b + c]
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
@@ -92,6 +96,7 @@ export default function TraduireUnProgrammeDeCalcul () {
           texteCorr += '$<br>'
           texteCorr += 'Le résultat du programme est donc '
           this.sup ? texteCorr += `$${a * c}y+${b * c}$.` : texteCorr += `$(${a}y+${b})\\times ${c}$.`
+          if (this.sup) [A, B] = [a * c, b * c]
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
@@ -120,6 +125,7 @@ export default function TraduireUnProgrammeDeCalcul () {
           texteCorr = `$a\\xrightarrow{\\times  ${a}} ${a}a\\xrightarrow{+${b}}${a}a+${b} \\xrightarrow{-2a}${a}a+${b}-2a=${a - 2}a+${b}$`
           texteCorr += '<br>'
           texteCorr += `Le résultat du programme est donc $${a - 2}a+${b}$.`
+          if (this.sup) [A, B] = [a - 2, b]
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
@@ -148,6 +154,7 @@ export default function TraduireUnProgrammeDeCalcul () {
           texteCorr = `$t\\xrightarrow{\\times  ${a}} ${a}t\\xrightarrow{+${b}}${a}t+${b} \\xrightarrow{+3t}${a}t+${b}+3t=${a + 3}t+${b}$`
           texteCorr += '<br>'
           texteCorr += `Le résultat du programme est donc $${a + 3}t+${b}$.`
+          if (this.sup) [A, B] = [a + 3, b]
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
@@ -180,6 +187,7 @@ export default function TraduireUnProgrammeDeCalcul () {
           texteCorr += '$<br>'
           texteCorr += 'Le résultat du programme est donc '
           this.sup ? texteCorr += `$${a * c}x+${b * c - d}$.` : texteCorr += `$(${a}x+${b})\\times  ${c} - ${d}$.`
+          if (this.sup) [A, B] = [a * c, b * c - d]
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
@@ -212,6 +220,7 @@ export default function TraduireUnProgrammeDeCalcul () {
           texteCorr += '$<br>'
           texteCorr += 'Le résultat du programme est donc '
           this.sup ? texteCorr += `$${a * c + 1}y+${b * c}$.` : texteCorr += `$(${a}y+${b})\\times  ${c} + y$.`
+          if (this.sup) [A, B] = [a * c + 1, b * c]
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
@@ -236,6 +245,11 @@ export default function TraduireUnProgrammeDeCalcul () {
       }
       if (this.interactif) {
         texte += propositionsQcm(this, i).texte
+      }
+
+      if (this.sup) {
+        texteCorr += '<br><br>Le programme de calcul est équivalent à :'
+        texteCorr += itemize([`Multiplier par $${A}$`, `${(B > 0) ? 'Ajouter' : 'Enlever'} $${Math.abs(B)}$`])
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
