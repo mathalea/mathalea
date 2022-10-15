@@ -38,9 +38,9 @@ export default function LectureGraphiqueVecteurRepere () {
       k2 = randint(-6, 6)
       A = point(xa, ya)
       B = point(xa + k1, ya + k2)
-      xmin = Math.min(A.x, B.x, -1) - 2
+      xmin = Math.min(A.x, B.x, -1) - 1
       ymin = Math.min(A.y, B.y, -1) - 2
-      xmax = Math.max(A.x, B.x, 1) + 2
+      xmax = Math.max(A.x, B.x, 1) + 1
       ymax = Math.max(A.y, B.y, 1) + 2
       AB = segment(A, B, 'blue', '->')
       AB.epaisseur = 2
@@ -72,10 +72,15 @@ export default function LectureGraphiqueVecteurRepere () {
         grilleSecondaireXMax: xmax
       })
 
-      texte = 'Lire les coordonnées du vecteur $\\vec{u}$.<br> '
-      texte += mathalea2d({ xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax, style: 'display: inline', pixelsParCm: 30, scale: 0.5 },
+      texte = `Lire les coordonnées du vecteur $\\vec{u}$.<br> 
+      
+      `
+      texte += mathalea2d({ xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax, style: 'display: inline', pixelsParCm: 30, scale: 0.75 },
         r1, o, AB, nomvAB
       )
+      texte += ` 
+      
+      `
 
       if (this.interactif) {
         texte += '<br>$\\vec{u}\\Bigg($' + ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline')
@@ -97,5 +102,7 @@ export default function LectureGraphiqueVecteurRepere () {
       cpt++
     }
     listeQuestionsToContenu(this)
+    this.canEnonce = texte// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }
