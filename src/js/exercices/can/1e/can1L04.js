@@ -67,5 +67,7 @@ export default function ResoudreEquationSecondDegre () {
       cpt++
     }
     listeQuestionsToContenu(this)
+    this.canEnonce = texte
+    this.canReponseACompleter = ''
   }
 }
