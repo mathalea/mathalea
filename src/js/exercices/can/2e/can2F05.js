@@ -19,6 +19,7 @@ export default function AntecedentFonctionRacine () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
@@ -40,5 +41,7 @@ Pour résoudre cette équation, on isole la racine carrée dans le membre de gau
     \\end{aligned}$
     `
     this.reponse = maFraction.texFractionSimplifiee ** 2
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }
