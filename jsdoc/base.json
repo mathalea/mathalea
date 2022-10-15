@@ -9,6 +9,7 @@
       "./src/js/modules/fractions.js",
       "./src/js/modules/FractionEtendue.js",
       "./src/js/modules/ListeFraction.js",
+      "./src/js/modules/outilsMathjs.js",
       "./src/demarrage.md"
     ]
   },
