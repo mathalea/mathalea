@@ -91,7 +91,7 @@ export default function PariteDunNombre () {
       case 5:
         a = randint(3, 7)
         b = a % 2 === 0 ? randint(1, 4) * 2 + 1 : randint(2, 9)
-        g = b ** a
+        g = b
         texte = `Le nombre $${b}`
         for (let i = 1; i < a; i++) {
           texte += `\\times ${b}`
