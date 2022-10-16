@@ -21,6 +21,7 @@ export default function CalculCotePythagore () {
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {
@@ -38,11 +39,15 @@ export default function CalculCotePythagore () {
     const ymax = Math.max(A.y, B.y, C.y) + 1
 
     objets.push(pol[0], pol[1], codageAngleDroit(A, B, C)) // pol[0], c'est le tracé et pol[1] ce sont les labels
-    objets.push(texteParPosition(`${texNombrec(b)}`, milieu(A, C).x + 0.2, milieu(A, C).y - 0.3, 'milieu', 'black', 1, 'middle', true),
-      texteParPosition(`${texNombrec(a)}`, milieu(A, B).x - 0.3, milieu(A, B).y, 'milieu', 'black', 1, 'middle', true),
+    objets.push(texteParPosition(`${texNombrec(b)}`, milieu(A, C).x + 0.2, milieu(A, C).y - 0.3),
+      texteParPosition(`${texNombrec(a)}`, milieu(A, B).x - 0.3, milieu(A, B).y),
       texteParPosition('x', milieu(B, C).x, milieu(B, C).y + 0.3, 'milieu', 'black', 1, 'middle', true)
     )
-    this.question = 'Sur cette figure $x=\\sqrt{a}$ avec $a=$<br>'
+    this.question = `Sur cette figure $x=\\sqrt{a}$.<br>
+    
+    Quelle est la valeur de $a$ ?<br>
+
+    `
     this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.3, scale: 0.7, style: 'margin: auto' }, objets)
     this.correction = ` En utilisant le théorème de Pythagore, on a :<br>
         $${nom[0]}${nom[1]}^2+${nom[1]}${nom[2]}^2=${nom[0]}${nom[2]}^2$, soit
@@ -51,5 +56,7 @@ export default function CalculCotePythagore () {
        <br>
        Ainsi, $a=${b ** 2 - a ** 2}$.`
     this.reponse = calcul(b ** 2 - a ** 2)
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = '$a=\\ldots$'
   }
 }

@@ -18,6 +18,7 @@ export default function VecteursColineaires () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
@@ -28,9 +29,11 @@ export default function VecteursColineaires () {
     const vy = p * uy
     this.question = `Dans un repère orthonormé $(O,\\vec i,\\vec j)$, on a :<br>
        $\\vec{u}\\left(${ux}${sp(1)} ; ${sp(1)} ${uy}\\right)$ et $\\vec{v}\\left(${vx}${sp(1)} ; ${sp(1)} a\\right)$<br>
-       Les vecteurs $\\vec{u}$ et $\\vec{v}$ sont colinéaires lorsque $a=$`
+      Pour quelle valeur de $a$, les vecteurs $\\vec{u}$ et $\\vec{v}$ sont colinéaires ?`
     this.correction = `Les deux vecteurs sont colinéaires, donc il existe un réel $k$ tel que $\\vec{v}=k\\times \\vec{u}$.<br>
        Comme $${vx}=${p}\\times ${ux}$, alors $y_{\\vec{v}}=${p}\\times${uy}=${p * uy}$, donc $a=${p * uy}$.`
     this.reponse = vy
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = '$a=\\ldots$'
   }
 }

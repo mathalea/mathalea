@@ -1,4 +1,4 @@
-import { droiteGraduee } from '../../../modules/2d.js'
+import { droiteGraduee, texteParPosition } from '../../../modules/2d.js'
 import FractionX from '../../../modules/FractionEtendue.js'
 import { randint, choice, texteCentre, choisitLettresDifferentes } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
@@ -19,6 +19,7 @@ export default function VecteursCol () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.formatInteractif = 'fractionEgale'
   this.consigne = ''
@@ -46,11 +47,12 @@ export default function VecteursCol () {
        y: 0,
        thickOffset: 0,
        axeStyle: '|-',
-       pointListe: [[0, `${noms[0]}`], [b, `${noms[1]}`], [a, `${noms[2]}`]],
+       pointListe: [[0, ''], [b, ''], [a, '']],
        pointCouleur: 'blue',
        labelsPrincipaux: false
 
-     }))
+     }), texteParPosition(`${noms[0]}`, 0, 0.9, 'milieu', 'blue', 2), texteParPosition(`${noms[1]}`, b * 1.5, 0.9, 'milieu', 'blue', 2),
+     texteParPosition(`${noms[2]}`, a * 1.5, 0.9, 'milieu', 'blue', 2))
 
         this.correction = `Les vecteurs $\\overrightarrow{${noms[0]}${noms[1]}}$ et $\\overrightarrow{${noms[0]}${noms[2]}}$
        sont colinéaires de même sens. Le nombre cherché est donc positif.<br>
@@ -58,6 +60,24 @@ export default function VecteursCol () {
        Le nombre cherché est donc : $${f1.texFraction}${f1.texSimplificationAvecEtapes()}$.<br>
        Ainsi, $\\overrightarrow{${noms[0]}${noms[1]}}= ${f1.texFractionSimplifiee}\\overrightarrow{${noms[0]}${noms[2]}}$
       `
+        this.canEnonce = `Compléter l’égalité vectorielle.<br>
+      
+        ` +
+       mathalea2d({ xmin: -1, ymin: -1, xmax: 15.5, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, droiteGraduee({
+         Unite: 1.5,
+         Min: 0,
+         Max: a,
+         x: 0,
+         y: 0,
+         thickOffset: 0,
+         axeStyle: '|-',
+         pointListe: [[0, `${noms[0]}`], [b, `${noms[1]}`], [a, `${noms[2]}`]],
+         pointCouleur: 'blue',
+         labelsPrincipaux: false
+
+       }))
+
+        this.canReponseACompleter = `$\\overrightarrow{${noms[0]}${noms[1]}}= \\ldots\\overrightarrow{${noms[0]}${noms[2]}}$`
         break
 
       case 2:
@@ -73,11 +93,12 @@ export default function VecteursCol () {
        y: 0,
        thickOffset: 0,
        axeStyle: '|-',
-       pointListe: [[0, `${noms[0]}`], [b, `${noms[1]}`], [a, `${noms[2]}`]],
+       pointListe: [[0, ''], [b, ''], [a, '']],
        pointCouleur: 'blue',
        labelsPrincipaux: false
 
-     }))
+     }), texteParPosition(`${noms[0]}`, 0, 0.9, 'milieu', 'blue', 2), texteParPosition(`${noms[1]}`, b * 1.5, 0.9, 'milieu', 'blue', 2),
+     texteParPosition(`${noms[2]}`, a * 1.5, 0.9, 'milieu', 'blue', 2))
 
         this.correction = `Les vecteurs $\\overrightarrow{${noms[0]}${noms[1]}}$ et $\\overrightarrow{${noms[0]}${noms[2]}}$
        sont colinéaires de même sens. Le nombre cherché est donc positif.<br>
@@ -85,6 +106,25 @@ export default function VecteursCol () {
        Le nombre cherché est donc : $${f2.texFraction}${f2.texSimplificationAvecEtapes()}$.<br>
        Ainsi, $\\overrightarrow{${noms[0]}${noms[2]}}= ${f2.texFractionSimplifiee}\\overrightarrow{${noms[0]}${noms[1]}}$
       `
+        this.canEnonce = `Compléter l’égalité vectorielle.<br>
+      
+      ` +
+      mathalea2d({ xmin: -1, ymin: -1, xmax: 15.5, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, droiteGraduee({
+        Unite: 1.5,
+        Min: 0,
+        Max: a,
+        x: 0,
+        y: 0,
+        thickOffset: 0,
+        axeStyle: '|-',
+        pointListe: [[0, `${noms[0]}`], [b, `${noms[1]}`], [a, `${noms[2]}`]],
+        pointCouleur: 'blue',
+        labelsPrincipaux: false
+
+      }))
+
+        this.canReponseACompleter = `$\\overrightarrow{${noms[0]}${noms[2]}}= ....\\overrightarrow{${noms[0]}${noms[1]}}$`
+
         break
 
       case 3:
@@ -100,11 +140,12 @@ export default function VecteursCol () {
          y: 0,
          thickOffset: 0,
          axeStyle: '|-',
-         pointListe: [[0, `${noms[0]}`], [b, `${noms[1]}`], [a, `${noms[2]}`]],
+         pointListe: [[0, ''], [b, ''], [a, '']],
          pointCouleur: 'blue',
          labelsPrincipaux: false
 
-       }))
+       }), texteParPosition(`${noms[0]}`, 0, 0.9, 'milieu', 'blue', 2), texteParPosition(`${noms[1]}`, b * 1.5, 0.9, 'milieu', 'blue', 2),
+       texteParPosition(`${noms[2]}`, a * 1.5, 0.9, 'milieu', 'blue', 2))
 
         this.correction = `Les vecteurs $\\overrightarrow{${noms[0]}${noms[1]}}$ et $\\overrightarrow{${noms[2]}${noms[0]}}$
          sont colinéaires de même contraires. Le nombre cherché est donc négatif.<br>
@@ -112,6 +153,25 @@ export default function VecteursCol () {
          Le nombre cherché est donc : $${f3.texFraction}${f3.texSimplificationAvecEtapes()}$.<br>
          Ainsi, $\\overrightarrow{${noms[0]}${noms[1]}}= ${f3.texFractionSimplifiee}\\overrightarrow{${noms[2]}${noms[0]}}$
         `
+        this.canEnonce = `Compléter l’égalité vectorielle.<br>
+      
+        ` +
+        mathalea2d({ xmin: -1, ymin: -1, xmax: 15.5, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, droiteGraduee({
+          Unite: 1.5,
+          Min: 0,
+          Max: a,
+          x: 0,
+          y: 0,
+          thickOffset: 0,
+          axeStyle: '|-',
+          pointListe: [[0, `${noms[0]}`], [b, `${noms[1]}`], [a, `${noms[2]}`]],
+          pointCouleur: 'blue',
+          labelsPrincipaux: false
+
+        }))
+
+        this.canReponseACompleter = `$\\overrightarrow{${noms[0]}${noms[1]}}= ....\\overrightarrow{${noms[2]}${noms[0]}}$`
+
         break
       case 4:
 
@@ -126,11 +186,12 @@ export default function VecteursCol () {
            y: 0,
            thickOffset: 0,
            axeStyle: '|-',
-           pointListe: [[0, `${noms[0]}`], [b, `${noms[1]}`], [a, `${noms[2]}`]],
+           pointListe: [[0, ''], [b, ''], [a, '']],
            pointCouleur: 'blue',
            labelsPrincipaux: false
 
-         }))
+         }), texteParPosition(`${noms[0]}`, 0, 0.9, 'milieu', 'blue', 2), texteParPosition(`${noms[1]}`, b * 1.5, 0.9, 'milieu', 'blue', 2),
+         texteParPosition(`${noms[2]}`, a * 1.5, 0.9, 'milieu', 'blue', 2))
 
         this.correction = `Les vecteurs $\\overrightarrow{${noms[1]}${noms[0]}}$ et $\\overrightarrow{${noms[0]}${noms[2]}}$
            sont colinéaires de sens contraires. Le nombre cherché est donc négatif.<br>
@@ -138,6 +199,25 @@ export default function VecteursCol () {
            Le nombre cherché est donc : $${f4.texFraction}${f4.texSimplificationAvecEtapes()}$.<br>
            Ainsi, $\\overrightarrow{${noms[0]}${noms[2]}}= ${f4.texFractionSimplifiee}\\overrightarrow{${noms[1]}${noms[0]}}$
           `
+        this.canEnonce = `Compléter l’égalité vectorielle.<br>
+      
+          ` +
+          mathalea2d({ xmin: -1, ymin: -1, xmax: 15.5, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, droiteGraduee({
+            Unite: 1.5,
+            Min: 0,
+            Max: a,
+            x: 0,
+            y: 0,
+            thickOffset: 0,
+            axeStyle: '|-',
+            pointListe: [[0, `${noms[0]}`], [b, `${noms[1]}`], [a, `${noms[2]}`]],
+            pointCouleur: 'blue',
+            labelsPrincipaux: false
+
+          }))
+
+        this.canReponseACompleter = `$\\overrightarrow{${noms[0]}${noms[2]}}= ....\\overrightarrow{${noms[1]}${noms[0]}}$`
+
         break
     }
   }

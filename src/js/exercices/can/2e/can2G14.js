@@ -19,6 +19,7 @@ export const ref = 'can2G14'
 export default function TranslationVecteur () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const xA = randint(-5, 5)
@@ -29,8 +30,7 @@ export default function TranslationVecteur () {
 
     const yB = yA + uy
 
-    this.listeQuestions = [` Dans un repère orthonormé $(O;\\vec i,\\vec j)$, on donne :<br>
-    Un point $A$ de coordonnées $A\\left(${xA}${sp(1)} ; ${sp(1)} ${yA}\\right)$ et un vecteur $\\vec{u}$ de coordonnées  $\\vec{u}\\begin{pmatrix}${ux} \\\\ ${uy}\\end{pmatrix}$
+    this.listeQuestions = [` Dans un repère orthonormé, on donne un point $A$ de coordonnées $A\\left(${xA}${sp(1)} ; ${sp(1)} ${yA}\\right)$ et un vecteur $\\vec{u}$ de coordonnées  $\\vec{u}\\begin{pmatrix}${ux} \\\\ ${uy}\\end{pmatrix}$.
  <br>Les coordonnées du point $B$ image du point $A$ par la translation de vecteur $\\vec{u}$ sont :
  ${texteCentre(`$B\\Bigg($ ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(5)} ;
  ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(5)} $\\Bigg)$`)}`]
@@ -41,5 +41,11 @@ export default function TranslationVecteur () {
     setReponse(this, 0, xB)
     setReponse(this, 1, yB)
     listeQuestionsToContenuSansNumero(this)
+    this.canEnonce = ` Dans un repère orthonormé, on donne un point $A$ de coordonnées $A\\left(${xA}${sp(1)}\\;;\\;${sp(1)} ${yA}\\right)$ et un vecteur $\\vec{u}$ de coordonnées  $\\vec{u}(${ux}\\;;\\;${uy})$.
+ <br>
+
+ Donner les coordonnées du point $B$ image du point $A$ par la translation de vecteur $\\vec{u}$.
+`
+    this.canReponseACompleter = ''
   }
 }
