@@ -34,7 +34,9 @@ export default function CalculTermeSuiteRec2 () {
 
         this.question = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $u_{n+1} = u_n ${ecritureAlgebrique(a)}$.`
         if (!this.interactif) {
-          this.question += `<br>Calculer $u_{${k}}$.`
+          this.question += `<br>
+          
+          Calculer $u_{${k}}$.`
         } else { this.question += `<br> $u_{${k}}=.....$` }
 
         this.correction = `On calcule successivement les termes jusqu'à obtenir $u_{${k}}$ :`
@@ -62,7 +64,9 @@ export default function CalculTermeSuiteRec2 () {
 
         this.question = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $u_{n+1} = ${a}u_n $.`
         if (!this.interactif) {
-          this.question += `<br>Calculer $u_{${k}}$.`
+          this.question += `<br>
+          
+          Calculer $u_{${k}}$.`
         } else { this.question += `<br> $u_{${k}}=.....$` }
         this.correction = `On calcule successivement les termes jusqu'à obtenir $u_{${k}}$ :`
 
@@ -87,7 +91,9 @@ export default function CalculTermeSuiteRec2 () {
         this.question = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $u_{n+1} = ${texFraction(n1, d1)}u_n $.`
 
         if (!this.interactif) {
-          this.question += `<br>Calculer $u_{${k}}$.`
+          this.question += `<br>
+          
+          Calculer $u_{${k}}$.`
         } else { this.question += `<br> $u_{${k}}=.....$` }
 
         this.correction = `On calcule successivement les termes jusqu'à obtenir $u_{${k}}$ :`
@@ -108,7 +114,9 @@ export default function CalculTermeSuiteRec2 () {
         this.question = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout $n\\in\\mathbb{N}$ par $u_{n+1} = ${a} u_n ${ecritureAlgebrique(b)}$.`
 
         if (!this.interactif) {
-          this.question += `<br>Calculer $u_{${k}}$.`
+          this.question += `<br>
+          
+          Calculer $u_{${k}}$.`
         } else { this.question += `<br> $u_{${k}}=.....$` }
 
         this.correction = `On calcule successivement les termes jusqu'à obtenir $u_{${k}}$ :`
@@ -131,8 +139,14 @@ export default function CalculTermeSuiteRec2 () {
         this.question = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout $n\\in\\mathbb{N}$ par $u_{n+1} = ${a} ${signe(b)} u_n^2$.`
 
         if (!this.interactif) {
-          this.question += `<br>Calculer $u_{${k}}$.`
-        } else { this.question += `<br> $u_{${k}}=.....$` }
+          this.question += `<br>
+          
+          Calculer $u_{${k}}$.`
+        } else {
+          this.question += `<br> 
+        
+        $u_{${k}}=.....$`
+        }
 
         this.correction = `En utilisant la relation de récurrence pour $n=0$, on obtient :<br>
        `
@@ -146,5 +160,7 @@ export default function CalculTermeSuiteRec2 () {
         this.reponse = u
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

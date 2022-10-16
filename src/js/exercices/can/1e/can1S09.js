@@ -37,7 +37,9 @@ export default function RelationRec () {
           c = calcul(randint(5, 20) * 1000)
           texte = `Chaque année, un magazine perd $${a} \\%$  de ses abonnés mais en gagne $${b}$ nouveaux.<br>
           En 2020, ce magazine compte $${c}$ abonnés.
-          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $2020+n$.<br>`
+          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $2020+n$.<br>
+          
+          `
           if (this.interactif) {
             texte += ` On a alors $${s}_{n+1}=a\\times ${s}_{n}+b$ avec :<br>
             $a=$  `
@@ -53,6 +55,8 @@ export default function RelationRec () {
           Le premier terme de la suite est $${s}_{0}=${c}$ et  $${s}_{n+1}=${texNombrec(1 - a / 100)}${s}_{n}+${b}$.<br>`
           setReponse(this, 2 * i, 1 - a / 100)
           setReponse(this, 2 * i + 1, b)
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
           break
 
         case 2 :// magazine geo
@@ -62,7 +66,9 @@ export default function RelationRec () {
           c = calcul(randint(5, 20) * 1000)
           texte = `Chaque année, un magazine perd $${a} \\%$  de ses abonnés.<br>
           En 2020, ce magazine compte $${c}$ abonnés.
-          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $2020+n$.<br>`
+          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $2020+n$.<br>
+          
+          `
           if (this.interactif) {
             texte += ` On a alors $${s}_{n+1}=a\\times ${s}_{n}+b$ avec :<br>
             $a=$  `
@@ -78,6 +84,8 @@ export default function RelationRec () {
           Le premier terme de la suite est $${s}_{0}=${c}$ et  $${s}_{n+1}=${texNombrec(1 - a / 100)}${s}_{n}$.<br>`
           setReponse(this, 2 * i, 1 - a / 100)
           setReponse(this, 2 * i + 1, 0)
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
           break
 
         case 3 :// magazine arith
@@ -87,7 +95,9 @@ export default function RelationRec () {
           c = calcul(randint(5, 20) * 1000)
           texte = `Chaque année, un magazine perd $${a}$ abonnés.<br>
           En 2020, ce magazine compte $${c}$ abonnés.
-          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $2020+n$.<br>`
+          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $2020+n$.<br>
+          
+          `
           if (this.interactif) {
             texte += ` On a alors $${s}_{n+1}=a\\times ${s}_{n}+b$ avec :<br>
             $a=$  `
@@ -103,6 +113,8 @@ export default function RelationRec () {
           Le premier terme de la suite est $${s}_{0}=${c}$ et  $${s}_{n+1}=${s}_{n}-${a}$.<br>`
           setReponse(this, 2 * i, 1)
           setReponse(this, 2 * i + 1, -a)
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
           break
 
         case 4 :// magazine arith/geo avec tiers....
@@ -114,7 +126,9 @@ export default function RelationRec () {
           T = choice(proportion)
           texte = `Chaque année, un magazine perd ${T}  de ses abonnés mais en gagne $${b}$ nouveaux.<br>
           En 2020, ce magazine compte $${c}$ abonnés.
-          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $2020+n$.<br>`
+          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $2020+n$.<br>
+          
+          `
           if (this.interactif) {
             texte += ` On a alors $${s}_{n+1}=a\\times ${s}_{n}+b$ avec :<br>
             $a=$  `
@@ -172,6 +186,8 @@ export default function RelationRec () {
             setReponse(this, 2 * i + 1, b)
           }
           ;
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
           break
       }
 
