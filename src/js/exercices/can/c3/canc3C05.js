@@ -24,7 +24,7 @@ export default function PariteDunNombre () {
     this.listeQuestions = []
     this.listeCorrections = []
     let a, b, c, d, e, f, g, texte, texteCorr
-    switch (choice([5])) {
+    switch (choice([1, 2, 3, 4, 5])) {
       case 1:
         a = randint(10, 20) * 10
         b = randint(0, 9)
