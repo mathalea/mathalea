@@ -95,7 +95,6 @@ export default function PariteDunNombre () {
         texte = `Le nombre $${b}`
         for (let i = 1; i < a; i++) {
           texte += `\\times ${b}`
-          g *= b
         }
         texte += '$ est-il pair ?'
         this.canEnonce = texte
