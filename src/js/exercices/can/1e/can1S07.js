@@ -35,6 +35,7 @@ export default function CalculRaison () {
         i = randint(0, 10)
         this.question = `Soit $(${s}_n)$ une suite arithmétique telle que :<br>
 $${s}_{${i}}=${u}$ et  $${s}_{${i + 1}}=${v}$.<br>
+
 Donner la raison $r$ de cette suite.`
         if (!this.interactif) {
           this.question += ''
@@ -45,6 +46,8 @@ Donner la raison $r$ de cette suite.`
         $r=${s}_{${i + 1}}-${s}_{${i}}=${v}-${ecritureParentheseSiNegatif(u)}=${v - u}$.`
 
         this.reponse = r
+        this.canEnonce = this.question
+        this.canReponseACompleter = '$r=\\ldots$'
         break
       case 'b':// suite géométrique
         u = randint(-12, 12, 0)
@@ -53,6 +56,7 @@ Donner la raison $r$ de cette suite.`
         i = randint(0, 10)
         this.question = `Soit $(${s}_n)$ une suite géométrique  telle que :<br>
 $${s}_{${i}}=${u}$ et  $${s}_{${i + 1}}=${v}$.<br>
+
 Donner la raison $q$ de cette suite.`
         if (!this.interactif) {
           this.question += ''
@@ -63,6 +67,8 @@ Donner la raison $q$ de cette suite.`
         $q=\\dfrac{${s}_{${i + 1}}}{${s}_{${i}}}=\\dfrac{${v}}{${u}}=${v / u}$.`
 
         this.reponse = q
+        this.canEnonce = this.question
+        this.canReponseACompleter = '$q=\\ldots$'
         break
     }
   }

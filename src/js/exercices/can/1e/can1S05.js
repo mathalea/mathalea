@@ -59,7 +59,10 @@ export default function NatureSuiteEx () {
             texte += propositionsQcm(this, i).texte
           } else {
             texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =${a}n${ecritureAlgebrique(b)} $.<br>
-          Quelle est la nature de cette suite ? Donner sa raison et son premier terme.`
+
+          Quelle est la nature de cette suite ?<br>
+          
+          Donner sa raison et son premier terme.`
           }
 
           texteCorr = `L'expression est de la forme $${s}_n=${s}_0+nr$ avec $${s}_0=${b}$ et $r=${a}$.<br>
@@ -95,7 +98,10 @@ export default function NatureSuiteEx () {
             texte += propositionsQcm(this, i).texte
           } else {
             texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =\\dfrac{${a}n${ecritureAlgebrique(b)}}{${d}}$.<br>
-          Quelle est la nature de cette suite ? Donner sa raison et son premier terme.`
+          
+            Quelle est la nature de cette suite ?<br>
+            
+            Donner sa raison et son premier terme.`
           }
           if (b < 0) {
             texteCorr = `$${s}_{n} =\\dfrac{${a}n${ecritureAlgebrique(b)}}{${d}}=${texFractionReduite(a, d)}n${texFractionReduite(b, d)}$.<br> `
@@ -134,7 +140,11 @@ export default function NatureSuiteEx () {
             }
             texte += propositionsQcm(this, i).texte
           } else {
-            texte += ' <br>Quelle est la nature de cette suite ? Donner sa raison et son premier terme.'
+            texte += ` <br>
+            
+            Quelle est la nature de cette suite ?<br>
+            
+            Donner sa raison et son premier terme.`
           }
           if (a === 1) {
             texteCorr = `$${s}_{n+1} = ${ecritureParentheseSiNegatif(b)}^{n+1}=${ecritureParentheseSiNegatif(b)}\\times \\underbrace{ ${ecritureParentheseSiNegatif(b)}^{n}}_{${s}_{n}}=${ecritureParentheseSiNegatif(b)}\\times ${s}_{n}$.
@@ -176,7 +186,11 @@ export default function NatureSuiteEx () {
             }
             texte += propositionsQcm(this, i).texte
           } else {
-            texte += ' <br>Quelle est la nature de cette suite ? Donner sa raison et son premier terme.'
+            texte += ` <br>
+            
+            Quelle est la nature de cette suite ?<br>
+            
+            Donner sa raison et son premier terme.`
           }
 
           texteCorr = `$${s}_{n+1} =\\dfrac{${a}}{${b}^{n+1}}=\\dfrac{1}{${b}}\\times \\underbrace{\\dfrac{${a}}{${b}^n}}_{${s}_{n}}=\\dfrac{1}{${b}}\\times ${s}_n$`
@@ -194,5 +208,9 @@ export default function NatureSuiteEx () {
       cpt++
     }
     listeQuestionsToContenu(this)
+    this.canEnonce = texte
+    this.canReponseACompleter = `Nature de la suite : $\\ldots$\\\\
+     Raison $=\\ldots$\\\\
+     Premier terme $=\\ldots$`
   }
 }
