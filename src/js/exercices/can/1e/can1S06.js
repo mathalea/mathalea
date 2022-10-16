@@ -122,5 +122,7 @@ export default function CalculTermeSuiteRec () {
         this.reponse = [`${u}\\times ${ecritureParentheseSiNegatif(a)}^{n-1}`, `${ecritureParentheseSiNegatif(a)}^{n-1}\\times${u}`]
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

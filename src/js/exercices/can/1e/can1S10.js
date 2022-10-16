@@ -35,7 +35,9 @@ export default function SensVariationSuite () {
           if (choix === 1) { // suite explicite avec fonction racine carrée
             a = randint(1, 10) * choice([-1, 1])
             texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =${rienSi1(a)}\\sqrt{n} $.<br>
-          Alors, $(${s}_n)$ est une suite ...`
+         
+            Alors, $(${s}_n)$ est une suite ...`
+            this.canEnonce = texte
             if (a > 0) {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -86,7 +88,9 @@ export default function SensVariationSuite () {
             a = randint(1, 10) * choice([-1, 1])
             // u = randint(1, 10) * choice([-1, 1])
             texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}^*$ par $${s}_{n} =\\dfrac{${a}}{n}$.<br>
-          Alors, $(${s}_n)$ est une suite ...`
+         
+            Alors, $(${s}_n)$ est une suite ...`
+            this.canEnonce = texte
             if (a > 0) {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -137,7 +141,9 @@ export default function SensVariationSuite () {
             a = randint(1, 10) * choice([-1, 1])
             b = randint(1, 10) * choice([-1, 1])
             texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =${rienSi1(a)}n${ecritureAlgebrique(b)}$.<br>
-          Alors, $(${s}_n)$ est une suite ...`
+          
+            Alors, $(${s}_n)$ est une suite ...`
+            this.canEnonce = texte
             if (a > 0) {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -189,7 +195,9 @@ export default function SensVariationSuite () {
           if (choix === 1) { // suite géométrique directe avec q>1 ou q<0
             q = randint(-10, 10, [0, 1])
             texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =${ecritureParentheseSiNegatif(q)}^n$.<br>
+            
             Alors, $(${s}_n)$ est une suite ...`
+            this.canEnonce = texte
             if (q > 0) {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -237,7 +245,9 @@ export default function SensVariationSuite () {
           if (choix === 2) { // suite géométrique q^n avec 0<q<1
             q = calcul(randint(1, 9) / 10)
             texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =${texNombrec(q)}^n$.<br>
-              Alors, $(${s}_n)$ est une suite ...`
+            
+            Alors, $(${s}_n)$ est une suite ...`
+            this.canEnonce = texte
             this.autoCorrection[i] = {
               enonce: texte,
               options: { horizontal: true },
@@ -264,7 +274,9 @@ export default function SensVariationSuite () {
           if (choix === 3) { // suite géométrique avec q<0
             q = choice([calcul(randint(-9, -1) / 10), randint(-10, -1)])
             texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =(${texNombrec(q)})^n$.<br>
+           
             Alors, $(${s}_n)$ est une suite ...`
+            this.canEnonce = texte
 
             this.autoCorrection[i] = {
               enonce: texte,
@@ -301,8 +313,9 @@ export default function SensVariationSuite () {
             n1 = fraction1[0]
             d1 = fraction1[1]
             texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =\\left(${texFraction(n1, d1)}\\right)^n$.<br>
-                Alors, $(${s}_n)$ est une suite ...`
-
+             
+            Alors, $(${s}_n)$ est une suite ...`
+            this.canEnonce = texte
             this.autoCorrection[i] = {
               enonce: texte,
               options: { horizontal: true },
@@ -334,8 +347,9 @@ export default function SensVariationSuite () {
             n1 = fraction1[0]
             d1 = fraction1[1]
             texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =\\left(${texFraction(d1, n1)}\\right)^n$.<br>
-                Alors, $(${s}_n)$ est une suite ...`
-
+             
+            Alors, $(${s}_n)$ est une suite ...`
+            this.canEnonce = texte
             this.autoCorrection[i] = {
               enonce: texte,
               options: { horizontal: true },
@@ -363,7 +377,9 @@ export default function SensVariationSuite () {
             q = randint(-10, 10, [0, 1])
             a = randint(2, 10)
             texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =${a}\\times ${ecritureParentheseSiNegatif(q)}^n$.<br>
+            
             Alors, $(${s}_n)$ est une suite ...`
+            this.canEnonce = texte
             if (q > 0) {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -412,7 +428,9 @@ export default function SensVariationSuite () {
             q = randint(-10, 10, [0, 1])
             a = randint(-10, -2)
             texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =(${a})\\times ${ecritureParentheseSiNegatif(q)}^n$.<br>
+           
             Alors, $(${s}_n)$ est une suite ...`
+            this.canEnonce = texte
             if (q > 0) {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -462,8 +480,9 @@ export default function SensVariationSuite () {
             q = calcul(randint(1, 9) / 10)
             a = randint(2, 10)
             texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =${a}\\times ${texNombrec(q)}^n$.<br>
+           
             Alors, $(${s}_n)$ est une suite ...`
-
+            this.canEnonce = texte
             this.autoCorrection[i] = {
               enonce: texte,
               options: { horizontal: true },
@@ -491,8 +510,9 @@ export default function SensVariationSuite () {
             q = calcul(randint(1, 9) / 10)
             a = randint(-10, -2)
             texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =(${a})\\times ${texNombrec(q)}^n$.<br>
+          
             Alors, $(${s}_n)$ est une suite ...`
-
+            this.canEnonce = texte
             this.autoCorrection[i] = {
               enonce: texte,
               options: { horizontal: true },
@@ -525,8 +545,9 @@ export default function SensVariationSuite () {
             d1 = fraction1[1]
             a = randint(2, 10)
             texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =${a}\\times \\left(${texFraction(n1, d1)}\\right)^n$.<br>
+           
             Alors, $(${s}_n)$ est une suite ...`
-
+            this.canEnonce = texte
             this.autoCorrection[i] = {
               enonce: texte,
               options: { horizontal: true },
@@ -559,7 +580,9 @@ export default function SensVariationSuite () {
             d1 = fraction1[1]
             a = randint(-10, 10, [-1, 0, 1])
             texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =${ecritureParentheseSiNegatif(a)}\\times \\left(${texFraction(d1, n1)}\\right)^n$.<br>
+          
             Alors, $(${s}_n)$ est une suite ...`
+            this.canEnonce = texte
             if (a > 0) {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -613,8 +636,9 @@ export default function SensVariationSuite () {
             b = randint(1, 10)
             c = randint(1, 10)
             texte = `Soit $(${s}_n)$ une suite définie par $${s}_{0}=${a}$ pour tout  $n\\in\\mathbb{N}$ : $${s}_{n+1} =${s}_n+${rienSi1(b)}n+${c}$.<br>
-          Alors, $(${s}_n)$ est une suite ...`
-
+          
+            Alors, $(${s}_n)$ est une suite ...`
+            this.canEnonce = texte
             this.autoCorrection[i] = {
               enonce: texte,
               options: { horizontal: true },
@@ -643,8 +667,9 @@ export default function SensVariationSuite () {
             b = randint(-10, -2)
             c = randint(-10, -1)
             texte = `Soit $(${s}_n)$ une suite définie par $${s}_{0}=${a}$ pour tout  $n\\in\\mathbb{N}$ : $${s}_{n+1} =${s}_n${ecritureAlgebrique(b)}n${ecritureAlgebrique(c)}$.<br>
-          Alors, $(${s}_n)$ est une suite ...`
-
+         
+            Alors, $(${s}_n)$ est une suite ...`
+            this.canEnonce = texte
             this.autoCorrection[i] = {
               enonce: texte,
               options: { horizontal: true },
@@ -673,7 +698,9 @@ export default function SensVariationSuite () {
             b = randint(-10, 10, 0)
 
             texte = `Soit $(${s}_n)$ une suite définie par $${s}_{0}=${a}$ pour tout  $n\\in\\mathbb{N}$ : $${s}_{n+1} =${s}_n${ecritureAlgebrique(b)}$.<br>
-          Alors, $(${s}_n)$ est une suite ...`
+        
+            Alors, $(${s}_n)$ est une suite ...`
+            this.canEnonce = texte
             if (b > 0) {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -723,7 +750,9 @@ export default function SensVariationSuite () {
             q = randint(-10, 10, [0, 1, -1])
 
             texte = `Soit $(${s}_n)$ une suite définie par $${s}_{0}=${a}$ pour tout  $n\\in\\mathbb{N}$ : $${s}_{n+1} =${q}${s}_n$.<br>
-          Alors, $(${s}_n)$ est une suite ...`
+         
+            Alors, $(${s}_n)$ est une suite ...`
+            this.canEnonce = texte
             if (q > 0) {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -773,7 +802,9 @@ export default function SensVariationSuite () {
             q = randint(-10, 10, [0, 1, -1])
 
             texte = `Soit $(${s}_n)$ une suite définie par $${s}_{0}=${a}$ pour tout  $n\\in\\mathbb{N}$ : $${s}_{n+1} =${q}${s}_n$.<br>
-          Alors, $(${s}_n)$ est une suite ...`
+         
+            Alors, $(${s}_n)$ est une suite ...`
+            this.canEnonce = texte
             if (q > 0) {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -824,7 +855,9 @@ export default function SensVariationSuite () {
             q = calcul(randint(1, 9) / 10)
 
             texte = `Soit $(${s}_n)$ une suite définie par $${s}_{0}=${a}$ pour tout  $n\\in\\mathbb{N}$ : $${s}_{n+1} =${texNombrec(q)}${s}_n$.<br>
-          Alors, $(${s}_n)$ est une suite ...`
+       
+            Alors, $(${s}_n)$ est une suite ...`
+            this.canEnonce = texte
             if (a > 0) {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -879,7 +912,9 @@ export default function SensVariationSuite () {
             n1 = fraction1[0]
             d1 = fraction1[1]
             texte = `Soit $(${s}_n)$ une suite définie par $${s}_{0}=${a}$ pour tout  $n\\in\\mathbb{N}$ : $${s}_{n+1} =${texFraction(n1, d1)}${s}_n$.<br>
-          Alors, $(${s}_n)$ est une suite ...`
+        
+            Alors, $(${s}_n)$ est une suite ...`
+            this.canEnonce = texte
             if (a > 0) {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -934,7 +969,9 @@ export default function SensVariationSuite () {
             n1 = fraction1[0]
             d1 = fraction1[1]
             texte = `Soit $(${s}_n)$ une suite définie par $${s}_{0}=${a}$ pour tout  $n\\in\\mathbb{N}$ : $${s}_{n+1} =${texFraction(d1, n1)}${s}_n$.<br>
-          Alors, $(${s}_n)$ est une suite ...`
+         
+            Alors, $(${s}_n)$ est une suite ...`
+            this.canEnonce = texte
             if (a > 0) {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -990,5 +1027,7 @@ export default function SensVariationSuite () {
       cpt++
     }
     listeQuestionsToContenu(this)
+
+    this.canReponseACompleter = propositionsQcm(this, 0).texte
   }
 }

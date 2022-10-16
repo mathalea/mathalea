@@ -31,10 +31,15 @@ export default function CalculTermeSuiteExp () {
         b = randint(1, 10) * choice([-1, 1])
         k = randint(1, 10)
 
-        this.question = 'Soit $(u_n)$ une suite définie pour tout  $n\\in\\mathbb{N}$ par : $u_n = '
+        this.question = `Soit $(u_n)$ une suite définie par :<br>
+        
+        $u_n = `
         if (a === 1) { this.question += 'n' } else if (a === -1) { this.question += '-n' } else { this.question += `${a}n` };
-        if (b > 0) { this.question += `+${b}$` } else { this.question += `${b}$` };
-        this.question += `<br>Calculer $u_{${k}}$.`
+        if (b > 0) { this.question += `+${b}$.` } else { this.question += `${b}$.` };
+        this.question += `<br>
+        
+        Calculer $u_{${k}}$.
+                `
 
         this.correction = `Dans l'expression de $u_n$ on remplace $n$ par $${k}$, on obtient : $u_{${k}} =`
         if (a === 1) {
@@ -55,14 +60,19 @@ export default function CalculTermeSuiteExp () {
         c = randint(1, 9) * choice([-1, 1])
         k = randint(1, 5)
 
-        this.question = 'Soit $(u_n)$ une suite définie pour tout  $n\\in\\mathbb{N}$ par : $u_n = '
+        this.question = `Soit $(u_n)$ une suite définie  par :<br>
+        
+        $u_n = `
         if (a === 1) {
-          this.question += 'n^2$'
+          this.question += `n^2$       
+          `
         } else {
           if (a === -1) {
-            this.question += '-n^2$'
+            this.question += `-n^2$            
+           `
           } else {
-            this.question += `${a}n^2$`
+            this.question += `${a}n^2$            
+            `
           }
         };
         if (b === 1) { this.question += ' $+n$' };
@@ -71,7 +81,9 @@ export default function CalculTermeSuiteExp () {
         if (b < -1) { this.question += `$${b}n$` };
         if (c > 0) { this.question += `$+${c}$` };
         if (c < 0) { this.question += `$${c}$` }
-        this.question += `<br>Calculer $u_{${k}}$.`
+        this.question += `<br>
+        
+        Calculer $u_{${k}}$.`
 
         this.correction = `Dans l'expression de $u_n$ on remplace $n$ par $${k}$, on obtient :<br> $u_{${k}} = `
         if (a === 1) { this.correction += `${k}^2` } else {
@@ -99,9 +111,12 @@ export default function CalculTermeSuiteExp () {
         b = randint(1, 10)
         k = choice([1, 2, 4, 5, 10, 100])
 
-        this.question = 'Soit $(u_n)$ une suite définie pour tout  $n\\in\\mathbb{N}^*$ par : '
-
-        this.question += `$u_n =${a}${choix ? '+' : '-'}\\dfrac{${b}}{n}$ `
+        this.question = `Soit $(u_n)$ une suite définie  par : <br>
+        
+        `
+        this.question += `$u_n =${a}${choix ? '+' : '-'}\\dfrac{${b}}{n}$.
+        
+        `
         this.question += `<br>Calculer $u_{${k}}$ (résultat sous forme décimale).<br>
          `
         this.correction = `Dans l'expression de $u_n$ on remplace $n$ par $${k}$, on obtient :<br> $u_{${k}} = `
@@ -123,10 +138,15 @@ export default function CalculTermeSuiteExp () {
         b = fraction1[0]
         k = fraction1[1]
 
-        this.question = 'Soit $(u_n)$ une suite définie pour tout  $n\\in\\mathbb{N}^*$ par : '
+        this.question = `Soit $(u_n)$ une suite définie $ par : <br>
+        
+        `
 
-        this.question += `$u_n =${a}${choix ? '+' : '-'}\\dfrac{${b}}{n}$ `
-        this.question += `<br>Calculer $u_{${k}}$ (résultat sous forme d'une fraction irréductible).<br>
+        this.question += `
+                $u_n =${a}${choix ? '+' : '-'}\\dfrac{${b}}{n}$. 
+        
+        `
+        this.question += `<br> Calculer $u_{${k}}$ (résultat sous forme d'une fraction irréductible).<br>
        `
         this.correction = `Dans l'expression de $u_n$ on remplace $n$ par $${k}$, on obtient :<br> $u_{${k}} = `
         if (choix === true) {
@@ -138,5 +158,7 @@ export default function CalculTermeSuiteExp () {
         }
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }
