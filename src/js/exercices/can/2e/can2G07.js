@@ -19,6 +19,7 @@ export const ref = 'can2G07'
 export default function CoordonneesVecteur1 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const xA = randint(-5, 5)
@@ -29,16 +30,23 @@ export default function CoordonneesVecteur1 () {
 
     const yB = yA + uy
 
-    this.listeQuestions = [` Dans un repère orthonormé $(O;\\vec i,\\vec j)$, on donne les points suivants :
+    this.listeQuestions = [` Dans un repère orthonormé, on donne les points suivants :
     ${texteCentre(`$A\\left(${xA}${sp(1)} ; ${sp(1)} ${yA}\\right)$ et $B\\left(${xB}${sp(1)} ; ${sp(1)}${yB}\\right)$`)}
- Les coordonnées du vecteur $\\overrightarrow{AB}$ sont :
- ${texteCentre(`$\\Bigg($ ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(5)} ;
- ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(5)} $\\Bigg)$`)}`]
+Quelles sont les coordonnées du vecteur $\\overrightarrow{AB}$ ?
+ ${this.interactif ? '$\\Bigg($' + ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : ''} 
+ ${this.interactif ? ';' + ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : ''}
+ ${this.interactif ? '$\\Bigg)$' : ''}`]
     this.listeCorrections = [`On sait d'après le cours, que si $A(x_A${sp(1)} ; ${sp(1)}y_A)$ et $B(x_B${sp(1)} ; ${sp(1)} y_B)$ sont deux points dans un repère, alors on a : $\\overrightarrow{AB}(x_B-x_A  ${sp(1)} ; ${sp(1)} y_B-y_A)$<br>
     En appliquant  aux données de l'énoncé, on obtient  : $\\overrightarrow{AB}(${xB}-${ecritureParentheseSiNegatif(xA)} ${sp(1)} ; ${sp(1)} ${yB}-${ecritureParentheseSiNegatif(yA)})$<br>
     Ce qui donne au final : $\\overrightarrow{AB}(${xB - xA} ${sp(1)} ; ${sp(1)} ${yB - yA})$`]
     setReponse(this, 0, ux)
     setReponse(this, 1, uy)
     listeQuestionsToContenuSansNumero(this)
+    this.canEnonce = ` Dans un repère orthonormé, on donne les points suivants :<br>
+
+   $A\\left(${xA}${sp(1)} ; ${sp(1)} ${yA}\\right)$ et $B\\left(${xB}${sp(1)} ; ${sp(1)}${yB}\\right)$.<br>
+   
+Quelles sont les coordonnées du vecteur $\\overrightarrow{AB}$ ?`
+    this.canReponseACompleter = ''
   }
 }

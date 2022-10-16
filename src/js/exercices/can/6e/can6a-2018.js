@@ -128,10 +128,10 @@ export default function SujetCAN20186ieme () {
           b = randint(4, 10)
           c = a * b
           if (choice([true, false])) {
-            texte = `Compléte : $${a}\\times .... =${c}$`
+            texte = `Complète : $${a}\\times .... =${c}$`
             texteCorr = `$${a}\\times ${miseEnEvidence(b)} =${c}$`
           } else {
-            texte = `Compléte : $ .... \\times ${a}=${c}$`
+            texte = `Complète : $ .... \\times ${a}=${c}$`
             texteCorr = `$ ${miseEnEvidence(b)} \\times ${a}=${c}$`
           }
           reponse = b

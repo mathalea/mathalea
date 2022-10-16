@@ -19,7 +19,7 @@ export default function TauxGlobal () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.optionsChampTexte = { texteApres: ' $\\%$' }
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
@@ -40,6 +40,7 @@ export default function TauxGlobal () {
         listeCalculs = shuffle(listeCalculs)
         this.question = `  ${listeCalculs[0]}  ${listeCalculs[1]} <br>
  ${listeCalculs[2]}${listeCalculs[3]}<br>
+
 En utilisant l'un des résultats précédents, déterminer le taux global d'évolution d'un article qui augmente de
 $${a}\\%$  dans un premier temps, puis qui diminue de $${b}\\%$ dans un second temps. `
         this.correction = `Augmenter de $${a}\\%$ revient à multiplier par $${texNombrec(1 + a / 100)}$ et diminuer de $${b}\\%$ revient à multiplier par $${texNombrec(1 - b / 100)}$.<br>
@@ -68,6 +69,7 @@ Multiplier par $${texNombrec(coeffG)}$ revient à multiplier par `
         listeCalculs = shuffle(listeCalculs)
         this.question = `  ${listeCalculs[0]}  ${listeCalculs[1]} <br>
    ${listeCalculs[2]}${listeCalculs[3]}<br>
+
   En utilisant l'un des résultats précédents, déterminer le taux global d'évolution d'un article qui augmente de
   $${a}\\%$  dans un premier temps, puis qui augmente de $${b}\\%$ dans un second temps. `
         this.correction = `Augmenter de $${a}\\%$ revient à multiplier par $${texNombrec(1 + a / 100)}$ et augmenter de $${b}\\%$ revient à multiplier par $${texNombrec(1 + b / 100)}$.<br>
@@ -89,6 +91,7 @@ Multiplier par $${texNombrec(coeffG)}$ revient à multiplier par `
         listeCalculs = shuffle(listeCalculs)
         this.question = `  ${listeCalculs[0]}  ${listeCalculs[1]} <br>
    ${listeCalculs[2]}${listeCalculs[3]}<br>
+
   En utilisant l'un des résultats précédents, déterminer le taux global d'évolution d'un article qui diminue de
   $${a}\\%$  dans un premier temps, puis qui diminue de $${b}\\%$ dans un second temps. `
         this.correction = `Diminuer de $${a}\\%$ revient à multiplier par $${texNombrec(1 - a / 100)}$ et diminuer de $${b}\\%$ revient à multiplier par $${texNombrec(1 - b / 100)}$.<br>
@@ -110,6 +113,7 @@ Multiplier par $${texNombrec(coeffG)}$ revient à multiplier par `
         listeCalculs = shuffle(listeCalculs)
         this.question = `  ${listeCalculs[0]}  ${listeCalculs[1]} <br>
    ${listeCalculs[2]}${listeCalculs[3]}<br>
+   
   En utilisant l'un des résultats précédents, déterminer le taux global d'évolution d'un article qui diminue de
   $${a}\\%$  dans un premier temps, puis qui augmente de $${b}\\%$ dans un second temps. `
         this.correction = `Diminuer de $${a}\\%$ revient à multiplier par $${texNombrec(1 - a / 100)}$ et augmenter de $${b}\\%$ revient à multiplier par $${texNombrec(1 + b / 100)}$.<br>
@@ -127,5 +131,7 @@ Multiplier par $${texNombrec(coeffG)}$ revient à multiplier par `
         this.reponse = calcul((coeffG - 1) * 100)
         break
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

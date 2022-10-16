@@ -18,6 +18,7 @@ export default function CoeffTaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
@@ -60,5 +61,7 @@ export default function CoeffTaux () {
         this.reponse = -taux
         break
     }
+    this.canEnonce = 'Compléter.'
+    this.canReponseACompleter = `Le taux d'évolution associé à un coefficient multiplicateur de $${texNombrec(coeff)}$ est $\\ldots$ $\\%$ `
   }
 }

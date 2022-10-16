@@ -34,7 +34,8 @@ export default function EcondDegreAbscisseOrdonneeSommet () {
       c = randint(-9, 9)
       nom = choice(nomF)
       r = new FractionX(-b, 2 * a)
-      this.question = `Soit $${nom}$ la fonction définie sur $\\mathbb{R}$ par :
+      this.question = `Soit $${nom}$ la fonction définie sur $\\mathbb{R}$ par :<br>
+
       $${nom}(x)=${reduirePolynomeDegre3(0, a, b, c)}$. <br>
       Quelle est l'abscisse du sommet de la parabole représentant $${nom}$ ?`
 
@@ -50,8 +51,10 @@ export default function EcondDegreAbscisseOrdonneeSommet () {
       alpha = -b / (2 * a)
       nom = choice(nomF)
       r = a * alpha ** 2 + b * alpha + c
-      this.question = `Soit $${nom}$ la fonction définie sur $\\mathbb{R}$ par :
+      this.question = `Soit $${nom}$ la fonction définie sur $\\mathbb{R}$ par :<br>
+
           $${nom}(x)=${reduirePolynomeDegre3(0, a, b, c)}$. <br>
+
           Quelle est l'ordonnée du sommet de la parabole représentant $${nom}$ ?`
 
       this.correction = `$${nom}$ est une fonction polynôme du second degré écrite sous forme développée $ax^2+bx+c$.<br>
@@ -65,5 +68,7 @@ export default function EcondDegreAbscisseOrdonneeSommet () {
       }
       this.reponse = r
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

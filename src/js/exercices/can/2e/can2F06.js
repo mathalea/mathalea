@@ -21,7 +21,7 @@ export default function TableauSignes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
   this.tailleDiaporama = 1.3
-  this.spacing = 2
+  this.spacing = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.nouvelleVersion = function () {
     this.listeQuestions = []
@@ -173,18 +173,18 @@ export default function TableauSignes () {
     } else {
       a = randint(1, 6) * choice([-1, 1])// coefficient a de la fonction affine
       b = randint(0, 6) * choice([-1, 1])// coefficient b de la fonction affine
-      texte = `Dresser le tableau de signes de la fonction $f$ définie sur  $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$ `
+      texte = `Dresser le tableau de signes de la fonction $f$ définie sur  $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$. `
     }
 
     texteCorr = `$f$ est une fonction affine. Elle s’annule en $x_0=${texFractionReduite(-b, a)}$. `
     if (a > 0) {
-      texteCorr += `<br>Comme $${a}>0~$, $~f(x)$ est positif pour $~x>${texFractionReduite(-b, a)} ~$ et négatif pour $~x<${texFractionReduite(-b, a)} $<br>`
+      texteCorr += `<br>Comme $${a}>0~$, $~f(x)$ est positif pour $~x>${texFractionReduite(-b, a)} ~$ et négatif pour $~x<${texFractionReduite(-b, a)} $.<br>`
       ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+']
     } else {
-      texteCorr += `<br>Comme $${a}<0$,  $f(x)~$ est négatif pour $~x>${texFractionReduite(-b, a)} ~$ et positif pour $~x<${texFractionReduite(-b, a)} $<br>`
+      texteCorr += `<br>Comme $${a}<0$,  $f(x)~$ est négatif pour $~x>${texFractionReduite(-b, a)} ~$ et positif pour $~x<${texFractionReduite(-b, a)} $.<br>`
       ligne1 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-']
     }
-    texteCorr += mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
+    texteCorr += mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
       tabInit: [
         [
           // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -205,5 +205,7 @@ export default function TableauSignes () {
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
+    this.canEnonce = `Dresser le tableau de signes de la fonction $f$ définie sur  $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$. `
+    this.canReponseACompleter = ''
   }
 }

@@ -19,6 +19,7 @@ export const ref = 'can2G15'
 export default function DeterminantVecteur () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const vx = randint(-5, 5)
@@ -27,7 +28,7 @@ export default function DeterminantVecteur () {
     const uy = randint(-5, 5)
     const det = ux * vy - uy * vx
 
-    this.listeQuestions = [` Dans un repère orthonormé $(O;\\vec i,\\vec j)$, on donne deux vecteurs :<br>
+    this.listeQuestions = [` Dans un repère orthonormé, on donne deux vecteurs :<br>
    $\\vec{u}\\begin{pmatrix}${ux}${sp(1)} \\\\ ${sp(1)}${uy}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${vx}${sp(1)} \\\\ ${sp(1)}${vy}\\end{pmatrix}$<br>
  Le déterminant des vecteurs $\\vec{u}$ et $\\vec{v}$, vaut $Det\\left(\\vec{u};\\vec{v}\\right)=$
  ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(5)}  `]
@@ -38,5 +39,12 @@ export default function DeterminantVecteur () {
    `]
     setReponse(this, 0, det)
     listeQuestionsToContenuSansNumero(this)
+    this.canEnonce = ` Dans un repère orthonormé, on donne deux vecteurs :<br>
+
+    $\\vec{u}(${ux}\\;;\\;${uy})$ et $\\vec{v}(${vx}\\;;\\;${vy})$<br>
+    
+ Calculer le déterminant des vecteurs $\\vec{u}$ et $\\vec{v}$.
+   `
+    this.canReponseACompleter = ''
   }
 }

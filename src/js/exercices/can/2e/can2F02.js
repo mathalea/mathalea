@@ -20,6 +20,7 @@ export default function CalculImageQuotient () {
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {
@@ -41,6 +42,7 @@ export default function CalculImageQuotient () {
     const expression = `\\dfrac{${reduireAxPlusB(a, b)}}{${reduireAxPlusB(c, d)}}`
     this.reponse = texFractionReduite(a * x + b, c * x + d)
     this.question = `On considère la fonction $f$ définie par $f(x)= ${expression}$. <br>
+
         Calculer $f(${x})$ sous la forme d'une fraction irréductible ou d'un entier le cas échéant.`
     if (a === 1 & c === 1) {
       this.correction = `$f(${x})=\\dfrac{${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}}{${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}}
@@ -82,5 +84,7 @@ export default function CalculImageQuotient () {
            On obtient le quotient que l'on simplifie éventuellement : $${texFraction(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$.
     `)
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }
