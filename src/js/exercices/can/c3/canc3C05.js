@@ -24,7 +24,7 @@ export default function PariteDunNombre () {
     this.listeQuestions = []
     this.listeCorrections = []
     let a, b, c, d, e, f, g, texte, texteCorr
-    switch (choice([1, 2, 3, 4, 5])) {
+    switch (choice([5])) {
       case 1:
         a = randint(10, 20) * 10
         b = randint(0, 9)
@@ -91,10 +91,11 @@ export default function PariteDunNombre () {
       case 5:
         a = randint(3, 7)
         b = a % 2 === 0 ? randint(1, 4) * 2 + 1 : randint(2, 9)
-        g = b ** a
+        g = b
         texte = `Le nombre $${b}`
         for (let i = 1; i < a; i++) {
           texte += `\\times ${b}`
+          g *= b
         }
         texte += '$ est-il pair ?'
         this.canEnonce = texte
