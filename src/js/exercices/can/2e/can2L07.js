@@ -29,37 +29,39 @@ export default function Factoriser () {
     const b = randint(2, 9)
     switch (choice([1, 2, 3, 4, 5])) {
       case 1 :
-        this.question = ` Factoriser au maximum  $${n * r}x+${m * r}x^2$` //
+        this.question = ` Factoriser au maximum  $${n * r}x+${m * r}x^2.` //
         this.correction = `$${r}x$ est un facteur commun aux deux termes : $${n * r}x$ et $${m * r}x^2$.<br>
          En effet :<br>
          $${n * r}x+${m * r}x^2=\\underbrace{${r}x\\times ${n}}_{${n * r}x} +\\underbrace{${r}x\\times ${m}x}_{${m * r}x^2}=${r}x(${n}+${m}x).$`
         this.reponse = [`${r}x(${n}+${m}x)`, `${r}x(${m}x+${n})`]
         break
       case 2 :
-        this.question = ` Factoriser  $${r}a+${r}\\times${n}b$` //
+        this.question = ` Factoriser  $${r}a+${r}\\times${n}b$.` //
         this.correction = `$${r}$ est un facteur commun aux deux termes : $${r}a$ et $${r}\\times ${n}$.<br>
         Ainsi :<br>
         $${r}a+${r}\\times${n}b=${r}(a+${n}b)$`
         this.reponse = [`${r}(a+${n}*b)`, `${r}(${n}*b+a)`]
         break
       case 3 :
-        this.question = ` Factoriser  $x\\times ${n}x+x\\times ${m}$` //
+        this.question = ` Factoriser  $x\\times ${n}x+x\\times ${m}$.` //
         this.correction = `$x$ est un facteur commun aux deux termes : $x\\times ${n}x$ et $x\\times ${m}$.<br>
         Ainsi :<br>$x\\times ${n}x+x\\times ${m}=x(${n}x+${m})$`
         this.reponse = [`x(${n}x+${m})`, `x(${m}x+${n})`]
         break
       case 4 :
-        this.question = ` Factoriser  $x^2-${a * a}$` //
+        this.question = ` Factoriser  $x^2-${a * a}$.` //
         this.correction = `On utilise l'égalité remarquable $a^2-b^2=(a+b)(a-b)$ avec $a=x$ et $b=${a}$.<br>
         $x^2-${a * a}=x^2-${a}^2=(x-${a})(x+${a})$`
         this.reponse = [`(x-${a})(x+${a})`, `(x+${a})(x-${a})`, `(x-${a})(${a}+x)`, `(${a}+x)(x-${a})`]
         break
       case 5 :
-        this.question = ` Factoriser  $${b * b}x^2-${a * a}$` //
+        this.question = ` Factoriser  $${b * b}x^2-${a * a}$.` //
         this.correction = `On utilise l'égalité remarquable $a^2-b^2=(a+b)(a-b)$ avec $a=${b}x$ et $b=${a}$.<br>
         $${b * b}x^2-${a * a}=(${b}x)^2-${a}^2=(${b}x-${a})(${b}x+${a})$`
         this.reponse = [`(${b}x-${a})(${b}x+${a})`, `(${b}x+${a})(${b}x-${a})`]
         break
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

@@ -16,6 +16,7 @@ export const ref = 'can2L05'
 export default function SolutionInequationQCM () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.spacing = 3
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.nouvelleVersion = function () {
@@ -32,6 +33,7 @@ export default function SolutionInequationQCM () {
         N = choice(['a', 'b', 'c', 'd'])//, 'a', 'b'
         if (N === 'a') {
           texte = `L'inéquation ${sp(1)} $${reduireAxPlusB(a, b)}>0$ a pour ensemble de solutions :`
+          this.canEnonce = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}>0$ ?`
           this.autoCorrection[0] = {
             enonce: texte,
             options: { vertical: true },
@@ -62,6 +64,7 @@ export default function SolutionInequationQCM () {
         }
         if (N === 'b') {
           texte = `L'inéquation ${sp(1)} $${reduireAxPlusB(a, b)}\\geqslant 0$ a pour ensemble de solutions :`
+          this.canEnonce = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}\\geqslant 0$ ?`
           this.autoCorrection[0] = {
             enonce: texte,
             options: { vertical: true },
@@ -92,6 +95,7 @@ export default function SolutionInequationQCM () {
         }
         if (N === 'c') {
           texte = `L'inéquation ${sp(1)} $${reduireAxPlusB(a, b)}\\leqslant 0$ a pour ensemble de solutions :`
+          this.canEnonce = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}\\leqslant 0$ ?`
           this.autoCorrection[0] = {
             enonce: texte,
             options: { vertical: true },
@@ -120,6 +124,7 @@ export default function SolutionInequationQCM () {
         }
         if (N === 'd') {
           texte = `L'inéquation ${sp(1)} $${reduireAxPlusB(a, b)}< 0$ a pour ensemble de solutions :`
+          this.canEnonce = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}< 0$ ?`
           this.autoCorrection[0] = {
             enonce: texte,
             options: { vertical: true },
@@ -148,6 +153,7 @@ export default function SolutionInequationQCM () {
                       $x<${maFraction.texFractionSimplifiee}$<br>
                       Les solutions sont les nombres strictement inférieurs   à $${maFraction.texFractionSimplifiee}$.   `
         }
+
         break
 
       case 2:// cas a<0
@@ -158,6 +164,7 @@ export default function SolutionInequationQCM () {
         N = choice(['a', 'b', 'c', 'd'])//
         if (N === 'a') {
           texte = `L'inéquation ${sp(1)} $${reduireAxPlusB(a, b)}>0$ a pour ensemble de solutions :`
+          this.canEnonce = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}>0$ ?`
           this.autoCorrection[0] = {
             enonce: texte,
             options: { vertical: true },
@@ -189,6 +196,7 @@ export default function SolutionInequationQCM () {
         }
         if (N === 'b') {
           texte = `L'inéquation ${sp(1)} $${reduireAxPlusB(a, b)}\\geqslant 0$ a pour ensemble de solutions :`
+          this.canEnonce = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}\\geqslant 0$ ?`
           this.autoCorrection[0] = {
             enonce: texte,
             options: { vertical: true },
@@ -220,6 +228,7 @@ export default function SolutionInequationQCM () {
         }
         if (N === 'c') {
           texte = `L'inéquation ${sp(1)} $${reduireAxPlusB(a, b)}\\leqslant 0$ a pour ensemble de solutions :`
+          this.canEnonce = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}\\leqslant 0$ ?`
           this.autoCorrection[0] = {
             enonce: texte,
             options: { vertical: true },
@@ -251,6 +260,7 @@ export default function SolutionInequationQCM () {
         }
         if (N === 'd') {
           texte = `L'inéquation ${sp(1)} $${reduireAxPlusB(a, b)}< 0$ a pour ensemble de solutions :`
+          this.canEnonce = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}< 0$ ?`
           this.autoCorrection[0] = {
             enonce: texte,
             options: { vertical: true },
@@ -285,5 +295,6 @@ export default function SolutionInequationQCM () {
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
+    this.canReponseACompleter = propositionsQcm(this, 0).texte
   }
 }

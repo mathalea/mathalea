@@ -16,6 +16,7 @@ export default function Denombrement () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let a, b, c, prenom1
@@ -41,5 +42,7 @@ export default function Denombrement () {
         this.reponse = calcul(a * b)
         break
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }
