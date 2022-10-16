@@ -16,6 +16,7 @@ export default function DeriveePoly2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
@@ -26,8 +27,11 @@ export default function DeriveePoly2 () {
         b = randint(-10, 10, [0])
         c = randint(-10, 10, [0])
         if (!this.interactif) {
-          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)= ${reduirePolynomeDegre3(0, a, b, c)}$.<br>
-       Déterminer la fonction dérivée de $f$.`
+          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
+          
+          $f(x)= ${reduirePolynomeDegre3(0, a, b, c)}$.<br>
+
+       Déterminer $f'(x)$.`
         } else {
           this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)= ${reduirePolynomeDegre3(0, a, b, c)}$.<br>
         La fonction dérivée de $f$ est définie par : <br>$f'(x)=$`
@@ -46,16 +50,22 @@ export default function DeriveePoly2 () {
         c = randint(-10, 10, [0])
         if (choice([true, false])) {
           if (!this.interactif) {
-            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)= ${reduireAxPlusB(b, c)}${ecritureAlgebriqueSauf1(a)}x^2$.<br>
-       Déterminer la fonction dérivée de $f$.`
+            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :<br>
+            
+            $f(x)= ${reduireAxPlusB(b, c)}${ecritureAlgebriqueSauf1(a)}x^2$.<br>
+
+       Déterminer $f'(x)$.`
           } else {
             this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)= ${reduireAxPlusB(b, c)}${ecritureAlgebriqueSauf1(a)}x^2$.<br>
         La fonction dérivée de $f$ est définie par : <br>$f'(x)=$`
           }
         } else {
           if (!this.interactif) {
-            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)= ${c}${ecritureAlgebriqueSauf1(a)}x^2${ecritureAlgebriqueSauf1(b)}x$.<br>
-     Déterminer  la fonction dérivée de $f$.`
+            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :<br>
+            
+            $f(x)= ${c}${ecritureAlgebriqueSauf1(a)}x^2${ecritureAlgebriqueSauf1(b)}x$.<br>
+
+     Déterminer $f'(x)$.`
           } else {
             this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)= ${c}${ecritureAlgebriqueSauf1(a)}x^2${ecritureAlgebriqueSauf1(b)}x$.<br>
       La fonction dérivée de $f$ est définie par : <br>$f'(x)=$`
@@ -72,16 +82,22 @@ export default function DeriveePoly2 () {
         c = randint(-10, 10, [0])
         if (choice([true, false])) {
           if (!this.interactif) {
-            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)= ${reduirePolynomeDegre3(0, a, 0, c)}$.<br>
-       Déterminer  la fonction dérivée de $f$.`
+            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :<br>
+
+             $f(x)= ${reduirePolynomeDegre3(0, a, 0, c)}$.<br>
+
+             Déterminer $f'(x)$.`
           } else {
             this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)= ${reduirePolynomeDegre3(0, a, 0, c)}$.<br>
         La fonction dérivée de $f$ est définie par : <br>$f'(x)=$`
           }
         } else {
           if (!this.interactif) {
-            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)= ${c}${ecritureAlgebriqueSauf1(a)}x^2$.<br>
-     Déterminer  la fonction dérivée de $f$.`
+            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
+            
+            $f(x)= ${c}${ecritureAlgebriqueSauf1(a)}x^2$.<br>
+
+            Déterminer $f'(x)$.`
           } else {
             this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)= ${c}${ecritureAlgebriqueSauf1(a)}x^2$.<br>
       La fonction dérivée de $f$ est définie par : <br>$f'(x)=$`
@@ -94,5 +110,7 @@ export default function DeriveePoly2 () {
         this.reponse = [`${2 * a}x`]
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

@@ -20,7 +20,7 @@ export const ref = 'can1F02'
 export default function SecondDegreVariations () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
-
+  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.nouvelleVersion = function () {
     this.listeQuestions = []
@@ -34,8 +34,10 @@ export default function SecondDegreVariations () {
         c = randint(-9, 9, 0)
         maFraction = fraction(-b, 2 * a)
         maFractionN = fraction(b, 2 * a)
-        texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)=${reduirePolynomeDegre3(0, a, b, c)}$.<br> 
-            Le plus grand intervalle sur lequel la fonction $f$ est croissante est :`
+        texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par  $f(x)=${reduirePolynomeDegre3(0, a, b, c)}$.<br> 
+
+            Donner le plus grand intervalle sur lequel la fonction $f$ est croissante.`
+
         if (this.interactif) {
           if (b === 0) {
             this.autoCorrection[0] = {
@@ -104,15 +106,19 @@ export default function SecondDegreVariations () {
         c = randint(-9, 9, 0)
 
         if (a === 1) {
-          texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)=(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$.
-          <br>       Le plus grand intervalle sur lequel la fonction $f$ est croissante est :`
+          texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par  $f(x)=(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$.
+          <br>   
+          
+          Donner le plus grand intervalle sur lequel la fonction $f$ est croissante.`
         } else {
           if (a === -1) {
-            texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)=-(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$.
+            texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par  $f(x)=-(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$.
             <br>   Le plus grand intervalle sur lequel la fonction $f$ est croissante est :`
           } else {
-            texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$.
-            <br>  Le plus grand intervalle sur lequel la fonction $f$ est croissante est :`
+            texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par  $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$.
+            <br> 
+            
+            Donner le plus grand intervalle sur lequel la fonction $f$ est croissante.`
           }
         }
         if (this.interactif) {
@@ -188,17 +194,23 @@ export default function SecondDegreVariations () {
         maFractionN = fraction(b + c, 2)
         maFraction = fraction(-(b + c), 2)
         if (a === 1) {
-          texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)=(${reduireAxPlusB(1, b)})(${reduireAxPlusB(1, c)})$. 
-          <br>Le plus grand intervalle sur lequel la fonction $f$ est croissante est :`
+          texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par  $f(x)=(${reduireAxPlusB(1, b)})(${reduireAxPlusB(1, c)})$. 
+          <br>
+          
+          Donner le plus grand intervalle sur lequel la fonction $f$ est croissante.`
         } else {
           if (a === -1) {
             texte =
-            texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)=-(${reduireAxPlusB(1, b)})(${reduireAxPlusB(1, c)})$.
-            <br>  Le plus grand intervalle sur lequel la fonction $f$ est croissante est :`
+            texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par  $f(x)=-(${reduireAxPlusB(1, b)})(${reduireAxPlusB(1, c)})$.
+            <br> 
+            
+            Donner le plus grand intervalle sur lequel la fonction $f$ est croissante.`
           } else {
             texte =
-            texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)=${a}(${reduireAxPlusB(1, b)})(${reduireAxPlusB(1, c)})$.
-            <br>     Le plus grand intervalle sur lequel la fonction $f$ est croissante est :`
+            texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par  $f(x)=${a}(${reduireAxPlusB(1, b)})(${reduireAxPlusB(1, c)})$.
+            <br>    
+            
+            Donner le plus grand intervalle sur lequel la fonction $f$ est croissante.`
           }
         }
         if (this.interactif) {
@@ -248,8 +260,10 @@ export default function SecondDegreVariations () {
         c = randint(-9, 9, 0)
         maFraction = fraction(-b, 2 * a)
         maFractionN = fraction(b, 2 * a)
-        texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)=${reduirePolynomeDegre3(0, a, b, c)}$.
-        <br>          Le plus grand intervalle sur lequel la fonction $f$ est décroissante est :`
+        texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par  $f(x)=${reduirePolynomeDegre3(0, a, b, c)}$.
+        <br>        
+        
+        Donner le plus grand intervalle sur lequel la fonction $f$ est décroissante.`
         if (this.interactif) {
           if (b === 0) {
             this.autoCorrection[0] = {
@@ -318,15 +332,21 @@ export default function SecondDegreVariations () {
         c = randint(-9, 9, 0)
 
         if (a === 1) {
-          texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)=(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$.
-          <br>               Le plus grand intervalle sur lequel la fonction $f$ est décroissante est :`
+          texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par  $f(x)=(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$.
+          <br>         
+
+          Donner le plus grand intervalle sur lequel la fonction $f$ est décroissante.`
         } else {
           if (a === -1) {
-            texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)=-(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$.
-            <br>               Le plus grand intervalle sur lequel la fonction $f$ est décroissante est :`
+            texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par  $f(x)=-(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$.
+            <br>         
+
+        Donner le plus grand intervalle sur lequel la fonction $f$ est décroissante.`
           } else {
-            texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$.
-            <br>         Le plus grand intervalle sur lequel la fonction $f$ est décroissante est :`
+            texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par  $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$.
+            <br>        
+
+        Donner le plus grand intervalle sur lequel la fonction $f$ est décroissante.`
           }
         }
         if (this.interactif) {
@@ -402,17 +422,21 @@ export default function SecondDegreVariations () {
         maFractionN = fraction(b + c, 2)
         maFraction = fraction(-(b + c), 2)
         if (a === 1) {
-          texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)=(${reduireAxPlusB(1, b)})(${reduireAxPlusB(1, c)})$.
-          <br> Le plus grand intervalle sur lequel la fonction $f$ est décroissante est :`
+          texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par  $f(x)=(${reduireAxPlusB(1, b)})(${reduireAxPlusB(1, c)})$.
+          <br> 
+
+        Donner le plus grand intervalle sur lequel la fonction $f$ est décroissante.`
         } else {
           if (a === -1) {
             texte =
-            texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)=-(${reduireAxPlusB(1, b)})(${reduireAxPlusB(1, c)})$.
+            texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x)=-(${reduireAxPlusB(1, b)})(${reduireAxPlusB(1, c)})$.
             <br>                           Le plus grand intervalle sur lequel la fonction $f$ est décroissante est :`
           } else {
             texte =
             texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)=${a}(${reduireAxPlusB(1, b)})(${reduireAxPlusB(1, c)})$.
-            <br>                           Le plus grand intervalle sur lequel la fonction $f$ est décroissante est :`
+            <br>                  
+                
+        Donner le plus grand intervalle sur lequel la fonction $f$ est décroissante.`
           }
         }
         if (this.interactif) {
@@ -459,5 +483,7 @@ export default function SecondDegreVariations () {
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
+    this.canEnonce = texte
+    this.canReponseACompleter = ''
   }
 }

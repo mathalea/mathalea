@@ -30,10 +30,14 @@ export default function AxeSymetrieParabole () {
         somme = new Decimal(x1 + x2)
         if (x1 === 0) {
           this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
-      $f(x)=${rienSi1(a)}x(${reduireAxPlusB(1, -x2)})$. <br>`
+      $f(x)=${rienSi1(a)}x(${reduireAxPlusB(1, -x2)})$. <br>
+      
+      `
         } else {
           this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
-      $f(x)=${rienSi1(a)}(${reduireAxPlusB(1, -x1)})(${reduireAxPlusB(1, -x2)})$. <br>`
+      $f(x)=${rienSi1(a)}(${reduireAxPlusB(1, -x1)})(${reduireAxPlusB(1, -x2)})$. <br>
+      
+      `
         }
 
         this.question += 'Donner une équation de l\'axe de symétrie de la parabole représentant $f$.'
@@ -54,7 +58,9 @@ export default function AxeSymetrieParabole () {
         moinsb = new Decimal(-b)
         f = fraction(-b, 2 * a)
         this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
-      $f(x)=${reduirePolynomeDegre3(0, a, b, c)}$. <br>`
+      $f(x)=${reduirePolynomeDegre3(0, a, b, c)}$. <br>
+      
+      `
 
         this.question += 'Donner une équation de l\'axe de symétrie de la parabole représentant $f$.'
 
@@ -77,7 +83,9 @@ export default function AxeSymetrieParabole () {
         beta = randint(-10, 10)
 
         this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
-      $f(x)=${rienSi1(a)}(x${ecritureAlgebrique(-alpha)})^2${ecritureAlgebrique(beta)}$. <br>`
+      $f(x)=${rienSi1(a)}(x${ecritureAlgebrique(-alpha)})^2${ecritureAlgebrique(beta)}$. <br>
+      
+      `
 
         this.question += 'Donner une équation de l\'axe de symétrie de la parabole représentant $f$.'
 
@@ -89,5 +97,7 @@ export default function AxeSymetrieParabole () {
           `x${ecritureAlgebrique(-alpha)}=0`]
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }
