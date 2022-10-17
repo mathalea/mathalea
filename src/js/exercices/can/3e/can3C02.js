@@ -34,7 +34,9 @@ export default function MoyenneEntiereDeDecimaux () {
       }
       c = this.reponse * 30 - a - b
     } while (b < 0 || c < 0)
-    this.question = `Calculer la moyenne des nombres :<br>$${sp(8)}${texNombrec(a / 10)}${sp(8)}${texNombrec(b / 10)}${sp(8)}${texNombrec(c / 10)}$`
+    this.question = `Calculer la moyenne des nombres :<br>
+    
+    $${sp(8)}${texNombrec(a / 10)}${sp(8)}${texNombrec(b / 10)}${sp(8)}${texNombrec(c / 10)}$`
     this.correction = `La moyenne des trois nombres est : $\\dfrac{${texNombrec(a / 10)}+${texNombrec(b / 10)}+${texNombrec(c / 10)}}{3}
     =\\dfrac{${texNombrec(a / 10 + b / 10 + c / 10)}}{3}= ${this.reponse}$.`
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
@@ -56,5 +58,7 @@ export default function MoyenneEntiereDeDecimaux () {
 
     $\\bullet$ On divise par le nombre de valeurs (soit $3$) : $\\dfrac{${texNombrec(a / 10 + b / 10 + c / 10)}}{3}= ${this.reponse}$  <br>
       `)
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

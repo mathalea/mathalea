@@ -20,7 +20,7 @@ export default function CoordonneesSommetParabole () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
-
+  this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -49,6 +49,10 @@ export default function CoordonneesSommetParabole () {
   ${texteCentre(`$f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2$`)}
      Puisque $\\alpha=${-b}$ et $\\beta=${c}$, on en déduit que les coordonnées du sommet de la parabole sont : $(${-b};${c})$.`
         }
+        this.canEnonce = `Déterminer les coordonnées du sommet de la parabole représentant 
+        la fonction $f$ définie sur $\\mathbb{R}$ 
+        par $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2$.`
+        this.canReponseACompleter = ''
       } else {
         texte = `Les coordonnées du sommet de la parabole représentant 
     la fonction $f$ définie sur $\\mathbb{R}$ 
@@ -69,6 +73,10 @@ export default function CoordonneesSommetParabole () {
         ${texteCentre(`$f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$`)}
          Puisque $\\alpha=${-b}$ et $\\beta=${c}$, on en déduit que les coordonnées du sommet de la parabole sont : $(${-b};${c})$.`
         }
+        this.canEnonce = `Déterminer les coordonnées du sommet de la parabole représentant 
+        la fonction $f$ définie sur $\\mathbb{R}$ 
+        par  $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}.`
+        this.canReponseACompleter = ''
       }
       setReponse(this, 2 * i, -b)
       setReponse(this, 2 * i + 1, c)

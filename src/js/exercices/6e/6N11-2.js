@@ -1,9 +1,10 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, calcul, lettreDepuisChiffre, htmlConsigne, texNombre, egal, shuffle, stringNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, calcul, htmlConsigne, texNombre, egal, shuffle, stringNombre, lettreIndiceeDepuisChiffre } from '../../modules/outils.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 import { afficheScore } from '../../modules/gestionInteractif.js'
 import { droiteGraduee, labelPoint, point, tracePoint } from '../../modules/2d.js'
+import { context } from '../../modules/context.js'
 
 export const titre = 'Placer un point d\'abscisse entière (grands nombres)'
 export const interactifReady = true
@@ -54,9 +55,9 @@ export default function PlacerUnPointAbscisseEntiere2d () {
     let abscisse = []
     this.contenu = htmlConsigne(this.consigne)
     for (let i = 0, abs0, l1, l2, l3, x1, x2, x3, x11, x22, x33, A, B, C, traceA, traceB, traceC, labels, pas1, texte = '', texteCorr = ''; i < this.nbQuestions; i++) {
-      l1 = lettreDepuisChiffre(i * 3 + 1)
-      l2 = lettreDepuisChiffre(i * 3 + 2)
-      l3 = lettreDepuisChiffre(i * 3 + 3)
+      l1 = lettreIndiceeDepuisChiffre(i * 3 + 1)
+      l2 = lettreIndiceeDepuisChiffre(i * 3 + 2)
+      l3 = lettreIndiceeDepuisChiffre(i * 3 + 3)
       this.autoCorrection[3 * i] = { propositions: [{ statut: 4, feedback: '' }] }
       this.autoCorrection[3 * i + 1] = { propositions: [{ statut: 4, feedback: '' }] }
       this.autoCorrection[3 * i + 2] = { propositions: [{ statut: 4, feedback: '' }] }
@@ -93,7 +94,7 @@ export default function PlacerUnPointAbscisseEntiere2d () {
         labelsPrincipaux: false,
         thickSec: true,
         step1: 10,
-        labelListe: [[0, `${stringNombre(abs0)}`], [1, `${stringNombre(calcul(abs0 + pas1))}`]]
+        labelListe: [[0, !context.isAmc ? stringNombre(abs0) : texNombre(abs0, 0)], [1, !context.isAmc ? stringNombre(calcul(abs0 + pas1)) : texNombre(calcul(abs0 + pas1))]]
       })
       d[2 * i + 1] = droiteGraduee({
         Unite: 4,
@@ -103,7 +104,7 @@ export default function PlacerUnPointAbscisseEntiere2d () {
         pointTaille: 5,
         pointStyle: 'x',
         labelsPrincipaux: false,
-        labelListe: [[0, `${stringNombre(abs0)}`], [1, `${stringNombre(calcul(abs0 + pas1))}`]],
+        labelListe: [[0, !context.isAmc ? stringNombre(abs0) : texNombre(abs0, 0)], [1, !context.isAmc ? stringNombre(calcul(abs0 + pas1)) : texNombre(calcul(abs0 + pas1))]],
         thickSec: true,
         step1: 10
       })
@@ -125,7 +126,7 @@ export default function PlacerUnPointAbscisseEntiere2d () {
           }
         }
       }
-      texte += mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 1, pixelsParCm: 20, scale: 0.5 }, mesObjets)
+      texte += (context.isHtml ? '' : '\\\\') + mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 1, pixelsParCm: 20, scale: 0.5 }, mesObjets)
       if (this.interactif) {
         texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
       }
@@ -136,7 +137,7 @@ export default function PlacerUnPointAbscisseEntiere2d () {
       traceA.taille = 5
       labels = labelPoint(A)
       if (!this.interactif) {
-        A.nom = lettreDepuisChiffre(i * 3 + 1)
+        A.nom = lettreIndiceeDepuisChiffre(i * 3 + 1)
         B = point(abscisse[1][0] * tailleUnite, 0, l2)
         traceB = tracePoint(B, 'blue')
         traceB.epaisseur = 3
@@ -148,12 +149,26 @@ export default function PlacerUnPointAbscisseEntiere2d () {
         labels = labelPoint(A, B, C)
       }
       if (this.interactif) {
-        texteCorr = `$${l1}\\left(${abscisse[0][1]}\\right).$`
+        texteCorr = `$${l1}\\left(${stringNombre(abscisse[0][1])}\\right).$`
         texteCorr += '<br>' + mathalea2d({ xmin: -2, xmax: 30, ymin: -1, ymax: 1, pixelsParCm: 20, scale: 0.5 }, d[2 * i + 1], traceA, labels)
       } else {
-        texteCorr = `$${l1}\\left(${abscisse[0][1]}\\right)$, $~${l2}\\left(${abscisse[1][1]}\\right)$ et $~${l3}\\left(${abscisse[2][1]}\\right)$`
+        texteCorr = `$${l1}\\left(${stringNombre(abscisse[0][1])}\\right)$, $~${l2}\\left(${stringNombre(abscisse[1][1])}\\right)$ et $~${l3}\\left(${stringNombre(abscisse[2][1])}\\right)$`
         texteCorr += '<br>' + mathalea2d({ xmin: -2, xmax: 30, ymin: -1, ymax: 1, pixelsParCm: 20, scale: 0.5 }, d[2 * i + 1], traceA, traceB, traceC, labels)
       }
+      if (context.isAmc) {
+        this.autoCorrection[i] =
+          {
+            enonce: texte + '<br>',
+            propositions: [
+              {
+                texte: texteCorr,
+                statut: 3, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                sanscadre: true
+              }
+            ]
+          }
+      }
+
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }

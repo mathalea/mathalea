@@ -16,6 +16,7 @@ export default function MoyenneStat () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
@@ -29,7 +30,8 @@ export default function MoyenneStat () {
         e = choice([36, 40, 44, 48, 52])
         d = e - a - b - c
         this.question = `$${a}$ ${sp(2)} ; ${sp(2)} $${b}$ ${sp(2)} ; ${sp(2)} $${c}$${sp(2)} ; ${sp(2)} $${d}$<br>
-    Quelle est la moyenne de cette série ?`
+   
+        Quelle est la moyenne de cette série ?`
         this.correction = `La somme des $4$ valeurs est : $${a}+${b}+${c}+${d} =${e}$.<br>
          La moyenne est donc $\\dfrac{${e}}{4}=${texFractionReduite(e, 4)}$.`
         this.reponse = e / 4
@@ -42,6 +44,7 @@ export default function MoyenneStat () {
         e = choice([35, 40, 45, 50])
         f = e - a - b - c - d
         this.question = `$${b}$${sp(2)} ; ${sp(2)} $${a}$ ${sp(2)} ; ${sp(2)}$${c}$${sp(2)} ; ${sp(2)}$${d}$ ${sp(2)} ; ${sp(2)}$${f}$<br>
+       
         Quelle est la moyenne de cette série ?`
         this.correction = `La somme des $5$ valeurs est : $${b}+${a}+${c}+${d}+${f}= ${e}$.<br>
          La moyenne est donc $\\dfrac{${texNombrec(e)}}{5}=${texFractionReduite(e, 5)}$.`
@@ -56,7 +59,8 @@ export default function MoyenneStat () {
           b = a - e
           c = a + e
           this.question = `$${texNombrec(a)}$ ${sp(2)} ; ${sp(2)}  $${texNombrec(b)}$  ${sp(2)} ; ${sp(2)}  $${texNombrec(c)}$<br>
-            Quelle est la moyenne de cette série ?`
+         
+          Quelle est la moyenne de cette série ?`
           this.correction = `La somme des $3$ valeurs est : $${texNombrec(a)}+${texNombrec(b)}+${texNombrec(c)} =${texNombrec(3 * a)}$.<br>
           La moyenne est donc $\\dfrac{${texNombrec(3 * a)}}{3}=${texNombrec(a)}$.`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
@@ -75,7 +79,8 @@ export default function MoyenneStat () {
           b = a - e
           c = a + e
           this.question = `$${texNombrec(b)}$ ${sp(2)} ; ${sp(2)}  $${texNombrec(c)}$  ${sp(2)} ; ${sp(2)}  $${texNombrec(a)}$<br>
-            Quelle est la moyenne de cette série ?`
+        
+          Quelle est la moyenne de cette série ?`
           this.correction = `La somme des $3$ valeurs est : $${texNombrec(a)}+${texNombrec(b)}+${texNombrec(c)} =${texNombrec(3 * a)}$.<br>
           La moyenne est donc $\\dfrac{${texNombrec(3 * a)}}{3}=${texNombrec(a)}$.`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
@@ -94,7 +99,8 @@ export default function MoyenneStat () {
           b = a - e
           c = a + e
           this.question = `$${texNombrec(c)}$${sp(2)} ; ${sp(2)} $${texNombrec(a)}$ ${sp(2)} ; ${sp(2)}$${texNombrec(b)}$<br>
-                            Quelle est la moyenne de cette série ?`
+                         
+          Quelle est la moyenne de cette série ?`
 
           this.correction = `La somme des $3$ valeurs est : $${texNombrec(a)}+${texNombrec(b)}+${texNombrec(c)} =${texNombrec(3 * a)}$.<br>
                             La moyenne est donc $\\dfrac{${texNombrec(3 * a)}}{3}=${texNombrec(a)}$.`
@@ -115,7 +121,8 @@ export default function MoyenneStat () {
           b = a - e
           c = a + e
           this.question = `$${texNombrec(a)}$${sp(2)} ; ${sp(2)} $${texNombrec(c)}$ ${sp(2)} ; ${sp(2)}$${texNombrec(b)}$<br>
-                            Quelle est la moyenne de cette série ?`
+                         
+          Quelle est la moyenne de cette série ?`
 
           this.correction = `La somme des $3$ valeurs est : $${texNombrec(a)}+${texNombrec(b)}+${texNombrec(c)} =${texNombrec(3 * a)}$.<br>
                             La moyenne est donc $\\dfrac{${texNombrec(3 * a)}}{3}=${texNombrec(a)}$.`
@@ -130,5 +137,7 @@ export default function MoyenneStat () {
         }
         break
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

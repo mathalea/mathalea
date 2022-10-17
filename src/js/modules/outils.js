@@ -188,6 +188,75 @@ export function deuxColonnes (cont1, cont2, largeur1 = 50) {
   }
 }
 /**
+ * Renvoie le html ou le latex qui mets les 2 chaines de caractères fournies sur 2 colonnes différentes
+ * Si en sortie html, il n'y a pas assez de places alors on passe en momocolonne!
+ * @author Mickael Guironnet
+ * @param {string} cont1 - Contenu de la première colonne
+ * @param {string} cont2 - Contenu de la deuxième colonne
+ * @param {eleId, largeur1, widthmincol1, widthmincol2} options
+ *          eleId : identifiant ID pour retrouver la colonne
+ *          largeur1 : largeur de la première colonne en latex en pourcentage
+ *          widthmincol1 : largeur de la première minimum en html en px
+ *          widthmincol2 : largeur de la deuxième  minimum en html en px
+ *  ex : deuxColonnesResp (enonce, correction, {eleId : '1_1', largeur1:50, widthmincol1: 400px, widthmincol2: 200px})
+ * @return {string}
+ */
+export function deuxColonnesResp (cont1, cont2, options) {
+  if (options === undefined) {
+    options = { largeur1: 50 }
+  } else if (typeof options === 'number') {
+    options = { largeur1: options }
+  }
+  if (options.largeur1 === undefined) {
+    options.largeur1 = 50
+  }
+  if (options.stylecol1 === undefined) {
+    options.stylecol1 = ''
+  }
+  if (options.stylecol2 === undefined) {
+    options.stylecol2 = ''
+  }
+  if (options.widthmincol1 === undefined) {
+    options.widthmincol1 = '0px'
+  }
+  if (options.widthmincol2 === undefined) {
+    options.widthmincol2 = '0px'
+  }
+
+  if (context.isHtml) {
+    return `
+    <style>
+    .cols-responsive {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-gap: 1rem;
+    }    
+    /* Screen larger than 900px? 2 column */
+    @media (min-width: 900px) {
+      .cols-responsive { grid-template-columns: repeat(2, 1fr); }
+    }    
+    </style>
+    <div class='cols-responsive'>
+      <div id='cols-responsive1-${options.eleId}'style='min-width:${options.widthmincol1};${options.stylecol1}' >
+      ${cont1}
+      </div>
+      <div id='cols-responsive2-${options.eleId}' style='min-width:${options.widthmincol2};${options.stylecol2}' >
+      ${cont2}
+      </div>
+    </div>
+`
+  } else {
+    return `\\begin{minipage}{${options.largeur1 / 100}\\linewidth}
+    ${cont1.replaceAll('<br>', '\\\\\n')}
+    \\end{minipage}
+    \\begin{minipage}{${(100 - options.largeur1) / 100}\\linewidth}
+    ${cont2.replaceAll('<br>', '\\\\\n')}
+    \\end{minipage}
+    `
+  }
+}
+/**
  *
  * @param {string} texte
  * @returns le texte centré dans la page selon le contexte.
@@ -205,7 +274,7 @@ export function centrage (texte) {
  * @param {number} defaut valeur par défaut si non entier
  */
 export function contraindreValeur (min, max, valeur, defaut) {
-  return !(isNaN(valeur)) ? (valeur < min) ? min : (valeur > max) ? max : Number(valeur) : defaut
+  return !(Number.isNaN(valeur)) ? (Number(valeur) < min) ? min : (Number(valeur) > max) ? max : Number(valeur) : defaut
 }
 
 /** Retourne un nombre décimal entre a et b, sans être trop près de a et de b
@@ -630,7 +699,7 @@ export function numTrie (arr) {
  * @param {number} tolerance La différence minimale entre deux valeurs pour les considérer comme égales
  * @author Jean-Claude Lhote
  **/
-export function enleveDoublonNum (arr, tolerance) {
+export function enleveDoublonNum (arr, tolerance = 0) {
   let k = 0
   while (k < arr.length - 1) {
     let kk = k + 1
@@ -918,6 +987,22 @@ export function texteExposant (texte) {
 }
 
 /**
+* Gère l'écriture de l'indice en mode text (ne doit pas s'utiliser entre $ $)
+* Pour le mode maths (entre $ $) on utilisera tout _3 pour mettre un indice 3 ou _{42} pour l'indice 42.
+* @param {string} texte
+* @Example
+* // `(d${texteIndice(3)})`
+* @author Jean-Claude Lhote
+*/
+export function texteIndice (texte) {
+  if (context.isHtml) {
+    return `<sub>${texte}</sub>`
+  } else {
+    return `\\textsubscript{${texte}}`
+  }
+}
+
+/**
 * Ajoute les parenthèses et le signe
 * @Example
 * //(+3) ou (-3)
@@ -1020,12 +1105,17 @@ export function signeMoinsEnEvidence (r, precision = 0) {
 */
 export function ecritureParentheseSiNegatif (a) {
   let result = ''
-  if (a >= 0) {
-    result = a
+  if (a instanceof Decimal) {
+    if (a.gte(0)) return texNombre(a, 8) // On met 8 décimales, mais cette fonctions s'utilise presque exclusivement avec des entiers donc ça ne sert à rien
+    else return `(${texNombre(a, 8)})`
   } else {
-    result = `(${a})`
+    if (a >= 0) {
+      result = texNombre(a, 8) // j'ai passé a dans texNombre, car la fonction ne prenait pas en compte l'écriture décimale !
+    } else {
+      result = `(${texNombre(a, 8)})`
+    }
+    return result
   }
-  return result
 }
 
 /**
@@ -1978,15 +2068,17 @@ export function codeCesar (mots, decal) {
 
 /**
 * Renvoie une lettre majuscule depuis un nombre compris entre 1 et 702
+* Le 2e paramètre est un booléen qui permet d'éviter la lettre D (et donc décale tout d'une lettre après le C) en vue du bug de MathLive
 * @author Rémi Angot
 *@Example
 * // 0 -> @ 1->A ; 2->B...
 * // 27->AA ; 28 ->AB ...
 */
-export function lettreDepuisChiffre (i) {
+export function lettreDepuisChiffre (i, saufD = false) {
   let result = ''
   if (i <= 26) {
     result = String.fromCharCode(64 + i)
+    if (saufD && i >= 4) result = String.fromCharCode(64 + i + 1)
   } else {
     if (i % 26 === 0) {
       result = String.fromCharCode(64 + Math.floor(i / 26) - 1)
@@ -2905,10 +2997,12 @@ function afficherNombre (nb, precision, fonction, force = false) {
     if (Math.abs(nb) < 1) {
       nbChiffresPartieEntiere = 0
     } else {
-      nbChiffresPartieEntiere = Math.abs(nb).toFixed(0).length
+      // attention 9.7 donner 10 avec Math.abs(9.7).toFixed(0)
+      nbChiffresPartieEntiere = Math.floor(Math.abs(nb)).toFixed(0).length
     }
-    if (Number.isInteger(nb)) precision = 0
-    else {
+    if (Number.isInteger(nb) && !force) {
+      precision = 0
+    } else {
       if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
         precision = 15 - nbChiffresPartieEntiere
       } else if (precision < 0) {
@@ -2939,6 +3033,7 @@ ${texte}
 \\end{center}`
   }
 }
+
 /**
 * Met en couleur et en gras
 *
@@ -2955,6 +3050,24 @@ export function miseEnEvidence (texte, couleur = '#f15929') {
       return `\\mathbf{{\\color[HTML]{${couleur.replace('#', '')}}${texte}}}`
     } else {
       return `\\mathbf{{\\color{${couleur.replace('#', '')}}${texte}}}`
+    }
+  }
+}
+/**
+* Met en couleur
+* Met en couleur un texte. JCL dit : "S'utilise entre $ car utilise des commandes qui fonctionnent en math inline"
+* @param {string} texte à mettre en couleur
+* @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
+* @author Guillaume Valmont d'après MiseEnEvidence() de Rémi Angot
+*/
+export function miseEnCouleur (texte, couleur = '#f15929') {
+  if (context.isHtml) {
+    return `{\\color{${couleur}} ${texte}}`
+  } else {
+    if (couleur[0] === '#') {
+      return `{\\color[HTML]{${couleur.replace('#', '')}} ${texte}}`
+    } else {
+      return `{\\color{${couleur.replace('#', '')}} ${texte}}`
     }
   }
 }
@@ -3017,10 +3130,10 @@ export function couleurTab (choixCouleur = 999) {
     ['red', 'rouge', 'rouge'],
     ['green', 'vert', 'verte'],
     ['blue', 'bleu', 'bleue'],
-    ['hotpink', 'rose', 'rose'],
-    ['sienna', 'marron', 'marron'],
+    ['HotPink', 'rose', 'rose'],
+    ['Sienna', 'marron', 'marron'],
     ['darkgray', 'gris', 'grise'],
-    ['darkorange', 'orange', 'orange']
+    ['DarkOrange', 'orange', 'orange']
   ]
   return (choixCouleur === 999 || choixCouleur >= panelCouleurs.length || !isInteger(choixCouleur)) ? choice(panelCouleurs) : panelCouleurs[choixCouleur]
 }
@@ -3032,9 +3145,9 @@ export function arcenciel (i, fondblanc = true) {
   return couleurs[i % 7]
 }
 export function texcolors (i, fondblanc = true) {
-  const couleurs = ['black', 'blue', 'brown', 'cyan', 'darkgray', 'gray', 'green', 'lightgray', 'lime', 'magenta', 'olive', '#f15929', 'pink', 'purple', 'red', 'teal', 'violet', 'white', 'yellow']
-  if (fondblanc && i % 19 >= 17) i += 2
-  return couleurs[i % 19]
+  const couleurs = ['black', 'blue', 'GreenYellow', 'brown', 'LightSlateBlue', 'cyan', 'darkgray', 'HotPink', 'LightSteelBlue', 'Chocolate', 'gray', 'green', 'lightgray', 'lime', 'magenta', 'olive', 'DarkOrange', 'pink', 'purple', 'red', 'teal', 'violet', 'white', 'yellow']
+  if (fondblanc && i % couleurs.length >= couleurs.length - 2) i += 2
+  return couleurs[i % couleurs.length]
 }
 
 /**
@@ -6625,7 +6738,7 @@ export function telechargeFichier (text, filename) {
 */
 export function introLatex (entete = 'Exercices', listePackages = '') {
   if (entete === '') { entete = 'Exercices' }
-  return `\\documentclass[12pt]{article}
+  return `\\documentclass[12pt,svgnames]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
 %\\usepackage[utf8]{inputenc}        
 %\\usepackage[T1]{fontenc}
@@ -6708,7 +6821,8 @@ ${preambulePersonnalise(listePackages)}
 */
 export function introLatexCan (entete = 'Course aux nombres', listePackages = '') {
   if (entete === '') { entete = 'Course aux nombres' }
-  return `\\documentclass[12pt, landscape]{article}
+  // return `\\documentclass[12pt, landscape]{article}
+  return `\\documentclass[12pt,svgnames]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
 %\\usepackage[utf8]{inputenc}        
 %\\usepackage[T1]{fontenc}
@@ -6779,15 +6893,89 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 
 \\fancypagestyle{premierePage}
 {
-  \\fancyhead[C]{\\textbf{${entete}}}
-
+  \\fancyhead[C]{\\textsc{${entete}}}
 }
 ${preambulePersonnalise(listePackages)}
 
+% Spécifique sujets CAN
+\\usepackage{longtable}
 
+\\tikzset{
+  mybox/.style={
+    rectangle,
+    drop shadow, 
+    inner sep=17pt,
+    draw=gray,
+    shade,
+    top color=gray,
+    every shadow/.append style={fill=gray!40}, 
+    bottom color=gray!20
+    }
+  }
+  
+  \\newcommand\\MyBox[2][]{%
+    \\tikz\\node[mybox,#1] {#2}; 
+  }
+  \\newcounter{nbEx}
+  \\usepackage{totcount}
+  \\regtotcounter{nbEx}
+  \\def\\checkmark{\\tikz\\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
+  
 \\begin{document}
 \\thispagestyle{premierePage}
 
+\\setcounter{nbEx}{1}
+\\vspace*{-10mm}
+\\textsc{Nom} : \\makebox[.35\\linewidth]{\\dotfill} \\hfill \\textsc{Prénom} : \\makebox[.35\\linewidth]{\\dotfill}
+\\begin{minipage}{0.55\\textwidth}
+  \\vspace{10mm}
+  \\textsc{Classe} : \\makebox[.45\\linewidth]{\\dotfill}
+\\end{minipage}
+\\begin{minipage}{0.35\\textwidth} 
+  \\vspace{5mm}
+  \\MyBox{\\Large\\textsc{Score} : \\makebox[.15\\linewidth]{\\dotfill} / \\total{nbEx}}      
+\\end{minipage}
+\\par\\medskip \\hrulefill \\par
+\\checkmark \\textit{\\textbf{Durée : [Temps total à modifier ici dans le code source] minutes}}
+
+\\smallskip
+\\checkmark \\textit{L'épreuve comporte \\total{nbEx} questions.}
+
+\\smallskip  
+\\checkmark \\textit{L'usage de la calculatrice et du brouillon sont interdits.}
+
+\\smallskip
+\\checkmark \\textit{Il n'est pas permis d'écrire des calculs intermédiaires.}
+\\par \\hrulefill \\par\\vspace{5mm}
+\\begin{center}
+\\textbf{[Ligne ci-dessous à modifier dans le code source]}
+
+\\textsc{Sujet niveau NN - Mois Année}
+
+
+\\par\\vspace{5mm}
+\\def\\arete{3}   \\def\\epaisseur{5}   \\def\\rayon{2}
+
+\\newcommand{\\ruban}{(0,0)
+  ++(0:0.57735*\\arete-0.57735*\\epaisseur+2*\\rayon)
+  ++(-30:\\epaisseur-1.73205*\\rayon)
+  arc (60:0:\\rayon)   -- ++(90:\\epaisseur)
+  arc (0:60:\\rayon)   -- ++(150:\\arete)
+  arc (60:120:\\rayon) -- ++(210:\\epaisseur)
+  arc (120:60:\\rayon) -- cycle}
+
+\\begin{tikzpicture}[very thick,top color=white,bottom color=gray,scale=1.3]
+  \\shadedraw \\ruban;
+  \\shadedraw [rotate=120] \\ruban;
+  \\shadedraw [rotate=-120] \\ruban;
+  \\draw (-60:4) node[scale=5,rotate=30]{CAN};
+  \\draw (180:4) node[scale=3,rotate=-90]{MathALEA};
+  \\clip (0,-6) rectangle (6,6); % pour croiser
+  \\shadedraw  \\ruban;
+  \\draw (60:4) node [gray,xscale=2.5,yscale=2.5,rotate=-30]{CoopMaths};
+\\end{tikzpicture}
+\\end{center}
+\\clearpage
 `
 }
 
@@ -6796,7 +6984,7 @@ ${preambulePersonnalise(listePackages)}
 * @author Rémi Angot
 */
 export function introLatexCoop (listePackages) {
-  const introLatexCoop = `\\documentclass[12pt]{article}
+  const introLatexCoop = `\\documentclass[12pt,svgnames]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=4cm,bottom=2cm]{geometry}
 %\\usepackage[utf8]{inputenc}        
 %\\usepackage[T1]{fontenc}
@@ -7233,6 +7421,8 @@ export function preambulePersonnalise (listePackages) {
         break
       case 'bac':
       case 'crpe':
+        result += '\\usepackage{scratch3}'
+        break
       case 'dnb':
       case 'e3c':
         // result += `
@@ -7737,7 +7927,7 @@ export function exportQcmAmc (exercice, idExo) {
       if (!Array.isArray(autoCorrection[j].reponse.valeur)) autoCorrection[j].reponse.valeur = [autoCorrection[j].reponse.valeur]
       valeurAMCNum = autoCorrection[j].reponse.valeur[0]
       if (typeof valeurAMCNum === 'string') {
-        valeurAMCNum = valeurAMCNum.replace(/\s/g, '').replace(',', '.')
+        valeurAMCNum = valeurAMCNum.replace(/\s/g, '').replaceAll(',', '.')
       }
     }
     switch (type) {
@@ -7813,9 +8003,13 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += `\t\t${autoCorrection[j].enonce} \n `
         texQr += `\t\t\\explain{${autoCorrection[j].propositions[0].texte}}\n`
         texQr += `\t\t\\notation{${autoCorrection[j].propositions[0].statut}}`
-        if (!(isNaN(autoCorrection[j].propositions[0].sanscadre))) {
-          texQr += `[${autoCorrection[j].propositions[0].sanscadre}]` // le statut contiendra le nombre de lignes pour ce type
-        }
+        if (autoCorrection[j].propositions[0].sanscadre !== undefined) {
+          texQr += `[${autoCorrection[j].propositions[0].sanscadre}]` // le statut contiendra si on a un cadre ou pas
+        } else texQr += '[false]'
+        if (autoCorrection[j].propositions[0].pointilles !== undefined) {
+          texQr += `[${autoCorrection[j].propositions[0].pointilles}]` // // le statut contiendra les lignes sont des pointillés ou vierges
+        } else texQr += '[true]'
+
         texQr += '\n\t\\end{question}\n }\n'
         id++
         break
@@ -7939,6 +8133,7 @@ export function exportQcmAmc (exercice, idExo) {
           }
           if (autoCorrection[j].reponse.textePosition === 'left') texQr += `${autoCorrection[j].reponse.texte} `
           texQr += `\\AMCnumericChoices{${valeurAMCNum}}{digits=${nbChiffresPe + nbChiffresPd},decimals=${nbChiffresPd},sign=${autoCorrection[j].reponse.param.signe},`
+          if (autoCorrection[j].reponse.param.aussiCorrect !== undefined) texQr += `alsocorrect=${autoCorrection[j].reponse.param.aussiCorrect},`
           if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
             texQr += `exponent=${nbChiffresExpo},exposign=${autoCorrection[j].reponse.param.exposantSigne},`
           }
@@ -8237,12 +8432,13 @@ export function exportQcmAmc (exercice, idExo) {
         if (type !== 'AMCHybride') {
           window.notify('exportQcmAMC : Il doit y avoir une erreur de type AMC, je ne connais pas le type : ', { type })
         }
+
         if (autoCorrection[j].enonce === undefined) { // Si l'énoncé n'a pas été défini, on va le chercher dans la question
           autoCorrection[j].enonce = exercice.listeQuestions[j]
+          if (autoCorrection[j].enonce === undefined) break // Toujours vide car exercice.listeQuestions[j] vide. Ce cas se produit lorsqu'on a un exercice avec multi-réponses en interactif mais un seul AMChybride avec plusieurs AMCNum, comme 6N11
         }
-        if (autoCorrection[j].propositions === undefined) {
-          break
-        }
+        if (autoCorrection[j].propositions === undefined) break
+
         if (autoCorrection[j].melange !== undefined) {
           melange = autoCorrection[j].melange
         }
@@ -8261,7 +8457,7 @@ export function exportQcmAmc (exercice, idExo) {
         if (autoCorrection[j].enonceAGauche) {
           texQr += `\\noindent\\fbox{\\begin{minipage}{${autoCorrection[j].enonceAGauche[0]}\\linewidth}\n`
         }
-        sautDeLigneApresEnonce = '\\\\\n '
+        sautDeLigneApresEnonce = '\n '
         if (!(autoCorrection[j].enonceCentre === undefined) || (autoCorrection[j].enonceCentre)) {
           texQr += '\\begin{center}'
           sautDeLigneApresEnonce = ''
@@ -8299,7 +8495,7 @@ export function exportQcmAmc (exercice, idExo) {
 
           propositions = prop.propositions
           switch (qrType) {
-            case 'qcmMono':
+            case 'qcmMono': // qcmMono de Hybride
               if (elimineDoublons(propositions)) {
                 console.log('doublons trouvés')
               }
@@ -8318,11 +8514,16 @@ export function exportQcmAmc (exercice, idExo) {
                 }
               }
               texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{question}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
+              if (prop.enonce !== undefined) {
+                texQr += prop.enonce + '\n'
+              }
+              /* EE 13/10/1022 : A mon avis, ne sert à rien. Je le laisse car si pb, on saura que c'est peut-être cela la raison.
               if (propositions[0].reponse !== undefined) {
                 if (propositions[0].reponse.texte) {
                   texQr += propositions[0].reponse.texte + '\n'
                 }
               }
+              */
               texQr += `\t\\begin{${horizontalite}}`
               if (ordered) {
                 texQr += '[o]'
@@ -8342,7 +8543,7 @@ export function exportQcmAmc (exercice, idExo) {
               texQr += '\\end{question}\n'
               id++
               break
-            case 'qcmMult':
+            case 'qcmMult': // qcmMult de Hybride
               if (elimineDoublons(propositions)) {
                 console.log('doublons trouvés')
               }
@@ -8381,7 +8582,7 @@ export function exportQcmAmc (exercice, idExo) {
               texQr += ' \\end{questionmult}\n'
               id++
               break
-            case 'AMCNum':
+            case 'AMCNum': // AMCNum de Hybride
               rep = prop.propositions[0].reponse
               if (!Array.isArray(rep.valeur)) { // rep.valeur est un tableau si la réponse est une fraction
                 rep.valeur = [rep.valeur]
@@ -8541,10 +8742,10 @@ export function exportQcmAmc (exercice, idExo) {
               if (propositions[0].numQuestionVisible === undefined) {
                 texQr += `\t\t\\notation{${propositions[0].statut}}`
                 if (!(isNaN(propositions[0].sanscadre))) {
-                  texQr += `[${propositions[0].sanscadre}]` // le statut contiendra le nombre de lignes pour ce type
+                  texQr += `[${propositions[0].sanscadre}]` // le statut contiendra si on a un cadre ou pas
                 } else texQr += '[false]'
-                if (!(isNaN(propositions[0].sanslignes))) {
-                  texQr += `[${!propositions[0].sanslignes}]` // le statut contiendra le nombre de lignes pour ce type
+                if (!(isNaN(propositions[0].pointilles))) {
+                  texQr += `[${propositions[0].pointilles}]` // le statut contiendra les lignes sont des pointillés ou vierges
                 } else texQr += '[true]'
               }
 
@@ -8641,9 +8842,9 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \n`
   if (format === 'A3') {
-    preambule += '\t \\documentclass[10pt,a3paper,landscape,french]{article}\n'
+    preambule += '\t \\documentclass[10pt,a3paper,landscape,french,svgnames]{article}\n'
   } else {
-    preambule += '\t \\documentclass[10pt,a4paper,french]{article}\n'
+    preambule += '\t \\documentclass[10pt,a4paper,french,svgnames]{article}\n'
   }
 
   preambule += `\t
@@ -8748,10 +8949,10 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   \\newcommand{\\TT}{\\sout{\\textbf{Tiers Temps}} \\noindent} % 
   \\newcommand{\\Prio}{\\fbox{\\textbf{PRIORITAIRE}} \\noindent} % 
   \\newcommandx{\\notation}[3][2=false,3=true]{
-    \\AMCOpen{lines=#1,lineup=#2,lineuptext=\\hspace{1cm},dots=#3}{\\mauvaise[{\\tiny NR}]{NR}\\scoring{0}\\mauvaise[{\\tiny RR}]{R}\\scoring{0.01}\\mauvaise[{\\tiny R}]{R}\\scoring{0.33}\\mauvaise[{\\tiny V}]{V}\\scoring{0.67}\\bonne[{\\tiny VV}]{V}\\scoring{1}}
+    \\AMCOpen{lines=#1,lineup=#2,lineuptext=\\hspace{1cm},dots=#3}{\\mauvaise[{\\tiny NR}]{NR}\\scoring{0}\\mauvaise[{\\tiny RR}]{RR}\\scoring{0.01}\\mauvaise[{\\tiny R}]{R}\\scoring{0.33}\\mauvaise[{\\tiny V}]{V}\\scoring{0.67}\\bonne[{\\tiny VV}]{VV}\\scoring{1}}
   }
   %%\\newcommand{\\notation}[1]{
-  %%\\AMCOpen{lines=#1}{\\mauvaise[{\\tiny NR}]{NR}\\scoring{0}\\mauvaise[{\\tiny RR}]{R}\\scoring{0.01}\\mauvaise[{\\tiny R}]{R}\\scoring{0.33}\\mauvaise[{\\tiny V}]{V}\\scoring{0.67}\\bonne[{\\tiny VV}]{V}\\scoring{1}}
+  %%\\AMCOpen{lines=#1}{\\mauvaise[{\\tiny NR}]{NR}\\scoring{0}\\mauvaise[{\\tiny RR}]{RR}\\scoring{0.01}\\mauvaise[{\\tiny R}]{R}\\scoring{0.33}\\mauvaise[{\\tiny V}]{V}\\scoring{0.67}\\bonne[{\\tiny VV}]{VV}\\scoring{1}}
   %%}
     
   %%pour afficher ailleurs que dans une question
@@ -8813,7 +9014,6 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   const enteteTypeCodeGrid = `\\begin{minipage}{10cm}
   \\champnom{\\fbox{\\parbox{10cm}{    
     Écrivez vos nom, prénom et classe : \\\\
-   \\\\
   }}}
   \\end{minipage}
   
@@ -8822,7 +9022,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   
   Puis remplir les cases des trois premières lettres de votre \\textbf{nom de famille} PUIS des deux premières lettres de votre \\textbf{prénom}
   \\vspace{1mm}
-  
+
   \\def\\AMCchoiceLabelFormat##1{\\textcolor{black!70}{{\\tiny ##1}}}  % pour alléger la couleur des lettres dans les cases et les réduire
   \\AMCcodeGrid[h]{ID}{ABCDEFGHIJKLMNOPQRSTUVWXYZ,
   ABCDEFGHIJKLMNOPQRSTUVWXYZ,

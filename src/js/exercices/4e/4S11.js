@@ -211,7 +211,7 @@ export default function DeterminerDesMedianes () {
           })
           scoresMedians[0] === scoresMedians[1] ? repInteractive = scoresMedians[0] : repInteractive = scoresMedians
         } else { // Le nombre de lancers est impair ici
-          texteCorr += `Le nombre de lancers est impair, les scores sont rangés dans l'odre croissant.<br>
+          texteCorr += `Le nombre de lancers est impair, les scores sont rangés dans l'ordre croissant.<br>
           La valeur centrale est la $${(nombreTirages - 1) / 2 + 1}^{e}$ valeur.<br>
           En effet, ${underbraceMediane(nombreTirages)} <br>
           Une médiane est donc le $${(nombreTirages - 1) / 2 + 1}^{e}$ score.<br>

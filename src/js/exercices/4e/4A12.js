@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { combinaisonListes, listeNombresPremiersStrictJusqua, listeQuestionsToContenu, nombreAvecEspace, randint, texteEnCouleurEtGras, personne, warnMessage } from '../../modules/outils.js'
+import { combinaisonListes, listeNombresPremiersStrictJusqua, listeQuestionsToContenu, nombreAvecEspace, randint, texteEnCouleurEtGras, personne, warnMessage, nombreDeChiffresDe, contraindreValeur, compteOccurences, rangeMinMax } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { svgEngrenages } from '../../modules/macroSvgJs.js'
@@ -7,15 +7,18 @@ import { context } from '../../modules/context.js'
 export const interactifReady = true // pour définir qu'exercice peut s'afficher en mode interactif.
 export const interactifType = 'mathLive'
 export const amcReady = true // pour définir que l'exercice est exportable AMC
-export const amcType = 'AMCNum'
+export const amcType = 'AMCHybride'
 
 export const titre = 'Résoudre des problèmes de conjonction de phénomènes'
+
+export const dateDeModifImportante = '10/10/2022'
 
 /**
  * Problèmes d'événements récurrents avec résolution à l'aide de décompositions en produits de facteurs premiers
  * @author Guillaume Valmont
  * Référence 4A12
  * 30/10/2021
+ * Ajout de questions possibles le 10/10/2022 par Guillaume Valmont
 */
 export const uuid = 'b16c6'
 export const ref = '4A12'
@@ -24,6 +27,8 @@ export default function ProblemesEvenementsRecurrents () {
   this.nbQuestions = 1
   this.sup = 1
   this.besoinFormulaireNumerique = ['Difficulté', 3, '1 : 1 facteur commun, 1 facteur spécifique\n2 : 2 facteurs communs, 1 facteur spécifique\n3 : 2 facteurs communs, 2 facteurs spécifiques']
+  this.besoinFormulaire2Texte = ['Type d\'énoncé', 'Nombres séparés par des tirets :\n1 : Guirlandes\n2 : Voiture\n3 : Fusée\n4 : Restau - ciné\n5 : Engrenages\n6 : Mélange']
+  this.sup2 = 6
   this.correctionDetailleeDisponible = true
   this.interactif = false
 
@@ -34,7 +39,28 @@ export default function ProblemesEvenementsRecurrents () {
 
     const preListePremiers = listeNombresPremiersStrictJusqua(12)
     const listePremiers = combinaisonListes(preListePremiers, this.nbQuestions * 5)
-    const saveurs = combinaisonListes(['guirlande', 'voiture', 'fusée', 'restau-ciné', 'engrenages'], this.nbQuestions)
+
+    let listeDesProblemes = [1, 2, 3, 4, 5] // Paramétrage par défaut
+    const valMaxParametre = 6
+    if (this.sup2) { // Si une liste est saisie
+      if (this.sup2.toString().indexOf('-') === -1) { // S'il n'y a pas de tiret ...
+        listeDesProblemes = [contraindreValeur(1, valMaxParametre, parseInt(this.sup2), 1)] // ... on crée un tableau avec une seule valeur
+      } else {
+        listeDesProblemes = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+        for (let i = 0; i < listeDesProblemes.length; i++) { // on parcourt notre tableau de strings : ['1', '1', '2'] ...
+          listeDesProblemes[i] = contraindreValeur(1, valMaxParametre, parseInt(listeDesProblemes[i]), 1) // ... pour en faire un tableau d'entiers : [1, 1, 2]
+        }
+      }
+    }
+    // Attention ! Si la valeur max du paramètre n'est pas une option de type "mélange", supprimer la ligne ci-dessous !
+    if (compteOccurences(listeDesProblemes, valMaxParametre) > 0) listeDesProblemes = rangeMinMax(1, valMaxParametre - 1) // Si l'utilisateur a choisi l'option "mélange", on fait une liste avec un de chaque
+
+    const listeDesSaveurs = ['guirlande', 'voiture', 'fusée', 'restau-ciné', 'engrenages']
+    let saveurs = []
+    for (const probleme of listeDesProblemes) {
+      saveurs.push(listeDesSaveurs[probleme - 1])
+    }
+    saveurs = combinaisonListes(saveurs, this.nbQuestions)
     for (let i = 0, texte, texteCorr, indicesFacteursCommuns, indicesFacteursA, indicesFacteursB, Commun, A, B, decompositionCommun, decompositionA, decompositionB, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       indicesFacteursCommuns = []
       switch (this.sup) {
@@ -73,15 +99,30 @@ export default function ProblemesEvenementsRecurrents () {
           B = listePremiers[indicesFacteursB[0] + i * 5]
           break
       }
-      let unite, phenomene1, phenomene2, texte1, texte2, texte3, texte4, cycles
-      const variableEngrenages = randint(1, 3)
+      let unite, phenomene1, phenomene2, texte1, texte2, texte3, texte4, texte5
+      const typeDeQuestion = randint(1, 3)
       const Robert = personne()
       switch (saveurs[i]) {
         case 'guirlande':
           texte = `Une guirlande électrique est constituée de lumières rouges et vertes.<br>
           Les lumières rouges s'allument toutes les ${nombreAvecEspace(Commun * A)} secondes et les vertes toutes les ${nombreAvecEspace(Commun * B)} secondes.<br>
-          À un instant donné, on voit les lumières rouges et vertes allumées en même temps.<br>
-          Au bout de combien de temps ce phénomène se reproduira-t-il la prochaine fois ?`
+          À un instant donné, on voit les lumières rouges et vertes allumées en même temps.<br>`
+          if (this.interactif || context.isAmc) {
+            switch (typeDeQuestion) {
+              case 1:
+                texte += 'Au bout de combien de temps ce phénomène se reproduira-t-il la prochaine fois ?'
+                break
+              case 2:
+                texte += 'D\'ici la prochaine fois que ce phénomène se reproduira, les lumières rouges s\'allumeront combien de fois ?'
+                break
+              case 3:
+                texte += 'D\'ici la prochaine fois que ce phénomène se reproduira, les lumières vertes s\'allumeront combien de fois ?'
+                break
+            }
+          } else {
+            texte += `Au bout de combien de temps ce phénomène se reproduira-t-il la prochaine fois ?<br>
+            Les lumières rouges et vertes se seront allumées combien de fois ?`
+          }
           unite = 'secondes'
           phenomene1 = 'les lumières rouges'
           phenomene2 = 'les lumières vertes'
@@ -89,13 +130,28 @@ export default function ProblemesEvenementsRecurrents () {
           texte2 = 'les lumières vertes'
           texte3 = 'Les lumières rouges et vertes seront allumées en même temps'
           texte4 = 'le temps nécessaire pour qu\'elle se rallument la première fois simultanément'
-          cycles = ' cycles'
+          texte5 = 's\'allumeront'
           break
         case 'voiture':
           texte = `Pour l'entretien de sa voiture, ${Robert.prenom} veut se tenir à un calendrier très précis :<br>
           ${Robert.pronom} nettoie l'intérieur de sa voiture tous les ${nombreAvecEspace(Commun * A)} jours et l'extérieur tous les ${nombreAvecEspace(Commun * B)} jours.<br>
-          Aujourd'hui, ${Robert.pronom} a fait les deux.<br>
-          Au bout de combien de temps fera-t-${Robert.pronom} les deux dans la même journée ?`
+          Aujourd'hui, ${Robert.pronom} a fait les deux.<br>`
+          if (this.interactif || context.isAmc) {
+            switch (typeDeQuestion) {
+              case 1:
+                texte += `Au bout de combien de temps fera-t-${Robert.pronom} les deux dans la même journée ?`
+                break
+              case 2:
+                texte += `D'ici la prochaine fois qu'${Robert.pronom} fera les deux dans la même journée, combien de fois nettoiera-t-${Robert.pronom} l'intérieur de sa voiture ?`
+                break
+              case 3:
+                texte += `D'ici la prochaine fois qu'${Robert.pronom} fera les deux dans la même journée, combien de fois nettoiera-t-${Robert.pronom} l'intérieur de sa voiture ?`
+                break
+            }
+          } else {
+            texte += `Au bout de combien de temps fera-t-${Robert.pronom} les deux dans la même journée ?<br>
+            Combien de fois aura-t-${Robert.pronom} nettoyé l'intérieur et l'extérieur de sa voiture ?`
+          }
           unite = 'jours'
           phenomene1 = 'le nettoyage intérieur'
           phenomene2 = 'le nettoyage extérieur'
@@ -103,13 +159,28 @@ export default function ProblemesEvenementsRecurrents () {
           texte2 = 'l\'extérieur'
           texte3 = 'Les nettoyages intérieur et extérieur auront lieu le même jour'
           texte4 = 'le nombre de jours avant un nettoyage intérieur et extérieur'
-          cycles = ' nettoyages'
+          texte5 = 'se fera'
           break
         case 'fusée':
           texte = `Pour l'entretien de sa fusée, ${Robert.prenom} doit se tenir à un calendrier très précis :<br>
           ${Robert.pronom} remplace la coiffe tous les ${nombreAvecEspace(Commun * A)} jours et les boosters tous les ${nombreAvecEspace(Commun * B)} jours.<br>
-          Aujourd'hui, ${Robert.pronom} a fait les deux.<br>
-          Au bout de combien de temps fera-t-${Robert.pronom} les deux dans la même journée ?`
+          Aujourd'hui, ${Robert.pronom} a fait les deux.<br>`
+          if (this.interactif || context.isAmc) {
+            switch (typeDeQuestion) {
+              case 1:
+                texte += `Au bout de combien de temps fera-t-${Robert.pronom} les deux dans la même journée ?`
+                break
+              case 2:
+                texte += `D'ici la prochaine fois qu'${Robert.pronom} fera les deux dans la même journée, combien de fois remplacera-t-${Robert.pronom} la coiffe de sa fusée ?`
+                break
+              case 3:
+                texte += `D'ici la prochaine fois qu'${Robert.pronom} fera les deux dans la même journée, combien de fois remplacera-t-${Robert.pronom} les boosters de sa fusée ?`
+                break
+            }
+          } else {
+            texte += `Au bout de combien de temps fera-t-${Robert.pronom} les deux dans la même journée ?<br>
+            Combien de fois aura-t-${Robert.pronom} remplacé la coiffe et les boosters de sa fusée ?`
+          }
           unite = 'jours'
           phenomene1 = 'le remplacement de la coiffe'
           phenomene2 = 'le remplacement des boosters'
@@ -117,13 +188,28 @@ export default function ProblemesEvenementsRecurrents () {
           texte2 = 'les boosters'
           texte3 = 'Le remplacement de la coiffe et des boosters auront lieu le même jour'
           texte4 = 'le nombre de jours avant le remplacement de la coiffe et des boosters'
-          cycles = ' remplacements'
+          texte5 = 'se fera'
           break
         case 'restau-ciné':
           texte = `Pour sa résolution de cette année, ${Robert.prenom} a décidé de ne pas abuser des bonnes choses :<br>
           ${Robert.pronom} s'accorde le droit d'aller au restaurant tous les ${nombreAvecEspace(Commun * A)} jours et d'aller au cinéma tous les ${nombreAvecEspace(Commun * B)} jours.<br>
-          Aujourd'hui, ${Robert.pronom} s'est fait un « restau - ciné ».<br>
-          Au bout de combien de temps s'en fera-t-${Robert.pronom} un autre ?`
+          Aujourd'hui, ${Robert.pronom} s'est fait un « restau - ciné ».<br>`
+          if (this.interactif || context.isAmc) {
+            switch (typeDeQuestion) {
+              case 1:
+                texte += `Au bout de combien de temps se fera-t-${Robert.pronom} un autre restau - ciné ?`
+                break
+              case 2:
+                texte += `D'ici la prochaine fois qu'${Robert.pronom} fera un autre restau - ciné, combien de fois sera-t-${Robert.pronom} allé${Robert.pronom === 'il' ? '' : 'e'} au restaurant ?`
+                break
+              case 3:
+                texte += `D'ici la prochaine fois qu'${Robert.pronom} fera un autre restau - ciné, combien de fois sera-t-${Robert.pronom} allé${Robert.pronom === 'il' ? '' : 'e'} au cinéma ?`
+                break
+            }
+          } else {
+            texte += `Au bout de combien de temps fera-t-${Robert.pronom} un autre restau - ciné ?<br>
+            Combien de fois sera-t-${Robert.pronom} allé${Robert.pronom === 'il' ? '' : 'e'} au restaurant et au cinéma ?`
+          }
           unite = 'jours'
           phenomene1 = 'aller au restaurant'
           phenomene2 = 'aller au cinéma'
@@ -131,21 +217,20 @@ export default function ProblemesEvenementsRecurrents () {
           texte2 = 'au cinéma'
           texte3 = `${Robert.pronom} se fera à nouveau un « restau - ciné »`
           texte4 = 'le nombre de jours avant le prochain « restau - ciné »'
-          cycles = ' sorties'
           break
         case 'engrenages':
-          texte = `Une première roue possède ${nombreAvecEspace(Commun * A)} dents et une seconde en possède ${nombreAvecEspace(Commun * B)}.<br>
-          Elles tournent jusqu'à revenir (pour la première fois) en position initiale<br>`
-          if (this.interactif) {
-            switch (variableEngrenages) {
+          texte = `Une première roue possède ${nombreAvecEspace(Commun * A)} dents et une seconde en possède ${nombreAvecEspace(Commun * B)}. 
+          Elles tournent jusqu'à revenir (pour la première fois) en position initiale.<br>`
+          if (this.interactif || context.isAmc) {
+            switch (typeDeQuestion) {
               case 1:
                 texte += 'De combien de dents chaque roue aura tourné ?'
                 break
               case 2:
-                texte += 'Combien de tours aura fait la première roue ?'
+                texte += 'Combien de tours aura effectué la première roue ?'
                 break
               case 3:
-                texte += 'Combien de tours aura fait la deuxième roue ?'
+                texte += 'Combien de tours aura effectué la deuxième roue ?'
                 break
               default:
                 break
@@ -161,7 +246,6 @@ export default function ProblemesEvenementsRecurrents () {
           texte2 = 'la seconde'
           texte3 = 'Elles reviendront en position initiale'
           texte4 = 'le nombre de dents avant de revenir pour la première fois en position initiale'
-          cycles = ' tours'
           break
         default:
           break
@@ -232,10 +316,16 @@ export default function ProblemesEvenementsRecurrents () {
         texteCorr += 'On multiplie les facteurs communs aux deux décompositions avec les facteurs spécifiques à chaque décomposition :<br>'
       }
       texteCorr += `${decompositionCommun} $\\times$ ${decompositionA} $\\times$ ${decompositionB} = ${nombreAvecEspace(Commun * A * B)}<br>
-      Ce phénomène se produira à nouveau au bout de ${nombreAvecEspace(Commun * A * B)} ${unite}, 
-      après ${texteEnCouleurEtGras(nombreAvecEspace(B) + cycles, 'green')} pour ${texteEnCouleurEtGras(phenomene1, 'red')} et après ${texteEnCouleurEtGras(nombreAvecEspace(A) + cycles, 'red')} pour ${texteEnCouleurEtGras(phenomene2, 'green')}.<br>`
+      Ce phénomène se produira à nouveau au bout de ${nombreAvecEspace(Commun * A * B)} ${unite}, `
+      if (saveurs[i] === 'restau-ciné') {
+        texteCorr += `lorsqu'${Robert.pronom} ${texteEnCouleurEtGras('ira au restaurant', 'red')} pour la ${texteEnCouleurEtGras(nombreAvecEspace(B), 'green')}ème fois et qu'${Robert.pronom} ${texteEnCouleurEtGras('ira au cinéma', 'green')} pour la ${texteEnCouleurEtGras(nombreAvecEspace(A), 'red')}ème fois.<br>`
+      } else if (saveurs[i] === 'engrenages') {
+        texteCorr += `lorsque ${texteEnCouleurEtGras('la première roue', 'red')} aura fait ${texteEnCouleurEtGras(nombreAvecEspace(B), 'green')} tours et que ${texteEnCouleurEtGras('la deuxième roue', 'green')} aura fait ${texteEnCouleurEtGras(nombreAvecEspace(A), 'red')} tours.<br>`
+      } else {
+        texteCorr += `lorsque ${texteEnCouleurEtGras(phenomene1, 'red')} ${texte5} pour la ${texteEnCouleurEtGras(nombreAvecEspace(B), 'green')}ème fois et que ${texteEnCouleurEtGras(phenomene2, 'green')} ${texte5} pour la ${texteEnCouleurEtGras(nombreAvecEspace(A), 'red')}ème fois.<br>`
+      }
       if (this.correctionDetaillee) {
-        texteCorr += `${nombreAvecEspace(Commun * A * B)} est bien un multiple de ${texteEnCouleurEtGras(nombreAvecEspace(Commun * A), 'red')} car :
+        texteCorr += `<br>${nombreAvecEspace(Commun * A * B)} est bien un multiple de ${texteEnCouleurEtGras(nombreAvecEspace(Commun * A), 'red')} car :
          ${decompositionCommun} $\\times$ ${decompositionA} $\\times$ ${decompositionB} =
          (${decompositionCommun} $\\times$ ${decompositionA}) $\\times$ ${decompositionB} =
          ${texteEnCouleurEtGras(nombreAvecEspace(Commun * A), 'red')} $\\times$ ${texteEnCouleurEtGras(nombreAvecEspace(B), 'green')}.<br>
@@ -245,30 +335,64 @@ export default function ProblemesEvenementsRecurrents () {
          (${decompositionCommun} $\\times$ ${decompositionB}) $\\times$ ${decompositionA} =
          ${texteEnCouleurEtGras(nombreAvecEspace(Commun * B), 'green')} $\\times$ ${texteEnCouleurEtGras(nombreAvecEspace(A), 'red')}.<br>`
       }
-      if (saveurs[i] === 'engrenages') {
-        switch (variableEngrenages) {
-          case 1:
-            setReponse(this, i, Commun * A * B)
-            break
-          case 2:
-            setReponse(this, i, B)
-            break
-          case 3:
-            setReponse(this, i, A)
-            break
-          default:
-            break
-        }
-      } else {
-        setReponse(this, i, Commun * A * B)
+      let bonneReponse = Commun * A * B
+      switch (typeDeQuestion) {
+        case 2:
+          bonneReponse = B
+          break
+        case 3:
+          bonneReponse = A
+          break
       }
+
+      setReponse(this, i, bonneReponse)
+
       if (this.interactif && !context.isAmc) { // Si l'exercice est interactif
-        if (saveurs[i] === 'engrenages' && variableEngrenages > 1) {
-          texte += ajouteChampTexteMathLive(this, i, 'inline largeur 25', { texteApres: ' tours' })
+        if (typeDeQuestion > 1) {
+          if (saveurs[i] === 'engrenages') {
+            texte += ajouteChampTexteMathLive(this, i, 'inline largeur 25', { texteApres: ' tours' })
+          } else {
+            texte += ajouteChampTexteMathLive(this, i, 'inline largeur 25', { texteApres: ' fois' })
+          }
         } else {
           texte += ajouteChampTexteMathLive(this, i, 'inline largeur 25', { texteApres: ' ' + unite })
         }
       }
+      if (context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: '',
+          enonceAvant: false,
+          propositions: [
+            {
+              type: 'AMCOpen',
+              propositions: [{
+                texte: texteCorr,
+                enonce: texte + '<br>',
+                statut: 4,
+                pointilles: false
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: saveurs[i] === 'guirlande' ? 'Nombre de secondes : ' : saveurs[i] === 'engrenages' ? 'Réponse : ' : 'Nombre de secondes : ',
+                  valeur: [bonneReponse],
+                  param: {
+                    digits: nombreDeChiffresDe(bonneReponse),
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
+                  }
+                }
+              }]
+            }
+          ]
+        }
+      }
+
       if (this.questionJamaisPosee(i, Commun, A * B)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

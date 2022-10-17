@@ -62,5 +62,7 @@ export default function DeveloppementCoeff2 () {
      Le coefficient devant $x$ est donc $${2 * e * f + a * d + b * c}$.`
 
     this.reponse = 2 * e * f + a * d + b * c
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

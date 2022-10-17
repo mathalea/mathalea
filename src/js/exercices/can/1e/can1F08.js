@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import Decimal from 'decimal.js/decimal.mjs'
-import { randint, choice, ecritureAlgebrique, ecritureAlgebriqueSauf1, texNombre, reduireAxPlusB, texteCentre } from '../../../modules/outils.js'
+import { randint, choice, ecritureAlgebrique, ecritureAlgebriqueSauf1, texNombre, reduireAxPlusB } from '../../../modules/outils.js'
 import FractionX from '../../../modules/FractionEtendue.js'
 export const titre = 'Déterminer la fonction dérivée d’une fonction affine'
 export const interactifReady = true
@@ -32,9 +32,11 @@ export default function CalculFonctionDeriveeAffine () {
         m = choice([randint(1, 10) * choice([-1, 1]), (new Decimal(randint(-19, 19, [0, -10, 10]))).div(10)])
         p = choice([randint(1, 10) * choice([-1, 1]), (new Decimal(randint(-19, 19, [0, -10, 10]))).div(10)])
         f = new FractionX(m * 10, 10)
-        this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
-        ${texteCentre(`$f(x)=${reduireAxPlusB(m, p)}$`)}  
-        Déterminer la fonction dérivée de la fonction $f$.<br>     `
+        this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
+
+       $f(x)=${reduireAxPlusB(m, p)}$.<br>
+
+        Déterminer $f'(x)$.   <br>  `
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=${texNombre(m, 1)}$ et $p=${texNombre(p, 1)}$.<br>
         La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=${texNombre(m, 1)}$. `
@@ -46,9 +48,11 @@ export default function CalculFonctionDeriveeAffine () {
         m = choice([randint(2, 10) * choice([-1, 1]), (new Decimal(randint(-19, 19, [0, -10, 10]))).div(10)])
         p = choice([randint(1, 10) * choice([-1, 1]), (new Decimal(randint(-19, 19, [0, -10, 10]))).div(10)])
         f = new FractionX(m * 10, 10)
-        this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
-        ${texteCentre(`$f(x)=${texNombre(p, 1)}${ecritureAlgebrique(m)}x$`)}  
-        Déterminer la fonction dérivée de la fonction $f$.<br>     `
+        this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
+
+      $f(x)=${texNombre(p, 1)}${ecritureAlgebrique(m)}x$.<br>
+
+        Déterminer $f'(x)$. <br>   `
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=${texNombre(m, 1)}$ et $p=${texNombre(p, 1)}$.<br>
         La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=${texNombre(m, 1)}$. `
@@ -60,13 +64,17 @@ export default function CalculFonctionDeriveeAffine () {
         p = choice([randint(1, 10) * choice([-1, 1]), (new Decimal(randint(-19, 19, [0, -10, 10]))).div(10)])
         m = choice([-1, 1])
         if (choice([true, false])) {
-          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
-        ${texteCentre(`$f(x)=${reduireAxPlusB(m, p)}$`)}  
-        Déterminer la fonction dérivée de la fonction $f$.<br>     `
+          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :<br>
+
+       $f(x)=${reduireAxPlusB(m, p)}$.<br>
+
+       Déterminer $f'(x)$. <br>  `
         } else {
-          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
-        ${texteCentre(`$f(x)=${texNombre(p, 1)}${ecritureAlgebriqueSauf1(m)}x$`)}  
-        Déterminer la fonction dérivée de la fonction $f$.<br>     `
+          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
+
+        $f(x)=${texNombre(p, 1)}${ecritureAlgebriqueSauf1(m)}x$<br>
+
+        Déterminer $f'(x)$.   <br> `
         }
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=${m}$ et $p=${texNombre(p, 1)}$.<br>
@@ -76,5 +84,7 @@ export default function CalculFonctionDeriveeAffine () {
 
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

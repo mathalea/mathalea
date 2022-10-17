@@ -27,5 +27,7 @@ export default function Discriminant () {
     $\\Delta=$`
     this.correction = `$\\Delta =b^2-4ac=${ecritureParentheseSiNegatif(b)}^2 - 4 \\times ${ecritureParentheseSiNegatif(a)} \\times ${ecritureParentheseSiNegatif(c)}=${d}$`
     this.reponse = d
+    this.canEnonce = `Calculer le discriminant de cette expression : $${reduirePolynomeDegre3(0, a, b, c)}$.`
+    this.canReponseACompleter = '$\\Delta=\\ldots$'
   }
 }

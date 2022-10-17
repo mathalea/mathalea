@@ -23,12 +23,14 @@ export default function SubstitutionRelatif () {
     const a = -randint(2, 6)
     const b = randint(12, 25)
     const c = randint(3, 7)
-    this.question = `Calculer $${b}+${c}x$ pour $x=${a}$`
+    this.question = `Calculer $${b}+${c}x$ pour $x=${a}$.`
     this.correction = `$${b}+${c}x=${b}+${c}\\times (${a})=${b}${ecritureAlgebrique(c * a)}=${b + c * a}$ `
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
        On commence par calculer le produit :  $${c}\\times (${a})$ qui donne $${a * c}$.<br>
        Puis, on calcule  $${b}${ecritureAlgebrique(c * a)}=${b + c * a}$.  `)
 
     this.reponse = calcul(b + c * a)
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

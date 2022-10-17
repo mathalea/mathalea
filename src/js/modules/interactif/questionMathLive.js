@@ -8,10 +8,11 @@ import { gestionCan } from './gestionCan.js'
 import { sp, texteExposant } from '../outils.js'
 import * as pkg from '@cortex-js/compute-engine'
 const { ComputeEngine } = pkg
-export function verifQuestionMathLive (exercice, i) {
+export function verifQuestionMathLive (exercice, i, writeResult = true) {
   const engine = new ComputeEngine()
   let saisieParsee, num, den, fSaisie, fReponse
   const formatInteractif = exercice.autoCorrection[i].reponse.param.formatInteractif
+  const precision = exercice.autoCorrection[i].reponse.param.precision
   const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
   // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
   let reponse, saisie, nombreSaisi, grandeurSaisie, mantisseSaisie, expoSaisi, nombreAttendu, mantisseReponse, expoReponse
@@ -27,7 +28,9 @@ export function verifQuestionMathLive (exercice, i) {
     champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
     if (champTexte === {} || champTexte === undefined) champTexte = { value: '' }
     let resultat = 'KO'
-    let feedback
+    let statut = 'OK'
+    let feedbackSaisie
+    let feedbackCorrection
     let ii = 0
     while ((resultat === 'KO') && (ii < reponses.length)) {
       reponse = reponses[ii]
@@ -52,7 +55,7 @@ export function verifQuestionMathLive (exercice, i) {
           break
         case 'calcul':
         // Le format par défaut
-          saisie = champTexte.value.replace(',', '.')
+          saisie = champTexte.value.replaceAll(',', '.') // EE : Le All est nécessaire pour l'usage du clavier spécial 6ème
           // La réponse est transformée en chaine compatible avec engine.parse()
           reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
           saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
@@ -89,7 +92,7 @@ export function verifQuestionMathLive (exercice, i) {
           if (saisie === reponse) {
             resultat = 'OK'
           } else if (saisie.replaceAll('\\,', '') === reponse.replaceAll('\\,', '')) {
-            feedback = 'Attention aux espaces !'
+            feedbackCorrection = 'Attention aux espaces !'
           }
           break
 
@@ -139,8 +142,13 @@ export function verifQuestionMathLive (exercice, i) {
           grandeurSaisie = saisieToGrandeur(saisie)
           if (grandeurSaisie) {
             if (grandeurSaisie.estEgal(reponse)) resultat = 'OK'
+            else if (precision && grandeurSaisie.estUneApproximation(reponse, precision)) feedbackCorrection = 'Erreur d\'arrondi.'
           } else {
-            resultat = 'essaieEncoreAvecUneSeuleUnite'
+            if ((saisie === '') || isNaN(parseFloat(saisie.replace(',', '.')))) {
+              resultat = 'KO'
+            } else {
+              resultat = 'essaieEncoreAvecUneSeuleUnite'
+            }
           }
           break
         case 'intervalleStrict':// Pour les exercice où la saisie doit être dans un intervalle
@@ -229,7 +237,8 @@ export function verifQuestionMathLive (exercice, i) {
       }
       ii++
     }
-    if (resultat === 'OK') {
+    spanReponseLigne.innerHTML = ''
+    if (resultat === 'OK' && writeResult) {
       spanReponseLigne.innerHTML = '😎'
       spanReponseLigne.style.fontSize = 'large'
       if (champTexte !== undefined) champTexte.readOnly = true
@@ -241,17 +250,19 @@ export function verifQuestionMathLive (exercice, i) {
     ' par exemple).</em>'
       spanReponseLigne.style.color = '#f15929'
       spanReponseLigne.style.fontWeight = 'bold'
+      statut = 'wait'
     } else if (resultat === 'essaieEncorePuissance') {
       spanReponseLigne.innerHTML = '<br><em>Attention, la réponse est mathématiquement correcte mais n\'a pas le format demandé.</em>'
       spanReponseLigne.style.color = '#f15929'
       spanReponseLigne.style.fontWeight = 'bold'
-    } else {
+    } else if (writeResult) {
       spanReponseLigne.innerHTML = '☹️'
       spanReponseLigne.style.fontSize = 'large'
       if (champTexte !== undefined) champTexte.readOnly = true
     }
-    if (feedback) spanReponseLigne.innerHTML += `<span style="margin-left: 10px">${feedback}</span>`
-    return resultat
+    if (feedbackSaisie) spanReponseLigne.innerHTML += `<span style="margin-left: 10px">${feedbackSaisie}</span>`
+    if (feedbackCorrection && writeResult) spanReponseLigne.innerHTML += `<span style="margin-left: 10px">${feedbackCorrection}</span>`
+    return { resultat, statut }
   } catch (error) {
     window.notify(`Erreur dans verif QuestionMathLive : ${error} <br> Avec les métadonnées : `, { champTexteValue: champTexte._slotValue, exercice: exercice.id, i, autoCorrection: exercice.autoCorrection[i], formatInteractif, spanReponseLigne })
   }
@@ -297,16 +308,21 @@ export function ajouteChampTexteMathLive (exercice, i, style = '', { texteApres 
 export function ajouteChampFractionMathLive (exercice, i, numerateur = false, denominateur = 100, style = '', { texte = '', texteApres = '' } = {}) {
   let code = ''
   if (context.isHtml && exercice.interactif) {
-    code += `<label>${texte}</label><table style="border-collapse:collapse;text-align:center;font-size: small;font-family:Arial,Times,serif;display:inline;"><tr><td style="padding:0px 0px 5px;margin:0px;border-bottom:1px solid #000;">`
+    code += `<label>${texte}</label>
+             <table style="border-collapse:collapse;text-align:center;font-size: small;font-family:Arial,Times,serif;display:inline;"><tr>
+             <td style="${!numerateur ? style : ''} ;padding:0px 0px 5px;margin:0px;border-bottom:1px solid #000;">`
     if (!numerateur) {
-      code += `<math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field></td><td><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+      code += `<math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>
+              </td><td><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
       i++
     } else {
       code += `${numerateur} `
     }
-    code += '</td></tr><tr><td width=50px style="padding:0px;margin:0px;">'
+    code += `</td></tr><tr>
+             <td width=50px style="padding:0px;margin:0px;">`
     if (!denominateur) {
-      code += `<math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field></td><td><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+      code += `<math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>
+              </td><td><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
     } else {
       code += `${denominateur}`
     }
@@ -336,19 +352,27 @@ export function exerciceMathLive (exercice) {
           button.addEventListener('click', event => {
             let nbBonnesReponses = 0
             let nbMauvaisesReponses = 0
-            const besoinDe2eEssai = false
+            let besoinDe2eEssai = false
             let resultat
+            let wait = false
             for (const i in exercice.autoCorrection) {
-              resultat = verifQuestionMathLive(exercice, i)
-              if (resultat === 'OK') {
-                nbBonnesReponses++
-              } else {
-                nbMauvaisesReponses++ // Il reste à gérer le 2e essai
-              }
+              if (verifQuestionMathLive(exercice, i, false).statut === 'wait') wait = true
             }
-            if (!besoinDe2eEssai) {
-              button.classList.add('disabled')
-              afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
+            if (!wait) {
+              for (const i in exercice.autoCorrection) {
+                if (verifQuestionMathLive(exercice, i).statut) { resultat = verifQuestionMathLive(exercice, i).resultat }
+                if (resultat === 'OK') {
+                  nbBonnesReponses++
+                } else if (resultat === 'wait') {
+                  besoinDe2eEssai = true
+                } else {
+                  nbMauvaisesReponses++ // Il reste à gérer le 2e essai
+                }
+              }
+              if (!besoinDe2eEssai) {
+                button.classList.add('disabled')
+                afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
+              }
             }
           })
           button.hasMathaleaListener = true

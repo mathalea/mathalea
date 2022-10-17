@@ -93,7 +93,7 @@ export const dictionnaireCrpeCoop = {
     urlcor: [
       'assets/crpe/2022/2022-g1-ex5-corr.tex'
     ],
-    tags: []
+    tags: ['Volumes', 'Pythagore', 'Agrandissement-réduction', 'Fonctions linéaires et affines', 'Inéquations']
   },
   'crpe-2022-g2-ex1': {
     typeExercice: 'crpe',

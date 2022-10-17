@@ -25,7 +25,7 @@ export default function ReconnaitreExpL () {
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
-
+    this.tailleDiaporama = 2
     let texte, texteCorr, a, b, c, d, e
     const nomVar = ['a', 'b', 'x', 'y']
     const inc = choice(nomVar)
@@ -35,9 +35,10 @@ export default function ReconnaitreExpL () {
 
           a = randint(-10, 10, [-1, 0, 1])
           b = randint(1, 10)
-          texte = `Quelle est la nature de l'expression littérale suivante ?<br>
-            $${a}(${inc}+${b})$`
+          texte = `Quelle est la nature de cette expression littérale ?<br>
 
+            $${a}(${inc}+${b})$`
+          this.canEnonce = texte
           this.autoCorrection[i] = {
             enonce: texte,
             options: { horizontal: true },
@@ -64,9 +65,10 @@ export default function ReconnaitreExpL () {
           if (choice([true, false])) {
             a = randint(-10, 10, [0, 1])
             b = randint(-10, 10, [-1, 0, 1])
-            texte = `Quelle est la nature de l'expression littérale suivante ?<br>
+            texte = `Quelle est la nature de cette expression littérale ?<br>
+          
             $${ecritureParentheseSiNegatif(a)}\\times ${inc} ${ecritureAlgebrique(b)}$`
-
+            this.canEnonce = texte
             this.autoCorrection[i] = {
               enonce: texte,
               options: { horizontal: true },
@@ -95,9 +97,10 @@ export default function ReconnaitreExpL () {
           } else {
             a = randint(-10, 10, [0, 1])
             b = randint(-10, 10, [-1, 0, 1])
-            texte = `Quelle est la nature de l'expression littérale suivante ?<br>
+            texte = `Quelle est la nature de cette expression littérale ?<br>
+          
             $${ecritureParentheseSiNegatif(a)}${ecritureAlgebrique(b)}\\times ${inc}$`
-
+            this.canEnonce = texte
             this.autoCorrection[i] = {
               enonce: texte,
               options: { horizontal: true },
@@ -130,9 +133,10 @@ export default function ReconnaitreExpL () {
 
           a = randint(-10, 10, [-1, 0, 1])
           b = randint(-10, 10, [-1, 0, 1])
-          texte = `Quelle est la nature de l'expression littérale suivante ?<br>
+          texte = `Quelle est la nature de cette expression littérale ?<br>
+          
             $${a}a${ecritureAlgebrique(b)}b$`
-
+          this.canEnonce = texte
           this.autoCorrection[i] = {
             enonce: texte,
             options: { horizontal: true },
@@ -165,8 +169,10 @@ export default function ReconnaitreExpL () {
             a = randint(-10, 10, [-1, 0, 1])
             b = randint(2, 10)
             c = randint(-10, 10, 0)
-            texte = `Quelle est la nature de l'expression littérale suivante ?<br>
+            texte = `Quelle est la nature de cette expression littérale ?<br>
+          
             $${a}x+${b}\\times(x${ecritureAlgebrique(c)})$`
+            this.canEnonce = texte
             this.autoCorrection[i] = {
               enonce: texte,
               options: { horizontal: true },
@@ -190,8 +196,10 @@ export default function ReconnaitreExpL () {
             a = randint(2, 10)
             b = randint(2, 10)
             c = randint(-10, 10, [-1, 0, 1])
-            texte = `Quelle est la nature de l'expression littérale suivante ?<br>
+            texte = `Quelle est la nature de cette expression littérale ?<br>
+            
             $${b}\\times(x${ecritureAlgebrique(c)})+${a}x$`
+            this.canEnonce = texte
             this.autoCorrection[i] = {
               enonce: texte,
               options: { horizontal: true },
@@ -221,8 +229,10 @@ export default function ReconnaitreExpL () {
           b = randint(2, 10)
           c = randint(-10, 10, [-1, 0, 1])
           d = randint(-10, 10, 0)
-          texte = `Quelle est la nature de l'expression littérale suivante ?<br>
+          texte = `Quelle est la nature de cette expression littérale ?<br>
+          
               $(${a}x+${b})(${c}x${ecritureAlgebrique(d)})$`
+          this.canEnonce = texte
           this.autoCorrection[i] = {
             enonce: texte,
             options: { horizontal: true },
@@ -250,8 +260,10 @@ export default function ReconnaitreExpL () {
           b = randint(2, 10)
           c = randint(-10, 10, [-1, 0, 1])
           d = randint(-10, 10, 0)
-          texte = `Quelle est la nature de l'expression littérale suivante ?<br>
+          texte = `Quelle est la nature de cette expression littérale ?<br>
+          
               $(${a}x+${b})+(${c}x${ecritureAlgebrique(d)})$`
+          this.canEnonce = texte
           this.autoCorrection[i] = {
             enonce: texte,
             options: { horizontal: true },
@@ -279,8 +291,10 @@ export default function ReconnaitreExpL () {
           b = randint(2, 10)
           c = randint(-10, 10, [-1, 0, 1])
           d = randint(-10, 10, 0)
-          texte = `Quelle est la nature de l'expression littérale suivante ?<br>
+          texte = `Quelle est la nature de cette expression littérale ?<br>
+          
               $(${a}x+${b})+(${c}x${ecritureAlgebrique(d)})(${a}x${ecritureAlgebrique(b)})$`
+          this.canEnonce = texte
           this.autoCorrection[i] = {
             enonce: texte,
             options: { horizontal: true },
@@ -311,8 +325,10 @@ export default function ReconnaitreExpL () {
           c = randint(-10, 10, [-1, 0, 1])
           d = randint(-10, 10, 0)
           e = randint(2, 10)
-          texte = `Quelle est la nature de l'expression littérale suivante ?<br>
+          texte = `Quelle est la nature de cette expression littérale ?<br>
+          
               $(${a}x+${b})(${c}x${ecritureAlgebrique(d)})+${e}$`
+          this.canEnonce = texte
           this.autoCorrection[i] = {
             enonce: texte,
             options: { horizontal: true },
@@ -343,8 +359,10 @@ export default function ReconnaitreExpL () {
           c = randint(-10, 10, [-1, 0, 1])
           d = randint(-10, 10, 0)
           e = randint(2, 10)
-          texte = `Quelle est la nature de l'expression littérale suivante ?<br>
+          texte = `Quelle est la nature de cette expression littérale ?<br>
+
               $${e}(${a}x+${b})(${c}x${ecritureAlgebrique(d)})$`
+          this.canEnonce = texte
           this.autoCorrection[i] = {
             enonce: texte,
             options: { horizontal: true },
@@ -377,5 +395,6 @@ export default function ReconnaitreExpL () {
       cpt++
     }
     listeQuestionsToContenu(this)
+    this.canReponseACompleter = propositionsQcm(this, 0).texte
   }
 }

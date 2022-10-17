@@ -1,13 +1,13 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes2, texNombre, texteEnCouleurEtGras, rangeMinMax, combinaisonListes, choice, range, contraindreValeur, enleveElementNo, enleveElement } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes2, texNombre, texteEnCouleurEtGras, rangeMinMax, combinaisonListes, choice, range, contraindreValeur, enleveElementNo, enleveElement, numAlpha } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { max, min, mod } from 'mathjs'
 export const titre = "Trouver le vocabulaire associé aux termes de l'égalité issue de la division euclidienne"
 
 export const amcReady = true
-export const amcType = 'AMCOpen'
+export const amcType = 'qcmMult'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -69,6 +69,13 @@ export default function VocabulaireDivisionEuclidienne () {
           Nbutilises[3] = randint(4, min(Nbutilises[2], Nbutilises[1]) - 1)
           break
         default :
+          if (randint(0, 1) === 0) {
+            Nbutilises[2] = randint(4, Nbutilises[1] - 1)
+            Nbutilises[3] = randint(Nbutilises[2], Nbutilises[1] - 1)
+          } else {
+            Nbutilises[2] = randint(5, 99, [Nbutilises[1]])
+            Nbutilises[3] = randint(4, min(Nbutilises[2], Nbutilises[1]) - 1)
+          }
           Nbutilises[2] = randint(5, 99, [Nbutilises[1]])
           Nbutilises[3] = randint(4, max(Nbutilises[2], Nbutilises[1]) - 1, [min(Nbutilises[2], Nbutilises[1])])
           break
@@ -102,7 +109,7 @@ export default function VocabulaireDivisionEuclidienne () {
           texteCorr = `$${Nbutilises[3]}$ est inférieur à $${Nbutilises[1]}$ et à $${Nbutilises[2]}$ donc l'égalité ` + EgaliteDivEuclidienne + ' peut être associée à deux divisions euclidiennes différentes :<br>'
           TabCorrection[1] = `$${Nbutilises[1]}$ est le diviseur`
           TabCorrection[2] = `$${Nbutilises[2]}$ est le quotient`
-          texteCorr += ` 1. la division euclidienne de $ ${texNombre(Nbutilises[0])} $ par $ ${Nbutilises[1]} $. Alors, `
+          texteCorr += numAlpha(0) + `soit la division euclidienne de $ ${texNombre(Nbutilises[0])} $ par $ ${Nbutilises[1]} $. Alors, `
           for (let kk = 0; kk < 3; kk++) {
             texteCorr += kk === ChoixQuestions[i] ? texteEnCouleurEtGras(TabCorrection[kk]) : TabCorrection[kk]
             texteCorr += kk < 2 ? ', ' : ' et '
@@ -112,7 +119,7 @@ export default function VocabulaireDivisionEuclidienne () {
           TabCorrection[1] = `$${Nbutilises[1]}$ est le quotient`
           TabCorrection[2] = `$${Nbutilises[2]}$ est le diviseur`
           TabCorrection[ChoixQuestions[i]] = texteEnCouleurEtGras(TabCorrection[ChoixQuestions[i]])
-          texteCorr += ` 2. la division euclidienne de $ ${texNombre(Nbutilises[0])} $ par $ ${Nbutilises[2]} $. Alors, `
+          texteCorr += numAlpha(1) + `soit la division euclidienne de $ ${texNombre(Nbutilises[0])} $ par $ ${Nbutilises[2]} $. Alors, `
           for (let kk = 0; kk < 3; kk++) {
             texteCorr += kk === ChoixQuestions[i] ? texteEnCouleurEtGras(TabCorrection[kk]) : TabCorrection[kk]
             texteCorr += kk < 2 ? ', ' : ' et '
@@ -139,8 +146,8 @@ export default function VocabulaireDivisionEuclidienne () {
         }
       } else {
         texteCorr = `$${Nbutilises[3]}$ est inférieur à $${Nbutilises[2]}$ mais pas à $${Nbutilises[1]}$ donc l'égalité ` + EgaliteDivEuclidienne + ' est associée à'
-        TabCorrection[1] = `$${Nbutilises[1]}$ est le diviseur`
-        TabCorrection[2] = `$${Nbutilises[2]}$ est le quotient`
+        TabCorrection[2] = `$${Nbutilises[1]}$ est le diviseur`
+        TabCorrection[1] = `$${Nbutilises[2]}$ est le quotient`
         TabCorrection[ChoixQuestions[i]] = texteEnCouleurEtGras(TabCorrection[ChoixQuestions[i]])
         texteCorr += ` la division euclidienne de $ ${texNombre(Nbutilises[0])} $ par $ ${Nbutilises[2]} $. Alors, `
         for (let kk = 0; kk < 3; kk++) {
@@ -158,7 +165,32 @@ export default function VocabulaireDivisionEuclidienne () {
         }
         setReponse(this, i, ReponsesCorrectes, { formatInteractif: 'ignorerCasse' })
         if (context.isAmc) {
-          this.autoCorrection[i].propositions = [{ texte: this.listeCorrections[i], statut: '1' }] // Ici, une seule ligne pour chaque zone de texte
+          //   this.autoCorrection[i].propositions = [{ texte: this.listeCorrections[i], statut: '1' }] // Ici, une seule ligne pour chaque zone de texte
+
+          this.autoCorrection[i].enonce = `${texte}\n`
+          this.autoCorrection[i].propositions = [
+            {
+              texte: 'dividende',
+              statut: ReponsesCorrectes.includes('dividende')
+            },
+            {
+              texte: 'diviseur',
+              statut: ReponsesCorrectes.includes('diviseur')
+            },
+            {
+              texte: 'quotient',
+              statut: ReponsesCorrectes.includes('quotient')
+            },
+            {
+              texte: 'reste',
+              statut: ReponsesCorrectes.includes('reste')
+            }
+          ]
+          console.log(texte, ReponsesCorrectes)
+          console.log(this.autoCorrection[i].propositions)
+          this.autoCorrection[i].options = {
+            ordered: false
+          }
         }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -184,7 +216,7 @@ export default function VocabulaireDivisionEuclidienne () {
   ]
   this.besoinFormulaire4Numerique = [
     'Choix sur le nombre de divisions euclidiennes associées à chaque égalité',
-    2,
+    3,
     '1 : Une seule division euclidienne associée\n2 : Deux divisions euclidiennes associées\n3 : Mélange'
   ]
 }

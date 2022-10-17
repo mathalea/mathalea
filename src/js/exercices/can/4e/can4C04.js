@@ -31,6 +31,7 @@ export default function RegleDesSignes () {
     switch (randint(0, 2)) {
       case 0:
         this.question = `$${f[0]}\\times ${ecritureParentheseSiNegatif(f[1])}\\times$ ? $=${d}$.<br>
+
         ? $=$`
         this.reponse = f[2]
         this.correction = `Comme le produit $${f[0]}\\times ${ecritureParentheseSiNegatif(f[1])}$ 
@@ -40,9 +41,13 @@ export default function RegleDesSignes () {
         on cherche le nombre qui multiplié par $${Math.abs(f[0] * f[1])}$ donne $${Math.abs(d)}$.
          C'est $${Math.abs(d)}\\div ${Math.abs(f[0] * f[1])}=${Math.abs(f[2])}$. <br>`
         this.correction += `On en déduit que le facteur manquant est : $${f[2]}$.<br> On a bien : $${f[0]}\\times ${ecritureParentheseSiNegatif(f[1])}\\times ${miseEnEvidence(ecritureParentheseSiNegatif(f[2]))}=${d}$`
+        this.canEnonce = `$${f[0]}\\times ${ecritureParentheseSiNegatif(f[1])}\\times$ ? $=${d}$.
+      `
+        this.canReponseACompleter = ' ? $=\\ldots $'
         break
       case 1:
         this.question = `$${f[0]}\\times$ ? $\\times ${ecritureParentheseSiNegatif(f[2])}=${d}$<br>
+
         ? $=$`
         this.reponse = f[1]
         this.correction = `Comme le produit $${f[0]}\\times ${ecritureParentheseSiNegatif(f[2])}$ 
@@ -52,9 +57,13 @@ export default function RegleDesSignes () {
         C'est $${Math.abs(d)}\\div ${Math.abs(f[0] * f[2])}=${Math.abs(f[1])}$. <br>`
         this.correction += `On en déduit que le facteur manquant est : 
         $${f[1]}$. <br>On a bien : $${f[0]}\\times ${miseEnEvidence(ecritureParentheseSiNegatif(f[1]))} \\times ${ecritureParentheseSiNegatif(f[2])}=${d}$. <br>`
+        this.canEnonce = `$${f[0]}\\times$ ? $\\times ${ecritureParentheseSiNegatif(f[2])}=${d}$
+      `
+        this.canReponseACompleter = ' ? $=\\ldots $'
         break
       case 2:
         this.question = `? $\\times ${ecritureParentheseSiNegatif(f[1])}\\times ${ecritureParentheseSiNegatif(f[2])}=${d}$<br>
+        
         ? $=$`
         this.reponse = f[0]
         this.correction = `Comme le produit $${f[1]}\\times ${ecritureParentheseSiNegatif(f[2])}$ est ${f[1] * f[2] > 0 ? 'positif' : 'négatif'} et que le résultat est ${d > 0 ? 'positif' : 'négatif'} alors le facteur manquant est forcément ${f[0] > 0 ? 'positif' : 'négatif'}.<br>`
@@ -62,6 +71,9 @@ export default function RegleDesSignes () {
         on cherche le nombre qui multiplié par $${Math.abs(f[1] * f[2])}$ donne $${Math.abs(d)}$.
         C'est $${Math.abs(d)}\\div ${Math.abs(f[1] * f[2])}=${Math.abs(f[0])}$. <br>`
         this.correction += `On en déduit que le facteur manquant est : $${f[0]}$. <br>On a bien : $${miseEnEvidence(f[0])}\\times ${ecritureParentheseSiNegatif(f[1])} \\times ${ecritureParentheseSiNegatif(f[2])}=${d}$`
+        this.canEnonce = `? $\\times ${ecritureParentheseSiNegatif(f[1])}\\times ${ecritureParentheseSiNegatif(f[2])}=${d}$
+      `
+        this.canReponseACompleter = ' ? $=\\ldots $'
         break
     }
   }

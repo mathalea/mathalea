@@ -216,6 +216,38 @@ export function demicercle3d (centre, normal, rayon, cote, color, angledepart = 
 }
 
 /**
+ * L'ARC
+ *
+ *@author Mickael Guironnet
+ * Le nom est trompeur, il s'agit le plus souvent d'un morceau d'ellipse représentant un arc projeté
+ * Utilisé pour représenter un arc dont une moitié est visible mais pas l'autre.
+ *
+ * normal et rayon sont deux vecteurs 3d
+ * normal est un vecteur normal au plan du cercle
+ * rayon est le vecteur qui part du centre et qui joint la 1ere extremité visible.
+ * cote est soit 'caché' soit 'visible'
+ *
+ */
+export function arc3d (centre, normal, rayon, cote, color, angledepart, angledefin) {
+  const M = []; const listepoints = []
+  const d = droite3d(centre, normal)
+  M.push(rotation3d(translation3d(centre, rayon), d, angledepart))
+  listepoints.push(M[0].c2d)
+
+  const nbr = Math.floor((angledefin - angledepart) / 10)
+  for (let i = 1; i <= nbr; i++) {
+    M.push(rotation3d(M[i - 1], d, 10))
+    listepoints.push(M[i].c2d)
+  }
+  const arc = polyline(listepoints, color)
+  if (cote === 'caché') {
+    arc.pointilles = 2
+    arc.opacite = 0.3
+  }
+  return arc
+}
+
+/**
     * LE CERCLE
     *
     * @author Jean-Claude Lhote
@@ -344,7 +376,11 @@ function Cone3d (centrebase, sommet, normal, rayon, generatrices = 18) {
   this.sommet = sommet
   this.centrebase = centrebase
   this.normal = normal
-  this.rayon = vecteur3d(rayon, 0, 0)
+  if (typeof (rayon) === 'number') {
+    this.rayon = vecteur3d(rayon, 0, 0)
+  } else {
+    this.rayon = rayon
+  }
   this.c2d = []
   let s, color1, color2
   const prodvec = vecteur3d(math.cross(normal.matrice, this.rayon.matrice))
@@ -587,9 +623,9 @@ class Cube3d {
     const faceAV = polygone([A.c2d, B.c2d, C.c2d, D.c2d], color)
     const faceDr = polygone([B.c2d, F.c2d, G.c2d, C.c2d], color)
     const faceTOP = polygone([D.c2d, C.c2d, G.c2d, H.c2d], color)
-    faceAV.couleurDeRemplissage = colorAV
-    faceTOP.couleurDeRemplissage = colorTOP
-    faceDr.couleurDeRemplissage = colorDr
+    faceAV.couleurDeRemplissage = colorToLatexOrHTML(colorAV)
+    faceTOP.couleurDeRemplissage = colorToLatexOrHTML(colorTOP)
+    faceDr.couleurDeRemplissage = colorToLatexOrHTML(colorDr)
     this.c2d = [faceAV, faceDr, faceTOP]
   }
 }

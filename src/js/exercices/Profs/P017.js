@@ -11,7 +11,7 @@ export const titre = 'Encadrer l\'aire d\'un disque'
  * @author Eric Elter
  * Référence P017
 */
-export default function encadrerAireDisque () {
+export default function EncadrerAireDisque () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''

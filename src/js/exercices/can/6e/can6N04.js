@@ -1,4 +1,4 @@
-import { droiteGraduee } from '../../../modules/2d.js'
+import { droiteGraduee, texteParPosition } from '../../../modules/2d.js'
 import { context } from '../../../modules/context.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { pgcd, randint, texFractionReduite } from '../../../modules/outils.js'
@@ -21,6 +21,7 @@ export default function AbscisseFractionnaire () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.formatInteractif = 'fractionEgale'
   this.consigne = ''
@@ -33,7 +34,11 @@ export default function AbscisseFractionnaire () {
     } while (b % a === 0)
     const c = new FractionEtendue(b, a)
     this.reponse = c
-    this.question = 'Determiner l\'abscisse du point $A$.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, droiteGraduee({
+    this.question = `Determiner l'abscisse du point $A$.<br>
+    
+    `
+
+    this.question += mathalea2d({ xmin: -1, ymin: -1.5, xmax: 14, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, texteParPosition('A', 3 * b / a, 0.9, 'milieu', 'blue', 2), droiteGraduee({
       Unite: 3,
       Min: 0,
       Max: 4.2,
@@ -43,7 +48,7 @@ export default function AbscisseFractionnaire () {
       thickSec: true,
       thickOffset: 0,
       axeStyle: '|->',
-      pointListe: [[b / a, 'A']],
+      pointListe: [[b / a, '']],
       pointCouleur: 'blue',
       pointStyle: 'x',
       labelsPrincipaux: true,
@@ -105,5 +110,7 @@ export default function AbscisseFractionnaire () {
         ]
       }
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

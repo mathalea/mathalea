@@ -9,7 +9,7 @@ export const titre = 'Calculer des effectifs et des fréquences'
  */
 export const uuid = '7d429'
 export const ref = '5S13-1'
-export default function calculEffectifFrequence5e () {
+export default function CalculEffectifFrequence5e () {
   calculEffectifFrequence.call(this)
   this.titre = titre
   this.sup = 1

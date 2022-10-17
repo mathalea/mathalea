@@ -9,7 +9,7 @@ export const amcType = 'AMCOpen' // type de question AMC
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const titre = 'Indiquer un égalité à partir d\'une division euclidienne'
+export const titre = 'Indiquer une égalité à partir d\'une division euclidienne'
 
 export const dateDePublication = '09/09/2022'
 
@@ -31,6 +31,8 @@ export const dateDePublication = '09/09/2022'
  * @author Eric Elter (à partir de 6C11)
  * Référence 6C11-3
  */
+export const uuid = 'd0cd7'
+export const ref = '6C11-3'
 export default function APartirDeDivisionsEuclidiennes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 3
@@ -109,8 +111,9 @@ export default function APartirDeDivisionsEuclidiennes () {
       texte += ajouteChampTexteMathLive(this, i)
       // Pour AMC question AmcOpen
       if (context.isAmc) {
-        this.autoCorrection[i].enonce = texte
+        this.autoCorrection[i].enonce = 'Indiquer une égalité à partir de la  division euclidienne suivante : <br><br>' + texte
         this.autoCorrection[i].propositions[0].texte = texteCorr
+        this.autoCorrection[i].propositions[0].statut = 1
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

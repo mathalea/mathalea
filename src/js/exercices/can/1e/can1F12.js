@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import Decimal from 'decimal.js/decimal.mjs'
-import { randint, choice, texNombre, texteCentre } from '../../../modules/outils.js'
+import { randint, choice, texNombre } from '../../../modules/outils.js'
 export const titre = 'Déterminer la fonction dérivée d’une fonction $k/x$ ou $k\\sqrt{x}$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -31,9 +31,11 @@ export default function CalculFonctionDeriveeFctRef () {
       case 1:// a/x
         a = randint(2, 15) * choice([-1, 1])
 
-        this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}^*$ par : 
-            ${texteCentre(`$f(x)=\\dfrac{${a}}{x}$`)}  
-            Déterminer la  dérivée de la fonction $f$.<br>     `
+        this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}^*$ par : <br>
+
+            $f(x)=\\dfrac{${a}}{x}$. <br>
+
+           Déterminer $f'(x)$.<br>     `
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f(x)=\\dfrac{${a}}{x}=${a}\\times \\dfrac{1}{x}$.<br>
           Or  $x\\longmapsto \\dfrac{1}{x}$ a pour dérivée $x\\longmapsto -\\dfrac{1}{x^2}$.<br>
@@ -45,9 +47,11 @@ export default function CalculFonctionDeriveeFctRef () {
       case 2:// asqrt(x)
         a = randint(2, 15) * choice([-1, 1])
         b = new Decimal(a).div(2)
-        this.question = `Soit $f$ la fonction définie sur $[0;+\\infty[$ par : 
-            ${texteCentre(`$f(x)=${a}\\sqrt{x}$`)}  
-            Déterminer la  dérivée de la fonction $f$ pour $x\\in ]0;+\\infty[$ .<br>     `
+        this.question = `Soit $f$ la fonction définie sur $[0;+\\infty[$ par : <br>
+
+            $f(x)=${a}\\sqrt{x}$. <br>
+
+            Déterminer $f'(x)$ pour $x\\in ]0;+\\infty[$ .<br>     `
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f(x)=${a}\\sqrt{x}=${a}\\times\\sqrt{x}$.<br>
           Or  $x\\longmapsto \\sqrt{x}$ a pour dérivée $x\\longmapsto \\dfrac{1}{2\\sqrt{x}}$.<br>
@@ -57,5 +61,7 @@ export default function CalculFonctionDeriveeFctRef () {
 
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

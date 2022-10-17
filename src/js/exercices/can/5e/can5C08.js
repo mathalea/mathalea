@@ -46,5 +46,7 @@ export default function ProchainMultipleDeTroisOuDeNeuf () {
       this.correction += sommeB % 9 === 0 ? `C'est un multiple de $9$ donc $${b}$ en est un et le prochain multiple de $9$ est $${b + 9}$<br>` : `C'est $${b % 9}$ de trop pour qu'il soit divisible par $9$, donc $${b}$ n'est pas un multiple de $9$ mais $${b - b % 9}$ en est un et $${this.reponse}$ aussi.<br>`
       this.correction += `Le prochain multiple de 9 est donc : $${this.reponse}$.`
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

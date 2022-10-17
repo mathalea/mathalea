@@ -57,11 +57,11 @@ export default function Pythagore2D () {
     let listeDeNomsDePolygones = []
     let reponse
     if (this.sup === 1) {
-      this.consigne = "Dans chaque cas, donner l'égalité de Pythagore."
+      this.consigne = ((context.vue !== 'diap' && this.nbQuestions > 1) ? 'Dans chaque cas, donner' : 'Donner') + " l'égalité de Pythagore."
     } else if (this.sup === 2) {
-      this.consigne = "Dans chaque cas, compléter l'égalité en utilisant le théorème de Pythagore."
+      this.consigne = ((context.vue !== 'diap' && this.nbQuestions > 1) ? 'Dans chaque cas, compléter' : 'Compléter') + " l'égalité en utilisant le théorème de Pythagore."
     } else {
-      this.consigne = 'Dans chaque cas, calculer la longueur manquante (si nécessaire, l\'arrondir au millimètre près).'
+      this.consigne = ((context.vue !== 'diap' && this.nbQuestions > 1) ? 'Dans chaque cas, calculer' : 'Calculer') + ' la longueur manquante (si nécessaire, l\'arrondir au millimètre près).'
     }
     listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -201,15 +201,15 @@ export default function Pythagore2D () {
           if (calcul(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1) === calcul(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 5)) {
             AB = texNombre(calcul(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1))
             reponse = arrondi(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1)
-            texteCorr += `<br> $${A.nom + B.nom}=${AB}$ cm.`
+            texteCorr += `<br> $${A.nom + B.nom}=${AB}$ cm`
             if (this.interactif && context.isHtml) texte += `<br>$${A.nom + B.nom}=$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
           } else {
             AB = texNombre(calcul(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1))
             reponse = arrondi(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1)
-            texteCorr += `<br> $${A.nom + B.nom}\\approx${AB}$ cm.`
+            texteCorr += `<br> $${A.nom + B.nom}\\approx${AB}$ cm`
             if (this.interactif && context.isHtml) texte += `<br>$${A.nom + B.nom}\\approx$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
           }
-          context.isAmc ? setReponse(this, i, reponse) : setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'unites' })
+          context.isAmc ? setReponse(this, i, reponse) : setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'unites', precision: 0.001 })
         }
         if (listeTypeDeQuestions[i] === 'BC') {
           const BC = texNombre(calcul(Math.sqrt(longueurAB ** 2 + longueurAC ** 2), 1))
@@ -217,13 +217,13 @@ export default function Pythagore2D () {
           texteCorr += `<br> $${B.nom + C.nom}^2=${texNombre(longueurAB)}^2+${texNombre(longueurAC)}^2=${texNombrec(longueurAB ** 2 + longueurAC ** 2)}$`
           texteCorr += `<br> $${B.nom + C.nom}=\\sqrt{${texNombrec(longueurAB ** 2 + longueurAC ** 2)}}$`
           if (calcul(Math.sqrt(longueurAB ** 2 + longueurAC ** 2), 1) === calcul(Math.sqrt(longueurAB ** 2 + longueurAC ** 2), 5)) {
-            texteCorr += `<br> $${B.nom + C.nom}=${BC}$ cm.`
+            texteCorr += `<br> $${B.nom + C.nom}=${BC}$ cm`
             if (this.interactif && context.isHtml) texte += `<br>$${B.nom + C.nom}=$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
           } else {
-            texteCorr += `<br> $${B.nom + C.nom}\\approx${BC}$ cm.`
+            texteCorr += `<br> $${B.nom + C.nom}\\approx${BC}$ cm`
             if (this.interactif && context.isHtml) texte += `<br>$${B.nom + C.nom}\\approx$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
           }
-          context.isAmc ? setReponse(this, i, reponse) : setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'unites' })
+          context.isAmc ? setReponse(this, i, reponse) : setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'unites', precision: 0.001 })
         }
         if (listeTypeDeQuestions[i] === 'AC') {
           const AC = texNombre(calcul(Math.sqrt(longueurBC ** 2 - longueurAB ** 2), 1))
@@ -232,13 +232,13 @@ export default function Pythagore2D () {
           texteCorr += `<br> $${A.nom + C.nom}^2=${texNombre(longueurBC)}^2-${texNombre(longueurAB)}^2=${texNombrec(longueurBC ** 2 - longueurAB ** 2)}$`
           texteCorr += `<br> $${A.nom + C.nom}=\\sqrt{${texNombrec(longueurBC ** 2 - longueurAB ** 2)}}$`
           if (calcul(Math.sqrt(longueurBC ** 2 - longueurAB ** 2), 1) === calcul(Math.sqrt(longueurBC ** 2 - longueurAB ** 2), 5)) {
-            texteCorr += `<br> $${A.nom + C.nom}=${AC}$ cm.`
+            texteCorr += `<br> $${A.nom + C.nom}=${AC}$ cm`
             if (this.interactif && context.isHtml) texte += `<br>$${A.nom + C.nom}=$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
           } else {
-            texteCorr += `<br> $${A.nom + C.nom}\\approx${AC}$ cm.`
+            texteCorr += `<br> $${A.nom + C.nom}\\approx${AC}$ cm`
             if (this.interactif && context.isHtml) texte += `<br>$${A.nom + C.nom}\\approx$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
           }
-          context.isAmc ? setReponse(this, i, reponse) : setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'unites' })
+          context.isAmc ? setReponse(this, i, reponse) : setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'unites', precision: 0.001 })
         }
       } else {
         texte += ajouteChampTexteMathLive(this, i)

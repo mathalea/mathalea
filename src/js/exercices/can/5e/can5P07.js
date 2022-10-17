@@ -21,7 +21,7 @@ export default function Proportionnalite2 () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
-
+  this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     let a, b, fruits, fruits2, poids1, frac, choix
     const listefruits1 = [
@@ -33,7 +33,7 @@ export default function Proportionnalite2 () {
     ]
     switch (choice([1, 2])) { //
       case 1:// proportionnalité avec fruits
-        choix = choice(['c'])
+        choix = choice(['a', 'b', 'c'])
         if (choix === 'a') {
           a = randint(4, 7)// kg pour 9 €
           b = a - 1
@@ -64,12 +64,16 @@ export default function Proportionnalite2 () {
           frac = new FractionX(7 * b, a)
           this.reponse = frac
           if (choice([true, false])) {
-            this.question = `On paie  $7$ € pour $${a}$ kg de ${fruits[0]}s.<br> 
+            this.question = `On paie  $7$ € pour $${a}$ kg de ${fruits[0]}s.<br>
+
           Quel est le prix de $${b}$ kg de ${fruits[0]}s ?<br>
+
            Donner la valeur exacte de ce prix.`
           } else {
             this.question = ` $${a}$ kg de ${fruits[0]}s coûtent $7$ €.<br> 
+
            Quel est le prix de $${b}$ kg de ${fruits[0]}s ?<br>
+
             Donner la valeur exacte de ce prix.`
           }
           if (this.interactif) { this.optionsChampTexte = { texteApres: ' €' } }
@@ -88,11 +92,15 @@ export default function Proportionnalite2 () {
           this.reponse = frac
           if (choice([true, false])) {
             this.question = `On paie  $11$ € pour $${a}$ kg de ${fruits[0]}s.<br> 
+
           Quel est le prix de $${b}$ kg de ${fruits[0]}s ?<br>
+
            Donner la valeur exacte de ce prix.`
           } else {
             this.question = ` $${a}$ kg de ${fruits[0]}s coûtent $11$ €.<br> 
+
            Quel est le prix de $${b}$ kg de ${fruits[0]}s ?<br>
+
             Donner la valeur exacte de ce prix.`
           }
           if (this.interactif) { this.optionsChampTexte = { texteApres: ' €' } }
@@ -101,7 +109,8 @@ export default function Proportionnalite2 () {
           
            `
         }
-
+        this.canEnonce = this.question// 'Compléter'
+        this.canReponseACompleter = '$\\ldots$ €'
         break
       case 2:// proportionnalité avec nombre de pastèques / melons
         choix = choice(['a', 'b'])//, 'b', 'c'
@@ -113,7 +122,9 @@ export default function Proportionnalite2 () {
           frac = new FractionX(a * poids1, 3)
           this.reponse = frac
           this.question = `$3$ ${fruits2[0]} (identiques) ont une masse $${poids1}$ kg.<br>
+
       Quelle est la masse de  $${a}$  de ces mêmes ${fruits2[0]} ? <br>
+
       Donner la valeur exacte de ce nombre.`
           if (this.interactif) { this.optionsChampTexte = { texteApres: '  kg' } }
           this.correction = `La masse de $1$ ${fruits2[1]} est : $\\dfrac{${poids1}}{3}$ kg.<br>
@@ -128,14 +139,17 @@ export default function Proportionnalite2 () {
           frac = new FractionX(a * poids1, 4)
           this.reponse = frac
           this.question = `$4$ ${fruits2[0]} (identiques) ont une masse $${poids1}$ kg.<br>
+
     Quelle est la masse de  $${a}$  de ces mêmes ${fruits2[0]} ? <br>
+    
     Donner la valeur exacte de ce nombre.`
           if (this.interactif) { this.optionsChampTexte = { texteApres: '  kg' } }
           this.correction = `La masse de $1$ ${fruits2[1]} est : $\\dfrac{${poids1}}{4}$ kg.<br>
         On en déduit que $${a}$ ${fruits2[0]} ont une masse de $\\dfrac{${a}\\times${poids1}}{4}=\\dfrac{${a * poids1}}{4}${frac.texSimplificationAvecEtapes()}$ kg.
     `
         }
-
+        this.canEnonce = this.question// 'Compléter'
+        this.canReponseACompleter = '$\\ldots$ kg'
         break
     }
   }

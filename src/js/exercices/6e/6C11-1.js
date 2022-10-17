@@ -6,7 +6,8 @@ import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathL
 export const titre = "Déterminer reste et quotient d'une division euclidienne à partir d'une égalité"
 
 export const amcReady = true
-export const amcType = 'AMCOpenNum✖︎2' // type de question AMC
+// export const amcType = 'AMCOpenNum✖︎2' // type de question AMC
+export const amcType = 'AMCHybride' // type de question AMC
 export const interactifReady = true
 export const interactifType = 'mathLive'
 /**
@@ -21,8 +22,6 @@ export const ref = '6C11-1'
 export default function DivisionsEuclidiennesEgalite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne =
-    'Répondre aux questions suivantes sans poser la division.'
   this.consigneCorrection = texteGras('Pour la division euclidienne de a par b, on cherche les nombres q et r tels que  a = b × q + r avec r < b')
   this.spacing = 2
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opidiv n'est pas joli
@@ -30,6 +29,9 @@ export default function DivisionsEuclidiennesEgalite () {
   this.sup = 1
 
   this.nouvelleVersion = function () {
+    this.consigne = 'Répondre  '
+    this.consigne += this.nbQuestions === 1 ? 'à la question suivante' : 'aux questions suivantes'
+    this.consigne += ' sans poser la division.'
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -82,44 +84,58 @@ export default function DivisionsEuclidiennesEgalite () {
           <br> On a donc : ${texteEnCouleurEtGras(q)} le quotient et ${texteEnCouleurEtGras(r)} le reste.`
           break
       }
+      texte += (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: 'Quotient : ', texteApres: sp(5) })
+      texte += (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texte: ' Reste : ' })
+      setReponse(this, 2 * i, q)
+      setReponse(this, 2 * i + 1, r)
+      if (context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: texte,
+          enonceAvant: false,
+          options: { multicols: true, barreseparation: true },
+          propositions: [
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: texte + '<br>Quotient',
+                  valeur: q,
+                  param: {
+                    digits: 2,
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
+                  }
+                }
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: 'Reste',
+                  valeur: r,
+                  param: {
+                    digits: 2,
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
+                  }
+                }
+              }]
+            }
+          ]
+        }
+      }
       if (this.questionJamaisPosee(this, i, a, b, q, r)) {
         // Si la question n'a jamais été posée, on en crée une autre
-        if (!context.isAmc) {
-          texte += '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: 'Quotient : ', texteApres: sp(5) })
-          texte += '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texte: ' Reste : ' })
-          setReponse(this, 2 * i, q)
-          setReponse(this, 2 * i + 1, r)
-        } else {
-          this.autoCorrection[i] = {
-            enonce: texte,
-            propositions: [{ texte: texteCorr, statut: 2, feedback: '' }],
-            reponse: {
-              texte: 'Quotient',
-              valeur: q,
-              param: {
-                digits: 2,
-                decimals: 0,
-                signe: false,
-                exposantNbChiffres: 0,
-                approx: 0
-              }
-            },
-            reponse2: {
-              texte: 'Reste',
-              valeur: r,
-              param: {
-                digits: 2,
-                decimals: 0,
-                signe: false,
-                exposantNbChiffres: 0,
-                approx: 0
-              }
-            }
-          }
-        }
+
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        // Pour AMC question AmcOpen
         i++
       }
       cpt++

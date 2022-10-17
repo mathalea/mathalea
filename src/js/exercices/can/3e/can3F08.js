@@ -21,6 +21,7 @@ export default function LectureGraphiqueFonctionAffine2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
   this.formatInteractif = 'calcul'
@@ -30,7 +31,7 @@ export default function LectureGraphiqueFonctionAffine2 () {
     const a = randint(-5, 5, [0, 4]) // numérateut coefficient directeur non nul
     const b = randint(-2, 2) // ordonnée à l'origine
     const d = randint(2, 5, [-a, a, 2 * a, -2 * a]) // dénominateur coefficient directeur non multiple du numérateur pour éviter nombre entier
-    const r = repere()// On définit le repère
+    const r = repere({ xMin: -5, yMin: -5, xMax: 6, yMax: 5 })
     const c = droite(a / d, -1, b)
     const maFraction = fraction(a, d)
 
@@ -38,12 +39,12 @@ export default function LectureGraphiqueFonctionAffine2 () {
     c.epaisseur = 2
     this.question = '$f$ est une fonction affine définie par $f(x)=...$<br>'
     this.question += `${mathalea2d({
-        xmin: -7,
-        ymin: -7,
-        xmax: 7,
-        ymax: 7,
-pixelsParCm: 15,
-scale: 0.6,
+        xmin: -5,
+        ymin: -5,
+        xmax: 6,
+        ymax: 5,
+pixelsParCm: 20,
+scale: 0.7,
 style: 'margin: auto'
         }, r, c, o)}`// On trace le graphique
 
@@ -72,14 +73,31 @@ style: 'margin: auto'
     s1.styleExtremites = '<-'
     if (a !== 0) {
       this.correction += `${mathalea2d({
-        xmin: -7,
-        ymin: -7,
-        xmax: 7,
-        ymax: 7,
-        pixelsParCm: 15,
-        scale: 0.6,
+        xmin: -5,
+        ymin: -5,
+        xmax: 6,
+        ymax: 5,
+        pixelsParCm: 20,
+        scale: 0.7,
         style: 'margin: auto'
         }, r, s1, s2, t, c, o)}`
     }// On trace le graphique
+    this.canEnonce = `$f$ est une fonction affine. <br>
+    
+    Exprimer $f(x)$ en fonction de $x$.<br>`
+    this.canEnonce +=
+    `
+    ${mathalea2d({
+      xmin: -5,
+      ymin: -5,
+      xmax: 6,
+      ymax: 5,
+pixelsParCm: 20,
+scale: 0.7,
+style: 'margin: auto'
+      }, r, c, o)}
+      
+      `
+    this.canReponseACompleter = '$f(x)=\\ldots'
   }
 }

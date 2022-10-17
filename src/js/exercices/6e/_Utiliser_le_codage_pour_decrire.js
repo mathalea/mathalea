@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, shuffle, combinaisonListes, creerNomDePolygone } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, shuffle, combinaisonListes, creerNomDePolygone, contraindreValeur, compteOccurences } from '../../modules/outils.js'
 import { point, pointSurSegment, pointIntersectionDD, pointAdistance, labelPoint, droite, mediatrice, segment, polygone, translation2Points, rotation, affiniteOrtho, similitude, codageAngleDroit, codageSegments, codageAngle, longueur, angleOriente } from '../../modules/2d.js'
 
 export default function UtiliserLeCodagePourDecrire () {
@@ -10,8 +10,7 @@ export default function UtiliserLeCodagePourDecrire () {
   this.nbQuestions = 1
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.sup = 1
-  this.sup2 = 1
+  this.sup = randint(1, 3)
   this.nouvelleVersion = function () {
     let typesDeQuestionsDisponibles
     this.listeQuestions = [] // Liste de questions
@@ -19,7 +18,23 @@ export default function UtiliserLeCodagePourDecrire () {
     let nom; let sommets = []; let paramsEnonce; let paramsCorrection; let objetsEnonce; let objetsCorrection
     let A, B, C, D, E, F, s1, s2, s3, s4, s5, s6, s7, s8, medAC, medBC, dBD, dBC, dAC, dAF
     if (this.classe === 6) { typesDeQuestionsDisponibles = [1, 2, 3] } else { typesDeQuestionsDisponibles = [1, 2, 3, 4] }
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    let listeTypeDeQuestions = []
+    if (!this.sup) { // Si aucune liste n'est saisie
+      listeTypeDeQuestions = typesDeQuestionsDisponibles
+    } else {
+      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
+        listeTypeDeQuestions[0] = contraindreValeur(1, 5, this.sup, 5)
+      } else {
+        listeTypeDeQuestions = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+        for (let i = 0; i < listeTypeDeQuestions.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+          listeTypeDeQuestions[i] = contraindreValeur(1, 5, parseInt(listeTypeDeQuestions[i]), 5) // parseInt en fait un tableau d'entiers
+        }
+      }
+    }
+
+    if (compteOccurences(listeTypeDeQuestions, 5) > 0) listeTypeDeQuestions = typesDeQuestionsDisponibles // Teste si l'utilisateur a choisi tout
+    listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
+    if (this.classe === 6) listeTypeDeQuestions.forEach(function (item, i) { if (item === 4) listeTypeDeQuestions[i] = randint(1, 3) })
     let listeDeNomsDePolygones
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       objetsEnonce = []
@@ -152,4 +167,10 @@ export default function UtiliserLeCodagePourDecrire () {
     }
     listeQuestionsToContenu(this)
   }
+  this.besoinFormulaireTexte = [
+    'Type de questions', [
+      'Choix séparés par des tirets',
+      '\n1 : À propos de longueurs d\'un polygone dessiné\n2 : À partir d\'un carré sous forme de texte\n3 : À partir d\'un rectangle sous forme de texte\n4 : À propos d\'angles dans un polygone dessiné (pas en 6ème)\n5 : Au hasard'
+    ]
+  ]
 }

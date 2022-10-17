@@ -1,4 +1,4 @@
-import { calcul, choice, randint, texNombre, texteEnCouleur } from '../../../modules/outils.js'
+import { choice, randint, texNombre, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import Decimal from 'decimal.js/decimal.mjs'
 export const titre = 'Calculer le double ou le triple (décimal)'
@@ -49,5 +49,7 @@ export default function DoubleOuTripleDecimal () {
   On en fait la somme : $${2 * e}+${texNombre(d.mul(2), 1)}$, ce qui donne le résultat $${texNombre(this.reponse, 1)}$.
       `)
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

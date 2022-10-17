@@ -36,6 +36,7 @@ export default function CalculRaison2 () {
         i = randint(0, 10)
         this.question = `Soit $(${s}_n)$ une suite arithmétique telle que :<br>
 $${s}_{${i}}=${u}$ et  $${s}_{${i + n}}=${v}$.<br>
+
 Donner la raison $r$ de cette suite.`
         if (!this.interactif) {
           this.question += ''
@@ -47,6 +48,8 @@ Donner la raison $r$ de cette suite.`
        On en déduit :  $r=\\dfrac{${s}_{${i + n}}-${s}_{${i}}}{${n}}=\\dfrac{${v}-${ecritureParentheseSiNegatif(u)}}{${n}}=${r}$.`
 
         this.reponse = r
+        this.canEnonce = this.question
+        this.canReponseACompleter = '$r=\\ldots$'
         break
       case 'b':// suite géométrique
         choix = choice([1, 2, 3])//
@@ -58,6 +61,7 @@ Donner la raison $r$ de cette suite.`
           i = randint(0, 10)
           this.question = `Soit $(${s}_n)$ une suite géométrique de raison positive telle que :<br>
 $${s}_{${i}}=${u}$ et  $${s}_{${i + 2}}=${v}$.<br>
+
 Donner la raison $q$ de cette suite.`
           if (!this.interactif) {
             this.question += ''
@@ -70,6 +74,8 @@ Donner la raison $q$ de cette suite.`
        Puisque $q$ est un nombre positif, on obtient : $q=${texNombrec(q)}$.`
 
           this.reponse = q
+          this.canEnonce = this.question
+          this.canReponseACompleter = '$q=\\ldots$'
         }
         if (choix === 2) { // q<0 avec q=-2,-3,-10
           u = randint(1, 10)
@@ -79,6 +85,7 @@ Donner la raison $q$ de cette suite.`
           i = randint(0, 10)
           this.question = `Soit $(${s}_n)$ une suite géométrique de raison négative telle que :<br>
     $${s}_{${i}}=${u}$ et  $${s}_{${i + 2}}=${v}$.<br>
+
     Donner la raison $q$ de cette suite.`
           if (!this.interactif) {
             this.question += ''
@@ -91,6 +98,8 @@ Donner la raison $q$ de cette suite.`
            Puisque $q$ est un nombre négatif, on obtient : $q=${-q}$.`
 
           this.reponse = -q
+          this.canEnonce = this.question
+          this.canReponseACompleter = '$q=\\ldots$'
         }
         if (choix === 3) { // q^3
           u = randint(1, 3) * choice([-1, 1])
@@ -99,6 +108,7 @@ Donner la raison $q$ de cette suite.`
           i = randint(0, 10)
           this.question = `Soit $(${s}_n)$ une suite géométrique  telle que :<br>
   $${s}_{${i}}=${u}$ et  $${s}_{${i + 3}}=${v}$.<br>
+
   Donner la raison $q$ de cette suite.`
           if (!this.interactif) {
             this.question += ''
@@ -111,6 +121,8 @@ Donner la raison $q$ de cette suite.`
          On obtient : $q=${q}$.`
 
           this.reponse = q
+          this.canEnonce = this.question
+          this.canReponseACompleter = '$q=\\ldots$'
         };
     }
   }

@@ -3,6 +3,9 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, texNombre } from '../../modules/outils.js'
 export const titre = 'Écrire correctement les grands nombres entiers'
 
+export const amcReady = true
+export const amcType = 'AMCOpen' // type de question AMC
+
 /**
  * Supprimer les zéros inutiles, séparer les classes d'un nombre entier.
  * @author Jean-Claude Lhote
@@ -52,6 +55,21 @@ export default function EcrireNombresEntiersFormates () {
       else texte = `$${nombrestring}$`
       if (context.vue !== 'diap') texteCorr = `$${nombrestring}=${texNombre(nombre)}$`
       else texteCorr = `${texNombre(nombre)}`
+
+      if (context.isAmc) {
+        this.autoCorrection[i] =
+        {
+          enonce: texte + '<br>',
+          propositions: [
+            {
+              texte: texteCorr,
+              statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+              sanscadre: true
+            }
+          ]
+        }
+      }
+
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

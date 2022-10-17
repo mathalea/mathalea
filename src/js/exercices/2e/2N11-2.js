@@ -218,7 +218,7 @@ export default function UnionEtIntersectionIntervallesDeR () {
             texteCorr += `$I=]${a};${b}]\\cup]${c};${d}]$`
           }
           break
-        case 3:// Intersection de deux intervalles fermés avec intervalle fermé en commmun
+        case 3:// Intersection de deux intervalles fermés avec intervalle fermé en commun
           a = randint(1, 15)
           e = a + 4
           b = randint(29, 45)
@@ -311,7 +311,7 @@ export default function UnionEtIntersectionIntervallesDeR () {
           }
 
           break
-        case 4:// Union de deux intervalles fermés avec intervalle fermé en commmun
+        case 4:// Union de deux intervalles fermés avec intervalle fermé en commun
           a = randint(1, 15)
           e = a + 4
           b = randint(29, 45)

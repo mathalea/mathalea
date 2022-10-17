@@ -4,19 +4,20 @@ import { randint, listeQuestionsToContenu, texNombre, combinaisonListes, choice,
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Écrire un nombre entier en chiffres ou en lettres'
+export const amcReady = true
+export const amcType = 'AMCOpen' // type de question AMC
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '19/09/2021'
-export const dateDeModifImportante = '09/09/2022'
+export const dateDeModifImportante = '14/09/2022'
 
 /**
  * Ecrire en chiffres ou en lettres un nombre entier inférieur à 1 000 000.
  * Avec des paramètres sur le nombre de chiffres des nombres voulus
  * Avec des paramètres sur la présence obligatoire de nombres avec 80 (et ses copains qui n'aiment pas mettre de S dans leur vin) et avec 100 (et ses copains comme ceux de 80)
- * Inspiration de 3A14
  * @author Eric Elter
  * Référence 6N10
  * Relecture : Novembre 2021 par EE
@@ -27,9 +28,9 @@ export default function EcrirePetitsNombresEntiers () {
   Exercice.call(this)
   this.nbQuestions = 5
 
-  this.besoinFormulaireTexte = ['Type de nombres', ' Choix séparés par des tirets\n2 : À deux chiffres\n3 : À trois chiffres\n4 : À quatre chiffres\n5 : À cinq chiffres\n6 : À six chiffres\n7 : À neuf chiffres\n8 : À douze chiffres']
+  this.besoinFormulaireTexte = ['Type de nombres', 'Choix séparés par des tirets\n2 : À deux chiffres\n3 : À trois chiffres\n4 : À quatre chiffres\n5 : À cinq chiffres\n6 : À six chiffres\n7 : À neuf chiffres\n8 : À douze chiffres']
   this.sup = 4 // Valeur du paramètre par défaut
-  this.besoinFormulaire2Texte = ['Demande particulière', ' Choix séparés par des tirets\n0 : Aucune demande particulière.\n1 : Au moins un nombre se termine par 80.\n2 : Au moins un nombre contient entre 81 et 99.\n3 : Au moins un nombre se termine par un multiple de 100.']
+  this.besoinFormulaire2Texte = ['Demande particulière', 'Choix séparés par des tirets\n0 : Aucune demande particulière.\n1 : Au moins un nombre se termine par 80.\n2 : Au moins un nombre contient entre 81 et 99.\n3 : Au moins un nombre se termine par un multiple de 100.\n4 : Au moins un nombre commence par mille.\n5 : Au moins un nombre ne possèdant ni centaines ou ni centaines de mille.']
   this.sup2 = 0 // Valeur du paramètre par défaut
   this.besoinFormulaire3Numerique = ['Type d\'exercices', 3, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres\n3 : Passer d\'une écriture à l\'autre']
   this.sup3 = 1 // Valeur du paramètre par défaut
@@ -80,12 +81,12 @@ export default function EcrirePetitsNombresEntiers () {
       OptionsDisponibles = [0]
     } else {
       if (typeof (this.sup2) === 'number') { // Je n'ai jamais réussi à rentrer dans ce test. Ah si, quand on met l'URl dans un navigateur ?
-        this.sup2 = Math.max(Math.min(parseInt(this.sup2), 3), 0)
+        this.sup2 = Math.max(Math.min(parseInt(this.sup2), 5), 0)
         OptionsDisponibles[0] = this.sup2
       } else {
         OptionsDisponibles = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < OptionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          OptionsDisponibles[i] = Math.max(Math.min(parseInt(OptionsDisponibles[i]), 3), 0) // parseInt en fait un tableau d'entiers comprise entre 2 et 6
+          OptionsDisponibles[i] = Math.max(Math.min(parseInt(OptionsDisponibles[i]), 5), 0) // parseInt en fait un tableau d'entiers comprise entre 2 et 6
         }
       }
     }
@@ -155,6 +156,18 @@ export default function EcrirePetitsNombresEntiers () {
             NombreAEcrire = 100 * (randint(Math.pow(10, 8), Math.pow(10, 9)) * 10 + randint(2, 9))
           }
           break
+        case 4 : // Commence par mille.... (et non un-mille...)
+          NombreAEcrire = 1000 + randint(1, 999)
+          break
+        case 5 : // Pas de centaines ou pas de centaines de mille
+          if (listeQuestions[i] === 7) {
+            NombreAEcrire = Math.trunc(Math.pow(10, 7) * randint(1, 9)) + randint(1, 99999)
+          } else if (listeQuestions[i] > 3) {
+            NombreAEcrire = 1000 * (randint(Math.pow(10, listeQuestions[i] - 4), Math.pow(10, listeQuestions[i] - 3) - 1)) + randint(1, 99)
+          } else {
+            NombreAEcrire = randint(1 + Math.pow(10, 1), Math.pow(10, 2) - 1)
+          }
+          break
       }
 
       if (typeDeConsigne[i] === 1) {
@@ -169,6 +182,20 @@ export default function EcrirePetitsNombresEntiers () {
         else texte = `${nombreEnLettres(NombreAEcrire)}`
         if (context.vue !== 'diap') texteCorr = `${nombreEnLettres(NombreAEcrire)} : $${texNombre(NombreAEcrire)}$`
         else texteCorr = `$${texNombre(NombreAEcrire)}$`
+      }
+
+      if (context.isAmc) {
+        this.autoCorrection[i] =
+        {
+          enonce: texte + '<br>',
+          propositions: [
+            {
+              texte: texteCorr,
+              statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+              sanscadre: true
+            }
+          ]
+        }
       }
 
       // Si la question n'a jamais été posée, on l'enregistre

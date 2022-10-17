@@ -27,7 +27,7 @@ export default function SoustraireEntierDecimal () {
         u = randint(1, a - 1)
         d = randint(1, 9)
 
-        this.question = `$${a}-${texNombre(u + d / 10, 1)}=$`
+        this.question = `Calculer $${a}-${texNombre(u + d / 10, 1)}$.`
         this.correction = `$${a}-${texNombre(u + d / 10, 1)}=${a}-${u}-${texNombre(d / 10, 1)}=${texNombre(a - u - d / 10, 1)}$`
         this.reponse = arrondi(a - u - d / 10, 1)
         this.correction += texteEnCouleur(`
@@ -40,7 +40,7 @@ export default function SoustraireEntierDecimal () {
         u = randint(1, a - 1)
         d = randint(1, 9)
         c = randint(1, 9)
-        this.question = `$${a}-${texNombre(u + d / 10 + c / 100, 2)}=$`
+        this.question = `Calculer $${a}-${texNombre(u + d / 10 + c / 100, 2)}$.`
         this.correction = `$${a}-${texNombre(u + d / 10 + c / 100, 2)}=${a}-${u}-${texNombre(d / 10 + c / 100, 2)}=${texNombre(a - u - d / 10 - c / 100, 2)}$`
         this.reponse = arrondi(a - u - d / 10 - c / 100, 2)
         this.correction += texteEnCouleur(`
@@ -49,5 +49,7 @@ export default function SoustraireEntierDecimal () {
     Puis on soustrait la partie décimale de $${texNombre(u + d / 10 + c / 100, 2)}$ c'est-à-dire $${texNombre(d / 10 + c / 100, 2)}$. On obtient $${a - u}-${texNombre(d / 10 + c / 100)}=${texNombre(a - u - d / 10 - c / 100, 2)}$`)
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

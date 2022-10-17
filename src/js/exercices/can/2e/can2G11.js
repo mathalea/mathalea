@@ -18,6 +18,7 @@ export const ref = 'can2G11'
 export default function RelationChasles2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.spacing = 3
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.nouvelleVersion = function () {
@@ -53,6 +54,8 @@ export default function RelationChasles2 () {
           texte = `Ecrire à l'aide d'un seul vecteur : <br>
       $\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[2]}${nom[3]}}+\\overrightarrow{${nom[1]}${nom[2]}}=$`
         }
+        this.canEnonce = 'Ecrire à l\'aide d\'un seul vecteur.'
+        this.canReponseACompleter = ` $\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[2]}${nom[3]}}+\\overrightarrow{${nom[1]}${nom[2]}}=\\ldots$`
         texteCorr = `On utilise la relation de Chasles :<br>
         $\\begin{aligned}
         \\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[2]}${nom[3]}}+\\overrightarrow{${nom[1]}${nom[2]}}
@@ -95,7 +98,8 @@ export default function RelationChasles2 () {
             texte = `Ecrire à l'aide d'un seul vecteur : <br>
           $\\overrightarrow{${nom[5]}${nom[1]}}+\\overrightarrow{${nom[2]}${nom[3]}}-\\overrightarrow{${nom[2]}${nom[1]}}=$`
           }
-
+          this.canEnonce = 'Ecrire à l\'aide d\'un seul vecteur.'
+          this.canReponseACompleter = ` $\\overrightarrow{${nom[5]}${nom[1]}}+\\overrightarrow{${nom[2]}${nom[3]}}-\\overrightarrow{${nom[2]}${nom[1]}}=\\ldots$`
           texteCorr = `On utilise la relation de Chasles :<br>
         $\\begin{aligned}
         \\overrightarrow{${nom[5]}${nom[1]}}+\\overrightarrow{${nom[2]}${nom[3]}}\\underbrace{-\\overrightarrow{${nom[2]}${nom[1]}}}_{+\\overrightarrow{${nom[1]}${nom[2]}}}
@@ -136,7 +140,8 @@ export default function RelationChasles2 () {
             texte = `Ecrire à l'aide d'un seul vecteur : <br>
           $\\overrightarrow{${nom[0]}${nom[1]}}-\\overrightarrow{${nom[3]}${nom[2]}}+\\overrightarrow{${nom[1]}${nom[2]}}=$`
           }
-
+          this.canEnonce = 'Ecrire à l\'aide d\'un seul vecteur.'
+          this.canReponseACompleter = `  $\\overrightarrow{${nom[0]}${nom[1]}}-\\overrightarrow{${nom[3]}${nom[2]}}+\\overrightarrow{${nom[1]}${nom[2]}}=\\ldots$`
           texteCorr = `On utilise la relation de Chasles       :<br>
         $\\begin{aligned}
         \\overrightarrow{${nom[0]}${nom[1]}}\\underbrace{-\\overrightarrow{${nom[3]}${nom[2]}}}_{+\\overrightarrow{${nom[2]}${nom[3]}}}+\\overrightarrow{${nom[1]}${nom[2]}}
@@ -180,7 +185,8 @@ export default function RelationChasles2 () {
             texte = `Ecrire à l'aide d'un seul vecteur : <br>
           $\\overrightarrow{${nom[3]}${nom[4]}}+\\overrightarrow{${nom[5]}${nom[0]}}+\\overrightarrow{${nom[4]}${nom[3]}}=$`
           }
-
+          this.canEnonce = 'Ecrire à l\'aide d\'un seul vecteur.'
+          this.canReponseACompleter = `   $\\overrightarrow{${nom[3]}${nom[4]}}+\\overrightarrow{${nom[5]}${nom[0]}}+\\overrightarrow{${nom[4]}${nom[3]}}=\\ldots$`
           texteCorr = `On utilise la relation de Chasles :<br>
         $\\begin{aligned}
         \\overrightarrow{${nom[3]}${nom[4]}}+\\overrightarrow{${nom[5]}${nom[0]}}+\\overrightarrow{${nom[4]}${nom[3]}}
@@ -217,7 +223,8 @@ export default function RelationChasles2 () {
             texte = `Ecrire à l'aide d'un seul vecteur : <br>
           $\\overrightarrow{${nom[2]}${nom[0]}}+\\overrightarrow{${nom[3]}${nom[2]}}+\\overrightarrow{${nom[0]}${nom[3]}}=$`
           }
-
+          this.canEnonce = 'Ecrire à l\'aide d\'un seul vecteur.'
+          this.canReponseACompleter = `    $\\overrightarrow{${nom[2]}${nom[0]}}+\\overrightarrow{${nom[3]}${nom[2]}}+\\overrightarrow{${nom[0]}${nom[3]}}=\\ldots$`
           texteCorr = `On utilise la relation de Chasles       :<br>
         $\\begin{aligned}
         \\overrightarrow{${nom[2]}${nom[0]}}+\\overrightarrow{${nom[3]}${nom[2]}}+\\overrightarrow{${nom[0]}${nom[3]}}
@@ -255,7 +262,8 @@ export default function RelationChasles2 () {
             texte = `Ecrire à l'aide d'un seul vecteur : <br>
           $\\overrightarrow{${nom[4]}${nom[1]}}+\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[0]}${nom[4]}}=$`
           }
-
+          this.canEnonce = 'Ecrire à l\'aide d\'un seul vecteur.'
+          this.canReponseACompleter = `    $\\overrightarrow{${nom[4]}${nom[1]}}+\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[0]}${nom[4]}}=\\ldots$`
           texteCorr = `On utilise la relation de Chasles       :<br>
         $\\begin{aligned}
         \\overrightarrow{${nom[4]}${nom[1]}}+\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[0]}${nom[4]}}
@@ -292,7 +300,8 @@ export default function RelationChasles2 () {
             texte = `Ecrire à l'aide d'un seul vecteur : <br>
           $\\overrightarrow{${nom[6]}${nom[1]}}-\\overrightarrow{${nom[6]}${nom[0]}}+\\overrightarrow{${nom[1]}${nom[0]}}=$`
           }
-
+          this.canEnonce = 'Ecrire à l\'aide d\'un seul vecteur.'
+          this.canReponseACompleter = `   $\\overrightarrow{${nom[6]}${nom[1]}}-\\overrightarrow{${nom[6]}${nom[0]}}+\\overrightarrow{${nom[1]}${nom[0]}}=\\ldots$`
           texteCorr = `On utilise la relation de Chasles       :<br>
         $\\begin{aligned}
         \\overrightarrow{${nom[6]}${nom[1]}}\\underbrace{-\\overrightarrow{${nom[6]}${nom[0]}}}_{+\\overrightarrow{${nom[0]}${nom[6]}}}+\\overrightarrow{${nom[1]}${nom[0]}}

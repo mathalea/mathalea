@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import Decimal from 'decimal.js/decimal.mjs'
 import FractionX from '../../../modules/FractionEtendue.js'
-import { randint, choice, ecritureAlgebrique, texNombre, reduireAxPlusB, texteCentre } from '../../../modules/outils.js'
+import { randint, choice, ecritureAlgebrique, texNombre, reduireAxPlusB } from '../../../modules/outils.js'
 export const titre = 'Déterminer la fonction dérivée d’une fonction affine*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -38,18 +38,22 @@ export default function CalculFonctionDeriveeAffine2 () {
         p = choice([randint(1, 10) * choice([-1, 1]), (new Decimal(randint(-19, 19, [0, -10, 10]))).div(10)])
 
         if (choice([true, false])) {
-          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
-            ${texteCentre(`$f(x)=\\dfrac{x}{${a}}${ecritureAlgebrique(p)}$`)}  
-            Déterminer la fonction dérivée de la fonction $f$.<br>     `
+          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
+
+            $f(x)=\\dfrac{x}{${a}}${ecritureAlgebrique(p)}$. <br>
+
+            Déterminer $f'(x)$.   <br>       `
           if (this.interactif) { this.question += '$f\'(x)=$' }
           this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=\\dfrac{1}{${a}}$ et $p=${texNombre(p, 1)}$.<br>
             La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=\\dfrac{1}{${a}}$. `
 
           this.reponse = new FractionX(1, a)
         } else {
-          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
-          ${texteCentre(`$f(x)=-\\dfrac{x}{${a}}${ecritureAlgebrique(p)}$`)}  
-            Déterminer la fonction dérivée de la fonction $f$.<br>     `
+          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
+
+         $f(x)=-\\dfrac{x}{${a}}${ecritureAlgebrique(p)}$.<br>
+         
+          Déterminer $f'(x)$.   <br>  `
           if (this.interactif) { this.question += '$f\'(x)=$' }
           this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=-\\dfrac{1}{${a}}$ et $p=${texNombre(p, 1)}$.<br>
             La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=-\\dfrac{1}{${a}}$. `
@@ -64,18 +68,22 @@ export default function CalculFonctionDeriveeAffine2 () {
         a = randint(2, 15)
         f = new FractionX(m, a)
         if (choice([true, false])) {
-          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
-            ${texteCentre(`$f(x)=\\dfrac{${reduireAxPlusB(m, p)}}{${a}}$`)}  
-            Déterminer la fonction dérivée de la fonction $f$.<br>     `
+          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
+
+           $f(x)=\\dfrac{${reduireAxPlusB(m, p)}}{${a}}$. <br>
+
+            Déterminer $f'(x)$.   <br>  `
           if (this.interactif) { this.question += '$f\'(x)=$' }
           this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=\\dfrac{${m}}{${a}}$ et $p=\\dfrac{${texNombre(p, 1)}}{${a}}$.<br>
             La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=\\dfrac{${m}}{${a}}${f.texSimplificationAvecEtapes()}$. `
 
           this.reponse = f
         } else {
-          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
-            ${texteCentre(`$f(x)=\\dfrac{${texNombre(p, 1)}${ecritureAlgebrique(m)}x}{${a}}$`)}  
-            Déterminer la fonction dérivée de la fonction $f$.<br>     `
+          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :<br>
+
+           $f(x)=\\dfrac{${texNombre(p, 1)}${ecritureAlgebrique(m)}x}{${a}}$.<br>
+           
+            Déterminer $f'(x)$.   <br>  `
           if (this.interactif) { this.question += '$f\'(x)=$' }
           this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=\\dfrac{${m}}{${a}}$ et $p=\\dfrac{${texNombre(p, 1)}}{${a}}$.<br>
             La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=\\dfrac{${m}}{${a}}${f.texSimplificationAvecEtapes()}$. `
@@ -92,18 +100,22 @@ export default function CalculFonctionDeriveeAffine2 () {
         fraction = choice(listeFractions)
         f = new FractionX(fraction[0], fraction[1])
         if (choice([true, false])) {
-          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
-          ${texteCentre(`$f(x)=\\dfrac{${fraction[0]}x}{${fraction[1]}}${ecritureAlgebrique(p)}$`)}  
-            Déterminer la fonction dérivée de la fonction $f$.<br>     `
+          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
+
+         $f(x)=\\dfrac{${fraction[0]}x}{${fraction[1]}}${ecritureAlgebrique(p)}$.<br>
+
+          Déterminer $f'(x)$.   <br>  `
           if (this.interactif) { this.question += '$f\'(x)=$' }
           this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=\\dfrac{${fraction[0]}}{${fraction[1]}}$  et $p=${texNombre(p, 1)}$.<br>
             La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=\\dfrac{${fraction[0]}}{${fraction[1]}}$. `
 
           this.reponse = f
         } else {
-          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
-            ${texteCentre(`$f(x)=\\dfrac{${fraction[0]}x}{${fraction[1]}}$`)}  
-              Déterminer la fonction dérivée de la fonction $f$.<br>     `
+          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
+
+            $f(x)=\\dfrac{${fraction[0]}x}{${fraction[1]}}$.<br>
+
+            Déterminer $f'(x)$.   <br>  `
           if (this.interactif) { this.question += '$f\'(x)=$' }
           this.correction = `On reconnaît une fonction linéaire de la forme $f(x)=mx$ avec $m=\\dfrac{${fraction[0]}}{${fraction[1]}}$.<br>
               La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=\\dfrac{${fraction[0]}}{${fraction[1]}}$. `
@@ -121,9 +133,11 @@ export default function CalculFonctionDeriveeAffine2 () {
         if (choice([true, false])) {
           f = new FractionX(fraction2[0], fraction2[1])
 
-          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
-          ${texteCentre(`$f(x)=${texNombre(p, 1)}+\\dfrac{${fraction2[0]}x}{${fraction2[1]}}$`)}  
-            Déterminer la fonction dérivée de la fonction $f$.<br>     `
+          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
+
+          $f(x)=${texNombre(p, 1)}+\\dfrac{${fraction2[0]}x}{${fraction2[1]}}$. <br>
+          
+          Déterminer $f'(x)$.   <br>  `
           if (this.interactif) { this.question += '$f\'(x)=$' }
           this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=\\dfrac{${fraction2[0]}}{${fraction2[1]}}$  et $p=${texNombre(p, 1)}$.<br>
             La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=\\dfrac{${fraction2[0]}}{${fraction2[1]}}$. `
@@ -131,9 +145,11 @@ export default function CalculFonctionDeriveeAffine2 () {
           this.reponse = f
         } else {
           f = new FractionX(-fraction2[0], fraction2[1])
-          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
-            ${texteCentre(`$f(x)=${texNombre(p, 1)}-\\dfrac{${fraction2[0]}x}{${fraction2[1]}}$`)}  
-              Déterminer la fonction dérivée de la fonction $f$.<br>     `
+          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
+
+           $f(x)=${texNombre(p, 1)}-\\dfrac{${fraction2[0]}x}{${fraction2[1]}}$. <br>
+
+            Déterminer $f'(x)$.   <br>  `
           if (this.interactif) { this.question += '$f\'(x)=$' }
           this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=-\\dfrac{${fraction2[0]}}{${fraction2[1]}}$  et $p=${texNombre(p, 1)}$.<br>
               La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=-\\dfrac{${fraction2[0]}}{${fraction2[1]}}$. `
@@ -143,5 +159,7 @@ export default function CalculFonctionDeriveeAffine2 () {
 
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

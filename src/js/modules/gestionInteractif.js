@@ -49,7 +49,7 @@ export function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', in
  * @param {'array || number'} a
  */
 
-export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0, aussiCorrect, digitsNum, digitsDen, basePuissance, exposantPuissance, baseNbChiffres, milieuIntervalle, formatInteractif = 'calcul' } = {}) {
+export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0, aussiCorrect, digitsNum, digitsDen, basePuissance, exposantPuissance, baseNbChiffres, milieuIntervalle, formatInteractif = 'calcul', precision = null } = {}) {
   let reponses = []
 
   if (Array.isArray(valeurs)) {
@@ -141,7 +141,7 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
   if (exercice.autoCorrection[i].reponse === undefined) {
     exercice.autoCorrection[i].reponse = {}
   }
-  exercice.autoCorrection[i].reponse.param = { digits, decimals, signe, exposantNbChiffres, exposantSigne, approx, aussiCorrect, digitsNum, digitsDen, basePuissance, exposantPuissance, milieuIntervalle, baseNbChiffres, formatInteractif }
+  exercice.autoCorrection[i].reponse.param = { digits, decimals, signe, exposantNbChiffres, exposantSigne, approx, aussiCorrect, digitsNum, digitsDen, basePuissance, exposantPuissance, milieuIntervalle, baseNbChiffres, formatInteractif, precision }
   exercice.autoCorrection[i].reponse.valeur = reponses
 }
 

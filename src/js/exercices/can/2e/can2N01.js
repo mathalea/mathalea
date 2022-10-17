@@ -17,6 +17,7 @@ export default function Intervalles () {
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.date = 1635094684684
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
@@ -108,5 +109,7 @@ export default function Intervalles () {
         }
         break
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

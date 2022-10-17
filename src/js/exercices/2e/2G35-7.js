@@ -17,7 +17,7 @@ export const amcType = 'AMCHybride'
 */
 export const uuid = '41e6f'
 export const ref = '2G35-7'
-export default function lecturegraphiquedeaetb (numeroExercice) {
+export default function Lecturegraphiquedeaetb (numeroExercice) {
   Exercice.call(this)
 
   this.nbQuestions = 3// On complète le nb de questions

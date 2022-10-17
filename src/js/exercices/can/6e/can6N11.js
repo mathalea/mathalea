@@ -1,4 +1,4 @@
-import sommmeFractionsDecimales from '../../6e/6N10-6.js'
+import sommeFractionsDecimales from '../../6e/6N10-6.js'
 export { interactifReady, interactifType, amcType, amcReady } from '../../6e/6N10-6.js'
 export const titre = 'Ecrire sous forme d\'une fraction décimale'
 
@@ -11,8 +11,8 @@ export const dateDePublication = '20/01/2022'
  */
 export const uuid = '79452'
 export const ref = 'can6N11'
-export default function sommmeFractionsDecimalesCAN () {
-  sommmeFractionsDecimales.call(this)
+export default function SommeFractionsDecimalesCAN () {
+  sommeFractionsDecimales.call(this)
   this.nbQuestions = 1
   this.can = true
   this.sup = '1-2'

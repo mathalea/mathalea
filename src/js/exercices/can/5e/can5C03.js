@@ -23,7 +23,7 @@ export default function DifferenceEntiers5e () {
     const b = randint(41, 69, [50, 60])
     const a = randint(2, 30) + 100
     this.reponse = calcul(a - b)
-    this.question = `$${a} - ${b}=$`
+    this.question = `Calculer $${a} - ${b}$.`
     this.correction = `$${a} - ${b}=${a - b}$`
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
     On décompose le calcul $${a} - ${b}$ en  $(100+${a - 100})- ${b}$.<br>
@@ -35,5 +35,7 @@ export default function DifferenceEntiers5e () {
     \\end{aligned}$<br>
        Cela donne :  $${a} - ${b}=${a - b}$.
       `)
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, nombreAvecEspace, texteEnCouleurEtGras, modalPdf, modalVideo, cribleEratostheneN, warnMessage } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
-export const titre = 'Justifier si des nombres sont premiers ou pas'
+export const titre = 'Indiquer si des nombres sont premiers ou pas' // EE : J'ai mis indiqué pour que ce titre convienne à AMC.
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
@@ -30,7 +30,7 @@ export default function PremierOuPas () {
   this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = false // Par défaut on n'affiche pas la liste des nombres premiers
-  this.nbQuestionsModifiable = false
+  // this.nbQuestionsModifiable = false (EE : bloquant pour AMC sinon)
   this.listePackages = 'bclogo'
   const prems = cribleEratostheneN(529) // constante contenant tous les nombres premiers jusqu'à 529...
 

@@ -25,14 +25,18 @@ export default function ComplementAuDixiemeOuALaDizaine () {
       a = calcul((randint(1, 5) * 10 + randint(1, 9) / 10))
       b = Math.ceil(a)
       this.reponse = calcul(b - a)
-      this.question = `$${texNombre(a)}+\\dots=${b}$`
+      this.question = `Compléter : $${texNombre(a)}+\\dots=${b}$`
       this.correction = `On doit compléter les dixièmes du nombre $${texNombre(a)}$ pour obtenir une unité de plus.<br>Il faut donc ajouter $${texNombre(this.reponse)}$`
+      this.canEnonce = 'Compléter.'
+      this.canReponseACompleter = `$${texNombre(a)}+\\dots=${b}$`
     } else {
       a = calcul((randint(2, 5) * 100 + randint(1, 9) * 10 + randint(1, 9)))
       b = Math.ceil(a / 10) * 10
       this.reponse = b - a
-      this.question = `$${a}+\\dots=${b}$`
+      this.question = `Compléter : $${a}+\\dots=${b}$`
       this.correction = `On doit compléter les unités du nombre $${a}$ pour obtenir une dizaine de plus.<br>Il faut donc ajouter $${this.reponse}$`
+      this.canEnonce = 'Compléter.'
+      this.canReponseACompleter = `$${a}+\\dots=${b}$`
     }
   }
 }

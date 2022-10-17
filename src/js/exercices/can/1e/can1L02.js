@@ -29,7 +29,7 @@ export default function NombreSolutionsSecondDegre () {
         b = randint(-4, 4, 0)
         c = randint(-4, 4, 0)
         d = b * b - 4 * a * c
-        this.question = `Le nombre de solutions de l'équation  $${reduirePolynomeDegre3(0, a, b, c)}=0$ est :`
+        this.question = `Donner le nombre de solutions de l'équation  $${reduirePolynomeDegre3(0, a, b, c)}=0$.`
 
         if (d < 0) {
           this.correction = `Le nombre de solutions est donné par le signe de $\\Delta$ :<br>
@@ -74,13 +74,16 @@ et évaluez le signe de leur différence. `)
         c = randint(-5, 5)
         maFraction = fraction(-c, a)
         if (-c / a > 0) {
-          this.question = `Le nombre de solutions de l'équation  
-       $${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}=0$ est :`
+          this.question = `Donner le nombre de solutions de l'équation  
+       $${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}=0$.`
           this.correction = `On isole le carré : <br>
         $\\begin{aligned}
-        ${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}&=0\\\\
-        ${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}${miseEnEvidence(ecritureAlgebrique(-c))}&=0${miseEnEvidence(ecritureAlgebrique(-c))}\\\\
-        \\dfrac{${reduireAxPlusB(0, a)}}{${miseEnEvidence(reduireAxPlusB(0, a))}}(${reduireAxPlusB(1, b)})^2&=\\dfrac{${-c}}{${miseEnEvidence(reduireAxPlusB(0, a))}}\\\\
+        ${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}&=0\\\\
+        ${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}${miseEnEvidence(ecritureAlgebrique(-c))}&=0${miseEnEvidence(ecritureAlgebrique(-c))}\\\\`
+          this.correction += a === 1
+            ? ''
+            : `\\dfrac{${a}}{${miseEnEvidence(a)}}(${reduireAxPlusB(1, b)})^2&=\\dfrac{${-c}}{${miseEnEvidence(a)}}\\\\`
+          this.correction += `             
         (${reduireAxPlusB(1, b)})^2&=${maFraction.texFractionSimplifiee} 
                 \\end{aligned}$<br>
         Puisque $${maFraction.texFractionSimplifiee}$ est strictement positif, il y a deux nombres dont le carré est égal à $${maFraction.texFractionSimplifiee}$, donc l'équation a deux solutions. `
@@ -89,25 +92,31 @@ et évaluez le signe de leur différence. `)
         }
         if (-c / a === 0) {
           if (a === -1) {
-            this.question = `Le nombre de solutions de l'équation  
-       $-(${reduireAxPlusB(1, b)})^2=0$ est :`
+            this.question = `Donner le nombre de solutions de l'équation  
+       $-(${reduireAxPlusB(1, b)})^2=0$.`
             this.correction = `On isole le carré : <br>
              $\\begin{aligned}
              -(${reduireAxPlusB(1, b)})^2&=0\\\\
-             ${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2&=0\\\\
-                         \\dfrac{${reduireAxPlusB(0, a)}}{${miseEnEvidence(reduireAxPlusB(0, a))}}(${reduireAxPlusB(1, b)})^2&=\\dfrac{${-c}}{${miseEnEvidence(reduireAxPlusB(0, a))}}\\\\
+             ${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2&=0\\\\`
+            this.correction += a === 1
+              ? ''
+              : `\\dfrac{${a}}{${miseEnEvidence(a)}}(${reduireAxPlusB(1, b)})^2&=\\dfrac{${-c}}{${miseEnEvidence(a)}}\\\\`
+            this.correction += `              
              (${reduireAxPlusB(1, b)})^2&=${maFraction.texFractionSimplifiee} 
                      \\end{aligned}$<br>
              Il y a un nombre dont le carré est nul, donc l'équation a une solution. `
 
             this.reponse = 1
           } else {
-            this.question = `Le nombre de solutions de l'équation  
-          $${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2=0$ est :`
+            this.question = `Donner le nombre de solutions de l'équation  
+          $${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2=0$.`
             this.correction = `On isole le carré : <br>
                 $\\begin{aligned}
-                ${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2&=0\\\\
-                \\dfrac{${reduireAxPlusB(0, a)}}{${miseEnEvidence(reduireAxPlusB(0, a))}}(${reduireAxPlusB(1, b)})^2&=\\dfrac{${-c}}{${miseEnEvidence(reduireAxPlusB(0, a))}}\\\\
+                ${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2&=0\\\\`
+            this.correction += a === 1
+              ? ''
+              : `\\dfrac{${a}}{${miseEnEvidence(a)}}(${reduireAxPlusB(1, b)})^2&=\\dfrac{${-c}}{${miseEnEvidence(a)}}\\\\`
+            this.correction += `
                 (${reduireAxPlusB(1, b)})^2&=${maFraction.texFractionSimplifiee} 
                         \\end{aligned}$<br>
                 Il y a un nombre dont le carré est nul, donc l'équation a une solution. `
@@ -116,14 +125,16 @@ et évaluez le signe de leur différence. `)
           }
         }
         if (-c / a < 0) {
-          this.question = `Le nombre de solutions de l'équation  
-       $${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}=0$ est :`
+          this.question = `Donner le nombre de solutions de l'équation  
+       $${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}=0$.`
           this.correction = `On isole le carré : <br>
                  $\\begin{aligned}
-                 ${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}&=0\\\\
-                 ${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}${miseEnEvidence(ecritureAlgebrique(-c))}&=0${miseEnEvidence(ecritureAlgebrique(-c))}\\\\
-                 \\dfrac{${reduireAxPlusB(0, a)}}{${miseEnEvidence(reduireAxPlusB(0, a))}}(${reduireAxPlusB(1, b)})^2&=\\dfrac{${-c}}{${miseEnEvidence(reduireAxPlusB(0, a))}}\\\\
-                 (${reduireAxPlusB(1, b)})^2&=${maFraction.texFractionSimplifiee} 
+                 ${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}&=0\\\\
+                 ${a === 1 ? '' : a}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}${miseEnEvidence(ecritureAlgebrique(-c))}&=0${miseEnEvidence(ecritureAlgebrique(-c))}\\\\`
+          this.correction += a === 1
+            ? ''
+            : `\\dfrac{${a}}{${miseEnEvidence(a)}}(${reduireAxPlusB(1, b)})^2&=\\dfrac{${-c}}{${miseEnEvidence(a)}}\\\\`
+          this.correction += `(${reduireAxPlusB(1, b)})^2&=${maFraction.texFractionSimplifiee} 
                          \\end{aligned}$<br>
                          Puisque $${maFraction.texFractionSimplifiee}$ est strictement négatif, il n'existe pas de nombres réels dont le carré est strictement négatif, donc l'équation n'a pas de solution. `
 
@@ -131,5 +142,7 @@ et évaluez le signe de leur différence. `)
         }
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

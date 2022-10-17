@@ -51,8 +51,11 @@ export default function ExtremumsTableau () {
       } else {
         ligne1 = ['Var', 10, `-/$${-y1}$`, 10, `+/$${-y2}$`, 10, `-/$${-y3}$`, 10, `+/$${-y4}$`, 10]
       }
-      texte = `Voici le tableau de variations d'une fonction $f$ définie sur $[${x1};${x4}]$ :<br>`
-      texte += mathalea2d({ xmin: -0.5, ymin: -7.5, xmax: 30, ymax: 0.1, scale: 0.6, zoom: 1.2 }, tableauDeVariation({
+
+      texte = `Voici le tableau de variations d'une fonction $f$ définie sur $[${x1};${x4}]$ :<br>
+      `
+
+      texte += mathalea2d({ xmin: -0.5, ymin: -7.5, xmax: 30, ymax: 0.1, scale: 0.39 }, tableauDeVariation({
         tabInit: [
           [
           // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -65,22 +68,20 @@ export default function ExtremumsTableau () {
         tabLines: [ligne1],
         colorBackground: '',
         espcl: 3, // taille en cm entre deux antécédents
-        deltacl: 1.5, // distance entre la bordure et les premiers et derniers antécédents
+        deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
         lgt: 3, // taille de la première colonne en cm
         hauteurLignes: [15, 15]
       })) + '<br>'
+      this.canEnonce = texte
       if (choice([true, false])) {
         texte += '   Le maximum de $f$ est  : '
-        if (!this.interactif) {
-          texte += '.... '
-        }
-        texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline')
-        texte += '<br> Il est atteint en $x=$'
-        if (!this.interactif) {
-          texte += '.... '
-        }
-        texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline')
 
+        texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline')
+        texte += '<br> Il est atteint en $x=$ '
+        texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline')
+        this.canEnonce += `<br>
+        Déterminer le maximum de $f$ et la valeur en laquelle il est atteint.`
+        this.canReponseACompleter = 'Max $=\\ldots$ atteint en $x=\\ldots$'
         if (choix === 1) {
           if (M === y1) {
             texteCorr = `Pour tout réel $x$ de $[${x1};${x4}]$, on a  $f(x)\\leqslant ${y1}$, c'est-à-dire  $f(x)\\leqslant f(${x1})$.<br>
@@ -278,14 +279,13 @@ export default function ExtremumsTableau () {
         }
       } else {
         texte += '   Le minimum de $f$ est  : '
-        if (!this.interactif) {
-          texte += '.... '
-        }
+        this.canEnonce += `<br>
+        Déterminer le minimum de $f$ et la valeur en laquelle il est atteint.`
+        this.canReponseACompleter = 'Min $=\\ldots$ atteint en $x=\\ldots$'
+
         texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline')
-        texte += '<br> Il est atteint en $x=$'
-        if (!this.interactif) {
-          texte += '.... '
-        }
+        texte += '<br> Il est atteint en $x=$ '
+
         texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline')
 
         if (choix === 1) {
