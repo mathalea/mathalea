@@ -145,6 +145,7 @@ export default function Signefonctionaffine () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Types de question ', 2, '1 : Valeurs entières\n2 : Valeurs fractionnaires.']
+  // this.besoinFormulaireNumerique = ['Types de question ', 2, '1 : Valeurs entières\n2 : Valeurs fractionnaires.']
+  // Le cas this.sup === 2 n'a pas été programmé
   this.besoinFormulaire2CaseACocher = ['Correction alternative']
 }
