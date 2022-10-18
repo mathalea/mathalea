@@ -18,6 +18,7 @@ export default function RechercheCoordonneesProdScal () {
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatInteractif = 'fractionEgale'
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
@@ -32,6 +33,7 @@ export default function RechercheCoordonneesProdScal () {
       case 1:
         this.question = ` Dans un repère orthonormé $(O;\\vec i,\\vec j)$, on considère les vecteurs :<br>
     $\\vec{u}\\begin{pmatrix}${ux}${sp(1)} \\\\ ${sp(1)}x\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${vx}${sp(1)} \\\\ ${sp(1)}${vy}\\end{pmatrix}$<br>
+  
     Que vaut $x$ si $\\vec{u}$ et $\\vec{v}$ sont orthogonaux ?`
 
         this.correction = `Les vecteurs $\\vec{u}$ et $\\vec{v}$ sont orthogonaux, donc $\\vec{u}\\cdot\\vec{v}=0$.<br>
@@ -47,6 +49,7 @@ export default function RechercheCoordonneesProdScal () {
       case 2 :
         this.question = ` Dans un repère orthonormé $(O;\\vec i,\\vec j)$, on considère les vecteurs :<br>
         $\\vec{u}\\begin{pmatrix}${ux}${sp(1)} \\\\ ${sp(1)}${uy}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x${sp(1)} \\\\ ${sp(1)}${vy}\\end{pmatrix}$<br>
+        
         Que vaut $x$ si $\\vec{u}$ et $\\vec{v}$ sont orthogonaux ?`
 
         this.correction = `Les vecteurs $\\vec{u}$ et $\\vec{v}$ sont orthogonaux, donc $\\vec{u}\\cdot\\vec{v}=0$.<br>
@@ -60,5 +63,7 @@ export default function RechercheCoordonneesProdScal () {
         this.reponse = f2
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

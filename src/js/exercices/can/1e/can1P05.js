@@ -25,7 +25,7 @@ export default function CalculProbaFormuleProbaTotale () {
   this.sup = true
   this.consigne = ''
   this.nbQuestions = 1
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
@@ -96,13 +96,19 @@ export default function CalculProbaFormuleProbaTotale () {
 
           omega.setTailles() // On calcule les tailles des arbres.
           objets = omega.represente(0, 7, 0, 1.5, true, 1) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
-          texte = 'On donne l\'arbre de probabilités ci-dessous :<br>'
-          texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline' }, ...objets)
+          texte = `On donne l'arbre de probabilités ci-dessous :<br>
+          
+          `
+          texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline', scale: 0.5 }, ...objets)
 
           if (this.interactif) {
-            texte += '<br> $P(B)=$ '
+            texte += '<br>$P(B)=$ '
             texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
-          } else { texte += '<br>Calculer $P(B)$. ' }
+          } else {
+            texte += `<br>
+          
+          Calculer $P(B)$. `
+          }
 
           texteCorr = ` D'après la formule des probabilités totales, <br>
          $\\begin{aligned}
@@ -113,6 +119,8 @@ export default function CalculProbaFormuleProbaTotale () {
       \\end{aligned}$
       `
           setReponse(this, i, reponse1)
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
           break
         case 2:
           // On définit l'arbre complet
@@ -167,13 +175,18 @@ export default function CalculProbaFormuleProbaTotale () {
           omega.setTailles() // On calcule les tailles des arbres.
           objets = omega.represente(0, 7, 0, 1.5, true, 1) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
           texte = `On donne l’arbre de probabilités ci-dessous :<br>
+
          `
-          texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline' }, ...objets)
+          texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline', scale: 0.5 }, ...objets)
 
           if (this.interactif) {
             texte += '<br> $P(\\overline{B})=$ '
             texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
-          } else { texte += '<br>Calculer $P(\\overline{B})$. ' }
+          } else {
+            texte += `<br>
+          
+          Calculer $P(\\overline{B})$. `
+          }
 
           texteCorr = ` D'après la formule des probabilités totales, <br>
            $\\begin{aligned}
@@ -184,7 +197,8 @@ export default function CalculProbaFormuleProbaTotale () {
         \\end{aligned}$
         `
           setReponse(this, i, reponse2)
-
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
           break
       }
       if (this.questionJamaisPosee(i, pA, pBsachantA, pBsachantAbarre)) {

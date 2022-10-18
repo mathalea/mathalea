@@ -28,7 +28,7 @@ export default function LectureProbabilite () {
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   // this.sup = 1; // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
@@ -103,8 +103,10 @@ export default function LectureProbabilite () {
 
       omega.setTailles() // On calcule les tailles des arbres.
       objets = omega.represente(0, 7, 0, 1.5, true, 1) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
-      texte = 'On donne l\'arbre de probabilités ci-dessous :<br>'
-      texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline' }, ...objets)
+      texte = `On donne l'arbre de probabilités ci-dessous :<br>
+      
+      `
+      texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline', scale: 0.5 }, ...objets)
       texte += '<br>Compléter avec la notation qui convient : '
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
@@ -141,6 +143,13 @@ export default function LectureProbabilite () {
           `p_{\\overline{${nom1}}}(\\overline{{${nom2}}})`, `P_{\\overline{${nom1}}}(\\overline{{${nom2}}})`,
           `p\\overline{_${nom1}}({\\overline{${nom2}}})`, `P\\overline{_${nom1}}({\\overline{${nom2}}})`])
       }
+      this.canEnonce = `On donne l'arbre de probabilités ci-dessous :<br>
+      
+      `
+      this.canEnonce += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline', scale: 0.5 }, ...objets)
+      this.canEnonce += `
+      Compléter avec la notation qui convient.`
+      this.canReponseACompleter = ` $\\ldots= ${texNombre(choix, 2)}$`
       if (this.questionJamaisPosee(i, pA, pAC, pBC)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

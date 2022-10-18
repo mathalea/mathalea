@@ -25,7 +25,7 @@ export default function CalculerProbabiliteIntersection () {
   this.sup = true
   this.consigne = ''
   this.nbQuestions = 1
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
@@ -101,13 +101,19 @@ export default function CalculerProbabiliteIntersection () {
 
           omega.setTailles() // On calcule les tailles des arbres.
           objets = omega.represente(0, 7, 0, 1.5, true, 1) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
-          texte = 'On donne l\'arbre de probabilités ci-dessous :<br>'
-          texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline' }, ...objets)
+          texte = `On donne l'arbre de probabilités ci-dessous :<br>
+          
+          `
+          texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline', scale: 0.5 }, ...objets)
 
           if (this.interactif) {
             texte += '<br> $P(A\\cap B)=$ '
             texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
-          } else { texte += '<br>Calculer $P(A\\cap B)$. ' }
+          } else {
+            texte += `<br>
+          
+          Calculer $P(A\\cap B)$. `
+          }
 
           texteCorr = ` $P(A\\cap B)=P(A)\\times P_{A}(B)$.<br>
       $P(A)=1-${texNombre(pAbarre, 1)}= ${texNombre(pA, 1)}$.<br>
@@ -115,6 +121,8 @@ export default function CalculerProbabiliteIntersection () {
       Ainsi, $P(A\\cap B)=P(A)\\times P_{A}(B)=${texNombre(pA, 1)}\\times ${texNombre(pBsachantA, 1)}=${texNombre(reponse1, 2)}$.
       `
           setReponse(this, i, reponse1)
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
           break
 
         case 2:
@@ -171,13 +179,19 @@ export default function CalculerProbabiliteIntersection () {
 
           omega.setTailles() // On calcule les tailles des arbres.
           objets = omega.represente(0, 7, 0, 1.5, true, 1) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
-          texte = 'On donne l\'arbre de probabilités ci-dessous :<br>'
-          texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline' }, ...objets)
+          texte = `On donne l'arbre de probabilités ci-dessous :<br>
+          
+          `
+          texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline', scale: 0.5 }, ...objets)
 
           if (this.interactif) {
             texte += '<br> $P(A\\cap \\overline{B})=$ '
             texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
-          } else { texte += '<br>Calculer $P(A\\cap \\overline{B})$. ' }
+          } else {
+            texte += `<br>
+          
+          Calculer $P(A\\cap \\overline{B})$. `
+          }
 
           texteCorr = ` $P(A\\cap \\overline{B})=P(A)\\times P_{A}(\\overline{B})$.<br>
         $P(A)=1-${texNombre(pAbarre, 1)}= ${texNombre(pA, 1)}$.<br>
@@ -185,6 +199,8 @@ export default function CalculerProbabiliteIntersection () {
         Ainsi, $P(A\\cap \\overline{B})=P(A)\\times P_{A}(\\overline{B})=${texNombre(pA, 1)}\\times ${texNombre(1 - pBsachantA, 1)}=${texNombre(reponse2, 2)}$.
         `
           setReponse(this, i, reponse2)
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
           break
 
         case 3:
@@ -242,13 +258,19 @@ export default function CalculerProbabiliteIntersection () {
 
           omega.setTailles() // On calcule les tailles des arbres.
           objets = omega.represente(0, 7, 0, 1.5, true, 1) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
-          texte = 'On donne l\'arbre de probabilités ci-dessous :<br>'
-          texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline' }, ...objets)
+          texte = `On donne l'arbre de probabilités ci-dessous :<br>
+          
+          `
+          texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline', scale: 0.5 }, ...objets)
 
           if (this.interactif) {
             texte += '<br> $P(\\overline{A}\\cap B)=$ '
             texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
-          } else { texte += '<br>Calculer $P(\\overline{A}\\cap B)$. ' }
+          } else {
+            texte += `<br>
+          
+          Calculer $P(\\overline{A}\\cap B)$. `
+          }
 
           texteCorr = ` 
         
@@ -263,6 +285,8 @@ export default function CalculerProbabiliteIntersection () {
         Ainsi, $P(\\overline{A}\\cap B)=P(\\overline{A})\\times P_{\\overline{A}}(B)=${texNombre(pAbarre, 1)}\\times ${texNombre(pBsachantAbarre, 1)}=${texNombre(reponse3, 2)}$.
         `
           setReponse(this, i, reponse3)
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
           break
 
         case 4:
@@ -321,13 +345,19 @@ export default function CalculerProbabiliteIntersection () {
 
           omega.setTailles() // On calcule les tailles des arbres.
           objets = omega.represente(0, 7, 0, 1.5, true, 1) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
-          texte = 'On donne l\'arbre de probabilités ci-dessous :<br>'
-          texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline' }, ...objets)
+          texte = `On donne l'arbre de probabilités ci-dessous :<br>
+          
+          `
+          texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline', scale: 0.5 }, ...objets)
 
           if (this.interactif) {
             texte += '<br> $P(\\overline{A}\\cap \\overline{B})=$ '
             texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
-          } else { texte += '<br>Calculer $P(\\overline{A}\\cap \\overline{B})$. ' }
+          } else {
+            texte += `<br>
+          
+          Calculer $P(\\overline{A}\\cap \\overline{B})$. `
+          }
 
           texteCorr = ` 
         
@@ -342,6 +372,8 @@ export default function CalculerProbabiliteIntersection () {
         Ainsi, $P(\\overline{A}\\cap \\overline{B})=P(\\overline{A})\\times P_{\\overline{A}}(\\overline{B})=${texNombre(pAbarre, 1)}\\times ${texNombre(pBbarresachantAbarre, 1)}=${texNombre(reponse4, 2)}$.
         `
           setReponse(this, i, reponse4)
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
           break
       }
       if (this.questionJamaisPosee(i, pA, pBsachantA)) {
