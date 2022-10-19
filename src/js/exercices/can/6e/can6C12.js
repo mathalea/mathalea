@@ -32,5 +32,7 @@ export default function DoubleOuTriple () {
       this.question = `Quel est le double de $${c}$ ?`
       this.correction = `Le double de $${c}$ est $2 \\times ${c}=${calcul(2 * c)}$.`
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

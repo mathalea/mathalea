@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import {
-  randint, choice, ecritureParentheseSiNegatif, reduirePolynomeDegre3, texteCentre, reduireAxPlusB,
+  randint, choice, ecritureParentheseSiNegatif, reduirePolynomeDegre3, reduireAxPlusB,
   ecritureAlgebrique
 } from '../../../modules/outils.js'
 export const titre = 'Calculer une ordonnée à partir de l’abscisse d’un point'
@@ -14,11 +14,14 @@ export const dateDePublication = '27/09/2022' // La date de publication initiale
  * Date de publication
 */
 
+export const uuid = '1d7cc'
+export const ref = 'can2F14'
 export default function CalculOrdonneePoint () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   const nomF = [
     ['f'], ['g'], ['h'], ['u'],
@@ -38,10 +41,15 @@ export default function CalculOrdonneePoint () {
         ord = a * abs + b
         nom = choice(nomF)
         point = choice(pointM)
-        this.question = `Soit $${nom}$ la fonctiron définie sur $\\mathbb{R}$ par :
-        ${texteCentre(`$${nom}(x)=${reduireAxPlusB(a, b)}$`)}  
+        this.question = `Soit $${nom}$ la fonction définie sur $\\mathbb{R}$ par :<br>
+
+       $${nom}(x)=${reduireAxPlusB(a, b)}$<br>
+
         On note $\\mathscr{C}$ la courbe représentative de la fonction $${nom}$ dans un repère.<br>
-       $${point}$ est le point de $\\mathscr{C}$ d'abscisse $${abs}$. Quelle est son ordonnée ?`
+
+       $${point}$ est le point de $\\mathscr{C}$ d'abscisse $${abs}$. <br>
+       
+       Quelle est son ordonnée ?`
 
         this.correction = `Puisque le point $${point}$ appartient à $\\mathscr{C}$, son ordonnée est  l'image de son abscisse.<br>
           $${nom}(${abs})=${a}\\times ${ecritureParentheseSiNegatif(abs)}${ecritureAlgebrique(b)}=${ord}$.<br>
@@ -56,10 +64,15 @@ export default function CalculOrdonneePoint () {
         ord = a * abs ** 2 + b * abs + c
         nom = choice(nomF)
         point = choice(pointM)
-        this.question = `Soit $${nom}$ la fonction définie sur $\\mathbb{R}$ par :
-  ${texteCentre(`$${nom}(x)=${reduirePolynomeDegre3(0, a, b, c)}$`)}  
+        this.question = `Soit $${nom}$ la fonction définie sur $\\mathbb{R}$ par :<br>
+
+  $${nom}(x)=${reduirePolynomeDegre3(0, a, b, c)}$<br>
+
   On note $\\mathscr{C}$ la courbe représentative de la fonction $${nom}$ dans un repère.<br>
-  $${point}$ est le point de $\\mathscr{C}$ d'abscisse $${abs}$. Quelle est son ordonnée ?`
+  
+  $${point}$ est le point de $\\mathscr{C}$ d'abscisse $${abs}$.<br>
+  
+  Quelle est son ordonnée ?`
 
         this.correction = `Puisque le point $${point}$ appartient à $\\mathscr{C}$, son ordonnée est  l'image de son abscisse.<br> `
         if (a !== 1) {
@@ -75,5 +88,7 @@ export default function CalculOrdonneePoint () {
 
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

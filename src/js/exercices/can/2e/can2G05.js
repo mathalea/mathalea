@@ -16,6 +16,7 @@ export default function DistanceRepere () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let a, b, c, d
@@ -59,6 +60,8 @@ export default function DistanceRepere () {
            `)
           this.reponse = [`\\sqrt{${(c - a) ** 2 + (d - b) ** 2}}`, `${Math.sqrt((c - a) ** 2 + (d - b) ** 2)}`]
         }
+        this.canEnonce = this.question// 'Compléter'
+        this.canReponseACompleter = `$${nom[0]}${nom[1]}=\\ldots$`
         break
       case 'b' :
         a = randint(-5, 5, 0)
@@ -96,6 +99,8 @@ export default function DistanceRepere () {
          `)
           this.reponse = `\\sqrt{${a ** 2 + b ** 2}}`
         }
+        this.canEnonce = this.question// 'Compléter'
+        this.canReponseACompleter = `$O${nom[0]}=\\ldots$`
         break
     }
   }

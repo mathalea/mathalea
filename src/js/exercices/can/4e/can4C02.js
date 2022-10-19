@@ -30,7 +30,7 @@ export default function OpposeDeFraction () {
       case 'a':
         b = a.n
         d = fraction(b, c)
-        this.question = `L'opposé de $\\dfrac{${b}}{${c}}$ est : `
+        this.question = `Quel est l'opposé de $\\dfrac{${b}}{${c}}$ ? `
         this.correction = `Deux nombres sont opposés lorsque leur somme est nulle.<br>
         Ainsi, l'opposé de $\\dfrac{${b}}{${c}}$ est $-${d.texFraction}$ car $\\dfrac{${b}}{${c}}+\\left(-${d.texFraction}\\right)=0$.`
         this.reponse = d.oppose()
@@ -38,7 +38,7 @@ export default function OpposeDeFraction () {
       case 'b' :
         b = a.n * (-1)
         d = fraction(b, c)
-        this.question = `L'opposé de $\\dfrac{${b}}{${c}}$ est : `
+        this.question = `Quel est l'opposé de $\\dfrac{${b}}{${c}}$ ? `
         this.correction = `Deux nombres sont opposés lorsque leur somme est nulle.<br>
         Ainsi, l'opposé de $\\dfrac{${b}}{${c}}$ est $\\dfrac{${-b}}{${c}}$ car $\\dfrac{${b}}{${c}}+\\dfrac{${-b}}{${c}}=0$.`
         this.reponse = d.oppose()
@@ -47,7 +47,7 @@ export default function OpposeDeFraction () {
       case 'c' :
         b = a.n
         d = fraction(b, c)
-        this.question = `L'opposé de $-\\dfrac{${b}}{${c}}$ est :`
+        this.question = `Quel est l'opposé de $-\\dfrac{${b}}{${c}}$ ?`
         this.correction = `Deux nombres sont opposés lorsque leur somme est nulle.<br>
         Ainsi, l'opposé de $-\\dfrac{${b}}{${c}}$ est $${d.texFraction}$ car $-\\dfrac{${b}}{${c}}+${d.texFraction}=0$.`
         this.reponse = d
@@ -56,7 +56,7 @@ export default function OpposeDeFraction () {
         b = a.n
         d = fraction(b, c)
         e = fraction(c, b)
-        this.question = `L'inverse de $\\dfrac{${b}}{${c}}$ est :`
+        this.question = `Quel est l'inverse de $\\dfrac{${b}}{${c}}$ ?`
         this.correction = `Deux nombres sont inverses l'un de l'autre lorsque leur produit vaut $1$.<br>
         Ainsi, l'inverse de $\\dfrac{${b}}{${c}}$ est $${texFractionReduite(c, b)}$ car $\\dfrac{${b}}{${c}}\\times ${texFractionReduite(c, b)}=1$.`
         this.reponse = e
@@ -65,11 +65,13 @@ export default function OpposeDeFraction () {
         b = a.n
         d = fraction(b, c)
         e = fraction(c, b)
-        this.question = `L'inverse de $-\\dfrac{${b}}{${c}}$ est :`
+        this.question = `Quel est l'inverse de $-\\dfrac{${b}}{${c}}$ ?`
         this.correction = `Deux nombres sont inverses l'un de l'autre lorsque leur produit vaut $1$.<br>
         Ainsi, l'inverse de $-\\dfrac{${b}}{${c}}$ est $-${texFractionReduite(c, b)}$ car $-\\dfrac{${b}}{${c}}\\times \\left(-${texFractionReduite(c, b)}\\right)=1$ .`
         this.reponse = e.oppose()
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

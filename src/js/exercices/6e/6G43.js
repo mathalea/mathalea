@@ -257,6 +257,6 @@ export default function DenombrerCubes () {
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
 
   this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Compter les cubes\n2 : Compter les cubes manquants\n3 : Mélange']
-  this.besoinFormulaire2Numerique = ["Taille de l'empilement n + 2. Saisir n (1 à 5)", 5]
+  this.besoinFormulaire2Numerique = ["Taille de l'empilement", 5, 'La taille est n+2.\nSaisir n (de 1 à 5).']
   // this.besoinFormulaire3CaseACocher =['figure à main levée',true]
 } // Fin de l'exercice.

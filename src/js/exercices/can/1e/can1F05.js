@@ -24,7 +24,7 @@ export default function LectureGraphiqueParabolebEtc () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur10 inline'
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
 
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
@@ -63,9 +63,16 @@ export default function LectureGraphiqueParabolebEtc () {
 
           F = x => (x - x1) * (x - x2)
 
-          texte = 'On donne la courbe représentative d\'une fonction $f$ polynôme du second degré définie par $f(x)=x^2+bx+c$ .<br>'
+          texte = `On donne la courbe représentative d'une fonction $f$ polynôme du second degré définie par $f(x)=x^2+bx+c$ .<br>
+          
+          `
 
-          texte += 'Déterminer les valeurs de $b$ et $c$.<br>' + mathalea2d({ xmin: -5, xmax: 5, ymin: Math.floor(f((x1 + x2) / 2)) - 1, ymax: Math.max(3, f(0) + 1), pixelsParCm: 18, scale: 0.6 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
+          texte += 'Déterminer les valeurs de $b$ et $c$.<br>'
+          texte += `
+          
+          ` +
+
+          mathalea2d({ xmin: -5, xmax: 5, ymin: Math.floor(f((x1 + x2) / 2)) - 1.5, ymax: Math.max(3, f(0) + 1), pixelsParCm: 25, scale: 0.6 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
 
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: '$b=$' })
@@ -91,5 +98,7 @@ export default function LectureGraphiqueParabolebEtc () {
       cpt++
     }
     listeQuestionsToContenu(this)
+    this.canEnonce = texte
+    this.canReponseACompleter = ''
   }
 }

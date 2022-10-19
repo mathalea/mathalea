@@ -19,7 +19,7 @@ export default function NatureSuiteRec () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.spacing = 2
+  this.spacing = 1.5
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.nouvelleVersion = function () {
     this.listeQuestions = []
@@ -58,7 +58,10 @@ export default function NatureSuiteRec () {
             texte += propositionsQcm(this, i).texte
           } else {
             texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} = ${s}_n ${ecritureAlgebrique(a)}$.<br>
-          Quelle est la nature de cette suite ? Donner sa raison.`
+          
+            Quelle est la nature de cette suite ? <br>
+            
+            Donner sa raison.`
           }
 
           texteCorr = `La formule de récurrence est de la forme $${s}_{n+1}=${s}_n+r$ avec $r=${a}$.<br>
@@ -94,7 +97,10 @@ export default function NatureSuiteRec () {
             texte += propositionsQcm(this, i).texte
           } else {
             texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1}  -${s}_n =${a}$.<br>
-          Quelle est la nature de cette suite ? Donner sa raison.`
+         
+            Quelle est la nature de cette suite ?<br>
+            
+            Donner sa raison.`
           }
 
           texteCorr = `La formule de récurrence est de la forme $${s}_{n+1}=${s}_n+r$ avec $r=${a}$.<br>
@@ -129,7 +135,10 @@ export default function NatureSuiteRec () {
             texte += propositionsQcm(this, i).texte
           } else {
             texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_n=${s}_{n+1}  ${ecritureAlgebrique(a)} $.<br>
-          Quelle est la nature de cette suite ? Donner sa raison.`
+          
+            Quelle est la nature de cette suite ?<br>
+            
+            Donner sa raison.`
           }
 
           texteCorr = `La formule de récurrence est de la forme $${s}_{n+1}=${s}_n+r$ avec $r=${-a}$.<br>
@@ -164,7 +173,10 @@ export default function NatureSuiteRec () {
             texte += propositionsQcm(this, i).texte
           } else {
             texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1}  =\\dfrac{${b} ${s}_n${ecritureAlgebrique(b * a)}}{${b}}$.<br>
-          Quelle est la nature de cette suite ? Donner sa raison.`
+          
+            Quelle est la nature de cette suite ? <br>
+            
+            Donner sa raison.`
           }
 
           texteCorr = `Comme $${s}_{n+1}  =\\dfrac{${b} ${s}_n${ecritureAlgebrique(b * a)}}{${b}}=\\dfrac{${b} ${s}_n}{${b}}+\\dfrac{${b * a}}{${b}}= ${s}_n${ecritureAlgebrique(a)}$, alors 
@@ -200,7 +212,10 @@ export default function NatureSuiteRec () {
             texte += propositionsQcm(this, i).texte
           } else {
             texte = `Soit $(${s}_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} = ${s}_n ${ecritureAlgebrique(a)}$.<br>
-          Quelle est la nature de cette suite ? Donner sa raison.`
+          
+            Quelle est la nature de cette suite ? <br>
+            
+            Donner sa raison.`
           }
 
           texteCorr = `La formule de récurrence est de la forme $${s}_{n+1}=q\\times ${s}_n$ avec $q=${a}$.<br>
@@ -261,10 +276,16 @@ export default function NatureSuiteRec () {
           } else {
             if (b < 0) {
               texte = `Soit $(${s}_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =- \\dfrac{${s}_{n}}{${a}}$.<br>
-              Quelle est la nature de cette suite ? Donner sa raison.`
+              
+              Quelle est la nature de cette suite ? <br>
+              
+              Donner sa raison.`
             } else {
               texte = `Soit $(${s}_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} = \\dfrac{${s}_{n}}{${a}}$.<br>
-             Quelle est la nature de cette suite ? Donner sa raison.`
+            
+              Quelle est la nature de cette suite ? <br>
+              
+              Donner sa raison.`
             }
           }
 
@@ -305,7 +326,10 @@ export default function NatureSuiteRec () {
             texte += propositionsQcm(this, i).texte
           } else {
             texte = `Soit $(${s}_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} -${s}_{n}= ${texNombrec(a)}${s}_n $.<br>
-          Quelle est la nature de cette suite ? Donner sa raison.`
+          
+            Quelle est la nature de cette suite ? <br>
+            
+            Donner sa raison.`
           }
 
           texteCorr = `$${s}_{n+1} -${s}_{n}= ${texNombrec(a)}${s}_n$ s'écrit : $${s}_{n+1} = ${texNombrec(a)}${s}_n+${s}_{n}=${texNombrec(1 + a)}${s}_n$.<br>
@@ -372,10 +396,16 @@ export default function NatureSuiteRec () {
           } else {
             if (b < 0) {
               texte = `Soit $(${s}_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =${s}_{n} -${texFraction(n1, d1)}${s}_{n}$.<br>
-              Quelle est la nature de cette suite ? Donner sa raison.`
+              
+              Quelle est la nature de cette suite ? <br>
+              
+              Donner sa raison.`
             } else {
               texte = `Soit $(${s}_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =${s}_{n} +${texFraction(n1, d1)}${s}_{n}$.<br>
-             Quelle est la nature de cette suite ? Donner sa raison.`
+             
+              Quelle est la nature de cette suite ?<br>
+              
+              Donner sa raison.`
             }
           }
 
@@ -399,5 +429,8 @@ On en déduit que $(${s}_n)$ est une suite géométrique de raison $${texFractio
       cpt++
     }
     listeQuestionsToContenu(this)
+    this.canEnonce = texte
+    this.canReponseACompleter = `Nature de la suite : $\\ldots$\\\\
+     Raison $=\\ldots$`
   }
 }

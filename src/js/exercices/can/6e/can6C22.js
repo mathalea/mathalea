@@ -25,7 +25,7 @@ export default function ValeursDecimalesFractions () {
       case 1:
         a = randint(1, 9, 5)
         this.reponse = calcul(a / 5)
-        this.question = `Donner la valeur décimale de  $\\dfrac{${a}}{5}$ :`
+        this.question = `Donner la valeur décimale de  $\\dfrac{${a}}{5}$.`
         if (a === 1) {
           this.correction = `$\\dfrac{${a}}{5}=${texNombre(this.reponse)}$`
         }
@@ -44,7 +44,7 @@ export default function ValeursDecimalesFractions () {
         break
       case 2:
         b = choice([1, 3, 5, 7, 9, 11])
-        this.question = `Donner la valeur décimale de  $\\dfrac{${b}}{4}$ :`
+        this.question = `Donner la valeur décimale de  $\\dfrac{${b}}{4}$.`
         this.reponse = calcul(b / 4)
         if (b === 1) {
           this.correction = `$\\dfrac{${b}}{4}=${texNombre(this.reponse)}$`
@@ -70,7 +70,7 @@ export default function ValeursDecimalesFractions () {
         break
       case 3:
         b = choice([1, 3, 5, 7, 9, 11, 13, 17, 19])
-        this.question = `Donner la valeur décimale de  $\\dfrac{${b}}{10}$ :`
+        this.question = `Donner la valeur décimale de  $\\dfrac{${b}}{10}$.`
         this.reponse = calcul(b / 10)
         if (b === 1) {
           this.correction = `$\\dfrac{${b}}{10}=${texNombre(this.reponse)}$`
@@ -86,7 +86,7 @@ export default function ValeursDecimalesFractions () {
         break
       case 4:
         b = choice([3, 5, 7, 9, 11, 13, 17, 19])
-        this.question = `Donner la valeur décimale de  $\\dfrac{${b}}{2}$ :`
+        this.question = `Donner la valeur décimale de  $\\dfrac{${b}}{2}$.`
         this.reponse = calcul(b / 2)
 
         this.correction = `$\\dfrac{${b}}{2}=${texNombre(this.reponse)}$`
@@ -96,5 +96,7 @@ export default function ValeursDecimalesFractions () {
 
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

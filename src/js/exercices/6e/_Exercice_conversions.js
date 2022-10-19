@@ -3,14 +3,13 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, arrondi, texNombre, texNombrec, texFraction, texTexte, calcul, texNombre2, contraindreValeur, rangeMinMax, compteOccurences, combinaisonListes } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { format, evaluate } from 'mathjs'
 
-const math = { format: format, evaluate: evaluate }
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDeModifImportante = '17/09/2022' // Modifications pour les octets. Pas de nombres décimaux => uniquement des multiplications pour convertir
+// Modification le 18/10 pour supprimer math.evaluate et le remplacer par un arrondi
 
 /**
  * Conversions  mètres, litres, grammes, octets (et euros pour la version LaTeX) en utilisant le préfixe pour déterminer la multiplication ou division à faire.
@@ -133,7 +132,7 @@ export default function ExerciceConversions (niveau = 1) {
         listeDesProblemes[i] < 4 &&
         this.correction_avec_des_fractions) {
         unite = choice(['m', 'L', 'g'])
-        resultat = math.evaluate(a / prefixeDiv[k][1])
+        resultat = arrondi(a / prefixeDiv[k][1], 12)
         texte =
           '$ ' +
           texNombre(a) +
@@ -152,7 +151,7 @@ export default function ExerciceConversions (niveau = 1) {
           '$'
       } else if (div && listeDesProblemes[i] < 4) {
         unite = choice(['m', 'L', 'g'])
-        resultat = math.evaluate(a / prefixeDiv[k][1])
+        resultat = arrondi(a / prefixeDiv[k][1], 12)
         texte =
           '$ ' +
           texNombre(a) +
@@ -207,8 +206,8 @@ export default function ExerciceConversions (niveau = 1) {
             texTexte(unite) +
             '$'
         } else {
-          a = math.evaluate(a * Math.pow(10, randint(-3 * ecart - 1, -3 * ecart + 1)))
-          resultat = math.evaluate(a / Math.pow(10, -3 * ecart))
+          a = arrondi(a * Math.pow(10, randint(-3 * ecart - 1, -3 * ecart + 1)), 12)
+          resultat = arrondi(a / Math.pow(10, -3 * ecart), 12)
           unite = listeUniteInfo[unite1]
           texte =
             '$ ' +

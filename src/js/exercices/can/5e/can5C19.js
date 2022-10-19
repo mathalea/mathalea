@@ -25,12 +25,14 @@ export default function Soustraire2Decimaux () {
     const d1 = randint(1, 6)
     const d2 = randint(d1, 9)
 
-    this.question = `$${texNombre(a + d1 / 10, 1)}-${texNombre(b + d2 / 10, 1)}=$`
+    this.question = `Calculer $${texNombre(a + d1 / 10, 1)}-${texNombre(b + d2 / 10, 1)}$.`
     this.correction = `$${texNombre(a + d1 / 10, 1)}-${texNombre(b + d2 / 10, 1)}=${texNombre(a + d1 / 10 - b - d2 / 10, 1)}$`
     this.reponse = arrondi(a + d1 / 10 - b - d2 / 10, 1)
     this.correction += texteEnCouleur(`
     <br> Mentalement : <br>
    On commence par soustraire les unités : $${texNombre(a + d1 / 10, 1)}-${b}=${texNombre(a - b + d1 / 10, 1)}$.<br>
     Puis les dixièmes : $${texNombre(a - b + d1 / 10, 1)}-${texNombre(d2 / 10)}=${texNombre(a + d1 / 10 - b - d2 / 10, 1)}$`)
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

@@ -39,5 +39,7 @@ export default function CalculMoitieFraction () {
     this.question = `Calculer la moitié de $${f.texFraction}$ sous la forme d'une fraction irréductible.`
     this.correction = `$${f.texFraction}\\div 2=${f.texFraction}\\times \\dfrac{1}{2}=${reponse.texFraction}${reponse.texSimplificationAvecEtapes()}$
           `
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

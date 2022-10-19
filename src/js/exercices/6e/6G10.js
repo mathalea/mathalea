@@ -2,6 +2,7 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, creerNomDePolygone, combinaisonListes } from '../../modules/outils.js'
 import { point, labelPoint, droite, segment, demiDroite } from '../../modules/2d.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Utiliser la notation de droites, segments et demi-droites'
 
 /**
@@ -14,12 +15,12 @@ export const ref = '6G10'
 export default function NotationSegmentDroiteDemiDroite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = "Compléter les programmes de constructions qui ont permis d'obtenir ces figures."
   this.nbQuestions = 3
   this.nbCols = 3
   this.nbColsCorr = 2
 
   this.nouvelleVersion = function () {
+    this.consigne = this.nbQuestions === 1 || context.vue === 'diap' ? "Compléter le programme de construction qui a permis d'obtenir cette figure." : "Compléter les programmes de construction qui ont permis d'obtenir ces figures."
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

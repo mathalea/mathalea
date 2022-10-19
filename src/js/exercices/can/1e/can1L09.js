@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenu, reduirePolynomeDegre3, ecritureAlgebrique, rienSi1, texteCentre } from '../../../modules/outils.js'
+import { randint, listeQuestionsToContenu, reduirePolynomeDegre3, ecritureAlgebrique, rienSi1 } from '../../../modules/outils.js'
 import FractionX from '../../../modules/FractionEtendue.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
@@ -35,8 +35,9 @@ export default function EquationSecondDegreParticuliere () {
       b = randint(-10, 10, 0)
       c = randint(-10, 10, 0)
       f = new FractionX(-b, a)
-      texte = `Donner l'ensemble des solutions $\\mathscr{S}$ de l'équation :
-     ${texteCentre(`$${reduirePolynomeDegre3(0, a, b, c)}=${c}$`)}`
+      texte = `Donner l'ensemble des solutions $\\mathscr{S}$ de l'équation :<br>
+
+   $${reduirePolynomeDegre3(0, a, b, c)}=${c}$.<br>`
 
       if (this.interactif) {
         texte += 'Ecrire les solutions dans l\'ordre croissant :<br> $\\mathscr{S}=\\bigg\\{$'
@@ -64,5 +65,7 @@ export default function EquationSecondDegreParticuliere () {
       cpt++
     }
     listeQuestionsToContenu(this)
+    this.canEnonce = texte
+    this.canReponseACompleter = ''
   }
 }

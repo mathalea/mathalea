@@ -29,7 +29,7 @@ export default function CalculProbaArbre2e () {
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   // this.sup = 1; // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
@@ -97,15 +97,25 @@ export default function CalculProbaArbre2e () {
       omega.setTailles() // On calcule les tailles des arbres.
       objets = omega.represente(0, 6, 0, 1.5, true, 1) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
       pC = omega.getProba('C', false) // on calcule P(C) décimale.
-      texte = `On donne l'arbre de probabilités ci dessous et $P(C)=${texProba(pC)}$.<br>`
+      texte = `On donne l'arbre de probabilités ci dessous et $P(C)=${texProba(pC)}$.<br>
+      
+      `
       texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 6, style: 'inline' }, ...objets)
-      texte += `<br>$x=$ ${(this.interactif || !context.isHtml) ? ajouteChampTexteMathLive(this, i, 'largeur10 inline') : '\\ldots'}`
+      texte += `<br>
+      
+      $x=$ ${(this.interactif || !context.isHtml) ? ajouteChampTexteMathLive(this, i, 'largeur10 inline') : '\\ldots'}`
       texteCorr = 'Comme $A$ et $\\bar A$ forment une partition de l\'univers, d\'après la loi des probabilités totales :<br>'
       texteCorr += '$P(C)=P(A \\cap C)+P(\\bar{A} \\cap C)$.<br>'
       texteCorr += `Or $P(\\bar{A} \\cap C)=P(\\bar{A}) \\times P_{\\bar{A}}(C)=${texProba(pB, false)}x$.<br>`
       texteCorr += `Donc $${texProba(pB, false)}x=P(C)-P(A \\cap C)=${texProba(pC, false)}-${texProba(pA, false)}\\times ${texProba(pAC, false)}=${texProba(pC, false)}-${texProba(pA * pAC, false)}=${texProba(pC - pA * pAC, false)}$.<br>`
       texteCorr += `Donc $x=\\dfrac{${texProba(pC - pA * pAC, false)}}{${texProba(pB, false)}}=${texProba(pBC)}$`
       setReponse(this, i, pBC)
+      this.canEnonce = `On donne l'arbre de probabilités ci dessous et $P(C)=${texProba(pC)}$.<br>
+      
+      `
+      this.canEnonce += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 6, style: 'inline', scale: 0.5 }, ...objets)
+      this.canReponseACompleter = `   
+      $x=\\ldots$ `
       if (this.questionJamaisPosee(i, pA, pAC, pBC)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

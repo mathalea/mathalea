@@ -46,8 +46,8 @@ export default function ResoudreEquationSecondDegre2 () {
       }
 
       texte = `$${reduirePolynomeDegre3(0, a, b, c)}=0$.<br>
-       Donner les solutions de cette équation
-        `
+
+       Donner les solutions de cette équation`
       if (!this.interactif) { texte += '.' } else {
         texte += 'dans l\'ordre croissant :'
         texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline')
@@ -67,5 +67,7 @@ export default function ResoudreEquationSecondDegre2 () {
       cpt++
     }
     listeQuestionsToContenu(this)
+    this.canEnonce = texte
+    this.canReponseACompleter = ''
   }
 }

@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, choice, ecritureAlgebrique, texteCentre, reduireAxPlusB, reduirePolynomeDegre3, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
+import { randint, choice, ecritureAlgebrique, reduireAxPlusB, reduirePolynomeDegre3, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
 export const titre = 'Déterminer la fonction dérivée d’une fonction $1/u(x)$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -30,9 +30,11 @@ export default function CalculFonctionDeriveeUnsurU () {
       case 1:// //1/(mx+p)
         m = randint(-10, 10, 0)
         p = randint(-10, 10, 0)
-        this.question = `Soit $f$ la fonction définie  par : 
-            ${texteCentre(`$f(x)=\\dfrac{1}{${reduireAxPlusB(m, p)}}$`)}  
-            Déterminer la  dérivée de la fonction $f$.<br>     `
+        this.question = `Soit $f$ la fonction définie  par :<br>
+
+            $f(x)=\\dfrac{1}{${reduireAxPlusB(m, p)}}$. <br>
+
+            Déterminer $f'(x)$.<br>     `
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f$est de la forme $\\dfrac{1}{u}$ avec $u(x)=${reduireAxPlusB(m, p)}$.<br>
                  Or  $\\left(\\dfrac{1}{u}\\right)'=\\dfrac{-u'}{u^2}$.<br>
@@ -47,9 +49,11 @@ export default function CalculFonctionDeriveeUnsurU () {
       case 2:// //1/(p+mx)
         m = randint(-10, 10, 0)
         p = randint(-10, 10, 0)
-        this.question = `Soit $f$ la fonction définie  par : 
-                    ${texteCentre(`$f(x)=\\dfrac{1}{${p}${ecritureAlgebrique(m)}x}$`)}  
-                    Déterminer la  dérivée de la fonction $f$.<br>     `
+        this.question = `Soit $f$ la fonction définie  par : <br>
+
+                   $f(x)=\\dfrac{1}{${p}${ecritureAlgebrique(m)}x}$.<br>
+
+                    Déterminer  $f'(x)$.<br>     `
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f$est de la forme $\\dfrac{1}{u}$ avec $u(x)=${reduireAxPlusB(m, p)}$.<br>
                          Or  $\\left(\\dfrac{1}{u}\\right)'=\\dfrac{-u'}{u^2}$.<br>
@@ -62,9 +66,11 @@ export default function CalculFonctionDeriveeUnsurU () {
       case 3:// //1/(mx^2+p)
         m = randint(-10, 10, 0)
         p = randint(-10, 10, 0)
-        this.question = `Soit $f$ la fonction définie  par : 
-                    ${texteCentre(`$f(x)=\\dfrac{1}{${reduirePolynomeDegre3(0, m, 0, p)}}$`)}  
-                    Déterminer la  dérivée de la fonction $f$.<br>     `
+        this.question = `Soit $f$ la fonction définie  par : <br>
+
+                   $f(x)=\\dfrac{1}{${reduirePolynomeDegre3(0, m, 0, p)}}$.<br>
+
+                    Déterminer $f'(x)$.<br>     `
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f$est de la forme $\\dfrac{1}{u}$ avec $u(x)=${reduirePolynomeDegre3(0, m, 0, p)}$.<br>
                          Or  $\\left(\\dfrac{1}{u}\\right)'=\\dfrac{-u'}{u^2}$.<br>
@@ -75,5 +81,7 @@ export default function CalculFonctionDeriveeUnsurU () {
         this.reponse = [`\\dfrac{${-2 * m}x}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}`, `\\dfrac{${-2 * m}x}{(${reduirePolynomeDegre3(0, -m, 0, -p)})^2}`]
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

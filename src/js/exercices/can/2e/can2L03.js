@@ -19,13 +19,14 @@ export default function CoordonneesPointIntersectionAxeAbscissesDroite () {
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-
+  this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     const a = randint(-10, 10, 0)
     const n = randint(-5, 5, 0)
     const b = n * a
-    this.listeQuestions = [` Les coordonnées du point d'intersection 
-    entre la droite d'équation $y=${reduireAxPlusB(a, b)}$ et l'axe des abscisses sont : ${texteCentre(`$\\Bigg($ ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(5)} ;
+    this.listeQuestions = [` Déterminer les coordonnées du point d'intersection 
+    entre la droite d'équation $y=${reduireAxPlusB(a, b)}$ et l'axe des abscisses. <br>
+     ${texteCentre(`$\\Bigg($ ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(5)} ;
     ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(5)} $\\Bigg)$`)}`]
     this.listeCorrections = [`L'ordonnée de ce point est $0$ puisque le point d'intersection se situe sur l'axe des abscisses.<br>
       Son abscisse est donc donnée par la solution de l'équation  $${reduireAxPlusB(a, b)}=0$, c'est-à-dire $x=${texFractionReduite(-b, a)}$.
@@ -34,5 +35,8 @@ export default function CoordonneesPointIntersectionAxeAbscissesDroite () {
     setReponse(this, 0, -b / a)
     setReponse(this, 1, 0)
     listeQuestionsToContenuSansNumero(this)
+    this.canEnonce = ` Déterminer les coordonnées du point d'intersection 
+    entre la droite d'équation $y=${reduireAxPlusB(a, b)}$ et l'axe des abscisses. `
+    this.canReponseACompleter = ''
   }
 }

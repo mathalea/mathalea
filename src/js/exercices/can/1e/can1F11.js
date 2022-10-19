@@ -16,6 +16,7 @@ export default function DeriveePoly3 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
@@ -27,8 +28,11 @@ export default function DeriveePoly3 () {
         c = randint(-10, 10, [0])
         d = randint(-10, 10, [0])
         if (!this.interactif) {
-          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)= ${reduirePolynomeDegre3(a, b, c, d)}$.<br>
-       Déterminer la fonction dérivée de $f$.`
+          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
+          
+          $f(x)= ${reduirePolynomeDegre3(a, b, c, d)}$.<br>
+
+       Déterminer $f'(x)$.`
         } else {
           this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)= ${reduirePolynomeDegre3(a, b, c, d)}$.<br>
         La fonction dérivée de $f$ est définie par : <br>$f'(x)=$`
@@ -48,9 +52,11 @@ export default function DeriveePoly3 () {
         d = randint(-10, 10, [0])
         if (choice([true, false])) {
           if (!this.interactif) {
-            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
+            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
+
             $f(x)= ${rienSi1(b)}x^2${ecritureAlgebriqueSauf1(a)}x^3${ecritureAlgebriqueSauf1(c)}x${ecritureAlgebrique(d)}$.<br>
-       Déterminer la fonction dérivée de $f$.`
+       
+            Déterminer $f'(x)$.`
           } else {
             this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
             $f(x)= ${rienSi1(b)}x^2${ecritureAlgebriqueSauf1(a)}x^3${ecritureAlgebriqueSauf1(c)}x${ecritureAlgebrique(d)}$.<br>
@@ -58,8 +64,11 @@ export default function DeriveePoly3 () {
           }
         } else {
           if (!this.interactif) {
-            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)=${rienSi1(c)}x${ecritureAlgebriqueSauf1(b)}x^2${ecritureAlgebrique(d)}${ecritureAlgebriqueSauf1(a)}x^3 $.<br>
-     Déterminer  la fonction dérivée de $f$.`
+            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
+            
+            $f(x)=${rienSi1(c)}x${ecritureAlgebriqueSauf1(b)}x^2${ecritureAlgebrique(d)}${ecritureAlgebriqueSauf1(a)}x^3 $.<br>
+    
+            Déterminer $f'(x)$.`
           } else {
             this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)=${rienSi1(c)}x${ecritureAlgebriqueSauf1(b)}x^2${ecritureAlgebrique(d)}${ecritureAlgebriqueSauf1(a)}x^3 $.<br>
       La fonction dérivée de $f$ est définie par : <br>$f'(x)=$`
@@ -80,9 +89,11 @@ export default function DeriveePoly3 () {
 
         if (choice([true, false])) {
           if (!this.interactif) {
-            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
+            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
+
             $f(x)= ${reduirePolynomeDegre3(a, b, 0, c)}$.<br>
-       Déterminer la fonction dérivée de $f$.`
+
+        Déterminer $f'(x)$.`
           } else {
             this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
             $f(x)= ${reduirePolynomeDegre3(a, b, 0, c)}$.<br>
@@ -90,9 +101,11 @@ export default function DeriveePoly3 () {
           }
         } else {
           if (!this.interactif) {
-            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
+            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
+
             $f(x)=${rienSi1(a)}x^3${ecritureAlgebrique(c)}${ecritureAlgebriqueSauf1(b)}x^2 $.<br>
-     Déterminer  la fonction dérivée de $f$.`
+
+      Déterminer $f'(x)$.`
           } else {
             this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :
              $f(x)=${rienSi1(a)}x^3${ecritureAlgebrique(c)}${ecritureAlgebriqueSauf1(b)}x^2$.<br>
@@ -115,9 +128,11 @@ export default function DeriveePoly3 () {
 
         if (choice([true, false])) {
           if (!this.interactif) {
-            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
+            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
+
             $f(x)= ${reduirePolynomeDegre3(a, 0, b, c)}$.<br>
-       Déterminer la fonction dérivée de $f$.`
+
+       Déterminer $f'(x)$.`
           } else {
             this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
             $f(x)= ${reduirePolynomeDegre3(a, 0, b, c)}$.<br>
@@ -125,9 +140,11 @@ export default function DeriveePoly3 () {
           }
         } else {
           if (!this.interactif) {
-            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
+            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
+
             $f(x)=${rienSi1(b)}x${ecritureAlgebrique(c)}${ecritureAlgebriqueSauf1(a)}x^3 $.<br>
-     Déterminer  la fonction dérivée de $f$.`
+
+     Déterminer $f'(x)$.`
           } else {
             this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :
              $f(x)=${rienSi1(b)}x${ecritureAlgebrique(c)}${ecritureAlgebriqueSauf1(a)}x^3 $.<br>
@@ -159,9 +176,11 @@ export default function DeriveePoly3 () {
           }
         } else {
           if (!this.interactif) {
-            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
+            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :<br>
+
             $f(x)=${b}${ecritureAlgebriqueSauf1(a)}x^3 $.<br>
-     Déterminer  la fonction dérivée de $f$.`
+
+      Déterminer $f'(x)$.`
           } else {
             this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :
              $f(x)=${b}${ecritureAlgebriqueSauf1(a)}x^3 $.<br>
@@ -182,9 +201,11 @@ export default function DeriveePoly3 () {
 
         if (choice([true, false])) {
           if (!this.interactif) {
-            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
+            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
+
             $f(x)= ${rienSi1(b)}x^2${ecritureAlgebriqueSauf1(a)}x^3$.<br>
-       Déterminer la fonction dérivée de $f$.`
+
+       Déterminer $f'(x)$.`
           } else {
             this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
                       $f(x)= ${rienSi1(b)}x^2${ecritureAlgebriqueSauf1(a)}x^3$.<br>
@@ -196,11 +217,13 @@ export default function DeriveePoly3 () {
           this.reponse = [`${3 * a}x^2+${2 * b}x`]
         } else {
           if (!this.interactif) {
-            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
+            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
+
             $f(x)=${rienSi1(b)}x${ecritureAlgebriqueSauf1(a)}x^3 $.<br>
-     Déterminer  la fonction dérivée de $f$.`
+
+     Déterminer $f'(x)$.`
           } else {
-            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :
+            this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :<br>
              $f(x)=${rienSi1(b)}x${ecritureAlgebriqueSauf1(a)}x^3 $.<br>
       La fonction dérivée de $f$ est définie par : <br>$f'(x)=$`
           }
@@ -212,5 +235,7 @@ export default function DeriveePoly3 () {
 
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

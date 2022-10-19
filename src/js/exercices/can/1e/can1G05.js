@@ -17,6 +17,7 @@ export default function ProduitScalaireCoordonnees () {
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {
@@ -27,6 +28,7 @@ export default function ProduitScalaireCoordonnees () {
 
     this.question = ` Dans un repère orthonormé $(O;\\vec i,\\vec j)$, on donne deux vecteurs :<br>
     $\\vec{u}\\begin{pmatrix}${ux}${sp(1)} \\\\ ${sp(1)}${uy}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${vx}${sp(1)} \\\\ ${sp(1)}${vy}\\end{pmatrix}$<br>
+
     Alors $\\vec{u}\\cdot\\vec{v}=$`
     if (!this.interactif) { this.question += ' ....' }
     this.correction = `$\\vec{u}\\cdot\\vec{v}=${ux}\\times ${ecritureParentheseSiNegatif(vx)}+${ecritureParentheseSiNegatif(uy)}\\times ${ecritureParentheseSiNegatif(vy)}=
@@ -36,5 +38,7 @@ export default function ProduitScalaireCoordonnees () {
 
    `
     this.reponse = ux * vx + uy * vy
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

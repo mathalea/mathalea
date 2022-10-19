@@ -25,7 +25,7 @@ export default function FractionDEntierQuiVaBien () {
     const c = choice([2, 3, 4, 5, 6])
     const b = a.d * c
     this.reponse = calcul(a.n * c)
-    this.question = `$${a.texFraction}\\times ${b}$`
+    this.question = `Calculer sous la forme d'un entier $${a.texFraction}\\times ${b}$.`
     if (a.n === 1) {
       this.correction = `$${a.texFraction}\\times ${b}=${a.n * c}$<br><br>`
       this.correction += `${texteEnCouleur('Mentalement :')}<br>`
@@ -37,5 +37,7 @@ export default function FractionDEntierQuiVaBien () {
       this.correction += `${texteEnCouleur('Pour multiplier $' + b + '$ par $' + a.texFraction + '$, on commence par diviser  $' + b + '$ par $' + a.d + '$ (car la division "tombe juste") : on obtient $\\dfrac{' + b + '}{' + a.d + '}=' + b / a.d + '$.')}<br>`
       this.correction += `${texteEnCouleur('Puis, on multiplie ce résultat par $' + a.n + '$, ce qui donne : $' + a.n + '\\times ' + b / a.d + '=' + a.n * c + '$.<br>')}`
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

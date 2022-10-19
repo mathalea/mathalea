@@ -43,7 +43,7 @@ export default function SimplifieFractionOuRacinesCarrees () {
           a = randint(2, 3)
           b = choice([2, 5, 6, 7, 10])
           resultat = a * a * b
-          this.question = `$(${a}\\sqrt{${b}})^2=$`
+          this.question = `Calculer $(${a}\\sqrt{${b}})^2$.`
           this.correction = `$(${a}\\sqrt{${b}})^2=${a}^2\\times (\\sqrt{${b}})^2=${a * a}\\times ${b}=${a * a * b}$.`
           this.reponse = resultat
           this.formatInteractif = 'calcul'
@@ -52,7 +52,7 @@ export default function SimplifieFractionOuRacinesCarrees () {
           a = randint(1, 9) / 10
 
           resultat = a
-          this.question = `$\\sqrt{${texNombrec(a ** 2)}}=$`
+          this.question = `Calculer $\\sqrt{${texNombrec(a ** 2)}}$.`
           this.correction = `$${texNombrec(a ** 2)}$ est le carré du nombre positif $${texNombre(a)}$ donc $\\sqrt{${texNombrec(a ** 2)}}=${texNombre(a)}$.`
           this.reponse = resultat
           this.formatInteractif = 'calcul'
@@ -65,17 +65,19 @@ export default function SimplifieFractionOuRacinesCarrees () {
         resultat = (a - b) * (a - b)
 
         if (a - b < 0) {
-          this.question = `$(\\sqrt{${a * a}}-\\sqrt{${b * b}})^2=$`
+          this.question = `Calculer $(\\sqrt{${a * a}}-\\sqrt{${b * b}})^2$.`
           this.correction = `$(\\sqrt{${a * a}}-\\sqrt{${b * b}})^2=(${a}-${b})^2=(${a - b})^2=${(a - b) * (a - b)}$.`
           this.reponse = resultat
           this.formatInteractif = 'calcul'
         } else {
-          this.question = `$(\\sqrt{${a * a}}-\\sqrt{${b * b}})^2=$`
+          this.question = `Calculer $(\\sqrt{${a * a}}-\\sqrt{${b * b}})^2$.`
           this.correction = `$(\\sqrt{${a * a}}-\\sqrt{${b * b}})^2=(${a}-${b})^2=${a - b}^2=${(a - b) * (a - b)}$.`
           this.reponse = resultat
           this.formatInteractif = 'calcul'
         }
         break
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

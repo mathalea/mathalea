@@ -38,14 +38,20 @@ export default function SuiteSurDroiteGraduee () {
       thickSec: false,
       thickOffset: 0,
       axeStyle: '->',
-      pointListe: [[c + a * 3, 'A']],
+      pointListe: [[c + a * 3, '']],
       labelListe: maListe,
       pointCouleur: 'blue',
       pointStyle: 'x',
       labelsPrincipaux: false
     })
     this.reponse = c + 3 * a
-    this.question = mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 2, scale: 0.6, style: 'margin: auto' }, d) + '<br>Quel est le nombre écrit sous le point A ?'
-    this.correction = `${texteEnCouleur('Comme les graduations vont de ' + a)} ${texteEnCouleur('en ' + a)} ${texteEnCouleur(', le nombre écrit sous le point $A$ correspond à ')} ${texteEnCouleur(c + 2 * a)} ${texteEnCouleur(' + ' + a)} ${texteEnCouleur('donc c\'est ' + texNombre(c + 3 * a) + '.')}`
+    this.question = `Quel est le nombre repéré par la croix ?<br>
+    
+    `
+
+    this.question += mathalea2d({ xmin: -1, ymin: -1.5, xmax: 15, ymax: 1.5, scale: 0.6, style: 'margin: auto' }, d)
+    this.correction = `${texteEnCouleur('Comme les graduations vont de ' + a)} ${texteEnCouleur('en ' + a)} ${texteEnCouleur(', le nombre repéré par la croix correspond à ')} ${texteEnCouleur(c + 2 * a)} ${texteEnCouleur(' + ' + a)} ${texteEnCouleur('donc c\'est ' + texNombre(c + 3 * a) + '.')}`
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

@@ -22,7 +22,7 @@ export const ref = '3S21'
 export default function CalculProbaExperience2Epreuves3e () {
   Exercice.call(this) // Héritage de la classe Exercice()
 
-  this.besoinFormulaireTexte = ['Type de question', 4, '1 : Deux épreuves\n2 : Deux épreuves avec Remise\n3 : Deux épreuves sans remise\n4 : Mélange']
+  this.besoinFormulaireTexte = ['Type de question', '1 : Deux épreuves\n2 : Deux épreuves avec Remise\n3 : Deux épreuves sans remise\n4 : Mélange']
   this.sup = 1
   this.tailleDiaporama = 1
   this.nbQuestions = 1

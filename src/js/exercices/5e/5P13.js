@@ -109,11 +109,11 @@ export default function EchellesProblemes () {
           nb1 = choice(rangeMinMax(3, 47, [10, 20, 30, 40]))
           nb1Unite1 = nb1 / Math.pow(10, min(Math.floor(Math.log10(nb1))))
           echelleQ = choice(Echelle)
-          echelleQUnite2 = echelleQ[0] / Math.pow(10, min(Math.floor(Math.log10(echelleQ[0])), 6) - Math.floor(Math.log10(nb1)))
+          echelleQUnite2 = echelleQ[0] / Math.pow(10, min(Math.floor(Math.log10(echelleQ[0])), 6))
           unite1 = tableauUnites[Math.floor(Math.log10(nb1))]
           nb2 = nb1 * echelleQ[0]
-          unite2 = tableauUnites[Math.floor(min(Math.log10(nb2), 6))]
-          nb2Unite2 = arrondi(nb2 / Math.pow(10, min(Math.floor(Math.log10(echelleQ[0])), 6)), 3)
+          unite2 = tableauUnites[Math.floor(min(Math.log10(echelleQ[0]) + Math.floor(Math.log10(nb1)), 6))]
+          nb2Unite2 = nb1Unite1 * echelleQUnite2
           reponse = nb2Unite2
           texte += `Le plan ${echelleQ[1]} ${quidam[2]} ${quidam[0]} de ${quidam2} a une échelle de $${texFraction(1, echelleQ[0])}$. ${quidam2} mesure, sur ce plan, un segment de $${texNombre(nb1Unite1, 2)}$ ${unite1}. 
             À quelle distance réelle, ce segment correspond-il ?`
@@ -130,14 +130,14 @@ export default function EchellesProblemes () {
           quidam = choice(Famille)
           quidam2 = choice([prenomF(), prenomM()])
           nb1 = choice(rangeMinMax(11, 47, [10, 20, 30, 40]))
-          nb1Unite1 = nb1 / Math.pow(10, min(Math.floor(Math.log10(nb1))))
+          nb1Unite1 = nb1
           echelleQ = choice(Echelle)
-          unite1 = tableauUnites[Math.floor(Math.log10(nb1))]
+          unite1 = tableauUnites[1]
           nb2 = nb1 * echelleQ[0]
           unite2 = tableauUnites[Math.floor(min(Math.log10(nb2), 6))]
-          echelleQUnite2 = echelleQ[0] / Math.pow(10, min(Math.floor(Math.log10(echelleQ[0])), 6) - Math.floor(Math.log10(nb1)))
-          nb2Unite2 = arrondi(nb2 / Math.pow(10, min(Math.floor(Math.log10(echelleQ[0])), 6)), 3)
-          nb2Unite1 = arrondi(nb2 / Math.pow(10, min(Math.floor(Math.log10(nb1)), 6)), 3)
+          echelleQUnite2 = echelleQ[0] / Math.pow(10, min(Math.floor(Math.log10(echelleQ[0])), 5))
+          nb2Unite2 = nb1 * echelleQUnite2
+          nb2Unite1 = nb2
           reponse = nb1Unite1
           texte += `Le plan ${echelleQ[1]} ${quidam[2]} ${quidam[0]} de ${quidam2} a une échelle de $${texFraction(1, echelleQ[0])}$. ${quidam2} trace, sur ce plan, un segment qui représente $${texNombre(nb2Unite2)}$ ${unite2} dans la réalité. 
               Quelle est la longueur du segment tracé sur le plan par ${quidam2} ?`

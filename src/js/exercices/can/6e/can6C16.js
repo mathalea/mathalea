@@ -17,7 +17,7 @@ export default function DoubleEtMoitie () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const a = randint(1, 25) * 2 // variables aléatoires
@@ -30,5 +30,7 @@ export default function DoubleEtMoitie () {
     Puisqu'on cherche sa moitié, on le divise par $2$, soit  $${a}\\div 2=${a / 2}$.<br>
      `)
     this.reponse = calcul(a / 2)
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

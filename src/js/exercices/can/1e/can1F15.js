@@ -24,7 +24,7 @@ export default function LectureGraphiqueNombreDerivee () {
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   const listeFractions = [[1, 1], [1, 2], [1, 3], [1, 4], [2, 1], [2, 3], [3, 4], [3, 2], [4, 3], [5, 3], [5, 4]]
   this.nouvelleVersion = function () {
@@ -69,14 +69,20 @@ export default function LectureGraphiqueNombreDerivee () {
         })
         tang = x => f(nbre) * (x - nbre) + F(nbre)
         F = x => a * (x - alpha) ** 2 + beta
-        this.question = `La courbe représente une fonction $f$ et la droite est la tangente au point d'abscisse $${nbre}$.<br> Déterminer $f'(${nbre})$. <br>  `
-        this.question += mathalea2d({ xmin: -8, xmax: 8, ymin: -3, ymax: 10, pixelsParCm: 16, scale: 0.5 },
+        this.question = `La courbe représente une fonction $f$ et la droite est la tangente au point d'abscisse $${nbre}$.<br> 
+        
+        Déterminer $f'(${nbre})$. <br> 
+        
+        `
+        this.question += mathalea2d({ xmin: -8, xmax: 8, ymin: -3, ymax: 10, pixelsParCm: 14, scale: 0.5 },
           r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }), courbe(tang, { repere: r, color: 'red', epaisseur: 2 })
         )
 
         this.correction = `$f'(${nbre})$ est donné par le coefficient directeur de la tangente à la courbe au point d'abscisse $${nbre}$, soit $${f(nbre)}$.`
         this.formatInteractif = 'calcul'
         this.reponse = f(nbre)
+        this.canEnonce = this.question
+        this.canReponseACompleter = `$f'(${nbre})=\\ldots$`
         break
 
       case 2:
@@ -118,14 +124,20 @@ export default function LectureGraphiqueNombreDerivee () {
         })
         tang = x => f(nbre) * (x - nbre) + F(nbre)
         F = x => a * (x - alpha) ** 2 + beta
-        this.question = `La courbe représente une fonction $f$ et la droite est la tangente au point d'abscisse $${nbre}$.<br> Déterminer $f'(${nbre})$.  <br> `
-        this.question += mathalea2d({ xmin: -8, xmax: 8, ymin: -10, ymax: 3, pixelsParCm: 16, scale: 0.5 },
+        this.question = `La courbe représente une fonction $f$ et la droite est la tangente au point d'abscisse $${nbre}$.<br> 
+        
+        Déterminer $f'(${nbre})$.  <br> 
+        
+        `
+        this.question += mathalea2d({ xmin: -8, xmax: 8, ymin: -10, ymax: 3, pixelsParCm: 14, scale: 0.5 },
           r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }), courbe(tang, { repere: r, color: 'red', epaisseur: 2 })
         )
 
         this.correction = `$f'(${nbre})$ est donné par le coefficient directeur de la tangente à la courbe au point d'abscisse $${nbre}$, soit $${f(nbre)}$.`
         this.formatInteractif = 'calcul'
         this.reponse = f(nbre)
+        this.canEnonce = this.question
+        this.canReponseACompleter = `$f'(${nbre})=\\ldots$`
         break
 
       case 3:// a/x+b
@@ -141,7 +153,11 @@ export default function LectureGraphiqueNombreDerivee () {
         F = function (x) {
           return calcule(a / x + b)
         }
-        this.question = `La courbe représente une fonction $f$ et la droite est la tangente au point d'abscisse $${nbre}$.<br> Déterminer $f'(${nbre})$.<br>   `
+        this.question = `La courbe représente une fonction $f$ et la droite est la tangente au point d'abscisse $${nbre}$.<br>
+        
+        Déterminer $f'(${nbre})$.<br> 
+        
+        `
         r = repere({
           xMin: -1,
           xMax: 7,
@@ -166,14 +182,15 @@ export default function LectureGraphiqueNombreDerivee () {
         tang = x => f(nbre) * (x - nbre) + F(nbre)
         F = x => a / x + b
 
-        this.question += mathalea2d({ xmin: -2, xmax: 14, ymin: -2, ymax: 12, pixelsParCm: 16, scale: 0.5 },
+        this.question += mathalea2d({ xmin: -2, xmax: 14, ymin: -2, ymax: 12, pixelsParCm: 14, scale: 0.5 },
           r, o, courbe(F, { repere: r, xMin: 0.1, xMax: 7, color: 'blue', epaisseur: 2 }), courbe(tang, { repere: r, color: 'red', epaisseur: 2 })
         )
 
         this.correction = `$f'(${nbre})$ est donné par le coefficient directeur de la tangente à la courbe au point d'abscisse $${nbre}$, soit $${frac.texFraction}${frac.texSimplificationAvecEtapes()}$.`
         this.formatInteractif = 'fractionEgale'
         this.reponse = frac
-
+        this.canEnonce = this.question
+        this.canReponseACompleter = `$f'(${nbre})=\\ldots$`
         break
 
       case 4:// exp(ax) avec a>0
@@ -188,7 +205,10 @@ export default function LectureGraphiqueNombreDerivee () {
         F = function (x) {
           return calcule(Math.exp(frac * x))
         }
-        this.question = 'La courbe représente une fonction $f$ et la droite est la tangente au point d\'abscisse $0$.<br> Déterminer $f\'(0)$.  <br> '
+        this.question = `La courbe représente une fonction $f$ et la droite est la tangente au point d'abscisse $0$.<br>
+        
+        Déterminer $f'(0)$.  <br> 
+        `
         r = repere({
           xMin: -2,
           xMax: 6,
@@ -214,7 +234,7 @@ export default function LectureGraphiqueNombreDerivee () {
         tang = x => f(0) * x + F(0)
         F = x => Math.exp(frac * x)
 
-        this.question += mathalea2d({ xmin: -4, xmax: 12, ymin: -2, ymax: 12, pixelsParCm: 16, scale: 0.5 },
+        this.question += mathalea2d({ xmin: -4, xmax: 12, ymin: -2, ymax: 12, pixelsParCm: 14, scale: 0.5 },
           r, o, courbe(F, { repere: r, xMin: -2, xMax: 5, color: 'blue', epaisseur: 2 }), courbe(tang, { repere: r, color: 'red', epaisseur: 2 })
         )
 
@@ -222,6 +242,8 @@ export default function LectureGraphiqueNombreDerivee () {
 
         this.formatInteractif = 'fractionEgale'
         this.reponse = frac
+        this.canEnonce = this.question
+        this.canReponseACompleter = '$f\'(0)=\\ldots$'
         break
 
       case 5:// exp(ax) avec a<0
@@ -235,7 +257,11 @@ export default function LectureGraphiqueNombreDerivee () {
         F = function (x) {
           return calcule(Math.exp(frac * x))
         }
-        this.question = 'La courbe représente une fonction $f$ et la droite est la tangente au point d\'abscisse $0$.<br> Déterminer $f\'(0)$. <br>  '
+        this.question = `La courbe représente une fonction $f$ et la droite est la tangente au point d'abscisse $0$.<br> 
+        
+        Déterminer $f'(0)$. <br>  
+        
+        `
         r = repere({
           xMin: -5,
           xMax: 2,
@@ -261,7 +287,7 @@ export default function LectureGraphiqueNombreDerivee () {
         tang = x => f(0) * x + F(0)
         F = x => Math.exp(frac * x)
 
-        this.question += mathalea2d({ xmin: -10, xmax: 4, ymin: -2, ymax: 12, pixelsParCm: 16, scale: 0.5 },
+        this.question += mathalea2d({ xmin: -10, xmax: 4, ymin: -2, ymax: 12, pixelsParCm: 14, scale: 0.5 },
           r, o, courbe(F, { repere: r, xMin: -5, xMax: 2, color: 'blue', epaisseur: 2 }), courbe(tang, { repere: r, color: 'red', epaisseur: 2 })
         )
 
@@ -269,7 +295,8 @@ export default function LectureGraphiqueNombreDerivee () {
 
         this.formatInteractif = 'fractionEgale'
         this.reponse = frac
-
+        this.canEnonce = this.question
+        this.canReponseACompleter = '$f\'(0)=\\ldots$'
         break
     }
   }

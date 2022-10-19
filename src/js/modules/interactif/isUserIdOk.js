@@ -66,15 +66,11 @@ export function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
     }
   }
   // eslint-disable-next-line no-unused-expressions
-  userId === null
-    ? (
-        console.log('userId KO')
-      )
-    : (
-        console.log('userId OK : ' + userId),
-        myThirdScoresManageFetch()
-          .catch(e => {
-            console.log('/!\\ thirdScoresManage.php /!\\ Pb avec l\'opération de récupération sûrement en dev local sans serveur PHP, message d\'erreur => ' + e.message)
-          })
-      )
+  if (userId !== null) {
+    console.log('userId OK : ' + userId)
+    myThirdScoresManageFetch()
+      .catch(e => {
+        console.log('/!\\ thirdScoresManage.php /!\\ Pb avec l\'opération de récupération sûrement en dev local sans serveur PHP, message d\'erreur => ' + e.message)
+      })
+  }
 }

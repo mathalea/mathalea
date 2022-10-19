@@ -1,6 +1,8 @@
 import EncodeurTexte from '../Profs/P020.js'
 export const titre = 'Message secret à décoder avec les tables de multiplication'
 
+export const uuid = 'fe6e0'
+export const ref = '6C10-8'
 export default function MessageCodeAvecTables () {
   EncodeurTexte.call(this, 'exo')
   this.nbQuestions = 1

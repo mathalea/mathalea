@@ -188,6 +188,75 @@ export function deuxColonnes (cont1, cont2, largeur1 = 50) {
   }
 }
 /**
+ * Renvoie le html ou le latex qui mets les 2 chaines de caractères fournies sur 2 colonnes différentes
+ * Si en sortie html, il n'y a pas assez de places alors on passe en momocolonne!
+ * @author Mickael Guironnet
+ * @param {string} cont1 - Contenu de la première colonne
+ * @param {string} cont2 - Contenu de la deuxième colonne
+ * @param {eleId, largeur1, widthmincol1, widthmincol2} options
+ *          eleId : identifiant ID pour retrouver la colonne
+ *          largeur1 : largeur de la première colonne en latex en pourcentage
+ *          widthmincol1 : largeur de la première minimum en html en px
+ *          widthmincol2 : largeur de la deuxième  minimum en html en px
+ *  ex : deuxColonnesResp (enonce, correction, {eleId : '1_1', largeur1:50, widthmincol1: 400px, widthmincol2: 200px})
+ * @return {string}
+ */
+export function deuxColonnesResp (cont1, cont2, options) {
+  if (options === undefined) {
+    options = { largeur1: 50 }
+  } else if (typeof options === 'number') {
+    options = { largeur1: options }
+  }
+  if (options.largeur1 === undefined) {
+    options.largeur1 = 50
+  }
+  if (options.stylecol1 === undefined) {
+    options.stylecol1 = ''
+  }
+  if (options.stylecol2 === undefined) {
+    options.stylecol2 = ''
+  }
+  if (options.widthmincol1 === undefined) {
+    options.widthmincol1 = '0px'
+  }
+  if (options.widthmincol2 === undefined) {
+    options.widthmincol2 = '0px'
+  }
+
+  if (context.isHtml) {
+    return `
+    <style>
+    .cols-responsive {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-gap: 1rem;
+    }    
+    /* Screen larger than 900px? 2 column */
+    @media (min-width: 900px) {
+      .cols-responsive { grid-template-columns: repeat(2, 1fr); }
+    }    
+    </style>
+    <div class='cols-responsive'>
+      <div id='cols-responsive1-${options.eleId}'style='min-width:${options.widthmincol1};${options.stylecol1}' >
+      ${cont1}
+      </div>
+      <div id='cols-responsive2-${options.eleId}' style='min-width:${options.widthmincol2};${options.stylecol2}' >
+      ${cont2}
+      </div>
+    </div>
+`
+  } else {
+    return `\\begin{minipage}{${options.largeur1 / 100}\\linewidth}
+    ${cont1.replaceAll('<br>', '\\\\\n')}
+    \\end{minipage}
+    \\begin{minipage}{${(100 - options.largeur1) / 100}\\linewidth}
+    ${cont2.replaceAll('<br>', '\\\\\n')}
+    \\end{minipage}
+    `
+  }
+}
+/**
  *
  * @param {string} texte
  * @returns le texte centré dans la page selon le contexte.
@@ -914,6 +983,22 @@ export function texteExposant (texte) {
     return `<sup>${texte}</sup>`
   } else {
     return `\\up{${texte}}`
+  }
+}
+
+/**
+* Gère l'écriture de l'indice en mode text (ne doit pas s'utiliser entre $ $)
+* Pour le mode maths (entre $ $) on utilisera tout _3 pour mettre un indice 3 ou _{42} pour l'indice 42.
+* @param {string} texte
+* @Example
+* // `(d${texteIndice(3)})`
+* @author Jean-Claude Lhote
+*/
+export function texteIndice (texte) {
+  if (context.isHtml) {
+    return `<sub>${texte}</sub>`
+  } else {
+    return `\\textsubscript{${texte}}`
   }
 }
 
@@ -1983,15 +2068,17 @@ export function codeCesar (mots, decal) {
 
 /**
 * Renvoie une lettre majuscule depuis un nombre compris entre 1 et 702
+* Le 2e paramètre est un booléen qui permet d'éviter la lettre D (et donc décale tout d'une lettre après le C) en vue du bug de MathLive
 * @author Rémi Angot
 *@Example
 * // 0 -> @ 1->A ; 2->B...
 * // 27->AA ; 28 ->AB ...
 */
-export function lettreDepuisChiffre (i) {
+export function lettreDepuisChiffre (i, saufD = false) {
   let result = ''
   if (i <= 26) {
     result = String.fromCharCode(64 + i)
+    if (saufD && i >= 4) result = String.fromCharCode(64 + i + 1)
   } else {
     if (i % 26 === 0) {
       result = String.fromCharCode(64 + Math.floor(i / 26) - 1)
@@ -2946,6 +3033,7 @@ ${texte}
 \\end{center}`
   }
 }
+
 /**
 * Met en couleur et en gras
 *
@@ -2962,6 +3050,24 @@ export function miseEnEvidence (texte, couleur = '#f15929') {
       return `\\mathbf{{\\color[HTML]{${couleur.replace('#', '')}}${texte}}}`
     } else {
       return `\\mathbf{{\\color{${couleur.replace('#', '')}}${texte}}}`
+    }
+  }
+}
+/**
+* Met en couleur
+* Met en couleur un texte. JCL dit : "S'utilise entre $ car utilise des commandes qui fonctionnent en math inline"
+* @param {string} texte à mettre en couleur
+* @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
+* @author Guillaume Valmont d'après MiseEnEvidence() de Rémi Angot
+*/
+export function miseEnCouleur (texte, couleur = '#f15929') {
+  if (context.isHtml) {
+    return `{\\color{${couleur}} ${texte}}`
+  } else {
+    if (couleur[0] === '#') {
+      return `{\\color[HTML]{${couleur.replace('#', '')}} ${texte}}`
+    } else {
+      return `{\\color{${couleur.replace('#', '')}} ${texte}}`
     }
   }
 }
@@ -3024,10 +3130,10 @@ export function couleurTab (choixCouleur = 999) {
     ['red', 'rouge', 'rouge'],
     ['green', 'vert', 'verte'],
     ['blue', 'bleu', 'bleue'],
-    ['hotpink', 'rose', 'rose'],
-    ['sienna', 'marron', 'marron'],
+    ['HotPink', 'rose', 'rose'],
+    ['Sienna', 'marron', 'marron'],
     ['darkgray', 'gris', 'grise'],
-    ['darkorange', 'orange', 'orange']
+    ['DarkOrange', 'orange', 'orange']
   ]
   return (choixCouleur === 999 || choixCouleur >= panelCouleurs.length || !isInteger(choixCouleur)) ? choice(panelCouleurs) : panelCouleurs[choixCouleur]
 }
@@ -8326,12 +8432,13 @@ export function exportQcmAmc (exercice, idExo) {
         if (type !== 'AMCHybride') {
           window.notify('exportQcmAMC : Il doit y avoir une erreur de type AMC, je ne connais pas le type : ', { type })
         }
+
         if (autoCorrection[j].enonce === undefined) { // Si l'énoncé n'a pas été défini, on va le chercher dans la question
           autoCorrection[j].enonce = exercice.listeQuestions[j]
+          if (autoCorrection[j].enonce === undefined) break // Toujours vide car exercice.listeQuestions[j] vide. Ce cas se produit lorsqu'on a un exercice avec multi-réponses en interactif mais un seul AMChybride avec plusieurs AMCNum, comme 6N11
         }
-        if (autoCorrection[j].propositions === undefined) {
-          break
-        }
+        if (autoCorrection[j].propositions === undefined) break
+
         if (autoCorrection[j].melange !== undefined) {
           melange = autoCorrection[j].melange
         }
@@ -8388,7 +8495,7 @@ export function exportQcmAmc (exercice, idExo) {
 
           propositions = prop.propositions
           switch (qrType) {
-            case 'qcmMono':
+            case 'qcmMono': // qcmMono de Hybride
               if (elimineDoublons(propositions)) {
                 console.log('doublons trouvés')
               }
@@ -8407,11 +8514,16 @@ export function exportQcmAmc (exercice, idExo) {
                 }
               }
               texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{question}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
+              if (prop.enonce !== undefined) {
+                texQr += prop.enonce + '\n'
+              }
+              /* EE 13/10/1022 : A mon avis, ne sert à rien. Je le laisse car si pb, on saura que c'est peut-être cela la raison.
               if (propositions[0].reponse !== undefined) {
                 if (propositions[0].reponse.texte) {
                   texQr += propositions[0].reponse.texte + '\n'
                 }
               }
+              */
               texQr += `\t\\begin{${horizontalite}}`
               if (ordered) {
                 texQr += '[o]'
@@ -8431,7 +8543,7 @@ export function exportQcmAmc (exercice, idExo) {
               texQr += '\\end{question}\n'
               id++
               break
-            case 'qcmMult':
+            case 'qcmMult': // qcmMult de Hybride
               if (elimineDoublons(propositions)) {
                 console.log('doublons trouvés')
               }
@@ -8470,7 +8582,7 @@ export function exportQcmAmc (exercice, idExo) {
               texQr += ' \\end{questionmult}\n'
               id++
               break
-            case 'AMCNum':
+            case 'AMCNum': // AMCNum de Hybride
               rep = prop.propositions[0].reponse
               if (!Array.isArray(rep.valeur)) { // rep.valeur est un tableau si la réponse est une fraction
                 rep.valeur = [rep.valeur]
@@ -8910,7 +9022,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   
   Puis remplir les cases des trois premières lettres de votre \\textbf{nom de famille} PUIS des deux premières lettres de votre \\textbf{prénom}
   \\vspace{1mm}
-  
+
   \\def\\AMCchoiceLabelFormat##1{\\textcolor{black!70}{{\\tiny ##1}}}  % pour alléger la couleur des lettres dans les cases et les réduire
   \\AMCcodeGrid[h]{ID}{ABCDEFGHIJKLMNOPQRSTUVWXYZ,
   ABCDEFGHIJKLMNOPQRSTUVWXYZ,

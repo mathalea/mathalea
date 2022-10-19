@@ -29,5 +29,7 @@ export default function FractionIrreductible () {
     this.reponse = fraction(maFraction[0], maFraction[1])
     this.question = `Rendre la fraction $\\dfrac{${a}}{${b}}$ irréductible.`
     this.correction = `$\\dfrac{${a}}{${b}}` + simplificationDeFractionAvecEtapes(a, b) + '$'
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

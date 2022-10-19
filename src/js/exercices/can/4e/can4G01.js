@@ -19,6 +19,7 @@ export default function LongueurPythagore () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.optionsChampTexte = { texteApres: ' cm' }
   this.nouvelleVersion = function () {
@@ -49,27 +50,40 @@ export default function LongueurPythagore () {
       case 0: // calcul du côté horizontal de l'angle droit
         objets.push(pol[0], pol[1], la, lb, codageAngle(A, B, C))
         this.question = `Un triangle dont les côtés ont pour longueurs $3$, $4$ et $5$ est un triangle rectangle.<br>
-        En utilisant cette information, calculer la longueur $${nom[0]}${nom[1]}$.<br>`
-        this.question += mathalea2d({ xmin: -b / 10, xmax: b + b / 10, ymin: -b / 10, ymax: C.y + b / 10, pixelsParCm: 140 / b, scale: 6 / b, style: 'margin: auto' }, objets) + '<br>'
+
+      Calculer la longueur $${nom[0]}${nom[1]}$.<br>
+      
+      `
+        this.question += mathalea2d({ xmin: -b / 10, xmax: b + b / 10, ymin: -b / 10, ymax: C.y + b / 10, pixelsParCm: 140 / b, scale: 4 / b, style: 'margin: auto' }, objets) + '<br>'
         this.correction = ` $${nom[0]}${nom[1]}=${b}$ cm.`
         this.reponse = b
+        this.canEnonce = this.question// 'Compléter'
+        this.canReponseACompleter = ` $${nom[0]}${nom[1]}=\\ldots$ cm.`
         break
       case 1: // calcul du côté vertical de l'angle droit
         objets.push(pol[0], pol[1], lc, lb, codageAngle(A, B, C))
         this.question = `Un triangle dont les côtés ont pour longueurs $3$, $4$ et $5$ est un triangle rectangle.<br>
-        En utilisant cette information, calculer la longueur $${nom[1]}${nom[2]}$.<br>`
-        this.question += mathalea2d({ xmin: -b / 10, xmax: b + b / 10, ymin: -b / 10, ymax: C.y + b / 10, pixelsParCm: 140 / b, scale: 6 / b, style: 'margin: auto' }, objets) + '<br>'
+        Calculer la longueur $${nom[1]}${nom[2]}$.<br>
+        
+        `
+        this.question += mathalea2d({ xmin: -b / 10, xmax: b + b / 10, ymin: -b / 10, ymax: C.y + b / 10, pixelsParCm: 140 / b, scale: 4 / b, style: 'margin: auto' }, objets) + '<br>'
         this.correction = ` $${nom[1]}${nom[2]}=${a}$ cm.`
         this.reponse = a
+        this.canEnonce = this.question// 'Compléter'
+        this.canReponseACompleter = ` $${nom[1]}${nom[2]}=\\ldots$ cm.`
         break
       case 2: // calcul de l'hypoténuse.
         objets.push(pol[0], pol[1], la, lc, codageAngle(A, B, C))
         this.question = `Un triangle dont les côtés ont pour longueurs $3$, $4$ et $5$ est un triangle rectangle.<br>
-        En utilisant cette information, calculer la longueur $${nom[0]}${nom[2]}$.<br>`
-        this.question += mathalea2d({ xmin: -b / 10, xmax: b + b / 10, ymin: -b / 10, ymax: C.y + b / 10, pixelsParCm: 140 / b, scale: 6 / b, style: 'margin: auto' }, objets) + '<br>'
+       Calculer la longueur $${nom[0]}${nom[2]}$.<br>
+       
+       `
+        this.question += mathalea2d({ xmin: -b / 10, xmax: b + b / 10, ymin: -b / 10, ymax: C.y + b / 10, pixelsParCm: 140 / b, scale: 4 / b, style: 'margin: auto' }, objets) + '<br>'
 
         this.correction = ` $${nom[0]}${nom[2]}=${c}$ cm.`
         this.reponse = c
+        this.canEnonce = this.question// 'Compléter'
+        this.canReponseACompleter = ` $${nom[0]}${nom[2]}=\\ldots$ cm.`
         break
     }
     this.correction += texteEnCouleur(`<br> Mentalement : <br>

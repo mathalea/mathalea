@@ -24,7 +24,7 @@ export default function ComplementAUn () {
     switch (choice([1, 2, 3])) {
       case 1:
         a = calcul(randint(2, 9) / 10)
-        this.question = `$1-${texNombrec(a)}=$`
+        this.question = `Calculer $1-${texNombrec(a)}$.`
         this.correction = `$1-${texNombrec(a)}=${texNombrec(1 - a)}$`
         this.reponse = calcul(1 - a)
         this.correction += texteEnCouleur(`
@@ -35,7 +35,7 @@ export default function ComplementAUn () {
         break
       case 2:
         a = calcul(randint(2, 9) / 100)
-        this.question = `$1-${texNombrec(a)}=$`
+        this.question = `Calculer $1-${texNombrec(a)}$.`
         this.correction = `$1-${texNombrec(a)}=${texNombrec(1 - a)}$`
         this.reponse = calcul(1 - a)
         this.correction += texteEnCouleur(`
@@ -46,7 +46,7 @@ export default function ComplementAUn () {
         break
       case 3:
         a = calcul(randint(2, 9) / 1000)
-        this.question = `$1-${texNombrec(a)}=$`
+        this.question = `Calculer $1-${texNombrec(a)}$.`
         this.correction = `$1-${texNombrec(a)}=${texNombrec(1 - a)}$`
         this.reponse = calcul(1 - a)
         this.correction += texteEnCouleur(`
@@ -56,5 +56,7 @@ export default function ComplementAUn () {
     Ainsi, $1-${texNombrec(a)}=${texNombrec(1 - a)}$.  `)
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

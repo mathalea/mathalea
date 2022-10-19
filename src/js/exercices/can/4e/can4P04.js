@@ -16,6 +16,7 @@ export default function ProportionnaliteNotes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
@@ -27,6 +28,7 @@ export default function ProportionnaliteNotes () {
       n = b * 3
 
       this.question = `${prenom()} a obtenu $${n}$ sur $30$ à son devoir.<br>
+
       Quelle est sa note sur $20$ ?`
       this.correction = `Sa note est de $${(n * 2) / 3}$ sur $20$.`
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
@@ -38,6 +40,7 @@ export default function ProportionnaliteNotes () {
       n = calcul(2 * randint(1, 9) + 1)
 
       this.question = `${prenom()} a obtenu $${n}$ sur $40$ à son devoir.<br>
+
         Quelle est sa note sur $20$ ?`
       this.correction = `Sa note est de $${texNombrec(n / 2)}$ sur $20$.`
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
@@ -49,6 +52,7 @@ export default function ProportionnaliteNotes () {
       n = b * 5
 
       this.question = `${prenom()} a obtenu $${n}$ sur $50$ à son devoir.<br>
+
         Quelle est sa note sur $20$ ?`
       this.correction = `Sa note est de $${texNombrec(n * 2 / 5)}$ sur $20$.`
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
@@ -61,6 +65,7 @@ export default function ProportionnaliteNotes () {
       n = b * 6
 
       this.question = `${prenom()} a obtenu $${n}$ sur $60$ à son devoir.<br>
+
         Quelle est sa note sur $20$ ?`
       this.correction = `Sa note est de $${texNombrec(n / 3)}$ sur $20$.`
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
@@ -72,6 +77,7 @@ export default function ProportionnaliteNotes () {
       n = b * 8
 
       this.question = `${prenom()} a obtenu $${n}$ sur $80$ à son devoir.<br>
+
         Quelle est sa note sur $20$ ?`
       this.correction = `Sa note est de $${texNombrec(n / 4)}$ sur $20$.`
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
@@ -83,11 +89,14 @@ export default function ProportionnaliteNotes () {
       n = b * 10
 
       this.question = `${prenom()} a obtenu $${n}$ sur $100$ à son devoir.<br>
+
         Quelle est sa note sur $20$ ?`
       this.correction = `Sa note est de $${texNombrec(n / 5)}$ sur $20$.`
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
         Pour obtenir la note sur $20$, on divise la note sur $100$ par $5$. `)
       this.reponse = n / 5
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

@@ -15,10 +15,12 @@ export const dateDePublication = '17/09/2022' // La date de publication initiale
  * Référence
 */
 
+export const uuid = '5283f'
+export const ref = 'can1F20'
 export default function ResoudreEquationsSecondDegreSansDelta () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
   this.spacing = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.nouvelleVersion = function () {
@@ -88,10 +90,14 @@ export default function ResoudreEquationsSecondDegreSansDelta () {
           } else {
             if (choice([true, false])) {
               texte = `Résoudre dans $\\mathbb{R}$ :${sp(2)}
-            $${a}x^2${ecritureAlgebrique(b)}=0$`
+            $${a}x^2${ecritureAlgebrique(b)}=0$.`
+              this.canEnonce = texte
+              this.canReponseACompleter = ''
             } else {
               texte = `Résoudre dans $\\mathbb{R}$ :${sp(2)}
-            $${b}${ecritureAlgebrique(a)}x^2=0$`
+            $${b}${ecritureAlgebrique(a)}x^2=0$.`
+              this.canEnonce = texte
+              this.canReponseACompleter = ''
             }
           }
 
@@ -167,10 +173,14 @@ export default function ResoudreEquationsSecondDegreSansDelta () {
           } else {
             if (choice([true, false])) {
               texte = `Résoudre dans $\\mathbb{R}$ :${sp(2)}
-            $${a}x^2${ecritureAlgebrique(b)}=0$`
+            $${a}x^2${ecritureAlgebrique(b)}=0$.`
+              this.canEnonce = texte
+              this.canReponseACompleter = ''
             } else {
               texte = `Résoudre dans $\\mathbb{R}$ :${sp(2)}
-            $${b}${ecritureAlgebrique(a)}x^2=0$`
+            $${b}${ecritureAlgebrique(a)}x^2=0$.`
+              this.canEnonce = texte
+              this.canReponseACompleter = ''
             }
           }
 
@@ -247,10 +257,14 @@ export default function ResoudreEquationsSecondDegreSansDelta () {
           } else {
             if (choice([true, false])) {
               texte = `Résoudre dans $\\mathbb{R}$ :${sp(2)}
-              $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x=0$`
+              $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x=0$.`
+              this.canEnonce = texte
+              this.canReponseACompleter = ''
             } else {
               texte = `Résoudre dans $\\mathbb{R}$ :${sp(2)}
-              $${rienSi1(b)}x${ecritureAlgebriqueSauf1(a)}x^2=0$`
+              $${rienSi1(b)}x${ecritureAlgebriqueSauf1(a)}x^2=0$.`
+              this.canEnonce = texte
+              this.canReponseACompleter = ''
             }
           }
 
@@ -331,10 +345,14 @@ export default function ResoudreEquationsSecondDegreSansDelta () {
           } else {
             if (choice([true, false])) {
               texte = `Résoudre dans $\\mathbb{R}$ :${sp(2)}
-              $${rienSi1(a * a)}x^2${ecritureAlgebriqueSauf1(b * 2 * a)}x+${c}=0$`
+              $${rienSi1(a * a)}x^2${ecritureAlgebriqueSauf1(b * 2 * a)}x+${c}=0$.`
+              this.canEnonce = texte
+              this.canReponseACompleter = ''
             } else {
               texte = `Résoudre dans $\\mathbb{R}$ :${sp(2)}
-              $${rienSi1(b * 2 * a)}x${ecritureAlgebriqueSauf1(a * a)}x^2+${c}=0$`
+              $${rienSi1(b * 2 * a)}x${ecritureAlgebriqueSauf1(a * a)}x^2+${c}=0$.`
+              this.canEnonce = texte
+              this.canReponseACompleter = ''
             }
           }
 

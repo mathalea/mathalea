@@ -19,6 +19,7 @@ export const amcType = 'qcmMono' // type de question AMC
  * Créé le 24/09/2022
  */
 export const ref = '6G44-1'
+export const uuid = '051aa'
 export default function ReconnaitreDesSolides () {
   Exercice.call(this)
   this.nbQuestions = 4
@@ -26,7 +27,6 @@ export default function ReconnaitreDesSolides () {
   this.sup = '1-2-3' // Type de question
   this.sup2 = false // qcm
   this.sup3 = false // axes
-  this.consigne = 'Donner le nom de chacun des solides.'
   const solides = ['prisme', 'pyramide', 'cône', 'cylindre', 'pavé droit', 'cube', 'sphère']
   this.nouvelleVersion = function () {
     this.interactifType = this.sup2 ? 'qcm' : 'mathLive'
@@ -36,6 +36,7 @@ export default function ReconnaitreDesSolides () {
     this.autoCorrection = []
     let typeDeQuestion = []
     this.nbQuestions = Math.min(this.nbQuestions, 50) // Comme il n'y a que 70 questions différentes on limite pour éviter que la boucle ne cherche trop longtemps
+    this.consigne = this.nbQuestions === 1 || context.vue === 'diap' ? 'Donner le nom de ce solide.' : 'Donner le nom de chacun des solides.'
     /* const listePrimes = [
       '1,1,3', '1,1,4', '1,1,5', '1,1,6', '1,1,7', '1,1,8', // prisme de 3 à 8 sommets sur la base suivant l'axe z
       '1,2,3', '1,2,4', '1,2,5', '1,2,6', '1,2,7', '1,2,8', // prisme de 3 à 8 sommets sur la base suivant l'axe x
@@ -189,6 +190,7 @@ export default function ReconnaitreDesSolides () {
           break
         case 'cône': // cone  ?
         {
+          axe = 1
           /* if (axe === 3) {
             cone = cone3d(point3d(0, 0, 0), point3d(0, -3, 0), vecteur3d(0, 1, 0), vecteur3d(Math.cos(30 * Math.PI / 180.0), 0, Math.sin(30 * Math.PI / 180.0)))
             /* c1 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'red', 0)
@@ -408,16 +410,16 @@ export default function ReconnaitreDesSolides () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireTexte = [
-    'Type de question', [
+    'Type de solides', [
       'Nombres séparés par des tirets',
-      '0 : Mélange',
       '1 : Prisme',
       '2 : Pyramide',
       '3 : Cône',
       '4 : Cylindre',
       '5 : Pavé',
       '6 : Cube',
-      '7 : Sphère'
+      '7 : Sphère',
+      '8 : Mélange'
     ].join('\n')
   ]
   this.besoinFormulaire2CaseACocher = ['QCM']

@@ -49,5 +49,7 @@ export default function DoubleOuTripleDecimal () {
   On en fait la somme : $${2 * e}+${texNombre(d.mul(2), 1)}$, ce qui donne le résultat $${texNombre(this.reponse, 1)}$.
       `)
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

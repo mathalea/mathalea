@@ -34,5 +34,7 @@ export default function NombreATrouver () {
 L'"écart" entre les deux nombres est $${abs(c - a)}$. Il faut donc ajouter $${c - a}$.
 `)
     this.reponse = calcul(c - a)
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

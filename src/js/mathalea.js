@@ -49,6 +49,8 @@ const urlParams = new URLSearchParams(queryString)
 let typeEntete = ''
 let format = ''
 
+context.versionMathalea = 2
+
 // création des figures MG32 (géométrie dynamique)
 window.listeScriptsIep = {} // Dictionnaire de tous les scripts xml IEP
 window.listeAnimationsIepACharger = [] // Liste des id des scripts qui doivent être chargés une fois le code HTML mis à jour
@@ -431,7 +433,7 @@ function contenuExerciceHtml (obj, numeroExercice) {
       paramTooltip += obj.besoinFormulaire2Numerique[0] + ' : \n' + obj.besoinFormulaire2Numerique[2]
     }
     paramTooltip = paramTooltip ? `data-tooltip="${paramTooltip}" data-position="right center"` : ''
-    contenuUnExercice += `<span ${paramTooltip}> Exercice ${numeroExercice} − ${obj.id} <i class="cog icon icone_param"></i></span>${iconeInteractif}</h3>`
+    contenuUnExercice += `<span ${paramTooltip}> Exercice ${numeroExercice} − ${obj.id} − ${obj.titre} <i class="cog icon icone_param"></i></span>${iconeInteractif}</h3>`
     contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice}</h3>`
     if (obj.consigne) {
       contenuUnExercice += `<h4> ${obj.consigne} </h4>`
@@ -512,7 +514,7 @@ function contenuExerciceHtml (obj, numeroExercice) {
         context.vue === 'l' || context.vue === 'light' || context.vue === 'embed' || context.vue === 'e' || context.vue === 'eval' || context.vue === 'multi'
     ) {
       // Dans v=l on ne met pas les raccourcis vers interactif et paramètres.
-      contenuUnExercice += `Exercice ${numeroExercice} − ${obj.id} </h3>`
+      contenuUnExercice += `Exercice ${numeroExercice} − ${obj.id} − ${obj.titre} </h3>`
     } else {
       if (obj.besoinFormulaireNumerique && obj.besoinFormulaireNumerique[2]) {
         paramTooltip += obj.besoinFormulaireNumerique[0] + ' : \n' + obj.besoinFormulaireNumerique[2] + '\n'
@@ -521,7 +523,7 @@ function contenuExerciceHtml (obj, numeroExercice) {
         paramTooltip += obj.besoinFormulaire2Numerique[0] + ' : \n' + obj.besoinFormulaire2Numerique[2]
       }
       paramTooltip = paramTooltip ? `data-tooltip="${paramTooltip}" data-position="right center"` : ''
-      contenuUnExercice += `<span ${paramTooltip}> Exercice ${numeroExercice} − ${obj.id} <i class="cog icon icone_param"></i></span>${iconeInteractif}</h3>`
+      contenuUnExercice += `<span ${paramTooltip}> Exercice ${numeroExercice} − ${obj.id} − ${obj.titre} <i class="cog icon icone_param"></i></span>${iconeInteractif}</h3>`
     }
     if (obj.video.length > 3) {
       contenuUnExercice += `<div id=video${numeroExercice - 1}>` + modalYoutube(numeroExercice - 1, obj.video, '', 'Aide', 'youtube') + '</div>'
@@ -1173,13 +1175,15 @@ function miseAJourDuCode () {
               
               `)
             }
-            if (!exoCan.hasOwnProperty('canEnonce') || !exoCan.hasOwnProperty('canReponseACompleter')) {
+            const canEnonceProperty = Object.prototype.hasOwnProperty.call(exoCan, 'canEnonce')
+            const canReponseACompleterProperty = Object.prototype.hasOwnProperty.call(exoCan, 'canReponseACompleter')
+            if (!canEnonceProperty || !canReponseACompleterProperty) {
               msgEnonce = exoCan.contenu.replace('\\exo{}', '').replace(`\\marginpar{\\footnotesize ${exoCan.id}}`, '') // 'Propriété canEnonce manquante'
               msgRepACompleter = ''
-              if (!exoCan.hasOwnProperty('canEnonce')) {
+              if (!canEnonceProperty) {
                 msgAlerteCanEnonce += ' ' + exoCan.id
               }
-              if (!exoCan.hasOwnProperty('canReponseACompleter')) {
+              if (!canReponseACompleterProperty) {
                 msgAlerteCanReponseACompleter += ' ' + exoCan.id
               }
             } else {
@@ -1199,8 +1203,9 @@ function miseAJourDuCode () {
           if (msgAlerteCanReponseACompleter !== '') {
             codeEnonces += ` \\textcolor{red}{Les exercices ${msgAlerteCanReponseACompleter} n'ont pas de propriété canReponseACompleter} \\\\`
           }
-          codeEnonces += `\\begin{spacing}{1.1}
-          \\begin{longtable}{|>{\\columncolor{gray!20}}c|>{\\centering}p{0.4\\textwidth}|>{\\centering}p{0.4\\textwidth}|c|}%
+          codeEnonces += `\\renewcommand*{\\arraystretch}{2.5}
+          \\begin{spacing}{1.1}
+          \\begin{longtable}{|>{\\columncolor{gray!20}}c|>{\\centering}p{0.45\\textwidth}|>{\\centering}p{0.35\\textwidth}|c|}%
           \\hline
           \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline`
 
@@ -1209,6 +1214,7 @@ function miseAJourDuCode () {
           codeEnonces += `
           \\end{longtable}
           \\end{spacing}
+          \\renewcommand*{\\arraystretch}{1}
           \\addtocounter{nbEx}{-1}
           `
         }
@@ -1255,6 +1261,8 @@ function miseAJourDuCode () {
               let msgRepACompleter
               codeCorrection = '\\begin{enumerate}'
               for (const exoCan of listeObjetsExercice) {
+                // let canEnonceProperty
+                // let canReponseACompleterProperty
                 if (exoCan.typeExercice === 'simple') {
                   codeCorrection += `\\item ${exoCan.correction}`.replaceAll('<br>', `
                   
@@ -1264,13 +1272,15 @@ function miseAJourDuCode () {
                   
                   `)
                 }
-                if (!exoCan.hasOwnProperty('canEnonce') || !exoCan.hasOwnProperty('canReponseACompleter')) {
+                const canEnonceProperty = Object.prototype.hasOwnProperty.call(exoCan, 'canEnonce')
+                const canReponseACompleterProperty = Object.prototype.hasOwnProperty.call(exoCan, 'canReponseACompleter')
+                if (!canEnonceProperty || !canReponseACompleterProperty) {
                   msgEnonce = exoCan.contenu.replace('\\exo{}', '').replace(`\\marginpar{\\footnotesize ${exoCan.id}}`, '') // 'Propriété canEnonce manquante'
                   msgRepACompleter = ''
-                  if (!exoCan.hasOwnProperty('canEnonce')) {
+                  if (!canEnonceProperty) {
                     msgAlerteCanEnonce += ' ' + exoCan.id
                   }
-                  if (!exoCan.hasOwnProperty('canReponseACompleter')) {
+                  if (!canReponseACompleterProperty) {
                     msgAlerteCanReponseACompleter += ' ' + exoCan.id
                   }
                 } else {
@@ -1290,8 +1300,9 @@ function miseAJourDuCode () {
               if (msgAlerteCanReponseACompleter !== '') {
                 codeExercices += ` \\textcolor{red}{Les exercices ${msgAlerteCanReponseACompleter} n'ont pas de propriété canReponseACompleter} \\\\`
               }
-              codeExercices += `\\begin{spacing}{1.1}
-              \\begin{longtable}{|>{\\columncolor{gray!20}}c|>{\\centering}p{0.4\\textwidth}|>{\\centering}p{0.4\\textwidth}|c|}%
+              codeExercices += `\\renewcommand*{\\arraystretch}{2.5}
+              \\begin{spacing}{1.1}
+              \\begin{longtable}{|>{\\columncolor{gray!20}}c|>{\\centering}p{0.45\\textwidth}|>{\\centering}p{0.35\\textwidth}|c|}%
               \\hline
               \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline`
 
@@ -1300,6 +1311,7 @@ function miseAJourDuCode () {
               codeExercices += `
               \\end{longtable}
               \\end{spacing}
+              \\renewcommand*{\\arraystretch}{1}
               \\addtocounter{nbEx}{-1}
               `
             }
@@ -2731,6 +2743,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         copierExercicesFormVersAffichage(listeDesExercices)
       }
       miseAJourDeLaListeDesExercices()
+      const event = new CustomEvent('buildex', { detail: 'miseAJourDeLaListeDesExercices' })
+      document.dispatchEvent(event)
     }
   }
   // À l'appui sur précédent ou suivant, on relance l'analyse de l'URL
@@ -2785,6 +2799,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
       copierExercicesFormVersAffichage(listeDesExercices)
       miseAJourDeLaListeDesExercices()
+      const event = new CustomEvent('buildex', { detail: 'miseAJourDeLaListeDesExercices' })
+      document.dispatchEvent(event)
     })
   }
 
@@ -3524,6 +3540,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         gestionVue('menu')
       }
     }
+    const pleinEcran = new window.Event('pleinEcran', { bubbles: true })
+    document.dispatchEvent(pleinEcran)
   })
 
   const buttonDiap = document.getElementById('buttonDiap')

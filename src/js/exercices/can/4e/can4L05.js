@@ -28,11 +28,11 @@ export default function DeveloppementNiveau1 () {
         inconnue = choice(['x', 'y'])
         if (a === 1) {
           // ne pas écrire 1x
-          this.question = `Développer :<br> $A=(${inconnue}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiNegatif(k)}$`
+          this.question = `Développer $A=(${inconnue}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiNegatif(k)}$.`
           this.correction = ` $A=(${inconnue}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiNegatif(k)}=${k}\\times ${inconnue}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}=${k * a}${inconnue}${ecritureAlgebrique(k * b)}$`
           this.reponse = `${k * a}${inconnue}${ecritureAlgebrique(k * b)}`
         } else {
-          this.question = `Développer :<br> $A=(${a}${inconnue}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiNegatif(k)}$`
+          this.question = `Développer $A=(${a}${inconnue}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiNegatif(k)}$.`
           this.correction = `$A=(${a}${inconnue}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiNegatif(k)}=${k}\\times ${a}${inconnue}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}=${k * a}${inconnue}${ecritureAlgebrique(k * b)}$`
           this.reponse = `${k * a}${inconnue}${ecritureAlgebrique(k * b)}`
         }
@@ -45,11 +45,11 @@ export default function DeveloppementNiveau1 () {
         inconnue = choice(['x', 'y'])
         if (a === 1) {
           // ne pas écrire 1x
-          this.question = `Développer :<br> $A=${k}${inconnue}(${inconnue}${ecritureAlgebrique(b)})$`
+          this.question = `Développer $A=${k}${inconnue}(${inconnue}${ecritureAlgebrique(b)})$.`
           this.correction = `$A=${k}${inconnue}(${inconnue}${ecritureAlgebrique(b)})=${k}${inconnue}\\times ${inconnue} ${signe(k * b)}${k}${inconnue}\\times ${Math.abs(b)}=${k * a}${inconnue}^2${ecritureAlgebrique(k * b)}${inconnue}$`
           this.reponse = `${k * a}${inconnue}^2${ecritureAlgebrique(k * b)}${inconnue}`
         } else {
-          this.question = `Développer :<br> $A=${k}${inconnue}(${a}${inconnue}${ecritureAlgebrique(b)})$`
+          this.question = `Développer $A=${k}${inconnue}(${a}${inconnue}${ecritureAlgebrique(b)})$.`
           if (k > 0) {
             this.correction = `$A=${k}${inconnue}(${a}${inconnue}${ecritureAlgebrique(b)})=${k}${inconnue}\\times ${a}${inconnue} + ${k}${inconnue}\\times ${ecritureParentheseSiNegatif(b)}=${k * a}${inconnue}^2${ecritureAlgebrique(k * b)}${inconnue}$`
             this.reponse = `${k * a}${inconnue}^2${ecritureAlgebrique(k * b)}${inconnue}`
@@ -60,5 +60,7 @@ export default function DeveloppementNiveau1 () {
         }
         break
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

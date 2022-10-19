@@ -19,6 +19,8 @@ export const dateDePublication = '11/09/2022'
  * @author Guillaume Valmont
  * Référence 6G52
 */
+export const uuid = '5bac3'
+export const ref = '6G52'
 export default class TracerCarresRectangleslongueurDonnees extends Exercice {
   constructor () {
     super()

@@ -17,7 +17,7 @@ export default function RenduMonnaie () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
@@ -33,9 +33,12 @@ export default function RenduMonnaie () {
         b = a + 2 * e
         this.reponse = 50 - a
         this.question = `Un livre coûte $${texPrix(b)}$ €. Je donne un billet de $50$  € et $${e}$ ${e > 1 ? 'pièces' : 'pièce'} de $2$  €. <br>
-Combien me rend-on ?`
+
+        Combien me rend-on ?`
         this.correction = `On doit me rendre $${50 + 2 * e}-${b}=${this.reponse}$ €.`
         if (this.interactif) { this.optionsChampTexte = { texteApres: ' €' } }
+        this.canEnonce = this.question
+        this.canReponseACompleter = '$\\dots$ €'
         break
 
       case 2:
@@ -43,9 +46,12 @@ Combien me rend-on ?`
         this.reponse = 10 - a
         this.question = `Chez le boulanger, je dois payer  $${texPrix(a)}$ €. <br>
         Je donne un billet de $10$  €. <br>
+
 Combien me rend-on ?`
         this.correction = `On doit me rendre $10-${texNombre(a)}=${texNombre(10 - a)}$ €.`
         if (this.interactif) { this.optionsChampTexte = { texteApres: ' €' } }
+        this.canEnonce = this.question
+        this.canReponseACompleter = '$\\dots$ €'
         break
 
       case 3:
@@ -58,6 +64,7 @@ Combien me rend-on ?`
         reponse = new Decimal(pu).mul(a).mul(-1).add(t)
         this.question = `A la boulangerie, ${prenom1} achète $${a}$ ${p} à $${texPrix(pu)}$ € l'unité.<br>
    Elle paie avec un billet de $${t}$ €.<br>
+
    Combien doit-on lui rendre ?`
 
         this.correction = `${prenom1} achète $${a}$ ${p} à $${texPrix(pu)}$ € l'unité.<br>
@@ -66,6 +73,8 @@ Combien me rend-on ?`
  `
         this.reponse = reponse
         if (this.interactif) { this.optionsChampTexte = { texteApres: ' €' } }
+        this.canEnonce = this.question
+        this.canReponseACompleter = '$\\dots$ €'
         break
 
       case 4:
@@ -76,6 +85,7 @@ Combien me rend-on ?`
         if (a * nbre < 35) {
           this.question = `${prenom1} a acheté des mangas coûtant $${a}$ € chacun. Elle a donné $40$ € au vendeur
             qui lui a rendu $${40 - a * nbre}$ €.<br>
+
             Combien de mangas ${prenom1} a-t-elle achetés ?  `
 
           this.correction = `On lui a rendu $${40 - a * nbre}$ €, donc les mangas ont coûté $(40-${40 - a * nbre})$ €,  soit $${a * nbre}$ €.<br>
@@ -83,12 +93,15 @@ Combien me rend-on ?`
         } else {
           this.question = `${prenom1} a acheté des mangas coûtant $${a}$ € chacun. Elle a donné $60$ € au vendeur
               qui lui a rendu $${60 - a * nbre}$ €.<br>
+
               Combien de mangas ${prenom1} a-t-elle achetés ?  `
 
           this.correction = `On lui a rendu $${60 - a * nbre}$ €, donc les mangas ont coûté $(60-${60 - a * nbre})$ €, soit $${a * nbre}$ € .<br>
           Le prix d'un manga est  $${a}$ €, donc  le nombre de  mangas est  donné par $${a * nbre}\\div ${a}=${nbre}$.`
         }
         if (this.interactif) { this.optionsChampTexte = { texteApres: ' mangas' } }
+        this.canEnonce = this.question
+        this.canReponseACompleter = '$\\dots$ mangas'
         break
     }
   }

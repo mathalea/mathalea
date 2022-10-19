@@ -21,7 +21,7 @@ export default function ComplementAUn () {
 
   this.nouvelleVersion = function () {
     const a = calcul(randint(1, 9) / 10 + randint(1, 9) / 100)
-    this.question = `$1-${texNombrec(a)}=$`
+    this.question = `Calculer $1-${texNombrec(a)}$.`
     this.correction = `$1-${texNombrec(a)}=${texNombrec(1 - a)}$`
     this.correction += texteEnCouleur(`
     <br> Mentalement : <br>
@@ -29,5 +29,7 @@ export default function ComplementAUn () {
     On enlève $${texNombrec(100 * a)}$ centièmes à $100$ centièmes, il en reste $${texNombrec(100 * (1 - a))}$.<br>
     Ainsi, $1-${texNombrec(a)}=${texNombrec(1 - a)}$.  `)
     this.reponse = calcul(1 - a)
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }
