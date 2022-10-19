@@ -18,7 +18,7 @@ export default function VecteurNormEqCart () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur11 inline'
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {
@@ -33,7 +33,7 @@ export default function VecteurNormEqCart () {
 
       texte = ` Dans un repère orthonormé $(O;\\vec i,\\vec j)$, la droite $d$ a pour équation :
     ${texteCentre(`$${rienSi1(a)}x${ecritureAlgebriqueSauf1(b)}y${ecritureAlgebrique(c)}=0$`)}
- Les coordonnées d'un vecteur normal $\\vec{u}$ de la droite $d$   sont :<br>`
+ Donner les coordonnées d'un vecteur normal $\\vec{u}$ de la droite $d$.<br>`
 
       if (this.interactif) {
         texte += '$\\Bigg($' + ajouteChampTexteMathLive(this, 2 * i, 'largeur11 inline')
@@ -55,6 +55,8 @@ export default function VecteurNormEqCart () {
       cpt++
     }
     listeQuestionsToContenu(this)
+    this.canEnonce = texte
+    this.canReponseACompleter = ''
   }
   this.correctionInteractive = i => {
     const champTexte1 = document.getElementById(`champTexteEx${this.numeroExercice}Q${2 * i}`)
