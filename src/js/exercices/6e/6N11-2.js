@@ -2,7 +2,6 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, calcul, htmlConsigne, texNombre, egal, shuffle, stringNombre, lettreIndiceeDepuisChiffre } from '../../modules/outils.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
-import { afficheScore } from '../../modules/gestionInteractif.js'
 import { droiteGraduee, labelPoint, point, tracePoint } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 
@@ -16,6 +15,7 @@ export const amcType = 'AMCOpen'
  * @author Jean-Claude Lhote et Rémi Angot
  * référence 6N11-2
  * Relecture : Novembre 2021 par EE
+ * Correction : Problème de score 19/10/22 par Rémi ANGOT
  */
 export const uuid = '4f2a3'
 export const ref = '6N11-2'
@@ -173,28 +173,25 @@ export default function PlacerUnPointAbscisseEntiere2d () {
       this.listeCorrections.push(texteCorr)
     }
     // Pour distinguer les deux types de codage de recuperation des résultats
-    this.exoCustomResultat = false
+    this.exoCustomResultat = true
     // Gestion de la correction
-    this.correctionInteractive = () => {
-      let nbBonnesReponses = 0
-      let nbMauvaisesReponses = 0
-      for (let i = 0, aucunMauvaisPointsCliques; i < this.nbQuestions; i++) {
-        aucunMauvaisPointsCliques = true
-        const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
-        pointsSolutions[i].stopCliquable()
-        for (const monPoint of pointsNonSolutions[i]) {
-          if (monPoint.etat) aucunMauvaisPointsCliques = false
-          monPoint.stopCliquable()
-        }
+    this.correctionInteractive = (i) => {
+      let resultat
+      let aucunMauvaisPointsCliques = true
+      const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
+      pointsSolutions[i].stopCliquable()
+      for (const monPoint of pointsNonSolutions[i]) {
+        if (monPoint.etat) aucunMauvaisPointsCliques = false
+        monPoint.stopCliquable()
         if (aucunMauvaisPointsCliques && pointsSolutions[i].etat) {
           divFeedback.innerHTML = '😎'
-          nbBonnesReponses++
+          resultat = 'OK'
         } else {
           divFeedback.innerHTML = '☹️'
-          nbMauvaisesReponses++
+          resultat = 'KO'
         }
       }
-      afficheScore(this, nbBonnesReponses, nbMauvaisesReponses)
+      return resultat
     }
     listeQuestionsToContenu(this)
   }

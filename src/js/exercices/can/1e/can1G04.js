@@ -23,6 +23,7 @@ export default function ProduitScalaireNormesAngles () {
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {
@@ -52,14 +53,16 @@ export default function ProduitScalaireNormesAngles () {
     const a3 = choix ? afficheMesureAngle(B, A, C, 'black', 1.5, `${angle[1]}`) : afficheMesureAngle(B, A, C, 'black', 1.5, `${angle[0]}°`)
     const objets = []
     const xmin = Math.min(A.x, B.x, C.x) - 1
-    const ymin = Math.min(A.y, B.y, C.y) - 1
+    const ymin = Math.min(A.y, B.y, C.y) - 1.5
     const xmax = Math.max(A.x, B.x, C.x) + 1
-    const ymax = Math.max(A.y, B.y, C.y) + 1
+    const ymax = Math.max(A.y, B.y, C.y) + 1.5
 
     objets.push(vAB, vAC, labelPoint(A, B, C), a1, a2, a3)
 
-    this.question = `Calculer $\\overrightarrow{${nom[0]}${nom[1]}}\\cdot\\overrightarrow{${nom[0]}${nom[2]}}$.<br>`
-    this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 18, mainlevee: false, amplitude: 0.3, scale: 0.7, style: 'margin: auto' }, objets)
+    this.question = `Calculer $\\overrightarrow{${nom[0]}${nom[1]}}\\cdot\\overrightarrow{${nom[0]}${nom[2]}}$.<br>
+    
+    `
+    this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 15, mainlevee: false, amplitude: 0.3, scale: 0.5, style: 'margin: auto' }, objets)
     if (angle[0] === 30) {
       this.correction = `
     $\\begin{aligned}
@@ -149,5 +152,7 @@ export default function ProduitScalaireNormesAngles () {
    `
       this.reponse = [`${-d}\\sqrt{3}`, `${f1.oppose().texFraction}\\times\\sqrt{3}`]
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }
