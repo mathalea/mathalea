@@ -15,10 +15,4 @@ export default function SymetriqueD1Point () {
   this.nbQuestions = 1
   this.can = true
   this.sup = 1
-  if (!context.isHtml) {
-    this.nouvelleVersion()
-    this.canEnonce = this.listeQuestions[0]
-    this.correction = this.listeCorrections[0]
-    this.canReponseACompleter = ''
-  }
 }
