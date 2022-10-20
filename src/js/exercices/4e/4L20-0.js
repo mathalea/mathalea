@@ -223,6 +223,11 @@ export default function ExerciceEquationASolutionEntiere () {
       cpt++
     }
     listeQuestionsToContenu(this)
+    if (!context.isHtml) {
+      this.canEnonce = 'Résoudre l\'équation ' + this.listeQuestions[0] + '.'
+      this.correction = this.listeCorrections[0]
+      this.canReponseACompleter = ''
+    }
   }
   this.besoinFormulaireCaseACocher = ['Avec des nombres relatifs']
   this.besoinFormulaire2Numerique = [
