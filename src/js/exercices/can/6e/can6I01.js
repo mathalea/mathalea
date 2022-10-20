@@ -6,7 +6,10 @@ import { randint, choice, texteGras, modalUrl, modalPdf, contraindreValeur, list
 import { scratchblock, point, texteParPositionEchelle, tracePoint } from '../../../modules/2d.js'
 import { noteLaCouleur, plateau2dNLC } from '../../../modules/noteLaCouleur.js'
 import { allerA, angleScratchTo2d, attendre, baisseCrayon, clone, creerLutin, orienter } from '../../../modules/2dLutin.js'
+import { ajouteChampTexte, setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Noter la couleur (scratch)'
+export const interactifType = 'mathLive'
+export const interactifReady = true
 
 /**
  * Note_la_couleur() Exercice inspiré de l'activité débranchée de Jean-Yves Labouche Note La Couleur
@@ -46,12 +49,12 @@ export default function CanNoteLaCouleur6 () {
       ['Rose', 'Bleu', 'Rouge', 'Bleu', 'Noir', 'Blanc']
     ]
     this.sup = contraindreValeur(1, 4, this.sup, 1)
-    const echelleDessin = 0.5
+    const echelleDessin = 0.4
     this.listeQuestions = []
     this.listeCorrections = []
     let j, test
     let objetsEnonce = []; let objetsCorrection = []
-    const paramsCorrection = { xmin: -1, ymin: -1, xmax: 16, ymax: 13, pixelsParCm: 20, scale: echelleDessin }
+    const paramsCorrection = { xmin: -1, ymin: -1, xmax: 16, ymax: 9, pixelsParCm: 20, scale: echelleDessin }
     let commandes_disponibles; const sequences_disponibles = []; let sequence; let result; let nb_couleurs; let instruction; let couleurs; let liste_instructions
 
     let lutin, lutindepart
@@ -109,7 +112,7 @@ export default function CanNoteLaCouleur6 () {
         liste_instructions = []
         j = 0
         compteur_essais_sequence = 0
-        pion.codeScratch = '\\begin{scratch}[print,fill,blocks,scale=0.7]\n \\blockinit{quand \\greenflag est cliqué}\n '
+        pion.codeScratch = '\\begin{scratch}[print,fill,blocks,scale=0.5]\n \\blockinit{quand \\greenflag est cliqué}\n '
         pion.codeScratch += `\\blockmove{aller à x: \\ovalnum{${xdepart}} y: \\ovalnum{${ydepart}}}\n \\blockmove{s'orienter à \\ovalnum{${angledepart}}}\n`
         pion.currentIndex += pion.codeScratch.length
         while (nb_couleurs > j && compteur_essais_sequence < 10) {
@@ -165,13 +168,12 @@ export default function CanNoteLaCouleur6 () {
         }
       }
       pion.codeScratch += '\\end{scratch}'
-      if (context.isHtml) {
+      if (context.isHtml && context.vue !== 'diap') {
         texte = `Cet exercice est tiré de l'excellente activité débranchée ${modalUrl(numeroExercice, 'https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/', 'Note la couleur', 'info circle')} de Jean-Yves Labouche.<br>`
-        texte += 'Il a été conçu pour étendre les possibilités de fiches proposées.<br>'
         texte += `N'hésitez pas à vous rendre sur le site ${modalUrl(numeroExercice + 1, 'https://www.monclasseurdemaths.fr', 'Mon classeur de Maths.fr', 'info circle')} de Jean-Yves pour y découvrir la multitude de ressources qu'il propose.<br>`
         texte += `Pour jouer, regarder les règles du jeu${modalPdf(numeroExercice + 2, '../../pdf/reglesnlc.pdf', 'Règles du jeu', 'Règles - PDF', 'file pdf')} .<br>`
       } else { texte = '' }
-      texte += 'Exécuter le programme et trouver la succession de couleur.<br><br>'
+      texte += `Exécuter le programme et trouver la couleur. ${ajouteChampTexte(this, q, 'largeur25 inline')}<br><br>`
       if (context.isHtml) {
         texte += '<table><tr><td>' +
       scratchblock(pion.codeScratch) +
@@ -181,19 +183,17 @@ export default function CanNoteLaCouleur6 () {
       mathalea2d(paramsCorrection, objetsEnonce) +
       '</td></tr></table>'
       } else {
-        texte += `\\begin{minipage}{.3 \\linewidth} \n\t ${scratchblock(pion.codeScratch)} \n \\end{minipage}
-      \\begin{minipage}{.7 \\linewidth} \n\t ${this.sup === 4 || this.sup === 2
+        texte += `\\begin{minipage}{3.5 cm} \n\t ${scratchblock(pion.codeScratch)} \n \\end{minipage}
+      \\begin{minipage}{4 cm} \n\t ${this.sup === 4 || this.sup === 2
         ? 'Correspondance chiffre-couleur : \\\\\n0=Blanc, 1=Noir, 2=Rouge, 3=Bleu, 4=Orange, 5=Rose, 6=Jaune, 7=Vert, 8=Gris\\\\\n'
         : ''} ${mathalea2d(paramsCorrection, objetsEnonce)} \n\\end{minipage}`
         if (q < this.nbQuestions - 1 && !context.isHtml) {
           texte += '\n\\newpage'
         }
       }
-      texteCorr = 'On obtient la série de couleurs suivante :<br> '
+      texteCorr = 'On obtient la couleur suivante :<br> '
       texteCorr += `${texteGras(this.sup === 4 || this.sup === 2 ? '(' + lePlateau.traducNum(couleurs[0]) + ')' + couleurs[0] : couleurs[0])} `
-      for (let i = 1; i < couleurs.length; i++) {
-        texteCorr += `- ${texteGras(this.sup === 4 || this.sup === 2 ? '(' + lePlateau.traducNum(couleurs[i]) + ')' + couleurs[i] : couleurs[i])} `
-      }
+      setReponse(this, q, [couleurs[0], couleurs[0].toLowerCase()], { formatInteractif: 'texte' })
       lutin.animation = `<radialGradient id="Ball" cx="8" cy="-3" r="20" gradientUnits="userSpaceOnUse">
     <stop offset="0" style="stop-color:#FFFF99"/>
     <stop offset="1" style="stop-color:#FF9400"/>
@@ -243,6 +243,8 @@ export default function CanNoteLaCouleur6 () {
         q++
       }
     }
+    this.canEnonce = this.listeQuestions[0]
+    this.canReponseACompleter = ''
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Type de plateau', 4, '1 : Plateau couleur sans numéro\n2 : Plateau couleur avec numéros\n3 : Plateau noir et blanc avec nom des couleurs\n4 : Plateau noir et blanc avec numéros']

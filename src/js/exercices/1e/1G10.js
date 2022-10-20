@@ -62,13 +62,13 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
     else if (this.nbQuestions > 26 && this.sup === 2) this.nbQuestions = 26 // Le bridage est un peu plus large pour le niveau 2
     else if (this.nbQuestions > 126) this.nbQuestions = 126 // là c'est carrément l'opulence avec le niveau 3 !
     if (this.sup === 1) {
-      mesAnglesAleatoires = shuffle(mesAngles.niveau1)
+      mesAnglesAleatoires = shuffle(mesAngles.liste1)
     }
     if (this.sup === 2) {
-      mesAnglesAleatoires = shuffle(mesAngles.niveau2)
+      mesAnglesAleatoires = shuffle(mesAngles.liste2)
     }
     if (this.sup === 3) {
-      mesAnglesAleatoires = shuffle(mesAngles.niveau3)
+      mesAnglesAleatoires = shuffle(mesAngles.liste3)
     }
 
     const typeQuestionsDisponibles = []
