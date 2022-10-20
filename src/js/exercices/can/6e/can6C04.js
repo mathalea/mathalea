@@ -30,7 +30,7 @@ export default function Ajoute10NPlus9 () {
     this.canReponseACompleter = ''// `${this.question} \\dots \\dots`
     this.correction = `$${a * 10 + b} + ${c * 10 + 9}= ${this.reponse}$`
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
-   Pour ajouter $${c * 10 + 9}$, on ajoute $${(c + 1) * 10}$ et on retranche $1$.<br>
+   Pour ajouter $${c * 10 + 9}$, on peut ajouter $${(c + 1) * 10}$ et on retranche $1$.<br>
    Ainsi,  $${a * 10 + b} + ${c * 10 + 9}=(${a * 10 + b}+${(c + 1) * 10}) - 1 =${a * 10 + b + (c + 1) * 10} - 1=${this.reponse}$.
     `)
   }
