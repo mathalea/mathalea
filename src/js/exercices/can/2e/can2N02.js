@@ -30,13 +30,13 @@ export default function PlusPetitEnsemble () {
       case 'a':
         a = randint(0, 150)
         this.question = `Quel est le plus petit ensemble de nombres auquel appartient $${a}$ ?`
-        this.correction = `$${a}$ est un entier naturel, on a donc $${a}\\in \\mathbb{N}$`
+        this.correction = `$${a}$ est un entier naturel, on a donc $${a}\\in \\mathbb{N}$.`
         this.reponse = ['n', 'N']
         break
       case 'b':
         a = randint(0, 150) * (-1)
         this.question = `Quel est le plus petit ensemble de nombres auquel appartient $${a}$ ?`
-        this.correction = `$${a}$ est un entier relatif, on a donc $${a}\\in \\mathbb{Z}$`
+        this.correction = `$${a}$ est un entier relatif, on a donc $${a}\\in \\mathbb{Z}$.`
         this.reponse = ['z', 'Z']
         break
       case 'c':
@@ -44,7 +44,7 @@ export default function PlusPetitEnsemble () {
         b = randint(0, 9) * choice([-1, 1])
         c = randint(0, 9)
         this.question = `Quel est le plus petit ensemble de nombres auquel appartient $${texNombrec(b + c / 10 + d / 100)}$ ?`
-        this.correction = `$${texNombrec(b + c / 10 + d / 100)}$ est un nombre décimal, on a donc $${texNombrec(b + c / 10 + d / 100)}\\in \\mathbb{D}$
+        this.correction = `$${texNombrec(b + c / 10 + d / 100)}$ est un nombre décimal, on a donc $${texNombrec(b + c / 10 + d / 100)}\\in \\mathbb{D}$.
             `
         this.reponse = ['d', 'D']
         break
@@ -53,7 +53,7 @@ export default function PlusPetitEnsemble () {
         a = randint(1, 12)
         this.question = `Quel est le plus petit ensemble de nombres auquel appartient $${choix ? '-' : ''}\\sqrt{${texNombrec(a * a)}}$ ?`
         this.correction = `$${choix ? '-' : ''}\\sqrt{${a * a}}=${choix ? '-' : ''}${a}$  est un entier ${choix ? 'relatif' : 'naturel'}, 
-        on a donc $${choix ? '-' : ''}\\sqrt{${texNombrec(a * a)}}\\in ${choix ? '\\mathbb{Z}' : '\\mathbb{N}'}$
+        on a donc $${choix ? '-' : ''}\\sqrt{${texNombrec(a * a)}}\\in ${choix ? '\\mathbb{Z}' : '\\mathbb{N}'}$.
             `
         this.reponse = choix ? ['z', 'Z'] : ['n', 'N']
         break
@@ -62,7 +62,7 @@ export default function PlusPetitEnsemble () {
         b = randint(2, 6)
         choix = choice([true, false])
         this.question = `Quel est le plus petit ensemble de nombres auquel appartient $${choix ? '-' : ''}\\dfrac{${texNombrec(b * a)}}{${a}}$ ?`
-        this.correction = `$${choix ? '-' : ''}\\dfrac{${texNombrec(b * a)}}{${a}}=${choix ? '-' : ''}\\dfrac{${b}\\times ${a}}{${a}}=${choix ? '-' : ''}${b}$  est un entier ${choix ? 'relatif' : 'naturel'}, on a donc $${choix ? '-' : ''}\\dfrac{${texNombrec(b * a)}}{${a}}\\in ${choix ? '\\mathbb{Z}' : '\\mathbb{N}'}$
+        this.correction = `$${choix ? '-' : ''}\\dfrac{${texNombrec(b * a)}}{${a}}=${choix ? '-' : ''}\\dfrac{${b}\\times ${a}}{${a}}=${choix ? '-' : ''}${b}$  est un entier ${choix ? 'relatif' : 'naturel'}, on a donc $${choix ? '-' : ''}\\dfrac{${texNombrec(b * a)}}{${a}}\\in ${choix ? '\\mathbb{Z}' : '\\mathbb{N}'}$.
             `
 
         this.reponse = choix ? ['z', 'Z'] : ['n', 'N']
@@ -83,7 +83,7 @@ export default function PlusPetitEnsemble () {
         d = fraction2[1]
         this.question = `Quel est le plus petit ensemble de nombres auquel appartient $${choix ? '-' : ''}${choix2 ? `\\dfrac{${a}}{${b}}` : `\\dfrac{${c}}{${d}}`}$ ?`
         this.correction = `$${choix ? '-' : ''}${choix2 ? `\\dfrac{${a}}{${b}}` : `\\dfrac{${c}}{${d}}=${choix ? '-' : ''}${texNombrec(c / d)}`}$ ${choix2 ? 'n’' : ''} est ${choix2 ? 'pas' : ''} un nombre décimal.
-          On a donc $${choix ? '-' : ''}${choix2 ? `\\dfrac{${a}}{${b}}` : `\\dfrac{${c}}{${d}}`}\\in$ ${choix2 ? '$\\mathbb{Q}$' : '$\\mathbb{D}$'}
+          On a donc $${choix ? '-' : ''}${choix2 ? `\\dfrac{${a}}{${b}}` : `\\dfrac{${c}}{${d}}`}\\in$ ${choix2 ? '$\\mathbb{Q}$.' : '$\\mathbb{D}$.'}
               `
         this.reponse = choix2 ? ['q', 'Q'] : ['d', 'D']
 
@@ -96,7 +96,7 @@ export default function PlusPetitEnsemble () {
         a = fraction1[0]
         b = fraction1[1]
         this.question = `Quel est le plus petit ensemble de nombres auquel appartient $${choix ? '-' : ''}\\sqrt{\\dfrac{${a * a}}{${b * b}}}$ ?`
-        this.correction = `$${choix ? '-' : ''}\\sqrt{\\dfrac{${a * a}}{${b * b}}}=${choix ? '-' : ''}\\dfrac{${a}}{${b}}=${choix ? '-' : ''}${texNombrec(a / b)}$ est  un nombre décimal. On a donc $${choix ? '-' : ''}\\sqrt{\\dfrac{${a * a}}{${b * b}}}\\in \\mathbb{D}$
+        this.correction = `$${choix ? '-' : ''}\\sqrt{\\dfrac{${a * a}}{${b * b}}}=${choix ? '-' : ''}\\dfrac{${a}}{${b}}=${choix ? '-' : ''}${texNombrec(a / b)}$ est  un nombre décimal. On a donc $${choix ? '-' : ''}\\sqrt{\\dfrac{${a * a}}{${b * b}}}\\in \\mathbb{D}$.
               `
         this.reponse = ['d', 'D']
 
@@ -107,13 +107,13 @@ export default function PlusPetitEnsemble () {
         if (choix === true) {
           a = randint(2, 100, [4, 9, 16, 25, 36, 49, 64, 81])
           this.question = `Quel est le plus petit ensemble de nombres auquel appartient $\\sqrt{${a}}$ ?`
-          this.correction = `$\\sqrt{${a}}$  est un nombre irrationnel. On a donc $\\sqrt{${a}}\\in \\mathbb{R}$
+          this.correction = `$\\sqrt{${a}}$  est un nombre irrationnel. On a donc $\\sqrt{${a}}\\in \\mathbb{R}$.
             `
           this.reponse = ['r', 'R']
         } else {
           a = randint(1, 12, 10)
           this.question = `Quel est le plus petit ensemble de nombres auquel appartient $\\sqrt{${texNombrec(a * a / 100)}}$ ?`
-          this.correction = `$\\sqrt{${texNombrec(a * a / 100)}}=${texNombrec(a / 10)}$  est un nombre décimal. On a donc $\\sqrt{${texNombrec(a * a / 100)}}\\in \\mathbb{D}$`
+          this.correction = `$\\sqrt{${texNombrec(a * a / 100)}}=${texNombrec(a / 10)}$  est un nombre décimal. On a donc $\\sqrt{${texNombrec(a * a / 100)}}\\in \\mathbb{D}$.`
           this.reponse = ['d', 'D']
         }
         break
@@ -123,7 +123,7 @@ export default function PlusPetitEnsemble () {
         if (N === 1) {
           a = randint(2, 9)
           this.question = `Quel est le plus petit ensemble de nombres auquel appartient $${a}${choix ? '+' : ''}\\pi$ ?`
-          this.correction = `$${a}${choix ? '+' : ''}\\pi$   est un nombre irrationnel. On a donc $${a}${choix ? '+' : ''}\\pi \\in \\mathbb{R}$ `
+          this.correction = `$${a}${choix ? '+' : ''}\\pi$   est un nombre irrationnel. On a donc $${a}${choix ? '+' : ''}\\pi \\in \\mathbb{R}$. `
           this.reponse = ['r', 'R']
         }
         if (N === 2) {
@@ -131,14 +131,14 @@ export default function PlusPetitEnsemble () {
           b = randint(2, 5)
           this.question = `Quel est le plus petit ensemble de nombres auquel appartient $${choix ? `${a}^{-1}` : `${a}^{${b}}`}$ ?`
           this.correction = `$${choix ? `${a}^{-1}` : `${a}^{${b}}`}=${choix ? `\\dfrac{1}{${a}}` : `${a ** b}`}${choix ? `=${texNombrec(1 / a)}` : ''}$   est un nombre ${choix ? 'décimal' : 'entier naturel'}. 
-          On a donc $${choix ? `${a}^{-1} \\in \\mathbb{D}` : `${a}^{${b}}\\in \\mathbb{N}`}$ `
+          On a donc $${choix ? `${a}^{-1} \\in \\mathbb{D}.` : `${a}^{${b}}\\in \\mathbb{N}.`}$ `
           this.reponse = choix ? ['d', 'D'] : ['n', 'N']
         }
         if (N === 3) {
           a = randint(1, 4)
           b = randint(1, 9)
           this.question = `Quel est le plus petit ensemble de nombres auquel appartient $${b}\\times 10^{${choix ? '-' : ''}${a}}$ ?`
-          this.correction = `$${b}\\times 10^{${choix ? '-' : ''}${a}}=${choix ? `${texNombrec(b * 10 ** (-a))}` : `${texNombrec(b * 10 ** a)}`}$   est un nombre ${choix ? 'décimal' : 'entier naturel'}. On a donc $${b}\\times 10^{${choix ? '-' : ''}${a}} \\in ${choix ? '\\mathbb{D}' : '\\mathbb{N}'}$ `
+          this.correction = `$${b}\\times 10^{${choix ? '-' : ''}${a}}=${choix ? `${texNombrec(b * 10 ** (-a))}` : `${texNombrec(b * 10 ** a)}`}$   est un nombre ${choix ? 'décimal' : 'entier naturel'}. On a donc $${b}\\times 10^{${choix ? '-' : ''}${a}} \\in ${choix ? '\\mathbb{D}' : '\\mathbb{N}'}$. `
           this.reponse = choix ? ['d', 'D'] : ['n', 'N']
         }
         break

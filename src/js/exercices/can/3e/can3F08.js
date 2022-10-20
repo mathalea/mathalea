@@ -98,6 +98,6 @@ style: 'margin: auto'
       }, r, c, o)}
       
       `
-    this.canReponseACompleter = '$f(x)=\\ldots'
+    this.canReponseACompleter = '$f(x)=\\ldots$'
   }
 }

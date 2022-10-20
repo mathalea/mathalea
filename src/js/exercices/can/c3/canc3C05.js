@@ -38,7 +38,7 @@ export default function PariteDunNombre () {
         texteCorr = `$${e}$ est un nombre ${e % 2 === 0 ? 'pair' : 'impair'} car il a $${b}$ comme chiffre des unités.<br>`
         texteCorr += `$${f}$ est un nombre ${f % 2 === 0 ? 'pair' : 'impair'} car il a $${d}$ comme chiffre des unités.<br>`
         texteCorr += `La somme ${e % 2 === 0 && f % 2 === 0 ? 'de deux nombres pairs' : e % 2 === 1 && f % 2 === 1 ? 'de deux nombres impairs' : 'd\'un nombre impair et d\'un nombre pair'} est ${g % 2 === 0 ? 'paire' : 'impaire'}.<br>`
-        texteCorr += texteEnCouleur(`Mentalement on ajoute seulement les chiffres des unités des deux nombres : $${b}+${d}=${b + d}$`)
+        texteCorr += texteEnCouleur(`Mentalement on peut ajouter seulement les chiffres des unités des deux nombres : $${b}+${d}=${b + d}$`)
         texteCorr += `<br>Donc le nombre $${e}+${f}$ est ${g % 2 === 0 ? 'pair' : 'impair'}.`
         break
       case 2:
@@ -85,7 +85,7 @@ export default function PariteDunNombre () {
         texteCorr = `$${f}$ est un nombre ${f % 2 === 0 ? 'pair' : 'impair'} car il a $${d}$ comme chiffre des unités.<br>`
         texteCorr += `$${e}$ est un nombre ${e % 2 === 0 ? 'pair' : 'impair'} car il a $${b}$ comme chiffre des unités.<br>`
         texteCorr += `La différence ${e % 2 === 0 && f % 2 === 0 ? 'de deux nombres pairs' : e % 2 === 1 && f % 2 === 1 ? 'de deux nombres impairs' : 'd\'un nombre impair et d\'un nombre pair'} est ${g % 2 === 0 ? 'paire' : 'impaire'}.<br>`
-        texteCorr += texteEnCouleur(`Mentalement on soustrait les chiffres des unités des deux nombres ${d < b ? '(en empruntant une dizaine à $' + f + '$) ' : ''} : $${d < b ? d + 10 : d} - ${b}=${g % 10}$`)
+        texteCorr += texteEnCouleur(`Mentalement on peut soustraire les chiffres des unités des deux nombres ${d < b ? '(en empruntant une dizaine à $' + f + '$) ' : ''} : $${d < b ? d + 10 : d} - ${b}=${g % 10}$`)
         texteCorr += `<br>Donc le nombre $${f}-${e}$ est ${g % 2 === 0 ? 'pair' : 'impair'}.`
         break
       case 5:
