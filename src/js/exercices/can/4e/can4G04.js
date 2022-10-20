@@ -56,15 +56,17 @@ export default function CalculCotePythagore () {
     this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.3, scale: 0.5, style: 'margin: auto' }, objets)
     this.correction = ` On utilise le théorème de Pythagore dans le triangle $${nom[0]}${nom[1]}${nom[2]}$,  rectangle en $${nom[1]}$.<br>
       On obtient :<br>
-      $\\begin{aligned}\n
-        ${nom[0]}${nom[1]}^2+${nom[1]}${nom[2]}^2&=${nom[0]}${nom[2]}^2\\\\\n
-        ${nom[1]}${nom[2]}^2&=${nom[0]}${nom[2]}^2-${nom[0]}${nom[1]}^2\\\\\n
-        ${nom[1]}${nom[2]}^2&=${b}^2-${a}^2\\\\\n
-        ${nom[1]}${nom[2]}^2&=${b ** 2}-${a ** 2}\\\\\n
-        ${nom[1]}${nom[2]}^2&=${c2}\\\\\n
+      $\\begin{aligned}
+        ${nom[0]}${nom[1]}^2+${nom[1]}${nom[2]}^2&=${nom[0]}${nom[2]}^2\\\\
+        ${nom[1]}${nom[2]}^2&=${nom[0]}${nom[2]}^2-${nom[0]}${nom[1]}^2\\\\
+        ${nom[1]}${nom[2]}^2&=${b}^2-${a}^2\\\\
+        ${nom[1]}${nom[2]}^2&=${b ** 2}-${a ** 2}\\\\
+        ${nom[1]}${nom[2]}^2&=${c2}\\\\
         ${nom[1]}${nom[2]}&=\\sqrt{${c2}}
-        ${reductible ? '\\\\\n' + nom[1] + nom[2] + '&=' + texRacineCarree(c2) : ''}
-        \n\\end{aligned}$
+        \\end{aligned}$
+
+        ${reductible ? `En simplifiant, on obtient : $${nom[1]}${nom[2]} = ${texRacineCarree(c2)}$` : ''}
+        
         `
     // this.reponse = calcul(b ** 2 - a ** 2)
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
