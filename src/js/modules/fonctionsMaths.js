@@ -553,3 +553,118 @@ export class Polynome {
     return p.toMathExpr(alg)
   }
 }
+
+function angleOppose (angle) { // retourne l'angle opposé d'un angle du premier cadrant (sinon, on pourrait avoir plusieurs signe '-' collés ensemble)
+  if (angle.degres === '0') return angle
+  else { return { degres: '-' + angle.degres, cos: angle.cos, sin: angle.sin === '0' ? angle.sin : opposeStringArray(angle.sin), radians: '-' + angle.radians } }
+}
+function complementaireRad (angleEnRadian) { // retourne la mesure en radians du complémentaire d'un angle du premier quadrant donné également en radians
+  switch (angleEnRadian) {
+    case '\\dfrac{\\pi}{4}':
+      return angleEnRadian
+    case '\\dfrac{\\pi}{6}':
+      return '\\dfrac{\\pi}{3}'
+    case '\\dfrac{\\pi}{3}':
+      return '\\dfrac{\\pi}{6}'
+    case '\\dfrac{\\pi}{2}' :
+      return '0'
+    case '0' :
+      return '\\dfrac{\\pi}{2}'
+  }
+}
+function supplementaireRad (angleEnRadian) { // retourne la mesure en radians du supplémentaire d'un angle du premier quadrant donné également en radians
+  switch (angleEnRadian) {
+    case '\\dfrac{\\pi}{4}':
+      return '\\dfrac{3\\pi}{4}'
+    case '\\dfrac{\\pi}{6}':
+      return '\\dfrac{5\\pi}{6}'
+    case '\\dfrac{\\pi}{3}':
+      return '\\dfrac{2\\pi}{3}'
+    case '\\dfrac{\\pi}{2}' :
+      return '\\dfrac{\\pi}{2}'
+    case '0' :
+      return '\\pi'
+  }
+}
+function angleComplementaire (angle) { // retourne l'angle complémentaire d'un angle du premier cadrant
+  return { degres: (90 - parseInt(angle.degres)).toString(), cos: angle.sin, sin: angle.cos, radians: complementaireRad(angle.radians) }
+}
+function angleSupplementaire (angle) { // retourne l'angle supplémentaire d'un angle du premier cadrant
+  return { degres: (180 - parseInt(angle.degres)).toString(), cos: angle.cos === '0' ? '0' : opposeStringArray(angle.cos), sin: angle.sin, radians: supplementaireRad(angle.radians) }
+}
+
+function opposeStringArray (value) {
+  if (Array.isArray(value)) {
+    const result = []
+    for (const e of value) {
+      result.push('-' + e)
+    }
+    return result
+  } else return '-' + value
+}
+
+export function moduloRad (angleEnDegre, k) {
+  const coef = 360 / parseInt(angleEnDegre)
+  if (angleEnDegre === '0') {
+    return `${2 * k}\\pi`
+  } else return `\\dfrac{${coef * k + 1}\\pi}{${coef / 2}}`
+}
+
+export function moduloDeg (angleEnDegre, k) {
+  const coef = 360 / parseInt(angleEnDegre)
+  if (angleEnDegre === '0') {
+    return ((2 * k) * 180).toString()
+  } else return ((coef * k + 1) * parseInt(angleEnDegre)).toString()
+}
+export class Angle {
+  constructor ({ degres, cos, sin, tan, radians }) {
+    this.degres = degres
+    this.cos = cos
+    this.sin = sin
+    this.tan = tan
+    this.radians = radians
+  }
+}
+/**
+ *
+ * @param {object} angle
+ * @param {*} k
+ * @returns
+ */
+export function angleModulo (angle, k) {
+  return { degres: moduloDeg(angle.degres, k), cos: angle.cos, sin: angle.sin, radians: moduloRad(angle.degres, k) }
+}
+/**
+ *
+ * @param {object} param
+ * @param {boolean} [param.associes] false pour niveau1 (quart de cercle) uniquement, true pour ajouter niveau2 (cercle trigo)
+ * @param {number[]} [param.modulos] liste des k à utiliser pour ajouter les angles modulo 2k*Pi
+ * @returns {string[],string[],string[]} niveau1, niveau2, niveau3 les listes (niveau2 contient niveau1 et niveau3 contient niveau2)
+ */
+export function valeursTrigo ({ associes = true, modulos = [-1, 1] }) {
+  let mesAngles = [
+    { degres: '90', cos: '0', sin: '1', radians: '\\dfrac{\\pi}{2}' },
+    { degres: '45', cos: '\\dfrac{\\sqrt{2}}{2}', sin: '\\dfrac{\\sqrt{2}}{2}', radians: '\\dfrac{\\pi}{4}' },
+    { degres: '60', cos: ['\\dfrac{1}{2}', '0.5'], sin: '\\dfrac{\\sqrt{3}}{2}', radians: '\\dfrac{\\pi}{3}' },
+    { degres: '30', sin: ['\\dfrac{1}{2}', '0.5'], cos: '\\dfrac{\\sqrt{3}}{2}', radians: '\\dfrac{\\pi}{6}' },
+    { degres: '0', cos: '1', sin: '0', radians: '0' }
+  ]
+  const mesAnglesNiv1 = mesAngles.slice()
+  const nombreAnglesDeBase = mesAngles.length
+
+  // ici on complète la liste avec tous les angles associés en faisant attention de ne pas ajouter deux fois les mêmes.
+  for (let i = 0; i < nombreAnglesDeBase; i++) {
+    mesAngles.push(angleOppose(mesAngles[i]), angleComplementaire(mesAngles[i]), angleSupplementaire(mesAngles[i]))
+  }
+  // On supprime les doublons en comparant la mesure en degrés
+  mesAngles = [...new Map(mesAngles.map(item => [item.degres, item])).values()]
+  const mesAnglesNiv2 = mesAngles.slice()
+
+  for (let i = 0; i < nombreAnglesDeBase; i++) {
+    for (const k of modulos) {
+      if (k !== 0) mesAngles.push(angleModulo(mesAngles[i % nombreAnglesDeBase], k))
+    }
+  }
+  const mesAnglesNiv3 = mesAngles.slice()
+  return { niveau1: mesAnglesNiv1, niveau2: mesAnglesNiv2, niveau3: mesAnglesNiv3 }
+}
