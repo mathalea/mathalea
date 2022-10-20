@@ -1,4 +1,5 @@
 import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, ecritureParentheseSiNegatif, texNombre, texFraction, choice, arrondi } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -92,7 +93,9 @@ export default function ImageFonctionsRefs () {
       }
       const phrase = listePhrases[i] ? `$${nom}(${texNombre(nombre)})$` : `l'image de $${texNombre(nombre)}$ par la fonction $${nom}$`
       listePhrases[i] && (texteCorr += `<br>L'image de $${texNombre(nombre)}$ par la fonction $${nom}$ est donc $${texNombre(solution)}$.`)
-      texte = `Soit $${nom}$ la fonction ${listeTypeQuestions[i]}. Calculer ${phrase}.`
+      texte = `Soit $${nom}$ la fonction ${listeTypeQuestions[i]}.<br>
+      
+      Calculer ${phrase}.`
       texte += ajouteChampTexteMathLive(this, i, 'inline largeur20')
 
       // Si la question n'a jamais été posée, on l'enregistre
@@ -106,5 +109,10 @@ export default function ImageFonctionsRefs () {
       cpt++
     }
     listeQuestionsToContenu(this)
+    if (!context.isHtml) {
+      this.canEnonce = this.listeQuestions[0]
+      this.correction = this.listeCorrections[0]
+      this.canReponseACompleter = ''
+    }
   }
 }
