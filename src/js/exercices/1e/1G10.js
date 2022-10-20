@@ -103,7 +103,6 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
       texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
       texteCorr = `$\\${listeTypeQuestions[i][0]}\\left(${monAngle.radian}\\right)`
       let valeurFonction = ''
-
       // listeTypeQuestions[i][0] contient 'cos' ou 'sin', donc on s'en sert pour uniformiser le code et on n'a plus besoin de switch.
       // monAngle[listeTypeQuestions[i][0]] fait référence à monAngle.cos ou à monAngle.sin selon la valeur de listeTypeQuestions[i][0].
 
@@ -120,11 +119,17 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
       if (this.questionJamaisPosee(i, listeTypeQuestions[i][0][0], listeTypeQuestions[i][1].radian)) { // On regarde l'angle en radian et le type de fonction
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
+    if (!context.isHtml) {
+      this.canEnonce = 'Donner la valeur exacte de ' + this.listeQuestions[0] + '.'
+      this.correction = this.listeCorrections[0]
+      this.canReponseACompleter = ''
+    }
   }
 }
 
