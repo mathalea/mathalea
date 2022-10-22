@@ -3,6 +3,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, lettreDepuisChiffre, numAlpha, shuffle } from '../../modules/outils.js'
 import { point, pointSurCercle, cercle, polygoneAvecNom } from '../../modules/2d.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { context } from '../../modules/context.js'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const titre = 'Connaitre le vocabulaire de base des polygones'
@@ -26,12 +27,14 @@ export default class NomExercice extends Exercice {
     this.listeCorrections = []
     this.autoCorrection = []
 
-    for (let i = 0, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      texte = ''
+      texteCorr = ''
       const objets2d = []
       const O = point(0, 0, 'O')
       const points = []
 
-      const nbPoints = 4
+      const nbPoints = randint(4, 6)
       // On commence par créer les angles à partir desquels les points seront créés
       const anglesPoints = []
       for (let i = 0; i < nbPoints; i++) {
@@ -66,16 +69,35 @@ export default class NomExercice extends Exercice {
       const parametres2d = { xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 20, scale: 1 }
       texte += mathalea2d(parametres2d, objets2d)
 
-      // On affiche les questions
-      const A = points[0].nom
-      const B = points[1].nom
-      const C = points[2].nom
-      const D = points[3].nom
+      // On construit les questions
+      const indiceA = randint(0, (nbPoints - 1))
+      const indiceB = (indiceA + 1) % nbPoints
+      const indiceC = (indiceA + 2) % nbPoints
+      const A = points[indiceA].nom
+      const B = points[indiceB].nom
+      const C = points[indiceC].nom
+
+      const indiceDepart = randint(0, points.length)
+      let nomDirectCorrect = '$'
+      for (let i = 0; i < nbPoints; i++) {
+        nomDirectCorrect += points[(indiceDepart + i) % nbPoints].nom
+      }
+      nomDirectCorrect += '$'
+      const nomIndirectCorrect = nomDirectCorrect.split('').reverse().join('')
+      const nomDirectIncorrect = inverse2lettres(nomDirectCorrect)
+      const nomIndirrectIncorrect = inverse2lettres(nomIndirectCorrect)
+      function inverse2lettres (str) {
+        const arr = str.split('')
+        const temp = arr[1]
+        arr[1] = arr[2]
+        arr[2] = temp
+        return arr.join('')
+      }
       let questionsReponses = [
         {
           question: 'Quels sont les deux noms possibles de ce polygone ?',
-          propositions: [`$${A}${B}${C}${D}$`, `$${A}${D}${C}${B}$`, `$${A}${B}${D}${C}$`, `$${A}${D}${B}${C}$`],
-          reponses: [`$${A}${B}${C}${D}$`, `$${A}${D}${C}${B}$`],
+          propositions: [nomDirectCorrect, nomDirectIncorrect, nomIndirectCorrect, nomIndirrectIncorrect],
+          reponses: [nomDirectCorrect, nomIndirectCorrect],
           explications: `On peut le nommer de plein de façons différentes.<br>
           Il faut partir d'un point (n'importe lequel) et de nommer les points qu'on rencontre lorsqu'on fait le tour de la figure dans un sens ou dans l'autre.`
         },
@@ -83,7 +105,7 @@ export default class NomExercice extends Exercice {
           question: `$${A}$ est :`,
           propositions: ['un sommet', 'un côté', 'une diagonale', 'je ne sais pas'],
           reponses: ['un sommet'],
-          explications: 'Les extrémités des côtés sont appelés des sommets.'
+          explications: 'Les sommets délimitent les côtés d\'un polygone'
         },
         {
           question: `[$${B}${C}$] est :`,
@@ -119,8 +141,13 @@ export default class NomExercice extends Exercice {
           propositions: propositions
         }
         const monQcm = propositionsQcm(this, i * questionsReponses.length + j)
-        texte += numAlpha(j) + monQcm.texte + '<br>'
-        texteCorr += numAlpha(j) + monQcm.texteCorr + '<br>'
+        texte += numAlpha(j)
+        texte += context.isAmc ? '' : questionReponse.question
+        texte += monQcm.texte + '<br>'
+        texteCorr += numAlpha(j)
+        texteCorr += context.isAmc ? '' : questionReponse.question
+        texteCorr += monQcm.texteCorr
+        this.correctionDetaillee ? texteCorr += questionReponse.explications + '<br><br>' : texteCorr += '<br>'
         j++
       }
       if (this.questionJamaisPosee(i, ...pointsX, ...pointsY)) {
