@@ -54,7 +54,7 @@ export default function CanNoteLaCouleur6 () {
     this.listeCorrections = []
     let j, test
     let objetsEnonce = []; let objetsCorrection = []
-    const paramsCorrection = { xmin: -1, ymin: -1, xmax: 16, ymax: 9, pixelsParCm: 20, scale: echelleDessin }
+    const paramsCorrection = { xmin: -1, ymin: -1, xmax: 11, ymax: 9, pixelsParCm: 20, scale: echelleDessin, optionsTikz: 'baseline=3.5 cm' }
     let commandes_disponibles; const sequences_disponibles = []; let sequence; let result; let nb_couleurs; let instruction; let couleurs; let liste_instructions
 
     let lutin, lutindepart
@@ -173,7 +173,7 @@ export default function CanNoteLaCouleur6 () {
         texte += `N'hésitez pas à vous rendre sur le site ${modalUrl(numeroExercice + 1, 'https://www.monclasseurdemaths.fr', 'Mon classeur de Maths.fr', 'info circle')} de Jean-Yves pour y découvrir la multitude de ressources qu'il propose.<br>`
         texte += `Pour jouer, regarder les règles du jeu${modalPdf(numeroExercice + 2, '../../pdf/reglesnlc.pdf', 'Règles du jeu', 'Règles - PDF', 'file pdf')} .<br>`
       } else { texte = '' }
-      texte += `Exécuter le programme et trouver la couleur. ${ajouteChampTexte(this, q, 'largeur25 inline')}<br><br>`
+      texte += `Exécuter le programme et trouver la couleur à noter. ${ajouteChampTexte(this, q, 'largeur25 inline')}<br><br>`
       if (context.isHtml) {
         texte += '<table><tr><td>' +
       scratchblock(pion.codeScratch) +
@@ -190,6 +190,10 @@ export default function CanNoteLaCouleur6 () {
         if (q < this.nbQuestions - 1 && !context.isHtml) {
           texte += '\n\\newpage'
         }
+        this.canEnonce = 'Sur quelle case le lutin s\'arrête pour noter la couleur ?\\\\' + scratchblock(pion.codeScratch)
+        this.canReponseACompleter = `${this.sup === 4 || this.sup === 2
+          ? 'Correspondance chiffre-couleur : \\\\\n0=Blanc, 1=Noir, 2=Rouge, 3=Bleu, 4=Orange, 5=Rose, 6=Jaune, 7=Vert, 8=Gris\\\\\n'
+          : ''} ${mathalea2d(paramsCorrection, objetsEnonce)}`
       }
       texteCorr = 'On obtient la couleur suivante :<br> '
       texteCorr += `${texteGras(this.sup === 4 || this.sup === 2 ? '(' + lePlateau.traducNum(couleurs[0]) + ')' + couleurs[0] : couleurs[0])} `
@@ -243,8 +247,6 @@ export default function CanNoteLaCouleur6 () {
         q++
       }
     }
-    this.canEnonce = this.listeQuestions[0]
-    this.canReponseACompleter = ''
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Type de plateau', 4, '1 : Plateau couleur sans numéro\n2 : Plateau couleur avec numéros\n3 : Plateau noir et blanc avec nom des couleurs\n4 : Plateau noir et blanc avec numéros']

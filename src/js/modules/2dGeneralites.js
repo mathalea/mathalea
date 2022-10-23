@@ -43,6 +43,10 @@ export function ObjetMathalea2D ({ classe = true } = {}) {
  *
  *
  * Le paramètre optionsTikz est un tableau de strings contenant exclusivement des options Tikz à ajouter
+ * si scale existe autre que 1 il faut que le code reste comme avant
+ * sinon on ajoute scale quoi qu'il en soit quitte à ce que xscale et yscale viennent s'ajouter
+ * de cette manière d'autres options Tikz pourront aussi être ajoutées
+ * si il n'y a qu'une optionsTikz on peut passer un string
  */
 export function mathalea2d (
   { xmin = 0, ymin = 0, xmax = 15, ymax = 6, pixelsParCm = 20, scale = 1, zoom = 1, optionsTikz, mainlevee = false, amplitude = 1, style = 'display: block', id = '' } = {},
@@ -100,25 +104,18 @@ export function mathalea2d (
       };
     }
     if (scale === 1) {
-      // if (listeOptionsTikz.length==0) {
-      //   code = `\\begin{tikzpicture}[baseline]\n`;
-      // } else {
       code = '\\begin{tikzpicture}[baseline'
       for (let l = 0; l < listeOptionsTikz.length; l++) {
         code += `,${listeOptionsTikz[l]}`
       }
       code += ']\n'
-      // }
     } else {
-      // if (listeOptionsTikz.length==0) {
-      //   code = `\\begin{tikzpicture}[baseline,scale = ${scale}]\n`;
-      // } else {
-      code = `\\begin{tikzpicture}[baseline,scale = ${scale}`
+      code = '\\begin{tikzpicture}[baseline'
       for (let l = 0; l < listeOptionsTikz.length; l++) {
         code += `,${listeOptionsTikz[l]}`
       }
+      code += `,scale = ${scale}`
       code += ']\n'
-      // }
     }
 
     code += `
