@@ -33,7 +33,7 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
           expc = `$${texNombrec(a)}+${texNombrec(b)} = ${texNombrec(a + b)}$`
           break
         case 1: // différence entre deux nombres
-          if (a < b) { const tp = a; a = b; b = tp } // pour ne pas avoir de nombres négatifs!!!!
+          if (a < b) { [a, b] = [b, a] } // pour ne pas avoir de nombres négatifs
           repNum = arrondi(a - b)
           expf = `La différence entre ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)}`
           expn = `$${texNombrec(a)}-${texNombrec(b)}$`
