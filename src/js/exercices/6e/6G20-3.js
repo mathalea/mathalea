@@ -56,7 +56,7 @@ export default class NomExercice extends Exercice {
       points.push(pointSurCercle(cercle(O, randint(20, 50) / 10), anglesPoints[i], lettreDepuisChiffre(numerosNomsPoints[i])))
     }
     const polygon = polygoneAvecNom(points)
-    objets2d.push(polygon)
+    objets2d.push(polygon[0], polygon[1])
     // On affiche le cadre mathalea2d
     const pointsX = []
     const pointsY = []
@@ -114,7 +114,7 @@ export default class NomExercice extends Exercice {
           questionReponse =
           {
             question: `$${A}$ est :`,
-            propositions: ['un sommet', 'un côté', 'une diagonale', 'je ne sais pas'],
+            propositions: ['un sommet', 'un côté', 'une diagonale', 'aucune de ces réponses'],
             reponses: ['un sommet'],
             explications: 'Les sommets sont les extrémités des côtés.'
           }
@@ -123,8 +123,8 @@ export default class NomExercice extends Exercice {
         case 'cote':
           questionReponse =
           {
-            question: `[$${B}${C}$] est :`,
-            propositions: ['un sommet', 'un côté', 'une diagonale', 'je ne sais pas'],
+            question: `$[${B}${C}]$ est :`,
+            propositions: ['un sommet', 'un côté', 'une diagonale', 'aucune de ces réponses'],
             reponses: ['un côté'],
             explications: 'Les côtés sont les segments qui forment le polygone.'
           }
@@ -133,8 +133,8 @@ export default class NomExercice extends Exercice {
         case 'diagonale':
           questionReponse =
           {
-            question: `[$${C}${A}$] est :`,
-            propositions: ['un sommet', 'un côté', 'une diagonale', 'je ne sais pas'],
+            question: `$[${C}${A}]$ est :`,
+            propositions: ['un sommet', 'un côté', 'une diagonale', 'aucune de ces réponses'],
             reponses: ['une diagonale'],
             explications: 'Une diagonale est un segment qui a pour extrémités deux sommets non consécutifs (deux côtés qui ne se suivent pas).'
           }
@@ -159,9 +159,9 @@ export default class NomExercice extends Exercice {
         propositions: propositions
       }
       const monQcm = propositionsQcm(this, i)
-      texte += context.isAmc ? '' : questionReponse.question
-      texte += monQcm.texte + '<br>'
-      texteCorr += context.isAmc ? '' : questionReponse.question
+      texte += context.isAmc ? '' : questionReponse.question + '<br>'
+      texte += monQcm.texte
+      texteCorr += context.isAmc ? '' : questionReponse.question + '<br>'
       texteCorr += monQcm.texteCorr
       this.correctionDetaillee ? texteCorr += questionReponse.explications + '<br><br>' : texteCorr += '<br>'
       if (this.questionJamaisPosee(i, ...pointsX, ...pointsY, listeTypeQuestions[i])) {
