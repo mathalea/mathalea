@@ -24,8 +24,8 @@ export default class NomExercice extends Exercice {
     this.correctionDetailleeDisponible = true
     this.nbQuestions = 4
     this.nbQuestionsModifiable = false
-    this.besoinFormulaireTexte = ['Texte de la 4ème possibilité', '']
-    this.sup = 'aucune de ces réponses'
+    this.besoinFormulaireTexte = ['Texte de la 4ème possibilité', 'Retire la 4ème possibilité si le champ est vide']
+    this.sup = ''
   }
 
   nouvelleVersion (numeroExercice) {
@@ -116,7 +116,7 @@ export default class NomExercice extends Exercice {
           questionReponse =
           {
             question: `$${A}$ est :`,
-            propositions: ['un sommet', 'un côté', 'une diagonale', this.sup],
+            propositions: ['un sommet', 'un côté', 'une diagonale'],
             reponses: ['un sommet'],
             explications: 'Les sommets sont les extrémités des côtés.'
           }
@@ -126,7 +126,7 @@ export default class NomExercice extends Exercice {
           questionReponse =
           {
             question: `$[${B}${C}]$ est :`,
-            propositions: ['un sommet', 'un côté', 'une diagonale', this.sup],
+            propositions: ['un sommet', 'un côté', 'une diagonale'],
             reponses: ['un côté'],
             explications: 'Les côtés sont les segments qui forment le polygone.'
           }
@@ -136,13 +136,14 @@ export default class NomExercice extends Exercice {
           questionReponse =
           {
             question: `$[${C}${A}]$ est :`,
-            propositions: ['un sommet', 'un côté', 'une diagonale', this.sup],
+            propositions: ['un sommet', 'un côté', 'une diagonale'],
             reponses: ['une diagonale'],
             explications: 'Une diagonale est un segment qui a pour extrémités deux sommets non consécutifs (deux côtés qui ne se suivent pas).'
           }
 
           break
       }
+      if (this.sup !== '' && this.sup !== undefined && listeTypeQuestions[i] !== 'nom') questionReponse.propositions.push(this.sup)
       const propositions = []
       for (const proposition of questionReponse.propositions) {
         let statut = false
