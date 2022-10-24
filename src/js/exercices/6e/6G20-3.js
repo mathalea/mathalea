@@ -143,7 +143,7 @@ export default class NomExercice extends Exercice {
 
           break
       }
-      if (this.sup !== '' && this.sup !== undefined && listeTypeQuestions[i] !== 'nom') questionReponse.propositions.push(this.sup)
+      if (this.sup !== '' && this.sup !== undefined && this.sup !== 'NaN' && listeTypeQuestions[i] !== 'nom') questionReponse.propositions.push(this.sup)
       const propositions = []
       for (const proposition of questionReponse.propositions) {
         let statut = false
