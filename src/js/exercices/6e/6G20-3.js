@@ -24,6 +24,8 @@ export default class NomExercice extends Exercice {
     this.correctionDetailleeDisponible = true
     this.nbQuestions = 4
     this.nbQuestionsModifiable = false
+    this.besoinFormulaireTexte = ['Texte de la 4ème possibilité', '']
+    this.sup = 'aucune de ces réponses'
   }
 
   nouvelleVersion (numeroExercice) {
@@ -114,7 +116,7 @@ export default class NomExercice extends Exercice {
           questionReponse =
           {
             question: `$${A}$ est :`,
-            propositions: ['un sommet', 'un côté', 'une diagonale', 'aucune de ces réponses'],
+            propositions: ['un sommet', 'un côté', 'une diagonale', this.sup],
             reponses: ['un sommet'],
             explications: 'Les sommets sont les extrémités des côtés.'
           }
@@ -124,7 +126,7 @@ export default class NomExercice extends Exercice {
           questionReponse =
           {
             question: `$[${B}${C}]$ est :`,
-            propositions: ['un sommet', 'un côté', 'une diagonale', 'aucune de ces réponses'],
+            propositions: ['un sommet', 'un côté', 'une diagonale', this.sup],
             reponses: ['un côté'],
             explications: 'Les côtés sont les segments qui forment le polygone.'
           }
@@ -134,7 +136,7 @@ export default class NomExercice extends Exercice {
           questionReponse =
           {
             question: `$[${C}${A}]$ est :`,
-            propositions: ['un sommet', 'un côté', 'une diagonale', 'aucune de ces réponses'],
+            propositions: ['un sommet', 'un côté', 'une diagonale', this.sup],
             reponses: ['une diagonale'],
             explications: 'Une diagonale est un segment qui a pour extrémités deux sommets non consécutifs (deux côtés qui ne se suivent pas).'
           }
