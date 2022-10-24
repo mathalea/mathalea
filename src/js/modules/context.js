@@ -18,7 +18,7 @@ export const context = {
   nbMauvaisesReponses: 0,
   zoom: 1,
   seedSpecial: false, // Change le numéro de série si une correction est cachée
-  son: 0 //pour ajouter du son au changement de diapo dans le diaporama
+  son: 0 // pour ajouter du son au changement de diapo dans le diaporama
 }
 
 export function setOutputHtml () {

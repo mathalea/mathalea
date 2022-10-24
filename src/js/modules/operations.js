@@ -11,7 +11,7 @@ import { mathalea2d } from './2dGeneralites.js'
  * Le paramètre précision précise pour divisiond, le nombre de chiffres après la virgule dans le quotient.
  */
 
-export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addition', precision = 0, base = 10, retenuesOn = true, style = 'display: block' }) { // precision est pour le quotient décimal
+export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addition', precision = 0, base = 10, retenuesOn = true, style = 'display: block', methodeParCompensation = true }) { // precision est pour le quotient décimal
   let Code
   const nombreDeChiffresApresLaVirgule = function (x) {
     const s = x.toString()
@@ -193,7 +193,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     return code
   }
 
-  const SoustractionPosee3d = function (operande1, operande2, base, retenuesOn = true) {
+  const SoustractionPosee3d = function (operande1, operande2, base, retenuesOn = true, methodeParCompensation = true) {
     let code = ''
     const objets = []
     let sop1; let sop2
@@ -250,21 +250,57 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     for (let i = 0; i < longueuroperandes + 1 - lresultat; i++) {
       sresultat = ` ${sresultat}`
     }
-    const offsetCarry = lop1 - lop2
-    for (let i = 0; i < longueuroperandes + 1; i++) {
-      if (retenues[i] !== '0' && retenuesOn) objets.push(texteParPosition(retenues[i], i * 0.6 - 0.2 + 0.6 * offsetCarry, 4.1, 'milieu', 'red', 0.8, 'middle', false))
-      if (sop1[i] !== ' ') objets.push(texteParPosition(sop1[i], i * 0.6, 4, 'milieu', 'black', 1.2, 'middle', false))
-      if (sop2[i] !== ' ') objets.push(texteParPosition(sop2[i], i * 0.6, 3, 'milieu', 'black', 1.2, 'middle', false))
-      if (retenues[i] !== '0' && retenuesOn) objets.push(texteParPosition(retenues[i], i * 0.6 - 0.6 + 0.6 * offsetCarry, 2.6, 'milieu', 'blue', 0.8, 'middle', false))
-      if (sresultat[i] !== ' ') objets.push(texteParPosition(sresultat[i], i * 0.6, 1, 'milieu', 'black', 1.2, 'middle', false))
+    if (methodeParCompensation) {
+      const offsetCarry = lop1 - lop2
+      for (let i = 0; i < longueuroperandes + 1; i++) {
+        if (retenues[i] !== '0' && retenuesOn) objets.push(texteParPosition(retenues[i], i * 0.6 - 0.25 + 0.6 * offsetCarry, 4, 'milieu', 'red', 0.8, 'middle', false))
+        if (sop1[i] !== ' ') objets.push(texteParPosition(sop1[i], i * 0.6, 4, 'milieu', 'black', 1.2, 'middle', false))
+        if (sop2[i] !== ' ') objets.push(texteParPosition(sop2[i], i * 0.6, 3, 'milieu', 'black', 1.2, 'middle', false))
+        if (retenues[i] !== '0' && retenuesOn) objets.push(texteParPosition(retenues[i], i * 0.6 - 0.6 + 0.6 * offsetCarry, 2.6, 'milieu', 'blue', 0.8, 'middle', false))
+        if (sresultat[i] !== ' ') objets.push(texteParPosition(sresultat[i], i * 0.6, 1, 'milieu', 'black', 1.2, 'middle', false))
+      }
+    } else {
+      const hauteur = Array.apply(null, Array(longueuroperandes + 1)).map(function () { return 0 })
+      const ArrsOp1 = Array.apply(null, Array(sop1.length)).map(function (x, i) { return sop1[i] })
+      for (let i = longueuroperandes; i >= 0; i--) {
+        const additOp1 = new Decimal(parseInt(sresultat[i] === ' ' ? '0' : sresultat[i]) + parseInt(sop2[i] === ' ' ? '0' : sop2[i]))
+        if (ArrsOp1[i] !== ' ') objets.push(texteParPosition(ArrsOp1[i], i * 0.6, 4, 'milieu', 'black', 1.2, 'middle', false))
+        if (retenuesOn && additOp1.sub(parseInt(ArrsOp1[i])).abs() > 0.5) {
+          // retenu à mettre ou cassage
+          for (let k = 0; k < 2; k++) {
+            if ((additOp1.gte(10) && additOp1.sub(10).sub(parseInt(ArrsOp1[i])).abs() > 0.5) || // addition >= 10 & unités différentes donc il faut casser si unité différente
+              (additOp1.lt(10) && additOp1.sub(parseInt(ArrsOp1[i])).abs() > 0.5)) { // addition < 10 et chiffres différents donc il faut casser
+              // on doit casser
+              objets.push(segment(i * 0.6 - 0.3, 4 + hauteur[i] - 0.3, i * 0.6 + 0.3, 4 + hauteur[i] + 0.3))
+              if (parseInt(ArrsOp1[i]) > 0) {
+                ArrsOp1[i] = (parseInt(ArrsOp1[i]) - 1).toString()
+              } else {
+                ArrsOp1[i] = '9'
+                // On ajoute une retenue car on passe de 10 à 9
+                objets.push(texteParPosition('1', i * 0.6 - 0.25, 4 + hauteur[i], 'milieu', 'red', 0.8, 'middle', false))
+              }
+              hauteur[i]++
+              objets.push(texteParPosition(ArrsOp1[i], i * 0.6, 4 + hauteur[i], 'milieu', 'black', 1.2, 'middle', false))
+            } else if (additOp1.gte(10) && additOp1.sub(10).sub(parseInt(ArrsOp1[i])).abs() < 0.5) {
+              // addition >= 10 & et les unités sont les mêmes donc il faut mettre une retenue
+              objets.push(texteParPosition('1', i * 0.6 - 0.25, 4 + hauteur[i], 'milieu', 'red', 0.8, 'middle', false))
+              break
+            }
+          }
+        }
+        if (sop2[i] !== ' ') objets.push(texteParPosition(sop2[i], i * 0.6, 3, 'milieu', 'black', 1.2, 'middle', false))
+        if (sresultat[i] !== ' ') objets.push(texteParPosition(sresultat[i], i * 0.6, 1, 'milieu', 'black', 1.2, 'middle', false))
+      }
     }
+
     objets.push(segment(0, 2, (longueuroperandes + 1) * 0.6, 2))
     if (decalage !== 0) {
-      objets.push(texteParPosition(',', 0.3 + 0.6 * (longueuroperandes - decalage), 4, 'milieu', 'black', 1.2, 'middle', false))
-      objets.push(texteParPosition(',', 0.3 + 0.6 * (longueuroperandes - decalage), 3, 'milieu', 'black', 1.2, 'middle', false))
-      objets.push(texteParPosition(',', 0.3 + 0.6 * (longueuroperandes - decalage), 1, 'milieu', 'black', 1.2, 'middle', false))
+      objets.push(texteParPosition(',', 0.3 + 0.6 * (longueuroperandes - decalage), 4 + (context.vue === 'latex' ? -0.2 : 0), 'milieu', 'black', 1.2, 'middle', false))
+      objets.push(texteParPosition(',', 0.3 + 0.6 * (longueuroperandes - decalage), 3 + (context.vue === 'latex' ? -0.2 : 0), 'milieu', 'black', 1.2, 'middle', false))
+      objets.push(texteParPosition(',', 0.3 + 0.6 * (longueuroperandes - decalage), 1 + (context.vue === 'latex' ? -0.2 : 0), 'milieu', 'black', 1.2, 'middle', false))
     }
-    code += mathalea2d({ xmin: -0.5, ymin: 0, xmax: longueuroperandes, ymax: 5, pixelsParCm: 20, scale: 0.8, style }, objets)
+
+    code += mathalea2d({ xmin: -0.5, ymin: 0, xmax: longueuroperandes, ymax: (methodeParCompensation || !retenuesOn ? 5 : 6), pixelsParCm: 20, scale: 0.8, style }, objets)
     return code
   }
   const MultiplicationPosee3d = function (operande1, operande2, base) {
@@ -419,7 +455,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       if (context.isHtml) { Code = AdditionPosee3d(operande1, operande2, base, retenuesOn) } else { Code = `\\opadd[decimalsepsymbol={,}]{${operande1}}{${operande2}}` }
       break
     case 'soustraction':
-      if (context.isHtml) { Code = SoustractionPosee3d(operande1, operande2, base, retenuesOn) } else { Code = `\\opsub[carrysub,lastcarry,decimalsepsymbol={,}]{${operande1}}{${operande2}}` }
+      if (context.isHtml || !methodeParCompensation) { Code = SoustractionPosee3d(operande1, operande2, base, retenuesOn, methodeParCompensation) } else { Code = `\\opsub[carrysub,lastcarry,decimalsepsymbol={,}]{${operande1}}{${operande2}}` }
       break
     case 'multiplication':
       if (context.isHtml) { Code = MultiplicationPosee3d(operande1, operande2, base) } else { Code = `\\opmul[displayshiftintermediary=all,decimalsepsymbol={,}]{${operande1}}{${operande2}}` }

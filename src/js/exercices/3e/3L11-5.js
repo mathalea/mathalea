@@ -47,7 +47,6 @@ export default function IdentitesCalculs () {
   this.listePackages = 'bclogo'
 
   let typesDeQuestionsDisponibles
-
   this.nouvelleVersion = function () {
     // une fonction pour gérer un \hfill dans la sortie LaTeX
     function myhfill () {
@@ -263,6 +262,8 @@ export default function IdentitesCalculs () {
                 this.reponse = `${enonces[0].resultatCan}`
                 break
             }
+            this.canEnonce = this.question
+            this.canReponseACompleter = ''
           }
           break
         case 1: // carré d'une différence
@@ -301,6 +302,8 @@ export default function IdentitesCalculs () {
                 this.reponse = `${enonces[1].resultatCan}`
                 break
             }
+            this.canEnonce = this.question
+            this.canReponseACompleter = ''
           }
           break
         case 2: // Produit somme différence
@@ -339,6 +342,8 @@ export default function IdentitesCalculs () {
                 this.reponse = `${enonces[2].resultatCan}`
                 break
             }
+            this.canEnonce = this.question
+            this.canReponseACompleter = ''
           }
           break
       };

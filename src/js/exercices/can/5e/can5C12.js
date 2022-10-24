@@ -25,7 +25,7 @@ export default function FractionDEntierQuiVaBien () {
     const c = choice([2, 3, 4, 5, 6])
     const b = a.d * c
     this.reponse = calcul(a.n * c)
-    this.question = `Calculer sous la forme d'un entier $${a.texFraction}\\times ${b}$.`
+    this.question = `Calculer $${a.texFraction}\\times ${b}$ sous la forme d'un entier.`
     if (a.n === 1) {
       this.correction = `$${a.texFraction}\\times ${b}=${a.n * c}$<br><br>`
       this.correction += `${texteEnCouleur('Mentalement :')}<br>`

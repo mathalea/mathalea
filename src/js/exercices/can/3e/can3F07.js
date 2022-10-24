@@ -76,6 +76,6 @@ export default function LectureGraphiqueFonctionAffine1 () {
         rep, courbe(x => a * x + b, { repere: rep, color: 'blue' }), o)}
         
         `
-    this.canReponseACompleter = '$f(x)=\\ldots'
+    this.canReponseACompleter = '$f(x)=\\ldots$'
   }
 }
