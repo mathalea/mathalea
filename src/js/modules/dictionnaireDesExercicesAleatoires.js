@@ -278,7 +278,7 @@ export default {
     }
   },
   "1E17": {
-    "titre": "Utiliser les différentes formes d'un polynome du second degré",
+    "titre": "Utiliser les différentes formes d'un polynôme du second degré",
     "url": "/exercices/1e/1E17.js",
     "amcReady": false,
     "interactifReady": false,
