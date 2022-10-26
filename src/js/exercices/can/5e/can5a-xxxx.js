@@ -169,6 +169,7 @@ export default function CourseAuxNombres5e (numeroExercice) {
               texteCorr = `$50 \\times ${texNombre(d)}\\times 2 = 100 \\times ${texNombre(d)} = ${calcul(100 * d)}$`
               break
           }
+          setReponse(this, i, resultat, { formatInteractif: 'calcul' })
           break
         case 'q9':
           a = randint(5, 15)
@@ -209,7 +210,7 @@ export default function CourseAuxNombres5e (numeroExercice) {
           a = randint(2, 4)
           b = randint(10, 59)
           d = calcul(a * 60 + b)
-          texte = `$${a}$ heures et ${b} minutes font combine de minutes ?`
+          texte = `$${a}$ heures et ${b} minutes font combien de minutes ?`
           texteCorr = `$${a}h ${b}min = ${a} \\times 60 + ${b}= ${d}$ donc $${d}$ minutes`
           setReponse(this, i, d)
           break
@@ -326,7 +327,7 @@ export default function CourseAuxNombres5e (numeroExercice) {
           texte = `Choisis parmi les propositions suivantes la hauteur d'une ${hauteurs[a][0]}<br>`
           texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}`
           texteCorr = `La hauteur d'une ${hauteurs[a][0]} est ${b} ${hauteurs[a][3]}`
-          setReponse(this, i, b, { formatInteractif: 'calcul' })
+          setReponse(this, i, new Grandeur(b, hauteurs[a][3]), { formatInteractif: 'unites' })
           break
         case 'q26':
           a = randint(2, 9) * 5
