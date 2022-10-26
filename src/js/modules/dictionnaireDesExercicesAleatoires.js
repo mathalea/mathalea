@@ -277,6 +277,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "1E17": {
+    "titre": "Utiliser les différentes formes d'un polynôme du second degré",
+    "url": "/exercices/1e/1E17.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "1E17",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "1F10": {
     "titre": "Calculs de dérivées",
     "url": "/exercices/1e/1F10.js",
@@ -554,7 +569,7 @@ export default {
     "interactifReady": false,
     "name": "2F20-2",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -3484,7 +3499,7 @@ export default {
     "interactifReady": false,
     "name": "3I12-1",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     }
   },
@@ -3498,7 +3513,7 @@ export default {
     "interactifReady": false,
     "name": "3I12-2",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     }
   },
@@ -3512,7 +3527,7 @@ export default {
     "interactifReady": false,
     "name": "3I12-3",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     }
   },
@@ -3526,7 +3541,7 @@ export default {
     "interactifReady": false,
     "name": "3I12-4",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     }
   },
@@ -4339,7 +4354,7 @@ export default {
     "interactifType": "mathLive",
     "name": "4C10",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -6667,7 +6682,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -8651,16 +8666,15 @@ export default {
   "6G10": {
     "titre": "Utiliser la notation de droites, segments et demi-droites",
     "url": "/exercices/6e/6G10.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
     "interactifReady": false,
     "name": "6G10",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G11-1": {
@@ -9194,7 +9208,7 @@ export default {
     ],
     "name": "6G44-1",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -9903,7 +9917,7 @@ export default {
     "interactifType": "listeDeroulante",
     "name": "6N13-0",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -10104,7 +10118,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -13423,7 +13437,7 @@ export default {
     "interactifType": "qcm",
     "name": "can1F20",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -13442,7 +13456,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can1F21",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -13458,7 +13472,7 @@ export default {
     "interactifType": "qcm",
     "name": "can1F22",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -14300,7 +14314,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can2C13",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -14316,7 +14330,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can2C14",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -18178,7 +18192,8 @@ export default {
     "titre": "Noter la couleur (scratch)",
     "url": "/exercices/can/6e/can6I01.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "can6I01",
     "newEx": {
       "isNew": false,

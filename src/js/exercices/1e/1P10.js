@@ -16,7 +16,7 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
 */
 export const uuid = '9ccfd'
 export const ref = '1P10'
-export default function ProbabilitésConditionnelles () {
+export default function ProbabilitesConditionnelles () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
   this.nbQuestions = 1 // Nombre de questions par défaut
@@ -24,8 +24,8 @@ export default function ProbabilitésConditionnelles () {
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-  this.besoinFormulaireCaseACocher = ['Probabilités fractionnaires', false]
   this.sup = false
+  this.sup2 = 3
   /**
    *
    * @param {Number} proba La probabilité à afficher
@@ -76,34 +76,16 @@ export default function ProbabilitésConditionnelles () {
           objets.push(latexParCoordonnees('A', 5, 5.2, 'black', 20, 12, 'white', 10)) // 1er noeud Avion) = A
           objets.push(latexParCoordonnees('\\bar A', 5, 1.3, 'black', 20, 12, 'white', 10))// 1er noeud événement contraire \bar A
           objets.push(latexParCoordonnees('\\Omega', 0, 2.3))// Univers, point de départ de l'arbre Omega
-          // if (this.sup) {
           objets.push(latexParCoordonnees(texProba(a / 100, this.sup), 2.5, 4.1, 'black', 20, 20, 'white', 6))// proba de A, ici ${a}
           objets.push(latexParCoordonnees(texProba(1 - a / 100, this.sup), 2.5, 2.1, 'black', 20, 20, 'white', 6))// proba de \\bar A 1-${a}
-          // objets.push(latexParCoordonnees(`\\dfrac{${100 - v}}{100}`, 6.8, 6.8, 'black', 20, 20, 'white', 6))// proba de B sachant A
-          // objets.push(latexParCoordonnees(`\\dfrac{${v}}{100}`, 6.8, 4.9, 'black', 20, 20, 'white', 6))// proba de \\bar B sachant A
           objets.push(latexParCoordonnees(texProba(1 - v / 100, this.sup), 6.8, 0.9, 'black', 20, 20, 'white', 6))// proba de \\bar B sachant \\bar A
           objets.push(latexParCoordonnees(texProba(v / 100, this.sup), 6.8, 2.7, 'black', 20, 20, 'white', 6))// proba de B sachant \\bar A
           objets.push(latexParCoordonnees(`P(A\\cap V)=${texProba(av / 100, this.sup)}`, 10.5, 7.8, 'red', 20, 20, 'white', 10))// proba de B \\cap A
-          /*  } else {
-            objets.push(latexParCoordonnees(texNombrec(a / 100), 2.5, 4, 'black', 20, 12, 'white', 6))
-            objets.push(latexParCoordonnees(texNombrec(1 - a / 100), 2.5, 2, 'black', 20, 12, 'white', 6))
-            // objets.push(latexParCoordonnees(texNombrec(1 - v / 100), 6.8, 6.5, 'black', 20, 12, 'white', 6))
-            // objets.push(latexParCoordonnees(texNombrec(v / 100), 6.8, 4.8, 'black', 20, 12, 'white', 6))
-            objets.push(latexParCoordonnees(texNombrec((100 - v) / 100), 6.8, 0.7, 'black', 20, 20, 'white', 6))// proba de \\bar B sachant \\bar A
-            objets.push(latexParCoordonnees(texNombrec(v / 100), 6.8, 2.5, 'black', 20, 20, 'white', 6))// proba de B sachant \\bar A
-            objets.push(latexParCoordonnees('P(A\\cap V)=', 10.5, 7.8, 'red', 20, 20, 'white', 10))// proba de B sachant \\bar A
-            objets.push(latexParCoordonnees(texNombrec(av / 100), 14.5, 7.8, 'red', 20, 20, 'white', 10))// proba de B sachant \\bar A
-          }
-*/
+
           objets.push(latexParCoordonnees('V', 9, 7.7, 'black', 20, 12, 'white', 10)) // 2ème noeud issu de A
           objets.push(latexParCoordonnees('\\bar V', 9, 4.3, 'black', 20, 12, 'white', 10))// 2ème noeud issu de A
           objets.push(latexParCoordonnees('V', 9, 3.1, 'black', 20, 12, 'white', 10)) // 2ème noeud issu de \bar A
           objets.push(latexParCoordonnees('\\bar V', 9, 0.2, 'black', 20, 12, 'white', 10))// 2ème noeud issu de \bar A
-
-          // p2 = texteParPoint(Number(1 - a / 100).toString(), pA1)
-          // p3 = texteParPoint((1 - v / 100).toString(), pA2)
-          // p4 = texteParPoint(Number(v / 100).toString(), pA3)
-          // Il manque le 2ème noeud avec  V et \\bar V
 
           texte = 'Une agence de voyage propose deux formules week-end pour se rendre à Londres depuis Paris.'
           texte += '<br> Les clients choisissent leur moyen de transport : train ou avion.'
@@ -127,7 +109,6 @@ export default function ProbabilitésConditionnelles () {
           texteCorr += `<br> $P_{\\bar{A}}(V)=${texProba(v / 100, this.sup)}$`
           texteCorr += `<br> $P(A \\cap V)=${texProba(av / 100, this.sup)}$`
           texteCorr += ' <br>On peut alors construire cet arbre pondéré : <br>'
-          // texteCorr += mathalea2d({ xmin: -5, ymin: -1, xmax: 12, ymax: 7 }, objets)
           texteCorr += mathalea2d({ xmin: -5, ymin: -1, xmax: 18, ymax: 10 }, objets)
           texteCorr += `<br>On a donc $P_{A}(V)=\\dfrac{P(A \\cap V)}{P(A)}=\\dfrac{${texProba(av / 100, this.sup)}}{${texProba(a / 100, this.sup)}}=${texFraction(av, a)} $.`
           texteCorr += '<br><br>2. Comme $A$ et $\\bar A$ forment une partition de l\'univers, d\'après la loi des probabilités totales :'
@@ -166,25 +147,11 @@ export default function ProbabilitésConditionnelles () {
           objets.push(latexParCoordonnees('C', 5, 5.2, 'black', 20, 12, 'white', 10)) // 1er noeud  = C
           objets.push(latexParCoordonnees('\\bar C', 5, 1.3, 'black', 20, 12, 'white', 10))// 1er noeud événement contraire \bar C
           objets.push(latexParCoordonnees('\\Omega', 0, 2.3))// Univers, point de départ de l'arbre Omega
-          // if (this.sup) {
           objets.push(latexParCoordonnees(texProba(c / 100, this.sup), 2.5, 4.1, 'black', 20, 20, 'white', 6))// proba de C, ici ${c}
           objets.push(latexParCoordonnees(texProba(1 - c / 100, this.sup), 2.5, 2.1, 'black', 20, 20, 'white', 6))// proba de \\bar C 1-${c}
-          // objets.push(latexParCoordonnees(`\\dfrac{${100 - v}}{100}`, 6.8, 6.8, 'black', 20, 20, 'white', 6))// proba de B sachant A
-          // objets.push(latexParCoordonnees(`\\dfrac{${v}}{100}`, 6.8, 4.9, 'black', 20, 20, 'white', 6))// proba de \\bar B sachant A
           objets.push(latexParCoordonnees(texProba(1 - ec / 100, this.sup), 6.8, 0.9, 'black', 20, 20, 'white', 6))// proba de \\bar E sachant \\bar C
           objets.push(latexParCoordonnees(texProba(ec / 100, this.sup), 6.8, 2.7, 'black', 20, 20, 'white', 6))// proba de E sachant \\bar C
           objets.push(latexParCoordonnees(`P(C\\cap E)=${texProba(ce / 100, this.sup)}`, 10.5, 7.8, 'red', 20, 20, 'white', 10))// proba de C \\cap E
-          /*  } else {
-            objets.push(latexParCoordonnees(texNombrec(a / 100), 2.5, 4, 'black', 20, 12, 'white', 6))
-            objets.push(latexParCoordonnees(texNombrec(1 - a / 100), 2.5, 2, 'black', 20, 12, 'white', 6))
-            // objets.push(latexParCoordonnees(texNombrec(1 - v / 100), 6.8, 6.5, 'black', 20, 12, 'white', 6))
-            // objets.push(latexParCoordonnees(texNombrec(v / 100), 6.8, 4.8, 'black', 20, 12, 'white', 6))
-            objets.push(latexParCoordonnees(texNombrec((100 - v) / 100), 6.8, 0.7, 'black', 20, 20, 'white', 6))// proba de \\bar B sachant \\bar A
-            objets.push(latexParCoordonnees(texNombrec(v / 100), 6.8, 2.5, 'black', 20, 20, 'white', 6))// proba de B sachant \\bar A
-            objets.push(latexParCoordonnees('P(A\\cap V)=', 10.5, 7.8, 'red', 20, 20, 'white', 10))// proba de B sachant \\bar A
-            objets.push(latexParCoordonnees(texNombrec(av / 100), 14.5, 7.8, 'red', 20, 20, 'white', 10))// proba de B sachant \\bar A
-          }
-*/
           objets.push(latexParCoordonnees('E', 9, 7.7, 'black', 20, 12, 'white', 10)) // 2ème noeud issu de A
           objets.push(latexParCoordonnees('\\bar E', 9, 4.3, 'black', 20, 12, 'white', 10))// 2ème noeud issu de A
           objets.push(latexParCoordonnees('E', 9, 3.1, 'black', 20, 12, 'white', 10)) // 2ème noeud issu de \bar A
@@ -238,7 +205,6 @@ export default function ProbabilitésConditionnelles () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
+  this.besoinFormulaireCaseACocher = ['Probabilités fractionnaires', false]
   this.besoinFormulaire2Numerique = ['Choix d\'exercices : ', 3, '1 : Sujet 1 issu E3C\n2 : Sujet 2 issu E3C\n3 : Mélange']
 }
-
-// permet de repérer les points A et C sur la droite (AC)

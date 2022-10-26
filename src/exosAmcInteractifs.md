@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 519 
-- nombre d'exos interactifReady 796 
+- nombre d'exos amcReady 520 
+- nombre d'exos interactifReady 797 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -308,6 +308,7 @@
 |6G10-3|Choisir la bonne figure|OK|qcmMono|OK|cliqueFigure|
 |6G10-4|Connaître le vocabulaire du cercle|KO|KO|OK|qcm,mathLive|
 |6G10-5|Tracer des droites, segments,...|OK|AMCOpen|KO|KO|
+|6G10|Utiliser la notation de droites, segments et demi-droites|OK|AMCOpen|KO|KO|
 |6G11|Tracer des perpendiculaires|OK|AMCOpen|KO|KO|
 |6G12-1|Tracer des parallèles et des perpendiculaires|OK|AMCOpen|KO|KO|
 |6G12|Tracer des parallèles|OK|AMCOpen|KO|KO|
@@ -757,6 +758,7 @@
 |can6G05|Résoudre un problème de longueurs (inverse)|OK|AMCNum|OK|mathLive|
 |can6G06|Compter les arêtes et les faces|OK|AMCNum|OK|mathLive|
 |can6G07|Compter les points symétriques manquant|OK|AMCNum|OK|mathLive|
+|can6I01|Noter la couleur (scratch)|KO|KO|OK|mathLive|
 |can6M01|Comparer des périmètres (V/F)|OK|qcmMono|OK|qcm|
 |can6M02|Trouver la bonne unité|OK|qcmMono|OK|qcm|
 |can6M03|Convertir en mètres|OK|AMCNum|OK|mathLive|
