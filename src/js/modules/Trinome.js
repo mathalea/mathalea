@@ -168,7 +168,7 @@ export default class Trinome {
   get arrayTexDevelopperFormeFactorisee () {
     const [a, x1, x2] = [this.a, this.x1, this.x2]
     const result1 = `${a.simplifie().texFractionSaufUn}\\left(x^2 ${x2.oppose().simplifie().texFractionSaufUnSignee}x ${x1.oppose().simplifie().texFractionSaufUnSignee}x ${x1.produitFraction(x2).simplifie().texFractionSignee} \\right)`
-    const result2 = `${a.simplifie().texFractionSaufUnSignee}x^2 ${a.produitFraction(x2).oppose().simplifie().texFractionSaufUnSignee}x ${a.produitFraction(x1).oppose().simplifie().texFractionSaufUnSignee}x ${a.produitFraction(x1).produitFraction(x2).simplifie().texFractionSignee}`
+    const result2 = `${a.simplifie().texFractionSaufUn}x^2 ${a.produitFraction(x2).oppose().simplifie().texFractionSaufUnSignee}x ${a.produitFraction(x1).oppose().simplifie().texFractionSaufUnSignee}x ${a.produitFraction(x1).produitFraction(x2).simplifie().texFractionSignee}`
     return [result1, result2, this.tex]
   }
 
