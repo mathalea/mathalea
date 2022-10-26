@@ -109,9 +109,18 @@ export default class Trinome {
    * @type {string}
    */
   get texCalculDiscriminant () {
-    if (this.b.valeurDecimale === 0) return `\\Delta = -4\\times${this.a.texFSP}\\times${this.c.texFSP} = ${this.discriminant.texFractionSimplifiee}`
-    else if (this.b.estEntiere && this.b.s === 1) return `\\Delta = ${this.b.texFSD}^2-4\\times${this.a.texFSP}\\times${this.c.texFSP} = ${this.discriminant.texFractionSimplifiee}`
-    return `\\Delta = \\left(${this.b.texFSD}\\right)^2-4\\times${this.a.texFSP}\\times${this.c.texFSP} = ${this.discriminant.texFractionSimplifiee}`
+    if (this.b.valeurDecimale === 0) return `-4\\times${this.a.texFSP}\\times${this.c.texFSP} = ${this.discriminant.texFractionSimplifiee}`
+    else if (this.b.estEntiere && this.b.s === 1) return `${this.b.texFSD}^2-4\\times${this.a.texFSP}\\times${this.c.texFSP} = ${this.discriminant.texFractionSimplifiee}`
+    return `\\left(${this.b.texFSD}\\right)^2-4\\times${this.a.texFSP}\\times${this.c.texFSP} = ${this.discriminant.texFractionSimplifiee}`
+  }
+
+  /**
+   * @type {string}
+   */
+  get texCalculDiscriminantSansResultat () {
+    if (this.b.valeurDecimale === 0) return `-4\\times${this.a.texFSP}\\times${this.c.texFSP}`
+    else if (this.b.estEntiere && this.b.s === 1) return `${this.b.texFSD}^2-4\\times${this.a.texFSP}\\times${this.c.texFSP}`
+    return `\\left(${this.b.texFSD}\\right)^2-4\\times${this.a.texFSP}\\times${this.c.texFSP}`
   }
 
   /**
