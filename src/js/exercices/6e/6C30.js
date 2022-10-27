@@ -5,6 +5,9 @@ import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombre 
 import Operation from '../../modules/operations.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { grille, seyes } from '../../modules/2d.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
+
 export const amcReady = true
 export const amcType = 'AMCNum' // Question numérique
 export const interactifReady = true
@@ -32,9 +35,16 @@ export default function MultiplierDecimaux () {
   this.spacingCorr = 1 // Important sinon le calcul posé ne fonctionne pas avec opmul et spacing
   this.nbQuestions = 4
   this.sup = false
+  this.sup2 = 3
   this.listePackages = 'xlop'
+  this.besoinFormulaire2Numerique = [
+    'Type de cahier',
+    3,
+    ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
+  ]
 
   this.nouvelleVersion = function () {
+    this.sup2 = parseInt(this.sup2)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -43,6 +53,18 @@ export default function MultiplierDecimaux () {
       typesDeQuestionsDisponibles,
       this.nbQuestions
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+
+    let grilletxt
+    if (this.sup2 < 3) {
+      const g = (this.sup2 < 3 ? grille(0, 0, 5, 8, 'gray', 0.7) : '')
+      const carreaux = (this.sup2 === 2 ? seyes(0, 0, 5, 8) : '')
+      const sc = (this.sup2 === 2 ? 0.8 : 0.5)
+      const params = { xmin: 0, ymin: 0, xmax: 5, ymax: 8, pixelsParCm: 20, scale: sc }
+      grilletxt = '<br>' + mathalea2d(params, g, carreaux)
+    } else {
+      grilletxt = ''
+    }
+
     let typesDeQuestions, reponse
     for (let i = 0, texte, texteCorr, cpt = 0, a, b; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
@@ -66,6 +88,7 @@ export default function MultiplierDecimaux () {
       }
 
       texte = `$${texNombre(a)}\\times${texNombre(b)}$`
+      texte += grilletxt
       reponse = calcul(a * b)
       texteCorr = Operation({ operande1: a, operande2: b, type: 'multiplication', style: 'display: inline' })
       texteCorr += Operation({ operande1: b, operande2: a, type: 'multiplication', style: 'display: inline' })

@@ -73,7 +73,7 @@ export default function AdditionnerSoustrairesDecimaux () {
 
     let grilletxt
     if (this.sup2 < 3) {
-      const g = (this.sup2 < 3 ? grille(0, 0, 26, 2, 'gray', 0.7) : '')
+      const g = (this.sup2 < 3 ? grille(0, 0, 5, 5, 'gray', 0.7) : '')
       const carreaux = (this.sup2 === 2 ? seyes(0, 0, 5, 5) : '')
       const sc = (this.sup2 === 2 ? 0.8 : 0.5)
       const params = { xmin: 0, ymin: 0, xmax: 5, ymax: 5, pixelsParCm: 20, scale: sc }
