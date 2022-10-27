@@ -10,7 +10,7 @@ export default function VocabulaireSur4Operations () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''
-  this.nbQuestions = 10
+  this.nbQuestions = 5
   this.nbCols = 2
   this.nbColsCorr = 2
   this.sup = 0
@@ -45,14 +45,14 @@ export default function VocabulaireSur4Operations () {
         case 1:
           texte +=
             numAlpha(i) +
-            `Dans l'expression "$${a} + ${b}$", comment s'appellent les nombres $${a}$ et $${b}$?`
-          texteCorr += numAlpha(i) + `Dans l'expression "$${a} + ${b}$", $${a}$ et $${b}$ s'appellent des termes.`
+            `Dans l'expression « $${a} + ${b}$ », comment s'appellent les nombres $${a}$ et $${b}$ ?`
+          texteCorr += numAlpha(i) + `Dans l'expression « $${a} + ${b}$ », $${a}$ et $${b}$ s'appellent des termes.`
           break
         case 2:
           texte +=
             numAlpha(i) +
-            `Dans l'expression "$${a} + ${b} = ${a + b}$", comment s'appelle le nombre $${a + b}$?`
-          texteCorr += numAlpha(i) + `Dans l'expression "$${a} + ${b} = ${a + b}$", $${a + b}$ s'appelle la somme de $${a}$ et $${b}$.`
+            `Dans l'expression « $${a} + ${b} = ${a + b}$ », comment s'appelle le nombre $${a + b}$ ?`
+          texteCorr += numAlpha(i) + `Dans l'expression « $${a} + ${b} = ${a + b}$ », $${a + b}$ s'appelle la somme de $${a}$ et $${b}$.`
           break
         case 3:
           texte +=
@@ -63,14 +63,14 @@ export default function VocabulaireSur4Operations () {
         case 4:
           texte +=
             numAlpha(i) +
-            `Dans l'expression "$${a} - ${b}$", comment s'appellent les nombres $${a}$ et $${b}$?`
-          texteCorr += numAlpha(i) + `Dans l'expression "$${a} - ${b}$", $${a}$ et $${b}$ s'appellent des termes.`
+            `Dans l'expression « $${a} - ${b}$ », comment s'appellent les nombres $${a}$ et $${b}$ ?`
+          texteCorr += numAlpha(i) + `Dans l'expression « $${a} - ${b}$ », $${a}$ et $${b}$ s'appellent des termes.`
           break
         case 5:
           texte +=
             numAlpha(i) +
-            `Dans l'expression "$${a} - ${b} = ${a - b}$", comment s'appelle le nombre $${a - b}$?`
-          texteCorr += numAlpha(i) + `Dans l'expression "$${a} - ${b} = ${a - b}$", $${a - b}$ s'appelle la différence entre $${a}$ et $${b}$.`
+            `Dans l'expression « $${a} - ${b} = ${a - b}$ », comment s'appelle le nombre $${a - b}$ ?`
+          texteCorr += numAlpha(i) + `Dans l'expression « $${a} - ${b} = ${a - b}$ », $${a - b}$ s'appelle la différence entre $${a}$ et $${b}$.`
           break
         case 6:
           texte +=
@@ -81,14 +81,14 @@ export default function VocabulaireSur4Operations () {
         case 7:
           texte +=
             numAlpha(i) +
-            `Dans l'expression "$${a} \\times ${b}$", comment s'appellent les nombres $${a}$ et $${b}$?`
-          texteCorr += numAlpha(i) + `Dans l'expression "$${a} \\times ${b}$", $${a}$ et $${b}$ s'appellent des facteurs.`
+            `Dans l'expression « $${a} \\times ${b}$ », comment s'appellent les nombres $${a}$ et $${b}$ ?`
+          texteCorr += numAlpha(i) + `Dans l'expression « $${a} \\times ${b}$ », $${a}$ et $${b}$ s'appellent des facteurs.`
           break
         case 8:
           texte +=
             numAlpha(i) +
-            `Dans l'expression "$${a} \\times ${b} = ${a * b}$", comment s'appelle le nombre $${a * b}$?`
-          texteCorr += numAlpha(i) + `Dans l'expression "$${a} \\times ${b} = ${a * b}$", $${a * b}$ s'appelle le produit de $${a}$ et $${b}$.`
+            `Dans l'expression « $${a} \\times ${b} = ${a * b}$ », comment s'appelle le nombre $${a * b}$ ?`
+          texteCorr += numAlpha(i) + `Dans l'expression « $${a} \\times ${b} = ${a * b}$ », $${a * b}$ s'appelle le produit de $${a}$ et $${b}$.`
           break
         case 9:
           texte +=
@@ -99,27 +99,27 @@ export default function VocabulaireSur4Operations () {
         case 10:
           texte +=
             numAlpha(i) +
-            `Dans l'expression "$${a * b} \\div ${b}$", comment s'appelle le nombre $${a * b}$?`
-          texteCorr += numAlpha(i) + `Dans l'expression "$${a * b} \\div ${b}$", $${a * b}$ s'appelle le dividende.`
+            `Dans l'expression « $${a * b} \\div ${b}$ », comment s'appelle le nombre $${a * b}$ ?`
+          texteCorr += numAlpha(i) + `Dans l'expression « $${a * b} \\div ${b}$ », $${a * b}$ s'appelle le dividende.`
           break
         case 11:
           texte +=
             numAlpha(i) +
-            `Dans l'expression "$${a * b} \\div ${b}$", comment s'appelle le nombre $${b}$?`
-          texteCorr += numAlpha(i) + `Dans l'expression "$${a * b} \\div ${b}$", $${b}$ s'appelle le diviseur.`
+            `Dans l'expression « $${a * b} \\div ${b}$ », comment s'appelle le nombre $${b}$ ?`
+          texteCorr += numAlpha(i) + `Dans l'expression « $${a * b} \\div ${b}$ », $${b}$ s'appelle le diviseur.`
           break
         case 12:
           texte +=
             numAlpha(i) +
-            `Dans l'expression "$${a * b} \\div ${b} = ${a}$", comment s'appelle le nombre $${a}$?`
-          texteCorr += numAlpha(i) + `Dans l'expression "$${a * b} \\div ${b} = ${a}$", $${a}$ s'appelle le quotient de  $${a * b}$ par $${b}$.`
+            `Dans l'expression « $${a * b} \\div ${b} = ${a}$ », comment s'appelle le nombre $${a}$ ?`
+          texteCorr += numAlpha(i) + `Dans l'expression « $${a * b} \\div ${b} = ${a}$ », $${a}$ s'appelle le quotient de  $${a * b}$ par $${b}$.`
           break
         case 13:
           reste = randint(1, b, [b])
           texte +=
             numAlpha(i) +
-            `Dans l'expression "$${a * b + reste} = ${b} \\times ${a} + ${reste} $", comment s'appelle le nombre $${reste}$?`
-          texteCorr += numAlpha(i) + `Dans l'expression "$${a * b + reste} = ${b} \\times ${a} + ${reste} $", $${reste}$ s'appelle le reste du quotient de  $${a * b}$ par $${b}$.`
+            `Dans l'expression « $${a * b + reste} = ${b} \\times ${a} + ${reste} $ », comment s'appelle le nombre $${reste}$ ?`
+          texteCorr += numAlpha(i) + `Dans l'expression « $${a * b + reste} = ${b} \\times ${a} + ${reste} $ », $${reste}$ s'appelle le reste du quotient de  $${a * b}$ par $${b}$.`
           break
         case 14:
           texte +=
