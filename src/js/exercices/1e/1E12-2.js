@@ -61,7 +61,7 @@ export default class EtudeParabole extends Exercice {
     }))
 
     p.defFormeFactorisee2(randint(-2, 2, [-1, 0, 1]), randint(-5, 5, 0), randint(-5, 5, 0), randint(-5, 5, 0), randint(-5, 5, 0))
-    const question2 = `La parabole d'équation $y = ${p.tex}$ coupe-t-elle l'axe des abscisses ? Si oui, déterminer les coordonnées de ces points.`
+    const question2 = `La parabole d'équation $y = ${p.tex}$ coupe-t-elle l'axe des abscisses ? Si oui, déterminer les coordonnées de ce(s) point(s).`
     let correction2 = `S'il existe un point d'intersection $M(x\\,;\\,y)$ entre la parabole et l'axe des abscisses alors $y=${p.tex} = 0$.`
     correction2 += `<br><br>On calcule le discriminant de ce trinôme : $\\Delta = ${p.texCalculDiscriminantSansResultat}$.`
     correction2 += `<br><br>$\\Delta = ${p.discriminant.simplifie().texFraction}$`

@@ -8108,6 +8108,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "6C13-1": {
+    "titre": "Vocabulaires liés aux 4 opérations",
+    "url": "/exercices/6e/6C13-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6C13-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "6C13": {
     "titre": "Traduire des phrases en calculs et réciproquement",
     "url": "/exercices/6e/6C13.js",
@@ -8786,6 +8801,22 @@ export default {
     "name": "6G20-2",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "6G20-3": {
+    "titre": "Connaitre le vocabulaire de base des polygones",
+    "url": "/exercices/6e/6G20-3.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "6G20-3",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
