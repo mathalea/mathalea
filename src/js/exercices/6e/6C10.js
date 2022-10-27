@@ -4,6 +4,8 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, texNombre, calcul, nombreDeChiffresDe, contraindreValeur, compteOccurences, combinaisonListes, rangeMinMax } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { grille, seyes } from '../../modules/2d.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 
 export const amcReady = true
 export const amcType = 'AMCHybride' // type de question AMC
@@ -37,9 +39,16 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
   this.tailleDiaporama = 3
 
   this.besoinFormulaireTexte = ['Types de calculs', 'Nombres séparés par des tirets\n1 : abcde + fgh\n2 : abc0 - efg\n3 : 1abc - def\n4 : abc * d0e (tables de 2 à 5)\n5 : abc * de (tables de 5 à 9)\n6 : Mélange']
+  this.besoinFormulaire2Numerique = [
+    'Type de cahier',
+    3,
+    ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
+  ]
   this.sup = '6'
+  this.sup2 = 3
 
   this.nouvelleVersion = function () {
+    this.sup2 = parseInt(this.sup2)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -71,6 +80,18 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
         listeTypeDeQuestions = [1, 2, 3, 4, 5]
       }
     }
+
+    let grilletxt
+    if (this.sup2 < 3) {
+      const g = (this.sup2 < 3 ? grille(0, 0, 5, 8, 'gray', 0.7) : '')
+      const carreaux = (this.sup2 === 2 ? seyes(0, 0, 5, 8) : '')
+      const sc = (this.sup2 === 2 ? 0.8 : 0.5)
+      const params = { xmin: 0, ymin: 0, xmax: 5, ymax: 8, pixelsParCm: 20, scale: sc }
+      grilletxt = '<br>' + mathalea2d(params, g, carreaux)
+    } else {
+      grilletxt = ''
+    }
+
     for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, e, f, g, x, y; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
       this.autoCorrection[i] = {}
@@ -86,6 +107,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           texte = `$${texNombre(a)}+${b}`
           if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexteMathLive(this, i, 'inline') // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
           else texte += '$'
+          texte += grilletxt
           reponse = calcul(a + b)
           texteCorr = Operation({ operande1: a, operande2: b, type: 'addition' })
           break
@@ -101,6 +123,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           texte = `$${texNombre(x)}-${y}`
           if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexteMathLive(this, i, 'inline') // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
           else texte += '$'
+          texte += grilletxt
           reponse = calcul(x - y)
           texteCorr = Operation({ operande1: x, operande2: y, type: 'soustraction' })
           break
@@ -116,6 +139,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           texte = `$${texNombre(x)}-${y}`
           if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexteMathLive(this, i, 'inline') // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
           else texte += '$'
+          texte += grilletxt
           reponse = calcul(x - y)
           texteCorr = Operation({ operande1: x, operande2: y, type: 'soustraction' })
           break
@@ -130,6 +154,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           texte = `$${texNombre(x)}\\times${y}`
           if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexteMathLive(this, i, 'inline') // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
           else texte += '$'
+          texte += grilletxt
           reponse = calcul(x * y)
           texteCorr = Operation({ operande1: x, operande2: y, type: 'multiplication' })
           break
@@ -144,6 +169,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           texte = `$${x}\\times${y}`
           if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexteMathLive(this, i, 'inline') // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
           else texte += '$'
+          texte += grilletxt
           reponse = calcul(x * y)
           texteCorr = Operation({ operande1: x, operande2: y, type: 'multiplication' })
           break
