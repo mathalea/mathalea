@@ -787,7 +787,7 @@ export default function SujetCAN2022cinquieme () {
           objets = []
           objets.push(
             texteParPosition('1  cm', milieu(D, E).x, milieu(D, E).y + 0.4, 'milieu', 'black', 1, 'middle', true),
-            a, s1, labelPoint(A, B, C), point(A, B, C), traceA, traceB, traceC)
+            a, s1, labelPoint(A, B, C), traceA, traceB, traceC)
           reponse = arrondi(c / (d + 1), 1)
           texte = `Quelle est la distance du point $A$ à la droite $(BC)$ ? <br>
             `

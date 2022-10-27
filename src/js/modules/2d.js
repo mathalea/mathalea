@@ -2717,12 +2717,10 @@ export function polygone (...args) {
  */
 export function polygoneAvecNom (...args) {
   let k = 0.5
-  console.log(args)
   if (typeof args[args.length - 1] === 'number') {
     k = args[args.length - 1]
     args.splice(args.length - 1, 1)
   }
-  console.log(args)
   const p = polygone(...args)
   let nom = ''
   args.forEach(el => (nom += el.nom))
