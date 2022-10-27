@@ -25,6 +25,7 @@ import { apparitionAnimee, translationAnimee } from './2dAnimation.js'
 function Point (arg1, arg2, arg3, positionLabel = 'above') {
   this.typeObjet = 'point'
   ObjetMathalea2D.call(this, { classe: false })
+  this.nom = ' ' // Le nom d'un point est par défaut un espace. On pourra chercher tous les objets qui ont ce nom pour les nommer automatiquement
   if (arguments.length === 1) {
     this.nom = arg1
   } else if (arguments.length === 2) {
@@ -44,10 +45,6 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
   }
   this.ySVG = function (coeff) {
     return -this.y * coeff
-  }
-  if (!this.nom) {
-    this.nom = ' ' // Le nom d'un point est par défaut un espace
-    // On pourra chercher tous les objets qui ont ce nom pour les nommer automatiquement
   }
 
   /**
@@ -2723,7 +2720,7 @@ export function polygoneAvecNom (...args) {
   }
   const p = polygone(...args)
   let nom = ''
-  args.forEach(el => (nom += el.nom))
+  args[0].forEach(el => (nom += el.nom))
   p.sommets = nommePolygone(p, nom, k)
   p.sommets.bordures = []
   p.sommets.bordures[0] = p.bordures[0] - 1
