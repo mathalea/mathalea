@@ -6,8 +6,7 @@ import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { context } from '../../modules/context.js'
 export const interactifReady = true
 export const interactifType = 'qcm'
-export const amcReady = true
-export const amcType = 'typeAMC'
+export const amcReady = false
 export const titre = 'Connaitre le vocabulaire de base des polygones'
 
 export const dateDePublication = '21/10/2022'
@@ -28,7 +27,7 @@ export default class NomExercice extends Exercice {
     this.sup = ''
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
