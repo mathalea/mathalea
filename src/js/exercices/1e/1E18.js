@@ -4,6 +4,7 @@ import Trinome from '../../modules/Trinome.js'
 import FractionX from '../../modules/FractionEtendue.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { tableauDeVariation } from '../../modules/2d.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Équations et inéquations du second degré'
 export const interactifReady = false
 
@@ -22,7 +23,10 @@ export default class EquationsEtInequations extends Exercice {
   nouvelleVersion () {
     this.listeQuestions = []
     this.listeCorrections = []
-    this.introduction = 'Résoudre dans $\\R$ les équations et inéquations suivantes.'
+    this.tailleDiaporama = 3
+    if (context.vue === 'diap' || this.nbQuestions === 1) {
+      this.introduction = 'Résoudre dans $\\R$ :'
+    } else this.introduction = 'Résoudre dans $\\R$ les équations et inéquations suivantes.'
     let typesDeQuestionsDisponibles = ['inequationFormeFactorisee', 'inequationFormeDevelopeeSansRacine', 'inequationFormeDevelopeeAvecRacines', 'inequationFormeDevelopeeSansRacineBis', 'inequationFormeDevelopeeAvecRacinesBis', 'ax2=bx']
     if (this.nbQuestions === 4) {
       typesDeQuestionsDisponibles = ['inequationFormeFactorisee', 'ax2=bx']
