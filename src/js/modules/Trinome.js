@@ -208,6 +208,25 @@ export default class Trinome {
   }
 
   /**
+   * Deuxième racine du trinome
+   * @type {FractionX | number}
+   */
+  get x2 () {
+    if (this.discriminant.s === -1) return false
+    const deltaNum = this.discriminant.num
+    const deltaDen = this.discriminant.den
+    let racineDeDelta = new FractionX()
+    if (Math.abs((Math.sqrt(deltaNum) - Math.round(Math.sqrt(deltaNum)))) < 0.000001 &&
+     Math.abs(Math.sqrt(deltaDen) - Math.round(Math.sqrt(deltaDen))) < 0.000001) {
+      racineDeDelta = new FractionX(Math.sqrt(deltaNum), Math.sqrt(deltaDen))
+      const unSurDeuxA = this.a.multiplieEntier(2).inverse()
+      return this.b.oppose().sommeFraction(racineDeDelta).produitFraction(unSurDeuxA)
+    } else {
+      return Math.round((-this.b.valeurDecimale + Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
+    }
+  }
+
+  /**
    * Écriture LaTeX de la valeur exacte première racine
    * @type {string}
    */
@@ -230,18 +249,6 @@ export default class Trinome {
       const num = this.b.oppose().texFraction + `+ \\sqrt{${this.discriminant.texFraction}}`
       const den = 2 * this.a
       return `\\dfrac{${num}}{${den}}`
-    }
-  }
-
-  /**
-   * Deuxième racine du trinome
-   * @type {FractionX | number}
-   */
-  get x2 () {
-    if (this.x1 instanceof FractionX) {
-      return this.b.oppose().produitFraction(this.a.inverse()).sommeFraction(this.x1.oppose())
-    } else {
-      return Math.round((-this.b.valeurDecimale / (2 * this.a.valeurDecimale) - this.x1) * (10 ** this.precision)) / (10 ** this.precision)
     }
   }
 

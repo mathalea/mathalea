@@ -131,16 +131,16 @@ export default class EquationsEtInequations extends Exercice {
         texteCorr += '<br><br>'
         if ((typeInequation === '>' && a > 0) || (typeInequation === '<' && a < 0)) {
           texteCorr += 'On sait que le polynome est du signe de $a$ à l\'extérieur de ses racines donc '
-          texteCorr += `$S=\\left]-\\infty;${p.texX1}\\right[\\cup\\left]${p.texX2};+\\infty\\right[$.`
+          texteCorr += `$S=\\left]-\\infty;${p.x1.valeurDecimale < p.x2.valeurDecimale ? p.texX1 : p.texX2}\\right[\\cup\\left]${p.x1.valeurDecimale < p.x2.valeurDecimale ? p.texX2 : p.texX1};+\\infty\\right[$.`
         } else if ((typeInequation === '<' && a > 0) || (typeInequation === '>' && a < 0)) {
           texteCorr += 'On sait que le polynome est du signe de $-a$ entre ses racines donc '
-          texteCorr += `$S=\\left]${p.texX1};${p.texX2}\\right[$.`
+          texteCorr += `$S=\\left]${p.x1.valeurDecimale < p.x2.valeurDecimale ? p.texX1 : p.texX2};${p.x1.valeurDecimale < p.x2.valeurDecimale ? p.texX2 : p.texX1}\\right[$.`
         } else if ((typeInequation === '\\geq' && a > 0) || (typeInequation === '\\leq' && a < 0)) {
           texteCorr += 'On sait que le polynome est du signe de $a$ à l\'extérieur de ses racines donc '
-          texteCorr += `$S=\\left]-\\infty;${p.texX1}\\right]\\cup\\left[${p.texX2};+\\infty\\right[$.`
+          texteCorr += `$S=\\left]-\\infty;${p.x1.valeurDecimale < p.x2.valeurDecimale ? p.texX1 : p.texX2}\\right]\\cup\\left[${p.x1.valeurDecimale < p.x2.valeurDecimale ? p.texX2 : p.texX1};+\\infty\\right[$.`
         } else {
           texteCorr += 'On sait que le polynome est du signe de $-a$ entre ses racines donc '
-          texteCorr += `$S=\\left[${p.texX1};${p.texX2}\\right]$.`
+          texteCorr += `$S=\\left[${p.x1.valeurDecimale < p.x2.valeurDecimale ? p.texX1 : p.texX2};${p.x1.valeurDecimale < p.x2.valeurDecimale ? p.texX2 : p.texX1}\\right]$.`
         }
       } else if (listeTypeQuestions[i] === 'ax2=bx') {
         const a = randint(-5, 5, 0)
