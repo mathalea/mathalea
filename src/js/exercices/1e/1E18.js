@@ -145,12 +145,12 @@ export default class EquationsEtInequations extends Exercice {
       } else if (listeTypeQuestions[i] === 'ax2=bx') {
         const a = randint(-5, 5, 0)
         const b = randint(-5, 5, 0)
-        texte += `$${rienSi1(a)}x^2 = ${rienSi1(b)}x$`
-        texteCorr += `<br>$${rienSi1(a)}x^2 = ${rienSi1(b)}x \\iff ${rienSi1(a)}x^2  ${ecritureAlgebriqueSauf1(b)}x = 0$`
-        texteCorr += `<br><br>$\\phantom{${rienSi1(a)}x^2 = ${rienSi1(b)}x} \\iff x(${rienSi1(a)}x  ${ecritureAlgebrique(b)})=0$`
-        texteCorr += `<br><br>$\\phantom{${rienSi1(a)}x^2 = ${rienSi1(b)}} \\iff x = 0 \\text{ \\qquad ou \\qquad }${rienSi1(a)}x  ${ecritureAlgebrique(b)}=0$`
+        texte += `$${rienSi1(a)}x^2 = ${rienSi1(-b)}x$`
+        texteCorr += `<br>$${rienSi1(a)}x^2 = ${rienSi1(-b)}x \\iff ${rienSi1(a)}x^2  ${ecritureAlgebriqueSauf1(b)}x = 0$`
+        texteCorr += `<br><br>$\\phantom{${rienSi1(a)}x^2 = ${rienSi1(-b)}x} \\iff x(${rienSi1(a)}x  ${ecritureAlgebrique(b)})=0$`
+        texteCorr += `<br><br>$\\phantom{${rienSi1(a)}x^2 = ${rienSi1(-b)}} \\iff x = 0 \\text{ \\qquad ou \\qquad }${rienSi1(a)}x  ${ecritureAlgebrique(b)}=0$`
         const x = new FractionX(-b, a)
-        texteCorr += `<br><br>Finalement $S=\\left\\{ 0 \\,;\\, ${x.simplifie().texFraction}  \\right\\}$`
+        texteCorr += `<br><br>Finalement $S=\\left\\{ 0 \\,;\\, ${x.simplifie().texFraction}  \\right\\}$.`
       }
 
       if (this.questionJamaisPosee(i, texte)) {
