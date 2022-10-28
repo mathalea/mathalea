@@ -183,7 +183,7 @@ export default class Trinome {
 
   /**
    * Première racine du trinome
-   * @type {FractionX}
+   * @type {FractionX | number}
    */
   get x1 () {
     if (this.discriminant.s === -1) return false
@@ -200,9 +200,27 @@ export default class Trinome {
     }
   }
 
+  get texX1 () {
+    if (this.x1 instanceof FractionX) return this.x1.texFraction
+    else {
+      const num = this.b.oppose().texFraction + '-' + this.discriminant.texRacineCarree()
+      const den = 2 * this.a
+      return `\\dfrac{${num}}{${den}}`
+    }
+  }
+
+  get texX2 () {
+    if (this.x2 instanceof FractionX) return this.x2.texFraction
+    else {
+      const num = this.b.oppose().texFraction + '-' + this.discriminant.texRacineCarree()
+      const den = 2 * this.a
+      return `\\dfrac{${num}}{${den}}`
+    }
+  }
+
   /**
    * Deuxième racine du trinome
-   * @type {FractionX}
+   * @type {FractionX | number}
    */
   get x2 () {
     if (this.x1 instanceof FractionX) {

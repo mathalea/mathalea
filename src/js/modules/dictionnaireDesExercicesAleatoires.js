@@ -307,6 +307,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "1E18": {
+    "titre": "Équations et inéquations du second degré",
+    "url": "/exercices/1e/1E18.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "1E18",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "1F10": {
     "titre": "Calculs de dérivées",
     "url": "/exercices/1e/1F10.js",
@@ -1177,7 +1192,7 @@ export default {
     "interactifType": "mathLive",
     "name": "2N12-3",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -2525,7 +2540,7 @@ export default {
     "interactifType": "mathLive",
     "name": "3A11-0",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
