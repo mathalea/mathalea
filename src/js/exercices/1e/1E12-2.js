@@ -27,15 +27,16 @@ export default class EtudeParabole extends Exercice {
     const p = new Trinome()
     p.defFormeFactorisee(a, x1, x2)
     let question1 = `Dans le plan rapporté à un repère, on considère la parabole $(P)$ d'équation $y=${p.tex}$.`
-    question1 += `<br><br>${numAlpha(0)} Déterminer les coordonnées du sommet $S$ de la parabole $(P)$.`
-    question1 += `<br><br>${numAlpha(1)} En déduire la forme canonique et les variations de la fonction $f$ associée au polynome $(P)$.`
+    question1 += `<br><br>${numAlpha(0)} Déterminer la forme canonique de $f(x) = ${p.tex}$.`
+    question1 += `<br><br>${numAlpha(1)} En déduire les coordonnées du sommet de la parabole et les variations de la fonction $f$ associée au polynome $(P)$.`
     let correction1 = `${numAlpha(0)} On cherche la forme canonique de $${p.tex}$ avec $a=${p.a.simplifie().texFraction}$, $b=${p.b.simplifie().texFraction}$ et $c=${p.c.simplifie().texFraction}$.`
     correction1 += '<br><br> On sait que $f(x)=(x-\\alpha)^2+\\beta$ avec $\\alpha = \\dfrac{-b}{2a}$ et $\\beta=f(\\alpha)$.'
     correction1 += `<br><br> $\\alpha = \\dfrac{-b}{2a}=\\dfrac{${p.b.simplifie().oppose().texFraction}}{${p.a.multiplieEntier(2).simplifie().texFraction}}=${p.alpha.simplifie().texFraction}$`
     correction1 += `<br><br> $\\beta = f(\\alpha) = f\\left(${p.alpha.simplifie().texFraction} \\right)=${p.texCalculImage(p.alpha.simplifie())}$`
-    correction1 += `<br><br> Le sommet de cette parabole a donc pour coordonnées $\\left(${p.alpha.simplifie().texFraction} \\,;\\, ${p.beta.simplifie().texFraction}\\right)$.`
+    correction1 += `<br><br> On a donc $f(x) = ${p.texFormeCanonique}$.`
+    correction1 += `<br><br>${numAlpha(1)} Le sommet de cette parabole a donc pour coordonnées $\\left(${p.alpha.simplifie().texFraction} \\,;\\, ${p.beta.simplifie().texFraction}\\right)$.`
 
-    correction1 += `<br><br>${numAlpha(1)} On a donc $${p.tex} = ${p.texFormeCanonique}$ avec $a ${p.a.s === 1 ? '>' : '<'} 0$ d'où le tableau de variations : `
+    correction1 += `<br><br>$f(x) = ${p.texFormeCanonique}$ avec $a ${p.a.s === 1 ? '>' : '<'} 0$ d'où le tableau de variations : `
 
     let variations
     if (a > 0) {
