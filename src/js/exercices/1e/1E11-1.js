@@ -3,6 +3,8 @@ import Exercice from '../Exercice.js'
 import { choice, combinaisonListes, contraindreValeur, lettreDepuisChiffre, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import FractionX from '../../modules/FractionEtendue.js'
 import Trinome from '../../modules/Trinome.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Calculer le discriminant d\'un polynôme du second degré'
 export const interactifReady = true
@@ -17,7 +19,7 @@ export default function CalculerDiscriminant () {
   Exercice.call(this)
   this.besoinFormulaireNumerique = ['Niveaux de difficulté', 4, '1 : Coefficients entiers positifs\n2 : Coefficients entiers relatifs\n3 : Coefficients rationnels\n4 : Mélange']
   this.nbQuestions = 5
-  this.sup = 1
+  this.sup = 2
   this.nouvelleVersion = function () {
     this.sup = contraindreValeur(1, 4, this.sup, 1)
     this.autoCorrection = []
@@ -50,6 +52,10 @@ export default function CalculerDiscriminant () {
       const p = new Trinome(a, b, c)
 
       texte = `$${lettreDepuisChiffre(i + 1)}(x) = ${p.tex}$.`
+      if (this.interactif) {
+        texte += '<br><br>' + ajouteChampTexteMathLive(this, i, 'inline', { texte: '$\\Delta = $' })
+        setReponse(this, i, p.discriminant)
+      }
       texteCorr = `$\\Delta_${lettreDepuisChiffre(i + 1)} = ${p.texCalculDiscriminantSansResultat}$`
       texteCorr += `<br><br>$\\Delta_${lettreDepuisChiffre(i + 1)} = ${p.discriminant.texFractionSimplifiee}$`
       if (this.questionJamaisPosee(i, a, b, c)) {
