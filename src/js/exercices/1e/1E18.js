@@ -27,9 +27,9 @@ export default class EquationsEtInequations extends Exercice {
     let typesDeQuestionsDisponibles = ['inequationFormeFactorisee', 'inequationFormeDevelopeeSansRacine', 'inequationFormeDevelopeeAvecRacines', 'inequationFormeDevelopeeSansRacineBis', 'inequationFormeDevelopeeAvecRacinesBis', 'ax2=bx']
     if (this.nbQuestions === 4) {
       typesDeQuestionsDisponibles = ['inequationFormeFactorisee', 'ax2=bx']
-      if (randint(1,2) > 1) typesDeQuestionsDisponibles.push('inequationFormeDevelopeeSansRacine', 'inequationFormeDevelopeeAvecRacinesBis')
+      if (randint(1, 2) > 1) typesDeQuestionsDisponibles.push('inequationFormeDevelopeeSansRacine', 'inequationFormeDevelopeeAvecRacinesBis')
       else typesDeQuestionsDisponibles.push('inequationFormeDevelopeeAvecRacines', 'inequationFormeDevelopeeSansRacineBis')
-    } 
+    }
     const listeTypeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     const listeTypeInequation = combinaisonListes(['<', '\\leq', '>', '\\geq'], this.nbQuestions)
 
