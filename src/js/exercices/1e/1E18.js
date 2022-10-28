@@ -120,7 +120,7 @@ export default class EquationsEtInequations extends Exercice {
           texte += `$${rienSi1(p.a.valeurDecimale)}x^2 ${ecritureAlgebriqueSauf1(p.b.valeurDecimale)} x ${typeInequation} ${-p.c.valeurDecimale}$`
         }
         if (context.versionMathalea === 2) texteCorr += texte + '<br><br>'
-        if (listeTypeQuestions[i] === 'inequationFormeDevelopeeAvecRacineBis') {
+        if (listeTypeQuestions[i] === 'inequationFormeDevelopeeAvecRacinesBis') {
           texteCorr = `$${rienSi1(p.a.valeurDecimale)}x^2 ${ecritureAlgebriqueSauf1(p.b.valeurDecimale)} x ${typeInequation} ${p.c.valeurDecimale} \\iff ${p.tex} ${typeInequation} 0$` + '<br></br>'
         }
         texteCorr += 'Calculons le discriminant de ce polynôme du second degré : '
