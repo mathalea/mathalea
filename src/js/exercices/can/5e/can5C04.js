@@ -29,5 +29,7 @@ export default function TripleEtMoitie () {
     Puisqu'on cherche sa moitié, on le divise par $2$, soit  $${a}\\div 2=${texNombrec(a / 2)}$.<br>
      `)
     this.reponse = calcul(a / 2)
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

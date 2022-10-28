@@ -10,10 +10,9 @@ import { getVueFromUrl } from './gestionUrl.js'
 import FractionX from './FractionEtendue.js'
 import { elimineDoublons } from './interactif/questionQcm.js'
 import Decimal from 'decimal.js/decimal.mjs'
-
+export const tropDeChiffres = 'Trop de chiffres'
+export const epsilon = 0.000001
 const math = { format: format, evaluate: evaluate }
-const epsilon = 0.000001
-
 /**
  * Fonctions diverses pour la création des exercices
  * @module
@@ -182,6 +181,75 @@ export function deuxColonnes (cont1, cont2, largeur1 = 50) {
     ${cont1.replaceAll('<br>', '\\\\\n')}
     \\end{minipage}
     \\begin{minipage}{${(100 - largeur1) / 100}\\linewidth}
+    ${cont2.replaceAll('<br>', '\\\\\n')}
+    \\end{minipage}
+    `
+  }
+}
+/**
+ * Renvoie le html ou le latex qui mets les 2 chaines de caractères fournies sur 2 colonnes différentes
+ * Si en sortie html, il n'y a pas assez de places alors on passe en momocolonne!
+ * @author Mickael Guironnet
+ * @param {string} cont1 - Contenu de la première colonne
+ * @param {string} cont2 - Contenu de la deuxième colonne
+ * @param {{eleId: string, largeur1: number, widthmincol1: number, widthmincol2: number}} options
+ *          eleId : identifiant ID pour retrouver la colonne
+ *          largeur1 : largeur de la première colonne en latex en pourcentage
+ *          widthmincol1 : largeur de la première minimum en html en px
+ *          widthmincol2 : largeur de la deuxième  minimum en html en px
+ *  ex : deuxColonnesResp (enonce, correction, {eleId : '1_1', largeur1:50, widthmincol1: 400px, widthmincol2: 200px})
+ * @return {string}
+ */
+export function deuxColonnesResp (cont1, cont2, options) {
+  if (options === undefined) {
+    options = { largeur1: 50 }
+  } else if (typeof options === 'number') {
+    options = { largeur1: options }
+  }
+  if (options.largeur1 === undefined) {
+    options.largeur1 = 50
+  }
+  if (options.stylecol1 === undefined) {
+    options.stylecol1 = ''
+  }
+  if (options.stylecol2 === undefined) {
+    options.stylecol2 = ''
+  }
+  if (options.widthmincol1 === undefined) {
+    options.widthmincol1 = '0px'
+  }
+  if (options.widthmincol2 === undefined) {
+    options.widthmincol2 = '0px'
+  }
+
+  if (context.isHtml) {
+    return `
+    <style>
+    .cols-responsive {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-gap: 1rem;
+    }    
+    /* Screen larger than 900px? 2 column */
+    @media (min-width: 900px) {
+      .cols-responsive { grid-template-columns: repeat(2, 1fr); }
+    }    
+    </style>
+    <div class='cols-responsive'>
+      <div id='cols-responsive1-${options.eleId}'style='min-width:${options.widthmincol1};${options.stylecol1}' >
+      ${cont1}
+      </div>
+      <div id='cols-responsive2-${options.eleId}' style='min-width:${options.widthmincol2};${options.stylecol2}' >
+      ${cont2}
+      </div>
+    </div>
+`
+  } else {
+    return `\\begin{minipage}{${options.largeur1 / 100}\\linewidth}
+    ${cont1.replaceAll('<br>', '\\\\\n')}
+    \\end{minipage}
+    \\begin{minipage}{${(100 - options.largeur1) / 100}\\linewidth}
     ${cont2.replaceAll('<br>', '\\\\\n')}
     \\end{minipage}
     `
@@ -2943,8 +3011,9 @@ function afficherNombre (nb, precision, fonction, force = false) {
   }
 
   const maximumSignificantDigits = nbChiffresPartieEntiere + precision
+
   if ((maximumSignificantDigits > 15) && (!(nb instanceof Decimal))) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondi
-    window.notify(fonction + ' : Trop de chiffres', { nb, precision })
+    window.notify(fonction + ` : ${tropDeChiffres}`, { nb, precision })
     return insereEspacesNombre(nb, nbChiffresPartieEntiere, precision, fonction)
   } else {
     return insereEspacesNombre(nb, nbChiffresPartieEntiere, precision, fonction)
@@ -2964,6 +3033,7 @@ ${texte}
 \\end{center}`
   }
 }
+
 /**
 * Met en couleur et en gras
 *
@@ -2980,6 +3050,24 @@ export function miseEnEvidence (texte, couleur = '#f15929') {
       return `\\mathbf{{\\color[HTML]{${couleur.replace('#', '')}}${texte}}}`
     } else {
       return `\\mathbf{{\\color{${couleur.replace('#', '')}}${texte}}}`
+    }
+  }
+}
+/**
+* Met en couleur
+* Met en couleur un texte. JCL dit : "S'utilise entre $ car utilise des commandes qui fonctionnent en math inline"
+* @param {string} texte à mettre en couleur
+* @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
+* @author Guillaume Valmont d'après MiseEnEvidence() de Rémi Angot
+*/
+export function miseEnCouleur (texte, couleur = '#f15929') {
+  if (context.isHtml) {
+    return `{\\color{${couleur}} ${texte}}`
+  } else {
+    if (couleur[0] === '#') {
+      return `{\\color[HTML]{${couleur.replace('#', '')}} ${texte}}`
+    } else {
+      return `{\\color{${couleur.replace('#', '')}} ${texte}}`
     }
   }
 }
@@ -6651,7 +6739,7 @@ export function telechargeFichier (text, filename) {
 export function introLatex (entete = 'Exercices', listePackages = '') {
   if (entete === '') { entete = 'Exercices' }
   return `\\documentclass[12pt,svgnames]{article}
-\\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
+\\usepackage[a4paper,left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
 %\\usepackage[utf8]{inputenc}        
 %\\usepackage[T1]{fontenc}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -6713,7 +6801,7 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 \\renewcommand{\\labelenumii}{\\textbf{\\theenumii{}.}}
 \\newcommand{\\version}[1]{\\fancyhead[R]{Version #1}}
 \\setlength{\\fboxsep}{3mm}
-\\newenvironment{correction}{\\newpage\\fancyhead[C]{\\textbf{Correction}}\\setcounter{exo}{0}}{}
+\\newenvironment{correction}{\\newpage\\fancyhead[C]{\\textbf{Correction}}\\setcounter{exo}{0}}{\\clearpage}
 \\fancyhead[C]{\\textbf{${entete}}}
 \\fancyfoot{}
 \\fancyfoot[R]{\\scriptsize Coopmaths.fr -- CC-BY-SA}
@@ -8426,11 +8514,16 @@ export function exportQcmAmc (exercice, idExo) {
                 }
               }
               texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{question}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
+              if (prop.enonce !== undefined) {
+                texQr += prop.enonce + '\n'
+              }
+              /* EE 13/10/1022 : A mon avis, ne sert à rien. Je le laisse car si pb, on saura que c'est peut-être cela la raison.
               if (propositions[0].reponse !== undefined) {
                 if (propositions[0].reponse.texte) {
                   texQr += propositions[0].reponse.texte + '\n'
                 }
               }
+              */
               texQr += `\t\\begin{${horizontalite}}`
               if (ordered) {
                 texQr += '[o]'

@@ -17,7 +17,7 @@ export default function PlusOuMoins2 () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const listeObjets = [
@@ -43,10 +43,14 @@ export default function PlusOuMoins2 () {
             prenom2 = prenomF()
           }
           if (choice([true, false])) {
-            this.question = ` ${prenom2} dit à ${prenom1}  : « J'ai $${texPrix(r)}$ € soit $${texPrix(e)}$ € de plus que toi ».<br>`
+            this.question = ` ${prenom2} dit à ${prenom1}  : « J'ai $${texPrix(r)}$ € soit $${texPrix(e)}$ € de plus que toi ».<br>
+            
+            `
             this.question += 'Combien d\'argent en tout possèdent les deux filles ?'
           } else {
-            this.question = ` ${prenom2} a $${texPrix(r)}$ €. Elle a  $${texPrix(e)}$ € de plus que ${prenom1} ».<br>`
+            this.question = ` ${prenom2} a $${texPrix(r)}$ €. Elle a  $${texPrix(e)}$ € de plus que ${prenom1} ».<br>
+            
+            `
             this.question += 'Combien d\'argent en tout possèdent les deux filles ?'
           }
           this.correction = `${prenom2} a $${texPrix(r)}$ €.<br>${prenom2}  a $${texPrix(e)}$ € `
@@ -70,10 +74,14 @@ export default function PlusOuMoins2 () {
             prenom2 = prenomF()
           }
           if (choice([true, false])) {
-            this.question = ` ${prenom2} dit à ${prenom1}  : « J'ai $${texPrix(r)}$ € soit $${texPrix(e)}$ € de moins que toi ».<br>`
+            this.question = ` ${prenom2} dit à ${prenom1}  : « J'ai $${texPrix(r)}$ € soit $${texPrix(e)}$ € de moins que toi ».<br>
+            
+            `
             this.question += 'Combien d\'argent en tout possèdent les deux filles ? '
           } else {
-            this.question = ` ${prenom2} a $${texPrix(r)}$ €. Elle a $${texPrix(e)}$ € de moins ${prenom1}.<br>`
+            this.question = ` ${prenom2} a $${texPrix(r)}$ €. Elle a $${texPrix(e)}$ € de moins ${prenom1}.<br>
+            
+            `
             this.question += 'Combien d\'argent en tout possèdent les deux filles ? '
           }
 
@@ -98,10 +106,14 @@ export default function PlusOuMoins2 () {
             prenom2 = prenomF()
           }
           if (choice([true, false])) {
-            this.question = ` ${prenom2} dit à ${prenom1}  : « J'ai $${texPrix(r)}$ € et tu as  $${texPrix(e)}$ € de moins que moi ».<br>`
+            this.question = ` ${prenom2} dit à ${prenom1}  : « J'ai $${texPrix(r)}$ € et tu as  $${texPrix(e)}$ € de moins que moi ».<br>
+            
+            `
             this.question += 'Combien d\'argent en tout possèdent les deux filles ? '
           } else {
-            this.question = ` ${prenom2} a $${texPrix(r)}$ €. ${prenom1} a $${texPrix(e)}$ € de moins.<br>`
+            this.question = ` ${prenom2} a $${texPrix(r)}$ €. ${prenom1} a $${texPrix(e)}$ € de moins.<br>
+            
+            `
             this.question += 'Combien d\'argent en tout possèdent les deux filles ? '
           }
 
@@ -125,10 +137,14 @@ export default function PlusOuMoins2 () {
             prenom2 = prenomF()
           }
           if (choice([true, false])) {
-            this.question = ` ${prenom2} dit à ${prenom1}  : « J'ai $${texPrix(r)}$ € et tu as  $${texPrix(e)}$ € de plus que moi ».<br>`
+            this.question = ` ${prenom2} dit à ${prenom1}  : « J'ai $${texPrix(r)}$ € et tu as  $${texPrix(e)}$ € de plus que moi ».<br>
+            
+            `
             this.question += 'Combien d\'argent en tout possèdent les deux filles ?'
           } else {
-            this.question = ` ${prenom2} a $${texPrix(r)}$ €. ${prenom1} a $${texPrix(e)}$ € de plus.<br>`
+            this.question = ` ${prenom2} a $${texPrix(r)}$ €. ${prenom1} a $${texPrix(e)}$ € de plus.<br>
+            
+            `
             this.question += 'Combien d\'argent en tout possèdent les deux filles ? '
           }
           this.correction = `${prenom2} a $${texPrix(r)}$ €.<br>${prenom1}  a $${texPrix(e)}$ € `
@@ -157,10 +173,12 @@ export default function PlusOuMoins2 () {
           if (choice([true, false])) {
             this.question = `${prenom1} a $${a}$ ${objets}. Elle en  a $${b}$ ${choix1 ? 'de plus' : ' de moins '}
                       que ${prenom2}. <br>
+
                       Combien  en ont-ils ensemble ?`
           } else {
             this.question = `${prenom1} a $${b}$ ${objets} ${choix1 ? 'de plus' : ' de moins '} que ${prenom2}. <br>
-                      Sachant que ${prenom1} a $${a}$ ${objets}, combien en ont-ils ensemble  ?`
+                     
+            Sachant que ${prenom1} a $${a}$ ${objets}, combien en ont-ils ensemble  ?`
           }
           this.correction = `${prenom1} a $${b}$ ${objets} ${choix1 ? 'de plus' : ' de moins '} que ${prenom2} donc ${prenom2}  a $${b}$ ${objets} ${choix1 ? 'de moins' : ' de plus '} que ${prenom1}.<br>
                       Il a donc  (${choix1 ? `$${a}-${b}$` : `$${a}+${b}$`}) ${objets}, soit  ${choix1 ? `$${a - b}$` : `$${a + b}$`} ${objets}.<br>
@@ -184,6 +202,7 @@ export default function PlusOuMoins2 () {
             } else {
               this.question = `${prenom1} a $${b}$ ${objets} ${choix1 ? 'de plus' : ' de moins '}
                   que ${prenom2}. <br>
+
                   Sachant qu'il a $${a}$ ${objets}, combien de ${objets} ont-ils ensemble ?`
             }
             this.correction = `${prenom1} a $${b}$ ${objets} ${choix1 ? 'de plus' : ' de moins '} que ${prenom2} donc ${prenom2}  a $${b}$ ${objets} ${choix1 ? 'de moins' : ' de plus '} que ${prenom1}.<br>
@@ -197,10 +216,12 @@ export default function PlusOuMoins2 () {
             if (choice([true, false])) {
               this.question = `${prenom1} a $${a}$ ${objets}. ${prenom2} a $${b}$ ${objets} ${choix1 ? 'de plus' : ' de moins '}
                   que lui. <br>
+
                   Combien  en ont-ils ensemble ?`
             } else {
               this.question = `${prenom2} a $${b}$ ${objets} ${choix1 ? 'de plus' : ' de moins '}
                   que ${prenom1} qui en a $${a}$.  <br>
+
                   Combien  de ${objets} ont-ils ensemble ?`
             }
             this.correction = `${prenom1} a $${b}$ ${objets} ${choix1 ? 'de plus' : ' de moins '} que ${prenom2}.
@@ -230,6 +251,7 @@ export default function PlusOuMoins2 () {
           this.question = `Dans un club de ${clubs}, il y a $${a}$ ${choix2 ? ' garçons ' : ' filles'}. <br>
               Il y a $${b}$ ${choix2 ? ' filles ' : ' garçons'} ${choix1 ? 'de plus' : ' de moins '}
                       que de ${choix2 ? ' garçons ' : ' filles'}. <br>
+
                       Combien y a-t-il d'adhérents dans ce club ? `
 
           this.correction = ` Il y a $${b}$ ${choix2 ? ' filles ' : ' garçons'} ${choix1 ? 'de plus' : ' de moins '}
@@ -252,7 +274,8 @@ export default function PlusOuMoins2 () {
           this.reponse = choix1 ? reponse2 : reponse1
 
           this.question = `Dans un club de ${clubs}, il y a $${a}$ ${choix2 ? ' filles ' : ' garçons'}.<br>
-                        Sachant qu'il y a $${b}$ ${choix2 ? ' filles ' : ' garçons'} ${choix1 ? 'de plus' : ' de moins '} que de ${choix2 ? ' garçons ' : ' filles'}, combien y a-t-il d'adhérents dans ce club ? `
+                       
+          Sachant qu'il y a $${b}$ ${choix2 ? ' filles ' : ' garçons'} ${choix1 ? 'de plus' : ' de moins '} que de ${choix2 ? ' garçons ' : ' filles'}, combien y a-t-il d'adhérents dans ce club ? `
 
           this.correction = ` Il y a $${b}$ ${choix2 ? ' filles ' : ' garçons'} ${choix1 ? 'de plus' : ' de moins '}
                       que de ${choix2 ? ' garçons ' : ' filles'}, il y a donc  $${b}$ ${choix2 ? ' garçons ' : ' filles'} ${choix1 ? 'de moins' : ' de plus '}
@@ -264,5 +287,7 @@ export default function PlusOuMoins2 () {
 
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

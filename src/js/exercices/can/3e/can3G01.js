@@ -25,6 +25,7 @@ export default function AgrandissementReduction () {
         a = randint(2, 10)
 
         this.question = `Les longueurs d'un triangle sont multipliées par $${a}$.<br>
+
         Par quelle valeur est multipliée son aire ?
         `
         this.optionsChampTexte = { texteApres: '' }
@@ -36,6 +37,7 @@ export default function AgrandissementReduction () {
         a = randint(2, 10)
         b = a * a
         this.question = `L'aire d'un quadrilatère a été multipliée par $${b}$.<br>
+
         Par quelle valeur ont été multipliées les longueurs de ce quadrilatère ?
         `
         this.optionsChampTexte = { texteApres: '' }
@@ -48,6 +50,7 @@ export default function AgrandissementReduction () {
         c = randint(2, 4)// coefficient
 
         this.question = `Les longueurs d'un rectangle de $${a}$ cm$^2$  sont multipliées par $${c}$.<br>
+
             Quelle est l'aire du rectangle ainsi obtenu ?        `
         this.optionsChampTexte = { texteApres: ' cm$^2$' }
         this.reponse = a * c * c
@@ -56,5 +59,7 @@ export default function AgrandissementReduction () {
     `
         break
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

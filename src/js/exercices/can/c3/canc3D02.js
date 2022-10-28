@@ -33,14 +33,18 @@ export default function LireUneDuree () {
         m1 = randint(1, 5) * 5
         h2 = h1 + randint(0, 1)
         m2 = m1 + randint(2 - h2 + h1, 6) * 5
-        enonce = `${quidam.prenom} ${choice(OccupationsMatinales)} ce matin. ${quidam.pronom} a noté l'heure de début et l'heure de fin.<br>`
+        enonce = `${quidam.prenom} ${choice(OccupationsMatinales)} ce matin. ${quidam.pronom} a noté l'heure de début et l'heure de fin.<br>
+        
+        `
         break
       case 'soir':
         h1 = randint(20, 22)
         m1 = randint(1, 5) * 5
         h2 = h1 + randint(0, 1)
         m2 = m1 + randint(2 - h2 + h1, 6) * 5
-        enonce = `${quidam.prenom} ${choice(occupationsNocturnes)} ce soir. ${quidam.pronom} a noté l'heure de début et l'heure de fin.<br>`
+        enonce = `${quidam.prenom} ${choice(occupationsNocturnes)} ce soir. ${quidam.pronom} a noté l'heure de début et l'heure de fin.<br>
+        
+        `
         break
     }
     const alpha1 = 90 - h1 * 30 - m1 / 2
@@ -74,11 +78,11 @@ export default function LireUneDuree () {
     petiteAiguille2.color = colorToLatexOrHTML('green')
     petiteAiguille2.epaisseur = 3
     this.question = enonce + (context.isHtml ? '<table><tr><td>' : '\\begin{multicols}{2}\n') +
-    mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 1, zoom: this.tailleDiaporama, style: 'margin: auto' }, horloge, grandeAiguille1, petiteAiguille1, texteParPosition('Heure de début', 0, -2.5)) +
+    mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 0.6, zoom: this.tailleDiaporama, style: 'margin: auto' }, horloge, grandeAiguille1, petiteAiguille1, texteParPosition('Heure de début', 0, -2.5)) +
 (context.isHtml ? '</td><td>' : '') +
-    mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 1, zoom: this.tailleDiaporama, style: 'margin: auto' }, horloge, grandeAiguille2, petiteAiguille2, texteParPosition('Heure de fin', 0, -2.5)) +
+    mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 0.6, zoom: this.tailleDiaporama, style: 'margin: auto' }, horloge, grandeAiguille2, petiteAiguille2, texteParPosition('Heure de fin', 0, -2.5)) +
     (context.isHtml ? '</td></tr></table>' : '\\end{multicols}\n') +
-          'Combien de temps cela a-t-il duré ? (...h....)'
+          'Combien de temps cela a-t-il duré ?'
     this.reponse = `${h2 - h1}h ${m2 - m1}`
     this.correction = `On regarde de combien de graduations la grande aiguille a avancé : elle a avancé de ${calcul((m2 - m1) / 5)} graduations soit ${m2 - m1} minutes.<br>`
     this.correction += 'Ensuite on regarde si la petite aiguille a avancé d\'au moins une graduation.<br>'
@@ -87,5 +91,7 @@ export default function LireUneDuree () {
     } else {
       this.correction += `La petite aiguille a avancé d'une heure, donc il s'est écoulé 1h${m2 - m1}.`
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = '$\\ldots$ h $\\ldots$ min'
   }
 }

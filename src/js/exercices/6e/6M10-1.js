@@ -16,7 +16,7 @@ export const ref = '6M10-1'
 export default function ProblemesAiresRectangles () {
   Exercice.call(this)
   this.titre = titre
-  this.consigne = "Trouver la  mesure désignée par un point d'interrogation."
+  this.consigne = "Trouver la mesure désignée par un point d'interrogation."
   this.nbQuestions = 1
   this.nbQuestionsModifiable = true
   this.nbCols = 1
@@ -226,8 +226,8 @@ export default function ProblemesAiresRectangles () {
           texteCorr += `La mesure demandée est la ${longueursVerticales[listeCellules[listeCellules.length - 1][1]] > longueursHorizontales[listeCellules[listeCellules.length - 1][0]] ? 'largeur' : 'longueur'} 
       du rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[listeCellules.length - 1][0]][listeCellules[listeCellules.length - 1][1]].numero, 'red')} soit 
       $${miseEnEvidence(texNombre(longueursHorizontales[listeCellules[listeCellules.length - 1][0]], 1) + '\\text{ cm}', 'black')}$.`
-          reponse = [longueursHorizontales[listeCellules[listeCellules.length - 1][0]], 'cm']
         }
+        reponse = [longueursHorizontales[listeCellules[listeCellules.length - 1][0]], 'cm']
       } else {
         if (longueursHorizontales[listeCellules[listeCellules.length - 1][0]] === longueursVerticales[listeCellules[listeCellules.length - 1][1]]) {
           texteCorr += `La mesure demandée est la longueur du côté du carré numéro ${texteEnCouleurEtGras(rectangles[listeCellules[listeCellules.length - 1][0]][listeCellules[listeCellules.length - 1][1]].numero, 'red')} soit 
@@ -236,8 +236,8 @@ export default function ProblemesAiresRectangles () {
           texteCorr += `La mesure demandée est la ${longueursHorizontales[listeCellules[listeCellules.length - 1][0]] > longueursVerticales[listeCellules[listeCellules.length - 1][1]] ? 'largeur' : 'longueur'} 
     du rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[listeCellules.length - 1][0]][listeCellules[listeCellules.length - 1][1]].numero, 'red')} soit 
     $${miseEnEvidence(texNombre(longueursVerticales[listeCellules[listeCellules.length - 1][1]], 1) + '\\text{ cm}', 'black')}$.`
-          reponse = [longueursVerticales[listeCellules[listeCellules.length - 1][1]], 'cm']
         }
+        reponse = [longueursVerticales[listeCellules[listeCellules.length - 1][1]], 'cm']
       }
     }
     return [texteCorr, reponse]
@@ -364,7 +364,10 @@ export default function ProblemesAiresRectangles () {
       const objetsEnonce = dessineGrille(typeDeGrille, xBordures, yBordures) // Grille en pointillés sur laquelle on ajoutera les rectangles
       const aires = calculAires(typeDeGrille, longueursHorizontales, longueursVerticales) // tableau contenant toutes les aires des rectangles
       // on crée la question
-        ;[texte, texteCorr, reponse] = prepareProblemeAire(objetsEnonce, rectangles, typeDeGrille, longueursHorizontales, longueursVerticales, aires, xBordures, yBordures, nombreTotalEtapes[q], typesDeProblemes[q] === 1 ? false : Math.floor((nombreTotalEtapes[q] + 1) / 2))
+      const tablo = prepareProblemeAire(objetsEnonce, rectangles, typeDeGrille, longueursHorizontales, longueursVerticales, aires, xBordures, yBordures, nombreTotalEtapes[q], typesDeProblemes[q] === 1 ? false : Math.floor((nombreTotalEtapes[q] + 1) / 2))
+      texte = tablo[0]
+      texteCorr = tablo[1]
+      reponse = tablo[2]
       setReponse(this, q, reponse, { formatInteractif: 'unites' })
       texte += ajouteChampTexteMathLive(this, q, 'largeur25 inline unites[longueurs,aires]', { texte: 'Réponse avec l\'unité : ' })
       if (this.questionJamaisPosee(q, ...longueursHorizontales, ...longueursVerticales)) {

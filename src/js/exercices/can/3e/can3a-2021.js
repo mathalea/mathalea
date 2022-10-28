@@ -577,7 +577,7 @@ export default function SujetCAN20213ieme () {
             ymax = 2.5
             objets = []
             objets.push(
-              texteParPosition('x', milieu(B, C).x, milieu(B, C).y + 0.3),
+              texteParPosition('x', milieu(B, C).x, milieu(B, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
               texteParPosition(`${stringNombre(b)}  `, milieu(D, E).x + 0.3, milieu(D, E).y),
               texteParPosition(`${stringNombre(a)}  `, milieu(D, C).x, milieu(D, C).y + 0.3),
               s1, s2, s3, s4, s5, s6, code1, code2, code3, code4, code5, code6, segment(D, E))
@@ -617,7 +617,7 @@ export default function SujetCAN20213ieme () {
             objets.push(
               texteParPosition(`${stringNombre(a)}`, milieu(B, C).x, milieu(B, C).y + 0.3),
               texteParPosition(`${stringNombre(b)}`, milieu(D, E).x + 0.3, milieu(D, E).y),
-              texteParPosition('x', milieu(D, C).x, milieu(D, C).y + 0.3),
+              texteParPosition('x', milieu(D, C).x, milieu(D, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
               s1, s2, s3, s4, s5, s6, code1, code2, code3, code4, code5, code6, segment(D, E))
             reponse = printlatex(`2x+${4 * a + b}`)
             texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
@@ -653,7 +653,7 @@ export default function SujetCAN20213ieme () {
             objets.push(
               texteParPosition(`${stringNombre(a)}`, milieu(B, C).x, milieu(B, C).y + 0.3),
               texteParPosition(`${stringNombre(b)}`, milieu(D, E).x + 0.3, milieu(D, E).y),
-              texteParPosition('x', milieu(D, C).x, milieu(D, C).y + 0.3),
+              texteParPosition('x', milieu(D, C).x, milieu(D, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
               s1, s2, s4, s5, s6, code1, code2, code4, code5, code6, segment(D, E))
             reponse = printlatex(`2x+${3 * a + b}`)
             texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
@@ -686,7 +686,7 @@ export default function SujetCAN20213ieme () {
             ymax = 2.5
             objets = []
             objets.push(
-              texteParPosition('x', milieu(B, C).x, milieu(B, C).y + 0.3),
+              texteParPosition('x', milieu(B, C).x, milieu(B, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
               texteParPosition(`${stringNombre(b)}`, milieu(D, E).x + 0.3, milieu(D, E).y),
               texteParPosition(`${stringNombre(a)}`, milieu(D, C).x, milieu(D, C).y + 0.3),
               s1, s2, s4, s5, s6, code1, code2, code4, code5, code6, segment(D, E))

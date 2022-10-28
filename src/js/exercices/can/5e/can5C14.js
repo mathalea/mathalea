@@ -26,8 +26,7 @@ export default function DivisionAvecDecimaux () {
       case 'a':
         a = calcul(randint(3, 9) / 10)
         b = randint(2, 9)
-        this.question = `Calculer $\\dfrac{${texNombrec(a * b)}}{${texNombrec(a)}}$<br>
-        (résultat sous forme décimale)`
+        this.question = `Calculer sous forme décimale $\\dfrac{${texNombrec(a * b)}}{${texNombrec(a)}}$.`
         this.correction = `$\\dfrac{${texNombrec(a * b)}}{${texNombrec(a)}}=${texNombrec((a * b) / a)}$. `
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
         On multiplie par $10$ le numérateur et le dénominateur pour avoir des nombres entiers.<br>
@@ -39,8 +38,8 @@ export default function DivisionAvecDecimaux () {
       case 'b':
         a = calcul(randint(3, 9) / 100)
         b = randint(2, 9)
-        this.question = `Calculer $\\dfrac{${texNombrec(a * b)}}{${texNombrec(a)}}$<br>
-        (résultat sous forme décimale)`
+        this.question = `Calculer sous forme décimale $\\dfrac{${texNombrec(a * b)}}{${texNombrec(a)}}$.
+        `
         this.correction = `$\\dfrac{${texNombrec(a * b)}}{${texNombrec(a)}}=${texNombrec((a * b) / a)}$. `
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
         On multiplie par $100$ le numérateur et le dénominateur pour avoir des nombres entiers.<br>
@@ -54,8 +53,8 @@ export default function DivisionAvecDecimaux () {
       case 'c':
         a = calcul(randint(3, 9) / 100)
         b = randint(2, 9)
-        this.question = `Calculer $\\dfrac{${texNombrec(a * b)}}{${texNombrec(a * 10)}}$.<br>
-        (résultat sous forme décimale)`
+        this.question = `Calculer sous forme décimale $\\dfrac{${texNombrec(a * b)}}{${texNombrec(a * 10)}}$.
+        `
         this.correction = `$\\dfrac{${texNombrec(a * b)}}{${texNombrec(a * 10)}}=
         ${texNombrec((a * b) / (10 * a))}$. `
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
@@ -71,8 +70,7 @@ export default function DivisionAvecDecimaux () {
       case 'd':
         a = calcul(randint(3, 9) / 10)
         b = choice([1, 3, 7, 9])
-        this.question = `Calculer $\\dfrac{${texNombrec(a * b)}}{${texNombrec(a * 10)}}$.<br>
-        (résultat sous forme décimale)`
+        this.question = `Calculer sous forme décimale $\\dfrac{${texNombrec(a * b)}}{${texNombrec(a * 10)}}$.`
         this.correction = `$\\dfrac{${texNombrec(a * b)}}{${texNombrec(a * 10)}}=
         ${texNombrec((a * b) / (10 * a))}$. `
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
@@ -85,5 +83,7 @@ export default function DivisionAvecDecimaux () {
         this.reponse = calcul((a * b) / (a * 10))
         break
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

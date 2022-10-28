@@ -21,6 +21,7 @@ export default function CoeffDirecteurDroite () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let xA, yA, xB, yB, n, d, a, b, rep
@@ -36,7 +37,8 @@ export default function CoeffDirecteurDroite () {
         this.reponse = new FractionX(n, d)
         this.formatInteractif = 'fractionEgale'
         this.question = `Dans un repère du plan, on considère les points $A(${xA};${yA})$ et $B(${xB};${yB})$.<br>
-          Calculer le coefficient directeur de la droite $(AB)$.
+         
+        Calculer le coefficient directeur de la droite $(AB)$.
          `
         this.correction = 'On observe que $ x_B\\neq x_A$.'
         this.correction += '<br>La droite $(AB)$ n\'est donc pas verticale.'
@@ -56,10 +58,16 @@ export default function CoeffDirecteurDroite () {
         yB = calcul(b + a * xB)
         rep = repere({ xMin: -5, yMin: -5, xMax: 5, yMax: 5 })
         this.formatInteractif = 'calcul'
-        this.question = 'Donner le coefficient directeur de la droite bleue.<br>'
-        this.question += `${mathalea2d({ xmin: -5, ymin: -5, xmax: 5, ymax: 5, pixelsParCm: 18, scale: 0.7, style: 'margin: auto' }, rep, courbe(x => a * x + b, { repere: rep, color: 'blue' }))}`
+        this.question = `Donner le coefficient directeur de la droite.<br>
+        
+        `
+        this.question += `
+        ${mathalea2d({ xmin: -5, ymin: -5, xmax: 5, ymax: 5, pixelsParCm: 18, scale: 0.6, style: 'margin: auto' }, rep, courbe(x => a * x + b, { repere: rep, color: 'blue' }))}
+        
+        `
         this.correction = `Le coefficient directeur est $${a}$.`
         this.reponse = a
+
         break
       case 3:// coefficient directeur droite a partir equ reduite
         a = randint(-9, 9, 0)
@@ -67,17 +75,21 @@ export default function CoeffDirecteurDroite () {
         this.formatInteractif = 'calcul'
         if (choice([true, false])) {
           this.question = `On considère la droite d'équation $y=${reduireAxPlusB(a, b)}$. <br>
-            Le coefficient directeur est :<br>`
+
+            Donner son coefficient directeur.<br>`
           this.correction = `Le coefficient directeur est $${a}$.`
           this.reponse = a
         } else {
           if (a < 0) {
             this.question = `On considère la droite d'équation $y=${b}${reduireAxPlusB(a, 0)}$. <br>
-          Le coefficient directeur est :<br>`
+
+           Donner son coefficient directeur.<br>`
             this.correction = `Le coefficient directeur est $${a}$.`
             this.reponse = a
           } else {
-            this.question = `On considère la droite d'équation $y=${b}+${reduireAxPlusB(a, 0)}$. <br>Le coefficient directeur est :<br>`
+            this.question = `On considère la droite d'équation $y=${b}+${reduireAxPlusB(a, 0)}$. <br>
+            
+            Donner son coefficient directeur.<br>`
             this.correction = `Le coefficient directeur est $${a}$.`
             this.reponse = a
           }
@@ -88,10 +100,13 @@ export default function CoeffDirecteurDroite () {
         yA = randint(-10, 10, 0)
         this.reponse = fraction(yA, xA).simplifie()
         this.formatInteractif = 'fractionEgale'
-        this.question = `Le coefficient directeur d'une droite représentant une fonction linéaire passant par le point $A(${xA};${yA})$ est :<br>
+        this.question = `Donner le coefficient directeur d'une droite représentant une fonction linéaire passant par le point $A(${xA};${yA})$.<br>
+
           On donnera le résultat sous la forme d'une fraction irréductible ou d'un entier le cas échéant.`
         this.correction = `Le coefficient directeur de la droite est donné par : $m=\\dfrac{y_A}{x_A}=\\dfrac{${yA}}{${xA}}=${this.reponse.texFraction}$.`
         break
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

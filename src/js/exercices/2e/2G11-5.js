@@ -1,7 +1,6 @@
 import CalculDeVolumes from '../6e/6M30.js'
 export const titre = 'Calculs de volumes'
-export { interactifReady, interactifType } from '../6e/6M30.js'
-export { amcReady, amcType } from '../6e/6M30.js'
+export { interactifReady, interactifType, amcReady, amcType } from '../6e/6M30.js'
 
 /**
  * Clone de 6M30 pour les 2nde

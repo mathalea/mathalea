@@ -25,10 +25,12 @@ export default function PyramideAdd3EtagesBaseInconnue () {
     const pyr = new Pyramide({ operation: '+', nombreEtages: 3, rangeData: [2, 5], exclusions: [0] })
     pyr.isVisible = [[true], [false, false], [false, true, true]]
     this.question = `Chaque case contient la somme des deux cases sur lesquelles elle repose. Quel est le nombre qui correspond à * ?<br>
-    ${mathalea2d({ xmin: 0, ymin: 0, xmax: 12, ymax: 3.5 }, pyr.representeMoi(0, 0), texteParPosition('*', 2, 0.5))}`
+    ${mathalea2d({ xmin: 0, ymin: 0, xmax: 12, ymax: 3.5, scale: 0.6 }, pyr.representeMoi(0, 0), texteParPosition('*', 2, 0.5))}`
     this.reponse = pyr.valeurs[2][0]
     pyr.isVisible = [[true], [true, true], [true, true, true]]
     this.correction = `Le nombre qui correspond à * est : ${this.reponse}<br>
-    ${mathalea2d({ xmin: 0, ymin: 0, xmax: 12, ymax: 3.5 }, pyr.representeMoi(0, 0))}`
+    ${mathalea2d({ xmin: 0, ymin: 0, xmax: 12, ymax: 3.5, scale: 0.6 }, pyr.representeMoi(0, 0))}`
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

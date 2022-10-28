@@ -18,6 +18,7 @@ export default function AgrandissementReductionGFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.formatInteractif = 'fraction'
   this.nouvelleVersion = function () {
@@ -34,6 +35,7 @@ export default function AgrandissementReductionGFraction () {
         d = fraction[1]
 
         this.question = `Les longueurs d'un triangle sont multipliées par $\\dfrac{${n}}{${d}}$.<br>
+        
         Par quelle fraction est multipliée son aire  ?
         `
 
@@ -48,6 +50,7 @@ export default function AgrandissementReductionGFraction () {
         d = fraction[1]
 
         this.question = `L'aire d'un parallélogramme a été multipliée par $\\dfrac{${n * n}}{${d * d}}$.<br>
+
         Par quelle fraction ont été multipliées les longueurs de ses côtés ?
         `
         this.optionsChampTexte = { texteApres: '' }
@@ -57,5 +60,7 @@ export default function AgrandissementReductionGFraction () {
     <br>`
         break
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

@@ -12,7 +12,7 @@ export default function TraduireUnePhraseParUneExpressionLitterale () {
   EcrireUneExpressionNumerique.call(this)
   this.version = 1
   this.titre = titre
-  this.sup = false
+  this.sup = 1
   this.sup2 = false
   this.litteral = true
 }

@@ -225,6 +225,34 @@ export default class FractionX extends Fraction {
     })
 
     /**
+     * -1 => '-'
+     * 1 => ''
+     * inchangé sinon
+     * permet d'écrire le coefficient devant une lettre ou une parenthèse
+     * @property texFractionSaufUn
+     * @type {string}
+     */
+    let texFractionSaufUn
+    definePropRo(this, 'texFractionSaufUn', () => {
+      if (!texFractionSaufUn) texFractionSaufUn = (this.valeurDecimale === -1) ? '-' : (this.valeurDecimale === 1) ? '' : this.texFSD
+      return texFractionSaufUn
+    })
+
+    /**
+     * -1 => '-'
+     * 1 => '+'
+     * texFractionSignee sinon
+     * permet d'écrire le coefficient devant une lettre ou une parenthèse
+     * @property texFractionSaufUnSignee
+     * @type {string}
+     */
+    let texFractionSaufUnSignee
+    definePropRo(this, 'texFractionSaufUnSignee', () => {
+      if (!texFractionSaufUnSignee) texFractionSaufUnSignee = (this.valeurDecimale === -1) ? '-' : (this.valeurDecimale === 1) ? '+' : this.texFractionSignee
+      return texFractionSaufUnSignee
+    })
+
+    /**
      * num/den si positif, (- num/den) sinon
      * @property texFSP littéralement texFractionSigneParentheses
      * @type {string}

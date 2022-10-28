@@ -26,7 +26,7 @@ export default function AppliquerUnPourcentage () {
       case 1:// prende 10%
         a = randint(2, 99)
         this.reponse = calcul(a / 10)
-        this.question = `$10\\%$ de $${a}=$`
+        this.question = `Calculer $10\\%$ de $${a}$.`
         this.correction = `$10\\%$ de $${a} = 0,1 \\times ${a}=${texNombre(this.reponse)}$`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
         Prendre $10\\%$  d'une quantité revient à la diviser par $10$.<br>
@@ -37,7 +37,7 @@ export default function AppliquerUnPourcentage () {
         a = randint(1, 9) * 10
         p = randint(2, 9, 5) * 10
         this.reponse = calcul(a * p / 100)
-        this.question = `$${p}\\%$ de $${a}=$`
+        this.question = `Calculer $${p}\\%$ de $${a}$.`
         this.correction = `$${p}\\%$ de $${a} = ${texNombre(this.reponse)}$`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
         Prendre $${p}\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10\\%$  de $${a}$.<br>
@@ -49,7 +49,7 @@ export default function AppliquerUnPourcentage () {
         p = randint(2, 9) * 10
         a = randint(2, 9, p) * 10
         this.reponse = calcul(p * a / 100)
-        this.question = `$${p}\\%$ de $${a}=$`
+        this.question = `Calculer $${p}\\%$ de $${a}$.`
         if (p === 50) {
           this.correction = `$50\\%$  de $${a} = ${this.reponse}$.`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
@@ -67,7 +67,7 @@ export default function AppliquerUnPourcentage () {
       case 4: // prende 1%
         a = randint(100, 999)
         this.reponse = calcul(a / 100)
-        this.question = `$1\\%$ de $${a}=$`
+        this.question = `Calculer $1\\%$ de $${a}$.`
         this.correction = texteEnCouleur(`<br> Mentalement : <br>
         Prendre $1\\%$  d'une quantité revient à la diviser par $100$.<br>
         Ainsi, $1\\%$ de $${a} = \\dfrac{${a}}{100}=${texNombre(this.reponse)}$.`)
@@ -77,7 +77,7 @@ export default function AppliquerUnPourcentage () {
         a = randint(10, 50) * 20
         p = choice([25, 50, 75])
         this.reponse = calcul(a * p / 100)
-        this.question = `$${p}\\%$ de $${a}=$`
+        this.question = `Calculer $${p}\\%$ de $${a}$.`
         this.correction = `$${p}\\%$ de $${a} = ${texNombre(this.reponse)}$`
         if (p === 25) {
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
@@ -100,7 +100,7 @@ export default function AppliquerUnPourcentage () {
         a = randint(10, 50) * 20
         p = choice([5, 10, 20])
         this.reponse = calcul(a * p / 100)
-        this.question = `$${p}\\%$ de $${a}=$`
+        this.question = `Calculer $${p}\\%$ de $${a}$.`
         if (p === 5) {
           this.correction = `$5\\%$  de $${a} = ${this.reponse}$.`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
@@ -121,5 +121,7 @@ export default function AppliquerUnPourcentage () {
         }
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

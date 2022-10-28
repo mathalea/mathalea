@@ -30,5 +30,7 @@ export default function MoitiePlusOuMoinsUn () {
       this.question = `On a  $2\\times a=${texNombre(a)}$, combien vaut $a-1$ ?`
       this.correction = `$2\\times a=${texNombre(a)}$, donc le nombre $a$ est égal à $\\dfrac{${texNombre(a)}}{2}=${texNombrec(a / 2)}$.<br>Donc $a-1=${texNombrec(a / 2)}-1=${texNombrec(a / 2 - 1)}$.`
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

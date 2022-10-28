@@ -116,6 +116,7 @@ export default function ReductionSiPossible () {
               constb = 0
             } else {
               texteCorr += `=${printlatex(`${a + c}*x`)}$`
+              reponse = printlatex(`${a + c}*x`)
               coeffa = a + c
               constb = 0
             }

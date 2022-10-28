@@ -18,7 +18,7 @@ export const ref = 'can2F09'
 export default function ResoudreEquationsFonctionDeReference () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
   this.spacing = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.nouvelleVersion = function () {
@@ -119,7 +119,8 @@ export default function ResoudreEquationsFonctionDeReference () {
           texte += propositionsQcm(this, 0).texte
         } else {
           texte = `Résoudre dans $\\mathbb{R}$ :<br>
-      ${sp(50)} $x^2=${k}$`
+
+       $x^2=${k}$`
         }
 
         texteCorr = ''
@@ -154,6 +155,8 @@ export default function ResoudreEquationsFonctionDeReference () {
             Ainsi, $S=\\emptyset$.`
           }
         }
+        this.canEnonce = `Résoudre dans $\\mathbb{R}$ l'équation $x^2=${k}$.`
+        this.canReponseACompleter = ''
         break
       case 2 :
         k = randint(-5, 10)
@@ -269,7 +272,8 @@ export default function ResoudreEquationsFonctionDeReference () {
           texte += propositionsQcm(this, 0).texte
         } else {
           texte = `Résoudre dans $[0${sp(1)};${sp(1)}+\\infty[$ :<br>
-              ${sp(50)} $\\sqrt{x}=${k}$`
+
+              $\\sqrt{x}=${k}$`
         }
 
         texteCorr = `Pour tout réel $x$ positif ou nul, l'équation $\\sqrt{x}=k$ admet :<br>
@@ -287,6 +291,8 @@ export default function ResoudreEquationsFonctionDeReference () {
            Ainsi $S=\\{${k ** 2}\\}$.
           `
         }
+        this.canEnonce = `Résoudre dans $[0${sp(1)};${sp(1)}+\\infty[$ l'équation $\\sqrt{x}=${k}$.`
+        this.canReponseACompleter = ''
         break
 
       case 3 :
@@ -358,7 +364,8 @@ export default function ResoudreEquationsFonctionDeReference () {
           texte += propositionsQcm(this, 0).texte
         } else {
           texte = `Résoudre dans $\\mathbb{R}^*$ :<br>
-                ${sp(50)} $\\dfrac{1}{x}=${k}$`
+
+                $\\dfrac{1}{x}=${k}$`
         }
 
         texteCorr = `L'équation $\\dfrac{1}{x}=k$ admet :<br>
@@ -376,7 +383,8 @@ export default function ResoudreEquationsFonctionDeReference () {
            Ainsi $S=\\left\\{${texFractionReduite(1, k)}\\right\\}$.
           `
         }
-
+        this.canEnonce = `Résoudre dans $\\mathbb{R}^*$ l'équation $\\dfrac{1}{x}=${k}$.`
+        this.canReponseACompleter = ''
         break
     }
 

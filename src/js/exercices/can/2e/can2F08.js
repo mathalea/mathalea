@@ -23,7 +23,8 @@ export default function EncadrerTableau () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
-  this.tailleDiaporama = 1.3
+  this.tailleDiaporama = 2
+  this.listePackages = ['tkz-tab']
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {
@@ -48,6 +49,25 @@ export default function EncadrerTableau () {
     }
     // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
     question1 = `Voici le tableau de variations d'une fonction $f$ définie sur $[${x1};${x4}]$ :<br>`
+
+    this.canEnonce = `Voici le tableau de variations d'une fonction $f$ définie sur $[${x1};${x4}]$ :<br>
+    ` + mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1, scale: 0.4 }, tableauDeVariation({
+        tabInit: [
+          [
+          // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+            ['$x$', 2, 10], ['$f(x)$', 4, 30]
+          ],
+          // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+          [`$${x1}$`, 10, `$${x2}$`, 10, `$${x3}$`, 10, `$${x4}$`, 10]
+        ],
+        // tabLines ci-dessous contient les autres lignes du tableau.
+        tabLines: [ligne1],
+        colorBackground: '',
+        espcl: 3, // taille en cm entre deux antécédents
+        deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
+        lgt: 3, // taille de la première colonne en cm
+        hauteurLignes: [15, 15]
+      }))
     question1 += mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1, scale: 0.6 }, tableauDeVariation({
       tabInit: [
         [
@@ -66,7 +86,8 @@ export default function EncadrerTableau () {
       hauteurLignes: [15, 15]
     }))
     if (choice([true, false])) {
-      question1 += `  <br>Encadrer le plus précisément possible $f(x)$ (en déterminant les valeurs de $m$ et de $M$ telles que $m\\leqslant f(x)\\leqslant M$) lorsque 
+      question1 += `  <br>
+      Encadrer le plus précisément possible $f(x)$ lorsque 
       $x\\in[${x1};${x3}]$ :<br>$m=$ `
       if (!this.interactif) {
         question1 += '.... '
@@ -77,7 +98,10 @@ export default function EncadrerTableau () {
         question1 += '.... '
       }
       question1 += ` ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur15 inline') + sp(0) : sp(0)}`
-
+      this.canEnonce += `  <br>
+      Encadrer le plus précisément possible $f(x)$  lorsque 
+      $x\\in[${x1};${x3}]$.`
+      this.canReponseACompleter = '$\\ldots \\leqslant f(x)\\leqslant \\ldots$'
       if (choix === 1) {
         if (M === y1) {
           correction1 = `Sur $[${x1};${x3}]$, le minimum de $f$ est $${y2}$ et le maximum est
@@ -119,7 +143,9 @@ export default function EncadrerTableau () {
         question1 += '.... '
       }
       question1 += ` ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur15 inline') + sp(0) : sp(0)}`
-
+      this.canEnonce += `  <br>Encadrer le plus précisément possible $f(x)$ (en déterminant les valeurs de $m$ et de $M$ telles que $m\\leqslant f(x)\\leqslant M$) lorsque 
+      $x\\in[${x2};${x4}]$.`
+      this.canReponseACompleter = '$\\ldots \\leqslant f(x)\\leqslant \\ldots$'
       if (choix === 1) {
         if (m === y2) {
           correction1 = `<br>Sur $[${x2};${x4}]$, le minimum de $f$ est $${y2}$ et le maximum est

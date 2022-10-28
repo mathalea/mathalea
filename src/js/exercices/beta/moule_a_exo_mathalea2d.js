@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { mediatrice, point, segment } from '../../modules/2d.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 
 export const titre = 'Exo zéro Mathalea2d'
 
@@ -63,11 +63,11 @@ export default class SuperExoMathalea2d extends Exercice {
     objetsEnonce.push(s) // On rempli les tableaux d'objets Mathalea2d
     objetsCorrection.push(s, d)
 
-    // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
-    const paramsEnonce = { xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1, mainlevee: false }
+    // paramètres de la fenêtre Mathalea2d pour l'énoncé normal (fixeBordures(ObjetsEnonce) va fixer les limites optimales de xmin, xmax, ymin, ymax à partir des bordures des objets)
+    const paramsEnonce = Object.assign({}, fixeBordures(objetsEnonce), { pixelsParCm: 20, scale: 1, mainlevee: true, amplitude: 0.3 })
     // paramètres de la fenêtre Mathalea2d pour la correction
-    const paramsCorrection = { xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1 }
-    // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
+    const paramsCorrection = Object.assign({}, fixeBordures(objetsCorrection), { pixelsParCm: 20, scale: 1, mainlevee: false })
+    // On ajoute au texte de l'énoncé, la figure à main levée de l'enoncé.
     texte += mathalea2d(paramsEnonce, objetsEnonce)
     // On ajoute au texte de la correction, la figure de la correction
     texteCorr += mathalea2d(paramsCorrection, objetsCorrection)

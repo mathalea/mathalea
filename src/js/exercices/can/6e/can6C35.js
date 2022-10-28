@@ -39,20 +39,26 @@ export default function PlusOuMoins6ieme () {
           reponse2 = new Decimal(a).sub(b)
           this.reponse = choix1 ? reponse1 : reponse2
           this.question = `${prenom1} et ${prenom2} sont allées acheter un déjeuner dans une sandwicherie.<br>
-                ${prenom1} a payé $${texPrix(a)}$ € pour son déjeuner. ${prenom2} a payé le sien $${texPrix(b)}$ € ${choix1 ? 'de plus' : ' de moins '}.
-                <br>Combien ${prenom2} a-t-elle payé son déjeuner ? `
+                ${prenom1} a payé $${texPrix(a)}$ € pour son déjeuner. ${prenom2} a payé le sien $${texPrix(b)}$ € ${choix1 ? 'de plus' : ' de moins '}.<br>
+                
+                Combien ${prenom2} a-t-elle payé son déjeuner ? `
           this.correction = `${prenom2} a payé son déjeuner $${texPrix(b)}$ € ${choix1 ? 'de plus' : ' de moins '} que celui de ${prenom1}.<br>
         Elle l'a donc payé  (${choix1 ? `$${texPrix(a)}+${texPrix(b)}$` : `$${texPrix(a)}-${texPrix(b)}$`}) €, soit ${choix1 ? `$${texPrix(reponse1)}$` : `$${texPrix(reponse2)}$`} €.`
+          this.canEnonce = this.question
+          this.canReponseACompleter = '$\\dots$ €'
         }
         if (choix === 'b') {
           reponse2 = new Decimal(a).add(b)
           reponse1 = new Decimal(a).sub(b)
           this.reponse = choix1 ? reponse1 : reponse2
           this.question = `${prenom1} et ${prenom2} sont allées acheter un déjeuner dans une sandwicherie.<br>
-                      ${prenom1} a payé $${texPrix(a)}$ € pour son déjeuner soit $${texPrix(b)}$ € ${choix1 ? 'de plus' : ' de moins '} que ${prenom2}.
-                      <br>Combien ${prenom2} a-t-elle payé son déjeuner ? `
+                      ${prenom1} a payé $${texPrix(a)}$ € pour son déjeuner soit $${texPrix(b)}$ € ${choix1 ? 'de plus' : ' de moins '} que ${prenom2}. <br>
+                     
+                      Combien ${prenom2} a-t-elle payé son déjeuner ? `
           this.correction = `${prenom1} a payé son déjeuner $${texPrix(b)}$ € ${choix1 ? 'de plus' : ' de moins '} que celui de ${prenom2}.<br>
               ${prenom2} a donc payé son déjeuner $${texPrix(b)}$ € ${choix1 ? 'de moins' : ' de plus '}.  Elle l'a donc payé  (${choix1 ? `$${texPrix(a)}-${texPrix(b)}$` : `$${texPrix(a)}+${texPrix(b)}$`}) €, soit ${choix1 ? `$${texPrix(reponse1)}$` : `$${texPrix(reponse2)}$`} €.`
+          this.canEnonce = this.question
+          this.canReponseACompleter = '$\\dots$ €'
         }
         if (choix === 'c') {
           prix1 = new Decimal(a).add(b)
@@ -62,8 +68,9 @@ export default function PlusOuMoins6ieme () {
           this.reponse = choix1 ? reponse1 : reponse2
           this.question = `${prenom1} et ${prenom2} sont allées acheter un déjeuner dans une sandwicherie.<br>
                       ${prenom1} a payé $${texPrix(a)}$ € pour son déjeuner soit $${texPrix(b)}$ € ${choix1 ? 'de plus' : ' de moins '}
-                       que ${prenom2}.
-                      <br>Combien ont-elles payé ensemble leur déjeuner ? `
+                       que ${prenom2}.<br>
+                      
+                      Combien ont-elles payé ensemble leur déjeuner ? `
           this.correction = `${prenom1} a payé son déjeuner $${texPrix(b)}$ € ${choix1 ? 'de plus' : ' de moins '}
           que celui de ${prenom2}.<br>
               ${prenom2} a donc payé son déjeuner $${texPrix(b)}$ € ${choix1 ? 'de moins' : ' de plus '}.
@@ -71,6 +78,8 @@ export default function PlusOuMoins6ieme () {
               soit ${choix1 ? `$${texPrix(prix2)}$` : `$${texPrix(prix1)}$`} €.<br>
               Ensemble, elles ont donc payé : (${choix1 ? `$${texPrix(a)}+${texPrix(prix2)}$` : `$${texPrix(a)}+${texPrix(prix1)}$`}) €,
               soit ${choix1 ? `$${texPrix(reponse1)}$` : `$${texPrix(reponse2)}$`} €. `
+          this.canEnonce = this.question
+          this.canReponseACompleter = '$\\dots$ €'
         }
         if (choix === 'd') {
           prix1 = new Decimal(a).add(b)
@@ -79,12 +88,15 @@ export default function PlusOuMoins6ieme () {
           reponse1 = new Decimal(a).add(prix2)
           this.reponse = choix1 ? reponse2 : reponse1
           this.question = `${prenom1} et ${prenom2} sont allées acheter un déjeuner dans une sandwicherie.<br>
-          ${prenom1} a payé $${texPrix(a)}$ € pour son déjeuner. ${prenom2} a payé le sien $${texPrix(b)}$ € ${choix1 ? 'de plus' : ' de moins '}.
-                      <br>Combien ont-elles payé ensemble leur déjeuner ? `
+          ${prenom1} a payé $${texPrix(a)}$ € pour son déjeuner. ${prenom2} a payé le sien $${texPrix(b)}$ € ${choix1 ? 'de plus' : ' de moins '}.<br>
+                      
+          Combien ont-elles payé ensemble leur déjeuner ? `
           this.correction = `${prenom2} a payé son déjeuner $${texPrix(b)}$ € ${choix1 ? 'de plus' : ' de moins '} que celui de ${prenom1}.<br>
           Elle l'a donc payé  (${choix1 ? `$${texPrix(a)}+${texPrix(b)}$` : `$${texPrix(a)}-${texPrix(b)}$`}) €, soit ${choix1 ? `$${texPrix(prix1)}$` : `$${texPrix(prix2)}$`} €. <br>
               Ensemble, elles ont donc payé : (${choix1 ? `$${texPrix(a)}+${texPrix(prix1)}$` : `$${texPrix(a)}+${texPrix(prix2)}$`}) €,
               soit ${choix1 ? `$${texPrix(reponse2)}$` : `$${texPrix(reponse1)}$`} €. `
+          this.canEnonce = this.question
+          this.canReponseACompleter = '$\\dots$ €'
         }
 
         if (this.interactif) { this.optionsChampTexte = { texteApres: ' €' } }
@@ -107,9 +119,12 @@ export default function PlusOuMoins6ieme () {
           this.reponse = choix1 ? reponse2 : reponse1
           this.question = `${prenom1} mesure $${texNombre(a, 2, true)}$ m. Il mesure $${b}$ cm ${choix1 ? 'de plus' : ' de moins '}
               que ${prenom2}. <br>
+
               Quelle est la taille de ${prenom2} ?`
           this.correction = `${prenom1} mesure $${b}$ cm ${choix1 ? 'de plus' : ' de moins '} que ${prenom2} donc ${prenom2} mesure $${b}$ cm ${choix1 ? 'de moins' : ' de plus '} que ${prenom1}.<br>
               Il mesure donc  (${choix1 ? `$${texNombre(a, 2, true)}-${texNombre(c, 2, true)}$` : `$${texNombre(a, 2, true)}+${texNombre(c, 2, true)}$`}) m, soit  ${choix1 ? `$${texNombre(reponse2, 2, true)}$` : `$${texNombre(reponse1, 2, true)}$`} m. `
+          this.canEnonce = this.question
+          this.canReponseACompleter = '$\\dots$ m'
         } else {
           reponse1 = new Decimal(a).add(c)
           reponse2 = new Decimal(a).sub(c)
@@ -118,6 +133,8 @@ export default function PlusOuMoins6ieme () {
                     que ${prenom1}. <br>
                     Quelle est la taille de ${prenom2} ?`
           this.correction = `${prenom2} mesure $${b}$ cm ${choix1 ? 'de plus' : ' de moins '} que ${prenom1} donc ${prenom2} mesure (${choix1 ? `$${texNombre(a, 2, true)}+${texNombre(c, 2, true)}$` : `$${texNombre(a, 2, true)}-${texNombre(c, 2, true)}$`}) m, soit  ${choix1 ? `$${texNombre(reponse1, 2, true)}$` : `$${texNombre(reponse2, 2, true)}$`} m. `
+          this.canEnonce = this.question
+          this.canReponseACompleter = '$\\dots$ m'
         }
         if (this.interactif) { this.optionsChampTexte = { texteApres: ' m' } }
 
@@ -141,11 +158,14 @@ export default function PlusOuMoins6ieme () {
           this.reponse = choix1 ? reponse2 : reponse1
           this.question = `Chez le primeur, ${prenom1} a acheté  $${texNombre(a, 1)}$ kg de ${choix2 ? 'fruits' : ' légumes '}.<br>
             Il en a acheté $${b}$ g ${choix1 ? 'de plus' : ' de moins '} que ${prenom2}.<br>
+
             Quelle masse de ${choix2 ? 'fruits' : ' légumes '} a acheté ${prenom2} ?`
           this.correction = `${prenom1} a acheté $${b}$ g de ${choix2 ? 'fruits' : ' légumes '}  ${choix1 ? 'de plus' : ' de moins '} que ${prenom2}, donc ${prenom2} en a acheté $${b}$ g ${choix1 ? 'de moins' : ' de plus '} que ${prenom1}.<br>
             Or $${b}$ g $=${texNombre(c, 1)}$ kg. <br>
             ${prenom2} a donc acheté $(${choix1 ? `${texNombre(a, 1)}-${texNombre(c, 1)}` : `${texNombre(a, 1)}+${texNombre(c, 1)}`})$ kg
             soit $${choix1 ? `${texNombre(reponse2, 1)}` : `${texNombre(reponse1, 1)}`}$ kg de ${choix2 ? 'fruits' : ' légumes '}.`
+          this.canEnonce = this.question
+          this.canReponseACompleter = '$\\dots$ kg'
         }
         if (choix === 'b') {
           reponse1 = (new Decimal(a)).add(c)
@@ -153,11 +173,14 @@ export default function PlusOuMoins6ieme () {
           this.reponse = choix1 ? reponse1 : reponse2
           this.question = `Chez le primeur, ${prenom1} a acheté  $${texNombre(a, 1)}$ kg de ${choix2 ? 'fruits' : ' légumes '}.<br>
           ${prenom2} en a acheté $${b}$ g ${choix1 ? 'de plus' : ' de moins '}.<br>
+
             Quelle masse de ${choix2 ? 'fruits' : ' légumes '} a acheté ${prenom2} ?`
           this.correction = `$${b}$ g $=${texNombre(c, 1)}$ kg. <br>
           ${prenom2} a acheté $${texNombre(c, 1)}$ kg de ${choix2 ? 'fruits' : ' légumes '}  ${choix1 ? 'de plus' : ' de moins '} que ${prenom1},
           donc ${prenom2} en a acheté  $(${choix1 ? `${texNombre(a, 1)}+${texNombre(c, 1)}` : `${texNombre(a, 1)}-${texNombre(c, 1)}`})$ kg
             soit $${choix1 ? `${texNombre(reponse1, 1)}` : `${texNombre(reponse2, 1)}`}$ kg de ${choix2 ? 'fruits' : ' légumes '}.`
+          this.canEnonce = this.question
+          this.canReponseACompleter = '$\\dots$ kg'
         }
         if (choix === 'c') {
           m1 = (new Decimal(a)).add(c)
@@ -167,6 +190,7 @@ export default function PlusOuMoins6ieme () {
           this.reponse = choix1 ? reponse1 : reponse2
           this.question = `Chez le primeur, ${prenom1} a acheté  $${texNombre(a, 1)}$ kg de ${choix2 ? 'fruits' : ' légumes '}.<br>
           ${prenom2} en a acheté $${b}$ g ${choix1 ? 'de plus' : ' de moins '}.<br>
+
             Quelle masse de ${choix2 ? 'fruits' : ' légumes '} ont-ils acheté ensemble ?`
           this.correction = `$${b}$ g $=${texNombre(c, 1)}$ kg. <br>
           ${prenom2} a acheté $${texNombre(c, 1)}$ kg de ${choix2 ? 'fruits' : ' légumes '}  ${choix1 ? 'de plus' : ' de moins '} que ${prenom1},
@@ -174,6 +198,8 @@ export default function PlusOuMoins6ieme () {
             soit $${choix1 ? `${texNombre(m1, 1)}` : `${texNombre(m2, 1)}`}$ kg de ${choix2 ? 'fruits' : ' légumes '}.<br>
             Ensemble, ils ont donc acheté :  $(${choix1 ? `${texNombre(a, 1)}+${texNombre(m1, 1)}` : `${texNombre(a, 1)}+${texNombre(m2, 1)}`})$ kg
             soit $${choix1 ? `${texNombre(reponse1, 1)}` : `${texNombre(reponse2, 1)}`}$ kg de ${choix2 ? 'fruits' : ' légumes '}.`
+          this.canEnonce = this.question
+          this.canReponseACompleter = '$\\dots$ kg'
         }
 
         if (choix === 'd') {
@@ -184,6 +210,7 @@ export default function PlusOuMoins6ieme () {
           this.reponse = choix1 ? reponse2 : reponse1
           this.question = `Chez le primeur, ${prenom1} a acheté  $${texNombre(a, 1)}$ kg de ${choix2 ? 'fruits' : ' légumes '}.<br>
           Il en a acheté $${b}$ g ${choix1 ? 'de plus' : ' de moins '} que ${prenom2}.<br>
+
           Quelle masse de ${choix2 ? 'fruits' : ' légumes '} ont-ils acheté ensemble ?`
           this.correction = `${prenom1} a acheté $${b}$ g  ${choix2 ? 'fruits' : ' légumes '} de ${choix1 ? 'de plus' : ' de moins '} que ${prenom2}, donc ${prenom2} en a acheté $${b}$ g ${choix1 ? 'de moins' : ' de plus '} que ${prenom1}.<br>
             Or $${b}$ g $=${texNombre(c, 1)}$ kg. <br>
@@ -191,6 +218,8 @@ export default function PlusOuMoins6ieme () {
             soit $${choix1 ? `${texNombre(m2, 1)}` : `${texNombre(m1, 1)}`}$ kg de ${choix2 ? 'fruits' : ' légumes '}.<br>
             Ensemble, ils ont donc acheté :  $(${choix1 ? `${texNombre(a, 1)}+${texNombre(m2, 1)}` : `${texNombre(a, 1)}+${texNombre(m1, 1)}`})$ kg
             soit $${choix1 ? `${texNombre(reponse2, 1)}` : `${texNombre(reponse1, 1)}`}$ kg de ${choix2 ? 'fruits' : ' légumes '}.`
+          this.canEnonce = this.question
+          this.canReponseACompleter = '$\\dots$ kg'
         }
 
         if (this.interactif) { this.optionsChampTexte = { texteApres: ' kg' } }

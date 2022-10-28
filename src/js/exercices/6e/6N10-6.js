@@ -81,6 +81,11 @@ export default function SommeFractionsDecimales () {
           texte = `$${texFraction(b, denAMC)}+${texFraction(c, denAMC)}$`
           numAMC = calcul(b + c)
           reponseAMC = calcul(numAMC / denAMC)
+          if (!context.isHtml) {
+            this.canEnonce = `Calculer $${texFraction(b, denAMC)}+${texFraction(c, denAMC)}$ sous forme d'une fraction décimale.`
+            this.correction = this.listeCorrections[0]
+            this.canReponseACompleter = ''
+          }
           switch (this.sup2) {
             case 2 : texteCorr = `$${texFraction(b, denAMC)}+${texFraction(c, denAMC)}=${texFraction(numAMC, denAMC)}$`
               break
@@ -94,6 +99,11 @@ export default function SommeFractionsDecimales () {
           texte = `$${texFraction(b, denAMC)}-${texFraction(c, denAMC)}$`
           numAMC = calcul(b - c)
           reponseAMC = calcul(numAMC / denAMC)
+          if (!context.isHtml) {
+            this.canEnonce = `Calculer $${texFraction(b, denAMC)}-${texFraction(c, denAMC)}$ sous forme d'une fraction décimale.`
+            this.correction = this.listeCorrections[0]
+            this.canReponseACompleter = ''
+          }
           switch (this.sup2) {
             case 2 : texteCorr = `$${texFraction(b, denAMC)}-${texFraction(c, denAMC)}=${texFraction(numAMC, denAMC)}$`
               break
@@ -109,6 +119,11 @@ export default function SommeFractionsDecimales () {
           texte = `$${a}+${texFraction(b, denAMC)}+${texFraction(c, denAMC)}$`
           numAMC = calcul(a * denAMC + b + c)
           reponseAMC = calcul(numAMC / denAMC)
+          if (!context.isHtml) {
+            this.canEnonce = `Calculer $${a}+${texFraction(b, denAMC)}+${texFraction(c, denAMC)}$ sous forme décimale.`
+            this.correction = this.listeCorrections[0]
+            this.canReponseACompleter = ''
+          }
           switch (this.sup2) {
             case 2 : texteCorr = `$${a}+${texFraction(b, denAMC)}+${texFraction(c, denAMC)}=${a}+${texFraction(b + c, denAMC)}=${texFraction(a * denAMC, denAMC)}+${texFraction(b + c, denAMC)}=${texFraction(numAMC, denAMC)}$`
               break
@@ -123,6 +138,11 @@ export default function SommeFractionsDecimales () {
           texte = `$${a}+${texFraction(b, denAMC)}-${texFraction(c, denAMC)}$`
           numAMC = calcul(a * denAMC + b - c)
           reponseAMC = calcul(numAMC / denAMC)
+          if (!context.isHtml) {
+            this.canEnonce = `Calculer $${a}+${texFraction(b, denAMC)}-${texFraction(c, denAMC)}$ sous forme décimale.`
+            this.correction = this.listeCorrections[0]
+            this.canReponseACompleter = ''
+          }
           switch (this.sup2) {
             case 2 : texteCorr = `$${a}+${texFraction(b, denAMC)}-${texFraction(c, denAMC)}=${a}+${texFraction(b - c, denAMC)}=${texFraction(a * denAMC, denAMC)}+${texFraction(b - c, denAMC)}=${texFraction(numAMC, denAMC)}$`
               break
@@ -138,6 +158,11 @@ export default function SommeFractionsDecimales () {
           texte = `$${a}+${texFraction(b, denAMC)}+${texFraction(c, denAMC)}$`
           numAMC = calcul(a * denAMC + b + c)
           reponseAMC = calcul(numAMC / denAMC)
+          if (!context.isHtml) {
+            this.canEnonce = `Calculer $${a}+${texFraction(b, denAMC)}+${texFraction(c, denAMC)}$ sous forme décimale.`
+            this.correction = this.listeCorrections[0]
+            this.canReponseACompleter = ''
+          }
           switch (this.sup2) {
             case 2 : texteCorr = `$${a}+${texFraction(b, denAMC)}+${texFraction(c, denAMC)}=${a}+${texFraction(b + c, denAMC)}=${texFraction(a * denAMC, denAMC)}+${texFraction(b + c, denAMC)}=${texFraction(numAMC, denAMC)}$`
               break
@@ -152,6 +177,11 @@ export default function SommeFractionsDecimales () {
           texte = `$${a}+${texFraction(b, denAMC)}-${texFraction(c, denAMC)}$`
           numAMC = calcul(a * denAMC + b - c)
           reponseAMC = calcul(numAMC / denAMC)
+          if (!context.isHtml) {
+            this.canEnonce = `Calculer $${a}+${texFraction(b, denAMC)}-${texFraction(c, denAMC)}$ sous forme décimale.`
+            this.correction = this.listeCorrections[0]
+            this.canReponseACompleter = ''
+          }
           switch (this.sup2) {
             case 2 : texteCorr = `$${a}+${texFraction(b, denAMC)}-${texFraction(c, denAMC)}=${a}+${texFraction(b - c, denAMC)}=${texFraction(a * denAMC, denAMC)}+${texFraction(b - c, denAMC)}=${texFraction(numAMC, denAMC)}$`
               break

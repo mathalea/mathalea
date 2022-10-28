@@ -16,7 +16,7 @@ export const ref = 'can6D03'
 export default function CalculDureeMinutes () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
   this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
   this.optionsChampTexte = { texteApres: ' minutes' }
@@ -28,6 +28,7 @@ export default function CalculDureeMinutes () {
     this.reponse = b * 60 + d - (a * 60 + c)
     this.question = `${prenomM()} est parti à  $${a}$h$${c}$ de son domicile. 
     Il est arrivé à $${b}$h$${d}$.<br>
+
     Combien de temps à duré son trajet ?`
     this.correction = `$${b}$h$${d}-${a}$h$${c}=${this.reponse}$ min`
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
@@ -36,5 +37,7 @@ export default function CalculDureeMinutes () {
       Puis on ajoute  les $${d}$ minutes pour arriver à $${b}$h$${d}$.<br>
       Le résultat est donc donné par $${(a + 1) * 60 - (a * 60 + c)}+${d}=${this.reponse}$ min.
           `)
+    this.canEnonce = this.question
+    this.canReponseACompleter = '$\\ldots$ minutes'
   }
 }

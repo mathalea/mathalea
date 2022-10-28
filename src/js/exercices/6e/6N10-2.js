@@ -126,7 +126,7 @@ export default function DecompositionNombreDecimal () {
           this.autoCorrection[i].reponse.param.decimals = 0
           break
         case 5:
-          texte = `Le chiffre des miliers du nombre $${n}$ est : `
+          texte = `Le chiffre des milliers du nombre $${n}$ est : `
           texteCorr = texte + `$${miseEnEvidence(m)}$`
           texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
           setReponse(this, i, m)

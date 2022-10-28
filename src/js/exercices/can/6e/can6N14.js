@@ -32,8 +32,9 @@ export default function DeterminerLeNombre () {
         case 1 :
 
           a = choice([randint(10, 99), randint(100, 999), randint(1000, 2000), randint(1, 9)])
-          texte = `Quel est le nombre égal à $${a}$ dixièmes ?`
-
+          texte = `Quel est le nombre égal à $${a}$ dixièmes ?
+          `
+          this.canEnonce = texte
           this.autoCorrection[i] = {
             enonce: texte,
             options: { horizontal: true },
@@ -64,8 +65,9 @@ export default function DeterminerLeNombre () {
         case 2 :
 
           a = choice([randint(10, 99), randint(100, 999), randint(1000, 2000), randint(1, 9)])
-          texte = `Quel est le nombre égal à $${a}$ centièmes ?`
-
+          texte = `Quel est le nombre égal à $${a}$ centièmes ?
+          `
+          this.canEnonce = texte
           this.autoCorrection[i] = {
             enonce: texte,
             options: { horizontal: true },
@@ -96,7 +98,9 @@ export default function DeterminerLeNombre () {
         case 3 :
 
           a = choice([randint(10, 99), randint(100, 999), randint(1000, 2000), randint(1, 9)])
-          texte = `Quel est le nombre égal à $${a}$ millièmes ?`
+          texte = `Quel est le nombre égal à $${a}$ millièmes ?
+          `
+          this.canEnonce = texte
 
           this.autoCorrection[i] = {
             enonce: texte,
@@ -134,5 +138,6 @@ export default function DeterminerLeNombre () {
       cpt++
     }
     listeQuestionsToContenu(this)
+    this.canReponseACompleter = propositionsQcm(this, 0).texte
   }
 }

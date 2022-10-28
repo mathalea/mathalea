@@ -17,7 +17,7 @@ export default function PetitsProblemePartage2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
@@ -33,11 +33,13 @@ export default function PetitsProblemePartage2 () {
         this.reponse = new Decimal(a).sub(c)
         this.question = `  Un électricien dispose d’un rouleau de fil électrique de $${a}$ m. Il découpe $${nbre}$
       morceaux de fil de ce rouleau de $${texNombre(b, 2, true)}$ m chacun.<br>
+
       Quelle longueur de fil électrique reste-t-il dans le rouleau ?`
         this.correction = `Les $${nbre}$  morceaux de fil ont une longueur de $${nbre}\\times ${texNombre(b, 2, true)}$, soit $${texNombre(c, 2)}$ m.<br>
       Il reste alors : $${a}-${texNombre(c, 2)}=${texNombre(this.reponse, 2)}$ m.`
         if (this.interactif) { this.optionsChampTexte = { texteApres: ' m' } }
-
+        this.canEnonce = this.question
+        this.canReponseACompleter = '$\\dots$ m'
         break
 
       case 2:
@@ -49,13 +51,15 @@ export default function PetitsProblemePartage2 () {
 
         this.reponse = choix ? `${new Decimal(a).div(nbre2)}` : `${new Decimal(a).mul(100).div(nbre1)}`
         this.question = `  Pour son anniversaire, ${prenom1} a acheté $${a}$ litres de jus de fruits.<br>
-         Les verres de  ${prenom1} contiennent ${choix ? `$${texNombre(nbre2, 2, true)}$ litre` : `$${texNombre(nbre1, 2, true)}$ centilitres`}.<br>
+         Les verres de  ${prenom1} contiennent ${choix ? `$${texNombre(nbre2, 2, true)}$ litre` : `$${texNombre(nbre1, 0, true)}$ centilitres`}.<br>
+
             Combien de verres de jus de fruits ${prenom1} pourra-t-elle servir ? `
         this.correction = `Dans un litre, il y a ${choix ? `$${texNombre(1 / nbre2, 0, true)}\\times ${texNombre(nbre2, 2, true)}$ litre ` : `$${texNombre(100 / nbre1, 0, true)}\\times ${texNombre(nbre1, 0, true)}$ centilitres`}.<br>
         Dans $${a}$ litres, il y a donc ${choix ? `$${texNombre(a / nbre2, 0, true)}\\times ${texNombre(nbre2, 2, true)}$ litre ` : `$${texNombre(100 * a / nbre1, 0, true)}\\times ${texNombre(nbre1, 0, true)}$ centilitres`}.<br>
         Elle pourra donc servir ${choix ? `$${texNombre(a / nbre2, 0, true)}$` : `$${texNombre(100 * a / nbre1, 0, true)}$`} verres.`
         if (this.interactif) { this.optionsChampTexte = { texteApres: ' verres' } }
-
+        this.canEnonce = this.question
+        this.canReponseACompleter = '$\\dots$ verres'
         break
       case 3:
 
@@ -69,6 +73,7 @@ export default function PetitsProblemePartage2 () {
           this.question = `  Le nombre de billes de ${prenom1} est égal ${proportion[0]}  nombre
                 de billes de sa sœur.<br>
                  À eux deux, ils ont $${nbre}$ billes.<br>
+
                 Combien de billes a ${prenom1} ? `
           this.correction = `Il faut partager le nombre de billes en $${proportion[1] + 1}$.<br>
         $${nbre}\\div ${proportion[1] + 1}=${nbre / (proportion[1] + 1)}$.<br>
@@ -92,7 +97,8 @@ export default function PetitsProblemePartage2 () {
           `
         }
         if (this.interactif) { this.optionsChampTexte = { texteApres: ' billes' } }
-
+        this.canEnonce = this.question
+        this.canReponseACompleter = '$\\dots$ billes'
         break
     }
   }

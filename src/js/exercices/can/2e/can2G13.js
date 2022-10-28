@@ -17,6 +17,7 @@ export default function NormeVecteur () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let a, b, nom, reduction
@@ -28,7 +29,9 @@ export default function NormeVecteur () {
         reduction = extraireRacineCarree(a ** 2 + b ** 2)
         if (a ** 2 + b ** 2 === 1 || a ** 2 + b ** 2 === 4 || a ** 2 + b ** 2 === 9 || a ** 2 + b ** 2 === 16 || a ** 2 + b ** 2 === 25 || a ** 2 + b ** 2 === 36 || a ** 2 + b ** 2 === 49 || a ** 2 + b ** 2 === 64 || a ** 2 + b ** 2 === 81 || a ** 2 + b ** 2 === 100) {
           this.question = `Dans un repère orthonormé du plan, on donne $\\overrightarrow{${nom}}(${a};${b})$ .<br>
-        Déterminer la norme du vecteur $\\overrightarrow{${nom}}$.<br><br>
+
+        Déterminer la norme du vecteur $\\overrightarrow{${nom}}$.<br>
+        
         Donner le résultat sous la forme $\\sqrt{a}$ ou d'un nombre entier le cas échéant.`
           this.optionsChampTexte = { texteApres: '' }
           this.correction = `D'après le cours, si $\\overrightarrow{u}(x;y)$ alors $\\| \\overrightarrow{u} \\|=\\sqrt{x^2+y^2}$. On a donc : <br><br>
@@ -42,7 +45,9 @@ export default function NormeVecteur () {
           this.reponse = Math.sqrt(a ** 2 + b ** 2)
         } else {
           this.question = `Dans un repère orthonormé du plan, on donne $\\overrightarrow{${nom}}(${a};${b})$ .<br>
-          Déterminer la norme du vecteur $\\overrightarrow{${nom}}$.<br><br>
+
+          Déterminer la norme du vecteur $\\overrightarrow{${nom}}$.<br>
+
           Donner le résultat sous la forme $\\sqrt{a}$ ou d'un nombre entier le cas échéant.`
           this.optionsChampTexte = { texteApres: '' }
           this.correction = `D'après le cours, si $\\overrightarrow{u}(x;y)$ alors $\\| \\overrightarrow{u} \\|=\\sqrt{x^2+y^2}$. On a donc : <br><br>
@@ -59,5 +64,7 @@ export default function NormeVecteur () {
         }
         break
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

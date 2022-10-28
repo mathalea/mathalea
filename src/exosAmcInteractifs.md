@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 518 
-- nombre d'exos interactifReady 795 
+- nombre d'exos amcReady 520 
+- nombre d'exos interactifReady 798 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -17,7 +17,7 @@
 |2F11-1|Déterminer l'image d'un nombre par une fonction de référence|OK|AMCNum|OK|mathLive|
 |2F25-2|Étudier la parité d'une fonction|OK|qcmMono|OK|qcm|
 |2F32-2|Déterminer graphiquement les extremums|OK|AMCHybride|OK|mathLive|
-|2G11-5|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
+|2G11-5|Calculs de volumes|OK|AMCHybride|OK|qcm,mathLive|
 |2G30-1|Déterminer le coefficient directeur d'une droite|OK|AMCHybride|OK|mathLive|
 |2G35-7|Lecture graphique des coefficients d'une équation réduite |OK|AMCHybride|OK|mathLive|
 |2N10-1|Lire l’abscisse décimale d’un point repéré par une fraction|OK|AMCHybride|OK|mathLive|
@@ -73,7 +73,7 @@
 |3A10-3|Décomposer un entier en produit de facteurs premiers|OK|AMCOpen|OK|mathLive|
 |3A10-5|Recourir à une décomposition en facteurs premiers dans des cas simples|KO|KO|OK|mathLive|
 |3A10-6|Trouver un chiffre pour qu'un nombre soit divisible par un autre|KO|KO|OK|mathLive|
-|3A11-0|Simplifier des fractions à l'aide des nombres premiers|OK|AMCOpen|OK|mathLive|
+|3A11-0|Simplifier des fractions à l'aide des nombres premiers|OK|AMCHybride|OK|mathLive|
 |3A11-1|Résoudre des problèmes de conjonction de phénomènes|OK|AMCHybride|OK|mathLive|
 |3A12-1|Résoudre des problèmes avec recherche de diviseurs communs|OK|AMCHybride|OK|mathLive|
 |3A13-1|Poser divisions euclidiennes|OK|AMCOpen|OK|mathLive|
@@ -110,7 +110,7 @@
 |3G32-5|Triangle rectangle inscrit dans un triangle rectangle|OK|AMCHybride|OK|mathLive|
 |3G32|Calculer la largeur d'une rivière|OK|AMCHybride|OK|mathLive|
 |3G42|Volume d'une boule|OK|AMCNum|OK|mathLive|
-|3G43|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
+|3G43|Calculs de volumes|OK|AMCHybride|OK|qcm,mathLive|
 |3I10-1|Analyser des scripts Scratch|OK|AMCHybride|OK|qcm|
 |3I12-1|Compléter un script Scratch - 1|OK|AMCOpen|KO|KO|
 |3I12-2|Comprendre un script Scratch - 1|OK|AMCHybride|KO|KO|
@@ -170,7 +170,7 @@
 |4C22|Multiplier ou/et diviser des fractions|OK|AMCNum|OK|mathLive|
 |4C23-1|Fractions et priorités opératoires|OK|AMCNum|OK|mathLive|
 |4C23|Somme, différence ou produit de fractions|KO|KO|OK|mathLive|
-|4C24|Simplifier des fractions à l'aide des nombres premiers|OK|AMCOpen|OK|mathLive|
+|4C24|Simplifier des fractions à l'aide des nombres premiers|OK|AMCHybride|OK|mathLive|
 |4C30-1|Encadrer avec des puissances de 10|KO|KO|OK|mathLive|
 |4C30-2|Écriture décimale d'une puissance de 10|OK|AMCNum|OK|mathLive|
 |4C30-4|Puissances de 10 et préfixes|KO|KO|OK|listeDeroulante|
@@ -202,8 +202,9 @@
 |4G31|Contrôler si deux droites sont parallèles|OK|AMCHybride|OK|mathLive|
 |4G40|Utiliser le cosinus pour calculer une longueur dans un triangle rectangle|OK|AMCOpenNum|OK|mathLive|
 |4G41|Utiliser le cosinus pour calculer la mesure d'un angle dans un triangle rectangle|OK|AMCOpenNum|OK|mathLive|
-|4G53|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
+|4G53|Calculs de volumes|OK|AMCHybride|OK|qcm,mathLive|
 |4I1-2|Tortue Scratch avec répétitions|OK|qcmMono|OK|cliqueFigure|
+|4L10-1|Réduire, si possible, une expression littérale simple|KO|KO|OK|mathLive|
 |4L10-3|Yohaku additif expressions littérales niveau 1|KO|KO|OK|custom|
 |4L10-4|Rose additive littéraux|KO|KO|OK|custom|
 |4L10|Utiliser la simple distributivité|KO|KO|OK|mathLive|
@@ -237,7 +238,7 @@
 |5L14-2|Substitution|OK|AMCNum|OK|mathLive|
 |5L14|Calculer la valeur d'une expression littérale|KO|KO|OK|mathLive|
 |5L16|Simplifier l'écriture d'une expression littérale|KO|KO|OK|mathLive|
-|5M20|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
+|5M20|Calculs de volumes|OK|AMCHybride|OK|qcm,mathLive|
 |5N10|Passer d'une fraction à une écriture décimale et inversement|KO|KO|OK|mathLive|
 |5N11-3|Écrire une fraction sur 100 puis sous la forme d'un pourcentage|OK|AMCNum|OK|mathLive|
 |5N11-4|Exprimer une fraction sous la forme d'une valeur approchée d'un pourcentage|KO|KO|OK|mathLive|
@@ -306,10 +307,13 @@
 |6D13|Convertir en min vers h et min ou en s vers min et s|OK|AMCHybride|OK|mathLive|
 |6G10-3|Choisir la bonne figure|OK|qcmMono|OK|cliqueFigure|
 |6G10-4|Connaître le vocabulaire du cercle|KO|KO|OK|qcm,mathLive|
+|6G10-5|Tracer des droites, segments,...|OK|AMCOpen|KO|KO|
+|6G10|Utiliser la notation de droites, segments et demi-droites|OK|AMCOpen|KO|KO|
 |6G11|Tracer des perpendiculaires|OK|AMCOpen|KO|KO|
 |6G12-1|Tracer des parallèles et des perpendiculaires|OK|AMCOpen|KO|KO|
 |6G12|Tracer des parallèles|OK|AMCOpen|KO|KO|
 |6G14|Utiliser les propriétés des droites perpendiculaires|OK|AMCOpen|KO|KO|
+|6G20-3|Connaitre le vocabulaire de base des polygones|KO|KO|OK|qcm|
 |6G22|Nommer un angle|OK|AMCHybride|OK|qcm,mathLive|
 |6G23-1|Mesurer un angle sans rapporteur sur l'énoncé|OK|qcmMono|OK|qcm|
 |6G23-4|Mesurer un angle avec rapporteur intégré|OK|AMCHybride|OK|mathLive|
@@ -344,7 +348,7 @@
 |6M22|Calculer périmètre et aire de disques (à partir d'un texte)|OK|AMCHybride|OK|mathLive|
 |6M23|Convertir des aires|OK|qcmMono|OK|qcm,mathLive|
 |6M30-0|Déterminer le volume de pavés droit par dénombrement|OK|AMCNum|OK|mathLive|
-|6M30|Calculer le volume de solides donnés|OK|qcmMono|OK|qcm,mathLive|
+|6M30|Calculer le volume de solides donnés|OK|AMCHybride|OK|qcm,mathLive|
 |6M31-2|Convertir des volumes ou des capacités|OK|AMCNum|OK|mathLive|
 |6M31|Convertir des volumes|OK|qcmMono|OK|qcm,mathLive|
 |6N10-0|Écrire un nombre en chiffres ou en lettres|KO|KO|OK|mathLive|
@@ -755,6 +759,7 @@
 |can6G05|Résoudre un problème de longueurs (inverse)|OK|AMCNum|OK|mathLive|
 |can6G06|Compter les arêtes et les faces|OK|AMCNum|OK|mathLive|
 |can6G07|Compter les points symétriques manquant|OK|AMCNum|OK|mathLive|
+|can6I01|Noter la couleur (scratch)|KO|KO|OK|mathLive|
 |can6M01|Comparer des périmètres (V/F)|OK|qcmMono|OK|qcm|
 |can6M02|Trouver la bonne unité|OK|qcmMono|OK|qcm|
 |can6M03|Convertir en mètres|OK|AMCNum|OK|mathLive|
