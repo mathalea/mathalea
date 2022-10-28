@@ -690,7 +690,7 @@ function angleModulo (angle, k) {
  * @param {object} param
  * @param {boolean} [param.associes] false pour niveau1 (quart de cercle) uniquement, true pour ajouter niveau2 (cercle trigo)
  * @param {number[]} [param.modulos] liste des k à utiliser pour ajouter les angles modulo 2k*Pi
- * @returns {string[],string[],string[]} liste1, liste2, liste3 les listes (niveau2 contient niveau1 et niveau3 contient niveau2)
+ * @returns {{liste1: string[], liste2: string[], liste3: string[]}} liste1, liste2, liste3 les listes (niveau2 contient niveau1 et niveau3 contient niveau2)
  * @author Jean-Claude Lhote
  */
 export function valeursTrigo ({ associes = true, modulos = [-1, 1] }) {

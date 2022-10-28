@@ -1,5 +1,12 @@
 import FractionX from './FractionEtendue.js'
 
+/**
+ * Gère les polynômes du second degré
+ *  - Définition depuis la forme développée, canonique ou factorisée
+ *  - Calcul du discriminant, des racines, des coordonnées du sommet
+ *  - Compatible avec la classe FractionX pour la gestion du calcul exact avec les rationnels
+ * @author Rémi Angot
+ */
 export default class Trinome {
   /**
      *
@@ -200,6 +207,10 @@ export default class Trinome {
     }
   }
 
+  /**
+   * Écriture LaTeX de la valeur exacte première racine
+   * @type {string}
+   */
   get texX1 () {
     if (this.x1 instanceof FractionX) return this.x1.texFraction
     else {
@@ -209,6 +220,10 @@ export default class Trinome {
     }
   }
 
+  /**
+   * Écriture LaTeX de la valeur exacte première racine
+   * @type {string}
+   */
   get texX2 () {
     if (this.x2 instanceof FractionX) return this.x2.texFraction
     else {
