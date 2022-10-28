@@ -212,7 +212,7 @@ export default class Trinome {
    * @type {string}
    */
   get texX1 () {
-    if (this.x1 instanceof FractionX) return this.x1.texFraction
+    if (this.x1 instanceof FractionX) return this.x1.simplifie().texFraction
     else {
       const num = this.b.oppose().texFraction + `- \\sqrt{${this.discriminant.texFraction}}`
       const den = 2 * this.a
@@ -225,7 +225,7 @@ export default class Trinome {
    * @type {string}
    */
   get texX2 () {
-    if (this.x2 instanceof FractionX) return this.x2.texFraction
+    if (this.x2 instanceof FractionX) return this.x2.simplifie().texFraction
     else {
       const num = this.b.oppose().texFraction + `+ \\sqrt{${this.discriminant.texFraction}}`
       const den = 2 * this.a
