@@ -4,7 +4,6 @@ import Trinome from '../../modules/Trinome.js'
 import FractionX from '../../modules/FractionEtendue.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { tableauDeVariation } from '../../modules/2d.js'
-import { context } from '../../modules/context.js'
 export const titre = 'Équations et inéquations du second degré'
 export const interactifReady = false
 
@@ -46,7 +45,7 @@ export default class EquationsEtInequations extends Exercice {
 
         let x1 = new FractionX(-b, a)
         let x2 = new FractionX(-d, c)
-        if (context.versionMathalea === 2) texteCorr += texte
+        texteCorr += 'On cherche l\'ensemble des $x$ tels que : ' + texte + '.'
         texteCorr += `<br><br>$${b}${ecritureAlgebriqueSauf1(a)}x = 0 \\iff x= ${x1.simplifie().texFraction}`
         texteCorr += ` \\qquad \\text{et} \\qquad ${rienSi1(c)}x${ecritureAlgebrique(d)} = 0 \\iff x= ${x2.simplifie().texFraction}$`
 
@@ -95,13 +94,13 @@ export default class EquationsEtInequations extends Exercice {
         } else {
           texte += `$${rienSi1(p.a.valeurDecimale)}x^2 ${ecritureAlgebriqueSauf1(p.b.valeurDecimale)} x ${typeInequation} ${-p.c.valeurDecimale}$`
         }
-        if (context.versionMathalea === 2) texteCorr += texte + '<br><br>'
+        texteCorr += 'On cherche l\'ensemble des $x$ tels que : ' + texte + '.<br><br>'
         if (listeTypeQuestions[i] === 'inequationFormeDevelopeeSansRacineBis') {
           texteCorr = `$${rienSi1(p.a.valeurDecimale)}x^2 ${ecritureAlgebriqueSauf1(p.b.valeurDecimale)} x ${typeInequation} ${-p.c.valeurDecimale} \\iff ${p.tex} ${typeInequation} 0$<br><br>`
         }
         texteCorr += 'Calculons le discriminant de ce polynôme du second degré : '
         texteCorr += `$\\Delta = ${p.texCalculDiscriminant}$.`
-        texteCorr += `<br><br>Le discriminant est strictement négatif, donc le polynome est toujours du signe de $a$ donc ici toujours ${p.a.s === 1 ? 'positif' : 'négatif'}.`
+        texteCorr += `<br><br>Le discriminant est strictement négatif, donc le polynôme est toujours du signe de $a$ donc ici toujours ${p.a.s === 1 ? 'positif' : 'négatif'}.`
         texteCorr += '<br><br>Finalement $S='
         if ((p.a.valeurDecimale > 0 && (typeInequation === '>' || typeInequation === '\\geq'))) texteCorr += '\\R'
         else if ((p.a.valeurDecimale < 0 && (typeInequation === '<' || typeInequation === '\\leq'))) texteCorr += '\\R'
@@ -119,34 +118,35 @@ export default class EquationsEtInequations extends Exercice {
         } else {
           texte += `$${rienSi1(p.a.valeurDecimale)}x^2 ${ecritureAlgebriqueSauf1(p.b.valeurDecimale)} x ${typeInequation} ${-p.c.valeurDecimale}$`
         }
-        if (context.versionMathalea === 2) texteCorr += texte + '<br><br>'
+        texteCorr += 'On cherche l\'ensemble des $x$ tels que : ' + texte + '.<br><br>'
         if (listeTypeQuestions[i] === 'inequationFormeDevelopeeAvecRacinesBis') {
           texteCorr = `$${rienSi1(p.a.valeurDecimale)}x^2 ${ecritureAlgebriqueSauf1(p.b.valeurDecimale)} x ${typeInequation} ${p.c.valeurDecimale} \\iff ${p.tex} ${typeInequation} 0$` + '<br></br>'
         }
         texteCorr += 'Calculons le discriminant de ce polynôme du second degré : '
         texteCorr += `$\\Delta = ${p.texCalculDiscriminant}$.`
-        texteCorr += '<br><br>Le discriminant est strictement positif, donc le polynome a deux racines.'
+        texteCorr += '<br><br>Le discriminant est strictement positif, donc le polynôme a deux racines.'
         texteCorr += `<br><br>$${p.texCalculRacine1}$`
         texteCorr += `<br><br>$${p.texCalculRacine2}$`
         texteCorr += '<br><br>'
         if ((typeInequation === '>' && a > 0) || (typeInequation === '<' && a < 0)) {
-          texteCorr += 'On sait que le polynome est du signe de $a$ à l\'extérieur de ses racines donc '
+          texteCorr += 'On sait que le polynôme est du signe de $a$ à l\'extérieur de ses racines donc '
           texteCorr += `$S=\\left]-\\infty;${p.x1.valeurDecimale < p.x2.valeurDecimale ? p.texX1 : p.texX2}\\right[\\cup\\left]${p.x1.valeurDecimale < p.x2.valeurDecimale ? p.texX2 : p.texX1};+\\infty\\right[$.`
         } else if ((typeInequation === '<' && a > 0) || (typeInequation === '>' && a < 0)) {
-          texteCorr += 'On sait que le polynome est du signe de $-a$ entre ses racines donc '
+          texteCorr += 'On sait que le polynôme est du signe de $-a$ entre ses racines donc '
           texteCorr += `$S=\\left]${p.x1.valeurDecimale < p.x2.valeurDecimale ? p.texX1 : p.texX2};${p.x1.valeurDecimale < p.x2.valeurDecimale ? p.texX2 : p.texX1}\\right[$.`
         } else if ((typeInequation === '\\geq' && a > 0) || (typeInequation === '\\leq' && a < 0)) {
-          texteCorr += 'On sait que le polynome est du signe de $a$ à l\'extérieur de ses racines donc '
+          texteCorr += 'On sait que le polynôme est du signe de $a$ à l\'extérieur de ses racines donc '
           texteCorr += `$S=\\left]-\\infty;${p.x1.valeurDecimale < p.x2.valeurDecimale ? p.texX1 : p.texX2}\\right]\\cup\\left[${p.x1.valeurDecimale < p.x2.valeurDecimale ? p.texX2 : p.texX1};+\\infty\\right[$.`
         } else {
-          texteCorr += 'On sait que le polynome est du signe de $-a$ entre ses racines donc '
+          texteCorr += 'On sait que le polynôme est du signe de $-a$ entre ses racines donc '
           texteCorr += `$S=\\left[${p.x1.valeurDecimale < p.x2.valeurDecimale ? p.texX1 : p.texX2};${p.x1.valeurDecimale < p.x2.valeurDecimale ? p.texX2 : p.texX1}\\right]$.`
         }
       } else if (listeTypeQuestions[i] === 'ax2=bx') {
         const a = randint(-5, 5, 0)
         const b = randint(-5, 5, 0)
         texte += `$${rienSi1(a)}x^2 = ${rienSi1(-b)}x$`
-        texteCorr += `<br>$${rienSi1(a)}x^2 = ${rienSi1(-b)}x \\iff ${rienSi1(a)}x^2  ${ecritureAlgebriqueSauf1(b)}x = 0$`
+        texteCorr += 'On cherche l\'ensemble des $x$ tels que : ' + texte + '.'
+        texteCorr += `<br><br>$${rienSi1(a)}x^2 = ${rienSi1(-b)}x \\iff ${rienSi1(a)}x^2  ${ecritureAlgebriqueSauf1(b)}x = 0$`
         texteCorr += `<br><br>$\\phantom{${rienSi1(a)}x^2 = ${rienSi1(-b)}x} \\iff x(${rienSi1(a)}x  ${ecritureAlgebrique(b)})=0$`
         texteCorr += `<br><br>$\\phantom{${rienSi1(a)}x^2 = ${rienSi1(-b)}x} \\iff x = 0 \\text{ \\qquad ou \\qquad }${rienSi1(a)}x  ${ecritureAlgebrique(b)}=0$`
         const x = new FractionX(-b, a)

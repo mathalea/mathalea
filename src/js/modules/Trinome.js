@@ -6,6 +6,7 @@ import FractionX from './FractionEtendue.js'
  *  - Calcul du discriminant, des racines, des coordonnées du sommet
  *  - Compatible avec la classe FractionX pour la gestion du calcul exact avec les rationnels
  * @author Rémi Angot
+ * @class
  */
 export default class Trinome {
   /**

@@ -28,7 +28,7 @@ export default class EtudeParabole extends Exercice {
     p.defFormeFactorisee(a, x1, x2)
     let question1 = `Dans le plan rapporté à un repère, on considère la parabole $(P)$ d'équation $y=${p.tex}$.`
     question1 += `<br><br>${numAlpha(0)} Déterminer la forme canonique de $f(x) = ${p.tex}$.`
-    question1 += `<br><br>${numAlpha(1)} En déduire les coordonnées du sommet de la parabole et les variations de la fonction $f$ associée au polynome $(P)$.`
+    question1 += `<br><br>${numAlpha(1)} En déduire les coordonnées du sommet de la parabole et les variations de la fonction $f$ associée au polynôme $(P)$.`
     let correction1 = `${numAlpha(0)} On cherche la forme canonique de $${p.tex}$ avec $a=${p.a.simplifie().texFraction}$, $b=${p.b.simplifie().texFraction}$ et $c=${p.c.simplifie().texFraction}$.`
     correction1 += '<br><br> On sait que $f(x)(x-\\alpha)^2+\\beta$ avec $\\alpha = \\dfrac{-b}{2a}$ et $\\beta=f(\\alpha)$.'
     correction1 += `<br><br> $\\alpha = \\dfrac{-b}{2a}=\\dfrac{${p.b.simplifie().oppose().texFraction}}{${p.a.multiplieEntier(2).simplifie().texFraction}}=${p.alpha.simplifie().texFraction}$`
