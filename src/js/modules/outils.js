@@ -7479,9 +7479,10 @@ export function preambulePersonnalise (listePackages) {
         % Il convient donc de commenter l'un d'eux selon les besoins
         %
         % à noter que le package scratch3 requiert simplekv et tikz qui sont automatiquement chargés en cas de besoin
-        \\usepackage{scratch}
-        %\\usepackage{scratch3} 
-        
+        %\\usepackage{scratch}
+        % Le package scratch est obsolète. On le remplace par le pckage scratch3
+        % Compatibilité avec les anciens sources tex à vérifier          
+        \\usepackage{scratch3}
         %%%%% FIGURES %%%%%
         \\usepackage{graphics} % à distinguer du package graphicx
         \\usepackage{framed} % decoration background
