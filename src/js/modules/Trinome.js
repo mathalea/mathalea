@@ -29,7 +29,7 @@ class Trinome {
    * @param {number | FractionX} x1
    * @param {number | FractionX} x2
    */
-   defFormeFactorisee (a, x1, x2) {
+  defFormeFactorisee (a, x1, x2) {
     if (a instanceof FractionX === false) a = new FractionX(a)
     if (x1 instanceof FractionX === false) x1 = new FractionX(x1)
     if (x2 instanceof FractionX === false) x2 = new FractionX(x2)
@@ -220,7 +220,7 @@ class Trinome {
 
   /**
    * Tableau avec 2 étapes pour le développement puis le résultat
-   * @return {[etape1: string, etape2: string, this.tex: string]}
+   * @return {string[]} [Étape 1, Étape 2, this.tex]
    */
   get arrayTexDevelopperFormeCanonique () {
     const alpha = this.alpha
