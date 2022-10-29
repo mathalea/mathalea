@@ -6,11 +6,10 @@ import FractionX from './FractionEtendue.js'
  *  - Calcul du discriminant, des racines, des coordonnées du sommet
  *  - Compatible avec la classe FractionX pour la gestion du calcul exact avec les rationnels
  * @author Rémi Angot
- * @class
  */
-export default class Trinome {
+class Trinome {
   /**
-     *
+     * Définit un trinôme de la forme ax^2 + bx + c
      * @param {number | FractionX} a
      * @param {number | FractionX} b
      * @param {number | FractionX} c
@@ -25,7 +24,56 @@ export default class Trinome {
   }
 
   /**
-   * Nombre de chiffres après la virgule pour les valeurs approchées
+   * Modifie le polynome pour qu'il soit égal à a(x-x1)(x-x2)
+   * @param {number | FractionX} a
+   * @param {number | FractionX} x1
+   * @param {number | FractionX} x2
+   */
+   defFormeFactorisee (a, x1, x2) {
+    if (a instanceof FractionX === false) a = new FractionX(a)
+    if (x1 instanceof FractionX === false) x1 = new FractionX(x1)
+    if (x2 instanceof FractionX === false) x2 = new FractionX(x2)
+    this.a = a
+    this.b = x1.oppose().sommeFraction(x2.oppose()).produitFraction(a)
+    this.c = x1.produitFraction(x2).produitFraction(a)
+  }
+
+  /**
+   * Modifie le polynome pour qu'il soit égal à k(ax+b)(cx+d)
+   * @param {number | FractionX} k
+   * @param {number | FractionX} a
+   * @param {number | FractionX} b
+   * @param {number | FractionX} c
+   * @param {number | FractionX} d
+   */
+  defFormeFactorisee2 (k, a, b, c, d) {
+    if (k instanceof FractionX === false) k = new FractionX(k)
+    if (a instanceof FractionX === false) a = new FractionX(a)
+    if (b instanceof FractionX === false) b = new FractionX(b)
+    if (c instanceof FractionX === false) c = new FractionX(c)
+    if (d instanceof FractionX === false) d = new FractionX(d)
+    this.a = k.produitFraction(a).produitFraction(c)
+    this.b = k.produitFraction(a).produitFraction(d).sommeFraction(k.produitFraction(b).produitFraction(c))
+    this.c = k.produitFraction(b).produitFraction(d)
+  }
+
+  /**
+   * Modifie le polynome pour qu'il soit égal à a(x - alpha)^2 + beta
+   * @param {number | FractionX} a
+   * @param {number | FractionX} alpha
+   * @param {number | FractionX} beta
+   */
+  defFormeCanonique (a, alpha, beta) {
+    if (a instanceof FractionX === false) a = new FractionX(a)
+    if (alpha instanceof FractionX === false) alpha = new FractionX(alpha)
+    if (beta instanceof FractionX === false) beta = new FractionX(beta)
+    this.a = a
+    this.b = a.produitFraction(alpha.oppose()).multiplieEntier(-2)
+    this.c = a.produitFraction(alpha).produitFraction(alpha).sommeFraction(beta)
+  }
+
+  /**
+   * Nombre de chiffres après la virgule pour les valeurs approchées (dans les calculs des racines)
    * @type {number}
    */
   precision = 3
@@ -114,6 +162,12 @@ export default class Trinome {
   }
 
   /**
+   * Calcul sur une ligne du discriminant du polynome
+   * @example
+   * const p = new Trinome(2, 3, 1)
+   * p.texCalculDiscriminantSansResultat
+   * // 3^2-4\\times2\\times1 = 1
+   * @type {string}
    * @type {string}
    */
   get texCalculDiscriminant () {
@@ -123,6 +177,11 @@ export default class Trinome {
   }
 
   /**
+   * Calcul sous la forme d'une égalité sans le résultat
+   * @example
+   * const p = new Trinome(2, 3, 1)
+   * p.texCalculDiscriminantSansResultat
+   * // 3^2-4\\times2\\times1
    * @type {string}
    */
   get texCalculDiscriminantSansResultat () {
@@ -132,6 +191,7 @@ export default class Trinome {
   }
 
   /**
+   * Calcul détaillée de la première racine avec résultat exact si on peut calculer la racine du discriminant et valeur approchée sinon
    * @type {string}
    */
   get texCalculRacine1 () {
@@ -145,6 +205,7 @@ export default class Trinome {
   }
 
   /**
+   * Calcul détaillée de la deuxième racine avec résultat exact si on peut calculer la racine du discriminant et valeur approchée sinon
    * @type {string}
    */
   get texCalculRacine2 () {
@@ -159,6 +220,7 @@ export default class Trinome {
 
   /**
    * Tableau avec 2 étapes pour le développement puis le résultat
+   * @return {[etape1: string, etape2: string, this.tex: string]}
    */
   get arrayTexDevelopperFormeCanonique () {
     const alpha = this.alpha
@@ -295,53 +357,6 @@ export default class Trinome {
     result += ` ${this.beta.simplifie().texFractionSignee}`
     return result
   }
-
-  /**
-   * Modifie le polynome pour qu'il soit égal à a(x-x1)(x-x2)
-   * @param {number | FractionX} a
-   * @param {number | FractionX} x1
-   * @param {number | FractionX} x2
-   */
-  defFormeFactorisee (a, x1, x2) {
-    if (a instanceof FractionX === false) a = new FractionX(a)
-    if (x1 instanceof FractionX === false) x1 = new FractionX(x1)
-    if (x2 instanceof FractionX === false) x2 = new FractionX(x2)
-    this.a = a
-    this.b = x1.oppose().sommeFraction(x2.oppose()).produitFraction(a)
-    this.c = x1.produitFraction(x2).produitFraction(a)
-  }
-
-  /**
-   * Modifie le polynome pour qu'il soit égal à k(ax+b)(cx+d)
-   * @param {number | FractionX} k
-   * @param {number | FractionX} a
-   * @param {number | FractionX} b
-   * @param {number | FractionX} c
-   * @param {number | FractionX} d
-   */
-  defFormeFactorisee2 (k, a, b, c, d) {
-    if (k instanceof FractionX === false) k = new FractionX(k)
-    if (a instanceof FractionX === false) a = new FractionX(a)
-    if (b instanceof FractionX === false) b = new FractionX(b)
-    if (c instanceof FractionX === false) c = new FractionX(c)
-    if (d instanceof FractionX === false) d = new FractionX(d)
-    this.a = k.produitFraction(a).produitFraction(c)
-    this.b = k.produitFraction(a).produitFraction(d).sommeFraction(k.produitFraction(b).produitFraction(c))
-    this.c = k.produitFraction(b).produitFraction(d)
-  }
-
-  /**
-   * Modifie le polynome pour q'il soit égal à a(x - alpha)^2 + beta
-   * @param {number | FractionX} a
-   * @param {number | FractionX} alpha
-   * @param {number | FractionX} beta
-   */
-  defFormeCanonique (a, alpha, beta) {
-    if (a instanceof FractionX === false) a = new FractionX(a)
-    if (alpha instanceof FractionX === false) alpha = new FractionX(alpha)
-    if (beta instanceof FractionX === false) beta = new FractionX(beta)
-    this.a = a
-    this.b = a.produitFraction(alpha.oppose()).multiplieEntier(-2)
-    this.c = a.produitFraction(alpha).produitFraction(alpha).sommeFraction(beta)
-  }
 }
+
+export default Trinome
