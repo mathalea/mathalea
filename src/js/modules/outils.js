@@ -192,7 +192,7 @@ export function deuxColonnes (cont1, cont2, largeur1 = 50) {
  * @author Mickael Guironnet
  * @param {string} cont1 - Contenu de la première colonne
  * @param {string} cont2 - Contenu de la deuxième colonne
- * @param {eleId, largeur1, widthmincol1, widthmincol2} options
+ * @param {{eleId: string, largeur1: number, widthmincol1: number, widthmincol2: number}} options
  *          eleId : identifiant ID pour retrouver la colonne
  *          largeur1 : largeur de la première colonne en latex en pourcentage
  *          widthmincol1 : largeur de la première minimum en html en px

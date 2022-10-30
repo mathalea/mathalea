@@ -23,7 +23,7 @@ const definePropRo = (obj, prop, get) => {
  * f = fraction(12,15) // crée la fraction $\frac{12}{15}$ (Remarque : new FractionX(12,15) crée $\frac{4}{5}$)
  * f = fraction(0.4) // crée la fraction $\frac{2}{5}$
  */
-export default class FractionX extends Fraction {
+class FractionX extends Fraction {
   constructor (...args) {
     let num, den
     if (args.length > 2) {
@@ -1242,3 +1242,5 @@ export default class FractionX extends Fraction {
     }
   }
 }
+
+export default FractionX

@@ -79,7 +79,7 @@ export default function ResoudreEquationDegre2 () {
           lgt: 8, // taille de la première colonne en cm
           hauteurLignes: [12, 15]
         }))
-        if (a > 0) { texteCorr += `<br>On en déduit que $S=]-\\infty;${x1}[\\cup]${x2};+\\infty[$` } else { texteCorr += `<br> On en déduit que $S=]${x1};${x2}[$` }
+        if (a > 0) { texteCorr += `<br>Finalement $S=]-\\infty;${x1}[\\cup]${x2};+\\infty[$.` } else { texteCorr += `<br> Finalement $S=]${x1};${x2}[$.` }
       }
       //* ********************************************************
       if (listeTypeDeQuestions[i] === 'supérieur ou égal') {
@@ -130,7 +130,7 @@ export default function ResoudreEquationDegre2 () {
           lgt: 8, // taille de la première colonne en cm
           hauteurLignes: [10, 10]
         }))
-        if (a > 0) { texteCorr += `<br>On en déduit que $S=]-\\infty;${x1}]\\cup[${x2};+\\infty[$` } else { texteCorr += `<br> On en déduit que $S=[${x1};${x2}]$` }
+        if (a > 0) { texteCorr += `<br>Finalement $S=]-\\infty;${x1}]\\cup[${x2};+\\infty[$.` } else { texteCorr += `<br> Finalement $S=[${x1};${x2}]$.` }
       }
       //* ******************************************************************
       if (listeTypeDeQuestions[i] === 'inférieur ou égal') {
@@ -181,7 +181,7 @@ export default function ResoudreEquationDegre2 () {
           lgt: 8, // taille de la première colonne en cm
           hauteurLignes: [15, 15]
         }))
-        if (a < 0) { texteCorr += `<br>On en déduit que $S=]-\\infty;${x1}]\\cup[${x2};+\\infty[$` } else { texteCorr += `<br> On en déduit que $S=[${x1};${x2}]$` }
+        if (a < 0) { texteCorr += `<br>Finalement $S=]-\\infty;${x1}]\\cup[${x2};+\\infty[$.` } else { texteCorr += `<br> Finalement $S=[${x1};${x2}]$.` }
       }
       //* **************************************
       if (listeTypeDeQuestions[i] === 'strictement inférieur') {
@@ -232,7 +232,7 @@ export default function ResoudreEquationDegre2 () {
           lgt: 8, // taille de la première colonne en cm
           hauteurLignes: [15, 15]
         }))
-        if (a < 0) { texteCorr += `<br>On en déduit que $S=]-\\infty;${x1}[\\cup]${x2};+\\infty[$` } else { texteCorr += `<br> On en déduit que $S=]${x1};${x2}[$` }
+        if (a < 0) { texteCorr += `<br>Finalement $S=]-\\infty;${x1}[\\cup]${x2};+\\infty[$.` } else { texteCorr += `<br> Finalement $S=]${x1};${x2}[$.` }
       }
       //* *************************************************************
       if (listeTypeDeQuestions[i] === 'pasDeSolution1') {

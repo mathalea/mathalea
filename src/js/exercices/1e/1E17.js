@@ -45,7 +45,7 @@ export default class EtudeTrinome extends Exercice {
 
     const q3a = 'Résoudre l\'équation $f(x) = 0$.'
 
-    let corr3a = 'Ici, on va utiliser la forme factorisée pour se ramener à une équation produit. Il est aussi possible de calculer le discriminant mais cela serait plus long.'
+    let corr3a = 'Ici, on va utiliser la forme factorisée pour se ramener à une équation produit nul. Il est aussi possible de calculer le discriminant mais cela serait plus long.'
     corr3a += `<br><br>$f(x)=0 \\iff ${p.texFormeFactorisee} = 0$`
     corr3a += `<br><br>$\\phantom{f(x)=0} \\iff x${p.x1.simplifie().oppose().texFractionSignee} = 0 \\text{\\quad ou \\quad} x${p.x2.simplifie().oppose().texFractionSignee} = 0$`
     corr3a += `<br><br>$\\phantom{f(x)=0} \\iff x=${p.x1.simplifie().texFraction} \\text{\\quad ou \\quad} x=${p.x2.simplifie().texFraction}$`

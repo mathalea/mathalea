@@ -816,7 +816,7 @@ export function barycentre (p, nom = '', positionLabel = 'above') {
  * d = droite(a,b,c,'(d)') // La droite définie par les coefficients de ax +by + c=0 (équation de la droite (a,b)!==(0,0))
  * d = droite(A,B,'(d)','blue') //La droite passant par A et B se nommant (d) et de couleur bleue
  *
- * @author
+ * @author Rémi Angot
  */
 
 /**  Trace la demi-droite d'origine A passant par B
@@ -4581,7 +4581,7 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
  * @param {number} [parametres.dureeTour] temps en secondes mis par la roue pour effectuer un tout en SVG
  * @param {number} [parametres.angleStart] angle de départ de la première dent (90 par défaut) utile pour synchroniser deux roues
  * @param {number | null} marqueur position angulaire en degrés d'un marqueur si de type number
- * @returns
+ * @returns {Engrenage}
  */
 export function engrenage ({ rayon = 1, rayonExt = 1.3, rayonInt = 0.75, nbDents = 12, xCenter = 0, yCenter = 0, couleur = 'black', couleurDeRemplissage = 'black', couleurDuTrou = 'white', dureeTour = 10, angleStart = 90, marqueur = null } = {}) {
   if (rayonExt < rayon) rayonExt = round(rayon * 4 / 3)
