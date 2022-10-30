@@ -56,7 +56,7 @@ export default class NomExercice extends Exercice {
     for (let i = 0; i < nbSommets; i++) {
       points.push(pointSurCercle(cercle(O, randint(20, 50) / 10), anglesPoints[i], lettreDepuisChiffre(numerosNomsPoints[i])))
     }
-    const polygon = polygoneAvecNom(points)
+    const polygon = polygoneAvecNom(...points)
     objets2d.push(polygon[0], polygon[1])
     // On affiche le cadre mathalea2d
     const pointsX = []
