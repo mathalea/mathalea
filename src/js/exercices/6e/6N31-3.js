@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeNombresPremiersStrictJusqua, shuffle2tableaux, choice, listeQuestionsToContenu, randint, troncature, calcul, texNombre, miseEnEvidence, texFraction, combinaisonListes } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
-import { cos } from '../../modules/fonctionsMaths.js'
+import { degCos } from '../../modules/fonctionsMaths.js'
 
 export const amcReady = true
 export const amcType = 'qcmMult' // type de question AMC
@@ -102,13 +102,13 @@ export default function ArrondirUneValeur () {
           v = randint(11, 99) / 10
           angle = randint(1, 89, 60)
           if (choice([true, false])) {
-            n = v * cos(angle)
+            n = v * degCos(angle)
             nb = `${texNombre(v)}\\cos(${angle})`
             di = 10 * (troncature(n - troncature(n, 0), 1))
             ci = 100 * (troncature(n - troncature(n, 1), 2))
             mi = 1000 * (troncature(n - troncature(n, 2), 3))
           } else {
-            n = v / cos(angle)
+            n = v / degCos(angle)
             nb = `\\dfrac{${texNombre(v)}}{\\cos(${angle}\\degree)}`
             di = 10 * (troncature(n - troncature(n, 0), 1))
             ci = 100 * (troncature(n - troncature(n, 1), 2))
