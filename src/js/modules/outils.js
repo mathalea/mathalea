@@ -436,17 +436,33 @@ export function creerCouples (E1, E2, nombreDeCouplesMin = 10) {
 */
 export function randint (min, max, listeAEviter = []) {
   // Source : https://gist.github.com/pc035860/6546661
+  if (!Number.isInteger(min) || !Number.isInteger(max)) {
+    window.notify('Les min et max de randint doivent être entiers', { min, max })
+    min = Math.floor(min)
+    max = Math.ceil(max)
+    if (max - min < 1) max = min + 1
+  }
   const range = max - min
   let rand = Math.floor(Math.random() * (range + 1))
   if (typeof listeAEviter === 'string') {
     listeAEviter = listeAEviter.split('')
   }
-  if (Number.isInteger(listeAEviter)) {
-    listeAEviter = [listeAEviter]
+  if (typeof listeAEviter === 'number') {
+    if (Number.isInteger(listeAEviter)) {
+      listeAEviter = [listeAEviter]
+    } else {
+      window.notify('Le nombre fourni à randint en exclusion n\'est pas un entier', { listeAEviter })
+      listeAEviter = [listeAEviter] // ce n'est pas grave de mettre un nombre non entier, randint ne choisit que des entiers
+    }
   }
-  listeAEviter = listeAEviter.map(Number)
+  if (Array.isArray(listeAEviter)) {
+    listeAEviter = listeAEviter.map(Number).filter(el => Math.round(el) === el) // on filtre les non nombres et les non-entiers
+  } else {
+    window.notify('La liste d\'exclusion de randint n\'est pas d\'un type pris en compte', { listeAEviter })
+    listeAEviter = []
+  }
   if (listeAEviter.length > 0) {
-    while (listeAEviter.indexOf(min + rand) !== -1) {
+    while (listeAEviter.includes(min + rand)) {
       rand = Math.floor(Math.random() * (range + 1))
     }
   }
