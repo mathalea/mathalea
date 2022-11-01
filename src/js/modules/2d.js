@@ -12216,7 +12216,7 @@ export function pavage () {
  * @param {Point} A
  * @param {string} texte
  * @param {number} h
- * @returns {(Polyline|Segment|TexteParPosition)[]}
+ * @returns {array} (Polyline|Segment|TexteParPoint)[]
  * @author Rémi Angot
  */
 function flecheH (D, A, texte, h = 1) {
@@ -12244,7 +12244,7 @@ function flecheH (D, A, texte, h = 1) {
  * @param {Point} A
  * @param {string} texte
  * @param {number} h
- * @returns {(Polyline|Segment|TexteParPosition)[]}
+ * @returns {array} (Polyline|Segment|TexteParPoint)[]
  * @author Rémi Angot
  */
 function flecheV (D, A, texte, h = 1) {
