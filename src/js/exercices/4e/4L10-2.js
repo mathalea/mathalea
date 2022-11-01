@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, choice } from '../../modules/outils.js'
 import { codageAngleDroit, codageSegments, point, pointAdistance, polygone, rotation, segment, similitude, texteParPosition, translation, vecteur } from '../../modules/2d.js'
 export const titre = 'Donner l\'expression littérale d\'un Périmètre et d\'une aire de quadrilatère'
@@ -38,7 +38,7 @@ export default function AirePerimetrePolygone () {
     const typeQuestionsDisponibles = ['r1', 'r2', 'r3', 'c'] // On crée 4 types de questions
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, A, B, C, D, E, F, G, H, I, J, K, M, N, P, o, quad, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+    for (let i = 0, A, B, C, D, E, F, G, H, I, J, K, M, N, P, o, quad, params, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       texte = ''
       texteCorr = ''
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
@@ -49,7 +49,8 @@ export default function AirePerimetrePolygone () {
           D = rotation(B, A, 90)
           quad = polygone(A, B, C, D)
           quad.epaisseur = 2
-          texte += mathalea2d({ xmin: -1, xmax: 8, ymin: -1, ymax: 5, pixelsParCm: 20 },
+          params = fixeBordures([quad, texteParPosition(`$${inc1}$`, 2, 4.7)])
+          texte += mathalea2d(params,
             quad, codageAngleDroit(A, B, C), codageAngleDroit(A, D, C), codageAngleDroit(D, C, B), codageAngleDroit(B, A, D), codageSegments('//', 'blue', A, B, B, C, C, D, D, A), texteParPosition(`$${inc1}$`, 2, 4.7)
           )
           texteCorr += 'Périmètre :'
@@ -69,7 +70,8 @@ export default function AirePerimetrePolygone () {
           quad.epaisseur = 2
           o = choice([1, 2])
           if (o === 1) {
-            texte += mathalea2d({ xmin: -1, xmax: 8, ymin: -1, ymax: 5, pixelsParCm: 20 },
+            params = fixeBordures([quad, texteParPosition(`$${inc1}$`, 3, 4.7), texteParPosition(`$${inc2}$`, -0.7, 2)])
+            texte += mathalea2d(params,
               quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codageSegments('/', 'red', E, F, G, H), codageSegments('||', 'blue', F, G, H, E), texteParPosition(`$${inc1}$`, 3, 4.7), texteParPosition(`$${inc2}$`, -0.7, 2)
             )
             texteCorr += 'Périmètre :'
@@ -79,7 +81,8 @@ export default function AirePerimetrePolygone () {
             texteCorr += `<br>$\\mathcal{A} =${inc1}\\times ${inc2}$`
             texteCorr += `<br>$\\mathcal{A} =${inc1}${inc2}$`
           } else {
-            texte += mathalea2d({ xmin: -1, xmax: 8, ymin: -1, ymax: 5, pixelsParCm: 20 },
+            params = fixeBordures([quad, texteParPosition(L, 3, 4.7), texteParPosition(`$${inc1}$`, -0.7, 2)])
+            texte += mathalea2d(params,
               quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codageSegments('/', 'red', E, F, G, H), codageSegments('||', 'blue', F, G, H, E), texteParPosition(L, 3, 4.7), texteParPosition(`$${inc1}$`, -0.7, 2)
             )
             texteCorr += 'Périmètre :'
@@ -106,7 +109,8 @@ export default function AirePerimetrePolygone () {
           quad.epaisseur = 2
           o = choice([1, 2])
           if (o === 1) {
-            texte += mathalea2d({ xmin: -1, xmax: 8, ymin: -1, ymax: 5, pixelsParCm: 20 },
+            params = fixeBordures([quad, texteParPosition(`$${inc1}$`, 1, 2.7), texteParPosition(`$${inc1}$`, -0.7, 1)])
+            texte += mathalea2d(params,
               quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), segment(I, J), segment(K, M), codageSegments('/', 'red', [H, N, P, G]), codageSegments('/', 'red', F, G, H, E), texteParPosition(`$${inc1}$`, 1, 2.7), texteParPosition(`$${inc1}$`, -0.7, 1)
             )
             texteCorr += 'Périmètre :'
@@ -116,7 +120,8 @@ export default function AirePerimetrePolygone () {
             texteCorr += `<br>$\\mathcal{A} =${inc1}\\times ${inc1}+${inc1}\\times ${inc1}+${inc1}\\times ${inc1}$`
             texteCorr += `<br>$\\mathcal{A} =3${inc1}^2$`
           } else {
-            texte += mathalea2d({ xmin: -1, xmax: 8, ymin: -1, ymax: 5, pixelsParCm: 20 },
+            params = fixeBordures([quad, texteParPosition(`$${inc1}$`, 1, 2.7), texteParPosition(`$${inc2}$`, -0.7, 1)])
+            texte += mathalea2d(params,
               quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), segment(I, J), segment(K, M), codageSegments('/', 'red', [H, N, P, G]), codageSegments('/', 'red', F, G, H, E), texteParPosition(`$${inc1}$`, 1, 2.7), texteParPosition(`$${inc2}$`, -0.7, 1)
             )
             texteCorr += 'Périmètre :'
@@ -137,7 +142,8 @@ export default function AirePerimetrePolygone () {
           J = point(l, 4.3)
           quad = polygone(E, F, G, H)
           quad.epaisseur = 2
-          texte += mathalea2d({ xmin: -1, xmax: 8, ymin: -1, ymax: 5, pixelsParCm: 20 },
+          params = fixeBordures([quad, texteParPosition(`$${inc1}$`, l / 2, 4.7), texteParPosition(`$${inc2}$`, 3 + l / 2, 4.7), texteParPosition(l, -0.7, 2)])
+          texte += mathalea2d(params,
             quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codageSegments('/', 'red', E, F, G, H), codageSegments('||', 'blue', F, G, H, E), segment(I, J), texteParPosition(`$${inc1}$`, l / 2, 4.7), texteParPosition(`$${inc2}$`, 3 + l / 2, 4.7), texteParPosition(l, -0.7, 2)
           )
           texteCorr += 'Périmètre :'

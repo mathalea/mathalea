@@ -28,7 +28,7 @@ export default function SommeDifferenceFractionsEgyptiennes () {
       this.reponse = fraction(b + a, a * b)
       this.reponse = this.reponse.simplifie()
       this.question = `Calculer sous la forme d'une fraction irréductible $\\dfrac{1}{${a}}+\\dfrac{1}{${b}}$.`
-      this.correction = `$\\dfrac{1}{${a}}+\\dfrac{1}{${b}}=\\dfrac{${b}+${a}}{${a}\\times ${b}}=${this.reponse.texFraction}$`
+      this.correction = `$\\dfrac{1}{${a}}+\\dfrac{1}{${b}}=\\dfrac{1\\times ${b}}{${a}\\times ${b}}+\\dfrac{1\\times ${a}}{${b}\\times ${a}}=\\dfrac{${b}+${a}}{${a * b}}=${this.reponse.texFraction}$`
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
       Pour additionner des fractions, on les met au même dénominateur.<br>
       On prend pour  dénominateur commun  le produit des deux dénominateurs $${a}\\times ${b}=${a * b}$.<br>
@@ -39,7 +39,7 @@ export default function SommeDifferenceFractionsEgyptiennes () {
       this.reponse = fraction(b - a, a * b)
       this.reponse = this.reponse.simplifie()
       this.question = `Calculer sous la forme d'une fraction irréductible $\\dfrac{1}{${a}}-\\dfrac{1}{${b}}$.`
-      this.correction = `$\\dfrac{1}{${a}}-\\dfrac{1}{${b}}=\\dfrac{${b}-${a}}{${a}\\times ${b}}=\\dfrac{${b - a}}{${a}\\times ${b}}=${this.reponse.texFraction}$`
+      this.correction = `$\\dfrac{1}{${a}}-\\dfrac{1}{${b}}=\\dfrac{1\\times ${b}}{${a}\\times ${b}}-\\dfrac{1\\times ${a}}{${a}\\times ${b}}=\\dfrac{${b}-${a}}{${a * b}}=\\dfrac{${b - a}}{${a * b}}=${this.reponse.texFraction}$`
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
       Pour additionner des fractions, on les met au même dénominateur.<br>
       On prend pour  dénominateur commun  le produit des deux dénominateurs $${a}\\times ${b}=${a * b}$.<br>

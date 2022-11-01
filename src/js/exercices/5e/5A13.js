@@ -1,4 +1,5 @@
 import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, choice, compareNombres, texNombre, combinaisonListes, texFactorisation, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -136,6 +137,11 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
       if (this.questionJamaisPosee(i, ...facteurs)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        if (!context.isHtml) {
+          this.canEnonce = `Décomposer $${texNombre(n)}$ en produit de facteurs premiers. `
+          this.correction = this.listeCorrections[0]
+          this.canReponseACompleter = `$${texNombre(n)}=\\ldots$`
+        }
         i++
       }
       cpt++

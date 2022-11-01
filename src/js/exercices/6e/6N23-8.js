@@ -1,5 +1,4 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, choice, texNombre, texFraction, calcul } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive, ajouteChampFractionMathLive } from '../../modules/interactif/questionMathLive.js'

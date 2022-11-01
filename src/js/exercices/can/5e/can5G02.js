@@ -5,7 +5,7 @@ import {
   // eslint-disable-next-line no-unused-vars
   point, afficheMesureAngle, codageSegments, longueur, polygoneAvecNom
 } from '../../../modules/2d.js'
-import { tan } from '../../../modules/fonctionsMaths.js'
+import { degTan } from '../../../modules/fonctionsMaths.js'
 export const titre = 'Calculer un angle dans un triangle isocèle'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -35,7 +35,7 @@ export default function AngleTriangleIsocele () {
         a = randint(4, 16, 12) * 5
         A = point(0, 0, nom[0])
         B = point(5, 0, nom[1])
-        C = point(2.5, 2.5 * tan(a), nom[2])
+        C = point(2.5, 2.5 * degTan(a), nom[2])
         pol = polygoneAvecNom(A, B, C)
 
         objets = []
@@ -76,7 +76,7 @@ export default function AngleTriangleIsocele () {
         a = randint(4, 16, 12) * 5
         A = point(0, 0, nom[0])
         B = point(5, 0, nom[1])
-        C = point(2.5, 2.5 * tan(a), nom[2])
+        C = point(2.5, 2.5 * degTan(a), nom[2])
         pol = polygoneAvecNom(A, B, C)
         objets = []
         if (a > 60) {

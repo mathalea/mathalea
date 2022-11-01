@@ -386,6 +386,7 @@ export default function Transformations () {
     texteCorr += '<br>' + mathalea2d({ xmin: -4.5, ymin: -4.5, xmax: 5.3, ymax: 5.3, pixelsParCm: 40, scale: 0.8, optionsTikz: ['every node/.style={scale=0.6}'], mainlevee: false }, objetsCorrection)
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
+
     listeQuestionsToContenuSansNumero(this)
     if (context.isAmc) {
       if (this.can) {
@@ -470,6 +471,11 @@ export default function Transformations () {
             }]
         }
       }
+    }
+    if (!context.isHtml) {
+      this.canEnonce = this.listeQuestions[0]
+      this.correction = this.listeCorrections[0]
+      this.canReponseACompleter = ''
     }
   }
   this.besoinFormulaireTexte = [

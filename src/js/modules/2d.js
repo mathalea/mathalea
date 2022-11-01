@@ -5,7 +5,7 @@ import { fraction, Fraction, max, ceil, isNumeric, floor, random, round, abs } f
 import earcut from 'earcut'
 import FractionX from './FractionEtendue.js'
 import Decimal from 'decimal.js'
-import { colorToLatexOrHTML, ObjetMathalea2D, vide2d } from './2dGeneralites.js'
+import { colorToLatexOrHTML, mathalea2d, ObjetMathalea2D, vide2d } from './2dGeneralites.js'
 import { apparitionAnimee, translationAnimee } from './2dAnimation.js'
 
 /*
@@ -25,6 +25,7 @@ import { apparitionAnimee, translationAnimee } from './2dAnimation.js'
 function Point (arg1, arg2, arg3, positionLabel = 'above') {
   this.typeObjet = 'point'
   ObjetMathalea2D.call(this, { classe: false })
+  this.nom = ' ' // Le nom d'un point est par défaut un espace. On pourra chercher tous les objets qui ont ce nom pour les nommer automatiquement
   if (arguments.length === 1) {
     this.nom = arg1
   } else if (arguments.length === 2) {
@@ -44,10 +45,6 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
   }
   this.ySVG = function (coeff) {
     return -this.y * coeff
-  }
-  if (!this.nom) {
-    this.nom = ' ' // Le nom d'un point est par défaut un espace
-    // On pourra chercher tous les objets qui ont ce nom pour les nommer automatiquement
   }
 
   /**
@@ -671,8 +668,6 @@ export function labelPoint (...args) {
 
 /**
  * Associe à tous les points passés en paramètre, son label, défini préalablement en Latex. Par exemple, si besoin de nommer le point A_1.
- * @param {number} [distance=1.5] Taille de l'angle
- * @param {string} [label=''] Si vide, alors affiche la mesure de l'angle sinon affiche ce label.
  * @param {Object} parametres À saisir entre accolades
  * @param {Point|Point[]} [parametres.points = []] Point ou tableau de points
  * @param {string} [parametres.color = 'black'] Couleur du label : du type 'blue' ou du type '#f15929'
@@ -765,8 +760,6 @@ function LabelLatexPoint ({ points = [], color = 'black', taille = 8, largeur = 
 
 /**
  * Associe à tous les points passés en paramètre, son label, défini préalablement en Latex. Par exemple, si besoin de nommer le point A_1.
- * @param {number} [distance=1.5] Taille de l'angle
- * @param {string} [label=''] Si vide, alors affiche la mesure de l'angle sinon affiche ce label.
  * @param {Object} parametres À saisir entre accolades
  * @param {Point|Point[]} [parametres.points] Point ou tableau de points
  * @param {string} [parametres.color = 'black'] Couleur du label : du type 'blue' ou du type '#f15929'
@@ -819,7 +812,7 @@ export function barycentre (p, nom = '', positionLabel = 'above') {
  * d = droite(a,b,c,'(d)') // La droite définie par les coefficients de ax +by + c=0 (équation de la droite (a,b)!==(0,0))
  * d = droite(A,B,'(d)','blue') //La droite passant par A et B se nommant (d) et de couleur bleue
  *
- * @author
+ * @author Rémi Angot
  */
 
 /**  Trace la demi-droite d'origine A passant par B
@@ -2713,10 +2706,18 @@ export function polygone (...args) {
  * Crée un groupe d'objets contenant le polygone et ses sommets
  * @param  {...any} args
  * @return {array} [p, p.sommets]
+ * Si le dernier argument est un nombre, celui-ci sera utilisé pour fixer la distance entre le sommet et le label (par défaut 0.5)
  */
 export function polygoneAvecNom (...args) {
+  let k = 0.5
+  if (typeof args[args.length - 1] === 'number') {
+    k = args[args.length - 1]
+    args.splice(args.length - 1, 1)
+  }
   const p = polygone(...args)
-  p.sommets = nommePolygone(p)
+  let nom = ''
+  args[0].forEach(el => (nom += el.nom))
+  p.sommets = nommePolygone(p, nom, k)
   p.sommets.bordures = []
   p.sommets.bordures[0] = p.bordures[0] - 1
   p.sommets.bordures[1] = p.bordures[1] - 1
@@ -4576,7 +4577,7 @@ function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
  * @param {number} [parametres.dureeTour] temps en secondes mis par la roue pour effectuer un tout en SVG
  * @param {number} [parametres.angleStart] angle de départ de la première dent (90 par défaut) utile pour synchroniser deux roues
  * @param {number | null} marqueur position angulaire en degrés d'un marqueur si de type number
- * @returns
+ * @returns {Engrenage}
  */
 export function engrenage ({ rayon = 1, rayonExt = 1.3, rayonInt = 0.75, nbDents = 12, xCenter = 0, yCenter = 0, couleur = 'black', couleurDeRemplissage = 'black', couleurDuTrou = 'white', dureeTour = 10, angleStart = 90, marqueur = null } = {}) {
   if (rayonExt < rayon) rayonExt = round(rayon * 4 / 3)
@@ -8106,6 +8107,61 @@ function TraceGraphiqueCartesien (data, repere = {}, {
 
 export function traceGraphiqueCartesien (...args) {
   return new TraceGraphiqueCartesien(...args)
+}
+
+/**
+ *
+ * @param {Angle} angle
+ * @param {string} cosOrSin
+ * @returns string
+ */
+export function cercleTrigo (angle, cosOrSin = 'cos') {
+  const monAngle = parseInt(angle.degres)
+  const r = 5
+  const tAngle = angle.radians
+  const tCos = (Array.isArray(angle.cos)) ? angle.cos[0] : angle.cos
+  const tSin = (Array.isArray(angle.sin)) ? angle.sin[0] : angle.sin
+  const O = point(0, 0)
+  const I = point(r, 0)
+  const J = point(0, r)
+  const I2 = point(-r, 0)
+  const J2 = point(0, -r)
+  const s1 = segment(I, I2)
+  const s2 = segment(J, J2)
+  const c = cercleCentrePoint(O, I)
+  const c2 = cercle(O, 5.7)
+  c2.isVisible = false
+  const M = pointSurCercle(c, monAngle)
+  const M2 = pointSurCercle(c2, monAngle)
+  const sOM = segment(O, M, 'blue')
+  const sOI = segment(O, I, 'blue')
+  sOM.epaisseur = 3
+  sOI.epaisseur = 3
+  const x = point(M.x, 0)
+  const y = point(0, M.y)
+  const sMx = segment(M, x)
+  sMx.pointilles = 5
+  const sMy = segment(M, y)
+  sMy.pointilles = 5
+  const texteAngle = latexParPoint(tAngle, M2)
+  const Rx = point(M.x, (M.y < 0) ? 1.5 : -1.5)
+  const Ry = point((M.x < 0) ? 0.75 : -1.5, M.y)
+  const texteCosinus = latexParPoint(tCos, Rx)
+  const texteSinus = latexParPoint(tSin, Ry)
+  const sCos = segment(O, point(M.x, 0))
+  const sSin = segment(O, point(0, M.y))
+  sCos.epaisseur = 3
+  sSin.epaisseur = 3
+  const marqueAngle = codageAngle(I, O, M)
+  marqueAngle.color = colorToLatexOrHTML('blue')
+  marqueAngle.epaisseur = 3
+  const objetsTrigo = []
+  if (cosOrSin === 'cos') {
+    objetsTrigo.push(texteCosinus, sCos, sMx)
+  } else {
+    objetsTrigo.push(texteSinus, sSin, sMy)
+  }
+  return mathalea2d({ xmin: -r - 3, xmax: r + 3, ymin: -r - 1.8, ymax: r + 1.8, scale: 0.5 }, c, texteAngle, marqueAngle, s1, s2, ...objetsTrigo, sOM, sOI)
 }
 
 /**
@@ -12075,6 +12131,15 @@ export function pavage () {
   return new Pavage()
 }
 
+/**
+ * fonction utilisée par la classe Tableau pour créer une flèche
+ * @param {Point} D
+ * @param {Point} A
+ * @param {string} texte
+ * @param {number} h
+ * @returns {array} (Polyline|Segment|TexteParPoint)[]
+ * @author Rémi Angot
+ */
 function flecheH (D, A, texte, h = 1) {
   const D1 = point(D.x, D.y + h)
   const A1 = point(A.x, A.y + h)
@@ -12094,7 +12159,15 @@ function flecheH (D, A, texte, h = 1) {
   }
   return objets
 }
-
+/**
+ * fonction utilisée par la classe Tableau pour créer une flèche
+ * @param {Point} D
+ * @param {Point} A
+ * @param {string} texte
+ * @param {number} h
+ * @returns {array} (Polyline|Segment|TexteParPoint)[]
+ * @author Rémi Angot
+ */
 function flecheV (D, A, texte, h = 1) {
   const D1 = point(D.x + h, D.y)
   const A1 = point(A.x + h, A.y)

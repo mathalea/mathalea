@@ -4,6 +4,8 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombre, nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { grille, seyes } from '../../modules/2d.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 export const amcReady = true
 export const amcType = 'AMCNum' // Question numérique
 export const interactifType = 'mathLive'
@@ -35,9 +37,11 @@ export default function AdditionnerSoustrairesDecimaux () {
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon les opérations posées ne sont pas jolies
   this.nbQuestions = 4
   this.sup = 3
+  this.sup2 = 3
   this.tailleDiaporama = 3
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
+    this.sup2 = parseInt(this.sup2)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -67,19 +71,27 @@ export default function AdditionnerSoustrairesDecimaux () {
       }
     }
 
-    for (
-      let i = 0, texte, texteCorr, cpt = 0, a, b;
-      i < this.nbQuestions && cpt < 50;
-
-    ) {
+    let grilletxt
+    if (this.sup2 < 3) {
+      const g = (this.sup2 < 3 ? grille(0, 0, 5, 5, 'gray', 0.7) : '')
+      const carreaux = (this.sup2 === 2 ? seyes(0, 0, 5, 5) : '')
+      const sc = (this.sup2 === 2 ? 0.8 : 0.5)
+      const params = { xmin: 0, ymin: 0, xmax: 5, ymax: 5, pixelsParCm: 20, scale: sc }
+      grilletxt = '<br>' + mathalea2d(params, g, carreaux)
+    } else {
+      grilletxt = ''
+    }
+    for (let i = 0, texte, texteCorr, cpt = 0, a, b; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
       switch (typesDeQuestions) {
         case 1: // xxx-xx,x
           a = randint(1, 4) * 100 + randint(2, 5) * 10 + randint(1, 9)
           b = calcul(randint(5, 9) * 10 + randint(6, 9) + randint(1, 9) / 10)
           texte = `$${texNombre(a)}-${texNombre(b)}$`
+          texte += grilletxt
           reponse = calcul(a - b)
-          texteCorr = Operation({ operande1: a, operande2: b, type: 'soustraction' })
+          texteCorr = '<br>' + Operation({ operande1: a, operande2: b, type: 'soustraction', style: 'display: inline-block' })
+          texteCorr += Operation({ operande1: a, operande2: b, type: 'soustraction', style: 'display: inline-block', methodeParCompensation: false })
           break
         case 2: // xxx-xx,xx
           a = randint(1, 4) * 100 + randint(2, 5) * 10 + randint(1, 9)
@@ -90,8 +102,10 @@ export default function AdditionnerSoustrairesDecimaux () {
             randint(1, 9) / 100
           )
           texte = `$${texNombre(a)}-${texNombre(b)}$`
+          texte += grilletxt
           reponse = calcul(a - b)
-          texteCorr = Operation({ operande1: a, operande2: b, type: 'soustraction' })
+          texteCorr = '<br>' + Operation({ operande1: a, operande2: b, type: 'soustraction', style: 'display: inline-block' })
+          texteCorr += Operation({ operande1: a, operande2: b, type: 'soustraction', style: 'display: inline-block', methodeParCompensation: false })
           break
         case 3: // xxx,x-xxx
           a = calcul(
@@ -102,8 +116,10 @@ export default function AdditionnerSoustrairesDecimaux () {
           )
           b = randint(1, 4) * 100 + randint(6, 9) * 10 + randint(1, 9)
           texte = `$${texNombre(a)}-${texNombre(b)}$`
+          texte += grilletxt
           reponse = calcul(a - b)
-          texteCorr = Operation({ operande1: a, operande2: b, type: 'soustraction' })
+          texteCorr = '<br>' + Operation({ operande1: a, operande2: b, type: 'soustraction', style: 'display: inline-block' })
+          texteCorr += Operation({ operande1: a, operande2: b, type: 'soustraction', style: 'display: inline-block', methodeParCompensation: false })
           break
         case 4: // x0x-xx9,x
           a = calcul(randint(5, 9) * 100 + randint(1, 5))
@@ -111,13 +127,16 @@ export default function AdditionnerSoustrairesDecimaux () {
             randint(1, 4) * 100 + randint(1, 9) * 10 + 9 + randint(1, 9) / 10
           )
           texte = `$${texNombre(a)}-${texNombre(b)}$`
+          texte += grilletxt
           reponse = calcul(a - b)
-          texteCorr = Operation({ operande1: a, operande2: b, type: 'soustraction' })
+          texteCorr = '<br>' + Operation({ operande1: a, operande2: b, type: 'soustraction', style: 'display: inline-block' })
+          texteCorr += Operation({ operande1: a, operande2: b, type: 'soustraction', style: 'display: inline-block', methodeParCompensation: false })
           break
         case 5: // xxx+xx,x
           a = randint(1, 4) * 100 + randint(2, 5) * 10 + randint(1, 9)
           b = calcul(randint(5, 9) * 10 + randint(6, 9) + randint(1, 9) / 10)
           texte = `$${texNombre(a)}+${texNombre(b)}$`
+          texte += grilletxt
           reponse = calcul(a + b)
           texteCorr = Operation({ operande1: a, operande2: b, type: 'addition' })
           break
@@ -130,6 +149,7 @@ export default function AdditionnerSoustrairesDecimaux () {
             randint(1, 9) / 100
           )
           texte = `$${texNombre(a)}+${texNombre(b)}$`
+          texte += grilletxt
           reponse = calcul(a + b)
           texteCorr = Operation({ operande1: a, operande2: b, type: 'addition' })
           break
@@ -142,8 +162,8 @@ export default function AdditionnerSoustrairesDecimaux () {
           )
           b = randint(1, 4) * 100 + randint(6, 9) * 10 + randint(1, 9)
           texte = `$${texNombre(a)}+${texNombre(b)}$`
+          texte += grilletxt
           reponse = calcul(a + b)
-
           texteCorr = Operation({ operande1: a, operande2: b, type: 'addition' })
           break
         case 8: // x0x+xx9,x
@@ -152,6 +172,7 @@ export default function AdditionnerSoustrairesDecimaux () {
             randint(1, 4) * 100 + randint(1, 9) * 10 + 9 + randint(1, 9) / 10
           )
           texte = `$${texNombre(a)}+${texNombre(b)}$`
+          texte += grilletxt
           reponse = calcul(a + b)
           texteCorr = Operation({ operande1: a, operande2: b, type: 'addition' })
           break
@@ -174,4 +195,9 @@ export default function AdditionnerSoustrairesDecimaux () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Additions de décimaux\n2 : Soustractions de décimaux\n3 : Mélange']
+  this.besoinFormulaire2Numerique = [
+    'Type de cahier',
+    3,
+    ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
+  ]
 }

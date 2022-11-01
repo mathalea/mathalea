@@ -23,7 +23,7 @@ const definePropRo = (obj, prop, get) => {
  * f = fraction(12,15) // crée la fraction $\frac{12}{15}$ (Remarque : new FractionX(12,15) crée $\frac{4}{5}$)
  * f = fraction(0.4) // crée la fraction $\frac{2}{5}$
  */
-export default class FractionX extends Fraction {
+class FractionX extends Fraction {
   constructor (...args) {
     let num, den
     if (args.length > 2) {
@@ -222,6 +222,34 @@ export default class FractionX extends Fraction {
     definePropRo(this, 'texFractionSignee', () => {
       if (!texFractionSignee) texFractionSignee = (this.s === -1) ? this.texFSD : '+' + this.texFSD
       return texFractionSignee
+    })
+
+    /**
+     * -1 => '-'
+     * 1 => ''
+     * inchangé sinon
+     * permet d'écrire le coefficient devant une lettre ou une parenthèse
+     * @property texFractionSaufUn
+     * @type {string}
+     */
+    let texFractionSaufUn
+    definePropRo(this, 'texFractionSaufUn', () => {
+      if (!texFractionSaufUn) texFractionSaufUn = (this.valeurDecimale === -1) ? '-' : (this.valeurDecimale === 1) ? '' : this.texFSD
+      return texFractionSaufUn
+    })
+
+    /**
+     * -1 => '-'
+     * 1 => '+'
+     * texFractionSignee sinon
+     * permet d'écrire le coefficient devant une lettre ou une parenthèse
+     * @property texFractionSaufUnSignee
+     * @type {string}
+     */
+    let texFractionSaufUnSignee
+    definePropRo(this, 'texFractionSaufUnSignee', () => {
+      if (!texFractionSaufUnSignee) texFractionSaufUnSignee = (this.valeurDecimale === -1) ? '-' : (this.valeurDecimale === 1) ? '+' : this.texFractionSignee
+      return texFractionSaufUnSignee
     })
 
     /**
@@ -1214,3 +1242,5 @@ export default class FractionX extends Fraction {
     }
   }
 }
+
+export default FractionX

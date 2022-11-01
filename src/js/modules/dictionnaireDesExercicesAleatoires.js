@@ -106,7 +106,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -202,6 +202,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "1E12-2": {
+    "titre": "Étude complète de paraboles",
+    "url": "/exercices/1e/1E12-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "1E12-2",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "1E12": {
     "titre": "Trouver l'équation d'une parabole",
     "url": "/exercices/1e/1E12.js",
@@ -270,6 +285,36 @@ export default {
     "name": "1E16",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "1E17": {
+    "titre": "Utiliser les différentes formes d'un polynôme du second degré",
+    "url": "/exercices/1e/1E17.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "1E17",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "1E18": {
+    "titre": "Équations et inéquations du second degré",
+    "url": "/exercices/1e/1E18.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "1E18",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -490,7 +535,7 @@ export default {
     "interactifReady": false,
     "name": "2F10-7",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -554,7 +599,7 @@ export default {
     "interactifReady": false,
     "name": "2F20-2",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -1147,7 +1192,7 @@ export default {
     "interactifType": "mathLive",
     "name": "2N12-3",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -2495,7 +2540,7 @@ export default {
     "interactifType": "mathLive",
     "name": "3A11-0",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -2726,7 +2771,7 @@ export default {
     "interactifType": "qcm",
     "name": "3F10-3",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -3466,7 +3511,7 @@ export default {
     "interactifType": "qcm",
     "name": "3I10-1",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -3484,7 +3529,7 @@ export default {
     "interactifReady": false,
     "name": "3I12-1",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     }
   },
@@ -3498,7 +3543,7 @@ export default {
     "interactifReady": false,
     "name": "3I12-2",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     }
   },
@@ -3512,7 +3557,7 @@ export default {
     "interactifReady": false,
     "name": "3I12-3",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     }
   },
@@ -3526,7 +3571,7 @@ export default {
     "interactifReady": false,
     "name": "3I12-4",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     }
   },
@@ -4339,7 +4384,7 @@ export default {
     "interactifType": "mathLive",
     "name": "4C10",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -6667,7 +6712,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -8078,6 +8123,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "6C13-1": {
+    "titre": "Vocabulaires liés aux 4 opérations",
+    "url": "/exercices/6e/6C13-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6C13-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "6C13": {
     "titre": "Traduire des phrases en calculs et réciproquement",
     "url": "/exercices/6e/6C13.js",
@@ -8651,16 +8711,15 @@ export default {
   "6G10": {
     "titre": "Utiliser la notation de droites, segments et demi-droites",
     "url": "/exercices/6e/6G10.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
     "interactifReady": false,
     "name": "6G10",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G11-1": {
@@ -8757,6 +8816,22 @@ export default {
     "name": "6G20-2",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "6G20-3": {
+    "titre": "Connaitre le vocabulaire de base des polygones",
+    "url": "/exercices/6e/6G20-3.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "6G20-3",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -9194,7 +9269,7 @@ export default {
     ],
     "name": "6G44-1",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -9685,7 +9760,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -9903,7 +9978,7 @@ export default {
     "interactifType": "listeDeroulante",
     "name": "6N13-0",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -10104,7 +10179,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -13423,7 +13498,7 @@ export default {
     "interactifType": "qcm",
     "name": "can1F20",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -13442,7 +13517,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can1F21",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -13458,7 +13533,7 @@ export default {
     "interactifType": "qcm",
     "name": "can1F22",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -13587,6 +13662,38 @@ export default {
     "name": "can1G08",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can1G09": {
+    "titre": "Associer un point à un réel sur un cercle trigonométrique ",
+    "url": "/exercices/can/1e/can1G09.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1G09",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can1G10": {
+    "titre": "Associer une mesure d'angle à un  point du cercle trigonométrique ",
+    "url": "/exercices/can/1e/can1G10.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1G10",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -14300,7 +14407,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can2C13",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -14316,7 +14423,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can2C14",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -14546,7 +14653,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can2F14",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -15306,6 +15413,25 @@ export default {
     "name": "can3C13",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can3C14": {
+    "titre": "Passer d'un décimal à une fraction irréductible",
+    "url": "/exercices/can/3e/can3C14.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3C14",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -16858,6 +16984,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "can5C22": {
+    "titre": "Passer d'un décimal à une fraction",
+    "url": "/exercices/can/5e/can5C22.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5C22",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "can5D01": {
     "titre": "Convertir des heures décimales en heures/minutes et inversement",
     "url": "/exercices/can/5e/can5D01.js",
@@ -18178,7 +18323,8 @@ export default {
     "titre": "Noter la couleur (scratch)",
     "url": "/exercices/can/6e/can6I01.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "can6I01",
     "newEx": {
       "isNew": false,

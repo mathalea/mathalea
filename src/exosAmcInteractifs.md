@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 519 
-- nombre d'exos interactifReady 796 
+- nombre d'exos amcReady 522 
+- nombre d'exos interactifReady 802 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -308,10 +308,12 @@
 |6G10-3|Choisir la bonne figure|OK|qcmMono|OK|cliqueFigure|
 |6G10-4|Connaître le vocabulaire du cercle|KO|KO|OK|qcm,mathLive|
 |6G10-5|Tracer des droites, segments,...|OK|AMCOpen|KO|KO|
+|6G10|Utiliser la notation de droites, segments et demi-droites|OK|AMCOpen|KO|KO|
 |6G11|Tracer des perpendiculaires|OK|AMCOpen|KO|KO|
 |6G12-1|Tracer des parallèles et des perpendiculaires|OK|AMCOpen|KO|KO|
 |6G12|Tracer des parallèles|OK|AMCOpen|KO|KO|
 |6G14|Utiliser les propriétés des droites perpendiculaires|OK|AMCOpen|KO|KO|
+|6G20-3|Connaitre le vocabulaire de base des polygones|KO|KO|OK|qcm|
 |6G22|Nommer un angle|OK|AMCHybride|OK|qcm,mathLive|
 |6G23-1|Mesurer un angle sans rapporteur sur l'énoncé|OK|qcmMono|OK|qcm|
 |6G23-4|Mesurer un angle avec rapporteur intégré|OK|AMCHybride|OK|mathLive|
@@ -497,6 +499,8 @@
 |can1G06|Déterminer un produit scalaire sur des figures géométriques classiques |KO|KO|OK|mathLive|
 |can1G07|Déterminer une coordonnée avec un produit scalaire|KO|KO|OK|mathLive|
 |can1G08|Déterminer un vecteur normal avec une équation cartésienne|KO|KO|OK|custom|
+|can1G09|Associer un point à un réel sur un cercle trigonométrique |KO|KO|OK|mathLive|
+|can1G10|Associer une mesure d'angle à un  point du cercle trigonométrique |KO|KO|OK|mathLive|
 |can1L01|Calculer un discriminant|OK|AMCNum|OK|mathLive|
 |can1L02|Déterminer le nombre de solutions d’une équation du second degré|KO|KO|OK|mathLive|
 |can1L03|Trouver les racines à partir d’une forme factorisée|KO|KO|OK|mathLive|
@@ -599,6 +603,7 @@
 |can3C11|Simplifier des fractions ou des racines carrées|OK|AMCNum|OK|mathLive|
 |can3C12|Encadrer une racine carrée|OK|AMCNum|OK|mathLive|
 |can3C13|Pyramide additive fractions|OK|AMCNum|OK|mathLive|
+|can3C14|Passer d'un décimal à une fraction irréductible|OK|AMCNum|OK|mathLive|
 |can3F01|Lire une image graphiquement|OK|AMCNum|OK|mathLive|
 |can3F02|Calculer une image par une fonction linéaire|OK|AMCNum|OK|mathLive|
 |can3F03|Calculer une image par une fonction affine|OK|AMCNum|OK|mathLive|
@@ -686,6 +691,7 @@
 |can5C19|Soustraire deux décimaux|OK|AMCNum|OK|mathLive|
 |can5C20|Soustraire deux décimaux*|OK|AMCNum|OK|mathLive|
 |can5C21|Calculer la somme de décimaux qui se marient|OK|AMCNum|OK|mathLive|
+|can5C22|Passer d'un décimal à une fraction|OK|AMCNum|OK|mathLive|
 |can5D01|Convertir des heures décimales en heures/minutes et inversement|OK|AMCNum|OK|mathLive|
 |can5D02|Convertir des heures décimales en heures/minutes et inversement*|OK|AMCNum|OK|mathLive|
 |can5D03|Convertir des fractions d’heures en minutes et inversement|OK|AMCNum|OK|mathLive|
@@ -757,6 +763,7 @@
 |can6G05|Résoudre un problème de longueurs (inverse)|OK|AMCNum|OK|mathLive|
 |can6G06|Compter les arêtes et les faces|OK|AMCNum|OK|mathLive|
 |can6G07|Compter les points symétriques manquant|OK|AMCNum|OK|mathLive|
+|can6I01|Noter la couleur (scratch)|KO|KO|OK|mathLive|
 |can6M01|Comparer des périmètres (V/F)|OK|qcmMono|OK|qcm|
 |can6M02|Trouver la bonne unité|OK|qcmMono|OK|qcm|
 |can6M03|Convertir en mètres|OK|AMCNum|OK|mathLive|
