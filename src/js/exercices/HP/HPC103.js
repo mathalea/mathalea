@@ -43,11 +43,23 @@ export default class nomExercice extends Exercice {
       nbcolonnes.push(m)
       nblignes.push(math.pickRandom([m, m, m, 1, 2, 3, 4]))
       nbcolonnes.push(math.pickRandom([n, n, n, 1, 2, 3, 4]))
+      const texteligne = []
+      const textecolonne = []
       for (let compteur = 0; compteur < nbmatrice; compteur++) {
         let ligne
         let matrice = []
         n = nblignes[compteur]
+        if (n === 1) {
+          texteligne.push('$1$ ligne ')
+        } else {
+          texteligne.push(`$${n}$ lignes `)
+        }
         m = nbcolonnes[compteur]
+        if (m === 1) {
+          textecolonne.push('$1$ colonne ')
+        } else {
+          textecolonne.push(`$${m}$ colonnes `)
+        }
         for (let i = 0; i < n; i++) {
           ligne = []
           for (let j = 0; j < m; j++) {
@@ -64,8 +76,8 @@ export default class nomExercice extends Exercice {
       }
 
       texte = `Soient les matrices $A=${matricesprint[0]}$ et $B = ${matricesprint[1]}$` // Le LateX entre deux symboles $, les variables dans des ${ }
-      texteCorr = `La matrice $A$ a $${nblignes[0]}$ lignes et $${nbcolonnes[0]}$ colonnes.`
-      texteCorr += `<br> La matrice $B$ a $${nblignes[1]}$ lignes et $${nbcolonnes[1]}$ colonnes.`
+      texteCorr = 'La matrice $A$ a ' + texteligne[0] + 'et ' + textecolonne[0] + '.'
+      texteCorr += '<br> La matrice $B$ a ' + texteligne[1] + 'et ' + textecolonne[1] + '.'
       if (nbcolonnes[0] === nblignes[1]) {
         const produit = math.multiply(matrices[0], matrices[1])
         let produitprint = produit.toString()
