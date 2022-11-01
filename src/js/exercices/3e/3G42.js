@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { randint, listeQuestionsToContenu, combinaisonListes, texteExposant, texteGras, stringNombre, texNombre, range1, contraindreValeur, compteOccurences, choice } from '../../modules/outils.js'
+import { randint, listeQuestionsToContenu, combinaisonListes, texteExposant, texteGras, stringNombre, texNombre, range1, contraindreValeur, compteOccurences, choice, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
 import { point3d, vecteur3d, sphere3d, cylindre3d } from '../../modules/3d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -16,7 +16,7 @@ export const titre = 'Volume d\'une boule'
 
 /**
 * Calculer le volume d'une boule
-* @author Erwan DUPLESSY
+* @author Erwan DUPLESSY (AMC par EE)
 * 3G42
 * date : 2021/02/09
 */
@@ -126,6 +126,17 @@ export default function VolumeBoule () {
       }
       setReponse(this, i, new Grandeur(reponse.toNumber(), `${choixUnites}^3`), { formatInteractif: 'unites' })
       texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline unites[Longueurs,Aires,Volumes]')
+      if (context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: texte,
+          propositions: [{ texte: texteCorr, statut: 0 }],
+          reponse: {
+            texte: '',
+            valeur: reponse.toNumber(),
+            param: { digits: nombreDeChiffresDe(reponse.toNumber()), decimals: nombreDeChiffresDansLaPartieDecimale(reponse.toNumber()), signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
+          }
+        }
+      }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions.push(texte)
