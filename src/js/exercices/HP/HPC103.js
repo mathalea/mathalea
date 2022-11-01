@@ -51,7 +51,7 @@ export default class nomExercice extends Exercice {
         for (let i = 0; i < n; i++) {
           ligne = []
           for (let j = 0; j < m; j++) {
-            const coef = math.pickRandom([-6, -5, -4, -3, -2, -1, -1, -1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 5, 6])
+            const coef = math.pickRandom([-6, -5, -4, -3, -2, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 5, 6])
             ligne.push(coef)
           }
           matrice.push(ligne)
