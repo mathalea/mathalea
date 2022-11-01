@@ -12,6 +12,8 @@ export const dateDePublication = '27/10/2022'
  * Sommet, forme canonique et points d'intersection avec l'axe des abscisses
  * @author Rémi Angot
 */
+export const uuid = 'e6718'
+export const ref = '1E12-2'
 export default class EtudeParabole extends Exercice {
   constructor () {
     super()

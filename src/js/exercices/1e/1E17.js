@@ -10,6 +10,8 @@ export const dateDePublication = '27/10/2022'
  * Forme développée, factorisée ou canonique pour résoudre équations et inéquations
  * @author Rémi Angot
 */
+export const uuid = '8fde1'
+export const ref = '1E17'
 export default class EtudeTrinome extends Exercice {
   constructor () {
     super()
