@@ -17,7 +17,7 @@ export default function TrouverOppose () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.debug = false
   this.besoinFormulaireCaseACocher = ['Afficher quelques fois le signe des nombres positifs']
-  this.sup = 1
+  this.sup = true
   if (this.debug) {
     this.nbQuestions = 1
   } else {

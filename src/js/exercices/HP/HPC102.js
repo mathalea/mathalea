@@ -8,7 +8,6 @@ import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathL
 import { integrale, repere, courbe } from '../../modules/2d.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-// import { calcule } from '../../modules/fonctionsMaths.js'
 
 // const math = { simplify: simplify, parse: parse, derivative: derivative }
 export const titre = 'Calculs de probabilité avec la loi normale'

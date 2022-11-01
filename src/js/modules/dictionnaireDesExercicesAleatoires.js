@@ -2771,7 +2771,7 @@ export default {
     "interactifType": "qcm",
     "name": "3F10-3",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
