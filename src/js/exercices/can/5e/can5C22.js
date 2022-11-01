@@ -12,6 +12,8 @@ export const dateDePublication = '31/10/2022'
  * @author Gilles Mora
  */
 
+export const uuid = '67f09'
+export const ref = 'can5C22'
 export default function DecimalVersFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'

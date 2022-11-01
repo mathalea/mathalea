@@ -14,6 +14,8 @@ export const dateDePublication = '28/10/2022'
  * Bilan sur les différentes formes d'équations et d'inéquations
  * @author Rémi Angot
 */
+export const uuid = 'b9252'
+export const ref = '1E18'
 export default class EquationsEtInequations extends Exercice {
   constructor () {
     super()

@@ -15,6 +15,8 @@ export const dateDePublication = '31/10/2022'
  *
 */
 
+export const uuid = 'aa661'
+export const ref = 'can1G09'
 export default function AngleSurCercleTrigo () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
