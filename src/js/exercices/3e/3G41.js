@@ -23,12 +23,12 @@ export default function VuesEmpilementCubes () {
   this.sup = 1
   this.sup2 = 7
   this.sup3 = 3
+  this.nbQuestions = 2
 
   this.nouvelleVersion = function () {
-    this.nbQuestions = context.isAmc ? 1 : 2 // Pour AMC, ne pas choisir plus d'une figure. Redemander plusieurs fois l'exercice si besoin.
-    this.nbQuestionsModifiable = !context.isAmc
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
+    this.autoCorrection = []
     let listeVuesPossibles = []
     let objetsEnonce, objetsCorrection
 
@@ -123,10 +123,17 @@ export default function VuesEmpilementCubes () {
       }
       texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: 0.7, style: 'block' }), objetsEnonce) + '<br>'
       consigneAMC = texte
+      if (context.isAmc) {
+        this.autoCorrection[q] =
+      {
+        enonce: consigneAMC + '<br>',
+        propositions: []
+      }
+      }
       for (let ee = 0; ee < this.sup3; ee++) {
         vuePossible = listeVuesPossibles[ee]
-        texte += this.sup3 > 1 ? numAlpha(ee) + ' ' : ''
-        texteAMC = `Dessiner la vue de ${vue[vuePossible][0]} de ce solide.`
+        texteAMC = this.sup3 > 1 ? numAlpha(ee) + ' ' : ''
+        texteAMC += `Dessiner la vue de ${vue[vuePossible][0]} de ce solide.`
         texte += texteAMC + '<br>'
         // correction :
         texteCorr += this.sup3 > 1 ? numAlpha(ee) + ' ' : ''
@@ -139,26 +146,19 @@ export default function VuesEmpilementCubes () {
         }
         texteCorr += mathalea2d(fixeBordures(objetsCorrection), objetsCorrection) + '<br>'
         if (context.isAmc) {
-          this.autoCorrection[ee + this.sup3 * q] =
-            {
-              enonce: consigneAMC + '<br>',
-              enonceAvant: false,
-              enonceAvantUneFois: true,
-              propositions: [
-                {
-                  type: 'AMCOpen',
-                  propositions: [
-                    {
-                      texte: ' ',
-                      statut: 3, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-                      enonce: texteAMC, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
-                      sanscadre: false, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
-                      pointilles: false
-                    }
-                  ]
-                }
-              ]
-            }
+          this.autoCorrection[q].propositions.push({
+            type: 'AMCOpen',
+            propositions: [
+              {
+                texte: ' ',
+                statut: 3, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                enonce: texteAMC, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                sanscadre: false, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                pointilles: false
+              }
+            ]
+          }
+          )
         }
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
