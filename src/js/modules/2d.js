@@ -603,31 +603,31 @@ export function LabelPoint (...points) {
       y = A.y
       switch (A.positionLabel) {
         case 'left':
-          code += texteParPosition(A.nom, x - 10 / coeff, y, 'milieu', this.color[0], 1, 'middle', true).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x - 10 / coeff, y, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
           break
         case 'right':
-          code += texteParPosition(A.nom, x + 10 / coeff, y, 'milieu', this.color[0], 1, 'middle', true).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x + 10 / coeff, y, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
           break
         case 'below':
-          code += texteParPosition(A.nom, x, y - 10 / coeff, 'milieu', this.color[0], 1, 'middle', true).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x, y - 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
           break
         case 'above':
-          code += texteParPosition(A.nom, x, y + 10 / coeff, 'milieu', this.color[0], 1, 'middle', true).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x, y + 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
           break
         case 'above left':
-          code += texteParPosition(A.nom, x - 10 / coeff, y + 10 / coeff, 'milieu', this.color[0], 1, 'middle', true).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x - 10 / coeff, y + 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
           break
         case 'above right':
-          code += texteParPosition(A.nom, x + 10 / coeff, y + 10 / coeff, 'milieu', this.color[0], 1, 'middle', true).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x + 10 / coeff, y + 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
           break
         case 'below left':
-          code += texteParPosition(A.nom, x - 10 / coeff, y - 10 / coeff, 'milieu', this.color[0], 1, 'middle', true).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x - 10 / coeff, y - 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
           break
         case 'below right':
-          code += texteParPosition(A.nom, x + 10 / coeff, y - 10 / coeff, 'milieu', this.color[0], 1, 'middle', true).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x + 10 / coeff, y - 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
           break
         default:
-          code += texteParPosition(A.nom, x, y, 'milieu', this.color[0], 1, 'middle', true).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x, y, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
           break
       }
     }
@@ -819,7 +819,7 @@ export function barycentre (p, nom = '', positionLabel = 'above') {
  * @author Rémi Angot
  */
 
-/**  Trace la demi-droite d'origine A passant par B
+/**  Trace une droite
  * @param {Point | number} arg1 Premier point de la droite OU BIEN coefficient a de l'équation de la droite ax+by+c=0
  * @param {Point | number} arg2 Deuxième point de la droite OU BIEN coefficient b de l'équation de la droite ax+by+c=0
  * @param {string | number} arg3 Nom affichée de la droite OU BIEN coefficient c de l'équation de la droite ax+by+c=0
