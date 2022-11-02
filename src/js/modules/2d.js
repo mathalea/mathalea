@@ -2716,7 +2716,7 @@ export function polygoneAvecNom (...args) {
   }
   const p = polygone(...args)
   let nom = ''
-  args[0].forEach(el => (nom += el.nom))
+  args.forEach(el => (nom += el.nom))
   p.sommets = nommePolygone(p, nom, k)
   p.sommets.bordures = []
   p.sommets.bordures[0] = p.bordures[0] - 1
