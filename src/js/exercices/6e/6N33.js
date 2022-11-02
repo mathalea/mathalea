@@ -77,7 +77,7 @@ export default function FractionDUnNombre () {
       b = fraction[1]
       k = randint(1, 11)
       j = false
-      if (this.sup || context.isAMC) n = b * k
+      if (this.sup || context.isAmc) n = b * k
       else if (randint(0, 1) === 0) n = b * k
       else n = randint(10, b * 11)
       texte = `$${texFraction(a, b)}\\times${n}=$`

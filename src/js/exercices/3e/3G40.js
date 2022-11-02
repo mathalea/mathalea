@@ -1,12 +1,14 @@
 import Exercice from '../Exercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { numAlpha, combinaisonListes, randint, choisitLettresDifferentes, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
 import { tracePoint, labelPoint, labelLatexPoint } from '../../modules/2d.js'
 import { point3d, droite3d, vecteur3d, arete3d, sphere3d, rotation3d, rotationV3d, demicercle3d, sensDeRotation3d } from '../../modules/3d.js'
-export const dateDeModifImportante = '02/11/2022' // EE : Mise en place de this.sup2, des unités et du grossissement des points
-
 export const titre = 'Repérage sur la sphère'
+export const amcReady = true
+export const amcType = 'AMCHybride'
+
+export const dateDeModifImportante = '02/11/2022' // EE : Mise en place de this.sup2, des unités et du grossissement des points
 
 export const uuid = '75ea2'
 export const ref = '3G40'
@@ -23,14 +25,14 @@ export default function ReperageSurLaSphere () {
   this.video = ''
   this.sup = 3
   this.sup2 = false
-
-  //  this.sup = false; // A décommenter : valeur par défaut d'un premier paramètre
-  //  this.sup2 = false; // A décommenter : valeur par défaut d'un deuxième paramètre
+  this.sup3 = false
+  this.sup4 = false
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
+    this.autoCorrection = []
     let listeTypeDeQuestions = []
     if (this.sup === 1) listeTypeDeQuestions = combinaisonListes([1], this.nbQuestions)
     else if (this.sup === 2) listeTypeDeQuestions = combinaisonListes([2], this.nbQuestions)
@@ -40,24 +42,22 @@ export default function ReperageSurLaSphere () {
     const O = point3d(0, 0, 0, false, 'O')
     let M = point3d(10, 0, 0, true, 'M')
     const PoleNord = point3d(0, 0, 11, false, 'Nord')
-    const PoleSud = point3d(0, 0, -11, false, 'Sud')
-    PoleNord.c2d.positionLabel = 'above'
-    const Pn = labelPoint(PoleNord.c2d, 'brown')
-    PoleSud.c2d.positionLabel = 'below'
-    const Ps = labelPoint(PoleSud.c2d, 'brown')
+    const PoleSud = point3d(0, 0, -11.5, false, 'Sud')
+    const Pn = labelPoint(PoleNord, 'brown')
+    const Ps = labelPoint(PoleSud, 'brown')
     Pn.taille = 15
+    Pn.positionLabel = 'above'
     Ps.taille = 15
+    Ps.positionLabel = 'below'
 
-    const Axe = arete3d(PoleSud, PoleNord)
-    Axe.c2d.epaisseur = 2
-    Axe.c2d.color = colorToLatexOrHTML('blue')
     const normalV = vecteur3d(0, 0, 1)
     M = rotationV3d(M, normalV, context.anglePerspective)
     const R = vecteur3d(O, M)
-    const origine = rotation3d(point3d(0, -10, 0), droite3d(O, normalV), context.anglePerspective)
+    let origine = rotation3d(point3d(0, -10, 0), droite3d(O, normalV), context.anglePerspective)
+    const normalH = rotationV3d(vecteur3d(O, origine), normalV, 90)
+    if (context.isAmc) origine = rotation3d(origine, droite3d(O, normalH), -2) // Parce qu'il existe un décalage en Latex
     origine.c2d.nom = '0 \\degree'
     origine.c2d.positionLabel = 'above left'
-    const normalH = rotationV3d(vecteur3d(O, origine), normalV, 90)
     const uniteLongitudePositive = rotation3d(origine, droite3d(O, normalV), 8)
     uniteLongitudePositive.visible = true
     uniteLongitudePositive.c2d.nom = '10 \\degree'
@@ -77,30 +77,44 @@ export default function ReperageSurLaSphere () {
     uniteLattitudeNegative.c2d.nom = (this.sup2 ? '-' : '') + '10 \\degree'
     uniteLattitudeNegative.c2d.positionLabel = 'above left'
     const labelUnites = labelLatexPoint({ points: [origine, uniteLattitudePositive, uniteLattitudeNegative, uniteLongitudePositive, uniteLongitudeNegative], color: 'black', taille: 10 })
+    if (context.isAmc) origine = rotation3d(origine, droite3d(O, normalH), 2) // Parce qu'il existe un décalage en Latex
 
     const Sph = sphere3d(O, 10, 8, 9)
-    const equateur1 = demicercle3d(O, normalV, R, 'visible', 'red', 0)
-    const equateur2 = demicercle3d(O, normalV, R, 'caché', 'red', 0)
-    const greenwitch = demicercle3d(O, normalH, vecteur3d(0, 0, -10), 'visible', 'green', 0)
-    greenwitch.epaisseur = 4
+    const equateur1 = demicercle3d(O, normalV, R, 'visible', context.isAmc ? 'darkgray' : 'red', 0)
+    const greenwitch = demicercle3d(O, normalH, vecteur3d(0, 0, -10), 'visible', context.isAmc ? 'darkgray' : 'green', 0)
+    greenwitch.epaisseur = context.isAmc ? 1.5 : 3
     greenwitch.opacite = 1
-    equateur1.epaisseur = 3
-    equateur2.epaisseur = 3
+    equateur1.epaisseur = context.isAmc ? 1.5 : 3
     const objetsEnonce = []; const objetsCorrection = []// on initialise les tableaux des objets Mathalea2d
     const latitudes = []; const longitudes = []; const P = []; const EstouOuest = []; const NordouSud = []; let nom = []
-    const E = labelPoint(point3d(13.2, 0, 0, true, 'Est').c2d)
+    const E = labelPoint(point3d(13.2, 0, 0, true, 'Est'))
     E.taille = 15
     E.color = colorToLatexOrHTML('brown')
-    const W = labelPoint(point3d(-12, 0, 0, true, 'Ouest').c2d)
+    E.positionLabel = 'above'
+    const W = labelPoint(point3d(-12, 0, 0, true, 'Ouest'))
     W.taille = 15
     W.color = colorToLatexOrHTML('brown')
+    W.positionLabel = 'below left'
+    if (this.sup4) {
+      const equateur2 = demicercle3d(O, normalV, R, 'caché', context.isAmc ? 'black' : 'red', 0)
+      equateur2.epaisseur = context.isAmc ? 1.5 : 3
+      objetsEnonce.push(equateur2)
+      objetsCorrection.push(equateur2)
+    }
+    if (this.sup3) {
+      const Axe = arete3d(PoleSud, PoleNord)
+      Axe.c2d.epaisseur = 2
+      Axe.c2d.color = colorToLatexOrHTML('blue')
+      objetsEnonce.push(Axe.c2d)
+      objetsCorrection.push(Axe.c2d)
+    }
     if (this.sup2) {
       const rotationTerre = sensDeRotation3d(droite3d(O, normalV), vecteur3d(8, -8, 0), 60, 3, 'purple')
       objetsEnonce.push(...rotationTerre.c2d)
       objetsCorrection.push(...rotationTerre.c2d)
     }
-    objetsEnonce.push(...Sph.c2d, Axe.c2d, equateur1, equateur2, greenwitch, Pn, Ps, E, W, labelUnites)
-    objetsCorrection.push(...Sph.c2d, Axe.c2d, equateur1, equateur2, greenwitch, Pn, Ps, E, W, labelUnites)
+    objetsEnonce.push(...Sph.c2d, equateur1, greenwitch, Pn, Ps, E, W, labelUnites)
+    objetsCorrection.push(...Sph.c2d, equateur1, greenwitch, Pn, Ps, E, W, labelUnites)
     for (let i = 0; i < this.nbQuestions; i++) {
       latitudes.push(0)
       longitudes.push(0)
@@ -108,14 +122,24 @@ export default function ReperageSurLaSphere () {
       EstouOuest.push('O')
       NordouSud.push('N')
     }
-    nom = choisitLettresDifferentes(this.nbQuestions, 'Q')
+    nom = choisitLettresDifferentes(this.nbQuestions, 'QX')
     texte = ''
-    for (let i = 0, latitude, longitude, M, lab, croix; i < this.nbQuestions;) {
+
+    if (context.isAmc) {
+      this.autoCorrection[0] =
+    {
+      enonceAvant: false,
+      enonceAvantUneFois: true,
+      propositions: []
+    }
+    }
+    let iAMC = 0
+    for (let i = 0, latitude, longitude, M, lab, croix, texteAMC; i < this.nbQuestions;) {
       latitude = randint(-3, 6, 0) * 10
-      longitude = randint(-6, 4) * 10
+      longitude = randint(-6, 4, 0) * 10
       while (latitudes.indexOf(latitude) !== -1 && longitudes.indexOf(longitude) !== -1) {
         latitude = randint(-3, 6, 0) * 10
-        longitude = randint(-6, 4) * 10
+        longitude = randint(-6, 4, 0) * 10
       }
       latitudes[i] = latitude
       longitudes[i] = longitude
@@ -136,6 +160,7 @@ export default function ReperageSurLaSphere () {
       croix.epaisseur = 2
       croix.color = colorToLatexOrHTML('blue')
       croix.style = 'x'
+
       switch (listeTypeDeQuestions[i]) {
         case 1:
           texte += `${numAlpha(i)} Donner les coordonnées GPS du point $${nom[i]}$.<br>`
@@ -143,25 +168,73 @@ export default function ReperageSurLaSphere () {
           texteCorrection += this.sup2 ? `$(${longitudes[i]}\\degree$ ; $${latitudes[i]}\\degree )$.<br>` : `$(${Math.abs(longitudes[i])}\\degree$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}\\degree$${NordouSud[i]}).<br>`
           objetsEnonce.push(croix, lab)
           objetsCorrection.push(croix, lab)
+          if (context.isAmc) {
+            this.autoCorrection[0].propositions.push(
+              {
+                type: 'AMCOpen',
+                propositions: [
+                  {
+                    texte: ' ',
+                    statut: 1, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                    enonce: `${numAlpha(iAMC)} Donner la longitude du point $${nom[i]}$.`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                    sanscadre: false,
+                    pointilles: false
+                  }
+                ]
+              }
+            )
+            iAMC++
+            this.autoCorrection[0].propositions.push(
+              {
+                type: 'AMCOpen',
+                propositions: [
+                  {
+                    texte: ' ',
+                    statut: 1, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                    enonce: `${numAlpha(iAMC)} Donner la latitude du point $${nom[i]}$.`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                    sanscadre: false,
+                    pointilles: false
+                  }
+                ]
+              }
+            )
+          }
+          iAMC++
           break
         case 2:
-          texte += `${numAlpha(i)} Placer le point $${nom[i]}$ de  coordonnées GPS `
-          texte += this.sup2 ? `$(${longitudes[i]}\\degree$ ; $${latitudes[i]}\\degree )$.<br>` : `$(${Math.abs(longitudes[i])}\\degree$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}\\degree$${NordouSud[i]}).<br>`
+          texteAMC = `Placer le point $${nom[i]}$ de  coordonnées GPS `
+          texteAMC += this.sup2 ? `$(${longitudes[i]}\\degree$ ; $${latitudes[i]}\\degree )$.<br>` : `$(${Math.abs(longitudes[i])}\\degree$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}\\degree$${NordouSud[i]}).<br>`
+          texte += `${numAlpha(i)} ` + texteAMC
           texteCorrection += `${numAlpha(i)} Le point $${nom[i]}$ de coordonnées GPS `
           texteCorrection += this.sup2 ? `$(${longitudes[i]}\\degree$ ; $${latitudes[i]}\\degree )$.<br>` : `$(${Math.abs(longitudes[i])}\\degree$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}\\degree$${NordouSud[i]}).<br>`
           texteCorrection += ' est placé sur cette sphère.<br>'
           objetsCorrection.push(croix, lab)
+          if (context.isAmc) {
+            this.autoCorrection[0].propositions.push(
+              {
+                type: 'AMCOpen',
+                propositions: [
+                  {
+                    texte: ' ',
+                    statut: 1, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                    enonce: `${numAlpha(iAMC)} ${texteAMC}`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                    sanscadre: true
+                  }
+                ]
+              }
+            )
+          }
+          iAMC++
           break
       }
       i++
     }
-
     // paramètres pour la perspective
     context.anglePerspective = 30
     context.coeffPerspective = 0.5
-    const paramsEnonce = { xmin: -15, ymin: -13, xmax: 14, ymax: 13, pixelsParCm: 20, scale: 0.3, mainlevee: false }
+    const paramsEnonce = Object.assign({}, fixeBordures(objetsEnonce), { pixelsParCm: 20, scale: 0.3, mainlevee: false })
+    if (context.isAmc) this.autoCorrection[0].enonce = mathalea2d(paramsEnonce, objetsEnonce) + '<br>'
 
-    // texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
     texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
     texteCorrection += '<br>' + mathalea2d(paramsEnonce, objetsCorrection)
     this.listeQuestions.push(texte)
@@ -171,4 +244,6 @@ export default function ReperageSurLaSphere () {
 
   this.besoinFormulaireNumerique = ['Type de questions', 3, ' 1 : Lire des coordonnées\n 2 : Placer des points\n 3 : Mélange']
   this.besoinFormulaire2CaseACocher = ['Coordonnées relatives']
+  this.besoinFormulaire3CaseACocher = ['Axe Nord-Sud']
+  this.besoinFormulaire4CaseACocher = ['Afficher demi-équateur caché']
 }
