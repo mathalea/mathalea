@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 522 
-- nombre d'exos interactifReady 802 
+- nombre d'exos amcReady 524 
+- nombre d'exos interactifReady 803 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -109,6 +109,7 @@
 |3G32-4|Calculer la hauteur d'une montagne|OK|AMCHybride|OK|mathLive|
 |3G32-5|Triangle rectangle inscrit dans un triangle rectangle|OK|AMCHybride|OK|mathLive|
 |3G32|Calculer la largeur d'une rivière|OK|AMCHybride|OK|mathLive|
+|3G41|Dessiner différentes vues d'un empilement de cubes|OK|AMCHybride|KO|KO|
 |3G42|Volume d'une boule|OK|AMCNum|OK|mathLive|
 |3G43|Calculs de volumes|OK|AMCHybride|OK|qcm,mathLive|
 |3I10-1|Analyser des scripts Scratch|OK|AMCHybride|OK|qcm|
@@ -120,7 +121,7 @@
 |3L10|Donner l'opposé d'une expression|KO|KO|OK|mathLive|
 |3L11-1|Utiliser la double distributivité|OK|AMCOpenNum✖︎3|OK|mathLive|
 |3L11-2|Réduire une expression|OK|AMCHybride|OK|mathLive|
-|3L11-3|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
+|3L11-3|Utiliser la distributivité (simple ou double) et réduire|OK|AMCHybride|OK|mathLive|
 |3L11-4|Factoriser une expression|OK|AMCOpen|OK|mathLive|
 |3L11-5|Calcul mental et calcul littéral|KO|KO|OK|mathLive|
 |3L11-6|Factoriser une expression complexe|KO|KO|OK|mathLive|
@@ -501,6 +502,7 @@
 |can1G08|Déterminer un vecteur normal avec une équation cartésienne|KO|KO|OK|custom|
 |can1G09|Associer un point à un réel sur un cercle trigonométrique |KO|KO|OK|mathLive|
 |can1G10|Associer une mesure d'angle à un  point du cercle trigonométrique |KO|KO|OK|mathLive|
+|can1G11|Donner la mesure d'un angle à partir des cosinus et sinus |KO|KO|OK|mathLive|
 |can1L01|Calculer un discriminant|OK|AMCNum|OK|mathLive|
 |can1L02|Déterminer le nombre de solutions d’une équation du second degré|KO|KO|OK|mathLive|
 |can1L03|Trouver les racines à partir d’une forme factorisée|KO|KO|OK|mathLive|

@@ -57,14 +57,14 @@ export default function LectureExpressionFonctionsAffines () {
       nbDroites = 1
       k = 1
     }
-    pente.push(randint(-3 * k, 3 * k, 0))
-    pente.push(randint(-3 * k, 3 * k, [pente[0], 0]))
-    pente.push(randint(-3 * k, 3 * k, [pente[0], pente[1], 0]))
-    pente.push(randint(-3 * k, 3 * k, [pente[0], pente[1], pente[2], 0]))
-    pente.push(randint(-3 * k, 3 * k, [pente[0], pente[1], pente[2], pente[3], 0]))
+    pente.push(randint(Math.round(-3 * k), Math.round(3 * k), 0))
+    pente.push(randint(Math.round(-3 * k), Math.round(3 * k), [pente[0], 0]))
+    pente.push(randint(Math.round(-3 * k), Math.round(3 * k), [pente[0], pente[1], 0]))
+    pente.push(randint(Math.round(-3 * k), Math.round(3 * k), [pente[0], pente[1], pente[2], 0]))
+    pente.push(randint(Math.round(-3 * k), Math.round(3 * k), [pente[0], pente[1], pente[2], pente[3], 0]))
     const d = []
     for (let i = 0; i < 5; i++) {
-      if (this.lineaire) { OrdX0 = 0 } else { OrdX0 = randint(-1 + pente[i] / k, 1 + pente[i] / k, [pente[i], 0]) }
+      if (this.lineaire) { OrdX0 = 0 } else { OrdX0 = randint(Math.round(-1 + pente[i] / k), Math.round(1 + pente[i] / k), [pente[i], 0]) }
       listeDroites.push([OrdX0, pente[i] / k])
     }
     const r = repere({ xMin: -6, yMin: -6, xMax: 6, yMax: 6 })
