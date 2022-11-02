@@ -68,7 +68,7 @@ class Trinome {
     if (alpha instanceof FractionX === false) alpha = new FractionX(alpha)
     if (beta instanceof FractionX === false) beta = new FractionX(beta)
     this.a = a
-    this.b = a.produitFraction(alpha.oppose()).multiplieEntier(-2)
+    this.b = a.produitFraction(alpha).multiplieEntier(-2)
     this.c = a.produitFraction(alpha).produitFraction(alpha).sommeFraction(beta)
   }
 
