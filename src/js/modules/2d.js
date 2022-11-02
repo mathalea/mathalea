@@ -324,15 +324,15 @@ export function TracePoint (...points) {
       } else {
         A = unPoint
       }
-
       if (A.constructor === Point) {
         if (this.style === 'x') {
+          this.tailleTikz = this.taille / 15 // EE : Sinon, on ne voit pas la croix.
           s1 = segment(point(A.x - this.tailleTikz, A.y + this.tailleTikz),
             point(A.x + this.tailleTikz, A.y - this.tailleTikz), this.color[1])
           s2 = segment(point(A.x - this.tailleTikz, A.y - this.tailleTikz),
             point(A.x + this.tailleTikz, A.y + this.tailleTikz), this.color[1])
-          s1.epaisseur = this.epaisseur
-          s2.epaisseur = this.epaisseur
+          s1.epaisseur = this.epaisseur / 1.5
+          s2.epaisseur = this.epaisseur / 1.5
           s1.opacite = this.opacite
           s2.opacite = this.opacite
           objetstikz.push(s1, s2)
@@ -579,10 +579,10 @@ export function LabelPoint (...points) {
   for (const unPoint of points) {
     if (unPoint.typeObjet !== 'point3d' && unPoint.typeObjet !== 'point') window.notify('LabelPoint : argument invalide', { ...points })
     lePoint = unPoint.typeObjet === 'point' ? unPoint : unPoint.c2d
-    xmin = Math.min(xmin, lePoint.x - lePoint.positionLabel.indexOf('left') !== -1 ? 1 : 0)
-    xmax = Math.max(xmax, lePoint.x + lePoint.positionLabel.indexOf('right') !== -1 ? 1 : 0)
-    ymin = Math.min(ymin, lePoint.y - lePoint.positionLabel.indexOf('below') !== -1 ? 1 : 0)
-    ymax = Math.max(ymax, lePoint.y + lePoint.positionLabel.indexOf('above') !== -1 ? 1 : 0)
+    xmin = Math.min(xmin, lePoint.x - ((lePoint.positionLabel.indexOf('left') + this.positionLabel.indexOf('left')) !== -2 ? 4 : 0)) // 4 à cause de 3G40
+    xmax = Math.max(xmax, lePoint.x + ((lePoint.positionLabel.indexOf('right') + this.positionLabel.indexOf('right')) !== -2 ? 0 : 1))
+    ymin = Math.min(ymin, lePoint.y - ((lePoint.positionLabel.indexOf('below') + this.positionLabel.indexOf('below')) !== -2 ? 0 : 1))
+    ymax = Math.max(ymax, lePoint.y + ((lePoint.positionLabel.indexOf('above') + this.positionLabel.indexOf('above')) !== -2 ? 2 : 0))
   }
   this.bordures = [xmin, ymin, xmax, ymax]
   this.svg = function (coeff) {
@@ -601,6 +601,7 @@ export function LabelPoint (...points) {
       }
       x = A.x
       y = A.y
+      if (this.positionLabel) A.positionLabel = this.positionLabel
       switch (A.positionLabel) {
         case 'left':
           code += texteParPosition(A.nom, x - 10 / coeff, y, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
@@ -646,6 +647,7 @@ export function LabelPoint (...points) {
       } else {
         A = unPoint
       }
+      if (this.positionLabel) A.positionLabel = this.positionLabel
       code += `\t\\draw (${A.x},${A.y}) node[${A.positionLabel}${style}] {$${A.nom}$};\n`
     }
     return code
