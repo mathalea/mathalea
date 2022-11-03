@@ -1,7 +1,7 @@
-import { point, vecteur, droite, segment, polyline, polygone } from './2d.js'
+import { point, vecteur, droite, segment, polyline, polygone, polygoneAvecNom } from './2d.js'
 import { matrix, multiply, norm, cross, dot } from 'mathjs'
 import { context } from './context.js'
-import { colorToLatexOrHTML } from './2dGeneralites.js'
+import { colorToLatexOrHTML, vide2d } from './2dGeneralites.js'
 const math = { matrix: matrix, multiply: multiply, norm: norm, cross: cross, dot: dot }
 
 /*
@@ -607,30 +607,56 @@ export function pyramideTronquee3d (base, sommet, coeff = 0.5, color = 'black') 
    *
 */
 class Cube3d {
-  constructor (x, y, z, c, color = 'black', colorAV = 'lightgray', colorTOP = 'white', colorDr = 'darkgray') {
+  constructor (x, y, z, c, color = 'black', colorAV = 'lightgray', colorTOP = 'white', colorDr = 'darkgray', aretesCachee = true, affichageNom = false, nom = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']) {
     ObjetMathalea2D.call(this, { })
+    this.nom = nom
+    this.color = color
     const A = point3d(x, y, z)
+    A.c2d.nom = this.nom[0]
     const vx = vecteur3d(c, 0, 0)
     const vy = vecteur3d(0, c, 0)
     const vz = vecteur3d(0, 0, c)
     const B = translation3d(A, vx)
+    B.c2d.nom = this.nom[1]
     const C = translation3d(B, vz)
+    C.c2d.nom = this.nom[2]
     const D = translation3d(A, vz)
+    D.c2d.nom = this.nom[3]
+    let pointsFace = [A.c2d, B.c2d, C.c2d, D.c2d]
+    const faceAV = affichageNom ? polygoneAvecNom(...pointsFace) : polygone(pointsFace, this.color)
+    if (affichageNom) faceAV[0].color = colorToLatexOrHTML(this.color)
     const E = translation3d(A, vy)
+    E.c2d.nom = this.nom[4]
     const F = translation3d(E, vx)
+    F.c2d.nom = this.nom[5]
     const G = translation3d(F, vz)
+    G.c2d.nom = this.nom[6]
     const H = translation3d(D, vy)
-    const faceAV = polygone([A.c2d, B.c2d, C.c2d, D.c2d], color)
-    const faceDr = polygone([B.c2d, F.c2d, G.c2d, C.c2d], color)
-    const faceTOP = polygone([D.c2d, C.c2d, G.c2d, H.c2d], color)
-    faceAV.couleurDeRemplissage = colorToLatexOrHTML(colorAV)
-    faceTOP.couleurDeRemplissage = colorToLatexOrHTML(colorTOP)
-    faceDr.couleurDeRemplissage = colorToLatexOrHTML(colorDr)
-    this.c2d = [faceAV, faceDr, faceTOP]
+    H.c2d.nom = this.nom[7]
+    pointsFace = [E.c2d, F.c2d, G.c2d, H.c2d]
+    const faceArr = affichageNom ? polygoneAvecNom(...pointsFace) : vide2d
+    if (affichageNom) faceArr[0].color = colorToLatexOrHTML('none')
+
+    const faceDr = polygone([B.c2d, F.c2d, G.c2d, C.c2d], this.color)
+    const faceTOP = polygone([D.c2d, C.c2d, G.c2d, H.c2d], this.color)
+    const areteEH = segment(E.c2d, H.c2d, this.color)
+    areteEH.pointilles = 2
+    const areteEF = segment(E.c2d, F.c2d, this.color)
+    areteEF.pointilles = 2
+    const areteEA = segment(E.c2d, A.c2d, this.color)
+    areteEA.pointilles = 2
+    if (aretesCachee) {
+      faceAV.couleurDeRemplissage = colorToLatexOrHTML(colorAV)
+      faceTOP.couleurDeRemplissage = colorToLatexOrHTML(colorTOP)
+      faceDr.couleurDeRemplissage = colorToLatexOrHTML(colorDr)
+      this.c2d = [faceAV, faceDr, faceTOP]
+    } else {
+      this.c2d = [faceAV, faceDr, faceTOP, faceArr, areteEH, areteEF, areteEA]
+    }
   }
 }
-export function cube3d (x, y, z, c, color = 'black', colorAV = 'lightgray', colorTOP = 'white', colorDr = 'darkgray') {
-  return new Cube3d(x, y, z, c, color, colorAV, colorTOP, colorDr)
+export function cube3d (x, y, z, c, color = 'black', colorAV = 'lightgray', colorTOP = 'white', colorDr = 'darkgray', aretesCachee = true, affichageNom = false, nom = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']) {
+  return new Cube3d(x, y, z, c, color, colorAV, colorTOP, colorDr, aretesCachee, affichageNom, nom)
 }
 /**
  * @author Jean-Claude Lhote
