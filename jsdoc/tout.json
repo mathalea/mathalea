@@ -6,6 +6,19 @@
   "source"   : {
     "include": [
       "./src/js"
+    ],
+    "exclude": [
+      "./src/js/modules/2d.js",
+      "./src/js/modules/2dAnimation.js",
+      "./src/js/modules/2dGeneralites.js",
+      "./src/js/modules/2dInstruments.js",
+      "./src/js/modules/2dinteractif.js",
+      "./src/js/modules/2dLutin.js",
+      "./src/js/modules/3d.js",
+      "./src/js/modules/aleaFigure",
+      "./src/js/modules/Alea2iep.js",
+      "./src/js/modules/ElementInstrumenpoche",
+      "./src/js/modules/iepMacros"
     ]
   },
   "plugins"  : ["plugins/markdown"],

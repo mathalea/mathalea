@@ -23,7 +23,7 @@ export default function LectureGraphiqueTangente () {
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.nouvelleVersion = function () {
     let f; let r1; let r2; let alpha; let beta; let F; let o; let nbre; let courbef; let courbefp
@@ -116,10 +116,10 @@ export default function LectureGraphiqueTangente () {
         F = x => (x - alpha) ** 2 + beta
         this.question = `On donne les représentations graphiques d'une fonction et de sa dérivée.<br>
         Donner l'équation réduite de la tangente à la courbe de $f$ en $x=${nbre}$. <br> `
-        this.question += mathalea2d({ xmin: -6, xmax: 6, ymin: -3, ymax: 12, style: 'display: inline', pixelsParCm: 16, scale: 0.5 },
+        this.question += mathalea2d({ xmin: -6, xmax: 6, ymin: -3, ymax: 12, style: 'display: inline', pixelsParCm: 14, scale: 0.5 },
           r1, o, courbef, courbe(F, { repere: r1, color: 'blue', epaisseur: 2 })
         )
-        this.question += `${sp(8)}` + mathalea2d({ xmin: -6, xmax: 6, ymin: -5, ymax: 8, style: 'display: inline', pixelsParCm: 16, scale: 0.5 },
+        this.question += `${sp(8)}` + mathalea2d({ xmin: -6, xmax: 6, ymin: -5, ymax: 8, style: 'display: inline', pixelsParCm: 14, scale: 0.5 },
           r2, o, courbefp, courbe(f, { repere: r2, color: 'red', epaisseur: 2 })
         )
 
@@ -130,6 +130,20 @@ export default function LectureGraphiqueTangente () {
         if (-nbre * f(nbre) + F(nbre) === 0) { this.correction += `$y=${rienSi1(f(nbre))}x$.` } else { this.correction += `$y=${rienSi1(f(nbre))}x${ecritureAlgebrique(-nbre * f(nbre) + F(nbre))}$.` }
 
         this.reponse = [`y=${f(nbre)}x+${-nbre * f(nbre) + F(nbre)}`]
+        this.canEnonce = `On donne les représentations graphiques d'une fonction et de sa dérivée.<br>
+        Donner l'équation réduite de la tangente à la courbe de $f$ en $x=${nbre}$. <br> 
+
+        `
+        this.canEnonce += mathalea2d({ xmin: -6, xmax: 6, ymin: -3, ymax: 12, style: 'display: inline', pixelsParCm: 14, scale: 0.5 },
+          r1, o, courbef, courbe(F, { repere: r1, color: 'blue', epaisseur: 2 })
+        )
+        this.canEnonce += `<br>
+          
+        `
+        this.canEnonce += `${sp(8)}` + mathalea2d({ xmin: -6, xmax: 6, ymin: -5, ymax: 8, style: 'display: inline', pixelsParCm: 14, scale: 0.5 },
+          r2, o, courbefp, courbe(f, { repere: r2, color: 'red', epaisseur: 2 })
+        )
+        this.canReponseACompleter = ''
         break
 
       case 2:// second degré -(x-alpha)^2+beta
@@ -224,7 +238,7 @@ export default function LectureGraphiqueTangente () {
         this.question += mathalea2d({ xmin: -6, xmax: 6, ymin: -8, ymax: 5, style: 'display: inline', pixelsParCm: 16, scale: 0.5 },
           r1, o, courbef, courbe(F, { repere: r1, color: 'blue', epaisseur: 2 })
         )
-        this.question += `${sp(8)}` + mathalea2d({ xmin: -6, xmax: 6, ymin: -8, ymax: 6, style: 'display: inline', pixelsParCm: 16, scale: 0.5 },
+        this.question += `${sp(8)}` + mathalea2d({ xmin: -6, xmax: 6, ymin: -8, ymax: 6, style: 'display: inline', pixelsParCm: 14, scale: 0.5 },
           r2, o, courbefp, courbe(f, { repere: r2, color: 'red', epaisseur: 2 })
         )
 
@@ -234,6 +248,21 @@ export default function LectureGraphiqueTangente () {
       $y=${f(nbre)}(x${ecritureAlgebrique(-nbre)})${ecritureAlgebrique(F(nbre))}$, soit `
         if (-nbre * f(nbre) + F(nbre) === 0) { this.correction += `$y=${f(nbre)}x$.` } else { this.correction += `$y=${f(nbre)}x${ecritureAlgebrique(-nbre * f(nbre) + F(nbre))}$.` }
         this.reponse = [`y=${f(nbre)}x+${-nbre * f(nbre) + F(nbre)}`]
+        this.canEnonce = `On donne les représentations graphiques d'une fonction et de sa dérivée.<br>
+        Donner l'équation réduite de la tangente à la courbe de $f$ en $x=${nbre}$. <br> 
+        
+        `
+        this.canEnonce += mathalea2d({ xmin: -6, xmax: 6, ymin: -8, ymax: 5, style: 'display: inline', pixelsParCm: 16, scale: 0.5 },
+          r1, o, courbef, courbe(F, { repere: r1, color: 'blue', epaisseur: 2 })
+        )
+        this.canEnonce += `<br>
+          
+          `
+        this.canEnonce += `${sp(8)}` + mathalea2d({ xmin: -6, xmax: 6, ymin: -8, ymax: 6, style: 'display: inline', pixelsParCm: 14, scale: 0.5 },
+          r2, o, courbefp, courbe(f, { repere: r2, color: 'red', epaisseur: 2 })
+        )
+
+        this.canReponseACompleter = ''
         break
     }
   }

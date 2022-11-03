@@ -1,4 +1,5 @@
 import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -179,5 +180,10 @@ export default function MesurePrincipale () {
       cpt++
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
+    if (!context.isHtml) {
+      this.canEnonce = 'Déterminer une écriture plus simple, en fonction de $\\cos(x)$ ou $\\sin(x)$.'
+      this.correction = this.listeCorrections[0]
+      this.canReponseACompleter = this.listeQuestions[0]
+    }
   }
 }

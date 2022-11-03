@@ -54,20 +54,22 @@ export default function CalculHypotenusePythagore () {
         this.question = `Sur cette figure, calculer la valeur exacte de $${nom[0]}${nom[2]}$.<br>
         
         `
-        this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 22, mainlevee: false, amplitude: 0.3, scale: 0.3, style: 'margin: auto' }, objets)
+        this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 22, mainlevee: false, amplitude: 0.3, scale: 0.5, style: 'margin: auto' }, objets)
 
         if (entiere) {
           this.correction = ` On utilise le théorème de Pythagore dans le triangle $${nom[0]}${nom[1]}${nom[2]}$,  rectangle en $${nom[1]}$.<br>
             On obtient :<br>
-            $\\begin{aligned}\n
-              ${nom[0]}${nom[1]}^2+${nom[1]}${nom[2]}^2&=${nom[0]}${nom[2]}^2\\\\\n
-              ${nom[0]}${nom[2]}^2&=${nom[1]}${nom[2]}^2+${nom[0]}${nom[1]}^2\\\\\n
-              ${nom[0]}${nom[2]}^2&=${b}^2+${a}^2\\\\\n
-              ${nom[0]}${nom[2]}^2&=${b ** 2}+${a ** 2}\\\\\n
-              ${nom[0]}${nom[2]}^2&=${c2}\\\\\n
-              ${nom[0]}${nom[2]}&=\\sqrt{${c2}}\\\\\n
-              ${nom[0]}${nom[2]}&=${reduction[0]}\\\\\n
-              \\end{aligned}$`
+            $\\begin{aligned}
+              ${nom[0]}${nom[1]}^2+${nom[1]}${nom[2]}^2&=${nom[0]}${nom[2]}^2\\\\
+              ${nom[0]}${nom[2]}^2&=${nom[1]}${nom[2]}^2+${nom[0]}${nom[1]}^2\\\\
+              ${nom[0]}${nom[2]}^2&=${b}^2+${a}^2\\\\
+              ${nom[0]}${nom[2]}^2&=${b ** 2}+${a ** 2}\\\\
+              ${nom[0]}${nom[2]}^2&=${c2}\\\\
+              ${nom[0]}${nom[2]}&=\\sqrt{${c2}}\\\\
+              ${nom[0]}${nom[2]}&=${reduction[0]}
+              \\end{aligned}$
+              
+              `
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
     La longueur $${nom[0]}${nom[2]}$ est donnée par la racine carrée de la somme des carrés de $${b}$ et de $${a}$.<br>
     Cette somme vaut $${b ** 2}+${a ** 2}=${c2}$. <br>
@@ -76,15 +78,19 @@ export default function CalculHypotenusePythagore () {
         } else {
           this.correction = ` On utilise le théorème de Pythagore dans le triangle $${nom[0]}${nom[1]}${nom[2]}$,  rectangle en $${nom[1]}$.<br>
       On obtient :<br>
-      $\\begin{aligned}\n
-        ${nom[0]}${nom[1]}^2+${nom[1]}${nom[2]}^2&=${nom[0]}${nom[2]}^2\\\\\n
-        ${nom[0]}${nom[2]}^2&=${nom[1]}${nom[2]}^2+${nom[0]}${nom[1]}^2\\\\\n
-        ${nom[0]}${nom[2]}^2&=${b}^2+${a}^2\\\\\n
-        ${nom[0]}${nom[2]}^2&=${b ** 2}+${a ** 2}\\\\\n
-        ${nom[0]}${nom[2]}^2&=${c2}\\\\\n
+      $\\begin{aligned}
+        ${nom[0]}${nom[1]}^2+${nom[1]}${nom[2]}^2&=${nom[0]}${nom[2]}^2\\\\
+        ${nom[0]}${nom[2]}^2&=${nom[1]}${nom[2]}^2+${nom[0]}${nom[1]}^2\\\\
+        ${nom[0]}${nom[2]}^2&=${b}^2+${a}^2\\\\
+        ${nom[0]}${nom[2]}^2&=${b ** 2}+${a ** 2}\\\\
+        ${nom[0]}${nom[2]}^2&=${c2}\\\\
         ${nom[0]}${nom[2]}&=\\sqrt{${c2}}
-        ${reductible ? '\\\\\n' + nom[0] + nom[2] + '&=' + texRacineCarree(c2) : ''}
-        \n\\end{aligned}$`
+        \\end{aligned}$
+        
+
+        ${reductible ? `En simplifiant, on obtient : $${nom[0]}${nom[2]} = ${texRacineCarree(c2)}$` : ''}
+
+        `
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
 La longueur $${nom[0]}${nom[2]}$ est donnée par la racine carrée de la somme des carrés de $${b}$ et de $${a}$.<br>
 Cette somme vaut $${b ** 2}+${a ** 2}=${c2}$. <br>
@@ -111,15 +117,16 @@ La valeur cherchée est donc : $\\sqrt{${c2}}$.
         `
           this.correction = ` On utilise le théorème de Pythagore dans le triangle $${nom[0]}${nom[1]}${nom[2]}$,  rectangle en $${nom[0]}$.<br>
         On obtient :<br>
-        $\\begin{aligned}\n
-          ${nom[0]}${nom[1]}^2+${nom[0]}${nom[2]}^2&=${nom[1]}${nom[2]}^2\\\\\n
-          ${nom[1]}${nom[2]}^2&=${nom[0]}${nom[1]}^2+${nom[0]}${nom[2]}^2\\\\\n
-          ${nom[1]}${nom[2]}^2&=\\sqrt{${b}}^2+${a}^2\\\\\n
-          ${nom[1]}${nom[2]}^2&=${b}+${a ** 2}\\\\\n
-          ${nom[1]}${nom[2]}^2&=${c2}\\\\\n
-          ${nom[1]}${nom[2]}&=\\sqrt{${c2}}\\\\\n
-          ${nom[1]}${nom[2]}&=${reduction[0]}\n
+        $\\begin{aligned}
+          ${nom[0]}${nom[1]}^2+${nom[0]}${nom[2]}^2&=${nom[1]}${nom[2]}^2\\\\
+          ${nom[1]}${nom[2]}^2&=${nom[0]}${nom[1]}^2+${nom[0]}${nom[2]}^2\\\\
+          ${nom[1]}${nom[2]}^2&=\\sqrt{${b}}^2+${a}^2\\\\
+          ${nom[1]}${nom[2]}^2&=${b}+${a ** 2}\\\\
+          ${nom[1]}${nom[2]}^2&=${c2}\\\\
+          ${nom[1]}${nom[2]}&=\\sqrt{${c2}}\\\\
+          ${nom[1]}${nom[2]}&=${reduction[0]}
           \\end{aligned}$
+          
           `
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
     La longueur $${nom[1]}${nom[2]}$ est donnée par la racine carrée de la somme des carrés de $\\sqrt{${b}}$ et de $${a}$.<br>
@@ -134,15 +141,17 @@ La valeur cherchée est donc : $\\sqrt{${c2}}$.
 `
           this.correction = ` On utilise le théorème de Pythagore dans le triangle $${nom[0]}${nom[1]}${nom[2]}$,  rectangle en $${nom[0]}$.<br>
 On obtient :<br>
-$\\begin{aligned}\n
-${nom[0]}${nom[1]}^2+${nom[0]}${nom[2]}^2&=${nom[1]}${nom[2]}^2\\\\\n
-${nom[1]}${nom[2]}^2&=${nom[0]}${nom[1]}^2+${nom[0]}${nom[2]}^2\\\\\n
-${nom[1]}${nom[2]}^2&=\\sqrt{${b}}^2+${a}^2\\\\\n
-${nom[1]}${nom[2]}^2&=${b}+${a ** 2}\\\\\n
-${nom[1]}${nom[2]}^2&=${c2}\\\\\n
+$\\begin{aligned}
+${nom[0]}${nom[1]}^2+${nom[0]}${nom[2]}^2&=${nom[1]}${nom[2]}^2\\\\
+${nom[1]}${nom[2]}^2&=${nom[0]}${nom[1]}^2+${nom[0]}${nom[2]}^2\\\\
+${nom[1]}${nom[2]}^2&=\\sqrt{${b}}^2+${a}^2\\\\
+${nom[1]}${nom[2]}^2&=${b}+${a ** 2}\\\\
+${nom[1]}${nom[2]}^2&=${c2}\\\\
 ${nom[1]}${nom[2]}&=\\sqrt{${c2}}
-${reductible ? '\\\\\n' + nom[1] + nom[2] + '&=' + texRacineCarree(c2) : ''}
-\n\\end{aligned}$
+\\end{aligned}$
+
+${reductible ? `En simplifiant, on obtient : $${nom[1]}${nom[2]} = ${texRacineCarree(c2)}$` : ''}
+
 `
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
 La longueur $${nom[1]}${nom[2]}$ est donnée par la racine carrée de la somme des carrés de $\\sqrt{${b}}$ et de $${a}$.<br>

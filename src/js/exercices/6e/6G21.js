@@ -80,7 +80,7 @@ export default function ConstruireUnTriangle () {
           objetsEnonce.push(afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), afficheLongueurSegment(A, C))
           objetsCorrection.push(traceCompas(A, C, 30, 'gray', 1, 2), traceCompas(B, C, 30, 'gray', 1, 2), afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), afficheLongueurSegment(A, C))
           if (this.sup2) {
-            texte = `Construire un triangle ${sommets[0]}${sommets[1]}${sommets[2]} avec ${sommets[0]}${sommets[1]} = ${stringNombre(lAB)} cm, ${sommets[1]}${sommets[2]} = ${stringNombre(lBC)} cm et ${sommets[0]}${sommets[2]} = ${stringNombre(lAC)} cm.<br>`
+            texte = `Construire un triangle $${sommets[0]}${sommets[1]}${sommets[2]}$ avec $${sommets[0]}${sommets[1]} = ${stringNombre(lAB)}~\\text{cm}$, $${sommets[1]}${sommets[2]} = ${stringNombre(lBC)}~\\text{cm}$ et $${sommets[0]}${sommets[2]} = ${stringNombre(lAC)}~\\text{cm}$.<br>`
           }
           texteCorr += 'Pour cette construction, nous avons utilisé le compas et la règle graduée.<br>'
 
@@ -100,7 +100,7 @@ export default function ConstruireUnTriangle () {
           objetsEnonce.push(afficheLongueurSegment(B, A), afficheLongueurSegment(C, A), codageAngleDroit(A, B, C))
           objetsCorrection.push(traceCompas(A, C, 30, 'gray', 1, 2), codageAngleDroit(A, B, C), afficheLongueurSegment(B, A), afficheLongueurSegment(C, A))
           if (this.sup2) {
-            texte = `Construire un triangle ${sommets[0]}${sommets[1]}${sommets[2]} rectangle en ${sommets[1]} avec ${sommets[0]}${sommets[1]} = ${stringNombre(lAB)} cm et ${sommets[0]}${sommets[2]} = ${stringNombre(lAC)} cm.<br>`
+            texte = `Construire un triangle $${sommets[0]}${sommets[1]}${sommets[2]}$ rectangle en $${sommets[1]}$ avec $${sommets[0]}${sommets[1]} = ${stringNombre(lAB)}~\\text{cm}$ et $${sommets[0]}${sommets[2]} = ${stringNombre(lAC)}~\\text{cm}$.<br>`
           }
           texteCorr += 'Pour cette construction, nous avons utilisé la règle graduée, l\'équerre et le compas.<br>'
 

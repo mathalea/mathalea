@@ -31,14 +31,16 @@ export default function EcrireUneExpressionNumerique (calculMental) {
     let reponse
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    if (this.sup4 === 1) {
-      this.sup = '1-1-2-2-3'
-    } else if (this.sup4 === 2) {
-      this.sup = '1-2-2-3-3'
-    } else if (this.sup4 === 3) {
-      this.sup = '2-2-3-3-4'
-    } else if (this.sup4 === 4) {
-      this.sup = '2-3-4-5'
+    if (isNaN(this.sup)) {
+      if (this.sup4 === 1) {
+        this.sup = '1-1-2-2-3'
+      } else if (this.sup4 === 2) {
+        this.sup = '1-2-2-3-3'
+      } else if (this.sup4 === 3) {
+        this.sup = '2-2-3-3-4'
+      } else if (this.sup4 === 4) {
+        this.sup = '2-3-4-5'
+      }
     }
     if (!this.sup) { // Si aucune liste n'est saisie
       typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]

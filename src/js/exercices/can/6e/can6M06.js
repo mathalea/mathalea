@@ -37,7 +37,6 @@ export default function Perimetre () {
     const c1 = cercle(C, d)
     const c2 = cercle(A, b)
     const D = pointIntersectionCC(c1, c2, nom[3], 1)
-    if (!D) alert('Pas de point D')
     const objets = []
     const xmin = Math.min(A.x, B.x, C.x, D.x) - 1.5
     const ymin = Math.min(A.y, B.y, C.y, D.y) - 1.5

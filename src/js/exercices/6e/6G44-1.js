@@ -190,6 +190,7 @@ export default function ReconnaitreDesSolides () {
           break
         case 'cône': // cone  ?
         {
+          axe = 1
           /* if (axe === 3) {
             cone = cone3d(point3d(0, 0, 0), point3d(0, -3, 0), vecteur3d(0, 1, 0), vecteur3d(Math.cos(30 * Math.PI / 180.0), 0, Math.sin(30 * Math.PI / 180.0)))
             /* c1 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'red', 0)
@@ -409,16 +410,16 @@ export default function ReconnaitreDesSolides () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireTexte = [
-    'Type de question', [
+    'Type de solides', [
       'Nombres séparés par des tirets',
-      '0 : Mélange',
       '1 : Prisme',
       '2 : Pyramide',
       '3 : Cône',
       '4 : Cylindre',
       '5 : Pavé',
       '6 : Cube',
-      '7 : Sphère'
+      '7 : Sphère',
+      '8 : Mélange'
     ].join('\n')
   ]
   this.besoinFormulaire2CaseACocher = ['QCM']

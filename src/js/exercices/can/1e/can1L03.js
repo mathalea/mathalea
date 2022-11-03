@@ -43,14 +43,14 @@ export default function RacinesPoly () {
         texte += 'Déterminer les racines de $f$.'
       } else {
         if (x1 < x2) {
-          texte += 'Donner les racines de $f$ dans l\'ordre croissant :'
+          texte += 'Donner les racines de $f$ dans l\'ordre croissant.'
           texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline')
           texte += ' et '
           texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline')
           setReponse(this, 2 * i, x1)
           setReponse(this, 2 * i + 1, x2)
         } else {
-          texte += 'Donner les racines de $f$ dans l\'ordre croissant :'
+          texte += 'Donner les racines de $f$ dans l\'ordre croissant.'
           texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline')
           texte += ' et '
           texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline')
@@ -68,5 +68,7 @@ export default function RacinesPoly () {
       cpt++
     }
     listeQuestionsToContenu(this)
+    this.canEnonce = texte
+    this.canReponseACompleter = ''
   }
 }

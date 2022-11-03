@@ -16,7 +16,7 @@ export const ref = 'can3L04'
 export default function SolutionInequation () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   let a, b, c, d
   this.date = 1635094684684
@@ -32,6 +32,7 @@ export default function SolutionInequation () {
         c = randint(2, 5)
         d = randint(-3, 3)
         texte = `$${d}$ est solution de l'inéquation ${sp(2)} $${rienSi1(a)}x+${b}>${c}$.<br>`
+        this.canEnonce = texte
         this.autoCorrection[0] = {
           enonce: texte,
           propositions: [
@@ -67,6 +68,7 @@ export default function SolutionInequation () {
         c = randint(2, 5)
         d = randint(-3, 3)
         texte = `$${d}$ est solution de l'inéquation ${sp(2)}  $${rienSi1(a)}x^2-${b}>${c}$.<br>`
+        this.canEnonce = texte
         this.autoCorrection[0] = {
           enonce: texte,
           propositions: [
@@ -102,6 +104,7 @@ export default function SolutionInequation () {
         b = randint(-2, 4, 0)
         d = randint(-2, 5)
         texte = `$${d}$ est solution de l'inéquation ${sp(2)}  $x^2\\leqslant ${a}x${ecritureAlgebrique(b)}$.<br>`
+        this.canEnonce = texte
         this.autoCorrection[0] = {
           enonce: texte,
           propositions: [
@@ -144,5 +147,6 @@ export default function SolutionInequation () {
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenuSansNumero(this)
+    this.canReponseACompleter = propositionsQcm(this, 0).texte
   }
 }

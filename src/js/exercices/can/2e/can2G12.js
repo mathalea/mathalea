@@ -18,6 +18,7 @@ export const ref = 'can2G12'
 export default function VecteursColineairesVF () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
+  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.nouvelleVersion = function () {
     let ux, uy, vx, vy, k
@@ -33,6 +34,9 @@ export default function VecteursColineairesVF () {
         vx = k * ux
         vy = k * uy
         texte = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$<br>
+        Les vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont colinéaires. `
+        this.canEnonce = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}(${ux}\\;;\\; ${uy})$ et $\\overrightarrow{v}(${vx}\\;;\\;${vy})$.<br>
+
         Les vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont colinéaires. `
         this.autoCorrection[0] = {
           enonce: texte,
@@ -74,6 +78,9 @@ export default function VecteursColineairesVF () {
         ux = k * vx
         uy = k * vy
         texte = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$<br>
+        Les vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont colinéaires. `
+        this.canEnonce = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}(${ux}\\;;\\; ${uy})$ et $\\overrightarrow{v}(${vx}\\;;\\;${vy})$.<br>
+       
         Les vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont colinéaires. `
         this.autoCorrection[0] = {
           enonce: texte,
@@ -117,6 +124,9 @@ export default function VecteursColineairesVF () {
         vy = k * uy + 1
         texte = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$<br>
             Les vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont colinéaires. `
+        this.canEnonce = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}(${ux}\\;;\\; ${uy})$ et $\\overrightarrow{v}(${vx}\\;;\\;${vy})$.<br>
+
+            Les vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont colinéaires. `
         this.autoCorrection[0] = {
           enonce: texte,
           propositions: [
@@ -159,6 +169,9 @@ export default function VecteursColineairesVF () {
         vy = k * uy
         texte = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$<br>
             Les vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont colinéaires. `
+        this.canEnonce = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}(${ux}\\;;\\; ${uy})$ et $\\overrightarrow{v}(${vx}\\;;\\;${vy})$.<br>
+
+            Les vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont colinéaires. `
         this.autoCorrection[0] = {
           enonce: texte,
           propositions: [
@@ -200,6 +213,9 @@ export default function VecteursColineairesVF () {
         vy = k * uy * (-1)
         texte = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$<br>
             Les vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont colinéaires. `
+        this.canEnonce = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}(${ux}\\;;\\; ${uy})$ et $\\overrightarrow{v}(${vx}\\;;\\;${vy})$.<br>
+        
+            Les vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont colinéaires. `
         this.autoCorrection[0] = {
           enonce: texte,
           propositions: [
@@ -237,5 +253,6 @@ export default function VecteursColineairesVF () {
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
+    this.canReponseACompleter = propositionsQcm(this, 0).texte
   }
 }

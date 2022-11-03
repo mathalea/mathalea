@@ -18,7 +18,7 @@ export default function VecteurDirEqCart () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur11 inline'
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
 
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
@@ -31,7 +31,7 @@ export default function VecteurDirEqCart () {
       b = randint(-9, 9, 0)
       c = randint(-5, 5, 0)
 
-      texte = ` Dans un repère orthonormé $(O;\\vec i,\\vec j)$, la droite $d$ a pour équation :
+      texte = ` Dans un repère, la droite $d$ a pour équation :
       ${texteCentre(`$${rienSi1(a)}x${ecritureAlgebriqueSauf1(b)}y${ecritureAlgebrique(c)}=0$`)}
  Les coordonnées d'un vecteur directeur $\\vec{u}$ de la droite $d$   sont :<br>`
 
@@ -43,6 +43,12 @@ export default function VecteurDirEqCart () {
         setReponse(this, 2 * i, -b)
         setReponse(this, 2 * i + 1, a)
       }
+      this.canEnonce = ` Dans un repère, la droite $d$ a pour équation :<br>
+
+      $${rienSi1(a)}x${ecritureAlgebriqueSauf1(b)}y${ecritureAlgebrique(c)}=0$. <br>
+
+ Donner les coordonnées d'un vecteur directeur $\\vec{u}$ de la droite $d$.`
+      this.canReponseACompleter = ''
       texteCorr = `Si l'équation est de la forme $ax+by+c=0$, on sait d'après le cours, qu'un vecteur directeur $\\vec{u}$ a pour coordonnées $\\vec{u}(-b;a)$.<br>
     On en déduit qu'un vecteur directeur de $d$ est $\\vec{u}(${-b};${a})$.<br>
     Tout vecteur colinéaire à $\\vec{u}$ est aussi un vecteur directeur de $d$.`

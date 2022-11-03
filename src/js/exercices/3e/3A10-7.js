@@ -8,6 +8,8 @@ export const titre = 'Explorer un labyrinthe de nombres premiers'
 /** Explorer un labyrinthe de nombres premiers
  * @author Eric Elter // Sur la base d'autres labyrinthes déjà créés
  */
+export const uuid = '9552d'
+export const ref = '3A10-7'
 export default function ExerciceLabyrinthePremiers3e () {
   Exercice.call(this)
   this.titre = titre

@@ -19,14 +19,14 @@ export default function CoordonneesPointDroite () {
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-
+  this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     const a = randint(-10, 10, 0)
     const b = randint(-10, 10, 0)
     const c = randint(-10, 10, 0)
 
-    this.listeQuestions = [` Les coordonnées du point de la droite 
-    d'équation $y=${reduireAxPlusB(a, b)}$ dont l'abscisse est $${c}$  sont : 
+    this.listeQuestions = [` Déterminer les coordonnées du point de la droite 
+    d'équation $y=${reduireAxPlusB(a, b)}$ dont l'abscisse est $${c}$. 
     ${texteCentre(`$\\Bigg($ ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(5)} ;
  ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(5)} $\\Bigg)$`)}`]
     if (a === 1) {
@@ -43,5 +43,8 @@ export default function CoordonneesPointDroite () {
     setReponse(this, 0, c)
     setReponse(this, 1, a * c + b)
     listeQuestionsToContenuSansNumero(this)
+    this.canEnonce = ` Déterminer les coordonnées du point de la droite 
+    d'équation $y=${reduireAxPlusB(a, b)}$ dont l'abscisse est $${c}$. `
+    this.canReponseACompleter = ''
   }
 }

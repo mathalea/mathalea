@@ -42,4 +42,6 @@ export function zoomAffichage (facteur) {
     figure.setAttribute('height', figure.dataset.heightInitiale * facteur)
     figure.setAttribute('width', figure.dataset.widthInitiale * facteur)
   }
+  const zoominOrout = new window.Event('zoominOrout', { bubbles: true })
+  document.dispatchEvent(zoominOrout)
 }

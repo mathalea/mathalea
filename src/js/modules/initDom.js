@@ -624,6 +624,8 @@ export async function initDom () {
       () => {
         sectionTemp.remove()
         setStyles(section, 'display: block')
+        const exercicesDiap = new window.Event('exercicesDiap', { bubbles: true })
+        document.dispatchEvent(exercicesDiap)
         gestionTimerDiap()
         affichageUniquementQuestion(0)
       },

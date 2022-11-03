@@ -25,7 +25,7 @@ export default function ResoudreEquationAvecQuotient () {
     const c = randint(-10, 10, 0)
     switch (choice([1])) {
       case 1 :
-        if (!this.interactif) { this.question = ` Résoudre l'équation $\\dfrac{x${ecritureAlgebrique(a)}}{${b}}=${c}$` } else { this.question = ` Donner la solution de l'équation $\\dfrac{x${ecritureAlgebrique(a)}}{${b}}=${c}$` }
+        if (!this.interactif) { this.question = ` Résoudre l'équation $\\dfrac{x${ecritureAlgebrique(a)}}{${b}}=${c}$.` } else { this.question = ` Donner la solution de l'équation $\\dfrac{x${ecritureAlgebrique(a)}}{${b}}=${c}$.` }
         this.correction = `On multiplie par $${b}$ chacun des deux membres, puis on`
         if (a > 0) { this.correction += ` retranche $${a}$.<br>` } else { this.correction += ` ajoute $${abs(a)}$.<br>` }
         this.correction += `$\\bullet$  En multipliant par $${b}$, on obtient : <br>
@@ -42,5 +42,7 @@ export default function ResoudreEquationAvecQuotient () {
         this.reponse = b * c - a
         break
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

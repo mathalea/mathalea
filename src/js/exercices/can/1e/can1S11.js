@@ -26,13 +26,15 @@ export default function CalculSuitePython () {
   this.nouvelleVersion = function () {
     let a, b, k, u, r, q
     let n = 0
-    switch (choice(['a', 'b', 'c'])) {
+    switch (choice(['a', 'b', 'c'])) { //
       case 'a':// u=u+r
         a = randint(2, 5)
         u = randint(1, 8) * choice([-1, 1])
         r = randint(1, 9) * choice([-1, 1])
         k = a
-        this.question = `Que renvoie l'instruction $\\texttt{suite(${a})}$ ?<br>$\\begin{array}{|l|}\n`
+        this.question = `Que renvoie l'instruction $\\texttt{suite(${a})}$ ?<br>
+        
+        $\\begin{array}{|l|}\n`
         this.question += '\\hline\n'
         this.question += '\\\n \\texttt{def suite(n) :}  \\\n '
         this.question += `\\\\\n ${sp(6)} \\texttt{u = ${u}}\\\n `
@@ -41,7 +43,9 @@ export default function CalculSuitePython () {
         this.question += `\\\\\n ${sp(6)} \\texttt{return u}\\\\\n `
         this.question += '\\hline\n'
         this.question += '\\end{array}\n$'
-
+        this.question += `
+        
+        `
         this.correction = ` L'instruction $\\texttt{for i in range(n)}$ signifie : pour i allant de $0$ à $${a - 1}$.<br>
       On calcule les valeurs successives de la variable u :
            `
@@ -57,7 +61,9 @@ export default function CalculSuitePython () {
         a = randint(3, 4)
         u = randint(1, 8) * choice([-1, 1])
         k = a
-        this.question = `Que renvoie l'instruction $\\texttt{suite(${a})}$ ?<br>$\\begin{array}{|l|}\n`
+        this.question = `Que renvoie l'instruction $\\texttt{suite(${a})}$ ?<br>
+        
+        $\\begin{array}{|l|}\n`
         this.question += '\\hline\n'
         this.question += '\\\n \\texttt{def suite(n) :}  \\\n '
         this.question += `\\\\\n ${sp(6)} \\texttt{u = ${u}}\\\n `
@@ -66,7 +72,9 @@ export default function CalculSuitePython () {
         this.question += `\\\\\n ${sp(6)} \\texttt{return u}\\\\\n `
         this.question += '\\hline\n'
         this.question += '\\end{array}\n$'
-
+        this.question += `
+        
+        `
         this.correction = ` L'instruction $\\texttt{for i in range(1,n)}$ signifie : pour i allant de 1 à $${a - 1}$.<br>
         
         On calcule les valeurs successives de la variable u :`
@@ -83,7 +91,9 @@ export default function CalculSuitePython () {
         b = randint(6, 80)
         q = randint(2, 3)
         k = a
-        this.question = `Que renvoie l'instruction $\\texttt{suite(${a})}$ ?<br>$\\begin{array}{|l|}\n`
+        this.question = `Que renvoie l'instruction $\\texttt{suite(${a})}$ ?<br>
+        
+        $\\begin{array}{|l|}\n`
         this.question += '\\hline\n'
         this.question += '\\\n \\texttt{def suite(u) :}  \\\n '
         this.question += `\\\\\n ${sp(6)} \\texttt{n=0}\\\n `
@@ -93,7 +103,9 @@ export default function CalculSuitePython () {
         this.question += `\\\\\n ${sp(6)} \\texttt{return n}\\\\\n `
         this.question += '\\hline\n'
         this.question += '\\end{array}\n$'
-
+        this.question += `
+        
+        `
         this.correction = ` L'instruction $\\texttt{while u<${b}}$ signifie : tant que u<${b}.<br>
 
         On calcule les valeurs successives des  variables u et n. On s'arrête dès que u dépasse ${b} :<br>
@@ -108,5 +120,7 @@ export default function CalculSuitePython () {
         this.reponse = n
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

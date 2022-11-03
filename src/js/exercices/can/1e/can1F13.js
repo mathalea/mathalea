@@ -31,9 +31,7 @@ export default function CalculCoeffDir () {
       case 1:// x^2
         a = randint(2, 15) * choice([-1, 1])
 
-        this.question = `Déterminer le coefficient directeur de la tangente à la courbe représentative de la fonction carré au point d'abscisse $${a}$.
-       
-                 `
+        this.question = `Déterminer le coefficient directeur de la tangente à la courbe représentative de la fonction carré au point d'abscisse $${a}$.    `
 
         this.correction = `Le coefficient directeur de la tangente au point d'abscisse $a$ est donné par le nombre dérivé $f'(a)$.<br>
         La fonction $f$ définie par $f(x)=x^2$ a pour fonction dérivée la fonction $f'$ définie par $f'(x)=2x$.<br>
@@ -46,7 +44,6 @@ export default function CalculCoeffDir () {
         a = randint(1, 25)
 
         this.question = `Déterminer le coefficient directeur de la tangente à la courbe représentative de la fonction racine carrée au point d'abscisse $${a}$.
-        
          `
 
         this.correction = `Le coefficient directeur de la tangente au point d'abscisse $a$ est donné par le nombre dérivé $f'(a)$.<br>
@@ -66,8 +63,7 @@ export default function CalculCoeffDir () {
         a = randint(1, 10) * choice([-1, 1])
         f = new FractionX(-1, a * a)
         this.question = `Déterminer le coefficient directeur de la tangente à la courbe représentative de la fonction inverse au point d'abscisse $${a}$.
-        
-         `
+                 `
 
         this.correction = `Le coefficient directeur de la tangente au point d'abscisse $a$ est donné par le nombre dérivé $f'(a)$.<br>
         La fonction $f$ définie par $f(x)=\\dfrac{1}{x}$ a pour fonction dérivée la fonction $f'$ définie par $f'(x)=-\\dfrac{1}{x^2}$.<br>
@@ -88,8 +84,7 @@ Comme $f'(${a})=-\\dfrac{1}{${ecritureParentheseSiNegatif(a)}^2}=-\\dfrac{1}{${a
         a = randint(1, 5) * choice([-1, 1])
 
         this.question = `Déterminer le coefficient directeur de la tangente à la courbe représentative de la fonction cube au point d'abscisse $${a}$.
-       
-                 `
+                        `
 
         this.correction = `Le coefficient directeur de la tangente au point d'abscisse $a$ est donné par le nombre dérivé $f'(a)$.<br>
         La fonction $f$ définie par $f(x)=x^3$ a pour fonction dérivée la fonction $f'$ définie par $f'(x)=3x^2$.<br>
@@ -99,5 +94,7 @@ Comme $f'(${a})=-\\dfrac{1}{${ecritureParentheseSiNegatif(a)}^2}=-\\dfrac{1}{${a
 
         break
     }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }

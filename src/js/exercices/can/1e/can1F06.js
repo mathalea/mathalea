@@ -64,9 +64,13 @@ export default function LectureGraphiqueParaboleaEtb () {
 
             f = x => a * x ** 2 + b
 
-            texte = 'On donne la courbe représentative d\'une fonction $f$ définie par $f(x)=ax^2+b$ .<br>'
+            texte = `On donne la courbe représentative d'une fonction $f$ définie par $f(x)=ax^2+b$.<br>
+            
+            `
 
-            texte += 'Déterminer les valeurs de $a$ et $b$.<br>' + mathalea2d({ xmin: -6, xmax: 6, ymin: -1, ymax: 8, pixelsParCm: 18, scale: 0.6 }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
+            texte += `Déterminer les valeurs de $a$ et $b$.<br>
+            
+            ` + mathalea2d({ xmin: -6, xmax: 6, ymin: -1.5, ymax: 8, pixelsParCm: 18, scale: 0.6 }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
           } else {
             r = repere({
               yUnite: 1,
@@ -88,9 +92,13 @@ export default function LectureGraphiqueParaboleaEtb () {
 
             f = x => a * x ** 2 + b
 
-            texte = 'On donne la courbe représentative d\'une fonction $f$ définie par $f(x)=ax^2+b$ .<br>'
+            texte = `On donne la courbe représentative d'une fonction $f$ définie par $f(x)=ax^2+b$.<br>
+            
+            `
 
-            texte += 'Déterminer les valeurs de $a$ et $b$.<br>' + mathalea2d({ xmin: -6, xmax: 6, ymin: -4, ymax: 4, pixelsParCm: 18, scale: 0.6 }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
+            texte += `Déterminer les valeurs de $a$ et $b$.<br>
+            
+            ` + mathalea2d({ xmin: -6, xmax: 6, ymin: -4.5, ymax: 4, pixelsParCm: 18, scale: 0.6 }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
           }
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: '$a=$' })
@@ -137,9 +145,13 @@ export default function LectureGraphiqueParaboleaEtb () {
 
             f = x => a * x ** 2 + b
 
-            texte = 'On donne la courbe représentative d\'une fonction $f$ définie par $f(x)=ax^2+b$ .<br>'
-
-            texte += 'Déterminer les valeurs de $a$ et $b$.<br>' + mathalea2d({ xmin: -6, xmax: 6, ymin: -4, ymax: 4, pixelsParCm: 18, scale: 0.6 }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
+            texte = `On donne la courbe représentative d'une fonction $f$ définie par $f(x)=ax^2+b$.<br>
+            
+            `
+            texte += `Déterminer les valeurs de $a$ et $b$.<br>
+            
+            ` +
+             mathalea2d({ xmin: -6, xmax: 6, ymin: -4.5, ymax: 4, pixelsParCm: 18, scale: 0.6 }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
           } else {
             r = repere({
               yUnite: 1,
@@ -161,9 +173,12 @@ export default function LectureGraphiqueParaboleaEtb () {
 
             f = x => a * x ** 2 + b
 
-            texte = 'On donne la courbe représentative d\'une fonction $f$ définie par $f(x)=ax^2+b$ .<br>'
-
-            texte += 'Déterminer les valeurs de $a$ et $b$.<br>' + mathalea2d({ xmin: -6, xmax: 6, ymin: -7, ymax: 1, pixelsParCm: 18, scale: 0.6 }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
+            texte = `On donne la courbe représentative d'une fonction $f$ définie par $f(x)=ax^2+b$.<br>
+            
+            `
+            texte += `Déterminer les valeurs de $a$ et $b$.<br>
+            
+            ` + mathalea2d({ xmin: -6, xmax: 6, ymin: -7.5, ymax: 1, pixelsParCm: 18, scale: 0.6 }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
           }
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: '$a=$' })
@@ -189,5 +204,7 @@ export default function LectureGraphiqueParaboleaEtb () {
       cpt++
     }
     listeQuestionsToContenu(this)
+    this.canEnonce = texte
+    this.canReponseACompleter = ''
   }
 }

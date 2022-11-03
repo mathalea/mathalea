@@ -6,6 +6,8 @@ import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathL
 export const titre = 'Utiliser la distributivité (simple ou double) et réduire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcType = 'AMCHybride'
+export const amcReady = true
 
 /**
 * Utiliser la simple ou la double distributivité et réduire l'expression

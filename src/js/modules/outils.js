@@ -10,10 +10,9 @@ import { getVueFromUrl } from './gestionUrl.js'
 import FractionX from './FractionEtendue.js'
 import { elimineDoublons } from './interactif/questionQcm.js'
 import Decimal from 'decimal.js/decimal.mjs'
-
+export const tropDeChiffres = 'Trop de chiffres'
+export const epsilon = 0.000001
 const math = { format: format, evaluate: evaluate }
-const epsilon = 0.000001
-
 /**
  * Fonctions diverses pour la création des exercices
  * @module
@@ -188,6 +187,75 @@ export function deuxColonnes (cont1, cont2, largeur1 = 50) {
   }
 }
 /**
+ * Renvoie le html ou le latex qui mets les 2 chaines de caractères fournies sur 2 colonnes différentes
+ * Si en sortie html, il n'y a pas assez de places alors on passe en momocolonne!
+ * @author Mickael Guironnet
+ * @param {string} cont1 - Contenu de la première colonne
+ * @param {string} cont2 - Contenu de la deuxième colonne
+ * @param {{eleId: string, largeur1: number, widthmincol1: number, widthmincol2: number}} options
+ *          eleId : identifiant ID pour retrouver la colonne
+ *          largeur1 : largeur de la première colonne en latex en pourcentage
+ *          widthmincol1 : largeur de la première minimum en html en px
+ *          widthmincol2 : largeur de la deuxième  minimum en html en px
+ *  ex : deuxColonnesResp (enonce, correction, {eleId : '1_1', largeur1:50, widthmincol1: 400px, widthmincol2: 200px})
+ * @return {string}
+ */
+export function deuxColonnesResp (cont1, cont2, options) {
+  if (options === undefined) {
+    options = { largeur1: 50 }
+  } else if (typeof options === 'number') {
+    options = { largeur1: options }
+  }
+  if (options.largeur1 === undefined) {
+    options.largeur1 = 50
+  }
+  if (options.stylecol1 === undefined) {
+    options.stylecol1 = ''
+  }
+  if (options.stylecol2 === undefined) {
+    options.stylecol2 = ''
+  }
+  if (options.widthmincol1 === undefined) {
+    options.widthmincol1 = '0px'
+  }
+  if (options.widthmincol2 === undefined) {
+    options.widthmincol2 = '0px'
+  }
+
+  if (context.isHtml) {
+    return `
+    <style>
+    .cols-responsive {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-gap: 1rem;
+    }    
+    /* Screen larger than 900px? 2 column */
+    @media (min-width: 900px) {
+      .cols-responsive { grid-template-columns: repeat(2, 1fr); }
+    }    
+    </style>
+    <div class='cols-responsive'>
+      <div id='cols-responsive1-${options.eleId}'style='min-width:${options.widthmincol1};${options.stylecol1}' >
+      ${cont1}
+      </div>
+      <div id='cols-responsive2-${options.eleId}' style='min-width:${options.widthmincol2};${options.stylecol2}' >
+      ${cont2}
+      </div>
+    </div>
+`
+  } else {
+    return `\\begin{minipage}{${options.largeur1 / 100}\\linewidth}
+    ${cont1.replaceAll('<br>', '\\\\\n')}
+    \\end{minipage}
+    \\begin{minipage}{${(100 - options.largeur1) / 100}\\linewidth}
+    ${cont2.replaceAll('<br>', '\\\\\n')}
+    \\end{minipage}
+    `
+  }
+}
+/**
  *
  * @param {string} texte
  * @returns le texte centré dans la page selon le contexte.
@@ -352,7 +420,8 @@ export function creerCouples (E1, E2, nombreDeCouplesMin = 10) {
 * Choisit un nombre au hasard entre min et max sans appartenir à liste\_a\_eviter.
 * @param {int} min
 * @param {int} max
-* @param {liste} liste - Tous les éléments que l'on souhaite supprimer
+* @param {int[]} liste - Tous les éléments que l'on souhaite supprimer
+* @return {int} Nombre au hasard entre min et max non compris dans la listeAEviter
 *
 * @example
 * // Renvoie 1, 2 ou 3
@@ -368,17 +437,33 @@ export function creerCouples (E1, E2, nombreDeCouplesMin = 10) {
 */
 export function randint (min, max, listeAEviter = []) {
   // Source : https://gist.github.com/pc035860/6546661
+  if (!Number.isInteger(min) || !Number.isInteger(max)) {
+    window.notify('Les min et max de randint doivent être entiers', { min, max })
+    min = Math.floor(min)
+    max = Math.ceil(max)
+    if (max - min < 1) max = min + 1
+  }
   const range = max - min
   let rand = Math.floor(Math.random() * (range + 1))
   if (typeof listeAEviter === 'string') {
     listeAEviter = listeAEviter.split('')
   }
-  if (Number.isInteger(listeAEviter)) {
-    listeAEviter = [listeAEviter]
+  if (typeof listeAEviter === 'number') {
+    if (Number.isInteger(listeAEviter)) {
+      listeAEviter = [listeAEviter]
+    } else {
+      window.notify('Le nombre fourni à randint en exclusion n\'est pas un entier', { listeAEviter })
+      listeAEviter = [listeAEviter] // ce n'est pas grave de mettre un nombre non entier, randint ne choisit que des entiers
+    }
   }
-  listeAEviter = listeAEviter.map(Number)
+  if (Array.isArray(listeAEviter)) {
+    listeAEviter = listeAEviter.map(Number).filter(el => Math.round(el) === el) // on filtre les non nombres et les non-entiers
+  } else {
+    window.notify('La liste d\'exclusion de randint n\'est pas d\'un type pris en compte', { listeAEviter })
+    listeAEviter = []
+  }
   if (listeAEviter.length > 0) {
-    while (listeAEviter.indexOf(min + rand) !== -1) {
+    while (listeAEviter.includes(min + rand)) {
       rand = Math.floor(Math.random() * (range + 1))
     }
   }
@@ -2943,8 +3028,9 @@ function afficherNombre (nb, precision, fonction, force = false) {
   }
 
   const maximumSignificantDigits = nbChiffresPartieEntiere + precision
+
   if ((maximumSignificantDigits > 15) && (!(nb instanceof Decimal))) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondi
-    window.notify(fonction + ' : Trop de chiffres', { nb, precision })
+    window.notify(fonction + ` : ${tropDeChiffres}`, { nb, precision })
     return insereEspacesNombre(nb, nbChiffresPartieEntiere, precision, fonction)
   } else {
     return insereEspacesNombre(nb, nbChiffresPartieEntiere, precision, fonction)
@@ -6670,7 +6756,7 @@ export function telechargeFichier (text, filename) {
 export function introLatex (entete = 'Exercices', listePackages = '') {
   if (entete === '') { entete = 'Exercices' }
   return `\\documentclass[12pt,svgnames]{article}
-\\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
+\\usepackage[a4paper,left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
 %\\usepackage[utf8]{inputenc}        
 %\\usepackage[T1]{fontenc}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -6732,7 +6818,7 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 \\renewcommand{\\labelenumii}{\\textbf{\\theenumii{}.}}
 \\newcommand{\\version}[1]{\\fancyhead[R]{Version #1}}
 \\setlength{\\fboxsep}{3mm}
-\\newenvironment{correction}{\\newpage\\fancyhead[C]{\\textbf{Correction}}\\setcounter{exo}{0}}{}
+\\newenvironment{correction}{\\newpage\\fancyhead[C]{\\textbf{Correction}}\\setcounter{exo}{0}}{\\clearpage}
 \\fancyhead[C]{\\textbf{${entete}}}
 \\fancyfoot{}
 \\fancyfoot[R]{\\scriptsize Coopmaths.fr -- CC-BY-SA}
@@ -7410,9 +7496,10 @@ export function preambulePersonnalise (listePackages) {
         % Il convient donc de commenter l'un d'eux selon les besoins
         %
         % à noter que le package scratch3 requiert simplekv et tikz qui sont automatiquement chargés en cas de besoin
-        \\usepackage{scratch}
-        %\\usepackage{scratch3} 
-        
+        %\\usepackage{scratch}
+        % Le package scratch est obsolète. On le remplace par le pckage scratch3
+        % Compatibilité avec les anciens sources tex à vérifier          
+        \\usepackage{scratch3}
         %%%%% FIGURES %%%%%
         \\usepackage{graphics} % à distinguer du package graphicx
         \\usepackage{framed} % decoration background
@@ -8445,11 +8532,16 @@ export function exportQcmAmc (exercice, idExo) {
                 }
               }
               texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{question}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
+              if (prop.enonce !== undefined) {
+                texQr += prop.enonce + '\n'
+              }
+              /* EE 13/10/1022 : A mon avis, ne sert à rien. Je le laisse car si pb, on saura que c'est peut-être cela la raison.
               if (propositions[0].reponse !== undefined) {
                 if (propositions[0].reponse.texte) {
                   texQr += propositions[0].reponse.texte + '\n'
                 }
               }
+              */
               texQr += `\t\\begin{${horizontalite}}`
               if (ordered) {
                 texQr += '[o]'

@@ -108,6 +108,14 @@ export default function EcrirePetitsNombresEntiers () {
           } else {
             NombreAEcrire = randint(1 + Math.pow(10, 11), Math.pow(10, 12) - 1)
           }
+          if (!context.isHtml) {
+            this.canEnonce = `Écrire le nombre en chiffres.
+
+
+            ${nombreEnLettres(NombreAEcrire)}`
+            this.correction = this.listeCorrections[0]
+            this.canReponseACompleter = ''
+          }
           break
         case 1 : // Se termine par 80
           if (listeQuestions[i] < 7) {
@@ -116,6 +124,14 @@ export default function EcrirePetitsNombresEntiers () {
             NombreAEcrire = 80 + 100 * Math.trunc(randint(1 + Math.pow(10, 6), Math.pow(10, 7) - 1))
           } else {
             NombreAEcrire = 80 + 100 * Math.trunc(randint(1 + Math.pow(10, 9), Math.pow(10, 10) - 1))
+          }
+          if (!context.isHtml) {
+            this.canEnonce = `Écrire le nombre en chiffres.
+
+
+            ${nombreEnLettres(NombreAEcrire)}`
+            this.correction = this.listeCorrections[0]
+            this.canReponseACompleter = ''
           }
           break
         case 2 : // Contient 80 et quelques
@@ -146,6 +162,14 @@ export default function EcrirePetitsNombresEntiers () {
               NombreAEcrire = Math.pow(10, 3) * randint(100000001, 999999999) + 80 + randint(1, 19) + 100 * randint(1, 9)
             }
           }
+          if (!context.isHtml) {
+            this.canEnonce = `Écrire le nombre en chiffres.
+
+
+            ${nombreEnLettres(NombreAEcrire)}`
+            this.correction = this.listeCorrections[0]
+            this.canReponseACompleter = ''
+          }
           break
         case 3 : // Se termine par 100
           if (listeQuestions[i] < 7) {
@@ -154,6 +178,14 @@ export default function EcrirePetitsNombresEntiers () {
             NombreAEcrire = 100 * (randint(Math.pow(10, 5), Math.pow(10, 6)) * 10 + randint(2, 9))
           } else {
             NombreAEcrire = 100 * (randint(Math.pow(10, 8), Math.pow(10, 9)) * 10 + randint(2, 9))
+          }
+          if (!context.isHtml) {
+            this.canEnonce = `Écrire le nombre en chiffres.
+
+
+            ${nombreEnLettres(NombreAEcrire)}`
+            this.correction = this.listeCorrections[0]
+            this.canReponseACompleter = ''
           }
           break
         case 4 : // Commence par mille.... (et non un-mille...)
@@ -166,6 +198,14 @@ export default function EcrirePetitsNombresEntiers () {
             NombreAEcrire = 1000 * (randint(Math.pow(10, listeQuestions[i] - 4), Math.pow(10, listeQuestions[i] - 3) - 1)) + randint(1, 99)
           } else {
             NombreAEcrire = randint(1 + Math.pow(10, 1), Math.pow(10, 2) - 1)
+          }
+          if (!context.isHtml) {
+            this.canEnonce = `Écrire le nombre en chiffres.
+
+
+            ${nombreEnLettres(NombreAEcrire)}`
+            this.correction = this.listeCorrections[0]
+            this.canReponseACompleter = ''
           }
           break
       }

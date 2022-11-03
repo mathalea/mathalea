@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
-
+import { context } from '../../modules/context.js'
 export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC
 export const titre = 'Déterminer le signe d\'une puissance'
@@ -157,5 +157,10 @@ export default class SignePuissance extends Exercice {
       cpt++
     }
     listeQuestionsToContenu(this)
+    if (!context.isHtml) {
+      this.canEnonce = 'Quel est le signe de ' + this.listeQuestions[0] + '?'
+      this.correction = this.listeCorrections[0]
+      this.canReponseACompleter = propositionsQcm(this, 0).texte
+    }
   }
 }

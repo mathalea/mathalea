@@ -23,7 +23,7 @@ export default function CalculProbaTableau () {
   this.sup = true
   this.consigne = ''
   this.nbQuestions = 1
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
@@ -40,111 +40,190 @@ export default function CalculProbaTableau () {
       tableau = tableauColonneLigne(['', 'A', '\\overline{A}', '\\text{Total}'],
         ['B', '\\overline{B}', '\\text{Total}'],
         [`${texNombre(pAinterB, 2)}`, `${texNombre(pB - pAinterB, 2)}`, `${texNombre(pB, 2)}`, `${texNombre(pA - pAinterB, 2)}`, `${texNombre(pAbarreinterBbarre, 2)}`, `${texNombre(1 - pB, 2)}`, `${texNombre(pA, 2)}`, `${texNombre(1 - pA, 2)}`, '1'])
-      texte = 'Le tableau ci-dessous est un tableau de probabilités avec deux événements $A$ et $B$  d’une expérience aléatoire.<br>  '
+      texte = `Ce tableau est un tableau de probabilités avec deux événements $A$ et $B$  d’une expérience aléatoire.<br>
+      
+      `
       switch (choice([1, 2, 3, 4, 5, 6, 7, 8, 9])) {
         case 1:// p_A(B)
-          texte += `${tableau}`
+          texte += `${tableau}
+          
+          `
           if (this.interactif) {
             texte += '<br> $P_A(B)=$ '
             texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee', { texteApres: '(Résultat sous la forme d’une fraction d’entiers)' })
-          } else { texte += `${sp(5)}Déterminer $P_A(B)$. ` }
+          } else {
+            texte += `
+          
+         Déterminer $P_A(B)$. `
+          }
           texteCorr = ` $P_A(B)=\\dfrac{P(A\\cap B)}{P(A)}=\\dfrac{${texNombre(pAinterB, 2)}}{${texNombre(pA, 2)}}=\\dfrac{${texNombre(pAinterB * 100, 0)}}{${texNombre(pA * 100, 0)}}$ 
       `
           reponse = new FractionX(pAinterB, pA)
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
           break
         case 2:// p(B)
-          texte += `${tableau}`
+          texte += `${tableau}
+          
+          `
           if (this.interactif) {
-            texte += '<br> $P(B)=$ '
+            texte += `<br>
+            
+            Calculer $P(B)$. `
             texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee', { texteApres: '(Résultat sous forme décimale)' })
-          } else { texte += `${sp(5)}Déterminer $P_A(B)$. ` }
+          } else {
+            texte += `
+          
+          Déterminer $P_A(B)$. `
+          }
           texteCorr = ` $P(B)=${texNombre(pB, 2)}$ 
       `
           reponse = pB
           setReponse(this, i, reponse)
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
           break
 
         case 3:// p(Bbarre)
-          texte += `${tableau}`
+          texte += `${tableau}
+          
+          `
           if (this.interactif) {
-            texte += '<br> $P(\\overline{B})=$ '
+            texte += `<br> 
+           
+            Calculer $P(\\overline{B})$. `
             texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee', { texteApres: '(Résultat sous forme décimale)' })
-          } else { texte += `${sp(5)}Déterminer $P(\\overline{B})$. ` }
+          } else {
+            texte += `
+          
+          Déterminer $P(\\overline{B})$. `
+          }
           texteCorr = ` $P(\\overline{B})=${texNombre(1 - pB, 2)}$ 
       `
           reponse = (new Decimal(pB)).mul(-1).add(1)
           setReponse(this, i, reponse)
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
           break
         case 4:// p(AinterB)
-          texte += `${tableau}`
+          texte += `${tableau}
+          
+          `
           if (this.interactif) {
             texte += '<br> $P(A\\cap B)=$ '
             texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee', { texteApres: '(Résultat sous forme décimale)' })
-          } else { texte += `${sp(5)}Déterminer $P(A\\cap B)$. ` }
+          } else {
+            texte += `
+           
+          Déterminer $P(A\\cap B)$. `
+          }
           texteCorr = ` $P(A\\cap B))=${texNombre(pAinterB, 2)}$ 
       `
           reponse = pAinterB
           setReponse(this, i, reponse)
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
           break
 
         case 5:// p(AinterBbarre)
-          texte += `${tableau}`
+          texte += `${tableau}
+          
+          `
           if (this.interactif) {
             texte += '<br> $P(A\\cap \\overline{B})=$ '
             texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee', { texteApres: '(Résultat sous forme décimale)' })
-          } else { texte += `${sp(5)}Déterminer $P(A\\cap \\overline{B})$. ` }
+          } else {
+            texte += `
+           
+          Déterminer $P(A\\cap \\overline{B})$. `
+          }
           texteCorr = ` $P(A\\cap \\overline{B})=${texNombre(pA - pAinterB, 2)}$ 
       `
           reponse = (new Decimal(pA)).sub(pAinterB)
           setReponse(this, i, reponse)
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
           break
 
         case 6:// p(AbarreinterBbarre)
-          texte += `${tableau}`
+          texte += `${tableau}
+          
+          `
           if (this.interactif) {
-            texte += '<br> $P(\\overline{A}\\cap B)=$ '
+            texte += `<br>
+            \\\\
+            Calculer $P(\\overline{A}\\cap B)$. `
             texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee', { texteApres: '(Résultat sous forme décimale)' })
           } else { texte += `${sp(5)}Déterminer $P(\\overline{A}\\cap B)$. ` }
           texteCorr = ` $P(\\overline{A}\\cap B)=${texNombre(pB - pAinterB, 2)}$ 
       `
           reponse = (new Decimal(pB)).sub(pAinterB)
           setReponse(this, i, reponse)
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
           break
 
         case 7:// p_B(A)
-          texte += `${tableau}`
+          texte += `${tableau}
+          
+          `
           if (this.interactif) {
-            texte += '<br> $P_B(A)=$ '
+            texte += `<br>
+            
+           Calculer  $P_B(A)$ `
             texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee', { texteApres: '(Résultat sous la forme d’une fraction d’entiers)' })
-          } else { texte += `${sp(5)}Déterminer $P_B(A)$. ` }
+          } else {
+            texte += `
+          
+          Déterminer $P_B(A)$. `
+          }
           texteCorr = ` $P_B(A)=\\dfrac{P(A\\cap B)}{P(B)}=\\dfrac{${texNombre(pAinterB, 2)}}{${texNombre(pB, 2)}}=\\dfrac{${texNombre(pAinterB * 100, 0)}}{${texNombre(pB * 100, 0)}}$ 
         `
           reponse = new FractionX(pAinterB, pB)
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
           break
         case 8:// p_B(Abarre)
-          texte += `${tableau}`
+          texte += `${tableau}
+          
+          `
           if (this.interactif) {
             texte += '<br> $P_B(\\overline{A})=$ '
             texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee', { texteApres: '(Résultat sous la forme d’une fraction d’entiers)' })
-          } else { texte += `${sp(5)}Déterminer $P_B(\\overline{A})$. ` }
+          } else {
+            texte += `
+           
+          Déterminer $P_B(\\overline{A})$. `
+          }
           texteCorr = ` $P_B(\\overline{A})=\\dfrac{P(\\overline{A}\\cap B)}{P(B)}=\\dfrac{${texNombre(pB - pAinterB, 2)}}{${texNombre(pB, 2)}}=\\dfrac{${texNombre((pB - pAinterB) * 100, 0)}}{${texNombre(pB * 100, 0)}}$ 
           `
           reponse = new FractionX(pB - pAinterB, pB)
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
           break
 
         case 9:// p_Bbare(Abarre)
-          texte += `${tableau}`
+          texte += `${tableau}
+          
+          `
           if (this.interactif) {
-            texte += '<br> $P_{\\overline{B}}(\\overline{A})=$ '
+            texte += `<br>
+            Calculer $P_{\\overline{B}}(\\overline{A})$. `
             texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee', { texteApres: '(Résultat sous la forme d’une fraction d’entiers)' })
-          } else { texte += `${sp(5)}Déterminer $P_{\\overline{B}}(\\overline{A})$. ` }
+          } else {
+            texte += `
+         
+          Déterminer $P_{\\overline{B}}(\\overline{A})$. `
+          }
           texteCorr = ` $P_{\\overline{B}}(\\overline{A})=\\dfrac{P(\\overline{A}\\cap \\overline{B})}{P(\\overline{B})}=\\dfrac{${texNombre(pAbarreinterBbarre, 2)}}{${texNombre(1 - pB, 2)}}=\\dfrac{${texNombre(pAbarreinterBbarre * 100, 0)}}{${texNombre((1 - pB) * 100, 0)}}$ 
           `
           reponse = new FractionX(pAbarreinterBbarre, 1 - pB)
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
           break
       }
       if (this.questionJamaisPosee(i, pA, pB)) {

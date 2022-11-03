@@ -1,3 +1,4 @@
+import { context } from '../../../modules/context.js'
 import Transformations from '../../6e/_Transformations.js'
 export { interactifReady, interactifType, amcType, amcReady } from '../../6e/_Transformations.js'
 export const titre = 'Trouver le symétrique d’un point'

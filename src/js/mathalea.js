@@ -1198,10 +1198,12 @@ function miseAJourDuCode () {
           codeCorrections += '\\end{enumerate}'
           codeEnonces = ''
           if (msgAlerteCanEnonce !== '') {
-            codeEnonces += ` \\textcolor{red}{Les exercices ${msgAlerteCanEnonce} n'ont pas de propriété canEnonce} \\\\`
+            window.notify(`Les exercices ${msgAlerteCanEnonce} n'ont pas de propriété canEnonce`)
+            // codeEnonces += ` \\textcolor{red}{Les exercices ${msgAlerteCanEnonce} n'ont pas de propriété canEnonce} \\\\`
           }
           if (msgAlerteCanReponseACompleter !== '') {
-            codeEnonces += ` \\textcolor{red}{Les exercices ${msgAlerteCanReponseACompleter} n'ont pas de propriété canReponseACompleter} \\\\`
+            window.notify(`Les exercices ${msgAlerteCanReponseACompleter} n'ont pas de propriété canReponseACompleter`)
+            // codeEnonces += ` \\textcolor{red}{Les exercices ${msgAlerteCanReponseACompleter} n'ont pas de propriété canReponseACompleter} \\\\`
           }
           codeEnonces += `\\renewcommand*{\\arraystretch}{2.5}
           \\begin{spacing}{1.1}
@@ -2743,6 +2745,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         copierExercicesFormVersAffichage(listeDesExercices)
       }
       miseAJourDeLaListeDesExercices()
+      const event = new CustomEvent('buildex', { detail: 'miseAJourDeLaListeDesExercices' })
+      document.dispatchEvent(event)
     }
   }
   // À l'appui sur précédent ou suivant, on relance l'analyse de l'URL
@@ -2797,6 +2801,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
       copierExercicesFormVersAffichage(listeDesExercices)
       miseAJourDeLaListeDesExercices()
+      const event = new CustomEvent('buildex', { detail: 'miseAJourDeLaListeDesExercices' })
+      document.dispatchEvent(event)
     })
   }
 
@@ -3536,6 +3542,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         gestionVue('menu')
       }
     }
+    const pleinEcran = new window.Event('pleinEcran', { bubbles: true })
+    document.dispatchEvent(pleinEcran)
   })
 
   const buttonDiap = document.getElementById('buttonDiap')

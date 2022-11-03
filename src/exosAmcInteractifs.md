@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 519 
-- nombre d'exos interactifReady 796 
+- nombre d'exos amcReady 524 
+- nombre d'exos interactifReady 803 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -17,7 +17,7 @@
 |2F11-1|Déterminer l'image d'un nombre par une fonction de référence|OK|AMCNum|OK|mathLive|
 |2F25-2|Étudier la parité d'une fonction|OK|qcmMono|OK|qcm|
 |2F32-2|Déterminer graphiquement les extremums|OK|AMCHybride|OK|mathLive|
-|2G11-5|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
+|2G11-5|Calculs de volumes|OK|AMCHybride|OK|qcm,mathLive|
 |2G30-1|Déterminer le coefficient directeur d'une droite|OK|AMCHybride|OK|mathLive|
 |2G35-7|Lecture graphique des coefficients d'une équation réduite |OK|AMCHybride|OK|mathLive|
 |2N10-1|Lire l’abscisse décimale d’un point repéré par une fraction|OK|AMCHybride|OK|mathLive|
@@ -109,8 +109,9 @@
 |3G32-4|Calculer la hauteur d'une montagne|OK|AMCHybride|OK|mathLive|
 |3G32-5|Triangle rectangle inscrit dans un triangle rectangle|OK|AMCHybride|OK|mathLive|
 |3G32|Calculer la largeur d'une rivière|OK|AMCHybride|OK|mathLive|
+|3G41|Dessiner différentes vues d'un empilement de cubes|OK|AMCHybride|KO|KO|
 |3G42|Volume d'une boule|OK|AMCNum|OK|mathLive|
-|3G43|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
+|3G43|Calculs de volumes|OK|AMCHybride|OK|qcm,mathLive|
 |3I10-1|Analyser des scripts Scratch|OK|AMCHybride|OK|qcm|
 |3I12-1|Compléter un script Scratch - 1|OK|AMCOpen|KO|KO|
 |3I12-2|Comprendre un script Scratch - 1|OK|AMCHybride|KO|KO|
@@ -120,7 +121,7 @@
 |3L10|Donner l'opposé d'une expression|KO|KO|OK|mathLive|
 |3L11-1|Utiliser la double distributivité|OK|AMCOpenNum✖︎3|OK|mathLive|
 |3L11-2|Réduire une expression|OK|AMCHybride|OK|mathLive|
-|3L11-3|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
+|3L11-3|Utiliser la distributivité (simple ou double) et réduire|OK|AMCHybride|OK|mathLive|
 |3L11-4|Factoriser une expression|OK|AMCOpen|OK|mathLive|
 |3L11-5|Calcul mental et calcul littéral|KO|KO|OK|mathLive|
 |3L11-6|Factoriser une expression complexe|KO|KO|OK|mathLive|
@@ -202,7 +203,7 @@
 |4G31|Contrôler si deux droites sont parallèles|OK|AMCHybride|OK|mathLive|
 |4G40|Utiliser le cosinus pour calculer une longueur dans un triangle rectangle|OK|AMCOpenNum|OK|mathLive|
 |4G41|Utiliser le cosinus pour calculer la mesure d'un angle dans un triangle rectangle|OK|AMCOpenNum|OK|mathLive|
-|4G53|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
+|4G53|Calculs de volumes|OK|AMCHybride|OK|qcm,mathLive|
 |4I1-2|Tortue Scratch avec répétitions|OK|qcmMono|OK|cliqueFigure|
 |4L10-1|Réduire, si possible, une expression littérale simple|KO|KO|OK|mathLive|
 |4L10-3|Yohaku additif expressions littérales niveau 1|KO|KO|OK|custom|
@@ -238,7 +239,7 @@
 |5L14-2|Substitution|OK|AMCNum|OK|mathLive|
 |5L14|Calculer la valeur d'une expression littérale|KO|KO|OK|mathLive|
 |5L16|Simplifier l'écriture d'une expression littérale|KO|KO|OK|mathLive|
-|5M20|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
+|5M20|Calculs de volumes|OK|AMCHybride|OK|qcm,mathLive|
 |5N10|Passer d'une fraction à une écriture décimale et inversement|KO|KO|OK|mathLive|
 |5N11-3|Écrire une fraction sur 100 puis sous la forme d'un pourcentage|OK|AMCNum|OK|mathLive|
 |5N11-4|Exprimer une fraction sous la forme d'une valeur approchée d'un pourcentage|KO|KO|OK|mathLive|
@@ -308,10 +309,12 @@
 |6G10-3|Choisir la bonne figure|OK|qcmMono|OK|cliqueFigure|
 |6G10-4|Connaître le vocabulaire du cercle|KO|KO|OK|qcm,mathLive|
 |6G10-5|Tracer des droites, segments,...|OK|AMCOpen|KO|KO|
+|6G10|Utiliser la notation de droites, segments et demi-droites|OK|AMCOpen|KO|KO|
 |6G11|Tracer des perpendiculaires|OK|AMCOpen|KO|KO|
 |6G12-1|Tracer des parallèles et des perpendiculaires|OK|AMCOpen|KO|KO|
 |6G12|Tracer des parallèles|OK|AMCOpen|KO|KO|
 |6G14|Utiliser les propriétés des droites perpendiculaires|OK|AMCOpen|KO|KO|
+|6G20-3|Connaitre le vocabulaire de base des polygones|KO|KO|OK|qcm|
 |6G22|Nommer un angle|OK|AMCHybride|OK|qcm,mathLive|
 |6G23-1|Mesurer un angle sans rapporteur sur l'énoncé|OK|qcmMono|OK|qcm|
 |6G23-4|Mesurer un angle avec rapporteur intégré|OK|AMCHybride|OK|mathLive|
@@ -346,7 +349,7 @@
 |6M22|Calculer périmètre et aire de disques (à partir d'un texte)|OK|AMCHybride|OK|mathLive|
 |6M23|Convertir des aires|OK|qcmMono|OK|qcm,mathLive|
 |6M30-0|Déterminer le volume de pavés droit par dénombrement|OK|AMCNum|OK|mathLive|
-|6M30|Calculer le volume de solides donnés|OK|qcmMono|OK|qcm,mathLive|
+|6M30|Calculer le volume de solides donnés|OK|AMCHybride|OK|qcm,mathLive|
 |6M31-2|Convertir des volumes ou des capacités|OK|AMCNum|OK|mathLive|
 |6M31|Convertir des volumes|OK|qcmMono|OK|qcm,mathLive|
 |6N10-0|Écrire un nombre en chiffres ou en lettres|KO|KO|OK|mathLive|
@@ -497,6 +500,9 @@
 |can1G06|Déterminer un produit scalaire sur des figures géométriques classiques |KO|KO|OK|mathLive|
 |can1G07|Déterminer une coordonnée avec un produit scalaire|KO|KO|OK|mathLive|
 |can1G08|Déterminer un vecteur normal avec une équation cartésienne|KO|KO|OK|custom|
+|can1G09|Associer un point à un réel sur un cercle trigonométrique |KO|KO|OK|mathLive|
+|can1G10|Associer une mesure d'angle à un  point du cercle trigonométrique |KO|KO|OK|mathLive|
+|can1G11|Donner la mesure d'un angle à partir des cosinus et sinus |KO|KO|OK|mathLive|
 |can1L01|Calculer un discriminant|OK|AMCNum|OK|mathLive|
 |can1L02|Déterminer le nombre de solutions d’une équation du second degré|KO|KO|OK|mathLive|
 |can1L03|Trouver les racines à partir d’une forme factorisée|KO|KO|OK|mathLive|
@@ -599,6 +605,7 @@
 |can3C11|Simplifier des fractions ou des racines carrées|OK|AMCNum|OK|mathLive|
 |can3C12|Encadrer une racine carrée|OK|AMCNum|OK|mathLive|
 |can3C13|Pyramide additive fractions|OK|AMCNum|OK|mathLive|
+|can3C14|Passer d'un décimal à une fraction irréductible|OK|AMCNum|OK|mathLive|
 |can3F01|Lire une image graphiquement|OK|AMCNum|OK|mathLive|
 |can3F02|Calculer une image par une fonction linéaire|OK|AMCNum|OK|mathLive|
 |can3F03|Calculer une image par une fonction affine|OK|AMCNum|OK|mathLive|
@@ -686,6 +693,7 @@
 |can5C19|Soustraire deux décimaux|OK|AMCNum|OK|mathLive|
 |can5C20|Soustraire deux décimaux*|OK|AMCNum|OK|mathLive|
 |can5C21|Calculer la somme de décimaux qui se marient|OK|AMCNum|OK|mathLive|
+|can5C22|Passer d'un décimal à une fraction|OK|AMCNum|OK|mathLive|
 |can5D01|Convertir des heures décimales en heures/minutes et inversement|OK|AMCNum|OK|mathLive|
 |can5D02|Convertir des heures décimales en heures/minutes et inversement*|OK|AMCNum|OK|mathLive|
 |can5D03|Convertir des fractions d’heures en minutes et inversement|OK|AMCNum|OK|mathLive|
@@ -757,6 +765,7 @@
 |can6G05|Résoudre un problème de longueurs (inverse)|OK|AMCNum|OK|mathLive|
 |can6G06|Compter les arêtes et les faces|OK|AMCNum|OK|mathLive|
 |can6G07|Compter les points symétriques manquant|OK|AMCNum|OK|mathLive|
+|can6I01|Noter la couleur (scratch)|KO|KO|OK|mathLive|
 |can6M01|Comparer des périmètres (V/F)|OK|qcmMono|OK|qcm|
 |can6M02|Trouver la bonne unité|OK|qcmMono|OK|qcm|
 |can6M03|Convertir en mètres|OK|AMCNum|OK|mathLive|

@@ -13,4 +13,5 @@ export default function TraduireUnePhraseParUneExpressionLitteraleEtCalculer () 
   this.version = 3
   this.titre = titre
   this.litteral = true
+  this.sup = 1
 }
