@@ -65,6 +65,7 @@ export default function OrdonneeAbscisseFonctionLineaire () {
       xLabelMax: xmax - 1,
       yLabelMax: 2 * ymax - 1,
       yLabelMin: ymin + 1,
+      xyLabelScale: 0.6,
       axeXStyle: '->',
       axeYStyle: '->',
       yLabelDistance: 1,

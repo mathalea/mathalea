@@ -7820,7 +7820,7 @@ export function Repere ({
       xLabelListe = rangeMinMax(xLabelMin, xLabelMax, [0], xLabelDistance)
     }
     for (const x of xLabelListe) {
-      const l = texteParPosition(`${stringNombre(x, precisionLabelX)}`, x * xUnite, ordonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', 1, 'middle', true)
+      const l = texteParPosition(`${stringNombre(x, precisionLabelX)}`, x * xUnite, ordonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', context.isHtml ? 1 : 0.6, 'middle', true)
       l.isVisible = false
       objets.push(l)
     }
@@ -7830,7 +7830,7 @@ export function Repere ({
       yLabelListe = rangeMinMax(yLabelMin, yLabelMax, [0], yLabelDistance)
     }
     for (const y of yLabelListe) {
-      const l = texteParPosition(`${stringNombre(y, precisionLabelY)}`, abscisseAxe * xUnite - yLabelEcart, y * yUnite, 'milieu', 'black', 1, 'middle', true)
+      const l = texteParPosition(`${stringNombre(y, precisionLabelY)}`, abscisseAxe * xUnite - yLabelEcart, y * yUnite, 'milieu', 'black', context.isHtml ? 1 : 0.6, 'middle', true)
       l.isVisible = false
       objets.push(l)
     }
