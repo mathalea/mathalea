@@ -604,54 +604,55 @@ export function pyramideTronquee3d (base, sommet, coeff = 0.5, color = 'black') 
    * @author Jean-Claude Lhote
    * usage : cube(x,y,z,c,color) construit le cube d'arète c dont le sommet en bas à gauche a les coordonnées x,y,z.
    * le face avant est dans le plan xz
+   * segmentAAfficher='AC' : Permet d'afficher en plus le segment AC
    *
 */
 class Cube3d {
   constructor (x, y, z, c, color = 'black', colorAV = 'lightgray', colorTOP = 'white', colorDr = 'darkgray', aretesCachee = true, affichageNom = false, nom = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']) {
     ObjetMathalea2D.call(this, { })
-    this.nom = nom
-    this.color = color
     const A = point3d(x, y, z)
-    A.c2d.nom = this.nom[0]
+    A.c2d.nom = nom[0]
     const vx = vecteur3d(c, 0, 0)
     const vy = vecteur3d(0, c, 0)
     const vz = vecteur3d(0, 0, c)
     const B = translation3d(A, vx)
-    B.c2d.nom = this.nom[1]
+    B.c2d.nom = nom[1]
     const C = translation3d(B, vz)
-    C.c2d.nom = this.nom[2]
+    C.c2d.nom = nom[2]
     const D = translation3d(A, vz)
-    D.c2d.nom = this.nom[3]
+    D.c2d.nom = nom[3]
     let pointsFace = [A.c2d, B.c2d, C.c2d, D.c2d]
-    const faceAV = affichageNom ? polygoneAvecNom(...pointsFace) : polygone(pointsFace, this.color)
-    if (affichageNom) faceAV[0].color = colorToLatexOrHTML(this.color)
+    const faceAV = affichageNom ? polygoneAvecNom(...pointsFace) : polygone(pointsFace, color)
+    if (affichageNom) faceAV[0].color = colorToLatexOrHTML(color)
     const E = translation3d(A, vy)
-    E.c2d.nom = this.nom[4]
+    E.c2d.nom = nom[4]
     const F = translation3d(E, vx)
-    F.c2d.nom = this.nom[5]
+    F.c2d.nom = nom[5]
     const G = translation3d(F, vz)
-    G.c2d.nom = this.nom[6]
+    G.c2d.nom = nom[6]
     const H = translation3d(D, vy)
-    H.c2d.nom = this.nom[7]
+    H.c2d.nom = nom[7]
     pointsFace = [E.c2d, F.c2d, G.c2d, H.c2d]
     const faceArr = affichageNom ? polygoneAvecNom(...pointsFace) : vide2d
     if (affichageNom) faceArr[0].color = colorToLatexOrHTML('none')
 
-    const faceDr = polygone([B.c2d, F.c2d, G.c2d, C.c2d], this.color)
-    const faceTOP = polygone([D.c2d, C.c2d, G.c2d, H.c2d], this.color)
-    const areteEH = segment(E.c2d, H.c2d, this.color)
+    const faceDr = polygone([B.c2d, F.c2d, G.c2d, C.c2d], color)
+    const faceTOP = polygone([D.c2d, C.c2d, G.c2d, H.c2d], color)
+    const areteEH = segment(E.c2d, H.c2d, color)
     areteEH.pointilles = 2
-    const areteEF = segment(E.c2d, F.c2d, this.color)
+    const areteEF = segment(E.c2d, F.c2d, color)
     areteEF.pointilles = 2
-    const areteEA = segment(E.c2d, A.c2d, this.color)
+    const areteEA = segment(E.c2d, A.c2d, color)
     areteEA.pointilles = 2
+
     if (aretesCachee) {
       faceAV.couleurDeRemplissage = colorToLatexOrHTML(colorAV)
       faceTOP.couleurDeRemplissage = colorToLatexOrHTML(colorTOP)
       faceDr.couleurDeRemplissage = colorToLatexOrHTML(colorDr)
       this.c2d = [faceAV, faceDr, faceTOP]
     } else {
-      this.c2d = [faceAV, faceDr, faceTOP, faceArr, areteEH, areteEF, areteEA]
+      this.c2d = [A, B, C, D, E, F, G, H, faceAV, faceDr, faceTOP, faceArr, areteEH, areteEF, areteEA]
+    // Les 8 sommets sont indispensables pour pouvoir les utiliser ensuite.
     }
   }
 }
@@ -1048,22 +1049,22 @@ export function homothetie3d (point3D, centre, rapport, color) {
   }
 }
 export class CodageAngleDroit3D extends ObjetMathalea2D {
-  constructor (A, B, C) {
+  constructor (A, B, C, color = 'black', taille = 1) {
     super()
     const BA = vecteur3d(B, A)
     const BC = vecteur3d(B, C)
     const k1 = BA.norme
     const k2 = BC.norme
-    const M1 = homothetie3d(A, B, 0.5 / k1)
-    const M3 = homothetie3d(C, B, 0.5 / k2)
+    const M1 = homothetie3d(A, B, taille * 0.5 / k1)
+    const M3 = homothetie3d(C, B, taille * 0.5 / k2)
     const BM1 = vecteur3d(B, M1)
     const BM3 = vecteur3d(B, M3)
     const x = B.x + BM1.x + BM3.x
     const y = B.y + BM1.y + BM3.y
     const z = B.z + BM1.z + BM3.z
     const M2 = point3d(x, y, z)
-    const M1M2 = arete3d(M1, M2)
-    const M2M3 = arete3d(M2, M3)
+    const M1M2 = arete3d(M1, M2, color)
+    const M2M3 = arete3d(M2, M3, color)
     this.svg = function (coeff) {
       return M1M2.c2d.svg(coeff) + M2M3.c2d.svg(coeff)
     }
