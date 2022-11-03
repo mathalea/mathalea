@@ -69,10 +69,10 @@ export default function CalculDeVolumes () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const listeUnites = [
-      [sp(2) + '\\text{m}', sp(2) + '\\text{m}^3'],
-      [sp(2) + '\\text{dm}', sp(2) + '\\text{dm}^3'],
-      [sp(2) + '\\text{cm}', sp(2) + '\\text{cm}^3'],
-      [sp(2) + '\\text{mm}', sp(2) + '\\text{mm}^3']
+      [sp(2) + '\\text{m}', sp(2) + '\\text{m}^3', 'm^3'],
+      [sp(2) + '\\text{dm}', sp(2) + '\\text{dm}^3', 'dm^3'],
+      [sp(2) + '\\text{cm}', sp(2) + '\\text{cm}^3', 'mm^3'],
+      [sp(2) + '\\text{mm}', sp(2) + '\\text{mm}^3', 'mm^3']
     ]
     let partieDecimale1, partieDecimale2, partieDecimale3
     if (this.sup2) {
