@@ -199,6 +199,6 @@ export default function mesureAngleCosSin () {
         break
     }
     this.canEnonce = this.question
-    this.canReponseACompleter = ''
+    this.canReponseACompleter = '$\\alpha=\\ldots$'
   }
 }
