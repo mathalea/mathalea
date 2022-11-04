@@ -89,64 +89,83 @@ export default function CalculDeVolumes () {
       partieDecimale2 = new Decimal(0)
       partieDecimale3 = new Decimal(0)
     }
-    for (let i = 0, texte, texteCorr, reponse, objetsEnonce, A, B, C, D, E, BC, DC, segmentATrouver, segmentAnnexe, solideDessine, longueurATrouver, nomSolide, nomSolideTab, segmentChoisi, choixSegments = [],
-      L, l, p, J, K, I, choixProfondeur, h, c, r, j, resultat, resultat2, resultat3, resultat4, volume, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, reponse, objetsEnonce, A, B, C, D, E, BC, DC, segmentATrouver, segmentAnnexe, solideDessine, longueurATrouver, nomSolide, segmentChoisi, choixSegments = [],
+      L, l, p, J, K, JK, I, choixProfondeur, h, c, r, j, resultat, resultat2, resultat3, resultat4, volume, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}
       texte = ''
       texteCorr = ''
       objetsEnonce = []
       // listeTypeDeQuestions[i] = choice([1, 3, 2])
-      listeTypeDeQuestions[i] = 3
+      listeTypeDeQuestions[i] = 1
+      context.anglePerspective = choice([-30, -60, 30, 60])
+      // context.anglePerspective = choice([-30, -40])
+
+      // PRECISER DANS UNE DOC QUE XXX EST UN BON EXERCICE POUR LA DISPOSITION DU PAVE
       switch (listeTypeDeQuestions[i]) {
         case 1: // Diagonale de la face d'un cube
+
           j = randint(0, 3)
-          // c = new Decimal(randint(2, 10)).plus(partieDecimale1)
+          // Propre à ce cube
           c = randint(5, 10)
-          nomSolideTab = choisitLettresDifferentes(8, 'OQWX')
-          nomSolide = nomSolideTab.join('')
-          choixSegments = [['02', '1'], ['13', '2'], ['16', '5'], ['25', '6'], ['27', '3'], ['36', '2']] // Ce sont les diagonales des faces visibles et le sommet qui forme un triangle rectangle
+          A = point3d(0, 0, 0)
+          B = point3d(c, 0, 0)
+          D = point3d(0, 0, c)
+          choixProfondeur = choice([c, -c])
+          E = point3d(0, choixProfondeur, 0)
+
+          nomSolide = choisitLettresDifferentes(8, 'OQWX').join('')
+          solideDessine = pave3d(A, B, D, E, 'blue', true, nomSolide)
+
+          choixSegments.push(['02', '1'], ['13', '2'])
+          if (choixProfondeur > 0) {
+            choixSegments.push(['16', '5'], ['25', '6']) // Ce sont les diagonales des faces visibles et le sommet qui forme un triangle rectangle
+            if (context.anglePerspective > 0) choixSegments.push(['27', '3'], ['36', '2'])
+            else choixSegments.push(['14', '5'], ['05', '1'])
+          } else {
+            choixSegments.push(['07', '3'], ['34', '0']) // Ce sont les diagonales des faces visibles et le sommet qui forme un triangle rectangle
+            if (context.anglePerspective < 0) choixSegments.push(['27', '3'], ['36', '2'])
+            else choixSegments.push(['14', '5'], ['05', '1'])
+          }
           segmentChoisi = choice(choixSegments)
-          B = nomSolideTab[parseInt(segmentChoisi[0][0])]
-          C = nomSolideTab[parseInt(segmentChoisi[0][1])]
-          A = nomSolideTab[parseInt(segmentChoisi[1])] // ABC est rectangle en A
-          longueurATrouver = B + C
+          J = nomSolide[parseInt(segmentChoisi[0][0])]
+          K = nomSolide[parseInt(segmentChoisi[0][1])]
+          I = nomSolide[parseInt(segmentChoisi[1])] // IJK est rectangle en I
+          longueurATrouver = J + K
           texte += `Sachant que le cube ${nomSolide} possède des arêtes de ${c} ${listeUnites[j]}, calculer, arrondie au dixième de ${listeUnites[j]}, la longueur ${longueurATrouver}.<br>`
-          solideDessine = cube3d(1, 1, 1, c, 'blue', '', '', '', false, true, nomSolideTab)
           segmentATrouver = segment(solideDessine.sommets[parseInt(segmentChoisi[0][0])].c2d, solideDessine.sommets[parseInt(segmentChoisi[0][1])].c2d, '#f15929')
           segmentATrouver.epaisseur = 2
           objetsEnonce.push(...solideDessine.c2d, segmentATrouver)
           texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: 0.7, style: 'block' }), objetsEnonce) + '<br>'
           objetsEnonce.push(new CodageAngleDroit3D(solideDessine.sommets[parseInt(segmentChoisi[0][0])], solideDessine.sommets[parseInt(segmentChoisi[1])], solideDessine.sommets[parseInt(segmentChoisi[0][1])], '#f15929', 2))
           texteCorr += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: 0.7, style: 'block' }), objetsEnonce) + '<br>'
-          texteCorr += `Le triangle ${longueurATrouver + A} est rectangle en ${A}  donc d'après le théorème de Pythagore, on a : `
-          texteCorr += `$${longueurATrouver}^2=${A + B}^2+${A + C}^2$.`
+          texteCorr += `Le triangle ${longueurATrouver + I} est rectangle en ${I}  donc d'après le théorème de Pythagore, on a : `
+          texteCorr += `$${longueurATrouver}^2=${I + J}^2+${I + K}^2$.`
 
-          BC = texNombre(calcul(Math.sqrt(c ** 2 + c ** 2), 1))
+          JK = texNombre(calcul(Math.sqrt(c ** 2 + c ** 2), 1))
           reponse = arrondi(Math.sqrt(c ** 2 + c ** 2), 1)
           texteCorr += `<br> $${longueurATrouver}^2=${texNombre(c)}^2+${texNombre(c)}^2=${texNombre(c ** 2 + c ** 2)}$`
           texteCorr += `<br> $${longueurATrouver}=\\sqrt{${texNombre(c ** 2 + c ** 2)}}$`
-          texteCorr += `<br> $${longueurATrouver}\\approx${miseEnEvidence(BC)}$ ${texteEnCouleurEtGras(listeUnites[j])}`
+          texteCorr += `<br> $${longueurATrouver}\\approx${miseEnEvidence(JK)}$ ${texteEnCouleurEtGras(listeUnites[j])}`
           setReponse(this, i, new Grandeur(reponse, listeUnites[j]), { formatInteractif: 'unites' })
           if (this.interactif && context.isHtml) texte += `<br>$${longueurATrouver}\\approx$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
-
           resultat = 12
           break
         case 2: // Diagonale d'un cube
           j = randint(0, 3)
           // c = new Decimal(randint(2, 10)).plus(partieDecimale1)
           c = randint(5, 10)
-          nomSolideTab = choisitLettresDifferentes(8, 'OQWX')
-          nomSolide = nomSolideTab.join('')
+          nomSolide = choisitLettresDifferentes(8, 'OQWX')
+          nomSolide = nomSolide.join('')
           choixSegments = [['60', '5', '05', '1'], ['71', '4', '14', '0'], ['24', '1', '41', '0'], ['35', '0', '50', '1']] // Ce sont les diagonales du cubes, le sommet qui forme un triangle rectangle, la diagonale d'une face et le sommet qui forme un triangle rectangle avec cette dernière diagonale
           segmentChoisi = choice(choixSegments)
-          B = nomSolideTab[parseInt(segmentChoisi[0][0])]
-          C = nomSolideTab[parseInt(segmentChoisi[0][1])]
-          A = nomSolideTab[parseInt(segmentChoisi[1])] // ABC est rectangle en A
-          D = nomSolideTab[parseInt(segmentChoisi[3])] // ACD est rectangle en D
+          B = nomSolide[parseInt(segmentChoisi[0][0])]
+          C = nomSolide[parseInt(segmentChoisi[0][1])]
+          A = nomSolide[parseInt(segmentChoisi[1])] // ABC est rectangle en A
+          D = nomSolide[parseInt(segmentChoisi[3])] // ACD est rectangle en D
 
           longueurATrouver = B + C
           texte = `Sachant que le cube ${nomSolide} possède des arêtes de ${c} ${listeUnites[j]}, calculer, arrondie au dixième de ${listeUnites[j]}, la longueur ${longueurATrouver}.<br>`
-          solideDessine = cube3d(1, 1, 1, c, 'blue', '', '', '', false, true, nomSolideTab)
+          solideDessine = cube3d(1, 1, 1, c, 'blue', '', '', '', false, true, nomSolide)
           segmentATrouver = segment(solideDessine.sommets[parseInt(segmentChoisi[0][0])].c2d, solideDessine.sommets[parseInt(segmentChoisi[0][1])].c2d, '#f15929')
           segmentATrouver.epaisseur = 2
           segmentATrouver.pointilles = 3
@@ -193,38 +212,41 @@ export default function CalculDeVolumes () {
           choixProfondeur = choice([p, -p])
           E = point3d(0, choixProfondeur, 0)
 
-          nomSolideTab = choisitLettresDifferentes(8, 'OQWX')
-          nomSolide = nomSolideTab.join('')
+          nomSolide = choisitLettresDifferentes(8, 'OQWX').join('')
+          solideDessine = pave3d(A, B, D, E, 'blue', true, nomSolide)
+
           choixSegments.push(['02', '1'], ['13', '2'])
-
-          if (choixProfondeur === p) choixSegments.push(['16', '5'], ['25', '6'], ['27', '3'], ['36', '2']) // Ce sont les diagonales des faces visibles et le sommet qui forme un triangle rectangle
-          else choixSegments.push(['07', '3'], ['34', '0'], ['05', '4'], ['14', '0']) // Ce sont les diagonales des faces visibles et le sommet qui forme un triangle rectangle
-
+          if (choixProfondeur > 0) {
+            choixSegments.push(['16', '5'], ['25', '6']) // Ce sont les diagonales des faces visibles et le sommet qui forme un triangle rectangle
+            if (context.anglePerspective > 0) choixSegments.push(['27', '3'], ['36', '2'])
+            else choixSegments.push(['14', '5'], ['05', '1'])
+          } else {
+            choixSegments.push(['07', '3'], ['34', '0']) // Ce sont les diagonales des faces visibles et le sommet qui forme un triangle rectangle
+            if (context.anglePerspective < 0) choixSegments.push(['27', '3'], ['36', '2'])
+            else choixSegments.push(['14', '5'], ['05', '1'])
+          }
           segmentChoisi = choice(choixSegments)
-          J = nomSolideTab[parseInt(segmentChoisi[0][0])]
-          K = nomSolideTab[parseInt(segmentChoisi[0][1])]
-          I = nomSolideTab[parseInt(segmentChoisi[1])] // IJK est rectangle en I
+          J = nomSolide[parseInt(segmentChoisi[0][0])]
+          K = nomSolide[parseInt(segmentChoisi[0][1])]
+          I = nomSolide[parseInt(segmentChoisi[1])] // IJK est rectangle en I
           longueurATrouver = J + K
-          // texte += `Sachant que le cube ${nomSolide} possède des arêtes de ${c} ${listeUnites[j]}, calculer, arrondie au dixième de ${listeUnites[j]}, la longueur ${longueurATrouver}.<br>`
-          solideDessine = pave3d(A, B, D, E)
-          // solideDessine = cube3d(1, 1, 1, 5, 'blue', '', '', '', false, true, nomSolideTab).c2d
+          texte += `Sachant que le cube ${nomSolide} possède des arêtes de ${c} ${listeUnites[j]}, calculer, arrondie au dixième de ${listeUnites[j]}, la longueur ${longueurATrouver}.<br>`
           segmentATrouver = segment(solideDessine.sommets[parseInt(segmentChoisi[0][0])].c2d, solideDessine.sommets[parseInt(segmentChoisi[0][1])].c2d, '#f15929')
           segmentATrouver.epaisseur = 2
           objetsEnonce.push(...solideDessine.c2d, segmentATrouver)
           texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: 0.7, style: 'block' }), objetsEnonce) + '<br>'
-          /* objetsEnonce.push(new KodageIngleDroit3D(solideDessine.sommets[parseInt(segmentChoisi[0][0])], solideDessine.sommets[parseInt(segmentChoisi[1])], solideDessine.sommets[parseInt(segmentChoisi[0][1])], '#f15929', 2))
-          texteKorr += mathalea2d(Object.assign({}, fixeJordures(objetsEnonce), { scale: 0.7, style: 'block' }), objetsEnonce) + '<br>'
-          texteKorr += `Ie triangle ${longueurATrouver + I} est rectangle en ${I}  donc d'après le théorème de Pythagore, on a : `
-          texteKorr += `$${longueurATrouver}^2=${I + J}^2+${I + K}^2$.`
+          objetsEnonce.push(new CodageAngleDroit3D(solideDessine.sommets[parseInt(segmentChoisi[0][0])], solideDessine.sommets[parseInt(segmentChoisi[1])], solideDessine.sommets[parseInt(segmentChoisi[0][1])], '#f15929', 2))
+          texteCorr += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: 0.7, style: 'block' }), objetsEnonce) + '<br>'
+          texteCorr += `Le triangle ${longueurATrouver + I} est rectangle en ${I}  donc d'après le théorème de Pythagore, on a : `
+          texteCorr += `$${longueurATrouver}^2=${I + J}^2+${I + K}^2$.`
 
           JK = texNombre(calcul(Math.sqrt(c ** 2 + c ** 2), 1))
           reponse = arrondi(Math.sqrt(c ** 2 + c ** 2), 1)
-          texteKorr += `<br> $${longueurATrouver}^2=${texNombre(c)}^2+${texNombre(c)}^2=${texNombre(c ** 2 + c ** 2)}$`
-          texteKorr += `<br> $${longueurATrouver}=\\sqrt{${texNombre(c ** 2 + c ** 2)}}$`
-          texteKorr += `<br> $${longueurATrouver}\\approx${miseEnEvidence(JK)}$ ${texteEnKouleurEtGras(listeUnites[j])}`
+          texteCorr += `<br> $${longueurATrouver}^2=${texNombre(c)}^2+${texNombre(c)}^2=${texNombre(c ** 2 + c ** 2)}$`
+          texteCorr += `<br> $${longueurATrouver}=\\sqrt{${texNombre(c ** 2 + c ** 2)}}$`
+          texteCorr += `<br> $${longueurATrouver}\\approx${miseEnEvidence(JK)}$ ${texteEnCouleurEtGras(listeUnites[j])}`
           setReponse(this, i, new Grandeur(reponse, listeUnites[j]), { formatInteractif: 'unites' })
-          if (this.interactif && context.isHtml) texte += `<br>$${longueurATrouver}\\approx$` + ajouteKhampTexteMathIive(this, i, 'largeur25 inline unites[longueurs]')
-*/
+          if (this.interactif && context.isHtml) texte += `<br>$${longueurATrouver}\\approx$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
           resultat = 12
           break
         case 21: // pavé droit
