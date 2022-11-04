@@ -216,12 +216,12 @@ function unePieceDeuxUrnes (exercice, NoQuestion, sup, sup2, sup3) {
   }
   texteCorr += tableau + '<br><br>'
   texteCorr += `${numAlpha(q)} Comme on a fait ${pileOuFace}», on va tirer une boule dans la ${urne} urne où il y a ${nbBouleC} boule${nbBouleC > 1 ? 's' : ''} ${boules[choix1]}${nbBouleC > 1 ? 's' : ''} sur ${card} boules.<br>`
-  if (!context.isAMC) setReponse(exercice, NoQuestion, proba1, { formatInteractif: 'fractionEgale' })
+  if (!context.isAmc) setReponse(exercice, NoQuestion, proba1, { formatInteractif: 'fractionEgale' })
   q++
   texteCorr += `La probabilité de cet événement est donc de $${proba1.texFraction}${!proba1.estIrreductible ? '=' + proba1.texFractionSimplifiee : ''}$.<br>`
   texteCorr += `${numAlpha(q)} Il y a équiprobabilité entre toutes les issues du tableau car, d'une part, la pièce est équilibrée et, d'autre part, chaque urne contient 6 boules.<br>`
   texteCorr += `Il y a ${n1[choix2] + n2[choix2]} issues avec une boule ${boules[choix2]} sur ${card1 + card2} issues en tout. La probabilité de cet événement est donc de $${proba2.texFraction}${!proba2.estIrreductible ? '=' + proba2.texFractionSimplifiee : ''}$.<br>`
-  if (!context.isAMC) setReponse(exercice, NoQuestion + 1, proba2, { formatInteractif: 'fractionEgale' })
+  if (!context.isAmc) setReponse(exercice, NoQuestion + 1, proba2, { formatInteractif: 'fractionEgale' })
 
   return { texte: texte, texteCorr: texteCorr, alea: [...n1, ...n2], NoQuestion: NoQuestion + 2 }
 }
@@ -358,9 +358,9 @@ function urneDeuxTiragesAvecRemise (exercice, NoQuestion, sup, sup2, niveau) { /
   texteCorr += `La probabilité de cet événement est donc de $2\\times ${proba3.texFraction}=${proba4.texFraction}${!proba4.estIrreductible ? '=' + proba4.texFractionSimplifiee : ''}$.<br>`
   texteCorr += `Une autre façon de faire est de considérer que c'est l'événement contraire de «obtenir deux boules de la même couleur» dont on a calculé la probabilité à la question ${numAlpha(1)}.<br>`
   texteCorr += `On peut donc calculer la probabilité de cet événement en calculant : $1 -${proba1et2.texFractionSimplifiee} = ${proba1et2.entierMoinsFraction(1).texFractionSimplifiee}$.`
-  if (!context.isAMC) setReponse(exercice, NoQuestion, probaChoix, { formatInteractif: 'fractionEgale' })
-  if (!context.isAMC) setReponse(exercice, NoQuestion + 1, proba1et2, { formatInteractif: 'fractionEgale' })
-  if (!context.isAMC) setReponse(exercice, NoQuestion + 2, proba4, { formatInteractif: 'fractionEgale' })
+  if (!context.isAmc) setReponse(exercice, NoQuestion, probaChoix, { formatInteractif: 'fractionEgale' })
+  if (!context.isAmc) setReponse(exercice, NoQuestion + 1, proba1et2, { formatInteractif: 'fractionEgale' })
+  if (!context.isAmc) setReponse(exercice, NoQuestion + 2, proba4, { formatInteractif: 'fractionEgale' })
 
   return { texte: texte, texteCorr: texteCorr, alea: [nbBoule1, nbBoule2, b1Char, b2Char], NoQuestion: NoQuestion + 3 }
 }
@@ -498,8 +498,8 @@ function urneDeuxTiragesSansRemise (exercice, NoQuestion, sup, sup2, niveau) { /
   texteCorr += `La probabilité de cet événement est donc de $2\\times ${proba3.texFraction}=${proba4.texFraction}${!proba4.estIrreductible ? '=' + proba4.texFractionSimplifiee : ''}$.<br>`
   texteCorr += `Une autre façon de faire est de considérer que c'est l'événement contraire de «obtenir deux boules de la même couleur» dont on a calculé la probabilité à la question ${numAlpha(1)}.<br>`
   texteCorr += `On peut donc calculer la probabilité de cet événement en calculant : $1 -${proba1et2.texFractionSimplifiee} = ${proba4.texFractionSimplifiee}$.`
-  if (!context.isAMC) setReponse(exercice, NoQuestion, probaChoix, { formatInteractif: 'fractionEgale' })
-  if (!context.isAMC) setReponse(exercice, NoQuestion + 1, proba1et2, { formatInteractif: 'fractionEgale' })
-  if (!context.isAMC) setReponse(exercice, NoQuestion + 2, proba4, { formatInteractif: 'fractionEgale' })
+  if (!context.isAmc) setReponse(exercice, NoQuestion, probaChoix, { formatInteractif: 'fractionEgale' })
+  if (!context.isAmc) setReponse(exercice, NoQuestion + 1, proba1et2, { formatInteractif: 'fractionEgale' })
+  if (!context.isAmc) setReponse(exercice, NoQuestion + 2, proba4, { formatInteractif: 'fractionEgale' })
   return { texte: texte, texteCorr: texteCorr, alea: [nbBoule1, nbBoule2, b1Char, b2Char], NoQuestion: NoQuestion + 3 }
 }
