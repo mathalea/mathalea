@@ -1,4 +1,4 @@
-import { point, vecteur, droite, segment, polyline, polygone, polygoneAvecNom } from './2d.js'
+import { point, vecteur, droite, segment, polyline, polygone, polygoneAvecNom, longueur } from './2d.js'
 import { matrix, multiply, norm, cross, dot } from 'mathjs'
 import { context } from './context.js'
 import { colorToLatexOrHTML, vide2d } from './2dGeneralites.js'
@@ -604,7 +604,6 @@ export function pyramideTronquee3d (base, sommet, coeff = 0.5, color = 'black') 
    * @author Jean-Claude Lhote
    * usage : cube(x,y,z,c,color) construit le cube d'arète c dont le sommet en bas à gauche a les coordonnées x,y,z.
    * le face avant est dans le plan xz
-   * segmentAAfficher='AC' : Permet d'afficher en plus le segment AC
    *
 */
 class Cube3d {
@@ -644,14 +643,14 @@ class Cube3d {
     areteEF.pointilles = 2
     const areteEA = segment(E.c2d, A.c2d, color)
     areteEA.pointilles = 2
-
+    this.sommets = [A, B, C, D, E, F, G, H]
     if (aretesCachee) {
       faceAV.couleurDeRemplissage = colorToLatexOrHTML(colorAV)
       faceTOP.couleurDeRemplissage = colorToLatexOrHTML(colorTOP)
       faceDr.couleurDeRemplissage = colorToLatexOrHTML(colorDr)
       this.c2d = [faceAV, faceDr, faceTOP]
     } else {
-      this.c2d = [A, B, C, D, E, F, G, H, faceAV, faceDr, faceTOP, faceArr, areteEH, areteEF, areteEA]
+      this.c2d = [faceAV, faceDr, faceTOP, faceArr, areteEH, areteEF, areteEA]
     // Les 8 sommets sont indispensables pour pouvoir les utiliser ensuite.
     }
   }
@@ -858,22 +857,37 @@ export function cube (x = 0, y = 0, z = 0, alpha = 45, beta = -35, { colorD = 'g
    * LE PAVE
    * @author Jean-Claude Lhote
    * usage : pave(A,B,D,E) construit le pavé ABCDEFGH dont les arêtes [AB],[AD] et [AE] délimitent 3 faces adjacentes.
-   *
+   * La gestion des arêtes cachées est prise en compte et n'est pas forcément E.
 */
 class Pave3d {
   constructor (A, B, D, E, color) {
     ObjetMathalea2D.call(this, { })
     const v1 = vecteur3d(A, B)
     const v2 = vecteur3d(A, E)
-    const v3 = vecteur3d(A, D)
     const C = translation3d(D, v1)
     const H = translation3d(D, v2)
     const G = translation3d(C, v2)
     const F = translation3d(B, v2)
-    E.visible = false
+    const AE = longueur(A.c2d, E.c2d, 5)
+    const AF = longueur(A.c2d, F.c2d, 5)
+    const AG = longueur(A.c2d, G.c2d, 5)
+    const AH = longueur(A.c2d, H.c2d, 5)
+    const minimum = Math.min(AE, AF, AG, AH)
+    E.visible = !E.c2d.estDansQuadrilatere(A.c2d, B.c2d, C.c2d, D.c2d)
+    F.visible = !F.c2d.estDansQuadrilatere(A.c2d, B.c2d, C.c2d, D.c2d)
+    G.visible = !G.c2d.estDansQuadrilatere(A.c2d, B.c2d, C.c2d, D.c2d)
+    H.visible = !H.c2d.estDansQuadrilatere(A.c2d, B.c2d, C.c2d, D.c2d)
+    if (E.visible && F.visible && G.visible && H.visible) {
+      E.visible = minimum !== AE
+      F.visible = minimum !== AF
+      G.visible = minimum !== AG
+      H.visible = minimum !== AH
+    }
+    this.sommets = [A, B, C, D, E, F, G, H]
     this.color = color
-    this.base = polygone3d([A, B, F, E])
-    this.hauteur = v3
+    // const v3 = vecteur3d(A, D)
+    // this.base = polygone3d([A, B, F, E])
+    // this.hauteur = v3
     this.c2d = []
     this.aretes = [arete3d(A, B, color), arete3d(A, D, color), arete3d(A, E, color), arete3d(C, B, color), arete3d(F, B, color), arete3d(C, D, color), arete3d(C, G, color), arete3d(F, G, color), arete3d(F, E, color), arete3d(H, G, color), arete3d(H, E, color), arete3d(H, D, color)]
     for (const arete of this.aretes) {
