@@ -644,6 +644,8 @@ class Cube3d {
     const areteEA = segment(E.c2d, A.c2d, color)
     areteEA.pointilles = 2
     this.sommets = [A, B, C, D, E, F, G, H]
+    // Les 8 sommets sont indispensables pour pouvoir les utiliser ensuite.
+
     if (aretesCachee) {
       faceAV.couleurDeRemplissage = colorToLatexOrHTML(colorAV)
       faceTOP.couleurDeRemplissage = colorToLatexOrHTML(colorTOP)
@@ -651,7 +653,6 @@ class Cube3d {
       this.c2d = [faceAV, faceDr, faceTOP]
     } else {
       this.c2d = [faceAV, faceDr, faceTOP, faceArr, areteEH, areteEF, areteEA]
-    // Les 8 sommets sont indispensables pour pouvoir les utiliser ensuite.
     }
   }
 }
@@ -858,9 +859,10 @@ export function cube (x = 0, y = 0, z = 0, alpha = 45, beta = -35, { colorD = 'g
    * @author Jean-Claude Lhote
    * usage : pave(A,B,D,E) construit le pavé ABCDEFGH dont les arêtes [AB],[AD] et [AE] délimitent 3 faces adjacentes.
    * La gestion des arêtes cachées est prise en compte et n'est pas forcément E.
+   * En travaillant sur le signe de context.anglePerspective et sur celui de la hauteur (B.z), on peut avoir une vision de haut, de bas, de gauche, de droite comme dans l'exercice....
 */
 class Pave3d {
-  constructor (A, B, D, E, color) {
+  constructor (A, B, D, E, color, affichageNom = false, nom = 'ABCDEFGH') {
     ObjetMathalea2D.call(this, { })
     const v1 = vecteur3d(A, B)
     const v2 = vecteur3d(A, E)
@@ -893,11 +895,30 @@ class Pave3d {
     for (const arete of this.aretes) {
       this.c2d.push(arete.c2d)
     }
+    let pointsFace = [A.c2d, B.c2d, C.c2d, D.c2d]
+    if (affichageNom) {
+      A.c2d.nom = nom[0]
+      B.c2d.nom = nom[1]
+      C.c2d.nom = nom[2]
+      D.c2d.nom = nom[3]
+      E.c2d.nom = nom[4]
+      F.c2d.nom = nom[5]
+      G.c2d.nom = nom[6]
+      H.c2d.nom = nom[7]
+    }
+    const faceAV = affichageNom ? polygoneAvecNom(...pointsFace) : vide2d
+    pointsFace = [E.c2d, F.c2d, G.c2d, H.c2d]
+    const faceArr = affichageNom ? polygoneAvecNom(...pointsFace) : vide2d
+    if (affichageNom) {
+      faceAV[0].color = colorToLatexOrHTML('none')
+      faceArr[0].color = colorToLatexOrHTML('none')
+    }
+    this.c2d.push(faceAV, faceArr)
   }
 }
 
-export function pave3d (A, B, C, E, color = 'black') {
-  return new Pave3d(A, B, C, E, color)
+export function pave3d (A, B, D, E, color = 'black', affichageNom = false, nom = 'ABCDEFGH') {
+  return new Pave3d(A, B, D, E, color, affichageNom, nom)
 }
 
 /*
