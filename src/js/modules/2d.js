@@ -11152,7 +11152,7 @@ ${cadran()}
   }
   this.tikz = function () {
     const code = `\\node (centre) {
-    \\begin{tikzpicture}[baseline, scale=0.675]
+    \\begin{tikzpicture}[baseline, scale=0.5]
               \\definecolor{scratchBlue}{RGB}{76, 151, 255}
                \\definecolor{scratchBlue2}{RGB}{51, 115, 204}
                 \\pgfmathsetmacro{\\rayon}{1.5}
@@ -11167,36 +11167,36 @@ ${cadran()}
                     \\draw[white,thin] ($(O)!0.8!(A)$) -- (A);
       }
                 \\fill[white] (dir90) circle (10pt);
-                \\node[scratchBlue,fill=scratchBlue,single arrow,scale=0.4] at (dir90) {aa};
+                \\node[scratchBlue,fill=scratchBlue,single arrow,scale=0.2] at (dir90) {aa};
                 \\coordinate (N) at (2,\\rayon+2);
                 \\fill[white] (N) circle (10pt);
-                 \\node[scratchBlue,fill=scratchBlue,single arrow,scale=0.4, rotate=90] at (N) {aa};
+                 \\node[scratchBlue,fill=scratchBlue,single arrow,scale=0.2, rotate=90] at (N) {aa};
                    \\coordinate (S) at (2,2-\\rayon);
                    \\fill[white] (S) circle (10pt);
-                 \\node[scratchBlue,fill=scratchBlue,single arrow,scale=0.4, rotate=-90] at (S) {aa};
+                 \\node[scratchBlue,fill=scratchBlue,single arrow,scale=0.2, rotate=-90] at (S) {aa};
                    \\coordinate (W) at (2-\\rayon,2);
                    \\fill[white] (W) circle (10pt);
-                 \\node[scratchBlue,fill=scratchBlue,single arrow,scale=0.4, rotate=180] at (W) {aa};
+                 \\node[scratchBlue,fill=scratchBlue,single arrow,scale=0.2, rotate=180] at (W) {aa};
                  
             \\end{tikzpicture}
     };
         \\node[above] at (centre.north){
-    \\begin{scratch}[scale=0.675]
+    \\begin{scratch}[scale=0.5]
                 \\blockmove{s'orienter à \\ovalnum{$0$}}
             \\end{scratch}
       };
         \\node[above,rotate=-90] at (centre.east) {
-      \\begin{scratch}[scale=0.675]
+      \\begin{scratch}[scale=0.5]
                 \\blockmove{s'orienter à \\ovalnum{$90$}}
             \\end{scratch}
         };
         \\node[above, rotate=180] at (centre.south){
-        \\begin{scratch}[scale=0.675]
+        \\begin{scratch}[scale=0.5]
                 \\blockmove{s'orienter à \\ovalnum{$180$}}
             \\end{scratch}
           };
         \\node[above,rotate=90] at (centre.west){
-          \\begin{scratch}[scale=0.675]
+          \\begin{scratch}[scale=0.5]
                 \\blockmove{s'orienter à \\ovalnum{$-90$}}
             \\end{scratch}
             };`
