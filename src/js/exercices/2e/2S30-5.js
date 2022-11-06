@@ -1,3 +1,4 @@
+
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { choice, listeQuestionsToContenu, numAlpha, premiereLettreEnMajuscule, randint, shuffle, tableauColonneLigne } from '../../modules/outils.js'
@@ -139,9 +140,9 @@ export default function CalculProbaExperience2Epreuves2e () {
       texte += `${n2[j]} boule${n2[j] > 1 ? 's' : ''} ${boules[j]}${n2[j] > 1 ? 's' : ''}, `
     }
     texte += ` et ${n2[2]} boule${n2[2] > 1 ? 's' : ''} ${boules[2]}${n2[2] > 1 ? 's' : ''}.<br>`
-    texte += sup ? 'On a représenté l\'expérience par l\'arbre ci-dessous' : ''
-    texte += sup ? mathalea2d({ xmin: -0.1, xmax: 16, ymin: 0, ymax: 12, zoom: 1.5 }, ...objets) : ''
-    texte += `Donner la probabilité d'obtenir une boule ${boules[choix]}.` + ajouteChampTexteMathLive(exercice, i, 'largeur15 inline')
+    texte += sup ? 'On a représenté l\'expérience par l\'arbre ci-dessous<br>' : ''
+    texte += sup ? mathalea2d({ xmin: -0.1, xmax: 16, ymin: 0, ymax: 12, zoom: 1.5, scale: 0.6 }, ...objets) : ''
+    texte += `<br>Donner la probabilité d'obtenir une boule ${boules[choix]}.` + ajouteChampTexteMathLive(exercice, i, 'largeur15 inline')
     setReponse(exercice, i, new FractionX(p[choix].n, p[choix].d), { formatInteractif: 'fractionEgale' })
     texteCorr = "La probabilité que la pièce tombe sur 'Pile' est de $\\dfrac{1}{2}$ et "
     texteCorr += `la probabilité de tirer une boule ${boules[choix]} dans la première urne est de $${texProba(urne1.getProba(B[choix], true), true)}$.<br>`
@@ -284,9 +285,9 @@ export default function CalculProbaExperience2Epreuves2e () {
     texteCorr += 'On a représenté l\'expérience par le tableau ci-dessous :<br>'
     texteCorr += tableau + '<br>'
     texteCorr += `${b1Char} = ${b1Color} et ${b2Char} = ${b2Color}.<br>`
-    texteCorr += 'On peut aussi présenter les deux épreuves sous la forme d\'un arbre de dénombrement :'
-    texteCorr += mathalea2d({ xmin: 0, xmax: card * 8.5, ymin: 0, ymax: 13, zoom: 0.8 }, ...objets)
-    texteCorr += `${numAlpha(0)} L'événement "obtenir deux boules ${choix[1]}${choix[2] !== 'O' ? 's' : ''}" est réalisé par l'issue {${choix[2] + choix[2]}}.`
+    texteCorr += 'On peut aussi présenter les deux épreuves sous la forme d\'un arbre de dénombrement :<br>'
+    texteCorr += mathalea2d({ xmin: 0, xmax: card * 8.5, ymin: 0, ymax: 13, zoom: 0.8, scale: 1/card }, ...objets)
+    texteCorr += `<br>${numAlpha(0)} L'événement "obtenir deux boules ${choix[1]}${choix[2] !== 'O' ? 's' : ''}" est réalisé par l'issue {${choix[2] + choix[2]}}.`
     texteCorr += ` On comptabilise ${choix[0] ** 2} issues {${choix[2] + choix[2]}} sur ${card ** 2} issues en tout.<br>`
     texteCorr += `La probabilité de cet événement est donc de $${probaChoix.texFraction}${!probaChoix.estIrreductible ? '=' + probaChoix.texFractionSimplifiee : ''}$.<br>`
     texteCorr += `${numAlpha(1)} L'événement "obtenir deux boules de la même couleur" est réalisé par les issues {${b1Char + b1Char}, ${b2Char + b2Char}}.`

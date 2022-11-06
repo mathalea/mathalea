@@ -6,6 +6,8 @@ export const titre = 'Vocabulaires liés aux 4 opérations'
  * Exercice sur le vocabulaire : somme, différence, produit, quotient...
  * @author Mickael Guironnet
  */
+export const uuid = '32e02'
+export const ref = '6C13-1'
 export default function VocabulaireSur4Operations () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

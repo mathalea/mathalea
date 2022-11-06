@@ -16,6 +16,8 @@ export const dateDePublication = '21/10/2022'
  * @author Guillaume Valmont
  * 6G20-3
 */
+export const uuid = '18672'
+export const ref = '6G20-3'
 export default class NomExercice extends Exercice {
   constructor () {
     super()

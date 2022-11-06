@@ -14,6 +14,8 @@ export const dateDePublication = '28/10/2022'
  * Bilan sur les différentes formes d'équations et d'inéquations
  * @author Rémi Angot
 */
+export const uuid = 'b9252'
+export const ref = '1E18'
 export default class EquationsEtInequations extends Exercice {
   constructor () {
     super()
@@ -92,7 +94,10 @@ export default class EquationsEtInequations extends Exercice {
         }
       } else if (listeTypeQuestions[i] === 'inequationFormeDevelopeeSansRacine' || listeTypeQuestions[i] === 'inequationFormeDevelopeeSansRacineBis') {
         const p = new Trinome()
-        p.defFormeCanonique(randint(-3, 3, 0), randint(-5, 5, 0), randint(-3, 3, 0))
+        const a = randint(-3, 3, 0)
+        const alpha = randint(-5, 5, 0)
+        const beta = a > 0 ? randint(1, 3) : randint(-3, -1)
+        p.defFormeCanonique(a, alpha, beta)
         if (listeTypeQuestions[i] === 'inequationFormeDevelopeeSansRacine') {
           texte += `$${p.tex} ${typeInequation} 0$`
         } else {

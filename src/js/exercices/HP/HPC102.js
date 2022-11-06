@@ -8,7 +8,6 @@ import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathL
 import { integrale, repere, courbe } from '../../modules/2d.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-// import { calcule } from '../../modules/fonctionsMaths.js'
 
 // const math = { simplify: simplify, parse: parse, derivative: derivative }
 export const titre = 'Calculs de probabilité avec la loi normale'
@@ -127,7 +126,7 @@ export default function CalculsLoiNormale () {
           expression = `$\\mathrm{P}(${bornec} < X < ${borned})$`
           calculstep = []
           texte = `Soit $X$ une variable aléatoire réelle suivant une loi normale $\\mathcal{N}(\\mu=${mu},\\sigma=${sigma})$. <br> Calculer à $10^{-2}$ près la probabilité : ` + expression
-          texte += +graphique < '<br'
+          texte += '<br>' + graphique
           if (variables.mu < 0) {
             texteCorr = `On pose $Z = \\frac{X + ${texNombre(-variables.mu)}}{${sigma}}$ `
             calculstep.push(`\\mathrm{P}(${bornec} < X < ${borned}) &=  \\mathrm{P}\\left(\\frac{${bornec} + ${texNombre(-variables.mu)}}{${sigma}}   < \\frac{X + ${texNombre(-variables.mu)}}{${sigma}} < \\frac{${borned} + ${texNombre(-variables.mu)}}{${sigma}}  \\right) &&`)

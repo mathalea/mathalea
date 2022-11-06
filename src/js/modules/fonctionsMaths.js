@@ -19,7 +19,7 @@ export function radians (degres) {
    * @returns flottant : le cosinus de l'angle
    * @author Jean-Claude Lhote
    */
-export function cos (a) {
+export function degCos (a) {
   return calcul(Math.cos(radians(a)))
 }
 /**
@@ -27,7 +27,7 @@ export function cos (a) {
    * @returns flottant : le sinus de l'angle
    * @author Jean-Claude Lhote
    */
-export function sin (a) {
+export function degSin (a) {
   return calcul(Math.sin(radians(a)))
 }
 /**
@@ -35,7 +35,7 @@ export function sin (a) {
    * @returns flottant : la tangente de l'angle
    * @author Jean-Claude Lhote
    */
-export function tan (a) {
+export function degTan (a) {
   return calcul(Math.tan(radians(a)))
 }
 /**
@@ -43,7 +43,7 @@ export function tan (a) {
    * @returns flottant : la mesure de l'angle en degrés
    * @author Jean-Claude Lhote
    */
-export function acos (x) {
+export function degAcos (x) {
   return arrondi(degres(Math.acos(x)), 1)
 }
 /**
@@ -51,7 +51,7 @@ export function acos (x) {
    * @returns flottant : la mesure de l'angle en degrés
    * @author Jean-Claude Lhote
    */
-export function asin (x) {
+export function degAsin (x) {
   return arrondi(degres(Math.asin(x)), 1)
 }
 /**
@@ -59,7 +59,7 @@ export function asin (x) {
    * @returns flottant : la mesure de l'angle en degrés
    * @author Jean-Claude Lhote
    */
-export function atan (x) {
+export function degAtan (x) {
   return arrondi(degres(Math.atan(x)), 1)
 }
 /**

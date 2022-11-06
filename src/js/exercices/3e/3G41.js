@@ -2,8 +2,11 @@ import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice, numAlpha, range1, contraindreValeur, compteOccurences, shuffle, enleveDoublonNum } from '../../modules/outils.js'
 import { cube } from '../../modules/3d.js'
+import { context } from '../../modules/context.js'
 export const titre = "Dessiner différentes vues d'un empilement de cubes"
 export const dateDePublication = '06/10/2022'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 
 /**
 * Dessiner différentes vues d'un empilement de cubes
@@ -17,14 +20,15 @@ export default function VuesEmpilementCubes () {
   'use strict'
   Exercice.call(this)
   this.titre = titre
-  this.nbQuestions = 2
   this.sup = 1
   this.sup2 = 7
   this.sup3 = 3
+  this.nbQuestions = 2
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
+    this.autoCorrection = []
     let listeVuesPossibles = []
     let objetsEnonce, objetsCorrection
 
@@ -60,7 +64,7 @@ export default function VuesEmpilementCubes () {
       return lstCoordonneesCubes
     }
 
-    for (let q = 0, vuePossible, alpha, beta, texte, texteCorr, cpt = 0; q < this.nbQuestions && cpt < 50;) {
+    for (let q = 0, vuePossible, alpha, beta, consigneAMC, texteAMC, texte, texteCorr, cpt = 0; q < this.nbQuestions && cpt < 50;) {
       if (!this.sup2) { // Si aucune liste n'est saisie
         listeVuesPossibles = range1(6)
       } else {
@@ -94,9 +98,9 @@ export default function VuesEmpilementCubes () {
       // ...cube(x,y,z,90,0) : vue de gauche
       // ...cube(x,y,z,0,0) : vue de face
       // ...cube(x,y,z,45,-35) : vue isométrique
-      const colorD = choice(['red', 'blue', 'green', 'gray'])
-      const colorT = choice(['white', 'yellow'])
-      const colorG = choice(['red', 'blue', 'green', 'gray'], [colorD])
+      const colorD = context.isAmc ? choice(['white', 'gray', 'darkgray']) : choice(['red', 'blue', 'green', 'gray'])
+      const colorT = context.isAmc ? choice(['white', 'gray', 'darkgray'], [colorD]) : choice(['white', 'yellow'])
+      const colorG = context.isAmc ? choice(['white', 'gray', 'darkgray'], [colorD, colorT]) : choice(['red', 'blue', 'green', 'gray'], [colorD])
       const longueur = Math.floor((this.sup % 100) / 10) < 2 ? randint(2, 6) : Math.floor((this.sup % 100) / 10)
       const largeur = Math.floor(this.sup / 100) < 2 ? randint(2, 6) : Math.floor(this.sup / 100)
       const hauteur = this.sup % 10 < 2 ? randint(2, 6) : this.sup % 10
@@ -110,18 +114,27 @@ export default function VuesEmpilementCubes () {
       for (let i = 0; i < L.length; i++) {
         objetsEnonce.push(...cube(L[i][0], L[i][1], L[i][2], alpha, beta, { colorD: colorD, colorT: colorT, colorG: colorG }).c2d)
       }
-      texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { style: 'inline' }), objetsEnonce) + ' '
+      texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: 0.7, style: 'inline' }), objetsEnonce) + ' '
       alpha = 10
       beta = -30
       objetsEnonce = []
       for (let i = 0; i < L.length; i++) {
         objetsEnonce.push(...cube(L[i][0], L[i][1], L[i][2], alpha, beta, { colorD: colorD, colorT: colorT, colorG: colorG }).c2d)
       }
-      texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { style: 'block' }), objetsEnonce) + '<br>'
+      texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: 0.7, style: 'block' }), objetsEnonce) + '<br>'
+      consigneAMC = texte
+      if (context.isAmc) {
+        this.autoCorrection[q] =
+      {
+        enonce: consigneAMC + '<br>',
+        propositions: []
+      }
+      }
       for (let ee = 0; ee < this.sup3; ee++) {
         vuePossible = listeVuesPossibles[ee]
-        texte += this.sup3 > 1 ? numAlpha(ee) + ' ' : ''
-        texte += `Dessiner la vue de ${vue[vuePossible][0]} de ce solide. <br>`
+        texteAMC = this.sup3 > 1 ? numAlpha(ee) + ' ' : ''
+        texteAMC += `Dessiner la vue de ${vue[vuePossible][0]} de ce solide.`
+        texte += texteAMC + '<br>'
         // correction :
         texteCorr += this.sup3 > 1 ? numAlpha(ee) + ' ' : ''
         texteCorr += `Voici la vue de ${vue[vuePossible][0]} de ce solide. <br>`
@@ -132,8 +145,22 @@ export default function VuesEmpilementCubes () {
           objetsCorrection.push(...cube(L[i][0], L[i][1], L[i][2], alpha, beta, { colorD: colorD, colorT: colorT, colorG: colorG }).c2d)
         }
         texteCorr += mathalea2d(fixeBordures(objetsCorrection), objetsCorrection) + '<br>'
+        if (context.isAmc) {
+          this.autoCorrection[q].propositions.push({
+            type: 'AMCOpen',
+            propositions: [
+              {
+                texte: ' ',
+                statut: 3, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                enonce: texteAMC, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                sanscadre: false, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                pointilles: false
+              }
+            ]
+          }
+          )
+        }
       }
-
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions.push(texte)
