@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
+import { randint, listeQuestionsToContenu, ecritureParentheseSiMoins } from '../../modules/outils.js'
 import { create, all } from 'mathjs'
 
 export const titre = 'Produit de matrices'
@@ -32,19 +32,19 @@ export default class nomExercice extends Exercice {
     this.autoCorrection = []
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
-      const matrices = []
-      const matricesprint = []
+      const matrices = [] // vecteur qui stocke les matrices
+      const matricesprint = [] // vecteur qui stocke les matrices écrites en LaTeX
       const nbmatrice = 2
       let n = randint(1, 4)
       let m = randint(1, 4)
-      const nblignes = []
+      const nblignes = [] // vecteur qui stocke le nombre de lignes de chaque matrice
       nblignes.push(n)
-      const nbcolonnes = []
+      const nbcolonnes = [] // vecteur qui stocke le nombre de colonnes de chaque matrice
       nbcolonnes.push(m)
-      nblignes.push(math.pickRandom([m, m, m, 1, 2, 3, 4]))
+      nblignes.push(math.pickRandom([m, m, m, 1, 2, 3, 4])) // on favorise la compatibilité des matrices
       nbcolonnes.push(math.pickRandom([n, n, n, 1, 2, 3, 4]))
-      const texteligne = []
-      const textecolonne = []
+      const texteligne = [] // texte pour la correction
+      const textecolonne = [] // texte pour la correction
       for (let compteur = 0; compteur < nbmatrice; compteur++) {
         let ligne
         let matrice = []
@@ -75,14 +75,26 @@ export default class nomExercice extends Exercice {
         matricesprint.push(matrice)
       }
 
-      texte = `Soient les matrices $A=${matricesprint[0]}$ et $B = ${matricesprint[1]}$` // Le LateX entre deux symboles $, les variables dans des ${ }
-      texteCorr = 'La matrice $A$ a ' + texteligne[0] + 'et ' + textecolonne[0] + '.'
-      texteCorr += '<br> La matrice $B$ a ' + texteligne[1] + 'et ' + textecolonne[1] + '.'
+      texte = `Soient $A=${matricesprint[0]}$ et $B = ${matricesprint[1]}$.` // Le LateX entre deux symboles $, les variables dans des ${ }
+      texteCorr = 'La matrice $A$ a ' + texteligne[0] + 'et ' + textecolonne[0] + '. '
+      texteCorr += 'La matrice $B$ a ' + texteligne[1] + 'et ' + textecolonne[1] + '. '
       if (nbcolonnes[0] === nblignes[1]) {
         const produit = math.multiply(matrices[0], matrices[1])
         let produitprint = produit.toString()
         produitprint = math.parse(produitprint).toTex().replaceAll('bmatrix', 'pmatrix')
-        texteCorr += `<br> Le produit $A \\times B$ est possible et on calcule $A \\times B = ${produitprint}$.`
+        texteCorr += `<br><br> Le produit $A \\times B$ est possible et c'est une matrice qui a ${nblignes[0]} lignes et ${nbcolonnes[1]} colonnes. `
+        texteCorr += `<br><br> $ \\begin{array}{rccl} && \\textcolor{blue}{${matricesprint[1]}}& =\\textcolor{blue}{B} \\\\ \\textcolor{red}{A} = &\\textcolor{red}{${matricesprint[0]}} & ${produitprint} & = AB \\end{array} $`
+        // texteCorr += `Par exemple, on obtient $${math.parse(matrices[0].subset(math.index(nblignes[0], math.range(0, nbcolonnes[0]))).toString()).toTex().replaceAll('bmatrix', 'pmatrix')} $ `
+        const l1 = matrices[0].subset(math.index(nblignes[0] - 1, math.range(0, nbcolonnes[0])))
+        const c1 = matrices[1].subset(math.index(math.range(0, nblignes[1]), nbcolonnes[1] - 1))
+        let detail = `c_{${nblignes[0]}, ${nbcolonnes[1]}}  = `
+        for (let i = 0; i < nbcolonnes[0]; i++) {
+          detail += '\\textcolor{red}{' + ecritureParentheseSiMoins(l1.subset(math.index(0, i)).toString()) + '} \\times \\textcolor{blue}{' + ecritureParentheseSiMoins(c1.subset(math.index(i, 0)).toString()) + '}'
+          if (i < nbcolonnes[0] - 1) { detail += '+' } else { detail += ' = ' }
+        }
+        detail += `${produit.subset(math.index(nblignes[0] - 1, nbcolonnes[1] - 1))}`
+        texteCorr += `<br> Le détail du calcul de $c_{${nblignes[0]}, ${nbcolonnes[1]}}$ où $c_{${nblignes[0]}, ${nbcolonnes[1]}}$ est le coefficient de la $${nblignes[0]}$-ème ligne et de la $${nbcolonnes[1]}$-ème colonne de la matrice $C = AB$ donne : <br> $${detail}$.`
+        texteCorr += `<br> On trouve $A \\times B =  ${produitprint}$.`
       } else {
         texteCorr += '<br> Le produit $A \\times B$ n\'est pas possible car le nombre de colonnes de $A$ n\'est pas égal au nombre de lignes de $B$.'
       }
@@ -90,7 +102,18 @@ export default class nomExercice extends Exercice {
         const produit = math.multiply(matrices[1], matrices[0])
         let produitprint = produit.toString()
         produitprint = math.parse(produitprint).toTex().replaceAll('bmatrix', 'pmatrix')
-        texteCorr += `<br> Le produit $B \\times A$ est possible et on calcule $B \\times A = ${produitprint}$.`
+        texteCorr += `<br><br> Le produit $B \\times A$ est possible et c'est une matrice qui a ${nblignes[0]} lignes et ${nbcolonnes[1]} colonnes. `
+        texteCorr += `<br><br> $ \\begin{array}{rccl} && \\textcolor{red}{${matricesprint[0]}}& =\\textcolor{red}{A} \\\\ \\textcolor{blue}{B} = &\\textcolor{blue}{${matricesprint[1]}} & ${produitprint} & = BA \\end{array} $`
+        const l1 = matrices[1].subset(math.index(nblignes[1] - 1, math.range(0, nbcolonnes[1])))
+        const c1 = matrices[0].subset(math.index(math.range(0, nblignes[0]), nbcolonnes[0] - 1))
+        let detail = `c_{${nblignes[1]}, ${nbcolonnes[0]}} = `
+        for (let i = 0; i < nbcolonnes[1]; i++) {
+          detail += '\\textcolor{blue}{' + ecritureParentheseSiMoins(l1.subset(math.index(0, i)).toString()) + '} \\times \\textcolor{red}{' + ecritureParentheseSiMoins(c1.subset(math.index(i, 0)).toString()) + '}.'
+          if (i < nbcolonnes[1] - 1) { detail += '+' } else { detail += ' = ' }
+        }
+        detail += `${produit.subset(math.index(nblignes[1] - 1, nbcolonnes[0] - 1))}`
+        texteCorr += `<br> Le détail du calcul de $c_{${nblignes[1]}, ${nbcolonnes[0]}}$ où $c_{${nblignes[1]}, ${nbcolonnes[0]}}$ est le coefficient de la $${nblignes[1]}$-ème ligne et de la $${nbcolonnes[0]}$-ème colonne de la matrice $C = BA$ donne : <br> $${detail}$.`
+        texteCorr += `<br> On trouve $B \\times A =  ${produitprint}$.`
       } else {
         texteCorr += '<br> Le produit $B \\times A$ n\'est pas possible car le nombre de colonnes de $B$ n\'est pas égal au nombre de lignes de $A$.'
       }
