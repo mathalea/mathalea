@@ -335,15 +335,15 @@ export default function CalculDeVolumes () {
                   },
                   {
                     texte: `$${texNombre(resultat2)} ${listeUnites[j][1]}$`,
-                    statut: true
+                    statut: false
                   },
                   {
                     texte: `$${texNombre(resultat3)} ${listeUnites[j][1]}$`,
-                    statut: true
+                    statut: false
                   },
                   {
                     texte: `$${texNombre(resultat4)} ${listeUnites[j][1]}$`,
-                    statut: true
+                    statut: false
                   }
                 ],
                 options: {
@@ -394,6 +394,6 @@ export default function CalculDeVolumes () {
     '1 : Sans conversion\n2 : Avec des conversions'
   ]
   this.besoinFormulaire2CaseACocher = ['Avec des décimaux', false]
-  this.besoinFormulaire3Numerique = ['Exercice interactif ou AMC', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
+  this.besoinFormulaire3Numerique = ['Type d\'exercice interactif ou AMC', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
   this.besoinFormulaire4Texte = ['Type de solides', 'Nombres séparés par des tirets\n1 : Cubes\n2 : Pavés droits\n 3 : Mélange']
 }

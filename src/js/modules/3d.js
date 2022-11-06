@@ -2,6 +2,7 @@ import { point, vecteur, droite, segment, polyline, polygone, polygoneAvecNom, l
 import { matrix, multiply, norm, cross, dot } from 'mathjs'
 import { context } from './context.js'
 import { colorToLatexOrHTML, vide2d } from './2dGeneralites.js'
+import { arrondi } from './outils.js'
 const math = { matrix: matrix, multiply: multiply, norm: norm, cross: cross, dot: dot }
 
 /*
@@ -854,6 +855,7 @@ class Cube {
 export function cube (x = 0, y = 0, z = 0, alpha = 45, beta = -35, { colorD = 'green', colorT = 'white', colorG = 'gray' } = {}) {
   return new Cube(x, y, z, alpha, beta, colorD, colorG, colorT)
 }
+
 /**
    * LE PAVE
    * @author Jean-Claude Lhote
@@ -870,21 +872,28 @@ class Pave3d {
     const H = translation3d(D, v2)
     const G = translation3d(C, v2)
     const F = translation3d(B, v2)
-    const AE = longueur(A.c2d, E.c2d, 5)
-    const AF = longueur(A.c2d, F.c2d, 5)
-    const AG = longueur(A.c2d, G.c2d, 5)
-    const AH = longueur(A.c2d, H.c2d, 5)
-    const minimum = Math.min(AE, AF, AG, AH)
+
+    // Determination du point caché
+    function distanceMoyenne4points (pt) {
+      const dist1 = longueur(pt.c2d, A.c2d, 5)
+      const dist2 = longueur(pt.c2d, B.c2d, 5)
+      const dist3 = longueur(pt.c2d, C.c2d, 5)
+      const dist4 = longueur(pt.c2d, D.c2d, 5)
+      return arrondi((dist1 + dist2 + dist3 + dist4) / 4, 5)
+    }
     E.visible = !E.c2d.estDansQuadrilatere(A.c2d, B.c2d, C.c2d, D.c2d)
     F.visible = !F.c2d.estDansQuadrilatere(A.c2d, B.c2d, C.c2d, D.c2d)
     G.visible = !G.c2d.estDansQuadrilatere(A.c2d, B.c2d, C.c2d, D.c2d)
     H.visible = !H.c2d.estDansQuadrilatere(A.c2d, B.c2d, C.c2d, D.c2d)
     if (E.visible && F.visible && G.visible && H.visible) {
-      E.visible = minimum !== AE
-      F.visible = minimum !== AF
-      G.visible = minimum !== AG
-      H.visible = minimum !== AH
+      const minimum = Math.min(distanceMoyenne4points(E), distanceMoyenne4points(F), distanceMoyenne4points(G), distanceMoyenne4points(H))
+      E.visible = minimum !== distanceMoyenne4points(E)
+      F.visible = minimum !== distanceMoyenne4points(F)
+      G.visible = minimum !== distanceMoyenne4points(G)
+      H.visible = minimum !== distanceMoyenne4points(H)
     }
+    // Fin de determination du point caché
+
     this.sommets = [A, B, C, D, E, F, G, H]
     this.color = color
     // const v3 = vecteur3d(A, D)
