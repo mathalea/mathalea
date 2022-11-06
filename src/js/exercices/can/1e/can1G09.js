@@ -2,7 +2,7 @@ import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { choice, rienSi1, abs } from '../../../modules/outils.js'
 import {
-  point, cercleCentrePoint, labelPoint, grille, pointSurCercle, segment
+  polygoneAvecNom, point, cercleCentrePoint, grille, pointSurCercle, texteParPosition, segment
 } from '../../../modules/2d.js'
 export const titre = 'Associer un point à un réel sur un cercle trigonométrique '
 export const interactifReady = true
@@ -28,10 +28,11 @@ export default function AngleSurCercleTrigo () {
     let a, k
     const r = 5
     const O = point(0, 0, 'O', 'below left')
-    const I = point(r, 0, 'I', 'right')
-    const J = point(0, r, 'J', 'above')
-    const K = point(-r, 0, 'K', 'left')
-    const L = point(0, -r, 'L', 'below')
+    const o = texteParPosition('O', -0.4, -0.4, 'milieu', 'black', 1)
+    const I = point(r, 0, 'I')
+    const J = point(0, r, 'J')
+    const K = point(-r, 0, 'K')
+    const L = point(0, -r, 'L')
     const I2 = point(-r, 0)
     const J2 = point(0, -r)
     const s1 = segment(I, I2)
@@ -71,7 +72,8 @@ export default function AngleSurCercleTrigo () {
     sF1F2.epaisseur = 1
     sF1F2.pointilles = 5
     const g = grille(-5, -5, 5, 5, 'black', 0.4, 2.5)
-    const objet = mathalea2d({ xmin: -r - 3, xmax: r + 3, ymin: -r - 1.5, ymax: r + 1, pixelsParCm: 15, scale: 0.45, style: 'margin: auto' }, c, s1, s2, sA1A2, sB1B2, sC1C2, sD1D2, sE1E2, sF1F2, g, labelPoint(O, I, J, K, L, A1, A2, B1, B2, C1, C2, D1, D2, E1, E2, F1, F2))
+    const nom = polygoneAvecNom(A1, A2, B1, B2, C1, C2, D1, D2, E1, E2, F1, F2, I, J, K, L)[1]
+    const objet = mathalea2d({ xmin: -r - 3, xmax: r + 3, ymin: -r - 1.5, ymax: r + 1, pixelsParCm: 15, scale: 0.45, style: 'margin: auto' }, c, s1, s2, sA1A2, sB1B2, sC1C2, sD1D2, sE1E2, sF1F2, g, nom, o)
     switch (choice([1, 2, 3, 4, 5])) {
       case 1:// les 0
         a = choice(['0', '2\\pi', '4\\pi', '-2\\pi', '-4\\pi', '\\pi', '-\\pi', '3\\pi', '5\\pi'])
