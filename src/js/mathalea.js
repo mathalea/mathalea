@@ -1247,6 +1247,7 @@ function miseAJourDuCode () {
             const monSuperExercice = concatExercices(listeObjetsExercice)
             if (listeObjetsExercice.length === 1) {
               codeExercices += monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', `\\begin{spacing}{1.5}
+              \\setcounter{nbEx}{1}
               \\begin{longtable}{|c|>{\\centering}p{0.65\\textwidth}|>{\\centering}p{0.15\\textwidth}|c|}%
               \\hline
               \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline
