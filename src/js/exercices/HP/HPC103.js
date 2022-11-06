@@ -102,7 +102,7 @@ export default class nomExercice extends Exercice {
         const produit = math.multiply(matrices[1], matrices[0])
         let produitprint = produit.toString()
         produitprint = math.parse(produitprint).toTex().replaceAll('bmatrix', 'pmatrix')
-        texteCorr += `<br><br> Le produit $B \\times A$ est possible et c'est une matrice qui a ${nblignes[0]} lignes et ${nbcolonnes[1]} colonnes. `
+        texteCorr += `<br><br> Le produit $B \\times A$ est possible et c'est une matrice qui a ${nblignes[1]} lignes et ${nbcolonnes[0]} colonnes. `
         texteCorr += `<br><br> $ \\begin{array}{rccl} && \\textcolor{red}{${matricesprint[0]}}& =\\textcolor{red}{A} \\\\ \\textcolor{blue}{B} = &\\textcolor{blue}{${matricesprint[1]}} & ${produitprint} & = BA \\end{array} $`
         const l1 = matrices[1].subset(math.index(nblignes[1] - 1, math.range(0, nbcolonnes[1])))
         const c1 = matrices[0].subset(math.index(math.range(0, nblignes[0]), nbcolonnes[0] - 1))
