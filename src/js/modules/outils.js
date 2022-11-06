@@ -6914,7 +6914,10 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 }
 ${preambulePersonnalise(listePackages)}
 
-% Spécifique sujets CAN
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SPÉCIFIQUE SUJETS CAN                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \\usepackage{longtable}
 
 \\tikzset{
@@ -6933,66 +6936,96 @@ ${preambulePersonnalise(listePackages)}
   \\newcommand\\MyBox[2][]{%
     \\tikz\\node[mybox,#1] {#2}; 
   }
+  % Un compteur pour les questions CAN
   \\newcounter{nbEx}
+  % Pour travailler avec les compteurs
   \\usepackage{totcount}
-  \\regtotcounter{nbEx}
-  \\def\\checkmark{\\tikz\\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
+  \\regtotcounter{nbEx}  
+
+  % Une checkmark !
+  \\def\\checkmark{\\tikz\\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}  
+  % Repiqué sans vergogne dans lemanuel TikZ pour l'impatient
+  \\def\\arete{3}   \\def\\epaisseur{5}   \\def\\rayon{2}
+
+  \\newcommand{\\ruban}{(0,0)
+    ++(0:0.57735*\\arete-0.57735*\\epaisseur+2*\\rayon)
+    ++(-30:\\epaisseur-1.73205*\\rayon)
+    arc (60:0:\\rayon)   -- ++(90:\\epaisseur)
+    arc (0:60:\\rayon)   -- ++(150:\\arete)
+    arc (60:120:\\rayon) -- ++(210:\\epaisseur)
+    arc (120:60:\\rayon) -- cycle}
+
+  \\newcommand{\\dureeCan}{[Temps total à modifier juste après le \\textbackslash begin\\{document\\}]}  
+
+  \\newcommand{\\titreSujetCan}{\\textbf{[Ligne ci-dessous à modifier juste après le \\textbackslash begin\\{document\\}]\\\\Sujet niveau NN - Mois Année}}
+
+  \\newcommand{\\mobiusCan}{
+    % Repiqué sans vergogne dans lemanuel TikZ pour l'impatient
+    \\begin{tikzpicture}[very thick,top color=white,bottom color=gray,scale=1.2]
+      \\shadedraw \\ruban;
+      \\shadedraw [rotate=120] \\ruban;
+      \\shadedraw [rotate=-120] \\ruban;
+      \\draw (-60:4) node[scale=5,rotate=30]{CAN};
+      \\draw (180:4) node[scale=3,rotate=-90]{MathALEA};
+      \\clip (0,-6) rectangle (6,6); % pour croiser
+      \\shadedraw  \\ruban;
+      \\draw (60:4) node [gray,xscale=2.5,yscale=2.5,rotate=-30]{CoopMaths};
+    \\end{tikzpicture} 
+  }
   
+  \\newcommand{\\pageDeGardeCan}[1]{
+    % #1 --> nom du compteur pour le nombre de questions
+
+    %\\vspace*{10mm}
+    \\textsc{Nom} : \\makebox[.35\\linewidth]{\\dotfill} \\hfill \\textsc{Prénom} : \\makebox[.35\\linewidth]{\\dotfill}
+
+    \\vspace{10mm}
+    \\textsc{Classe} : \\makebox[.33\\linewidth]{\\dotfill} \\hfill
+    \\MyBox{\\Large\\textsc{Score} : \\makebox[.15\\linewidth]{\\dotfill} / \\total{#1}}      
+    \\par\\medskip \\hrulefill \\par
+    \\checkmark \\textit{\\textbf{Durée :  \\dureeCan~minutes}}
+
+    \\smallskip
+    \\checkmark \\textit{L'épreuve comporte \\total{#1} questions.}
+
+    \\smallskip  
+    \\checkmark \\textit{L'usage de la calculatrice et du brouillon sont interdits.}
+
+    \\smallskip
+    \\checkmark \\textit{Il n'est pas permis d'écrire des calculs intermédiaires.}
+    \\par \\hrulefill \\par\\vspace{5mm}
+    \\begin{center}
+      \\textsc{\\titreSujetCan}
+      \\par\\vspace{5mm}
+      \\mobiusCan
+    \\end{center}
+  }
+
+  % Structure globale pour les tableaux des livrets CAN
+  \\newcommand{\\structureTableauCan}[1]{
+    % #1 --> corps de tableau
+    \\renewcommand*{\\arraystretch}{2.5}
+    \\begin{spacing}{1.1}
+        \\begin{longtable}{|>{\\columncolor{gray!20}\\centering}m{0.05\\textwidth}|>{\\centering}m{0.45\\textwidth}|>{\\centering}m{0.35\\textwidth}|>{\\centering}p{0.1\\textwidth}|}%
+            \\hline
+            \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline
+            %\\endfirsthead
+            %\\hline
+            %\\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline
+            %\\endhead
+            #1
+        \\end{longtable}
+    \\end{spacing}
+    \\renewcommand*{\\arraystretch}{1}
+  }
+
 \\begin{document}
 \\thispagestyle{premierePage}
-
-\\setcounter{nbEx}{1}
-\\vspace*{-10mm}
-\\textsc{Nom} : \\makebox[.35\\linewidth]{\\dotfill} \\hfill \\textsc{Prénom} : \\makebox[.35\\linewidth]{\\dotfill}
-\\begin{minipage}{0.55\\textwidth}
-  \\vspace{10mm}
-  \\textsc{Classe} : \\makebox[.45\\linewidth]{\\dotfill}
-\\end{minipage}
-\\begin{minipage}{0.35\\textwidth} 
-  \\vspace{5mm}
-  \\MyBox{\\Large\\textsc{Score} : \\makebox[.15\\linewidth]{\\dotfill} / \\total{nbEx}}      
-\\end{minipage}
-\\par\\medskip \\hrulefill \\par
-\\checkmark \\textit{\\textbf{Durée : [Temps total à modifier ici dans le code source] minutes}}
-
-\\smallskip
-\\checkmark \\textit{L'épreuve comporte \\total{nbEx} questions.}
-
-\\smallskip  
-\\checkmark \\textit{L'usage de la calculatrice et du brouillon sont interdits.}
-
-\\smallskip
-\\checkmark \\textit{Il n'est pas permis d'écrire des calculs intermédiaires.}
-\\par \\hrulefill \\par\\vspace{5mm}
-\\begin{center}
-\\textbf{[Ligne ci-dessous à modifier dans le code source]}
-
-\\textsc{Sujet niveau NN - Mois Année}
-
-
-\\par\\vspace{5mm}
-\\def\\arete{3}   \\def\\epaisseur{5}   \\def\\rayon{2}
-
-\\newcommand{\\ruban}{(0,0)
-  ++(0:0.57735*\\arete-0.57735*\\epaisseur+2*\\rayon)
-  ++(-30:\\epaisseur-1.73205*\\rayon)
-  arc (60:0:\\rayon)   -- ++(90:\\epaisseur)
-  arc (0:60:\\rayon)   -- ++(150:\\arete)
-  arc (60:120:\\rayon) -- ++(210:\\epaisseur)
-  arc (120:60:\\rayon) -- cycle}
-
-\\begin{tikzpicture}[very thick,top color=white,bottom color=gray,scale=1.3]
-  \\shadedraw \\ruban;
-  \\shadedraw [rotate=120] \\ruban;
-  \\shadedraw [rotate=-120] \\ruban;
-  \\draw (-60:4) node[scale=5,rotate=30]{CAN};
-  \\draw (180:4) node[scale=3,rotate=-90]{MathALEA};
-  \\clip (0,-6) rectangle (6,6); % pour croiser
-  \\shadedraw  \\ruban;
-  \\draw (60:4) node [gray,xscale=2.5,yscale=2.5,rotate=-30]{CoopMaths};
-\\end{tikzpicture}
-\\end{center}
-\\clearpage
+% Décomenter et modifier les deux lignes suivantes pour ajuster les textes
+%\\renewcommand{\\dureeCan}{ma durée en minutes ici}
+%\\renewcommand{\\titreSujetCan}{\\textbf{mon titre ici}}
+%\\pageDeGardeCan{nbEx}
+%\\clearpage
 `
 }
 
