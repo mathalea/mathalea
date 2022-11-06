@@ -8,6 +8,8 @@ export const dateDePublication = '04/11/2022'
  * Créé le 04/01/2022
  * Référence can6C43
  */
+export const uuid = 'f3b31'
+export const ref = 'can6C43'
 export default function ExerciceComparerDeuxFractionsCAN (max = 11) {
   exerciceComparerDeuxFractions.call(this)
   this.nbQuestions = 1
