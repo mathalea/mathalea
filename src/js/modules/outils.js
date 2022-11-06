@@ -7024,8 +7024,6 @@ ${preambulePersonnalise(listePackages)}
 % Décomenter et modifier les deux lignes suivantes pour ajuster les textes
 %\\renewcommand{\\dureeCan}{ma durée en minutes ici}
 %\\renewcommand{\\titreSujetCan}{\\textbf{mon titre ici}}
-%\\pageDeGardeCan{nbEx}
-%\\clearpage
 `
 }
 
