@@ -9,6 +9,8 @@ export const dateDePublication = '04/11/2022'
  * @author Gilles Mora
  */
 
+export const uuid = '16c8e'
+export const ref = 'can6C44'
 export default function ComparerFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'
