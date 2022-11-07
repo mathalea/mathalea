@@ -904,8 +904,8 @@ class Pave3d {
     for (const arete of this.aretes) {
       this.c2d.push(arete.c2d)
     }
-    let pointsFace = [A.c2d, B.c2d, C.c2d, D.c2d]
     if (affichageNom) {
+      let pointsFace = [A.c2d, B.c2d, C.c2d, D.c2d]
       A.c2d.nom = nom[0]
       B.c2d.nom = nom[1]
       C.c2d.nom = nom[2]
@@ -914,15 +914,16 @@ class Pave3d {
       F.c2d.nom = nom[5]
       G.c2d.nom = nom[6]
       H.c2d.nom = nom[7]
+
+      // const faceAV = polygoneAvecNom(...pointsFace)
+      const faceAV = polygoneAvecNom(...pointsFace, context.isHtml ? 0.5 : 1.5)
+      pointsFace = [E.c2d, F.c2d, G.c2d, H.c2d]
+      const faceArr = polygoneAvecNom(...pointsFace, context.isHtml ? 0.5 : 1.5)
+      // const faceArr = polygoneAvecNom(...pointsFace)
+      // faceAV[0].color = colorToLatexOrHTML('none')
+      // faceArr[0].color = colorToLatexOrHTML('none')
+      this.c2d.push(faceAV[1], faceArr[1])
     }
-    const faceAV = affichageNom ? polygoneAvecNom(...pointsFace) : vide2d
-    pointsFace = [E.c2d, F.c2d, G.c2d, H.c2d]
-    const faceArr = affichageNom ? polygoneAvecNom(...pointsFace) : vide2d
-    if (affichageNom) {
-      faceAV[0].color = colorToLatexOrHTML('none')
-      faceArr[0].color = colorToLatexOrHTML('none')
-    }
-    this.c2d.push(faceAV, faceArr)
   }
 }
 

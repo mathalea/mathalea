@@ -601,7 +601,7 @@ export function LabelPoint (...points) {
       }
       x = A.x
       y = A.y
-      if (this.positionLabel) A.positionLabel = this.positionLabel
+      if (this.positionLabel && unPoint.typeObjet === 'point3d') A.positionLabel = this.positionLabel
       switch (A.positionLabel) {
         case 'left':
           code += texteParPosition(A.nom, x - 10 / coeff, y, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
@@ -2725,10 +2725,10 @@ export function polygoneAvecNom (...args) {
   args.forEach(el => (nom += el.nom))
   p.sommets = nommePolygone(p, nom, k)
   p.sommets.bordures = []
-  p.sommets.bordures[0] = p.bordures[0] - 1
-  p.sommets.bordures[1] = p.bordures[1] - 1
-  p.sommets.bordures[2] = p.bordures[2] + 1
-  p.sommets.bordures[3] = p.bordures[3] + 1
+  p.sommets.bordures[0] = p.bordures[0] - 1 - k
+  p.sommets.bordures[1] = p.bordures[1] - 1 - k
+  p.sommets.bordures[2] = p.bordures[2] + 1 + k
+  p.sommets.bordures[3] = p.bordures[3] + 1 + k
   return [p, p.sommets]
 }
 
