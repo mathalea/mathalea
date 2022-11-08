@@ -96,7 +96,7 @@ export default class nomExercice extends Exercice {
         texteCorr += `<br> Le détail du calcul de $c_{${nblignes[0]}, ${nbcolonnes[1]}}$ où $c_{${nblignes[0]}, ${nbcolonnes[1]}}$ est le coefficient de la $${nblignes[0]}$-ème ligne et de la $${nbcolonnes[1]}$-ème colonne de la matrice $C = AB$ donne : <br> $${detail}$.`
         texteCorr += `<br> On trouve $A \\times B =  ${produitprint}$.`
       } else {
-        texteCorr += '<br> Le produit $A \\times B$ n\'est pas possible car le nombre de colonnes de $A$ n\'est pas égal au nombre de lignes de $B$.'
+        texteCorr += '<br><br> Le produit $A \\times B$ n\'est pas possible car le nombre de colonnes de $A$ n\'est pas égal au nombre de lignes de $B$.'
       }
       if (nbcolonnes[1] === nblignes[0]) {
         const produit = math.multiply(matrices[1], matrices[0])
@@ -115,7 +115,7 @@ export default class nomExercice extends Exercice {
         texteCorr += `<br> Le détail du calcul de $c_{${nblignes[1]}, ${nbcolonnes[0]}}$ où $c_{${nblignes[1]}, ${nbcolonnes[0]}}$ est le coefficient de la $${nblignes[1]}$-ème ligne et de la $${nbcolonnes[0]}$-ème colonne de la matrice $C = BA$ donne : <br> $${detail}$.`
         texteCorr += `<br> On trouve $B \\times A =  ${produitprint}$.`
       } else {
-        texteCorr += '<br> Le produit $B \\times A$ n\'est pas possible car le nombre de colonnes de $B$ n\'est pas égal au nombre de lignes de $A$.'
+        texteCorr += '<br><br> Le produit $B \\times A$ n\'est pas possible car le nombre de colonnes de $B$ n\'est pas égal au nombre de lignes de $A$.'
       }
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, matrices)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c, d...)
