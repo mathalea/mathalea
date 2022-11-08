@@ -115,7 +115,8 @@ export default function LireFacePaveDroit () {
       nomSolide = choisitLettresDifferentes(8, 'OQWXD').join('')
       solideDessine = pave3d(A, B, D, E, 'blue', true, nomSolide)
       objetsEnonce.push(...solideDessine.c2d)
-      enonceFigure = (context.isAmc ? '' : '<br>') + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.2, style: 'block' }), objetsEnonce) + '<br>'
+      // enonceFigure = (context.isAmc ? '' : '<br>') + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.2, style: 'block' }), objetsEnonce) + '<br>'
+      enonceFigure = mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce) + '<br>'
       texte += enonceFigure
       facesPossibles = [['de devant', '0123'], ['de derrière', '4567'], ['de gauche', '0374'], ['de droite', '1265'], ['du dessus', '2376'], ['du dessous', '0154']]
 
@@ -133,9 +134,9 @@ export default function LireFacePaveDroit () {
       for (let ee = 0; ee < Math.min(choixFace.length, this.sup); ee++) {
         indiceQuestion = i * Math.min(choixFace.length, this.sup) + ee
 
-        enonceAMC = this.sup === 1 ? '' : numAlpha(ee)
+        enonceAMC = this.sup === 1 ? '' : (((ee === 0) ? '' : '<br>') + numAlpha(ee))
 
-        enonceAMC += `Comment peut se nommer la face ${facesPossibles[choixFace[ee]][0]} du pavé droit ${nomSolide} ? `
+        enonceAMC += `Comment peut se nommer la face ${facesPossibles[choixFace[ee]][0]} du pavé droit ${nomSolide} ?`
         texte += enonceAMC
         resultatsPossibles = combinaisonListes(differentsNomsPossiblesDUneFace(facesPossibles[choixFace[ee]][1], nomSolide))
         texteCorr += this.sup === 1 ? '' : numAlpha(ee)
