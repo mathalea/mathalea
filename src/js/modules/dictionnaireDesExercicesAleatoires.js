@@ -3413,6 +3413,20 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     }
   },
+  "3G41-1": {
+    "titre": "Construire la section d'un plan dans un un pavé droit",
+    "url": "/exercices/3e/3G41-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": false,
+    "name": "3G41-1",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    }
+  },
   "3G41": {
     "titre": "Dessiner différentes vues d'un empilement de cubes",
     "url": "/exercices/3e/3G41.js",
@@ -3423,7 +3437,7 @@ export default {
     "interactifReady": false,
     "name": "3G41",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     }
   },
@@ -8730,7 +8744,7 @@ export default {
     "interactifReady": false,
     "name": "6G11-1",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -9220,6 +9234,28 @@ export default {
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    }
+  },
+  "6G42-1": {
+    "titre": "Nommer des faces dans un pavé droit",
+    "url": "/exercices/6e/6G42-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": [
+      "qcm",
+      "mathLive"
+    ],
+    "name": "6G42-1",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G42": {
@@ -17387,12 +17423,31 @@ export default {
     }
   },
   "can6C43": {
-    "titre": "Comparer des fractions*",
+    "titre": "Comprarer deux fractions (dénominateurs multiples)",
     "url": "/exercices/can/6e/can6C43.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can6C43",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can6C44": {
+    "titre": "Comparer deux fractions*",
+    "url": "/exercices/can/6e/can6C44.js",
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "can6C43",
+    "name": "can6C44",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -18578,6 +18633,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "canc3M03": {
+    "titre": "Calculer une somme de nombres avec des unités",
+    "url": "/exercices/can/c3/canc3M03.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "canc3M03",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "canc3N01": {
     "titre": "Écrire en lettres un nombre entier (QCM)",
     "url": "/exercices/can/c3/canc3N01.js",
@@ -19122,6 +19193,21 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "ExC100",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "ExC101": {
+    "titre": "Produit de matrices carrées ou colonnes",
+    "url": "/exercices/Ex/ExC101.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "ExC101",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
