@@ -4194,7 +4194,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -11438,6 +11438,21 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "ExC100",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "ExC101": {
+    "titre": "Produit de matrices carrées ou colonnes",
+    "url": "/exercices/Ex/ExC101.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "ExC101",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
