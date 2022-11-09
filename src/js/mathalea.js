@@ -1149,14 +1149,14 @@ function miseAJourDuCode () {
       if ($('#style_can:checked').val()) {
         const monSuperExercice = concatExercices(listeObjetsExercice)
         if (listeObjetsExercice.length === 1) {
-          codeEnonces = monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', `\\begin{spacing}{1.5}
-          \\begin{longtable}{|c|>{\\centering}p{0.65\\textwidth}|>{\\centering}p{0.15\\textwidth}|c|}%
-          \\hline
-          \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline
-          \\thenbEx \\addtocounter{nbEx}{1}&`).replace('\\item', '').replaceAll('\\item', `&&\\tabularnewline \\hline
-          \\thenbEx  \\addtocounter{nbEx}{1}&`).replace('\\end{enumerate}', `&&\\tabularnewline \\hline
-          \\end{longtable}
-          \\end{spacing}
+          codeEnonces = monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', `
+          \\setcounter{nbEx}{1}
+          \\pageDeGardeCan{nbEx}
+          \\clearpage
+          \\structureTableauCan{
+            \\thenbEx \\addtocounter{nbEx}{1}&`).replace('\\item', '').replaceAll('\\item', `&&\\tabularnewline \\hline
+            \\thenbEx  \\addtocounter{nbEx}{1}&`).replace('\\end{enumerate}', `&&\\tabularnewline \\hline
+          }
           \\addtocounter{nbEx}{-1}`).replace('\\begin{multicols}{2}', '').replace('\\end{multicols}', '').replaceAll('\\\\', '')
         } else {
           let msgAlerteCanEnonce = ''
@@ -1205,18 +1205,13 @@ function miseAJourDuCode () {
             window.notify(`Les exercices ${msgAlerteCanReponseACompleter} n'ont pas de propriété canReponseACompleter`)
             // codeEnonces += ` \\textcolor{red}{Les exercices ${msgAlerteCanReponseACompleter} n'ont pas de propriété canReponseACompleter} \\\\`
           }
-          codeEnonces += `\\renewcommand*{\\arraystretch}{2.5}
-          \\begin{spacing}{1.1}
-          \\begin{longtable}{|>{\\columncolor{gray!20}}c|>{\\centering}p{0.45\\textwidth}|>{\\centering}p{0.35\\textwidth}|c|}%
-          \\hline
-          \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline`
-
-          codeEnonces += canCorpsTableau
-
           codeEnonces += `
-          \\end{longtable}
-          \\end{spacing}
-          \\renewcommand*{\\arraystretch}{1}
+          \\setcounter{nbEx}{1}
+          \\pageDeGardeCan{nbEx}
+          \\clearpage
+          \\structureTableauCan{
+            ${canCorpsTableau}
+          }
           \\addtocounter{nbEx}{-1}
           `
         }
@@ -1246,14 +1241,14 @@ function miseAJourDuCode () {
           if ($('#style_can:checked').val()) {
             const monSuperExercice = concatExercices(listeObjetsExercice)
             if (listeObjetsExercice.length === 1) {
-              codeExercices += monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', `\\begin{spacing}{1.5}
-              \\begin{longtable}{|c|>{\\centering}p{0.65\\textwidth}|>{\\centering}p{0.15\\textwidth}|c|}%
-              \\hline
-              \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline
-              \\thenbEx \\addtocounter{nbEx}{1}&`).replace('\\item', '').replaceAll('\\item', `&&\\tabularnewline \\hline
-              \\thenbEx  \\addtocounter{nbEx}{1}&`).replace('\\end{enumerate}', `&&\\tabularnewline \\hline
-              \\end{longtable}
-              \\end{spacing}
+              codeExercices += monSuperExercice.contenu.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '').replace('\\begin{enumerate}', `
+              \\setcounter{nbEx}{1}
+              \\pageDeGardeCan{nbEx}
+              \\clearpage
+              \\structureTableauCan{
+                \\thenbEx \\addtocounter{nbEx}{1}&`).replace('\\item', '').replaceAll('\\item', `&&\\tabularnewline \\hline
+                \\thenbEx  \\addtocounter{nbEx}{1}&`).replace('\\end{enumerate}', `&&\\tabularnewline \\hline
+              }
               \\addtocounter{nbEx}{-1}`).replace('\\begin{multicols}{2}', '').replace('\\end{multicols}', '').replace('\\\\', '')
             } else {
               let msgAlerteCanEnonce = ''
@@ -1261,7 +1256,7 @@ function miseAJourDuCode () {
               let canCorpsTableau = ''
               let msgEnonce
               let msgRepACompleter
-              codeCorrection = '\\begin{enumerate}'
+              codeCorrection += '\\begin{enumerate}'
               for (const exoCan of listeObjetsExercice) {
                 // let canEnonceProperty
                 // let canReponseACompleterProperty
@@ -1295,25 +1290,22 @@ function miseAJourDuCode () {
               }
 
               codeCorrection += '\\end{enumerate}'
-              codeExercices = ''
+              codeExercices += ''
               if (msgAlerteCanEnonce !== '') {
-                codeExercices += ` \\textcolor{red}{Les exercices ${msgAlerteCanEnonce} n'ont pas de propriété canEnonce} \\\\`
+                window.notify(`Les exercices ${msgAlerteCanEnonce} n'ont pas de propriété canEnonce`)
+                // codeEnonces += ` \\textcolor{red}{Les exercices ${msgAlerteCanEnonce} n'ont pas de propriété canEnonce} \\\\`
               }
               if (msgAlerteCanReponseACompleter !== '') {
-                codeExercices += ` \\textcolor{red}{Les exercices ${msgAlerteCanReponseACompleter} n'ont pas de propriété canReponseACompleter} \\\\`
+                window.notify(`Les exercices ${msgAlerteCanReponseACompleter} n'ont pas de propriété canReponseACompleter`)
+                // codeEnonces += ` \\textcolor{red}{Les exercices ${msgAlerteCanReponseACompleter} n'ont pas de propriété canReponseACompleter} \\\\`
               }
-              codeExercices += `\\renewcommand*{\\arraystretch}{2.5}
-              \\begin{spacing}{1.1}
-              \\begin{longtable}{|>{\\columncolor{gray!20}}c|>{\\centering}p{0.45\\textwidth}|>{\\centering}p{0.35\\textwidth}|c|}%
-              \\hline
-              \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline`
-
-              codeExercices += canCorpsTableau
-
               codeExercices += `
-              \\end{longtable}
-              \\end{spacing}
-              \\renewcommand*{\\arraystretch}{1}
+              \\setcounter{nbEx}{1}
+              \\pageDeGardeCan{nbEx}
+              \\clearpage
+              \\structureTableauCan{
+                ${canCorpsTableau}
+              }
               \\addtocounter{nbEx}{-1}
               `
             }
