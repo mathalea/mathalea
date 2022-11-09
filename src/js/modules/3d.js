@@ -634,7 +634,6 @@ class Cube3d {
     H.c2d.nom = nom[7]
     pointsFace = [E.c2d, F.c2d, G.c2d, H.c2d]
     const faceArr = affichageNom ? polygoneAvecNom(...pointsFace) : vide2d
-    if (affichageNom) faceArr[0].color = colorToLatexOrHTML('none')
 
     const faceDr = polygone([B.c2d, F.c2d, G.c2d, C.c2d], color)
     const faceTOP = polygone([D.c2d, C.c2d, G.c2d, H.c2d], color)
@@ -651,9 +650,9 @@ class Cube3d {
       faceAV.couleurDeRemplissage = colorToLatexOrHTML(colorAV)
       faceTOP.couleurDeRemplissage = colorToLatexOrHTML(colorTOP)
       faceDr.couleurDeRemplissage = colorToLatexOrHTML(colorDr)
-      this.c2d = [faceAV, faceDr, faceTOP]
+      this.c2d = [faceAV.length === 2 ? faceAV[0] : faceAV, faceAV.length === 2 ? faceAV[1] : vide2d, faceDr, faceTOP]
     } else {
-      this.c2d = [faceAV, faceDr, faceTOP, faceArr, areteEH, areteEF, areteEA]
+      this.c2d = [faceAV.length === 2 ? faceAV[0] : faceAV, faceAV.length === 2 ? faceAV[1] : vide2d, faceDr, faceTOP, faceArr.length === 2 ? faceArr[1] : vide2d, areteEH, areteEF, areteEA]
     }
   }
 }
