@@ -217,5 +217,5 @@ export default function Distance () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Application directe de la formule 2 : Application en situation']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Application directe 2 : Application indirecte']
 }
