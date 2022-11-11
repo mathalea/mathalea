@@ -15,7 +15,7 @@
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "prepare": "husky install",
-    "start": "webpack serve",
+    "start": "NODE_OPTIONS='--max-old-space-size=4096' webpack serve",
     "test": "node testsBrowser/start.js",
     "test:all": "node testsBrowser/start.js --task runAll --verbose",
     "test:list": "node testsBrowser/start.js --list",
