@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 528 
-- nombre d'exos interactifReady 810 
+- nombre d'exos amcReady 529 
+- nombre d'exos interactifReady 812 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -530,6 +530,7 @@
 |can2C12|Déterminer un taux global d’évolution|OK|AMCNum|OK|mathLive|
 |can2C13|Calculer avec  des puissances|OK|AMCNum|OK|mathLive|
 |can2C14|Calculer avec une racine carrée (définition)|KO|KO|OK|mathLive|
+|can2C15|Calculer un nombre connaissant son inverse|OK|AMCNum|OK|mathLive|
 |can2F01|Calculer une image avec le second degré|KO|KO|OK|mathLive|
 |can2F02|Calculer une image avec un quotient|KO|KO|OK|mathLive|
 |can2F03|Déterminer le signe d’une fonction affine (V/F)|KO|KO|OK|qcm|
@@ -562,6 +563,7 @@
 |can2G16|Trouver un coefficient de colinéarité (graphique)|OK|AMCHybride|OK|mathLive|
 |can2G17|Déterminer un vecteur directeur avec une équation cartésienne|KO|KO|OK|custom|
 |can2G18|Déterminer les coordonnées d’un vecteur à partir d’un graphique|KO|KO|OK|mathLive|
+|can2G19|Déterminer le coefficient directeur d'une droite (graphique)|KO|KO|OK|mathLive|
 |can2L01|Déterminer le nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
 |can2L02|Calculer les coordonnées d’un point sur une droite|KO|KO|OK|mathLive|
 |can2L03|Calculer les coordonnées du point d’intersection entre l’axe des abscisses/droite|KO|KO|OK|mathLive|
