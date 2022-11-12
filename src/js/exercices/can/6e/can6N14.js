@@ -25,7 +25,7 @@ export default function DeterminerLeNombre () {
     this.listeQuestions = []
     this.listeCorrections = []
 
-    let texte, texteCorr, a
+    let texte, texteCorr, a, monQcm
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (choice([1, 2, 3])) { // 1
@@ -57,7 +57,8 @@ export default function DeterminerLeNombre () {
               }
             ]
           }
-          texte += propositionsQcm(this, i).texte
+          monQcm = propositionsQcm(this, i)
+          texte += monQcm.texte
           texteCorr = ` $1$ dixième est égal à $0,1$. <br>
           Ainsi, $${a}$ dixièmes $=${a}\\times 0,1=${texNombrec(a / 10)}$. `
 
@@ -90,7 +91,8 @@ export default function DeterminerLeNombre () {
               }
             ]
           }
-          texte += propositionsQcm(this, i).texte
+          monQcm = propositionsQcm(this, i)
+          texte += monQcm.texte
           texteCorr = ` $1$ centième est égal à $0,01$. <br>
           Ainsi, $${a}$ centièmes $=${a}\\times 0,01=${texNombrec(a / 100)}$. `
           break
@@ -124,7 +126,8 @@ export default function DeterminerLeNombre () {
               }
             ]
           }
-          texte += propositionsQcm(this, i).texte
+          monQcm = propositionsQcm(this, i)
+          texte += monQcm.texte
           texteCorr = ` $1$ millième est égal à $0,001$. <br>
           Ainsi, $${a}$ millièmes $=${a}\\times 0,001=${texNombrec(a / 1000)}$. `
           break
@@ -138,6 +141,6 @@ export default function DeterminerLeNombre () {
       cpt++
     }
     listeQuestionsToContenu(this)
-    this.canReponseACompleter = propositionsQcm(this, 0).texte
+    this.canReponseACompleter = monQcm.texte
   }
 }

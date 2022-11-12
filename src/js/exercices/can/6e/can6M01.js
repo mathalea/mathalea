@@ -40,8 +40,9 @@ export default function QuestionDePerimetres () {
         }
       ]
     }
+    const monQcm = propositionsQcm(this, 0)
     if (!context.isAmc) {
-      texte += propositionsQcm(this, 0).texte
+      texte += monQcm.texte
     }
     this.correction = VF[b]
       ? `Vrai <br>
@@ -62,6 +63,6 @@ export default function QuestionDePerimetres () {
     this.listeQuestions.push(texte)
     this.listeCorrections.push(this.correction)
     listeQuestionsToContenu(this)
-    this.canReponseACompleter = propositionsQcm(this, 0).texte
+    this.canReponseACompleter = monQcm.texte
   }
 }

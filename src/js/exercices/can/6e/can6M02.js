@@ -52,13 +52,14 @@ export default function LaBonneUnite () {
         }
       ]
     }
+    const monQcm = propositionsQcm(this, 0)
     if (!context.isAmc) {
-      texte += propositionsQcm(this, 0).texte
+      texte += monQcm.texte
     }
     const texteCorr = `La hauteur d'une ${hauteurs[a][0]} est ${b} ${hauteurs[a][3]}`
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
-    this.canReponseACompleter = propositionsQcm(this, 0).texte
+    this.canReponseACompleter = monQcm.texte
   }
 }
