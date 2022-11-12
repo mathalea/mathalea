@@ -90,9 +90,11 @@ export default class EngrenagesAnimes extends Exercice {
           texteCorr += `On en déduit que $n=\\dfrac{${nbDentsRoueA * nbToursA}}{${nbToursB}}=${nbDentsRoueB}$<br>`
           texteCorr += `La roue de droite a donc $${nbDentsRoueB}$ dents.<br>`
           roues = engrenages(0, 0.5, nbDentsRoueA, nbDentsRoueB)
+          roues[1].marqueur = 180
           rouesCorr = engrenages(Math.ceil(20 / Math.max(nbToursA, nbToursB)), 0.5, nbDentsRoueA, nbDentsRoueB)
           roueACorr = rouesCorr[0]
           roueBCorr = rouesCorr[1]
+          roueBCorr.marqueur = 180
           remiseAZero = () => {
             clearInterval(interABC)
             clearInterval(interA)
@@ -139,9 +141,11 @@ export default class EngrenagesAnimes extends Exercice {
           texteCorr += `On en déduit que $n=\\dfrac{${nbDentsRoueA * nbToursA}}{${nbToursB}}=${nbDentsRoueB}$<br>`
           texteCorr += `La roue de droite a donc $${nbDentsRoueB}$ dents.<br>`
           roues = engrenages(0, 0.5, nbDentsRoueA, nbDentsRoueB)
+          roues[1].marqueur = 180
           rouesCorr = engrenages(Math.ceil(20 / Math.max(nbToursA, nbToursB)), 0.5, nbDentsRoueA, nbDentsRoueB)
           roueACorr = rouesCorr[0]
           roueBCorr = rouesCorr[1]
+          roueBCorr.marqueur = 180
           remiseAZero = () => {
             clearInterval(interABC)
             clearInterval(interA)
@@ -190,9 +194,11 @@ export default class EngrenagesAnimes extends Exercice {
           texteCorr += `${numAlpha(0)}Il faudra donc $${nbToursA}$ tours de la roue de gauche pour que les roues retrouvent leur position initiale.<br>`
           texteCorr += `${numAlpha(1)}La roue de droite aura effectué alors $${nbToursB}$ tours.<br>`
           roues = engrenages(0, 0.5, nbDentsRoueA, nbDentsRoueB)
+          roues[1].marqueur = 180
           rouesCorr = engrenages(Math.ceil(20 / Math.max(nbToursA, nbToursB)), 0.5, nbDentsRoueA, nbDentsRoueB)
           roueACorr = rouesCorr[0]
           roueBCorr = rouesCorr[1]
+          roueBCorr.marqueur = 180
           remiseAZero = () => {
             clearInterval(interABC)
             clearInterval(interA)
@@ -237,9 +243,11 @@ export default class EngrenagesAnimes extends Exercice {
           texteCorr += `On en déduit que $n=\\dfrac{${nbDentsRoueA * nbToursA}}{${nbDentsRoueB}}=${nbToursB}$<br>`
           texteCorr += `La roue de droite a donc effectué $${nbToursB}$ tours pendant que la roue de gauche en a effectués $${nbToursA}$.<br>`
           roues = engrenages(0, 0.5, nbDentsRoueA, nbDentsRoueB)
+          roues[1].marqueur = 180
           rouesCorr = engrenages(Math.ceil(20 / Math.max(nbToursA, nbToursB)), 0.5, nbDentsRoueA, nbDentsRoueB)
           roueACorr = rouesCorr[0]
           roueBCorr = rouesCorr[1]
+          roueBCorr.marqueur = 180
           remiseAZero = () => {
             clearInterval(interABC)
             clearInterval(interA)
@@ -280,10 +288,12 @@ export default class EngrenagesAnimes extends Exercice {
             nbToursAbc = ppcm(ppcm(nbDentsRoueA, nbDentsRoueB), nbDentsRoueC) / nbDentsRoueA
           } while ((nbToursA > 4 && nbToursC > 4 && nbToursB > 4) || nbToursA === 1 || nbToursC === 1 || nbToursB === 1) // au moins une des deux roues fait moins de 5 tours
           roues = engrenages(0, 0.5, nbDentsRoueA, nbDentsRoueB, nbDentsRoueC)
+          roues[2].marqueur = 180
           rouesCorr = engrenages(Math.ceil(20 / Math.max(nbToursA, nbToursB, nbToursC)), 0.5, nbDentsRoueA, nbDentsRoueB, nbDentsRoueC)
           roueACorr = rouesCorr[0]
           roueBCorr = rouesCorr[1]
           roueCCorr = rouesCorr[2]
+          roueCCorr.marqueur = 180
           texte += `La roue de gauche possède $${nbDentsRoueA}$ dents, celle du milieu en a $${nbDentsRoueB}$ et celle de droite en a $${nbDentsRoueC}$.<br>`
           texte += `${numAlpha(0)}Combien de tours doit effectuer la roue de gauche avant que son repère et celui de la roue du milieu soient à nouveau comme dans la position initiale ?<br>`
           texte += `${numAlpha(1)}Combien de tours doit effectuer la roue de gauche avant que son repère et celui de la roue de droite soient à nouveau comme dans la position initiale ?<br>`
