@@ -502,7 +502,7 @@ function Cylindre3d (centrebase1, centrebase2, rayon1, rayon2, color = 'black', 
   const prodvec = vecteur3d(math.cross(this.normal.matrice, this.rayon1.matrice))
   const prodscal = math.dot(prodvec.matrice, vecteur3d(0, 1, 0).matrice)
   let cote1, cote2
-  const centre1PlusBasQueCentre2 = this.centrebase1.c2d.y !== this.centrebase2.c2d.y ? this.centrebase1.c2d.y < this.centrebase2.c2d.y : this.centrebase1.c2d.x > this.centrebase2.c2d.x
+  const centre1PlusBasQueCentre2 = this.centrebase1.c2d.y !== this.centrebase2.c2d.y ? this.centrebase1.c2d.y < this.centrebase2.c2d.y : (context.anglePerspective > 0)
   if (prodscal * context.anglePerspective > 0) {
     cote1 = centre1PlusBasQueCentre2 ? 'direct' : 'indirect'
     cote2 = centre1PlusBasQueCentre2 ? 'indirect' : 'direct'
