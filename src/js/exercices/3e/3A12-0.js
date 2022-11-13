@@ -1,8 +1,8 @@
 import Exercice from '../Exercice.js'
 import { combinaisonListes, contraindreValeur, listeQuestionsToContenu, miseEnEvidence, numAlpha, ppcm, randint, texNombre } from '../../modules/outils.js'
-import { engrenage } from '../../modules/2d.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
+import { engrenages } from '../../modules/2d/engrenage'
 
 export const titre = 'Problèmes avec des engrenages'
 export const dateDePublication = '05/10/2022'
@@ -66,14 +66,13 @@ export default class EngrenagesAnimes extends Exercice {
       let interA, interB, interC, interABC
       let nbDentsRoueA, nbDentsRoueB, nbDentsRoueC
       let nbToursA, nbToursB, nbToursC, nbToursAbc
-      let rayonA, rayonB, rayonC
-      let roueA, roueB, roueC
       let roueACorr, roueBCorr, roueCCorr
       let texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
       let texteCorr = '' // Idem pour le texte de la correction.
       let remiseAZero
       const divM2d = document.createElement('div') // Notre nouveau div de type HTMLElement (et non plus un string)
-
+      let roues = []
+      let rouesCorr
       switch (listeTypesDeQuestions[i]) {
         case 1:
           do {
@@ -90,12 +89,12 @@ export default class EngrenagesAnimes extends Exercice {
           texteCorr += `Soit $n$ le nombre de dents de la roue de droite qui effectue $${nbToursB}$ tours, on a alors : $n\\times${nbToursB} = ${nbDentsRoueA}\\times ${nbToursA} = ${nbDentsRoueA * nbToursA}$.<br>`
           texteCorr += `On en déduit que $n=\\dfrac{${nbDentsRoueA * nbToursA}}{${nbToursB}}=${nbDentsRoueB}$<br>`
           texteCorr += `La roue de droite a donc $${nbDentsRoueB}$ dents.<br>`
-          rayonA = nbDentsRoueA / 5
-          rayonB = nbDentsRoueB / 5
-          roueA = engrenage({ rayon: nbDentsRoueA > nbDentsRoueB ? 2.5 : 1.5, rayonInt: 0.8, rayonExt: nbDentsRoueA > nbDentsRoueB ? 3 : 2, nbDents: nbDentsRoueA > nbDentsRoueB ? 19 : 13, xCenter: 0, yCenter: 0, angleStart: 0, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: 0, marqueur: 0 })
-          roueB = engrenage({ rayon: nbDentsRoueA > nbDentsRoueB ? 1.5 : 2.5, rayonInt: 0.8, rayonExt: nbDentsRoueA > nbDentsRoueB ? 2 : 3, nbDents: nbDentsRoueA > nbDentsRoueB ? 13 : 19, xCenter: 4.7, yCenter: 0, angleStart: 180 - 180 / (nbDentsRoueA > nbDentsRoueB ? 13 : 19), couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: 0, marqueur: 180 })
-          roueACorr = engrenage({ rayon: rayonA, rayonInt: 0.8, rayonExt: rayonA + 1, nbDents: nbDentsRoueA, xCenter: 0, yCenter: 0, angleStart: 0, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: nbDentsRoueA / 2, marqueur: 0 })
-          roueBCorr = engrenage({ rayon: rayonB, rayonInt: 0.8, rayonExt: rayonB + 1, nbDents: nbDentsRoueB, xCenter: rayonA + rayonB + 1.3, yCenter: 0, angleStart: 180 - 180 / nbDentsRoueB, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: -nbDentsRoueB / 2, marqueur: 180 })
+          roues = engrenages(0, 0.5, nbDentsRoueA, nbDentsRoueB)
+          roues[1].marqueur = 180
+          rouesCorr = engrenages(Math.ceil(20 / Math.max(nbToursA, nbToursB)), 0.5, nbDentsRoueA, nbDentsRoueB)
+          roueACorr = rouesCorr[0]
+          roueBCorr = rouesCorr[1]
+          roueBCorr.marqueur = 180
           remiseAZero = () => {
             clearInterval(interABC)
             clearInterval(interA)
@@ -141,12 +140,12 @@ export default class EngrenagesAnimes extends Exercice {
           texteCorr += `Soit $n$ le nombre de dents de la roue de droite, on a alors : $n\\times${nbToursB} = ${nbDentsRoueA * nbToursA}$.<br>`
           texteCorr += `On en déduit que $n=\\dfrac{${nbDentsRoueA * nbToursA}}{${nbToursB}}=${nbDentsRoueB}$<br>`
           texteCorr += `La roue de droite a donc $${nbDentsRoueB}$ dents.<br>`
-          rayonA = nbDentsRoueA / 5
-          rayonB = nbDentsRoueB / 5
-          roueA = engrenage({ rayon: nbDentsRoueA > nbDentsRoueB ? 2.5 : 1.5, rayonInt: 0.8, rayonExt: nbDentsRoueA > nbDentsRoueB ? 3 : 2, nbDents: nbDentsRoueA > nbDentsRoueB ? 19 : 13, xCenter: 0, yCenter: 0, angleStart: 0, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: 0, marqueur: 0 })
-          roueB = engrenage({ rayon: nbDentsRoueA > nbDentsRoueB ? 1.5 : 2.5, rayonInt: 0.8, rayonExt: nbDentsRoueA > nbDentsRoueB ? 2 : 3, nbDents: nbDentsRoueA > nbDentsRoueB ? 13 : 19, xCenter: 4.7, yCenter: 0, angleStart: 180 - 180 / (nbDentsRoueA > nbDentsRoueB ? 13 : 19), couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: 0, marqueur: 180 })
-          roueACorr = engrenage({ rayon: rayonA, rayonInt: 0.8, rayonExt: rayonA + 1, nbDents: nbDentsRoueA, xCenter: 0, yCenter: 0, angleStart: 0, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: nbDentsRoueA / 2, marqueur: 0 })
-          roueBCorr = engrenage({ rayon: rayonB, rayonInt: 0.8, rayonExt: rayonB + 1, nbDents: nbDentsRoueB, xCenter: rayonA + rayonB + 1.3, yCenter: 0, angleStart: 180 - 180 / nbDentsRoueB, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: -nbDentsRoueB / 2, marqueur: 180 })
+          roues = engrenages(0, 0.5, nbDentsRoueA, nbDentsRoueB)
+          roues[1].marqueur = 180
+          rouesCorr = engrenages(Math.ceil(20 / Math.max(nbToursA, nbToursB)), 0.5, nbDentsRoueA, nbDentsRoueB)
+          roueACorr = rouesCorr[0]
+          roueBCorr = rouesCorr[1]
+          roueBCorr.marqueur = 180
           remiseAZero = () => {
             clearInterval(interABC)
             clearInterval(interA)
@@ -194,12 +193,12 @@ export default class EngrenagesAnimes extends Exercice {
           texteCorr += listePremiersMultiples(nbDentsRoueB, nbDentsRoueA)
           texteCorr += `${numAlpha(0)}Il faudra donc $${nbToursA}$ tours de la roue de gauche pour que les roues retrouvent leur position initiale.<br>`
           texteCorr += `${numAlpha(1)}La roue de droite aura effectué alors $${nbToursB}$ tours.<br>`
-          rayonA = nbDentsRoueA / 5
-          rayonB = nbDentsRoueB / 5
-          roueA = engrenage({ rayon: rayonA, rayonInt: 0.8, rayonExt: rayonA + 1, nbDents: nbDentsRoueA, xCenter: 0, yCenter: 0, angleStart: 0, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: 0, marqueur: 0 })
-          roueB = engrenage({ rayon: rayonB, rayonInt: 0.8, rayonExt: rayonB + 1, nbDents: nbDentsRoueB, xCenter: rayonA + rayonB + 1.3, yCenter: 0, angleStart: 180 - 180 / nbDentsRoueB, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: 0, marqueur: 180 })
-          roueACorr = engrenage({ rayon: rayonA, rayonInt: 0.8, rayonExt: rayonA + 1, nbDents: nbDentsRoueA, xCenter: 0, yCenter: 0, angleStart: 0, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: nbDentsRoueA / 2, marqueur: 0 })
-          roueBCorr = engrenage({ rayon: rayonB, rayonInt: 0.8, rayonExt: rayonB + 1, nbDents: nbDentsRoueB, xCenter: rayonA + rayonB + 1.3, yCenter: 0, angleStart: 180 - 180 / nbDentsRoueB, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: -nbDentsRoueB / 2, marqueur: 180 })
+          roues = engrenages(0, 0.5, nbDentsRoueA, nbDentsRoueB)
+          roues[1].marqueur = 180
+          rouesCorr = engrenages(Math.ceil(20 / Math.max(nbToursA, nbToursB)), 0.5, nbDentsRoueA, nbDentsRoueB)
+          roueACorr = rouesCorr[0]
+          roueBCorr = rouesCorr[1]
+          roueBCorr.marqueur = 180
           remiseAZero = () => {
             clearInterval(interABC)
             clearInterval(interA)
@@ -243,12 +242,12 @@ export default class EngrenagesAnimes extends Exercice {
           texteCorr += `Soit $n$ le nombre de tours de la roue de droite qui a $${nbDentsRoueB}$ dents, on a alors : $n\\times${nbDentsRoueB} = ${nbDentsRoueA * nbToursA}$.<br>`
           texteCorr += `On en déduit que $n=\\dfrac{${nbDentsRoueA * nbToursA}}{${nbDentsRoueB}}=${nbToursB}$<br>`
           texteCorr += `La roue de droite a donc effectué $${nbToursB}$ tours pendant que la roue de gauche en a effectués $${nbToursA}$.<br>`
-          rayonA = nbDentsRoueA / 5
-          rayonB = nbDentsRoueB / 5
-          roueA = engrenage({ rayon: nbDentsRoueA > nbDentsRoueB ? 2.5 : 1.5, rayonInt: 0.8, rayonExt: nbDentsRoueA > nbDentsRoueB ? 3 : 2, nbDents: nbDentsRoueA > nbDentsRoueB ? 19 : 13, xCenter: 0, yCenter: 0, angleStart: 0, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: 0, marqueur: 0 })
-          roueB = engrenage({ rayon: nbDentsRoueA > nbDentsRoueB ? 1.5 : 2.5, rayonInt: 0.8, rayonExt: nbDentsRoueA > nbDentsRoueB ? 2 : 3, nbDents: nbDentsRoueA > nbDentsRoueB ? 13 : 19, xCenter: 4.7, yCenter: 0, angleStart: 180 - 180 / (nbDentsRoueA > nbDentsRoueB ? 13 : 19), couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: 0, marqueur: 180 })
-          roueACorr = engrenage({ rayon: rayonA, rayonInt: 0.8, rayonExt: rayonA + 1, nbDents: nbDentsRoueA, xCenter: 0, yCenter: 0, angleStart: 0, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: nbDentsRoueA / 2, marqueur: 0 })
-          roueBCorr = engrenage({ rayon: rayonB, rayonInt: 0.8, rayonExt: rayonB + 1, nbDents: nbDentsRoueB, xCenter: rayonA + rayonB + 1.3, yCenter: 0, angleStart: 180 - 180 / nbDentsRoueB, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: -nbDentsRoueB / 2, marqueur: 180 })
+          roues = engrenages(0, 0.5, nbDentsRoueA, nbDentsRoueB)
+          roues[1].marqueur = 180
+          rouesCorr = engrenages(Math.ceil(20 / Math.max(nbToursA, nbToursB)), 0.5, nbDentsRoueA, nbDentsRoueB)
+          roueACorr = rouesCorr[0]
+          roueBCorr = rouesCorr[1]
+          roueBCorr.marqueur = 180
           remiseAZero = () => {
             clearInterval(interABC)
             clearInterval(interA)
@@ -288,17 +287,13 @@ export default class EngrenagesAnimes extends Exercice {
             nbToursC = ppcm(nbDentsRoueA, nbDentsRoueC) / nbDentsRoueC
             nbToursAbc = ppcm(ppcm(nbDentsRoueA, nbDentsRoueB), nbDentsRoueC) / nbDentsRoueA
           } while ((nbToursA > 4 && nbToursC > 4 && nbToursB > 4) || nbToursA === 1 || nbToursC === 1 || nbToursB === 1) // au moins une des deux roues fait moins de 5 tours
-          rayonA = nbDentsRoueA / 5
-          rayonB = nbDentsRoueB / 5
-          rayonC = nbDentsRoueC / 5
-          roueA = engrenage({ rayon: rayonA, rayonInt: 0.8, rayonExt: rayonA + 1, nbDents: nbDentsRoueA, xCenter: 0, yCenter: 0, angleStart: 0, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: 0, marqueur: 0 })
-          roueB = engrenage({ rayon: rayonB, rayonInt: 0.8, rayonExt: rayonB + 1, nbDents: nbDentsRoueB, xCenter: rayonA + rayonB + 1.3, yCenter: 0, angleStart: 180 - 180 / nbDentsRoueB, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: 0, marqueur: 180 })
-          roueC = engrenage({ rayon: rayonC, rayonInt: 0.8, rayonExt: rayonC + 1, nbDents: nbDentsRoueC, xCenter: rayonA + rayonB * 2 + rayonC + 2.6, yCenter: 0, angleStart: 180 + (nbDentsRoueB % 2) * 180 / nbDentsRoueC, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: 0, marqueur: 180 })
-          roueACorr = engrenage({ rayon: rayonA, rayonInt: 0.8, rayonExt: rayonA + 1, nbDents: nbDentsRoueA, xCenter: 0, yCenter: 0, angleStart: 0, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: nbDentsRoueA / 2, marqueur: 0 })
-          roueBCorr = engrenage({ rayon: rayonB, rayonInt: 0.8, rayonExt: rayonB + 1, nbDents: nbDentsRoueB, xCenter: rayonA + rayonB + 1.3, yCenter: 0, angleStart: 180 - 180 / nbDentsRoueB, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: -nbDentsRoueB / 2, marqueur: 180 })
-          roueCCorr = engrenage({ rayon: rayonC, rayonInt: 0.8, rayonExt: rayonC + 1, nbDents: nbDentsRoueC, xCenter: rayonA + rayonB * 2 + rayonC + 2.6, yCenter: 0, angleStart: 180 + (nbDentsRoueB % 2) * 180 / nbDentsRoueC, couleur: 'black', couleurDeRemplissage: 'green', couleurDuTrou: 'white', dureeTour: nbDentsRoueC / 2, marqueur: 180 })
-          objetsEnonce.push(roueC) // La seule question à avoir une roueC et une roueCCorr
-          objetsCorrection.push(roueCCorr)
+          roues = engrenages(0, 0.5, nbDentsRoueA, nbDentsRoueB, nbDentsRoueC)
+          roues[2].marqueur = 180
+          rouesCorr = engrenages(Math.ceil(20 / Math.max(nbToursA, nbToursB, nbToursC)), 0.5, nbDentsRoueA, nbDentsRoueB, nbDentsRoueC)
+          roueACorr = rouesCorr[0]
+          roueBCorr = rouesCorr[1]
+          roueCCorr = rouesCorr[2]
+          roueCCorr.marqueur = 180
           texte += `La roue de gauche possède $${nbDentsRoueA}$ dents, celle du milieu en a $${nbDentsRoueB}$ et celle de droite en a $${nbDentsRoueC}$.<br>`
           texte += `${numAlpha(0)}Combien de tours doit effectuer la roue de gauche avant que son repère et celui de la roue du milieu soient à nouveau comme dans la position initiale ?<br>`
           texte += `${numAlpha(1)}Combien de tours doit effectuer la roue de gauche avant que son repère et celui de la roue de droite soient à nouveau comme dans la position initiale ?<br>`
@@ -355,14 +350,14 @@ export default class EngrenagesAnimes extends Exercice {
                 clearInterval(interA)
                 clearInterval(interB)
                 clearInterval(interC)
-              }, ppcm(ppcm(2 * parseFloat(animRoueA.getAttribute('dur')), 2 * parseFloat(animRoueB.getAttribute('dur'))), 2 * parseFloat(animRoueC.getAttribute('dur'))) * 500)
+              }, parseFloat(animRoueA.getAttribute('dur')) * nbToursAbc * 1000)
             }
           }
           break
       }
 
-      objetsEnonce.push(roueA, roueB)
-      objetsCorrection.push(roueACorr, roueBCorr)
+      objetsEnonce.push(...roues)
+      objetsCorrection.push(...rouesCorr)
 
       const paramsEnonce = Object.assign({}, fixeBordures(objetsEnonce), { pixelsParCm: 20, scale: 1 })
       const paramsCorrection = Object.assign({}, fixeBordures(objetsCorrection), { pixelsParCm: 20, scale: 1 })
