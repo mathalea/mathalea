@@ -25,7 +25,7 @@ export default function SensVariationSuite () {
     this.listeQuestions = []
     this.listeCorrections = []
 
-    let texte, texteCorr, a, q, b, c, choix, listeFractions1, fraction1, n1, d1
+    let texte, texteCorr, monQcm, a, q, b, c, choix, listeFractions1, fraction1, n1, d1
     const nomSuite = ['u', 'v', 'w', 't']
     const s = choice(nomSuite)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -57,7 +57,8 @@ export default function SensVariationSuite () {
                   }
                 ]
               }
-              texte += propositionsQcm(this, i).texte
+              monQcm = propositionsQcm(this, i)
+              texte += monQcm.texte
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -77,7 +78,8 @@ export default function SensVariationSuite () {
                   }
                 ]
               }
-              texte += propositionsQcm(this, i).texte
+              monQcm = propositionsQcm(this, i)
+              texte += monQcm.texte
             }
             texteCorr = `La suite est définie de manière explicite. Le sens de variation de la fonction $f$ associée donne le sens de variation de la suite.<br>
              La fonction racine carrée définie sur $[0;+\\infty[$ est strictement croissante.<br>`
@@ -110,7 +112,8 @@ export default function SensVariationSuite () {
                   }
                 ]
               }
-              texte += propositionsQcm(this, i).texte
+              monQcm = propositionsQcm(this, i)
+              texte += monQcm.texte
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -130,7 +133,8 @@ export default function SensVariationSuite () {
                   }
                 ]
               }
-              texte += propositionsQcm(this, i).texte
+              monQcm = propositionsQcm(this, i)
+              texte += monQcm.texte
             }
             texteCorr = `La suite est définie de manière explicite. Le sens de variation de la fonction $f$ associée donne le sens de variation de la suite.<br>
              La fonction inverse définie sur $]0;+\\infty[$ est strictement décroissante.<br>`
@@ -163,7 +167,8 @@ export default function SensVariationSuite () {
                   }
                 ]
               }
-              texte += propositionsQcm(this, i).texte
+              monQcm = propositionsQcm(this, i)
+              texte += monQcm.texte
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -183,7 +188,8 @@ export default function SensVariationSuite () {
                   }
                 ]
               }
-              texte += propositionsQcm(this, i).texte
+              monQcm = propositionsQcm(this, i)
+              texte += monQcm.texte
             }
             texteCorr = `La suite est définie de manière explicite. Le sens de variation de la fonction $f$ associée donne le sens de variation de la suite.<br>
              La fonction affine $f$ définie sur $[0;+\\infty[$ par $f(x)=${rienSi1(a)}x${ecritureAlgebrique(b)}$ est strictement  `
@@ -217,7 +223,8 @@ export default function SensVariationSuite () {
                   }
                 ]
               }
-              texte += propositionsQcm(this, i).texte
+              monQcm = propositionsQcm(this, i)
+              texte += monQcm.texte
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -237,7 +244,8 @@ export default function SensVariationSuite () {
                   }
                 ]
               }
-              texte += propositionsQcm(this, i).texte
+              monQcm = propositionsQcm(this, i)
+              texte += monQcm.texte
             }
             texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${q}$ et de premier terme $${s}_{0}=1$. <br>`
             if (q > 0) { texteCorr += `Comme $q>1$ et que le premier terme est positif, la suite $(${s}_{n})$ est strictement croissante. ` } else { texteCorr += `Comme $q<0$, la suite $(${s}_{n})$ est ni croissante, ni décroissante. ` }
@@ -266,7 +274,8 @@ export default function SensVariationSuite () {
                 }
               ]
             }
-            texte += propositionsQcm(this, i).texte
+            monQcm = propositionsQcm(this, i)
+            texte += monQcm.texte
 
             texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${texNombrec(q)}$ et de premier terme $${s}_0=1$. <br>`
             texteCorr += `Comme $0 < q < 1$ et que le premier terme est  positif, la suite $(${s}_{n})$ est strictement décroissante. `
@@ -296,7 +305,8 @@ export default function SensVariationSuite () {
                 }
               ]
             }
-            texte += propositionsQcm(this, i).texte
+            monQcm = propositionsQcm(this, i)
+            texte += monQcm.texte
 
             texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${texNombrec(q)}$ et de premier terme $${s}_0=1$. <br>`
             texteCorr += `Comme $ q < 0$, la suite $(${s}_{n})$ est ni croissante, ni décroissante. `
@@ -334,7 +344,8 @@ export default function SensVariationSuite () {
                 }
               ]
             }
-            texte += propositionsQcm(this, i).texte
+            monQcm = propositionsQcm(this, i)
+            texte += monQcm.texte
 
             texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${texFraction(n1, d1)}$ et de premier terme $${s}_0=1$. <br>`
             texteCorr += `Comme $ 0 < q < 1$ et que le premier terme est positif, la suite $(${s}_{n})$ est  décroissante. `
@@ -368,7 +379,8 @@ export default function SensVariationSuite () {
                 }
               ]
             }
-            texte += propositionsQcm(this, i).texte
+            monQcm = propositionsQcm(this, i)
+            texte += monQcm.texte
 
             texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${texFraction(d1, n1)}$ et de premier terme $${s}_0=1$. <br>`
             texteCorr += `Comme $q>1$ et que le premier terme est positif, la suite $(${s}_{n})$ est  croissante. `
@@ -399,7 +411,8 @@ export default function SensVariationSuite () {
                   }
                 ]
               }
-              texte += propositionsQcm(this, i).texte
+              monQcm = propositionsQcm(this, i)
+              texte += monQcm.texte
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -419,7 +432,8 @@ export default function SensVariationSuite () {
                   }
                 ]
               }
-              texte += propositionsQcm(this, i).texte
+              monQcm = propositionsQcm(this, i)
+              texte += monQcm.texte
             }
             texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${q}$ et de premier terme $${s}_{0}=${a}$. <br>`
             if (q > 0) { texteCorr += `Comme $q>1$ et que le premier terme est positif, la suite $(${s}_{n})$ est strictement croissante. ` } else { texteCorr += `Comme $q<0$, la suite $(${s}_{n})$ est ni croissante, ni décroissante. ` }
@@ -450,7 +464,8 @@ export default function SensVariationSuite () {
                   }
                 ]
               }
-              texte += propositionsQcm(this, i).texte
+              monQcm = propositionsQcm(this, i)
+              texte += monQcm.texte
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -470,7 +485,8 @@ export default function SensVariationSuite () {
                   }
                 ]
               }
-              texte += propositionsQcm(this, i).texte
+              monQcm = propositionsQcm(this, i)
+              texte += monQcm.texte
             }
             texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${q}$ et de premier terme $${s}_{0}=${a}$. <br>`
             if (q > 0) { texteCorr += `Comme $q>1$ et que le premier terme est négatif, la suite $(${s}_{n})$ est strictement décroissante. ` } else { texteCorr += `Comme $q<0$, la suite $(${s}_{n})$ est ni croissante, ni décroissante. ` }
@@ -501,7 +517,8 @@ export default function SensVariationSuite () {
                 }
               ]
             }
-            texte += propositionsQcm(this, i).texte
+            monQcm = propositionsQcm(this, i)
+            texte += monQcm.texte
 
             texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${q}$ et de premier terme $${s}_{0}=${a}$. <br>`
             texteCorr += `Comme $0 < q <1$ et que le premier terme est positif, la suite $(${s}_{n})$ est strictement décroissante. `
@@ -531,7 +548,8 @@ export default function SensVariationSuite () {
                 }
               ]
             }
-            texte += propositionsQcm(this, i).texte
+            monQcm = propositionsQcm(this, i)
+            texte += monQcm.texte
 
             texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${texNombrec(q)}$ et de premier terme $${s}_{0}=${a}$. <br>`
             texteCorr += `Comme $0 < q <1$ et que le premier terme est négatif, la suite $(${s}_{n})$ est strictement croissante. `
@@ -566,7 +584,8 @@ export default function SensVariationSuite () {
                 }
               ]
             }
-            texte += propositionsQcm(this, i).texte
+            monQcm = propositionsQcm(this, i)
+            texte += monQcm.texte
 
             texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${q}$ et de premier terme $${s}_{0}=${a}$. <br>`
             texteCorr += `Comme $0 < q <1$ et que le premier terme est positif, la suite $(${s}_{n})$ est strictement décroissante. `
@@ -602,7 +621,8 @@ export default function SensVariationSuite () {
                   }
                 ]
               }
-              texte += propositionsQcm(this, i).texte
+              monQcm = propositionsQcm(this, i)
+              texte += monQcm.texte
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -622,7 +642,8 @@ export default function SensVariationSuite () {
                   }
                 ]
               }
-              texte += propositionsQcm(this, i).texte
+              monQcm = propositionsQcm(this, i)
+              texte += monQcm.texte
             }
             texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${texFraction(d1, n1)}$ et de premier terme $${s}_{0}=${a}$. <br>`
             if (a > 0) { texteCorr += `Comme $q > 1$ et que le premier terme est positif, la suite $(${s}_{n})$ est strictement croissante. ` } else { texteCorr += `Comme $q > 1$ et que le premier terme est négatif, la suite $(${s}_{n})$ est strictement décroissante. ` }
@@ -657,7 +678,8 @@ export default function SensVariationSuite () {
                 }
               ]
             }
-            texte += propositionsQcm(this, i).texte
+            monQcm = propositionsQcm(this, i)
+            texte += monQcm.texte
 
             texteCorr = `L'égalité $${s}_{n+1} =${s}_n+${rienSi1(b)}n+${c}$ s'écrit $${s}_{n+1} -${s}_n=${rienSi1(b)}n+${c} >0$. <br>
             On en déduit que la suite $(${s}_n)$ est coissante.`
@@ -688,7 +710,8 @@ export default function SensVariationSuite () {
                 }
               ]
             }
-            texte += propositionsQcm(this, i).texte
+            monQcm = propositionsQcm(this, i)
+            texte += monQcm.texte
 
             texteCorr = `L'égalité $${s}_{n+1} =${s}_n+${rienSi1(b)}n+${c}$ s'écrit $${s}_{n+1} -${s}_n=${ecritureAlgebrique(b)}n${ecritureAlgebrique(c)}<0$. <br>
             On en déduit que la suite $(${s}_n)$ est décoissante.`
@@ -720,7 +743,8 @@ export default function SensVariationSuite () {
                   }
                 ]
               }
-              texte += propositionsQcm(this, i).texte
+              monQcm = propositionsQcm(this, i)
+              texte += monQcm.texte
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -740,7 +764,8 @@ export default function SensVariationSuite () {
                   }
                 ]
               }
-              texte += propositionsQcm(this, i).texte
+              monQcm = propositionsQcm(this, i)
+              texte += monQcm.texte
             }
             texteCorr = `On reconnaît la relation de récurrence d'une suite arithmétique de raison $${b}$.<br>`
             if (b > 0) { texteCorr += `Comme $${b}>0$, la suite $(${s}_n)$ est croissante. ` } else { texteCorr += `Comme $${b}<0$, la suite $(${s}_n)$ est décroissante. ` }
@@ -772,7 +797,8 @@ export default function SensVariationSuite () {
                   }
                 ]
               }
-              texte += propositionsQcm(this, i).texte
+              monQcm = propositionsQcm(this, i)
+              texte += monQcm.texte
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -792,7 +818,8 @@ export default function SensVariationSuite () {
                   }
                 ]
               }
-              texte += propositionsQcm(this, i).texte
+              monQcm = propositionsQcm(this, i)
+              texte += monQcm.texte
             }
             texteCorr = `On reconnaît la relation de récurrence d'une suite géométrique de raison $${q}$.<br>`
             if (q > 0) { texteCorr += `Comme $${q}>0$ et que le premier terme est positif, alors la suite $(${s}_n)$ est croissante. ` } else { texteCorr += `Comme $${q}<0$, la suite $(${s}_n)$ est ni croissante, ni décroissante. ` }
@@ -824,7 +851,8 @@ export default function SensVariationSuite () {
                   }
                 ]
               }
-              texte += propositionsQcm(this, i).texte
+              monQcm = propositionsQcm(this, i)
+              texte += monQcm.texte
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -844,7 +872,8 @@ export default function SensVariationSuite () {
                   }
                 ]
               }
-              texte += propositionsQcm(this, i).texte
+              monQcm = propositionsQcm(this, i)
+              texte += monQcm.texte
             }
             texteCorr = `On reconnaît la relation de récurrence d'une suite géométrique de raison $${q}$.<br>`
             if (q > 0) { texteCorr += `Comme $${q}>0$ et que le premier terme est négatif, alors la suite $(${s}_n)$ est décroissante. ` } else { texteCorr += `Comme $${q}<0$, la suite $(${s}_n)$ est ni croissante, ni décroissante. ` }
@@ -877,7 +906,8 @@ export default function SensVariationSuite () {
                   }
                 ]
               }
-              texte += propositionsQcm(this, i).texte
+              monQcm = propositionsQcm(this, i)
+              texte += monQcm.texte
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -897,7 +927,8 @@ export default function SensVariationSuite () {
                   }
                 ]
               }
-              texte += propositionsQcm(this, i).texte
+              monQcm = propositionsQcm(this, i)
+              texte += monQcm.texte
             }
             texteCorr = `On reconnaît la relation de récurrence d'une suite géométrique de raison $${q}$.<br>`
             if (a > 0) { texteCorr += `Comme $ 0< ${texNombrec(q)} <1$ et que le premier terme est positif, alors la suite $(${s}_n)$ est décroissante. ` } else { texteCorr += `Comme $ 0< ${texNombrec(q)} <1$ et que le premier terme est négatif, alors la suite $(${s}_n)$ est croissante. ` }
@@ -934,7 +965,8 @@ export default function SensVariationSuite () {
                   }
                 ]
               }
-              texte += propositionsQcm(this, i).texte
+              monQcm = propositionsQcm(this, i)
+              texte += monQcm.texte
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -954,7 +986,8 @@ export default function SensVariationSuite () {
                   }
                 ]
               }
-              texte += propositionsQcm(this, i).texte
+              monQcm = propositionsQcm(this, i)
+              texte += monQcm.texte
             }
             texteCorr = `On reconnaît la relation de récurrence d'une suite géométrique de raison $${texFraction(n1, d1)}$.<br>`
             if (a > 0) { texteCorr += `Comme $ 0< ${texFraction(n1, d1)} <1$ et que le premier terme est positif, alors la suite $(${s}_n)$ est décroissante. ` } else { texteCorr += `Comme $ 0< ${texFraction(n1, d1)} <1$ et que le premier terme est négatif, alors la suite $(${s}_n)$ est croissante. ` }
@@ -991,7 +1024,8 @@ export default function SensVariationSuite () {
                   }
                 ]
               }
-              texte += propositionsQcm(this, i).texte
+              monQcm = propositionsQcm(this, i)
+              texte += monQcm.texte
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -1011,7 +1045,8 @@ export default function SensVariationSuite () {
                   }
                 ]
               }
-              texte += propositionsQcm(this, i).texte
+              monQcm = propositionsQcm(this, i)
+              texte += monQcm.texte
             }
             texteCorr = `On reconnaît la relation de récurrence d'une suite géométrique de raison $${texFraction(d1, n1)}$.<br>`
             if (a > 0) { texteCorr += `Comme $  ${texFraction(d1, n1)} >1$ et que le premier terme est positif, alors la suite $(${s}_n)$ est croissante. ` } else { texteCorr += `Comme $ 0< ${texFraction(d1, n1)} <1$ et que le premier terme est négatif, alors la suite $(${s}_n)$ est décroissante. ` }
@@ -1022,12 +1057,11 @@ export default function SensVariationSuite () {
       if (this.questionJamaisPosee(i, q, n1, d1, a)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        if (i === 0) this.canReponseACompleter = monQcm.texte // FIXME Dans un exercice permettant plusieurs questions il n'y a qu'un this.canReponseACompleter ???
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
-
-    this.canReponseACompleter = propositionsQcm(this, 0).texte
   }
 }
