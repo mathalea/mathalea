@@ -31,7 +31,7 @@ export default class SignePuissance extends Exercice {
     this.amcReady = amcReady
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
@@ -39,7 +39,7 @@ export default class SignePuissance extends Exercice {
     listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
     let a = 0
     let n = 0
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, monQcm, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeDeQuestions[i]) {
         case 'a^n':
           a = randint(2, 9)
@@ -146,12 +146,12 @@ export default class SignePuissance extends Exercice {
           }
           break
       }
-      if (this.interactif) {
-        texte += propositionsQcm(this, i).texte
-      }
+      monQcm = propositionsQcm(this, i)
+      texte += monQcm.texte
       if (this.questionJamaisPosee(i, n)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        if (i === 0) this.canReponseACompleter = monQcm.texte // FIXME Dans un exercice permettant plusieurs questions il n'y a qu'un this.canReponseACompleter ???
         i++
       }
       cpt++
@@ -160,7 +160,6 @@ export default class SignePuissance extends Exercice {
     if (!context.isHtml) {
       this.canEnonce = 'Quel est le signe de ' + this.listeQuestions[0] + '?'
       this.correction = this.listeCorrections[0]
-      this.canReponseACompleter = propositionsQcm(this, 0).texte
     }
   }
 }
