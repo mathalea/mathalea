@@ -6,12 +6,14 @@ import { calculer } from '../../modules/outilsMathjs.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML, vide2d, fixeBordures } from '../../modules/2dGeneralites.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { context } from '../../modules/context.js'
 import * as pkg from '@cortex-js/compute-engine'
 const { ComputeEngine } = pkg
 export const interactifReady = true
 export const interactifType = 'custom'
 const math = create(all)
-const engine = new ComputeEngine()
+let engine
+if (context.versionMathalea) engine = new ComputeEngine()
 /**
  * Travailler les tables de multiplication autrement
  * @author Jean-Claude Lhote

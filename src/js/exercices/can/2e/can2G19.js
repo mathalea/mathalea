@@ -17,6 +17,7 @@ export const dateDePublication = '10/11/2022'
  *
 */
 
+export const uuid = '6082f'
 export const ref = 'can2G19'
 export default function CoeffDirDroite () {
   Exercice.call(this) // Héritage de la classe Exercice()

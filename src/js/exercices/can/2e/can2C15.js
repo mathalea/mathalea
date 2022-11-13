@@ -12,6 +12,8 @@ export const dateDePublication = '10/11/2022'
  * Référence can2C15
 */
 
+export const uuid = 'd9488'
+export const ref = 'can2C15'
 export default function NombreInverse () {
   Exercice.call(this)
   this.typeExercice = 'simple'
