@@ -66,7 +66,7 @@ export default function CalculerUnPourcentage () {
           break
         case 3: // Les sports pratiqués par les ados
           [moy1, moy2, moy3] = combinaisonListes(listeHobbies, 3)
-          texte = `Dans une association culturelle, $${p1}\\%$ des membres ont comme passe-temps favorit ${moy1}, pour $${p2}\\%$ c'est ${moy2} et pour les autres ${moy3}.<br>`
+          texte = `Dans une association culturelle, $${p1}\\%$ des membres ont comme passe-temps favori ${moy1}, pour $${p2}\\%$ c'est ${moy2} et pour les autres ${moy3}.<br>`
           texte += `Quel est le pourcentage des membres qui préfèrent ${moy3} ?`
           texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: ' %' })
           texteCorr = `Les membres qui préfère ${moy1} ou ${moy2} représentent $${p1}\\% + ${p2}\\% = ${p1 + p2}\\%$.<br>`
