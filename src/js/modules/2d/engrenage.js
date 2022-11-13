@@ -1,7 +1,7 @@
 import { abs, round } from 'mathjs'
-import { colorToLatexOrHTML, ObjetMathalea2D } from '../2dGeneralites'
-import { degCos, degSin } from '../fonctionsMaths'
-import { arrondi } from '../outils'
+import { colorToLatexOrHTML, ObjetMathalea2D } from '../2dGeneralites.js'
+import { degCos, degSin } from '../fonctionsMaths.js'
+import { arrondi } from '../outils.js'
 /**
  * @author Jean-Claude Lhote (Sébastien Lozano et Sylvain Chambon pour la partie tikz)
  * @param {object} parametres paramètres de l'objet voir ci-dessous
