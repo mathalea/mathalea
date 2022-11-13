@@ -76,7 +76,7 @@ export default function PointSurCercleTrigo () {
     const objet = mathalea2d({ xmin: -r - 3, xmax: r + 3, ymin: -r - 1.5, ymax: r + 1, pixelsParCm: 15, scale: 0.45, style: 'margin: auto' }, c, s1, s2, sA1A2, sB1B2, sC1C2, sD1D2, sE1E2, sF1F2, g, o, nom)
     switch (choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])) { //, 2, 3, 4, 5
       case 1:// point I
-        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\;\\ 0]$'])
+        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\;\\ 0]'])
         this.question = `Quel réel de $${choix}$  a pour point-image le point $I$ ?<br>
 
         `

@@ -57,7 +57,7 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
       this.nbQuestions
     ) // Liste tous les couples possibles (2,3)≠(3,2)
     let typesDeQuestions = 'a_trous'
-    for (let i = 0, a, b, texte, texteCorr; i < this.nbQuestions; i++) {
+    for (let i = 0, cpt = 0, a, b, texte, texteCorr; i < this.nbQuestions && cpt < 100;) {
       a = couples[i][0]
       b = couples[i][1]
       if (parseInt(this.sup2) === 1) {
@@ -102,8 +102,13 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
       if (context.isAmc) {
         this.autoCorrection[i].reponse.param = { digits: 2, decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
       }
-      this.listeQuestions.push(texte)
-      this.listeCorrections.push(texteCorr)
+      if (this.questionJamaisPosee(i, a, b, typesDeQuestions)) {
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+      } else {
+        cpt++
+      }
     }
     listeQuestionsToContenu(this)
   }

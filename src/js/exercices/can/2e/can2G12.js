@@ -253,6 +253,6 @@ export default function VecteursColineairesVF () {
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
-    this.canReponseACompleter = propositionsQcm(this, 0).texte
+    this.canREponseACompleter = monQcm.texte
   }
 }

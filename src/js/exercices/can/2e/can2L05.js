@@ -23,7 +23,7 @@ export default function SolutionInequationQCM () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.date = 1635094684684
-    let texte, texteCorr, a, b, maFraction, n, N
+    let texte, texteCorr, a, b, maFraction, n, N, monQcm
     switch (choice([1, 2])) { //, 'b'
       case 1 :// cas a>0
         a = randint(2, 6)
@@ -36,7 +36,7 @@ export default function SolutionInequationQCM () {
           this.canEnonce = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}>0$ ?`
           this.autoCorrection[0] = {
             enonce: texte,
-            options: { vertical: true },
+            options: { horizontal: true },
             propositions: [
               {
                 texte: `$\\bigg]${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
@@ -52,8 +52,8 @@ export default function SolutionInequationQCM () {
               }
             ]
           }
-
-          texte += propositionsQcm(this, 0).texte
+          monQcm = propositionsQcm(this, 0)
+          texte += monQcm.texte
 
           texteCorr = `L'ensemble de solutions est : $\\bigg]${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$<br>
             En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
@@ -67,7 +67,7 @@ export default function SolutionInequationQCM () {
           this.canEnonce = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}\\geqslant 0$ ?`
           this.autoCorrection[0] = {
             enonce: texte,
-            options: { vertical: true },
+            options: { horizontal: true },
             propositions: [
               {
                 texte: `$\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
@@ -84,7 +84,8 @@ export default function SolutionInequationQCM () {
             ]
           }
 
-          texte += propositionsQcm(this, 0).texte
+          monQcm = propositionsQcm(this, 0)
+          texte += monQcm.texte
 
           texteCorr = `L'ensemble de solutions est : $\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$.<br>
                     En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
@@ -98,7 +99,7 @@ export default function SolutionInequationQCM () {
           this.canEnonce = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}\\leqslant 0$ ?`
           this.autoCorrection[0] = {
             enonce: texte,
-            options: { vertical: true },
+            options: { horizontal: true },
             propositions: [
               {
                 texte: `$\\bigg]-\\infty${sp(1)} ; ${sp(1)}${maFraction.texFractionSimplifiee} \\bigg]$ `,
@@ -114,7 +115,8 @@ export default function SolutionInequationQCM () {
               }
             ]
           }
-          texte += propositionsQcm(this, 0).texte
+          monQcm = propositionsQcm(this, 0)
+          texte += monQcm.texte
           texteCorr = `L'ensemble de solutions est : $\\bigg]-\\infty${sp(1)} ; ${sp(1)}${maFraction.texFractionSimplifiee} \\bigg]$.<br>
                       En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
                       $${a}x\\leqslant${-b}$<br>
@@ -127,7 +129,7 @@ export default function SolutionInequationQCM () {
           this.canEnonce = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}< 0$ ?`
           this.autoCorrection[0] = {
             enonce: texte,
-            options: { vertical: true },
+            options: { horizontal: true },
             propositions: [
               {
                 texte: `$\\bigg]-\\infty${sp(1)} ; ${sp(1)}${maFraction.texFractionSimplifiee} \\bigg[$ `,
@@ -144,7 +146,8 @@ export default function SolutionInequationQCM () {
             ]
           }
 
-          texte += propositionsQcm(this, 0).texte
+          monQcm = propositionsQcm(this, 0)
+          texte += monQcm.texte
 
           texteCorr = `L'ensemble de solutions est : $\\bigg]-\\infty${sp(1)} ; ${sp(1)}${maFraction.texFractionSimplifiee} \\bigg[$.<br>
                       En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
@@ -167,7 +170,7 @@ export default function SolutionInequationQCM () {
           this.canEnonce = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}>0$ ?`
           this.autoCorrection[0] = {
             enonce: texte,
-            options: { vertical: true },
+            options: { horizontal: true },
             propositions: [
               {
                 texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)}${maFraction.texFractionSimplifiee} \\bigg[$ `,
@@ -184,7 +187,8 @@ export default function SolutionInequationQCM () {
             ]
           }
 
-          texte += propositionsQcm(this, 0).texte
+          monQcm = propositionsQcm(this, 0)
+          texte += monQcm.texte
 
           texteCorr = `L'ensemble de solutions est : $\\bigg]-\\infty${sp(1)} ;${sp(1)}${maFraction.texFractionSimplifiee} \\bigg[$.<br>
             En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
@@ -199,7 +203,7 @@ export default function SolutionInequationQCM () {
           this.canEnonce = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}\\geqslant 0$ ?`
           this.autoCorrection[0] = {
             enonce: texte,
-            options: { vertical: true },
+            options: { horizontal: true },
             propositions: [
               {
                 texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)} ${maFraction.texFractionSimplifiee} \\bigg]$ `,
@@ -216,7 +220,8 @@ export default function SolutionInequationQCM () {
             ]
           }
 
-          texte += propositionsQcm(this, 0).texte
+          monQcm = propositionsQcm(this, 0)
+          texte += monQcm.texte
 
           texteCorr = `L'ensemble de solutions est : $\\bigg]-\\infty${sp(1)} ;${sp(1)} ${maFraction.texFractionSimplifiee} \\bigg]$.<br>
           En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
@@ -248,7 +253,8 @@ export default function SolutionInequationQCM () {
             ]
           }
 
-          texte += propositionsQcm(this, 0).texte
+          monQcm = propositionsQcm(this, 0)
+          texte += monQcm.texte
 
           texteCorr = `L'ensemble de solutions est : $\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$.<br>
           En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
@@ -280,7 +286,8 @@ export default function SolutionInequationQCM () {
             ]
           }
 
-          texte += propositionsQcm(this, 0).texte
+          monQcm = propositionsQcm(this, 0)
+          texte += monQcm.texte
 
           texteCorr = `L'ensemble de solutions est : $\\bigg]${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$.<br>
                       En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
@@ -295,6 +302,6 @@ export default function SolutionInequationQCM () {
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
-    this.canReponseACompleter = propositionsQcm(this, 0).texte
+    this.canReponseACompleter = monQcm.texte
   }
 }

@@ -1,8 +1,8 @@
 import Exercice from '../Exercice.js'
-import { randint, listeQuestionsToContenu, ecritureParentheseSiMoins } from '../../modules/outils.js'
+import { listeQuestionsToContenu, ecritureParentheseSiMoins, combinaisonListes } from '../../modules/outils.js'
 import { create, all } from 'mathjs'
 
-export const titre = 'Produit de matrices'
+export const titre = 'Produit de matrices carrées ou colonnes'
 const math = create(all)
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -12,10 +12,10 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
 /**
  * Description didactique de l'exercice
  * @author Maxime Nguyen
- * Référence HPC103
+ * Référence ExC101
 */
-export const uuid = 'a868f'
-export const ref = 'HPC103'
+export const uuid = '88241'
+export const ref = 'ExC101'
 export default class nomExercice extends Exercice {
   constructor () {
     super()
@@ -32,19 +32,25 @@ export default class nomExercice extends Exercice {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+    const typeQuestionsDisponibles = ['type1', 'type2', 'type3'] // On créé 3 types de questions
+    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    for (let i = 0, nblignes, nbcolonnes, n, m, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       const matrices = [] // vecteur qui stocke les matrices
       const matricesprint = [] // vecteur qui stocke les matrices écrites en LaTeX
       const nbmatrice = 2
-      let n = randint(1, 4)
-      let m = randint(1, 4)
-      const nblignes = [] // vecteur qui stocke le nombre de lignes de chaque matrice
-      nblignes.push(n)
-      const nbcolonnes = [] // vecteur qui stocke le nombre de colonnes de chaque matrice
-      nbcolonnes.push(m)
-      nblignes.push(math.pickRandom([m, m, m, 1, 2, 3, 4])) // on favorise la compatibilité des matrices
-      nbcolonnes.push(math.pickRandom([n, n, n, 1, 2, 3, 4]))
+      switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
+        case 'type1':
+          nblignes = [2, 2]
+          nbcolonnes = [2, 2]
+          break
+        case 'type2':
+          nblignes = [3, 3]
+          nbcolonnes = [3, 3]
+          break
+        case 'type3':
+          nblignes = [3, 3]
+          nbcolonnes = [3, 1]
+      }
       const texteligne = [] // texte pour la correction
       const textecolonne = [] // texte pour la correction
       for (let compteur = 0; compteur < nbmatrice; compteur++) {

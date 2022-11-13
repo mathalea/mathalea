@@ -26,7 +26,7 @@ export default function ReconnaitreExpL () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.tailleDiaporama = 2
-    let texte, texteCorr, a, b, c, d, e
+    let texte, texteCorr, a, b, c, d, e, monQcm
     const nomVar = ['a', 'b', 'x', 'y']
     const inc = choice(nomVar)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -35,7 +35,7 @@ export default function ReconnaitreExpL () {
 
           a = randint(-10, 10, [-1, 0, 1])
           b = randint(1, 10)
-          texte = `Quelle est la nature de cette expression littérale ?<br>
+          texte = `Quelle est la nature de ce calcul ?<br>
 
             $${a}(${inc}+${b})$`
           this.canEnonce = texte
@@ -53,7 +53,8 @@ export default function ReconnaitreExpL () {
               }
             ]
           }
-          texte += propositionsQcm(this, i).texte
+          monQcm = propositionsQcm(this, i)
+          texte += monQcm.texte
 
           texteCorr = `La dernière oprération à effectuer pour faire ce calcul est un produit. <br>
             On en déduit que l’expression est un produit de deux facteurs $A$ et $B$ :`
@@ -65,7 +66,7 @@ export default function ReconnaitreExpL () {
           if (choice([true, false])) {
             a = randint(-10, 10, [0, 1])
             b = randint(-10, 10, [-1, 0, 1])
-            texte = `Quelle est la nature de cette expression littérale ?<br>
+            texte = `Quelle est la nature de ce calcul ?<br>
           
             $${ecritureParentheseSiNegatif(a)}\\times ${inc} ${ecritureAlgebrique(b)}$`
             this.canEnonce = texte
@@ -84,7 +85,8 @@ export default function ReconnaitreExpL () {
                 }
               ]
             }
-            texte += propositionsQcm(this, i).texte
+            monQcm = propositionsQcm(this, i)
+            texte += monQcm.texte
             if (b > 0) {
               texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une somme (la multiplication étant prioritaire). <br>
           On en déduit que l’expression est une somme de deux termes $A$ et $B$ :`
@@ -97,7 +99,7 @@ export default function ReconnaitreExpL () {
           } else {
             a = randint(-10, 10, [0, 1])
             b = randint(-10, 10, [-1, 0, 1])
-            texte = `Quelle est la nature de cette expression littérale ?<br>
+            texte = `Quelle est la nature de ce calcul ?<br>
           
             $${ecritureParentheseSiNegatif(a)}${ecritureAlgebrique(b)}\\times ${inc}$`
             this.canEnonce = texte
@@ -116,7 +118,8 @@ export default function ReconnaitreExpL () {
                 }
               ]
             }
-            texte += propositionsQcm(this, i).texte
+            monQcm = propositionsQcm(this, i)
+            texte += monQcm.texte
             if (b > 0) {
               texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une somme (la multiplication étant prioritaire). <br>
           On en déduit que l’expression est une somme de deux termes $A$ et $B$ :`
@@ -133,7 +136,7 @@ export default function ReconnaitreExpL () {
 
           a = randint(-10, 10, [-1, 0, 1])
           b = randint(-10, 10, [-1, 0, 1])
-          texte = `Quelle est la nature de cette expression littérale ?<br>
+          texte = `Quelle est la nature de ce calcul ?<br>
           
             $${a}a${ecritureAlgebrique(b)}b$`
           this.canEnonce = texte
@@ -151,7 +154,8 @@ export default function ReconnaitreExpL () {
               }
             ]
           }
-          texte += propositionsQcm(this, i).texte
+          monQcm = propositionsQcm(this, i)
+          texte += monQcm.texte
           if (b > 0) {
             texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une somme (la multiplication étant prioritaire). <br>
           On en déduit que l’expression est une somme de deux termes $A$ et $B$ :`
@@ -169,7 +173,7 @@ export default function ReconnaitreExpL () {
             a = randint(-10, 10, [-1, 0, 1])
             b = randint(2, 10)
             c = randint(-10, 10, 0)
-            texte = `Quelle est la nature de cette expression littérale ?<br>
+            texte = `Quelle est la nature de ce calcul ?<br>
           
             $${a}x+${b}\\times(x${ecritureAlgebrique(c)})$`
             this.canEnonce = texte
@@ -188,7 +192,8 @@ export default function ReconnaitreExpL () {
                 }
               ]
             }
-            texte += propositionsQcm(this, i).texte
+            monQcm = propositionsQcm(this, i)
+            texte += monQcm.texte
             texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une somme (la multiplication étant prioritaire). <br>
           On en déduit que l’expression est une somme de deux termes $A$ et $B$ :`
             texteCorr += `<br>$\\underbrace{${a}x}_{A}+\\underbrace{${b}\\times(x${ecritureAlgebrique(c)})}_{B}$`
@@ -196,7 +201,7 @@ export default function ReconnaitreExpL () {
             a = randint(2, 10)
             b = randint(2, 10)
             c = randint(-10, 10, [-1, 0, 1])
-            texte = `Quelle est la nature de cette expression littérale ?<br>
+            texte = `Quelle est la nature de ce calcul ?<br>
             
             $${b}\\times(x${ecritureAlgebrique(c)})+${a}x$`
             this.canEnonce = texte
@@ -215,7 +220,8 @@ export default function ReconnaitreExpL () {
                 }
               ]
             }
-            texte += propositionsQcm(this, i).texte
+            monQcm = propositionsQcm(this, i)
+            texte += monQcm.texte
             texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une somme (la multiplication étant prioritaire). <br>
           On en déduit que l’expression est une somme de deux termes $A$ et $B$ :`
             texteCorr += `<br>$\\underbrace{${b}\\times(x${ecritureAlgebrique(c)})}_{A}+\\underbrace{${a}x}_{B}$`
@@ -229,7 +235,7 @@ export default function ReconnaitreExpL () {
           b = randint(2, 10)
           c = randint(-10, 10, [-1, 0, 1])
           d = randint(-10, 10, 0)
-          texte = `Quelle est la nature de cette expression littérale ?<br>
+          texte = `Quelle est la nature de ce calcul ?<br>
           
               $(${a}x+${b})(${c}x${ecritureAlgebrique(d)})$`
           this.canEnonce = texte
@@ -248,7 +254,8 @@ export default function ReconnaitreExpL () {
               }
             ]
           }
-          texte += propositionsQcm(this, i).texte
+          monQcm = propositionsQcm(this, i)
+          texte += monQcm.texte
           texteCorr = `La dernière oprération à effectuer pour faire ce calcul est un produit. <br>
             On en déduit que l’expression est un produit de deux facteurs  $A$ et $B$ :`
           texteCorr += `<br>$\\underbrace{(${a}x+${b})}_{A}\\underbrace{(${c}x${ecritureAlgebrique(d)})}_{B}$`
@@ -260,7 +267,7 @@ export default function ReconnaitreExpL () {
           b = randint(2, 10)
           c = randint(-10, 10, [-1, 0, 1])
           d = randint(-10, 10, 0)
-          texte = `Quelle est la nature de cette expression littérale ?<br>
+          texte = `Quelle est la nature de ce calcul ?<br>
           
               $(${a}x+${b})+(${c}x${ecritureAlgebrique(d)})$`
           this.canEnonce = texte
@@ -279,7 +286,8 @@ export default function ReconnaitreExpL () {
               }
             ]
           }
-          texte += propositionsQcm(this, i).texte
+          monQcm = propositionsQcm(this, i)
+          texte += monQcm.texte
           texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une somme. <br>
             On en déduit que l’expression est une somme de deux termes  $A$ et $B$ :`
           texteCorr += `<br>$\\underbrace{(${a}x+${b})}_{A}+\\underbrace{(${c}x${ecritureAlgebrique(d)})}_{B}$`
@@ -291,7 +299,7 @@ export default function ReconnaitreExpL () {
           b = randint(2, 10)
           c = randint(-10, 10, [-1, 0, 1])
           d = randint(-10, 10, 0)
-          texte = `Quelle est la nature de cette expression littérale ?<br>
+          texte = `Quelle est la nature de ce calcul ?<br>
           
               $(${a}x+${b})+(${c}x${ecritureAlgebrique(d)})(${a}x${ecritureAlgebrique(b)})$`
           this.canEnonce = texte
@@ -310,7 +318,8 @@ export default function ReconnaitreExpL () {
               }
             ]
           }
-          texte += propositionsQcm(this, i).texte
+          monQcm = propositionsQcm(this, i)
+          texte += monQcm.texte
           texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une somme. <br>
             On en déduit que l’expression est une somme de deux termes  $A$ et $B$ :`
           texteCorr += `<br>$\\underbrace{(${a}x+${b})}_{A}+\\underbrace{(${c}x${ecritureAlgebrique(d)})(${a}x${ecritureAlgebrique(b)})}_{B}$<br>
@@ -325,7 +334,7 @@ export default function ReconnaitreExpL () {
           c = randint(-10, 10, [-1, 0, 1])
           d = randint(-10, 10, 0)
           e = randint(2, 10)
-          texte = `Quelle est la nature de cette expression littérale ?<br>
+          texte = `Quelle est la nature de ce calcul ?<br>
           
               $(${a}x+${b})(${c}x${ecritureAlgebrique(d)})+${e}$`
           this.canEnonce = texte
@@ -344,7 +353,8 @@ export default function ReconnaitreExpL () {
               }
             ]
           }
-          texte += propositionsQcm(this, i).texte
+          monQcm = propositionsQcm(this, i)
+          texte += monQcm.texte
           texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une somme. <br>
             On en déduit que l’expression est une somme de deux termes  $A$ et $B$ :`
           texteCorr += `<br>$\\underbrace{(${a}x+${b})(${c}x${ecritureAlgebrique(d)})}_{A}+\\underbrace{${e}}_{B}$
@@ -359,7 +369,7 @@ export default function ReconnaitreExpL () {
           c = randint(-10, 10, [-1, 0, 1])
           d = randint(-10, 10, 0)
           e = randint(2, 10)
-          texte = `Quelle est la nature de cette expression littérale ?<br>
+          texte = `Quelle est la nature de ce calcul ?<br>
 
               $${e}(${a}x+${b})(${c}x${ecritureAlgebrique(d)})$`
           this.canEnonce = texte
@@ -378,7 +388,8 @@ export default function ReconnaitreExpL () {
               }
             ]
           }
-          texte += propositionsQcm(this, i).texte
+          monQcm = propositionsQcm(this, i)
+          texte += monQcm.texte
           texteCorr = `La dernière oprération à effectuer pour faire ce calcul est un produit. <br>
             On en déduit que l’expression est un produit de trois facteurs  $A$, $B$ et $C$ :`
           texteCorr += `<br>$\\underbrace{${e}}_{A}\\underbrace{(${a}x+${b})}_{B}\\underbrace{(${c}x${ecritureAlgebrique(d)})}_{C}$
@@ -395,6 +406,6 @@ export default function ReconnaitreExpL () {
       cpt++
     }
     listeQuestionsToContenu(this)
-    this.canReponseACompleter = propositionsQcm(this, 0).texte
+    this.canReponseACompleter = monQcm.texte
   }
 }

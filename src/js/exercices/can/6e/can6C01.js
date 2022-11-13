@@ -50,8 +50,9 @@ export default function OrdreDeGrandeur () {
         }
       ]
     }
+    const monQcm = propositionsQcm(this, 0)
     if (!context.isAmc) {
-      texte += propositionsQcm(this, 0).texte
+      texte += monQcm.texte
     }
     let texteCorr = `$${texNombrec(a * 100 + b * 10 + c)} \\times ${d} = ${texNombre(resultat)}$<br>
         `
@@ -72,6 +73,6 @@ $${(a + 1) * 100}\\times ${d}=${((a + 1) * 100) * d}$ et on sélectionne le rés
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
     // Ajout en dernier
-    this.canReponseACompleter = propositionsQcm(this, 0).texte
+    this.canReponseACompleter = monQcm.texte
   }
 }
