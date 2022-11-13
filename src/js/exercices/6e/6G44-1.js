@@ -222,7 +222,7 @@ export default function ReconnaitreDesSolides () {
         }
         case 'cylindre': // cylindre
           if (axe === 3) {
-            cylindre = cylindre3d(point3d(0, 0, 2), point3d(0, -3, 2), vecteur3d(0, 1, 0), vecteur3d(1, 0, 0), vecteur3d(1, 0, 0))
+            cylindre = cylindre3d(point3d(0, 0, 2), point3d(0, -3, 2), vecteur3d(1, 0, 0), vecteur3d(1, 0, 0))
             /* c1 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'red', 0)
             c2 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'blue', 0) */
             const c1 = arc3d(point3d(0, 3, 1), vecteur3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'red', 110, 280)
@@ -248,7 +248,7 @@ export default function ReconnaitreDesSolides () {
             cylindre.c2d.push(c1, c2, c3, c4, g, arete3d(point3d(0, 4, 1), point3d(0, -4, 1), 'red', false).c2d)
           } else if (axe === 2) {
             // base sur le plan YZ
-            cylindre = cylindre3d(point3d(0, 0, 0), point3d(3, 0, 0), vecteur3d(1, 0, 0), vecteur3d(0, 1, 0), vecteur3d(0, 1, 0))
+            cylindre = cylindre3d(point3d(0, 0, 0), point3d(3, 0, 0), vecteur3d(0, 1, 0), vecteur3d(0, 1, 0))
             /* c1 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'red', 0)
             c2 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'blue', 0) */
             const c1 = arc3d(point3d(0, 0, 1), vecteur3d(1, 0, 0), vecteur3d(0, 1, 0), 'visible', 'red', 90, 270)
@@ -273,7 +273,7 @@ export default function ReconnaitreDesSolides () {
             cylindre.c2d = []
             cylindre.c2d.push(c1, c2, c3, c4, g, arete3d(point3d(-1, 0, 1), point3d(4, 0, 1), 'red', false).c2d)
           } else {
-            cylindre = cylindre3d(point3d(0, 0, 0), point3d(0, 0, 3), vecteur3d(0, 0, 1), vecteur3d(2, 0, 0), vecteur3d(2, 0, 0))
+            cylindre = cylindre3d(point3d(0, 0, 0), point3d(0, 0, 3), vecteur3d(2, 0, 0), vecteur3d(2, 0, 0))
           }
           objets.push(...cylindre.c2d)
           this.reponse = ['cylindre', 'cylindre de révolution']
