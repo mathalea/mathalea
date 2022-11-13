@@ -15,6 +15,8 @@ export const dateDePublication = '07/11/2022'
  * @author Eric Elter
  */
 
+export const uuid = 'a3cb9'
+export const ref = '3G41-1'
 export default function ConstruireSectionPaveDroit () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

@@ -59,7 +59,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       objets.push(texteParPosition(Q, n + 1.5 + x, 10, 'milieu', 'black', 1.2, 'middle', false))
     }
 
-    const divd = []; const Q = []; const R = []; const P = []
+    const divd = []; const Q = []; const R = []; const P = []; const ProduitPartiel = []; let q
     const dividende = divid.toString()
     const diviseur = divis.toString()
     const n = Math.log10(ordreDeGrandeur(divid.toNumber(), 1)) // nombre de chiffres du dividende
@@ -76,7 +76,6 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       objets.push(texteParPosition(',', n - dec1 - dec2 - 1 + 0.5, 11, 'milieu', 'black', 1.2, 'middle', false))
     }
     const longueurPotence = nombreDeChiffresDansLaPartieEntiere((divid.toNumber() / divis.toNumber()))
-    // objets.push(segment(n, 11.5, n, 10.5 - longueurPotence * 1.5)) // on trace le trait vertical
     objets.push(segment(n, 11.5, n, 10.5 - 2 * longueurPotence)) // on trace le trait vertical
 
     let i = 0
@@ -87,8 +86,10 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       upos++
     } else if (zeroutile) { ecrirequotient(-1, '0') }
     while (upos <= n) {
-      Q.push(new Decimal(divd[i]).div(divis).floor().toString())
+      q = new Decimal(divd[i]).div(divis).floor()
+      Q.push(q.toString())
       R.push(new Decimal(divd[i]).mod(divis).toString())
+      ProduitPartiel.push(new Decimal(q).mul(divis).floor().toString())
       P.push('')
       if (Q[i] === '0') {
         for (let z = 0; z < m; z++) {
@@ -98,7 +99,8 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
         for (let ee = 0; ee < divd[i].length - divis.mul(parseInt(Q[i])).toString().length; ee++) { P[i] += '0' }
         P[i] += divis.mul(parseInt(Q[i])).toString()
       }
-      ecriresoustraction(upos, divd[i])
+      // ecriresoustraction(upos, divd[i])
+      ecriresoustraction(upos, ProduitPartiel[i])
       if (upos < n) {
         R[i] += dividende.substr(upos, 1)
         ecrirereste(upos + 1, R[i])

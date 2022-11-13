@@ -111,7 +111,7 @@ export default function PariteDunNombre () {
     }
     this.autoCorrection[0] = {
       enonce: texte,
-      options: { vertical: true },
+      options: { horizontal: true },
       propositions: [
         {
           texte: 'Oui',
@@ -123,12 +123,13 @@ export default function PariteDunNombre () {
         }
       ]
     }
+    const monQcm = propositionsQcm(this, 0)
     if (!context.isAmc) {
-      texte += propositionsQcm(this, 0).texte
+      texte += monQcm.texte
     }
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
-    this.canReponseACompleter = propositionsQcm(this, 0).texte
+    this.canReponseACompleter = monQcm.texte
   }
 }

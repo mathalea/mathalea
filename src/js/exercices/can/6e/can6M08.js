@@ -49,8 +49,9 @@ export default function QuestionDAires () {
         }
       ]
     }
+    const monQcm = propositionsQcm(this, 0)
     if (!context.isAmc) {
-      texte += propositionsQcm(this, 0).texte
+      texte += monQcm.texte
     }
     let texteCorr = VF === 'V' ? 'Vrai' : 'Faux'
     texteCorr += `<br> $\\bullet$  le carré a une aire de $${a}\\times ${a}=${a * a}$ cm${texteExposant(2)}.<br>
@@ -59,6 +60,6 @@ export default function QuestionDAires () {
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
-    this.canReponseACompleter = propositionsQcm(this, 0).texte
+    this.canReponseACompleter = monQcm.texte
   }
 }

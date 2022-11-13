@@ -521,11 +521,12 @@ export default function ReconnaitreFonctionDegre2 () {
       if (this.questionJamaisPosee(i, a, x1, x2, b, c, alpha, beta)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        if (i === 0) this.canReponseACompleter = monQcm.texte // FIXME Dans un exercice permettant plusieurs questions il n'y a qu'un this.canReponseACompleter ???
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
-    this.canReponseACompleter = propositionsQcm(this, 0).texte
+    this.canReponseACompleter = monQcm.texte
   }
 }

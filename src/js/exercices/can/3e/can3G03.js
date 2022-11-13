@@ -92,7 +92,7 @@ export default function CalculLongueurThales2 () {
       this.canReponseACompleter = `$${nom[3]}${nom[0]}=\\ldots$`
     }
 
-    this.question += mathalea2d(Object.assign({}, fixeBordures(objets, { rxmin: -0.1 * c, rymin: -0.1 * c, rxmax: 0.1 * c, rymax: 0.1 * c }), { pixelsParCm: 8, mainlevee: false, amplitude: 0.5, scale: 0.2, style: 'margin: auto' }), objets)
+    this.question += mathalea2d(Object.assign({}, fixeBordures(objets, { rxmin: -0.1 * c, rymin: -0.75 * c, rxmax: 0.1 * c, rymax: 0.1 * c }), { pixelsParCm: 8, mainlevee: false, amplitude: 0.5, scale: 0.2, style: 'margin: auto' }), objets)
     this.canEnonce = this.question// 'Compléter'
   }
 }

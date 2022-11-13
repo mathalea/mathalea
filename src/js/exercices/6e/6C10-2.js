@@ -55,10 +55,8 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
       this.nbQuestions
     ) // Liste tous les couples possibles (2,3)≠(3,2)
     for (
-      let i = 0, a, b, k1, k2, texte, texteCorr, melange;
-      i < this.nbQuestions;
-      i++
-    ) {
+      let i = 0, cpt = 0, a, b, k1, k2, texte, texteCorr, melange;
+      i < this.nbQuestions && cpt < 100;) {
       this.autoCorrection[i] = {}
       a = couples[i][0]
       b = couples[i][1]
@@ -126,8 +124,13 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
         texte += ajouteChampTexteMathLive(this, i)
         setReponse(this, i, a * b)
       }
-      this.listeQuestions.push(texte)
-      this.listeCorrections.push(texteCorr)
+      if (this.questionJamaisPosee(i, a, b)) {
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+      } else {
+        cpt++
+      }
     }
     listeQuestionsToContenu(this)
   }

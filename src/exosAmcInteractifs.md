@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 524 
-- nombre d'exos interactifReady 803 
+- nombre d'exos amcReady 531 
+- nombre d'exos interactifReady 814 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -109,9 +109,13 @@
 |3G32-4|Calculer la hauteur d'une montagne|OK|AMCHybride|OK|mathLive|
 |3G32-5|Triangle rectangle inscrit dans un triangle rectangle|OK|AMCHybride|OK|mathLive|
 |3G32|Calculer la largeur d'une rivière|OK|AMCHybride|OK|mathLive|
+|3G40|Repérage sur la sphère|OK|AMCHybride|KO|KO|
+|3G41-1|Construire la section d'un plan dans un un pavé droit|OK|AMCOpen|KO|KO|
 |3G41|Dessiner différentes vues d'un empilement de cubes|OK|AMCHybride|KO|KO|
 |3G42|Volume d'une boule|OK|AMCNum|OK|mathLive|
 |3G43|Calculs de volumes|OK|AMCHybride|OK|qcm,mathLive|
+|3GXXXX copy|Déterminer des longueurs|OK|AMCHybride|OK|qcm,mathLive|
+|3GXXXX|Déterminer des longueurs|OK|AMCHybride|OK|qcm,mathLive|
 |3I10-1|Analyser des scripts Scratch|OK|AMCHybride|OK|qcm|
 |3I12-1|Compléter un script Scratch - 1|OK|AMCOpen|KO|KO|
 |3I12-2|Comprendre un script Scratch - 1|OK|AMCHybride|KO|KO|
@@ -331,6 +335,7 @@
 |6G32-1|Appliquer les propriétés de conservation de la symétrie axiale|OK|AMCHybride|KO|KO|
 |6G33|Reconnaître un quadrilatère particulier à partir de ses propriétés|OK|qcmMult|OK|qcm|
 |6G41|Compléter une représentation en perspective cavalière|OK|AMCOpen|KO|KO|
+|6G42-1|Nommer des faces dans un pavé droit|OK|AMCHybride|OK|qcm,mathLive|
 |6G43|Compter les cubes manquants ou pas|OK|AMCNum|OK|mathLive|
 |6G44-1|Reconnaitre des solides|OK|qcmMono|OK|qcm,mathLive|
 |6G44|Trouver le nombre de faces ou d'arêtes d'un solide|OK|AMCNum|OK|mathLive|
@@ -546,6 +551,7 @@
 |can2C12|Déterminer un taux global d’évolution|OK|AMCNum|OK|mathLive|
 |can2C13|Calculer avec  des puissances|OK|AMCNum|OK|mathLive|
 |can2C14|Calculer avec une racine carrée (définition)|KO|KO|OK|mathLive|
+|can2C15|Calculer un nombre connaissant son inverse|OK|AMCNum|OK|mathLive|
 |can2F01|Calculer une image avec le second degré|KO|KO|OK|mathLive|
 |can2F02|Calculer une image avec un quotient|KO|KO|OK|mathLive|
 |can2F03|Déterminer le signe d’une fonction affine (V/F)|KO|KO|OK|qcm|
@@ -578,6 +584,7 @@
 |can2G16|Trouver un coefficient de colinéarité (graphique)|OK|AMCHybride|OK|mathLive|
 |can2G17|Déterminer un vecteur directeur avec une équation cartésienne|KO|KO|OK|custom|
 |can2G18|Déterminer les coordonnées d’un vecteur à partir d’un graphique|KO|KO|OK|mathLive|
+|can2G19|Déterminer le coefficient directeur d'une droite (graphique)|KO|KO|OK|mathLive|
 |can2L01|Déterminer le nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
 |can2L02|Calculer les coordonnées d’un point sur une droite|KO|KO|OK|mathLive|
 |can2L03|Calculer les coordonnées du point d’intersection entre l’axe des abscisses/droite|KO|KO|OK|mathLive|
@@ -615,6 +622,7 @@
 |can3F07|Lire graphiquement une fonction affine|KO|KO|OK|mathLive|
 |can3F08|Lire graphiquement une fonction affine*|KO|KO|OK|mathLive|
 |can3F09|Reconnaître une fonction affine|KO|KO|OK|mathLive|
+|can3F10|Déterminer une ordonnée/abscisse avec une fonction linéaire|KO|KO|OK|mathLive|
 |can3G01|Calculer et utiliser un agrandissement/réduction|OK|AMCNum|OK|mathLive|
 |can3G02|Trouver l’image d’un point par une  transformation 3e|KO|KO|OK|mathLive|
 |can3G03|Calculer une longueur avec le théorème de Thalès|KO|KO|OK|mathLive|
@@ -754,6 +762,10 @@
 |can6C38|Trouver une valeur dans un Yohaku (additif)|OK|AMCNum|OK|mathLive|
 |can6C39|Trouver une valeur dans un Yohaku (multiplicatif)|OK|AMCNum|OK|mathLive|
 |can6C40|Calculer la moitié d’un nombre décimal|OK|AMCNum|OK|mathLive|
+|can6C41|Comparer des fractions de même dénominateur/numérateur|KO|KO|OK|mathLive|
+|can6C42|Comparer une fraction avec 1|KO|KO|OK|mathLive|
+|can6C43|Comprarer deux fractions (dénominateurs multiples)|OK|qcmMono|OK|qcm|
+|can6C44|Comparer deux fractions*|KO|KO|OK|mathLive|
 |can6D01|Convertir des Heures/minutes en minutes|OK|AMCNum|OK|mathLive|
 |can6D02|Chercher un reste en minutes|OK|AMCNum|OK|mathLive|
 |can6D03|Calculer une durée en minutes|OK|AMCNum|OK|mathLive|
@@ -823,6 +835,7 @@
 |canc3D03|Ajouter des durées|KO|KO|OK|mathLive|
 |canc3M01|Trouver la bonne unité|OK|AMCOpen|OK|mathLive|
 |canc3M02|Calculer une longueur/un périmètre/une aire (avec des entiers)|OK|AMCNum|OK|mathLive|
+|canc3M03|Calculer une somme de nombres avec des unités|KO|KO|OK|mathLive|
 |canc3N01|Écrire en lettres un nombre entier (QCM)|OK|qcmMono|OK|qcm|
 |canc3N02|Trouver un nombre sur une droite graduée|OK|AMCNum|OK|mathLive|
 |canc3N03|Trouver le plus grand nombre entier|OK|AMCNum|OK|mathLive|
