@@ -7,8 +7,10 @@ import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathL
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import * as pkg from '@cortex-js/compute-engine'
 import { fractionLatexToMathjs } from '../../modules/fonctionsMaths.js'
+import { context } from '../../modules/context.js'
 const { ComputeEngine } = pkg
-const engine = new ComputeEngine()
+let engine
+if (context.versionMathalea) engine = new ComputeEngine()
 export const titre = 'Générateur de Yohaku'
 export const interactifReady = true
 export const interactifType = 'custom'

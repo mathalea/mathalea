@@ -1,7 +1,7 @@
-import { point, vecteur, droite, segment, polyline, polygone, polygoneAvecNom, longueur } from './2d.js'
+import { point, vecteur, droite, segment, polyline, polygone, polygoneAvecNom, longueur, distancePointDroite, tracePoint, translation, norme } from './2d.js'
 import { matrix, multiply, norm, cross, dot } from 'mathjs'
 import { context } from './context.js'
-import { colorToLatexOrHTML, vide2d } from './2dGeneralites.js'
+import { assombrirOuEclaircir, colorToLatexOrHTML, vide2d } from './2dGeneralites.js'
 import { arrondi } from './outils.js'
 const math = { matrix: matrix, multiply: multiply, norm: norm, cross: cross, dot: dot }
 
@@ -212,6 +212,30 @@ export function demicercle3d (centre, normal, rayon, cote, color, angledepart = 
   if (cote === 'caché') {
     demiCercle.pointilles = 2
     demiCercle.opacite = 0.3
+  }
+  return demiCercle
+}
+
+// Cette fonction est provisoire... en attente de validation de tous les tests pour remplacer celle du dessus.
+export function demicercle3dEE (centre, normal, rayon, sens, estCache = false, color, angledepart = context.anglePerspective) {
+  let signe; const M = []; const listepoints = []
+  if (sens === 'direct') {
+    signe = 1
+  } else {
+    signe = -1
+  }
+  const d = droite3d(centre, normal)
+  M.push(rotation3d(translation3d(centre, rayon), d, angledepart))
+  listepoints.push(M[0].c2d)
+
+  for (let i = 1; i < 19; i++) {
+    M.push(rotation3d(M[i - 1], d, 10 * signe))
+    listepoints.push(M[i].c2d)
+  }
+  const demiCercle = polyline(listepoints, color)
+  if (estCache) {
+    demiCercle.pointilles = 2
+    demiCercle.opacite = 0.9
   }
   return demiCercle
 }
@@ -432,62 +456,182 @@ export function cone3d (centre, sommet, normal, rayon, generatrices = 18) {
 }
 
 /**
-   * LE CYLINDRE
-   *
-   * @author Jean-Claude Lhote
-   * Crée un cylindre de révolution définit par les centres de ses 2 bases
-   * Permet en faisant varier les rayons des deux bases de créer des troncs de cônes
-   * @param {Point3d} centrebase1
-   * @param {Point3d} centrebase2
-   * @param {Vecteur3d} normal
-   * @param {Vecteur3d} rayon1
-   * @param {Vecteur3d} rayon2
+   * Crée un cylindre de révolution défini par les centres de ses 2 bases
+   * Permet en faisant varier les rayons des deux bases de créer des troncs de cônes (A VERIFIER)
+   * @param {Point3d} centrebase1 Centre de la première base
+   * @param {Point3d} centrebase2 Centre de la seconde base
+   * @param {Vecteur3d} rayon1 Vecteur correspondant au rayon de la première base
+   * @param {Vecteur3d} rayon2 Vecteur correspondant au rayon de la seconde base
+   * @param {string} [color = 'black'] Couleur des "bords" du cylindre : du type 'blue' ou du type '#f15929'
+   * @param {boolean} [affichageGeneratrices = true] Permet (ou pas) l'affichage de génératrices du cylindre
+   * @param {boolean} [affichageCentreBases = false] Permet (ou pas) l'affichage des centres respectifs de chaque base
+   * @param {boolean} [affichageAxe = false] Permet (ou pas) l'affichage de l'axe du cylindre
+   * @param {string} [colorAxe = 'black'] Couleur de l'axe et des centres respectifs de chaque base du cylindre : du type 'blue' ou du type '#f15929'
+   * @param {boolean} [cylindreColore = false] Permet (ou pas) de colorier le cylindre
+   * @param {string} [colorCylindre = 'lightgray'] Couleur du cylindre (avec gestion intégrée de la nuance de couleurs): du type 'blue' ou du type '#f15929'
+   * @property {Point3d} centrebase1 Centre de la première base
+   * @property {Point3d} centrebase2 Centre de la seconde base
+   * @property {Vecteur3d} rayon1 Vecteur correspondant au rayon de la première base
+   * @property {Vecteur3d} rayon2 Vecteur correspondant au rayon de la seconde base
+   * @property {string} color Couleur des "bords" du cylindre : du type 'blue' ou du type '#f15929'
+   * @property {boolean} affichageGeneratrices Permet (ou pas) l'affichage de génératrices du cylindre
+   * @property {boolean} affichageCentreBases Permet (ou pas) l'affichage des centres respectifs de chaque base
+   * @property {boolean} affichageAxe Permet (ou pas) l'affichage de l'axe du cylindre
+   * @property {string} colorAxe Couleur de l'axe et des centres respectifs de chaque base du cylindre : du type 'blue' ou du type '#f15929'
+   * @property {boolean} cylindreColore Permet (ou pas) de colorier le cylindre
+   * @property {string} colorCylindre Couleur du cylindre (avec gestion intégrée de la nuance de couleurs): du type 'blue' ou du type '#f15929'
+   * @author Jean-Claude Lhote (optimisé par Eric Elter)
+   * @class
    */
-function Cylindre3d (centrebase1, centrebase2, normal, rayon1, rayon2, color) {
+function Cylindre3d (centrebase1, centrebase2, rayon1, rayon2, color = 'black', affichageGeneratrices = true, affichageCentreBases = false, affichageAxe = false, colorAxe = 'black', cylindreColore = false, colorCylindre = 'lightgray') {
   ObjetMathalea2D.call(this, { })
   this.centrebase1 = centrebase1
   this.centrebase2 = centrebase2
-  this.normal = normal
   this.rayon1 = rayon1
   this.rayon2 = rayon2
   this.color = color
+  this.affichageGeneratrices = affichageGeneratrices
+  this.affichageCentreBases = affichageCentreBases
+  this.affichageAxe = affichageAxe
+  this.colorAxe = colorAxe
+  this.cylindreColore = cylindreColore
+  this.colorCylindre = colorCylindre
   this.c2d = []
   let s
+  this.normal = vecteur3d(this.centrebase1, this.centrebase2)
   const prodvec = vecteur3d(math.cross(this.normal.matrice, this.rayon1.matrice))
   const prodscal = math.dot(prodvec.matrice, vecteur3d(0, 1, 0).matrice)
   let cote1, cote2
-  if (prodscal > 0) {
-    cote1 = 'caché'
-    cote2 = 'visible'
+  const centre1PlusBasQueCentre2 = this.centrebase1.c2d.y !== this.centrebase2.c2d.y ? this.centrebase1.c2d.y < this.centrebase2.c2d.y : (context.anglePerspective > 0)
+  if (prodscal * context.anglePerspective > 0) {
+    cote1 = centre1PlusBasQueCentre2 ? 'direct' : 'indirect'
+    cote2 = centre1PlusBasQueCentre2 ? 'indirect' : 'direct'
   } else {
-    cote2 = 'caché'
-    cote1 = 'visible'
+    cote2 = centre1PlusBasQueCentre2 ? 'direct' : 'indirect'
+    cote1 = centre1PlusBasQueCentre2 ? 'indirect' : 'direct'
   }
-  const c1 = demicercle3d(this.centrebase1, this.normal, this.rayon1, cote1, this.color)
-  const c3 = demicercle3d(this.centrebase2, this.normal, this.rayon2, cote1, this.color)
-  const c2 = demicercle3d(this.centrebase1, this.normal, this.rayon1, cote2, this.color)
-  const c4 = demicercle3d(this.centrebase2, this.normal, this.rayon2, cote2, this.color)
-  c3.pointilles = false
-  for (let i = 0; i < c1.listePoints.length; i += 2) {
-    s = segment(c3.listePoints[i], c1.listePoints[i], this.color)
-    if (cote1 === 'caché') {
+
+  // Cette partie permet de chercher le bon angle de départ pour le tracé des demi-bases
+  // Recherche du premier point visible sur la demi-base visible
+  let angleDepart = 0
+  let distanceMax = 0
+  const d = droite3d(this.centrebase1, this.normal)
+  let ptReference = rotation3d(translation3d(this.centrebase1, this.rayon1), d, angleDepart)
+  const secondPt = rotation3d(translation3d(this.centrebase1, this.rayon1), d, angleDepart + 1)
+  const sensRecherche = distancePointDroite(ptReference.c2d, d.c2d) < distancePointDroite(secondPt.c2d, d.c2d) ? 1 : -1
+  while ((distancePointDroite(ptReference.c2d, d.c2d) > distanceMax)) {
+    distanceMax = distancePointDroite(ptReference.c2d, d.c2d)
+    angleDepart = angleDepart + sensRecherche
+    ptReference = rotation3d(translation3d(this.centrebase1, this.rayon1), d, angleDepart)
+  }
+  angleDepart = angleDepart - sensRecherche
+  // angleDepart est donc l'angle qui permet d'avoir un tracé de demicercle3d idéal
+
+  // Description de chaque demi-base en position verticale
+  // c1 : cercle bas derrière
+  // const c1 = demicercle3dEE(this.centrebase1, this.normal, this.rayon1, cote1, true, this.color, angleDepart)
+  const c1 = demicercle3dEE(this.centrebase1, this.normal, this.rayon1, cote1, true, this.color, angleDepart)
+  // c3 : cercle haut derrière
+  const c3 = demicercle3dEE(this.centrebase2, this.normal, this.rayon2, cote1, false, this.color, angleDepart)
+  // c2 : cercle bas devant
+  const c2 = demicercle3dEE(this.centrebase1, this.normal, this.rayon1, cote2, false, this.color, angleDepart)
+  // c4 : cercle haut devant
+  const c4 = demicercle3dEE(this.centrebase2, this.normal, this.rayon2, cote2, false, this.color, angleDepart)
+
+  if (cylindreColore) {
+    let polygon = [...c4.listePoints]
+    for (let i = c2.listePoints.length - 1; i >= 0; i--) {
+      polygon.push(c2.listePoints[i])
+    }
+    const faceColoree = polygone(polygon, 'white')
+    faceColoree.couleurDeRemplissage = colorToLatexOrHTML(this.colorCylindre)
+    this.c2d.push(faceColoree)
+
+    polygon = [...c3.listePoints]
+    for (let i = c4.listePoints.length - 1; i >= 0; i--) {
+      polygon.push(c4.listePoints[i])
+    }
+    const baseColoree = polygone(polygon, 'white')
+    baseColoree.couleurDeRemplissage = colorToLatexOrHTML(assombrirOuEclaircir(this.colorCylindre, 25))
+    this.c2d.push(baseColoree)
+  }
+
+  if (affichageGeneratrices) {
+    for (let i = 1; i < c1.listePoints.length - 1; i += 2) {
+      s = segment(c3.listePoints[i], c1.listePoints[i], this.color)
       s.pointilles = 2
       s.opacite = 0.3
+      this.c2d.push(s)
     }
-    this.c2d.push(s)
   }
-  for (let i = 0; i < c2.listePoints.length; i += 2) {
-    s = segment(c4.listePoints[i], c2.listePoints[i], this.color)
-    if (cote2 === 'caché') {
-      s.pointilles = 2
-      s.opacite = 0.3
+
+  s = segment(c4.listePoints[0], c2.listePoints[0], this.color)
+  this.c2d.push(s)
+
+  if (affichageGeneratrices) {
+    for (let i = 1; i < c2.listePoints.length - 1; i++) {
+      s = segment(c4.listePoints[i], c2.listePoints[i], this.color)
+      this.c2d.push(s)
     }
-    this.c2d.push(s)
   }
+
+  s = segment(c4.listePoints[c2.listePoints.length - 1], c2.listePoints[c2.listePoints.length - 1], this.color)
+  this.c2d.push(s)
+
   this.c2d.push(c1, c2, c3, c4)
+
+  if (affichageCentreBases) {
+    this.c2d.push(tracePoint(this.centrebase1.c2d, this.centrebase2.c2d, this.colorAxe))
+  }
+
+  if (affichageAxe) {
+  // Cette partie permet de chercher le bon angle de départ pour le tracé des demi-bases
+  // Recherche du premier point visible sur la demi-base visible
+    angleDepart = 0
+    let distanceMin = 9999
+    const pt = c2.listePoints
+    let i = 0
+    while ((distancePointDroite(pt[i], d.c2d) < distanceMin)) {
+      distanceMin = distancePointDroite(pt[i], d.c2d)
+      i++
+    }
+    // angleDepart est donc l'angle qui permet d'avoir un tracé de demicercle3d idéal
+    s = segment(this.centrebase2.c2d, pt[i - 1], this.colorAxe)
+    s.pointilles = 2
+    s.opacite = 0.7
+    this.c2d.push(s)
+    const v = vecteur(this.centrebase2.c2d, this.centrebase1.c2d)
+    s = segment(pt[i - 1], translation(pt[i - 1], vecteur(v.x / norme(v), v.y / norme(v))), this.colorAxe)
+    this.c2d.push(s)
+    s = segment(this.centrebase2.c2d, translation(this.centrebase2.c2d, vecteur(v.x / norme(v) * (-(norme(this.rayon1.c2d) + 1)), v.y / norme(v) * (-(norme(this.rayon1.c2d) + 1)))), this.colorAxe)
+    this.c2d.push(s)
+  }
 }
-export function cylindre3d (centrebase1, centrebase2, normal, rayon, rayon2, color = 'black') {
-  return new Cylindre3d(centrebase1, centrebase2, normal, rayon, rayon2, color)
+
+/**
+   * Crée un cylindre de révolution défini par les centres de ses 2 bases
+   * Permet en faisant varier les rayons des deux bases de créer des troncs de cônes (A VERIFIER)
+   * @param {Point3d} centrebase1 Centre de la première base
+   * @param {Point3d} centrebase2 Centre de la seconde base
+   * @param {Vecteur3d} rayon1 Vecteur correspondant au rayon de la première base
+   * @param {Vecteur3d} rayon2 Vecteur correspondant au rayon de la seconde base
+   * @param {string} [color = 'black'] Couleur des "bords" du cylindre : du type 'blue' ou du type '#f15929'
+   * @param {boolean} [affichageGeneratrices = true] Permet (ou pas) l'affichage de génératrices du cylindre
+   * @param {boolean} [affichageCentreBases = false] Permet (ou pas) l'affichage des centres respectifs de chaque base
+   * @param {boolean} [affichageAxe = false] Permet (ou pas) l'affichage de l'axe du cylindre
+   * @param {string} [colorAxe = 'black'] Couleur de l'axe et des centres respectifs de chaque base du cylindre : du type 'blue' ou du type '#f15929'
+   * @param {boolean} [cylindreColore = false] Permet (ou pas) de colorier le cylindre
+   * @param {string} [colorCylindre = 'lightgray'] Couleur du cylindre (avec gestion intégrée de la nuance de couleurs): du type 'blue' ou du type '#f15929'
+   * @example cylindre3d(A, B, v, v, 'blue')
+   * // Retourne un cylindre à bords bleus dont les bases ont pour centre respectif A et B et le rayon est donné par le vecteur v.
+   * @example cylindre3d(A, B, v, v, 'green', false, true, true, 'red', true, 'lightblue')
+   * // Retourne un cylindre à bords verts dont les bases ont pour centre respectif A et B et le rayon est donné par le vecteur v.
+   * // Les génératrices sont invisibles, les centres et axe sont visibles et rouge, le cylindré est coloré en bleu.
+   * @author Jean-Claude Lhote (optimisé par Eric Elter)
+   * @class
+   */
+export function cylindre3d (centrebase1, centrebase2, rayon, rayon2, color = 'black', affichageGeneratrices = true, affichageCentreBases = false, affichageAxe = false, colorAxe = 'black', cylindreColore = false, colorCylindre = 'lightgray') {
+  return new Cylindre3d(centrebase1, centrebase2, rayon, rayon2, color, affichageGeneratrices, affichageCentreBases, affichageAxe, colorAxe, cylindreColore, colorCylindre)
 }
 
 /**
@@ -634,7 +778,6 @@ class Cube3d {
     H.c2d.nom = nom[7]
     pointsFace = [E.c2d, F.c2d, G.c2d, H.c2d]
     const faceArr = affichageNom ? polygoneAvecNom(...pointsFace) : vide2d
-    if (affichageNom) faceArr[0].color = colorToLatexOrHTML('none')
 
     const faceDr = polygone([B.c2d, F.c2d, G.c2d, C.c2d], color)
     const faceTOP = polygone([D.c2d, C.c2d, G.c2d, H.c2d], color)
@@ -651,9 +794,9 @@ class Cube3d {
       faceAV.couleurDeRemplissage = colorToLatexOrHTML(colorAV)
       faceTOP.couleurDeRemplissage = colorToLatexOrHTML(colorTOP)
       faceDr.couleurDeRemplissage = colorToLatexOrHTML(colorDr)
-      this.c2d = [faceAV, faceDr, faceTOP]
+      this.c2d = [faceAV.length === 2 ? faceAV[0] : faceAV, faceAV.length === 2 ? faceAV[1] : vide2d, faceDr, faceTOP]
     } else {
-      this.c2d = [faceAV, faceDr, faceTOP, faceArr, areteEH, areteEF, areteEA]
+      this.c2d = [faceAV.length === 2 ? faceAV[0] : faceAV, faceAV.length === 2 ? faceAV[1] : vide2d, faceDr, faceTOP, faceArr.length === 2 ? faceArr[1] : vide2d, areteEH, areteEF, areteEA]
     }
   }
 }
