@@ -25,7 +25,7 @@ export default function PoucentageP2 () {
     const listeCarac2 = [['maisons', 'T2'], ['maisons', 'T3'], ['appartements', 'T2'], ['appartements', 'T3']
     ]
     let a, b, c, n, d, carac, carac2, choix
-    switch (choice(['a', 'b', 'c', 'd'])) { //,
+    switch (choice(['a', 'b', 'c', 'd'])) {
       case 'a':
         if (choice([true, false])) {
           a = choice([20, 40])
@@ -35,7 +35,7 @@ export default function PoucentageP2 () {
           d = carac[1]
           this.question = ` Dans un groupe de $${a}$ enfants, $${b}$  sont des ${n}.<br>
       ${d} représentent ..... $\\%$ du groupe.`
-          this.optionsChampTexte = { texteApres: '%' }
+          this.optionsChampTexte = { texteApres: '$\\%$' }
           this.correction = `La proportion de ${n} est donnée par $\\dfrac{${b}}{${a}}=${texFractionReduite(b, a)}=${texNombrec(b / a)}$, soit $${texNombrec((b / a) * 100)}$ $\\%$.`
           this.reponse = calcul((b / a) * 100)
         } else {
@@ -46,7 +46,7 @@ export default function PoucentageP2 () {
           d = carac[1]
           this.question = ` Dans un groupe de $${a}$ enfants, $${b}$  sont des ${n}.<br>
           ${d} représentent ..... $\\%$ du groupe.`
-          this.optionsChampTexte = { texteApres: '%' }
+          this.optionsChampTexte = { texteApres: '$\\%$' }
           this.correction = `La proportion de ${n} est donnée par $\\dfrac{${b}}{${a}}=${texFractionReduite(b, a)}=${texNombrec(b / a)}$, soit $${texNombrec((b / a) * 100)}$ $\\%$.`
           this.reponse = calcul((b / a) * 100)
         }
@@ -60,24 +60,31 @@ export default function PoucentageP2 () {
         carac2 = choice(listeCarac2)
         n = carac2[0]
         d = carac2[1]
-        this.question = `Une ville compte $${texNombre(a)}$ logements.<br> 
-        Parmi ces logements, $${b}$ %  sont des ${n} et $${c}$ % de ceux-ci sont des ${d}.<br>
+        if (n === 'maisons') {
+          this.question = ` 
 
-        Quel est le nombre de ${d} dans cette ville ?`
+        Parmi les $${texNombre(a)}$ logements que compte une ville, $${b}\\%$   sont des ${n} et $${c}\\%$  de celles-ci sont des ${d}.<br>
+
+         Quel est le nombre de ${n} de type ${d} dans cette ville ?`
+        } else {
+          this.question = `Parmi les $${texNombre(a)}$ logements que compte une ville, $${b}\\%$   sont des ${n} et $${c}\\%$  de ceux-ci sont des ${d}.<br>
+ 
+          Quel est le nombre d' ${n} de type ${d} dans cette ville ?`
+        }
         this.optionsChampTexte = { texteApres: '' }
-        this.correction = `Les ${n}  représentent $${b}$ %  des logements.<br>
+        this.correction = `Les ${n}  représentent $${b}\\%$   des logements.<br>
         Il y en a donc : $${texNombrec(b / 100)}\\times ${texNombre(a)}=${texNombrec(b * a / 100)}$.<br>
         Dans cette ville, il y a  $${texNombrec(b * a / 100)}$ ${n}.<br>
-        Parmi ces ${n}, il y a $${c}$ % de ${d}.<br>
-        $${c}$ % de $${texNombrec(b * a / 100)}=${texNombrec(c / 100)}\\times ${b * a / 100}=${texNombrec(c * b * a / 10000)}$.<br>
+        Parmi ces ${n}, il y a $${c}\\%$  de ${d}.<br>
+        $${c}\\%$  de $${texNombrec(b * a / 100)}=${texNombrec(c / 100)}\\times ${b * a / 100}=${texNombrec(c * b * a / 10000)}$.<br>
         Il y a donc $${texNombrec(c * b * a / 10000)}$ ${n} de type ${d} dans cette ville.
         `
         this.correction += texteEnCouleur(`
         <br> Mentalement : <br>
-                Prendre $10$ % d'une quantité revient à la diviser par $10$. <br>
-       Pour calculer $20$ %, $30$ %, $40$ %, .... d'une quantité, on 
-       commence par calculer  $10$ % de cette quantité en la divisant par $10$, puis on multiplie 
-       par $2$ ce résultat si on veut en calculer $20$ %, par $3$ si on veut en calculer $30$ %, ....<br>
+                Prendre $10\\%$  d'une quantité revient à la diviser par $10$. <br>
+       Pour calculer $20\\%$ , $30 \\%$ , $40\\%$, .... d'une quantité, on 
+       commence par calculer  $10\\%$  de cette quantité en la divisant par $10$, puis on multiplie 
+       par $2$ ce résultat si on veut en calculer $20 \\%$, par $3$ si on veut en calculer $30\\%$, ....<br>
                            `)
         this.reponse = calcul(c * b * a / 10000)
         this.canEnonce = this.question// 'Compléter'
@@ -91,9 +98,8 @@ export default function PoucentageP2 () {
         c = (b / a) * 100
         choix = choice([true, false])
         this.question = `Le prix d'un article coûtant $${a}$ euros ${choix ? 'baisse' : 'augmente'} de $${b}$ euros.<br>
-
           Quel est le pourcentage ${choix ? 'de réduction' : 'd’augmentation'} de ce prix ?`
-        this.optionsChampTexte = { texteApres: '%' }
+        this.optionsChampTexte = { texteApres: '$\\%$' }
         this.correction = `${choix ? 'La réduction' : 'L’augmentation'} est $${b}$ euros sur un total de $${a}$ euros.<br>
           Le pourcentage  ${choix ? 'de baisse' : 'd’augmentation'} est donné par le quotient : $\\dfrac{${b}}{${a}}${simplificationDeFractionAvecEtapes(b, a)}=${texNombrec(b / a)}= ${texNombrec((b / a) * 100)}\\%$.
           `
@@ -110,7 +116,6 @@ export default function PoucentageP2 () {
         b = randint(10, 30)
         choix = choice([true, false])
         this.question = ` Une ${choix ? ' réduction' : 'augmentation'} de $${a}~\\%$  d'un article entraîne une ${choix ? 'réduction' : 'augmentation'} du prix de $${b}$ €.<br>
-
           Quel était le prix de cet article avant ${choix ? '  la réduction' : 'l’augmentation'} ?  `
         this.optionsChampTexte = { texteApres: '€' }
         if (a === 25) {
