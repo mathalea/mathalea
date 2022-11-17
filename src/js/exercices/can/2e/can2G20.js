@@ -103,7 +103,7 @@ export default function EquationDroite () {
           if ((yB - yA) / xB === 1) { this.correction += `Son ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est $y=x${ecritureAlgebrique(yA)}$.` }
           if ((yB - yA) / xB === -1) { this.correction += `Son ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est $y=-x${ecritureAlgebrique(yA)}$.` }
           if ((yB - yA) / xB !== -1 && (yB - yA) / xB !== 1) { this.correction += `Son ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est $y=${m.texFractionSimplifiee}x${ecritureAlgebrique(yA)}$.` }
-          this.correction += `
+          this.correction += `<br>
 
           ${objetC}<br>
 
@@ -190,7 +190,7 @@ export default function EquationDroite () {
           if (2 * (yB - yA) / xB === 1) { this.correction += `Son ordonnée à l'origine est $${2 * yA}$, ainsi l'équation réduite de la droite est $y=x${ecritureAlgebrique(yA)}$.` }
           if (2 * (yB - yA) / xB === -1) { this.correction += `Son ordonnée à l'origine est $${2 * yA}$, ainsi l'équation réduite de la droite est $y=-x${ecritureAlgebrique(yA)}$.` }
           if (2 * (yB - yA) / xB !== -1 && 2 * (yB - yA) / xB !== 1) { this.correction += `Son ordonnée à l'origine est $${2 * yA}$, ainsi l'équation réduite de la droite est $y=${m.texFractionSimplifiee}x${ecritureAlgebrique(2 * yA)}$.` }
-          this.correction += `
+          this.correction += `<br>
 
           ${objetC}<br>
 
