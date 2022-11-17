@@ -28,6 +28,7 @@ export default function PremierOuPas () {
   // this.correctionDetailleeDisponible = true;
   this.nbCols = 2
   this.nbColsCorr = 1
+  this.nbQuestions = 5
   this.sup = 1
   this.sup2 = false // Par défaut on n'affiche pas la liste des nombres premiers
   // this.nbQuestionsModifiable = false (EE : bloquant pour AMC sinon)
@@ -52,10 +53,8 @@ export default function PremierOuPas () {
 
     let typesDeQuestionsDisponibles // = [1, 2, 3, 6, 7];
     if (Number(this.sup) === 1) {
-      this.nbQuestions = 4
       typesDeQuestionsDisponibles = [1, 2, 3, 8]
     } else {
-      this.nbQuestions = 5
       typesDeQuestionsDisponibles = [1, 2, 3, 6, 7]
     }
     typesDeQuestionsDisponibles = shuffle(typesDeQuestionsDisponibles) // on mélange l'ordre des questions
@@ -303,6 +302,7 @@ export default function PremierOuPas () {
         i++
       }
       cpt++
+      console.log(i, cpt)
     }
 
     listeQuestionsToContenu(this)
