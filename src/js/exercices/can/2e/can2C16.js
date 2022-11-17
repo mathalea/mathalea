@@ -23,8 +23,9 @@ export default function ProgrammeCalcul2 () {
   this.nouvelleVersion = function () {
     let a, b, reponse, f1, f2
 
-    switch (choice([6])) { //, 2, 2
+    switch (choice([1, 2, 3, 4, 5, 6, 7, 8])) { //, 2, 3, 4, 5, 6, 7, 8
       case 1:// x^2+y^2
+        this.formatInteractif = 'calcul'
         a = randint(-5, 5, 0)
         b = randint(-10, 10, [0, a])
 
@@ -39,6 +40,7 @@ export default function ProgrammeCalcul2 () {
 
         break
       case 2:// (x+y)^2
+        this.formatInteractif = 'calcul'
         a = randint(-5, 5, 0)
         b = randint(-7, 7, [0, a])
 
@@ -54,6 +56,7 @@ export default function ProgrammeCalcul2 () {
         break
 
       case 3:// 2(x+y)^2
+        this.formatInteractif = 'calcul'
         a = randint(-5, 5, 0)
         b = randint(-5, 5, [0, a])
 
@@ -61,7 +64,7 @@ export default function ProgrammeCalcul2 () {
         this.question = `Choisir deux nombres puis calculer le double du carré de leur somme.  <br>
       
      Quel résultat obtient-on si on choisit comme nombres $${a}$ et $${b}$ ?`
-        this.correction = `$2\\times (${a}${ecritureAlgebrique(b)})^2=2\\times ${(a + b) ** 2}=${reponse}$
+        this.correction = `$2\\times (${a}+${ecritureParentheseSiNegatif(b)})^2=2\\times ${(a + b) ** 2}=${reponse}$
       `
 
         this.reponse = reponse
@@ -69,7 +72,7 @@ export default function ProgrammeCalcul2 () {
         break
 
       case 4:// 2(x*y)et 2*(x+y)
-
+        this.formatInteractif = 'calcul'
         if (choice([true, false])) {
           a = randint(-10, 10, 0)
           b = randint(-5, 5, [0, a])
@@ -135,17 +138,39 @@ export default function ProgrammeCalcul2 () {
 
         break
 
-      case 7:// 1/x+y
-        a = randint(-10, 10, 0)
-        b = randint(-10, 10, [0, -a])
-
+      case 7:// 1/(x+y) avec x fraction
+        a = randint(2, 10)
+        b = randint(1, 10)
+        f1 = new FractionX(1, a)
         this.formatInteractif = 'fractionEgale'
-        reponse = new FractionX(1, a + b)
+        f2 = new FractionX(1 + b * a, a)
+        reponse = new FractionX(a, 1 + b * a)
         this.question = `Choisir deux nombres puis calculer l'inverse de leur somme.  <br>
       
-     Quel résultat obtient-on si on choisit comme nombres $${a}$ et $${b}$ ?`
-        this.correction = `La somme de $${a}$ et $${b}$ est $${a + b}$. <br>
+     Quel résultat obtient-on si on choisit comme nombres $${f1.texFraction}$ et $${b}$ ?`
+        this.correction = `La somme de $${f1.texFraction}$ et $${b}$ est : $${f1.texFraction}+${b}=${f1.texFraction}+\\dfrac{${b}\\times ${a}}{${a}}=
+        ${f1.texFraction}+\\dfrac{${b * a}}{${a}}=${f2.texFraction}$. <br>
+        <br>
         Son inverse est : $${reponse.texFractionSimplifiee}$.
+      `
+
+        this.reponse = reponse
+
+        break
+
+      case 8:// 1/(x+y)^2
+        a = randint(-9, 9, 0)
+        if (a < 0) { b = randint(-2, 6, [0, -a]) } else { b = randint(-6, 2, [0, -a]) }
+
+        this.formatInteractif = 'fractionEgale'
+
+        reponse = new FractionX(1, (a + b) ** 2)
+        this.question = `Choisir deux nombres puis calculer l'inverse du carré de leur somme.  <br>
+      
+     Quel résultat obtient-on si on choisit comme nombres $${a}$ et $${b}$ ?`
+        this.correction = `La somme de $${a}$ et $${b}$ est : $${a + b}$.<br>
+        Le carré de cette somme est : $${ecritureParentheseSiNegatif(a + b)}^2=${(a + b) ** 2}$.<br>
+        L'inverse de ce carré est :  $${reponse.texFractionSimplifiee}$.
       `
 
         this.reponse = reponse
