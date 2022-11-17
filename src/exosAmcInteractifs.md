@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 531 
-- nombre d'exos interactifReady 814 
+- nombre d'exos interactifReady 815 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -114,8 +114,6 @@
 |3G41|Dessiner différentes vues d'un empilement de cubes|OK|AMCHybride|KO|KO|
 |3G42|Volume d'une boule|OK|AMCNum|OK|mathLive|
 |3G43|Calculs de volumes|OK|AMCHybride|OK|qcm,mathLive|
-|3GXXXX copy|Déterminer des longueurs|OK|AMCHybride|OK|qcm,mathLive|
-|3GXXXX|Déterminer des longueurs|OK|AMCHybride|OK|qcm,mathLive|
 |3I10-1|Analyser des scripts Scratch|OK|AMCHybride|OK|qcm|
 |3I12-1|Compléter un script Scratch - 1|OK|AMCOpen|KO|KO|
 |3I12-2|Comprendre un script Scratch - 1|OK|AMCHybride|KO|KO|
@@ -585,6 +583,7 @@
 |can2G17|Déterminer un vecteur directeur avec une équation cartésienne|KO|KO|OK|custom|
 |can2G18|Déterminer les coordonnées d’un vecteur à partir d’un graphique|KO|KO|OK|mathLive|
 |can2G19|Déterminer le coefficient directeur d'une droite (graphique)|KO|KO|OK|mathLive|
+|can2G20|Déterminer une équation de droite (graphique)|KO|KO|OK|mathLive|
 |can2L01|Déterminer le nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
 |can2L02|Calculer les coordonnées d’un point sur une droite|KO|KO|OK|mathLive|
 |can2L03|Calculer les coordonnées du point d’intersection entre l’axe des abscisses/droite|KO|KO|OK|mathLive|
@@ -719,6 +718,7 @@
 |can5P06|Ecrire sous la forme d’un pourcentage|OK|AMCNum|OK|mathLive|
 |can5P07|Résoudre un problème de proportionnalité*|OK|AMCNum|OK|mathLive|
 |can5P08|Résoudre un problème de proportionnalité**|OK|AMCNum|OK|mathLive|
+|can5P09|Calculer un prix à partir d'un prix au kg|OK|AMCNum|OK|mathLive|
 |can5a-2020|CAN 5ième sujet 2020|KO|KO|OK|mathLive|
 |can5a-2021|CAN 5ième sujet 2021|KO|KO|OK|mathLive|
 |can5a-2022|CAN 5ième sujet 2022|KO|KO|OK|mathLive|
@@ -812,6 +812,7 @@
 |can6P03|Déterminer le nombre de km avec une vitesse|OK|AMCNum|OK|mathLive|
 |can6P04|Appliquer un pourcentage|OK|AMCNum|OK|mathLive|
 |can6P05|Appliquer un pourcentage (bis)|OK|AMCNum|OK|mathLive|
+|can6P06|Résoudre un problème de calcul de pourcentage par complément à 100%|OK|AMCNum|OK|mathLive|
 |can6S01|Lire un diagramme en barres|OK|AMCNum|OK|mathLive|
 |can6a-2018|CAN 6ième sujet 2018|KO|KO|OK|mathLive|
 |can6a-2021|CAN 6ième sujet 2021|KO|KO|OK|mathLive|
