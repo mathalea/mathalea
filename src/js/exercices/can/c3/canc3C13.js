@@ -12,6 +12,8 @@ export const dateDePublication = '17/11/2022'
  * Date de publication
 */
 
+export const uuid = '8afe0'
+export const ref = 'canc3C13'
 export default function TableMultiplicationTrous3 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

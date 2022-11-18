@@ -14,6 +14,8 @@ export const dateDePublication = '13/11/2022'
  * Date de publication
 */
 
+export const uuid = '7b350'
+export const ref = 'can5P09'
 export default function CalculPrix () {
   Exercice.call(this)
   this.typeExercice = 'simple'

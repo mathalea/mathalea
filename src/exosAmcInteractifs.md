@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 531 
-- nombre d'exos interactifReady 815 
+- nombre d'exos amcReady 533 
+- nombre d'exos interactifReady 820 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -515,6 +515,7 @@
 |can1L07|Déterminer un coefficient dans un développement|KO|KO|OK|mathLive|
 |can1L08|Déterminer un coefficient dans un développement*|KO|KO|OK|mathLive|
 |can1L09|Résoudre une équation $ax^2+bx+c=c$ |KO|KO|OK|mathLive|
+|can1L10|Simplifier un taux de variation|KO|KO|OK|mathLive|
 |can1P01|Ecrire une probabilté avec les notations|OK|AMCNum|OK|mathLive|
 |can1P02|Lire une probabilité  à partir d’un arbre|OK|AMCNum|OK|mathLive|
 |can1P03|Calculer la probabilité d’une intersection à partir d’un arbre|OK|AMCNum|OK|mathLive|
@@ -550,6 +551,7 @@
 |can2C13|Calculer avec  des puissances|OK|AMCNum|OK|mathLive|
 |can2C14|Calculer avec une racine carrée (définition)|KO|KO|OK|mathLive|
 |can2C15|Calculer un nombre connaissant son inverse|OK|AMCNum|OK|mathLive|
+|can2C16|Calculer avec un programme de calcul*|KO|KO|OK|mathLive|
 |can2F01|Calculer une image avec le second degré|KO|KO|OK|mathLive|
 |can2F02|Calculer une image avec un quotient|KO|KO|OK|mathLive|
 |can2F03|Déterminer le signe d’une fonction affine (V/F)|KO|KO|OK|qcm|
@@ -831,6 +833,8 @@
 |canc3C09|Résoudre un problème avec "fois plus", "fois moins"|OK|AMCNum|OK|mathLive|
 |canc3C10|Résoudre un problème avec "fois plus", "fois moins"*|OK|AMCNum|OK|mathLive|
 |canc3C11|Calculer la moitié d’un nombre impair|OK|AMCNum|OK|mathLive|
+|canc3C12|Calculer avec un programme de calcul|OK|AMCNum|OK|mathLive|
+|canc3C13|Trouver un nombre dans un produit de trois facteurs |KO|KO|OK|mathLive|
 |canc3D01|Lire l'heure|OK|AMCHybride|OK|mathLive|
 |canc3D02|Lire une durée|KO|KO|OK|mathLive|
 |canc3D03|Ajouter des durées|KO|KO|OK|mathLive|
@@ -842,6 +846,7 @@
 |canc3N03|Trouver le plus grand nombre entier|OK|AMCNum|OK|mathLive|
 |canc3N04|Arrondir à l'unité|OK|AMCHybride|OK|mathLive|
 |canc3N05|Calculer une somme (partie entière/décimale)|OK|AMCNum|OK|mathLive|
+|canc3N06|Comparer deux nombres sur une droite graduée (QCM)|OK|qcmMono|OK|qcm|
 |techno1E2|Associer évolution en pourcentage et coefficient|KO|KO|OK|mathLive|
 |techno1P1|Écriture fractionnaire, écriture décimale, pourcentage|KO|KO|OK|mathLive|
 |techno1P2-1|Appliquer un pourcentage|OK|AMCNum|OK|mathLive|

@@ -14,6 +14,8 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
  * @author Maxime Nguyen
  * Référence HPC104
 */
+export const uuid = '2806f'
+export const ref = 'HPC104'
 export default class nomExercice extends Exercice {
   constructor () {
     super()

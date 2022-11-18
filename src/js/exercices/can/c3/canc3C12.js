@@ -12,6 +12,8 @@ export const dateDePublication = '17/11/2022'
  * Référence canc3C12
  */
 
+export const uuid = '9e7c7'
+export const ref = 'canc3C12'
 export default function ProgrammeCalculInverse () {
   Exercice.call(this)
   this.typeExercice = 'simple'

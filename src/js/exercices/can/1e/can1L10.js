@@ -11,6 +11,8 @@ export const dateDePublication = '17/11/2022'
  * Référence can1L10
 */
 
+export const uuid = 'cc9ee'
+export const ref = 'can1L10'
 export default function SimplifierTauxVariations () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

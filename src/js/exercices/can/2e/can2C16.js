@@ -12,6 +12,8 @@ export const dateDePublication = '16/11/2022'
  * ref can2C16
 */
 
+export const uuid = '04048'
+export const ref = 'can2C16'
 export default function ProgrammeCalcul2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

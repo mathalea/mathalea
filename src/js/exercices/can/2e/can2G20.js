@@ -17,6 +17,8 @@ export const dateDePublication = '15/11/2022'
  *
 */
 
+export const uuid = '1f967'
+export const ref = 'can2G20'
 export default function EquationDroite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
