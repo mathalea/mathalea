@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 533 
-- nombre d'exos interactifReady 820 
+- nombre d'exos interactifReady 821 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -452,6 +452,7 @@
 |betaModele32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
 |betaModele33_cliqueFractions|Fractions interactives|KO|KO|OK|custom|
 |betaPatronSolide|Compléter des patrons de solides|KO|KO|OK|mathLive|
+|betaProblemeAge|Problème : produit de 3 âges|KO|KO|OK|mathLive|
 |betaTestFraction|Tester la classe FractionX|KO|KO|OK|mathLive|
 |betaTestcanPredef6_10qN1|CAN 6ième 10 questions (niveau 1)|KO|KO|OK|mathLive|
 |betaTestcanPredef6_10qN2|CAN 6ième 10 questions (niveau 2)|KO|KO|OK|mathLive|
