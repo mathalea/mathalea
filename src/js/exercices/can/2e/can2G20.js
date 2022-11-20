@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, ecritureParentheseSiNegatif, miseEnEvidence, choice, ecritureAlgebrique } from '../../../modules/outils.js'
+import { randint, miseEnEvidence, choice, ecritureAlgebrique } from '../../../modules/outils.js'
 import {
   repere, texteParPosition,
   point, tracePoint, segment, droite, milieu
@@ -27,8 +27,8 @@ export default function EquationDroite () {
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
-    let xA, yA, xB, yB, o, A, B, Bx, sABx, sBBx, m, lA, traceA, lB, lABx, lBBx, traceB, d, r1, xmin, xmax, ymin, ymax, objet, objetC
-    switch (choice([1, 2])) { //, 2, 2
+    let xA, yA, xB, yB, o, A, B, Bx, By, sABx, sBBx, m, lA, traceA, lB, lABx, lBBx, lABx2, lBBx2, sBAx, Ax, sAxA, traceB, d, r1, xmin, xmax, ymin, ymax, objet, objetC, objetC2
+    switch (choice([1, 2])) {
       case 1:
         xA = 0
         yA = randint(1, 4)
@@ -100,7 +100,7 @@ export default function EquationDroite () {
        `
         } else {
           this.correction = `Le coefficient directeur $m$ de la droite $(AB)$ est donné par : <br>
-    $m=\\dfrac{y_B-y_A}{x_B-x_A}=\\dfrac{${yB}-${yA}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=\\dfrac{${miseEnEvidence(yB - yA, 'blue')}}{${miseEnEvidence(xB - xA, 'red')}}${m.texSimplificationAvecEtapes()}$.
+    $m=\\dfrac{${miseEnEvidence(yB - yA, 'blue')}}{${miseEnEvidence(xB - xA, 'red')}}${m.texSimplificationAvecEtapes()}$.
 <br>`
           if ((yB - yA) / xB === 1) { this.correction += `Son ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est $y=x${ecritureAlgebrique(yA)}$.` }
           if ((yB - yA) / xB === -1) { this.correction += `Son ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est $y=-x${ecritureAlgebrique(yA)}$.` }
@@ -125,18 +125,26 @@ export default function EquationDroite () {
         A = point(xA, yA)
         B = point(xB, yB)
         Bx = point(B.x, A.y)
+        By = point(A.y, B.y)
+        Ax = point(A.x, B.y)
         sABx = segment(A, Bx)
         sBBx = segment(B, Bx)
+        sBAx = segment(B, Ax)
+        sAxA = segment(Ax, A)
         m = new FractionX(2 * (yB - yA), xB - xA)
         sBBx.epaisseur = 2
         sBBx.pointilles = 5
         sABx.epaisseur = 2
         sABx.pointilles = 5
+        sBAx.epaisseur = 2
+        sBAx.pointilles = 5
         lA = texteParPosition('A', xA, yA + 0.5, 'milieu', 'black', 1.5)
         traceA = tracePoint(A, 'black') // Variable qui trace les points avec une croix
         lB = texteParPosition('B', xB, yB + 0.5, 'milieu', 'black', 1.5)
         if (yA > yB) { lABx = texteParPosition(`${xB - xA}`, milieu(A, Bx).x, A.y + 0.3, 'milieu', 'red', 1.5) } else { lABx = texteParPosition(`${xB - xA}`, milieu(A, Bx).x, A.y - 0.3, 'milieu', 'red', 1.5) }
+        if (yA > yB) { lABx2 = texteParPosition(`${xA - xB}`, milieu(B, Ax).x, B.y - 0.3, 'milieu', 'red', 1.5) } else { lABx2 = texteParPosition(`${xA - xB}`, milieu(B, Ax).x, B.y + 0.3, 'milieu', 'red', 1.5) }
         lBBx = texteParPosition(`${2 * (yB - yA)}`, B.x + 0.5, milieu(B, Bx).y, 'milieu', 'blue', 1.5)
+        lBBx2 = texteParPosition(`${2 * (yA - yB)}`, A.x + 0.3, milieu(By, A).y, 'milieu', 'blue', 1.5)
         traceB = tracePoint(B, 'black') // Variable qui trace les points avec une croix
         d = droite(A, B, '', 'blue')
         d.epaisseur = 2
@@ -174,7 +182,7 @@ export default function EquationDroite () {
         })
         objet = mathalea2d({ xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceB, o)
         objetC = mathalea2d({ xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, sABx, sBBx, lABx, lBBx)
-
+        objetC2 = mathalea2d({ xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, lABx2, sBAx, sAxA, lBBx2)
         this.question = `Donner l'équation réduite de la droite.<br>
 
         `
@@ -186,21 +194,35 @@ export default function EquationDroite () {
         Son ordonnée à l'origine est $${2 * yA}$, ainsi l'équation réduite de la droite est $y=${2 * yA}$.
      `
         } else {
-          this.correction = `Le coefficient directeur $m$ de la droite $(AB)$ est donné par : <br>
-    $m=\\dfrac{y_B-y_A}{x_B-x_A}=\\dfrac{${2 * yB}-${ecritureParentheseSiNegatif(2 * yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=\\dfrac{${miseEnEvidence(2 * yB - 2 * yA, 'blue')}}{${miseEnEvidence(xB - xA, 'red')}}${m.texSimplificationAvecEtapes()}$.
+          if (xB > xA) {
+            this.correction = `Le coefficient directeur $m$ de la droite $(AB)$ est donné par : <br>
+    $m=\\dfrac{${miseEnEvidence(2 * yB - 2 * yA, 'blue')}}{${miseEnEvidence(xB - xA, 'red')}}${m.texSimplificationAvecEtapes()}$.
 <br>`
-          if (2 * (yB - yA) / xB === 1) { this.correction += `Son ordonnée à l'origine est $${2 * yA}$, ainsi l'équation réduite de la droite est $y=x${ecritureAlgebrique(yA)}$.` }
-          if (2 * (yB - yA) / xB === -1) { this.correction += `Son ordonnée à l'origine est $${2 * yA}$, ainsi l'équation réduite de la droite est $y=-x${ecritureAlgebrique(yA)}$.` }
-          if (2 * (yB - yA) / xB !== -1 && 2 * (yB - yA) / xB !== 1) { this.correction += `Son ordonnée à l'origine est $${2 * yA}$, ainsi l'équation réduite de la droite est $y=${m.texFractionSimplifiee}x${ecritureAlgebrique(2 * yA)}$.` }
-          this.correction += `<br>
+            if (2 * (yB - yA) / xB === 1) { this.correction += `Son ordonnée à l'origine est $${2 * yA}$, ainsi l'équation réduite de la droite est $y=x${ecritureAlgebrique(2 * yA)}$.` }
+            if (2 * (yB - yA) / xB === -1) { this.correction += `Son ordonnée à l'origine est $${2 * yA}$, ainsi l'équation réduite de la droite est $y=-x${ecritureAlgebrique(2 * yA)}$.` }
+            if (2 * (yB - yA) / xB !== -1 && 2 * (yB - yA) / xB !== 1) { this.correction += `Son ordonnée à l'origine est $${2 * yA}$, ainsi l'équation réduite de la droite est $y=${m.texFractionSimplifiee}x${ecritureAlgebrique(2 * yA)}$.` }
+            this.correction += `<br>
 
           ${objetC}<br>
 
           `
+          } else {
+            this.correction = `Le coefficient directeur $m$ de la droite $(AB)$ est donné par : <br>
+      $m=\\dfrac{${miseEnEvidence(2 * yA - 2 * yB, 'blue')}}{${miseEnEvidence(xA - xB, 'red')}}${m.texSimplificationAvecEtapes()}$.
+  <br>`
+            if (2 * (yB - yA) / xB === 1) { this.correction += `Son ordonnée à l'origine est $${2 * yA}$, ainsi l'équation réduite de la droite est $y=x${ecritureAlgebrique(2 * yA)}$.` }
+            if (2 * (yB - yA) / xB === -1) { this.correction += `Son ordonnée à l'origine est $${2 * yA}$, ainsi l'équation réduite de la droite est $y=-x${ecritureAlgebrique(2 * yA)}$.` }
+            if (2 * (yB - yA) / xB !== -1 && 2 * (yB - yA) / xB !== 1) { this.correction += `Son ordonnée à l'origine est $${2 * yA}$, ainsi l'équation réduite de la droite est $y=${m.texFractionSimplifiee}x${ecritureAlgebrique(2 * yA)}$.` }
+            this.correction += `<br>
+
+            ${objetC2}<br>
+
+            `
+          }
         }
         this.canEnonce = this.question
         this.canReponseACompleter = ''
-        this.reponse = [`y={${m}x + ${2 * yA}`, `y=\\frac{${2 * yB - 2 * yA}}{${xB - xA}}x + ${2 * yA}`]
+        if (yA !== 0) { this.reponse = [`y={${m}x + ${2 * yA}`, `y=\\frac{${2 * yB - 2 * yA}}{${xB - xA}}x + ${2 * yA}`] } else { this.reponse = [`y={${m}x `, `y=\\frac{${2 * yB - 2 * yA}}{${xB - xA}}x`] }
         break
     }
   }
