@@ -15636,6 +15636,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "can3C15": {
+    "titre": "Calculer des sommes contenant des puissances de 10",
+    "url": "/exercices/can/3e/can3C15.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3C15",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "can3F01": {
     "titre": "Lire une image graphiquement",
     "url": "/exercices/can/3e/can3F01.js",

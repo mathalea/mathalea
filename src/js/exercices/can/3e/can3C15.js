@@ -12,6 +12,8 @@ export const dateDePublication = '20/11/2022'
  * Date de publication
 */
 
+export const uuid = '864ba'
+export const ref = 'can3C15'
 export default function CalculPuissance10B () {
   Exercice.call(this)
   this.typeExercice = 'simple'

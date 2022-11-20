@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 533 
-- nombre d'exos interactifReady 821 
+- nombre d'exos interactifReady 822 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -615,6 +615,7 @@
 |can3C12|Encadrer une racine carrée|OK|AMCNum|OK|mathLive|
 |can3C13|Pyramide additive fractions|OK|AMCNum|OK|mathLive|
 |can3C14|Passer d'un décimal à une fraction irréductible|OK|AMCNum|OK|mathLive|
+|can3C15|Calculer des sommes contenant des puissances de 10|KO|KO|OK|mathLive|
 |can3F01|Lire une image graphiquement|OK|AMCNum|OK|mathLive|
 |can3F02|Calculer une image par une fonction linéaire|OK|AMCNum|OK|mathLive|
 |can3F03|Calculer une image par une fonction affine|OK|AMCNum|OK|mathLive|

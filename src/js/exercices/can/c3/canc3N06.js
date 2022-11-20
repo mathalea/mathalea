@@ -15,6 +15,8 @@ export const dateDePublication = '17/11/2022'
  * Référence canc3N06
  */
 
+export const uuid = 'a8597'
+export const ref = 'canc3N06'
 export default function ComparerDroiteGrad () {
   Exercice.call(this)
   this.nbQuestions = 1
