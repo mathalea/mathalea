@@ -15,7 +15,9 @@ import initialiseEditeur from './initialiseEditeur.js'
 import '../../css/style_mathalea.css'
 import { telechargeFichier } from './outils.js'
 import { context } from './context.js'
-
+window.notify = function (error, metadatas) { // On écrit la fonction window.notify ici pour éviter les signalements bugsnag... on ne charge plus firstload pour cet éditeur
+  console.log(error instanceof Error ? error.message : error, ' avec les métadatas : ', metadatas)
+}
 // Pour le menu du haut
 document.addEventListener('DOMContentLoaded', (event) => {
   $('.ui.dropdown').dropdown()

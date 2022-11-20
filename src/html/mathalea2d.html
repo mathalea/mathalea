@@ -2,22 +2,23 @@
 
 <html lang="fr">
 	<head>
-		
+
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	  
+
 		<!-- JQuery-->
 		<script src="/assets/externalJs/jquery-3.6.0.min.js"></script>
 		<script src="/assets/externalJs/jquery-ui-1.12.1.min.js"></script>
-	  
-	  
+
+
 		<!-- Semantic UI-->
 		<link rel="stylesheet" type="text/css" href="/assets/externalJs/semantic-ui/semantic.min.css">
 		<script src="/assets/externalJs/semantic-ui/semantic.min.js" type="text/javascript"></script>
 		<script src="/assets/externalJs/semantic-ui/components/state.min.js"></script>
 		<!-- CodeMirror Resize -->
-		<script src="/assets/externalJs/cm-resize.min.js"></script> 
-	  </head>
+		<script src="/assets/externalJs/cm-resize.min.js"></script>
+		<title>Éditeur de figures mathalea2d</title>
+	</head>
 
 <body>
 
@@ -56,19 +57,20 @@
 				<a href="/mathalea_a_propos" class="item">Présentation du logiciel</a>
 				<a href="mailto:contact@coopmaths.fr" class="ui simple  item">Nous contacter</a>
 				<a href="/documentation" class="item">Documentation pour les développeurs</a>
-						 
+
 			  </div>
 			</div>
-		  
-	
+
+
 		  <script type="text/javascript">
 			$(document).ready(function () {
 			  $('.ui.dropdown').dropdown();
 			});
 		  </script>
+		</div>
 	  </nav>
-	
-	
+
+
 	<div class="ui hidden divider"></div>
 
 		<div class="ui hidden divider"></div>
@@ -83,7 +85,7 @@
 				</div>
 				<div class="column">
 					<h3>Aperçu SVG</h3>
-					<div id = "svg" style="cursor: move;"></div>	
+					<div id = "svg" style="cursor: move;"></div>
 				</div>
 			</div>
 			<div class="two column row">
@@ -94,7 +96,7 @@
 				<div class="column">
 					<h3>Code SVG</h3>
 					<div id="sortieSvg" ></div>
-				</div>	
+				</div>
 			</div>
 		</div>
 	</body>
