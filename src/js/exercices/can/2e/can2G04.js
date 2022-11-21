@@ -20,8 +20,8 @@ export default function CalculCoordonneesMilieu () {
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let a, b, c, d
-    const nom = creerNomDePolygone(2, 'PQD')
-    switch (choice(['a', 'b', 'c'])) { //,
+    const nom = creerNomDePolygone(2, 'PQDO')
+    switch (choice(['a', 'b', 'c'])) {
       case 'a':
         a = randint(1, 6)
         b = randint(3, 5)

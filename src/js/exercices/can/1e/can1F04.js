@@ -39,7 +39,7 @@ export default function LectureGraphiqueParaboleB () {
           alpha = randint(-4, -2) + randint(4, 9) / 10
           if (choice([true, true, true, false])) { beta = randint(-3, 1) + randint(2, 7) / 10 } else { beta = 0 }
           o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-          texte = `La courbe représente une fonction $f$ polynôme du second degré telle que :<br> $f(x)=ax^2+bx+c$. <br>
+          texte = `La courbe représente une fonction $f$ définie par $f(x)=ax^2+bx+c$ .<br>
           
           `
           if (!this.interactif) {
@@ -67,7 +67,7 @@ export default function LectureGraphiqueParaboleB () {
           })
 
           F = x => a * (x - alpha) ** 2 + beta
-          texte += mathalea2d({ xmin: -6, xmax: 3, ymin: -4.5, ymax: 4, pixelsParCm: 25, scale: 0.8 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
+          texte += mathalea2d({ xmin: -6, xmax: 3, ymin: -4.5, ymax: 4, pixelsParCm: 25, scale: 0.8, style: 'margin: auto' }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
 
           texteCorr = `L'abscisse du sommet de la parabole est négatif. Celui-ci est donné par : $-\\dfrac{b}{2a}$.<br>
           On en déduit que $\\dfrac{-b}{2a}<0$. <br>
@@ -81,7 +81,7 @@ export default function LectureGraphiqueParaboleB () {
           alpha = randint(-4, -2) + randint(4, 9) / 10
           if (choice([true, true, true, false])) { beta = randint(-1, 4) - randint(1, 5) / 10 } else { beta = 0 }
           o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-          texte = `La courbe représente une fonction $f$ polynôme du second degré telle que :<br> $f(x)=ax^2+bx+c$. <br>
+          texte = `La courbe représente une fonction $f$ définie par $f(x)=ax^2+bx+c$ .<br>
           
           `
           if (!this.interactif) {
@@ -109,7 +109,7 @@ export default function LectureGraphiqueParaboleB () {
           })
 
           F = x => a * (x - alpha) ** 2 + beta
-          texte += mathalea2d({ xmin: -6, xmax: 3, ymin: -4.5, ymax: 4, pixelsParCm: 25, scale: 0.8 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
+          texte += mathalea2d({ xmin: -6, xmax: 3, ymin: -4.5, ymax: 4, pixelsParCm: 25, scale: 0.8, style: 'margin: auto' }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
 
           texteCorr = `L'abscisse du sommet de la parabole est négatif. Celui-ci est donné par : $-\\dfrac{b}{2a}$.<br>
         On en déduit que $\\dfrac{-b}{2a}<0$. <br>
@@ -122,7 +122,7 @@ export default function LectureGraphiqueParaboleB () {
           alpha = randint(1, 3) + randint(4, 9) / 10
           if (choice([true, true, false])) { beta = randint(-3, 1) + randint(2, 7) / 10 } else { beta = 0 }
           o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-          texte = `La courbe représente une fonction $f$ polynôme du second degré telle que :<br> $f(x)=ax^2+bx+c$. <br>
+          texte = `La courbe représente une fonction $f$ définie par $f(x)=ax^2+bx+c$ .<br>
           
           `
           if (!this.interactif) {
@@ -150,7 +150,7 @@ export default function LectureGraphiqueParaboleB () {
           })
 
           F = x => a * (x - alpha) ** 2 + beta
-          texte += mathalea2d({ xmin: -3, xmax: 6, ymin: -4.5, ymax: 4, pixelsParCm: 25, scale: 0.8 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
+          texte += mathalea2d({ xmin: -3, xmax: 6, ymin: -4.5, ymax: 4, pixelsParCm: 25, scale: 0.8, style: 'margin: auto' }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
 
           texteCorr = `L'abscisse du sommet de la parabole est positif. Celui-ci est donné par : $-\\dfrac{b}{2a}$.<br>
         On en déduit que $\\dfrac{-b}{2a}>0$. <br>
@@ -164,7 +164,7 @@ export default function LectureGraphiqueParaboleB () {
           alpha = randint(1, 3) + randint(4, 9) / 10
           if (choice([true, true, true, false])) { beta = randint(-1, 4) - randint(1, 5) / 10 } else { beta = 0 }
           o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-          texte = `La courbe représente une fonction $f$ polynôme du second degré telle que :<br> $f(x)=ax^2+bx+c$. <br>
+          texte = `La courbe représente une fonction $f$ définie par $f(x)=ax^2+bx+c$ .<br>
           
           `
           if (!this.interactif) {
@@ -193,7 +193,7 @@ export default function LectureGraphiqueParaboleB () {
           })
 
           F = x => a * (x - alpha) ** 2 + beta
-          texte += mathalea2d({ xmin: -3, xmax: 6, ymin: -4.5, ymax: 4, pixelsParCm: 25, scale: 0.8 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
+          texte += mathalea2d({ xmin: -3, xmax: 6, ymin: -4.5, ymax: 4, pixelsParCm: 25, scale: 0.8, style: 'margin: auto' }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
 
           texteCorr = `L'abscisse du sommet de la parabole est positif. Celui-ci est donné par : $-\\dfrac{b}{2a}$.<br>
         On en déduit que $\\dfrac{-b}{2a}>0$. <br>
@@ -207,7 +207,7 @@ export default function LectureGraphiqueParaboleB () {
           alpha = 0
           beta = randint(-3, 2) - randint(1, 5) / 10
           o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-          texte = `La courbe représente une fonction $f$ polynôme du second degré telle que :<br> $f(x)=ax^2+bx+c$. <br>
+          texte = `La courbe représente une fonction $f$ définie par $f(x)=ax^2+bx+c$ .<br>
           
           `
           if (!this.interactif) {
@@ -236,7 +236,7 @@ export default function LectureGraphiqueParaboleB () {
           })
 
           F = x => a * (x - alpha) ** 2 + beta
-          texte += mathalea2d({ xmin: -4, xmax: 4, ymin: -4.5, ymax: 4, pixelsParCm: 25, scale: 0.8 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
+          texte += mathalea2d({ xmin: -4, xmax: 4, ymin: -4.5, ymax: 4, pixelsParCm: 25, scale: 0.8, style: 'margin: auto' }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
 
           texteCorr = `L'abscisse du sommet de la parabole est nul. Celui-ci est donné par : $-\\dfrac{b}{2a}$.<br>
       On en déduit que $\\dfrac{-b}{2a}=0$ soit $b=0$. `
@@ -248,7 +248,7 @@ export default function LectureGraphiqueParaboleB () {
           alpha = 0
           beta = randint(1, 3) + randint(1, 5) / 10
           o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-          texte = `La courbe représente une fonction $f$ polynôme du second degré telle que :<br> $f(x)=ax^2+bx+c$. <br>
+          texte = `La courbe représente une fonction $f$ définie par $f(x)=ax^2+bx+c$ .<br>
           
           `
           if (!this.interactif) {
@@ -276,7 +276,7 @@ export default function LectureGraphiqueParaboleB () {
           })
 
           F = x => a * (x - alpha) ** 2 + beta
-          texte += mathalea2d({ xmin: -4, xmax: 4, ymin: -4.5, ymax: 4, pixelsParCm: 25, scale: 0.8 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
+          texte += mathalea2d({ xmin: -4, xmax: 4, ymin: -4.5, ymax: 4, pixelsParCm: 25, scale: 0.8, style: 'margin: auto' }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
 
           texteCorr = `L'abscisse du sommet de la parabole est nul. Celui-ci est donné par : $-\\dfrac{b}{2a}$.<br>
       On en déduit que $\\dfrac{-b}{2a}=0$ soit $b=0$. `

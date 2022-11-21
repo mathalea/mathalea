@@ -18,7 +18,7 @@ export default function SommeDifferenceFractionsEgyptiennes () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.formatInteractif = 'fraction'
   this.nouvelleVersion = function () {
