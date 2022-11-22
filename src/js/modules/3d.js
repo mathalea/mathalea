@@ -1,8 +1,8 @@
-import { point, vecteur, droite, segment, polyline, polygone, polygoneAvecNom, longueur, distancePointDroite, tracePoint, translation, norme } from './2d.js'
+import { point, vecteur, droite, segment, polyline, polygone, polygoneAvecNom, longueur, distancePointDroite, tracePoint, translation, norme, pointSurSegment, renommePolygone, labelPoint, pointIntersectionDD } from './2d.js'
 import { matrix, multiply, norm, cross, dot } from 'mathjs'
 import { context } from './context.js'
 import { assombrirOuEclaircir, colorToLatexOrHTML, vide2d } from './2dGeneralites.js'
-import { arrondi } from './outils.js'
+import { arrondi, choisitLettresDifferentes } from './outils.js'
 const math = { matrix: matrix, multiply: multiply, norm: norm, cross: cross, dot: dot }
 
 /*
@@ -219,6 +219,7 @@ export function demicercle3d (centre, normal, rayon, cote, color, angledepart = 
 // Cette fonction est provisoire... en attente de validation de tous les tests pour remplacer celle du dessus.
 export function demicercle3dEE (centre, normal, rayon, sens, estCache = false, color, angledepart = context.anglePerspective) {
   let signe; const M = []; const listepoints = []
+  const listePoints3d = []
   if (sens === 'direct') {
     signe = 1
   } else {
@@ -226,10 +227,12 @@ export function demicercle3dEE (centre, normal, rayon, sens, estCache = false, c
   }
   const d = droite3d(centre, normal)
   M.push(rotation3d(translation3d(centre, rayon), d, angledepart))
+  listePoints3d.push(M[0])
   listepoints.push(M[0].c2d)
 
   for (let i = 1; i < 19; i++) {
     M.push(rotation3d(M[i - 1], d, 10 * signe))
+    listePoints3d.push(M[i])
     listepoints.push(M[i].c2d)
   }
   const demiCercle = polyline(listepoints, color)
@@ -237,7 +240,7 @@ export function demicercle3dEE (centre, normal, rayon, sens, estCache = false, c
     demiCercle.pointilles = 2
     demiCercle.opacite = 0.9
   }
-  return demiCercle
+  return [demiCercle, listePoints3d]
 }
 
 /**
@@ -282,19 +285,21 @@ export function arc3d (centre, normal, rayon, cote, color, angledepart, angledef
     *
     */
 export function cercle3d (centre, normal, rayon, visible = true, color = 'black') {
-  const M = []; const listepoints = []
+  const M = []; const listepoints = []; const listepoints3d = []
   const d = droite3d(centre, normal)
   M.push(rotation3d(translation3d(centre, rayon), d, context.anglePerspective))
+  listepoints3d.push(M[0])
   listepoints.push(M[0].c2d)
-  for (let i = 1; i < 37; i++) {
+  for (let i = 1; i < 36; i++) {
     M.push(rotation3d(M[i - 1], d, 10))
+    listepoints3d.push(M[i])
     listepoints.push(M[i].c2d)
   }
   const C = polygone(listepoints, color)
   if (!visible) {
     C.pointilles = 2
   }
-  return C
+  return [C, listepoints3d, listepoints]
 }
 
 /**
@@ -317,10 +322,12 @@ class Polygone3d {
     }
     const segments3d = []; let A; const segments = []
     A = this.listePoints[0]
+    this.listePoints2d = [A.c2d]
     for (let i = 1; i < this.listePoints.length; i++) {
       segments3d.push(arete3d(A, this.listePoints[i], this.color))
       segments.push(segments3d[i - 1].c2d)
       A = this.listePoints[i]
+      this.listePoints2d.push(A.c2d)
     }
     segments3d.push(arete3d(A, this.listePoints[0], this.color))
     segments.push(segments3d[this.listePoints.length - 1].c2d)
@@ -335,7 +342,7 @@ export function polygone3d (...args) {
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%% OBJETS DE COMPLEXES %%%%%%
+%%%%%%%%%%%%%% OBJETS COMPLEXES %%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
 
@@ -386,8 +393,43 @@ export function sphere3d (centre, rayon, nbParalleles, nbMeridiens, color = 'bla
   return new Sphere3d(centre, rayon, nbParalleles, nbMeridiens, color)
 }
 
+function Sphere3dEE (centre, rayon, nbParalleles, nbMeridiens, color) {
+  ObjetMathalea2D.call(this, { })
+  this.centre = centre
+  this.rayon = vecteur3d(rayon, 0, 0)
+  this.normal = vecteur3d(0, 0, 1)
+  this.color = color
+  this.nbMeridiens = nbMeridiens
+  this.nbParalleles = nbParalleles
+  this.c2d = []; let c1; let c2; let c3; let c4; let C; let D
+  const prodvec = vecteur3d(math.cross(this.normal.matrice, this.rayon.matrice))
+  const rayon2 = vecteur3d(math.cross(this.rayon.matrice, math.multiply(prodvec.matrice, 1 / math.norm(prodvec.matrice))))
+  const R = rayon
+  const cote1 = 'caché'
+  const cote2 = 'visible'
+  for (let k = 0, rayon3; k < 1; k += 1 / (this.nbParalleles + 1)) {
+    C = point3d(centre.x, centre.y, centre.z + R * Math.sin(k * Math.PI / 2))
+    D = point3d(centre.x, centre.y, centre.z + R * Math.sin(-k * Math.PI / 2))
+    rayon3 = vecteur3d(R * Math.cos(k * Math.PI / 2), 0, 0)
+    c1 = demicercle3d(C, this.normal, rayon3, cote1, this.color, context.anglePerspective)
+    c2 = demicercle3d(C, this.normal, rayon3, cote2, this.color, context.anglePerspective)
+    c3 = demicercle3d(D, this.normal, rayon3, cote1, this.color, context.anglePerspective)
+    c4 = demicercle3d(D, this.normal, rayon3, cote2, this.color, context.anglePerspective)
+    this.c2d.push(c1, c2, c3, c4)
+  }
+  for (let k = 0, V; k < 181; k += 90 / this.nbMeridiens) {
+    V = rotationV3d(prodvec, this.normal, context.anglePerspective + k)
+    c1 = demicercle3d(this.centre, V, rayon2, cote2, this.color, 0)
+    c2 = demicercle3d(this.centre, V, rayon2, cote1, this.color, 0)
+    this.c2d.push(c1, c2)
+  }
+}
+export function sphere3dEE (centre, rayon, nbParalleles, nbMeridiens, color = 'black') {
+  return new Sphere3dEE(centre, rayon, nbParalleles, nbMeridiens, color)
+}
+
 /**
-    * LE CONE
+    * LE CONE (jamais utilisé)
     *
     * @author Jean-Claude Lhote
     *
@@ -396,11 +438,12 @@ export function sphere3d (centre, rayon, nbParalleles, nbMeridiens, color = 'bla
     * normal est un vecteur 3d normal au plan du disque (il détermine avec rayon de quel côté se trouve la partie visible)
     *
     */
-function Cone3d (centrebase, sommet, normal, rayon, generatrices = 18) {
+/*
+function Cone3d (centrebase, sommet, rayon, generatrices = 18) {
   ObjetMathalea2D.call(this, { })
   this.sommet = sommet
   this.centrebase = centrebase
-  this.normal = normal
+  this.normal = vecteur3d(centrebase, sommet)
   if (typeof (rayon) === 'number') {
     this.rayon = vecteur3d(rayon, 0, 0)
   } else {
@@ -408,7 +451,7 @@ function Cone3d (centrebase, sommet, normal, rayon, generatrices = 18) {
   }
   this.c2d = []
   let s, color1, color2
-  const prodvec = vecteur3d(math.cross(normal.matrice, this.rayon.matrice))
+  const prodvec = vecteur3d(math.cross(this.normal.matrice, this.rayon.matrice))
   const prodscal = math.dot(prodvec.matrice, vecteur3d(0, 1, 0).matrice)
   let cote1, cote2
   if (prodscal > 0) {
@@ -451,8 +494,64 @@ function Cone3d (centrebase, sommet, normal, rayon, generatrices = 18) {
   }
   this.c2d.push(c1, c2)
 }
-export function cone3d (centre, sommet, normal, rayon, generatrices = 18) {
-  return new Cone3d(centre, sommet, normal, rayon, generatrices)
+export function cone3d (centre, sommet, rayon, generatrices = 18) {
+  return new Cone3d(centre, sommet, rayon, generatrices)
+}
+*/
+
+/**
+   * Crée un cône
+   * @param {Point3d} centre centre de la base du cône
+   * @param {Point3d} sommet Sommet du cône
+   * @param {Vecteur3d} rayon Rayon de la base du cône
+   * @param {string} [color = 'black'] Couleur des arêtes du prisme droit : du type 'blue' ou du type '#f15929'
+   * @param {boolean} [affichageAxe = true] Permet (ou pas) l'affichage de l'axe du cône.
+   * @param {string} [colorAxe = 'black'] Couleur de l'axe et du centre de la base de la pyramide : du type 'blue' ou du type '#f15929'
+   * @param {string} [colorCone = 'gray'] Couleur du cône : du type 'blue' ou du type '#f15929'
+   * @property {Point3d} centre centre de la base du cône
+   * @property {Point3d} sommet Sommet du cône
+   * @property {Vecteur3d} rayon Rayon de la base du cône
+   * @property {string} color Couleur des arêtes du prisme droit : du type 'blue' ou du type '#f15929'
+   * @property {boolean} affichageAxe Permet (ou pas) l'affichage de l'axe du cône.
+   * @property {string} colorAxe Couleur de l'axe et du centre de la base de la pyramide : du type 'blue' ou du type '#f15929'
+   * @property {string} colorCone Couleur du cône : du type 'blue' ou du type '#f15929'
+   * @property {Array} c2d Contient les commandes à tracer en 2d de cette fonction
+   * @author Jean-Claude Lhote (optimisé par Eric Elter)
+   * @class
+   */
+function Cone3dEE (centre, sommet, rayon, color = 'black', affichageAxe = true, colorAxe = 'black', colorCone = 'gray') {
+  ObjetMathalea2D.call(this, { })
+  this.centre = centre
+  this.sommet = sommet
+  this.rayon = rayon
+  this.color = color
+  this.colorAxe = colorAxe
+  this.colorCone = colorCone
+
+  const pt1 = translation3d(this.centre, this.rayon)
+  const ptsBase = [pt1]
+  const nbSommets = 36
+  for (let ee = 1; ee < nbSommets; ee++) {
+    ptsBase.push(rotation3d(pt1, droite3d(this.centre, vecteur3d(this.sommet, this.centre)), ee * 360 / (nbSommets)))
+  }
+  const p = polygone3d(ptsBase, this.color)
+  this.c2d = pyramide3dEE(p, this.sommet, this.color, this.centre, affichageAxe, this.colorAxe, false, true, this.colorCone).c2d
+}
+
+/**
+   * Crée un cône
+   * @param {Point3d} centre centre de la base du cône
+   * @param {Point3d} sommet Sommet du cône
+   * @param {Vecteur3d} rayon Rayon de la base du cône
+   * @param {string} [color = 'black'] Couleur des arêtes du prisme droit : du type 'blue' ou du type '#f15929'
+   * @param {boolean} [affichageAxe = true] Permet (ou pas) l'affichage de l'axe du cône.
+   * @param {string} [colorAxe = 'black'] Couleur de l'axe et du centre de la base de la pyramide : du type 'blue' ou du type '#f15929'
+   * @param {string} [colorCone = 'gray'] Couleur du cône : du type 'blue' ou du type '#f15929'
+   * @author Eric Elter
+   * @return {Cone3dEE}
+   */
+export function cone3dEE (centre, sommet, rayon, color = 'black', affichageAxe = true, colorAxe = 'black', colorCone = 'gray') {
+  return new Cone3dEE(centre, sommet, rayon, color, affichageAxe, colorAxe, colorCone)
 }
 
 /**
@@ -480,6 +579,10 @@ export function cone3d (centre, sommet, normal, rayon, generatrices = 18) {
    * @property {string} colorAxe Couleur de l'axe et des centres respectifs de chaque base du cylindre : du type 'blue' ou du type '#f15929'
    * @property {boolean} cylindreColore Permet (ou pas) de colorier le cylindre
    * @property {string} colorCylindre Couleur du cylindre (avec gestion intégrée de la nuance de couleurs): du type 'blue' ou du type '#f15929'
+   * @property {number} angleDepart Angle de rotation à partir duquel les demis-cercles formant la base sont tracés
+   * @property {Points[]} pointsBase1 Liste des points formant la ligne de la base 1
+   * @property {Points[]} pointsBase2 Liste des points formant la ligne de la base 2
+   * @property {Array} c2d Contient les commandes à tracer en 2d de cette fonction
    * @author Jean-Claude Lhote (optimisé par Eric Elter)
    * @class
    */
@@ -510,7 +613,8 @@ function Cylindre3d (centrebase1, centrebase2, rayon1, rayon2, color = 'black', 
     cote2 = centre1PlusBasQueCentre2 ? 'direct' : 'indirect'
     cote1 = centre1PlusBasQueCentre2 ? 'indirect' : 'direct'
   }
-
+  cote2 = (this.rayon1.x === 0 && this.rayon1.y === 0) ? 'indirect' : cote2
+  cote1 = (this.rayon1.x === 0 && this.rayon1.y === 0) ? 'direct' : cote1
   // Cette partie permet de chercher le bon angle de départ pour le tracé des demi-bases
   // Recherche du premier point visible sur la demi-base visible
   let angleDepart = 0
@@ -526,7 +630,7 @@ function Cylindre3d (centrebase1, centrebase2, rayon1, rayon2, color = 'black', 
   }
   angleDepart = angleDepart - sensRecherche
   // angleDepart est donc l'angle qui permet d'avoir un tracé de demicercle3d idéal
-
+  this.angleDepart = angleDepart
   // Description de chaque demi-base en position verticale
   // c1 : cercle bas derrière
   // const c1 = demicercle3dEE(this.centrebase1, this.normal, this.rayon1, cote1, true, this.color, angleDepart)
@@ -537,8 +641,9 @@ function Cylindre3d (centrebase1, centrebase2, rayon1, rayon2, color = 'black', 
   const c2 = demicercle3dEE(this.centrebase1, this.normal, this.rayon1, cote2, false, this.color, angleDepart)
   // c4 : cercle haut devant
   const c4 = demicercle3dEE(this.centrebase2, this.normal, this.rayon2, cote2, false, this.color, angleDepart)
-
-  if (cylindreColore) {
+  this.pointsBase1 = [...c1.listePoints, ...c2.listePoints]
+  this.pointsBase2 = [...c3.listePoints, ...c4.listePoints]
+  if (this.cylindreColore) {
     let polygon = [...c4.listePoints]
     for (let i = c2.listePoints.length - 1; i >= 0; i--) {
       polygon.push(c2.listePoints[i])
@@ -556,7 +661,7 @@ function Cylindre3d (centrebase1, centrebase2, rayon1, rayon2, color = 'black', 
     this.c2d.push(baseColoree)
   }
 
-  if (affichageGeneratrices) {
+  if (this.affichageGeneratrices) {
     for (let i = 1; i < c1.listePoints.length - 1; i += 2) {
       s = segment(c3.listePoints[i], c1.listePoints[i], this.color)
       s.pointilles = 2
@@ -568,7 +673,7 @@ function Cylindre3d (centrebase1, centrebase2, rayon1, rayon2, color = 'black', 
   s = segment(c4.listePoints[0], c2.listePoints[0], this.color)
   this.c2d.push(s)
 
-  if (affichageGeneratrices) {
+  if (this.affichageGeneratrices) {
     for (let i = 1; i < c2.listePoints.length - 1; i++) {
       s = segment(c4.listePoints[i], c2.listePoints[i], this.color)
       this.c2d.push(s)
@@ -580,14 +685,11 @@ function Cylindre3d (centrebase1, centrebase2, rayon1, rayon2, color = 'black', 
 
   this.c2d.push(c1, c2, c3, c4)
 
-  if (affichageCentreBases) {
+  if (this.affichageCentreBases) {
     this.c2d.push(tracePoint(this.centrebase1.c2d, this.centrebase2.c2d, this.colorAxe))
   }
 
-  if (affichageAxe) {
-  // Cette partie permet de chercher le bon angle de départ pour le tracé des demi-bases
-  // Recherche du premier point visible sur la demi-base visible
-    angleDepart = 0
+  if (this.affichageAxe) {
     let distanceMin = 9999
     const pt = c2.listePoints
     let i = 0
@@ -595,7 +697,6 @@ function Cylindre3d (centrebase1, centrebase2, rayon1, rayon2, color = 'black', 
       distanceMin = distancePointDroite(pt[i], d.c2d)
       i++
     }
-    // angleDepart est donc l'angle qui permet d'avoir un tracé de demicercle3d idéal
     s = segment(this.centrebase2.c2d, pt[i - 1], this.colorAxe)
     s.pointilles = 2
     s.opacite = 0.7
@@ -603,7 +704,7 @@ function Cylindre3d (centrebase1, centrebase2, rayon1, rayon2, color = 'black', 
     const v = vecteur(this.centrebase2.c2d, this.centrebase1.c2d)
     s = segment(pt[i - 1], translation(pt[i - 1], vecteur(v.x / norme(v), v.y / norme(v))), this.colorAxe)
     this.c2d.push(s)
-    s = segment(this.centrebase2.c2d, translation(this.centrebase2.c2d, vecteur(v.x / norme(v) * (-(norme(this.rayon1.c2d) + 1)), v.y / norme(v) * (-(norme(this.rayon1.c2d) + 1)))), this.colorAxe)
+    s = segment(this.centrebase2.c2d, translation(translation(this.centrebase2.c2d, vecteur(pt[i - 1], this.centrebase1.c2d)), vecteur(-v.x / norme(v), -v.y / norme(v))), this.colorAxe)
     this.c2d.push(s)
   }
 }
@@ -626,9 +727,9 @@ function Cylindre3d (centrebase1, centrebase2, rayon1, rayon2, color = 'black', 
    * // Retourne un cylindre à bords bleus dont les bases ont pour centre respectif A et B et le rayon est donné par le vecteur v.
    * @example cylindre3d(A, B, v, v, 'green', false, true, true, 'red', true, 'lightblue')
    * // Retourne un cylindre à bords verts dont les bases ont pour centre respectif A et B et le rayon est donné par le vecteur v.
-   * // Les génératrices sont invisibles, les centres et axe sont visibles et rouge, le cylindré est coloré en bleu.
+   * // Les génératrices sont invisibles, les centres et axe sont visibles et rouges, le cylindre est coloré en bleu.
    * @author Jean-Claude Lhote (optimisé par Eric Elter)
-   * @class
+   * @return {Cylindre3d}
    */
 export function cylindre3d (centrebase1, centrebase2, rayon, rayon2, color = 'black', affichageGeneratrices = true, affichageCentreBases = false, affichageAxe = false, colorAxe = 'black', cylindreColore = false, colorCylindre = 'lightgray') {
   return new Cylindre3d(centrebase1, centrebase2, rayon, rayon2, color, affichageGeneratrices, affichageCentreBases, affichageAxe, colorAxe, cylindreColore, colorCylindre)
@@ -645,11 +746,11 @@ class Prisme3d {
     ObjetMathalea2D.call(this, { })
 
     this.color = color
-    base.color = colorToLatexOrHTML(color)
+    base.color = colorToLatexOrHTML(this.color)
     this.base1 = base
     this.base2 = translation3d(base, vecteur)
     this.base2.color = this.base1.color
-    this.aretes = []
+    // this.aretes = []
     this.c2d = []; let s
     for (let i = 0; i < this.base1.listePoints.length; i++) {
       this.c2d.push(this.base1.c2d[i])
@@ -666,6 +767,101 @@ class Prisme3d {
 
 export function prisme3d (base, vecteur, color = 'black') {
   return new Prisme3d(base, vecteur, color)
+}
+
+/**
+   * Crée un prisme droit (en version 2)
+   * Ce prisme droit est optimisé dans son tracé des arêtes cachées pour des bases dans le plan (xOy) et son vecteur normal selon (Oz)
+   * Pour d'autres usages, il faut approfondir la fonction mais laissé en l'état car justement pas d'autre usage demandé.
+   * @param {Polygone3d} base Une des deux bases du prisme droit
+   * @param {Vecteur3d} vecteur Vecteur normal à la base dont la norme indique la hauteur du prisme droit.
+   * @param {string} [color = 'black'] Couleur des arêtes du prisme droit : du type 'blue' ou du type '#f15929'
+   * @param {boolean} [affichageNom = false] Permet (ou pas) l'affichage du nom des sommets du prisme.
+   * @property {Polygone3d} base1 La base entièrement visible du prisme droit
+   * @property {Vecteur3d} vecteur Vecteur normal à la base dont la norme indique la hauteur du prisme droit.
+   * @property {string} [color = 'black'] Couleur des arêtes du prisme droit : du type 'blue' ou du type '#f15929'
+   * @property {boolean} [affichageNom = false] Permet (ou pas) l'affichage du nom des sommets du prisme.
+   * @property {Array} c2d Contient les commandes à tracer en 2d de cette fonction
+   * @property {string} nom Nom du prisme
+   * @author Eric Elter (d'après version précédente de Jean-Claude Lhote)
+   * @class
+   */
+class Prisme3dEE {
+  constructor (base, vecteur, color, affichageNom = false) {
+    ObjetMathalea2D.call(this, { })
+    this.affichageNom = affichageNom
+    this.color = color
+    base.color = colorToLatexOrHTML(this.color)
+    this.vecteur = vecteur
+    this.vecteur.z = -1 * Math.abs(this.vecteur.z) // Afin que base1 soit toujours la face de haut
+    this.base1 = base
+    this.base2 = translation3d(base, this.vecteur)
+    this.base2.color = this.base1.color
+    this.c2d = []; let s
+    // On trace base 1 (toujours visible)
+    for (let i = 0; i < this.base1.listePoints.length; i++) {
+      this.c2d.push(this.base1.c2d[i])
+    }
+    // On cherche les sommets cachés de this.base2
+    for (let i = 0; i < this.base1.listePoints.length; i++) {
+      const areteVisibleOuPas = pointSurSegment(this.base1.listePoints[i].c2d, this.base2.listePoints[i].c2d, longueur(this.base1.listePoints[i].c2d, this.base2.listePoints[i].c2d) / 50).estDansPolygone(polygone(this.base1.listePoints2d))
+      this.base2.listePoints[i].visible = !areteVisibleOuPas
+    }
+    // On trace les arêtes de liaison entre les bases
+    for (let i = 1; i < this.base2.listePoints.length - 1; i++) {
+      s = arete3d(this.base2.listePoints[i], this.base2.listePoints[i + 1], this.color)
+      this.c2d.push(s.c2d)
+    }
+    // On trace la première et la dernière arête de liaison entre les bases
+    s = arete3d(this.base2.listePoints[1], this.base2.listePoints[0], this.color)
+    if (s.c2d.estSecant(segment(this.base1.listePoints[2].c2d, this.base2.listePoints[2].c2d))) s.c2d.pointilles = 2
+    this.c2d.push(s.c2d)
+    s = arete3d(this.base2.listePoints[this.base2.listePoints.length - 1], this.base2.listePoints[0], this.color)
+    if (s.c2d.estSecant(segment(this.base1.listePoints[1].c2d, this.base2.listePoints[1].c2d))) s.c2d.pointilles = 2
+    this.c2d.push(s.c2d)
+
+    // On trace les arêtes de this.base2
+    for (let i = 0; i < this.base1.listePoints.length; i++) {
+      s = arete3d(this.base1.listePoints[i], this.base2.listePoints[i], this.color)
+      this.c2d.push(s.c2d)
+    }
+    if (this.affichageNom) {
+      let p = polygone(this.base1.listePoints2d)
+      const nomBase1 = choisitLettresDifferentes(this.base1.listePoints.length, 'OQWX')
+      renommePolygone(p, nomBase1)
+      for (let ee = 0; ee < this.base1.listePoints2d.length; ee++) {
+        this.base1.listePoints2d[ee].positionLabel = 'above'
+      }
+      this.c2d.push(labelPoint(...p.listePoints))
+      p = polygone(this.base2.listePoints2d)
+      const nomBase2 = choisitLettresDifferentes(this.base1.listePoints.length, 'OQWX' + nomBase1)
+      renommePolygone(p, nomBase2)
+      for (let ee = 0; ee < this.base2.listePoints2d.length; ee++) {
+        this.base2.listePoints2d[ee].positionLabel = 'below'
+      }
+      this.c2d.push(labelPoint(...p.listePoints))
+      this.nom = nomBase1 + nomBase2
+    }
+  }
+}
+
+/**
+   * Crée un prisme droit (en version 2)
+   * Ce prisme droit est optimisé dans son tracé des arêtes cachées pour des bases dans le plan (xOy) et son vecteur normal selon (Oz)
+   * Pour d'autres usages, il faut approfondir la fonction mais laissé en l'état car justement pas d'autre usage demandé.
+   * @param {Polygone3d} base Une des deux bases du prisme droit
+   * @param {Vecteur3d} vecteur Vecteur normal à la base dont la norme indique la hauteur du prisme droit.
+   * @param {string} [color = 'black'] Couleur des arêtes du prisme droit : du type 'blue' ou du type '#f15929'
+   * @param {boolean} [affichageNom = false] Permet (ou pas) l'affichage du nom des sommets du prisme.
+   * @example prisme3dee(p, v)
+   * // Retourne un prisme droit de base p dont un vecteur normal à la base est v.
+   * @example prisme3dee(p, v, 'blue', true)
+   * // Retourne un prisme droit de base p dont un vecteur normal à la base est v, de couleur V et dont les sommets sont nommés
+   * @author Eric Elter (d'après version précédente de Jean-Claude Lhote)
+   * @return {Prisme3dEE}
+   */
+export function prisme3dEE (base, vecteur, color = 'black', affichageNom = false) {
+  return new Prisme3dEE(base, vecteur, color, affichageNom)
 }
 /**
    * La pyramide
@@ -706,6 +902,193 @@ class Pyramide3d {
 
 export function pyramide3d (base, vecteur, color = 'black') {
   return new Pyramide3d(base, vecteur, color)
+}
+//* @param {boolean} [affichageAxe = false] Permet (ou pas) l'affichage de l'axe du cylindre
+//   * @param {string} [colorAxe = 'black'] Couleur de l'axe et des centres respectifs de chaque base du cylindre : du type 'blue' ou du type '#f15929'
+
+/**
+   * Crée une pyramide
+   * @param {Polygone3d} base Base de la pyramide
+   * @param {Point3d} sommet Sommet de la pyramide
+   * @param {string} [color = 'black'] Couleur des arêtes du prisme droit : du type 'blue' ou du type '#f15929'
+   * @param {Point3d} centre Centre de la pyramide... Entraine l'affichage de ce centre
+   * @param {boolean} [affichageAxe = false] Permet (ou pas) l'affichage de l'axe de la pyramide. Ne fonctionne que si centre est défini.
+   * @param {string} [colorAxe = 'black'] Couleur de l'axe et du centre de la base de la pyramide : du type 'blue' ou du type '#f15929'
+   * @param {boolean} [affichageNom = false] Permet (ou pas) l'affichage du nom des sommets de la pyramide.
+   * @param {boolean} [estCone = false] Permet (ou pas) de considérer la pyramide comme un cône
+   * @param {string} [colorCone = 'gray'] Couleur du cône : du type 'blue' ou du type '#f15929'
+   * @property {Polygone3d} base Base de la pyramide
+   * @property {Point3d} sommet Sommet de la pyramide
+   * @property {string} color Couleur des arêtes du prisme droit : du type 'blue' ou du type '#f15929'
+   * @property {Point3d} centre Centre de la pyramide... Entraine l'affichage de ce centre
+   * @property {boolean} affichageAxe Permet (ou pas) l'affichage de l'axe de la pyramide. Ne fonctionne que si centre est défini.
+   * @property {string} colorAxe Couleur de l'axe et du centre de la base de la pyramide : du type 'blue' ou du type '#f15929'
+   * @property {boolean} affichageNom Permet (ou pas) l'affichage du nom des sommets de la pyramide.
+   * @property {string} nom Nom de la pyramide (si affichageNom = true)
+   * @property {string} colorCone Couleur du cône : du type 'blue' ou du type '#f15929'
+   * @property {Array} c2d Contient les commandes à tracer en 2d de cette fonction
+   * @author Jean-Claude Lhote (optimisé par Eric Elter)
+   * @class
+   */
+class Pyramide3dEE {
+  constructor (base, sommet, color, centre, affichageAxe = false, colorAxe = 'black', affichageNom = false, estCone = false, colorCone = 'gray') {
+    ObjetMathalea2D.call(this, { })
+
+    base.color = colorToLatexOrHTML(color)
+    this.base = base
+    this.sommet = sommet
+    this.color = color
+    this.centre = centre
+    this.affichageAxe = affichageAxe
+    this.colorAxe = colorAxe
+    this.affichageNom = affichageNom
+    this.estCone = estCone
+    this.colorCone = colorCone
+    this.c2d = []
+    this.nom = ''
+    let s
+
+    // Stockage de toutes les arêtes issues du sommet
+    const aretesSommet = []
+    for (let i = 0; i < this.base.listePoints.length; i++) {
+      s = arete3d(this.base.listePoints[i], this.sommet, this.color, true)
+      aretesSommet.push(s)
+    }
+
+    // Stockage de toutes les arêtes de la base
+    const aretesBase = []
+    for (let i = 0; i < this.base.listePoints.length; i++) {
+      s = arete3d(this.base.listePoints[i], this.base.listePoints[(i + 1) % this.base.listePoints.length], this.color, true)
+      aretesBase.push(s)
+    }
+
+    // Recherche des sommets arrières (donc toutes les arêtes issues de ce point sont cachées)
+    let sommetCache = false
+    let sommetCacheAvant
+    const angleReference = [0, 0]
+    const sommetGeneratriceCone = []
+    for (let i = 0; i < this.base.listePoints.length; i++) {
+      sommetCacheAvant = sommetCache
+      sommetCache = false
+      for (let j = 1; j < this.base.listePoints.length - 1; j++) {
+        sommetCache = sommetCache || this.base.listePoints[i].c2d.estDansPolygone(polygone(this.sommet.c2d, this.base.listePoints[(i + j) % this.base.listePoints.length].c2d, this.base.listePoints[(i + j + 1) % this.base.listePoints.length].c2d))
+      }
+      if (this.estCone && sommetCacheAvant !== sommetCache && i !== 0) {
+        if (sommetCache) sommetGeneratriceCone.push(aretesSommet[(aretesSommet.length + i - 1) % aretesSommet.length])
+        else sommetGeneratriceCone.push(aretesSommet[i])
+        if (sommetCache) angleReference[1] = i
+        else angleReference[0] = i
+      }
+
+      if (sommetCache) {
+        aretesSommet[i].c2d.pointilles = 2
+        aretesBase[i].c2d.pointilles = 2
+        aretesBase[(this.base.listePoints.length + i - 1) % this.base.listePoints.length].c2d.pointilles = 2
+      }
+    }
+    if (this.estCone && angleReference[1] < angleReference[0]) { angleReference[1] += this.base.listePoints.length }
+
+    if (this.estCone && sommetGeneratriceCone.length === 1) {
+      sommetGeneratriceCone.push(aretesSommet[aretesSommet.length - 1])
+      angleReference[1] = aretesSommet.length - 1
+    }
+    if (this.estCone) {
+      const premierPlan = [this.sommet.c2d]
+      for (let i = angleReference[0]; i < angleReference[1]; i++) {
+        premierPlan.push(this.base.listePoints[i % this.base.listePoints.length].c2d)
+      }
+      const faceAv = polygone(premierPlan, this.colorCone)
+      faceAv.couleurDeRemplissage = colorToLatexOrHTML(this.colorCone)
+      this.c2d.push(faceAv)
+    }
+
+    if (!this.estCone) {
+      // Recherche de l'arête cachée possible issue de deux sommets non cachés.
+      let longueurSegment
+      for (let i = 0; i < this.base.listePoints.length; i++) {
+        sommetCache = false
+        longueurSegment = longueur(this.base.listePoints[i].c2d, this.base.listePoints[(i + 1) % this.base.listePoints.length].c2d)
+        s = segment(pointSurSegment(this.base.listePoints[i].c2d, this.base.listePoints[(i + 1) % this.base.listePoints.length].c2d, longueurSegment / 20), pointSurSegment(this.base.listePoints[i].c2d, this.base.listePoints[(i + 1) % this.base.listePoints.length].c2d, 19 * longueurSegment / 20))
+        for (let j = 0; j < aretesSommet.length; j++) {
+          sommetCache = sommetCache || s.estSecant(aretesSommet[j].c2d)
+        }
+        if (sommetCache) aretesBase[i].c2d.pointilles = 2
+      }
+
+      for (let i = 0; i < this.base.listePoints.length; i++) {
+        this.c2d.push(aretesSommet[i].c2d)
+      }
+    } else {
+      for (let i = 0; i < sommetGeneratriceCone.length; i++) {
+        this.c2d.push(sommetGeneratriceCone[i].c2d)
+      }
+    }
+
+    for (let i = 0; i < this.base.listePoints.length; i++) {
+      this.c2d.push(aretesBase[i].c2d)
+    }
+
+    if (this.centre.constructor === Point3d) {
+      this.c2d.push(tracePoint(this.centre.c2d, this.colorAxe))
+      if (this.centre.label === '') this.centre.label = choisitLettresDifferentes(1, 'OQWX')
+      this.c2d.push(labelPoint(this.centre.c2d))
+
+      if (affichageAxe) { // Axe affiché que si centre précisé
+        let intersectionTrouvee = false
+        let ee = 0
+        // Recherche du point d'intersection visuelle entre l'axe et une arête visible de la base
+        while (!intersectionTrouvee && ee < aretesBase.length) {
+          s = aretesBase[ee].c2d
+          if (s.pointilles !== 2) { // L'arête coupée doit être visible
+            intersectionTrouvee = s.estSecant(droite(this.centre.c2d, this.sommet.c2d))
+          }
+          ee++
+        }
+        if (ee < aretesBase.length) {
+          ee--
+          const ptBase = pointIntersectionDD(droite(this.base.listePoints[ee].c2d, this.base.listePoints[(ee + 1) % this.base.listePoints.length].c2d), droite(this.centre.c2d, this.sommet.c2d))
+          s = segment(ptBase, this.sommet.c2d, this.colorAxe)
+          s.pointilles = 2
+          this.c2d.push(s)
+          s = segment(ptBase, translation(ptBase, vecteur(this.centre.c2d, ptBase)), this.colorAxe)
+          this.c2d.push(s)
+          s = segment(this.sommet.c2d, translation(this.sommet.c2d, vecteur(ptBase, this.centre.c2d)), this.colorAxe)
+          this.c2d.push(s)
+        }
+      }
+    }
+
+    if (this.affichageNom) {
+      const p = polygone(this.base.listePoints2d)
+      if (this.centre.label === '' || this.centre.label === this.sommet.label) this.sommet.label = choisitLettresDifferentes(1, 'OQWX')
+      const nomBase = choisitLettresDifferentes(this.base.listePoints.length, 'OQWX' + this.sommet.label + this.centre.label)
+      renommePolygone(p, nomBase)
+      for (let ee = 0; ee < this.base.listePoints2d.length; ee++) {
+        this.base.listePoints2d[ee].positionLabel = 'below'
+      }
+      this.c2d.push(labelPoint(...p.listePoints))
+      this.c2d.push(labelPoint(this.sommet))
+      this.nom = nomBase.join('') + this.sommet.label
+    }
+  }
+}
+
+/**
+   * Crée un cône
+   * @param {Polygone3d} base Base de la pyramide
+   * @param {Point3d} sommet Sommet de la pyramide
+   * @param {string} [color = 'black'] Couleur des arêtes du prisme droit : du type 'blue' ou du type '#f15929'
+   * @param {Point3d} centre Centre de la pyramide... Entraine l'affichage de ce centre
+   * @param {boolean} [affichageAxe = false] Permet (ou pas) l'affichage de l'axe de la pyramide. Ne fonctionne que si centre est défini.
+   * @param {string} [colorAxe = 'black'] Couleur de l'axe et du centre de la base de la pyramide : du type 'blue' ou du type '#f15929'
+   * @param {boolean} [affichageNom = false] Permet (ou pas) l'affichage du nom des sommets de la pyramide.
+   * @param {boolean} [estCone = false] Permet (ou pas) de considérer la pyramide comme un cône
+   * @param {string} [colorCone = 'gray'] Couleur du cône : du type 'blue' ou du type '#f15929'
+   * @author Eric Elter
+   * @return {Pyramide3dEE}
+   */
+export function pyramide3dEE (base, vecteur, color = 'black', centre, affichageAxe = false, colorAxe = 'black', affichageNom = false, estCone = false, colorCone = 'gray') {
+  return new Pyramide3dEE(base, vecteur, color, centre, affichageAxe, colorAxe, affichageNom, estCone, colorCone)
 }
 
 /**
@@ -754,6 +1137,7 @@ export function pyramideTronquee3d (base, sommet, coeff = 0.5, color = 'black') 
 class Cube3d {
   constructor (x, y, z, c, color = 'black', colorAV = 'lightgray', colorTOP = 'white', colorDr = 'darkgray', aretesCachee = true, affichageNom = false, nom = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']) {
     ObjetMathalea2D.call(this, { })
+    this.affichageNom = affichageNom
     const A = point3d(x, y, z)
     A.c2d.nom = nom[0]
     const vx = vecteur3d(c, 0, 0)
@@ -766,8 +1150,8 @@ class Cube3d {
     const D = translation3d(A, vz)
     D.c2d.nom = nom[3]
     let pointsFace = [A.c2d, B.c2d, C.c2d, D.c2d]
-    const faceAV = affichageNom ? polygoneAvecNom(...pointsFace) : polygone(pointsFace, color)
-    if (affichageNom) faceAV[0].color = colorToLatexOrHTML(color)
+    const faceAV = this.affichageNom ? polygoneAvecNom(...pointsFace) : polygone(pointsFace, color)
+    if (this.affichageNom) faceAV[0].color = colorToLatexOrHTML(color)
     const E = translation3d(A, vy)
     E.c2d.nom = nom[4]
     const F = translation3d(E, vx)
@@ -777,7 +1161,7 @@ class Cube3d {
     const H = translation3d(D, vy)
     H.c2d.nom = nom[7]
     pointsFace = [E.c2d, F.c2d, G.c2d, H.c2d]
-    const faceArr = affichageNom ? polygoneAvecNom(...pointsFace) : vide2d
+    const faceArr = this.affichageNom ? polygoneAvecNom(...pointsFace) : vide2d
 
     const faceDr = polygone([B.c2d, F.c2d, G.c2d, C.c2d], color)
     const faceTOP = polygone([D.c2d, C.c2d, G.c2d, H.c2d], color)
@@ -1001,7 +1385,7 @@ export function cube (x = 0, y = 0, z = 0, alpha = 45, beta = -35, { colorD = 'g
 
 /**
    * LE PAVE
-   * @author Jean-Claude Lhote
+   * @author Jean-Claude Lhote (optimisé par Eric Elter)
    * usage : pave(A,B,D,E) construit le pavé ABCDEFGH dont les arêtes [AB],[AD] et [AE] délimitent 3 faces adjacentes.
    * La gestion des arêtes cachées est prise en compte et n'est pas forcément E.
    * En travaillant sur le signe de context.anglePerspective et sur celui de la hauteur (B.z), on peut avoir une vision de haut, de bas, de gauche, de droite comme dans l'exercice....
@@ -1009,6 +1393,7 @@ export function cube (x = 0, y = 0, z = 0, alpha = 45, beta = -35, { colorD = 'g
 class Pave3d {
   constructor (A, B, D, E, color, affichageNom = false, nom = 'ABCDEFGH') {
     ObjetMathalea2D.call(this, { })
+    this.affichageNom = affichageNom
     const v1 = vecteur3d(A, B)
     const v2 = vecteur3d(A, E)
     const C = translation3d(D, v1)
@@ -1039,15 +1424,14 @@ class Pave3d {
 
     this.sommets = [A, B, C, D, E, F, G, H]
     this.color = color
-    // const v3 = vecteur3d(A, D)
-    // this.base = polygone3d([A, B, F, E])
-    // this.hauteur = v3
+    this.base = polygone3d([A, B, F, E])
+    this.hauteur = vecteur3d(A, D)
     this.c2d = []
     this.aretes = [arete3d(A, B, color), arete3d(A, D, color), arete3d(A, E, color), arete3d(C, B, color), arete3d(F, B, color), arete3d(C, D, color), arete3d(C, G, color), arete3d(F, G, color), arete3d(F, E, color), arete3d(H, G, color), arete3d(H, E, color), arete3d(H, D, color)]
     for (const arete of this.aretes) {
       this.c2d.push(arete.c2d)
     }
-    if (affichageNom) {
+    if (this.affichageNom) {
       let pointsFace = [A.c2d, B.c2d, C.c2d, D.c2d]
       A.c2d.nom = nom[0]
       B.c2d.nom = nom[1]

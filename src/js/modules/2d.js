@@ -519,10 +519,10 @@ export function pointSurDroite (d, x, nom, positionLabel = 'above') {
 export function pointIntersectionDD (d, f, nom = '', positionLabel = 'above') {
   let x, y
   if (f.a * d.b - f.b * d.a === 0) {
-    console.log('Les droites sont parallèles, pas de point d\'intersection')
+    // console.log('Les droites sont parallèles, pas de point d\'intersection')
     return false
   } else { y = (f.c * d.a - d.c * f.a) / (f.a * d.b - f.b * d.a) }
-  if (d.a === 0) { // si d est horizontale alors f ne l'est pas donc f.a<>0
+  if (egal(d.a, 0, 6)) { // si d est horizontale alors f ne l'est pas donc f.a<>0
     x = (-f.c - f.b * y) / f.a
   } else { // d n'est pas horizontale donc ...
     x = (-d.c - d.b * y) / d.a
@@ -601,7 +601,7 @@ export function LabelPoint (...points) {
       }
       x = A.x
       y = A.y
-      if (this.positionLabel && unPoint.typeObjet === 'point3d') A.positionLabel = this.positionLabel
+      if (this.positionLabel === '' && unPoint.typeObjet === 'point3d') A.positionLabel = this.positionLabel
       switch (A.positionLabel) {
         case 'left':
           code += texteParPosition(A.nom, x - 10 / coeff, y, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
