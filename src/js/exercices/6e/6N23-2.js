@@ -1,7 +1,21 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { randint, shuffle, calcul, choisitLettresDifferentes, texNombre, texFraction, numAlpha, nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe, listeQuestionsToContenu, sp } from '../../modules/outils.js'
+import {
+  randint,
+  shuffle,
+  calcul,
+  choisitLettresDifferentes,
+  texNombre,
+  texFraction,
+  numAlpha,
+  nombreDeChiffresDansLaPartieEntiere,
+  nombreDeChiffresDansLaPartieDecimale,
+  nombreDeChiffresDe,
+  listeQuestionsToContenu,
+  sp,
+  stringNombre
+} from '../../modules/outils.js'
 import { droiteGraduee } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -15,6 +29,11 @@ export const amcType = 'AMCHybride'
 
 export const dateDeModifImportante = '22/11/2022'
 /**
+ * @author Jean-Claude Lhote (sauf erreur de ma part)
+ * amélioré par Eric Elter
+ * Trois points sont placés sur un droite graduée
+ * Il faut donner leurs abscisses respectives
+ * Trois formes sont demandées : décimale, fraction décimale, décomposition partie entière + partie décimale fractionnaire.
  * 6N23-2
  */
 export const uuid = '12773'
@@ -355,7 +374,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
           axeCouleur: 'black',
           axeHauteur: 4,
           pointListe: [[x1, `${noms[0]}`], [x2, `${noms[1]}`], [x3, `${noms[2]}`]],
-          labelListe: [[xmin + 0.09, texNombre(calcul(xmin + 0.09))], [xmin + 0.1, texNombre(calcul(xmin + 0.1))]],
+          labelListe: [[xmin + 0.09, stringNombre(xmin + 0.09, 2)], [xmin + 0.1, stringNombre(xmin + 0.1, 1)]],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
