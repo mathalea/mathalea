@@ -195,7 +195,7 @@ export default function Pythagore2D () {
       if (this.typeDeQuestion === 'Calculer :') {
         if (listeTypeDeQuestions[i] === 'AB') {
           let AB
-          texteCorr += ` donc $${A.nom + B.nom}^2=${B.nom + C.nom}^2-${A.nom + C.nom}^2$`
+          texteCorr += ` donc $${A.nom + B.nom}^2=${B.nom + C.nom}^2-${A.nom + C.nom}^2$.`
           texteCorr += `<br> $${A.nom + B.nom}^2=${texNombre(longueurBC)}^2-${texNombre(longueurAC)}^2=${texNombrec(longueurBC ** 2 - longueurAC ** 2)}$`
           texteCorr += `<br> $${A.nom + B.nom}=\\sqrt{${texNombrec(longueurBC ** 2 - longueurAC ** 2)}}$`
           if (calcul(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1) === calcul(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 5)) {
@@ -228,7 +228,7 @@ export default function Pythagore2D () {
         if (listeTypeDeQuestions[i] === 'AC') {
           const AC = texNombre(calcul(Math.sqrt(longueurBC ** 2 - longueurAB ** 2), 1))
           reponse = arrondi(Math.sqrt(longueurBC ** 2 - longueurAB ** 2), 1)
-          texteCorr += ` donc $${A.nom + C.nom}^2=${B.nom + C.nom}^2-${A.nom + B.nom}^2$`
+          texteCorr += ` donc $${A.nom + C.nom}^2=${B.nom + C.nom}^2-${A.nom + B.nom}^2$.`
           texteCorr += `<br> $${A.nom + C.nom}^2=${texNombre(longueurBC)}^2-${texNombre(longueurAB)}^2=${texNombrec(longueurBC ** 2 - longueurAB ** 2)}$`
           texteCorr += `<br> $${A.nom + C.nom}=\\sqrt{${texNombrec(longueurBC ** 2 - longueurAB ** 2)}}$`
           if (calcul(Math.sqrt(longueurBC ** 2 - longueurAB ** 2), 1) === calcul(Math.sqrt(longueurBC ** 2 - longueurAB ** 2), 5)) {

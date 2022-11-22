@@ -4,11 +4,11 @@ import { context } from '../../modules/context.js'
 import { numAlpha, combinaisonListes, randint, choisitLettresDifferentes, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
 import { tracePoint, labelPoint, labelLatexPoint } from '../../modules/2d.js'
 import { point3d, droite3d, vecteur3d, arete3d, sphere3d, rotation3d, rotationV3d, demicercle3d, sensDeRotation3d } from '../../modules/3d.js'
+
+export const dateDeModifImportante = '02/11/2022' // EE : Mise en place de this.sup2, des unités et du grossissement des points
 export const titre = 'Repérage sur la sphère'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-
-export const dateDeModifImportante = '02/11/2022' // EE : Mise en place de this.sup2, des unités et du grossissement des points
 
 export const uuid = '75ea2'
 export const ref = '3G40'
@@ -27,6 +27,7 @@ export default function ReperageSurLaSphere () {
   this.sup2 = false
   this.sup3 = false
   this.sup4 = false
+
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
@@ -77,12 +78,14 @@ export default function ReperageSurLaSphere () {
     uniteLattitudeNegative.c2d.nom = (this.sup2 ? '-' : '') + '10 \\degree'
     uniteLattitudeNegative.c2d.positionLabel = 'above left'
     const labelUnites = labelLatexPoint({ points: [origine, uniteLattitudePositive, uniteLattitudeNegative, uniteLongitudePositive, uniteLongitudeNegative], color: 'black', taille: 10 })
+
     if (context.isAmc) origine = rotation3d(origine, droite3d(O, normalH), 2) // Parce qu'il existe un décalage en Latex
 
     const Sph = sphere3d(O, 10, 8, 9)
     const equateur1 = demicercle3d(O, normalV, R, 'visible', context.isAmc ? 'darkgray' : 'red', 0)
     const greenwitch = demicercle3d(O, normalH, vecteur3d(0, 0, -10), 'visible', context.isAmc ? 'darkgray' : 'green', 0)
     greenwitch.epaisseur = context.isAmc ? 1.5 : 3
+
     greenwitch.opacite = 1
     equateur1.epaisseur = context.isAmc ? 1.5 : 3
     const objetsEnonce = []; const objetsCorrection = []// on initialise les tableaux des objets Mathalea2d
@@ -108,6 +111,7 @@ export default function ReperageSurLaSphere () {
       objetsEnonce.push(Axe.c2d)
       objetsCorrection.push(Axe.c2d)
     }
+    
     if (this.sup2) {
       const rotationTerre = sensDeRotation3d(droite3d(O, normalV), vecteur3d(8, -8, 0), 60, 3, 'purple')
       objetsEnonce.push(...rotationTerre.c2d)
@@ -202,6 +206,7 @@ export default function ReperageSurLaSphere () {
           iAMC++
           break
         case 2:
+
           texteAMC = `Placer le point $${nom[i]}$ de  coordonnées GPS `
           texteAMC += this.sup2 ? `$(${longitudes[i]}\\degree$ ; $${latitudes[i]}\\degree )$.<br>` : `$(${Math.abs(longitudes[i])}\\degree$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}\\degree$${NordouSud[i]}).<br>`
           texte += `${numAlpha(i)} ` + texteAMC
@@ -232,6 +237,7 @@ export default function ReperageSurLaSphere () {
     // paramètres pour la perspective
     context.anglePerspective = 30
     context.coeffPerspective = 0.5
+
     const paramsEnonce = Object.assign({}, fixeBordures(objetsEnonce), { pixelsParCm: 20, scale: 0.3, mainlevee: false })
     if (context.isAmc) this.autoCorrection[0].enonce = mathalea2d(paramsEnonce, objetsEnonce) + '<br>'
 

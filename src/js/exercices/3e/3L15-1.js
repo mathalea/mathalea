@@ -52,17 +52,18 @@ export default function ResoudreEquatioeX2EgalA () {
           texteCorr = `$x^2=${a * a}$ équivaut à $x = \\sqrt{${a * a}}$ ou $x = -\\sqrt{${a * a}}$.<br>Soit $x = ${a}$ ou $x = -${a}$.<br>`
           texteCorr += `Les solutions sont donc $x_1 = ${a}$ et $x_2 = -${a}$.<br>`
           texteCorr += `Il est équivalent de résoudre $x^2 - ${a * a}=0$, c'est-à-dire $x^2 - ${a}^{2}=0$.<br>Soit $(x - ${a})(x + ${a})=0$ qui donne les deux solutions ci-dessus. `
-          setReponse(this, i, [`${a};${-a}`, `${-a};${a}.`])
+          setReponse(this, i, [`${a};${-a}`, `${-a};${a}`])
           break
         case 2: // x²=(ns*ns)/(ds*ds) solutions rationnelles
           fraction = choice(listeFractions)
           ns = fraction[0]
           ds = fraction[1]
+          a = ns * 1000 + ds // Pour avoir un marqueur de question unique (les doublons sont testés avec la variable a)
           texte = `$x^2=\\dfrac{${ns * ns}}{${ds * ds}}$`
           texteCorr = `$x^2=\\dfrac{${ns * ns}}{${ds * ds}}$ équivaut à $x = \\sqrt{\\dfrac{${ns * ns}}{${ds * ds}}}$ ou $x = -\\sqrt{\\dfrac{${ns * ns}}{${ds * ds}}}$.<br>Soit $x = \\dfrac{${ns}}{${ds}}$ ou $x = -\\dfrac{${ns}}{${ds}}$.<br>`
           texteCorr += `Les solutions sont donc $x_1 = \\dfrac{${ns}}{${ds}}$ et $x_2 = -\\dfrac{${ns}}{${ds}}$.<br>`
           texteCorr += `Il est équivalent de résoudre $x^2 - \\dfrac{${ns * ns}}{${ds * ds}}=0$, c'est-à-dire $x^2 - (\\dfrac{${ns}}{${ds}})^{2}=0$.<br>Soit $(x - \\dfrac{${ns}}{${ds}})(x + \\dfrac{${ns}}{${ds}})=0$ qui donne les deux solutions ci-dessus. `
-          setReponse(this, i, [`\\dfrac{${ns}}{${ds}};-\\dfrac{${ns}}{${ds}}`, `-\\dfrac{${ns}}{${ds}};\\dfrac{${ns}}{${ds}}.`])
+          setReponse(this, i, [`\\dfrac{${ns}}{${ds}};-\\dfrac{${ns}}{${ds}}`, `-\\dfrac{${ns}}{${ds}};\\dfrac{${ns}}{${ds}}`])
           break
 
         case 3: a = randint(2, 50, [4, 9, 16, 25, 36, 49]) // solution irrationnelles
@@ -70,7 +71,7 @@ export default function ResoudreEquatioeX2EgalA () {
           texteCorr = `$x^2=${a}$ équivaut à $x = \\sqrt{${a}}$ ou $x = -\\sqrt{${a}}$.<br>`
           texteCorr += `Les solutions sont donc $x_1 = \\sqrt{${a}}$ et $x_2 = -\\sqrt{${a}}$.<br>`
           texteCorr += `Il est équivalent de résoudre $x^2 - ${a}=0$, c'est-à-dire $x^2 - (\\sqrt{${a}})^{2}=0$.<br>Soit $(x - \\sqrt{${a}})(x + \\sqrt{${a}})=0$ qui donne les deux solutions ci-dessus. `
-          setReponse(this, i, `\\sqrt{${a}};-\\sqrt{${a}}.`)
+          setReponse(this, i, `\\sqrt{${a}};-\\sqrt{${a}}`)
           break
       }
       texte += ajouteChampTexteMathLive(this, i)

@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 522 
-- nombre d'exos interactifReady 802 
+- nombre d'exos amcReady 533 
+- nombre d'exos interactifReady 822 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -109,6 +109,9 @@
 |3G32-4|Calculer la hauteur d'une montagne|OK|AMCHybride|OK|mathLive|
 |3G32-5|Triangle rectangle inscrit dans un triangle rectangle|OK|AMCHybride|OK|mathLive|
 |3G32|Calculer la largeur d'une rivière|OK|AMCHybride|OK|mathLive|
+|3G40|Repérage sur la sphère|OK|AMCHybride|KO|KO|
+|3G41-1|Construire la section d'un plan dans un un pavé droit|OK|AMCOpen|KO|KO|
+|3G41|Dessiner différentes vues d'un empilement de cubes|OK|AMCHybride|KO|KO|
 |3G42|Volume d'une boule|OK|AMCNum|OK|mathLive|
 |3G43|Calculs de volumes|OK|AMCHybride|OK|qcm,mathLive|
 |3I10-1|Analyser des scripts Scratch|OK|AMCHybride|OK|qcm|
@@ -120,7 +123,7 @@
 |3L10|Donner l'opposé d'une expression|KO|KO|OK|mathLive|
 |3L11-1|Utiliser la double distributivité|OK|AMCOpenNum✖︎3|OK|mathLive|
 |3L11-2|Réduire une expression|OK|AMCHybride|OK|mathLive|
-|3L11-3|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
+|3L11-3|Utiliser la distributivité (simple ou double) et réduire|OK|AMCHybride|OK|mathLive|
 |3L11-4|Factoriser une expression|OK|AMCOpen|OK|mathLive|
 |3L11-5|Calcul mental et calcul littéral|KO|KO|OK|mathLive|
 |3L11-6|Factoriser une expression complexe|KO|KO|OK|mathLive|
@@ -330,6 +333,7 @@
 |6G32-1|Appliquer les propriétés de conservation de la symétrie axiale|OK|AMCHybride|KO|KO|
 |6G33|Reconnaître un quadrilatère particulier à partir de ses propriétés|OK|qcmMult|OK|qcm|
 |6G41|Compléter une représentation en perspective cavalière|OK|AMCOpen|KO|KO|
+|6G42-1|Nommer des faces dans un pavé droit|OK|AMCHybride|OK|qcm,mathLive|
 |6G43|Compter les cubes manquants ou pas|OK|AMCNum|OK|mathLive|
 |6G44-1|Reconnaitre des solides|OK|qcmMono|OK|qcm,mathLive|
 |6G44|Trouver le nombre de faces ou d'arêtes d'un solide|OK|AMCNum|OK|mathLive|
@@ -448,6 +452,7 @@
 |betaModele32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
 |betaModele33_cliqueFractions|Fractions interactives|KO|KO|OK|custom|
 |betaPatronSolide|Compléter des patrons de solides|KO|KO|OK|mathLive|
+|betaProblemeAge|Problème : produit de 3 âges|KO|KO|OK|mathLive|
 |betaTestFraction|Tester la classe FractionX|KO|KO|OK|mathLive|
 |betaTestcanPredef6_10qN1|CAN 6ième 10 questions (niveau 1)|KO|KO|OK|mathLive|
 |betaTestcanPredef6_10qN2|CAN 6ième 10 questions (niveau 2)|KO|KO|OK|mathLive|
@@ -501,6 +506,7 @@
 |can1G08|Déterminer un vecteur normal avec une équation cartésienne|KO|KO|OK|custom|
 |can1G09|Associer un point à un réel sur un cercle trigonométrique |KO|KO|OK|mathLive|
 |can1G10|Associer une mesure d'angle à un  point du cercle trigonométrique |KO|KO|OK|mathLive|
+|can1G11|Donner la mesure d'un angle à partir des cosinus et sinus |KO|KO|OK|mathLive|
 |can1L01|Calculer un discriminant|OK|AMCNum|OK|mathLive|
 |can1L02|Déterminer le nombre de solutions d’une équation du second degré|KO|KO|OK|mathLive|
 |can1L03|Trouver les racines à partir d’une forme factorisée|KO|KO|OK|mathLive|
@@ -510,6 +516,7 @@
 |can1L07|Déterminer un coefficient dans un développement|KO|KO|OK|mathLive|
 |can1L08|Déterminer un coefficient dans un développement*|KO|KO|OK|mathLive|
 |can1L09|Résoudre une équation $ax^2+bx+c=c$ |KO|KO|OK|mathLive|
+|can1L10|Simplifier un taux de variation|KO|KO|OK|mathLive|
 |can1P01|Ecrire une probabilté avec les notations|OK|AMCNum|OK|mathLive|
 |can1P02|Lire une probabilité  à partir d’un arbre|OK|AMCNum|OK|mathLive|
 |can1P03|Calculer la probabilité d’une intersection à partir d’un arbre|OK|AMCNum|OK|mathLive|
@@ -544,6 +551,8 @@
 |can2C12|Déterminer un taux global d’évolution|OK|AMCNum|OK|mathLive|
 |can2C13|Calculer avec  des puissances|OK|AMCNum|OK|mathLive|
 |can2C14|Calculer avec une racine carrée (définition)|KO|KO|OK|mathLive|
+|can2C15|Calculer un nombre connaissant son inverse|OK|AMCNum|OK|mathLive|
+|can2C16|Calculer avec un programme de calcul*|KO|KO|OK|mathLive|
 |can2F01|Calculer une image avec le second degré|KO|KO|OK|mathLive|
 |can2F02|Calculer une image avec un quotient|KO|KO|OK|mathLive|
 |can2F03|Déterminer le signe d’une fonction affine (V/F)|KO|KO|OK|qcm|
@@ -576,6 +585,8 @@
 |can2G16|Trouver un coefficient de colinéarité (graphique)|OK|AMCHybride|OK|mathLive|
 |can2G17|Déterminer un vecteur directeur avec une équation cartésienne|KO|KO|OK|custom|
 |can2G18|Déterminer les coordonnées d’un vecteur à partir d’un graphique|KO|KO|OK|mathLive|
+|can2G19|Déterminer le coefficient directeur d'une droite (graphique)|KO|KO|OK|mathLive|
+|can2G20|Déterminer une équation de droite (graphique)|KO|KO|OK|mathLive|
 |can2L01|Déterminer le nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
 |can2L02|Calculer les coordonnées d’un point sur une droite|KO|KO|OK|mathLive|
 |can2L03|Calculer les coordonnées du point d’intersection entre l’axe des abscisses/droite|KO|KO|OK|mathLive|
@@ -604,6 +615,7 @@
 |can3C12|Encadrer une racine carrée|OK|AMCNum|OK|mathLive|
 |can3C13|Pyramide additive fractions|OK|AMCNum|OK|mathLive|
 |can3C14|Passer d'un décimal à une fraction irréductible|OK|AMCNum|OK|mathLive|
+|can3C15|Calculer des sommes contenant des puissances de 10|KO|KO|OK|mathLive|
 |can3F01|Lire une image graphiquement|OK|AMCNum|OK|mathLive|
 |can3F02|Calculer une image par une fonction linéaire|OK|AMCNum|OK|mathLive|
 |can3F03|Calculer une image par une fonction affine|OK|AMCNum|OK|mathLive|
@@ -613,6 +625,7 @@
 |can3F07|Lire graphiquement une fonction affine|KO|KO|OK|mathLive|
 |can3F08|Lire graphiquement une fonction affine*|KO|KO|OK|mathLive|
 |can3F09|Reconnaître une fonction affine|KO|KO|OK|mathLive|
+|can3F10|Déterminer une ordonnée/abscisse avec une fonction linéaire|KO|KO|OK|mathLive|
 |can3G01|Calculer et utiliser un agrandissement/réduction|OK|AMCNum|OK|mathLive|
 |can3G02|Trouver l’image d’un point par une  transformation 3e|KO|KO|OK|mathLive|
 |can3G03|Calculer une longueur avec le théorème de Thalès|KO|KO|OK|mathLive|
@@ -709,6 +722,7 @@
 |can5P06|Ecrire sous la forme d’un pourcentage|OK|AMCNum|OK|mathLive|
 |can5P07|Résoudre un problème de proportionnalité*|OK|AMCNum|OK|mathLive|
 |can5P08|Résoudre un problème de proportionnalité**|OK|AMCNum|OK|mathLive|
+|can5P09|Calculer un prix à partir d'un prix au kg|OK|AMCNum|OK|mathLive|
 |can5a-2020|CAN 5ième sujet 2020|KO|KO|OK|mathLive|
 |can5a-2021|CAN 5ième sujet 2021|KO|KO|OK|mathLive|
 |can5a-2022|CAN 5ième sujet 2022|KO|KO|OK|mathLive|
@@ -752,6 +766,10 @@
 |can6C38|Trouver une valeur dans un Yohaku (additif)|OK|AMCNum|OK|mathLive|
 |can6C39|Trouver une valeur dans un Yohaku (multiplicatif)|OK|AMCNum|OK|mathLive|
 |can6C40|Calculer la moitié d’un nombre décimal|OK|AMCNum|OK|mathLive|
+|can6C41|Comparer des fractions de même dénominateur/numérateur|KO|KO|OK|mathLive|
+|can6C42|Comparer une fraction avec 1|KO|KO|OK|mathLive|
+|can6C43|Comprarer deux fractions (dénominateurs multiples)|OK|qcmMono|OK|qcm|
+|can6C44|Comparer deux fractions*|KO|KO|OK|mathLive|
 |can6D01|Convertir des Heures/minutes en minutes|OK|AMCNum|OK|mathLive|
 |can6D02|Chercher un reste en minutes|OK|AMCNum|OK|mathLive|
 |can6D03|Calculer une durée en minutes|OK|AMCNum|OK|mathLive|
@@ -798,6 +816,7 @@
 |can6P03|Déterminer le nombre de km avec une vitesse|OK|AMCNum|OK|mathLive|
 |can6P04|Appliquer un pourcentage|OK|AMCNum|OK|mathLive|
 |can6P05|Appliquer un pourcentage (bis)|OK|AMCNum|OK|mathLive|
+|can6P06|Résoudre un problème de calcul de pourcentage par complément à 100%|OK|AMCNum|OK|mathLive|
 |can6S01|Lire un diagramme en barres|OK|AMCNum|OK|mathLive|
 |can6a-2018|CAN 6ième sujet 2018|KO|KO|OK|mathLive|
 |can6a-2021|CAN 6ième sujet 2021|KO|KO|OK|mathLive|
@@ -816,16 +835,20 @@
 |canc3C09|Résoudre un problème avec "fois plus", "fois moins"|OK|AMCNum|OK|mathLive|
 |canc3C10|Résoudre un problème avec "fois plus", "fois moins"*|OK|AMCNum|OK|mathLive|
 |canc3C11|Calculer la moitié d’un nombre impair|OK|AMCNum|OK|mathLive|
+|canc3C12|Calculer avec un programme de calcul|OK|AMCNum|OK|mathLive|
+|canc3C13|Trouver un nombre dans un produit de trois facteurs |KO|KO|OK|mathLive|
 |canc3D01|Lire l'heure|OK|AMCHybride|OK|mathLive|
 |canc3D02|Lire une durée|KO|KO|OK|mathLive|
 |canc3D03|Ajouter des durées|KO|KO|OK|mathLive|
 |canc3M01|Trouver la bonne unité|OK|AMCOpen|OK|mathLive|
 |canc3M02|Calculer une longueur/un périmètre/une aire (avec des entiers)|OK|AMCNum|OK|mathLive|
+|canc3M03|Calculer une somme de nombres avec des unités|KO|KO|OK|mathLive|
 |canc3N01|Écrire en lettres un nombre entier (QCM)|OK|qcmMono|OK|qcm|
 |canc3N02|Trouver un nombre sur une droite graduée|OK|AMCNum|OK|mathLive|
 |canc3N03|Trouver le plus grand nombre entier|OK|AMCNum|OK|mathLive|
 |canc3N04|Arrondir à l'unité|OK|AMCHybride|OK|mathLive|
 |canc3N05|Calculer une somme (partie entière/décimale)|OK|AMCNum|OK|mathLive|
+|canc3N06|Comparer deux nombres sur une droite graduée (QCM)|OK|qcmMono|OK|qcm|
 |techno1E2|Associer évolution en pourcentage et coefficient|KO|KO|OK|mathLive|
 |techno1P1|Écriture fractionnaire, écriture décimale, pourcentage|KO|KO|OK|mathLive|
 |techno1P2-1|Appliquer un pourcentage|OK|AMCNum|OK|mathLive|

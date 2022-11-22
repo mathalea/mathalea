@@ -21,6 +21,7 @@ export default function TableauSignes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
   this.tailleDiaporama = 1.3
+  this.listePackages = ['tkz-tab']
   this.spacing = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.nouvelleVersion = function () {

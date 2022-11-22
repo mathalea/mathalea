@@ -2,7 +2,7 @@
 import { texteParPosition } from './2d.js'
 import { fraction } from './fractions.js'
 import Algebrite from 'algebrite'
-import { format, evaluate, isPrime, gcd, round, equal, Fraction, isInteger } from 'mathjs'
+import { format, evaluate, isPrime, gcd, round, equal, Fraction, isInteger, matrix, parse } from 'mathjs'
 import { loadScratchblocks } from './loaders.js'
 import { context } from './context.js'
 import { setReponse } from './gestionInteractif.js'
@@ -420,7 +420,8 @@ export function creerCouples (E1, E2, nombreDeCouplesMin = 10) {
 * Choisit un nombre au hasard entre min et max sans appartenir à liste\_a\_eviter.
 * @param {int} min
 * @param {int} max
-* @param {liste} liste - Tous les éléments que l'on souhaite supprimer
+* @param {int[]} liste - Tous les éléments que l'on souhaite supprimer
+* @return {int} Nombre au hasard entre min et max non compris dans la listeAEviter
 *
 * @example
 * // Renvoie 1, 2 ou 3
@@ -3659,6 +3660,13 @@ export class MatriceCarree {
         resultat.push(ligne)
       }
       return matriceCarree(resultat)
+    }
+    this.toTex = function () {
+      let matrice = this.table
+      matrice = matrix(matrice)
+      matrice = matrice.toString()
+      matrice = parse(matrice).toTex().replaceAll('bmatrix', 'pmatrix')
+      return matrice
     }
   }
 }
@@ -6913,7 +6921,10 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 }
 ${preambulePersonnalise(listePackages)}
 
-% Spécifique sujets CAN
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SPÉCIFIQUE SUJETS CAN                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \\usepackage{longtable}
 
 \\tikzset{
@@ -6932,66 +6943,94 @@ ${preambulePersonnalise(listePackages)}
   \\newcommand\\MyBox[2][]{%
     \\tikz\\node[mybox,#1] {#2}; 
   }
+  % Un compteur pour les questions CAN
   \\newcounter{nbEx}
+  % Pour travailler avec les compteurs
   \\usepackage{totcount}
-  \\regtotcounter{nbEx}
-  \\def\\checkmark{\\tikz\\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
+  \\regtotcounter{nbEx}  
+
+  % Une checkmark !
+  \\def\\checkmark{\\tikz\\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}  
+  % Repiqué sans vergogne dans lemanuel TikZ pour l'impatient
+  \\def\\arete{3}   \\def\\epaisseur{5}   \\def\\rayon{2}
+
+  \\newcommand{\\ruban}{(0,0)
+    ++(0:0.57735*\\arete-0.57735*\\epaisseur+2*\\rayon)
+    ++(-30:\\epaisseur-1.73205*\\rayon)
+    arc (60:0:\\rayon)   -- ++(90:\\epaisseur)
+    arc (0:60:\\rayon)   -- ++(150:\\arete)
+    arc (60:120:\\rayon) -- ++(210:\\epaisseur)
+    arc (120:60:\\rayon) -- cycle}
+
+  \\newcommand{\\dureeCan}{[Temps total à modifier juste après le \\textbackslash begin\\{document\\}]}  
+
+  \\newcommand{\\titreSujetCan}{\\textbf{[Ligne ci-dessous à modifier juste après le \\textbackslash begin\\{document\\}]\\\\Sujet niveau NN - Mois Année}}
+
+  \\newcommand{\\mobiusCan}{
+    % Repiqué sans vergogne dans lemanuel TikZ pour l'impatient
+    \\begin{tikzpicture}[very thick,top color=white,bottom color=gray,scale=1.2]
+      \\shadedraw \\ruban;
+      \\shadedraw [rotate=120] \\ruban;
+      \\shadedraw [rotate=-120] \\ruban;
+      \\draw (-60:4) node[scale=5,rotate=30]{CAN};
+      \\draw (180:4) node[scale=3,rotate=-90]{MathALEA};
+      \\clip (0,-6) rectangle (6,6); % pour croiser
+      \\shadedraw  \\ruban;
+      \\draw (60:4) node [gray,xscale=2.5,yscale=2.5,rotate=-30]{CoopMaths};
+    \\end{tikzpicture} 
+  }
   
+  \\newcommand{\\pageDeGardeCan}[1]{
+    % #1 --> nom du compteur pour le nombre de questions
+
+    %\\vspace*{10mm}
+    \\textsc{Nom} : \\makebox[.35\\linewidth]{\\dotfill} \\hfill \\textsc{Prénom} : \\makebox[.35\\linewidth]{\\dotfill}
+
+    \\vspace{10mm}
+    \\textsc{Classe} : \\makebox[.33\\linewidth]{\\dotfill} \\hfill
+    \\MyBox{\\Large\\textsc{Score} : \\makebox[.15\\linewidth]{\\dotfill} / \\total{#1}}      
+    \\par\\medskip \\hrulefill \\par
+    \\checkmark \\textit{\\textbf{Durée :  \\dureeCan~minutes}}
+
+    \\smallskip
+    \\checkmark \\textit{L'épreuve comporte \\total{#1} questions.}
+
+    \\smallskip  
+    \\checkmark \\textit{L'usage de la calculatrice et du brouillon sont interdits.}
+
+    \\smallskip
+    \\checkmark \\textit{Il n'est pas permis d'écrire des calculs intermédiaires.}
+    \\par \\hrulefill \\par\\vspace{5mm}
+    \\begin{center}
+      \\textsc{\\titreSujetCan}
+      \\par\\vspace{5mm}
+      \\mobiusCan
+    \\end{center}
+  }
+
+  % Structure globale pour les tableaux des livrets CAN
+  \\newcommand{\\structureTableauCan}[1]{
+    % #1 --> corps de tableau
+    \\renewcommand*{\\arraystretch}{2.5}
+    \\begin{spacing}{1.1}
+        \\begin{longtable}{|>{\\columncolor{gray!20}\\centering}m{0.05\\textwidth}|>{\\centering}m{0.45\\textwidth}|>{\\centering}m{0.35\\textwidth}|>{\\centering}p{0.1\\textwidth}|}%
+            \\hline
+            \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline
+            %\\endfirsthead
+            %\\hline
+            %\\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline
+            %\\endhead
+            #1
+        \\end{longtable}
+    \\end{spacing}
+    \\renewcommand*{\\arraystretch}{1}
+  }
+
 \\begin{document}
 \\thispagestyle{premierePage}
-
-\\setcounter{nbEx}{1}
-\\vspace*{-10mm}
-\\textsc{Nom} : \\makebox[.35\\linewidth]{\\dotfill} \\hfill \\textsc{Prénom} : \\makebox[.35\\linewidth]{\\dotfill}
-\\begin{minipage}{0.55\\textwidth}
-  \\vspace{10mm}
-  \\textsc{Classe} : \\makebox[.45\\linewidth]{\\dotfill}
-\\end{minipage}
-\\begin{minipage}{0.35\\textwidth} 
-  \\vspace{5mm}
-  \\MyBox{\\Large\\textsc{Score} : \\makebox[.15\\linewidth]{\\dotfill} / \\total{nbEx}}      
-\\end{minipage}
-\\par\\medskip \\hrulefill \\par
-\\checkmark \\textit{\\textbf{Durée : [Temps total à modifier ici dans le code source] minutes}}
-
-\\smallskip
-\\checkmark \\textit{L'épreuve comporte \\total{nbEx} questions.}
-
-\\smallskip  
-\\checkmark \\textit{L'usage de la calculatrice et du brouillon sont interdits.}
-
-\\smallskip
-\\checkmark \\textit{Il n'est pas permis d'écrire des calculs intermédiaires.}
-\\par \\hrulefill \\par\\vspace{5mm}
-\\begin{center}
-\\textbf{[Ligne ci-dessous à modifier dans le code source]}
-
-\\textsc{Sujet niveau NN - Mois Année}
-
-
-\\par\\vspace{5mm}
-\\def\\arete{3}   \\def\\epaisseur{5}   \\def\\rayon{2}
-
-\\newcommand{\\ruban}{(0,0)
-  ++(0:0.57735*\\arete-0.57735*\\epaisseur+2*\\rayon)
-  ++(-30:\\epaisseur-1.73205*\\rayon)
-  arc (60:0:\\rayon)   -- ++(90:\\epaisseur)
-  arc (0:60:\\rayon)   -- ++(150:\\arete)
-  arc (60:120:\\rayon) -- ++(210:\\epaisseur)
-  arc (120:60:\\rayon) -- cycle}
-
-\\begin{tikzpicture}[very thick,top color=white,bottom color=gray,scale=1.3]
-  \\shadedraw \\ruban;
-  \\shadedraw [rotate=120] \\ruban;
-  \\shadedraw [rotate=-120] \\ruban;
-  \\draw (-60:4) node[scale=5,rotate=30]{CAN};
-  \\draw (180:4) node[scale=3,rotate=-90]{MathALEA};
-  \\clip (0,-6) rectangle (6,6); % pour croiser
-  \\shadedraw  \\ruban;
-  \\draw (60:4) node [gray,xscale=2.5,yscale=2.5,rotate=-30]{CoopMaths};
-\\end{tikzpicture}
-\\end{center}
-\\clearpage
+% Décomenter et modifier les deux lignes suivantes pour ajuster les textes
+%\\renewcommand{\\dureeCan}{ma durée en minutes ici}
+%\\renewcommand{\\titreSujetCan}{\\textbf{mon titre ici}}
 `
 }
 
@@ -7909,7 +7948,7 @@ export async function scratchTraductionFr () {
  */
 
 export function exportQcmAmc (exercice, idExo) {
-  const ref = `${exercice.id}${exercice.sup ? 'S:' + exercice.sup : ''}${exercice.sup2 ? 'S2:' + exercice.sup2 : ''}${exercice.sup3 ? 'S3:' + exercice.sup3 : ''}${exercice.sup4 ? 'S4:' + exercice.sup4 : ''}`
+  const ref = `${exercice.id}/${exercice.sup ? 'S:' + exercice.sup : ''}${exercice.sup2 ? 'S2:' + exercice.sup2 : ''}${exercice.sup3 ? 'S3:' + exercice.sup3 : ''}${exercice.sup4 ? 'S4:' + exercice.sup4 : ''}`
   const autoCorrection = exercice.autoCorrection
   const titre = exercice.titre
   const type = exercice.amcType
@@ -7956,7 +7995,7 @@ export function exportQcmAmc (exercice, idExo) {
           autoCorrection[j].enonce = exercice.listeQuestions[j]
         }
         texQr += `\\element{${ref}}{\n `
-        texQr += `\\begin{question}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
+        texQr += `\\begin{question}{${ref}/${lettreDepuisChiffre(idExo + 1)}${id + 10}} \n `
         texQr += `${autoCorrection[j].enonce} \n `
         texQr += `\t\\begin{${horizontalite}}`
         if (ordered) {
@@ -7987,7 +8026,7 @@ export function exportQcmAmc (exercice, idExo) {
         }
 
         texQr += `\\element{${ref}}{\n `
-        texQr += `\\begin{questionmult}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
+        texQr += `\\begin{questionmult}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
         texQr += `${autoCorrection[j].enonce} \n `
         texQr += `\t\\begin{${horizontalite}}`
         if (ordered) {
@@ -8016,7 +8055,7 @@ export function exportQcmAmc (exercice, idExo) {
           autoCorrection[j].propositions = [{ texte: exercice.listeCorrections[j], statut: '3' }]
         }
         texQr += `\\element{${ref}}{\n `
-        texQr += `\t\\begin{question}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
+        texQr += `\t\\begin{question}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
         texQr += `\t\t${autoCorrection[j].enonce} \n `
         texQr += `\t\t\\explain{${autoCorrection[j].propositions[0].texte}}\n`
         texQr += `\t\t\\notation{${autoCorrection[j].propositions[0].statut}}`
@@ -8054,7 +8093,7 @@ export function exportQcmAmc (exercice, idExo) {
           texQr += `\\element{${ref}}{\n`
           texQr += '\\begin{minipage}{\\textwidth}\n'
           texQr += '\\begin{multicols}{2}\n'
-          texQr += `\\begin{questionmultx}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
+          texQr += `\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
           texQr += `${autoCorrection[j].enonce} \n \\vspace{0.25cm} \n`
           if (autoCorrection[j].propositions !== undefined) {
             texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
@@ -8077,7 +8116,7 @@ export function exportQcmAmc (exercice, idExo) {
           texQr += `borderwidth=0pt,backgroundcol=lightgray,scoreapprox=${autoCorrection[j].reponse.param.scoreapprox || 0.667},scoreexact=1,Tpoint={,}}\n`
           texQr += '\\end{questionmultx}\n'
           texQr += '\\AMCquestionNumberfalse\\def\\AMCbeginQuestion#1#2{}'
-          texQr += `\\begin{questionmultx}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 1}} \n `
+          texQr += `\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 1}} \n `
           texQr += '\\vspace{18pt}'
           // texQr += `Exposant\n \\AMCnumericChoices{${autoCorrection[j].reponse.param.exposantPuissance}}{digits=${digitsExposant},decimals=0,sign=${autoCorrection[j].reponse.param.exposantPuissance < 0 ? 'true' : 'false'},approx=0,`
           texQr += `Exposant\n \\AMCnumericChoices{${autoCorrection[j].reponse.param.exposantPuissance}}{digits=${digitsExposant},decimals=0,sign=true,approx=0,`
@@ -8086,7 +8125,7 @@ export function exportQcmAmc (exercice, idExo) {
           id += 2
         } else if (valeurAMCNum.num !== undefined) { // Si une fraction a été passée à AMCNum, on met un seul AMCNumericChoice particulier
           texQr += `\\element{${ref}}{\n`
-          texQr += `\\begin{questionmultx}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
+          texQr += `\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
           texQr += `${autoCorrection[j].enonce} \n`
           if (autoCorrection[j].propositions !== undefined) {
             texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
@@ -8143,7 +8182,7 @@ export function exportQcmAmc (exercice, idExo) {
             autoCorrection[j].reponse.param.approx = autoCorrection[j].reponse.param.approx === 'intervalleStrict' ? demiMediane * 10 ** nbChiffresPd - 1 : demiMediane * 10 ** nbChiffresPd
           }
           texQr += `\\element{${ref}}{\n `
-          texQr += `\\begin{questionmultx}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
+          texQr += `\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
           texQr += `${autoCorrection[j].enonce} \n `
           if (autoCorrection[j].propositions !== undefined) {
             texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
@@ -8198,7 +8237,7 @@ export function exportQcmAmc (exercice, idExo) {
         }
         texQr += `\\element{${ref}}{\n `
         texQr += '\\begin{minipage}[b]{0.7 \\linewidth}\n'
-        texQr += `\\begin{question}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}a} \n `
+        texQr += `\\begin{question}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}a} \n `
         texQr += `${autoCorrection[j].enonce} \n `
         if (autoCorrection[j].propositions !== undefined) {
           texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
@@ -8226,7 +8265,7 @@ export function exportQcmAmc (exercice, idExo) {
         }
         texQr += '\\begin{minipage}[b]{0.3 \\linewidth}\n'
         texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
-        texQr += `\\begin{questionmultx}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}b} \n `
+        texQr += `\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}b} \n `
         texQr += `\\AMCnumericChoices{${valeurAMCNum}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
         if (autoCorrection[j].reponse.param.exposantNbChiffres === 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
           texQr += `exponent=${autoCorrection[j].reponse.param.exposantNbChiffres},exposign=${autoCorrection[j].reponse.param.exposantSigne},`
@@ -8274,7 +8313,7 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += `\\element{${ref}}{\n `
         // premier champ de codage
         texQr += '\\begin{minipage}[b]{0.7 \\linewidth}\n'
-        texQr += `\\begin{question}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}a} \n `
+        texQr += `\\begin{question}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}a} \n `
         texQr += `${autoCorrection[j].enonce} \n `
         if (autoCorrection[j].propositions !== undefined) {
           texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
@@ -8294,7 +8333,7 @@ export function exportQcmAmc (exercice, idExo) {
         // deuxième champ de codage numérique
         texQr += '\\begin{minipage}[b]{0.15 \\linewidth}\n'
         texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
-        texQr += `\\begin{questionmultx}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}b} \n `
+        texQr += `\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}b} \n `
         texQr += `${autoCorrection[j].reponse.texte}\n` // pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
         texQr += `\\AMCnumericChoices{${reponse}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
         if (autoCorrection[j].reponse.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
@@ -8309,7 +8348,7 @@ export function exportQcmAmc (exercice, idExo) {
         // troisième champ de codage numérique
         texQr += '\\begin{minipage}[b]{0.15 \\linewidth}\n'
         texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
-        texQr += `\\begin{questionmultx}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}c} \n `
+        texQr += `\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}c} \n `
         reponse2 = autoCorrection[j].reponse2.valeur[0]
         if (autoCorrection[j].reponse2.param.digits === 0) {
           nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse2)
@@ -8358,7 +8397,7 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += `\\element{${ref}}{\n `
         // premier champ de codage
         texQr += '\\begin{minipage}[b]{0.4 \\linewidth}\n'
-        texQr += `\\begin{question}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}a} \n `
+        texQr += `\\begin{question}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}a} \n `
         texQr += `${autoCorrection[j].enonce} \n `
         if (autoCorrection[j].propositions !== undefined) {
           texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
@@ -8377,7 +8416,7 @@ export function exportQcmAmc (exercice, idExo) {
         // deuxième champ de codage numérique
         texQr += '\\begin{minipage}[b]{0.2 \\linewidth}\n'
         texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
-        texQr += `\\begin{questionmultx}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}b} \n `
+        texQr += `\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}b} \n `
         if (autoCorrection[j].reponse.textePosition === 'top') texQr += `${autoCorrection[j].reponse.texte}\n` // pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
         else if (autoCorrection[j].reponse.textePosition === 'left') texQr += `${autoCorrection[j].reponse.texte} `
         texQr += `\\AMCnumericChoices{${valeurAMCNum}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
@@ -8394,7 +8433,7 @@ export function exportQcmAmc (exercice, idExo) {
         // troisième champ de codage numérique
         texQr += '\\begin{minipage}[b]{0.2 \\linewidth}\n'
         texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
-        texQr += `\\begin{questionmultx}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}c} \n `
+        texQr += `\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}c} \n `
         reponse2 = autoCorrection[j].reponse2.valeur[0]
         if (autoCorrection[j].reponse2.param.digits === 0) {
           nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse2)
@@ -8420,7 +8459,7 @@ export function exportQcmAmc (exercice, idExo) {
         // quatrième champ de codage numérique
         texQr += '\\begin{minipage}[b]{0.2 \\linewidth}\n'
         texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
-        texQr += `\\begin{questionmultx}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}d} \n `
+        texQr += `\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}d} \n `
         reponse3 = autoCorrection[j].reponse3.valeur[0]
         if (autoCorrection[j].reponse3.param.digits === 0) {
           nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse3)
@@ -8530,7 +8569,7 @@ export function exportQcmAmc (exercice, idExo) {
                   lastchoice = prop.options.lastChoice
                 }
               }
-              texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{question}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
+              texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{question}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
               if (prop.enonce !== undefined) {
                 texQr += prop.enonce + '\n'
               }
@@ -8577,7 +8616,7 @@ export function exportQcmAmc (exercice, idExo) {
                   lastchoice = prop.options.lastChoice
                 }
               }
-              texQr += `${(qr > 0 && !(autoCorrection[j].options.avecSymboleMult)) ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmult}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
+              texQr += `${(qr > 0 && !(autoCorrection[j].options.avecSymboleMult)) ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmult}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
               if (prop.enonce !== undefined) texQr += prop.enonce
 
               texQr += `\t\\begin{${horizontalite}}`
@@ -8610,7 +8649,7 @@ export function exportQcmAmc (exercice, idExo) {
                 }
                 texQr += '\\begin{minipage}{\\textwidth}\n'
                 texQr += '\\begin{multicols}{2}\n'
-                texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmultx}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
+                texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
                 if (propositions !== undefined) {
                   texQr += `\\explain{${propositions[0].texte}}\n`
                 }
@@ -8632,7 +8671,7 @@ export function exportQcmAmc (exercice, idExo) {
                 texQr += `borderwidth=0pt,backgroundcol=lightgray,scoreapprox=${autoCorrection[j].reponse.param.scoreapprox || 0.667},scoreexact=1,Tpoint={,}}\n`
                 texQr += '\\end{questionmultx}\n'
                 texQr += '\\AMCquestionNumberfalse\\def\\AMCbeginQuestion#1#2{}'
-                texQr += `\\begin{questionmultx}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 1}} \n `
+                texQr += `\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 1}} \n `
                 texQr += '\\vspace{18pt}'
                 // texQr += `Exposant\n \\AMCnumericChoices{${rep.param.exposantPuissance}}{digits=${digitsExposant},decimals=0,sign=${rep.param.exposantPuissance < 0 ? 'true' : 'false'},approx=0,`
                 texQr += `Exposant\n \\AMCnumericChoices{${rep.param.exposantPuissance}}{digits=${digitsExposant},decimals=0,sign=true,approx=0,`
@@ -8641,7 +8680,7 @@ export function exportQcmAmc (exercice, idExo) {
                 id += 2
               } else if (rep.valeur[0].num !== undefined) { // Si une fraction a été passée à AMCNum, on met deux AMCNumericChoice
                 valeurAMCNum = rep.valeur[0]
-                texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmultx}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
+                texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
                 if (!(propositions[0].reponse.alignement === undefined)) {
                   texQr += '\\begin{'
                   texQr += `${propositions[0].reponse.alignement}}`
@@ -8705,7 +8744,7 @@ export function exportQcmAmc (exercice, idExo) {
                   valeurAMCNum = rep.param.milieuIntervalle
                   rep.param.approx = autoCorrection[j].reponse.param.approx === 'intervalleStrict' ? demiMediane * 10 ** nbChiffresPd - 1 : demiMediane * 10 ** nbChiffresPd
                 }
-                texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmultx}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
+                texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
                 if (propositions !== undefined) {
                   texQr += `\\explain{${propositions[0].texte}}\n`
                 }
@@ -8747,11 +8786,11 @@ export function exportQcmAmc (exercice, idExo) {
               break
             case 'AMCOpen': // AMCOpen de Hybride
               if (propositions[0].numQuestionVisible === undefined) {
-                texQr += `\t${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{question}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n`
+                texQr += `\t${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{question}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n`
               } else if (propositions[0].numQuestionVisible) {
-                texQr += `\t${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{question}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n`
+                texQr += `\t${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{question}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n`
               } else {
-                texQr += `\t\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse \\begin{question}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}}\\QuestionIndicative \n`
+                texQr += `\t\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse \\begin{question}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}}\\QuestionIndicative \n`
               }
               if (!(propositions[0].enonce === undefined)) texQr += `\t${propositions[0].enonce}\n`
               texQr += `\t\t\\explain{${propositions[0].texte}}\n`

@@ -252,6 +252,8 @@ export default function ReconnaitreFonctionDegre2 () {
         case 3:// forme canonique ok
 
           a = randint(-5, 5, 0)
+          x1 = randint(-9, 9, 0)
+          x2 = randint(-9, 9, [0, x1])
           alpha = randint(-9, 9, 0)
           beta = randint(-9, 9, 0)
           nom = choice(nomF)
@@ -278,14 +280,6 @@ export default function ReconnaitreFonctionDegre2 () {
                   $${nom}(x)=(x${ecritureAlgebrique(alpha)})^2$. <br>
 
                   $${nom}$ est une fonction polynôme du second degré.`
-            this.canEnonce = texte
-          }
-          if (choix === 'd') {
-            texte = `Soit $${nom}$ la fonction définie  par :<br>
-
-                    $${nom}(x)=(${x1}-x)(x${ecritureAlgebrique(x2)})$. <br>
-
-                    $${nom}$ est une fonction polynôme du second degré.`
             this.canEnonce = texte
           }
           this.autoCorrection[i] = {
@@ -317,12 +311,6 @@ export default function ReconnaitreFonctionDegre2 () {
             texteCorr = monQcm.texteCorr + `La fonction $${nom}$ est une fonction polynôme du second degré. <br>
                     $${nom}(x)$ est de la forme $a(x-\\alpha)^2+\\beta$ avec $a=1$, $\\alpha=${-alpha}$ et $\\beta=0$. <br> Il s'agit de la forme canonique d'une fonction polynôme du second degré. `
           }
-          if (choix === 'd') {
-            texteCorr = monQcm.texteCorr + `La fonction $${nom}$ est une fonction polynôme du second degré. <br>
-                    $${nom}(x)=(${x1}-x)(x${ecritureAlgebrique(x2)})=-(x${ecritureAlgebrique(-x1)})(x${ecritureAlgebrique(x2)})$.<br>
-                    $${nom}(x)$ est de la forme $a(x-x_1)(x-x_2)$ avec $a=1$, $x_1=0$ et $x_2=${-x2}$.<br> Il s'agit de la forme factorisée d'une fonction polynôme du second degré.   `
-          }
-
           break
 
         case 4:// forme developpe pas ok
@@ -521,11 +509,12 @@ export default function ReconnaitreFonctionDegre2 () {
       if (this.questionJamaisPosee(i, a, x1, x2, b, c, alpha, beta)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        if (i === 0) this.canReponseACompleter = monQcm.texte // FIXME Dans un exercice permettant plusieurs questions il n'y a qu'un this.canReponseACompleter ???
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
-    this.canReponseACompleter = propositionsQcm(this, 0).texte
+    this.canReponseACompleter = monQcm.texte
   }
 }

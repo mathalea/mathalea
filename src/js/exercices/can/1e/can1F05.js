@@ -63,7 +63,7 @@ export default function LectureGraphiqueParabolebEtc () {
 
           F = x => (x - x1) * (x - x2)
 
-          texte = `On donne la courbe représentative d'une fonction $f$ polynôme du second degré définie par $f(x)=x^2+bx+c$ .<br>
+          texte = `La courbe représente une fonction $f$ définie par $f(x)=ax^2+bx+c$ .<br>
           
           `
 
@@ -72,7 +72,7 @@ export default function LectureGraphiqueParabolebEtc () {
           
           ` +
 
-          mathalea2d({ xmin: -5, xmax: 5, ymin: Math.floor(f((x1 + x2) / 2)) - 1.5, ymax: Math.max(3, f(0) + 1), pixelsParCm: 25, scale: 0.6 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
+          mathalea2d({ xmin: -5, xmax: 5, ymin: Math.floor(f((x1 + x2) / 2)) - 1.5, ymax: Math.max(3, f(0) + 1), pixelsParCm: 25, scale: 0.6, style: 'margin: auto' }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
 
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: '$b=$' })

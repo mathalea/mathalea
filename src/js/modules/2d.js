@@ -324,15 +324,15 @@ export function TracePoint (...points) {
       } else {
         A = unPoint
       }
-
       if (A.constructor === Point) {
         if (this.style === 'x') {
+          this.tailleTikz = this.taille / 15 // EE : Sinon, on ne voit pas la croix.
           s1 = segment(point(A.x - this.tailleTikz, A.y + this.tailleTikz),
             point(A.x + this.tailleTikz, A.y - this.tailleTikz), this.color[1])
           s2 = segment(point(A.x - this.tailleTikz, A.y - this.tailleTikz),
             point(A.x + this.tailleTikz, A.y + this.tailleTikz), this.color[1])
-          s1.epaisseur = this.epaisseur
-          s2.epaisseur = this.epaisseur
+          s1.epaisseur = this.epaisseur / 1.5
+          s2.epaisseur = this.epaisseur / 1.5
           s1.opacite = this.opacite
           s2.opacite = this.opacite
           objetstikz.push(s1, s2)
@@ -579,10 +579,10 @@ export function LabelPoint (...points) {
   for (const unPoint of points) {
     if (unPoint.typeObjet !== 'point3d' && unPoint.typeObjet !== 'point') window.notify('LabelPoint : argument invalide', { ...points })
     lePoint = unPoint.typeObjet === 'point' ? unPoint : unPoint.c2d
-    xmin = Math.min(xmin, lePoint.x - lePoint.positionLabel.indexOf('left') !== -1 ? 1 : 0)
-    xmax = Math.max(xmax, lePoint.x + lePoint.positionLabel.indexOf('right') !== -1 ? 1 : 0)
-    ymin = Math.min(ymin, lePoint.y - lePoint.positionLabel.indexOf('below') !== -1 ? 1 : 0)
-    ymax = Math.max(ymax, lePoint.y + lePoint.positionLabel.indexOf('above') !== -1 ? 1 : 0)
+    xmin = Math.min(xmin, lePoint.x - ((lePoint.positionLabel.indexOf('left') + this.positionLabel.indexOf('left')) !== -2 ? 4 : 0)) // 4 à cause de 3G40
+    xmax = Math.max(xmax, lePoint.x + ((lePoint.positionLabel.indexOf('right') + this.positionLabel.indexOf('right')) !== -2 ? 0 : 1))
+    ymin = Math.min(ymin, lePoint.y - ((lePoint.positionLabel.indexOf('below') + this.positionLabel.indexOf('below')) !== -2 ? 0 : 1))
+    ymax = Math.max(ymax, lePoint.y + ((lePoint.positionLabel.indexOf('above') + this.positionLabel.indexOf('above')) !== -2 ? 2 : 0))
   }
   this.bordures = [xmin, ymin, xmax, ymax]
   this.svg = function (coeff) {
@@ -601,6 +601,7 @@ export function LabelPoint (...points) {
       }
       x = A.x
       y = A.y
+      if (this.positionLabel && unPoint.typeObjet === 'point3d') A.positionLabel = this.positionLabel
       switch (A.positionLabel) {
         case 'left':
           code += texteParPosition(A.nom, x - 10 / coeff, y, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
@@ -646,6 +647,7 @@ export function LabelPoint (...points) {
       } else {
         A = unPoint
       }
+      if (this.positionLabel) A.positionLabel = this.positionLabel
       code += `\t\\draw (${A.x},${A.y}) node[${A.positionLabel}${style}] {$${A.nom}$};\n`
     }
     return code
@@ -2723,10 +2725,10 @@ export function polygoneAvecNom (...args) {
   args.forEach(el => (nom += el.nom))
   p.sommets = nommePolygone(p, nom, k)
   p.sommets.bordures = []
-  p.sommets.bordures[0] = p.bordures[0] - 1
-  p.sommets.bordures[1] = p.bordures[1] - 1
-  p.sommets.bordures[2] = p.bordures[2] + 1
-  p.sommets.bordures[3] = p.bordures[3] + 1
+  p.sommets.bordures[0] = p.bordures[0] - 1 - k
+  p.sommets.bordures[1] = p.bordures[1] - 1 - k
+  p.sommets.bordures[2] = p.bordures[2] + 1 + k
+  p.sommets.bordures[3] = p.bordures[3] + 1 + k
   return [p, p.sommets]
 }
 
@@ -11079,18 +11081,78 @@ export function scratchblock (stringLatex) {
 }
 
 /**
- * @to-do finir cette classe en travaux
- * @constructor
+ * Représente une boussole pour les 4 orientations possible dans Scratch
+ * Il n'y a pas d'arguments, c'est un objet statique qui a sa méthode svg() et sa méthode tikz()
+ * Il est difficile de modifier la taille de l'objet à cause du texte des blocks
+ * @class
  * @author Jean-Claude Lhote, Sylvain Chambon, Sébastien Lozano
+ * @return {RoseDesVents}
  */
 export function RoseDesVents () {
   ObjetMathalea2D.call(this)
+  this.bordures = [-6, -6, 6, 6]
   this.svg = function (coeff) {
-
+    function cadran () {
+      let group = '<g>\n'
+      for (let alpha = 0; alpha < 360; alpha += 15) {
+        group += `<line x1="${115 + Math.round(45 * Math.cos(alpha * Math.PI / 180))}" y1="${115 + Math.round(45 * Math.sin(alpha * Math.PI / 180))}" x2="${115 + Math.round(35 * Math.cos(alpha * Math.PI / 180))}" y2="${115 + Math.round(35 * Math.sin(alpha * Math.PI / 180))}" stroke="white" />\n`
+      }
+      return group + '</g>\n'
+    }
+    function sorientera (angle) {
+      return `<g id="sorientera${angle}" style="transform: scale(0.675)">
+<g transform="translate(0 0)">
+<g transform="translate(2 1)">
+<path class="sb3-motion" d="M 0 4
+      A 4 4 0 0 1 4 0
+      H 12 c 2 0 3 1 4 2
+      l 4 4
+      c 1 1 2 2 4 2
+      h 12
+      c 2 0 3 -1 4 -2
+      l 4 -4
+      c 1 -1 2 -2 4 -2
+      L 139 0
+      a 4 4 0 0 1 4 4 L 143 44 a 4 4 0 0 1 -4 4 L 48 48 c -2 0 -3 1 -4 2 l -4 4 c -1 1 -2 2 -4 2 h -12 c -2 0 -3 -1 -4 -2 l -4 -4 c -1 -1 -2 -2 -4 -2 L 4 48 a 4 4 0 0 1 -4 -4 Z"></path>
+      <text class="sb3-label sb3-" x="0" y="13" transform="translate(8 17)">s'orienter</text>
+      <text class="sb3-label sb3-" x="0" y="13" transform="translate(78 17)">à</text>
+      <g transform="translate(95 8)">
+      <rect rx="16" ry="16" x="0" y="0" width="40" height="32" class="sb3-motion sb3-input sb3-input-number"></rect>
+      <text class="sb3-label sb3-literal-number" x="0" y="13" transform="translate(11 9)">${angle}</text>
+      </g>
+      </g>
+      </g>
+      </g>`
+    }
+    const code = `<g class="roseDesVents" id=roseDesVents${this.id} transform="translate(-115 -115) scale(${coeff / 20})">
+<rect x="50" y="50" rx="4" ry="4" width="130" height="130" fill="#4c97ff" stroke="#3373cc"/>
+<circle r="50" cx="115" cy="115" fill="#3373cc" stroke="#3373cc"/>
+${cadran()}
+<clipPath id="monClip">
+    <rect x="115" y="50" width="50" height="65"></rect>
+  </clipPath>
+  <circle r="50" cx="115" cy="115" id="quartDeCercle" fill-opacity="0.3" fill="white" clip-path="url(#monClip)"/>
+  <defs>
+  <g id="direction" x="0" y="0">
+  <circle r="10" cx="0" cy="0" fill="white"/>
+  <path d="M -6 3 h 7 v 3 l 5 -6 l -5 -6 v 3 h -7 v 6 z" fill="#4c97ff" />
+  </g>
+ </defs> 
+ <use href="#direction" x="165" y="115" />
+ <use href="#direction" transform="rotate(-90 115 65)" x="115" y="65" />
+ <use href="#direction" transform="rotate(-180 65 115)" x="65" y="115" />
+ <use href="#direction" transform="rotate(90 115 165)" x="115" y="165" />
+  <g transform="translate(65 0)">${sorientera(0)}</g>
+<g transform="translate(230 65) rotate(90)">${sorientera(90)}</g>
+<g transform="translate(165 230) rotate(180)">${sorientera(180)}</g>
+<g transform="translate(0 165) rotate(-90)">${sorientera(-90)}</g>
+</g>
+`
+    return code
   }
   this.tikz = function () {
     const code = `\\node (centre) {
-    \\begin{tikzpicture}
+    \\begin{tikzpicture}[baseline, scale=0.5]
               \\definecolor{scratchBlue}{RGB}{76, 151, 255}
                \\definecolor{scratchBlue2}{RGB}{51, 115, 204}
                 \\pgfmathsetmacro{\\rayon}{1.5}
@@ -11105,34 +11167,49 @@ export function RoseDesVents () {
                     \\draw[white,thin] ($(O)!0.8!(A)$) -- (A);
       }
                 \\fill[white] (dir90) circle (10pt);
-                \\node[scratchBlue,fill=scratchBlue,single arrow,scale=0.4] at (dir90) {aa};
+                \\node[scratchBlue,fill=scratchBlue,single arrow,scale=0.2] at (dir90) {aa};
+                \\coordinate (N) at (2,\\rayon+2);
+                \\fill[white] (N) circle (10pt);
+                 \\node[scratchBlue,fill=scratchBlue,single arrow,scale=0.2, rotate=90] at (N) {aa};
+                   \\coordinate (S) at (2,2-\\rayon);
+                   \\fill[white] (S) circle (10pt);
+                 \\node[scratchBlue,fill=scratchBlue,single arrow,scale=0.2, rotate=-90] at (S) {aa};
+                   \\coordinate (W) at (2-\\rayon,2);
+                   \\fill[white] (W) circle (10pt);
+                 \\node[scratchBlue,fill=scratchBlue,single arrow,scale=0.2, rotate=180] at (W) {aa};
+                 
             \\end{tikzpicture}
     };
         \\node[above] at (centre.north){
-    \\begin{scratch}
-                \\blockmove{s'orienter à \\ovalnum{$0\\degres$}}
+    \\begin{scratch}[scale=0.5]
+                \\blockmove{s'orienter à \\ovalnum{$0$}}
             \\end{scratch}
       };
         \\node[above,rotate=-90] at (centre.east) {
-      \\begin{scratch}
-                \\blockmove{s'orienter à \\ovalnum{$90\\degres$}}
+      \\begin{scratch}[scale=0.5]
+                \\blockmove{s'orienter à \\ovalnum{$90$}}
             \\end{scratch}
         };
         \\node[above, rotate=180] at (centre.south){
-        \\begin{scratch}
-                \\blockmove{s'orienter à \\ovalnum{$180\\degres$}}
+        \\begin{scratch}[scale=0.5]
+                \\blockmove{s'orienter à \\ovalnum{$180$}}
             \\end{scratch}
           };
         \\node[above,rotate=90] at (centre.west){
-          \\begin{scratch}
-                \\blockmove{s'orienter à \\ovalnum{$-90\\degres$}}
+          \\begin{scratch}[scale=0.5]
+                \\blockmove{s'orienter à \\ovalnum{$-90$}}
             \\end{scratch}
-            };
-    \\end{tikzpicture}`
+            };`
     return code
   }
 }
 
+/**
+ * Crée une instance de RoseDesVents (une boussole Scratch)
+ * Il n'y a pas d'arguments, c'est un objet statique qui a sa méthode svg() et sa méthode tikz()
+ * Il est difficile de modifier la taille de l'objet à cause du texte des blocks
+ * @returns {RoseDesVents}
+ */
 export function roseDesVents () {
   return new RoseDesVents()
 }

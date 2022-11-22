@@ -2,7 +2,7 @@ import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { choice, rienSi1, abs } from '../../../modules/outils.js'
 import {
-  point, cercleCentrePoint, labelPoint, grille, pointSurCercle, segment
+  polygoneAvecNom, point, cercleCentrePoint, grille, pointSurCercle, texteParPosition, segment
 } from '../../../modules/2d.js'
 export const titre = 'Associer un point à un réel sur un cercle trigonométrique '
 export const interactifReady = true
@@ -28,10 +28,11 @@ export default function AngleSurCercleTrigo () {
     let a, k
     const r = 5
     const O = point(0, 0, 'O', 'below left')
-    const I = point(r, 0, 'I', 'right')
-    const J = point(0, r, 'J', 'above')
-    const K = point(-r, 0, 'K', 'left')
-    const L = point(0, -r, 'L', 'below')
+    const o = texteParPosition('O', -0.4, -0.4, 'milieu', 'black', 1)
+    const I = point(r, 0, 'I')
+    const J = point(0, r, 'J')
+    const K = point(-r, 0, 'K')
+    const L = point(0, -r, 'L')
     const I2 = point(-r, 0)
     const J2 = point(0, -r)
     const s1 = segment(I, I2)
@@ -71,13 +72,15 @@ export default function AngleSurCercleTrigo () {
     sF1F2.epaisseur = 1
     sF1F2.pointilles = 5
     const g = grille(-5, -5, 5, 5, 'black', 0.4, 2.5)
+    const nom = polygoneAvecNom(A1, A2, B1, B2, C1, C2, D1, D2, E1, E2, F1, F2, I, J, K, L)[1]
+    const objet = mathalea2d({ xmin: -r - 3, xmax: r + 3, ymin: -r - 1.5, ymax: r + 1, pixelsParCm: 15, scale: 0.45, style: 'margin: auto' }, c, s1, s2, sA1A2, sB1B2, sC1C2, sD1D2, sE1E2, sF1F2, g, nom, o)
     switch (choice([1, 2, 3, 4, 5])) {
       case 1:// les 0
         a = choice(['0', '2\\pi', '4\\pi', '-2\\pi', '-4\\pi', '\\pi', '-\\pi', '3\\pi', '5\\pi'])
         this.question = `Quel est le point-image du réel $${a}$  ?<br> 
 
         `
-        this.question += mathalea2d({ xmin: -r - 3, xmax: r + 3, ymin: -r - 1.5, ymax: r + 1, scale: 0.45 }, c, s1, s2, sA1A2, sB1B2, sC1C2, sD1D2, sE1E2, sF1F2, g, labelPoint(O, I, J, K, L, A1, A2, B1, B2, C1, C2, D1, D2, E1, E2, F1, F2))
+        this.question += `${objet}`
         if (a === '0' || a === '2\\pi' || a === '4\\pi' || a === '-2\\pi' || a === '-4\\pi') {
           if (a === '0') {
             this.correction = 'Le point $I$ est le point-image du réel $0$.'
@@ -102,7 +105,7 @@ export default function AngleSurCercleTrigo () {
 
         `
         }
-        this.question += mathalea2d({ xmin: -r - 3, xmax: r + 3, ymin: -r - 1.5, ymax: r + 1, scale: 0.45 }, c, s1, s2, sA1A2, sB1B2, sC1C2, sD1D2, sE1E2, sF1F2, g, labelPoint(O, I, J, K, L, A1, A2, B1, B2, C1, C2, D1, D2, E1, E2, F1, F2))
+        this.question += `${objet}`
         if (k === 1 || k === 13 || k === -11) {
           if (k === 1) { this.correction = 'Le point $A$ est le point-image du réel $\\dfrac{\\pi}{6}$.' } else { this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{6}=\\dfrac{\\pi}{6}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{6}$ est le point $A$.` }
           this.reponse = 'A'
@@ -132,7 +135,7 @@ export default function AngleSurCercleTrigo () {
 
         `
         }
-        this.question += mathalea2d({ xmin: -r - 3, xmax: r + 3, ymin: -r - 1.5, ymax: r + 1, scale: 0.45 }, c, s1, s2, sA1A2, sB1B2, sC1C2, sD1D2, sE1E2, sF1F2, g, labelPoint(O, I, J, K, L, A1, A2, B1, B2, C1, C2, D1, D2, E1, E2, F1, F2))
+        this.question += `${objet}`
         if (k === 1 || k === 9 || k === -7) {
           if (k === 1) { this.correction = 'Le point $B$ est le point-image du réel $\\dfrac{\\pi}{4}$.' } else { this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{4}=\\dfrac{\\pi}{4}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{4}$ est le point $B$.` }
           this.reponse = 'B'
@@ -162,7 +165,7 @@ export default function AngleSurCercleTrigo () {
 
         `
         }
-        this.question += mathalea2d({ xmin: -r - 3, xmax: r + 3, ymin: -r - 1.5, ymax: r + 1, scale: 0.45 }, c, s1, s2, sA1A2, sB1B2, sC1C2, sD1D2, sE1E2, sF1F2, g, labelPoint(O, I, J, K, L, A1, A2, B1, B2, C1, C2, D1, D2, E1, E2, F1, F2))
+        this.question += `${objet}`
         if (k === 1 || k === 7 || k === -5) {
           if (k === 1) { this.correction = 'Le point $C$ est le point-image du réel $\\dfrac{\\pi}{3}$.' } else { this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{3}=\\dfrac{\\pi}{3}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{3}$ est le point $C$.` }
           this.reponse = 'C'
@@ -192,7 +195,7 @@ export default function AngleSurCercleTrigo () {
 
         `
         }
-        this.question += mathalea2d({ xmin: -r - 3, xmax: r + 3, ymin: -r - 1.5, ymax: r + 1, scale: 0.45 }, c, s1, s2, sA1A2, sB1B2, sC1C2, sD1D2, sE1E2, sF1F2, g, labelPoint(O, I, J, K, L, A1, A2, B1, B2, C1, C2, D1, D2, E1, E2, F1, F2))
+        this.question += `${objet}`
         if (k === 1 || k === 5 || k === -3 || k === -7) {
           if (k === 1) { this.correction = 'Le point $J$ est le point-image du réel $\\dfrac{\\pi}{2}$.' } else { this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{2}=\\dfrac{\\pi}{2}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{2}$ est le point $J$.` }
           this.reponse = 'J'

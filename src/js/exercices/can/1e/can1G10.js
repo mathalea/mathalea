@@ -2,7 +2,7 @@ import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { choice } from '../../../modules/outils.js'
 import {
-  point, cercleCentrePoint, labelPoint, grille, pointSurCercle, segment
+  point, cercleCentrePoint, polygoneAvecNom, grille, pointSurCercle, segment, texteParPosition
 } from '../../../modules/2d.js'
 export const titre = 'Associer une mesure d\'angle à un  point du cercle trigonométrique '
 export const interactifReady = true
@@ -28,6 +28,7 @@ export default function PointSurCercleTrigo () {
     let choix
     const r = 5
     const O = point(0, 0, 'O', 'below left')
+    const o = texteParPosition('O', -0.4, -0.4, 'milieu', 'black', 1)
     const I = point(r, 0, 'I', 'right')
     const J = point(0, r, 'J', 'above')
     const K = point(-r, 0, 'K', 'left')
@@ -71,10 +72,11 @@ export default function PointSurCercleTrigo () {
     sF1F2.epaisseur = 1
     sF1F2.pointilles = 5
     const g = grille(-5, -5, 5, 5, 'black', 0.4, 2.5)
-    const objet = mathalea2d({ xmin: -r - 3, xmax: r + 3, ymin: -r - 1.5, ymax: r + 1, pixelsParCm: 15, scale: 0.45, style: 'margin: auto' }, c, s1, s2, sA1A2, sB1B2, sC1C2, sD1D2, sE1E2, sF1F2, g, labelPoint(O, I, J, K, L, A1, A2, B1, B2, C1, C2, D1, D2, E1, E2, F1, F2))
+    const nom = polygoneAvecNom(A1, A2, B1, B2, C1, C2, D1, D2, E1, E2, F1, F2, I, J, K, L)[1]
+    const objet = mathalea2d({ xmin: -r - 3, xmax: r + 3, ymin: -r - 1.5, ymax: r + 1, pixelsParCm: 15, scale: 0.45, style: 'margin: auto' }, c, s1, s2, sA1A2, sB1B2, sC1C2, sD1D2, sE1E2, sF1F2, g, o, nom)
     switch (choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])) { //, 2, 3, 4, 5
       case 1:// point I
-        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\;\\ 0]$'])
+        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\;\\ 0]'])
         this.question = `Quel réel de $${choix}$  a pour point-image le point $I$ ?<br>
 
         `
@@ -263,7 +265,7 @@ export default function PointSurCercleTrigo () {
         break
 
       case 9:// point K
-        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\;\\ 0]$'])
+        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\;\\ 0]'])
         this.question = `Quel réel de $${choix}$ a pour point-image le point $K$ ?<br>
 
         `

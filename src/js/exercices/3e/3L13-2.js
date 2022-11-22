@@ -31,7 +31,7 @@ export default function EqResolvantesThales () {
     this.nbQuestions = 2
   };
   this.sup = 1
-  this.consigne = 'Résoudre les équations suivantes.'
+  this.consigne = (this.nbQuestions === 1 || context.vue === 'diap') ? 'Résoudre l\'équation suivante.' : 'Résoudre les équations suivantes.'
   this.tailleDiaporama = 3
 
   this.nbCols = 1

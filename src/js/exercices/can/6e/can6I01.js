@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
 import Exercice from '../../Exercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
+import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../../modules/2dGeneralites.js'
 import { context } from '../../../modules/context.js'
 import { randint, choice, texteGras, modalUrl, modalPdf, contraindreValeur, listeQuestionsToContenu, stringNombre } from '../../../modules/outils.js'
-import { scratchblock, point, texteParPositionEchelle, tracePoint } from '../../../modules/2d.js'
+import { scratchblock, point, texteParPositionEchelle, tracePoint, roseDesVents } from '../../../modules/2d.js'
 import { noteLaCouleur, plateau2dNLC } from '../../../modules/noteLaCouleur.js'
 import { allerA, angleScratchTo2d, attendre, baisseCrayon, clone, creerLutin, orienter } from '../../../modules/2dLutin.js'
 import { ajouteChampTexte, setReponse } from '../../../modules/gestionInteractif.js'
@@ -21,7 +21,6 @@ export const interactifReady = true
 export const uuid = '667d1'
 export const ref = 'can6I01'
 export default function CanNoteLaCouleur6 () {
-  'use strict'
   Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 1
@@ -50,6 +49,7 @@ export default function CanNoteLaCouleur6 () {
     ]
     this.sup = contraindreValeur(1, 4, this.sup, 1)
     const echelleDessin = 0.4
+    const rose = roseDesVents()
     this.listeQuestions = []
     this.listeCorrections = []
     let j, test
@@ -176,21 +176,22 @@ export default function CanNoteLaCouleur6 () {
       texte += `Exécuter le programme et trouver la couleur à noter. ${ajouteChampTexte(this, q, 'largeur25 inline')}<br><br>`
       if (context.isHtml) {
         texte += '<table><tr><td>' +
-      scratchblock(pion.codeScratch) +
+      scratchblock(pion.codeScratch) + '</td><td>' + mathalea2d(Object.assign({}, fixeBordures([rose])), rose) +
       '</td><td>' + `${this.sup === 4 || this.sup === 2
         ? 'Correspondance chiffre-couleur : <br>0=Blanc ; 1=Noir ; 2=Rouge ; 3=Bleu ; 4=Orange ; 5=Rose ; 6=Jaune ; 7=Vert ; 8=Gris<br>'
         : ''}` +
       mathalea2d(paramsCorrection, objetsEnonce) +
       '</td></tr></table>'
       } else {
-        texte += `\\begin{minipage}{3.5 cm} \n\t ${scratchblock(pion.codeScratch)} \n \\end{minipage}
-      \\begin{minipage}{4 cm} \n\t ${this.sup === 4 || this.sup === 2
+        texte += `\\begin{minipage}{0.1\\textwidth} ${scratchblock(pion.codeScratch)} \n \\end{minipage}
+        \\begin{minipage}{0.4\\textwidth} \n\t ${mathalea2d(Object.assign({}, fixeBordures([rose]), { scale: 0.5 }), rose)} \n \\end{minipage} \n}
+      \\begin{minipage}{0.3\\textwidth} \n\t ${this.sup === 4 || this.sup === 2
         ? 'Correspondance chiffre-couleur : \\\\\n0=Blanc, 1=Noir, 2=Rouge, 3=Bleu, 4=Orange, 5=Rose, 6=Jaune, 7=Vert, 8=Gris\\\\\n'
         : ''} ${mathalea2d(paramsCorrection, objetsEnonce)} \n\\end{minipage}`
         if (q < this.nbQuestions - 1 && !context.isHtml) {
           texte += '\n\\newpage'
         }
-        this.canEnonce = 'Sur quelle case le lutin s\'arrête pour noter la couleur ?\\\\' + scratchblock(pion.codeScratch)
+        this.canEnonce = 'Sur quelle case le lutin s\'arrête pour noter la couleur ?\\\\' + `\\begin{minipage}{0.1\\textwidth}\n${scratchblock(pion.codeScratch)}\n\\end{minipage}\n\\begin{minipage}{0.3\\textwidth}\n ${mathalea2d(Object.assign({}, fixeBordures([rose]), { scale: 0.5 }), rose)}\\end{minipage}`
         this.canReponseACompleter = `${this.sup === 4 || this.sup === 2
           ? 'Correspondance chiffre-couleur : \\\\\n0=Blanc, 1=Noir, 2=Rouge, 3=Bleu, 4=Orange, 5=Rose, 6=Jaune, 7=Vert, 8=Gris\\\\\n'
           : ''} ${mathalea2d(paramsCorrection, objetsEnonce)}`
@@ -202,8 +203,8 @@ export default function CanNoteLaCouleur6 () {
     <stop offset="0" style="stop-color:#FFFF99"/>
     <stop offset="1" style="stop-color:#FF9400"/>
   </radialGradient> <circle fill="url(#Ball)"  r="12" stroke-width="1"
-   x="${lutin.listeTraces[0][0] * context.pixelsParCm}"
-    y="${-lutin.listeTraces[0][1] * context.pixelsParCm}">\n
+   cx="${lutin.listeTraces[0][0] * context.pixelsParCm}"
+    cy="${-lutin.listeTraces[0][1] * context.pixelsParCm}">\n
     <animateMotion path="M ${lutin.listeTraces[0][0] * context.pixelsParCm} ${-lutin.listeTraces[0][1] * context.pixelsParCm} L`
 
       for (let i = 0; i < lutin.listeTraces.length; i++) {

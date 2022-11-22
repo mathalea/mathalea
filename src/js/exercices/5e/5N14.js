@@ -94,6 +94,15 @@ export default function ExerciceComparerDeuxFractions (max = 11) {
         this.listeCorrections.push(texteCorr)
         i++
       }
+      if (!context.isHtml) {
+        this.canEnonce = 'Compléter avec $>$ ou $<$.<br>'
+        this.correction = this.listeCorrections[0]
+        if (ordreDesFractions === 1) {
+          this.canReponseACompleter = `$${texFractionSigne(a, b)}\\ldots${texFractionSigne(k * a + ecart, k * b)}$`
+        } else {
+          this.canReponseACompleter = `$${texFractionSigne(k * a + ecart, k * b)} \\ldots${texFractionSigne(a, b)}$`
+        }
+      }
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }

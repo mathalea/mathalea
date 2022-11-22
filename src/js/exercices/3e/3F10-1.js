@@ -108,14 +108,14 @@ export default function VocabulaireNotationsFonctions () {
           }
           break
       }
-
+      if (!context.isHtml) enonce += '<br>'
       this.autoCorrection[i] = {
         enonce: enonce,
         options: { ordered: false, vertical: true },
         propositions: []
       }
       for (let k = 0; k < reponses[i].length; k++) {
-        this.autoCorrection[i].propositions.push({ texte: reponses[i][k][0], statut: reponses[i][k][1] })
+        this.autoCorrection[i].propositions.push({ texte: reponses[i][k][0] + (context.isHtml ? '' : '<br>'), statut: reponses[i][k][1] })
       }
       monQcm = propositionsQcm(this, i)
       if (!context.isAmc) {

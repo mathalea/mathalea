@@ -48,7 +48,7 @@ export default function DescriptionSegmentDroiteDemiDroite () {
             break
           case 3:
             trait = demiDroite(B, A)
-            correction = `La demi-droite d'origine $${B.nom}$ passant par $${A.nom}$ notée $[${A.nom}${B.nom})$.`
+            correction = `La demi-droite d'origine $${B.nom}$ passant par $${A.nom}$ notée $[${B.nom}${A.nom})$.`
             break
           case 4:
             trait = segment(A, B)

@@ -31,11 +31,8 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
   this.interactif = false
   this.interactifReady = interactifReady
   this.interactifType = interactifType
-  this.consigne = "Calculer l'aire des 3 figures suivantes."
-  this.spacing = 2
   this.nbCols = 1
   this.nbColsCorr = 1
-  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.nouvelleVersion = function (numeroExercice) {

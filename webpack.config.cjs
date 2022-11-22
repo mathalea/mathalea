@@ -106,8 +106,8 @@ const config = {
   // les js à compiler, cf https://webpack.js.org/configuration/entry-context/#entry
   entry: {
     mathalea: ['./src/js/firstLoaded.js', './src/js/mathalea.js'],
-    mathalea2d: ['./src/js/firstLoaded.js', './src/js/modules/mathalea2d-gui.js'],
-    mathalea2iep: ['./src/js/firstLoaded.js', './src/js/modules/mathalea2iep-gui.js'],
+    mathalea2d: [ './src/js/modules/mathalea2d-gui.js'],
+    mathalea2iep: ['./src/js/modules/mathalea2iep-gui.js'],
     alacarte: ['./src/js/firstLoaded.js', './src/js/alacarte.js'] /* */
   },
   output: {

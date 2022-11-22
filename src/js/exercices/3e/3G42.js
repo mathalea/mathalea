@@ -58,7 +58,7 @@ export default function VolumeBoule () {
     }
     if (compteOccurences(listeTypeDeQuestions, 5)) listeTypeDeQuestions = range1(4)
     listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
-    for (let i = 0, r, d, A, rayon, O, B, OO, o, R, s, c, normal, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, r, d, A, rayon, O, B, OO, o, R, s, c, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
       texteCorr = '' // Idem pour le texte de la correction.
       const choixUnites = choice(unites)
@@ -109,9 +109,8 @@ export default function VolumeBoule () {
           OO = point3d(0, 0, 5)
           o = point3d(0, 0, 2.5)
           R = vecteur3d(O, B)
-          normal = vecteur3d(0, 0, 1)
           s = sphere3d(o, 2.5, 5, 5, 'blue')
-          c = cylindre3d(O, OO, normal, R, R, 'black')
+          c = cylindre3d(O, OO, R, R, 'black')
           reponse = Decimal.acos(-1).mul(2 * rayon ** 3).div(3).toDP(1)
           texteCorr += '<br>' + mathalea2d({ xmin: -5, max: 9, ymin: -1.5, ymax: 6, scale: 0.8 }, ...s.c2d, ...c.c2d) + '<br>'
           texteCorr += 'Méthode : on calcule le volume du cylindre auquel on va retrancher le volume de la boule. <br>'
