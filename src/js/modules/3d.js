@@ -393,39 +393,244 @@ export function sphere3d (centre, rayon, nbParalleles, nbMeridiens, color = 'bla
   return new Sphere3d(centre, rayon, nbParalleles, nbMeridiens, color)
 }
 
-function Sphere3dEE (centre, rayon, nbParalleles, nbMeridiens, color) {
+function Sphere3dEE (centre, rayon, enveloppe = true, nbParalleles = 0, nbMeridiens = 0, color) {
   ObjetMathalea2D.call(this, { })
   this.centre = centre
-  this.rayon = vecteur3d(rayon, 0, 0)
-  this.normal = vecteur3d(0, 0, 1)
-  this.color = color
-  this.nbMeridiens = nbMeridiens
+  this.rayon = rayon
+  this.enveloppe = enveloppe
   this.nbParalleles = nbParalleles
-  this.c2d = []; let c1; let c2; let c3; let c4; let C; let D
-  const prodvec = vecteur3d(math.cross(this.normal.matrice, this.rayon.matrice))
-  const rayon2 = vecteur3d(math.cross(this.rayon.matrice, math.multiply(prodvec.matrice, 1 / math.norm(prodvec.matrice))))
-  const R = rayon
-  const cote1 = 'caché'
-  const cote2 = 'visible'
-  for (let k = 0, rayon3; k < 1; k += 1 / (this.nbParalleles + 1)) {
-    C = point3d(centre.x, centre.y, centre.z + R * Math.sin(k * Math.PI / 2))
-    D = point3d(centre.x, centre.y, centre.z + R * Math.sin(-k * Math.PI / 2))
-    rayon3 = vecteur3d(R * Math.cos(k * Math.PI / 2), 0, 0)
-    c1 = demicercle3d(C, this.normal, rayon3, cote1, this.color, context.anglePerspective)
-    c2 = demicercle3d(C, this.normal, rayon3, cote2, this.color, context.anglePerspective)
-    c3 = demicercle3d(D, this.normal, rayon3, cote1, this.color, context.anglePerspective)
-    c4 = demicercle3d(D, this.normal, rayon3, cote2, this.color, context.anglePerspective)
-    this.c2d.push(c1, c2, c3, c4)
+  this.nbMeridiens = nbMeridiens
+  const poleNord = point3d(0, 0, this.rayon, true, choisitLettresDifferentes(1, 'OQWX' + this.centre.label), 'left')
+  const poleSud = point3d(0, 0, -this.rayon, true, choisitLettresDifferentes(1, 'OQWX' + this.centre.label + poleNord.label), 'left')
+
+  const nbSommets = 36
+  const nbParallelesDeConstruction = 36 // Ce nb de paralleles permet de construire l'enveloppe de la sphère (le "cercle" apparent de la sphère)
+  // const nbParallelesDeConstruction = 4 // Ce nb de paralleles permet de construire l'enveloppe de la sphère (le "cercle" apparent de la sphère)
+  let unDesParalleles
+  let centreParallele
+  let rayonDuParallele
+  let normal
+  const paralleles = {
+    listepts2d: [],
+    ptCachePremier: [],
+    indicePtCachePremier: [],
+    ptCacheDernier: [],
+    indicePtCacheDernier: []
   }
-  for (let k = 0, V; k < 181; k += 90 / this.nbMeridiens) {
-    V = rotationV3d(prodvec, this.normal, context.anglePerspective + k)
-    c1 = demicercle3d(this.centre, V, rayon2, cote2, this.color, 0)
-    c2 = demicercle3d(this.centre, V, rayon2, cote1, this.color, 0)
-    this.c2d.push(c1, c2)
+  const enveloppeSphere1 = []
+  let enveloppeSphere2 = []
+  let premierParallele
+  let indicePremier
+  let indiceDernier
+  this.c2d = []
+
+  /// ////////////////////
+  // Construction de tous les paralleles
+  /// ///////////////////
+
+  // Construction du parallèle le plus proche du pôle nord
+  centreParallele = point3d(this.centre.x, this.centre.y, this.centre.z + this.rayon * Math.sin((nbParallelesDeConstruction - 1) / nbParallelesDeConstruction * Math.PI / 2))
+  rayonDuParallele = vecteur3d(this.rayon * Math.cos((nbParallelesDeConstruction - 1) / nbParallelesDeConstruction * Math.PI / 2), 0, 0)
+  normal = vecteur3d(0, 0, 1)
+  unDesParalleles = cercle3d(centreParallele, normal, rayonDuParallele)
+  paralleles.listepts2d.push(unDesParalleles[1])
+  paralleles.ptCachePremier.push('')
+  paralleles.indicePtCachePremier.push('')
+  paralleles.ptCacheDernier.push('')
+  paralleles.indicePtCacheDernier.push('')
+  // this.c2d.push(unDesParalleles[0])
+
+  // Construction de tous les autres parallèles jusqu'au plus proche du pôle sud
+  for (let k = nbParallelesDeConstruction - 2, p, j = 1; k > -nbParallelesDeConstruction; k -= 1) {
+    centreParallele = point3d(this.centre.x, this.centre.y, this.centre.z + this.rayon * Math.sin(k / nbParallelesDeConstruction * Math.PI / 2))
+    rayonDuParallele = vecteur3d(this.rayon * Math.cos(k / nbParallelesDeConstruction * Math.PI / 2), 0, 0)
+    normal = vecteur3d(0, 0, 1)
+    p = unDesParalleles[2]
+    unDesParalleles = cercle3d(centreParallele, normal, rayonDuParallele)
+    paralleles.listepts2d.push(unDesParalleles[1])
+    for (let ee = 0; ee < paralleles.listepts2d[0].length; ee++) {
+      paralleles.listepts2d[j][ee].visible = !(paralleles.listepts2d[j][ee].c2d.estDansPolygone(polygone(p)))
+    }
+    paralleles.ptCachePremier.push('')
+    paralleles.indicePtCachePremier.push('')
+    paralleles.ptCacheDernier.push('')
+    paralleles.indicePtCacheDernier.push('')
+
+    for (let ee = 0, s, s1, jj, pt; ee < paralleles.listepts2d[0].length; ee++) {
+      s = segment(paralleles.listepts2d[j][ee].c2d, paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].c2d)
+
+      // Recherche du point d'intersection entre le parallèle actuel et le précédent.
+      if ((!paralleles.listepts2d[j][ee].visible) && (paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].visible)) {
+        jj = ee - 3
+        s1 = segment(paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj) % paralleles.listepts2d[0].length].c2d, paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj - 1) % paralleles.listepts2d[0].length].c2d)
+        // Le point d'intersection avec ce segment précis du parallèle actuel est avec l'un des 7 (nombre totalement empirique) segments les plus proches du parallèle précédent.
+        while (!s.estSecant(s1)) {
+          jj++
+          s1 = segment(paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj) % paralleles.listepts2d[0].length].c2d, paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj - 1) % paralleles.listepts2d[0].length].c2d)
+        }
+
+        // s étant secant avec s1, on mène plusieurs actions :
+        pt = pointIntersectionDD(droite(paralleles.listepts2d[j][ee].c2d, paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].c2d), droite(paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj) % paralleles.listepts2d[0].length].c2d, paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj - 1) % paralleles.listepts2d[0].length].c2d))
+        // 1) Tout d'abord, ce point d'intersection est donc la frontière entre le visible et le caché et on l'enregistre comme élément de l'enveloppe de la sphère
+        enveloppeSphere1.push(pt)
+        //  2) Ensuite, si unDesParalleles'est le tout premier point d'intersection trouvé, on enregistre quel est le premier parallèle et quel est son indice
+        // Ces informmations serviront pour le tracé de l'enveloppe près du pôle Nord.
+        if (premierParallele === j || premierParallele === 0) {
+          premierParallele = j
+          indicePremier = jj % paralleles.listepts2d[0].length
+        }
+        // 3) On note ce point pour le futur tracé du parallèle, si besoin
+        paralleles.ptCachePremier[j] = pt
+        paralleles.indicePtCachePremier[j] = ee
+      } else if ((paralleles.listepts2d[j][ee].visible) && (!paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].visible)) {
+        // Si le point précédent était l'entrée dans la partie cachée, alors celui-ci sera celui de l'entrée dans la partie visible (ou inversement)
+        // car pour chaque parallèle intersecté avec le précédent, il y a "forcément" deux points sauf tangence mais ce n'est pas un pb.
+        jj = ee - 3
+        s1 = segment(paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj) % paralleles.listepts2d[0].length].c2d, paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj - 1) % paralleles.listepts2d[0].length].c2d)
+        // On recherche le point d'intersection
+        while (!s.estSecant(s1)) {
+          jj++
+          s1 = segment(paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj) % paralleles.listepts2d[0].length].c2d, paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj - 1) % paralleles.listepts2d[0].length].c2d)
+        }
+        // s étant secant avec s1, on mène plusieurs actions :
+        pt = pointIntersectionDD(droite(paralleles.listepts2d[j][ee].c2d, paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].c2d), droite(paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj) % paralleles.listepts2d[0].length].c2d, paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj - 1) % paralleles.listepts2d[0].length].c2d))
+        // 1) Tout d'abord, ce point d'intersection est donc la frontière entre le visible et le caché et on l'enregistre comme élément de l'enveloppe de la sphère
+        enveloppeSphere2.push(pt)
+        // 2) Ensuite, si unDesParalleles'est le tout premier point d'intersection trouvé, on enregistre quel est le premier parallèle et quel est son indice
+        // Ces informmations serviront pour le tracé de l'enveloppe près du pôle Sud.
+        if (premierParallele === j || premierParallele === 0) {
+          premierParallele = j
+          indiceDernier = jj
+        }
+        // 3) On note ce point pour le futur tracé du parallèle, si besoin
+        paralleles.ptCacheDernier[j] = pt
+        paralleles.indicePtCacheDernier[j] = ee
+      }
+    }
+    j++
   }
+
+  const divisionParalleles = this.nbParalleles !== 0 ? Math.round(nbParallelesDeConstruction / this.nbParalleles) : 1
+  // Construction des parallèles demandés
+  for (let k = nbParallelesDeConstruction, j = -1; k > -nbParallelesDeConstruction; k -= 1) {
+    if ((this.nbParalleles !== 0 || k === 0) && (k !== nbParallelesDeConstruction) && (k % divisionParalleles === 0)) { // k=0 : C'est l'équateur
+      for (let ee = 0, s; ee < paralleles.listepts2d[0].length; ee++) {
+      //  for (let ee = 0, s; ee < 12; ee++) {
+        if (paralleles.indicePtCachePremier[j] === ee) {
+          s = segment(paralleles.listepts2d[j][ee].c2d, paralleles.ptCachePremier[j])
+          s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient pas dans les petits cercles
+          s.opacite = 0.5
+          s.color = colorToLatexOrHTML('blue')
+          this.c2d.push(s)
+          s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient pas dans les petits cercles
+          s.opacite = 0.5
+          s.color = colorToLatexOrHTML('blue')
+          s = segment(paralleles.ptCachePremier[j], paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].c2d)
+        } else if (paralleles.indicePtCacheDernier[j] === ee) {
+          s = segment(paralleles.listepts2d[j][ee].c2d, paralleles.ptCacheDernier[j])
+          this.c2d.push(s)
+          s = segment(paralleles.ptCacheDernier[j], paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].c2d)
+          s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient pas dans les petits cercles
+          s.opacite = 0.5
+          s.color = colorToLatexOrHTML('green')
+        } else {
+        // Tracé des pointilles ou pas des parallèles
+          s = segment(paralleles.listepts2d[j][ee].c2d, paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].c2d)
+          if ((!paralleles.listepts2d[j][ee].visible) && (!paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].visible)) {
+            s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient pas dans les petits cercles
+            s.opacite = 0.5
+            s.color = colorToLatexOrHTML('red')
+          }
+        }
+        this.c2d.push(s)
+      }
+    }
+    j++
+  }
+
+  // if (this.enveloppe) {
+  // L'enveloppe finale contiendra les points de l'enveloppe 1 + les points de l'enveloppe 2 inversée (sinon le polygone serait croisé)
+  // this.centre cela, il faut ajouter les points autour des pôles car les premiers parallèles ne s'intersectent pas forcément.
+  enveloppeSphere2 = enveloppeSphere2.reverse()
+  const enveloppeSphere = [...enveloppeSphere1]
+
+  // Pour trouver les points du cercle apparent près du pôle sud
+  // On va prendre les points du premier parallèle intersecté entre l'indice du premier point d'intersection et l'indice du dernier point d'intersection.
+  let ii = 1
+  while ((indiceDernier + paralleles.listepts2d[0].length / 2 + ii) % paralleles.listepts2d[0].length < (indicePremier + paralleles.listepts2d[0].length / 2) % paralleles.listepts2d[0].length) {
+    enveloppeSphere.push(paralleles.listepts2d[2 * nbParallelesDeConstruction - 1 - premierParallele][(indiceDernier + paralleles.listepts2d[0].length / 2 + ii) % paralleles.listepts2d[0].length].c2d)
+    ii++
+  }
+  enveloppeSphere.push(...enveloppeSphere2)
+  // Pour trouver les points du cercle apparent près du pôle nord
+  // On va prendre les points du premier parallèle intersecté entre l'indice du premier point d'intersection et l'indice du dernier point d'intersection.
+  // La gestion des indices est plus compliquée car il arrive de repasser de 35 à 0 (36 modulo 36) d'où cette double gestion.
+  if (indiceDernier > indicePremier) {
+    ii = 1
+    while (indiceDernier + ii < indicePremier + paralleles.listepts2d[0].length) {
+      enveloppeSphere.push(paralleles.listepts2d[premierParallele][(indiceDernier + ii) % paralleles.listepts2d[0].length].c2d)
+      ii++
+    }
+  } else {
+    ii = 1
+    while (indiceDernier + ii < indicePremier) {
+      enveloppeSphere.push(paralleles.listepts2d[premierParallele][indiceDernier + ii].c2d)
+      ii++
+    }
+  }
+  this.c2d.push(polygone(enveloppeSphere, 'red'))
+  // }
+
+  // Meridiens OK
+  // Construction des méridiens demandés
+/*
+  for (let k = 0; k < nbSommets / 2; k++) {
+  // for (let k = 1; k < 5; k++) {
+    for (let ee = 1, s; ee < paralleles.listepts2d.length - 1; ee++) {
+    // for (let ee = 1, s; ee < paralleles.listepts2d.length - 5; ee++) {
+
+      // Affichage des méridiens sans le dernier segment relié aux pôles
+      s = segment(paralleles.listepts2d[ee][k].c2d, paralleles.listepts2d[(ee + 1) % paralleles.listepts2d.length][k].c2d)
+      if ((!paralleles.listepts2d[ee][k].visible) && (!paralleles.listepts2d[(ee + 1) % paralleles.listepts2d.length][k].visible)) {
+        s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient dans les petits cercles
+        s.opacite = 0.5
+        s.color = colorToLatexOrHTML('red')
+      }
+      this.c2d.push(s)
+      s = segment(paralleles.listepts2d[ee][k + 18].c2d, paralleles.listepts2d[(ee + 1) % paralleles.listepts2d.length][k + 18].c2d)
+      if ((!paralleles.listepts2d[ee][k + 18].visible) && (!paralleles.listepts2d[(ee + 1) % paralleles.listepts2d.length][k + 18].visible)) {
+        s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient dans les petits cercles
+        s.opacite = 0.5
+        s.color = colorToLatexOrHTML('red')
+      }
+      this.c2d.push(s)
+
+      // Affichage de la partie reliée au pôle Nord
+      s = segment(poleNord.c2d, paralleles.listepts2d[1][k].c2d)
+      this.c2d.push(s)
+      s = segment(paralleles.listepts2d[1][k + 18].c2d, poleNord.c2d)
+      this.c2d.push(s)
+
+      // Affichage de la partie reliée au pôle Sud
+      s = segment(poleSud.c2d, paralleles.listepts2d[paralleles.listepts2d.length - 1][k].c2d)
+      if (!paralleles.listepts2d[paralleles.listepts2d.length - 1][0].visible) {
+        s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient dans les petits cercles
+        s.opacite = 0.5
+        s.color = colorToLatexOrHTML('red')
+      }
+      this.c2d.push(s)
+      s = segment(paralleles.listepts2d[paralleles.listepts2d.length - 1][k + 18].c2d, poleSud.c2d)
+      if (!paralleles.listepts2d[paralleles.listepts2d.length - 1][k].visible) {
+        s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient dans les petits cercles
+        s.opacite = 0.5
+        s.color = colorToLatexOrHTML('red')
+      }
+      this.c2d.push(s)
+    }
+  } */
 }
-export function sphere3dEE (centre, rayon, nbParalleles, nbMeridiens, color = 'black') {
-  return new Sphere3dEE(centre, rayon, nbParalleles, nbMeridiens, color)
+export function sphere3dEE (centre, rayon, enveloppe = true, nbParalleles = 0, nbMeridiens, color = 'black') {
+  return new Sphere3dEE(centre, rayon, enveloppe, nbParalleles, nbMeridiens, color)
 }
 
 /**
