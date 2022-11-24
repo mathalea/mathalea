@@ -103,7 +103,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
               '10'
             )}+${texFraction(c, '100')}=${ecritureDecimale}$`
             this.autoCorrection[i] = {
-              enonce: texte,
+              enonceAvant: false,
               options: { multicols: true },
               propositions: [
                 {
@@ -112,7 +112,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
                     {
                       texte: texteCorr,
                       reponse: {
-                        texte: 'a',
+                        texte: texte + '<br>a',
                         valeur: u,
                         param: {
                           signe: false,
@@ -205,7 +205,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
             )}+${texFraction(a ? 'c' : '\\ldots\\ldots', 10)}=${a ? 'd' : '\\ldots\\ldots'}$`
             this.autoCorrection[i] = {
               options: { multicols: true },
-              enonce: texte,
+              enonceAvant: false,
               propositions: [
                 {
                   type: 'AMCNum',
@@ -213,7 +213,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
                     {
                       texte: texteCorr,
                       reponse: {
-                        texte: 'a',
+                        texte: texte + '<br>a',
                         valeur: u,
                         param: {
                           signe: false,
@@ -302,7 +302,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
           )}+${texFraction(c, '100')}=${a ? 'b' : '\\ldots\\ldots'}$`
             this.autoCorrection[i] = {
               options: { multicols: true },
-              enonce: texte,
+              enonceAvant: false,
               propositions: [
                 {
                   type: 'AMCNum',
@@ -310,7 +310,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
                     {
                       texte: texteCorr,
                       reponse: {
-                        texte: 'a',
+                        texte: texte + '<br>a',
                         valeur: n,
                         param: {
                           signe: false,
@@ -352,7 +352,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
           } else {
             texte = `$${u}=${texFraction(a ? 'a' : '\\ldots\\ldots', '10')}$`
             this.autoCorrection[i] = {
-              enonce: texte,
+              enonceAvant: false,
               propositions: [
                 {
                   type: 'AMCNum',
@@ -360,7 +360,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
                     {
                       texte: texteCorr,
                       reponse: {
-                        texte: 'a',
+                        texte: texte + '<br>a',
                         valeur: calcul(10 * u),
                         param: {
                           signe: false,
@@ -386,7 +386,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
           } else {
             texte = `$${u}=${texFraction(a ? 'a' : '\\ldots\\ldots', '100')}$`
             this.autoCorrection[i] = {
-              enonce: texte,
+              enonceAvant: false,
               propositions: [
                 {
                   type: 'AMCNum',
@@ -394,7 +394,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
                     {
                       texte: texteCorr,
                       reponse: {
-                        texte: 'a',
+                        texte: texte + '<br>a',
                         valeur: calcul(100 * u),
                         param: {
                           signe: false,
@@ -430,7 +430,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
             texte = `$${texFraction(n, 10)}=${a ? 'a' : '\\ldots\\ldots'}+${texFraction(a ? 'b' : '\\ldots\\ldots', 10)}+${texFraction(a ? 'c' : '\\ldots\\ldots', 100)}=${a ? 'd' : '\\ldots\\ldots'}$`
             this.autoCorrection[i] = {
               options: { multicols: true },
-              enonce: texte,
+              enonceAvant: false,
               propositions: [
                 {
                   type: 'AMCNum',
@@ -438,7 +438,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
                     {
                       texte: texteCorr,
                       reponse: {
-                        texte: 'a',
+                        texte: texte + '<br>a',
                         valeur: calcul(u * 10 + d),
                         param: {
                           signe: false,
@@ -520,7 +520,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
             texte = `$${texFraction(a ? 'a' : '\\ldots\\ldots', '100')}=${u}+${texFraction(d, '10')}=${a ? 'b' : '\\ldots\\ldots'}$`
             this.autoCorrection[i] = {
               options: { multicols: true },
-              enonce: texte,
+              enonceAvant: false,
               propositions: [
                 {
                   type: 'AMCNum',
@@ -528,7 +528,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
                     {
                       texte: texteCorr,
                       reponse: {
-                        texte: 'a',
+                        texte: texte + '<br>a',
                         valeur: n,
                         param: {
                           signe: false,
