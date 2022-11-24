@@ -91,7 +91,7 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
           if (this.interactif) {
             texte = `$${texNombre(n, precision, true)} =$` + ajouteChampFractionMathLive(this, i, false, b, 'min-width:100px')
           } else {
-            texte = `$${texNombre(n, precision, true)} =$` + `$${texFraction('\\ldots\\ldots\\ldots\\ldots', texNombre(b))} $`
+            texte = `$${texNombre(n, precision, true)} = ${texFraction('\\ldots\\ldots\\ldots\\ldots', texNombre(b))} $`
           }
           texteCorr = '$ ' + texNombre(n) + ' = ' + texFraction(texNombre(a), texNombre(b)) + ' $'
           this.autoCorrection[i].reponse.param.digits = 6
