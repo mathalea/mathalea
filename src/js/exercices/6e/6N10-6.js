@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, range1, texNombrec, texFraction, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, calcul, contraindreValeur, compteOccurences, sp, combinaisonListes2 } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, range1, texNombrec, texFraction, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, calcul, contraindreValeur, compteOccurences, sp, combinaisonListes2, choice } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import FractionX from '../../modules/FractionEtendue.js'
@@ -198,8 +198,13 @@ export default function SommeFractionsDecimales () {
         case 2 : setReponse(this, i, new FractionX(numAMC, denAMC), { digitsNum: nombreDeChiffresDe(numAMC), digitsDen: nombreDeChiffresDe(denAMC) + 1, signe: false, formatInteractif: 'fraction' })
           break
         case 3 :
-          setReponse(this, 2 * i, new FractionX(numAMC, denAMC), { digitsNum: nombreDeChiffresDe(numAMC), digitsDen: nombreDeChiffresDe(denAMC) + 1, signe: false, formatInteractif: 'fraction' })
-          setReponse(this, 2 * i + 1, reponseAMC, { digits: nombreDeChiffresDe(reponseAMC) + randint(choixDigit, choixDigit + 1), decimals: nombreDeChiffresDansLaPartieDecimale(reponseAMC) + choixDigit, signe: false })
+          if (context.isAmc) {
+            if (choice([0, 1]) === 0) setReponse(this, i, new FractionX(numAMC, denAMC), { digitsNum: nombreDeChiffresDe(numAMC), digitsDen: nombreDeChiffresDe(denAMC) + 1, signe: false, formatInteractif: 'fraction' })
+            else setReponse(this, i, reponseAMC, { digits: nombreDeChiffresDe(reponseAMC) + randint(choixDigit, choixDigit + 1), decimals: nombreDeChiffresDansLaPartieDecimale(reponseAMC) + choixDigit, signe: false })
+          } else {
+            setReponse(this, 2 * i, new FractionX(numAMC, denAMC), { digitsNum: nombreDeChiffresDe(numAMC), digitsDen: nombreDeChiffresDe(denAMC) + 1, signe: false, formatInteractif: 'fraction' })
+            setReponse(this, 2 * i + 1, reponseAMC, { digits: nombreDeChiffresDe(reponseAMC) + randint(choixDigit, choixDigit + 1), decimals: nombreDeChiffresDansLaPartieDecimale(reponseAMC) + choixDigit, signe: false })
+          }
           break
       }
 
