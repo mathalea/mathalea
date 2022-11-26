@@ -38,7 +38,7 @@ export default class DistributiviteNumerique extends Exercice {
 
     // Quelques fonctions pour factoriser le code
     function avecLesPriorites (i, k, b, c, formeInitiale) {
-      let sortie = "bug"
+      let sortie = 'bug'
       if (formeInitiale === 'factorisee') {
         sortie = `
         $\\textbf{Avec les priorités :}$<br>
@@ -53,9 +53,21 @@ export default class DistributiviteNumerique extends Exercice {
         $${lettreDepuisChiffre(i + 1)}=${k * b} + ${k * c}$<br>
         $${lettreDepuisChiffre(i + 1)}=${k * b + k * c}$<br>
         `
-
       }
       if (formeInitiale === 'developpee') {
+        sortie += `
+        $\\textbf{Avec les priorités :}$<br>          
+        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} + ${k}\\times ${c}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${k * b} + ${k * c}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${k * b + k * c}$<br>
+        `
+        sortie += `
+        $\\textbf{En factorisant d'abord :}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} + ${k}\\times ${c}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} + ${c})$<br>
+        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b + c}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${k * (b + c)}$<br>
+        `
       }
 
       return sortie
@@ -88,51 +100,15 @@ export default class DistributiviteNumerique extends Exercice {
           break
         case 2: // ka+kb
           texte += `Calculer $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} + ${k}\\times ${c}$ de deux manières différentes.`
-          texteCorr += `
-          $\\textbf{Avec les priorités :}$<br>          
-          $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} + ${k}\\times ${c}$<br>
-          $${lettreDepuisChiffre(i + 1)}=${k * b} + ${k * c}$<br>
-          $${lettreDepuisChiffre(i + 1)}=${k * b + k * c}$<br>
-          `
-          texteCorr += `
-          $\\textbf{En factorisant d'abord :}$<br>
-          $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} + ${k}\\times ${c}$<br>
-          $${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} + ${c})$<br>
-          $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b + c}$<br>
-          $${lettreDepuisChiffre(i + 1)}=${k * (b + c)}$<br>
-          `
+          texteCorr += avecLesPriorites(i, k, b, c, 'developpee')
           break
         case 3: // k(a-b)
           texte += `Calculer $${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} - ${c})$ de deux manières différentes.`
-          texteCorr += `
-            $\\textbf{Avec les priorités :}$<br>
-            $${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} - ${c})$<br>
-            $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b - c}$<br>
-            $${lettreDepuisChiffre(i + 1)}=${k * (b - c)}$<br>
-            `
-          texteCorr += `
-            $\\textbf{En distribuant d'abord :}$<br>
-            $${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} - ${c})$<br>
-            $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} - ${k}\\times ${c}$<br>          
-            $${lettreDepuisChiffre(i + 1)}=${k * b}-${k * c}$<br>
-            $${lettreDepuisChiffre(i + 1)}=${k * b - k * c}$<br>
-            `
+          texteCorr += avecLesPriorites(i, k, b, c, 'factorisee')
           break
         case 4: // ka-kb
           texte += `Calculer $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} - ${k}\\times ${c}$ de deux manières différentes.`
-          texteCorr += `
-            $\\textbf{Avec les priorités :}$<br>          
-            $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} - ${k}\\times ${c}$<br>
-            $${lettreDepuisChiffre(i + 1)}=${k * b} - ${k * c}$<br>
-            $${lettreDepuisChiffre(i + 1)}=${k * b - k * c}$<br>
-            `
-          texteCorr += `
-            $\\textbf{En factorisant d'abord :}$<br>
-            $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} - ${k}\\times ${c}$<br>
-            $${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} - ${c})$<br>
-            $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b - c}$<br>
-            $${lettreDepuisChiffre(i + 1)}=${k * (b - c)}$<br>
-            `
+          texteCorr += avecLesPriorites(i, k, b, c, 'developpee')
           break
         case 5: { // Calcul mental addition
           k = randint(47, 83)
