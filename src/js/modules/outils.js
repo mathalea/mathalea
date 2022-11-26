@@ -3061,12 +3061,12 @@ ${texte}
 */
 export function miseEnEvidence (texte, couleur = '#f15929') {
   if (context.isHtml) {
-    return `\\mathbf{{\\color{${couleur}}{${texte}}}}`
+    return `{\\color{${couleur}}\\boldsymbol{${texte}}}`
   } else {
     if (couleur[0] === '#') {
-      return `\\mathbf{{\\color[HTML]{${couleur.replace('#', '')}}${texte}}}`
-    } else {
-      return `\\mathbf{{\\color{${couleur.replace('#', '')}}${texte}}}`
+      return `{\\color[HTML]{${couleur.replace('#', '')}}\\boldsymbol{${texte}}}`
+    } else {      
+      return `{\\color{${couleur.replace('#', '')}}\\boldsymbol{${texte}}}`
     }
   }
 }
