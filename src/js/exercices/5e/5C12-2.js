@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, lettreDepuisChiffre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, lettreDepuisChiffre, texNombre3 } from '../../modules/outils.js'
 
 export const titre = 'Distributivité numérique'
 
@@ -43,31 +43,31 @@ export default class DistributiviteNumerique extends Exercice {
       if (formeInitiale === 'factorisee') {
         sortie = `
         $\\textbf{Avec les priorités :}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} ${operation === 1 ? `+ ${c}` : `- ${c}`})$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${operation === 1 ? b + c : b - c}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? k * (b + c) : k * (b - c)}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${k}\\times (${texNombre3(b)} ${operation === 1 ? `+ ${texNombre3(c)}` : `- ${texNombre3(c)}`})$<br>
+        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${operation === 1 ? texNombre3(b + c) : texNombre3(b - c)}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? texNombre3(k * (b + c)) : texNombre3(k * (b - c))}$<br>
         `
         sortie += `
         $\\textbf{En distribuant d'abord :}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} ${operation === 1 ? `+ ${c}` : `- ${c}`})$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} ${operation === 1 ? '+' : '-'} ${k}\\times ${c}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k * b} ${operation === 1 ? '+' : '-'} ${k * c}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? k * b + k * c : k * b - k * c}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${k}\\times (${texNombre3(b)} ${operation === 1 ? `+ ${texNombre3(c)}` : `- ${texNombre3(c)}`})$<br>
+        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre3(b)} ${operation === 1 ? '+' : '-'} ${k}\\times ${c}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${texNombre3(k * b)} ${operation === 1 ? '+' : '-'} ${texNombre3(k * c)}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? texNombre3(k * b + k * c) : texNombre3(k * b - k * c)}$<br>
         `
       }
       if (formeInitiale === 'developpee') {
         sortie = `
         $\\textbf{Avec les priorités :}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} ${operation === 1 ? '+' : '-'} ${k}\\times ${c}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k * b} ${operation === 1 ? '+' : '-'} ${k * c}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? k * b + k * c : k * b - k * c}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre3(b)} ${operation === 1 ? '+' : '-'} ${k}\\times ${texNombre3(c)}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${texNombre3(k * b)} ${operation === 1 ? '+' : '-'} ${texNombre3(k * c)}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? texNombre3(k * b + k * c) : texNombre3(k * b - k * c)}$<br>
         `
         sortie += `
         $\\textbf{En factorisant d'abord :}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} ${operation === 1 ? '+' : '-'} ${k}\\times ${c}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} ${operation === 1 ? `+ ${c}` : `- ${c}`})$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${operation === 1 ? b + c : b - c}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? k * (b + c) : k * (b - c)}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre3(b)} ${operation === 1 ? '+' : '-'} ${k}\\times ${texNombre3(c)}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${k}\\times (${texNombre3(b)} ${operation === 1 ? `+ ${texNombre3(c)}` : `- ${texNombre3(c)}`})$<br>
+        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${operation === 1 ? texNombre3(b + c) : texNombre3(b - c)}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? texNombre3(k * (b + c)) : texNombre3(k * (b - c))}$<br>
         `
       }
       return sortie
@@ -95,19 +95,19 @@ export default class DistributiviteNumerique extends Exercice {
       texteCorr = ''
       switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 6 cas sont prévus...
         case 1: // k(a+b)
-          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} + ${c})$`
+          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times (${texNombre3(b)} + ${texNombre3(c)})$`
           texteCorr += avecLesPriorites(i, k, b, c, 'factorisee', 1)
           break
         case 2: // ka+kb
-          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} + ${k}\\times ${c}$`
+          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre3(b)} + ${k}\\times ${texNombre3(c)}$`
           texteCorr += avecLesPriorites(i, k, b, c, 'developpee', 1)
           break
         case 3: // k(a-b)
-          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} - ${c})$`
+          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times (${texNombre3(b)} - ${texNombre3(c)})$`
           texteCorr += avecLesPriorites(i, k, b, c, 'factorisee', -1)
           break
         case 4: // ka-kb
-          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} - ${k}\\times ${c}$`
+          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre3(b)} - ${k}\\times ${texNombre3(c)}$`
           texteCorr += avecLesPriorites(i, k, b, c, 'developpee', -1)
           break
         case 5: { // Calcul mental addition
@@ -115,7 +115,7 @@ export default class DistributiviteNumerique extends Exercice {
           const choixIndicePuissance = randint(0, 1)
           c = ajoutRetrait
           b = puissance[choixIndicePuissance] - c
-          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} + ${k}\\times ${c}$`
+          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre3(b)} + ${k}\\times ${c}$`
           texteCorr += avecLesPriorites(i, k, b, c, 'developpee', 1)
           break
         }
@@ -124,7 +124,7 @@ export default class DistributiviteNumerique extends Exercice {
           const choixIndicePuissance = randint(0, 1)
           c = ajoutRetrait
           b = puissance[choixIndicePuissance] + c
-          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} - ${k}\\times ${c}$`
+          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre3(b)} - ${k}\\times ${c}$`
           texteCorr += avecLesPriorites(i, k, b, c, 'developpee', -1)
           break
         }
