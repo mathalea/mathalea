@@ -13,7 +13,7 @@ export const dateDePublication = '26/11/2022'
 export default class DistributiviteNumerique extends Exercice {
   constructor () {
     super()
-    this.nbQuestions = 5 // Ici le nombre de questions
+    this.nbQuestions = 6 // Ici le nombre de questions
     this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
     this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
     this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
@@ -34,40 +34,40 @@ export default class DistributiviteNumerique extends Exercice {
 
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
-    const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5] // tableau à compléter par valeurs possibles des types de questions
+    const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6] // tableau à compléter par valeurs possibles des types de questions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 
     // Quelques fonctions pour factoriser le code
-    function avecLesPriorites (i, k, b, c, formeInitiale) {
+    function avecLesPriorites (i, k, b, c, formeInitiale, operation) {
       let sortie = 'bug'
       if (formeInitiale === 'factorisee') {
         sortie = `
         $\\textbf{Avec les priorités :}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} + ${c})$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b + c}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k * (b + c)}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} ${operation === 1 ? `+ ${c}` : `- ${c}`})$<br>
+        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${operation === 1 ? b + c : b - c}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? k * (b + c) : k * (b - c)}$<br>
         `
         sortie += `
         $\\textbf{En distribuant d'abord :}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} + ${c})$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} + ${k}\\times ${c}$<br>          
-        $${lettreDepuisChiffre(i + 1)}=${k * b} + ${k * c}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k * b + k * c}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} ${operation === 1 ? `+ ${c}` : `- ${c}`})$<br>
+        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} ${operation === 1 ? '+' : '-'} ${k}\\times ${c}$<br>          
+        $${lettreDepuisChiffre(i + 1)}=${k * b} ${operation === 1 ? '+' : '-'} ${k * c}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? k * b + k * c : k * b - k * c}$<br>
         `
       }
       if (formeInitiale === 'developpee') {
         sortie = `
         $\\textbf{Avec les priorités :}$<br>          
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} + ${k}\\times ${c}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k * b} + ${k * c}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k * b + k * c}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} ${operation === 1 ? '+' : '-'} ${k}\\times ${c}$<br>          
+        $${lettreDepuisChiffre(i + 1)}=${k * b} ${operation === 1 ? '+' : '-'} ${k * c}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? k * b + k * c : k * b - k * c}$<br>        
         `
         sortie += `
         $\\textbf{En factorisant d'abord :}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} + ${k}\\times ${c}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} + ${c})$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b + c}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k * (b + c)}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} ${operation === 1 ? '+' : '-'} ${k}\\times ${c}$<br>          
+        $${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} ${operation === 1 ? `+ ${c}` : `- ${c}`})$<br>
+        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${operation === 1 ? b + c : b - c}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? k * (b + c) : k * (b - c)}$<br>
         `
       }
       return sortie
@@ -96,19 +96,19 @@ export default class DistributiviteNumerique extends Exercice {
       switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
         case 1: // k(a+b)
           texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} + ${c})$`
-          texteCorr += avecLesPriorites(i, k, b, c, 'factorisee')
+          texteCorr += avecLesPriorites(i, k, b, c, 'factorisee', 1)
           break
         case 2: // ka+kb
           texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} + ${k}\\times ${c}$`
-          texteCorr += avecLesPriorites(i, k, b, c, 'developpee')
+          texteCorr += avecLesPriorites(i, k, b, c, 'developpee', 1)
           break
         case 3: // k(a-b)
           texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} - ${c})$`
-          texteCorr += avecLesPriorites(i, k, b, c, 'factorisee')
+          texteCorr += avecLesPriorites(i, k, b, c, 'factorisee', -1)
           break
         case 4: // ka-kb
           texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} - ${k}\\times ${c}$`
-          texteCorr += avecLesPriorites(i, k, b, c, 'developpee')
+          texteCorr += avecLesPriorites(i, k, b, c, 'developpee', -1)
           break
         case 5: { // Calcul mental addition
           k = randint(47, 83)
@@ -116,7 +116,16 @@ export default class DistributiviteNumerique extends Exercice {
           c = ajoutRetrait
           b = puissance[choixIndicePuissance] - c
           texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} + ${k}\\times ${c}$`
-          texteCorr += avecLesPriorites(i, k, b, c, 'developpee')
+          texteCorr += avecLesPriorites(i, k, b, c, 'developpee', 1)
+          break
+        }
+        case 6: { // Calcul mental soustraction
+          k = randint(47, 83)
+          const choixIndicePuissance = randint(0, 1)
+          c = ajoutRetrait
+          b = puissance[choixIndicePuissance] + c
+          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} - ${k}\\times ${c}$`
+          texteCorr += avecLesPriorites(i, k, b, c, 'developpee', -1)
           break
         }
       }
