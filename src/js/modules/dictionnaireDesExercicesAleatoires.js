@@ -6116,7 +6116,22 @@ export default {
     "interactifReady": false,
     "name": "5C12-2",
     "newEx": {
-      "isNew": false,
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "5C12-3": {
+    "titre": "Distributivité et calcul mental",
+    "url": "/exercices/5e/5C12-3.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "5C12-3",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

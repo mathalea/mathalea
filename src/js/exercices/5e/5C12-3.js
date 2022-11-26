@@ -13,7 +13,7 @@ export const dateDePublication = '26/11/2022'
 export default class DistributiviteNumerique extends Exercice {
   constructor () {
     super()
-    this.nbQuestions = 6 // Ici le nombre de questions
+    this.nbQuestions = 4 // Ici le nombre de questions
     this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
     this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
     this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
@@ -34,7 +34,7 @@ export default class DistributiviteNumerique extends Exercice {
 
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
-    const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6] // tableau à compléter par valeurs possibles des types de questions
+    const typesDeQuestionsDisponibles = [1, 2, 3, 4] // tableau à compléter par valeurs possibles des types de questions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 
     // Quelques fonctions pour factoriser le code
@@ -42,13 +42,8 @@ export default class DistributiviteNumerique extends Exercice {
       let sortie = 'bug'
       if (formeInitiale === 'factorisee') {
         sortie = `
-        $\\textbf{Avec les priorités :}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} ${operation === 1 ? `+ ${c}` : `- ${c}`})$<br>
+        $\\textbf{Ici, il est plus judicieux de distribuer d'abord :}$<br>
         $${lettreDepuisChiffre(i + 1)}=${k}\\times ${operation === 1 ? b + c : b - c}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? k * (b + c) : k * (b - c)}$<br>
-        `
-        sortie += `
-        $\\textbf{En distribuant d'abord :}$<br>
         $${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} ${operation === 1 ? `+ ${c}` : `- ${c}`})$<br>
         $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} ${operation === 1 ? '+' : '-'} ${k}\\times ${c}$<br>          
         $${lettreDepuisChiffre(i + 1)}=${k * b} ${operation === 1 ? '+' : '-'} ${k * c}$<br>
@@ -57,13 +52,7 @@ export default class DistributiviteNumerique extends Exercice {
       }
       if (formeInitiale === 'developpee') {
         sortie = `
-        $\\textbf{Avec les priorités :}$<br>          
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} ${operation === 1 ? '+' : '-'} ${k}\\times ${c}$<br>          
-        $${lettreDepuisChiffre(i + 1)}=${k * b} ${operation === 1 ? '+' : '-'} ${k * c}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? k * b + k * c : k * b - k * c}$<br>        
-        `
-        sortie += `
-        $\\textbf{En factorisant d'abord :}$<br>
+        $\\textbf{Ici, il est plus judicieux de factoriser d'abord :}$<br>
         $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} ${operation === 1 ? '+' : '-'} ${k}\\times ${c}$<br>          
         $${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} ${operation === 1 ? `+ ${c}` : `- ${c}`})$<br>
         $${lettreDepuisChiffre(i + 1)}=${k}\\times ${operation === 1 ? b + c : b - c}$<br>
@@ -77,40 +66,13 @@ export default class DistributiviteNumerique extends Exercice {
       texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
       texteCorr = '' // Idem pour le texte de la correction.
       // Choix des paramètres aléatoires
-      // Pour la gestion de la soustraction, on ne veut pas que b-c soit négatif
-      let k = randint(2, 9)
-      let b = randint(1, 9, [k])
-      let c = randint(1, 9, [k, b])
-      let temp
-      if (b < c) {
-        temp = b
-        b = c
-        c = temp
-      }
-      // Pour éviter la contre-productivité tendant à montrer que distribuer allonge le travail
-      // On ajoute le cas classique d'application au calcul mental
+      let k, b, c
       const puissance = [100, 1000]
-      const ajoutRetrait = randint(1, 9)
+      const ajoutRetrait = randint(1, 3)
       texte = ''
       texteCorr = ''
       switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
-        case 1: // k(a+b)
-          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} + ${c})$`
-          texteCorr += avecLesPriorites(i, k, b, c, 'factorisee', 1)
-          break
-        case 2: // ka+kb
-          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} + ${k}\\times ${c}$`
-          texteCorr += avecLesPriorites(i, k, b, c, 'developpee', 1)
-          break
-        case 3: // k(a-b)
-          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} - ${c})$`
-          texteCorr += avecLesPriorites(i, k, b, c, 'factorisee', -1)
-          break
-        case 4: // ka-kb
-          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} - ${k}\\times ${c}$`
-          texteCorr += avecLesPriorites(i, k, b, c, 'developpee', -1)
-          break
-        case 5: { // Calcul mental addition
+        case 1: { // Calcul mental addition developpée initialement
           k = randint(47, 83)
           const choixIndicePuissance = randint(0, 1)
           c = ajoutRetrait
@@ -119,13 +81,31 @@ export default class DistributiviteNumerique extends Exercice {
           texteCorr += avecLesPriorites(i, k, b, c, 'developpee', 1)
           break
         }
-        case 6: { // Calcul mental soustraction
+        case 2: { // Calcul mental soustraction  developpée initialement
           k = randint(47, 83)
           const choixIndicePuissance = randint(0, 1)
           c = ajoutRetrait
           b = puissance[choixIndicePuissance] + c
           texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} - ${k}\\times ${c}$`
           texteCorr += avecLesPriorites(i, k, b, c, 'developpee', -1)
+          break
+        }
+        case 3: { // Calcul mental addition factorisée initialement
+          k = randint(47, 83)
+          const choixIndicePuissance = randint(0, 1)
+          c = ajoutRetrait
+          b = puissance[choixIndicePuissance] - c
+          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${b + 2 * c}$`
+          texteCorr += avecLesPriorites(i, k, b + c, c, 'factorisee', 1)
+          break
+        }
+        case 4: { // Calcul mental soustraction factorisée initialement
+          k = randint(47, 83)
+          const choixIndicePuissance = randint(0, 1)
+          c = ajoutRetrait
+          b = puissance[choixIndicePuissance] + c
+          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${b - 2 * c}$`
+          texteCorr += avecLesPriorites(i, k, b - c, c, 'factorisee', -1)
           break
         }
       }

@@ -93,7 +93,7 @@ export default class DistributiviteNumerique extends Exercice {
       const ajoutRetrait = randint(1, 9)
       texte = ''
       texteCorr = ''
-      switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
+      switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 6 cas sont prévus...
         case 1: // k(a+b)
           texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} + ${c})$`
           texteCorr += avecLesPriorites(i, k, b, c, 'factorisee', 1)
