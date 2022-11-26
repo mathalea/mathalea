@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, lettreDepuisChiffre, texNombre3 } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, lettreDepuisChiffre, texNombre } from '../../modules/outils.js'
 
 export const titre = 'Distributivité et calcul mental'
 
@@ -43,20 +43,20 @@ export default class DistributiviteNumerique extends Exercice {
       if (formeInitiale === 'factorisee') {
         sortie = `
         $\\textbf{Ici, il est plus judicieux de distribuer d'abord :}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${operation === 1 ? texNombre3(b + c) : texNombre3(b - c)}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times (${texNombre3(b)} ${operation === 1 ? `+ ${texNombre3(c)}` : `- ${texNombre3(c)}`})$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre3(b)} ${operation === 1 ? '+' : '-'} ${k}\\times ${texNombre3(c)}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${texNombre3(k * b)} ${operation === 1 ? '+' : '-'} ${texNombre3(k * c)}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? texNombre3(k * b + k * c) : texNombre3(k * b - k * c)}$
+        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${operation === 1 ? texNombre(b + c) : texNombre(b - c)}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${k}\\times (${texNombre(b)} ${operation === 1 ? `+ ${texNombre(c)}` : `- ${texNombre(c)}`})$<br>
+        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre(b)} ${operation === 1 ? '+' : '-'} ${k}\\times ${texNombre(c)}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${texNombre(k * b)} ${operation === 1 ? '+' : '-'} ${texNombre(k * c)}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? texNombre(k * b + k * c) : texNombre(k * b - k * c)}$
         `
       }
       if (formeInitiale === 'developpee') {
         sortie = `
         $\\textbf{Ici, il est plus judicieux de factoriser d'abord :}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre3(b)} ${operation === 1 ? '+' : '-'} ${k}\\times ${texNombre3(c)}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times (${texNombre3(b)} ${operation === 1 ? `+ ${texNombre3(c)}` : `- ${texNombre3(c)}`})$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${operation === 1 ? texNombre3(b + c) : texNombre3(b - c)}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? texNombre3(k * (b + c)) : texNombre3(k * (b - c))}$
+        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre(b)} ${operation === 1 ? '+' : '-'} ${k}\\times ${texNombre(c)}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${k}\\times (${texNombre(b)} ${operation === 1 ? `+ ${texNombre(c)}` : `- ${texNombre(c)}`})$<br>
+        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${operation === 1 ? texNombre(b + c) : texNombre(b - c)}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? texNombre(k * (b + c)) : texNombre(k * (b - c))}$
         `
       }
       return sortie
@@ -77,7 +77,7 @@ export default class DistributiviteNumerique extends Exercice {
           const choixIndicePuissance = randint(0, 1)
           c = ajoutRetrait
           b = puissance[choixIndicePuissance] - c
-          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre3(b)} + ${k}\\times ${c}$`
+          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre(b)} + ${k}\\times ${c}$`
           texteCorr += avecLesPriorites(i, k, b, c, 'developpee', 1)
           break
         }
@@ -86,7 +86,7 @@ export default class DistributiviteNumerique extends Exercice {
           const choixIndicePuissance = randint(0, 1)
           c = ajoutRetrait
           b = puissance[choixIndicePuissance] + c
-          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre3(b)} - ${k}\\times ${c}$`
+          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre(b)} - ${k}\\times ${c}$`
           texteCorr += avecLesPriorites(i, k, b, c, 'developpee', -1)
           break
         }
@@ -95,7 +95,7 @@ export default class DistributiviteNumerique extends Exercice {
           const choixIndicePuissance = randint(0, 1)
           c = ajoutRetrait
           b = puissance[choixIndicePuissance] - c
-          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre3(b + 2 * c)}$`
+          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre(b + 2 * c)}$`
           texteCorr += avecLesPriorites(i, k, b + c, c, 'factorisee', 1)
           break
         }
@@ -104,7 +104,7 @@ export default class DistributiviteNumerique extends Exercice {
           const choixIndicePuissance = randint(0, 1)
           c = ajoutRetrait
           b = puissance[choixIndicePuissance] + c
-          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre3(b - 2 * c)}$`
+          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre(b - 2 * c)}$`
           texteCorr += avecLesPriorites(i, k, b - c, c, 'factorisee', -1)
           break
         }
