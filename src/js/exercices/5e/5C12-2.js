@@ -21,9 +21,10 @@ export default class DistributiviteNumerique extends Exercice {
     this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
     // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
 
-  //  this.sup = false; // A décommenter : valeur par défaut d'un premier paramètre
-  //  this.sup2 = false; // A décommenter : valeur par défaut d'un deuxième paramètre
-  //  this.sup3 = false; // A décommenter : valeur par défaut d'un troisième paramètre
+    //  this.sup = false; // A décommenter : valeur par défaut d'un premier paramètre
+    //  this.sup2 = false; // A décommenter : valeur par défaut d'un deuxième paramètre
+    //  this.sup3 = false; // A décommenter : valeur par défaut d'un troisième paramètre
+    this.consigne = 'Calculer les expressions suivantes de deux manières différentes.'
   }
 
   // c'est ici que commence le code de l'exercice cette méthode crée une copie de l'exercice
@@ -55,7 +56,7 @@ export default class DistributiviteNumerique extends Exercice {
         `
       }
       if (formeInitiale === 'developpee') {
-        sortie += `
+        sortie = `
         $\\textbf{Avec les priorités :}$<br>          
         $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} + ${k}\\times ${c}$<br>
         $${lettreDepuisChiffre(i + 1)}=${k * b} + ${k * c}$<br>
@@ -69,7 +70,6 @@ export default class DistributiviteNumerique extends Exercice {
         $${lettreDepuisChiffre(i + 1)}=${k * (b + c)}$<br>
         `
       }
-
       return sortie
     }
 
@@ -90,46 +90,33 @@ export default class DistributiviteNumerique extends Exercice {
       // Pour éviter la contre-productivité tendant à montrer que distribuer allonge le travail
       // On ajoute le cas classique d'application au calcul mental
       const puissance = [100, 1000]
-      const ajoutRetrait = [1, 2, 3]
+      const ajoutRetrait = randint(1, 9)
       texte = ''
       texteCorr = ''
       switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
         case 1: // k(a+b)
-          texte += `Calculer $${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} + ${c})$ de deux manières différentes.`
+          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} + ${c})$`
           texteCorr += avecLesPriorites(i, k, b, c, 'factorisee')
           break
         case 2: // ka+kb
-          texte += `Calculer $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} + ${k}\\times ${c}$ de deux manières différentes.`
+          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} + ${k}\\times ${c}$`
           texteCorr += avecLesPriorites(i, k, b, c, 'developpee')
           break
         case 3: // k(a-b)
-          texte += `Calculer $${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} - ${c})$ de deux manières différentes.`
+          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} - ${c})$`
           texteCorr += avecLesPriorites(i, k, b, c, 'factorisee')
           break
         case 4: // ka-kb
-          texte += `Calculer $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} - ${k}\\times ${c}$ de deux manières différentes.`
+          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} - ${k}\\times ${c}$`
           texteCorr += avecLesPriorites(i, k, b, c, 'developpee')
           break
         case 5: { // Calcul mental addition
           k = randint(47, 83)
           const choixIndicePuissance = randint(0, 1)
-          b = puissance[choixIndicePuissance]
-          const choixIndiceAjoutRetrait = randint(0, 2)
-          c = ajoutRetrait[choixIndiceAjoutRetrait]
-          texte += `Calculer $${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} + ${c})$ de deux manières différentes.`
-          texteCorr += `
-          $\\textbf{Avec les priorités :}$<br>
-          $${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} + ${c})$<br>
-          $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b + c}$<br>
-          $${lettreDepuisChiffre(i + 1)}=${k * (b + c)}$<br>
-          `
-          texteCorr += `
-          $\\textbf{En distribuant d'abord :}$<br>
-          $${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} + ${c})$<br>
-          $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} + ${k}\\times ${c}$<br>
-          $${lettreDepuisChiffre(i + 1)}=${k * b} + ${k * c}$<br>
-          $${lettreDepuisChiffre(i + 1)}=${k * b + k * c}$<br>
-          `
+          c = ajoutRetrait
+          b = puissance[choixIndicePuissance] - c
+          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} + ${k}\\times ${c}$`
+          texteCorr += avecLesPriorites(i, k, b, c, 'developpee')
           break
         }
       }
