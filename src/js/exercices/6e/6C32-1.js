@@ -21,7 +21,7 @@ export default function ExerciceProblemesComplexes () {
     this.listeCorrections = [] // Liste de questions corrigées
 
     let listeDesProblemes = []
-    if (!this.sup) { // Si aucune liste n'est saisie
+    if (!this.sup || (typeof (this.sup) === 'number' && this.sup === 0)) { // Si aucune liste n'est saisie
       listeDesProblemes = rangeMinMax(1, 10)
     } else {
       if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
@@ -51,14 +51,14 @@ export default function ExerciceProblemesComplexes () {
           const prenomFP = prenomF()
           texte += `${prenomFP} suit un régime et ne doit pas absorber plus de 700 calories par repas.<br>
                    Aujourd'hui, elle a mangé le repas suivant :<br>
-                   1 côtelette d'agneau de ${quaAgneau}g,<br> ${quaEpinards}g d'épinards,<br> ${quaFro}g de fromage blanc <br> et une pomme de ${quaPom}g. <br>
-                   <br>On sait que 1g d'agneau fournit $${texNombre(calAgneau)}$ calories, <br> 1g d'épinards fournit $${texNombre(calEpinards)}$ calories, <br> 1g de fromage blanc fournit $${texNombre(calFro)}$ calories <br> et 1g de pomme $${texNombre(calPom)}$ calories.<br>
+                   1 côtelette d'agneau de ${quaAgneau} g,<br> ${quaEpinards}g d'épinards,<br> ${quaFro} g de fromage blanc <br> et une pomme de ${quaPom} g. <br>
+                   <br>On sait que 1g d'agneau fournit $${texNombre(calAgneau)}$ calories, <br> 1 g d'épinards fournit $${texNombre(calEpinards)}$ calories, <br> 1g de fromage blanc fournit $${texNombre(calFro)}$ calories <br> et 1g de pomme $${texNombre(calPom)}$ calories.<br>
                    ${prenomFP} respecte-t-elle son régime ?`
           texteCorr += `Agneau : $${quaAgneau}\\times ${texNombre(calAgneau)} =   ${texNombre(calAgneau * quaAgneau)}$ calories <br>
                         Epinards : $${quaEpinards}\\times ${texNombre(calEpinards)} =   ${texNombre(calEpinards * quaEpinards)}$ calories <br>
                         Fromage blanc : $${quaFro}\\times ${texNombre(calFro)} =   ${texNombre(calFro * quaFro)}$ calories <br>
                         Pomme : $${quaPom}\\times ${texNombre(calPom)} =   ${texNombre(calPom * quaPom)}$ calories <br>
-                        Cela fait un total de $${texNombre(calAgneau * quaAgneau)} + ${texNombre(calEpinards * quaEpinards)} + ${texNombre(calFro * quaFro)} + ${texNombre(calPom * quaPom)} =  ${texNombre(calAgneau * quaAgneau + calEpinards * quaEpinards + calFro * quaFro + calPom * quaPom)} $ calories.<br>
+                        Cela fait un total de : $${texNombre(calAgneau * quaAgneau)} + ${texNombre(calEpinards * quaEpinards)} + ${texNombre(calFro * quaFro)} + ${texNombre(calPom * quaPom)} =  ${texNombre(calAgneau * quaAgneau + calEpinards * quaEpinards + calFro * quaFro + calPom * quaPom)} $ calories.<br>
                         ${calAgneau * quaAgneau + calEpinards * quaEpinards + calFro * quaFro + calPom * quaPom < 700 ? 'Elle respecte son règime' : 'Elle ne respecte pas son règime'} 
                         car $${texNombre(calAgneau * quaAgneau + calEpinards * quaEpinards + calFro * quaFro + calPom * quaPom)} ${calAgneau * quaAgneau + calEpinards * quaEpinards + calFro * quaFro + calPom * quaPom < 700 ? '< 700' : '> 700'}$`
           break
@@ -83,12 +83,12 @@ export default function ExerciceProblemesComplexes () {
           const k2 = randint(10, 30) // 25
           const n1 = randint(2, 9)
           const n2 = randint(2, 9, [n1])
-          texte += `On considère le programme de calcul:<br>
-                    • Choisir un nombre<br>
-                    • Multiplier ce nombre par $${texNombre(k1)}$<br>
+          texte += `On considère le programme de calcul :<br>
+                    • Choisir un nombre.<br>
+                    • Multiplier ce nombre par $${texNombre(k1)}$.<br>
                     • Multiplier le résultat par $${texNombre(k2)}$.<br>
                   ${numAlpha(0)} Effectue ce programme avec $${n1}$ et  $${n2}$.<br>
-                  ${numAlpha(1)} Remplace ce programme par un programme plus court. Explique.`
+                  ${numAlpha(1)} Remplace ce programme par un programme plus court. Expliquer.`
           texteCorr += `${numAlpha(0)} Si le nombre est $${n1}$<br>
                         • $${n1} \\times ${texNombre(k1)} = ${texNombre(n1 * k1)}$<br>
                         • $${texNombre(n1 * k1)} \\times ${texNombre(k2)} = ${texNombre(n1 * k1 * k2)}$<br>
@@ -110,38 +110,38 @@ export default function ExerciceProblemesComplexes () {
           const prix = randint(5, 12) + randint(5, 8) * 0.1
           const n1 = randint(10, 15)
           texte += `Dans une salle de cinéma, il y a ${range} rangées de ${fauteils} fauteuils.<br>
-                    Le prix d'une place pour une séance est de $${texNombre(prix)}$ €<br>
+                    Le prix d'une place pour une séance est de $${texNombre(prix)}$ €.<br>
                   ${numAlpha(0)} Si toutes les places sont occupées, quelle est la somme d'argent récoltée?<br>
                   ${numAlpha(1)} Pour une autre séance, ${n1} rangées sont pleines, le reste des
                   rangées étant vides. Quelle est la recette pour cette séance?`
-          texteCorr += `${numAlpha(0)} $${range} \\times ${fauteils} =${fauteils * range}$<br>
+          texteCorr += `${numAlpha(0)} $${range} \\times ${fauteils} =${fauteils * range}$.<br>
                         Il y a $${fauteils * range}$ places dans la salle.<br>
-                        $${fauteils * range} \\times ${texNombre(prix)} = ${texNombre(fauteils * range * prix)}$ €<br>
-                        La somme d'argent perçue est $${texNombre(fauteils * range * prix)}$ €<br>
-                        ${numAlpha(1)} $${n1} \\times ${fauteils} =${fauteils * n1}$<br>
+                        $${fauteils * range} \\times ${texNombre(prix)} = ${texNombre(fauteils * range * prix)}$ €.<br>
+                        La somme d'argent perçue est $${texNombre(fauteils * range * prix)}$ €.<br>
+                        ${numAlpha(1)} $${n1} \\times ${fauteils} =${fauteils * n1}$.<br>
                         Il y a $${fauteils * n1}$ places occupées dans la salle.<br>
-                        $${fauteils * n1} \\times ${texNombre(prix)} = ${texNombre(fauteils * n1 * prix)}$ €<br>
-                        La somme d'argent perçue est $${texNombre(fauteils * n1 * prix)}$ €<br>`
+                        $${fauteils * n1} \\times ${texNombre(prix)} = ${texNombre(fauteils * n1 * prix)}$ €.<br>
+                        La somme d'argent perçue est $${texNombre(fauteils * n1 * prix)}$ €.<br>`
           break
         }
         case 5 : {
           const min = randint(1, 5) * 10 //  30
           const longueur = randint(2, 9) * 30 // 600m
           const nombreP = randint(3, 8)
-          texte += `Avant l'arrivée du numérique, au cinéma, la pillule était utilisée pour projeter des films.<br>
+          texte += `Avant l'arrivée du numérique, au cinéma, la pellicule était utilisée pour projeter des films.<br>
                    Le format souvent utilisé était le format 35mm, pellicule de 35 mm de largeur.<br>
-                   A 24 images par seconde, une pellicule de film de 30 mètres de long représente 1 minutes de projection.<br>
+                   Avec 24 images par seconde, une pellicule de film de 30 mètres de long représente 1 minutes de projection.<br>
                    Pour projecter un film, plusieurs pellicules étaient nécessaires et le projectionniste avait pour rôle de les changer.<br>                                       
-                   ${numAlpha(0)} Si le film a $${nombreP}$ pellicules de $600m$, quelle est la longueur totale en mètres du film?<br>
-                   ${numAlpha(1)} Si le film a $${nombreP}$ pellicules de $600m$, quelle est la durée totale du film?<br>
+                   ${numAlpha(0)} Si le film a $${nombreP}$ pellicules de $600 m$, quelle est la longueur totale en mètres du film?<br>
+                   ${numAlpha(1)} Si le film a $${nombreP}$ pellicules de $600 m$, quelle est la durée totale du film?<br>
                    ${numAlpha(2)} Si le film dure $1h${min}$, quelle est la longueur totale en mètres du film?<br>
                    ${numAlpha(3)} Si le film dure $1h${min}$, combien faut-il de pellicules de $600m$?<br>
                    ${numAlpha(4)} Si la pellicule mesure $${longueur}$m, quelle est la durée de la pellicule?<br>
-                   ${numAlpha(5)} Si la pellicule mesure $${longueur}$m, combien d'images y a-t-il sur la pellicule?<br>   `
+                   ${numAlpha(5)} Si la pellicule mesure $${longueur}$m, combien d'images y a-t-il sur la pellicule?<br>`
 
-          texteCorr += `${numAlpha(0)} $${nombreP} \\text{ pellicules} \\times 600m =${texNombre(nombreP * 600)}m$<br>
+          texteCorr += `${numAlpha(0)} $${nombreP} \\text{ pellicules} \\times 600 m =${texNombre(nombreP * 600)}m$<br>
                         La longueur totale du film est $${texNombre(nombreP * 600)}$ mètres.<br>
-                        ${numAlpha(1)} $30m \\times 20 = 600m$ donc une pellicule de $600m$ représente $1min\\times 20 = 20 min$.<br>
+                        ${numAlpha(1)} $30m \\times 20 = 600m$ donc une pellicule de $600 m$ représente $1min \\times 20 = 20 min$.<br>
                         $${nombreP} \\text{pellicules} \\times 20 min  =${texNombre(nombreP * 20)} min$.<br>
                         La durée totale du film est $${texNombre(nombreP * 20)}$ minutes.<br>
                         ${numAlpha(2)} $${60 + min}min \\times 30 \\text{ mètres}= ${texNombre((60 + min) * 30)}$ mètres.<br>
@@ -152,7 +152,7 @@ export default function ExerciceProblemesComplexes () {
                         Donc la durée de la pellicule est $${texNombre(Math.floor(longueur / 30))}$ minutes.<br>
                         ${numAlpha(5)} $${texNombre(Math.floor(longueur / 30))} \\times 60 = ${texNombre(Math.floor(longueur / 30)) * 60}$ secondes.<br>
                         $${texNombre(Math.floor(longueur / 30)) * 60} \\text{ secondes} \\times 24 \\text{ images} = ${texNombre(Math.floor(longueur / 30)) * 60 * 24} \\text{ images}$.<br>
-                        Il y a $${texNombre(Math.floor(longueur / 30)) * 60 * 24} \\text{ images}$ dans la pellicule`
+                        Il y a $${texNombre(Math.floor(longueur / 30)) * 60 * 24} \\text{ images}$ dans la pellicule.`
           break
         }
         case 6 : {
@@ -161,17 +161,17 @@ export default function ExerciceProblemesComplexes () {
           const nbSch = randint(2, 5, [nbBo])
           const prixSch = 3 + randint(1, 9) * 0.1 + randint(1, 9) * 0.01
           const prenomFe = prenomF()
-          texte += `Dans une boulangerie, ${prenomFe} achète ${nbSch} sandwitchs à $${texNombre(prixSch)}$ € chacun<br>
+          texte += `Dans une boulangerie, ${prenomFe} achète ${nbSch} sandwitchs à $${texNombre(prixSch)}$ € chacun.<br>
                     et ${nbBo} boissons à $${texNombre(prixBo)}$ € chacune.<br>
                     ${prenomFe} a un billet de 50€, combien va lui rendre la vendeuse?<br>`
-          texteCorr += `$${nbSch} \\times ${texNombre(prixSch)} =${texNombre(nbSch * prixSch)}$ €<br>
+          texteCorr += `$${nbSch} \\times ${texNombre(prixSch)} =${texNombre(nbSch * prixSch)}$ €.<br>
                         Le prix des sandwitchs est $${texNombre(nbSch * prixSch)}$ €.<br>
-                        $${nbBo} \\times ${texNombre(prixBo)} =${texNombre(nbBo * prixBo)}$ €<br>
+                        $${nbBo} \\times ${texNombre(prixBo)} =${texNombre(nbBo * prixBo)}$ €.<br>
                         Le prix des boisons est $${texNombre(nbBo * prixBo)}$ €.<br>
-                        $${texNombre(nbBo * prixBo)} + ${texNombre(nbSch * prixSch)} =${texNombre(nbBo * prixBo + nbSch * prixSch)}$ €<br>
+                        $${texNombre(nbBo * prixBo)} + ${texNombre(nbSch * prixSch)} =${texNombre(nbBo * prixBo + nbSch * prixSch)}$ €.<br>
                         Le prix total à payer est $${texNombre(nbBo * prixBo + nbSch * prixSch)}$ €.<br>
-                        $50 -  (${texNombre(nbBo * prixBo)} + ${texNombre(nbSch * prixSch)}) = ${texNombre(50 - (nbBo * prixBo + nbSch * prixSch))}$ €<br>
-                        La vendeuse va rendre la somme de $${texNombre(50 - (nbBo * prixBo + nbSch * prixSch))}$ €<br>`
+                        $50 -  (${texNombre(nbBo * prixBo)} + ${texNombre(nbSch * prixSch)}) = ${texNombre(50 - (nbBo * prixBo + nbSch * prixSch))}$ €.<br>
+                        La vendeuse va rendre la somme de $${texNombre(50 - (nbBo * prixBo + nbSch * prixSch))}$ €.<br>`
           break
         }
         case 7 : {
@@ -181,9 +181,9 @@ export default function ExerciceProblemesComplexes () {
           const prixOrangesKg = 1 + randint(5, 9) * 0.1 + randint(2, 9) * 0.01
           texte += `Un commerçant achète ${nbCagettes} cagettes d'oranges. Chaque cagette contient <br>
                     $${texNombre(kgOranges)}$ kg d'oranges et coûte $${texNombre(prixOranges)}$ €.<br>
-                    Le commerçant revend les oranges $${texNombre(prixOrangesKg)}$ le kilogramme.<br>
+                    Le commerçant revend les oranges $${texNombre(prixOrangesKg)}$€ le kilogramme.<br>
                     Quel est le bénéfice s'il réussit à tout vendre?<br>`
-          texteCorr += `$${nbCagettes} \\times ${kgOranges} =${texNombre(nbCagettes * kgOranges)}$ kg<br>
+          texteCorr += `$${nbCagettes} \\times ${kgOranges} =${texNombre(nbCagettes * kgOranges)}$ kg.<br>
                         Il y a $${texNombre(nbCagettes * kgOranges)}$ kg d'oranges.<br>
                         $${texNombre(nbCagettes)} \\times ${texNombre(prixOranges)} =${texNombre(nbCagettes * prixOranges)}$ €.<br>
                         Ce qui lui coûte $${texNombre(nbCagettes * prixOranges)}$ €.<br>
@@ -198,10 +198,10 @@ export default function ExerciceProblemesComplexes () {
           const nbCinq = randint(10, 20, [nbDix])
           const prenomFe = prenomF()
           texte += `${prenomFe} a dans sa tirelire uniqument des billets de 5€ et 10€.<br>
-                    Au total, elle a $${texNombre(nbDix + nbCinq)}$ billets qui représentent $${texNombre(nbDix * 10 + nbCinq * 5)}$ €.
-                    Combien a-t-elle de billets de de 5€ et 10€.<br>`
-          texteCorr += `$${nbDix} \\text{ billets de 10€} +  ${nbCinq} \\text{ billets de 5€} =${texNombre(nbDix + nbCinq)}$ billets<br>
-                        $${nbDix} \\times 10  +  ${nbCinq} \\times 5 =${texNombre(nbDix * 10 + nbCinq * 5)}$ €<br>
+                    Au total, elle a $${texNombre(nbDix + nbCinq)}$ billets qui représentent $${texNombre(nbDix * 10 + nbCinq * 5)}$ €.<br>
+                    Combien a-t-elle de billets de de 5€ et 10€?<br>`
+          texteCorr += `$${nbDix} \\text{ billets de 10€} +  ${nbCinq} \\text{ billets de 5€} =${texNombre(nbDix + nbCinq)}$ billets.<br>
+                        $${nbDix} \\times 10  +  ${nbCinq} \\times 5 =${texNombre(nbDix * 10 + nbCinq * 5)}$ €.<br>
                         Il y a $${nbDix}$ billets de 10€ et $${nbCinq}$ billets de 5€.<br>`
           break
         }
