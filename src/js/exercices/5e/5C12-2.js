@@ -50,21 +50,21 @@ export default class DistributiviteNumerique extends Exercice {
         sortie += `
         $\\textbf{En distribuant d'abord :}$<br>
         $${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} ${operation === 1 ? `+ ${c}` : `- ${c}`})$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} ${operation === 1 ? '+' : '-'} ${k}\\times ${c}$<br>          
+        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} ${operation === 1 ? '+' : '-'} ${k}\\times ${c}$<br>
         $${lettreDepuisChiffre(i + 1)}=${k * b} ${operation === 1 ? '+' : '-'} ${k * c}$<br>
         $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? k * b + k * c : k * b - k * c}$<br>
         `
       }
       if (formeInitiale === 'developpee') {
         sortie = `
-        $\\textbf{Avec les priorités :}$<br>          
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} ${operation === 1 ? '+' : '-'} ${k}\\times ${c}$<br>          
+        $\\textbf{Avec les priorités :}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} ${operation === 1 ? '+' : '-'} ${k}\\times ${c}$<br>
         $${lettreDepuisChiffre(i + 1)}=${k * b} ${operation === 1 ? '+' : '-'} ${k * c}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? k * b + k * c : k * b - k * c}$<br>        
+        $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? k * b + k * c : k * b - k * c}$<br>
         `
         sortie += `
         $\\textbf{En factorisant d'abord :}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} ${operation === 1 ? '+' : '-'} ${k}\\times ${c}$<br>          
+        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${b} ${operation === 1 ? '+' : '-'} ${k}\\times ${c}$<br>
         $${lettreDepuisChiffre(i + 1)}=${k}\\times (${b} ${operation === 1 ? `+ ${c}` : `- ${c}`})$<br>
         $${lettreDepuisChiffre(i + 1)}=${k}\\times ${operation === 1 ? b + c : b - c}$<br>
         $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? k * (b + c) : k * (b - c)}$<br>
