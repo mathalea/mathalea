@@ -1,5 +1,5 @@
 // Export de Mathalea pour Moodle au format GIFT
-// Créé le 20/11/2022
+// Créé le 27/11/2022
 
 $CATEGORY: Mathalea/1e
 
