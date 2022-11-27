@@ -186,8 +186,6 @@ export default function VocabulaireDivisionEuclidienne () {
               statut: ReponsesCorrectes.includes('reste')
             }
           ]
-          console.log(texte, ReponsesCorrectes)
-          console.log(this.autoCorrection[i].propositions)
           this.autoCorrection[i].options = {
             ordered: false
           }
