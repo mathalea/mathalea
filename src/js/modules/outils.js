@@ -3065,7 +3065,7 @@ export function miseEnEvidence (texte, couleur = '#f15929') {
   } else {
     if (couleur[0] === '#') {
       return `{\\color[HTML]{${couleur.replace('#', '')}}\\boldsymbol{${texte}}}`
-    } else {      
+    } else {
       return `{\\color{${couleur.replace('#', '')}}\\boldsymbol{${texte}}}`
     }
   }
