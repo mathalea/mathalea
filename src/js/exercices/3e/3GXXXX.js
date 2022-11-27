@@ -408,16 +408,39 @@ export default function CalculPythagoreEspace () {
         case 8: // Dans une sphère
           j = randint(0, 6)
           r = randint(4, 10)
-          h = randint(5, 15, [r])
+          // h = randint(5, 15, [r])
           A = point3d(0, 0, 0, true, choisitLettresDifferentes(1, 'OQWX'), 'left')
-          B = point3d(r, 0, 0)
-          D = point3d(0, 0, r, true, choisitLettresDifferentes(1, 'OQWX' + A.label), 'left')
-          E = point3d(0, 0, -r, true, choisitLettresDifferentes(1, 'OQWX' + A.label + D.label), 'left')
-          v = vecteur3d(A, B)
-          ptsBase = [B]
-          objetsEnonce = sphere3dEE(A, r, false, 12).c2d
+          // B = point3d(r, 0, 0)
+          // D = point3d(0, 0, r, true, choisitLettresDifferentes(1, 'OQWX' + A.label), 'left')
+          // E = point3d(0, 0, -r, true, choisitLettresDifferentes(1, 'OQWX' + A.label + D.label), 'left')
+          // v = vecteur3d(A, B)
+          // ptsBase = [B]
+          /* objetsEnonce = sphere3dEE(A, r).c2d
           texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
-          break
+          context.anglePerspective = randint(2, 6) * choice([10, -10])
+          r = randint(4, 10)
+          objetsEnonce = sphere3dEE(A, r, 'blue', 'black', 0, 'gray', 0, 'gray', true, 'red').c2d
+          texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
+          context.anglePerspective = randint(2, 6) * choice([10, -10])
+          // context.anglePerspective = 50
+          r = randint(4, 10)
+          objetsEnonce = sphere3dEE(A, r, 'green', 'red', 36, 'gray', 0, 'gray', false).c2d
+          texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
+          // objetsEnonce = sphere3dEE(A, r, 'green', 'red', 18, 'gray', 0, 'gray', false).c2d
+          // texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
+          context.anglePerspective = randint(2, 6) * choice([10, -10])
+          */context.anglePerspective = -40
+          r = randint(4, 10)
+          console.log(context.anglePerspective)
+          objetsEnonce = sphere3dEE(A, r, 'blue', 'blue', 0, 'red', 18, 'gray', true).c2d
+          texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
+          /* context.anglePerspective = randint(2, 6) * choice([10, -10])
+          r = randint(4, 10)
+          objetsEnonce = sphere3dEE(A, r, 'blue', 'black', 12, 'gray', 18, 'gray', true, 'green').c2d
+          texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
+          context.anglePerspective = randint(2, 6) * choice([10, -10])
+          r = randint(4, 10)
+          */break
         case 9: // Dans un prisme droit
           j = randint(0, 6)
           r = randint(4, 10)

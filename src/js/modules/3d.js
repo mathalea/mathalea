@@ -392,18 +392,23 @@ function Sphere3d (centre, rayon, nbParalleles, nbMeridiens, color) {
 export function sphere3d (centre, rayon, nbParalleles, nbMeridiens, color = 'black') {
   return new Sphere3d(centre, rayon, nbParalleles, nbMeridiens, color)
 }
+// nbParalleles/180 est l'angle entre chaque parallele
 
-function Sphere3dEE (centre, rayon, enveloppe = true, nbParalleles = 0, nbMeridiens = 0, color) {
+function Sphere3dEE (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue', nbParalleles = 0, colorParalleles = 'gray', nbMeridiens = 0, colorMeridiens = 'gray', affichageAxe = false, colorAxe = 'black') {
   ObjetMathalea2D.call(this, { })
   this.centre = centre
   this.rayon = rayon
-  this.enveloppe = enveloppe
+  this.colorEquateur = colorEquateur
+  this.colorEnveloppe = colorEnveloppe
   this.nbParalleles = nbParalleles
+  this.colorParalleles = colorParalleles
   this.nbMeridiens = nbMeridiens
+  this.colorMeridiens = colorMeridiens
+  this.affichageAxe = affichageAxe
+  this.colorAxe = colorAxe
   const poleNord = point3d(0, 0, this.rayon, true, choisitLettresDifferentes(1, 'OQWX' + this.centre.label), 'left')
   const poleSud = point3d(0, 0, -this.rayon, true, choisitLettresDifferentes(1, 'OQWX' + this.centre.label + poleNord.label), 'left')
 
-  const nbSommets = 36
   const nbParallelesDeConstruction = 36 // Ce nb de paralleles permet de construire l'enveloppe de la sphère (le "cercle" apparent de la sphère)
   // const nbParallelesDeConstruction = 4 // Ce nb de paralleles permet de construire l'enveloppe de la sphère (le "cercle" apparent de la sphère)
   let unDesParalleles
@@ -510,37 +515,56 @@ function Sphere3dEE (centre, rayon, enveloppe = true, nbParalleles = 0, nbMeridi
     j++
   }
 
-  const divisionParalleles = this.nbParalleles !== 0 ? Math.round(nbParallelesDeConstruction / this.nbParalleles) : 1
+  if (this.nbParalleles !== 0) {
+    let t = tracePoint(poleNord.c2d, this.colorParalleles)
+    t.style = 'o'
+    t.taille = 0.5
+    this.c2d.push(t)
+    t = tracePoint(poleSud.c2d, assombrirOuEclaircir(this.colorParalleles, 50))
+    t.style = 'o'
+    t.taille = 0.5
+    this.c2d.push(t)
+  }
+
+  const divisionParalleles = this.nbParalleles !== 0 ? Math.round(2 * nbParallelesDeConstruction / this.nbParalleles) : 1
   // Construction des parallèles demandés
   for (let k = nbParallelesDeConstruction, j = -1; k > -nbParallelesDeConstruction; k -= 1) {
     if ((this.nbParalleles !== 0 || k === 0) && (k !== nbParallelesDeConstruction) && (k % divisionParalleles === 0)) { // k=0 : C'est l'équateur
       for (let ee = 0, s; ee < paralleles.listepts2d[0].length; ee++) {
       //  for (let ee = 0, s; ee < 12; ee++) {
         if (paralleles.indicePtCachePremier[j] === ee) {
-          s = segment(paralleles.listepts2d[j][ee].c2d, paralleles.ptCachePremier[j])
+          s = segment(paralleles.listepts2d[j][ee].c2d, paralleles.ptCachePremier[j], this.colorParalleles)
           s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient pas dans les petits cercles
           s.opacite = 0.5
-          s.color = colorToLatexOrHTML('blue')
+          if (k === 0) {
+            s.color = colorToLatexOrHTML(this.colorEquateur)
+            s.epaisseur = 2
+          }
           this.c2d.push(s)
           s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient pas dans les petits cercles
           s.opacite = 0.5
-          s.color = colorToLatexOrHTML('blue')
-          s = segment(paralleles.ptCachePremier[j], paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].c2d)
+          s = segment(paralleles.ptCachePremier[j], paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].c2d, this.colorParalleles)
         } else if (paralleles.indicePtCacheDernier[j] === ee) {
-          s = segment(paralleles.listepts2d[j][ee].c2d, paralleles.ptCacheDernier[j])
+          s = segment(paralleles.listepts2d[j][ee].c2d, paralleles.ptCacheDernier[j], this.colorParalleles)
+          if (k === 0) {
+            s.color = colorToLatexOrHTML(this.colorEquateur)
+            s.epaisseur = 2
+          }
           this.c2d.push(s)
           s = segment(paralleles.ptCacheDernier[j], paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].c2d)
           s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient pas dans les petits cercles
           s.opacite = 0.5
-          s.color = colorToLatexOrHTML('green')
         } else {
         // Tracé des pointilles ou pas des parallèles
-          s = segment(paralleles.listepts2d[j][ee].c2d, paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].c2d)
+          s = segment(paralleles.listepts2d[j][ee].c2d, paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].c2d, this.colorParalleles)
           if ((!paralleles.listepts2d[j][ee].visible) && (!paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].visible)) {
             s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient pas dans les petits cercles
             s.opacite = 0.5
-            s.color = colorToLatexOrHTML('red')
           }
+        }
+        if (k === 0) {
+          s.color = colorToLatexOrHTML(this.colorEquateur)
+          s.epaisseur = 2
         }
         this.c2d.push(s)
       }
@@ -548,7 +572,48 @@ function Sphere3dEE (centre, rayon, enveloppe = true, nbParalleles = 0, nbMeridi
     j++
   }
 
-  // if (this.enveloppe) {
+  // Meridiens OK
+  // Construction des méridiens demandés
+  if (this.nbMeridiens !== 0) {
+    const divisionMeridiens = Math.round(36 / this.nbMeridiens)
+    for (let k = 0; k < 18; k += divisionMeridiens) {
+      for (let ee = 1, s; ee < paralleles.listepts2d.length - 1; ee++) {
+        // Affichage des méridiens sans le dernier segment relié aux pôles
+        s = segment(paralleles.listepts2d[ee][k].c2d, paralleles.listepts2d[(ee + 1) % paralleles.listepts2d.length][k].c2d, this.colorMeridiens)
+        if ((!paralleles.listepts2d[ee][k].visible) && (!paralleles.listepts2d[(ee + 1) % paralleles.listepts2d.length][k].visible)) {
+          s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient dans les petits cercles
+          s.opacite = 0.5
+        }
+        this.c2d.push(s)
+        s = segment(paralleles.listepts2d[ee][k + 18].c2d, paralleles.listepts2d[(ee + 1) % paralleles.listepts2d.length][k + 18].c2d, this.colorMeridiens)
+        if ((!paralleles.listepts2d[ee][k + 18].visible) && (!paralleles.listepts2d[(ee + 1) % paralleles.listepts2d.length][k + 18].visible)) {
+          s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient dans les petits cercles
+          s.opacite = 0.5
+        }
+        this.c2d.push(s)
+
+        // Affichage de la partie reliée au pôle Nord
+        s = segment(poleNord.c2d, paralleles.listepts2d[1][k].c2d, this.colorMeridiens)
+        this.c2d.push(s)
+        s = segment(paralleles.listepts2d[1][k + 18].c2d, poleNord.c2d, this.colorMeridiens)
+        this.c2d.push(s)
+
+        // Affichage de la partie reliée au pôle Sud
+        s = segment(poleSud.c2d, paralleles.listepts2d[paralleles.listepts2d.length - 1][k].c2d, this.colorMeridiens)
+        if (!paralleles.listepts2d[paralleles.listepts2d.length - 1][0].visible) {
+          s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient dans les petits cercles
+          s.opacite = 0.5
+        }
+        this.c2d.push(s)
+        s = segment(paralleles.listepts2d[paralleles.listepts2d.length - 1][k + 18].c2d, poleSud.c2d, this.colorMeridiens)
+        if (!paralleles.listepts2d[paralleles.listepts2d.length - 1][k].visible) {
+          s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient dans les petits cercles
+          s.opacite = 0.5
+        }
+        this.c2d.push(s)
+      }
+    }
+  }
   // L'enveloppe finale contiendra les points de l'enveloppe 1 + les points de l'enveloppe 2 inversée (sinon le polygone serait croisé)
   // this.centre cela, il faut ajouter les points autour des pôles car les premiers parallèles ne s'intersectent pas forcément.
   enveloppeSphere2 = enveloppeSphere2.reverse()
@@ -578,59 +643,28 @@ function Sphere3dEE (centre, rayon, enveloppe = true, nbParalleles = 0, nbMeridi
       ii++
     }
   }
-  this.c2d.push(polygone(enveloppeSphere, 'red'))
-  // }
+  const p = polygone(enveloppeSphere, this.colorEnveloppe)
+  p.epaisseur = 2
+  this.c2d.push(p)
 
-  // Meridiens OK
-  // Construction des méridiens demandés
-/*
-  for (let k = 0; k < nbSommets / 2; k++) {
-  // for (let k = 1; k < 5; k++) {
-    for (let ee = 1, s; ee < paralleles.listepts2d.length - 1; ee++) {
-    // for (let ee = 1, s; ee < paralleles.listepts2d.length - 5; ee++) {
-
-      // Affichage des méridiens sans le dernier segment relié aux pôles
-      s = segment(paralleles.listepts2d[ee][k].c2d, paralleles.listepts2d[(ee + 1) % paralleles.listepts2d.length][k].c2d)
-      if ((!paralleles.listepts2d[ee][k].visible) && (!paralleles.listepts2d[(ee + 1) % paralleles.listepts2d.length][k].visible)) {
-        s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient dans les petits cercles
-        s.opacite = 0.5
-        s.color = colorToLatexOrHTML('red')
-      }
-      this.c2d.push(s)
-      s = segment(paralleles.listepts2d[ee][k + 18].c2d, paralleles.listepts2d[(ee + 1) % paralleles.listepts2d.length][k + 18].c2d)
-      if ((!paralleles.listepts2d[ee][k + 18].visible) && (!paralleles.listepts2d[(ee + 1) % paralleles.listepts2d.length][k + 18].visible)) {
-        s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient dans les petits cercles
-        s.opacite = 0.5
-        s.color = colorToLatexOrHTML('red')
-      }
-      this.c2d.push(s)
-
-      // Affichage de la partie reliée au pôle Nord
-      s = segment(poleNord.c2d, paralleles.listepts2d[1][k].c2d)
-      this.c2d.push(s)
-      s = segment(paralleles.listepts2d[1][k + 18].c2d, poleNord.c2d)
-      this.c2d.push(s)
-
-      // Affichage de la partie reliée au pôle Sud
-      s = segment(poleSud.c2d, paralleles.listepts2d[paralleles.listepts2d.length - 1][k].c2d)
-      if (!paralleles.listepts2d[paralleles.listepts2d.length - 1][0].visible) {
-        s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient dans les petits cercles
-        s.opacite = 0.5
-        s.color = colorToLatexOrHTML('red')
-      }
-      this.c2d.push(s)
-      s = segment(paralleles.listepts2d[paralleles.listepts2d.length - 1][k + 18].c2d, poleSud.c2d)
-      if (!paralleles.listepts2d[paralleles.listepts2d.length - 1][k].visible) {
-        s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient dans les petits cercles
-        s.opacite = 0.5
-        s.color = colorToLatexOrHTML('red')
-      }
-      this.c2d.push(s)
+  if (affichageAxe) {
+    const l = longueur(poleNord.c2d, poleSud.c2d)
+    let ee = 1
+    while (ee < 2 && pointSurSegment(poleNord.c2d, poleSud.c2d, ee * l).estDansPolygone(polygone(enveloppeSphere))) {
+      ee += 0.01
     }
-  } */
+
+    let s = segment(poleNord.c2d, pointSurSegment(poleNord.c2d, poleSud.c2d, Math.max(ee - 0.01, 1) * l), colorAxe)
+    s.pointilles = 2
+    this.c2d.push(s)
+    s = segment(poleSud.c2d, pointSurSegment(poleNord.c2d, poleSud.c2d, 1.1 * l), colorAxe)
+    this.c2d.push(s)
+    s = segment(poleNord.c2d, pointSurSegment(poleNord.c2d, poleSud.c2d, -0.1 * l), colorAxe)
+    this.c2d.push(s)
+  }
 }
-export function sphere3dEE (centre, rayon, enveloppe = true, nbParalleles = 0, nbMeridiens, color = 'black') {
-  return new Sphere3dEE(centre, rayon, enveloppe, nbParalleles, nbMeridiens, color)
+export function sphere3dEE (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue', nbParalleles = 0, colorParalleles = 'gray', nbMeridiens = 0, colorMeridiens = 'black', affichageAxe = false, colorAxe = 'black') {
+  return new Sphere3dEE(centre, rayon, colorEquateur, colorEnveloppe, nbParalleles, colorParalleles, nbMeridiens, colorMeridiens, affichageAxe, colorAxe)
 }
 
 /**
