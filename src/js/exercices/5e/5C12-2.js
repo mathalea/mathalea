@@ -42,13 +42,13 @@ export default class DistributiviteNumerique extends Exercice {
       let sortie = 'bug'
       if (formeInitiale === 'factorisee') {
         sortie = `
-        $\\textbf{Avec les priorités :}$<br>
+        $\\textbf{Méthode 1 : Avec les priorités :}$<br>
         $${lettreDepuisChiffre(i + 1)}=${k}\\times (${texNombre(b)} ${operation === 1 ? `+ ${texNombre(c)}` : `- ${texNombre(c)}`})$<br>
         $${lettreDepuisChiffre(i + 1)}=${k}\\times ${operation === 1 ? texNombre(b + c) : texNombre(b - c)}$<br>
         $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? texNombre(k * (b + c)) : texNombre(k * (b - c))}$<br>
         `
         sortie += `<br>
-        $\\textbf{En distribuant d'abord :}$<br>
+        $\\textbf{Méthode 2 : En distribuant d'abord :}$<br>
         $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(k)}\\times (${texNombre(b)} ${operation === 1 ? `+ ${texNombre(c)}` : `- ${texNombre(c)}`})$<br>
         $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(k)}\\times ${texNombre(b)} ${operation === 1 ? '+' : '-'} ${miseEnEvidence(k)}\\times ${c}$<br>
         $${lettreDepuisChiffre(i + 1)}=${texNombre(k * b)} ${operation === 1 ? '+' : '-'} ${texNombre(k * c)}$<br>
@@ -57,13 +57,13 @@ export default class DistributiviteNumerique extends Exercice {
       }
       if (formeInitiale === 'developpee') {
         sortie = `
-        $\\textbf{Avec les priorités :}$<br>
+        $\\textbf{Méthode 1 : Avec les priorités :}$<br>
         $${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre(b)} ${operation === 1 ? '+' : '-'} ${k}\\times ${texNombre(c)}$<br>
         $${lettreDepuisChiffre(i + 1)}=${texNombre(k * b)} ${operation === 1 ? '+' : '-'} ${texNombre(k * c)}$<br>
         $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? texNombre(k * b + k * c) : texNombre(k * b - k * c)}$<br>
         `
         sortie += `<br>
-        $\\textbf{En factorisant d'abord :}$<br>
+        $\\textbf{Méthode 2 : En factorisant d'abord :}$<br>
         $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(k)}\\times ${texNombre(b)} ${operation === 1 ? '+' : '-'} ${miseEnEvidence(k)}\\times ${texNombre(c)}$<br>
         $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(k)}\\times (${texNombre(b)} ${operation === 1 ? `+ ${texNombre(c)}` : `- ${texNombre(c)}`})$<br>
         $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(k)}\\times ${operation === 1 ? texNombre(b + c) : texNombre(b - c)}$<br>
