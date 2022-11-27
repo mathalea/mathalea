@@ -76,7 +76,7 @@ export default class HomothetieRapport extends Exercice {
         correctionAgrandissement: ''
       }
       const cas2 = {
-        rapport: texNombre(entierNegatifModuleSuperieurUn, 0) ,
+        rapport: texNombre(entierNegatifModuleSuperieurUn, 0),
         correctionReduction: '',
         correctionAgrandissement: miseEnEvidence('\\times')
       }
@@ -110,7 +110,7 @@ export default class HomothetieRapport extends Exercice {
           texte += `$
           \\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|c|c|}
           \\hline
-          \\text{Homothétie de rapport} & ${texNombre(0.8, 1)} & ${texNombre(-5, 0)} & ${texNombre(3.7, 1)} & ${texNombre(-0.5, 1)} & \\dfrac{4}{5} & -\\dfrac{5}{4}\\\\
+          \\text{Homothétie de rapport} & ${choixRapports[0].rapport} & ${choixRapports[1].rapport} & ${choixRapports[2].rapport} & ${choixRapports[3].rapport} & ${choixRapports[4].rapport} & ${choixRapports[5].rapport} \\\\
           \\hline
           \\text{Réduction} & & & & & & \\\\
           \\hline
