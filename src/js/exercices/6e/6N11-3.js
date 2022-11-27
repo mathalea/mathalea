@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, shuffle, combinaisonListesSansChangerOrdre, texNombre, miseEnEvidence } from '../../modules/outils.js'
-export const titre = 'Encadrer un entier entre l\'entier qui le précède et qui le suit'
+export const titre = 'Encadrer un entier'
 
 /**
 * * Encadrer un nombre entier par deux entier consécutifs
