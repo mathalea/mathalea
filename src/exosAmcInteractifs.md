@@ -1,5 +1,5 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 533 
+- nombre d'exos amcReady 534 
 - nombre d'exos interactifReady 822 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
@@ -393,7 +393,7 @@
 |6N30|Lire l'abscisse décimale d'un point|OK|AMCOpen|OK|mathLive|
 |6N31-3|Arrondir une valeur|OK|qcmMult|OK|qcm|
 |6N31-4|Intercaler un nombre décimal entre deux nombres décimaux|OK|AMCOpen|OK|mathLive|
-|6N31-5|Encadrer un décimal|KO|KO|OK|mathLive|
+|6N31-5|Encadrer un décimal|OK|AMCHybride|OK|mathLive|
 |6N31-6|Trouver une valeur approchée ou un arrondi d'un décimal|KO|KO|OK|mathLive|
 |6N31|Comparer des nombres décimaux|OK|AMCOpen|KO|KO|
 |6N33-0|Calculer la fraction d'une quantité|OK|AMCNum|OK|mathLive|
