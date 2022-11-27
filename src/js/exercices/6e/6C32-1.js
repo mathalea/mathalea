@@ -11,6 +11,8 @@ export const dateDePublication = '27/11/2022'
  * Relecture typographique par Rémi Angot
 * Référence 6C32-1
  */
+export const uuid = 'e906e'
+export const ref = '6C32-1'
 export default function ExerciceProblemesComplexes () {
   // Multiplier deux nombres
   Exercice.call(this) // Héritage de la classe Exercice()

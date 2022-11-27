@@ -10,6 +10,8 @@ export const dateDePublication = '26/11/2022'
  * @author Sébastien LOZANO
 */
 
+export const uuid = '41f23'
+export const ref = '5C12-2'
 export default class DistributiviteNumerique extends Exercice {
   constructor () {
     super()
