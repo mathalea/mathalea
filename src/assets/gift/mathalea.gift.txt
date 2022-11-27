@@ -1345,7 +1345,7 @@ $CATEGORY: Mathalea/3e
 
 $CATEGORY: Mathalea/3e
 
-:: Mathalea - Equations résolvantes pour le théorème de Thalès (3L13-2) ::
+:: Mathalea - Équations résolvantes pour le théorème de Thalès (3L13-2) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="3L13-2" />
 {

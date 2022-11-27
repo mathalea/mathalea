@@ -1,5 +1,5 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 534 
+- nombre d'exos amcReady 535 
 - nombre d'exos interactifReady 822 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
@@ -134,7 +134,7 @@
 |3L12|Factoriser a²-b²|KO|KO|OK|mathLive|
 |3L13-0|Équation du premier degré à solutions entières|OK|AMCNum|OK|mathLive|
 |3L13-1|Équation du premier degré (utilisant la distributivité)|KO|KO|OK|mathLive|
-|3L13-2|Equations résolvantes pour le théorème de Thalès|KO|KO|OK|mathLive|
+|3L13-2|Équations résolvantes pour le théorème de Thalès|OK|AMCNum|OK|mathLive|
 |3L13-3|Problèmes à mettre en équation et à résoudre|OK|AMCNum|OK|mathLive|
 |3L13|Équation du premier degré|OK|AMCHybride|OK|mathLive|
 |3L14|Résoudre une équation produit nul|KO|KO|OK|mathLive|
@@ -200,7 +200,7 @@
 |4G20-4|Arrondir une racine carrée|KO|KO|OK|mathLive|
 |4G20-6|Encadrer une racine carrée et en donner un arrondi|OK|AMCHybride|OK|mathLive|
 |4G20|Calculer une longueur avec le théorème de Pythagore|OK|AMCOpenNum|OK|mathLive|
-|4G21|Déterminer si un triangle est rectangle ou pas|OK|qcmMono|OK|qcm|
+|4G21|Déterminer si un triangle est rectangle ou pas|OK|AMCHybride|OK|qcm|
 |4G30|Calculer des longueurs avec le théorème de Thalès|OK|AMCOpenNum✖︎2|OK|mathLive|
 |4G31|Contrôler si deux droites sont parallèles|OK|AMCHybride|OK|mathLive|
 |4G40|Utiliser le cosinus pour calculer une longueur dans un triangle rectangle|OK|AMCOpenNum|OK|mathLive|
