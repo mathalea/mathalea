@@ -6,13 +6,16 @@ import FractionX from '../../modules/FractionEtendue.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
-export const titre = 'Equations résolvantes pour le théorème de Thalès'
+export const titre = 'Équations résolvantes pour le théorème de Thalès'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
+
 export const dateDeModificationImportante = '04/04/2022'
 /**
- * * Equations résolvantes pour le théorème de Thalès
+ * * Équations résolvantes pour le théorème de Thalès
  * * 3L13-2 enfants : 4P10-2 et 4L15-1
  * * modification le 11/01/2021
  * * correctif le 27/03/2022
@@ -90,7 +93,7 @@ export default function EqResolvantesThales () {
     // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // on a besoin d'un coeff pour le type de nombres
       let coeff, masterChoix
       let nbAlea = [1, 1, 1]
@@ -271,11 +274,12 @@ ${trivial(situations[k].trivial, texNombre(situations[k].a, 1), texNombre(situat
           };
           correctionInteractif = enonces[3].correctionInteractif[0].replace('{', '').replace('}', '')
           break
-      };
-      if (this.interactif && !context.isAmc) {
-        texte += ajouteChampTexteMathLive(this, i, 'inline largeur25', { texte: `<br> ${inc} = ` })
-        setReponse(this, i, new FractionX(correctionInteractif), { formatInteractif: 'fractionEgale' })
       }
+      texte += ajouteChampTexteMathLive(this, i, 'inline largeur25', { texte: `<br> ${inc} = ` })
+      reponse = new FractionX(correctionInteractif)
+      if (context.isAmc) setReponse(this, i, reponse.valeurDecimale)
+      else setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
+
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
