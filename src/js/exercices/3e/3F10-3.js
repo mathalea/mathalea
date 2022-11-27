@@ -437,7 +437,7 @@ export default function VocabulaireNotationsFonctions2 () {
             }
             if (choix === 3) {
               nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-              texte = ` $${fonction1}$ est l'image de  $${x}$ par la fonction $${nomF}$.<br>
+              texte = ` $${fonction1}$ est l'image de  $x$ par la fonction $${nomF}$.<br>
               Traduire cette phrase par une égalité.`
             }
             if (choix === 4) {
