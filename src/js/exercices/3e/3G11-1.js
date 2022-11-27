@@ -122,11 +122,11 @@ export default class HomothetieRapport extends Exercice {
           texteCorr += `$
           \\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|c|c|}
           \\hline
-          \\text{Homothétie de rapport} & ${texNombre(0.8, 1)} & ${texNombre(-5, 0)} & ${texNombre(3.7, 1)} & ${texNombre(-0.5, 1)} & \\dfrac{4}{5} & -\\dfrac{5}{4}\\\\
+          \\text{Homothétie de rapport} & ${choixRapportsMelanges[0].rapport} & ${choixRapportsMelanges[1].rapport} & ${choixRapportsMelanges[2].rapport} & ${choixRapportsMelanges[3].rapport} & ${choixRapportsMelanges[4].rapport} & ${choixRapportsMelanges[5].rapport} \\\\
           \\hline
-          \\text{Réduction} & ${miseEnEvidence('\\times')} & & & ${miseEnEvidence('\\times')} & ${miseEnEvidence('\\times')} & \\\\
+          \\text{Réduction} & ${choixRapportsMelanges[0].correctionReduction} & ${choixRapportsMelanges[1].correctionReduction} & ${choixRapportsMelanges[2].correctionReduction} & ${choixRapportsMelanges[3].correctionReduction} & ${choixRapportsMelanges[4].correctionReduction} & ${choixRapportsMelanges[5].correctionReduction} \\\\
           \\hline
-          \\text{Agrandissement} & & ${miseEnEvidence('\\times')} & ${miseEnEvidence('\\times')} & & & ${miseEnEvidence('\\times')} \\\\
+          \\text{Agrandissement} & ${choixRapportsMelanges[0].correctionAgrandissement} & ${choixRapportsMelanges[1].correctionAgrandissement} & ${choixRapportsMelanges[2].correctionAgrandissement} & ${choixRapportsMelanges[3].correctionAgrandissement} & ${choixRapportsMelanges[4].correctionAgrandissement} & ${choixRapportsMelanges[5].correctionAgrandissement} \\\\
           \\hline
           \\end{array}
           $
