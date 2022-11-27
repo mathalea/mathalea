@@ -6124,6 +6124,36 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "5C12-2": {
+    "titre": "Distributivité numérique",
+    "url": "/exercices/5e/5C12-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "5C12-2",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "5C12-3": {
+    "titre": "Distributivité et calcul mental",
+    "url": "/exercices/5e/5C12-3.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "5C12-3",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "5C12": {
     "titre": "Calculer une expression numérique en détaillant les calculs",
     "url": "/exercices/5e/5C12.js",
@@ -8477,6 +8507,21 @@ export default {
     "name": "6C31",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "6C32-1": {
+    "titre": "Résoudre des problèmes (plus complexes)",
+    "url": "/exercices/6e/6C32-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6C32-1",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
