@@ -110,7 +110,7 @@ export default class HomothetieRapport extends Exercice {
           texte += `$
           \\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|c|c|}
           \\hline
-          \\text{Homothétie de rapport} & ${choixRapports[0].rapport} & ${choixRapports[1].rapport} & ${choixRapports[2].rapport} & ${choixRapports[3].rapport} & ${choixRapports[4].rapport} & ${choixRapports[5].rapport} \\\\
+          \\text{Homothétie de rapport} & ${choixRapportsMelanges[0].rapport} & ${choixRapportsMelanges[1].rapport} & ${choixRapportsMelanges[2].rapport} & ${choixRapportsMelanges[3].rapport} & ${choixRapportsMelanges[4].rapport} & ${choixRapportsMelanges[5].rapport} \\\\
           \\hline
           \\text{Réduction} & & & & & & \\\\
           \\hline
