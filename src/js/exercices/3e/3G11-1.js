@@ -41,6 +41,13 @@ export default class HomothetieRapport extends Exercice {
       texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
       texteCorr = '' // Idem pour le texte de la correction.
 
+      // Les rapports sont choisis parmi :
+      // => un décimal inférieur à 1
+      // => un entier négatif de module supérieur à 1
+      // => un décimal positif supérieur à 1
+      // => un décimal négatif de module inférieur à 1
+      // => une fraction positive inférieure à 1
+      // => une fraction négative de module supérieur à 1
       switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 1 cas sont prévus...
         case 1:
           texte += `$
