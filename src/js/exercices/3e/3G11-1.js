@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, texNombre, miseEnEvidence } from '../../modules/outils.js'
 
 export const titre = 'Homothétie - Rapport'
 
@@ -43,7 +43,30 @@ export default class HomothetieRapport extends Exercice {
 
       switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 1 cas sont prévus...
         case 1:
-
+          texte += `$
+          \\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|c|c|}
+          \\hline
+          \\text{Homothétie de rapport} & ${texNombre(0.8, 1)} & ${texNombre(-5, 0)} & ${texNombre(3.7, 1)} & ${texNombre(-0.5, 1)} & \\dfrac{4}{5} & -\\dfrac{5}{4}\\\\
+          \\hline
+          \\text{Réduction} & & & & & & \\\\
+          \\hline
+          \\text{Agrandissement} & & & & & & \\\\
+          \\hline
+          \\end{array}
+          $
+          `
+          texteCorr += `$
+          \\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|c|c|}
+          \\hline
+          \\text{Homothétie de rapport} & ${texNombre(0.8, 1)} & ${texNombre(-5, 0)} & ${texNombre(3.7, 1)} & ${texNombre(-0.5, 1)} & \\dfrac{4}{5} & -\\dfrac{5}{4}\\\\
+          \\hline
+          \\text{Réduction} & ${miseEnEvidence('\\times')} & & & ${miseEnEvidence('\\times')} & ${miseEnEvidence('\\times')} & \\\\
+          \\hline
+          \\text{Agrandissement} & & ${miseEnEvidence('\\times')} & ${miseEnEvidence('\\times')} & & & ${miseEnEvidence('\\times')} \\\\
+          \\hline
+          \\end{array}
+          $
+          `
           break
       }
 
