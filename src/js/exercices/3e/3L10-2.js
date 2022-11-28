@@ -1,4 +1,4 @@
-import OpposeExpression from '../3e/3L10.js'
+import OpposeExpression from '../3e/OpposeExpression.js'
 
 export const titre = 'Donner l\'opposé d\'une expression (complexe)'
 export const interactifReady = true
