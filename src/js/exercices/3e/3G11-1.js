@@ -12,6 +12,8 @@ export const dateDePublication = '27/11/2022'
  * @author Sébastien LOZANO
 */
 
+export const uuid = '1ebf7'
+export const ref = '3G11-1'
 export default class HomothetieRapport extends Exercice {
   constructor () {
     super()
