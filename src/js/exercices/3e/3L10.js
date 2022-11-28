@@ -20,7 +20,7 @@ export const ref = '3L10'
 export default function OpposeExpression () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Développer et réduire les expressions suivantes.'
+  this.consigne = 'Réduire les expressions suivantes.'
   this.spacing = context.isHtml ? 3 : 2
   this.spacing = context.isHtml ? 3 : 2
   this.nbQuestions = 6
