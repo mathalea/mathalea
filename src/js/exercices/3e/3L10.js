@@ -24,7 +24,7 @@ export default function OpposeExpression () {
   this.spacing = context.isHtml ? 3 : 2
   this.spacing = context.isHtml ? 3 : 2
   this.nbQuestions = 6
-  this.sup = 0
+  this.sup = '1-2-3-4'
   this.tailleDiaporama = 3
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
