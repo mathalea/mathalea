@@ -37,12 +37,20 @@ export default class nomExercice extends Exercice {
       const nbmatrice = 2
       let n = randint(1, 4)
       let m = randint(1, 4)
+      while (n === m & n === 1) {
+        m = randint(2, 4)
+      }
       const nblignes = [] // vecteur qui stocke le nombre de lignes de chaque matrice
       nblignes.push(n)
       const nbcolonnes = [] // vecteur qui stocke le nombre de colonnes de chaque matrice
       nbcolonnes.push(m)
-      nblignes.push(math.pickRandom([m, m, m, 1, 2, 3, 4])) // on favorise la compatibilité des matrices
-      nbcolonnes.push(math.pickRandom([n, n, n, 1, 2, 3, 4]))
+      n = math.pickRandom([m, m, m, 1, 2, 3, 4]) // on favorise la compatibilité de la deuxieme matrices
+      nblignes.push(n)
+      m = math.pickRandom([n, n, n, 1, 2, 3, 4])
+      while (n === m & n === 1) {
+        m = math.pickRandom([2, 3, 4])
+      }
+      nbcolonnes.push(m)
       const texteligne = [] // texte pour la correction
       const textecolonne = [] // texte pour la correction
       for (let compteur = 0; compteur < nbmatrice; compteur++) {
