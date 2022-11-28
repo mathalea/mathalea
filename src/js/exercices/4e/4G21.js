@@ -176,7 +176,7 @@ export default function ReciproquePythagore () {
           [
             {
               type: 'AMCOpen',
-              propositions: [{ texte: texteCorr, enonce: '<br>' + texte + '<br>', statut: 6, feedback: '' }]
+              propositions: [{ texte: texteCorr, enonce: '<br>' + texte + '<br>', statut: 4, feedback: '' }]
             }
           ]
         }
