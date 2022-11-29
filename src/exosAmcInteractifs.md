@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 535 
-- nombre d'exos interactifReady 823 
+- nombre d'exos interactifReady 824 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -12,6 +12,7 @@
 |1G10|Valeurs remarquables du cosinus et sinus|KO|KO|OK|mathLive|
 |1G11|Mesure principale d'un angle|KO|KO|OK|mathLive|
 |1G12|cos et sin associés à un réel x |KO|KO|OK|mathLive|
+|1N12|Somme des termes d'une suite arithmétique|KO|KO|OK|mathLive|
 |2F10-1|Reconnaître une fonction affine|OK|qcmMono|OK|qcm|
 |2F10-2|Lecture graphique d'une fonction affine|OK|AMCHybride|OK|mathLive|
 |2F11-1|Déterminer l'image d'un nombre par une fonction de référence|OK|AMCNum|OK|mathLive|

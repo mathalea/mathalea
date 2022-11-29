@@ -415,6 +415,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "1N12": {
+    "titre": "Somme des termes d'une suite arithmétique",
+    "url": "/exercices/1e/1N12.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "1N12",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "1P10": {
     "titre": "Probabilités conditionnelles",
     "url": "/exercices/1e/1P10.js",
