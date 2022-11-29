@@ -141,17 +141,18 @@ export default function OpposeExpression () {
     }
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireTexte = ['Type de question',
-  `0 : Mélange
+  this.besoinFormulaireTexte = ['Types de questions',
+  `Nombres séparés par des tirets
+0 : Mélange
 1 : '-(ax+b)'
-2 : '+(ax+b)'
+2 : '(ax+b)'
 3 : '-(ax2+bx+c)'
-4 : '+(ax2+bx+c)'
-5 : '+(ax+b)-(cx+d)'
+4 : '(ax2+bx+c)'
+5 : '(ax+b)-(cx+d)'
 6 : '-(ax+b)+(cx+d)'
-7 : '+(ax+b)-(cx2+dx+e)'
+7 : '(ax+b)-(cx2+dx+e)'
 8 : '-(ax+b)+(cx2+dx+e)'
-9 : '+(ax2+bx+c)-(dx2+ex+f)'
+9 : '(ax2+bx+c)-(dx2+ex+f)'
 10 : '-(ax2+bx+c)+(dx2+ex+f)'`
   ]
 }
