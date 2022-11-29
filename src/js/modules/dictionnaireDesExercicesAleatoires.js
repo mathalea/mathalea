@@ -3618,8 +3618,24 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "3L10-2": {
+    "titre": "Supprimer les parenthèses puis réduire une expression (niveau 2)",
+    "url": "/exercices/3e/3L10-2.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "3L10-2",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "3L10": {
-    "titre": "Donner l'opposé d'une expression",
+    "titre": "Supprimer les parenthèses puis réduire une expression",
     "url": "/exercices/3e/3L10.js",
     "amcReady": false,
     "interactifReady": true,
@@ -9969,7 +9985,7 @@ export default {
     }
   },
   "6N11-3": {
-    "titre": "Encadrer un entier entre deux entiers consécutifs",
+    "titre": "Encadrer un entier",
     "url": "/exercices/6e/6N11-3.js",
     "amcReady": false,
     "interactifReady": false,

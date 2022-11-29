@@ -1,6 +1,6 @@
 import OpposeExpression from '../3e/3L10.js'
 
-export const titre = 'Donner l\'opposé d\'une expression (complexe)'
+export const titre = 'Supprimer les parenthèses puis réduire une expression (niveau 2)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 535 
-- nombre d'exos interactifReady 822 
+- nombre d'exos interactifReady 823 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -120,7 +120,8 @@
 |3I12-3|Compléter un script Scratch - 2|OK|AMCOpen|KO|KO|
 |3I12-4|Comprendre un script Scratch - 2|OK|AMCHybride|KO|KO|
 |3L10-1|Additionner ou soustraire une expression entre parenthèses|KO|KO|OK|mathLive|
-|3L10|Donner l'opposé d'une expression|KO|KO|OK|mathLive|
+|3L10-2|Supprimer les parenthèses puis réduire une expression (niveau 2)|KO|KO|OK|mathLive|
+|3L10|Supprimer les parenthèses puis réduire une expression|KO|KO|OK|mathLive|
 |3L11-1|Utiliser la double distributivité|OK|AMCOpenNum✖︎3|OK|mathLive|
 |3L11-2|Réduire une expression|OK|AMCHybride|OK|mathLive|
 |3L11-3|Utiliser la distributivité (simple ou double) et réduire|OK|AMCHybride|OK|mathLive|

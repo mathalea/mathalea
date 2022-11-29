@@ -4,7 +4,7 @@ import { randint, combinaisonListes, lettreDepuisChiffre, printlatex, listeQuest
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
-export const titre = 'Donner l\'opposé d\'une expression'
+export const titre = 'Supprimer les parenthèses puis réduire une expression'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -20,7 +20,7 @@ export const ref = '3L10'
 export default function OpposeExpression () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Réduire les expressions suivantes.'
+  this.consigne = 'Supprimer les parenthèses et réduire les expressions suivantes.'
   this.spacing = context.isHtml ? 3 : 2
   this.spacing = context.isHtml ? 3 : 2
   this.nbQuestions = 6
@@ -60,8 +60,8 @@ export default function OpposeExpression () {
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${-a}*x+(${-b})`)}$`
           reponse = `${printlatex(`${-a}*x+(${-b})`)}$`
           break
-        case 2 : // '+(ax+b)':
-          texte = `$${lettreDepuisChiffre(i + 1)}=+(${printlatex(
+        case 2 : // '(ax+b)':
+          texte = `$${lettreDepuisChiffre(i + 1)}=(${printlatex(
             `${a}x+(${b})`
           )})$`
           texteCorr = texte
@@ -76,16 +76,16 @@ export default function OpposeExpression () {
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${-a}x^2+(${-b})x+(${-c})`)}$`
           reponse = `${printlatex(`${-a}x^2+(${-b})x+(${-c})`)}$`
           break
-        case 4 : // '+(ax2+bx+c)':
-          texte = `$${lettreDepuisChiffre(i + 1)}=+(${printlatex(
+        case 4 : // '(ax2+bx+c)':
+          texte = `$${lettreDepuisChiffre(i + 1)}=(${printlatex(
             `${a}x^2+(${b})x+(${c})`
           )})$`
           texteCorr = texte
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${a}x^2+(${b})x+(${c})`)}$`
           reponse = `${printlatex(`${a}x^2+(${b})x+(${c})`)}$`
           break
-        case 5 : // '+(ax+b)-(cx+d)':
-          texte = `$${lettreDepuisChiffre(i + 1)}= +(${printlatex(`${a}x+(${b})`)}) - (${printlatex(`${c}x+(${d})`)})$`
+        case 5 : // '(ax+b)-(cx+d)':
+          texte = `$${lettreDepuisChiffre(i + 1)}= (${printlatex(`${a}x+(${b})`)}) - (${printlatex(`${c}x+(${d})`)})$`
           texteCorr = texte
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}= ${printlatex(`${a}x+(${b})`)} ${-c < 0 ? '' : '+'} ${printlatex(`${-c}x+(${-d})`)}$
           <br>$\\phantom{${lettreDepuisChiffre(i + 1)}}= ${printlatex(`${a - c}x+(${b - d})`)}$`
@@ -98,8 +98,8 @@ export default function OpposeExpression () {
           <br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=  ${printlatex(`${-a + c}x+(${-b + d})`)}$`
           reponse = `${printlatex(`${-a + c}x+(${-b + d})`)}$`
           break
-        case 7 : // '+(ax+b)-(cx2+dx+e)':
-          texte = `$${lettreDepuisChiffre(i + 1)}= +(${printlatex(`${a}x+(${b})`)}) - (${printlatex(`${c}x^2+(${d}x)+(${e})`)})$`
+        case 7 : // '(ax+b)-(cx2+dx+e)':
+          texte = `$${lettreDepuisChiffre(i + 1)}= (${printlatex(`${a}x+(${b})`)}) - (${printlatex(`${c}x^2+(${d}x)+(${e})`)})$`
           texteCorr = texte
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}= ${printlatex(`${a}x+(${b})`)} ${-c < 0 ? '' : '+'} ${printlatex(`${-c}x^2+(${-d}x)+(${-e})`)}$
           <br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${-c}x^2+(${a - d}x)+(${b - e})`)}$`
@@ -112,8 +112,8 @@ export default function OpposeExpression () {
           <br>$\\phantom{${lettreDepuisChiffre(i + 1)}}= ${printlatex(`${c}x^2+(${-a + d}x)+(${-b + e})`)}$`
           reponse = `${printlatex(`${c}x^2+(${-a + d}x)+(${-b + e})`)}$`
           break
-        case 9 : // '+(ax2+bx+c)-(dx2+ex+f)'
-          texte = `$${lettreDepuisChiffre(i + 1)}= +(${printlatex(`${a}x^2+(${b}x)+(${c})`)}) - (${printlatex(`${d}x^2+(${e}x)+(${f})`)})$`
+        case 9 : // '(ax2+bx+c)-(dx2+ex+f)'
+          texte = `$${lettreDepuisChiffre(i + 1)}= (${printlatex(`${a}x^2+(${b}x)+(${c})`)}) - (${printlatex(`${d}x^2+(${e}x)+(${f})`)})$`
           texteCorr = texte
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}= ${printlatex(`${a}x^2+(${b}x)+(${c})`)} ${-d < 0 ? '' : '+'} ${printlatex(`${-d}x^2+(${-e}x)+(${-f})`)}$
           <br>$\\phantom{${lettreDepuisChiffre(i + 1)}}= ${printlatex(`${a - d}x^2+(${b - e})x+(${c - f})`)}$`
