@@ -594,7 +594,6 @@ export function LabelPoint (...points) {
       this.listePoints = points
     }
     for (const unPoint of this.listePoints) {
-      console.log(unPoint)
       if (unPoint.typeObjet === 'point3d') {
         A = unPoint.c2d
       } else {
@@ -5332,7 +5331,6 @@ export function symetrieAxiale (A, d, nom = '', positionLabel = 'above', color =
       x = k * ((b * b - a * a) * A.x - 2 * a * b * A.y - 2 * a * c)
       y = k * ((a * a - b * b) * A.y - 2 * a * b * A.x + (a * a * c) / b - b * c) - c / b
     }
-    console.log(nom)
     return point(x, y, nom, positionLabel)
   }
   if (A.constructor === Polygone) {
