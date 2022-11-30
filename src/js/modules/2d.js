@@ -984,10 +984,10 @@ export function Droite (arg1, arg2, arg3, arg4, arg5) {
   )
   let absNom, ordNom, leNom
   if (this.nom !== '') {
-    if (egal(this.b, 0, 0.1)) { // ax+c=0 x=-c/a est l'équation de la droite
+    if (egal(this.b, 0, 0.05)) { // ax+c=0 x=-c/a est l'équation de la droite
       absNom = -this.c / this.a + 0.8 // l'abscisse du label est décalé de 0.8
       ordNom = context.fenetreMathalea2d[1] + 1 // l'ordonnée du label est ymin +1
-    } else if (egal(this.a, 0, 0.1)) { // by+c=0 y=-c/b est l'équation de la droite
+    } else if (egal(this.a, 0, 0.05)) { // by+c=0 y=-c/b est l'équation de la droite
       absNom = context.fenetreMathalea2d[0] + 0.8 // l'abscisse du label est xmin +1
       ordNom = -this.c / this.b + 0.8 // l'ordonnée du label est décalée de 0.8
     } else { // a et b sont différents de 0 ax+by+c=0 est l'équation
