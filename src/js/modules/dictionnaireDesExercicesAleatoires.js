@@ -13873,7 +13873,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can1G09",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -13889,7 +13889,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can1G10",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -15726,7 +15726,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can3C14",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -17322,7 +17322,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can5C22",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
