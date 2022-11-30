@@ -8236,7 +8236,7 @@ export function exportQcmAmc (exercice, idExo) {
           autoCorrection[j].reponse.valeur = [autoCorrection[j].reponse.valeur]
         }
         texQr += `\\element{${ref}}{\n `
-        texQr += '\\begin{minipage}[b]{0.7 \\linewidth}\n'
+        texQr += '\\begin{minipage}[b]{0.8 \\linewidth}\n'
         texQr += `\\begin{question}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}a} \n `
         texQr += `${autoCorrection[j].enonce} \n `
         if (autoCorrection[j].propositions !== undefined) {
@@ -8263,7 +8263,7 @@ export function exportQcmAmc (exercice, idExo) {
         if (autoCorrection[j].reponse.param.signe === undefined) {
           autoCorrection[j].reponse.param.signe = false
         }
-        texQr += '\\begin{minipage}[b]{0.3 \\linewidth}\n'
+        texQr += '\\begin{minipage}[b]{0.2 \\linewidth}\n'
         texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
         texQr += `\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}b} \n `
         texQr += `\\AMCnumericChoices{${valeurAMCNum}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`

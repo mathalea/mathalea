@@ -113,7 +113,7 @@ export default function CalculValeurApprocheeRacineCarree () {
                   type: 'AMCOpen',
                   propositions: [{
                     texte: texteCorr,
-                    statut: 3
+                    statut: 1
                   }]
                 },
                 {
@@ -143,7 +143,7 @@ export default function CalculValeurApprocheeRacineCarree () {
                   type: 'AMCOpen',
                   propositions: [{
                     texte: texteCorr,
-                    statut: 3
+                    statut: 2
                   }]
                 },
                 {
