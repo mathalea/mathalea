@@ -27,7 +27,7 @@ export default function NotationPuissance () {
   this.besoinFormulaire2Numerique = ['Exposant', 3, '1 : Positif\n2 : Négatif\n3 : Mélange']
   this.sup2 = 1
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []

@@ -98,7 +98,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
 
         case 'ignorerCasse':
           saisie = champTexte.value
-          if (saisie.toLowerCase() === reponse.toLowerCase()) {
+          if (saisie.toLowerCase().replaceAll('\\lparen', '(').replaceAll('\\rparen', ')') === reponse.toLowerCase()) {
             resultat = 'OK'
             // Pour les exercices de simplifications de fraction
           }
