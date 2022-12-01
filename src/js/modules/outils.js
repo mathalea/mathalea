@@ -1759,8 +1759,8 @@ export function reduirePolynomeDegre3 (a, b, c, d) {
 
 /**
  * Donne la liste des facteurs premiers d'un nombre
- * @param {Entier} n - Nombre à décomposer
- * @returns {Entier[]} - Liste des facteurs premiers
+ * @param { number } n - Nombre à décomposer
+ * @returns {number[]} - Liste des facteurs premiers
 */
 export function obtenirListeFacteursPremiers (n) {
   const facteurs = []
