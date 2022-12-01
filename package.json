@@ -30,6 +30,7 @@
     "@bugsnag/js": "^7.18.0",
     "@cortex-js/compute-engine": "^0.12.1",
     "@svgdotjs/svg.js": "^3.1.2",
+    "@types/mathjs": "^9.4.2",
     "algebrite": "^1.4.0",
     "clipboard": "^2.0.11",
     "codemirror": "^5.65.10",
@@ -41,14 +42,15 @@
     "jquery-ui": "^1.13.2",
     "katex": "^0.16.3",
     "loadjs": "^4.2.0",
-    "mathjs": "^9.5.2",
+    "mathjs": "^11.4.0",
     "mathlive": "^0.85.1",
     "mathsteps": "github:mathalea/mathsteps",
     "qrcode": "^1.5.1",
     "regenerator-runtime": "^0.13.11",
     "seedrandom": "^3.0.5",
     "sval": "^0.4.8",
-    "ts-loader": "^9.4.2"
+    "ts-loader": "^9.4.2",
+    "typed-function": "^4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.5",

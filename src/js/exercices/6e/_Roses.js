@@ -11,9 +11,11 @@ import * as pkg from '@cortex-js/compute-engine'
 const { ComputeEngine } = pkg
 export const interactifReady = true
 export const interactifType = 'custom'
-const math = create(all)
 let engine
 if (context.versionMathalea) engine = new ComputeEngine()
+const config = { number: 'BigNumber' }
+const math = create(all, config)
+
 /**
  * Travailler les tables de multiplication autrement
  * @author Jean-Claude Lhote
