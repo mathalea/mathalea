@@ -58,7 +58,7 @@ export default function OpposeExpression () {
           )})$`
           texteCorr = texte
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${-a}*x+(${-b})`)}$`
-          reponse = `${printlatex(`${-a}*x+(${-b})`)}$`
+          reponse = `${printlatex(`${-a}*x+(${-b})`)}`
           break
         case 2 : // '(ax+b)':
           texte = `$${lettreDepuisChiffre(i + 1)}=(${printlatex(
@@ -66,7 +66,7 @@ export default function OpposeExpression () {
           )})$`
           texteCorr = texte
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${a}*x+(${b})`)}$`
-          reponse = `${printlatex(`${a}*x+(${b})`)}$`
+          reponse = `${printlatex(`${a}*x+(${b})`)}`
           break
         case 3 : // '-(ax2+bx+c)':
           texte = `$${lettreDepuisChiffre(i + 1)}=-(${printlatex(
@@ -74,7 +74,7 @@ export default function OpposeExpression () {
           )})$`
           texteCorr = texte
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${-a}x^2+(${-b})x+(${-c})`)}$`
-          reponse = `${printlatex(`${-a}x^2+(${-b})x+(${-c})`)}$`
+          reponse = `${printlatex(`${-a}x^2+(${-b})x+(${-c})`)}`
           break
         case 4 : // '(ax2+bx+c)':
           texte = `$${lettreDepuisChiffre(i + 1)}=(${printlatex(
@@ -82,49 +82,49 @@ export default function OpposeExpression () {
           )})$`
           texteCorr = texte
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${a}x^2+(${b})x+(${c})`)}$`
-          reponse = `${printlatex(`${a}x^2+(${b})x+(${c})`)}$`
+          reponse = `${printlatex(`${a}x^2+(${b})x+(${c})`)}`
           break
         case 5 : // '(ax+b)-(cx+d)':
           texte = `$${lettreDepuisChiffre(i + 1)}= (${printlatex(`${a}x+(${b})`)}) - (${printlatex(`${c}x+(${d})`)})$`
           texteCorr = texte
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}= ${printlatex(`${a}x+(${b})`)} ${-c < 0 ? '' : '+'} ${printlatex(`${-c}x+(${-d})`)}$
           <br>$\\phantom{${lettreDepuisChiffre(i + 1)}}= ${printlatex(`${a - c}x+(${b - d})`)}$`
-          reponse = `${printlatex(`${a - c}x+(${b - d})`)}$`
+          reponse = `${printlatex(`${a - c}x+(${b - d})`)}`
           break
         case 6 : // '-(ax+b)+(cx+d)':
           texte = `$${lettreDepuisChiffre(i + 1)}= -(${printlatex(`${a}x+(${b})`)}) + (${printlatex(`${c}x+(${d})`)})$`
           texteCorr = texte
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}= ${printlatex(`${-a}x+(${-b})`)} ${c < 0 ? '' : '+'} ${printlatex(`${c}x+(${d})`)}$
           <br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=  ${printlatex(`${-a + c}x+(${-b + d})`)}$`
-          reponse = `${printlatex(`${-a + c}x+(${-b + d})`)}$`
+          reponse = `${printlatex(`${-a + c}x+(${-b + d})`)}`
           break
         case 7 : // '(ax+b)-(cx2+dx+e)':
           texte = `$${lettreDepuisChiffre(i + 1)}= (${printlatex(`${a}x+(${b})`)}) - (${printlatex(`${c}x^2+(${d}x)+(${e})`)})$`
           texteCorr = texte
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}= ${printlatex(`${a}x+(${b})`)} ${-c < 0 ? '' : '+'} ${printlatex(`${-c}x^2+(${-d}x)+(${-e})`)}$
           <br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${-c}x^2+(${a - d}x)+(${b - e})`)}$`
-          reponse = `${printlatex(`${-c}x^2+(${a - d}x)+(${b - e})`)}$`
+          reponse = `${printlatex(`${-c}x^2+(${a - d}x)+(${b - e})`)}`
           break
         case 8 : // '-(ax+b)+(cx2+dx+e)':
           texte = `$${lettreDepuisChiffre(i + 1)}= -(${printlatex(`${a}x+(${b})`)}) + (${printlatex(`${c}x^2+(${d})x+(${e})`)})$`
           texteCorr = texte
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}= ${printlatex(`${-a}x+(${-b})`)} ${c < 0 ? '' : '+'} ${printlatex(`${c}x^2+(${d})x+(${e})`)}$
           <br>$\\phantom{${lettreDepuisChiffre(i + 1)}}= ${printlatex(`${c}x^2+(${-a + d}x)+(${-b + e})`)}$`
-          reponse = `${printlatex(`${c}x^2+(${-a + d}x)+(${-b + e})`)}$`
+          reponse = `${printlatex(`${c}x^2+(${-a + d}x)+(${-b + e})`)}`
           break
         case 9 : // '(ax2+bx+c)-(dx2+ex+f)'
           texte = `$${lettreDepuisChiffre(i + 1)}= (${printlatex(`${a}x^2+(${b}x)+(${c})`)}) - (${printlatex(`${d}x^2+(${e}x)+(${f})`)})$`
           texteCorr = texte
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}= ${printlatex(`${a}x^2+(${b}x)+(${c})`)} ${-d < 0 ? '' : '+'} ${printlatex(`${-d}x^2+(${-e}x)+(${-f})`)}$
           <br>$\\phantom{${lettreDepuisChiffre(i + 1)}}= ${printlatex(`${a - d}x^2+(${b - e})x+(${c - f})`)}$`
-          reponse = `${printlatex(`${a - d}x^2+(${b - e}x)+(${c - f})`)}$`
+          reponse = `${printlatex(`${a - d}x^2+(${b - e}x)+(${c - f})`)}`
           break
         case 10 : // '-(ax2+bx+c)+(dx2+ex+f)'
           texte = `$${lettreDepuisChiffre(i + 1)}= -(${printlatex(`${a}x^2+(${b}x)+(${c})`)}) + (${printlatex(`${d}x^2+(${e}x)+(${f})`)})$`
           texteCorr = texte
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}= ${printlatex(`${-a}x^2+(${-b}x)+(${-c})`)} ${d < 0 ? '' : '+'} ${printlatex(`${d}x^2+(${e}x)+(${f})`)}$
           <br>$\\phantom{${lettreDepuisChiffre(i + 1)}}= ${printlatex(`${-a + d}x^2+(${-b + e}x)+(${-c + f})`)}$`
-          reponse = `${printlatex(`${-a + d}x^2+(${-b + e}x)+(${-c + f})`)}$`
+          reponse = `${printlatex(`${-a + d}x^2+(${-b + e}x)+(${-c + f})`)}`
           break
       }
       if (this.interactif) {
