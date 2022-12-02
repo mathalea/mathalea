@@ -36,7 +36,7 @@ export class Rose {
     this.indexInconnue = indexInconnue
 
     if (values === undefined || values.length === 0) {
-      while (this.valeuMax - 2 < this.nombreDeValeurs) {
+      while (this.valeurMax - 2 < this.nombreDeValeurs) {
         this.valeurMax++
       }
       const den = randint(2, this.valeurMax)
