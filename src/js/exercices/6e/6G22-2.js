@@ -86,7 +86,7 @@ export default class ReconnaitreUnAngleParticulier extends Exercice {
       const ymin = Math.min(...pointsY) - 2.2
       const ymax = Math.max(...pointsY) + 2.2
       const parametres2d = { xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 20, scale: 0.4 }
-      texte = '' + mathalea2d(parametres2d, objets2d) + '<br>'
+      texte = 'Dans la figure ci-dessous :<br>' + mathalea2d(parametres2d, objets2d) + '<br>'
       texteCorr = ''
       // On construit les questions
 
