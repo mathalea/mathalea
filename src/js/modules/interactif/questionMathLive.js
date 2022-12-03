@@ -6,13 +6,13 @@ import { context } from '../context.js'
 import { afficheScore } from '../gestionInteractif.js'
 import { gestionCan } from './gestionCan.js'
 import { sp, texteExposant } from '../outils.js'
-import * as pkg from '@cortex-js/compute-engine'
-const { ComputeEngine } = pkg
+import { ComputeEngine } from '@cortex-js/compute-engine'
+
 export function verifQuestionMathLive (exercice, i, writeResult = true) {
   const engine = new ComputeEngine()
   let saisieParsee, num, den, fSaisie, fReponse
-  const formatInteractif = exercice.autoCorrection[i].reponse.param?.formatInteractif || 'calcul'
-  const precision = exercice.autoCorrection[i].reponse.param?.precision || 0
+  const formatInteractif = exercice.autoCorrection[i].reponse.param.formatInteractif || 'calcul'
+  const precision = exercice.autoCorrection[i].reponse.param.precision || 0
   const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
   // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
   let reponse, saisie, nombreSaisi, grandeurSaisie, mantisseSaisie, expoSaisi, nombreAttendu, mantisseReponse, expoReponse
