@@ -30,19 +30,22 @@ export default function ExerciceDevelopper (difficulte = 1) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = difficulte
   this.sup = parseInt(this.sup)
+  this.sup2 = 1
   this.titre = titre
   this.interactifType = interactifType
   this.interactifReady = interactifReady
-  this.consigne = 'Développer.'
+  this.nbQuestions = 5
   this.spacing = context.isHtml ? 3 : 2
   this.spacingCorr = context.isHtml ? 3 : 2
-  this.nbQuestions = 5
   this.nbColsCorr = 1
   this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+
+    this.consigne = this.sup2 === 1 ? 'Développer' : 'Développer et réduire'
+    if (this.nbQuestions > 1 && !context.isDiaporama) this.consigne += ' les expressions suivantes.'
 
     let lettre = ['x', 'y', 'z', 't', 'a', 'b', 'c']
     if (this.interactif) lettre = ['x']
@@ -201,11 +204,15 @@ export default function ExerciceDevelopper (difficulte = 1) {
             )}\\times${ecritureParentheseSiNegatif(b)}+${c}
             =${k * a}${inconnue}${ecritureAlgebrique(k * b)}+${c}=${k * a}${inconnue}${ecritureAlgebrique(k * b + c)}$`
           }
-          reponse = `${k * a}${inconnue}${ecritureAlgebrique(k * b + c)}`
+          if (this.sup2 === 1) {
+            reponse = [`${k * a}${inconnue}${ecritureAlgebrique(k * b)}${ecritureAlgebrique(c)}`, `${k * a}${inconnue}${ecritureAlgebrique(k * b + c)}`]
+          } else {
+            reponse = `${k * a}${inconnue}${ecritureAlgebrique(k * b + c)}`
+          }
           break
       }
-      setReponse(this, i, reponse)
-      texte += ajouteChampTexteMathLive(this, i)
+      setReponse(this, i, reponse, { formatInteractif: 'formeDevelopee' })
+      texte += ajouteChampTexteMathLive(this, i, { texte: `$${lettreDepuisChiffre(i + 1)}$` })
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
@@ -222,4 +229,5 @@ export default function ExerciceDevelopper (difficulte = 1) {
     2,
     '1 : Multiplication par un facteur positif\n2 : Multiplication par un facteur relatif'
   ]
+  this.besoinFormulaire2Numerique = ['Consigne', 2, '1 : Développer, \n2 : Développer et réduire']
 }
