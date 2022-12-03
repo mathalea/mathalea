@@ -8,8 +8,7 @@ import { isUserIdOk } from './interactif/isUserIdOk.js'
 import { gestionCan } from './interactif/gestionCan.js'
 import FractionX from './FractionEtendue.js'
 import Grandeur from './Grandeur.js'
-import * as pkg from '@cortex-js/compute-engine'
-const { ComputeEngine } = pkg
+import { ComputeEngine } from '@cortex-js/compute-engine'
 export function exerciceInteractif (exercice) {
   if (exercice.interactifType === 'qcm')exerciceQcm(exercice)
   if (exercice.interactifType === 'listeDeroulante')exerciceListeDeroulante(exercice)
