@@ -432,7 +432,7 @@ export default function CalculPythagoreEspace () {
           */context.anglePerspective = -40
           r = randint(4, 10)
           console.log(context.anglePerspective)
-          objetsEnonce = sphere3dEE(A, r, 'blue', 'blue', 0, 'red', 18, 'gray', true).c2d
+          objetsEnonce = sphere3dEE(A, r, 'blue', 'blue', 36, 'red', 18, 'gray', true).c2d
           texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
           /* context.anglePerspective = randint(2, 6) * choice([10, -10])
           r = randint(4, 10)

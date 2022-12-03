@@ -478,7 +478,7 @@ function Sphere3dEE (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blu
         pt = pointIntersectionDD(droite(paralleles.listepts2d[j][ee].c2d, paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].c2d), droite(paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj) % paralleles.listepts2d[0].length].c2d, paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj - 1) % paralleles.listepts2d[0].length].c2d))
         // 1) Tout d'abord, ce point d'intersection est donc la frontière entre le visible et le caché et on l'enregistre comme élément de l'enveloppe de la sphère
         enveloppeSphere1.push(pt)
-        //  2) Ensuite, si unDesParalleles'est le tout premier point d'intersection trouvé, on enregistre quel est le premier parallèle et quel est son indice
+        //  2) Ensuite, si pt est le tout premier point d'intersection trouvé, on enregistre quel est le premier parallèle et quel est son indice
         // Ces informmations serviront pour le tracé de l'enveloppe près du pôle Nord.
         if (premierParallele === j || premierParallele === 0) {
           premierParallele = j
@@ -501,7 +501,7 @@ function Sphere3dEE (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blu
         pt = pointIntersectionDD(droite(paralleles.listepts2d[j][ee].c2d, paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].c2d), droite(paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj) % paralleles.listepts2d[0].length].c2d, paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj - 1) % paralleles.listepts2d[0].length].c2d))
         // 1) Tout d'abord, ce point d'intersection est donc la frontière entre le visible et le caché et on l'enregistre comme élément de l'enveloppe de la sphère
         enveloppeSphere2.push(pt)
-        // 2) Ensuite, si unDesParalleles'est le tout premier point d'intersection trouvé, on enregistre quel est le premier parallèle et quel est son indice
+        // 2) Ensuite, si pt est le tout premier point d'intersection trouvé, on enregistre quel est le premier parallèle et quel est son indice
         // Ces informmations serviront pour le tracé de l'enveloppe près du pôle Sud.
         if (premierParallele === j || premierParallele === 0) {
           premierParallele = j
@@ -615,15 +615,17 @@ function Sphere3dEE (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blu
     }
   }
   // L'enveloppe finale contiendra les points de l'enveloppe 1 + les points de l'enveloppe 2 inversée (sinon le polygone serait croisé)
-  // this.centre cela, il faut ajouter les points autour des pôles car les premiers parallèles ne s'intersectent pas forcément.
+  // A cela, il faut ajouter les points autour des pôles car les premiers parallèles ne s'intersectent pas forcément.
   enveloppeSphere2 = enveloppeSphere2.reverse()
   const enveloppeSphere = [...enveloppeSphere1]
 
   // Pour trouver les points du cercle apparent près du pôle sud
   // On va prendre les points du premier parallèle intersecté entre l'indice du premier point d'intersection et l'indice du dernier point d'intersection.
   let ii = 1
+  console.log(indiceDernier)
   while ((indiceDernier + paralleles.listepts2d[0].length / 2 + ii) % paralleles.listepts2d[0].length < (indicePremier + paralleles.listepts2d[0].length / 2) % paralleles.listepts2d[0].length) {
-    enveloppeSphere.push(paralleles.listepts2d[2 * nbParallelesDeConstruction - 1 - premierParallele][(indiceDernier + paralleles.listepts2d[0].length / 2 + ii) % paralleles.listepts2d[0].length].c2d)
+    // enveloppeSphere.push(paralleles.listepts2d[2 * nbParallelesDeConstruction - 1 - premierParallele][(indiceDernier + paralleles.listepts2d[0].length / 2 + ii) % paralleles.listepts2d[0].length].c2d)
+    console.log('ii', ii)
     ii++
   }
   enveloppeSphere.push(...enveloppeSphere2)
