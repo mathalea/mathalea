@@ -44,9 +44,10 @@ export function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', in
 
 /**
  * Précise la réponse attendue
- * @param {'objet exercice'} exercice
- * @param {'numero de la question'} i
- * @param {'array || number'} a
+ * @param {Exercice} exercice = this
+ * @param {number} i numéro de la question
+ * @param {any} valeurs Attention à ce que vous mettez ici : ça doit être en accord avec le formatInteractif ! pas de texNombre ou de stringNombre !
+ * @param {object} options
  */
 
 export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0, aussiCorrect, digitsNum, digitsDen, basePuissance, exposantPuissance, baseNbChiffres, milieuIntervalle, formatInteractif = 'calcul', precision = null } = {}) {
@@ -301,7 +302,7 @@ export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
     }
   } else {
     // Envoie un message post avec le nombre de réponses correctes
-    window.parent.postMessage({ url: window.location.href, graine: context.graine, titre: exercice.titre, nbBonnesReponses: nbBonnesReponses, nbMauvaisesReponses: nbMauvaisesReponses }, '*')
+    window.parent.postMessage({ url: window.location.href, graine: context.graine, titre: exercice.titre, nbBonnesReponses, nbMauvaisesReponses }, '*')
   }
   if (context.timer) {
     clearInterval(context.timer)
