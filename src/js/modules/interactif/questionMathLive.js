@@ -61,7 +61,11 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
           // console.log('saisie : ', saisie) // EE : NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
           // console.log('reponse : ', reponse) // EE : NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
-          if (engine.parse(reponse).canonical.isSame(engine.parse(saisie).canonical)) {
+          if (!Number.isNaN(reponse)) {
+            if (Number(saisie) === Number(reponse)) {
+              resultat = 'OK'
+            }
+          } else if (engine.parse(reponse).canonical.isSame(engine.parse(saisie).canonical)) {
             resultat = 'OK'
           }
           break
