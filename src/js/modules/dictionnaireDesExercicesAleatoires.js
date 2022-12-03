@@ -8994,6 +8994,38 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "6G22-1": {
+    "titre": "Connaitre le vocabulaire de base des angles",
+    "url": "/exercices/6e/6G22-1.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "6G22-1",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "6G22-2": {
+    "titre": "Reconnaître un angle particulier",
+    "url": "/exercices/6e/6G22-2.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "6G22-2",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "6G22": {
     "titre": "Nommer un angle",
     "url": "/exercices/6e/6G22.js",
@@ -13905,7 +13937,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can1G11",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -15917,7 +15949,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can3F10",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

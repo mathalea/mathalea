@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 535 
-- nombre d'exos interactifReady 824 
+- nombre d'exos interactifReady 826 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -319,6 +319,8 @@
 |6G12|Tracer des parallèles|OK|AMCOpen|KO|KO|
 |6G14|Utiliser les propriétés des droites perpendiculaires|OK|AMCOpen|KO|KO|
 |6G20-3|Connaitre le vocabulaire de base des polygones|KO|KO|OK|qcm|
+|6G22-1|Connaitre le vocabulaire de base des angles|KO|KO|OK|qcm|
+|6G22-2|Reconnaître un angle particulier|KO|KO|OK|qcm|
 |6G22|Nommer un angle|OK|AMCHybride|OK|qcm,mathLive|
 |6G23-1|Mesurer un angle sans rapporteur sur l'énoncé|OK|qcmMono|OK|qcm|
 |6G23-4|Mesurer un angle avec rapporteur intégré|OK|AMCHybride|OK|mathLive|
