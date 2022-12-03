@@ -11,8 +11,8 @@ const { ComputeEngine } = pkg
 export function verifQuestionMathLive (exercice, i, writeResult = true) {
   const engine = new ComputeEngine()
   let saisieParsee, num, den, fSaisie, fReponse
-  const formatInteractif = exercice.autoCorrection[i].reponse.param.formatInteractif
-  const precision = exercice.autoCorrection[i].reponse.param.precision
+  const formatInteractif = exercice.autoCorrection[i].reponse.param?.formatInteractif || 'calcul'
+  const precision = exercice.autoCorrection[i].reponse.param?.precision || 0
   const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
   // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
   let reponse, saisie, nombreSaisi, grandeurSaisie, mantisseSaisie, expoSaisi, nombreAttendu, mantisseReponse, expoReponse
@@ -61,7 +61,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
           // console.log('saisie : ', saisie) // EE : NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
           // console.log('reponse : ', reponse) // EE : NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
-          if (!Number.isNaN(reponse)) {
+          if (!isNaN(reponse)) {
             if (Number(saisie) === Number(reponse)) {
               resultat = 'OK'
             }
