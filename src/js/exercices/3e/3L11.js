@@ -211,7 +211,11 @@ export default function ExerciceDevelopper (difficulte = 1) {
           }
           break
       }
-      setReponse(this, i, reponse, { formatInteractif: 'formeDevelopee' })
+      if (this.sup2 === 1) {
+        setReponse(this, i, reponse)
+      } else {
+        setReponse(this, i, reponse, { formatInteractif: 'formeDevelopee' })
+      }
       texte += ajouteChampTexteMathLive(this, i, { texte: `$${lettreDepuisChiffre(i + 1)}$` })
 
       if (this.listeQuestions.indexOf(texte) === -1) {
