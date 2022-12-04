@@ -16,6 +16,8 @@ export const dateDePublication = '03/12/2022'
  * @author Guillaume Valmont
  * 6G22-1
 */
+export const uuid = 'e8d33'
+export const ref = '6G22-1'
 export default class VocabulaireDeBaseDesAngles extends Exercice {
   constructor () {
     super()

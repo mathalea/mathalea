@@ -1,8 +1,9 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { combinaisonListes, listeQuestionsToContenu, randint, reduireAxPlusB, choice, numAlpha, texNombre, ecritureAlgebrique } from '../../modules/outils.js'
+import { combinaisonListes, listeQuestionsToContenu, randint, choice, numAlpha, texNombre, ecritureAlgebrique } from '../../modules/outils.js'
 import { tableauDeVariation } from '../../modules/2d.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import pkg from 'decimal.js'
+const { Decimal } = pkg
 export const dateDePublication = '01/10/2022'
 export const titre = 'Dresser et utiliser le tableau de signes d\'une fonction affine en lien avec son sens de variation'
 
