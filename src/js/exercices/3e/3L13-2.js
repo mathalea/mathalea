@@ -27,7 +27,7 @@ export default function EqResolvantesThales () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.debug = true
+  this.debug = false
   if (this.debug) {
     this.nbQuestions = 4
   } else {
