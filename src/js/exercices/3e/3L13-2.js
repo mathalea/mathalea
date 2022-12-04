@@ -27,7 +27,7 @@ export default function EqResolvantesThales () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.debug = false
+  this.debug = true
   if (this.debug) {
     this.nbQuestions = 4
   } else {
@@ -156,7 +156,7 @@ export default function EqResolvantesThales () {
       // pour les situations, autant de situations que de cas dans le switch !
       const situations = [
         { // x/b = a/c
-          eq: `\\dfrac{${params.inc}}{${texNombre(params.b, 1)}}=\\dfrac{${texNombre(params.a, 1)}}{${texNombre(params.c, 1)}}`,
+          eq: `\\dfrac{${params.inc}}{${texNombre(params.b, 4)}}=\\dfrac{${texNombre(params.a, 4)}}{${texNombre(params.c, 4)}}`,
           tab: tableauColonneLigne([params.inc, params.a], [params.b], [params.c]),
           a: params.a,
           b: params.b,
@@ -166,7 +166,7 @@ export default function EqResolvantesThales () {
           trivial: (params.b === params.c) || (params.c === params.a)
         },
         { // a/c = x/b
-          eq: `\\dfrac{${texNombre(params.a, 1)}}{${texNombre(params.c, 1)}}=\\dfrac{${params.inc}}{${texNombre(params.b, 1)}}`,
+          eq: `\\dfrac{${texNombre(params.a, 4)}}{${texNombre(params.c, 4)}}=\\dfrac{${params.inc}}{${texNombre(params.b, 4)}}`,
           tab: tableauColonneLigne([params.a, params.inc], [params.c], [params.b]),
           a: params.a,
           b: params.b,
@@ -176,7 +176,7 @@ export default function EqResolvantesThales () {
           trivial: (params.b === params.c) || (params.c === params.a)
         },
         { // b/x = c/a
-          eq: `\\dfrac{${texNombre(params.b, 1)}}{${params.inc}}=\\dfrac{${texNombre(params.c, 1)}}{${texNombre(params.a, 1)}}`,
+          eq: `\\dfrac{${texNombre(params.b, 4)}}{${params.inc}}=\\dfrac{${texNombre(params.c, 4)}}{${texNombre(params.a, 4)}}`,
           tab: tableauColonneLigne([params.b, params.c], [params.inc], [params.a]),
           a: params.a,
           b: params.b,
@@ -186,7 +186,7 @@ export default function EqResolvantesThales () {
           trivial: (params.b === params.c) || (params.c === params.a)
         },
         { // c/a = b/x
-          eq: `\\dfrac{${texNombre(params.c, 1)}}{${texNombre(params.a, 1)}}=\\dfrac{${texNombre(params.b, 1)}}{${params.inc}}`,
+          eq: `\\dfrac{${texNombre(params.c, 4)}}{${texNombre(params.a, 4)}}=\\dfrac{${texNombre(params.b, 4)}}{${params.inc}}`,
           tab: tableauColonneLigne([params.c, params.b], [params.a], [params.inc]),
           a: params.a,
           b: params.b,
@@ -217,13 +217,13 @@ export default function EqResolvantesThales () {
           correction: `${corrPlusPremiereLigne}
 $${situations[k].eq}$<br>
 ${texteEnCouleurEtGras('Les produits en croix sont égaux.')}<br>
-$${texNombre(situations[k].c, 1)}\\times ${situations[k].inc} = ${texNombre(situations[k].a, 1)}\\times ${texNombre(situations[k].b, 1)}$<br>
-${texteEnCouleurEtGras(`On divise les deux membres par ${texNombre(situations[k].c, 1)}`)}.<br>
-$\\dfrac{${texNombre(situations[k].c, 1)}\\times ${situations[k].inc}}{${texNombre(situations[k].c, 1)}}= \\dfrac{${texNombre(situations[k].a, 1)}\\times ${texNombre(situations[k].b, 1)}}{${texNombre(situations[k].c, 1)}}$<br>
+$${texNombre(situations[k].c, 4)}\\times ${situations[k].inc} = ${texNombre(situations[k].a, 4)}\\times ${texNombre(situations[k].b, 4)}$<br>
+${texteEnCouleurEtGras(`On divise les deux membres par ${texNombre(situations[k].c, 4)}`)}.<br>
+$\\dfrac{${texNombre(situations[k].c, 4)}\\times ${situations[k].inc}}{${texNombre(situations[k].c, 4)}}= \\dfrac{${texNombre(situations[k].a, 4)}\\times ${texNombre(situations[k].b, 4)}}{${texNombre(situations[k].c, 4)}}$<br>
 ${texteEnCouleurEtGras('On simplifie et on calcule.')}<br>
-$${situations[k].inc}=${texNombre(situations[k].b * situations[k].a / situations[k].c, 2)}$
-${trivial(situations[k].trivial, texNombre(situations[k].a, 1), texNombre(situations[k].b, 1), texNombre(situations[k].c, 1), situations[k].inc)}`,
-          correctionInteractif: [(situations[k].b * situations[k].a / situations[k].c).toFixed(2)]
+$${situations[k].inc}=${texNombre(situations[k].b * situations[k].a / situations[k].c, 4)}$
+${trivial(situations[k].trivial, texNombre(situations[k].a, 4), texNombre(situations[k].b, 4), texNombre(situations[k].c, 4), situations[k].inc)}`,
+          correctionInteractif: [(situations[k].b * situations[k].a / situations[k].c).toFixed(4)]
         })
       };
 
@@ -234,7 +234,7 @@ ${trivial(situations[k].trivial, texNombre(situations[k].a, 1), texNombre(situat
           if (this.debug) {
             texte += '<br>'
             texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`
-            texte += '             '
+            texte += ''
             texteCorr = ''
           } else {
             texteCorr = `${enonces[0].correction}`
