@@ -7,7 +7,7 @@ import Alea2iep from '../../modules/Alea2iep.js'
 /**
  * publié le 1/12/2020
  * @author Jean-Claude Lhote
- * Réfrence 6G21-1 et ... (exercice en 5e ? pas encore fait)
+ * Réfrence 6G21-1 et 5G20
  */
 export default function ConstruireUnTriangleAvecCible () {
   'use strict'
@@ -195,7 +195,7 @@ export default function ConstruireUnTriangleAvecCible () {
           IEP.recadre(xMin, yMax)
           IEP.triangle2longueurs1angle(nom, lAB, lAC, Math.round(angle(B, A, C)), true)
           break
-        case 7: // triangle ABC dont ont connais AB et les deux angles adjacents
+        case 7: // triangle ABC dont on connait AB et les deux angles adjacents
           lAB = calcul(randint(46, 60) / 10)
           B = pointAdistance(A, lAB, randint(-45, 45), sommets[1])
           B.positionLabel = 'right'

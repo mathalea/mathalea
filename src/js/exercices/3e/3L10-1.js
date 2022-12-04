@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { randint, combinaisonListes, lettreDepuisChiffre, printlatex, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
+import { randint, combinaisonListes, lettreDepuisChiffre, printlatex, listeQuestionsToContenuSansNumero, sp } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
@@ -86,7 +86,7 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
           break
       }
       if (this.interactif) {
-        texte += '$ = $' + ajouteChampTexteMathLive(this, i, 'inline largeur75')
+        texte += ajouteChampTexteMathLive(this, i, 'inline largeur 75 nospacebefore', { texte: `$${sp(3)} =$` })
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {

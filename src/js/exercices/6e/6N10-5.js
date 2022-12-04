@@ -43,7 +43,7 @@ export default function ExerciceLabyrintheNumeration () {
     const laby = labyrinthe({ nbLignes: nbL, nbColonnes: nbC })
     laby.niveau = randint(1, 6) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
     const monchemin = laby.choisitChemin(laby.niveau) // On choisit un chemin
-
+    console.log(monchemin)
     laby.murs2d = laby.construitMurs(monchemin) // On construit le labyrinthe
     laby.chemin2d = laby.traceChemin(monchemin) // On trace le chemin solution
     const positions = this.sup ? ['dix-millièmes', 'millièmes', 'centièmes', 'dixièmes', 'unités', 'dizaines', 'centaines', 'unités de mille', 'dizaines de mille'] : ['millièmes', 'centièmes', 'dixièmes', 'unités', 'dizaines', 'centaines', 'unités de mille']
@@ -74,7 +74,7 @@ export default function ExerciceLabyrintheNumeration () {
 
     const chiffre = randint(1, 9)
     texte = `Trouver la sortie en ne passant que par les cases contenant un nombre dont le chiffre des ${positions[rang]} est un $${miseEnEvidence(chiffre, 'black')}$.<br>`
-    texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en couleur et la sortie était le numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`
+    texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en couleur et la sortie était le numéro $${nbL - monchemin[monchemin.length - 1][1]}$.`, 'black')}<br>`
 
     const nombreLaby = []
     const rangs = [inversePosition[rang], inversePosition[rangbis], rangbis]
