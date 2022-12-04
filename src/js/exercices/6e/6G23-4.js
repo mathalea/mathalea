@@ -35,7 +35,7 @@ export default function MesurerUnAngleAvecRapporteur () {
     this.autoCorrection = []
     let figureExo
 
-    for (let i = 0, texteAMC, posA, sudOuest, nordOuest, sudEst, nordEst, texte, texteCorr, paramsEnonce; i < this.nbQuestions; i++) {
+    for (let i = 0, texteAMC, posA, sudOuest, nordOuest, sudEst, nordEst, texte, texteCorr, paramsEnonce, paramsCorrection; i < this.nbQuestions; i++) {
       const propositionsAMC = []
       // On prépare la figure...
       const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
@@ -260,6 +260,7 @@ export default function MesurerUnAngleAvecRapporteur () {
       }
       // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
       paramsEnonce = { xmin: min(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x), ymin: -1 + min(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y), xmax: max(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x), ymax: 1 + max(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y), pixelsParCm: 20, scale: 1, mainlevee: false }
+      paramsCorrection = { xmin: min(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x), ymin: -1 + min(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y), xmax: max(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x), ymax: 1 + max(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y), pixelsParCm: 20, scale: 0.9, mainlevee: false }
       figureExo = mathalea2d(paramsEnonce, objetsEnonce)
       if (context.isAmc) {
         this.autoCorrection[i] = {
@@ -279,7 +280,7 @@ export default function MesurerUnAngleAvecRapporteur () {
       // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
       texte += '<br>' + figureExo
       // On ajoute au texte de la correction, la figure de la correction
-      texteCorr += mathalea2d(paramsEnonce, objetsCorrection)
+      texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
       listeQuestionsToContenu(this)
