@@ -110,6 +110,21 @@ export default function ReciproquePythagore () {
       i < this.nbQuestions && cpt < 50;
 
     ) {
+      if (!context.isAmc) {
+        this.autoCorrection[i] = {}
+
+        this.autoCorrection[i].options = { ordered: true }
+        this.autoCorrection[i].propositions = [
+          {
+            texte: 'Oui',
+            statut: false
+          },
+          {
+            texte: 'Non',
+            statut: false
+          }
+        ]
+      }
       if (i % 4 === 0) nomsTriangles = ['QD'] // toutes les 4 question on peut à nouveau choisir les mêms sauf Q et D (problème clavier mathLive)
       nomTriangle = creerNomDePolygone(3, nomsTriangles)
       nomsTriangles.push(nomTriangle)
@@ -162,9 +177,11 @@ export default function ReciproquePythagore () {
         a
       )}^2=${texNombrec(b ** 2 + a ** 2)}$`
       if (listeTypeDeQuestions[i] === 'rectangle') {
+        if (!context.isAmc) this.autoCorrection[i].propositions[0].statut = true
         texteCorr += `<br>On constate que $${A + B}^2=${A + C}^2+${B + C
           }^2$, l'égalité de Pythagore est vérifiée donc $${nomTriangle}$ est rectangle en $${C}$.`
       } else {
+        if (!context.isAmc) this.autoCorrection[i].propositions[1].statut = true
         texteCorr += `<br>On constate que $${A + B}^2\\not=${A + C}^2+${B + C
           }^2$, l'égalité de Pythagore n'est pas vérifiée donc $${nomTriangle}$ n'est pas rectangle.`
       }
@@ -176,10 +193,13 @@ export default function ReciproquePythagore () {
           [
             {
               type: 'AMCOpen',
-              propositions: [{ texte: texteCorr, enonce: '<br>' + texte + '<br>', statut: 4, feedback: '' }]
+              propositions: [{ texte: texteCorr, enonce: '<br>' + texte + '<br>', statut: 4, feedback: ' ' }]
             }
           ]
         }
+      } else {
+        this.autoCorrection[i].enonce = texte
+        this.autoCorrection[i].propositions[0].feedback = texteCorr
       }
       if (this.interactif) {
         texte += propositionsQcm(this, i).texte
