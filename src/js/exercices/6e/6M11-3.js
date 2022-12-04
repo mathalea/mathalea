@@ -6,18 +6,20 @@ import { listeQuestionsToContenu, randint, creerNomDePolygone } from '../../modu
 import Grandeur from '../../modules/Grandeur.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-export const titre = 'Calculer l\'aire de carrés, rectangles et triangles rectangles'
+export const titre = 'Calculer le périmètre de carrés, rectangles et triangles'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifType = 'mathLive'
 export const interactifReady = true
 
+export const dateDePublication = '27/11/2022'
 /**
- * Un carré, un rectangle et un triangle rectangle sont tracés.
+ * Un carré, un rectangle et un triangle sont tracés.
  *
  * Il faut calculer les périmètres
  *
  * @author Sébastien LOZANO
+ * Lachement repiquer à Remi Angot et adapté
  * Référence 6M11-3
  */
 export default function AireCarresRectanglesTriangles () {
@@ -65,8 +67,6 @@ export default function AireCarresRectanglesTriangles () {
     const H = translation(G, vecteur(F, E), nom[7])
     const rectangle = polygoneAvecNom(E, F, G, H)
     const I = point(15, 0, nom[8])
-    // const J = pointAdistance(I, a, randint(-25, 25), nom[9])
-    // const K = similitude(I, J, -90, b / a, nom[10])
     const J = pointAdistance(I, a, randint(-25, 25), nom[9])
     J.positionLabel = 'right'
     const cI = cercle(I, b)
@@ -118,12 +118,12 @@ export default function AireCarresRectanglesTriangles () {
           }
           break
         case 2 :
-          texte = 'Calculer le périmètre du triangle rectangle en cm'
+          texte = 'Calculer le périmètre du triangle en cm'
           texteCorr += `<br>$\\mathcal{P}_{${nom[8] + nom[9] + nom[10]}}=${a}~\\text{cm} + ${b}~\\text{cm} + ${d}~\\text{cm} =${a + b + d}~\\text{cm}$`
           setReponse(this, i, new Grandeur(a + b + d, 'cm'), { formatInteractif: 'unites' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
-              enonce: `Calculer le périmètre du triangle rectangle dont les côtés de l'angle droit mesurent ${a}cm, ${b}cm et ${d}cm en cm`,
+              enonce: `Calculer le périmètre du triangle dont les côtés de l'angle droit mesurent ${a}cm, ${b}cm et ${d}cm en cm`,
               propositions: [{ texte: texteCorr, statut: 0 }],
               reponse: {
                 texte: 'Périmètre en cm',
