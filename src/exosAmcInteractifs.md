@@ -348,7 +348,7 @@
 |6M10|Calculer des périmètres et des aires de figures usuelles|OK|AMCHybride|OK|mathLive|
 |6M11-1|Calculer périmètre et aire de carrés, rectangles et triangles rectangles|OK|AMCNum|OK|mathLive|
 |6M11-2|Calculer périmètre et aire de figures composées|OK|AMCHybride|OK|mathLive|
-|6M11-3|Calculer l'aire de carrés, rectangles et triangles rectangles|OK|AMCNum|OK|mathLive|
+|6M11-3|Calculer le périmètre de carrés, rectangles et triangles|OK|AMCNum|OK|mathLive|
 |6M11|Calculer l'aire de carrés, rectangles et triangles rectangles|OK|AMCNum|OK|mathLive|
 |6M12|Convertir des longueurs|OK|AMCNum|OK|mathLive|
 |6M20|Calculer l'aire de triangles|OK|AMCNum|OK|mathLive|
