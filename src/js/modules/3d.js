@@ -133,7 +133,8 @@ class Arete3d {
     this.extremite1 = point1
     this.extremite2 = point2
     this.color = color
-    if (!point1.visible || !point2.visible || !visible) {
+    this.visible = visible
+    if (!point1.visible || !point2.visible || !this.visible) {
       this.visible = false
     } else {
       this.visible = true
@@ -240,7 +241,8 @@ export function demicercle3dEE (centre, normal, rayon, sens, estCache = false, c
     demiCercle.pointilles = 2
     demiCercle.opacite = 0.9
   }
-  return [demiCercle, listePoints3d]
+  //  return [demiCercle, listePoints3d]
+  return demiCercle
 }
 
 /**
@@ -410,7 +412,6 @@ function Sphere3dEE (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blu
   const poleSud = point3d(0, 0, -this.rayon, true, choisitLettresDifferentes(1, 'OQWX' + this.centre.label + poleNord.label), 'left')
 
   const nbParallelesDeConstruction = 36 // Ce nb de paralleles permet de construire l'enveloppe de la sphère (le "cercle" apparent de la sphère)
-  // const nbParallelesDeConstruction = 4 // Ce nb de paralleles permet de construire l'enveloppe de la sphère (le "cercle" apparent de la sphère)
   let unDesParalleles
   let centreParallele
   let rayonDuParallele
@@ -424,14 +425,12 @@ function Sphere3dEE (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blu
   }
   const enveloppeSphere1 = []
   let enveloppeSphere2 = []
-  let premierParallele
+  let premierParallele = 100
   let indicePremier
   let indiceDernier
   this.c2d = []
 
-  /// ////////////////////
   // Construction de tous les paralleles
-  /// ///////////////////
 
   // Construction du parallèle le plus proche du pôle nord
   centreParallele = point3d(this.centre.x, this.centre.y, this.centre.z + this.rayon * Math.sin((nbParallelesDeConstruction - 1) / nbParallelesDeConstruction * Math.PI / 2))
@@ -443,7 +442,6 @@ function Sphere3dEE (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blu
   paralleles.indicePtCachePremier.push('')
   paralleles.ptCacheDernier.push('')
   paralleles.indicePtCacheDernier.push('')
-  // this.c2d.push(unDesParalleles[0])
 
   // Construction de tous les autres parallèles jusqu'au plus proche du pôle sud
   for (let k = nbParallelesDeConstruction - 2, p, j = 1; k > -nbParallelesDeConstruction; k -= 1) {
@@ -480,7 +478,7 @@ function Sphere3dEE (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blu
         enveloppeSphere1.push(pt)
         //  2) Ensuite, si pt est le tout premier point d'intersection trouvé, on enregistre quel est le premier parallèle et quel est son indice
         // Ces informmations serviront pour le tracé de l'enveloppe près du pôle Nord.
-        if (premierParallele === j || premierParallele === 0) {
+        if (premierParallele >= j) {
           premierParallele = j
           indicePremier = jj % paralleles.listepts2d[0].length
         }
@@ -503,7 +501,7 @@ function Sphere3dEE (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blu
         enveloppeSphere2.push(pt)
         // 2) Ensuite, si pt est le tout premier point d'intersection trouvé, on enregistre quel est le premier parallèle et quel est son indice
         // Ces informmations serviront pour le tracé de l'enveloppe près du pôle Sud.
-        if (premierParallele === j || premierParallele === 0) {
+        if (premierParallele >= j) {
           premierParallele = j
           indiceDernier = jj
         }
@@ -531,7 +529,6 @@ function Sphere3dEE (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blu
   for (let k = nbParallelesDeConstruction, j = -1; k > -nbParallelesDeConstruction; k -= 1) {
     if ((this.nbParalleles !== 0 || k === 0) && (k !== nbParallelesDeConstruction) && (k % divisionParalleles === 0)) { // k=0 : C'est l'équateur
       for (let ee = 0, s; ee < paralleles.listepts2d[0].length; ee++) {
-      //  for (let ee = 0, s; ee < 12; ee++) {
         if (paralleles.indicePtCachePremier[j] === ee) {
           s = segment(paralleles.listepts2d[j][ee].c2d, paralleles.ptCachePremier[j], this.colorParalleles)
           s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient pas dans les petits cercles
@@ -572,7 +569,6 @@ function Sphere3dEE (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blu
     j++
   }
 
-  // Meridiens OK
   // Construction des méridiens demandés
   if (this.nbMeridiens !== 0) {
     const divisionMeridiens = Math.round(36 / this.nbMeridiens)
@@ -614,6 +610,7 @@ function Sphere3dEE (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blu
       }
     }
   }
+
   // L'enveloppe finale contiendra les points de l'enveloppe 1 + les points de l'enveloppe 2 inversée (sinon le polygone serait croisé)
   // A cela, il faut ajouter les points autour des pôles car les premiers parallèles ne s'intersectent pas forcément.
   enveloppeSphere2 = enveloppeSphere2.reverse()
@@ -622,16 +619,15 @@ function Sphere3dEE (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blu
   // Pour trouver les points du cercle apparent près du pôle sud
   // On va prendre les points du premier parallèle intersecté entre l'indice du premier point d'intersection et l'indice du dernier point d'intersection.
   let ii = 1
-  console.log(indiceDernier)
   while ((indiceDernier + paralleles.listepts2d[0].length / 2 + ii) % paralleles.listepts2d[0].length < (indicePremier + paralleles.listepts2d[0].length / 2) % paralleles.listepts2d[0].length) {
-    // enveloppeSphere.push(paralleles.listepts2d[2 * nbParallelesDeConstruction - 1 - premierParallele][(indiceDernier + paralleles.listepts2d[0].length / 2 + ii) % paralleles.listepts2d[0].length].c2d)
-    console.log('ii', ii)
+    enveloppeSphere.push(paralleles.listepts2d[2 * nbParallelesDeConstruction - 1 - premierParallele][(indiceDernier + paralleles.listepts2d[0].length / 2 + ii) % paralleles.listepts2d[0].length].c2d)
     ii++
   }
   enveloppeSphere.push(...enveloppeSphere2)
   // Pour trouver les points du cercle apparent près du pôle nord
   // On va prendre les points du premier parallèle intersecté entre l'indice du premier point d'intersection et l'indice du dernier point d'intersection.
   // La gestion des indices est plus compliquée car il arrive de repasser de 35 à 0 (36 modulo 36) d'où cette double gestion.
+
   if (indiceDernier > indicePremier) {
     ii = 1
     while (indiceDernier + ii < indicePremier + paralleles.listepts2d[0].length) {
@@ -776,7 +772,7 @@ function Cone3dEE (centre, sommet, rayon, color = 'black', affichageAxe = true, 
     ptsBase.push(rotation3d(pt1, droite3d(this.centre, vecteur3d(this.sommet, this.centre)), ee * 360 / (nbSommets)))
   }
   const p = polygone3d(ptsBase, this.color)
-  this.c2d = pyramide3dEE(p, this.sommet, this.color, this.centre, affichageAxe, this.colorAxe, false, true, this.colorCone).c2d
+  this.c2d = pyramide3d(p, this.sommet, this.color, this.centre, affichageAxe, this.colorAxe, false, true, this.colorCone).c2d
 }
 
 /**
@@ -874,7 +870,6 @@ function Cylindre3d (centrebase1, centrebase2, rayon1, rayon2, color = 'black', 
   this.angleDepart = angleDepart
   // Description de chaque demi-base en position verticale
   // c1 : cercle bas derrière
-  // const c1 = demicercle3dEE(this.centrebase1, this.normal, this.rayon1, cote1, true, this.color, angleDepart)
   const c1 = demicercle3dEE(this.centrebase1, this.normal, this.rayon1, cote1, true, this.color, angleDepart)
   // c3 : cercle haut derrière
   const c3 = demicercle3dEE(this.centrebase2, this.normal, this.rayon2, cote1, false, this.color, angleDepart)
@@ -977,12 +972,12 @@ export function cylindre3d (centrebase1, centrebase2, rayon, rayon2, color = 'bl
 }
 
 /**
-   * LE PRISME
+   * LE PRISME - FONCTION DEPRECIEE
    *
    * @author Jean-Claude Lhote
    * Crée un prisme à partir du base Polygone3d et d'un vecteur3d d'extrusion (on peut faire des prismes droits ou non droits)
    */
-class Prisme3d {
+/* class Prisme3d {
   constructor (base, vecteur, color) {
     ObjetMathalea2D.call(this, { })
 
@@ -991,7 +986,6 @@ class Prisme3d {
     this.base1 = base
     this.base2 = translation3d(base, vecteur)
     this.base2.color = this.base1.color
-    // this.aretes = []
     this.c2d = []; let s
     for (let i = 0; i < this.base1.listePoints.length; i++) {
       this.c2d.push(this.base1.c2d[i])
@@ -1008,7 +1002,7 @@ class Prisme3d {
 
 export function prisme3d (base, vecteur, color = 'black') {
   return new Prisme3d(base, vecteur, color)
-}
+} */
 
 /**
    * Crée un prisme droit (en version 2)
@@ -1027,45 +1021,47 @@ export function prisme3d (base, vecteur, color = 'black') {
    * @author Eric Elter (d'après version précédente de Jean-Claude Lhote)
    * @class
    */
-class Prisme3dEE {
+class Prisme3d {
   constructor (base, vecteur, color, affichageNom = false) {
     ObjetMathalea2D.call(this, { })
     this.affichageNom = affichageNom
     this.color = color
     base.color = colorToLatexOrHTML(this.color)
     this.vecteur = vecteur
-    this.vecteur.z = -1 * Math.abs(this.vecteur.z) // Afin que base1 soit toujours la face de haut
-    this.base1 = base
-    this.base2 = translation3d(base, this.vecteur)
+    this.base1 = this.vecteur.z >= 1 ? base : translation3d(base, vecteur3d(this.vecteur.x, this.vecteur.y, -this.vecteur.z))
+    this.base2 = this.vecteur.z < 1 ? base : translation3d(base, this.vecteur)
     this.base2.color = this.base1.color
     this.c2d = []; let s
-    // On trace base 1 (toujours visible)
+    // On trace this.base1 (toujours visible)
     for (let i = 0; i < this.base1.listePoints.length; i++) {
       this.c2d.push(this.base1.c2d[i])
     }
     // On cherche les sommets cachés de this.base2
+    let toutesLesAretesSontVisibles = true
     for (let i = 0; i < this.base1.listePoints.length; i++) {
       const areteVisibleOuPas = pointSurSegment(this.base1.listePoints[i].c2d, this.base2.listePoints[i].c2d, longueur(this.base1.listePoints[i].c2d, this.base2.listePoints[i].c2d) / 50).estDansPolygone(polygone(this.base1.listePoints2d))
       this.base2.listePoints[i].visible = !areteVisibleOuPas
+      toutesLesAretesSontVisibles = !areteVisibleOuPas & toutesLesAretesSontVisibles
     }
-    // On trace les arêtes de liaison entre les bases
-    for (let i = 1; i < this.base2.listePoints.length - 1; i++) {
-      s = arete3d(this.base2.listePoints[i], this.base2.listePoints[i + 1], this.color)
+    // On trace les arêtes de this.base2
+    for (let i = 0; i < this.base2.listePoints.length; i++) {
+      s = arete3d(this.base2.listePoints[i], this.base2.listePoints[i + 1 === this.base2.listePoints.length ? 0 : i + 1], this.color)
+      if (toutesLesAretesSontVisibles) { // Cas particulier où aucun sommet de this.base2 n'est caché (cas de certains tétraèdres)
+        let areteVisibleOuPas = true
+        for (let ee = 0; ee < this.base1.listePoints.length; ee++) {
+          const areteLiaison = segment(this.base1.listePoints[ee].c2d, this.base2.listePoints[ee].c2d)
+          areteVisibleOuPas &&= (areteLiaison.estSecant(s.c2d))
+        }
+        s = arete3d(this.base2.listePoints[i], this.base2.listePoints[i + 1 === this.base2.listePoints.length ? 0 : i + 1], this.color, !areteVisibleOuPas)
+      }
       this.c2d.push(s.c2d)
     }
-    // On trace la première et la dernière arête de liaison entre les bases
-    s = arete3d(this.base2.listePoints[1], this.base2.listePoints[0], this.color)
-    if (s.c2d.estSecant(segment(this.base1.listePoints[2].c2d, this.base2.listePoints[2].c2d))) s.c2d.pointilles = 2
-    this.c2d.push(s.c2d)
-    s = arete3d(this.base2.listePoints[this.base2.listePoints.length - 1], this.base2.listePoints[0], this.color)
-    if (s.c2d.estSecant(segment(this.base1.listePoints[1].c2d, this.base2.listePoints[1].c2d))) s.c2d.pointilles = 2
-    this.c2d.push(s.c2d)
-
-    // On trace les arêtes de this.base2
+    // On trace les arêtes de liaison entre les bases
     for (let i = 0; i < this.base1.listePoints.length; i++) {
       s = arete3d(this.base1.listePoints[i], this.base2.listePoints[i], this.color)
       this.c2d.push(s.c2d)
     }
+
     if (this.affichageNom) {
       let p = polygone(this.base1.listePoints2d)
       const nomBase1 = choisitLettresDifferentes(this.base1.listePoints.length, 'OQWX')
@@ -1087,29 +1083,30 @@ class Prisme3dEE {
 }
 
 /**
-   * Crée un prisme droit (en version 2)
+   * Crée un prisme droit
    * Ce prisme droit est optimisé dans son tracé des arêtes cachées pour des bases dans le plan (xOy) et son vecteur normal selon (Oz)
    * Pour d'autres usages, il faut approfondir la fonction mais laissé en l'état car justement pas d'autre usage demandé.
    * @param {Polygone3d} base Une des deux bases du prisme droit
    * @param {Vecteur3d} vecteur Vecteur normal à la base dont la norme indique la hauteur du prisme droit.
    * @param {string} [color = 'black'] Couleur des arêtes du prisme droit : du type 'blue' ou du type '#f15929'
    * @param {boolean} [affichageNom = false] Permet (ou pas) l'affichage du nom des sommets du prisme.
-   * @example prisme3dee(p, v)
+   * @example prisme3d(p, v)
    * // Retourne un prisme droit de base p dont un vecteur normal à la base est v.
-   * @example prisme3dee(p, v, 'blue', true)
+   * @example prisme3d(p, v, 'blue', true)
    * // Retourne un prisme droit de base p dont un vecteur normal à la base est v, de couleur V et dont les sommets sont nommés
    * @author Eric Elter (d'après version précédente de Jean-Claude Lhote)
-   * @return {Prisme3dEE}
+   * @return {Prisme3d}
    */
-export function prisme3dEE (base, vecteur, color = 'black', affichageNom = false) {
-  return new Prisme3dEE(base, vecteur, color, affichageNom)
+export function prisme3d (base, vecteur, color = 'black', affichageNom = false) {
+  return new Prisme3d(base, vecteur, color, affichageNom)
 }
 /**
-   * La pyramide
+   * La pyramide  - FONCTION DEPRECIEE
    *
    * @author Jean-Claude Lhote
    * Crée une pyramide à partir d'une base Polygone3d et d'un sommet
    */
+/*
 class Pyramide3d {
   constructor (base, sommet, color) {
     ObjetMathalea2D.call(this, { })
@@ -1144,15 +1141,15 @@ class Pyramide3d {
 export function pyramide3d (base, vecteur, color = 'black') {
   return new Pyramide3d(base, vecteur, color)
 }
-//* @param {boolean} [affichageAxe = false] Permet (ou pas) l'affichage de l'axe du cylindre
-//   * @param {string} [colorAxe = 'black'] Couleur de l'axe et des centres respectifs de chaque base du cylindre : du type 'blue' ou du type '#f15929'
+*/
 
 /**
    * Crée une pyramide
+   * (optimisée au niveau des pointillés pour une base sur le plan xOy et un sommet plus haut ou plus bas que la base)
    * @param {Polygone3d} base Base de la pyramide
    * @param {Point3d} sommet Sommet de la pyramide
    * @param {string} [color = 'black'] Couleur des arêtes du prisme droit : du type 'blue' ou du type '#f15929'
-   * @param {Point3d} centre Centre de la pyramide... Entraine l'affichage de ce centre
+   * @param {Point3d} [centre] Centre de la pyramide... Entraine l'affichage de ce centre
    * @param {boolean} [affichageAxe = false] Permet (ou pas) l'affichage de l'axe de la pyramide. Ne fonctionne que si centre est défini.
    * @param {string} [colorAxe = 'black'] Couleur de l'axe et du centre de la base de la pyramide : du type 'blue' ou du type '#f15929'
    * @param {boolean} [affichageNom = false] Permet (ou pas) l'affichage du nom des sommets de la pyramide.
@@ -1168,10 +1165,10 @@ export function pyramide3d (base, vecteur, color = 'black') {
    * @property {string} nom Nom de la pyramide (si affichageNom = true)
    * @property {string} colorCone Couleur du cône : du type 'blue' ou du type '#f15929'
    * @property {Array} c2d Contient les commandes à tracer en 2d de cette fonction
-   * @author Jean-Claude Lhote (optimisé par Eric Elter)
+   * @author Eric Elter (d'après version précédente de Jean-Claude Lhote)
    * @class
    */
-class Pyramide3dEE {
+class Pyramide3d {
   constructor (base, sommet, color, centre, affichageAxe = false, colorAxe = 'black', affichageNom = false, estCone = false, colorCone = 'gray') {
     ObjetMathalea2D.call(this, { })
 
@@ -1202,31 +1199,32 @@ class Pyramide3dEE {
       s = arete3d(this.base.listePoints[i], this.base.listePoints[(i + 1) % this.base.listePoints.length], this.color, true)
       aretesBase.push(s)
     }
-
     // Recherche des sommets arrières (donc toutes les arêtes issues de ce point sont cachées)
     let sommetCache = false
     let sommetCacheAvant
     const angleReference = [0, 0]
     const sommetGeneratriceCone = []
-    for (let i = 0; i < this.base.listePoints.length; i++) {
-      sommetCacheAvant = sommetCache
-      sommetCache = false
-      for (let j = 1; j < this.base.listePoints.length - 1; j++) {
-        sommetCache = sommetCache || this.base.listePoints[i].c2d.estDansPolygone(polygone(this.sommet.c2d, this.base.listePoints[(i + j) % this.base.listePoints.length].c2d, this.base.listePoints[(i + j + 1) % this.base.listePoints.length].c2d))
-      }
-      if (this.estCone && sommetCacheAvant !== sommetCache && i !== 0) {
-        if (sommetCache) sommetGeneratriceCone.push(aretesSommet[(aretesSommet.length + i - 1) % aretesSommet.length])
-        else sommetGeneratriceCone.push(aretesSommet[i])
-        if (sommetCache) angleReference[1] = i
-        else angleReference[0] = i
-      }
-
-      if (sommetCache) {
-        aretesSommet[i].c2d.pointilles = 2
-        aretesBase[i].c2d.pointilles = 2
-        aretesBase[(this.base.listePoints.length + i - 1) % this.base.listePoints.length].c2d.pointilles = 2
+    if (sommet.z > this.base.listePoints[0].z) { // Si le sommet est au-dessus de la base
+      for (let i = 0; i < this.base.listePoints.length; i++) {
+        sommetCacheAvant = sommetCache
+        sommetCache = false
+        for (let j = 1; j < this.base.listePoints.length - 1; j++) {
+          sommetCache = sommetCache || this.base.listePoints[i].c2d.estDansPolygone(polygone(this.sommet.c2d, this.base.listePoints[(i + j) % this.base.listePoints.length].c2d, this.base.listePoints[(i + j + 1) % this.base.listePoints.length].c2d))
+        }
+        if (this.estCone && sommetCacheAvant !== sommetCache && i !== 0) {
+          if (sommetCache) sommetGeneratriceCone.push(aretesSommet[(aretesSommet.length + i - 1) % aretesSommet.length])
+          else sommetGeneratriceCone.push(aretesSommet[i])
+          if (sommetCache) angleReference[1] = i
+          else angleReference[0] = i
+        }
+        if (sommetCache) {
+          aretesSommet[i].c2d.pointilles = 2
+          aretesBase[i].c2d.pointilles = 2
+          aretesBase[(this.base.listePoints.length + i - 1) % this.base.listePoints.length].c2d.pointilles = 2
+        }
       }
     }
+
     if (this.estCone && angleReference[1] < angleReference[0]) { angleReference[1] += this.base.listePoints.length }
 
     if (this.estCone && sommetGeneratriceCone.length === 1) {
@@ -1244,18 +1242,19 @@ class Pyramide3dEE {
     }
 
     if (!this.estCone) {
+      if (sommet.z > this.base.listePoints[0].z) { // Si le sommet est au-dessus de la base
       // Recherche de l'arête cachée possible issue de deux sommets non cachés.
-      let longueurSegment
-      for (let i = 0; i < this.base.listePoints.length; i++) {
-        sommetCache = false
-        longueurSegment = longueur(this.base.listePoints[i].c2d, this.base.listePoints[(i + 1) % this.base.listePoints.length].c2d)
-        s = segment(pointSurSegment(this.base.listePoints[i].c2d, this.base.listePoints[(i + 1) % this.base.listePoints.length].c2d, longueurSegment / 20), pointSurSegment(this.base.listePoints[i].c2d, this.base.listePoints[(i + 1) % this.base.listePoints.length].c2d, 19 * longueurSegment / 20))
-        for (let j = 0; j < aretesSommet.length; j++) {
-          sommetCache = sommetCache || s.estSecant(aretesSommet[j].c2d)
+        let longueurSegment
+        for (let i = 0; i < this.base.listePoints.length; i++) {
+          sommetCache = false
+          longueurSegment = longueur(this.base.listePoints[i].c2d, this.base.listePoints[(i + 1) % this.base.listePoints.length].c2d)
+          s = segment(pointSurSegment(this.base.listePoints[i].c2d, this.base.listePoints[(i + 1) % this.base.listePoints.length].c2d, longueurSegment / 20), pointSurSegment(this.base.listePoints[i].c2d, this.base.listePoints[(i + 1) % this.base.listePoints.length].c2d, 19 * longueurSegment / 20))
+          for (let j = 0; j < aretesSommet.length; j++) {
+            sommetCache = sommetCache || s.estSecant(aretesSommet[j].c2d)
+          }
+          if (sommetCache) aretesBase[i].c2d.pointilles = 2
         }
-        if (sommetCache) aretesBase[i].c2d.pointilles = 2
       }
-
       for (let i = 0; i < this.base.listePoints.length; i++) {
         this.c2d.push(aretesSommet[i].c2d)
       }
@@ -1269,7 +1268,7 @@ class Pyramide3dEE {
       this.c2d.push(aretesBase[i].c2d)
     }
 
-    if (this.centre.constructor === Point3d) {
+    if (this.centre !== undefined && this.centre.constructor === Point3d) {
       this.c2d.push(tracePoint(this.centre.c2d, this.colorAxe))
       if (this.centre.label === '') this.centre.label = choisitLettresDifferentes(1, 'OQWX')
       this.c2d.push(labelPoint(this.centre.c2d))
@@ -1315,21 +1314,21 @@ class Pyramide3dEE {
 }
 
 /**
-   * Crée un cône
+   * Crée une pyramide
    * @param {Polygone3d} base Base de la pyramide
    * @param {Point3d} sommet Sommet de la pyramide
    * @param {string} [color = 'black'] Couleur des arêtes du prisme droit : du type 'blue' ou du type '#f15929'
-   * @param {Point3d} centre Centre de la pyramide... Entraine l'affichage de ce centre
+   * @param {Point3d} [centre] Centre de la pyramide... Entraine l'affichage de ce centre
    * @param {boolean} [affichageAxe = false] Permet (ou pas) l'affichage de l'axe de la pyramide. Ne fonctionne que si centre est défini.
    * @param {string} [colorAxe = 'black'] Couleur de l'axe et du centre de la base de la pyramide : du type 'blue' ou du type '#f15929'
    * @param {boolean} [affichageNom = false] Permet (ou pas) l'affichage du nom des sommets de la pyramide.
    * @param {boolean} [estCone = false] Permet (ou pas) de considérer la pyramide comme un cône
    * @param {string} [colorCone = 'gray'] Couleur du cône : du type 'blue' ou du type '#f15929'
    * @author Eric Elter
-   * @return {Pyramide3dEE}
+   * @return {Pyramide3d}
    */
-export function pyramide3dEE (base, vecteur, color = 'black', centre, affichageAxe = false, colorAxe = 'black', affichageNom = false, estCone = false, colorCone = 'gray') {
-  return new Pyramide3dEE(base, vecteur, color, centre, affichageAxe, colorAxe, affichageNom, estCone, colorCone)
+export function pyramide3d (base, vecteur, color = 'black', centre, affichageAxe = false, colorAxe = 'black', affichageNom = false, estCone = false, colorCone = 'gray') {
+  return new Pyramide3d(base, vecteur, color, centre, affichageAxe, colorAxe, affichageNom, estCone, colorCone)
 }
 
 /**

@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, rangeMinMax, contraindreValeur, compteOccurences, choisitLettresDifferentes, choice, calcul, arrondi, miseEnEvidence, texteEnCouleurEtGras, sp, nombreDeChiffresDe, shuffle } from '../../modules/outils.js'
 import Grandeur from '../../modules/Grandeur.js'
-import { CodageAngleDroit3D, cone3dEE, cube3d, cylindre3d, droite3d, pave3d, point3d, polygone3d, prisme3dEE, pyramide3dEE, rotation3d, sphere3dEE, translation3d, vecteur3d } from '../../modules/3d.js'
+import { CodageAngleDroit3D, cone3dEE, cube3d, cylindre3d, droite3d, pave3d, point3d, polygone3d, prisme3d, pyramide3d, rotation3d, sphere3dEE, translation3d, vecteur3d } from '../../modules/3d.js'
 import { assombrirOuEclaircir, fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -12,7 +12,7 @@ export const titre = 'Déterminer des longueurs avec Pythagore dans la géométr
 export const amcReady = true
 export const amcType = 'AMCHybride' // type de question AMC
 export const interactifReady = true
-export const interactifType = ['qcm', 'mathLive']
+export const interactifType = 'mathLive'
 /**
  * Calcul de longueurs avec Pythagore dans la géométrie dans l'espace
  * @author Eric Elter
@@ -24,32 +24,24 @@ export default function CalculPythagoreEspace () {
   this.titre = titre
   this.nbQuestions = 4
   this.sup = 1
-  this.sup4 = 10
+  this.sup2 = 9
 
   this.nouvelleVersion = function (numeroExercice) {
-    this.interactifType = this.sup3 === 2 ? 'mathLive' : 'qcm'
     this.autoCorrection = []
     let typesDeQuestionsDisponibles = []
-    let thissup4Max
-    switch (this.classe) {
-      case 4 : thissup4Max = 3
-        break
-      case 3 : thissup4Max = 3
-        break
-    }
-    if (!this.sup4) { // Si aucune liste n'est saisie
-      typesDeQuestionsDisponibles = rangeMinMax(1, thissup4Max)
+    if (!this.sup2) { // Si aucune liste n'est saisie
+      typesDeQuestionsDisponibles = rangeMinMax(1, 8)
     } else {
-      if (typeof (this.sup4) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        typesDeQuestionsDisponibles[0] = contraindreValeur(1, thissup4Max + 1, this.sup4, thissup4Max + 1)
+      if (typeof (this.sup2) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
+        typesDeQuestionsDisponibles[0] = contraindreValeur(1, 9, this.sup4, 9)
       } else {
-        typesDeQuestionsDisponibles = this.sup4.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+        typesDeQuestionsDisponibles = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          typesDeQuestionsDisponibles[i] = contraindreValeur(1, thissup4Max + 1, parseInt(typesDeQuestionsDisponibles[i]), thissup4Max + 1) // parseInt en fait un tableau d'entiers
+          typesDeQuestionsDisponibles[i] = contraindreValeur(1, 9, parseInt(typesDeQuestionsDisponibles[i]), 9) // parseInt en fait un tableau d'entiers
         }
       }
     }
-    if (compteOccurences(typesDeQuestionsDisponibles, thissup4Max + 1) > 0) typesDeQuestionsDisponibles = rangeMinMax(1, thissup4Max) // Teste si l'utilisateur a choisi tout
+    if (compteOccurences(typesDeQuestionsDisponibles, 9) > 0) typesDeQuestionsDisponibles = rangeMinMax(1, 8) // Teste si l'utilisateur a choisi tout
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     this.listeQuestions = [] // Liste de questions
@@ -70,16 +62,12 @@ export default function CalculPythagoreEspace () {
       texte = ''
       texteCorr = ''
       objetsEnonce = []
-      // listeTypeDeQuestions[i] = 3
       context.anglePerspective = choice([-30, -60, 30, 60])
-      // context.anglePerspective = choice([-30, -40])
-
+      j = randint(0, 6) // Permet de choisir l'unité utilisée dans chaque question
       switch (listeTypeDeQuestions[i]) {
         case 1: // Diagonale de la face d'un cube
-
-          j = randint(0, 6)
-          c = randint(5, 10)
           A = point3d(0, 0, 0)
+          c = randint(5, 10)
           B = point3d(c, 0, 0)
           D = point3d(0, 0, c)
           choixProfondeur = choice([c, -c])
@@ -123,7 +111,6 @@ export default function CalculPythagoreEspace () {
 
           break
         case 2: // Diagonale d'un cube
-          j = randint(0, 6)
           // c = new Decimal(randint(2, 10)).plus(partieDecimale1)
           c = randint(5, 10)
           nomSolide = choisitLettresDifferentes(8, 'OQWX')
@@ -169,7 +156,6 @@ export default function CalculPythagoreEspace () {
 
           break
         case 3: // Diagonale de la face d'un pavé droit
-          j = randint(0, 6)
           // c = new Decimal(randint(2, 10)).plus(partieDecimale1)
           L = randint(5, 20)
           h = randint(5, 20, [L])
@@ -219,7 +205,6 @@ export default function CalculPythagoreEspace () {
           if (this.interactif && context.isHtml) texte += `<br>$${longueurATrouver}\\approx$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
           break
         case 4: // Diagonale d'un pavé droit
-          j = randint(0, 6)
           L = randint(5, 20)
           h = randint(5, 20, [L])
           p = randint(5, 20, [L, h])
@@ -269,7 +254,6 @@ export default function CalculPythagoreEspace () {
           if (this.interactif && context.isHtml) texte += `<br>$${longueurATrouver}\\approx$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
           break
         case 5: // Dans un cylindre
-          j = randint(0, 6)
           r = randint(4, 10)
           h = randint(5, 15, [r])
           A = point3d(0, 0, 0, true, choisitLettresDifferentes(1, 'OQWX'), 'left')
@@ -322,7 +306,6 @@ export default function CalculPythagoreEspace () {
           if (this.interactif && context.isHtml) texte += `<br>$${longueurATrouver}\\approx$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
           break
         case 6: // Dans une pyramide à base régulière
-          j = randint(0, 6)
           r = randint(4, 10)
           h = randint(5, 15, [r])
           A = point3d(0, 0, 0, true, choisitLettresDifferentes(1, 'OQWX'), 'left')
@@ -336,7 +319,7 @@ export default function CalculPythagoreEspace () {
             ptsBase.push(rotation3d(B, droite3d(A, vecteur3d(D, A)), ee * 360 / (nbSommets)))
           }
           p = polygone3d(ptsBase, 'blue')
-          solideDessine = pyramide3dEE(p, D, 'blue', A, true, 'red', true)
+          solideDessine = pyramide3d(p, D, 'blue', A, true, 'red', true)
           numeroSommet = randint(0, Math.floor(nbSommets / 2))
           if (context.anglePerspective < 0) numeroSommet = (nbSommets - numeroSommet) % nbSommets
           segmentATrouver = segment(D.c2d, p.listePoints2d[numeroSommet], '#f15929')
@@ -364,7 +347,6 @@ export default function CalculPythagoreEspace () {
           if (this.interactif && context.isHtml) texte += `<br>$${longueurATrouver}\\approx$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
           break
         case 7: // Dans un cône
-          j = randint(0, 6)
           r = randint(4, 10)
           h = randint(5, 15, [r])
           A = point3d(0, 0, 0, true, choisitLettresDifferentes(1, 'OQWX'), 'left')
@@ -406,7 +388,6 @@ export default function CalculPythagoreEspace () {
           texteCorr += `<br> $${longueurATrouver}\\approx${miseEnEvidence(texNombre(reponse))}$ ${texteEnCouleurEtGras(listeUnites[j])}`
           break
         case 8: // Dans une sphère
-          j = randint(0, 6)
           r = randint(4, 10)
           // h = randint(5, 15, [r])
           A = point3d(0, 0, 0, true, choisitLettresDifferentes(1, 'OQWX'), 'left')
@@ -415,10 +396,10 @@ export default function CalculPythagoreEspace () {
           // E = point3d(0, 0, -r, true, choisitLettresDifferentes(1, 'OQWX' + A.label + D.label), 'left')
           // v = vecteur3d(A, B)
           // ptsBase = [B]
-          /* objetsEnonce = sphere3dEE(A, r).c2d
+          objetsEnonce = sphere3dEE(A, r).c2d
           texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
           context.anglePerspective = randint(2, 6) * choice([10, -10])
-          r = randint(4, 10)
+          /* r = randint(4, 10)
           objetsEnonce = sphere3dEE(A, r, 'blue', 'black', 0, 'gray', 0, 'gray', true, 'red').c2d
           texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
           context.anglePerspective = randint(2, 6) * choice([10, -10])
@@ -429,20 +410,19 @@ export default function CalculPythagoreEspace () {
           // objetsEnonce = sphere3dEE(A, r, 'green', 'red', 18, 'gray', 0, 'gray', false).c2d
           // texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
           context.anglePerspective = randint(2, 6) * choice([10, -10])
-          */context.anglePerspective = -40
+
           r = randint(4, 10)
           console.log(context.anglePerspective)
           objetsEnonce = sphere3dEE(A, r, 'blue', 'blue', 36, 'red', 18, 'gray', true).c2d
           texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
-          /* context.anglePerspective = randint(2, 6) * choice([10, -10])
+          context.anglePerspective = randint(2, 6) * choice([10, -10])
           r = randint(4, 10)
           objetsEnonce = sphere3dEE(A, r, 'blue', 'black', 12, 'gray', 18, 'gray', true, 'green').c2d
           texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
           context.anglePerspective = randint(2, 6) * choice([10, -10])
-          r = randint(4, 10)
-          */break
+          r = randint(4, 10) */
+          break
         case 9: // Dans un prisme droit
-          j = randint(0, 6)
           r = randint(4, 10)
           h = randint(5, 15, [r])
           A = point3d(0, 0, 0, true, choisitLettresDifferentes(1, 'OQWX'), 'left')
@@ -465,14 +445,13 @@ export default function CalculPythagoreEspace () {
           C = rotation3d(B, droite3d(A, vecteur3d(D, A)), 70)
           E = rotation3d(B, droite3d(A, vecteur3d(D, A)), 200)
           p = polygone3d(ptsBase, 'blue')
-          solideDessine = prisme3dEE(p, vecteur3d(A, D), 'blue', true)
+          solideDessine = prisme3d(p, vecteur3d(A, D), 'blue', true)
 
           texte += mathalea2d(Object.assign({}, fixeBordures([...solideDessine.c2d]), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), [...solideDessine.c2d])
           setReponse(this, i, new Grandeur(reponse, listeUnites[j]), { formatInteractif: 'unites' })
           if (this.interactif && context.isHtml) texte += `<br>$${longueurATrouver}\\approx$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
           break
         case 10: // Pleins de cylindres
-          j = randint(0, 6)
           context.anglePerspective = randint(2, 6) * choice([10, -10])
           r = randint(4, 10)
           h = randint(5, 15, [r])
@@ -628,5 +607,5 @@ export default function CalculPythagoreEspace () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Exercice AMC', 2, '1 : Question ouverte\n2 : Réponse numérique']
-  this.besoinFormulaire4Texte = ['Type de longueur à trouver', 'Nombres séparés par des tirets\n1 : Diagonale d\'une face d\'un cube\n2 : Diagonale d\'un cube\n3 : Diagonale d\'une face d\'un pavé droit\n4 : Diagonale d\'un pavé droit\n5 : Dans un cylindre\n6 : Dans une pyramide\n7 : Dans un cône']
+  this.besoinFormulaire2Texte = ['Type de longueur à trouver', 'Nombres séparés par des tirets\n1 : Diagonale d\'une face d\'un cube\n2 : Diagonale d\'un cube\n3 : Diagonale d\'une face d\'un pavé droit\n4 : Diagonale d\'un pavé droit\n5 : Dans un cylindre\n6 : Dans une pyramide\n7 : Dans un cône\n8 : Dans une sphère\n9 : Mélange']
 }
