@@ -982,44 +982,58 @@ export function Droite (arg1, arg2, arg3, arg4, arg5) {
     point(0, 0),
     point(this.directeur.x, this.directeur.y)
   )
-  let absNom, ordNom, leNom
+  let absNom, ordNom, leNom, orientation
   if (this.nom !== '') {
+    orientation = 'milieu'
+    // console.log('' + 'a:' + this.a + ':' + 'b:' + this.b + ':' + 'c:' + this.c + ':' + this.nom)
     if (egal(this.b, 0, 0.05)) { // ax+c=0 x=-c/a est l'équation de la droite
       absNom = -this.c / this.a + 0.8 // l'abscisse du label est décalé de 0.8
       ordNom = context.fenetreMathalea2d[1] + 1 // l'ordonnée du label est ymin +1
+      console.log('' + 'b:' + this.b + ':' + this.nom)
     } else if (egal(this.a, 0, 0.05)) { // by+c=0 y=-c/b est l'équation de la droite
       absNom = context.fenetreMathalea2d[0] + 0.8 // l'abscisse du label est xmin +1
       ordNom = -this.c / this.b + 0.8 // l'ordonnée du label est décalée de 0.8
+      // console.log('' + 'a:' + this.a + ':' + this.nom)
     } else { // a et b sont différents de 0 ax+by+c=0 est l'équation
       // y=(-a.x-c)/b est l'aquation cartésienne et x=(-by-c)/a
       const y0 = (-this.a * (context.fenetreMathalea2d[0] + 1) - this.c) / this.b
       const y1 = (-this.a * (context.fenetreMathalea2d[2] - 1) - this.c) / this.b
       const x0 = (-this.b * (context.fenetreMathalea2d[1] + 1) - this.c) / this.a
       const x1 = (-this.b * (context.fenetreMathalea2d[3] - 1) - this.c) / this.a
+      // console.log('y0' + y0 + ':y1' + y1 + ':x0' + x0 + ':x1' + x1 + ':p' + this.pente + ':' + this.nom)
       if (y0 > context.fenetreMathalea2d[1] && y0 < context.fenetreMathalea2d[3]) {
         absNom = context.fenetreMathalea2d[0] + 1
-        ordNom = y0 + this.pente
+        ordNom = y0
+        orientation = (this.pente > 0 ? 'bas' : 'haut')
+        // console.log('y0:' + y0 + ':' + this.nom)
       } else {
         if (y1 > context.fenetreMathalea2d[1] && y1 < context.fenetreMathalea2d[3]) {
           absNom = context.fenetreMathalea2d[2] - 1
-          ordNom = y1 - this.pente
+          ordNom = y1
+          orientation = (this.pente > 0 ? 'bas' : 'haut')
+          // console.log('y1:' + y1 + ':' + this.nom)
         } else {
           if (x0 > context.fenetreMathalea2d[0] && x0 < context.fenetreMathalea2d[2]) {
             absNom = x0
-            ordNom = context.fenetreMathalea2d[1] + Math.abs(this.pente)
+            ordNom = context.fenetreMathalea2d[1] + 1
+            orientation = (this.pente > 0 ? 'gauche' : 'droite')
+            // console.log('x0:' + x0 + ': ordNom:' + ordNom + ':' + this.nom)
           } else {
             if (x1 > context.fenetreMathalea2d[0] && x1 < context.fenetreMathalea2d[2]) {
               absNom = x1
-              ordNom = context.fenetreMathalea2d[3] + this.pente
+              ordNom = context.fenetreMathalea2d[3] - 1
+              orientation = (this.pente > 0 ? 'gauche' : 'droite')
+              // console.log('x1:' + x1 + ':' + this.nom)
             } else {
               absNom = (context.fenetreMathalea2d[0] + context.fenetreMathalea2d[2]) / 2
               ordNom = pointSurDroite(this, absNom).y
+              // console.log('xmil:' + absNom + ':' + this.nom)
             }
           }
         }
       }
     }
-    leNom = texteParPosition(this.nom, absNom, ordNom, 'milieu', this.color, 1, 'middle', true)
+    leNom = texteParPosition(this.nom, absNom, ordNom, orientation, this.color, 1, 'middle', true)
   } else leNom = vide2d()
   this.svg = function (coeff) {
     if (this.epaisseur !== 1) {
@@ -10234,9 +10248,23 @@ export function TexteParPoint (texte, A, orientation = 'milieu', color = 'black'
     texte = String(texte)
   }
   if (texte.charAt(0) === '$') {
+    // TO DO  : 'above right': 'above left': 'below right':'below left':
     A.positionLabel = 'above'
+    if (orientation === 'gauche') {
+      A.positionLabel = 'left'
+    }
+    if (orientation === 'droite') {
+      A.positionLabel = 'right'
+    }
+    if (orientation === 'bas') {
+      A.positionLabel = 'below'
+    }
+    if (orientation === 'haut') {
+      A.positionLabel = 'above'
+    }
     this.svg = function (coeff) {
-      return latexParPoint(texte.substr(1, texte.length - 2), A, this.color, texte.length * 8, 12, '', 6).svg(coeff)
+      // latexParPoint (texte, A, color = 'black', largeur = 20, hauteur = 12, colorBackground = 'white', tailleCaracteres = 8) {
+      return latexParPoint(texte.substr(1, texte.length - 2), A, this.color, Math.ceil((texte.length - 2) * 10 * Math.log10(6)), 20, '', 6).svg(coeff)
     }
     this.tikz = function () {
       let code = ''
@@ -10260,6 +10288,18 @@ export function TexteParPoint (texte, A, orientation = 'milieu', color = 'black'
         }
         if (orientation === 'milieu') {
           anchor = `node[anchor = center,scale=${scale}]`
+        }
+        if (orientation === 'bas') {
+          anchor = `node[anchor = north,scale=${scale}]`
+        }
+        if (orientation === 'haut') {
+          anchor = `node[anchor = south,scale=${scale}]`
+        }
+        if (orientation === 'gauche bas') {
+          anchor = `node[anchor = north east,scale=${scale}]`
+        }
+        if (orientation === 'gauche haut') {
+          anchor = `node[anchor = south east,scale=${scale}]`
         }
         code = `\\draw [color=${this.color[1]}] (${A.x},${A.y}) ${anchor} {${texte}};`
       }
@@ -10487,6 +10527,10 @@ export function texteParPosition (texte, x, y, orientation = 'milieu', color = '
 export function latexParPoint (texte, A, color = 'black', largeur = 20, hauteur = 12, colorBackground = 'white', tailleCaracteres = 8) {
   let x; let y; const coeff = context.pixelsParCm
   const offset = 10 * Math.log10(tailleCaracteres)
+  // According to W3C: 1pt = 1/72th of 1in et 1px = 1/96th of 1in
+  // px = pt * ( 72pt / 96 )
+  // const offsetLarg = tailleCaracteres * (72.0 / 96.0)
+  const options = { render: A.positionLabel } // utilisé pour SVG
   switch (A.positionLabel) {
     case 'above':
       x = A.x; y = A.y + offset / coeff
@@ -10495,10 +10539,10 @@ export function latexParPoint (texte, A, color = 'black', largeur = 20, hauteur 
       x = A.x; y = A.y - offset / coeff
       break
     case 'left':
-      x = A.x - offset / coeff; y = A.y
+      x = A.x - (offset * texte.length * 0.5) / coeff; y = A.y
       break
     case 'right':
-      x = A.x + offset / coeff; y = A.y
+      x = A.x + (offset * texte.length * 0.5) / coeff; y = A.y
       break
     case 'above right':
       x = A.x + offset / coeff; y = A.y + offset / coeff
@@ -10519,7 +10563,7 @@ export function latexParPoint (texte, A, color = 'black', largeur = 20, hauteur 
       x = A.x; y = A.y
       break
   }
-  return latexParCoordonnees(texte, x, y, color, largeur, hauteur, colorBackground, tailleCaracteres)
+  return latexParCoordonnees(texte, x, y, color, largeur, hauteur, colorBackground, tailleCaracteres, options)
 }
 /**
  * @param {String} texte Le code latex qui sera mis en mode math en ligne. Ex : '\\dfrac{4}{5}\\text{cm}'
@@ -10531,11 +10575,11 @@ export function latexParPoint (texte, A, color = 'black', largeur = 20, hauteur 
  * @param {String} [colorBackground] Couleur du fond de la box. Chaine vide pour un fond transparent.
  * @param {Number} [tailleCaracteres] Taille de la police utilisée de 5 = \small à 20=\huge... agit sur la box en en modifiant les paramètres hauteur et largeur
  */
-export function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, colorBackground, tailleCaracteres) {
+export function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, colorBackground, tailleCaracteres, options) {
   ObjetMathalea2D.call(this, { })
   this.x = x
   this.y = y
-  this.largeur = largeur * Math.log10(2 * tailleCaracteres)
+  this.largeur = largeur * Math.log10(tailleCaracteres)
   this.hauteur = hauteur * Math.log10(tailleCaracteres)
   this.colorBackground = colorToLatexOrHTML(colorBackground)
   this.color = colorToLatexOrHTML(color)
@@ -10552,15 +10596,42 @@ export function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, color
   else if (this.tailleCaracteres < 9) taille = '\\footnotesize'
   else if (this.tailleCaracteres < 10) taille = '\\small'
   else taille = '\\normalsize'
+
+  let style = ''
+  if (options.render !== undefined && options.render !== '') {
+    switch (options.render) {
+      case 'above':
+        style = 'position:fixed;bottom:0'
+        break
+      case 'left':
+        style = 'position:fixed;right:0'
+        break
+      case 'right':
+        style = 'position:fixed;left:0'
+        break
+      case 'bellow':
+        style = 'position:fixed;top:0'
+        break
+    }
+  }
+
   this.svg = function (coeff) {
     const demiLargeur = this.largeur / 2
     const centrage = 0.4 * context.pixelsParCm * Math.log10(tailleCaracteres)
     if (this.colorBackground !== '') {
-      return `<foreignObject style=" overflow: visible; line-height: 0;" x="${this.x * coeff - demiLargeur}" y="${-this.y * coeff - centrage - this.hauteur / 2}"  width="${this.largeur}" height="${this.hauteur}" id="${this.id}" ><div style="margin:auto;width:${this.largeur}px;height:${this.hauteur}px;position:fixed!important; text-align:center">
-    $\\colorbox{${this.colorBackground[0]}}{$${taille} \\color{${this.color[0]}}{${this.texte}}$}$</div></foreignObject>`
+      return `<foreignObject style=" overflow: visible; line-height: 0;" x="${this.x * coeff - demiLargeur}" y="${-this.y * coeff - centrage - this.hauteur / 2}"  width="${this.largeur}" height="${this.hauteur}" id="${this.id}" >
+      <div style="margin:auto;width:${this.largeur}px;height:${this.hauteur}px;position:fixed!important; text-align:center">
+      <div style='${style}'>
+          $\\colorbox{${this.colorBackground[0]}}{$${taille} \\color{${this.color[0]}}{${this.texte}}$}$
+      </div>
+      </div></foreignObject>`
     } else {
-      return `<foreignObject style=" overflow: visible; line-height: 0;" x="${this.x * coeff - demiLargeur}" y="${-this.y * coeff - centrage - this.hauteur / 2}"  width="${this.largeur}" height="${this.hauteur}" id="${this.id}" ><div style="width:${this.largeur}px;height:${this.hauteur}px;position:fixed!important; text-align:center">
-      $${taille} \\color{${this.color[0]}}{${this.texte}}$</div></foreignObject>`
+      return `<foreignObject style=" overflow: visible; line-height: 0;" x="${this.x * coeff - demiLargeur}" y="${-this.y * coeff - centrage - this.hauteur / 2}"  width="${this.largeur}" height="${this.hauteur}" id="${this.id}" >
+      <div style="width:${this.largeur}px;height:${this.hauteur}px;position:fixed!important; text-align:center">
+      <div style='${style}'>
+        $${taille} \\color{${this.color[0]}}{${this.texte}}$
+      </div>
+      </div></foreignObject>`
     }
   }
 
@@ -10575,9 +10646,9 @@ export function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, color
   }
 }
 
-export function latexParCoordonnees (texte, x, y, color = 'black', largeur = 50, hauteurLigne = 20, colorBackground = 'white', tailleCaracteres = 8) {
+export function latexParCoordonnees (texte, x, y, color = 'black', largeur = 50, hauteurLigne = 20, colorBackground = 'white', tailleCaracteres = 8, options = {}) {
   if (texte === '') return vide2d()
-  else return new LatexParCoordonnees(texte, x, y, color, largeur, hauteurLigne, colorBackground, tailleCaracteres)
+  else return new LatexParCoordonnees(texte, x, y, color, largeur, hauteurLigne, colorBackground, tailleCaracteres, options)
 }
 
 /*
