@@ -6,13 +6,13 @@ import { context } from '../context.js'
 import { afficheScore } from '../gestionInteractif.js'
 import { gestionCan } from './gestionCan.js'
 import { sp, texteExposant } from '../outils.js'
-import * as pkg from '@cortex-js/compute-engine'
-const { ComputeEngine } = pkg
+import { ComputeEngine } from '@cortex-js/compute-engine'
+
 export function verifQuestionMathLive (exercice, i, writeResult = true) {
   const engine = new ComputeEngine()
   let saisieParsee, num, den, fSaisie, fReponse
-  const formatInteractif = exercice.autoCorrection[i].reponse.param.formatInteractif
-  const precision = exercice.autoCorrection[i].reponse.param.precision
+  const formatInteractif = exercice.autoCorrection[i].reponse.param.formatInteractif || 'calcul'
+  const precision = exercice.autoCorrection[i].reponse.param.precision || 0
   const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
   // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
   let reponse, saisie, nombreSaisi, grandeurSaisie, mantisseSaisie, expoSaisi, nombreAttendu, mantisseReponse, expoReponse
@@ -61,7 +61,19 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
           // console.log('saisie : ', saisie) // EE : NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
           // console.log('reponse : ', reponse) // EE : NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
-          if (engine.parse(reponse).canonical.isSame(engine.parse(saisie).canonical)) {
+          if (!isNaN(reponse)) {
+            if (Number(saisie) === Number(reponse)) {
+              resultat = 'OK'
+            }
+          } else if (engine.parse(reponse).canonical.isSame(engine.parse(saisie).canonical)) {
+            resultat = 'OK'
+          }
+          break
+        case 'formeDevelopee':
+          saisie = champTexte.value.replaceAll(',', '.')
+          reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
+          saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
+          if (!saisie.includes('times') && engine.parse(reponse).canonical.isSame(engine.parse(saisie).canonical)) {
             resultat = 'OK'
           }
           break
@@ -98,7 +110,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
 
         case 'ignorerCasse':
           saisie = champTexte.value
-          if (saisie.toLowerCase() === reponse.toLowerCase()) {
+          if (saisie.toLowerCase().replaceAll('\\lparen', '(').replaceAll('\\rparen', ')').replaceAll('\\left(', '(').replaceAll('\\right)', ')') === reponse.toLowerCase()) {
             resultat = 'OK'
             // Pour les exercices de simplifications de fraction
           }

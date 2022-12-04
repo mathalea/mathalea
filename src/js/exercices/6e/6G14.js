@@ -10,6 +10,7 @@ export const titre = 'Utiliser les propriétés des droites perpendiculaires'
 /**
  * Ref 6G14
  * @author Jean-Claude Lhote (EE : pour l'ajout d'AMC et la possibilité de sélectionner différents mélanges)
+ * @author Mickael Guironnet (refactoring avec ajout des 4 à 6 et des figures)
  * publié le 22/11/2020
  */
 export const uuid = '6a336'
@@ -23,6 +24,7 @@ export default function ProprietesParallelesPerpendiculaires () {
   this.nbColsCorr = 1
   this.sup = 4
   this.sup2 = false
+  this.sup3 = true
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = false
   this.nouvelleVersion = function () {
@@ -31,25 +33,27 @@ export default function ProprietesParallelesPerpendiculaires () {
     let questionsParNiveau = []
     if (!this.sup2) {
       questionsParNiveau.push(range(3))
+      questionsParNiveau.push(rangeMinMax(4, 6))
       questionsParNiveau.push(rangeMinMax(9, 15))
       questionsParNiveau.push(rangeMinMax(19, 31, 20))
-      questionsParNiveau.push(questionsParNiveau[0].concat(questionsParNiveau[1].concat(questionsParNiveau[2])))
+      questionsParNiveau.push(questionsParNiveau[0].concat(questionsParNiveau[1].concat(questionsParNiveau[2]).concat(questionsParNiveau[3])))
     } else {
       questionsParNiveau = [[2], [15], [31], [2, 15, 31]]
     }
     let AvecMelange = true
     if (!this.sup) { // Si aucun melange n'est saisi
-      typesDeQuestionsDisponibles = questionsParNiveau[3]
+      typesDeQuestionsDisponibles = questionsParNiveau[4]
     } else {
       if (typeof (this.sup) === 'number') { // Si c'est un nombre, on duplique ce nombre et on insère un - entre les deux.
         this.sup = this.sup + '-' + this.sup
       } else { AvecMelange = false }
+
       let QuestionsDisponibles = []
       const IndiceNew = [0, 0, 0, 0, 0]
       let NumQuestionsDisponibles
       QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
       for (let i = 0; i < this.nbQuestions; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-        NumQuestionsDisponibles = contraindreValeur(1, 4, parseInt(QuestionsDisponibles[i % QuestionsDisponibles.length]), 4) - 1
+        NumQuestionsDisponibles = contraindreValeur(1, 5, parseInt(QuestionsDisponibles[i % QuestionsDisponibles.length]), 4) - 1
         typesDeQuestionsDisponibles[i] = choice(questionsParNiveau[NumQuestionsDisponibles], typesDeQuestionsDisponibles.slice(IndiceNew[NumQuestionsDisponibles])) // Ce slice permet de gérer, par exemple, le mélange 1-1-2 pour 10 questions car il n'y a pas assez de choix différents pour le mélange 1.
         if (typesDeQuestionsDisponibles[i] === undefined) { // Dans le cas, on a épuisé tous les choix différents d'un mélange
           IndiceNew[NumQuestionsDisponibles] = i
@@ -64,33 +68,21 @@ export default function ProprietesParallelesPerpendiculaires () {
         this.nbQuestions
       )
     } else { listeTypeDeQuestions = typesDeQuestionsDisponibles }
+
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    const droites = []; let code; let raisonnement; let numDroites = []; const phrases = []; let textetemp
-    const d = []; const P = []; const objets = []; const couleurd = []; let droiteP; let PP; let Inter
-    const droitecolor = function (num) {
-      let couleurs
-      context.isHtml ? couleurs = ['red', 'blue', 'green', 'black', 'magenta', '#f15929'] : couleurs = ['black', 'black', 'black', 'black', 'black', 'black']
-      return couleurs[num]
-    }
+    const droiteColor = (context.isHtml ? ['red', 'blue', 'green', 'black', 'magenta', '#f15929'] : ['black', 'black', 'black', 'black', 'black', 'black'])
 
-    for (
-      let i = 0, texte, texteCorr, cpt = 0;
-      i < this.nbQuestions && cpt < 50;
-
-    ) {
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = ''
       texteCorr = ''
-      phrases.length = 0
-      droites.length = 0
-      objets.length = 0
-      d.length = 0
-      P.length = 0
-      couleurd.length = 0
-      numDroites = shuffle([1, 2, 3, 4, 5])
-      raisonnement = listeTypeDeQuestions[i]
 
-      switch (raisonnement) {
+      const numDroites = shuffle([1, 2, 3, 4, 5])
+      // const numDroites = [1, 2, 3, 4, 5]
+      const d = []; const dE = []; const P = []; const objets = []; const objets2 = []
+      let code = []; let code2 = []
+
+      switch (listeTypeDeQuestions[i]) {
         case 0: // si 1//2 et 2//3 alors 1//3
           code = [[1, 2, 1], [2, 3, 1]]
           break
@@ -102,6 +94,18 @@ export default function ProprietesParallelesPerpendiculaires () {
           break
         case 3: // si 1T2 et 2//3 alors 1T3
           code = [[1, 2, -1], [2, 3, 1]]
+          break
+        case 4: // si 1T2 et 2//3 alors 1T3 et 4 distracteur
+          code = [[1, 2, -1], [2, 3, 1]]
+          code2 = [[1, 4, 1]]
+          break
+        case 5: // si 1T2 et 2T3 alors 1//3 et 4 distracteur
+          code = [[1, 2, -1], [2, 3, -1]]
+          code2 = [[2, 4, 1]]
+          break
+        case 6: // si 1//2 et 2//3 alors 1//3 et 4 distracteur
+          code = [[1, 2, 1], [2, 3, 1]]
+          code2 = [[1, 4, -1]]
           break
         case 8: // Si 1//2 et 2//3 et 3//4 alors 1//4
           code = [[1, 2, 1], [2, 3, 1], [3, 4, 1]]
@@ -178,63 +182,80 @@ export default function ProprietesParallelesPerpendiculaires () {
       }
 
       // enoncé mélangé
+      const couleurd = []
+      const phrases = []
       texte += 'On sait que '
       couleurd.push(randint(0, 5))
-      for (let j = 0; j < code.length; j++) {
-        textetemp = `$(d_${numDroites[code[j][0] - 1]})`
-        if (code[j][2] === 1) {
+      const codeAll = code.concat(code2)
+      for (let j = 0; j < codeAll.length; j++) {
+        let textetemp = `$(d_${numDroites[codeAll[j][0] - 1]})`
+        if (codeAll[j][2] === 1) {
           textetemp += '//'
           couleurd.push(couleurd[j])
         } else {
           textetemp += '\\perp'
           couleurd.push((couleurd[j] + 1) % 6)
         }
-        textetemp += `(d_${numDroites[code[j][1] - 1]})$`
+        textetemp += `(d_${numDroites[codeAll[j][1] - 1]})$`
         phrases.push(textetemp)
       }
       // phrases=shuffle(phrases)
-      for (let j = 0; j < code.length - 1; j++) {
+      for (let j = 0; j < codeAll.length - 1; j++) {
         texte += phrases[j]
-        if (j !== code.length - 2) texte += ', '
+        if (j !== codeAll.length - 2) texte += ', '
         else texte += ' et '
       }
-      texte += phrases[code.length - 1]
-      texte += `.<br>Que peut-on dire de $(d_${numDroites[code[0][0] - 1]})$ et $(d_${numDroites[code[code.length - 1][1] - 1]})$ ?`
-      if (context.isAmc) {
-        texte += ' On pourra s\'aider en traçant une figure.'
-      }
-      // construction de la figure
+      texte += phrases[codeAll.length - 1] + '.<br>'
 
+      // construction de la figure
+      context.fenetreMathalea2d = [-2, -2, 15, 10] // important avec la création des droites
       P.push(point(0, 0))
-      droiteP = droiteParPointEtPente(P[0], randint(-1, 1, 0) / 10, `$(d_${numDroites[code[0][0] - 1]})$`, droitecolor(couleurd[0]))
+      let droiteP = droiteParPointEtPente(P[0], randint(-1, 1, 0) / 10, `$(d_${numDroites[codeAll[0][0] - 1]})$`, droiteColor[couleurd[0]])
       droiteP.epaisseur = 2
       droite.pointilles = false
       d.push(droiteP)
+      const droiteE = droite(point(droiteP.x1, droiteP.y1), point(droiteP.x2, droiteP.y2), `$(d_${numDroites[codeAll[0][0] - 1]})$`)
+      droiteE.epaisseur = 2
+      dE.push(droiteE)
       objets.push(d[0])
-      for (let x = 0; x < code.length; x++) {
-        if (code[x][2] === 1) {
+      objets2.push(dE[0])
+      for (let x = 0; x < codeAll.length; x++) {
+        if (codeAll[x][2] === 1) {
           P.push(point((x + 1) * 2, (x + 1) * 2))
-          droiteP = droiteParPointEtParallele(P[x + 1], d[x], `$(d_${numDroites[code[x][1] - 1]})$`, droitecolor(couleurd[x + 1]))
+          droiteP = droiteParPointEtParallele(P[x + 1], d[codeAll[x][0] - 1], `$(d_${numDroites[codeAll[x][1] - 1]})$`, droiteColor[couleurd[x + 1]])
           droiteP.epaisseur = 2
-          droiteP.pointilles = d[x].pointilles
+          droiteP.pointilles = d[[codeAll[x][0] - 1]].pointilles
           d.push(droiteP)
+          const droiteP2 = droite(point(droiteP.x1, droiteP.y1), point(droiteP.x2, droiteP.y2), `$(d_${numDroites[codeAll[x][1] - 1]})$`)
+          droiteP2.epaisseur = 2
+          dE.push(droiteP2)
         } else {
           P.push(point((x + 1) * 2, (x + 1) * 2))
-          droiteP = droiteParPointEtPerpendiculaire(P[x + 1], d[x], `$(d_${numDroites[code[x][1] - 1]})$`, droitecolor(couleurd[x + 1]))
+          droiteP = droiteParPointEtPerpendiculaire(P[x + 1], d[codeAll[x][0] - 1], `$(d_${numDroites[codeAll[x][1] - 1]})$`, droiteColor[couleurd[x + 1]])
           droiteP.epaisseur = 2
           droiteP.pointilles = x % 3 + 1
-          Inter = pointIntersectionDD(d[x], droiteP)
-          PP = rotation(P[x + 1], Inter, 90)
           d.push(droiteP)
+          const droiteP2 = droite(point(droiteP.x1, droiteP.y1), point(droiteP.x2, droiteP.y2), `$(d_${numDroites[codeAll[x][1] - 1]})$`)
+          droiteP2.epaisseur = 2
+          dE.push(droiteP2)
+          const Inter = pointIntersectionDD(d[codeAll[x][0] - 1], droiteP)
+          const PP = rotation(P[x + 1], Inter, 90)
           objets.push(codageAngleDroit(PP, Inter, P[x + 1], 'black', 0.6))
+          objets2.push(codageAngleDroit(PP, Inter, P[x + 1], 'black', 0.6))
         }
         objets.push(d[x + 1])
+        objets2.push(dE[x + 1])
       }
-      for (let i = 0; i < code.length; i++) { // on ajoute les angles droits
 
+      if (this.sup3) {
+        texte += (context.vue === 'diap' ? '<center>' : '') + mathalea2d({ xmin: -2, xmax: 15, ymin: -2, ymax: 10, pixelsParCm: 20, scale: 0.3, mainlevee: false, amplitude: 0.3 }, objets2) + '<br>' + (context.vue === 'diap' ? '</center>' : '')
       }
+      texte += `Que peut-on dire de $(d_${numDroites[code[0][0] - 1]})$ et $(d_${numDroites[code[code.length - 1][1] - 1]})$ ?`
+      if (context.isAmc && !this.sup3) {
+        texte += ' On pourra s\'aider en traçant une figure.'
+      }
+
       // correction raisonnement ordonné
-      context.fenetreMathalea2d = [-2, -2, 15, 10]
       texteCorr = 'À partir de l\'énoncé, on peut réaliser le schéma suivant (il en existe une infinité).<br> Les droites données parallèles dans l\'énoncé sont de même couleur/style.<br>'
       texteCorr += mathalea2d({ xmin: -2, xmax: 15, ymin: -2, ymax: 10, pixelsParCm: 20, scale: 0.3, mainlevee: false, amplitude: 0.3 }, objets) + '<br>'
       for (let j = 0; j < code.length - 1; j++) {
@@ -293,6 +314,7 @@ export default function ProprietesParallelesPerpendiculaires () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Nombre d\'étapes de raisonnement', 'Nombres séparés par des tirets\n1 : Une étape\n2 : Deux étapes\n3 : Trois étapes\n4 : Mélange']
+  this.besoinFormulaireTexte = ['Nombre d\'étapes de raisonnement', 'Nombres séparés par des tirets\n1 : Une étape (de 0 à 3)\n2 : Une étape avec distracteur (de 4 à 6)\n3 Deux étapes (de 9 à 15)\n4 : Trois étapes (de 19 à 31)\n5 : Mélange']
   this.besoinFormulaire2CaseACocher = ['Que des perpendiculaires', false]
+  this.besoinFormulaire3CaseACocher = ['Avec le dessin', true]
 }

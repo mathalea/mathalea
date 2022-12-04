@@ -22,6 +22,7 @@ export default function Tauxvariation () {
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
+  this.sup = 1
   // this.sup = parseInt(this.sup)
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
@@ -132,5 +133,5 @@ export default function Tauxvariation () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = ['Type de fonctions ', 5, '1 : Fonction affine 2 : Fonction carré 3: Fonction inverse 4: Fonction racine carrée 5: Méli-mélo']
+  this.besoinFormulaireNumerique = ['Type de fonctions ', 5, '1 : Fonction affine 2 : Fonction carré 3: Fonction inverse 4: Fonction racine carrée 5: Mélange']
 }

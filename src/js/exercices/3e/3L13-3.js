@@ -87,7 +87,7 @@ export default class ProblemesEnEquation extends Exercice {
               b: 'randomInt(15,30)',
               d: 'b+(a+x)*2+x*3'
             }
-            , { valueOf: true })
+            , { valueOf: true, type: 'number' })
           x = variables.x // nombre de paniers à trois points
           a = variables.a // nombres de paniers à deux points de plus que x
           b = variables.b // nombre de points marqués au lancer franc

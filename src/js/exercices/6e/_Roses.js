@@ -7,13 +7,14 @@ import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML, vide2d, fixeBordures } from '../../modules/2dGeneralites.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import * as pkg from '@cortex-js/compute-engine'
-const { ComputeEngine } = pkg
+import { ComputeEngine } from '@cortex-js/compute-engine'
 export const interactifReady = true
 export const interactifType = 'custom'
-const math = create(all)
 let engine
 if (context.versionMathalea) engine = new ComputeEngine()
+const config = { number: 'BigNumber' }
+const math = create(all, config)
+
 /**
  * Travailler les tables de multiplication autrement
  * @author Jean-Claude Lhote
@@ -34,7 +35,7 @@ export class Rose {
     this.indexInconnue = indexInconnue
 
     if (values === undefined || values.length === 0) {
-      while (this.valeuMax - 2 < this.nombreDeValeurs) {
+      while (this.valeurMax - 2 < this.nombreDeValeurs) {
         this.valeurMax++
       }
       const den = randint(2, this.valeurMax)
@@ -49,7 +50,7 @@ export class Rose {
             this.rayon = 2
             break
           case 'litteraux' :
-            values.push(calculer(`${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`).printResult)
+            values.push(calculer(`${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`, null).printResult)
             this.rayon = 3
             break
           case 'fractions dénominateurs multiples':
@@ -81,7 +82,7 @@ export class Rose {
             values.push(randint(-this.valeurMax, this.valeurMax, [0, ...values]))
             break
           case 'litteraux' :
-            values.push(calculer(`${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`).printResult)
+            values.push(calculer(`${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`, null).printResult)
             break
           case 'fractions dénominateurs multiples':
             values.push(math.fraction(randint(1, this.valeurMax), values[i - 1].d))
@@ -120,7 +121,7 @@ export class Rose {
             return math.add(a, b)
           }
         } else {
-          return calculer(`${a.toString()}+${b.toString()}`).printResult
+          return calculer(`${a.toString()}+${b.toString()}`, null).printResult
         }
       case 'multiplication':
         if (this.typeDonnees !== 'litteraux') {
@@ -130,7 +131,7 @@ export class Rose {
             return math.multiply(a, b)
           }
         } else {
-          return calculer(`(${a.toString()})*(${b.toString()})`).printResult
+          return calculer(`(${a.toString()})*(${b.toString()})`, null).printResult
         }
     }
   }
@@ -144,8 +145,8 @@ export class Rose {
       else this.rayonBoite = 1
     }
     const objets = []
-    const O = point(0, 0)
-    const A = rotation(point(this.rayon, 0), O, 180 / this.nombreDeValeurs - 90)
+    const O = point(0, 0, '', '')
+    const A = rotation(point(this.rayon, 0, '', ''), O, 180 / this.nombreDeValeurs - 90)
     for (let i = 0, bulle1, bulle2; i < this.nombreDeValeurs; i++) {
       const M = rotation(A, O, 360 * i / this.nombreDeValeurs)
       M.positionLabel = 'center'

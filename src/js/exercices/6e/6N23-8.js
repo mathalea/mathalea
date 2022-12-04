@@ -70,6 +70,8 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
           setReponse(this, i, n)
           texte = `$${texFraction(texNombre(a), texNombre(b))}  ${(!this.interactif ? '=\\ldots\\ldots\\ldots\\ldots' : '=')} $` + ajouteChampTexteMathLive(this, i, 'largeur25 inline')
           texteCorr = '$ ' + texFraction(texNombre(a), texNombre(b)) + ' = ' + texNombre(n) + ' $'
+          this.autoCorrection[i].reponse.param.digits = 5
+          this.autoCorrection[i].reponse.param.decimals = 3
           break
         case 1: { // / écriture décimale -> fraction décimale
           consi[0] = true
@@ -89,14 +91,14 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
           if (this.interactif) {
             texte = `$${texNombre(n, precision, true)} =$` + ajouteChampFractionMathLive(this, i, false, b, 'min-width:100px')
           } else {
-            texte = `$${texNombre(n, precision, true)} =$` + `$${texFraction('\\ldots\\ldots\\ldots\\ldots', texNombre(b))} $`
+            texte = `$${texNombre(n, precision, true)} = ${texFraction('\\ldots\\ldots\\ldots\\ldots', texNombre(b))} $`
           }
           texteCorr = '$ ' + texNombre(n) + ' = ' + texFraction(texNombre(a), texNombre(b)) + ' $'
+          this.autoCorrection[i].reponse.param.digits = 6
+          this.autoCorrection[i].reponse.param.decimals = 0
           break
         }
       }
-      this.autoCorrection[i].reponse.param.digits = 6
-      this.autoCorrection[i].reponse.param.decimals = 3
       if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

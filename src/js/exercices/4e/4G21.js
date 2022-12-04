@@ -4,9 +4,8 @@ import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonLis
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const titre = 'Déterminer si un triangle est rectangle ou pas'
 export const amcReady = true
-export const amcType = 'qcmMono' // QCM
+export const amcType = 'AMCHybride' // type de question AMC
 export const interactifType = 'qcm'
-
 export const interactifReady = true
 /**
  * À partir de la donnée des 3 longueurs d'un triangle, déterminer s'il est rectangle ou pas.
@@ -111,19 +110,6 @@ export default function ReciproquePythagore () {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      this.autoCorrection[i] = {}
-
-      this.autoCorrection[i].options = { ordered: true }
-      this.autoCorrection[i].propositions = [
-        {
-          texte: 'Oui',
-          statut: false
-        },
-        {
-          texte: 'Non',
-          statut: false
-        }
-      ]
       if (i % 4 === 0) nomsTriangles = ['QD'] // toutes les 4 question on peut à nouveau choisir les mêms sauf Q et D (problème clavier mathLive)
       nomTriangle = creerNomDePolygone(3, nomsTriangles)
       nomsTriangles.push(nomTriangle)
@@ -176,17 +162,24 @@ export default function ReciproquePythagore () {
         a
       )}^2=${texNombrec(b ** 2 + a ** 2)}$`
       if (listeTypeDeQuestions[i] === 'rectangle') {
-        this.autoCorrection[i].propositions[0].statut = true
         texteCorr += `<br>On constate que $${A + B}^2=${A + C}^2+${B + C
           }^2$, l'égalité de Pythagore est vérifiée donc $${nomTriangle}$ est rectangle en $${C}$.`
       } else {
-        this.autoCorrection[i].propositions[1].statut = true
         texteCorr += `<br>On constate que $${A + B}^2\\not=${A + C}^2+${B + C
           }^2$, l'égalité de Pythagore n'est pas vérifiée donc $${nomTriangle}$ n'est pas rectangle.`
       }
       if (context.isAmc) {
-        this.autoCorrection[i].enonce = texte
-        this.autoCorrection[i].propositions[0].feedback = texteCorr
+        this.autoCorrection[i] = {
+          enonce: '',
+          enonceAvant: false,
+          propositions:
+          [
+            {
+              type: 'AMCOpen',
+              propositions: [{ texte: texteCorr, enonce: '<br>' + texte + '<br>', statut: 4, feedback: '' }]
+            }
+          ]
+        }
       }
       if (this.interactif) {
         texte += propositionsQcm(this, i).texte
