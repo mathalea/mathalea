@@ -226,7 +226,7 @@ export default function MesurerUnAngleAvecRapporteur () {
             texte += '<br>' + texteAMC
             texteCorr += `<br>${numAlpha(3)} La demi-droite (${lettreDepuisChiffre(numE) + lettreDepuisChiffre(numA)}] passe par la graduation ${texteEnCouleurEtGras(abs(angC + angD + angE), 'hotpink')} du rapporteur. `
             texteCorr += `La demi-droite (${lettreDepuisChiffre(numF) + lettreDepuisChiffre(numA)}] passe par la graduation ${texteEnCouleurEtGras(abs(angC + angD + angE + angF), 'green')} du rapporteur. `
-            texteCorr += `Et ${abs(angC + angD + angE + angF)}-${abs(angC + angD + angE)}=${texteGras(abs(angF))}.<br>Donc on en déduit que l'angle $\\widehat{${lettreDepuisChiffre(numE) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numF)}}$ mesure ${texteEnCouleurEtGras(abs(angF) + '°')}.`
+            texteCorr += `Et ${abs(angC + angD + angE + angF)}-${abs(angC + angD + angE)}=${texteGras(abs(angF))}.<br>Donc on en déduit que l'angle $\\widehat{${lettreDepuisChiffre(numE) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numF)}}$ mesure ${texteEnCouleurEtGras(abs(angF) + '°')}.<br>`
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i * nbAngles + 3, 'inline', { tailleExtensible: true })
             }
