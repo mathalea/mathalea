@@ -28,7 +28,6 @@ export default function ReperageSurLaSphere () {
   this.sup3 = false
   this.sup4 = false
 
-
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // tableau contenant la liste des questions
@@ -111,7 +110,7 @@ export default function ReperageSurLaSphere () {
       objetsEnonce.push(Axe.c2d)
       objetsCorrection.push(Axe.c2d)
     }
-    
+
     if (this.sup2) {
       const rotationTerre = sensDeRotation3d(droite3d(O, normalV), vecteur3d(8, -8, 0), 60, 3, 'purple')
       objetsEnonce.push(...rotationTerre.c2d)

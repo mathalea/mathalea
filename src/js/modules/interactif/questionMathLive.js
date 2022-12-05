@@ -69,7 +69,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
             resultat = 'OK'
           }
           break
-        case 'formeDevelopee':
+        case 'formeDeveloppee':
           saisie = champTexte.value.replaceAll(',', '.')
           reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
           saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
