@@ -8,7 +8,7 @@ import { listeQuestionsToContenu, arrondi, randint, ecritureParentheseSiNegatif,
 import { setReponse } from '../../../modules/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import Decimal from 'decimal.js'
 export const titre = 'CAN première sujet 2022'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { texNombre, listeQuestionsToContenu, stringNombre, sp } from '../../modules/outils.js'
-import { Decimal } from 'decimal.js/decimal.mjs'
+import Decimal from 'decimal.js'
 import { all, create } from 'mathjs'
 export const titre = 'Somme de deux entier'
 export const interactifReady = true

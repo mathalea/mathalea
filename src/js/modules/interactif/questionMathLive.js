@@ -6,7 +6,8 @@ import { context } from '../context.js'
 import { afficheScore } from '../gestionInteractif.js'
 import { gestionCan } from './gestionCan.js'
 import { sp, texteExposant } from '../outils.js'
-import { ComputeEngine } from '@cortex-js/compute-engine'
+import * as pkg from '@cortex-js/compute-engine'
+const { ComputeEngine } = pkg
 
 export function verifQuestionMathLive (exercice, i, writeResult = true) {
   const engine = new ComputeEngine()

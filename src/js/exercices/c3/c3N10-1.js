@@ -1,7 +1,7 @@
 import { randint, texNombre, contraindreValeur, listeQuestionsToContenu, shuffle2tableaux, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
-import Decimal from 'decimal.js/decimal.mjs'
+import Decimal from 'decimal.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'

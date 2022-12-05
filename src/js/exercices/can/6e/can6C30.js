@@ -1,6 +1,6 @@
 import { choice, randint, texNombre, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import Decimal from 'decimal.js'
 export const titre = 'Multiplier deux décimaux'
 export const interactifReady = true
 export const interactifType = 'mathLive'
