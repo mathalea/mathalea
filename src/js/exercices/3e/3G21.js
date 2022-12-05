@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, lettreDepuisChiffre, texNombre, miseEnEvidence, texFraction, creerBoutonMathalea2d, contraindreValeur, choice } from '../../modules/outils.js'
 import { angleOriente, homothetie, point, pointSurSegment, polygone, rotation, texteParPoint } from '../../modules/2d.js'

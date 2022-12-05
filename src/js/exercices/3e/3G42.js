@@ -4,7 +4,7 @@ import { randint, listeQuestionsToContenu, combinaisonListes, texteExposant, tex
 import { point3d, vecteur3d, sphere3d, cylindre3d } from '../../modules/3d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import Decimal from 'decimal.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { context } from '../../modules/context.js'
 export const interactifReady = true

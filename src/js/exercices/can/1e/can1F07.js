@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { choice, randint, ecritureAlgebrique, reduirePolynomeDegre3, reduireAxPlusB, rienSi1, ecritureParentheseSiNegatif, texNombre, simplificationDeFractionAvecEtapes } from '../../../modules/outils.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import Decimal from 'decimal.js'
 import { fraction } from '../../../modules/fractions.js'
 export const titre = 'Déterminer une équation de l’axe de symétrie d’une parabole'
 export const interactifReady = true

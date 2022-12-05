@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, texNombre, tableauColonneLigne, sp } from '../../../modules/outils.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import Decimal from 'decimal.js'
 import FractionX from '../../../modules/FractionEtendue.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'

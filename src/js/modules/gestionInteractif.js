@@ -8,7 +8,8 @@ import { isUserIdOk } from './interactif/isUserIdOk.js'
 import { gestionCan } from './interactif/gestionCan.js'
 import FractionX from './FractionEtendue.js'
 import Grandeur from './Grandeur.js'
-import { ComputeEngine } from '@cortex-js/compute-engine'
+import * as pkg from '@cortex-js/compute-engine'
+const { ComputeEngine } = pkg
 export function exerciceInteractif (exercice) {
   if (exercice.interactifType === 'qcm')exerciceQcm(exercice)
   if (exercice.interactifType === 'listeDeroulante')exerciceListeDeroulante(exercice)
@@ -89,13 +90,13 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
         laReponseDemandee = laReponseDemandee.toString().replace(/\s/g, '').replace(',', '.')
       }
       try {
-        test = engine.parse(laReponseDemandee).canonical
+        test = engine.parse(laReponseDemandee.toString()).canonical
       } catch (error) {
         window.notify('setReponse : type "calcul" la réponse n\'est pas un nombre valide', { reponses, test })
       }
       break
     case 'nombreDecimal':
-      if (isNaN(reponses[0])) window.notify('setReponse : type "nombreDecimal" un nombre est attendu !', { reponses })
+      if (isNaN(reponses[0].toString())) window.notify('setReponse : type "nombreDecimal" un nombre est attendu !', { reponses })
       break
     case 'ecritureScientifique':
       if (!(typeof reponses[0] === 'string')) window.notify('setReponse : type "ecritureScientifique" la réponse n\'est pas un string !', { reponses })

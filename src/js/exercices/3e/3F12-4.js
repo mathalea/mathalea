@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, abs, resolutionSystemeLineaire2x2, resolutionSystemeLineaire3x3, chercheMinMaxFonction, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'

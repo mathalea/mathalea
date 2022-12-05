@@ -1,6 +1,6 @@
 import { choice, randint, texNombre, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import Decimal from 'decimal.js'
 export const titre = 'Calculer le double ou le triple (décimal)'
 export const interactifReady = true
 export const interactifType = 'mathLive'

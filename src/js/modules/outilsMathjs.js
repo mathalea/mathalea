@@ -3,7 +3,7 @@ import { texNombre2, obtenirListeFacteursPremiers } from './outils.js'
 import { all, create } from 'mathjs'
 import { Node, Negative, solveEquation, simplifyExpression, factor } from 'mathsteps'
 import { getNewChangeNodes } from './Change.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import Decimal from 'decimal.js'
 
 const math = create(all)
 
