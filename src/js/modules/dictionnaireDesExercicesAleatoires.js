@@ -19917,7 +19917,7 @@ export default {
     "interactifType": "mathLive",
     "name": "canc3M03",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
