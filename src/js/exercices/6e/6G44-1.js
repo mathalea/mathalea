@@ -175,22 +175,22 @@ export default function ReconnaitreDesSolides () {
         {
           axe = 1
           /* if (axe === 3) {
-            cone = cone3d(point3d(0, 0, 0), point3d(0, -3, 0), vecteur3d(0, 1, 0), vecteur3d(Math.cos(30 * Math.PI / 180.0), 0, Math.sin(30 * Math.PI / 180.0)))
-            /* c1 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'red', 0)
-            c2 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'blue', 0)
-            const c1 = arc3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'red', 180, 220)
-            const c2 = arc3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'blue', 220, 360 + 180)
-            const g1 = arete3d(point3d(0, -3, 0), point3d(1, 0, 0))
-            const g2 = arete3d(point3d(0, -3, 0), point3d(-1, 0, 0))
-            cone.c2d.length = 0
-            cone.c2d.push(c1, c2, g1.c2d, g2.c2d, arete3d(point3d(0, 2, 0), point3d(0, -4, 0), 'red', false).c2d)
-          } else if (axe === 2) {
-            cone = cone3d(point3d(0, 0, 0), point3d(3, 0, 0), vecteur3d(1, 0, 0), vecteur3d(0, Math.cos(60 * Math.PI / 180.0), Math.sin(60 * Math.PI / 180.0)))
-            cone.c2d[4].pointilles = 2
-            cone.c2d[4].color = colorToLatexOrHTML('red')
-            cone.c2d[5].pointilles = false
-            cone.c2d[5].color = colorToLatexOrHTML('blue')
-        } else { */
+              cone = cone3d(point3d(0, 0, 0), point3d(0, -3, 0), vecteur3d(0, 1, 0), vecteur3d(Math.cos(30 * Math.PI / 180.0), 0, Math.sin(30 * Math.PI / 180.0)))
+              /* c1 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'red', 0)
+              c2 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'blue', 0)
+              const c1 = arc3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'red', 180, 220)
+              const c2 = arc3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'blue', 220, 360 + 180)
+              const g1 = arete3d(point3d(0, -3, 0), point3d(1, 0, 0))
+              const g2 = arete3d(point3d(0, -3, 0), point3d(-1, 0, 0))
+              cone.c2d.length = 0
+              cone.c2d.push(c1, c2, g1.c2d, g2.c2d, arete3d(point3d(0, 2, 0), point3d(0, -4, 0), 'red', false).c2d)
+            } else if (axe === 2) {
+              cone = cone3d(point3d(0, 0, 0), point3d(3, 0, 0), vecteur3d(1, 0, 0), vecteur3d(0, Math.cos(60 * Math.PI / 180.0), Math.sin(60 * Math.PI / 180.0)))
+              cone.c2d[4].pointilles = 2
+              cone.c2d[4].color = colorToLatexOrHTML('red')
+              cone.c2d[5].pointilles = false
+              cone.c2d[5].color = colorToLatexOrHTML('blue')
+          } else { */
           leCone = cone({ centre: point(0, 0), Rx: randint(15, 30) / 10, hauteur: choice([3, 4, 5]) })
           const t = tracePoint(leCone.centre)
           const g = homothetie(segment(leCone.centre, leCone.sommet), milieu(leCone.centre, leCone.sommet), 1.5)
@@ -205,7 +205,7 @@ export default function ReconnaitreDesSolides () {
         }
         case 'cylindre': // cylindre
           if (axe === 3) {
-            cylindre = cylindre3d(point3d(0, 0, 2), point3d(0, -3, 2), vecteur3d(0, 1, 0), vecteur3d(1, 0, 0), vecteur3d(1, 0, 0))
+            cylindre = cylindre3d(point3d(0, 0, 2), point3d(0, -3, 2), vecteur3d(1, 0, 0), vecteur3d(1, 0, 0))
             /* c1 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'red', 0)
             c2 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'blue', 0) */
             const c1 = arc3d(point3d(0, 3, 1), vecteur3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'red', 110, 280)
@@ -231,7 +231,7 @@ export default function ReconnaitreDesSolides () {
             cylindre.c2d.push(c1, c2, c3, c4, g, arete3d(point3d(0, 4, 1), point3d(0, -4, 1), 'red', false).c2d)
           } else if (axe === 2) {
             // base sur le plan YZ
-            cylindre = cylindre3d(point3d(0, 0, 0), point3d(3, 0, 0), vecteur3d(1, 0, 0), vecteur3d(0, 1, 0), vecteur3d(0, 1, 0))
+            cylindre = cylindre3d(point3d(0, 0, 0), point3d(3, 0, 0), vecteur3d(0, 1, 0), vecteur3d(0, 1, 0))
             /* c1 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'red', 0)
             c2 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'blue', 0) */
             const c1 = arc3d(point3d(0, 0, 1), vecteur3d(1, 0, 0), vecteur3d(0, 1, 0), 'visible', 'red', 90, 270)
@@ -256,7 +256,7 @@ export default function ReconnaitreDesSolides () {
             cylindre.c2d = []
             cylindre.c2d.push(c1, c2, c3, c4, g, arete3d(point3d(-1, 0, 1), point3d(4, 0, 1), 'red', false).c2d)
           } else {
-            cylindre = cylindre3d(point3d(0, 0, 0), point3d(0, 0, 3), vecteur3d(0, 0, 1), vecteur3d(2, 0, 0), vecteur3d(2, 0, 0))
+            cylindre = cylindre3d(point3d(0, 0, 0), point3d(0, 0, 3), vecteur3d(2, 0, 0), vecteur3d(2, 0, 0))
           }
           objets.push(...cylindre.c2d)
           this.reponse = ['cylindre', 'cylindre de révolution']
@@ -334,46 +334,46 @@ export default function ReconnaitreDesSolides () {
 
           break
       }
-      reponseQcm = solides[choix - 1]
-      if (this.sup2) this.reponse = solides[choix - 1] // on remplace les éventuelles réponses multiples par l'unique réponse du QCM
-
-      objets.push(a1, a2, a3)
-      this.question = mathalea2d(Object.assign({}, fixeBordures(objets), { scale: 0.5, style: 'margin: auto' }), objets)
-
-      this.autoCorrection[j] = {}
-      this.autoCorrection[j].options = {}
-      this.autoCorrection[j].enonce = `${this.question}\n`
-      this.autoCorrection[j].propositions = [
-        {
-          texte: 'Prisme',
-          statut: (reponseQcm === 'prisme')
-        },
-        {
-          texte: 'Pyramide',
-          statut: (reponseQcm === 'pyramide')
-        },
-        {
-          texte: 'Cône',
-          statut: (reponseQcm === 'cône')
-        },
-        {
-          texte: 'Cylindre',
-          statut: (reponseQcm === 'cylindre')
-        },
-        {
-          texte: 'Pavé',
-          statut: (reponseQcm === 'pavé droit')
-        },
-        {
-          texte: 'Cube',
-          statut: (reponseQcm === 'cube')
-        },
-        {
-          texte: 'Sphère',
-          statut: (reponseQcm === 'sphère')
-        }
-      ]
       if (this.questionJamaisPosee(j, choix, n, axe)) {
+        reponseQcm = solides[choix - 1]
+        if (this.sup2) this.reponse = solides[choix - 1] // on remplace les éventuelles réponses multiples par l'unique réponse du QCM
+
+        objets.push(a1, a2, a3)
+        this.question = mathalea2d(Object.assign({}, fixeBordures(objets), { scale: 0.5, style: 'margin: auto' }), objets)
+
+        this.autoCorrection[j] = {}
+        this.autoCorrection[j].options = {}
+        this.autoCorrection[j].enonce = `${this.question}\n`
+        this.autoCorrection[j].propositions = [
+          {
+            texte: 'Prisme',
+            statut: (reponseQcm === 'prisme')
+          },
+          {
+            texte: 'Pyramide',
+            statut: (reponseQcm === 'pyramide')
+          },
+          {
+            texte: 'Cône',
+            statut: (reponseQcm === 'cône')
+          },
+          {
+            texte: 'Cylindre',
+            statut: (reponseQcm === 'cylindre')
+          },
+          {
+            texte: 'Pavé',
+            statut: (reponseQcm === 'pavé droit')
+          },
+          {
+            texte: 'Cube',
+            statut: (reponseQcm === 'cube')
+          },
+          {
+            texte: 'Sphère',
+            statut: (reponseQcm === 'sphère')
+          }
+        ]
         if (this.sup2) {
           this.question += propositionsQcm(this, j).texte
         } else {

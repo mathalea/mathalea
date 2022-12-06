@@ -265,7 +265,7 @@ export default function PointSurCercleTrigo () {
         break
 
       case 9:// point K
-        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\;\\ 0]$'])
+        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\;\\ 0]'])
         this.question = `Quel réel de $${choix}$ a pour point-image le point $K$ ?<br>
 
         `

@@ -25,7 +25,7 @@ export default function Proportionnalite3 () {
   this.nouvelleVersion = function () {
     let prix1, prix2, fruits, fruits2, poids1, poids2, frac, choix
     const listefruits1 = [
-      ['abricots'], ['melons'], ['tomates'], ['pommes'],
+      ['poires'], ['melons'], ['tomates'], ['pommes'],
       ['framboises'], ['fraises'], ['citrons'], ['bananes']
     ]
     const listefruits2 = [

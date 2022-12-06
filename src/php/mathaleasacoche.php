@@ -1,5 +1,5 @@
 <!-- On affiche le contenu de alacarte -->
-<?php readfile('https://coopmaths.fr/alacarte/index.html'); ?>
+<?php readfile('https://coopmaths.fr/alacarte.html'); ?>
 
 <!-- SACoche donne l'URL du fichier json avec ?json=http... -->
 <?php

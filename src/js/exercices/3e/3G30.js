@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
 import { homothetie, codageAngle, longueur, barycentre, milieu, latexParPoint, point, polygone, rotation, codageAngleDroit, nommePolygone, segment } from '../../modules/2d.js'
 import { texFraction, quatriemeProportionnelle, texNombre, texteEnCouleurEtGras, listeQuestionsToContenu, randint, creerNomDePolygone, combinaisonListes, choice } from '../../modules/outils.js'

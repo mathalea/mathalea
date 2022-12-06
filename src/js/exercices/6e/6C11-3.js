@@ -101,12 +101,12 @@ export default function APartirDeDivisionsEuclidiennes () {
       texte = `${Operation({ operande1: a, operande2: b, type: 'divisionE' })}`
       if (r === 0) {
         texteCorr = `$${texNombre(a)}\\div${b}=${texNombre(q)}$`
-        setReponse(this, i, [`${a}=${b}\\times${texNombre(q)}`, `${a}=${texNombre(q)}\\times${b}`,
-        `${b}\\times${texNombre(q)}`, `${texNombre(q)}\\times${b}=${a}`])
+        setReponse(this, i, [`${a}=${b}\\times${q}`, `${a}=${q}\\times${b}`,
+        `${b}\\times${q}`, `${q}\\times${b}=${a}`])
       } else {
         texteCorr = `$${texNombre(a)}=${b}\\times${texNombre(q)}+${r}$`
-        setReponse(this, i, [`${a}=${b}\\times${texNombre(q)}+${r}`, `${a}=${texNombre(q)}\\times${b}+${r}`,
-        `${b}\\times${texNombre(q)}+${r}=${a}`, `${texNombre(q)}\\times${b}+${r}=${a}`])
+        setReponse(this, i, [`${a}=${b}\\times ${q}+${r}`, `${a}=${q}\\times ${b}+${r}`,
+        `${b}\\times ${q}+${r}=${a}`, `${q}\\times ${b}+${r}=${a}`])
       }
       texte += ajouteChampTexteMathLive(this, i)
       // Pour AMC question AmcOpen

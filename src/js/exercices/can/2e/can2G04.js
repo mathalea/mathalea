@@ -20,8 +20,8 @@ export default function CalculCoordonneesMilieu () {
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let a, b, c, d
-    const nom = creerNomDePolygone(2, 'PQD')
-    switch (choice(['b', 'b', 'a', 'b', 'c'])) { //,
+    const nom = creerNomDePolygone(2, 'PQDO')
+    switch (choice(['a', 'b', 'c'])) {
       case 'a':
         a = randint(1, 6)
         b = randint(3, 5)
@@ -33,9 +33,9 @@ export default function CalculCoordonneesMilieu () {
         this.correction = `Les coordonnées du milieu sont  données par : 
         $\\left(\\dfrac{${a}+${b}}{2};\\dfrac{${c}+${d}}{2}\\right)=
         \\left(\\dfrac{${texNombre(a + b, 0)}}{2};\\dfrac{${texNombre(c + d, 0)}}{2}\\right)=
-        (${texNombre((a + b, 0) / 2, 1)};${texNombre((c + d) / 2, 1)})$<br>`
+        (${texNombre((a + b) / 2, 1)};${texNombre((c + d) / 2, 1)})$<br>`
         this.correction += texteEnCouleur(` Mentalement : <br>
-       On calcule la moyenne des abscisses et des orodonnées des deux points.
+       On calcule les moyennes des abscisses et des orodonnées des deux points.
          `)
         this.reponse = `(${arrondi((a + b) / 2, 1)};${arrondi((c + d) / 2, 1)})`
 

@@ -1,5 +1,5 @@
 import { ordreDeGrandeur, base10VersBaseN, nombreDeChiffresDansLaPartieEntiere } from './outils.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import Decimal from 'decimal.js'
 import { texteParPosition, segment } from './2d.js'
 import { context } from './context.js'
 import { mathalea2d } from './2dGeneralites.js'

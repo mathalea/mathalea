@@ -44,9 +44,10 @@ export function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', in
 
 /**
  * Précise la réponse attendue
- * @param {'objet exercice'} exercice
- * @param {'numero de la question'} i
- * @param {'array || number'} a
+ * @param {Exercice} exercice = this
+ * @param {number} i numéro de la question
+ * @param {any} valeurs Attention à ce que vous mettez ici : ça doit être en accord avec le formatInteractif ! pas de texNombre ou de stringNombre !
+ * @param {object} options
  */
 
 export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0, aussiCorrect, digitsNum, digitsDen, basePuissance, exposantPuissance, baseNbChiffres, milieuIntervalle, formatInteractif = 'calcul', precision = null } = {}) {
@@ -89,13 +90,13 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
         laReponseDemandee = laReponseDemandee.toString().replace(/\s/g, '').replace(',', '.')
       }
       try {
-        test = engine.parse(laReponseDemandee).canonical
+        test = engine.parse(laReponseDemandee.toString()).canonical
       } catch (error) {
         window.notify('setReponse : type "calcul" la réponse n\'est pas un nombre valide', { reponses, test })
       }
       break
     case 'nombreDecimal':
-      if (isNaN(reponses[0])) window.notify('setReponse : type "nombreDecimal" un nombre est attendu !', { reponses })
+      if (isNaN(reponses[0].toString())) window.notify('setReponse : type "nombreDecimal" un nombre est attendu !', { reponses })
       break
     case 'ecritureScientifique':
       if (!(typeof reponses[0] === 'string')) window.notify('setReponse : type "ecritureScientifique" la réponse n\'est pas un string !', { reponses })
@@ -301,7 +302,7 @@ export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
     }
   } else {
     // Envoie un message post avec le nombre de réponses correctes
-    window.parent.postMessage({ url: window.location.href, graine: context.graine, titre: exercice.titre, nbBonnesReponses: nbBonnesReponses, nbMauvaisesReponses: nbMauvaisesReponses }, '*')
+    window.parent.postMessage({ url: window.location.href, graine: context.graine, titre: exercice.titre, nbBonnesReponses, nbMauvaisesReponses }, '*')
   }
   if (context.timer) {
     clearInterval(context.timer)

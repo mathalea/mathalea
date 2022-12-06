@@ -240,6 +240,10 @@ export default function Pythagore2D () {
           }
           context.isAmc ? setReponse(this, i, reponse) : setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'unites', precision: 0.001 })
         }
+        if (context.isAmc) {
+          this.autoCorrection[i].propositions = [{ statut: 3, texte: texteCorr }]
+          this.autoCorrection[i].enonce = 'Calculer la longueur manquante.\\\\' + texte
+        }
       } else {
         texte += ajouteChampTexteMathLive(this, i)
       }

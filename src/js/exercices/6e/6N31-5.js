@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombre, miseEnEvidence } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombre, miseEnEvidence, nombreDeChiffresDe, sp } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 
@@ -8,10 +8,12 @@ export const dateDePublication = '28/09/22'
 export const titre = 'Encadrer un décimal'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 /**
  * * Encadrer_un_decimal_selon_une_precision_donnée
  * * 6N31-5
- * @author Mickael Guironnet
+ * @author Mickael Guironnet (rendu AMC par Eric Elter)
  */
 export const ref = '6N31-5'
 export const uuid = 'a8c21'
@@ -45,7 +47,7 @@ export default function EncadrerUnDecimal () {
       listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
     }
 
-    for (let i = 0, indexQ = 0, texte, typesDeQuestions, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
+    for (let i = 0, indexQ = 0, texte, typesDeQuestions, texteCorr, reponseMin, reponseMax, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
       typesDeQuestions = listeTypeDeQuestions[i]
       const m = randint(1, 9)
       const c = randint(1, 9)
@@ -61,18 +63,24 @@ export default function EncadrerUnDecimal () {
 
       switch (typesDeQuestions) {
         case 3: { // encadrement au centième
-          setReponse(this, indexQ, m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01))
-          texte = 'Encadrer au centième :<br>'
+          reponseMin = m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01)
+          setReponse(this, indexQ, reponseMin)
+          texte = `Encadrer $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001))}$ au centième.<br>`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline') + '$'
+            texte += ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline nospacebefore') + '$'
+          } else if (context.isAmc) {
+            texte += 'Ainsi  :' + sp(15) + 'a '
           } else {
             texte += '$ \\ldots\\ldots\\ldots '
           }
           indexQ++
           texte += ` < ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001))} < `
-          setReponse(this, indexQ, m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + (ci + 1) * 0.01))
+          reponseMax = m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + (ci + 1) * 0.01)
+          setReponse(this, indexQ, reponseMax)
           if (this.interactif) {
-            texte += '$' + ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline')
+            texte += '$' + ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline nospacebefore')
+          } else if (context.isAmc) {
+            texte += ' b'
           } else {
             texte += ' \\ldots\\ldots\\ldots $'
           }
@@ -82,18 +90,24 @@ export default function EncadrerUnDecimal () {
           break
         }
         case 2: { // encadrement au dixième
-          setReponse(this, indexQ, m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1))
-          texte = 'Encadrer au dixième :<br>'
+          reponseMin = m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1)
+          setReponse(this, indexQ, reponseMin)
+          texte = `Encadrer $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001))}$ au dixième.<br>`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline') + '$'
+            texte += ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline nospacebefore') + '$'
+          } else if (context.isAmc) {
+            texte += 'Ainsi  :' + sp(15) + 'a '
           } else {
             texte += '$ \\ldots\\ldots\\ldots '
           }
           indexQ++
           texte += ` < ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001))} < `
-          setReponse(this, indexQ, m * 1000 + c * 100 + d * 10 + u * 1 + calcul((di + 1) * 0.1))
+          reponseMax = m * 1000 + c * 100 + d * 10 + u * 1 + calcul((di + 1) * 0.1)
+          setReponse(this, indexQ, reponseMax)
           if (this.interactif) {
-            texte += '$' + ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline')
+            texte += '$' + ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline nospacebefore')
+          } else if (context.isAmc) {
+            texte += ' b'
           } else {
             texte += '\\ldots\\ldots\\ldots $ '
           }
@@ -103,18 +117,24 @@ export default function EncadrerUnDecimal () {
           break
         }
         case 1: { // encadrement à l'unité
-          setReponse(this, indexQ, m * 1000 + c * 100 + d * 10 + u * 1)
-          texte = 'Encadrer à l\'unité :<br>'
+          reponseMin = m * 1000 + c * 100 + d * 10 + u * 1
+          setReponse(this, indexQ, reponseMin)
+          texte = `Encadrer $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001))}$ à l'unité.<br>`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline') + '$'
+            texte += ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline nospacebefore') + '$'
+          } else if (context.isAmc) {
+            texte += 'Ainsi  :' + sp(15) + 'a '
           } else {
             texte += '$ \\ldots\\ldots\\ldots '
           }
           indexQ++
           texte += ` < ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001))} < `
-          setReponse(this, indexQ, m * 1000 + c * 100 + d * 10 + (u + 1) * 1)
+          reponseMax = m * 1000 + c * 100 + d * 10 + (u + 1) * 1
+          setReponse(this, indexQ, reponseMax)
           if (this.interactif) {
-            texte += '$' + ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline')
+            texte += '$' + ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline nospacebefore')
+          } else if (context.isAmc) {
+            texte += ' b'
           } else {
             texte += '\\ldots\\ldots\\ldots $ '
           }
@@ -124,7 +144,46 @@ export default function EncadrerUnDecimal () {
           break
         }
       }
-
+      this.autoCorrection[i] = {
+        enonceAvant: false,
+        options: { multicols: true },
+        propositions: [
+          {
+            type: 'AMCNum',
+            propositions: [
+              {
+                texte: texteCorr,
+                reponse: {
+                  texte: texte + '<br>Valeur de a :',
+                  valeur: reponseMin,
+                  param: {
+                    signe: false,
+                    digits: nombreDeChiffresDe(reponseMin) + 2,
+                    decimals: 3
+                  }
+                }
+              }
+            ]
+          },
+          {
+            type: 'AMCNum',
+            propositions: [
+              {
+                texte: '',
+                reponse: {
+                  texte: 'Valeur de b :',
+                  valeur: reponseMax,
+                  param: {
+                    signe: false,
+                    digits: nombreDeChiffresDe(reponseMax) + 2,
+                    decimals: 3
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
       i++

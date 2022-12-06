@@ -2,7 +2,7 @@ import { codageSegments, milieu, texteParPosition, point, segment, codageAngleDr
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, choice, stringNombre, texNombre } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import Decimal from 'decimal.js'
 export const titre = 'Calculer une longueur/un périmètre (avec des décimaux)'
 export const dateDePublication = '27/08/2022'
 export const interactifReady = true

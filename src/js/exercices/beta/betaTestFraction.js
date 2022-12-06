@@ -6,7 +6,6 @@ import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathL
 import { setReponse } from '../../modules/gestionInteractif.js'
 import * as pkg from '@cortex-js/compute-engine'
 const { ComputeEngine } = pkg
-
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Tester la classe FractionX'

@@ -984,10 +984,10 @@ export function Droite (arg1, arg2, arg3, arg4, arg5) {
   )
   let absNom, ordNom, leNom
   if (this.nom !== '') {
-    if (egal(this.b, 0, 0.1)) { // ax+c=0 x=-c/a est l'équation de la droite
+    if (egal(this.b, 0, 0.05)) { // ax+c=0 x=-c/a est l'équation de la droite
       absNom = -this.c / this.a + 0.8 // l'abscisse du label est décalé de 0.8
       ordNom = context.fenetreMathalea2d[1] + 1 // l'ordonnée du label est ymin +1
-    } else if (egal(this.a, 0, 0.1)) { // by+c=0 y=-c/b est l'équation de la droite
+    } else if (egal(this.a, 0, 0.05)) { // by+c=0 y=-c/b est l'équation de la droite
       absNom = context.fenetreMathalea2d[0] + 0.8 // l'abscisse du label est xmin +1
       ordNom = -this.c / this.b + 0.8 // l'ordonnée du label est décalée de 0.8
     } else { // a et b sont différents de 0 ax+by+c=0 est l'équation
@@ -2722,7 +2722,8 @@ export function polygoneAvecNom (...args) {
   }
   const p = polygone(...args)
   let nom = ''
-  args.forEach(el => (nom += el.nom))
+  args.forEach(el => (nom += el.nom + ','))
+  nom = nom.substring(0, nom.length - 1)
   p.sommets = nommePolygone(p, nom, k)
   p.sommets.bordures = []
   p.sommets.bordures[0] = p.bordures[0] - 1 - k
@@ -2733,9 +2734,13 @@ export function polygoneAvecNom (...args) {
 }
 
 /**
- * Renomme en une fois tous les sommets d'un polygone avec le tableau de string fourni
+ * @description en une fois tous les sommets d'un polygone avec le tableau de string fourni
+ * attention si on passe un string comme 'ABCD' ça fonctionne aussi...
+ * Si on veut des noms de points à plus de 1 caractère, il faut soit les passer en tableau soit les séparer par des virgules au sein du string
+ * @example renommePolygone(p, "A',B',C',D'") ou renommePolygone(p, ["A'","B'","C'","D'"])
  */
 export function renommePolygone (p, noms) {
+  noms = (typeof noms === 'string') ? noms.includes(',') ? noms.split(',') : noms : noms
   for (let i = 0; i < p.listePoints.length; i++) {
     if (noms[i] !== undefined) {
       p.listePoints[i].nom = noms[i]
@@ -3212,15 +3217,19 @@ export function parallelogramme2points1hauteur (NOM, A, B, h, color = 'black') {
 }
 
 /**
- * nommePolygone (p,'ABCDE',0.5,'red') nomme les sommets du polygone p. Les labels sont placés à une distance paramètrable en cm des sommets (0.5 par défaut)
+ * @description Place les labels passés dans le deuxième paramètre aux sommets du polygone en les plaçant alignés avec le barycentre du polygone à une distance fixée du point
+ * @description Si les noms peuvent avoir plusieurs caractères, il faudra ajouter des virgules entre chaque nom dans le string passé en argument.
+ * @example nommePolygone (p, "A',B',C',D',E'", 0.5, 'red')
+ * @example nommePolygone (p,'ABCDE',0.5,'red') nomme les sommets du polygone A, B, C, D et E. Les labels sont placés à une distance de 0,5 cm des sommets
  * @author Jean-Claude Lhote
  */
 export function NommePolygone (p, nom = '', k = 0.5, color = 'black') {
   ObjetMathalea2D.call(this, { })
   this.poly = p
   this.dist = k
+  const noms = nom.includes(',') ? nom.split(',') : nom
   for (let i = 0; i < p.listePoints.length; i++) {
-    if (nom !== '') p.listePoints[i].nom = nom[i]
+    if (noms.length > 0) p.listePoints[i].nom = noms[i]
   }
   this.svg = function (coeff) {
     let code = ''
@@ -4784,7 +4793,7 @@ export function CibleRonde ({ x = 0, y = 0, rang = 3, num, taille = 0.3, color =
   let rayon
   const centre = point(this.x, this.y)
   const azimut = point(this.x + this.rang * this.taille, this.y)
-  objets.push(labelPoint(centre))
+  // objets.push(labelPoint(centre))
   const azimut2 = pointSurSegment(centre, azimut, longueur(centre, azimut) + 0.3)
   this.bordures = [this.x - this.rang * this.taille - 1, this.y - this.rang * this.taille - 1, this.x + this.rang * this.taille + 1, this.y + this.rang * this.taille + 1]
   for (let i = 0; i < 8; i++) {
@@ -5247,7 +5256,7 @@ export function sensDeRotation (A, O, sens, color = 'black') {
 }
 /** Construit l'image d'un objet par homothétie
  * @param {Point|Segment|Droite|Polygone|Vecteur} Objet Objet MathAlea2d choisi parmi un point, un segment, une droite, un polygone ou un vecteur
- * @param {oint} O Centre de l'homothétie
+ * @param {Point} O Centre de l'homothétie
  * @param {number} k Rapport de l'homothétie
  * @param {string} [nom = ''] Nom du point-image
  * @param {string} [positionLabel = 'above'] Position du point-image. Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.

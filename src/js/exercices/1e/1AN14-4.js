@@ -4,7 +4,7 @@ import { Polynome } from '../../modules/fonctionsMaths.js'
 import { simplify, parse, derivative, abs } from 'mathjs'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-const math = { simplify: simplify, parse: parse, derivative: derivative }
+const math = { simplify, parse, derivative }
 export const titre = 'Dérivée d\'un produit'
 export const dateDePublication = '22/01/2022'
 export const interactifReady = true
@@ -135,7 +135,7 @@ export default function DeriveeProduit () {
           // Remarque sur la méthode alternative
           texteCorr += `<b>Remarque</b> : on pourrait bien entendu développer avant de dériver.<br>Dans ce cas, $${namef}(x)=${polExpand}$.<br>`
           texteCorr += `Et donc $${namef}'(x)=${polExpand.derivee()}$. Ce qui est bien cohérent avec le résultat trouvé plus haut.`
-          setReponse(this, i, polExpand.derivee())
+          setReponse(this, i, polExpand.derivee().toString())
           break
         }
         case 'monome2/racine': {

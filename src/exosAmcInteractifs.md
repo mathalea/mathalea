@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 531 
-- nombre d'exos interactifReady 814 
+- nombre d'exos amcReady 536 
+- nombre d'exos interactifReady 827 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -12,6 +12,7 @@
 |1G10|Valeurs remarquables du cosinus et sinus|KO|KO|OK|mathLive|
 |1G11|Mesure principale d'un angle|KO|KO|OK|mathLive|
 |1G12|cos et sin associés à un réel x |KO|KO|OK|mathLive|
+|1N12|Somme des termes d'une suite arithmétique|KO|KO|OK|mathLive|
 |2F10-1|Reconnaître une fonction affine|OK|qcmMono|OK|qcm|
 |2F10-2|Lecture graphique d'une fonction affine|OK|AMCHybride|OK|mathLive|
 |2F11-1|Déterminer l'image d'un nombre par une fonction de référence|OK|AMCNum|OK|mathLive|
@@ -114,15 +115,14 @@
 |3G41|Dessiner différentes vues d'un empilement de cubes|OK|AMCHybride|KO|KO|
 |3G42|Volume d'une boule|OK|AMCNum|OK|mathLive|
 |3G43|Calculs de volumes|OK|AMCHybride|OK|qcm,mathLive|
-|3GXXXX copy|Déterminer des longueurs|OK|AMCHybride|OK|qcm,mathLive|
-|3GXXXX|Déterminer des longueurs|OK|AMCHybride|OK|qcm,mathLive|
 |3I10-1|Analyser des scripts Scratch|OK|AMCHybride|OK|qcm|
 |3I12-1|Compléter un script Scratch - 1|OK|AMCOpen|KO|KO|
 |3I12-2|Comprendre un script Scratch - 1|OK|AMCHybride|KO|KO|
 |3I12-3|Compléter un script Scratch - 2|OK|AMCOpen|KO|KO|
 |3I12-4|Comprendre un script Scratch - 2|OK|AMCHybride|KO|KO|
 |3L10-1|Additionner ou soustraire une expression entre parenthèses|KO|KO|OK|mathLive|
-|3L10|Donner l'opposé d'une expression|KO|KO|OK|mathLive|
+|3L10-2|Supprimer les parenthèses puis réduire une expression (niveau 2)|KO|KO|OK|mathLive|
+|3L10|Supprimer les parenthèses puis réduire une expression|KO|KO|OK|mathLive|
 |3L11-1|Utiliser la double distributivité|OK|AMCOpenNum✖︎3|OK|mathLive|
 |3L11-2|Réduire une expression|OK|AMCHybride|OK|mathLive|
 |3L11-3|Utiliser la distributivité (simple ou double) et réduire|OK|AMCHybride|OK|mathLive|
@@ -136,7 +136,7 @@
 |3L12|Factoriser a²-b²|KO|KO|OK|mathLive|
 |3L13-0|Équation du premier degré à solutions entières|OK|AMCNum|OK|mathLive|
 |3L13-1|Équation du premier degré (utilisant la distributivité)|KO|KO|OK|mathLive|
-|3L13-2|Equations résolvantes pour le théorème de Thalès|KO|KO|OK|mathLive|
+|3L13-2|Équations résolvantes pour le théorème de Thalès|OK|AMCNum|OK|mathLive|
 |3L13-3|Problèmes à mettre en équation et à résoudre|OK|AMCNum|OK|mathLive|
 |3L13|Équation du premier degré|OK|AMCHybride|OK|mathLive|
 |3L14|Résoudre une équation produit nul|KO|KO|OK|mathLive|
@@ -202,7 +202,7 @@
 |4G20-4|Arrondir une racine carrée|KO|KO|OK|mathLive|
 |4G20-6|Encadrer une racine carrée et en donner un arrondi|OK|AMCHybride|OK|mathLive|
 |4G20|Calculer une longueur avec le théorème de Pythagore|OK|AMCOpenNum|OK|mathLive|
-|4G21|Déterminer si un triangle est rectangle ou pas|OK|qcmMono|OK|qcm|
+|4G21|Déterminer si un triangle est rectangle ou pas|OK|AMCHybride|OK|qcm|
 |4G30|Calculer des longueurs avec le théorème de Thalès|OK|AMCOpenNum✖︎2|OK|mathLive|
 |4G31|Contrôler si deux droites sont parallèles|OK|AMCHybride|OK|mathLive|
 |4G40|Utiliser le cosinus pour calculer une longueur dans un triangle rectangle|OK|AMCOpenNum|OK|mathLive|
@@ -319,6 +319,8 @@
 |6G12|Tracer des parallèles|OK|AMCOpen|KO|KO|
 |6G14|Utiliser les propriétés des droites perpendiculaires|OK|AMCOpen|KO|KO|
 |6G20-3|Connaitre le vocabulaire de base des polygones|KO|KO|OK|qcm|
+|6G22-1|Connaitre le vocabulaire de base des angles|KO|KO|OK|qcm|
+|6G22-2|Reconnaître un angle particulier|KO|KO|OK|qcm|
 |6G22|Nommer un angle|OK|AMCHybride|OK|qcm,mathLive|
 |6G23-1|Mesurer un angle sans rapporteur sur l'énoncé|OK|qcmMono|OK|qcm|
 |6G23-4|Mesurer un angle avec rapporteur intégré|OK|AMCHybride|OK|mathLive|
@@ -346,6 +348,7 @@
 |6M10|Calculer des périmètres et des aires de figures usuelles|OK|AMCHybride|OK|mathLive|
 |6M11-1|Calculer périmètre et aire de carrés, rectangles et triangles rectangles|OK|AMCNum|OK|mathLive|
 |6M11-2|Calculer périmètre et aire de figures composées|OK|AMCHybride|OK|mathLive|
+|6M11-3|Calculer le périmètre de carrés, rectangles et triangles|OK|AMCNum|OK|mathLive|
 |6M11|Calculer l'aire de carrés, rectangles et triangles rectangles|OK|AMCNum|OK|mathLive|
 |6M12|Convertir des longueurs|OK|AMCNum|OK|mathLive|
 |6M20|Calculer l'aire de triangles|OK|AMCNum|OK|mathLive|
@@ -395,7 +398,7 @@
 |6N30|Lire l'abscisse décimale d'un point|OK|AMCOpen|OK|mathLive|
 |6N31-3|Arrondir une valeur|OK|qcmMult|OK|qcm|
 |6N31-4|Intercaler un nombre décimal entre deux nombres décimaux|OK|AMCOpen|OK|mathLive|
-|6N31-5|Encadrer un décimal|KO|KO|OK|mathLive|
+|6N31-5|Encadrer un décimal|OK|AMCHybride|OK|mathLive|
 |6N31-6|Trouver une valeur approchée ou un arrondi d'un décimal|KO|KO|OK|mathLive|
 |6N31|Comparer des nombres décimaux|OK|AMCOpen|KO|KO|
 |6N33-0|Calculer la fraction d'une quantité|OK|AMCNum|OK|mathLive|
@@ -454,6 +457,7 @@
 |betaModele32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
 |betaModele33_cliqueFractions|Fractions interactives|KO|KO|OK|custom|
 |betaPatronSolide|Compléter des patrons de solides|KO|KO|OK|mathLive|
+|betaProblemeAge|Problème : produit de 3 âges|KO|KO|OK|mathLive|
 |betaTestFraction|Tester la classe FractionX|KO|KO|OK|mathLive|
 |betaTestcanPredef6_10qN1|CAN 6ième 10 questions (niveau 1)|KO|KO|OK|mathLive|
 |betaTestcanPredef6_10qN2|CAN 6ième 10 questions (niveau 2)|KO|KO|OK|mathLive|
@@ -517,6 +521,7 @@
 |can1L07|Déterminer un coefficient dans un développement|KO|KO|OK|mathLive|
 |can1L08|Déterminer un coefficient dans un développement*|KO|KO|OK|mathLive|
 |can1L09|Résoudre une équation $ax^2+bx+c=c$ |KO|KO|OK|mathLive|
+|can1L10|Simplifier un taux de variation|KO|KO|OK|mathLive|
 |can1P01|Ecrire une probabilté avec les notations|OK|AMCNum|OK|mathLive|
 |can1P02|Lire une probabilité  à partir d’un arbre|OK|AMCNum|OK|mathLive|
 |can1P03|Calculer la probabilité d’une intersection à partir d’un arbre|OK|AMCNum|OK|mathLive|
@@ -552,6 +557,7 @@
 |can2C13|Calculer avec  des puissances|OK|AMCNum|OK|mathLive|
 |can2C14|Calculer avec une racine carrée (définition)|KO|KO|OK|mathLive|
 |can2C15|Calculer un nombre connaissant son inverse|OK|AMCNum|OK|mathLive|
+|can2C16|Calculer avec un programme de calcul*|KO|KO|OK|mathLive|
 |can2F01|Calculer une image avec le second degré|KO|KO|OK|mathLive|
 |can2F02|Calculer une image avec un quotient|KO|KO|OK|mathLive|
 |can2F03|Déterminer le signe d’une fonction affine (V/F)|KO|KO|OK|qcm|
@@ -585,6 +591,7 @@
 |can2G17|Déterminer un vecteur directeur avec une équation cartésienne|KO|KO|OK|custom|
 |can2G18|Déterminer les coordonnées d’un vecteur à partir d’un graphique|KO|KO|OK|mathLive|
 |can2G19|Déterminer le coefficient directeur d'une droite (graphique)|KO|KO|OK|mathLive|
+|can2G20|Déterminer une équation de droite (graphique)|KO|KO|OK|mathLive|
 |can2L01|Déterminer le nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
 |can2L02|Calculer les coordonnées d’un point sur une droite|KO|KO|OK|mathLive|
 |can2L03|Calculer les coordonnées du point d’intersection entre l’axe des abscisses/droite|KO|KO|OK|mathLive|
@@ -613,6 +620,7 @@
 |can3C12|Encadrer une racine carrée|OK|AMCNum|OK|mathLive|
 |can3C13|Pyramide additive fractions|OK|AMCNum|OK|mathLive|
 |can3C14|Passer d'un décimal à une fraction irréductible|OK|AMCNum|OK|mathLive|
+|can3C15|Calculer des sommes contenant des puissances de 10|KO|KO|OK|mathLive|
 |can3F01|Lire une image graphiquement|OK|AMCNum|OK|mathLive|
 |can3F02|Calculer une image par une fonction linéaire|OK|AMCNum|OK|mathLive|
 |can3F03|Calculer une image par une fonction affine|OK|AMCNum|OK|mathLive|
@@ -719,6 +727,7 @@
 |can5P06|Ecrire sous la forme d’un pourcentage|OK|AMCNum|OK|mathLive|
 |can5P07|Résoudre un problème de proportionnalité*|OK|AMCNum|OK|mathLive|
 |can5P08|Résoudre un problème de proportionnalité**|OK|AMCNum|OK|mathLive|
+|can5P09|Calculer un prix à partir d'un prix au kg|OK|AMCNum|OK|mathLive|
 |can5a-2020|CAN 5ième sujet 2020|KO|KO|OK|mathLive|
 |can5a-2021|CAN 5ième sujet 2021|KO|KO|OK|mathLive|
 |can5a-2022|CAN 5ième sujet 2022|KO|KO|OK|mathLive|
@@ -812,6 +821,7 @@
 |can6P03|Déterminer le nombre de km avec une vitesse|OK|AMCNum|OK|mathLive|
 |can6P04|Appliquer un pourcentage|OK|AMCNum|OK|mathLive|
 |can6P05|Appliquer un pourcentage (bis)|OK|AMCNum|OK|mathLive|
+|can6P06|Résoudre un problème de calcul de pourcentage par complément à 100%|OK|AMCNum|OK|mathLive|
 |can6S01|Lire un diagramme en barres|OK|AMCNum|OK|mathLive|
 |can6a-2018|CAN 6ième sujet 2018|KO|KO|OK|mathLive|
 |can6a-2021|CAN 6ième sujet 2021|KO|KO|OK|mathLive|
@@ -830,6 +840,8 @@
 |canc3C09|Résoudre un problème avec "fois plus", "fois moins"|OK|AMCNum|OK|mathLive|
 |canc3C10|Résoudre un problème avec "fois plus", "fois moins"*|OK|AMCNum|OK|mathLive|
 |canc3C11|Calculer la moitié d’un nombre impair|OK|AMCNum|OK|mathLive|
+|canc3C12|Calculer avec un programme de calcul|OK|AMCNum|OK|mathLive|
+|canc3C13|Trouver un nombre dans un produit de trois facteurs |KO|KO|OK|mathLive|
 |canc3D01|Lire l'heure|OK|AMCHybride|OK|mathLive|
 |canc3D02|Lire une durée|KO|KO|OK|mathLive|
 |canc3D03|Ajouter des durées|KO|KO|OK|mathLive|
@@ -841,6 +853,7 @@
 |canc3N03|Trouver le plus grand nombre entier|OK|AMCNum|OK|mathLive|
 |canc3N04|Arrondir à l'unité|OK|AMCHybride|OK|mathLive|
 |canc3N05|Calculer une somme (partie entière/décimale)|OK|AMCNum|OK|mathLive|
+|canc3N06|Comparer deux nombres sur une droite graduée (QCM)|OK|qcmMono|OK|qcm|
 |techno1E2|Associer évolution en pourcentage et coefficient|KO|KO|OK|mathLive|
 |techno1P1|Écriture fractionnaire, écriture décimale, pourcentage|KO|KO|OK|mathLive|
 |techno1P2-1|Appliquer un pourcentage|OK|AMCNum|OK|mathLive|

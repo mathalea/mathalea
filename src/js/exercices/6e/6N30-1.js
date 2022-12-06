@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { calcul, arrondi, htmlConsigne, lettreDepuisChiffre, combinaisonListes, listeQuestionsToContenu, randint, stringNombre, contraindreValeur } from '../../modules/outils.js'
+import { calcul, arrondi, htmlConsigne, combinaisonListes, listeQuestionsToContenu, randint, stringNombre, contraindreValeur, lettreIndiceeDepuisChiffre } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { droiteGraduee } from '../../modules/2d.js'
@@ -59,9 +59,9 @@ export default function LireAbscisseDecimaleBis2d () {
     const d = []
     this.contenu = htmlConsigne(this.consigne)
     for (let i = 0, abs0, l1, l2, l3, x1, x2, x3, x11, x22, x33, xA, xB, xC, pas1, pas2, thick1, thick2, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      l1 = lettreDepuisChiffre(i * 3 + 1)
-      l2 = lettreDepuisChiffre(i * 3 + 2)
-      l3 = lettreDepuisChiffre(i * 3 + 3)
+      l1 = lettreIndiceeDepuisChiffre(i * 3 + 1)
+      l2 = lettreIndiceeDepuisChiffre(i * 3 + 2)
+      l3 = lettreIndiceeDepuisChiffre(i * 3 + 3)
       if (context.isAmc) {
         this.autoCorrection[i] = { propositions: [{ statut: 4, feedback: '' }] }
       }
@@ -159,8 +159,10 @@ export default function LireAbscisseDecimaleBis2d () {
         texte += l3 + ajouteChampTexteMathLive(this, 3 * i + 2)
       } else {
         if (context.isAmc) {
-          this.autoCorrection[i].enonce = texte
-          this.autoCorrection[i].propositions[0].texte = texteCorr
+          this.autoCorrection[i] = {
+            enonce: texte,
+            propositions: [{ texte: texteCorr, statut: 0, feedback: '', sanscadre: true }]
+          }
         }
       }
       if (this.listeQuestions.indexOf(texte) === -1) {

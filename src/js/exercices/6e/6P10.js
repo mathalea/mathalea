@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import Decimal from 'decimal.js'
 import { listeQuestionsToContenu, randint, range, combinaisonListes, prenomF, prenomM, texNombre, miseEnEvidence, texPrix, compteOccurences, contraindreValeur, sp, rangeMinMax } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { getVueFromUrl } from '../../modules/gestionUrl.js'

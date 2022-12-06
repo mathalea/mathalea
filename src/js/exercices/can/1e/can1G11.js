@@ -23,7 +23,7 @@ export default function mesureAngleCosSin () {
   this.nouvelleVersion = function () {
     const choix1 = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]'])
     const choix2 = choice(['a', 'b', 'c', 'd'])
-    switch (choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13])) { //, 2, 3, 4, 5
+    switch (choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13])) { //
       case 1:// pi/6
         this.question = `$\\alpha$ est un réel de $${choix1}$ vérifiant $\\cos(\\alpha)=\\dfrac{\\sqrt{3}}{2}$ et $\\sin(\\alpha)=\\dfrac{1}{2}$. <br>
         
@@ -87,7 +87,7 @@ export default function mesureAngleCosSin () {
         }
         break
       case 8:// 5pi/4
-        this.question = `$\\alpha$ est un réel de $${choix1}$ vérifiant $\\cos(\\alpha)=-\\dfrac{\\sqrt{2}}{2}$ et $\\sin(\\alpha)=\\dfrac{\\sqrt{2}}{2}$. <br>
+        this.question = `$\\alpha$ est un réel de $${choix1}$ vérifiant $\\cos(\\alpha)=-\\dfrac{\\sqrt{2}}{2}$ et $\\sin(\\alpha)=-\\dfrac{\\sqrt{2}}{2}$. <br>
        
         Quelle est la valeur de $\\alpha$ en radians ?`
         if (choix1 === '[0\\,;\\,2\\pi[') {
@@ -95,7 +95,7 @@ export default function mesureAngleCosSin () {
           $\\dfrac{5\\pi}{4}\\in ${choix1}$, donc $\\alpha=\\dfrac{5\\pi}{4}$.`
           this.reponse = '\\dfrac{5\\pi}{4}'
         } else {
-          this.correction = `$\\cos \\dfrac{-3\\pi}{4}=-\\dfrac{\\sqrt{2}}{2}$ et $\\sin \\dfrac{-3\\pi}{4}=-\\dfrac{\\sqrt{2}}{2}}$.<br>
+          this.correction = `$\\cos \\dfrac{-3\\pi}{4}=-\\dfrac{\\sqrt{2}}{2}$ et $\\sin \\dfrac{-3\\pi}{4}=-\\dfrac{\\sqrt{2}}{2}$.<br>
         $\\dfrac{-3\\pi}{4}\\in ${choix1}$, donc $\\alpha=\\dfrac{-3\\pi}{4}$.`
           this.reponse = '-\\dfrac{3\\pi}{4}'
         }
