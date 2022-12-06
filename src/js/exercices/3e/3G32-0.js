@@ -299,7 +299,7 @@ export default function ProblemesTrigoLongueur () {
           normalV = vecteur3d(0, 0, 1)
           M = rotationV3d(M, normalV, context.anglePerspective)
           M.c2d.nom = 'M'
-          M.c2d.positionLabel = 'below'
+          M.c2d.positionLabel = 'right'
           normalH = rotationV3d(R, normalV, 90)
           P = rotationV3d(M, normalH, -alpha)
           P.c2d.nom = 'P'
@@ -307,14 +307,15 @@ export default function ProblemesTrigoLongueur () {
           H = point3d(0, 0, P.z, false)
           R2 = rotationV3d(vecteur3d(H, P), normalV, context.anglePerspective) // Rayon obtenu depuis P
           H.c2d.nom = 'H'
-          H.c2d.positionLabel = 'above right'
-          Sph = sphere3d(O, 5, 2, 3)
+          H.c2d.positionLabel = 'left'
+          Sph = sphere3d(O, 5, 'black', 'black', 6, 'gray', 12, 'gray')
           HP = arete3d(H, P)
           OP = arete3d(O, P)
           objets.push(...Sph.c2d, Axe.c2d, HP.c2d, OP.c2d, new CodageAngleDroit3D(P, H, O), tracePoint(H.c2d, P.c2d, O.c2d, M.c2d), labelPoint(H.c2d, P.c2d, O.c2d, M.c2d))
-          objets.push(demicercle3d(H, normalV, R2, 'caché', 'red', 0), demicercle3d(H, normalV, R2, 'visible', 'red', 0))
+          objets.push(demicercle3d(H, normalV, R2, 'indirect', false, 'red', -context.anglePerspective))
+          objets.push(demicercle3d(H, normalV, R2, 'direct', true, 'red', -context.anglePerspective))
           objets.push(arete3d(O, M).c2d)
-          objets.push(afficheMesureAngle(M.c2d, O.c2d, P.c2d, 'black', 1.5, `${alpha}`))
+          objets.push(afficheMesureAngle(M.c2d, O.c2d, P.c2d, 'black', 1.5, `$${alpha} \\degree$`))
           texte = mathalea2d({ xmin: -8, ymin: -6, xmax: 8, ymax: 6, pixelsParCm: 20, scale: 0.5 }, objets) + '<br>'
           texte += `Quelle est la longueur du $${alpha}$e parallèle Nord au kilomètre près ?`
           enonceAMC = texte

@@ -341,7 +341,7 @@ export function TracePoint (...points) {
           c = cercle(p1, this.tailleTikz, this.color[1])
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
-          c.couleurDeRemplissage = this.color[1]
+          c.couleurDeRemplissage = this.color
           c.opaciteDeRemplissage = this.opacite / 2
           objetstikz.push(c)
         } else if (this.style === '#') {
@@ -350,7 +350,7 @@ export function TracePoint (...points) {
           c = carre(p2, p1, this.color[1])
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
-          c.couleurDeRemplissage = this.color[1]
+          c.couleurDeRemplissage = this.color
           c.opaciteDeRemplissage = this.opacite / 2
           objetstikz.push(c)
         } else if (this.style === '+') {
@@ -11068,7 +11068,7 @@ export function scratchblock (stringLatex) {
   let fin; let result = []; let index
   let compteur = 0
   if (!((stringLatex.match(/\{/g) || []).length === (stringLatex.match(/\}/g) || []).length)) {
-    console.log("Il n'y a pas le même nombre de { que de }. Je préfère m'arrêter.")
+    // console.log("Il n'y a pas le même nombre de { que de }. Je préfère m'arrêter.")
     return false
   }
   if (!context.isHtml) {

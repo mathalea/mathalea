@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, rangeMinMax, contraindreValeur, compteOccurences, choisitLettresDifferentes, choice, calcul, arrondi, miseEnEvidence, texteEnCouleurEtGras, sp, nombreDeChiffresDe, shuffle } from '../../modules/outils.js'
 import Grandeur from '../../modules/Grandeur.js'
-import { CodageAngleDroit3D, cone3dEE, cube3d, cylindre3d, droite3d, pave3d, point3d, polygone3d, prisme3d, pyramide3d, rotation3d, sphere3dEE, translation3d, vecteur3d } from '../../modules/3d.js'
+import { CodageAngleDroit3D, cone3d, cube3d, cylindre3d, droite3d, pave3d, point3d, polygone3d, prisme3d, pyramide3d, rotation3d, sphere3d, translation3d, vecteur3d } from '../../modules/3d.js'
 import { assombrirOuEclaircir, fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -359,7 +359,7 @@ export default function CalculPythagoreEspace () {
             ptsBase.push(rotation3d(B, droite3d(A, vecteur3d(D, A)), ee * 360 / (nbSommets)))
           }
           p = polygone3d(ptsBase, 'blue')
-          solideDessine = cone3dEE(A, D, v, 'blue', true, 'red', assombrirOuEclaircir('gray', 100))
+          solideDessine = cone3d(A, D, v, 'blue', true, 'red', assombrirOuEclaircir('gray', 100))
           numeroSommet = randint(1, Math.floor(nbSommets / 2) - 1)
           if (context.anglePerspective < 0) numeroSommet = (nbSommets - numeroSommet) % nbSommets
           segmentATrouver = segment(D.c2d, p.listePoints2d[numeroSommet], '#f15929')
@@ -396,28 +396,28 @@ export default function CalculPythagoreEspace () {
           // E = point3d(0, 0, -r, true, choisitLettresDifferentes(1, 'OQWX' + A.label + D.label), 'left')
           // v = vecteur3d(A, B)
           // ptsBase = [B]
-          objetsEnonce = sphere3dEE(A, r).c2d
+          objetsEnonce = sphere3d(A, r).c2d
           texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
           context.anglePerspective = randint(2, 6) * choice([10, -10])
           /* r = randint(4, 10)
-          objetsEnonce = sphere3dEE(A, r, 'blue', 'black', 0, 'gray', 0, 'gray', true, 'red').c2d
+          objetsEnonce = sphere3d(A, r, 'blue', 'black', 0, 'gray', 0, 'gray', true, 'red').c2d
           texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
           context.anglePerspective = randint(2, 6) * choice([10, -10])
           // context.anglePerspective = 50
           r = randint(4, 10)
-          objetsEnonce = sphere3dEE(A, r, 'green', 'red', 36, 'gray', 0, 'gray', false).c2d
+          objetsEnonce = sphere3d(A, r, 'green', 'red', 36, 'gray', 0, 'gray', false).c2d
           texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
-          // objetsEnonce = sphere3dEE(A, r, 'green', 'red', 18, 'gray', 0, 'gray', false).c2d
+          // objetsEnonce = sphere3d(A, r, 'green', 'red', 18, 'gray', 0, 'gray', false).c2d
           // texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
           context.anglePerspective = randint(2, 6) * choice([10, -10])
 
           r = randint(4, 10)
           console.log(context.anglePerspective)
-          objetsEnonce = sphere3dEE(A, r, 'blue', 'blue', 36, 'red', 18, 'gray', true).c2d
+          objetsEnonce = sphere3d(A, r, 'blue', 'blue', 36, 'red', 18, 'gray', true).c2d
           texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
           context.anglePerspective = randint(2, 6) * choice([10, -10])
           r = randint(4, 10)
-          objetsEnonce = sphere3dEE(A, r, 'blue', 'black', 12, 'gray', 18, 'gray', true, 'green').c2d
+          objetsEnonce = sphere3d(A, r, 'blue', 'black', 12, 'gray', 18, 'gray', true, 'green').c2d
           texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
           context.anglePerspective = randint(2, 6) * choice([10, -10])
           r = randint(4, 10) */

@@ -180,7 +180,7 @@ export function droite3d (point3D, vecteur3D) {
 }
 
 /**
- * LE DEMI-CERCLE
+ * LE DEMI-CERCLE  - ANCIENNE FONCTION
  *
  *@author Jean-Claude Lhote
  * Le nom est trompeur, il s'agit le plus souvent d'une demi-ellipse représentant un cercle projeté
@@ -194,6 +194,7 @@ export function droite3d (point3D, vecteur3D) {
  * Si cote='visible' alors on tourne dans le sens indirect et le tracé est plein.
  *
  */
+/*
 export function demicercle3d (centre, normal, rayon, cote, color, angledepart = context.anglePerspective) {
   let signe; const M = []; const listepoints = []
   if (cote === 'caché') {
@@ -216,9 +217,22 @@ export function demicercle3d (centre, normal, rayon, cote, color, angledepart = 
   }
   return demiCercle
 }
-
-// Cette fonction est provisoire... en attente de validation de tous les tests pour remplacer celle du dessus.
-export function demicercle3dEE (centre, normal, rayon, sens, estCache = false, color, angledepart = context.anglePerspective) {
+*/
+/**
+   * Crée un demi-cercle
+   * @param {Point3d} centre Centre du demi-cercle
+   * @param {Vecteur3d} normal Vecteur normal au demi-cercle
+   * @param {Vecteur3d} rayon Vecteur correspondant au rayon
+   * @param {string} [sens = 'direct'] Sens de rotation pour créer le demi-cercle ('direct' ou 'indirect")
+   * @param {boolean} [estCache = false] Si false, alors le tracé est en trait plein, sinon le tracé est en pointillés
+   * @param {string} [color = 'black'] Couleur du demi-cercle : du type 'blue' ou du type '#f15929'
+   * @param {number} [angledepart = context.anglePerspective] Angle en degré entre le vecteur rayon depuis le centre et le point de début de tracé du demi-cercle
+   * @example demicercle3d(A,n,v) // Crée un demi-cercle noir en trait plein de centre A, de vecteur normal v, dont le rayon correspond au vecteur v et le sens est direct
+   * @example demicercle3d(A,n,v,'indirect',true,'red',0) // Crée un demi-cercle rouge en pointillés de centre A, de vecteur normal v, dont le rayon correspond au vecteur v, le sens est direct et l'angle de départ est 0°.
+   * @author Eric Elter (d'après version précédente de Jean-Claude Lhote)
+   * @return {demiCercle}
+   */
+export function demicercle3d (centre, normal, rayon, sens = 'direct', estCache = false, color = 'black', angledepart = context.anglePerspective) {
   let signe; const M = []; const listepoints = []
   const listePoints3d = []
   if (sens === 'direct') {
@@ -241,7 +255,6 @@ export function demicercle3dEE (centre, normal, rayon, sens, estCache = false, c
     demiCercle.pointilles = 2
     demiCercle.opacite = 0.9
   }
-  //  return [demiCercle, listePoints3d]
   return demiCercle
 }
 
@@ -349,7 +362,7 @@ export function polygone3d (...args) {
 */
 
 /**
-   * LA SPHERE
+   * LA SPHERE - ANCIENNE FONCTION
    *
    * @author Jean-Claude Lhote
    * Produit une sphère : choisir un nombre de parallèles impair pour avoir l'équateur. normal défini l'axe Nord-Sud.
@@ -360,6 +373,7 @@ export function polygone3d (...args) {
    * @param {Number} nbMeridiens
    * @param {string} color
    */
+/*
 function Sphere3d (centre, rayon, nbParalleles, nbMeridiens, color) {
   ObjetMathalea2D.call(this, { })
   this.centre = centre
@@ -394,9 +408,35 @@ function Sphere3d (centre, rayon, nbParalleles, nbMeridiens, color) {
 export function sphere3d (centre, rayon, nbParalleles, nbMeridiens, color = 'black') {
   return new Sphere3d(centre, rayon, nbParalleles, nbMeridiens, color)
 }
-// nbParalleles/180 est l'angle entre chaque parallele
+*/
 
-function Sphere3dEE (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue', nbParalleles = 0, colorParalleles = 'gray', nbMeridiens = 0, colorMeridiens = 'gray', affichageAxe = false, colorAxe = 'black') {
+/**
+   * Classe de la sphère
+   * @param {Point3d} centre Centre de la sphère
+   * @param {Vecteur3d} rayon Rayon de la sphère
+   * @param {string} [colorEquateur = 'red'] Couleur de l'équateur : du type 'blue' ou du type '#f15929'
+   * @param {string} [colorEnveloppe = 'blue'] Couleur de l'enveloppe de la sphère : du type 'blue' ou du type '#f15929'
+   * @param {number} [nbParalleles = 0]  Le nombre de parallèles au total
+   * @param {string} [colorParalleles = 'gray'] Couleur des parallèles de la sphère : du type 'blue' ou du type '#f15929'
+   * @param {number} [nbMeridiens = 0]  Le nombre de méridiens au total
+   * @param {string} [colorMeridiens = 'gray'] Couleur des méridiens de la sphère : du type 'blue' ou du type '#f15929'
+   * @param {boolean} [affichageAxe = false] Permet (ou pas) l'affichage de l'axe de la sphère.
+   * @param {string} [colorAxe = 'black'] Couleur de l'axe de la sphère : du type 'blue' ou du type '#f15929'
+   * @property {Point3d} centre Centre de la sphère
+   * @property {Vecteur3d} rayon Rayon de la sphère
+   * @property {string} colorEquateur Couleur de l'équateur : du type 'blue' ou du type '#f15929'
+   * @property {string} colorEnveloppe Couleur de l'enveloppe de la sphère : du type 'blue' ou du type '#f15929'
+   * @property {number} nbParalleles Le nombre de parallèles au total
+   * @property {string} colorParalleles Couleur des parallèles de la sphère : du type 'blue' ou du type '#f15929'
+   * @property {number} nbMeridiens Le nombre de méridiens au total
+   * @property {string} colorMeridiens Couleur des méridiens de la sphère : du type 'blue' ou du type '#f15929'
+   * @property {boolean} affichageAxe Permet (ou pas) l'affichage de l'axe de la sphère.
+   * @property {string} colorAxe Couleur de l'axe de la sphère : du type 'blue' ou du type '#f15929'
+   * @property {Array} c2d Contient les commandes à tracer en 2d de cette fonction
+   * @author Eric Elter (d'après version précédente de Jean-Claude Lhote)
+   * @class
+   */
+function Sphere3d (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue', nbParalleles = 0, colorParalleles = 'gray', nbMeridiens = 0, colorMeridiens = 'gray', affichageAxe = false, colorAxe = 'black') {
   ObjetMathalea2D.call(this, { })
   this.centre = centre
   this.rayon = rayon
@@ -408,8 +448,8 @@ function Sphere3dEE (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blu
   this.colorMeridiens = colorMeridiens
   this.affichageAxe = affichageAxe
   this.colorAxe = colorAxe
-  const poleNord = point3d(0, 0, this.rayon, true, choisitLettresDifferentes(1, 'OQWX' + this.centre.label), 'left')
-  const poleSud = point3d(0, 0, -this.rayon, true, choisitLettresDifferentes(1, 'OQWX' + this.centre.label + poleNord.label), 'left')
+  const poleNord = point3d(this.centre.x, this.centre.y, this.centre.z + this.rayon, true, choisitLettresDifferentes(1, 'OQWX' + this.centre.label), 'left')
+  const poleSud = point3d(this.centre.x, this.centre.y, this.centre.z - this.rayon, true, choisitLettresDifferentes(1, 'OQWX' + this.centre.label + poleNord.label), 'left')
 
   const nbParallelesDeConstruction = 36 // Ce nb de paralleles permet de construire l'enveloppe de la sphère (le "cercle" apparent de la sphère)
   let unDesParalleles
@@ -535,7 +575,7 @@ function Sphere3dEE (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blu
           s.opacite = 0.5
           if (k === 0) {
             s.color = colorToLatexOrHTML(this.colorEquateur)
-            s.epaisseur = 2
+            s.epaisseur = 1.5
           }
           this.c2d.push(s)
           s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient pas dans les petits cercles
@@ -545,7 +585,7 @@ function Sphere3dEE (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blu
           s = segment(paralleles.listepts2d[j][ee].c2d, paralleles.ptCacheDernier[j], this.colorParalleles)
           if (k === 0) {
             s.color = colorToLatexOrHTML(this.colorEquateur)
-            s.epaisseur = 2
+            s.epaisseur = 1.5
           }
           this.c2d.push(s)
           s = segment(paralleles.ptCacheDernier[j], paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].c2d)
@@ -561,7 +601,7 @@ function Sphere3dEE (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blu
         }
         if (k === 0) {
           s.color = colorToLatexOrHTML(this.colorEquateur)
-          s.epaisseur = 2
+          s.epaisseur = 1.5
         }
         this.c2d.push(s)
       }
@@ -642,7 +682,7 @@ function Sphere3dEE (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blu
     }
   }
   const p = polygone(enveloppeSphere, this.colorEnveloppe)
-  p.epaisseur = 2
+  p.epaisseur = 1.5
   this.c2d.push(p)
 
   if (affichageAxe) {
@@ -652,17 +692,38 @@ function Sphere3dEE (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blu
       ee += 0.01
     }
 
-    let s = segment(poleNord.c2d, pointSurSegment(poleNord.c2d, poleSud.c2d, Math.max(ee - 0.01, 1) * l), colorAxe)
+    let s = segment(poleNord.c2d, pointSurSegment(poleNord.c2d, poleSud.c2d, Math.max(ee - 0.01, 1) * l), this.colorAxe)
     s.pointilles = 2
     this.c2d.push(s)
-    s = segment(poleSud.c2d, pointSurSegment(poleNord.c2d, poleSud.c2d, 1.1 * l), colorAxe)
+    s = segment(poleSud.c2d, pointSurSegment(poleNord.c2d, poleSud.c2d, 1.1 * l), this.colorAxe)
     this.c2d.push(s)
-    s = segment(poleNord.c2d, pointSurSegment(poleNord.c2d, poleSud.c2d, -0.1 * l), colorAxe)
+    s = segment(poleNord.c2d, pointSurSegment(poleNord.c2d, poleSud.c2d, -0.1 * l), this.colorAxe)
     this.c2d.push(s)
   }
 }
-export function sphere3dEE (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue', nbParalleles = 0, colorParalleles = 'gray', nbMeridiens = 0, colorMeridiens = 'black', affichageAxe = false, colorAxe = 'black') {
-  return new Sphere3dEE(centre, rayon, colorEquateur, colorEnveloppe, nbParalleles, colorParalleles, nbMeridiens, colorMeridiens, affichageAxe, colorAxe)
+
+/**
+   * Crée une sphère
+   * @param {Point3d} centre Centre de la sphère
+   * @param {Vecteur3d} rayon Vecteur correspondant au rayon de la sphère
+   * @param {string} [colorEquateur = 'red'] Couleur de l'équateur : du type 'blue' ou du type '#f15929'
+   * @param {string} [colorEnveloppe = 'blue'] Couleur de l'enveloppe de la sphère : du type 'blue' ou du type '#f15929'
+   * @param {number} [nbParalleles = 0]  Le nombre de parallèles au total
+   * @param {string} [colorParalleles = 'gray'] Couleur des parallèles de la sphère : du type 'blue' ou du type '#f15929'
+   * @param {number} [nbMeridiens = 0]  Le nombre de méridiens au total
+   * @param {string} [colorMeridiens = 'gray'] Couleur des méridiens de la sphère : du type 'blue' ou du type '#f15929'
+   * @param {boolean} [affichageAxe = false] Permet (ou pas) l'affichage de l'axe de la sphère.
+   * @param {string} [colorAxe = 'black'] Couleur de l'axe de la sphère : du type 'blue' ou du type '#f15929'
+   * @example sphere3d(A,v) // Crée une sphère de centre A et dont le rayon correspond au vecteur v, l'équateur rouge et l'enveloppe bleue
+   * @example sphere3d(A,v,'green','pink') // Crée une sphère de centre A et dont le rayon correspond au vecteur v, l'équateur vert et l'enveloppe rose
+   * @example sphere3d(A,v,'green','pink',18,'red') // Crée une sphère de centre A et dont le rayon correspond au vecteur v, l'équateur vert, l'enveloppe rose, avec 18 parallèles rouges
+   * @example sphere3d(A,v,'green','pink',18,'red',36,'blue') // Crée une sphère de centre A et dont le rayon correspond au vecteur v, l'équateur vert, l'enveloppe rose, avec 18 parallèles rouges et 36 méridiens verts
+   * @example sphere3d(A,v,'green','pink',18,'red',36,'blue',true,'#f15929') // Crée une sphère de centre A et dont le rayon correspond au vecteur v, l'équateur vert, l'enveloppe rose, avec 18 parallèles rouges, 36 méridiens verts et un axe affiché orange
+   * @author Eric Elter (d'après version précédente de Jean-Claude Lhote)
+   * @return {Sphere3d}
+   */
+export function sphere3d (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue', nbParalleles = 0, colorParalleles = 'gray', nbMeridiens = 0, colorMeridiens = 'black', affichageAxe = false, colorAxe = 'black') {
+  return new Sphere3d(centre, rayon, colorEquateur, colorEnveloppe, nbParalleles, colorParalleles, nbMeridiens, colorMeridiens, affichageAxe, colorAxe)
 }
 
 /**
@@ -737,26 +798,26 @@ export function cone3d (centre, sommet, rayon, generatrices = 18) {
 */
 
 /**
-   * Crée un cône
-   * @param {Point3d} centre centre de la base du cône
+   * Classe du cône
+   * @param {Point3d} centre Centre de la base du cône
    * @param {Point3d} sommet Sommet du cône
    * @param {Vecteur3d} rayon Rayon de la base du cône
-   * @param {string} [color = 'black'] Couleur des arêtes du prisme droit : du type 'blue' ou du type '#f15929'
+   * @param {string} [color = 'black'] Couleur des génératrices visibles et de la base du cône : du type 'blue' ou du type '#f15929'
    * @param {boolean} [affichageAxe = true] Permet (ou pas) l'affichage de l'axe du cône.
-   * @param {string} [colorAxe = 'black'] Couleur de l'axe et du centre de la base de la pyramide : du type 'blue' ou du type '#f15929'
+   * @param {string} [colorAxe = 'black'] Couleur de l'axe et du centre de la base du cône : du type 'blue' ou du type '#f15929'
    * @param {string} [colorCone = 'gray'] Couleur du cône : du type 'blue' ou du type '#f15929'
    * @property {Point3d} centre centre de la base du cône
    * @property {Point3d} sommet Sommet du cône
    * @property {Vecteur3d} rayon Rayon de la base du cône
-   * @property {string} color Couleur des arêtes du prisme droit : du type 'blue' ou du type '#f15929'
+   * @property {string} color Couleur des génératrices visibles et de la base du cône : du type 'blue' ou du type '#f15929'
    * @property {boolean} affichageAxe Permet (ou pas) l'affichage de l'axe du cône.
-   * @property {string} colorAxe Couleur de l'axe et du centre de la base de la pyramide : du type 'blue' ou du type '#f15929'
+   * @property {string} colorAxe Couleur de l'axe et du centre de la base du cône : du type 'blue' ou du type '#f15929'
    * @property {string} colorCone Couleur du cône : du type 'blue' ou du type '#f15929'
    * @property {Array} c2d Contient les commandes à tracer en 2d de cette fonction
-   * @author Jean-Claude Lhote (optimisé par Eric Elter)
+   * @author Eric Elter (d'après version précédente de Jean-Claude Lhote)
    * @class
    */
-function Cone3dEE (centre, sommet, rayon, color = 'black', affichageAxe = true, colorAxe = 'black', colorCone = 'gray') {
+function Cone3d (centre, sommet, rayon, color = 'black', affichageAxe = true, colorAxe = 'black', colorCone = 'gray') {
   ObjetMathalea2D.call(this, { })
   this.centre = centre
   this.sommet = sommet
@@ -780,19 +841,23 @@ function Cone3dEE (centre, sommet, rayon, color = 'black', affichageAxe = true, 
    * @param {Point3d} centre centre de la base du cône
    * @param {Point3d} sommet Sommet du cône
    * @param {Vecteur3d} rayon Rayon de la base du cône
-   * @param {string} [color = 'black'] Couleur des arêtes du prisme droit : du type 'blue' ou du type '#f15929'
+   * @param {string} [color = 'black'] Couleur des génératrices visibles et de la base du cône : du type 'blue' ou du type '#f15929'
    * @param {boolean} [affichageAxe = true] Permet (ou pas) l'affichage de l'axe du cône.
-   * @param {string} [colorAxe = 'black'] Couleur de l'axe et du centre de la base de la pyramide : du type 'blue' ou du type '#f15929'
+   * @param {string} [colorAxe = 'black'] Couleur de l'axe et du centre de la base du cône : du type 'blue' ou du type '#f15929'
    * @param {string} [colorCone = 'gray'] Couleur du cône : du type 'blue' ou du type '#f15929'
+   * @example cone3d(A,B,v) // Créé un cône de centre A, de sommet B et dont le rayon correspond au vecteur v
+   * @example cone3d(A,B,v,'red') // Créé un cône de centre A, de sommet B et dont le rayon correspond au vecteur v, la couleur du cône en fil de fer est rouge
+   * @example cone3d(A,B,v,'red',true,'green') // Créé un cône de centre A, de sommet B et dont le rayon correspond au vecteur v, la couleur du cône en fil de fer est rouge, l'axe est affiché en vert
+   * @example cone3d(A,B,v,'red',true,'green','blue') // Créé un cône de centre A, de sommet B et dont le rayon correspond au vecteur v, la couleur du cône en fil de fer est rouge, l'axe est affiché en vert et la face externe du cône est bleue
    * @author Eric Elter
-   * @return {Cone3dEE}
+   * @return {Cone3d}
    */
-export function cone3dEE (centre, sommet, rayon, color = 'black', affichageAxe = true, colorAxe = 'black', colorCone = 'gray') {
-  return new Cone3dEE(centre, sommet, rayon, color, affichageAxe, colorAxe, colorCone)
+export function cone3d (centre, sommet, rayon, color = 'black', affichageAxe = true, colorAxe = 'black', colorCone = 'gray') {
+  return new Cone3d(centre, sommet, rayon, color, affichageAxe, colorAxe, colorCone)
 }
 
 /**
-   * Crée un cylindre de révolution défini par les centres de ses 2 bases
+   * Classe du cylindre : un cylindre de révolution défini par les centres de ses 2 bases
    * Permet en faisant varier les rayons des deux bases de créer des troncs de cônes (A VERIFIER)
    * @param {Point3d} centrebase1 Centre de la première base
    * @param {Point3d} centrebase2 Centre de la seconde base
@@ -870,13 +935,13 @@ function Cylindre3d (centrebase1, centrebase2, rayon1, rayon2, color = 'black', 
   this.angleDepart = angleDepart
   // Description de chaque demi-base en position verticale
   // c1 : cercle bas derrière
-  const c1 = demicercle3dEE(this.centrebase1, this.normal, this.rayon1, cote1, true, this.color, angleDepart)
+  const c1 = demicercle3d(this.centrebase1, this.normal, this.rayon1, cote1, true, this.color, angleDepart)
   // c3 : cercle haut derrière
-  const c3 = demicercle3dEE(this.centrebase2, this.normal, this.rayon2, cote1, false, this.color, angleDepart)
+  const c3 = demicercle3d(this.centrebase2, this.normal, this.rayon2, cote1, false, this.color, angleDepart)
   // c2 : cercle bas devant
-  const c2 = demicercle3dEE(this.centrebase1, this.normal, this.rayon1, cote2, false, this.color, angleDepart)
+  const c2 = demicercle3d(this.centrebase1, this.normal, this.rayon1, cote2, false, this.color, angleDepart)
   // c4 : cercle haut devant
-  const c4 = demicercle3dEE(this.centrebase2, this.normal, this.rayon2, cote2, false, this.color, angleDepart)
+  const c4 = demicercle3d(this.centrebase2, this.normal, this.rayon2, cote2, false, this.color, angleDepart)
   this.pointsBase1 = [...c1.listePoints, ...c2.listePoints]
   this.pointsBase2 = [...c3.listePoints, ...c4.listePoints]
   if (this.cylindreColore) {
@@ -972,7 +1037,7 @@ export function cylindre3d (centrebase1, centrebase2, rayon, rayon2, color = 'bl
 }
 
 /**
-   * LE PRISME - FONCTION DEPRECIEE
+   * LE PRISME - ANCIENNE FONCTION
    *
    * @author Jean-Claude Lhote
    * Crée un prisme à partir du base Polygone3d et d'un vecteur3d d'extrusion (on peut faire des prismes droits ou non droits)
@@ -1005,7 +1070,7 @@ export function prisme3d (base, vecteur, color = 'black') {
 } */
 
 /**
-   * Crée un prisme droit (en version 2)
+   * Classe du prisme droit
    * Ce prisme droit est optimisé dans son tracé des arêtes cachées pour des bases dans le plan (xOy) et son vecteur normal selon (Oz)
    * Pour d'autres usages, il faut approfondir la fonction mais laissé en l'état car justement pas d'autre usage demandé.
    * @param {Polygone3d} base Une des deux bases du prisme droit
@@ -1101,7 +1166,7 @@ export function prisme3d (base, vecteur, color = 'black', affichageNom = false) 
   return new Prisme3d(base, vecteur, color, affichageNom)
 }
 /**
-   * La pyramide  - FONCTION DEPRECIEE
+   * La pyramide  - ANCIENNE FONCTION
    *
    * @author Jean-Claude Lhote
    * Crée une pyramide à partir d'une base Polygone3d et d'un sommet
@@ -1144,7 +1209,7 @@ export function pyramide3d (base, vecteur, color = 'black') {
 */
 
 /**
-   * Crée une pyramide
+   * Classe de la pyramide
    * (optimisée au niveau des pointillés pour une base sur le plan xOy et un sommet plus haut ou plus bas que la base)
    * @param {Polygone3d} base Base de la pyramide
    * @param {Point3d} sommet Sommet de la pyramide
@@ -1157,7 +1222,7 @@ export function pyramide3d (base, vecteur, color = 'black') {
    * @param {string} [colorCone = 'gray'] Couleur du cône : du type 'blue' ou du type '#f15929'
    * @property {Polygone3d} base Base de la pyramide
    * @property {Point3d} sommet Sommet de la pyramide
-   * @property {string} color Couleur des arêtes du prisme droit : du type 'blue' ou du type '#f15929'
+   * @property {string} color Couleur des arêtes de la pyramide : du type 'blue' ou du type '#f15929'
    * @property {Point3d} centre Centre de la pyramide... Entraine l'affichage de ce centre
    * @property {boolean} affichageAxe Permet (ou pas) l'affichage de l'axe de la pyramide. Ne fonctionne que si centre est défini.
    * @property {string} colorAxe Couleur de l'axe et du centre de la base de la pyramide : du type 'blue' ou du type '#f15929'
@@ -1317,14 +1382,21 @@ class Pyramide3d {
    * Crée une pyramide
    * @param {Polygone3d} base Base de la pyramide
    * @param {Point3d} sommet Sommet de la pyramide
-   * @param {string} [color = 'black'] Couleur des arêtes du prisme droit : du type 'blue' ou du type '#f15929'
+   * @param {string} [color = 'black'] Couleur des arêtes de la pyramide : du type 'blue' ou du type '#f15929'
    * @param {Point3d} [centre] Centre de la pyramide... Entraine l'affichage de ce centre
    * @param {boolean} [affichageAxe = false] Permet (ou pas) l'affichage de l'axe de la pyramide. Ne fonctionne que si centre est défini.
    * @param {string} [colorAxe = 'black'] Couleur de l'axe et du centre de la base de la pyramide : du type 'blue' ou du type '#f15929'
    * @param {boolean} [affichageNom = false] Permet (ou pas) l'affichage du nom des sommets de la pyramide.
    * @param {boolean} [estCone = false] Permet (ou pas) de considérer la pyramide comme un cône
    * @param {string} [colorCone = 'gray'] Couleur du cône : du type 'blue' ou du type '#f15929'
-   * @author Eric Elter
+   * @author Eric Elter (d'après version précédente de Jean-Claude Lhote)
+   * @example pyramide3d(p,A) // Créé une pyramide de base p et de sommet A
+   * @example pyramide3d(p,A,'red') // Créé une pyramide de base p et de sommet A et dont les arêtes sont rouges
+   * @example pyramide3d(p,A,'red',B) // Créé une pyramide de base p et de sommet A et dont les arêtes sont rouges, le centre affiché est B
+   * @example pyramide3d(p,A,'red',B,true,'green') // Créé une pyramide de base p et de sommet A et dont les arêtes sont rouges, le centre affiché est B, l'axe affiché est vert
+   * @example pyramide3d(p,A,'red',B,true,'green',true) // Créé une pyramide de base p et de sommet A et dont les arêtes sont rouges, le centre affiché est B, l'axe affiché est vert, les sommets sont nommés
+   * @example pyramide3d(c,A,'red',B,true,'green',false,true) // Créé un CONE de cercle c et de sommet A et dont les "arêtes" sont rouges, le centre affiché est B, l'axe affiché est vert
+   * @example pyramide3d(c,A,'red',B,true,'green',false,true,'blue') // Créé un CONE de cercle c et de sommet A et dont les "arêtes" sont rouges, le centre affiché est B, l'axe affiché est vert et le cône est peint en vert
    * @return {Pyramide3d}
    */
 export function pyramide3d (base, vecteur, color = 'black', centre, affichageAxe = false, colorAxe = 'black', affichageNom = false, estCone = false, colorCone = 'gray') {
@@ -1624,14 +1696,26 @@ export function cube (x = 0, y = 0, z = 0, alpha = 45, beta = -35, { colorD = 'g
 }
 
 /**
-   * LE PAVE
-   * @author Jean-Claude Lhote (optimisé par Eric Elter)
-   * usage : pave(A,B,D,E) construit le pavé ABCDEFGH dont les arêtes [AB],[AD] et [AE] délimitent 3 faces adjacentes.
+   * Classe du pavé : construit le pavé ABCDEFGH dont les arêtes [AB],[AD] et [AE] délimitent 3 faces adjacentes.
    * La gestion des arêtes cachées est prise en compte et n'est pas forcément E.
    * En travaillant sur le signe de context.anglePerspective et sur celui de la hauteur (B.z), on peut avoir une vision de haut, de bas, de gauche, de droite comme dans l'exercice....
-*/
+   * @param {Point3d} A Sommet du pavé droit
+   * @param {Point3d} B Sommet du pavé droit
+   * @param {Point3d} D Sommet du pavé droit
+   * @param {Point3d} E Sommet du pavé droit
+   * @param {boolean} [affichageNom = false] Permet (ou pas) l'affichage du nom des sommets du pavé droit.
+   * @param {string} [nom = 'ABCDEFGH'] Nom du pavé droit
+   * @property {Point3d[]} sommets Tableau contenant les sommets du pavé droit
+   * @property {string} color Couleur des arêtes du pavé droit : du type 'blue' ou du type '#f15929'
+   * @property {Polygone3d} base Base ABFE du pavé droit
+   * @property {Vecteur3d} hauteur Vecteur AD
+   * @property {Arete3d} aretes Tableau contenant les arêtes du pavé droit
+   * @property {Array} c2d Contient les commandes à tracer en 2d de cette fonction
+   * @author Jean-Claude Lhote (optimisé par Eric Elter)
+   * @class
+   */
 class Pave3d {
-  constructor (A, B, D, E, color, affichageNom = false, nom = 'ABCDEFGH') {
+  constructor (A, B, D, E, color = 'black', affichageNom = false, nom = 'ABCDEFGH') {
     ObjetMathalea2D.call(this, { })
     this.affichageNom = affichageNom
     const v1 = vecteur3d(A, B)
@@ -1682,18 +1766,30 @@ class Pave3d {
       G.c2d.nom = nom[6]
       H.c2d.nom = nom[7]
 
-      // const faceAV = polygoneAvecNom(...pointsFace)
       const faceAV = polygoneAvecNom(...pointsFace, context.isHtml ? 0.5 : 1.5)
       pointsFace = [E.c2d, F.c2d, G.c2d, H.c2d]
       const faceArr = polygoneAvecNom(...pointsFace, context.isHtml ? 0.5 : 1.5)
-      // const faceArr = polygoneAvecNom(...pointsFace)
-      // faceAV[0].color = colorToLatexOrHTML('none')
-      // faceArr[0].color = colorToLatexOrHTML('none')
       this.c2d.push(faceAV[1], faceArr[1])
     }
   }
 }
 
+/**
+   * Construit le pavé ABCDEFGH dont les arêtes [AB],[AD] et [AE] délimitent 3 faces adjacentes.
+   * La gestion des arêtes cachées est prise en compte et n'est pas forcément E.
+   * En travaillant sur le signe de context.anglePerspective et sur celui de la hauteur (B.z), on peut avoir une vision de haut, de bas, de gauche, de droite comme dans l'exercice....
+   * @param {Point3d} A Sommet du pavé droit
+   * @param {Point3d} B Sommet du pavé droit
+   * @param {Point3d} D Sommet du pavé droit
+   * @param {Point3d} E Sommet du pavé droit
+   * @param {boolean} [affichageNom = false] Permet (ou pas) l'affichage du nom des sommets du pavé droit.
+   * @param {string} [nom = 'ABCDEFGH'] Nom du pavé droit
+   * @example pave(A,B,D,E) // Créé un pavé noir sans nom
+   * @example pave(A,B,D,E,'blue') // Créé un pavé bleu sans nom
+   * @example pave(A,B,D,E,'red',true,'MNOPQRST') // Créé un pavé rouge dont les sommets sont nommés M, N, O, P, Q, R, S et T
+   * @author Jean-Claude Lhote (optimisé par Eric Elter)
+   * @return {Pave3d}
+   */
 export function pave3d (A, B, D, E, color = 'black', affichageNom = false, nom = 'ABCDEFGH') {
   return new Pave3d(A, B, D, E, color, affichageNom, nom)
 }
