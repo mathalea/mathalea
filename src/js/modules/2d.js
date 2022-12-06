@@ -10074,7 +10074,7 @@ export function antecedentInterpole (tableau, image) {
   return antecedentParDichotomie(x0, x1, f, image, 0.01)
 }
 
-function antecedentParDichotomie (xmin, xmax, f, y, precision = 0.01) {
+export function antecedentParDichotomie (xmin, xmax, f, y, precision = 0.01) {
   let xmoy, ymoy
   if (xmin > xmax) {
     xmoy = xmin
