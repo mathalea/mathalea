@@ -17,6 +17,8 @@ export const dateDePublication = '03/12/2022'
  * @author Guillaume Valmont
  * 6G22-2
 */
+export const uuid = 'fe08e'
+export const ref = '6G22-2'
 export default class ReconnaitreUnAngleParticulier extends Exercice {
   constructor () {
     super()

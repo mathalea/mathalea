@@ -1,5 +1,5 @@
 import { droiteGraduee, texteParPosition } from '../../../modules/2d.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import Decimal from 'decimal.js'
 import { randint, choice, texNombre, stringNombre } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'

@@ -4,7 +4,7 @@ import { randint, choice, texNombre, choisitLettresDifferentes } from '../../../
 import {
   point, labelPoint, afficheLongueurSegment, afficheMesureAngle, pointAdistance, segment
 } from '../../../modules/2d.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import Decimal from 'decimal.js'
 import FractionX from '../../../modules/FractionEtendue.js'
 export const titre = 'Calculer un produit scalaire à l’aide de normes et d’un angle '
 export const interactifReady = true

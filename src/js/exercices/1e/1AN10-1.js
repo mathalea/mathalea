@@ -133,5 +133,5 @@ export default function Tauxvariation () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = ['Type de fonctions ', 5, '1 : Fonction affine 2 : Fonction carré 3: Fonction inverse 4: Fonction racine carrée 5: Mélange']
+  this.besoinFormulaireNumerique = ['Type de fonctions ', 5, '1 : Fonction affine\n 2 : Fonction carré\n 3: Fonction inverse\n 4: Fonction racine carrée\n 5: Mélange']
 }

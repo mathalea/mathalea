@@ -7,13 +7,13 @@ import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML, vide2d, fixeBordures } from '../../modules/2dGeneralites.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import { ComputeEngine } from '@cortex-js/compute-engine'
+import * as pkg from '@cortex-js/compute-engine'
+const { ComputeEngine } = pkg
 export const interactifReady = true
 export const interactifType = 'custom'
 let engine
 if (context.versionMathalea) engine = new ComputeEngine()
-const config = { number: 'BigNumber' }
-const math = create(all, config)
+const math = create(all)
 
 /**
  * Travailler les tables de multiplication autrement
@@ -377,15 +377,15 @@ export function ExoRose () {
     let resultatOK = true
     if (this.type === 'can2') {
       if (this.roses[question].typeDonnees.substring(0, 4) === 'frac') {
-        return engine.parse(this.roses[question].resultats[this.indexInconnue[question]].toLatex()).canonical.isSame(engine.parse(saisies[0]).canonical)
+        return engine.parse(this.roses[question].resultats[this.indexInconnue[question]].toLatex()).canonical.isSame(engine.parse(saisies[0].toLatex()).canonical)
       } else {
-        return engine.parse(this.roses[question].resultats[this.indexInconnue[question]]).canonical.isSame(engine.parse(saisies[0]).canonical)
+        return engine.parse(this.roses[question].resultats[this.indexInconnue[question]]).canonical.isSame(engine.parse(saisies[0].toString()).canonical)
       }
     } else if (this.type === 'can1') {
       if (this.roses[question].typeDonnees.substring(0, 4) === 'frac') {
         return engine.parse(saisies[0]).canonical.isSame(engine.parse(this.roses[question].values[this.indexInconnue[question]].toLatex()).canonical)
       } else {
-        return engine.parse(saisies[0]).canonical.isSame(engine.parse(this.roses[question].values[this.indexInconnue[question]]).canonical)
+        return engine.parse(saisies[0]).canonical.isSame(engine.parse(this.roses[question].values[this.indexInconnue[question]].toString()).canonical)
       }
     } else {
       for (let i = 0; i < taille; i++) {
@@ -393,13 +393,13 @@ export function ExoRose () {
           if (this.roses[question].typeDonnees.substring(0, 4) === 'frac') {
             resultatOK = resultatOK && engine.parse(saisies[i]).canonical.isEqual(engine.parse(this.roses[question].resultats[i].toLatex()))
           } else {
-            resultatOK = resultatOK && engine.parse(saisies[i]).canonical.isEqual(engine.parse(this.roses[question].resultats[i]).canonical)
+            resultatOK = resultatOK && engine.parse(saisies[i]).canonical.isEqual(engine.parse(this.roses[question].resultats[i].toString()).canonical)
           }
         } else {
           if (this.roses[question].typeDonnees.substring(0, 4) === 'frac') {
             resultatOK = resultatOK && engine.parse(`${saisies[i]}${this.roses[question].operation === 'addition' ? '+' : '\\times'}${saisies[(i + 1) % this.nombreDeValeurs]}`).canonical.isEqual(engine.parse(this.roses[question].resultats[i].toLatex()))
           } else {
-            resultatOK = resultatOK && engine.parse(this.roses[question].operate(saisies[i], saisies[(i + 1) % this.nombreDeValeurs])).canonical.isEqual(engine.parse(this.roses[question].resultats[i]).canonical)
+            resultatOK = resultatOK && engine.parse(this.roses[question].operate(saisies[i], saisies[(i + 1) % this.nombreDeValeurs])).canonical.isEqual(engine.parse(this.roses[question].resultats[i].toString()).canonical)
           }
         }
       }

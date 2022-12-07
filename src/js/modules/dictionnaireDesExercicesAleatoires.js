@@ -9377,7 +9377,7 @@ export default {
     ],
     "name": "6G42-1",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -9611,7 +9611,7 @@ export default {
     }
   },
   "6M11-3": {
-    "titre": "Calculer l'aire de carrés, rectangles et triangles rectangles",
+    "titre": "Calculer le périmètre de carrés, rectangles et triangles",
     "url": "/exercices/6e/6M11-3.js",
     "amcReady": true,
     "amcType": {
@@ -9621,7 +9621,7 @@ export default {
     "interactifType": "mathLive",
     "name": "6M11-3",
     "newEx": {
-      "isNew": false,
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -12655,12 +12655,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "betaModele30_constructions_géométriques": {
+  "betaModele30_constructions_géométriques": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
+    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele30_constructions_géométriques",
+    "name": "betaModele30_constructions_géométriques",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -19917,7 +19917,7 @@ export default {
     "interactifType": "mathLive",
     "name": "canc3M03",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

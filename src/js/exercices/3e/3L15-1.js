@@ -71,7 +71,7 @@ export default function ResoudreEquatioeX2EgalA () {
           texteCorr = `$x^2=${a}$ équivaut à $x = \\sqrt{${a}}$ ou $x = -\\sqrt{${a}}$.<br>`
           texteCorr += `Les solutions sont donc $x_1 = \\sqrt{${a}}$ et $x_2 = -\\sqrt{${a}}$.<br>`
           texteCorr += `Il est équivalent de résoudre $x^2 - ${a}=0$, c'est-à-dire $x^2 - (\\sqrt{${a}})^{2}=0$.<br>Soit $(x - \\sqrt{${a}})(x + \\sqrt{${a}})=0$ qui donne les deux solutions ci-dessus. `
-          setReponse(this, i, `\\sqrt{${a}};-\\sqrt{${a}}`)
+          setReponse(this, i, [`\\sqrt{${a}};-\\sqrt{${a}}`, `-\\sqrt{${a}};\\sqrt{${a}}`])
           break
       }
       texte += ajouteChampTexteMathLive(this, i)

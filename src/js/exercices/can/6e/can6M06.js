@@ -4,7 +4,7 @@ import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import {
   tracePoint, point, milieu, texteParPosition, pointAdistance, longueur, cercle, pointIntersectionCC, polygoneAvecNom
 } from '../../../modules/2d.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import Decimal from 'decimal.js'
 export const titre = 'Calculer le périmètre d’une figure'
 export const interactifReady = true
 export const interactifType = 'mathLive'
