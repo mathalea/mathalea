@@ -13,8 +13,7 @@ export const interactifReady = true
 export const interactifType = 'custom'
 let engine
 if (context.versionMathalea) engine = new ComputeEngine()
-const config = { number: 'BigNumber' }
-const math = create(all, config)
+const math = create(all)
 
 /**
  * Travailler les tables de multiplication autrement

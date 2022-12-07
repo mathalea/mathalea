@@ -633,7 +633,7 @@ export default function SujetCAN2022quatrieme () {
                 `
 
           texteCorr = `La somme des $3$ valeurs est : $${a}+${b}+${c} =${d}$.<br>
-                La moyenne est donc $\\dfrac{${d}}{3}=${texNombre(d, 3, 0)}$.`
+                La moyenne est donc $\\dfrac{${d}}{3}=${texNombre(d/3, 0)}$.`
 
           reponse = arrondi(d / 3, 0)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })

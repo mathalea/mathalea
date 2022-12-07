@@ -9377,7 +9377,7 @@ export default {
     ],
     "name": "6G42-1",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
