@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { randint, combinaisonListes, ecritureParentheseSiNegatif, lettreDepuisChiffre, printlatex, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
+import { randint, combinaisonListes, ecritureParentheseSiNegatif, lettreDepuisChiffre, printlatex, listeQuestionsToContenuSansNumero, sp } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Réduire une expression'
@@ -145,7 +145,7 @@ export default function ReductionSiPossible () {
       }
       if (!context.isAmc) {
         setReponse(this, i, reponse)
-        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: ' $=$' })
+        texte += ajouteChampTexteMathLive(this, i, 'inline largeur 75 nospacebefore', { texte: `$${sp(3)} =$` })
       } else {
         this.autoCorrection[i] = {
           enonce: texte,
