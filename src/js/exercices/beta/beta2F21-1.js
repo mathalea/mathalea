@@ -1,10 +1,10 @@
 import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js/decimal.mjs'
-import { fraction } from '../../modules/fractions.js'
+
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { splineCatmullRom } from '../../modules/fonctionsMaths.js'
-import { repere, texteParPosition, point, courbeInterpolee, antecedentParDichotomie, courbeSpline, segment, courbe, graphiqueInterpole } from '../../modules/2d.js'
-import { listeQuestionsToContenu, combinaisonListes, stringNombre, prenom, prenomM, texPrix, texteGras, choice, sp, itemize, miseEnEvidence, texNombre, texNombrec, randint, numAlpha, ecritureAlgebrique } from '../../modules/outils.js'
+
+import { repere, texteParPosition, point, courbeInterpolee, antecedentParDichotomie, segment, courbe } from '../../modules/2d.js'
+import { listeQuestionsToContenu, combinaisonListes, stringNombre, prenom, prenomM, texPrix, texteGras, choice, sp, texNombre, randint, numAlpha } from '../../modules/outils.js'
 import { exp } from 'mathjs'
 export const titre = 'Modéliser une situation à l\'aide d\'une fonction'
 
@@ -20,7 +20,7 @@ export default function ModeliserParUneFonction () {
   // this.nbQuestionsModifiable = false
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-  this.sup = 3
+  this.sup = 1
   this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.spacing = 1.5 // Interligne des questions
   this.spacingCorr = 1 // Interligne des réponses
@@ -29,11 +29,11 @@ export default function ModeliserParUneFonction () {
     this.listeCorrections = [] // Liste de questions corrigées
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
-      typeDeQuestionsDisponibles = ['typeE9']//, 'typeE2', 'typeE3', 'typeE4'
+      typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE4', 'typeE5']
     } else if (this.sup === 2) {
-      typeDeQuestionsDisponibles = ['typeE9']
+      typeDeQuestionsDisponibles = ['typeE3', 'typeE6', 'typeE7']
     } else if (this.sup === 3) {
-      typeDeQuestionsDisponibles = ['typeE9']
+      typeDeQuestionsDisponibles = ['typeE8', 'typeE9']
     }
     //
     const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
@@ -49,9 +49,11 @@ export default function ModeliserParUneFonction () {
             const a = randint(10, 12)
             const dec1 = choice([0, 0.25, 0.5, 0.75, 1])
             const b = (new Decimal(randint(5, 6))).add(dec1)
+            const b1 = Math.round(b * 100) / 100
             const c = randint(25, 30)
             const dec2 = choice([0, 0.25, 0.5, 0.75, 1])
             const d = (new Decimal(randint(2, 3))).add(dec2)
+            const d1 = Math.round(d * 100) / 100
             const P = prenom()
             const T = randint(30, 70)
             const e = randint(25, 30)
@@ -88,8 +90,8 @@ export default function ModeliserParUneFonction () {
               grilleSecondaireXMax: 30
 
             })
-            const f = x => a + b * x
-            const g = x => c + d * x
+            const f = x => a + b1 * x
+            const g = x => c + d1 * x
             const graphique = mathalea2d({
               xmin: -1,
               xmax: 30,
@@ -175,6 +177,7 @@ Avec la formule B, ${P} pourra faire au maximum $${Math.floor((T - c) / d)}$ sé
           {
             const a = randint(80, 120) // forfait
             const c = new Decimal(randint(41, 65, [50, 60])).div(100)// prix /km
+            const c1 = Math.round(c * 100) / 100
             const km = randint(7, 10) * 100// km max
             const d = randint(50, 400)// nbre km
             const prix = new Decimal(c).mul(d).add(a)// prix payé
@@ -216,7 +219,7 @@ Avec la formule B, ${P} pourra faire au maximum $${Math.floor((T - c) / d)}$ sé
               grilleSecondaireXMax: 1000
             })
 
-            const f = x => a + c * x
+            const f = x => a + c1 * x
             const g = x => prix2
             const graphique = mathalea2d({
               xmin: -3,
@@ -264,9 +267,9 @@ On retrouve ce résultat graphiquement. Ci-dessous, la droite bleue représente 
         case 'typeE3':// distance de freinage
           {
             const a = new Decimal(randint(2011, 2035)).div(10) //
+            const a1 = Math.round(a * 100) / 100 //
             const b = randint(30, 80)
             const v = randint(70, 100) //
-            const c = randint((a + 1) * 100, 12) / 100
             const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
             const TexteX = texteParPosition('v (en km/h)', 12, 0.5, 'milieu', 'black', 1.5)
             const TexteY = texteParPosition('d (en m)', 1.8, 9.5, 'milieu', 'black', 1.5)
@@ -303,7 +306,7 @@ On retrouve ce résultat graphiquement. Ci-dessous, la droite bleue représente 
               grilleSecondaireXMin: 0,
               grilleSecondaireXMax: 130
             })
-            const f = x => x ** 2 / a
+            const f = x => x ** 2 / a1
             const g = x => b
             const graphique = mathalea2d({
               xmin: -2.5,
@@ -468,11 +471,12 @@ Pour avoir $${texNombre(c)}$ abonnés, la directrice des abonnements doit fixer 
         case 'typeE5':// station service
           {
             const a = new Decimal(randint(150, 200)).div(100) //
+            const a1 = Math.round(a * 100) / 100 //
             const b = randint(3, 6)
-            const v = randint(70, 100) //
             const c = choice([40, 45, 50, 55, 60, 65, 70])
             const d = randint(b, c)
             const prix = new Decimal(a).mul(d)
+            const prix1 = Math.round(prix * 100) / 100
             const P = prenom()
             const nom = choice(nomF)
             const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
@@ -512,8 +516,8 @@ Pour avoir $${texNombre(c)}$ abonnés, la directrice des abonnements doit fixer 
               grilleSecondaireXMin: 0,
               grilleSecondaireXMax: 70
             })
-            const f = x => a * x
-            const g = x => prix
+            const f = x => a1 * x
+            const g = x => prix1
             const graphique = mathalea2d({
               xmin: -3,
               xmax: 16,
@@ -572,7 +576,6 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             const b = randint(28, 31) * 10
             const c = randint(7, 11)
             const d = randint(20, 25)
-            const P = prenom()
             const h = randint(2, 6)
             const nom = choice(nomF)
 
@@ -613,19 +616,11 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             const a = new Decimal(randint(-5, -2)) //
             const b = new Decimal(randint(-15, -10)).div(10)
             const c = new Decimal(randint(-39, -25)).div(10)
-            const e = new Decimal(a).mul(4).add(b)
-            const d = randint(20, 25)
             const P = prenomM()
-            const h = randint(2, 6)
             const nom = choice(nomF)
             const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-            const TexteX = texteParPosition('Temps (en s)', 6, -0.7, 'milieu', 'black', 1.5)
-            const TexteY = texteParPosition('Hauter (en m)', 1, 7, 'milieu', 'black', 1.5)
-            const A = point(0.2 * d, 0.08 * prix)
-            const Ax = point(A.x, 0)
-            const sAAx = segment(A, Ax)
-            sAAx.epaisseur = 2
-            sAAx.pointilles = 5
+            const TexteX = texteParPosition('Temps (en s)', 6, -0.7, 'milieu', 'black', 1.2)
+            const TexteY = texteParPosition('Hauter (en m)', 1.5, 7, 'milieu', 'black', 1.2)
             const r1 = repere({
               xMin: 0,
               yMin: 0,
@@ -647,7 +642,7 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
               xmin: -1,
               xmax: 13,
               ymin: -1,
-              ymax: 8,
+              ymax: 7.5,
               pixelsParCm: 30,
               scale: 0.7,
               style: 'margin: auto'
@@ -658,13 +653,12 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
               color: 'blue',
               epaisseur: 2
             }), TexteX, TexteY
-            , r1, o, sAAx)
+            , r1, o)
             texte = `  Lors d’une course en moto-cross, après avoir franchi une rampe, ${P} a effectué un saut en moto.<br>
           On note $t$ la durée (en secondes) de ce saut. Le saut commence dès que ${P} quitte la rampe c'est-à-dire lorsque $t=0$.<br>
           La hauteur (en mètres) est déterminée en fonction de la durée $t$ par la fonction $${nom}$ suivante :<br>
           $${nom}(t)=(${texNombre(a, 3)}t${texNombre(b, 2)})(t${texNombre(c, 2)})$<br>
           Voici la courbe représentative de cette fonction $${nom}$ :<br>
-          
           `
             texte += `${graphique}<br>
           `
@@ -822,31 +816,38 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
 
         case 'typeE9':// alcool dans le sang
           {
-            const P = prenomM()
+            const a = randint(17, 21) / 10 //
+            const b = randint(-10, -5) / 10 //
+            const h = choice([11, 12, 13, 17, 18]) //
             const nom = choice(nomF)
             const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-            const TexteX = texteParPosition('Temps (en s)', 6, -0.7, 'milieu', 'black', 1.5)
-            const TexteY = texteParPosition('Hauter (en m)', 1, 7, 'milieu', 'black', 1.5)
+            const f = x => a * x * exp(b * x)
+            const fprime = x => (a + a * b * x) * exp(b * x)
+            const g = x => 0.5
+            const s0 = antecedentParDichotomie(0, 7, fprime, 0, 0.01)
+            const s1 = antecedentParDichotomie(0, s0 * 1.5, f, 0.5, 0.01)
+            const s2 = antecedentParDichotomie(s0 * 1.5, 6 * 1.5, f, 0.5, 0.01)
             const r1 = repere({
               xMin: 0,
               yMin: 0,
-              yMax: 1,
+              yMax: f(-1 / b) + 0.2,
               xMax: 10,
               xUnite: 1.5,
               yUnite: 10,
               axeXStyle: '->',
               axeYStyle: '->',
-              xThickDistance: 0.5,
+              xThickDistance: 1,
               yThickDistance: 0.1,
               xLabelMin: 0,
               yLabelMin: 0,
               yLabelEcart: 1,
+              xLabelEcart: 0.6,
               grilleXDistance: 0.5,
               grilleYDistance: 0.1,
               grilleXMin: 0,
               grilleYMin: 0,
               grilleXMax: 10,
-              grilleYMax: 1,
+              grilleYMax: f(s0) + 0.2,
               grilleSecondaireX: true,
               grilleSecondaireXDistance: 0.1,
               grilleSecondaireXMin: 0,
@@ -855,17 +856,42 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
               grilleSecondaireY: true,
               grilleSecondaireYDistance: 0.01,
               grilleSecondaireYMin: 0,
-              grilleSecondaireYMax: 1,
+              grilleSecondaireYMax: f(s0) + 0.2,
               grilleSecondaireYOpacite: 0.1
             })
-            const f = x => 2 * x * exp(-x)
-            const s1 = antecedentParDichotomie(0, 1, f, 0.5, 0.1)
-            console.log(s1)
+
+            const A = point(s0 * 1.5, f(s0) * 10)
+            const Ax = point(A.x, 0)
+            const sAAx = segment(A, Ax)
+            sAAx.epaisseur = 2
+            sAAx.pointilles = 5
+            const Ay = point(0, A.y)
+            const sAAy = segment(A, Ay)
+            sAAy.epaisseur = 2
+            sAAy.pointilles = 5
+            const B = point(s1 * 1.5, f(s1) * 10)
+            const Bx = point(B.x, 0)
+            const sBBx = segment(B, Bx)
+            sBBx.epaisseur = 2
+            sBBx.pointilles = 5
+
+            const C = point(s2 * 1.5, f(s2) * 10)
+            const Cx = point(C.x, 0)
+            const sCCx = segment(C, Cx)
+            sCCx.epaisseur = 2
+            sCCx.pointilles = 5
+            const sBxCx = segment(Bx, Cx, 'red')
+            sBxCx.epaisseur = 5
+            const Texte1 = texteParPosition(`Max = ${stringNombre(Math.round(f(s0) * 100) / 100)}`, -3, A.y, 'milieu', 'red', 1.2)
+            const Texte2 = texteParPosition(`${stringNombre(Math.round(s0 * 10) / 10)}`, A.x, -1.3, 'milieu', 'red', 1.2)
+            const Texte3 = texteParPosition(`${stringNombre(Math.round(s1 * 10) / 10)}`, B.x, -1.3, 'milieu', 'red', 1.2)
+            const Texte4 = texteParPosition(`${stringNombre(Math.round(s2 * 10) / 10)}`, C.x, -1.3, 'milieu', 'red', 1.2)
+            // console.log(s2)
             const graphique = mathalea2d({
               xmin: -2,
               xmax: 16,
               ymin: -1,
-              ymax: 11,
+              ymax: (f(s0) + 0.2) * 10,
               pixelsParCm: 30,
               scale: 0.7,
               style: 'margin: auto'
@@ -877,22 +903,63 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
               epaisseur: 2
             }),
             r1, o])
-            texte = `  Le Code de la route interdit toute conduite d’un véhicule lorsque le taux d’alcoolémie est supérieur ou égal à $0,5$ g/L.<br>
+            const graphiqueCorr = mathalea2d({
+              xmin: -5,
+              xmax: 16,
+              ymin: -2.5,
+              ymax: (f(s0) + 0.2) * 10,
+              pixelsParCm: 30,
+              scale: 0.7,
+              style: 'margin: auto'
+            }, [courbe(f, {
+              repere: r1,
+              xMin: 0,
+              xMax: 9,
+              color: 'blue',
+              epaisseur: 2
+            }),
+            r1, o, sAAx, sAAy, sCCx, sBBx, sBxCx, Texte1, Texte2, Texte3, Texte4], [courbe(g, {
+              repere: r1,
+              xMin: 0,
+              xMax: 9,
+              color: 'red',
+              epaisseur: 2
+            }),
+            r1, o])
+            texte = `             Le Code de la route interdit toute conduite d’un véhicule lorsque le taux d’alcoolémie est supérieur ou égal à $0,5$ g/L.<br>
           
           Le taux d’alcoolémie d’une personne pendant les $10$ heures suivant la consommation d’une certaine quantité d’alcool est modélisé par la fonction $${nom}$.<br>
-          $\\bullet$  $x$ représente le temps (exprimé en heure) écoulé depuis la consommation d’alcool ;<br>
-          $\\bullet$  $${nom} (x)$ représente le taux d’alcoolémie (exprimé en g/L) de cette personne.<br>
+          $\\bullet$  $t$ représente le temps (exprimé en heure) écoulé depuis la consommation d’alcool ;<br>
+          $\\bullet$  $${nom} (t)$ représente le taux d’alcoolémie (exprimé en g/L) de cette personne.<br>
           On donne la représentation graphique de la fonction $${nom}$ dans un repère. <br>
           
           `
             texte += `${graphique}<br>
           `
-            texte += ` ${numAlpha(0)}  <br> 
-            ${numAlpha(1)}  <br>
-            ${numAlpha(2)} <br>
-            ${numAlpha(3)} <br>
+            texte += ` 
+            ${numAlpha(0)}  À quel instant le taux d’alcoolémie de cette personne est-il maximal ? Quelle est alors sa valeur ? Arrondir
+            au centième.<br>
+            ${numAlpha(1)} Résoudre graphiquement l'inéquation $${nom}(t)>0,5$. <br>
+            ${numAlpha(2)} À l'instant $t=0$, il était $${h}$ h. À quelle heure, à la minute près, l’automobiliste peut-il reprendre le volant sans être en infraction ? 
            `
-            texteCorr = `
+            texteCorr = `    ${numAlpha(0)} Le taux d'alcoolémie maximal est atteint lorsque $t=${texNombre(Math.round(s0 * 10) / 10, 1)}$. Sa valeur 
+            est environ  $${texNombre(Math.round(f(s0) * 100) / 100, 2)}$. 
+           .<br>
+            ${numAlpha(1)} Les solutions de l'inéquation $${nom}(t)>0,5$ sont les abscisses des points de la courbe qui se situent strictement en dessous de la droite d'équation $y=0,5$. <br>
+            Cette inéquation a pour ensemble de solution $]${texNombre(Math.round(s1 * 10) / 10, 1)}\\,;\\,${texNombre(Math.round(s2 * 10) / 10, 1)}[$. <br>
+              `
+
+            if (Math.round(s2 * 10) / 10 === 2 || Math.round(s2 * 10) / 10 === 3 || Math.round(s2 * 10) / 10 === 4 || Math.round(s2 * 10) / 10 === 5 || Math.round(s2 * 10) / 10 === 6) {
+              texteCorr += ` ${numAlpha(2)} L'automobiliste peut reprendre la route (sans être en infraction)  $${Math.round(s2 * 10) / 10} \\text{ h }$ après la consommation de l'alcool, 
+            soit à $${Math.round(s2 * 10) / 10 + h} \\text{ h }$.`
+            } else {
+              texteCorr += ` ${numAlpha(2)} $${texNombre(Math.round(s2 * 10) / 10, 1)}\\text{ h } =${Math.floor(s2)} \\text{ h } +${texNombre(Math.round(s2 * 10) / 10 - Math.floor(s2))}\\text{ h }$.<br>
+            Or, $${texNombre(Math.round(s2 * 10) / 10 - Math.floor(s2))}\\text{ h }=${texNombre(Math.round(s2 * 10) / 10 - Math.floor(s2))}\\times 60 \\text{ min }=${texNombre((Math.round(s2 * 10) / 10 - Math.floor(s2)) * 60)} \\text{ min }$.<br>
+            L'automobiliste peut reprendre la route (sans être en infraction)  $${Math.floor(s2)} \\text{ h }$ et $${texNombre((Math.round(s2 * 10) / 10 - Math.floor(s2)) * 60)} \\text{ min }$ après la consommation de l'alcool, 
+            soit à $${Math.floor(s2 + h)} \\text{ h }$ et $${texNombre((Math.round(s2 * 10) / 10 - Math.floor(s2)) * 60)} \\text{ min }$.`
+            }
+
+            texteCorr += `${graphiqueCorr}
                
          `
           }
@@ -908,5 +975,5 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix des questions', 3, '1 : Situations concrètes\n2 : Programmes de calculs\n3 : Mélange']
+  this.besoinFormulaireNumerique = ['Choix des questions', 3, '1 : Avec des fonctions affines\n2 : Avec des fonctions polynômes du second degré\n3 : Avec un graphique']
 }
