@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, choice, rienSi1 } from '../../../modules/outils.js'
+import { randint, choice, arrondi, rienSi1 } from '../../../modules/outils.js'
 export const titre = 'Réduire une expression avec une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,89 +19,66 @@ export default function ReduireAvecFraction () {
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
-    switch (choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])) {
+    switch (choice([1, 2, 3, 4])) {
       case 1 :
         { const a = randint(1, 9)
-          const b = randint(-9, 9, 0)
-          this.question = ` Écrire avec un seul quotient : $${rienSi1(b)}x+\\dfrac{${a}}{x}$.`
-          this.correction = `$${rienSi1(b)}x+\\dfrac{${a}}{x}=\\dfrac{${rienSi1(b)}x^2}{x}+\\dfrac{${a}}{x}=\\dfrac{${rienSi1(b)}x^2+${a}}{x}$`
-          this.reponse = [`\\dfrac{${b}x^2+${a}}{x}`]
+          const couplend = choice([[1, 3], [2, 3], [4, 3], [5, 3], [3, 4], [2, 5], [3, 5], [4, 5], [5, 6], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [3, 8], [5, 8], [7, 8], [2, 9], [4, 9], [5, 9], [7, 9], [8, 9], [3, 10], [7, 10], [9, 10]]) // n et m sont premiers entre eux
+          const n = couplend[0]
+          const d = couplend[1]
+          if (choice([true, false])) {
+            this.question = ` Réduire l'expression : $\\dfrac{${n}}{${d}}x+${rienSi1(a)}x$.`
+            this.correction = `$\\dfrac{${n}}{${d}}x+${rienSi1(a)}x=\\dfrac{${n}}{${d}}x+\\dfrac{${a}\\times${d}}{${d}}x=\\dfrac{${n}}{${d}}x+\\dfrac{${a * d}}{${d}}x=\\dfrac{${n}+${a * d}}{${d}}x=\\dfrac{${n + a * d}}{${d}}x$`
+          } else {
+            this.question = ` Réduire l'expression : $${rienSi1(a)}x+\\dfrac{${n}}{${d}}x$.`
+            this.correction = `$${rienSi1(a)}x+\\dfrac{${n}}{${d}}x=\\dfrac{${a}\\times${d}}{${d}}x+\\dfrac{${n}}{${d}}x=\\dfrac{${a * d}}{${d}}x+\\dfrac{${n}}{${d}}x=\\dfrac{${a * d}+${n}}{${d}}x=\\dfrac{${n + a * d}}{${d}}x$`
+          }
+          this.reponse = [`\\dfrac{${n + a * d}}{${d}}x`, `${arrondi((n + a * d) / d, 2)}x`]
         }
         break
       case 2 :
         { const a = randint(1, 9)
-          const b = randint(-9, 9, 0)
-          this.question = ` Écrire avec un seul quotient : $${rienSi1(b)}x-\\dfrac{${a}}{x}$.`
-          this.correction = `$${rienSi1(b)}x-\\dfrac{${a}}{x}=\\dfrac{${rienSi1(b)}x^2}{x}-\\dfrac{${a}}{x}=\\dfrac{${rienSi1(b)}x^2-${a}}{x}$`
-          this.reponse = [`\\dfrac{${b}x^2-${a}}{x}`]
+          const couplend = choice([[1, 3], [2, 3], [4, 3], [5, 3], [3, 4], [2, 5], [3, 5], [4, 5], [5, 6], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [3, 8], [5, 8], [7, 8], [2, 9], [4, 9], [5, 9], [7, 9], [8, 9], [3, 10], [7, 10], [9, 10]]) // n et m sont premiers entre eux
+          const n = couplend[0]
+          const d = couplend[1]
+          if (choice([true, false])) {
+            this.question = ` Réduire l'expression : $\\dfrac{${n}}{${d}}x-${rienSi1(a)}x$.`
+            this.correction = `$\\dfrac{${n}}{${d}}x-${rienSi1(a)}x=\\dfrac{${n}}{${d}}x-\\dfrac{${a}\\times${d}}{${d}}x=\\dfrac{${n}}{${d}}x-\\dfrac{${a * d}}{${d}}x=\\dfrac{${n}-${a * d}}{${d}}x=\\dfrac{${n - a * d}}{${d}}x$`
+            this.reponse = [`\\dfrac{${n - a * d}}{${d}}x`, `${arrondi((n - a * d) / d, 2)}x`]
+          } else {
+            this.question = ` Réduire l'expression : $${rienSi1(a)}x-\\dfrac{${n}}{${d}}x$.`
+            this.correction = `$${rienSi1(a)}x-\\dfrac{${n}}{${d}}x=\\dfrac{${a}\\times ${d}}{${d}}x-\\dfrac{${n}}{${d}}x=\\dfrac{${a * d}}{${d}}x-\\dfrac{${n}}{${d}}x=\\dfrac{${a * d}-${n}}{${d}}x=\\dfrac{${a * d - n}}{${d}}x$`
+            this.reponse = [`\\dfrac{${a * d - n}}{${d}}x`, `${arrondi((a * d - n) / d, 2)}x`]
+          }
         }
         break
-      case 3 :
-        {
-          const a = randint(1, 9)
-          const b = randint(-9, 9, 0)
 
-          this.question = ` Écrire avec un seul quotient : $${rienSi1(b)}x^2-\\dfrac{${a}}{x}$.`
-          this.correction = `$${rienSi1(b)}x^2-\\dfrac{${a}}{x}=\\dfrac{${rienSi1(b)}x^3}{x}-\\dfrac{${a}}{x}=\\dfrac{${rienSi1(b)}x^3-${a}}{x}$`
-          this.reponse = [`\\dfrac{${b}x^3-${a}}{x}`] }
+      case 3 :
+        { const a = randint(1, 9)
+          const d = randint(2, 9)
+          if (choice([true, false])) {
+            this.question = ` Réduire l'expression : $\\dfrac{x}{${d}}+${rienSi1(a)}x$.`
+            this.correction = `$\\dfrac{x}{${d}}+${rienSi1(a)}x=\\dfrac{x}{${d}}+\\dfrac{${rienSi1(a)}x\\times ${d}}{${d}}=\\dfrac{x}{${d}}+\\dfrac{${a * d}x}{${d}}=\\dfrac{x+${a * d}x}{${d}}=\\dfrac{${1 + a * d}x}{${d}}=\\dfrac{${1 + a * d}}{${d}}x$`
+            this.reponse = [`\\dfrac{${1 + a * d}}{${d}}x`, `${arrondi((1 + a * d) / d, 2)}x`]
+          } else {
+            this.question = ` Réduire l'expression : $${rienSi1(a)}x+\\dfrac{x}{${d}}$.`
+            this.correction = ` $${rienSi1(a)}x+\\dfrac{x}{${d}}=\\dfrac{${rienSi1(a)}x\\times ${d}}{${d}}+\\dfrac{x}{${d}}=\\dfrac{${a * d}x}{${d}}+\\dfrac{x}{${d}}=\\dfrac{${a * d}x+x}{${d}}=\\dfrac{${1 + a * d}x}{${d}}=\\dfrac{${1 + a * d}}{${d}}x$`
+            this.reponse = [`\\dfrac{${1 + a * d}}{${d}}x`, `${arrondi((1 + a * d) / d, 2)}x`]
+          }
+        }
         break
+
       case 4 :
         { const a = randint(1, 9)
-          const b = randint(-9, 9, 0)
-          this.question = ` Écrire avec un seul quotient : $${rienSi1(b)}x^2+\\dfrac{${a}}{x}$.`
-          this.correction = `$${rienSi1(b)}x^2+\\dfrac{${a}}{x}=\\dfrac{${rienSi1(b)}x^3}{x}+\\dfrac{${a}}{x}=\\dfrac{${rienSi1(b)}x^3+${a}}{x}$`
-          this.reponse = [`\\dfrac{${b}x^3+${a}}{x}`]
-        }
-        break
-      case 5 :
-        { const a = randint(1, 9)
-          const b = randint(-9, 9, 0)
-          this.question = ` Écrire avec un seul quotient : $${b}+\\dfrac{${a}}{x}$.`
-          this.correction = `$${b}+\\dfrac{${a}}{x}=\\dfrac{${rienSi1(b)}x}{x}+\\dfrac{${a}}{x}=\\dfrac{${rienSi1(b)}x+${a}}{x}$`
-          this.reponse = [`\\dfrac{${b}x+${a}}{x}`]
-        }
-        break
-      case 6 :
-        { const a = randint(1, 9)
-          const b = randint(-9, 9, 0)
-          this.question = ` Écrire avec un seul quotient : $${b}-\\dfrac{${a}}{x}$.`
-          this.correction = `$${b}-\\dfrac{${a}}{x}=\\dfrac{${rienSi1(b)}x}{x}-\\dfrac{${a}}{x}=\\dfrac{${rienSi1(b)}x-${a}}{x}$`
-          this.reponse = [`\\dfrac{${b}x-${a}}{x}`]
-        }
-        break
-
-      case 7 :
-        { const a = randint(1, 9)
-          const b = randint(-9, 9, 0)
-          this.question = ` Écrire avec un seul quotient : $${b}+\\dfrac{${a}}{x^2}$.`
-          this.correction = `$${b}+\\dfrac{${a}}{x^2}=\\dfrac{${rienSi1(b)}x^2}{x^2}+\\dfrac{${a}}{x^2}=\\dfrac{${rienSi1(b)}x^2+${a}}{x^2}$`
-          this.reponse = [`\\dfrac{${b}x^2+${a}}{x^2}`]
-        }
-        break
-      case 8 :
-        { const a = randint(1, 9)
-          const b = randint(-9, 9, 0)
-          this.question = ` Écrire avec un seul quotient : $${b}-\\dfrac{${a}}{x^2}$.`
-          this.correction = `$${b}-\\dfrac{${a}}{x^2}=\\dfrac{${rienSi1(b)}x^2}{x^2}-\\dfrac{${a}}{x^2}=\\dfrac{${rienSi1(b)}x^2-${a}}{x^2}$`
-          this.reponse = [`\\dfrac{${b}x^2-${a}}{x^2}`]
-        }
-        break
-      case 9 :
-        {
-          const a = randint(2, 9)
-          const b = randint(-9, 9, 0)
-
-          this.question = ` Écrire avec un seul quotient : $${b}+\\dfrac{x}{${a}}$.`
-          this.correction = `$${b}+\\dfrac{x}{${a}}=\\dfrac{${a * b}}{${a}}+\\dfrac{x}{${a}}=\\dfrac{${a * b}+x}{${a}}$`
-          this.reponse = [`\\dfrac{${a * b}+x}{${a}}`]
-        }
-        break
-      case 10 :
-        { const a = randint(2, 9)
-          const b = randint(-9, 9, 0)
-          this.question = ` Écrire avec un seul quotient : $${b}-\\dfrac{x}{${a}}$.`
-          this.correction = `$${b}-\\dfrac{x}{${a}}=\\dfrac{${a * b}}{${a}}-\\dfrac{x}{${a}}=\\dfrac{${a * b}-x}{${a}}$`
-          this.reponse = [`\\dfrac{${a * b}-x}{${a}}`]
+          const d = randint(2, 9)
+          if (choice([true, false])) {
+            this.question = ` Réduire l'expression : $\\dfrac{x}{${d}}-${rienSi1(a)}x$.`
+            this.correction = `$\\dfrac{x}{${d}}-${rienSi1(a)}x=\\dfrac{x}{${d}}-\\dfrac{${rienSi1(a)}x\\times ${d}}{${d}}=\\dfrac{x}{${d}}-\\dfrac{${a * d}x}{${d}}=\\dfrac{x-${a * d}x}{${d}}=\\dfrac{${1 - a * d}x}{${d}}=\\dfrac{${1 - a * d}}{${d}}x$`
+            this.reponse = [`\\dfrac{${1 - a * d}}{${d}}x`, `${arrondi((1 - a * d) / d, 2)}x`]
+          } else {
+            this.question = ` Réduire l'expression : $${rienSi1(a)}x-\\dfrac{x}{${d}}$.`
+            this.correction = ` $${rienSi1(a)}x-\\dfrac{x}{${d}}=\\dfrac{${rienSi1(a)}x\\times ${d}}{${d}}-\\dfrac{x}{${d}}=\\dfrac{${a * d}x}{${d}}-\\dfrac{x}{${d}}=\\dfrac{${a * d}x-x}{${d}}=\\dfrac{${a * d - 1}x}{${d}}=\\dfrac{${a * d - 1}}{${d}}x$`
+            this.reponse = [`\\dfrac{${a * d - 1}}{${d}}x`, `${arrondi((a * d - 1) / d, 2)}x`]
+          }
         }
         break
     }
