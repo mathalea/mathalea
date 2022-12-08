@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, texNombre, choice } from '../../../modules/outils.js'
+import { randint, texNombre, choice, arrondi } from '../../../modules/outils.js'
 export const titre = 'Calculer des sommes contenant des puissances de 10'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,7 +27,7 @@ export default function CalculPuissance10B () {
         n1 = randint(2, 4)
         n2 = randint(-3, 0)
         n3 = randint(1, 6)
-        reponse = 10 ** n1 + 10 ** n2
+        reponse = arrondi(10 ** n1 + 10 ** n2, 3)
         this.question = `Calculer $10^{${n1}}+10^{${n2}}$.`
         this.correction = `$10^{${n1}}+10^{${n2}}=${10 ** n1} +${texNombre(10 ** n2, 3)}=${texNombre(reponse, 3)}$`
         break
@@ -36,15 +36,16 @@ export default function CalculPuissance10B () {
         n1 = randint(2, 4)
         n2 = randint(-3, 0)
         n3 = randint(-3, 3, 0)
-        reponse = 10 ** n1 + 10 ** n2 + 10 ** n3
+        reponse = arrondi(10 ** n1 + 10 ** n2 + 10 ** n3, 3)
         this.question = `Calculer $10^{${n1}}+10^{${n2}}+10^{${n3}}$.`
         this.correction = `$10^{${n1}}+10^{${n2}}+10^{${n3}}=${10 ** n1} +${texNombre(10 ** n2, 3)}+${texNombre(10 ** n3, 3)}=${texNombre(reponse, 3)}$`
+        console.log(reponse)
         break
 
       case 3:
         n1 = randint(2, 4)
         n2 = randint(-3, 0)
-        reponse = 10 ** n1 - 10 ** n2
+        reponse = arrondi(10 ** n1 - 10 ** n2, 3)
         this.question = `Calculer $10^{${n1}}-10^{${n2}}$.`
         this.correction = `$10^{${n1}}-10^{${n2}}=${10 ** n1} -${texNombre(10 ** n2, 3)}=${texNombre(reponse, 3)}$`
         break
