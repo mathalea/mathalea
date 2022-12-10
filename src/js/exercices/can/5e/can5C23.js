@@ -19,7 +19,7 @@ export default function MultiplierPar () {
   this.typeExercice = 'simple'
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
-    const a = randint(3, 15)
+    const a = randint(6, 29, [10, 20, 30])
     const b = choice([15, 25, 35, 45, 55]) / 10
 
     this.question = `Calculer $${a}\\times ${texNombre(b, 1)}$.`
