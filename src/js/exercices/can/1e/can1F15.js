@@ -74,7 +74,7 @@ export default function LectureGraphiqueNombreDerivee () {
         Déterminer $f'(${nbre})$. <br> 
         
         `
-        this.question += mathalea2d({ xmin: -8, xmax: 8, ymin: -3, ymax: 10, pixelsParCm: 14, scale: 0.5 },
+        this.question += mathalea2d({ xmin: -8, xmax: 8, ymin: -3, ymax: 10, pixelsParCm: 14, scale: 0.5, style: 'margin: auto' },
           r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }), courbe(tang, { repere: r, color: 'red', epaisseur: 2 })
         )
 
