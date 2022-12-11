@@ -6761,8 +6761,11 @@ export function telechargeFichier (text, filename) {
 * @author Rémi Angot
 */
 export function introLatex (entete = 'Exercices', listePackages = '') {
+  let isImpressionRectoVerso = false
+  const checkBoxImpressionRectoVerso = document.getElementById('impression_recto_verso')
+  if (checkBoxImpressionRectoVerso !== null) isImpressionRectoVerso = checkBoxImpressionRectoVerso.checked
   if (entete === '') { entete = 'Exercices' }
-  return `\\documentclass[12pt,svgnames]{article}
+  return `\\documentclass[${isImpressionRectoVerso ? 'twoside,' : ''}12pt,svgnames]{article}
 \\usepackage[a4paper,left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
 %\\usepackage[utf8]{inputenc}        
 %\\usepackage[T1]{fontenc}
@@ -6844,9 +6847,12 @@ ${preambulePersonnalise(listePackages)}
 * @author Rémi Angot
 */
 export function introLatexCan (entete = 'Course aux nombres', listePackages = '') {
+  let isImpressionRectoVerso = false
+  const checkBoxImpressionRectoVerso = document.getElementById('impression_recto_verso')
+  if (checkBoxImpressionRectoVerso !== null) isImpressionRectoVerso = checkBoxImpressionRectoVerso.checked
   if (entete === '') { entete = 'Course aux nombres' }
   // return `\\documentclass[12pt, landscape]{article}
-  return `\\documentclass[12pt,svgnames]{article}
+  return `\\documentclass[${isImpressionRectoVerso ? 'twoside,' : ''}12pt,svgnames]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
 %\\usepackage[utf8]{inputenc}        
 %\\usepackage[T1]{fontenc}
@@ -7039,7 +7045,10 @@ ${preambulePersonnalise(listePackages)}
 * @author Rémi Angot
 */
 export function introLatexCoop (listePackages) {
-  const introLatexCoop = `\\documentclass[12pt,svgnames]{article}
+  let isImpressionRectoVerso = false
+  const checkBoxImpressionRectoVerso = document.getElementById('impression_recto_verso')
+  if (checkBoxImpressionRectoVerso !== null) isImpressionRectoVerso = checkBoxImpressionRectoVerso.checked
+  const introLatexCoop = `\\documentclass[${isImpressionRectoVerso ? 'twoside,' : ''}12pt,svgnames]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=4cm,bottom=2cm]{geometry}
 %\\usepackage[utf8]{inputenc}        
 %\\usepackage[T1]{fontenc}
@@ -8854,6 +8863,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   const nombreDeQuestionsIndefinie = []
   const graine = randint(1, 100000)
   const groupeDeQuestions = []; const texQuestions = [[]]; const titreQuestion = []; const melangeQuestion = []
+
   for (const exercice of questions) {
     code = exportQcmAmc(exercice, idExo)
     idExo++
@@ -8885,6 +8895,9 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   }
   // Fin de la préparation des groupes
 
+  let isImpressionRectoVerso = false
+  const checkBoxImpressionRectoVerso = document.getElementById('impression_recto_verso')
+  if (checkBoxImpressionRectoVerso !== null) isImpressionRectoVerso = checkBoxImpressionRectoVerso.checked
   // variable qui contiendra le code LaTeX pour AMC
   let codeLatex = ''
 
@@ -8898,9 +8911,9 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \n`
   if (format === 'A3') {
-    preambule += '\t \\documentclass[10pt,a3paper,landscape,french,svgnames]{article}\n'
+    preambule += `\t \\documentclass[${isImpressionRectoVerso ? 'twoside,' : ''}10pt,a3paper,landscape,french,svgnames]{article}\n`
   } else {
-    preambule += '\t \\documentclass[10pt,a4paper,french,svgnames]{article}\n'
+    preambule += `\t \\documentclass[${isImpressionRectoVerso ? 'twoside,' : ''}10pt,a4paper,french,svgnames]{article}\n`
   }
 
   preambule += `\t
