@@ -10589,6 +10589,87 @@ export function latexParCoordonnees (texte, x, y, color = 'black', largeur = 50,
   else return new LatexParCoordonnees(texte, x, y, color, largeur, hauteurLigne, colorBackground, tailleCaracteres)
 }
 
+/**
+ * @param {String} texte Le code latex qui sera mis en mode math en ligne. Ex : '\\dfrac{4}{5}\\text{cm}'
+ * @param {Number} x abscisse du point de centrage
+ * @param {Number} y ordonnée du point de centrage
+ * @param {String} [color] couleur
+ * @param {Number} [largeur] Dimensions de la 'box' rectangulaire conteneur de la formule en pixels en considérant la taille de caractère 8='\footnotesize'
+ * @param {Number} [hauteur] Idem pour la hauteur de la box. Prévoir 20 par exemple pour une fraction. Permet le centrage correct.
+ * @param {String} [colorBackground] Couleur du fond de la box. Chaine vide pour un fond transparent.
+ * @param {Number} [tailleCaracteres] Taille de la police utilisée de 5 = \small à 20=\huge... agit sur la box en en modifiant les paramètres hauteur et largeur
+ * @Param {Struct} {options} options.anchor pour forcer la boite 
+ */
+export function LatexParCoordonneesBox (texte, x, y, color, largeur, hauteur, colorBackground, tailleCaracteres, options) {
+  ObjetMathalea2D.call(this, { })
+  this.x = x
+  this.y = y
+  this.largeur = largeur // * Math.log10(2 * tailleCaracteres)
+  this.hauteur = hauteur // * Math.log10(tailleCaracteres)
+  this.colorBackground = colorToLatexOrHTML(colorBackground)
+  this.color = colorToLatexOrHTML(color)
+  this.texte = texte
+  this.tailleCaracteres = tailleCaracteres
+  this.bordures = [x - this.texte.length * 0.2, y - 0.02 * this.hauteur, x + this.texte.length * 0.2, y + 0.02 * this.hauteur]
+  let taille
+  if (this.tailleCaracteres > 19) taille = '\\huge'
+  else if (this.tailleCaracteres > 16) taille = '\\LARGE'
+  else if (this.tailleCaracteres > 13) taille = '\\Large'
+  else if (this.tailleCaracteres > 11) taille = '\\large'
+  else if (this.tailleCaracteres < 6) taille = '\\tiny'
+  else if (this.tailleCaracteres < 8) taille = '\\scriptsize'
+  else if (this.tailleCaracteres < 9) taille = '\\footnotesize'
+  else if (this.tailleCaracteres < 10) taille = '\\small'
+  else taille = '\\normalsize'
+
+  let style = ''
+  if (options.anchor !== undefined && options.anchor !== '') {
+    switch (options.anchor) {
+      case 'above':
+        style = 'position:fixed;bottom:0;'
+        break
+      case 'left':
+        style = 'position:fixed;right:0;'
+        break
+      case 'right':
+        style = 'position:fixed;left:0;'
+        break
+      case 'below':
+        style = 'position:fixed;top:0;'
+        break
+    }
+  }
+  if (this.colorBackground !== '') {
+    style += `background-color: ${this.colorBackground[0]};`
+  }
+
+  this.svg = function (coeff) {
+    const demiLargeur = this.largeur / 2
+    const centrage = 0 // 0.4 * context.pixelsParCm * Math.log10(tailleCaracteres)
+    return `<foreignObject style=" overflow: visible; line-height: 0;" x="${this.x * coeff - demiLargeur}" y="${-this.y * coeff - centrage - this.hauteur / 2}"  width="${this.largeur}" height="${this.hauteur}" id="${this.id}" ><div style="width:${this.largeur}px;height:${this.hauteur}px;position:fixed!important; text-align:center">
+      <div style='${style}'>
+      $${taille} \\color{${this.color[0]}}{${this.texte}}$
+      </div></div></foreignObject>
+      <circle cx="${this.x * coeff - demiLargeur}" cy="${-this.y * coeff - centrage - this.hauteur / 2}" r="1" fill="red" stroke="blue" stroke-width="2"  />
+      <circle cx="${this.x * coeff}" cy="${-this.y * coeff}" r="1" fill="red" stroke="blue" stroke-width="2"  />`
+  }
+
+  this.tikz = function () {
+    let code
+    if (this.colorBackground !== '') {
+      code = `\\draw (${x},${y}) node[anchor = center] {\\colorbox ${this.colorBackground[1]}{${taille}  \\color${this.color[1]}{$${texte}$}}};`
+    } else {
+      code = `\\draw (${x},${y}) node[anchor = center] {${taille} \\color${this.color[1]}{$${texte}$}};`
+    };
+    return code
+  }
+}
+
+export function latexParCoordonneesBox (texte, x, y, color = 'black', largeur = 50, hauteurLigne = 20, colorBackground = 'white', tailleCaracteres = 8, options = {}) {
+  if (texte === '') return vide2d()
+  else return new LatexParCoordonneesBox(texte, x, y, color, largeur, hauteurLigne, colorBackground, tailleCaracteres, options)
+}
+
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%% LES FONCTIONS - CALCULS %%%%%%%%
