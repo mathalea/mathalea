@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, ecritureAlgebriqueSauf1, lettreMinusculeDepuisChiffre, rienSi1 } from '../../modules/outils.js'
 import { simplify, parse, derivative } from 'mathjs'
-const math = { simplify: simplify, parse: parse, derivative: derivative }
+const math = { simplify, parse, derivative }
 export const titre = 'Calculs de dérivées'
 
 /**
@@ -110,12 +110,12 @@ export default function CalculsDeDerives () {
           break
         case 'racine(x)':
           expression = 'sqrt(x)'
-          ensembleDerivation = '[0,+\\infin['
+          ensembleDerivation = '[0,+\\infty['
           break
         case 'racine(ax)':
           a = randint(2, 10, [4, 9])
           expression = `sqrt(${rienSi1(a)}x)`
-          ensembleDerivation = '[0,+\\infin['
+          ensembleDerivation = '[0,+\\infty['
           break
       }
 
