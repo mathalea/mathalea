@@ -29,7 +29,7 @@ export default function Factoriser () {
     const b = randint(2, 9)
     switch (choice([1, 2, 3, 4, 5])) {
       case 1 :
-        this.question = ` Factoriser au maximum  $${n * r}x+${m * r}x^2.` //
+        this.question = ` Factoriser au maximum  $${n * r}x+${m * r}x^2$.` //
         this.correction = `$${r}x$ est un facteur commun aux deux termes : $${n * r}x$ et $${m * r}x^2$.<br>
          En effet :<br>
          $${n * r}x+${m * r}x^2=\\underbrace{${r}x\\times ${n}}_{${n * r}x} +\\underbrace{${r}x\\times ${m}x}_{${m * r}x^2}=${r}x(${n}+${m}x).$`
