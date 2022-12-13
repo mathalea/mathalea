@@ -40,7 +40,6 @@ export default function FactoriserIdentitesRemarquables3 () {
   if (!context.isHtml) {
     this.correctionDetaillee = false
   }
-  this.consigne = 'Factoriser les expressions suivantes.'
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacing = 1
@@ -50,6 +49,7 @@ export default function FactoriserIdentitesRemarquables3 () {
   this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
+    this.consigne = this.nbQuestions > 1 ? 'Factoriser les expressions suivantes.' : 'Factoriser l\'expression suivante.'
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

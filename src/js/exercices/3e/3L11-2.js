@@ -19,21 +19,26 @@ export const uuid = 'f6853'
 export const ref = '3L11-2'
 export default function ReductionSiPossible () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Réduire les expressions suivantes, si cela est possible.'
   this.nbQuestions = 5
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacing = context.isHtml ? 3 : 2
   this.spacingCorr = context.isHtml ? 3 : 2
   this.tailleDiaporama = 3
+  this.sup = false
 
   this.nouvelleVersion = function () {
+    this.consigne = this.nbQuestions > 1 ? 'Réduire les expressions suivantes, si cela est possible.' : 'Réduire l\'expression suivante, si cela est possible.'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
-    let typesDeQuestionsDisponibles
-    context.isAmc ? typesDeQuestionsDisponibles = ['ax+b', 'ax+bx', 'ax*b', 'b*ax', 'ax+b+cx+d', 'b+ax+d+cx', 'ax+b+x'] : typesDeQuestionsDisponibles = ['ax+b', 'ax+bx', 'ax+bx2', 'ax*b', 'b*ax', 'ax+b+cx+d', 'b+ax+d+cx', 'ax+b+x']
+    const typesDeQuestionsDisponibles = ['ax+bx', 'ax*b', 'b*ax', 'ax+b+cx+d', 'b+ax+d+cx', 'ax+b+x']
+    if (!this.sup) {
+      typesDeQuestionsDisponibles.push('ax+b')
+      if (!context.isAmc) typesDeQuestionsDisponibles.push('ax+bx2')
+    }
+
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, reponse, coeffa, constb, a, b, c, d, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       a = randint(-11, 11, 0)
@@ -204,4 +209,6 @@ export default function ReductionSiPossible () {
     }
     listeQuestionsToContenuSansNumero(this)
   }
+
+  this.besoinFormulaireCaseACocher = ['On peut toujours réduire.']
 }
