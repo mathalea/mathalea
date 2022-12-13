@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 536 
-- nombre d'exos interactifReady 827 
+- nombre d'exos amcReady 537 
+- nombre d'exos interactifReady 830 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -600,6 +600,7 @@
 |can2L06|Développer avec les égalités remarquables|KO|KO|OK|mathLive|
 |can2L07|Factoriser une expression|KO|KO|OK|mathLive|
 |can2L08|Résoudre une équation du type $\dfrac{x+a}{b}=c$|KO|KO|OK|mathLive|
+|can2L09|Écrire avec un seul quotient|KO|KO|OK|mathLive|
 |can2N01|Utiliser les intervalles|KO|KO|OK|mathLive|
 |can2N02|Déterminer le plus petit ensemble de nombres|KO|KO|OK|mathLive|
 |can2P01|Calculer une probabilité|OK|AMCNum|OK|mathLive|
@@ -641,6 +642,7 @@
 |can3L03|Résoudre une équation du type ax+b=c|OK|AMCNum|OK|mathLive|
 |can3L04|Vérifier si un nombre est solution d’une inéquation (V/F)|KO|KO|OK|qcm|
 |can3L05|Calculer le produit des solutions d’une équation produit nul|KO|KO|OK|mathLive|
+|can3L06|Réduire une expression avec une fraction|KO|KO|OK|mathLive|
 |can3M01|Calculer l’aire ou un périmètre d’un carré|OK|AMCNum|OK|mathLive|
 |can3M02|Calculer un volume de pyramide|OK|AMCNum|OK|mathLive|
 |can3P01|Utiliser la proportionnalité sur une expression algébrique|KO|KO|OK|mathLive|
@@ -710,6 +712,7 @@
 |can5C20|Soustraire deux décimaux*|OK|AMCNum|OK|mathLive|
 |can5C21|Calculer la somme de décimaux qui se marient|OK|AMCNum|OK|mathLive|
 |can5C22|Passer d'un décimal à une fraction|OK|AMCNum|OK|mathLive|
+|can5C23|Multiplier par 1,5 ou 2,5 ou ...|OK|AMCNum|OK|mathLive|
 |can5D01|Convertir des heures décimales en heures/minutes et inversement|OK|AMCNum|OK|mathLive|
 |can5D02|Convertir des heures décimales en heures/minutes et inversement*|OK|AMCNum|OK|mathLive|
 |can5D03|Convertir des fractions d’heures en minutes et inversement|OK|AMCNum|OK|mathLive|
