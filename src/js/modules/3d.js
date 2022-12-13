@@ -3,7 +3,7 @@ import { matrix, multiply, norm, cross, dot } from 'mathjs'
 import { context } from './context.js'
 import { assombrirOuEclaircir, colorToLatexOrHTML, vide2d } from './2dGeneralites.js'
 import { arrondi, choisitLettresDifferentes } from './outils.js'
-const math = { matrix: matrix, multiply: multiply, norm: norm, cross: cross, dot: dot }
+const math = { matrix, multiply, norm, cross, dot }
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1115,7 +1115,7 @@ class Prisme3d {
         let areteVisibleOuPas = true
         for (let ee = 0; ee < this.base1.listePoints.length; ee++) {
           const areteLiaison = segment(this.base1.listePoints[ee].c2d, this.base2.listePoints[ee].c2d)
-          areteVisibleOuPas &&= (areteLiaison.estSecant(s.c2d))
+          areteVisibleOuPas = areteVisibleOuPas && (areteLiaison.estSecant(s.c2d))
         }
         s = arete3d(this.base2.listePoints[i], this.base2.listePoints[i + 1 === this.base2.listePoints.length ? 0 : i + 1], this.color, !areteVisibleOuPas)
       }
