@@ -45,7 +45,8 @@ export default function ExerciceDevelopper (difficulte = 1) {
     this.listeCorrections = [] // Liste de questions corrigées
 
     this.consigne = this.sup2 === 1 ? 'Développer' : 'Développer et réduire'
-    if (this.nbQuestions > 1 && !context.isDiaporama) this.consigne += ' les expressions suivantes.'
+    if (this.nbQuestions > 1 && !context.isDiaporama) this.consigne += ' les expressions suivantes'
+    this.consigne += '.'
 
     let lettre = ['x', 'y', 'z', 't', 'a', 'b', 'c']
     if (this.interactif) lettre = ['x']

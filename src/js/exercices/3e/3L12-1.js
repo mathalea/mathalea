@@ -19,7 +19,6 @@ export default function DevelopperIdentitesRemarquables3 () {
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType
-  this.consigne = 'Développer et réduire les expressions suivantes.'
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacing = context.isHtml ? 3 : 2
@@ -29,6 +28,7 @@ export default function DevelopperIdentitesRemarquables3 () {
   this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
+    this.consigne = this.nbQuestions > 1 ? 'Développer et réduire les expressions suivantes.' : 'Développer et réduire l\'expression suivante.'
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

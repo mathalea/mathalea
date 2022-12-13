@@ -20,7 +20,6 @@ export const uuid = '5f5a6'
 export const ref = '3L11-4'
 export default function FactoriserParNombreOux () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Factoriser les expressions suivantes.'
   this.nbQuestions = 8
   this.nbCols = 2
   this.nbColsCorr = 2
@@ -29,6 +28,7 @@ export default function FactoriserParNombreOux () {
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Niveau 1\n2 : Niveau 2\n3 : Niveau 3\n4 : Mélange']
 
   this.nouvelleVersion = function () {
+    this.consigne = this.nbQuestions > 1 ? 'Factoriser les expressions suivantes.' : 'Factoriser l\'expression suivante.'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

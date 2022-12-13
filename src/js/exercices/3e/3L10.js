@@ -20,13 +20,13 @@ export const ref = '3L10'
 export default function OpposeExpression () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Supprimer les parenthèses et réduire les expressions suivantes.'
   this.spacing = context.isHtml ? 3 : 2
   this.spacing = context.isHtml ? 3 : 2
   this.nbQuestions = 6
   this.sup = '1-2-3-4'
   this.tailleDiaporama = 3
   this.nouvelleVersion = function () {
+    this.consigne = this.nbQuestions > 1 ? 'Supprimer les parenthèses et réduire les expressions suivantes.' : 'Supprimer les parenthèses et réduire l\'expression suivante.'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
