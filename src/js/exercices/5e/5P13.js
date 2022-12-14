@@ -87,7 +87,7 @@ export default function EchellesProblemes () {
           nb2 = nb1 * echelleQ[0] // nb2 est la distance réelle en mm
           unite2 = tableauUnites[Math.floor(min(Math.log10(nb2), 6))] // unite2 est l'unité d'usage de nb2 (m, dam, hm ou km)
           nb2Unite1 = arrondi(nb2 / Math.pow(10, min(Math.floor(Math.log10(nb1)), 6)), 3) // nb2Unite1 vaut nb2 dans l'unite1
-          nb2Unite2 = arrondi(nb2 / Math.pow(10, min(Math.floor(Math.log10(echelleQ[0])), 6)), 3) // nb2Unite2 vaut nb2 dans l'unite2
+          nb2Unite2 = arrondi(nb2 / Math.pow(10, min(Math.floor(Math.log10(nb2)), 6)), 3) // nb2Unite2 vaut nb2 dans l'unite2
           reponse = new FractionX(nb1, nb2)
           texte += `Sur le plan ${echelleQ[1]} de  ${quidam[1]} ${quidam[0]}, ${quidam2} constate que $${texNombre(nb1Unite1)}$ ${unite1} sur le plan correspond à $${texNombre(nb2Unite2)}$ ${unite2} dans la réalité.`
           texte += ' Quelle est l\'échelle du plan ? '

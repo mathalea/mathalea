@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, sp } from '../../modules/outils.js'
 import { point, pointSurSegment, rotation, codageAngle, texteParPoint } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -49,50 +49,50 @@ export default function CalculerUnPourcentage () {
       switch (listeChoix[i]) {
         case 1: // Les moyens de déplacement maison collège
           [moy1, moy2, moy3] = combinaisonListes(listeMoyens, 3)
-          texte = `Dans un collège, $${p1}\\%$ des élèves se déplacent ${moy1}, $${p2}\\%$ ${moy2} et les autres ${moy3}.<br>
+          texte = `Dans un collège, $${p1}${sp(1)}\\%$ des élèves se déplacent ${moy1}, $${p2}${sp(1)}\\%$ ${moy2} et les autres ${moy3}.<br>
           
           `
           texte += `Quel est le pourcentage des élèves qui se déplacent ${moy3} ?`
           texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: ' %' })
-          texteCorr = `Les élèves qui ${moy1} ou qui ${moy2} représentent $${p1}\\%$ + $${p2}\\% = ${p1 + p2}\\%$.<br>`
-          texteCorr += `Donc on calcule : $100 - ${p1 + p2}\\% = ${p3}\\%$<br>`
-          texteCorr += `$${p3}\\%$ des élèves ${moy3}.<br>`
+          texteCorr = `Les élèves qui ${moy1} ou qui ${moy2} représentent $${p1}${sp(1)}\\%$ + $${p2}${sp(1)}\\% = ${p1 + p2}${sp(1)}\\%$.<br>`
+          texteCorr += `Donc on calcule : $100 - ${p1 + p2}${sp(1)}\\% = ${p3}${sp(1)}\\%$.<br>`
+          texteCorr += `$${p3}${sp(1)}\\%$ des élèves ${moy3}.<br>`
           if (!context.isHtml) {
             this.canEnonce = texte
             this.correction = this.listeCorrections[0]
-            this.canReponseACompleter = '$\\ldots \\%$'
+            this.canReponseACompleter = `$\\ldots ${sp(1)}\\%$`
           }
           break
         case 2: // Les sports pratiqués par les ados
           [moy1, moy2, moy3] = combinaisonListes(listeSports, 3)
-          texte = `Dans une association sportive, $${p1}\\%$ des ados pratiquent ${moy1}, $${p2}\\%$ ${moy2} et les autres ${moy3}.<br>
+          texte = `Dans une association sportive, $${p1}${sp(1)}\\%$ des ados pratiquent ${moy1}, $${p2}${sp(1)}\\%$ ${moy2} et les autres ${moy3}.<br>
           
           `
           texte += `Quel est le pourcentage des ados qui pratiquent ${moy3} ?`
           texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: ' %' })
-          texteCorr = `Les ados qui pratiquent ${moy1} ou ${moy2} représentent $${p1}\\% + ${p2}\\% = ${p1 + p2}\\%$.<br>`
-          texteCorr += `Donc on calcule : $100\\% - ${p1 + p2}\\% = ${p3}\\%$<br>`
-          texteCorr += `$${p3}\\%$ des ados de cette association sportive pratiquent ${moy3}.<br>`
+          texteCorr = `Les ados qui pratiquent ${moy1} ou ${moy2} représentent $${p1}${sp(1)}\\% + ${p2}${sp(1)}\\% = ${p1 + p2}${sp(1)}\\%$.<br>`
+          texteCorr += `Donc on calcule : $100${sp(1)}\\% - ${p1 + p2}${sp(1)}\\% = ${p3}${sp(1)}\\%$.<br>`
+          texteCorr += `$${p3}${sp(1)}\\%$ des ados de cette association sportive pratiquent ${moy3}.<br>`
           if (!context.isHtml) {
             this.canEnonce = texte
             this.correction = this.listeCorrections[0]
-            this.canReponseACompleter = '$\\ldots \\%$'
+            this.canReponseACompleter = `$\\ldots ${sp(1)}\\%$`
           }
           break
         case 3: // Les sports pratiqués par les ados
           [moy1, moy2, moy3] = combinaisonListes(listeHobbies, 3)
-          texte = `Dans une association culturelle, $${p1}\\%$ des membres ont comme passe-temps favori ${moy1}, pour $${p2}\\%$ c'est ${moy2} et pour les autres ${moy3}.<br>
+          texte = `Dans une association culturelle, $${p1}${sp(1)}\\%$ des membres ont comme passe-temps favori ${moy1}, pour $${p2}${sp(1)}\\%$ c'est ${moy2} et pour les autres ${moy3}.<br>
           
           `
           texte += `Quel est le pourcentage des membres qui préfèrent ${moy3} ?`
           texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: ' %' })
-          texteCorr = `Les membres qui préfère ${moy1} ou ${moy2} représentent $${p1}\\% + ${p2}\\% = ${p1 + p2}\\%$.<br>`
-          texteCorr += `Donc on calcule : $100\\% - ${p1 + p2}\\% = ${p3}\\%$<br>`
-          texteCorr += `$${p3}\\%$ des membres de cette association culturelle préfèrent ${moy3}.<br>`
+          texteCorr = `Les membres qui préfère ${moy1} ou ${moy2} représentent $${p1}${sp(1)}\\% + ${p2}${sp(1)}\\% = ${p1 + p2}${sp(1)}\\%$.<br>`
+          texteCorr += `Donc on calcule : $100${sp(1)}\\% - ${p1 + p2}${sp(1)}\\% = ${p3}${sp(1)}\\%$.<br>`
+          texteCorr += `$${p3}${sp(1)}\\%$ des membres de cette association culturelle préfèrent ${moy3}.<br>`
           if (!context.isHtml) {
             this.canEnonce = texte
             this.correction = this.listeCorrections[0]
-            this.canReponseACompleter = '$\\ldots \\%$'
+            this.canReponseACompleter = `$\\ldots ${sp(1)}\\%$`
           }
           break
       }

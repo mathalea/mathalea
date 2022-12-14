@@ -522,7 +522,7 @@
 |can1L08|Déterminer un coefficient dans un développement*|KO|KO|OK|mathLive|
 |can1L09|Résoudre une équation $ax^2+bx+c=c$ |KO|KO|OK|mathLive|
 |can1L10|Simplifier un taux de variation|KO|KO|OK|mathLive|
-|can1P01|Ecrire une probabilté avec les notations|OK|AMCNum|OK|mathLive|
+|can1P01|Écrire une probabilté avec les notations|OK|AMCNum|OK|mathLive|
 |can1P02|Lire une probabilité  à partir d’un arbre|OK|AMCNum|OK|mathLive|
 |can1P03|Calculer la probabilité d’une intersection à partir d’un arbre|OK|AMCNum|OK|mathLive|
 |can1P04|Calculer des probabilités à partir d’un arbre|OK|AMCNum|OK|mathLive|
@@ -727,7 +727,7 @@
 |can5P03|Résoudre un problème de proportionnalité|OK|AMCNum|OK|mathLive|
 |can5P04|Calculer avec une proportion|OK|AMCNum|OK|mathLive|
 |can5P05|Prendre t % d’une quantité|KO|KO|OK|mathLive|
-|can5P06|Ecrire sous la forme d’un pourcentage|OK|AMCNum|OK|mathLive|
+|can5P06|Écrire sous la forme d’un pourcentage|OK|AMCNum|OK|mathLive|
 |can5P07|Résoudre un problème de proportionnalité*|OK|AMCNum|OK|mathLive|
 |can5P08|Résoudre un problème de proportionnalité**|OK|AMCNum|OK|mathLive|
 |can5P09|Calculer un prix à partir d'un prix au kg|OK|AMCNum|OK|mathLive|
@@ -812,7 +812,7 @@
 |can6N08|Déterminer le nombre de centaines, dizaines|OK|AMCNum|OK|mathLive|
 |can6N09|Trouver le nombre qui suit|OK|AMCNum|OK|mathLive|
 |can6N10|Passer d’un calcul de fractions décimales à une écriture décimale|OK|AMCNum|OK|mathLive|
-|can6N11|Ecrire sous forme d'une fraction décimale|OK|AMCNum|OK|mathLive|
+|can6N11|Écrire sous forme d'une fraction décimale|OK|AMCNum|OK|mathLive|
 |can6N12|Passer d’un calcul de fractions décimales à une écriture décimale*|OK|AMCNum|OK|mathLive|
 |can6N13|Passer d’un calcul de fractions décimales à une écriture décimale**|OK|AMCNum|OK|mathLive|
 |can6N14|Déterminer un nombre à partir de son nombre de dixièmes, centièmes, millièmes (QCM)|KO|KO|OK|qcm|

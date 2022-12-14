@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, texNombrec, choice, calcul, texFraction } from '../../../modules/outils.js'
-export const titre = 'Ecrire sous la forme d’un pourcentage'
+export const titre = 'Écrire sous la forme d’un pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -15,7 +15,7 @@ export const dateDePublication = '19/12/2021' // La date de publication initiale
 */
 export const uuid = '802cc'
 export const ref = 'can5P06'
-export default function EcrirePourcentage () {
+export default function ÉcrirePourcentage () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1

@@ -12,7 +12,7 @@ import { elimineDoublons } from './interactif/questionQcm.js'
 import Decimal from 'decimal.js'
 export const tropDeChiffres = 'Trop de chiffres'
 export const epsilon = 0.000001
-const math = { format: format, evaluate: evaluate }
+const math = { format, evaluate }
 /**
  * Fonctions diverses pour la création des exercices
  * @module
@@ -2291,7 +2291,7 @@ class Personne {
  * le 14/03/2021
  */
 export function personne ({ prenom = '', genre = '', pronom = '' } = {}) {
-  return new Personne({ prenom: prenom, genre: genre, pronom: pronom })
+  return new Personne({ prenom, genre, pronom })
 }
 
 /**

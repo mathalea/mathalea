@@ -14,7 +14,7 @@ export const amcType = 'AMCOpen' // type de question AMC
  */
 export const uuid = 'dc348'
 export const ref = '6N10-4'
-export default function EcrireNombresEntiersFormates () {
+export default function ÉcrireNombresEntiersFormates () {
   Exercice.call(this)
   this.nbQuestions = 5
   this.nbCols = 1

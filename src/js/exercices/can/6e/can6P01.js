@@ -1,4 +1,4 @@
-import { calcul, randint, texNombre, texNombrec } from '../../../modules/outils.js'
+import { calcul, randint, texNombrec, texPrix } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Utiliser une proportionnalité'
 export const interactifReady = true
@@ -37,10 +37,10 @@ export default function ProportionnaliteSimple () {
     this.reponse = calcul(c / 5 * b)
     this.question = `$${texNombrec(c / 10)}$ kg de ${fruits[a][0]} coûtent $${texNombrec(c / 10 * b)}$ €, 
     combien coûtent $${texNombrec(c / 5)}$ kg de ${fruits[a][0]} ?`
-    this.correction = `On reconnaît une situation de proportionnalité : <br>
-    La masse de ${fruits[a][0]} est proportionnelle au prix.<br>
+    this.correction = `On reconnaît une situation de proportionnalité.<br>
+    La masse de ${fruits[a][0]} est proportionnelle au prix payé.<br>
     On remarque qu'on demande le prix pour une quantité double ($${texNombrec(c / 5)}=2\\times ${texNombrec(c / 10)}$).<br> 
-    Ainsi, le prix à payer pour $${texNombrec(c / 5)}$ kg de ${fruits[a][0]} est :  $${texNombrec(c / 10 * b)} \\times 2 = ${texNombre(this.reponse)}$ €`
+    Ainsi, le prix à payer pour $${texNombrec(c / 5)}$ kg de ${fruits[a][0]} est :  $${texNombrec(c / 10 * b)} \\times 2 = ${texPrix(this.reponse)}$ €`
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\dots$ €'
   }
