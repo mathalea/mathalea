@@ -1,4 +1,4 @@
-import { randint } from '../../../modules/outils.js'
+import { randint, texNombre } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Recomposer un entier (bis)'
 export const interactifReady = true
@@ -23,8 +23,8 @@ export default function RecomposerEntierSimple () {
     const a = randint(20, 70)
     const b = randint(20, 70, a)
     this.reponse = a * 100 + b
-    this.question = `Calculer $${a}$ centaines et $${b}$ unités. `
-    this.correction = `$${a} \\times 100 + ${b}\\times 1 =${a * 100}+${b}= ${a * 100 + b}$`
+    this.question = `Calculer $${texNombre(a)}$ centaines et $${texNombre(b)}$ unités. `
+    this.correction = `$${texNombre(a)} \\times 100 + ${texNombre(b)}\\times 1 =${texNombre(a * 100)}+${b}= ${texNombre(a * 100 + b)}$`
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

@@ -1,4 +1,4 @@
-import { calcul, choice, miseEnEvidence, randint, texteEnCouleur } from '../../../modules/outils.js'
+import { calcul, choice, miseEnEvidence, randint, texteEnCouleur, texNombre } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Compléter un volume au litre'
 export const interactifReady = true
@@ -50,7 +50,7 @@ export default function CompleterVolumeAuLitre () {
         this.question = `Compléter : <br>$${a * 10}$ mL$ + \\ldots$ mL $ = 1$ L`
         this.correction = `$${a * 10}$ mL$ + ${miseEnEvidence(1000 - a * 10)}$ mL$ = 1$ L`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
-   Comme $1$ L$=1000$ mL, le nombre cherché est donné par la différence : $1000-${a * 10}=${1000 - a * 10}$.
+   Comme $1$ L$=${texNombre(1000)}$ mL, le nombre cherché est donné par la différence : $${texNombre(1000)}-${a * 10}=${1000 - a * 10}$.
    `)
         this.reponse = calcul(1000 - a * 10)
         this.canEnonce = 'Compléter.'
@@ -61,7 +61,7 @@ export default function CompleterVolumeAuLitre () {
         this.question = `Compléter : <br>$\\ldots$ mL $ +$ $${a * 10}$ mL $ = 1$ L`
         this.correction = `$${miseEnEvidence(1000 - a * 10)}$ mL$ + ${a * 10}$ mL$ = 1$ L`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
-   Comme $1$ L$=1000$ mL, le nombre cherché est donné par la différence : $1000-${a * 10}=${1000 - a * 10}$.
+   Comme $1$ L$=${texNombre(1000)}$ mL, le nombre cherché est donné par la différence : $${texNombre(1000)}-${a * 10}=${1000 - a * 10}$.
    `)
         this.reponse = calcul(1000 - a * 10)
         this.canEnonce = 'Compléter.'
