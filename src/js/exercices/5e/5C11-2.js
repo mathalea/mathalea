@@ -10,7 +10,7 @@ export const titre = 'Traduire une succession des opérations par une expression
  */
 export const uuid = '3406a'
 export const ref = '5C11-2'
-export default function EcrireUneExpressionMathador () {
+export default function ÉcrireUneExpressionMathador () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

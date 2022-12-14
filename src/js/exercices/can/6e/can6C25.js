@@ -22,7 +22,7 @@ export default function RecherchePrix () {
   this.optionsChampTexte = { texteApres: ' €' }
   this.nouvelleVersion = function () {
     const listeviennoiserie = [
-      ['pains au chocolat', ' un pain au chocolat'],
+      ['pains au chocolat', 'un pain au chocolat'],
       ['chocolatines', 'une chocolatine'], ['pains aux raisins', 'un pain aux raisins'], ['cookies', 'un cookie'], ['brioches', 'une brioche']]
     const a = randint(2, 6)
     const v = choice(listeviennoiserie)
@@ -31,7 +31,7 @@ export default function RecherchePrix () {
     const t = choice([10, 20])
     const prenom1 = prenomF()
     const pu = choice([0.9, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6])
-    this.question = `A la boulangerie, ${prenom1} achète $${a}$ ${p}.<br>
+    this.question = `À la boulangerie, ${prenom1} achète $${a}$ ${p}.<br>
      Elle paie avec un billet de $${t}$ euros.<br>
      On lui rend $${texPrix(t - a * pu)}$ euros.<br>
      
@@ -44,8 +44,3 @@ export default function RecherchePrix () {
     this.canReponseACompleter = '$\\dots$ €'
   }
 }
-
-//
-//    v = choice(listeviennoiserie)
-//   p = v[0]
-//   s = v[1]

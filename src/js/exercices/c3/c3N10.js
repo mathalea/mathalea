@@ -1,4 +1,4 @@
-import EcrireNombresEntiers from '../6e/6N10.js'
+import ÉcrireNombresEntiers from '../6e/6N10.js'
 export const titre = 'Écrire un nombre en chiffres ou en lettres'
 
 /**
@@ -9,8 +9,8 @@ export const titre = 'Écrire un nombre en chiffres ou en lettres'
  */
 export const uuid = '85618'
 export const ref = 'c3N10'
-export default function EcrireEntiersCycle3 () {
-  EcrireNombresEntiers.call(this)
+export default function ÉcrireEntiersCycle3 () {
+  ÉcrireNombresEntiers.call(this)
   this.sup2 = 0
   this.sup = 1
 }

@@ -204,10 +204,10 @@ export default function SujetCAN2022quatrieme () {
           c = randint(1, 9)
           reponse = u + a * 0.1 + c * 0.001
           if (choice([true, false])) {
-            texte = `Ecrire sous forme décimale : $${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}$ `
+            texte = `Écrire sous forme décimale : $${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}$ `
             texteCorr = `$${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}=${u}+${texNombre(a / 10, 1)}+${texNombre(c / 1000, 3)}=${texNombre(u + a / 10 + c / 1000, 3)}$`
           } else {
-            texte = `Ecrire sous forme décimale : $${u}+\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}$ `
+            texte = `Écrire sous forme décimale : $${u}+\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}$ `
             texteCorr = `$${u}+\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}=${u}+${texNombre(c / 1000, 3)}+${texNombre(a / 10, 1)}=${texNombre(u + a / 10 + c / 1000, 3)}$
              `
           }

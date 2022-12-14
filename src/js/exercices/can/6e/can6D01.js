@@ -29,7 +29,7 @@ export default function ConversionHeuresEtMinutesVersMinutes () {
     const d = calcul(a * 60 + b)
     this.question = `Compléter : <br> $${a}$ heures $${b}$ minutes $=$`
     if (!this.interactif) {
-      this.question += '.... minutes'
+      this.question += ' .... minutes'
     }
     this.correction = `Il y a $60$ minutes dans une heure.<br>
     Comme $${a} \\times 60 + ${b}=${d}$ alors $${a}$h $${b}$min = $${d}$ minutes`

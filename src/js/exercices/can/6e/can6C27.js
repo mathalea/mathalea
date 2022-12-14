@@ -62,7 +62,7 @@ Combien me rend-on ?`
         prenom1 = prenomF()
         pu = new Decimal(choice([9, 11, 12, 13, 14, 15, 16])).div(10)
         reponse = new Decimal(pu).mul(a).mul(-1).add(t)
-        this.question = `A la boulangerie, ${prenom1} achète $${a}$ ${p} à $${texPrix(pu)}$ € l'unité.<br>
+        this.question = `À la boulangerie, ${prenom1} achète $${a}$ ${p} à $${texPrix(pu)}$ € l'unité.<br>
    Elle paie avec un billet de $${t}$ €.<br>
 
    Combien doit-on lui rendre ?`

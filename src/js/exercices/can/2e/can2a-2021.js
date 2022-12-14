@@ -331,7 +331,7 @@ export default function SujetCAN2021Seconde () {
           b = fraction(a[0], a[1])
           k1 = choice([3, 5, 7, 9])
 
-          texte = `Ecrire $\\dfrac{${b.n * k1}}{${b.d * k1}}$ sous forme d'une fraction irréductible.
+          texte = `Écrire $\\dfrac{${b.n * k1}}{${b.d * k1}}$ sous forme d'une fraction irréductible.
              `
 
           texteCorr = `$\\dfrac{${b.n * k1}}{${b.d * k1}}=\\dfrac{${b.n}\\times ${k1}}{${b.d}\\times ${k1}}=\\dfrac{${b.n}}{${b.d}}$.`
