@@ -1,4 +1,4 @@
-import { prenomM, randint, texteEnCouleur } from '../../../modules/outils.js'
+import { prenomM, randint, sp, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une durée en minutes'
 export const interactifReady = true
@@ -26,15 +26,15 @@ export default function CalculDureeMinutes () {
     const c = randint(1, 4) * 10
     const d = randint(10, 58)
     this.reponse = b * 60 + d - (a * 60 + c)
-    this.question = `${prenomM()} est parti à  $${a}$h$${c}$ de son domicile. 
-    Il est arrivé à $${b}$h$${d}$.<br>
+    this.question = `${prenomM()} est parti à  $${a}$h${sp(1)}$${c}$ de son domicile. 
+    Il est arrivé à $${b}$h${sp(1)}$${d}$.<br>
 
     Combien de temps à duré son trajet ?`
-    this.correction = `$${b}$h$${d}-${a}$h$${c}=${this.reponse}$ min`
+    this.correction = `$${b}$h${sp(1)}$${d}-${a}$h${sp(1)}$${c}=${this.reponse}$ min`
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
-      On part de $${a}$h$${c}$ et  on complète par $${(a + 1) * 60 - (a * 60 + c)}$ min pour arriver 
-      à $${a + 1}$ h. <br>
-      Puis on ajoute  les $${d}$ minutes pour arriver à $${b}$h$${d}$.<br>
+      On part de $${a}$h${sp(1)}$${c}$ et  on complète par $${(a + 1) * 60 - (a * 60 + c)}$ min pour arriver 
+      à $${a + 1}$h. <br>
+      Puis on ajoute  les $${d}$ minutes pour arriver à $${b}$h${sp(1)}$${d}$.<br>
       Le résultat est donc donné par $${(a + 1) * 60 - (a * 60 + c)}+${d}=${this.reponse}$ min.
           `)
     this.canEnonce = this.question

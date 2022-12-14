@@ -2774,7 +2774,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   //  * du chargement
   //  * de l'ajout d'un exercice (click sur le lien)
   //  * du déplacement, suppression d'un exercice (manipulation des étiquettes et ou utilisation des icones.
-  // A la fin appel de la fonction miseAJourDeLaListeDesExercices() => pour l'affichage des exercices choisis.
+  // À la fin appel de la fonction miseAJourDeLaListeDesExercices() => pour l'affichage des exercices choisis.
   const formChoixDesExercices = document.getElementById('choix_des_exercices')
   if (formChoixDesExercices !== null) {
     formChoixDesExercices.addEventListener('change', function (e) {

@@ -15,7 +15,7 @@ export const dateDePublication = '19/09/2021'
 export const dateDeModifImportante = '14/09/2022'
 
 /**
- * Ecrire en chiffres ou en lettres un nombre entier inférieur à 1 000 000.
+ * Écrire en chiffres ou en lettres un nombre entier inférieur à 1 000 000.
  * Avec des paramètres sur le nombre de chiffres des nombres voulus
  * Avec des paramètres sur la présence obligatoire de nombres avec 80 (et ses copains qui n'aiment pas mettre de S dans leur vin) et avec 100 (et ses copains comme ceux de 80)
  * @author Eric Elter
@@ -24,7 +24,7 @@ export const dateDeModifImportante = '14/09/2022'
 */
 export const uuid = '0688e'
 export const ref = '6N10'
-export default function EcrirePetitsNombresEntiers () {
+export default function ÉcrirePetitsNombresEntiers () {
   Exercice.call(this)
   this.nbQuestions = 5
 

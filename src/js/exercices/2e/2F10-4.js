@@ -16,7 +16,7 @@ export default function Determinerfonctionaffine () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = "Déterminer, en expliquant, l'expression de la fonctions affine $f$ vérifiant les conditions de l'énoncé :"
+  this.consigne = "Déterminer, en expliquant, l'expression de la fonction affine $f$ vérifiant les conditions de l'énoncé :"
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacing = 1

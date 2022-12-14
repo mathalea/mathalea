@@ -14143,7 +14143,7 @@ export default {
     }
   },
   "can1P01": {
-    "titre": "Ecrire une probabilté avec les notations",
+    "titre": "Écrire une probabilté avec les notations",
     "url": "/exercices/can/1e/can1P01.js",
     "amcReady": true,
     "amcType": {
@@ -17702,7 +17702,7 @@ export default {
     }
   },
   "can5P06": {
-    "titre": "Ecrire sous la forme d’un pourcentage",
+    "titre": "Écrire sous la forme d’un pourcentage",
     "url": "/exercices/can/5e/can5P06.js",
     "amcReady": true,
     "amcType": {
@@ -19281,7 +19281,7 @@ export default {
     }
   },
   "can6N11": {
-    "titre": "Ecrire sous forme d'une fraction décimale",
+    "titre": "Écrire sous forme d'une fraction décimale",
     "url": "/exercices/can/6e/can6N11.js",
     "amcReady": true,
     "amcType": {
