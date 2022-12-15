@@ -28,7 +28,7 @@ export default function ExerciceLabyrintheDivisibilite2 () {
   this.sup3 = 1
   this.sup4 = 1
 
-  // this.consigne=`Trouve la sortie en ne passant que par les cases contenant un nombre divisible par $${parseInt(this.sup)}$.`
+  // this.consigne=`Trouver la sortie en ne passant que par les cases contenant un nombre divisible par $${parseInt(this.sup)}$.`
   this.nouvelleVersion = function () {
     this.sup = Number(this.sup)
     const tailleChiffre = 0.8
@@ -51,8 +51,9 @@ export default function ExerciceLabyrintheDivisibilite2 () {
       monChemin = laby.choisitChemin(laby.niveau) // On choisit un chemin
       laby.murs2d = laby.construitMurs(monChemin, tailleChiffre) // On construit le labyrinthe
       laby.chemin2d = laby.traceChemin(monChemin) // On trace le chemin solution
-      texte = `${texteEnCouleurEtGras('Trouve la sortie en ne passant que par les cases contenant un nombre divisible par ', 'black')}$${tables[q]}$.<br>`
-      texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en couleur et la sortie était le numéro $${2 - monChemin[monChemin.length - 1][1] + 1}$.`, 'black')}<br>`
+      texte = `${texteEnCouleurEtGras('Trouver la sortie en ne passant que par les cases contenant un nombre divisible par ', 'black')}$${tables[q]}$.<br>`
+      // texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en couleur et la sortie était le numéro $${2 - monChemin[monChemin.length - 1][1] + 1}$.`, 'black')}<br>`
+      texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en couleur et la sortie était le numéro $${nbL - monChemin[monChemin.length - 1][1]}$.`, 'black')}<br>`
       // Zone de construction du tableau de nombres : S'ils sont sur monChemin et seulement si, ils doivent vérifier la consigne
       let listeMultiples = []
       const listeNonMultiples = []

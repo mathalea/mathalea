@@ -49,7 +49,7 @@ export default function ConversionEnTousSens () {
           this.optionsChampTexte = { texteApres: ' g' }
           this.canEnonce = 'Compléter.'
           this.canReponseACompleter = `$${texNombre(a)}$ kg $= \\dots$ g`
-          this.correction = `$${texNombre(a)}$ kg$=${texNombrec(a * 1000)}$ g`
+          this.correction = `$${texNombre(a)}$ kg $=${texNombrec(a * 1000)}$ g`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
           Comme $1$ kg $=${texNombre(1000)}$ g,  pour passer des "kg" au "g", on multiplie par $${texNombre(1000)}$.<br>
             Comme : $${texNombre(a)}\\times ${texNombre(1000)} =${texNombrec(a * 1000)}$, alors $${texNombrec(a)}$ kg$=${resultat}$ g.  `)
@@ -61,13 +61,13 @@ export default function ConversionEnTousSens () {
           resultat = calcul(a * 100)
           this.question = `$${texNombre(a)}$ m  =`
           if (!this.interactif) {
-            this.question += '..... cm'
+            this.question += ' ..... cm'
           }
           this.formatChampTexte = 'largeur15 inline'
           this.optionsChampTexte = { texteApres: ' cm' }
           this.canEnonce = 'Compléter.'
-          this.canReponseACompleter = `$${texNombre(a)}$ m $= \\dots$ cm`
-          this.correction = `$${texNombre(a)}$ m$=${texNombrec(a * 100)}$ cm`
+          this.canReponseACompleter = `$${texNombre(a)}$ m $=$ $\\dots$ cm`
+          this.correction = `$${texNombre(a)}$ m $=${texNombrec(a * 100)}$ cm`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
           Comme $1$ m $=100$ cm,  pour passer des "m" au "cm", on multiplie par $100$.<br>
             Comme : $${texNombre(a)}\\times 100 =${texNombrec(a * 100)}$, alors $${texNombrec(a)}$ m$=${texNombrec(a * 100)}$ cm.  `)
@@ -101,7 +101,7 @@ export default function ConversionEnTousSens () {
           this.optionsChampTexte = { texteApres: ' mL' }
           this.canEnonce = 'Compléter.'
           this.canReponseACompleter = `$${texNombre(a)}$ cL $= \\dots$ mL`
-          this.correction = `$${texNombre(a)}$ cL$=${texNombrec(a * 10)}$ mL`
+          this.correction = `$${texNombre(a)}$ cL $=${texNombrec(a * 10)}$ mL`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
           Comme $1$ cL$ =10$ mL,  pour passer des "cL" au "mL", on multiplie par $10$.<br>
             Comme  $${texNombre(a)}\\times 10 =${texNombrec(a * 10)}$, alors $${texNombrec(a)}$ cL$=${texNombrec(a * 10)}$ mL.  `)
@@ -135,7 +135,7 @@ export default function ConversionEnTousSens () {
           this.optionsChampTexte = { texteApres: ' km' }
           this.canEnonce = 'Compléter.'
           this.canReponseACompleter = `$${texNombre(a)}$ m $= \\dots$ km`
-          this.correction = `$${texNombre(a)}$ m$=${texNombrec(a / 1000)}$ km`
+          this.correction = `$${texNombre(a)}$ m $=${texNombrec(a / 1000)}$ km`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
           Comme $1$ km $=${texNombre(1000)}$ m, alors $1$ m $=0,001$ km.<br>
           Ainsi pour passer des "m" au "km", on divise par $${texNombre(1000)}$.<br>

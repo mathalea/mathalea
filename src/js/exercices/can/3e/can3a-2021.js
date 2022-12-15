@@ -342,7 +342,7 @@ export default function SujetCAN20213ieme () {
           b = choice([0.25, 0.5, 0.75])
           d = Math.round(b * 60)
           if (!this.interactif) {
-            texte = `$${texNombre(a + b)}$ h $=$ ..... h..... min`
+            texte = `$${texNombre(a + b)}$ h $=$ .....  h ..... min`
             texteCorr = `$${texNombre(a + b)}$h$ = ${a}$ h $ + ${texNombre(b)} \\times 60  = ${a}$ h $${d}$ min`
           } else {
             texte = `$${texNombre(a + b, 2)}$ h $=$`
