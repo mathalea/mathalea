@@ -25,28 +25,28 @@ export default function RecomposerEntier () {
     const c = randint(2, 9)
     this.reponse = calcul(a * 1000 + b * 10 + c * 100)
     if (choice([true, false])) {
-      this.question = `Calculer $${texNombre(a)}\\times 1000 + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100$.`
-      this.correction = `$${texNombre(a)}\\times 1000 + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100 =${texNombre(this.reponse)}$`
+      this.question = `Calculer $${texNombre(a)}\\times ${texNombre(1000)} + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100$.`
+      this.correction = `$${texNombre(a)}\\times ${texNombre(1000)} + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100 =${texNombre(this.reponse)}$`
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
     On décompose le calcul (milliers, centaines puis dizaines) : <br>
-    $\\bullet$ $${texNombre(a)}\\times 1000=${texNombre(a * 1000)}$.<br>
+    $\\bullet$ $${texNombre(a)}\\times ${texNombre(1000)}=${texNombre(a * 1000)}$.<br>
     $\\bullet$ $${texNombre(c)}\\times 100=${texNombre(c * 100)}$.<br>
     $\\bullet$ $${texNombre(b)}\\times 10=${texNombre(b * 10)}$.<br>
     Ainsi,  <br>
     $\\begin{aligned}
-  ${texNombre(a)}\\times 1000 + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100 &=${texNombre(a * 1000)}+${texNombre(c * 100)}+${texNombre(b * 10)}\\\\
+  ${texNombre(a)}\\times ${texNombre(1000)} + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100 &=${texNombre(a * 1000)}+${texNombre(c * 100)}+${texNombre(b * 10)}\\\\
   &=${texNombre(this.reponse)}
   \\end{aligned}$.`)
     } else {
-      this.question = `Calculer $ ${texNombre(c)}\\times 100+ ${texNombre(b)}\\times 10 + ${texNombre(a)}\\times 1000$.`
-      this.correction = `$ ${texNombre(c)}\\times 100+ ${texNombre(b)}\\times 10 + ${texNombre(a)}\\times 1000  =${texNombre(this.reponse)}$`
+      this.question = `Calculer $ ${texNombre(c)}\\times 100+ ${texNombre(b)}\\times 10 + ${texNombre(a)}\\times ${texNombre(1000)}$.`
+      this.correction = `$ ${texNombre(c)}\\times 100+ ${texNombre(b)}\\times 10 + ${texNombre(a)}\\times ${texNombre(1000)}  =${texNombre(this.reponse)}$`
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
   On décompose le calcul (milliers, centaines puis dizaines) : <br>
   $\\bullet$ $${texNombre(a)}\\times 1000=${texNombre(a * 1000)}$.<br>
   $\\bullet$ $${texNombre(c)}\\times 100=${texNombre(c * 100)}$.<br>
   $\\bullet$ $${texNombre(b)}\\times 10=${texNombre(b * 10)}$.<br>
   Ainsi, <br>$\\begin{aligned}
-  ${texNombre(c)}\\times 100+ ${texNombre(b)}\\times 10 + ${texNombre(a)}\\times 1000 &=${texNombre(a)}\\times 1000 + ${texNombre(c)}\\times 100 + ${texNombre(b)}\\times 10\\\\
+  ${texNombre(c)}\\times 100+ ${texNombre(b)}\\times 10 + ${texNombre(a)}\\times ${texNombre(1000)} &=${texNombre(a)}\\times ${texNombre(1000)} + ${texNombre(c)}\\times 100 + ${texNombre(b)}\\times 10\\\\
   & =${texNombre(a * 1000)}+${texNombre(c * 100)}+${texNombre(b * 10)}\\\\
   &=${texNombre(this.reponse)}
   \\end{aligned}$. `)

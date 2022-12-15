@@ -53,7 +53,7 @@ export default function LireHeure () {
 
     mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 0.7, zoom: this.tailleDiaporama, style: 'margin: auto' }, horloge)
     this.reponse = `${h}h ${m}`
-    this.correction = `${h}h ${m}`
+    this.correction = `$${h}$ h $${m}$`
     if (context.isAmc) {
       this.autoCorrection = [
         {

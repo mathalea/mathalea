@@ -36,10 +36,10 @@ export default function Trigo () {
     const alpha = randint(0, 135)
     const B = rotation(pointAdistance(A, a, 0), A, alpha, nom[1])
     const C = similitude(A, B, 90, b / a, nom[2])
-    const pol = polygoneAvecNom(A, B, C, 0.1 * c)
+    const pol = polygoneAvecNom(A, B, C)
     const objets = []
     objets.push(segment(A, B), segment(B, C), segment(A, C), codageAngleDroit(A, B, C))
-    objets.push(afficheLongueurSegment(A, B, 'black', 0.1 * c, ''), afficheLongueurSegment(B, C, 'black', 0.1 * c, ''), afficheLongueurSegment(C, A, 'black', 0.1 * c, ''))
+    objets.push(afficheLongueurSegment(A, B, 'black', 0.5, ''), afficheLongueurSegment(B, C, 'black', 0.5, ''), afficheLongueurSegment(C, A, 'black', 0.5, ''))
     objets.push(pol[0], pol[1])
     switch (choice(['a', 'b', 'c', 'd', 'e', 'f'])) { //, 'b'
       case 'a':
@@ -93,7 +93,7 @@ export default function Trigo () {
         this.reponse = `\\dfrac{${b}}{${a}}`
         break
     }
-    this.question += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objets, { rxmin: -0.1 * c, rymin: -0.1 * c, rxmax: 0.1 * c, rymax: 0.1 * c }), {
+    this.question += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objets, { rxmin: -0.05 * c, rymin: -0.05 * c, rxmax: 0.05 * c, rymax: 0.05 * c }), {
       pixelsParCm: 170 / c,
       mainlevee: false,
       amplitude: 0.5,

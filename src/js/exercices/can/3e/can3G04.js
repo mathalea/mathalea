@@ -40,10 +40,17 @@ export default function RechercheValeurPythagore () {
         objets.push(texteParPosition(`${texNombrec(a)}`, milieu(B, C).x + 0.5 + 0, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
           texteParPosition('x', milieu(A, C).x - 0.5, milieu(A, C).y, 'milieu', 'black', 1, 'middle', true),
           texteParPosition('x', milieu(A, B).x, milieu(A, B).y - 0.5, 'milieu', 'black', 1, 'middle', true))
-        this.question = `Déterminer $x$ pour que le triangle soit rectangle.<br>
+        if (this.interactif) {
+          this.question = `Déterminer $x$ pour que le triangle soit rectangle.<br>
 
-      (donner le résultat sous la forme $\\sqrt{a}$)<br>
-      `
+      (donner le résultat sous la forme $\\sqrt{a}$)
+      
+      <br>`
+        } else {
+          this.question = `Déterminer $x$ pour que le triangle soit rectangle.
+      
+      <br>`
+        }
         this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 6, ymax: 5, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
         this.correction = ` Le plus grand côté est $${a}$ (autrement il y aurait deux hypoténuses). On cherche $x$ tel que $x^2+x^2=${a}^2$, soit $2x^2=${a * a}$.<br>
       En divisant par $2$ chacun des membres, on obtient : $x^2=${a * a / 2}$.<br>
@@ -62,11 +69,13 @@ export default function RechercheValeurPythagore () {
         objets = []
         objets.push(pol[0], pol[1])
         objets.push(segment(A, B), segment(B, C), segment(A, C))
-        objets.push(texteParPosition(`$\\tiny{\\sqrt{${a}}}$`, milieu(B, C).x + 0.8 + 0, milieu(B, C).y + 1),
+        objets.push(texteParPosition(`$\\sqrt{${a}}$`, milieu(B, C).x + 1, milieu(B, C).y),
           texteParPosition('x', milieu(A, C).x - 0.5, milieu(A, C).y, 'milieu', 'black', 1, 'middle', true),
           texteParPosition('x', milieu(A, B).x, milieu(A, B).y - 0.5, 'milieu', 'black', 1, 'middle', true))
 
-        this.question = `Déterminer $x$ pour que le triangle soit rectangle.<br>
+        this.question = `Déterminer $x$ pour que le triangle soit rectangle.
+        
+        <br>
         `
         this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 6, ymax: 5, pixelsParCm: 22, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
         this.correction = ` Le plus grand côté est $\\sqrt{${a}}$ (autrement il y aurait deux hypoténuses).
