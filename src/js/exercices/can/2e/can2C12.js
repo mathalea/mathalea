@@ -42,17 +42,17 @@ export default function TauxGlobal () {
  ${listeCalculs[2]}${listeCalculs[3]}<br>
 
 En utilisant l'un des résultats précédents, déterminer le taux global d'évolution d'un article qui augmente de
-$${a}\\%$  dans un premier temps, puis qui diminue de $${b}\\%$ dans un second temps. `
-        this.correction = `Augmenter de $${a}\\%$ revient à multiplier par $${texNombrec(1 + a / 100)}$ et diminuer de $${b}\\%$ revient à multiplier par $${texNombrec(1 - b / 100)}$.<br>
+$${a}${sp(1)}\\%$  dans un premier temps, puis qui diminue de $${b}${sp(1)}\\%$ dans un second temps. `
+        this.correction = `Augmenter de $${a}${sp(1)}\\%$ revient à multiplier par $${texNombrec(1 + a / 100)}$ et diminuer de $${b}${sp(1)}\\%$ revient à multiplier par $${texNombrec(1 - b / 100)}$.<br>
 Globalement cela revient donc à multiplier par $${texNombrec(1 + a / 100)}\\times ${texNombrec(1 - b / 100)}=${texNombrec(coeffG)}$.<br>
 Multiplier par $${texNombrec(coeffG)}$ revient à multiplier par `
         if (coeffG > 1) {
-          this.correction += ` $1+${texNombrec(coeffG - 1)}$, ce qui revient à augmenter de $${texNombrec((coeffG - 1) * 100)}\\%$. <br>
-          Le taux d'évolution global est donc : $+${texNombrec((coeffG - 1) * 100)}\\%$.
+          this.correction += ` $1+${texNombrec(coeffG - 1)}$, ce qui revient à augmenter de $${texNombrec((coeffG - 1) * 100)}${sp(1)}\\%$. <br>
+          Le taux d'évolution global est donc : $+${texNombrec((coeffG - 1) * 100)}${sp(1)}\\%$.
 `
         } else {
           this.correction += ` $1-${texNombrec(1 - coeffG)}$. <br>
-        Le taux d'évolution global est donc : $${texNombrec((coeffG - 1) * 100)}\\%$
+        Le taux d'évolution global est donc : $${texNombrec((coeffG - 1) * 100)}${sp(1)}\\%$
 `
         }
         this.reponse = calcul((coeffG - 1) * 100)
@@ -71,12 +71,12 @@ Multiplier par $${texNombrec(coeffG)}$ revient à multiplier par `
    ${listeCalculs[2]}${listeCalculs[3]}<br>
 
   En utilisant l'un des résultats précédents, déterminer le taux global d'évolution d'un article qui augmente de
-  $${a}\\%$  dans un premier temps, puis qui augmente de $${b}\\%$ dans un second temps. `
-        this.correction = `Augmenter de $${a}\\%$ revient à multiplier par $${texNombrec(1 + a / 100)}$ et augmenter de $${b}\\%$ revient à multiplier par $${texNombrec(1 + b / 100)}$.<br>
+  $${a}${sp(1)}\\%$  dans un premier temps, puis qui augmente de $${b}${sp(1)}\\%$ dans un second temps. `
+        this.correction = `Augmenter de $${a}${sp(1)}\\%$ revient à multiplier par $${texNombrec(1 + a / 100)}$ et augmenter de $${b}${sp(1)}\\%$ revient à multiplier par $${texNombrec(1 + b / 100)}$.<br>
   Globalement cela revient donc à multiplier par $${texNombrec(1 + a / 100)}\\times ${texNombrec(1 + b / 100)}=${texNombrec(coeffG)}$.<br>
   Multiplier par $${texNombrec(coeffG)}$ revient à multiplier par 
            $1+${texNombrec(coeffG - 1)}$. <br>
-          Le taux d'évolution global est donc : $+${texNombrec((coeffG - 1) * 100)}\\%$.
+          Le taux d'évolution global est donc : $+${texNombrec((coeffG - 1) * 100)}${sp(1)}\\%$.
   `
         this.reponse = calcul((coeffG - 1) * 100)
         break
@@ -93,12 +93,12 @@ Multiplier par $${texNombrec(coeffG)}$ revient à multiplier par `
    ${listeCalculs[2]}${listeCalculs[3]}<br>
 
   En utilisant l'un des résultats précédents, déterminer le taux global d'évolution d'un article qui diminue de
-  $${a}\\%$  dans un premier temps, puis qui diminue de $${b}\\%$ dans un second temps. `
-        this.correction = `Diminuer de $${a}\\%$ revient à multiplier par $${texNombrec(1 - a / 100)}$ et diminuer de $${b}\\%$ revient à multiplier par $${texNombrec(1 - b / 100)}$.<br>
+  $${a}${sp(1)}\\%$  dans un premier temps, puis qui diminue de $${b}${sp(1)}\\%$ dans un second temps. `
+        this.correction = `Diminuer de $${a}${sp(1)}\\%$ revient à multiplier par $${texNombrec(1 - a / 100)}$ et diminuer de $${b}${sp(1)}\\%$ revient à multiplier par $${texNombrec(1 - b / 100)}$.<br>
   Globalement cela revient donc à multiplier par $${texNombrec(1 - a / 100)}\\times ${texNombrec(1 - b / 100)}=${texNombrec(coeffG)}$.<br>
   Multiplier par $${texNombrec(coeffG)}$ revient à multiplier par 
            $1-${texNombrec(1 - coeffG)}$. <br>
-          Le taux d'évolution global est donc : $${texNombrec((coeffG - 1) * 100)}\\%$.
+          Le taux d'évolution global est donc : $${texNombrec((coeffG - 1) * 100)}${sp(1)}\\%$.
   `
         this.reponse = calcul((coeffG - 1) * 100)
         break
@@ -115,17 +115,17 @@ Multiplier par $${texNombrec(coeffG)}$ revient à multiplier par `
    ${listeCalculs[2]}${listeCalculs[3]}<br>
    
   En utilisant l'un des résultats précédents, déterminer le taux global d'évolution d'un article qui diminue de
-  $${a}\\%$  dans un premier temps, puis qui augmente de $${b}\\%$ dans un second temps. `
-        this.correction = `Diminuer de $${a}\\%$ revient à multiplier par $${texNombrec(1 - a / 100)}$ et augmenter de $${b}\\%$ revient à multiplier par $${texNombrec(1 + b / 100)}$.<br>
+  $${a}${sp(1)}\\%$  dans un premier temps, puis qui augmente de $${b}${sp(1)}\\%$ dans un second temps. `
+        this.correction = `Diminuer de $${a}${sp(1)}\\%$ revient à multiplier par $${texNombrec(1 - a / 100)}$ et augmenter de $${b}${sp(1)}\\%$ revient à multiplier par $${texNombrec(1 + b / 100)}$.<br>
   Globalement cela revient donc à multiplier par $${texNombrec(1 - a / 100)}\\times ${texNombrec(1 + b / 100)}=${texNombrec(coeffG)}$.<br>
   Multiplier par $${texNombrec(coeffG)}$ revient à multiplier par `
         if (coeffG > 1) {
           this.correction += ` $1+${texNombrec(coeffG - 1)}$, ce qui revient à augmenter de $${texNombrec((coeffG - 1) * 100)}\\%$. <br>
-            Le taux d'évolution global est donc : $+${texNombrec((coeffG - 1) * 100)}\\%$
+            Le taux d'évolution global est donc : $+${texNombrec((coeffG - 1) * 100)}${sp(1)}\\%$
   `
         } else {
           this.correction += ` $1-${texNombrec(1 - coeffG)}$. <br>
-          Le taux d'évolution global est donc : $${texNombrec((coeffG - 1) * 100)}\\%$.
+          Le taux d'évolution global est donc : $${texNombrec((coeffG - 1) * 100)}${sp(1)}\\%$.
   `
         }
         this.reponse = calcul((coeffG - 1) * 100)
