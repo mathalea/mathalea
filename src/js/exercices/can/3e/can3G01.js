@@ -55,7 +55,7 @@ export default function AgrandissementReduction () {
         this.optionsChampTexte = { texteApres: ' cm$^2$' }
         this.reponse = a * c * c
         this.correction = ` Si les longueurs sont multiplées par $k$, les aires sont multipliées par $k^2$, soit ici par $${c}^2=${c ** 2}$.<br>
-            Ainsi, l'aire du nouveau rectangle est : $${a}\\times ${c * c}=${a * c * c}$ cm $^2$.
+            Ainsi, l'aire du nouveau rectangle est : $${a}\\times ${c * c}=${a * c * c}$ cm$^2$.
     `
         break
     }

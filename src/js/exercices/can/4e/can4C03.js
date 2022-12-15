@@ -40,7 +40,7 @@ export default function QuotientEntierQuiVaBienParFraction () {
     ${c}\\times ${a.d}=${c * a.d}$`
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
     Pour multiplier $${b}$ par $${a.inverse().texFraction}$, 
-    on commence par diviser $${b}$ par $${a.n}$,ce qui donne $${b / a.n}$,
+    on commence par diviser $${b}$ par $${a.n}$, ce qui donne $${b / a.n}$,
      puis on multiplie par $${a.d}$, ce qui donne $${b / a.n}\\times ${a.d}=${c * a.d}$.      `)
     }
     this.canEnonce = this.question

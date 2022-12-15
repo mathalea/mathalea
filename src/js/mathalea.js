@@ -1158,6 +1158,7 @@ function miseAJourDuCode () {
             \\thenbEx  \\addtocounter{nbEx}{1}&`).replace('\\end{enumerate}', `&&\\tabularnewline \\hline
           }
           \\addtocounter{nbEx}{-1}`).replace('\\begin{multicols}{2}', '').replace('\\end{multicols}', '').replaceAll('\\\\', '')
+          codeCorrections = monSuperExercice.contenuCorrection.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '')
         } else {
           let msgAlerteCanEnonce = ''
           let msgAlerteCanReponseACompleter = ''
@@ -1214,8 +1215,7 @@ function miseAJourDuCode () {
           }
           \\addtocounter{nbEx}{-1}
           `
-        }
-        // codeCorrections = monSuperExercice.contenuCorrection.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '')
+        }        
       }
       if ($('#supprimer_correction:checked').val()) {
         codeMoodle = codeEnonces
@@ -1250,6 +1250,7 @@ function miseAJourDuCode () {
                 \\thenbEx  \\addtocounter{nbEx}{1}&`).replace('\\end{enumerate}', `&&\\tabularnewline \\hline
               }
               \\addtocounter{nbEx}{-1}`).replace('\\begin{multicols}{2}', '').replace('\\end{multicols}', '').replace('\\\\', '')
+              codeCorrection += monSuperExercice.contenuCorrection.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '')
             } else {
               let msgAlerteCanEnonce = ''
               let msgAlerteCanReponseACompleter = ''
@@ -1310,7 +1311,6 @@ function miseAJourDuCode () {
               `
             }
             codeExercices += '\n\n'
-            // codeCorrection += monSuperExercice.contenuCorrection.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '')
             codeCorrection += '\n\n'
           } else {
             for (let i = 0; i < listeDesExercices.length; i++) {
