@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { randint, calcul, choice, texNombrec, texFractionReduite } from '../../../modules/outils.js'
+import { randint, calcul, choice, texNombrec, texFractionReduite, stringNombre } from '../../../modules/outils.js'
 import {
   point, labelPoint, segment, texteParPosition, milieu, tracePoint, codageAngleDroit
 } from '../../../modules/2d.js'
@@ -84,9 +84,9 @@ export default function QuestionsAiresEtPerimetres () {
 
         objets.push(segment(A, B), segment(B, C), segment(C, D), segment(D, A), tracePoint(A, B, C, D))
         objets.push(texteParPosition(`${texNombrec(b)} m`, milieu(A, D).x - 0.5, milieu(A, D).y),
-          texteParPosition(`${texNombrec(a)} m`, milieu(B, C).x + 0.5, milieu(B, C).y),
-          texteParPosition(`${texNombrec(c)} m`, milieu(A, B).x, milieu(A, B).y - 0.5),
-          texteParPosition(`${texNombrec(d)} m`, milieu(C, D).x, milieu(C, D).y + 0.5))
+          texteParPosition(`${stringNombre(a)} m`, milieu(B, C).x + 0.5, milieu(B, C).y),
+          texteParPosition(`${stringNombre(c)} m`, milieu(A, B).x, milieu(A, B).y - 0.5),
+          texteParPosition(`${stringNombre(d)} m`, milieu(C, D).x, milieu(C, D).y + 0.5))
 
         this.question = `Quel est le périmètre de cette figure (en m) ?<br>
         
@@ -108,7 +108,7 @@ export default function QuestionsAiresEtPerimetres () {
           `
 
           this.correction = ` Si les longueurs sont multiplées par $k$, les aires sont multipliées par $k^2$, soit ici par $${c}^2=${c ** 2}$.<br>
-          Ainsi, l'aire du nouveau rectangle est : $${a}\\times ${c * c}=${a * c * c}$ cm $^2$.
+          Ainsi, l'aire du nouveau rectangle est : $${a}\\times ${c * c}=${a * c * c}$ cm$^2$.
       <br>`
 
           this.reponse = a * c * c
