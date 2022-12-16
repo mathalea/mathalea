@@ -57,7 +57,7 @@ export default function ExerciceLabyrintheMultiples () {
     for (let q = 0, texte, texteCorr, monChemin, laby, listeMultiples; q < this.nbQuestions;) {
       const nbL = this.sup3 === 1 ? randint(2, 8) : Math.max(2, this.sup3)
       const nbC = this.sup4 === 1 ? randint(3, 11 - nbL) : Math.max(3, this.sup4)
-      laby = labyrinthe({ nbLignes: nbL, nbColonnes: nbC })
+      laby = labyrinthe({ nbLignes: nbL, nbColonnes: nbC, scaleFigure: 0.7 })
       laby.niveau = parseInt(this.sup2) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
       monChemin = laby.choisitChemin(laby.niveau) // On choisit un chemin
       laby.murs2d = laby.construitMurs(monChemin) // On construit le labyrinthe
