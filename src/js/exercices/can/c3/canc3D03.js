@@ -28,7 +28,7 @@ export default function AjouterDesDurees () {
     const d = 60 - b - (variante ? choice([10, 20]) : 0)
     this.question = `Calculer $${a}\\text{ h } ${b}$ min + $${c}\\text{ h } ${d}$ min.`
     this.correction = variante
-      ? 'On ajoute les heures avec les heures et les minutes avec les minutes<br>' + `$(${a}\\text{ h }+${c}\\text{h })+(${b}\\text{ min }+${d}\\text{min })=${a + c}\\text{h }${b + d}\\text{min}$.`
+      ? 'On ajoute les heures avec les heures et les minutes avec les minutes<br>' + `$(${a}\\text{ h }+${c}\\text{ h })+(${b}\\text{ min }+${d}\\text{ min })=${a + c}\\text{ h }${b + d}\\text{ min}$.`
       : `On remarque qu'il y a $${b}\\text{ min } + ${d}\\text{ min }=60\\text{ min}$ qui font une heure.<br>
       On ajoute donc : $1\\text{ h }+${a}\\text{ h }+${c}\\text{ h }=${1 + a + c}\\text{ h}$.`
     this.reponse = variante ? `${a + c}h ${b + d}min` : `${1 + a + c}h`
