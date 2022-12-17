@@ -40,7 +40,7 @@ export default function EquationSecondDegreParticuliere () {
    $${reduirePolynomeDegre3(0, a, b, c)}=${c}$.<br>`
 
       if (this.interactif) {
-        texte += 'Ecrire les solutions dans l\'ordre croissant :<br> $\\mathscr{S}=\\bigg\\{$'
+        texte += 'Écrire les solutions dans l\'ordre croissant :<br> $\\mathscr{S}=\\bigg\\{$'
         texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline')
         texte += ' ; '
         texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline') + '$\\bigg\\}$'

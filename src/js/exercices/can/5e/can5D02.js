@@ -30,7 +30,7 @@ export default function HeuresDecimalesHeuresMinutes2 () {
           b = choice([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.25, 0.75])
           d = calcul(b * 60)
           if (!this.interactif) {
-            texte = `Convertir en heures/minutes : <br>$${texNombrec(a + b)}$ h $=$ ..... h..... min`
+            texte = `Convertir en heures/minutes : <br>$${texNombrec(a + b)}$ h $=$ .....  h ..... min`
             texteCorr = `$${texNombrec(a + b)}$h$ = ${a}$ h $ + ${texNombrec(b)} \\times 60$ min $  = ${a}$ h $${d}$ min`
           } else {
             texte = `Convertir en heures/minutes : <br>$${texNombrec(a + b)}$ h $=$`

@@ -57,9 +57,10 @@ export default function ExerciceLabyrintheFractionsEgales () {
       num = randint(2, 2 * table - 1)
     }
     const maximum = parseInt(this.sup)
-    //   this.consigne=`Trouve la sortie en ne passant que par les cases contenant un multiple de $${table}$.`
-    texte = `${texteEnCouleurEtGras('Trouve la sortie en ne passant que par les cases contenant des fractions égales à ', 'black')}$${texFractionReduite(num, table)}$.<br>`
-    texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en couleur et la sortie était le numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`
+    //   this.consigne=`Trouver la sortie en ne passant que par les cases contenant un multiple de $${table}$.`
+    texte = `${texteEnCouleurEtGras('Trouver la sortie en ne passant que par les cases contenant des fractions égales à ', 'black')}$${texFractionReduite(num, table)}$.<br>`
+    // texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en couleur et la sortie était le numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`
+    texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en couleur et la sortie était le numéro $${nbL - monchemin[monchemin.length - 1][1]}$.`, 'black')}<br>`
     // Zone de construction du tableau de nombres : Si ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
     let listeMultiples = []
 

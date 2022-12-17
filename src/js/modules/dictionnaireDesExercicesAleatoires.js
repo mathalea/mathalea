@@ -3454,7 +3454,7 @@ export default {
     "interactifReady": false,
     "name": "3G41-1",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     }
   },
@@ -12109,6 +12109,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "beta2F21-1": {
+    "titre": "Modéliser une situation à l'aide d'une fonction",
+    "url": "/exercices/beta/beta2F21-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2F21-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "beta2F31": {
     "titre": "Croissance de fonction ?",
     "url": "/exercices/beta/beta2F31.js",
@@ -14128,7 +14143,7 @@ export default {
     }
   },
   "can1P01": {
-    "titre": "Ecrire une probabilté avec les notations",
+    "titre": "Écrire une probabilté avec les notations",
     "url": "/exercices/can/1e/can1P01.js",
     "amcReady": true,
     "amcType": {
@@ -14721,7 +14736,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can2C15",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -15277,7 +15292,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can2G19",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -15425,6 +15440,22 @@ export default {
     "name": "can2L08",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can2L09": {
+    "titre": "Écrire avec un seul quotient",
+    "url": "/exercices/can/2e/can2L09.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2L09",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -16141,6 +16172,22 @@ export default {
     "name": "can3L05",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can3L06": {
+    "titre": "Réduire une expression avec une fraction",
+    "url": "/exercices/can/3e/can3L06.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3L06",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -17381,6 +17428,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "can5C23": {
+    "titre": "Multiplier par 1,5 ou 2,5 ou ...",
+    "url": "/exercices/can/5e/can5C23.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5C23",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "can5D01": {
     "titre": "Convertir des heures décimales en heures/minutes et inversement",
     "url": "/exercices/can/5e/can5D01.js",
@@ -17636,7 +17702,7 @@ export default {
     }
   },
   "can5P06": {
-    "titre": "Ecrire sous la forme d’un pourcentage",
+    "titre": "Écrire sous la forme d’un pourcentage",
     "url": "/exercices/can/5e/can5P06.js",
     "amcReady": true,
     "amcType": {
@@ -19215,7 +19281,7 @@ export default {
     }
   },
   "can6N11": {
-    "titre": "Ecrire sous forme d'une fraction décimale",
+    "titre": "Écrire sous forme d'une fraction décimale",
     "url": "/exercices/can/6e/can6N11.js",
     "amcReady": true,
     "amcType": {

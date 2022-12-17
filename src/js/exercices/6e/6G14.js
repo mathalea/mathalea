@@ -1,8 +1,8 @@
 import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, range, rangeMinMax, shuffle, combinaisonListes, contraindreValeur, choice } from '../../modules/outils.js'
-import { point, pointIntersectionDD, droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, droiteParPointEtPente, rotation, codageAngleDroit } from '../../modules/2d.js'
+import { listeQuestionsToContenu, randint, range, egal, rangeMinMax, shuffle, combinaisonListes, contraindreValeur, choice } from '../../modules/outils.js'
+import { point, pointIntersectionDD, droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, droiteParPointEtPente, rotation, codageAngleDroit, latexParCoordonneesBox, pointSurDroite } from '../../modules/2d.js'
 export const amcReady = true
 export const amcType = 'AMCOpen' // type de question AMC
 export const titre = 'Utiliser les propriétés des droites perpendiculaires'
@@ -83,6 +83,7 @@ export default function ProprietesParallelesPerpendiculaires () {
       let code = []; let code2 = []
 
       switch (listeTypeDeQuestions[i]) {
+        // \n1 : Une étape (de 0 à 3)\n2 : Une étape avec distracteur (de 4 à 6)\n3 : Deux étapes (de 9 à 15)\n4 : Trois étapes (de 19 à 31)\n5 : Mélange']
         case 0: // si 1//2 et 2//3 alors 1//3
           code = [[1, 2, 1], [2, 3, 1]]
           break
@@ -209,33 +210,37 @@ export default function ProprietesParallelesPerpendiculaires () {
 
       // construction de la figure
       context.fenetreMathalea2d = [-2, -2, 15, 10] // important avec la création des droites
+      const labels = []
       P.push(point(0, 0))
-      let droiteP = droiteParPointEtPente(P[0], randint(-1, 1, 0) / 10, `$(d_${numDroites[codeAll[0][0] - 1]})$`, droiteColor[couleurd[0]])
+      let droiteP = droiteParPointEtPente(P[0], randint(-1, 1, -2) / 10, '', droiteColor[couleurd[0]])
       droiteP.epaisseur = 2
       droite.pointilles = false
       d.push(droiteP)
-      const droiteE = droite(point(droiteP.x1, droiteP.y1), point(droiteP.x2, droiteP.y2), `$(d_${numDroites[codeAll[0][0] - 1]})$`)
+      const droiteE = droite(point(droiteP.x1, droiteP.y1), point(droiteP.x2, droiteP.y2), '')
       droiteE.epaisseur = 2
       dE.push(droiteE)
+      labels.push(labelOnLine(droiteE, `$(d_${numDroites[codeAll[0][0] - 1]})$`))
       objets.push(d[0])
       objets2.push(dE[0])
       for (let x = 0; x < codeAll.length; x++) {
         if (codeAll[x][2] === 1) {
           P.push(point((x + 1) * 2, (x + 1) * 2))
-          droiteP = droiteParPointEtParallele(P[x + 1], d[codeAll[x][0] - 1], `$(d_${numDroites[codeAll[x][1] - 1]})$`, droiteColor[couleurd[x + 1]])
+          droiteP = droiteParPointEtParallele(P[x + 1], d[codeAll[x][0] - 1], '', droiteColor[couleurd[x + 1]])
           droiteP.epaisseur = 2
           droiteP.pointilles = d[[codeAll[x][0] - 1]].pointilles
           d.push(droiteP)
-          const droiteP2 = droite(point(droiteP.x1, droiteP.y1), point(droiteP.x2, droiteP.y2), `$(d_${numDroites[codeAll[x][1] - 1]})$`)
+          const droiteP2 = droite(point(droiteP.x1, droiteP.y1), point(droiteP.x2, droiteP.y2), '')
           droiteP2.epaisseur = 2
           dE.push(droiteP2)
+          labels.push(labelOnLine(droiteP2, `$(d_${numDroites[codeAll[x][1] - 1]})$`))
         } else {
           P.push(point((x + 1) * 2, (x + 1) * 2))
-          droiteP = droiteParPointEtPerpendiculaire(P[x + 1], d[codeAll[x][0] - 1], `$(d_${numDroites[codeAll[x][1] - 1]})$`, droiteColor[couleurd[x + 1]])
+          droiteP = droiteParPointEtPerpendiculaire(P[x + 1], d[codeAll[x][0] - 1], '', droiteColor[couleurd[x + 1]])
           droiteP.epaisseur = 2
           droiteP.pointilles = x % 3 + 1
           d.push(droiteP)
-          const droiteP2 = droite(point(droiteP.x1, droiteP.y1), point(droiteP.x2, droiteP.y2), `$(d_${numDroites[codeAll[x][1] - 1]})$`)
+          const droiteP2 = droite(point(droiteP.x1, droiteP.y1), point(droiteP.x2, droiteP.y2), '')
+          labels.push(labelOnLine(droiteP2, `$(d_${numDroites[codeAll[x][1] - 1]})$`))
           droiteP2.epaisseur = 2
           dE.push(droiteP2)
           const Inter = pointIntersectionDD(d[codeAll[x][0] - 1], droiteP)
@@ -246,9 +251,11 @@ export default function ProprietesParallelesPerpendiculaires () {
         objets.push(d[x + 1])
         objets2.push(dE[x + 1])
       }
+      objets2.push(...labels)
+      objets.push(...labels)
 
       if (this.sup3) {
-        texte += (context.vue === 'diap' ? '<center>' : '') + mathalea2d({ xmin: -2, xmax: 15, ymin: -2, ymax: 10, pixelsParCm: 20, scale: 0.3, mainlevee: false, amplitude: 0.3 }, objets2) + '<br>' + (context.vue === 'diap' ? '</center>' : '')
+        texte += (context.vue === 'diap' ? '<center>' : '') + mathalea2d({ xmin: -2, xmax: 15, ymin: -2, ymax: 10, pixelsParCm: 20, scale: (context.vue !== 'latex' ? 0.3 : 0.6), mainlevee: false, amplitude: 0.3 }, objets2) + '<br>' + (context.vue === 'diap' ? '</center>' : '')
       }
       texte += `Que peut-on dire de $(d_${numDroites[code[0][0] - 1]})$ et $(d_${numDroites[code[code.length - 1][1] - 1]})$ ?`
       if (context.isAmc && !this.sup3) {
@@ -256,8 +263,12 @@ export default function ProprietesParallelesPerpendiculaires () {
       }
 
       // correction raisonnement ordonné
-      texteCorr = 'À partir de l\'énoncé, on peut réaliser le schéma suivant (il en existe une infinité).<br> Les droites données parallèles dans l\'énoncé sont de même couleur/style.<br>'
-      texteCorr += mathalea2d({ xmin: -2, xmax: 15, ymin: -2, ymax: 10, pixelsParCm: 20, scale: 0.3, mainlevee: false, amplitude: 0.3 }, objets) + '<br>'
+      texteCorr = 'À partir de l\'énoncé, on peut réaliser le schéma suivant (il en existe une infinité).<br>'
+      if ([2, 5, 15, 31].indexOf(listeTypeDeQuestions[i]) === -1 && !this.sup2) {
+        texteCorr += ' Les droites données parallèles dans l\'énoncé sont de même '
+        texteCorr += (context.html) ? ' couleur/style.<br>' : 'style.<br>'
+      }
+      texteCorr += mathalea2d({ xmin: -2, xmax: 15, ymin: -2, ymax: 10, pixelsParCm: 20, scale: (context.vue !== 'latex' ? 0.3 : 0.6), mainlevee: false, amplitude: 0.3 }, objets) + '<br>'
       for (let j = 0; j < code.length - 1; j++) {
         if (this.correctionDetaillee) texteCorr += 'On sait que : '
         else texteCorr += 'Comme '
@@ -314,7 +325,63 @@ export default function ProprietesParallelesPerpendiculaires () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Nombre d\'étapes de raisonnement', 'Nombres séparés par des tirets\n1 : Une étape (de 0 à 3)\n2 : Une étape avec distracteur (de 4 à 6)\n3 Deux étapes (de 9 à 15)\n4 : Trois étapes (de 19 à 31)\n5 : Mélange']
+  this.besoinFormulaireTexte = ['Nombre d\'étapes de raisonnement', 'Nombres séparés par des tirets\n1 : Une étape\n2 : Une étape avec distracteur\n3 : Deux étapes\n4 : Trois étapes\n5 : Mélange']
   this.besoinFormulaire2CaseACocher = ['Que des perpendiculaires', false]
   this.besoinFormulaire3CaseACocher = ['Avec le dessin', true]
+}
+
+function labelOnLine (droite, nom) {
+  const largeur = Math.ceil((nom.replaceAll('$', '').length) * 10 * Math.log10(6))
+  const hauteur = 20
+  let absNom, ordNom, leNom, anchor
+  if (nom !== '') {
+    if (egal(droite.b, 0, 0.05)) { // ax+c=0 x=-c/a est l'équation de la droite
+      // droite quasi verticale
+      absNom = -droite.c / droite.a + largeur * 0.5 / context.pixelsParCm + 2 / context.pixelsParCm
+      ordNom = context.fenetreMathalea2d[1] + 1 // l'ordonnée du label est ymin +1
+      anchor = 'right'
+    } else if (egal(droite.a, 0, 0.05)) { // by+c=0 y=-c/b est l'équation de la droite
+      // droite quasi horizontale
+      absNom = context.fenetreMathalea2d[0] + 1 // l'abscisse du label est xmin +1
+      ordNom = -droite.c / droite.b + hauteur * 0.5 / context.pixelsParCm
+      anchor = 'above'
+    } else { // a et b sont différents de 0 ax+by+c=0 est l'équation
+      // y=(-a.x-c)/b est l'equation cartésienne et x=(-by-c)/a
+      const y0 = (-droite.a * (context.fenetreMathalea2d[0] + 1) - droite.c) / droite.b
+      const y1 = (-droite.a * (context.fenetreMathalea2d[2] - 1) - droite.c) / droite.b
+      const x0 = (-droite.b * (context.fenetreMathalea2d[1] + 1) - droite.c) / droite.a
+      const x1 = (-droite.b * (context.fenetreMathalea2d[3] - 1) - droite.c) / droite.a
+      if (y0 > context.fenetreMathalea2d[1] && y0 < context.fenetreMathalea2d[3]) {
+        // à gauche
+        absNom = context.fenetreMathalea2d[0] + 1
+        ordNom = y0 - droite.pente * (largeur * 0.5 / context.pixelsParCm) + (droite.pente > 0 ? -1 : 1) * hauteur * 0.5 / context.pixelsParCm
+        anchor = (droite.pente > 0 ? 'below' : 'above')
+      } else if (y1 > context.fenetreMathalea2d[1] && y1 < context.fenetreMathalea2d[3]) {
+        // à droite
+        absNom = context.fenetreMathalea2d[2] - 1
+        ordNom = y1 - droite.pente * (largeur * 0.5 / context.pixelsParCm) + (droite.pente > 0 ? -1 : 1) * hauteur * 0.5 / context.pixelsParCm
+        anchor = (droite.pente > 0 ? 'below' : 'above')
+      } else if (x0 > context.fenetreMathalea2d[0] && x0 < context.fenetreMathalea2d[2]) {
+        // en bas
+        absNom = x0 + (droite.pente > 0 ? -1 : 1) * largeur * 0.5 / context.pixelsParCm - (droite.pente > 0 ? 1 : -1) * (hauteur * 0.5 / context.pixelsParCm) / droite.pente - (droite.pente > 0 ? 1 : -1) * 2 / context.pixelsParCm
+        ordNom = context.fenetreMathalea2d[1] + 1
+        anchor = (droite.pente > 0 ? 'left' : 'right')
+      } else if (x1 > context.fenetreMathalea2d[0] && x1 < context.fenetreMathalea2d[2]) {
+        // au haut
+        absNom = x1 + (droite.pente > 0 ? -1 : 1) * largeur * 0.5 / context.pixelsParCm - (droite.pente > 0 ? 1 : -1) * (hauteur * 0.5 / context.pixelsParCm) / droite.pente - (droite.pente > 0 ? 1 : -1) * 2 / context.pixelsParCm
+        ordNom = context.fenetreMathalea2d[3] - 1
+        anchor = (droite.pente > 0 ? 'left' : 'right')
+      } else {
+        // au milieu
+        absNom = (context.fenetreMathalea2d[0] + context.fenetreMathalea2d[2]) / 2
+        ordNom = pointSurDroite(this, absNom).y
+        anchor = (droite.pente > 0 ? 'left' : 'right')
+      }
+    }
+    const options = { anchor }
+    leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, 'red', largeur, hauteur, '', 6, options)
+  } else {
+    leNom = vide2d()
+  }
+  return leNom
 }

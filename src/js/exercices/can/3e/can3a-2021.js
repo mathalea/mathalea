@@ -277,7 +277,7 @@ export default function SujetCAN20213ieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'texte' })
           if (this.interactif) {
-            texte += 'Ecrire les diviseurs dans l’ordre croissant, séparés par un point virgule'
+            texte += 'Écrire les diviseurs dans l’ordre croissant, séparés par un point virgule'
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur17')
           }
           nbChamps = 1
@@ -342,7 +342,7 @@ export default function SujetCAN20213ieme () {
           b = choice([0.25, 0.5, 0.75])
           d = Math.round(b * 60)
           if (!this.interactif) {
-            texte = `$${texNombre(a + b)}$ h $=$ ..... h..... min`
+            texte = `$${texNombre(a + b)}$ h $=$ .....  h ..... min`
             texteCorr = `$${texNombre(a + b)}$h$ = ${a}$ h $ + ${texNombre(b)} \\times 60  = ${a}$ h $${d}$ min`
           } else {
             texte = `$${texNombre(a + b, 2)}$ h $=$`

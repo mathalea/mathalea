@@ -24,7 +24,7 @@ export const dateDeModifImportante = '11/05/2022'
 */
 export const uuid = '3c1f7'
 export const ref = '5L10'
-export default function EcrireUneExpressionLitterale () {
+export default function ÉcrireUneExpressionLitterale () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''

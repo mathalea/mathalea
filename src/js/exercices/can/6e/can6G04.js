@@ -62,7 +62,7 @@ export default function ProblemesDeLongueurs () {
 
     ` + mathalea2d({ xmin: -0.5, ymin: -2, xmax: 16.5, ymax: 3.5, scale: 0.45, style: 'margin: auto' }, objets)
     this.reponse = abc
-    this.correction = `Comme $AB=${b}\\times DE$ et $DE=${a}\\times FE$, alors $AB=${b}\\times${a}\\times ${c} \\text{ cm} =${this.reponse}$ cm`
+    this.correction = `Comme $AB=${b}\\times DE$ et $DE=${a}\\times FE$, alors $AB=${b}\\times${a}\\times ${c} \\text{ cm} =${this.reponse}$ cm.`
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

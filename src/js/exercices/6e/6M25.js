@@ -12,7 +12,6 @@ export const ref = '6M25'
 export default function ConnaitreFormulesDePerimetreEtAires () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Calculer :'
   this.nbQuestions = 4
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -48,7 +47,7 @@ export default function ConnaitreFormulesDePerimetreEtAires () {
         case 'prectangle':
           texte = 'Donner une formule du périmètre du rectangle.'
           texteCorr =
-            '$\\mathcal{P}_{\\text{rectangle}}=(L+l)\\times2=L\\times2+l\\times2=L+l+L=l$<br><br>'
+            '$\\mathcal{P}_{\\text{rectangle}}=(L+l)\\times2=L\\times2+l\\times2=L+l+L+l$<br><br>'
           texteCorr += 'Avec $L$ la longueur et $l$ la largeur du rectangle.'
           break
         case 'pcarre':

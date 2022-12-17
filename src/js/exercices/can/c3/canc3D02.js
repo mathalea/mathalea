@@ -84,12 +84,12 @@ export default function LireUneDuree () {
     (context.isHtml ? '</td></tr></table>' : '\\end{multicols}\n') +
           'Combien de temps cela a-t-il duré ?'
     this.reponse = `${h2 - h1}h ${m2 - m1}`
-    this.correction = `On regarde de combien de graduations la grande aiguille a avancé : elle a avancé de ${calcul((m2 - m1) / 5)} graduations soit ${m2 - m1} minutes.<br>`
+    this.correction = `On regarde de combien de graduations la grande aiguille a avancé : elle a avancé de $${calcul((m2 - m1) / 5)}$ graduations soit $${m2 - m1}$ minutes.<br>`
     this.correction += 'Ensuite on regarde si la petite aiguille a avancé d\'au moins une graduation.<br>'
     if (h2 === h1) {
-      this.correction += `Ce n'est pas le cas, donc il s'est écoulé seulement 0h${m2 - m1} minutes.`
+      this.correction += `Ce n'est pas le cas, donc il s'est écoulé seulement $0$ h $${m2 - m1}$ minutes.`
     } else {
-      this.correction += `La petite aiguille a avancé d'une heure, donc il s'est écoulé 1h${m2 - m1}.`
+      this.correction += `La petite aiguille a avancé d'une heure, donc il s'est écoulé $1$ h $${m2 - m1}$ min.`
     }
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots$ h $\\ldots$ min'

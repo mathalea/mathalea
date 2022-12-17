@@ -1,4 +1,4 @@
-import { choice, randint } from '../../../modules/outils.js'
+import { choice, randint, texNombre } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer le prochain multiple de 3 ou de 9'
 export const interactifReady = true
@@ -35,16 +35,16 @@ export default function ProchainMultipleDeTroisOuDeNeuf () {
 
     if (choice([0, 1])) {
       this.reponse = a + 3 - a % 3
-      this.question = `Quel est le plus petit entier supérieur strictement à $${a}$ qui soit divisible par $3$ ?`
-      this.correction = `On calcule mentalement la somme des chiffres de $${a}$, on trouve $${sommeA}$.<br>`
-      this.correction += sommeA % 3 === 0 ? `C'est un multiple de $3$ donc $${a}$ en est un et le prochain multiple de $3$ est $${a + 3}$<br>` : `C'est $${a % 3}$ de trop pour qu'il soit divisible par $3$, donc $${a}$ n'est pas un multiple de $3$ mais $${a - a % 3}$ en est un et $${this.reponse}$ aussi.<br>`
-      this.correction += `Le prochain multiple de 3 est donc : $${this.reponse}$.`
+      this.question = `Quel est le plus petit entier supérieur strictement à $${texNombre(a)}$ qui soit divisible par $3$ ?`
+      this.correction = `On calcule mentalement la somme des chiffres de $${texNombre(a)}$, on trouve $${texNombre(sommeA)}$.<br>`
+      this.correction += sommeA % 3 === 0 ? `C'est un multiple de $3$ donc $${texNombre(a)}$ en est un et le prochain multiple de $3$ est $${texNombre(a + 3)}$<br>` : `C'est $${texNombre(a % 3)}$ de trop pour qu'il soit divisible par $3$, donc $${texNombre(a)}$ n'est pas un multiple de $3$ mais $${texNombre(a - a % 3)}$ en est un et $${texNombre(this.reponse)}$ aussi.<br>`
+      this.correction += `Le prochain multiple de $3$ est donc : $${texNombre(this.reponse)}$.`
     } else {
       this.reponse = b + 9 - b % 9
-      this.question = `Quel est le plus petit entier supérieur strictement à $${b}$ qui soit divisible par $9$ ?`
-      this.correction = `On calcule mentalement la somme des chiffres de $${b}$, on trouve $${sommeB}$.<br>`
-      this.correction += sommeB % 9 === 0 ? `C'est un multiple de $9$ donc $${b}$ en est un et le prochain multiple de $9$ est $${b + 9}$<br>` : `C'est $${b % 9}$ de trop pour qu'il soit divisible par $9$, donc $${b}$ n'est pas un multiple de $9$ mais $${b - b % 9}$ en est un et $${this.reponse}$ aussi.<br>`
-      this.correction += `Le prochain multiple de 9 est donc : $${this.reponse}$.`
+      this.question = `Quel est le plus petit entier supérieur strictement à $${texNombre(b)}$ qui soit divisible par $9$ ?`
+      this.correction = `On calcule mentalement la somme des chiffres de $${texNombre(b)}$, on trouve $${texNombre(sommeB)}$.<br>`
+      this.correction += sommeB % 9 === 0 ? `C'est un multiple de $9$ donc $${texNombre(b)}$ en est un et le prochain multiple de $9$ est $${texNombre(b + 9)}$<br>` : `C'est $${texNombre(b % 9)}$ de trop pour qu'il soit divisible par $9$, donc $${texNombre(b)}$ n'est pas un multiple de $9$ mais $${texNombre(b - b % 9)}$ en est un et $${texNombre(this.reponse)}$ aussi.<br>`
+      this.correction += `Le prochain multiple de $9$ est donc : $${texNombre(this.reponse)}$.`
     }
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''

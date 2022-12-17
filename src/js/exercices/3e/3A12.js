@@ -14,7 +14,6 @@ export const titre = 'Résoudre un exercice d\'engrenages'
 export const uuid = 'ce352'
 export const ref = '3A12'
 export default function PpcmEngrenages () {
-  'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   // pas de différence entre la version html et la version latex pour la consigne
@@ -73,19 +72,19 @@ export default function PpcmEngrenages () {
       let nbDentsr2
       let txtPopup = '- Définition 1 : Étant donnés deux nombres entiers a et b, lorsque le plus petit multiple commun à $a$ et $b$ vaut $a \\times b$ ( $ppcm(a,b)=a\\times b$ ), on dit que '
       if (context.isHtml) {
-        txtPopup += '<b>les nombres a et b sont premiers entre eux</b>.'
+        txtPopup += 'les nombres a et b sont premiers entre eux.'
       } else {
         txtPopup += '$\\textbf{les nombres a et b sont premiers entre eux}$.'
       };
       let txtPopupBis = '- Définition 2 : Étant donnés deux nombres entiers a et b, lorsque le plus grang diviseur commun à $a$ et $b$ vaut $1$ ( $pgcd(a,b)=1$ ), on dit que '
       if (context.isHtml) {
-        txtPopupBis += '<b>les nombres a et b sont premiers entre eux</b>.'
+        txtPopupBis += 'les nombres a et b sont premiers entre eux.'
       } else {
         txtPopupBis += '$\\textbf{les nombres a et b sont premiers entre eux}$.'
       };
       let txtPopupTer = '- Définition 3 : Étant donnés deux nombres entiers a et b, lorsque $a$ et $b$ n\'ont pas d\'autre diviseur commun que $1$, on dit que '
       if (context.isHtml) {
-        txtPopupTer += '<b>les nombres a et b sont premiers entre eux</b>.'
+        txtPopupTer += 'les nombres a et b sont premiers entre eux.'
       } else {
         txtPopupTer += '$\\textbf{les nombres a et b sont premiers entre eux}$.'
       };
@@ -208,8 +207,8 @@ export default function PpcmEngrenages () {
           texteCorr += `<br> Décomposition de $${nbDentsr2}$ en produit de facteurs premiers :  $${nbDentsr2} = ${decompositionFacteursPremiers(nbDentsr2)}$.`
           texteCorr += '<br>'
           if (ppcm(nbDentsr1, nbDentsr2) === (nbDentsr1 * nbDentsr2)) {
-            texteCorr += '<b>Proposition de trois corrections valables pour la déduction :</b> <br>'
-            texteCorr += '<b>Proposition de correction 1 :</b> <br>'
+            texteCorr += 'Proposition de trois corrections valables pour la déduction : <br>'
+            texteCorr += 'Proposition de correction 1 : <br>'
 
             texteCorr += `D'après les calculs précédents, $ppcm(${nbDentsr1},${nbDentsr2})= ${decompositionFacteursPremiers(ppcm(nbDentsr1, nbDentsr2))}$.<br>`
 
@@ -223,7 +222,7 @@ export default function PpcmEngrenages () {
             )
           };
           if (pgcd(nbDentsr1, nbDentsr2) === 1) {
-            texteCorr += '<br><b>Proposition de correction 2 :</b> <br>'
+            texteCorr += '<br>Proposition de correction 2 : <br>'
 
             texteCorr += `D'après les calculs précédents, $pgcd(${nbDentsr1},${nbDentsr2})= ${pgcd(nbDentsr1, nbDentsr2) === 1 ? 1 : ''} ${decompositionFacteursPremiers(pgcd(nbDentsr1, nbDentsr2))}$.<br>`
             texteCorr += `Donc $${nbDentsr1}$ et $${nbDentsr2}$ sont des `
@@ -236,7 +235,7 @@ export default function PpcmEngrenages () {
             )
           };
           if (pgcd(nbDentsr1, nbDentsr2) === 1) {
-            texteCorr += '<br><b>Proposition de correction 3 :</b> <br>'
+            texteCorr += '<br>Proposition de correction 3 : <br>'
 
             texteCorr += `D'après les calculs précédents, le seul diviseur commun à $${nbDentsr1}$ et $${nbDentsr2}$ vaut $1$.<br> `
             texteCorr += `Donc $${nbDentsr1}$ et $${nbDentsr2}$ sont des `

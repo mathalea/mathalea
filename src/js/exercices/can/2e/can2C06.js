@@ -23,7 +23,7 @@ export default function SimplificationsRacinesCarrees () {
   this.nouvelleVersion = function () {
     const a = choice([8, 18, 32, 50, 72, 98, 40, 200, 12, 27, 48, 75, 20, 45, 24, 28, 300, 500, 600, 700, 40, 44, 52, 60, 63, 90, 54])
     const reduction = extraireRacineCarree(a)
-    this.question = ` Ecrire $\\sqrt{${a}}$ sous la forme $a\\sqrt{b}$ où $a$ et $b$ sont des entiers avec $b$ le plus petit posible.`
+    this.question = ` Écrire $\\sqrt{${a}}$ sous la forme $a\\sqrt{b}$ où $a$ et $b$ sont des entiers avec $b$ le plus petit possible.`
     this.correction = `On simpifie $\\sqrt{${a}}$ en $${reduction[0]}\\sqrt{${reduction[1]}}$ , car
     $\\sqrt{${a}}=\\sqrt{${reduction[0]}^2\\times ${reduction[1]}} =
     \\sqrt{${reduction[0]}^2}\\times \\sqrt{${reduction[1]}} 

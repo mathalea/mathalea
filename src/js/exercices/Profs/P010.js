@@ -536,7 +536,7 @@ export default function VariationPolynomeDegre3 () {
       texte += '<br>' + mathalea2d({ xmin: (XMINI - 1) * scalex, ymin: (YMINI - 1) * scaley, xmax: (XMAXI + 2) * scalex, ymax: (YMAXI + 1) * scaley, pixelsParCm: 30 }, macourbe, monrepere, vecteurs) + '<br>'
       solutions = xcas('fsolve(' + fxstring + '=0,x)').replace('[', '').replace(']', '').split(',')
       if (solutions[0] === '') {
-        texte += 'A la vue du tableau de variation de la fonction $f$, il n\'y a pas de solution à l\'équation $f(x)=0$.'
+        texte += 'À la vue du tableau de variation de la fonction $f$, il n\'y a pas de solution à l\'équation $f(x)=0$.'
       } else {
         texte += 'Par lecture graphique on peut lire les solutions de $f(x)=0$ : '
         if (solutions.length === 1) {

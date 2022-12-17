@@ -23,7 +23,6 @@ export default function DistributiviteSimpleDoubleReduction () {
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType
-  this.consigne = 'Développer et réduire les expressions suivantes.'
   this.nbQuestions = 5
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -32,6 +31,7 @@ export default function DistributiviteSimpleDoubleReduction () {
   this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
+    this.consigne = this.nbQuestions > 1 ? 'Développer et réduire les expressions suivantes.' : 'Développer et réduire l\'expression suivante.'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 

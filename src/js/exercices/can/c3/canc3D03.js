@@ -18,7 +18,7 @@ export default function AjouterDesDurees () {
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   if (!this.interactif) {
-    this.question += ' .... minutes'
+    this.question += ' $\\ldots$ minutes'
   }
   this.nouvelleVersion = function () {
     const a = randint(1, 2)
@@ -26,12 +26,12 @@ export default function AjouterDesDurees () {
     const c = randint(1, 3)
     const variante = choice([true, false])
     const d = 60 - b - (variante ? choice([10, 20]) : 0)
-    this.question = `Calculer $${a}\\text{h } ${b}$min + $${c}\\text{h } ${d}$min.`
+    this.question = `Calculer $${a}\\text{ h } ${b}$ min + $${c}\\text{ h } ${d}$ min.`
     this.correction = variante
-      ? 'On ajoute les heures avec les heures et les minutes avec les minutes<br>' + `$(${a}\\text{h }+${c}\\text{h })+(${b}\\text{min }+${d}\\text{min })=${a + c}\\text{h }${b + d}\\text{min}$.`
-      : `On remarque qu'il y a $${b}\\text{min } + ${d}\\text{min }=60\\text{min}$ qui font une heure.<br>
-      On ajoute donc : $1\\text{h }+${a}\\text{h }+${c}\\text{h }=${1 + a + c}\\text{h}$.`
-    this.reponse = variante ? `${a + c}h${b + d}min` : `${1 + a + c}h`
+      ? 'On ajoute les heures avec les heures et les minutes avec les minutes<br>' + `$(${a}\\text{ h }+${c}\\text{ h })+(${b}\\text{ min }+${d}\\text{ min })=${a + c}\\text{ h }${b + d}\\text{ min}$.`
+      : `On remarque qu'il y a $${b}\\text{ min } + ${d}\\text{ min }=60\\text{ min}$ qui font une heure.<br>
+      On ajoute donc : $1\\text{ h }+${a}\\text{ h }+${c}\\text{ h }=${1 + a + c}\\text{ h}$.`
+    this.reponse = variante ? `${a + c}h ${b + d}min` : `${1 + a + c}h`
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots$ h $\\ldots$ min'
   }
