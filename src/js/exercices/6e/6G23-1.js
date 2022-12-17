@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, lettreDepuisChiffre, contraindreValeur, combinaisonListes } from '../../modules/outils.js'
-import { point, labelPoint, rotation, afficheMesureAngle, homothetie, demiDroite, texteParPoint, similitude, pointSurSegment } from '../../modules/2d.js'
+import { point, rotation, afficheMesureAngle, homothetie, demiDroite, texteParPoint, similitude, pointSurSegment } from '../../modules/2d.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
 export const amcReady = true
@@ -36,7 +36,7 @@ export default function MesurerUnAngle () {
     this.autoCorrection = []
     let delta, arrondiA10Pres
     let angle; let anglerot; let Apos; let Bpos; let Cpos; let p; let texte; let texteCorr; let A; let B; let C; let s2; let s1; let bis; const signes = []
-    let labels, xMin, xMax, yMin, yMax, objetsEnonce, secteur0
+    let xMin, xMax, yMin, yMax, objetsEnonce, secteur0
     let typeDeQuestions
     this.sup = contraindreValeur(1, 4, this.sup, 1)
     if (this.sup < 4) typeDeQuestions = [this.sup]
@@ -71,7 +71,6 @@ export default function MesurerUnAngle () {
       B = point(6, 0)
       B = rotation(B, A, anglerot)
 
-      // texte, A, orientation = "milieu", color = 'black', scale = 1, ancrageDeRotation = "middle", mathOn = false
       Bpos = texteParPoint(p[0], similitude(A, homothetie(B, A, 0.95), signes[i] * 90, 0.1), 'milieu', 'black', 1.5, 'middle', true)
       s1 = demiDroite(A, B)
       C = rotation(B, A, angle)
@@ -79,7 +78,7 @@ export default function MesurerUnAngle () {
       Apos = texteParPoint(p[1], pointSurSegment(A, bis, -0.5), 'milieu', 'black', 1.5, 'middle', true)
       Cpos = texteParPoint(p[2], similitude(A, homothetie(C, A, 0.95), -signes[i] * 90, 0.1), 'milieu', 'black', 1.5, 'middle', true)
       s2 = demiDroite(A, C)
-      labels = labelPoint(A, B, C)
+      // labels = labelPoint(A, B, C)
       secteur0 = afficheMesureAngle(B, A, C, 'black', 1.5, ' ')
       texteCorr = ''
       xMin = Math.min(A.x, C.x, B.x) - 1
@@ -87,7 +86,7 @@ export default function MesurerUnAngle () {
       yMin = Math.min(A.y, C.y, B.y) - 1
       yMax = Math.max(A.y, C.y, B.y) + 1
       context.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
-      objetsEnonce = [s1, s2, labels, Apos, Bpos, Cpos, secteur0]
+      objetsEnonce = [s1, s2, Apos, Bpos, Cpos, secteur0]
       texte += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objetsEnonce)
       texteCorr += `$${Math.abs(angle)}\\degree$`
       this.autoCorrection[i] = {}

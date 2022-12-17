@@ -83,7 +83,7 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
       const ymin = Math.min(P03.y, P13.y, P23.y, P43.y, P53.y, P63.y) - 4
       const ymax = Math.max(P03.y, P13.y, P23.y, P43.y, P53.y, P63.y) + 4
       // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
-      const params = { xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 20, scale: 1 }
+      const params = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 1 }
       // On ajoute au texte de la correction, la figure de la correction
       function couleur (indice) { // La fonction permet d'ajouter facilement une condition en fonction du contexte si besoin
         return couleurs[indice]
@@ -97,7 +97,7 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
       texte = `Les droites ${texDroiteEnonce(0)} et ${texDroiteEnonce(1)} sont parallèles.<br>`
       switch (listeTypeDeQuestions[i]) {
         case 'Parallèles':
-          texte += 'Donner tous les couples de droites parallèles en justifiant'
+          texte += 'Donner tous les couples de droites parallèles en justifiant.'
           texteCorr = `D'après l'énoncé, les droites ${texDroiteEnonce(0)} et ${texDroiteEnonce(1)} sont parallèles.<br><br>`
           texteCorr += `Les droites ${texDroiteEnonce(2)} et ${texDroiteEnonce(1)} sont perpendiculaires à la même droite ${texDroiteEnonce(3)}`
           this.correctionDetaillee ? texteCorr += '.<br>Or, si deux droites sont perpendiculaires à une même droite alors elles sont parallèles entre elles.<br>E' : texteCorr += ', e'

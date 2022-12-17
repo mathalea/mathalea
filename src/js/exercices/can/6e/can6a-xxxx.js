@@ -245,7 +245,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
           a = randint(2, 4)
           b = randint(10, 59)
           d = calcul(a * 60 + b)
-          texte = `Convertir $${d}$ minutes en heures et minutes (format : ...h...min)`
+          texte = `Convertir $${d}$ minutes en heures et minutes (format : ... h ...min)`
           texteCorr = `$${d} = ${a} \\times 60 + ${b}$ donc $${d}$ minutes = ${a}h ${b}min`
           setReponse(this, q, `${a}h${b}min`, { formatInteractif: 'texte' })
           break

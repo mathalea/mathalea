@@ -615,7 +615,7 @@ export default function RecomposerEntierC3 () {
           ]
         }
       }
-      texte += `<div id=divDuSmiley${this.numeroExercice}Q${i} style= "display: inline-block"></div>`
+      texte += (context.isHtml) ? `<div id=divDuSmiley${this.numeroExercice}Q${i} style= "display: inline-block"></div>` : ''
 
       if (this.questionJamaisPosee(i, nombre)) {
         this.listeQuestions.push(texte)

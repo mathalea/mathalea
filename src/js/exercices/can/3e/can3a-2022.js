@@ -453,7 +453,7 @@ export default function SujetCAN2022troisieme () {
           b = choice([0.25, 0.5, 0.75])
           d = calcul(b * 60)
           if (!this.interactif) {
-            texte = `Convertir en heures/minutes : <br>$${texNombre(a + b, 2)}$ h $=$ ..... h..... min`
+            texte = `Convertir en heures/minutes : <br>$${texNombre(a + b, 2)}$ h $=$ .....  h ..... min`
             texteCorr = `$${texNombre(a + b, 2)}$h$ = ${a}$ h $ + ${texNombre(b, 2)} \\times 60  = ${a}$ h $${d}$ min`
           } else {
             texte = `Convertir en heures/minutes : <br>$${texNombre(a + b, 2)}$ h $=$`
@@ -722,7 +722,7 @@ export default function SujetCAN2022troisieme () {
             texte = `Benoît prend le départ d'un marathon à $${a}$h $${b}$. <br>
             Il parcourt la distance en $3$ h  $${c}$ min. <br>
             À quelle heure arrive-t-il ?<br>
-             ..... h..... min`
+             .....  h ..... min`
             texteCorr = `On ajoute $3$ h à $${a}$h $${b}$. Cela fait $${a + 3}$h $${b}$.<br>
             On complète l'heure avec $60-${b}$ soit $${60 - b}$ min. Il reste $${c}-${60 - b}$ soit $${c - 60 + b}$ min qu'il faut encore ajouter.<br>
             Benoît arrive  à $${a + 4}$h $${c - 60 + b}$.`
