@@ -189,7 +189,7 @@ export default function PavageEtReflexion2d () {
     texte += '<br>'
     for (let i = 0; i < this.nbQuestions; i++) {
       texte += `Quelle est l'image de la figure $${couples[i][0]}$ dans la symétrie d'axe $(d)$ ?<br>`
-      texteCorr += `L'image de la figure $${couples[i][0]}$ dans la symétrie d'axe $(d)$ est la figure ${couples[i][1]}<br>`
+      texteCorr += `L'image de la figure $${couples[i][0]}$ dans la symétrie d'axe $(d)$ est la figure ${couples[i][1]}.<br>`
       //      symetriques=associesommets(monpavage.polygones[couples[i][0]-1],monpavage.polygones[couples[i][1]-1],d)
       if (this.correctionDetaillee) {
         t = this.nbQuestions * 3

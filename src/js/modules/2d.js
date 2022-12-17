@@ -632,6 +632,7 @@ export function LabelPoint (...points) {
           break
       }
     }
+
     code = `<g id="${this.id}">${code}</g>`
     return code
   }
@@ -647,7 +648,9 @@ export function LabelPoint (...points) {
       } else {
         A = unPoint
       }
-      if (this.positionLabel) A.positionLabel = this.positionLabel
+      // console.log(A.nom, A.positionLabel)
+      // if (this.positionLabel) A.positionLabel = this.positionLabel
+      // console.log(A.nom, A.positionLabel)
       code += `\t\\draw (${A.x},${A.y}) node[${A.positionLabel}${style}] {$${A.nom}$};\n`
     }
     return code

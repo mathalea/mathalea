@@ -83,6 +83,7 @@ export default function ProprietesParallelesPerpendiculaires () {
       let code = []; let code2 = []
 
       switch (listeTypeDeQuestions[i]) {
+        // \n1 : Une étape (de 0 à 3)\n2 : Une étape avec distracteur (de 4 à 6)\n3 : Deux étapes (de 9 à 15)\n4 : Trois étapes (de 19 à 31)\n5 : Mélange']
         case 0: // si 1//2 et 2//3 alors 1//3
           code = [[1, 2, 1], [2, 3, 1]]
           break
@@ -262,7 +263,11 @@ export default function ProprietesParallelesPerpendiculaires () {
       }
 
       // correction raisonnement ordonné
-      texteCorr = 'À partir de l\'énoncé, on peut réaliser le schéma suivant (il en existe une infinité).<br> Les droites données parallèles dans l\'énoncé sont de même couleur/style.<br>'
+      texteCorr = 'À partir de l\'énoncé, on peut réaliser le schéma suivant (il en existe une infinité).<br>'
+      if ([2, 5, 15, 31].indexOf(listeTypeDeQuestions[i]) === -1 && !this.sup2) {
+        texteCorr += ' Les droites données parallèles dans l\'énoncé sont de même '
+        texteCorr += (context.html) ? ' couleur/style.<br>' : 'style.<br>'
+      }
       texteCorr += mathalea2d({ xmin: -2, xmax: 15, ymin: -2, ymax: 10, pixelsParCm: 20, scale: (context.vue !== 'latex' ? 0.3 : 0.6), mainlevee: false, amplitude: 0.3 }, objets) + '<br>'
       for (let j = 0; j < code.length - 1; j++) {
         if (this.correctionDetaillee) texteCorr += 'On sait que : '
@@ -320,7 +325,7 @@ export default function ProprietesParallelesPerpendiculaires () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Nombre d\'étapes de raisonnement', 'Nombres séparés par des tirets\n1 : Une étape (de 0 à 3)\n2 : Une étape avec distracteur (de 4 à 6)\n3 Deux étapes (de 9 à 15)\n4 : Trois étapes (de 19 à 31)\n5 : Mélange']
+  this.besoinFormulaireTexte = ['Nombre d\'étapes de raisonnement', 'Nombres séparés par des tirets\n1 : Une étape\n2 : Une étape avec distracteur\n3 : Deux étapes\n4 : Trois étapes\n5 : Mélange']
   this.besoinFormulaire2CaseACocher = ['Que des perpendiculaires', false]
   this.besoinFormulaire3CaseACocher = ['Avec le dessin', true]
 }
@@ -341,7 +346,7 @@ function labelOnLine (droite, nom) {
       ordNom = -droite.c / droite.b + hauteur * 0.5 / context.pixelsParCm
       anchor = 'above'
     } else { // a et b sont différents de 0 ax+by+c=0 est l'équation
-      // y=(-a.x-c)/b est l'aquation cartésienne et x=(-by-c)/a
+      // y=(-a.x-c)/b est l'equation cartésienne et x=(-by-c)/a
       const y0 = (-droite.a * (context.fenetreMathalea2d[0] + 1) - droite.c) / droite.b
       const y1 = (-droite.a * (context.fenetreMathalea2d[2] - 1) - droite.c) / droite.b
       const x0 = (-droite.b * (context.fenetreMathalea2d[1] + 1) - droite.c) / droite.a
@@ -373,7 +378,7 @@ function labelOnLine (droite, nom) {
         anchor = (droite.pente > 0 ? 'left' : 'right')
       }
     }
-    const options = { anchor: anchor }
+    const options = { anchor }
     leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, 'red', largeur, hauteur, '', 6, options)
   } else {
     leNom = vide2d()

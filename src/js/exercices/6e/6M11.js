@@ -74,7 +74,7 @@ export default function AireCarresRectanglesTriangles () {
       texteCorr = ''
       switch (i) {
         case 0 :
-          texte = `Calculer l'aire du carré en cm${texteExposant(2)}`
+          texte = `Calculer l'aire du carré en cm${texteExposant(2)}.`
 
           texteCorr += `<br>$\\mathcal{A}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}~\\text{cm}\\times${c}~\\text{cm}=${c * c}~\\text{cm}^2$`
           setReponse(this, i, new Grandeur(c * c, 'cm^2'), { formatInteractif: 'unites' })
@@ -91,7 +91,7 @@ export default function AireCarresRectanglesTriangles () {
           }
           break
         case 1 :
-          texte = `Calculer l'aire du rectangle en cm${texteExposant(2)}`
+          texte = `Calculer l'aire du rectangle en cm${texteExposant(2)}.`
           texteCorr += `<br>$\\mathcal{A}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}~\\text{cm}\\times${l}~\\text{cm}=${L * l
           }~\\text{cm}^2$`
           setReponse(this, i, new Grandeur(L * l, 'cm^2'), { formatInteractif: 'unites' })
@@ -108,7 +108,7 @@ export default function AireCarresRectanglesTriangles () {
           }
           break
         case 2 :
-          texte = `Calculer l'aire du triangle rectangle en cm${texteExposant(2)}`
+          texte = `Calculer l'aire du triangle rectangle en cm${texteExposant(2)}.`
           texteCorr += `<br>$\\mathcal{A}_{${nom[8] + nom[9] + nom[10]}}=${a}~\\text{cm}\\times${b}~\\text{cm}\\div2=${texNombre(calcul((a * b) / 2))}~\\text{cm}^2$`
           setReponse(this, i, new Grandeur(calcul((a * b) / 2), 'cm^2'), { formatInteractif: 'unites' })
           if (context.isAmc) {
@@ -130,7 +130,4 @@ export default function AireCarresRectanglesTriangles () {
     }
     listeQuestionsToContenu(this)
   }
-
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté',3,"1 : Périmètres\n\
-  // 2 : Aires\n3 : Périmètres et aires"];
 }
