@@ -243,7 +243,7 @@ export default function SujetCAN20213ieme () {
           break
 
         case 11:
-          a = choice([15, 35, 42, 10, 14, 21, 22])
+          a = choice([15, 35, 42, 10, 14, 21, 22, 26, 29, 33])
 
           texte = `Donne la liste des diviseurs de $${a}$.<br>`
 
@@ -269,11 +269,23 @@ export default function SujetCAN20213ieme () {
           }
           if (a === 21) {
             texteCorr = `Les diviseurs de $${a}$ sont : $1$, $2$, $3$, $7$ et $21$. `
-            reponse = '1;2;3;7;21'
+            reponse = '1;3;7;21'
           }
           if (a === 22) {
             texteCorr = `Les diviseurs de $${a}$ sont : $1$, $2$, $11$ et $22$. `
             reponse = '1;2;11;22'
+          }
+          if (a === 26) {
+            texteCorr = `Les diviseurs de $${a}$ sont : $1$, $2$, $13$ et $26$. `
+            reponse = '1;2;13;26'
+          }
+          if (a === 29) {
+            texteCorr = `Les diviseurs de $${a}$ sont : $1$ et $29$. `
+            reponse = '1;29'
+          }
+          if (a === 33) {
+            texteCorr = `Les diviseurs de $${a}$ sont : $1$, $3$, $11$ et $33$. `
+            reponse = '1;3;11;33'
           }
           setReponse(this, index, reponse, { formatInteractif: 'texte' })
           if (this.interactif) {
@@ -310,7 +322,7 @@ export default function SujetCAN20213ieme () {
             demiDroite(A, C), demiDroite(A, D), labelPoint(A, B, C, D, E), segment(A, D), segment(A, C), segment(B, E), segment(D, C), sCote1, sCote2)
           reponse = c
           texte = '$(BE)//(DC)$.  Détermine la longueur $AE$.<br>'
-          texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+          texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
           texteCorr = `Le triangle $ADC$ est un agrandissement du triangle $ABE$. Le coefficient d'agrandissement est donné par : $\\dfrac{${b}}{${a}}=${texNombre(b / a)}$.<br>
           On obtient donc la longueur $AE$ en divisant par $${k}$ la longueur $AD$.<br>
           $AE=\\dfrac{${d}}{${k}}=${c}$.<br>`
@@ -394,7 +406,7 @@ export default function SujetCAN20213ieme () {
             segment(B, D), segment(D, C), s1, s2, c)
           reponse = 3 * b
           texte = 'Donne le volume exact de ce cône.<br>'
-          texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+          texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
           texteCorr = `Le volume du cône est  : $\\dfrac{1}{3}\\times \\text{(Aire de la base)}\\times \\text{Hauteur}$.<br>
           Soit : $\\dfrac{1}{3}\\times \\pi \\times 3^2\\times ${b}=${reponse}\\pi$ cm$^3$.  `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -456,7 +468,7 @@ export default function SujetCAN20213ieme () {
             reponse = a[1]
             texte = 'Calcule la longueur $AB$. <br>'
 
-            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1.2, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1.2, style: 'margin: auto' }, objets)
             texte += '<br>$AB=$'
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
@@ -472,7 +484,7 @@ export default function SujetCAN20213ieme () {
             reponse = a[0]
             texte = 'Calcule la longueur $AC$. <br>'
 
-            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
             texte += '<br>$AC=$'
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
@@ -488,7 +500,7 @@ export default function SujetCAN20213ieme () {
             reponse = a[2]
             texte = 'Calcule la longueur $BC$. <br>'
 
-            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
             texte += '<br>$BC=$'
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
@@ -534,7 +546,7 @@ export default function SujetCAN20213ieme () {
           a = fraction(fraction22[0] * k, fraction22[1] * k)
 
           b = fraction(fraction22[0], fraction22[1])
-          texte = `Donne la fraction irréductible égale à : $${a.texFraction}$<br>
+          texte = `Donne la fraction irréductible égale à : $${a.texFraction}$.<br>
           `
           texteCorr = ` $${a.texFraction}=\\dfrac{${fraction22[0]}\\times 10\\times ${k / 10}}{${fraction22[1]}\\times 10\\times ${k / 10}}=${b.texFraction}$.
            <br>
@@ -583,7 +595,7 @@ export default function SujetCAN20213ieme () {
               s1, s2, s3, s4, s5, s6, code1, code2, code3, code4, code5, code6, segment(D, E))
             reponse = printlatex(`4x+${2 * a + b}`)
             texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
-            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
             texteCorr = `La figure est composée de $4$ segments de longueur $x$, de $2$ segments de longueur $${a}$ et d'un segment de longueur $${b}$.<br>
           Le périmètre de cette figure est donc : $4\\times x+2\\times ${a}+${b}=4x+${2 * a + b}$.   `
           }
@@ -621,7 +633,7 @@ export default function SujetCAN20213ieme () {
               s1, s2, s3, s4, s5, s6, code1, code2, code3, code4, code5, code6, segment(D, E))
             reponse = printlatex(`2x+${4 * a + b}`)
             texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
-            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
             texteCorr = `La figure est composée de $2$ segments de longueur $x$, de $4$ segments de longueur $${a}$ et d'un segment de longueur $${b}$.<br>
             Le périmètre de cette figure est donc : $2\\times x+4\\times ${a}+${b}=2x+${4 * a + b}$.   `
           }
@@ -657,7 +669,7 @@ export default function SujetCAN20213ieme () {
               s1, s2, s4, s5, s6, code1, code2, code4, code5, code6, segment(D, E))
             reponse = printlatex(`2x+${3 * a + b}`)
             texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
-            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
             texteCorr = `La figure est composée de $2$ segments de longueur $x$, de $3$ segments de longueur $${a}$ et d'un segment de longueur $${b}$.<br>
               Le périmètre de cette figure est donc : $2\\times x+3\\times ${a}+${b}=2x+${3 * a + b}$.   `
           }
@@ -692,7 +704,7 @@ export default function SujetCAN20213ieme () {
               s1, s2, s4, s5, s6, code1, code2, code4, code5, code6, segment(D, E))
             reponse = printlatex(`3x+${2 * a + b}`)
             texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
-            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
             texteCorr = `La figure est composée de $3$ segments de longueur $x$, de $2$ segments de longueur $${a}$ et d'un segment de longueur $${b}$.<br>
                 Le périmètre de cette figure est donc : $3\\times x+2\\times ${a}+${b}=3x+${2 * a + b}$.   `
           }
@@ -793,7 +805,7 @@ export default function SujetCAN20213ieme () {
             a = arrondi(randint(11, 39, [10, 20, 30]) / 1000, 3)
             truc = arrondi(a * 100, 1)
             reponse = `${stringNombre(truc, 1)}\\times 10^{-2}`
-            texte = `Ecriture  scientifique de $${texNombre(a, 3)}$`
+            texte = `Ecriture  scientifique de $${texNombre(a, 3)}$.`
 
             texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
           Ici : $${texNombre(a, 3)}=\\underbrace{${texNombre(truc, 1)}}_{1\\leqslant ${texNombre(truc, 1)} <10}\\times 10^{-2}$. `
@@ -802,7 +814,7 @@ export default function SujetCAN20213ieme () {
             a = arrondi(randint(111, 399, [200, 300]) / 100000, 5)
             truc = arrondi(a * 1000, 2)
             reponse = `${stringNombre(truc, 2)}\\times 10^{-3}`
-            texte = `Ecriture  scientifique de $${texNombre(a, 5)}$`
+            texte = `Ecriture  scientifique de $${texNombre(a, 5)}$.`
 
             texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
             Ici : $${texNombre(a, 5)}=\\underbrace{${texNombre(truc, 2)}}_{1\\leqslant ${texNombre(truc, 2)} <10}\\times 10^{-3}$. `
@@ -811,7 +823,7 @@ export default function SujetCAN20213ieme () {
             a = arrondi(randint(111, 399, [200, 300]) / 1000000, 6)
             truc = arrondi(a * 10000, 2)
             reponse = `${stringNombre(truc, 2)}\\times 10^{-4}`
-            texte = `Ecriture  scientifique de $${texNombre(a, 6)}$`
+            texte = `Ecriture  scientifique de $${texNombre(a, 6)}$.`
 
             texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
               Ici : $${texNombre(a, 6)}=\\underbrace{${texNombre(truc, 2)}}_{1\\leqslant ${texNombre(truc, 2)} <10}\\times 10^{-4}$. `
