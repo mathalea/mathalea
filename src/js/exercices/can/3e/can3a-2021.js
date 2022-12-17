@@ -243,7 +243,7 @@ export default function SujetCAN20213ieme () {
           break
 
         case 11:
-          a = choice([15, 35, 42, 10, 14, 21, 22])
+          a = choice([15, 35, 42, 10, 14, 21, 22, 26, 29, 33])
 
           texte = `Donne la liste des diviseurs de $${a}$.<br>`
 
@@ -274,6 +274,18 @@ export default function SujetCAN20213ieme () {
           if (a === 22) {
             texteCorr = `Les diviseurs de $${a}$ sont : $1$, $2$, $11$ et $22$. `
             reponse = '1;2;11;22'
+          }
+          if (a === 26) {
+            texteCorr = `Les diviseurs de $${a}$ sont : $1$, $2$, $13$ et $26$. `
+            reponse = '1;2;13;26'
+          }
+          if (a === 29) {
+            texteCorr = `Les diviseurs de $${a}$ sont : $1$ et $29$. `
+            reponse = '1;29'
+          }
+          if (a === 33) {
+            texteCorr = `Les diviseurs de $${a}$ sont : $1$, $3$, $11$ et $33$. `
+            reponse = '1;3;11;33'
           }
           setReponse(this, index, reponse, { formatInteractif: 'texte' })
           if (this.interactif) {
