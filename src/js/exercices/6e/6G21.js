@@ -33,7 +33,6 @@ export default function ConstruireUnTriangle () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    this.listeArguments = []
     let IEP
     let typesDeQuestionsDisponibles, A, B, C, CC, lAB, lBC, lAC, cA, cB, T, TT, dBC, dAB, objetsEnonce, objetsCorrection, paramsEnonce, paramsCorrection, nom, sommets
     if (this.classe === 6 || this.classe === 5) {
@@ -453,7 +452,7 @@ export default function ConstruireUnTriangle () {
       texteCorr += verif
       texteCorr += IEP.htmlBouton(this.numeroExercice, i)
 
-      if (this.questionJamaisPosee(lAB, lBC, lAC)) {
+      if (this.questionJamaisPosee(i, lAB, lBC, lAC)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
