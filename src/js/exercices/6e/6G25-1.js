@@ -297,7 +297,7 @@ export default function SymetrieAxialePavageTriangulaire () {
         }
         break
     }
-    return { antecedent: antecedent, image: image, distracteurs: distracteurs }
+    return { antecedent, image, distracteurs }
   }
 
   this.nouvelleVersion = function (numeroExercice) {
@@ -451,7 +451,8 @@ export default function SymetrieAxialePavageTriangulaire () {
       this.listeCorrections.push(texteCorr)
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
-    this.contenuCorrection += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
+    // this.contenuCorrection += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
+    this.contenuCorrection += mathalea2d(paramsEnonce, objetsEnonce)
     if (context.isHtml) {
       for (let i = 0; i < this.nbQuestions; i++) {
         this.contenuCorrection += `<br><button class="btn ui labeled icon button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}-${i}').beginElement()"><i class="redo circle icon"></i>Relancer l'animation de la symétrie par rapport à ${d[i].nom}</button>`

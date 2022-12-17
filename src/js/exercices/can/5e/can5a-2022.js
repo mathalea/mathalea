@@ -344,7 +344,7 @@ export default function SujetCAN2022cinquieme () {
           b = randint(10, 59)
           d = calcul(a * 60 + b)
           if (!this.interactif) {
-            texte = `Complète : <br>$${d}$ min $=$ ..... h..... min`
+            texte = `Complète : <br>$${d}$ min $=$ .....  h ..... min`
             texteCorr = ` On cherche le multiple de $60$ inférieur à $${d}$ le plus grand possible. C'est $${Math.floor(d / 60)}\\times 60 = ${Math.floor(d / 60) * 60}$.<br>
           Ainsi $${d} = ${Math.floor(d / 60) * 60} + ${d % 60}$ donc $${d}$min $= ${Math.floor(d / 60)}$h$${d % 60}$min.`
           } else {
