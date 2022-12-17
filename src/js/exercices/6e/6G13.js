@@ -102,14 +102,14 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
       texte += '.<br>'
       texteCorr = ''
       texteCorr += anim.htmlBouton(numeroExercice, i)
-      texteCorr += `<br><br>Pour l'auto-correction, on peut vérifier que $[${A.nom + C.nom}]$ et $[${B.nom + D.nom}]$ mesurent bien tous les deux $${texNombre(longueurAC, 1)}~\\text{cm}$`
+      texteCorr += `<br><br>Pour l'auto-correction, on peut vérifier que $[${A.nom + C.nom}]$ et $[${B.nom + D.nom}]$ mesurent bien tous les deux $${texNombre(longueurAC, 1)}~\\text{cm}$.<br>`
       // Les lignes ci-dessous permettent d'avoir un affichage aux dimensions optimisées
       const xmin = Math.min(A.x, B.x, C.x, D.x) - 2
       const xmax = Math.max(A.x, B.x, C.x, D.x) + 2
       const ymin = Math.min(A.y, B.y, C.y, D.y) - 2
       const ymax = Math.max(A.y, B.y, C.y, D.y) + 2
       // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
-      const paramsCorrection = { xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 20, scale: 1 }
+      const paramsCorrection = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 1 }
       // On ajoute au texte de la correction, la figure de la correction
       texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
       // Si la question n'a jamais été posée, on l'enregistre

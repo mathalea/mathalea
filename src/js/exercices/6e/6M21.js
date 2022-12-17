@@ -277,7 +277,7 @@ export default function CompareAireEtPerimetreAvecRectangle () {
             objets.push(translationPuisRotationAnimees(q, figAireCorr, vecteur(pt1, choixFigAire2[choixFig2][1]), figAireCorr2, choixFigAire2[choixFig2][1], -angleCorr))
             paramsEnonce.ymin = choixFig2 === 0 ? -0.5 - rayonOuCote : paramsEnonce.ymin
             paramsEnonce.ymax = choixFig2 === 2 ? rayonOuCote + C.y + 0.5 : paramsEnonce.ymax
-            texteCorr += mathalea2d(paramsEnonce, objets)
+            texteCorr += '<br>' + mathalea2d(paramsEnonce, objets)
             if (context.isHtml) {
               texteCorr += `<br><button class="btn ui labeled icon button"  style="margin:10px" onclick="document.getElementById('${figAireCorr.id}').style.visibility = 'visible',document.getElementById('${figAireCorr2.id}').style.visibility = 'hidden',
               setTimeout(function() {document.getElementById('${figAireCorr.id}').style.visibility = 'hidden'}, 5000),
@@ -367,7 +367,7 @@ export default function CompareAireEtPerimetreAvecRectangle () {
             objets.push(translationPuisRotationAnimees(q, figAireCorr, vecteur(pt1, choixFigAire2[choixFig2][1]), figAireCorr2, choixFigAire2[choixFig2][1], -angleCorr))
             paramsEnonce.ymin = choixFig2 === 0 ? -0.5 - rayonOuCote : paramsEnonce.ymin
             paramsEnonce.ymax = choixFig2 === 2 ? rayonOuCote + C.y + 0.5 : paramsEnonce.ymax
-            texteCorr += mathalea2d(paramsEnonce, objets)
+            texteCorr += '<br>' + mathalea2d(paramsEnonce, objets)
             if (context.isHtml) {
               texteCorr += `<br><button class="btn ui labeled icon button"  style="margin:10px" onclick="document.getElementById('${figAireCorr.id}').style.visibility = 'visible',document.getElementById('${figAireCorr2.id}').style.visibility = 'hidden',
               setTimeout(function() {document.getElementById('${figAireCorr.id}').style.visibility = 'hidden'}, 5000),
@@ -675,7 +675,7 @@ export default function CompareAireEtPerimetreAvecRectangle () {
             objets.push(translationPuisRotationAnimees(q, figAireCorr, vecteur(pt1, choixFigAire2[choixFig2][0]), figAireCorr2, choixFigAire2[choixFig2][0], -angleCorr))
             paramsEnonce.ymin = choixFig2 === 0 ? -0.5 - rayonOuCote : paramsEnonce.ymin
             paramsEnonce.ymax = choixFig2 === 2 ? rayonOuCote + C.y + 0.5 : paramsEnonce.ymax
-            texteCorr += mathalea2d(paramsEnonce, objets)
+            texteCorr += '<br>' + mathalea2d(paramsEnonce, objets)
             if (context.isHtml) {
               texteCorr += `<br><button class="btn ui labeled icon button"  style="margin:10px" onclick="document.getElementById('${figAireCorr.id}').style.visibility = 'visible',document.getElementById('${figAireCorr2.id}').style.visibility = 'hidden',
               setTimeout(function() {document.getElementById('${figAireCorr.id}').style.visibility = 'hidden'}, 5000),
@@ -787,7 +787,7 @@ export default function CompareAireEtPerimetreAvecRectangle () {
             objets.push(translationPuisRotationAnimees(q, figAireCorr, vecteur(pt1, choixFigAire2[choixFig2][0]), figAireCorr2, choixFigAire2[choixFig2][0], -angleCorr))
             paramsEnonce.ymin = choixFig2 === 0 ? -0.5 - rayonOuCote : paramsEnonce.ymin
             paramsEnonce.ymax = choixFig2 === 2 ? rayonOuCote + C.y + 0.5 : paramsEnonce.ymax
-            texteCorr += mathalea2d(paramsEnonce, objets)
+            texteCorr += '<br>' + mathalea2d(paramsEnonce, objets)
             if (context.isHtml) {
               texteCorr += `<br><button class="btn ui labeled icon button"  style="margin:10px" onclick="document.getElementById('${figAireCorr.id}').style.visibility = 'visible',document.getElementById('${figAireCorr2.id}').style.visibility = 'hidden',
               setTimeout(function() {document.getElementById('${figAireCorr.id}').style.visibility = 'hidden'}, 5000),
@@ -1051,6 +1051,7 @@ export default function CompareAireEtPerimetreAvecRectangle () {
         }
       }
       // Gestion des énoncés
+      texte += '<br>'
       if (this.sup2 === 3) texte += numAlpha(0)
       if (this.sup2 === 1 || this.sup2 === 3 || aireOuPerimetre !== 'Aire') {
         texte += 'Entre le rectangle hachuré et la figure coloriée, lequel a le plus grand périmètre ?'

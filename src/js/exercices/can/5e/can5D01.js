@@ -31,14 +31,14 @@ export default function ConversionHeuresDecimalesMinutes () {
           b = choice([0.25, 0.5, 0.75])
           d = calcul(b * 60)
           if (!this.interactif) {
-            texte = `Convertir en heures/minutes : <br>$${texNombrec(a + b)}$ h $=$ ..... h..... min`
-            texteCorr = `$${texNombrec(a + b)}$h$ = ${a}$ h $ + ${texNombrec(b)} \\times 60  = ${a}$ h $${d}$ min`
+            texte = `Convertir en heures/minutes : <br>$${texNombrec(a + b)}$ h $=$ ..... h ..... min`
+            texteCorr = `$${texNombrec(a + b)}$ h $ = ${a}$ h $ +$ $ ${texNombrec(b)} \\times 60  = ${a}$ h $${d}$ min`
           } else {
             texte = `Convertir en heures/minutes : <br>$${texNombrec(a + b)}$ h $=$`
             texte += ajouteChampTexteMathLive(this, index, 'largeur10 inline', { texteApres: sp(5) + 'h' })
             setReponse(this, index, a)
             texte += ajouteChampTexteMathLive(this, index + 1, 'largeur10 inline', { texteApres: sp(5) + 'min' })
-            texteCorr = `$${texNombrec(a + b)}$h$ = ${a}$ h $ + ${texNombrec(b)} \\times 60$ min $  = ${a}$ h $${d}$ min`
+            texteCorr = `$${texNombrec(a + b)}$ h $ = ${a}$ h $ +$ $ ${texNombrec(b)} \\times 60$ min $  = ${a}$ h $${d}$ min`
             setReponse(this, index + 1, d)
             nbChamps = 2
           }

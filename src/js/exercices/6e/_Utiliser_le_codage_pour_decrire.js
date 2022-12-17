@@ -48,6 +48,7 @@ export default function UtiliserLeCodagePourDecrire () {
       sommets = shuffle(sommets)
 
       A = point(0, 0, sommets[0], 'left')
+      listeTypeDeQuestions[i] = 2
       switch (listeTypeDeQuestions[i]) {
         case 1:
           C = pointAdistance(A, randint(5, 7), randint(-45, 45), sommets[2], 'right')
