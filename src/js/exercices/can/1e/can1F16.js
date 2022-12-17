@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, choice, sp, ecritureParentheseSiNegatif, ecritureAlgebrique, rienSi1 } from '../../../modules/outils.js'
-import { repere, courbe, texteParPosition } from '../../../modules/2d.js'
+import { repere, courbe, latexParCoordonnees, texteParPosition } from '../../../modules/2d.js'
 import { calcule } from '../../../modules/fonctionsMaths.js'
 export const titre = 'Déterminer une équation de tangente à partir des courbes de $f$ et $f’$'
 export const interactifReady = true
@@ -109,11 +109,12 @@ export default function LectureGraphiqueTangente () {
           grilleSecondaireXMin: -4,
           grilleSecondaireXMax: 4
         })
-        courbef = texteParPosition('Courbe de f', -3.3, 6, 'milieu', 'blue', 1.2)
-        courbefp = texteParPosition('Courbe de f\'', -3.3, 6, 'milieu', 'red', 1.2)
 
         f = x => 2 * x - 2 * alpha
         F = x => (x - alpha) ** 2 + beta
+        courbef = latexParCoordonnees('\\cal C_f', 0.5, F(0), 'blue', 1, 20, '', 8)
+        courbefp = latexParCoordonnees('\\cal C_f’', 0.5, f(0), 'red', 1, 20, '', 8)
+
         this.question = `On donne les représentations graphiques d'une fonction et de sa dérivée.<br>
         Donner l'équation réduite de la tangente à la courbe de $f$ en $x=${nbre}$. <br> `
         this.question += mathalea2d({ xmin: -6, xmax: 6, ymin: -3, ymax: 12, style: 'display: inline', pixelsParCm: 14, scale: 0.5 },
@@ -228,8 +229,8 @@ export default function LectureGraphiqueTangente () {
           grilleSecondaireXMin: -4,
           grilleSecondaireXMax: 4
         })
-        courbef = texteParPosition('Courbe de f', 3.3, 4, 'milieu', 'blue', 1.2)
-        courbefp = texteParPosition('Courbe de f\'', 3.3, 4, 'milieu', 'red', 1.2)
+        courbef = latexParCoordonnees('\\cal C_f', 0.5, F(0), 'blue', 1, 20, '', 8)
+        courbefp = latexParCoordonnees('\\cal C_f’', 0.5, f(0), 'red', 1, 20, '', 8)
 
         f = x => -2 * x + 2 * alpha
         F = x => (-1) * (x - alpha) ** 2 + beta
