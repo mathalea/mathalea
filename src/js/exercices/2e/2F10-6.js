@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, reduireAxPlusB, choice, ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../modules/outils.js'
-import { tableauDeVariation, courbe, repere } from '../../modules/2d.js'
+import { courbe, repere } from '../../modules/2d.js'
+import { tableauDeVariation } from '../../modules/TableauDeVariation'
 
 export const titre = 'Déterminer le sens de variation d\'une fonction affine'
 

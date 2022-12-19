@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, sp, combinaisonListes, numAlpha } from '../../modules/outils.js'
-import { tableauDeVariation } from '../../modules/2d.js'
+import { tableauDeVariation } from '../../modules/TableauDeVariation'
 export const titre = 'Déterminer un extremum ou encadrer par lecture d\'un tableau de variations'
 export const dateDePublication = '20/12/2021'
 /**

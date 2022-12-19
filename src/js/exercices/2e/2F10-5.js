@@ -2,8 +2,9 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, reduireAxPlusB, choice, texFractionReduite, itemize, obtenirListeFacteursPremiers, texNombre2 } from '../../modules/outils.js'
 import { resoudre } from '../../modules/outilsMathjs.js'
-import { tableauDeVariation, labelPoint, point, tracePoint, courbe, repere } from '../../modules/2d.js'
+import { labelPoint, point, tracePoint, courbe, repere } from '../../modules/2d.js'
 import { create, all } from 'mathjs'
+import { tableauDeVariation } from '../../modules/TableauDeVariation'
 
 export const titre = 'Déterminer le signe d\'une fonction affine'
 
