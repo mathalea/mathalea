@@ -1,5 +1,5 @@
 
-import { point3d, polygone3d, prisme3d, pyramide3d, rotation3d, droite3d, arete3d, arc3d, vecteur3d, cylindre3d, sphere3d } from '../../modules/3d.js'
+import { point3d, polygone3d, prisme3d, rotation3d, droite3d, arete3d, arc3d, vecteur3d, cylindre3d, pyramide3d, sphere3d } from '../../modules/3d.js'
 import { segment, cone, point, milieu, homothetie, tracePoint } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { setReponse, ajouteChampTexte } from '../../modules/gestionInteractif.js'
@@ -15,7 +15,7 @@ export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC
 
 /*!
- * @author Mickael Guironnet
+ * @author Mickael Guironnet (Adapté par Eric Elter pour que les nouvelles fonctions 3d soient bien utilisées)
  * Créé le 24/09/2022
  */
 export const ref = '6G44-1'
@@ -78,7 +78,7 @@ export default function ReconnaitreDesSolides () {
       // axe=1 -> base dans XY ;  axe=2 -> base dans YZ ; axe=3 -> base dans XZ ;
       let axe = ((choix >= 1 && choix <= 5) ? (type.length > 1 ? parseInt(type[1]) : randint(1, 3)) : 0)
 
-      // nombre de sommet de la base.
+      // nombre de sommets de la base.
       const n = (choix < 3 ? (type.length > 2 ? parseInt(type[2]) : randint(3, 8)) : (choix === 5 || choix === 6 ? 4 : 0))
 
       let prisme, pyra, leCone, cylindre, pave, sphere
@@ -92,9 +92,9 @@ export default function ReconnaitreDesSolides () {
             const rayon = 2
             const alpha = Math.PI * 2 / n
             for (let i = 0; i < n; i++) {
-              points3XY.push(point3d(rayon * Math.cos(alpha * i), rayon * Math.sin(alpha * i), 0, !(i > 0 && i <= (n / 2 - 0.1))))
+              points3XY.push(point3d(rayon * Math.cos(alpha * i), rayon * Math.sin(alpha * i), 0))
               points3XZ.push(point3d(rayon * Math.cos(alpha * i), 5, rayon * Math.sin(alpha * i), true))
-              points3YZ.push(point3d(-1, rayon * Math.cos(alpha * i), rayon * Math.sin(alpha * i), !(i === 0 || (n > 6 && i === n - 1) || (n > 6 && i === 1) || (n === 6 && i === 5))))
+              points3YZ.push(point3d(-1, rayon * Math.cos(alpha * i), rayon * Math.sin(alpha * i)))
             }
             if (axe === 3) {
               // base sur le plan YZ
@@ -114,15 +114,13 @@ export default function ReconnaitreDesSolides () {
                 points3XZ.length = 0
                 points3XZ.push(...points3DRota)
               }
-              for (let i = 0; i < points3XZ.length; i++) {
-                points3XZ[i].visible = !((n === 3 && i === 1) || (n === 4 && i === 2) || (n > 4 && i > 2 && i < 2 + Math.floor(n / 2)))
-              }
               const base = polygone3d(points3XZ)
               const k2 = vecteur3d(0, -6, 0)
+              const p2 = point3d(0, -6, 0)
               if (choix === 1) {
                 prisme = prisme3d(base, k2)
               } else {
-                pyra = pyramide3d(base, k2)
+                pyra = pyramide3d(base, p2)
               }
             } else if (axe === 2) {
               // base sur le plan YZ
@@ -133,25 +131,15 @@ export default function ReconnaitreDesSolides () {
                 }
                 points3YZ.length = 0
                 points3YZ.push(...points3DRota)
-                points3YZ[0].visible = false
               }
               const base = polygone3d(points3YZ)
               const k1 = vecteur3d(3, 0, 0)
+              const p1 = point3d(3, 0, 0)
+
               if (choix === 1) {
                 prisme = prisme3d(base, k1)
               } else {
-                pyra = pyramide3d(base, k1)
-                if (n === 3 || n === 4 || n === 5) {
-                  pyra.c2d[n - 1].pointilles = 2
-                } else if (n === 6) {
-                  pyra.c2d[n - 1].pointilles = 2
-                  pyra.c2d[n - 2].pointilles = 2
-                  pyra.c2d[2 * n - 1].pointilles = 2
-                } else if (n === 7 || n === 8) {
-                  pyra.c2d[1].pointilles = false
-                  pyra.c2d[n - 2].pointilles = 2
-                  pyra.c2d[n + 1].pointilles = false
-                }
+                pyra = pyramide3d(base, p1)
               }
             } else {
               // base sur le plan XY
@@ -162,19 +150,14 @@ export default function ReconnaitreDesSolides () {
                 }
                 points3XY.length = 0
                 points3XY.push(...points3DRota)
-                points3XY[1].visible = false
               }
               const base = polygone3d(points3XY)
               const k3 = vecteur3d(0, 0, 3)
+              const p3 = point3d(0, 0, 3)
               if (choix === 1) {
                 prisme = prisme3d(base, k3)
               } else {
-                pyra = pyramide3d(base, k3)
-                if (n === 3 || n === 4 || n === 5) {
-                  pyra.c2d[0].pointilles = 2
-                } else if (n === 7 || n === 8) {
-                  pyra.c2d[n + 1].pointilles = false
-                }
+                pyra = pyramide3d(base, p3)
               }
             }
           }
@@ -305,11 +288,8 @@ export default function ReconnaitreDesSolides () {
             points3XZ.length = 0
             points3XZ.push(...points3DRota)
 
-            for (let i = 0; i < points3XZ.length; i++) {
-              points3XZ[i].visible = !((n === 3 && i === 1) || (n === 4 && i === 2) || (n > 4 && i > 2 && i < 2 + Math.floor(n / 2)))
-            }
             const base = polygone3d(points3XZ)
-            const k2 = vecteur3d(0, -6, 0)
+            const k2 = point3d(0, -6, 0)
             pave = prisme3d(base, k2)
           } else if (axe === 2) {
             // base sur le plan YZ
@@ -319,14 +299,13 @@ export default function ReconnaitreDesSolides () {
             }
             points3YZ.length = 0
             points3YZ.push(...points3DRota)
-            points3YZ[0].visible = false
 
             const base = polygone3d(points3YZ)
             if (choix === 6) {
-              const k1 = vecteur3d(3, 0, 0)
+              const k1 = point3d(3, 0, 0)
               pave = prisme3d(base, k1)
             } else {
-              pave = prisme3d(base, vecteur3d(5, 0, 0))
+              pave = prisme3d(base, point3d(5, 0, 0))
             }
           } else {
             // base sur le plan XY
@@ -336,9 +315,8 @@ export default function ReconnaitreDesSolides () {
             }
             points3XY.length = 0
             points3XY.push(...points3DRota)
-            points3XY[1].visible = false
             const base = polygone3d(points3XY)
-            const k3 = vecteur3d(0, 0, 3)
+            const k3 = point3d(0, 0, 3)
             pave = prisme3d(base, k3)
           }
           objets.push(...pave.c2d)
@@ -349,7 +327,7 @@ export default function ReconnaitreDesSolides () {
           break
         }
         case 'sphère': // sphère
-          sphere = sphere3d(point3d(0, 0, 0), 2, 3, 2, 'black')
+          sphere = sphere3d(point3d(0, 0, 0), 2, 'black', 'black')
           objets.push(...sphere.c2d)
           this.reponse = solides[choix - 1]
           this.correction = premiereLettreEnMajuscule(solides[choix - 1]) + '.'

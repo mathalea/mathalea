@@ -18,7 +18,7 @@ let v=vecteur3d(0,0,1) // v sera le vecteur normal au plan de base du cône
 let centreS=point3d(7,4,7) // le centre de la sphère
 let rayon=vecteur3d(2,0,0) // un vecteur pour définir le rayon de la sphère et de la base du cône
 // la sphère avec 5 parallèles et 3(×2) méridiens
-let S=sphere3d(centreS,rayon,5,3) 
+let S=sphere3d(centreS,rayon,'red','blue',5,'gray',6) 
 
 let centreC=point3d(7,4,0) // le centre de la base du cône
 let sommet=point3d(7,4,5) // le sommet du cône
