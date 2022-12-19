@@ -2714,8 +2714,9 @@ export function polygone (...args) {
 /**
  * Crée un groupe d'objets contenant le polygone et ses sommets
  * @param  {...any} args
- * @return {array} [p, p.sommets]
+ * @return {array} [polygone,sommets]
  * Si le dernier argument est un nombre, celui-ci sera utilisé pour fixer la distance entre le sommet et le label (par défaut 0.5)
+ * @exemple [poly, sommets] = polygoneAvecNom(A, B, C, D) // où A, B, C, D sont des objets Point
  */
 export function polygoneAvecNom (...args) {
   let k = 0.5
@@ -2725,7 +2726,9 @@ export function polygoneAvecNom (...args) {
   }
   const p = polygone(...args)
   let nom = ''
-  args.forEach(el => (nom += el.nom + ','))
+  args.forEach(el => {
+    nom += el.nom + ','
+  })
   nom = nom.substring(0, nom.length - 1)
   p.sommets = nommePolygone(p, nom, k)
   p.sommets.bordures = []
