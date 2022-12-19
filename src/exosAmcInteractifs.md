@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 537 
-- nombre d'exos interactifReady 830 
+- nombre d'exos amcReady 538 
+- nombre d'exos interactifReady 831 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -115,6 +115,7 @@
 |3G41|Dessiner différentes vues d'un empilement de cubes|OK|AMCHybride|KO|KO|
 |3G42|Volume d'une boule|OK|AMCNum|OK|mathLive|
 |3G43|Calculs de volumes|OK|AMCHybride|OK|qcm,mathLive|
+|3G44|Déterminer des longueurs dans la géométrie dans l'espace|OK|AMCHybride|OK|mathLive|
 |3I10-1|Analyser des scripts Scratch|OK|AMCHybride|OK|qcm|
 |3I12-1|Compléter un script Scratch - 1|OK|AMCOpen|KO|KO|
 |3I12-2|Comprendre un script Scratch - 1|OK|AMCHybride|KO|KO|
