@@ -55,6 +55,7 @@ specifiers:
   playwright: ^1.28.1
   qrcode: ^1.5.1
   regenerator-runtime: ^0.13.11
+  run-script-os: ^1.1.6
   seedrandom: ^3.0.5
   sesajs-date: git+https://git.sesamath.net/sesamath/sesajs-date.git
   standard-version: ^9.5.0
@@ -86,7 +87,7 @@ dependencies:
   loadjs: 4.2.0
   mathjs: 11.4.0
   mathlive: 0.85.1
-  mathsteps: github.com/mathalea/mathsteps/9a88bf9a27ff0597fee7050455b3b3ee4b8f2c52
+  mathsteps: github.com/mathalea/mathsteps/8685e1e50e4f6ede85fd2c53733053a27dc92efc
   qrcode: 1.5.1
   regenerator-runtime: 0.13.11
   seedrandom: 3.0.5
@@ -123,6 +124,7 @@ devDependencies:
   mini-css-extract-plugin: 1.6.2_webpack@5.75.0
   minimist: 1.2.7
   playwright: 1.28.1
+  run-script-os: 1.1.6
   sesajs-date: git.sesamath.net/sesamath/sesajs-date/66a97152dc1e3275bc97dba99ffe388a4bae7787
   standard-version: 9.5.0
   style-loader: 2.0.0_webpack@5.75.0
@@ -4861,6 +4863,11 @@ packages:
     dependencies:
       queue-microtask: 1.2.3
 
+  /run-script-os/1.1.6:
+    resolution: {integrity: sha512-ql6P2LzhBTTDfzKts+Qo4H94VUKpxKDFz6QxxwaUZN0mwvi7L3lpOI7BqPCq7lgDh3XLl0dpeXwfcVIitlrYrw==}
+    hasBin: true
+    dev: true
+
   /safe-buffer/5.1.2:
     resolution: {integrity: sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==}
 
@@ -4910,7 +4917,7 @@ packages:
     dev: true
 
   /seed-random/2.2.0:
-    resolution: {integrity: sha1-KpsZ4lCoFwmSMaW5mk2vgLf77VQ=}
+    resolution: {integrity: sha512-34EQV6AAHQGhoc0tn/96a9Fsi6v2xdqe/dMUwljGRaFOzR3EgRmECvD0O8vi8X+/uQ50LGHfkNu/Eue5TPKZkQ==}
     dev: false
 
   /seedrandom/3.0.5:
@@ -6126,8 +6133,8 @@ packages:
       lodash.isequal: 4.5.0
     dev: false
 
-  github.com/mathalea/mathsteps/9a88bf9a27ff0597fee7050455b3b3ee4b8f2c52:
-    resolution: {tarball: https://codeload.github.com/mathalea/mathsteps/tar.gz/9a88bf9a27ff0597fee7050455b3b3ee4b8f2c52}
+  github.com/mathalea/mathsteps/8685e1e50e4f6ede85fd2c53733053a27dc92efc:
+    resolution: {tarball: https://codeload.github.com/mathalea/mathsteps/tar.gz/8685e1e50e4f6ede85fd2c53733053a27dc92efc}
     name: mathsteps
     version: 0.2.0
     engines: {node: '>=6.0.0'}
