@@ -2,17 +2,19 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, rangeMinMax, contraindreValeur, compteOccurences, choisitLettresDifferentes, choice, calcul, arrondi, miseEnEvidence, texteEnCouleurEtGras, sp, nombreDeChiffresDe, shuffle } from '../../modules/outils.js'
 import Grandeur from '../../modules/Grandeur.js'
-import { CodageAngleDroit3D, cone3d, cube3d, cylindre3d, droite3d, pave3d, point3d, polygone3d, prisme3d, pyramide3d, rotation3d, sphere3d, translation3d, vecteur3d } from '../../modules/3d.js'
-import { assombrirOuEclaircir, fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
+import { CodageAngleDroit3D, cone3d, cube3d, cylindre3d, droite3d, pave3d, point3d, polygone3d, pyramide3d, rotation3d, sphere3d, translation3d, vecteur3d } from '../../modules/3d.js'
+import { assombrirOuEclaircir, colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { labelPoint, longueur, segment, tracePoint } from '../../modules/2d.js'
 
-export const titre = 'Déterminer des longueurs avec Pythagore dans la géométrie dans l\'espace'
+export const titre = 'Déterminer des longueurs dans la géométrie dans l\'espace'
 export const amcReady = true
 export const amcType = 'AMCHybride' // type de question AMC
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const dateDePublication = '19/12/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+
 /**
  * Calcul de longueurs avec Pythagore dans la géométrie dans l'espace
  * @author Eric Elter
@@ -24,24 +26,24 @@ export default function CalculPythagoreEspace () {
   this.titre = titre
   this.nbQuestions = 4
   this.sup = 1
-  this.sup2 = 9
+  this.sup2 = 10
 
   this.nouvelleVersion = function (numeroExercice) {
     this.autoCorrection = []
     let typesDeQuestionsDisponibles = []
     if (!this.sup2) { // Si aucune liste n'est saisie
-      typesDeQuestionsDisponibles = rangeMinMax(1, 8)
+      typesDeQuestionsDisponibles = rangeMinMax(1, 9)
     } else {
       if (typeof (this.sup2) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        typesDeQuestionsDisponibles[0] = contraindreValeur(1, 9, this.sup4, 9)
+        typesDeQuestionsDisponibles[0] = contraindreValeur(1, 10, this.sup4, 10)
       } else {
         typesDeQuestionsDisponibles = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          typesDeQuestionsDisponibles[i] = contraindreValeur(1, 9, parseInt(typesDeQuestionsDisponibles[i]), 9) // parseInt en fait un tableau d'entiers
+          typesDeQuestionsDisponibles[i] = contraindreValeur(1, 10, parseInt(typesDeQuestionsDisponibles[i]), 10) // parseInt en fait un tableau d'entiers
         }
       }
     }
-    if (compteOccurences(typesDeQuestionsDisponibles, 9) > 0) typesDeQuestionsDisponibles = rangeMinMax(1, 8) // Teste si l'utilisateur a choisi tout
+    if (compteOccurences(typesDeQuestionsDisponibles, 10) > 0) typesDeQuestionsDisponibles = rangeMinMax(1, 9) // Teste si l'utilisateur a choisi tout
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     this.listeQuestions = [] // Liste de questions
@@ -55,9 +57,9 @@ export default function CalculPythagoreEspace () {
       'cm',
       'mm'
     ]
-    for (let i = 0, texte, texteCorr, reponse, objetsEnonce, A, B, B1, v1, C, D, E, BC, segmentATrouver, segmentAnnexe, solideDessine, longueurATrouver, nomSolide, segmentChoisi, choixSegments = [],
+    for (let i = 0, texte, texteCorr, reponse, objetsEnonce, A, B, C, D, E, BC, segmentATrouver, segmentAnnexe, solideDessine, longueurATrouver, nomSolide, segmentChoisi, choixSegments = [],
       L, p, J, K, M, JK, I, choixProfondeur, h, c, j, anglesPossibles, indiceAngleChoisi, ptBase, ptBase2, ptsBase, nbSommets, numeroSommet,
-      r, v, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      r, r2, v, sph, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}
       texte = ''
       texteCorr = ''
@@ -106,9 +108,6 @@ export default function CalculPythagoreEspace () {
           texteCorr += `<br> $${longueurATrouver}^2=${texNombre(c)}^2+${texNombre(c)}^2=${texNombre(c ** 2 + c ** 2)}$`
           texteCorr += `<br> $${longueurATrouver}=\\sqrt{${texNombre(c ** 2 + c ** 2)}}$`
           texteCorr += `<br> $${longueurATrouver}\\approx${miseEnEvidence(JK)}$ ${texteEnCouleurEtGras(listeUnites[j])}`
-          setReponse(this, i, new Grandeur(reponse, listeUnites[j]), { formatInteractif: 'unites' })
-          if (this.interactif && context.isHtml) texte += `<br>$${longueurATrouver}\\approx$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
-
           break
         case 2: // Diagonale d'un cube
           // c = new Decimal(randint(2, 10)).plus(partieDecimale1)
@@ -151,9 +150,6 @@ export default function CalculPythagoreEspace () {
           texteCorr += `<br> $${longueurATrouver}^2=${texNombre(c)}^2+${miseEnEvidence(texNombre(c ** 2 + c ** 2), 'green')}=${texNombre(c ** 2 + c ** 2 + c ** 2)}$`
           texteCorr += `<br> $${longueurATrouver}=\\sqrt{${texNombre(c ** 2 + c ** 2 + c ** 2)}}$`
           texteCorr += `<br> $${longueurATrouver}\\approx${miseEnEvidence(BC)}$ ${texteEnCouleurEtGras(listeUnites[j])}`
-          setReponse(this, i, new Grandeur(reponse, listeUnites[j]), { formatInteractif: 'unites' })
-          if (this.interactif && context.isHtml) texte += `<br>$${longueurATrouver}\\approx$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
-
           break
         case 3: // Diagonale de la face d'un pavé droit
           // c = new Decimal(randint(2, 10)).plus(partieDecimale1)
@@ -201,8 +197,6 @@ export default function CalculPythagoreEspace () {
           texteCorr += `<br> $${longueurATrouver}^2=${texNombre(segmentChoisi[2])}^2+${texNombre(segmentChoisi[3])}^2=${texNombre(segmentChoisi[2] ** 2 + segmentChoisi[3] ** 2)}$`
           texteCorr += `<br> $${longueurATrouver}=\\sqrt{${texNombre(segmentChoisi[2] ** 2 + segmentChoisi[3] ** 2)}}$`
           texteCorr += `<br> $${longueurATrouver}\\approx${miseEnEvidence(JK)}$ ${texteEnCouleurEtGras(listeUnites[j])}`
-          setReponse(this, i, new Grandeur(reponse, listeUnites[j]), { formatInteractif: 'unites' })
-          if (this.interactif && context.isHtml) texte += `<br>$${longueurATrouver}\\approx$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
           break
         case 4: // Diagonale d'un pavé droit
           L = randint(5, 20)
@@ -250,8 +244,6 @@ export default function CalculPythagoreEspace () {
           texteCorr += `<br> $${longueurATrouver}^2=${texNombre(segmentChoisi[6])}^2+${miseEnEvidence(texNombre(segmentChoisi[4] ** 2 + segmentChoisi[5] ** 2), 'green')}=${texNombre(segmentChoisi[6] ** 2 + segmentChoisi[4] ** 2 + segmentChoisi[5] ** 2)}$`
           texteCorr += `<br> $${longueurATrouver}=\\sqrt{${texNombre(segmentChoisi[6] ** 2 + segmentChoisi[4] ** 2 + segmentChoisi[5] ** 2)}}$`
           texteCorr += `<br> $${longueurATrouver}\\approx${miseEnEvidence(JK)}$ ${texteEnCouleurEtGras(listeUnites[j])}`
-          setReponse(this, i, new Grandeur(reponse, listeUnites[j]), { formatInteractif: 'unites' })
-          if (this.interactif && context.isHtml) texte += `<br>$${longueurATrouver}\\approx$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
           break
         case 5: // Dans un cylindre
           r = randint(4, 10)
@@ -268,7 +260,7 @@ export default function CalculPythagoreEspace () {
             D = point3d(0, h, 0, true, choisitLettresDifferentes(1, 'OQWX' + A.label), 'left')
           }
           v = vecteur3d(A, B)
-          solideDessine = cylindre3d(A, D, v, v, 'blue', false, true, true, '#f15929')
+          solideDessine = cylindre3d(A, D, v, v, 'blue', false, true, true, 'black')
 
           // Pour placer un point sur la base visible mais qui ne soit pas trop près de l'axe et des deux génératrices.
           anglesPossibles = shuffle(rangeMinMax(2, solideDessine.pointsBase2.length - 3, [16, 17, 18, 19, 20]))
@@ -280,14 +272,13 @@ export default function CalculPythagoreEspace () {
           ptBase2 = rotation3d(translation3d(D, v), droite3d(A, vecteur3d(A, D)), solideDessine.angleDepart + 10 * anglesPossibles[indiceAngleChoisi])
           ptBase2.c2d.nom = choisitLettresDifferentes(1, 'OQWX' + A.label + D.label)
           longueurATrouver = A.label + ptBase2.c2d.nom
-          texte += `Dans ce cylindre de révolution, le rayon de ses bases (de centre respectif ${A.label} et ${D.label}) est de ${r} ${listeUnites[j]} et sa hauteur est de ${h} ${listeUnites[j]}. Sachant que le point ${ptBase2.c2d.nom} est sur la base de centre ${D.label}, calculer la longueur ${longueurATrouver}, arrondie au dixième de ${listeUnites[j]}.<br>`
-          texte += '<br>' + mathalea2d(Object.assign({}, fixeBordures([...solideDessine.c2d]), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), [...solideDessine.c2d, tracePoint(ptBase2), labelPoint(A, D, ptBase2.c2d)])
-
           segmentATrouver = segment(A.c2d, ptBase2.c2d, '#f15929')
           segmentATrouver.epaisseur = 2
           segmentATrouver.pointilles = 2
-
           objetsEnonce.push(...solideDessine.c2d, segmentATrouver, tracePoint(ptBase2), labelPoint(A, D, ptBase2.c2d))
+          texte += `Dans ce cylindre de révolution, le rayon de ses bases (de centre respectif ${A.label} et ${D.label}) est de ${r} ${listeUnites[j]} et sa hauteur est de ${h} ${listeUnites[j]}. Sachant que le point ${ptBase2.c2d.nom} est sur la base de centre ${D.label}, calculer la longueur ${longueurATrouver}, arrondie au dixième de ${listeUnites[j]}.<br>`
+          texte += '<br>' + mathalea2d(Object.assign({}, fixeBordures([...solideDessine.c2d]), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
+
           objetsEnonce.push(new CodageAngleDroit3D(A, D, ptBase2, 'green', 2))
           segmentAnnexe = segment(D.c2d, ptBase2.c2d, 'green')
           objetsEnonce.push(segmentAnnexe)
@@ -302,15 +293,14 @@ export default function CalculPythagoreEspace () {
           texteCorr += `<br> $${longueurATrouver}^2=${texNombre(h)}^2+${texNombre(r)}^2=${texNombre(h ** 2 + r ** 2)}$`
           texteCorr += `<br> $${longueurATrouver}=\\sqrt{${texNombre(h ** 2 + r ** 2)}}$`
           texteCorr += `<br> $${longueurATrouver}\\approx${miseEnEvidence(texNombre(reponse))}$ ${texteEnCouleurEtGras(listeUnites[j])}`
-          setReponse(this, i, new Grandeur(reponse, listeUnites[j]), { formatInteractif: 'unites' })
-          if (this.interactif && context.isHtml) texte += `<br>$${longueurATrouver}\\approx$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
           break
         case 6: // Dans une pyramide à base régulière
           r = randint(4, 10)
           h = randint(5, 15, [r])
           A = point3d(0, 0, 0, true, choisitLettresDifferentes(1, 'OQWX'), 'left')
           B = point3d(r, 0, 0)
-          D = point3d(0, 0, h * choice([1, -1]), true, choisitLettresDifferentes(1, 'OQWX' + A.label), 'left')
+          // D = point3d(0, 0, h * choice([1, -1]), true, choisitLettresDifferentes(1, 'OQWX' + A.label), 'left')
+          D = point3d(0, 0, h * (1), true, choisitLettresDifferentes(1, 'OQWX' + A.label), 'left')
           v = vecteur3d(A, B)
           ptsBase = [B]
           nbSommets = choice([3, 5, 6, 7])
@@ -319,15 +309,15 @@ export default function CalculPythagoreEspace () {
             ptsBase.push(rotation3d(B, droite3d(A, vecteur3d(D, A)), ee * 360 / (nbSommets)))
           }
           p = polygone3d(ptsBase, 'blue')
-          solideDessine = pyramide3d(p, D, 'blue', A, true, 'red', true)
-          numeroSommet = randint(0, Math.floor(nbSommets / 2))
-          if (context.anglePerspective < 0) numeroSommet = (nbSommets - numeroSommet) % nbSommets
-          segmentATrouver = segment(D.c2d, p.listePoints2d[numeroSommet], '#f15929')
+          solideDessine = pyramide3d(p, D, 'blue', A, true, 'black', true)
+          numeroSommet = randint(0, Math.floor(nbSommets))
+          segmentATrouver = solideDessine.aretesSommet[numeroSommet].c2d
           segmentATrouver.epaisseur = 2
+          segmentATrouver.color = colorToLatexOrHTML('#f15929')
+          longueurATrouver = D.label + p.listePoints2d[numeroSommet].nom
           texte += `${solideDessine.nom} est une pyramide régulière. La distance entre ${A.label}, le centre de la base, et l'un des sommets de la base est de ${r} ${listeUnites[j]} et la hauteur de cette pyramide est de ${h} ${listeUnites[j]}. Calculer la longueur ${longueurATrouver}, arrondie au dixième de ${listeUnites[j]}.<br>`
           texte += mathalea2d(Object.assign({}, fixeBordures([...solideDessine.c2d]), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), [...solideDessine.c2d, segmentATrouver])
 
-          longueurATrouver = D.label + p.listePoints2d[numeroSommet].nom
           objetsEnonce.push(...solideDessine.c2d, segmentATrouver, new CodageAngleDroit3D(D, A, p.listePoints[numeroSommet], 'green', 2))
           segmentAnnexe = segment(A.c2d, p.listePoints2d[numeroSommet], 'green')
           objetsEnonce.push(segmentAnnexe)
@@ -342,9 +332,6 @@ export default function CalculPythagoreEspace () {
           texteCorr += `<br> $${longueurATrouver}^2=${texNombre(h)}^2+${texNombre(r)}^2=${texNombre(h ** 2 + r ** 2)}$`
           texteCorr += `<br> $${longueurATrouver}=\\sqrt{${texNombre(h ** 2 + r ** 2)}}$`
           texteCorr += `<br> $${longueurATrouver}\\approx${miseEnEvidence(texNombre(reponse))}$ ${texteEnCouleurEtGras(listeUnites[j])}`
-
-          setReponse(this, i, new Grandeur(reponse, listeUnites[j]), { formatInteractif: 'unites' })
-          if (this.interactif && context.isHtml) texte += `<br>$${longueurATrouver}\\approx$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
           break
         case 7: // Dans un cône
           r = randint(4, 10)
@@ -359,7 +346,7 @@ export default function CalculPythagoreEspace () {
             ptsBase.push(rotation3d(B, droite3d(A, vecteur3d(D, A)), ee * 360 / (nbSommets)))
           }
           p = polygone3d(ptsBase, 'blue')
-          solideDessine = cone3d(A, D, v, 'blue', true, 'red', assombrirOuEclaircir('gray', 100))
+          solideDessine = cone3d(A, D, v, 'blue', true, 'black', assombrirOuEclaircir('gray', 100))
           numeroSommet = randint(1, Math.floor(nbSommets / 2) - 1)
           if (context.anglePerspective < 0) numeroSommet = (nbSommets - numeroSommet) % nbSommets
           segmentATrouver = segment(D.c2d, p.listePoints2d[numeroSommet], '#f15929')
@@ -387,168 +374,98 @@ export default function CalculPythagoreEspace () {
           texteCorr += `<br> $${longueurATrouver}=\\sqrt{${texNombre(h ** 2 + r ** 2)}}$`
           texteCorr += `<br> $${longueurATrouver}\\approx${miseEnEvidence(texNombre(reponse))}$ ${texteEnCouleurEtGras(listeUnites[j])}`
           break
-        case 8: // Dans une sphère
+        case 8: // Rayon dans une sphère
+          context.anglePerspective = randint(2, 6) * choice([10, -10])
           r = randint(4, 10)
-          // h = randint(5, 15, [r])
-          A = point3d(0, 0, 0, true, choisitLettresDifferentes(1, 'OQWX'), 'left')
-          // B = point3d(r, 0, 0)
-          // D = point3d(0, 0, r, true, choisitLettresDifferentes(1, 'OQWX' + A.label), 'left')
-          // E = point3d(0, 0, -r, true, choisitLettresDifferentes(1, 'OQWX' + A.label + D.label), 'left')
-          // v = vecteur3d(A, B)
-          // ptsBase = [B]
-          objetsEnonce = sphere3d(A, r).c2d
+          choixProfondeur = choice([1, 2, 4])
+          r2 = r * Math.cos(choixProfondeur / 6 * Math.PI / 2)
+          A = point3d(0, 0, 0, true, choisitLettresDifferentes(1, 'OQWX')[0], 'left')
+          h = A.z + r * Math.sin(choixProfondeur / 6 * Math.PI / 2)
+          B = point3d(r2, A.y, h, true)
+          B = rotation3d(B, droite3d(A, vecteur3d(0, 0, 1)), context.anglePerspective < 0 ? 30 : -30)
+          B.label = choisitLettresDifferentes(1, 'OQWX' + A.label)[0]
+          B.c2d.nom = B.label
+          B.c2d.positionLabel = 'below'
+          D = point3d(0, A.y, h, true, choisitLettresDifferentes(1, 'OQWX' + A.label + B.label)[0])
+          longueurATrouver = B.label + A.label
+          segmentATrouver = segment(A.c2d, B.c2d, '#f15929')
+          segmentATrouver.epaisseur = 2
+          segmentATrouver.pointilles = 2
+          segmentAnnexe = segment(D.c2d, B.c2d, 'black')
+          segmentAnnexe.pointilles = 2
+          h = arrondi(h, 1)
+          r2 = arrondi(r2, 1)
+          sph = sphere3d(A, r, 'green', 'blue', 12, 'lightgray', 0, 'black', true)
+          objetsEnonce = sph.c2d
+          objetsEnonce.push(segmentATrouver, segmentAnnexe, tracePoint(B, D, A), labelPoint(A, D, B), new CodageAngleDroit3D(A, D, B, 'black', 1))
+          texte += `${B.label} appartient à cette sphère de centre ${A.label}. ${D.label} est un point à l'intérieur de la sphère, à $${texNombre(h)}$ ${listeUnites[j]} de ${A.label} et la distance entre ${B.label} et ${D.label} est de $${texNombre(r2)}$ ${listeUnites[j]}. Calculer le rayon de la sphère, arrondi au dixième de ${listeUnites[j]}.<br>`
           texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
-          context.anglePerspective = randint(2, 6) * choice([10, -10])
-          /* r = randint(4, 10)
-          objetsEnonce = sphere3d(A, r, 'blue', 'black', 0, 'gray', 0, 'gray', true, 'red').c2d
-          texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
-          context.anglePerspective = randint(2, 6) * choice([10, -10])
-          // context.anglePerspective = 50
-          r = randint(4, 10)
-          objetsEnonce = sphere3d(A, r, 'green', 'red', 36, 'gray', 0, 'gray', false).c2d
-          texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
-          // objetsEnonce = sphere3d(A, r, 'green', 'red', 18, 'gray', 0, 'gray', false).c2d
-          // texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
-          context.anglePerspective = randint(2, 6) * choice([10, -10])
+          objetsEnonce = sph.c2d
+          segmentAnnexe.epaisseur = 2
+          segmentAnnexe.color = colorToLatexOrHTML('green')
+          objetsEnonce.push(segmentATrouver, segmentAnnexe, tracePoint(B, D, A), labelPoint(A, D, B), new CodageAngleDroit3D(A, D, B, 'green', 1))
+          segmentAnnexe = segment(D.c2d, A.c2d, 'green')
+          segmentAnnexe.epaisseur = 2
+          segmentAnnexe.pointilles = 2
+          objetsEnonce.push(segmentAnnexe)
+          texteCorr += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
+          texteCorr += `<br> Le triangle ${longueurATrouver + D.label} est rectangle en ${D.label}  donc d'après le théorème de Pythagore, on a : `
+          texteCorr += `$${longueurATrouver}^2=${D.label + A.label}^2+${D.label + B.label}^2$.`
 
-          r = randint(4, 10)
-          console.log(context.anglePerspective)
-          objetsEnonce = sphere3d(A, r, 'blue', 'blue', 36, 'red', 18, 'gray', true).c2d
-          texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
-          context.anglePerspective = randint(2, 6) * choice([10, -10])
-          r = randint(4, 10)
-          objetsEnonce = sphere3d(A, r, 'blue', 'black', 12, 'gray', 18, 'gray', true, 'green').c2d
-          texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
-          context.anglePerspective = randint(2, 6) * choice([10, -10])
-          r = randint(4, 10) */
+          reponse = arrondi(Math.sqrt(h ** 2 + r2 ** 2), 1)
+          texteCorr += `<br> $${longueurATrouver}^2=${texNombre(h)}^2+${texNombre(r2)}^2=${texNombre(h ** 2 + r2 ** 2)}$`
+          texteCorr += `<br> $${longueurATrouver}=\\sqrt{${texNombre(h ** 2 + r2 ** 2)}}$`
+          texteCorr += `<br> $${longueurATrouver}\\approx${miseEnEvidence(texNombre(reponse))}$ ${texteEnCouleurEtGras(listeUnites[j])}`
           break
-        case 9: // Dans un prisme droit
+        case 9: // Hauteur dans une sphère
+          context.anglePerspective = randint(2, 6) * choice([10, -10])
           r = randint(4, 10)
-          h = randint(5, 15, [r])
-          A = point3d(0, 0, 0, true, choisitLettresDifferentes(1, 'OQWX'), 'left')
-          if (choice([0]) === 0) {
-            B = point3d(r, 0, 0)
-          } else if (choice([0, 1]) === 0) {
-            B = point3d(0, r, 0)
-            D = point3d(h, 0, 0, true, choisitLettresDifferentes(1, 'OQWX' + A.label), 'left')
-          } else {
-            B = point3d(0, 0, r)
-            D = point3d(0, h, 0, true, choisitLettresDifferentes(1, 'OQWX' + A.label), 'left')
-          }
-          v = vecteur3d(A, B)
-          D = point3d(0, 0, h, true, choisitLettresDifferentes(1, 'OQWX' + A.label), 'left')
-          ptsBase = [B]
-          nbSommets = choice([3, 5, 6, 7])
-          for (let ee = 1; ee < nbSommets; ee++) {
-            ptsBase.push(rotation3d(B, droite3d(A, vecteur3d(D, A)), ee * 360 / (nbSommets) + choice([-10, 10]) * randint(0, 2)))
-          }
-          C = rotation3d(B, droite3d(A, vecteur3d(D, A)), 70)
-          E = rotation3d(B, droite3d(A, vecteur3d(D, A)), 200)
-          p = polygone3d(ptsBase, 'blue')
-          solideDessine = prisme3d(p, vecteur3d(A, D), 'blue', true)
+          choixProfondeur = choice([1, 2, 4])
+          r2 = r * Math.cos(choixProfondeur / 6 * Math.PI / 2)
+          A = point3d(0, 0, 0, true, choisitLettresDifferentes(1, 'OQWX')[0], 'left')
+          h = A.z + r * Math.sin(choixProfondeur / 6 * Math.PI / 2)
+          B = point3d(r2, A.y, h, true)
+          B = rotation3d(B, droite3d(A, vecteur3d(0, 0, 1)), context.anglePerspective < 0 ? 30 : -30)
+          B.label = choisitLettresDifferentes(1, 'OQWX' + A.label)[0]
+          B.c2d.nom = B.label
+          B.c2d.positionLabel = 'below'
+          D = point3d(0, A.y, h, true, choisitLettresDifferentes(1, 'OQWX' + A.label + B.label)[0])
+          longueurATrouver = B.label + D.label
+          segmentATrouver = segment(D.c2d, B.c2d, '#f15929')
+          segmentATrouver.epaisseur = 2
+          segmentATrouver.pointilles = 2
+          h = arrondi(h, 1)
+          r2 = arrondi(r2, 1)
+          sph = sphere3d(A, r, 'green', 'blue', 12, 'lightgray', 0, 'black', true)
+          objetsEnonce = sph.c2d
+          objetsEnonce.push(segmentATrouver, tracePoint(B, D, A), labelPoint(A, D, B), new CodageAngleDroit3D(A, D, B, 'black', 1))
+          texte += `${B.label} appartient à cette sphère de centre ${A.label} de rayon $${texNombre(r)}$ ${listeUnites[j]}. ${D.label} est un point à l'intérieur de la sphère, à $${texNombre(h)}$ ${listeUnites[j]} de ${A.label}. Calculer la distance entre ${B.label} et ${D.label}, arrondi au dixième de ${listeUnites[j]}.<br>`
+          texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
 
-          texte += mathalea2d(Object.assign({}, fixeBordures([...solideDessine.c2d]), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), [...solideDessine.c2d])
-          setReponse(this, i, new Grandeur(reponse, listeUnites[j]), { formatInteractif: 'unites' })
-          if (this.interactif && context.isHtml) texte += `<br>$${longueurATrouver}\\approx$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
-          break
-        case 10: // Pleins de cylindres
-          context.anglePerspective = randint(2, 6) * choice([10, -10])
-          r = randint(4, 10)
-          h = randint(5, 15, [r])
-          A = point3d(0, 0, 0)
-          B = point3d(r, 0, 0)
-          D = point3d(0, 0, h)
-          v = vecteur3d(A, B)
-          // solideDessine = cylindre3d(A, D,  v, v, 'blue', false, true, true, '#f15929')
-          solideDessine = cylindre3d(A, D, v, v, 'blue')
-          texte += mathalea2d(Object.assign({}, fixeBordures([...solideDessine.c2d]), { scale: context.isHtml ? 0.7 : 0.3, style: 'inline' }), [...solideDessine.c2d])
-          context.anglePerspective = randint(2, 6) * choice([10, -10])
-          r = randint(4, 10)
-          h = randint(5, 15, [r])
-          A = point3d(0, 0, 0)
-          B = point3d(r, 0, 0)
-          D = point3d(0, 0, h)
-          v = vecteur3d(A, B)
-          solideDessine = cylindre3d(A, D, v, v, 'green', false)
-          texte += mathalea2d(Object.assign({}, fixeBordures([...solideDessine.c2d]), { scale: context.isHtml ? 0.7 : 0.3, style: 'inline' }), [...solideDessine.c2d])
-          context.anglePerspective = randint(2, 6) * choice([10, -10])
-          r = randint(4, 10)
-          h = randint(5, 15, [r])
-          A = point3d(0, 0, 0)
-          B = point3d(r, 0, 0)
-          D = point3d(0, 0, h)
-          v = vecteur3d(A, B)
-          solideDessine = cylindre3d(A, D, v, v, 'black', false, true)
-          texte += mathalea2d(Object.assign({}, fixeBordures([...solideDessine.c2d]), { scale: context.isHtml ? 0.7 : 0.3, style: 'inline' }), [...solideDessine.c2d])
-          context.anglePerspective = randint(2, 6) * choice([10, -10])
-          r = randint(4, 10)
-          h = randint(5, 15, [r])
-          A = point3d(0, 0, 0)
-          B = point3d(r, 0, 0)
-          D = point3d(0, 0, h)
-          v = vecteur3d(A, B)
-          solideDessine = cylindre3d(A, D, v, v, 'red', false, true, true)
-          texte += mathalea2d(Object.assign({}, fixeBordures([...solideDessine.c2d]), { scale: context.isHtml ? 0.7 : 0.3, style: 'inline' }), [...solideDessine.c2d])
-          context.anglePerspective = randint(2, 6) * choice([10, -10])
-          r = randint(4, 10)
-          h = randint(5, 15, [r])
-          A = point3d(0, 0, 0)
-          B = point3d(r, 0, 0)
-          D = point3d(0, 0, h)
-          v = vecteur3d(A, B)
-          solideDessine = cylindre3d(A, D, v, v, 'blue', false, true, true, '#f15929')
-          texte += '<br>' + mathalea2d(Object.assign({}, fixeBordures([...solideDessine.c2d]), { scale: context.isHtml ? 0.7 : 0.3, style: 'inline' }), [...solideDessine.c2d])
-          context.anglePerspective = randint(2, 6) * choice([10, -10])
-          r = randint(4, 10)
-          h = randint(5, 15, [r])
-          A = point3d(0, 0, 0)
-          B = point3d(r, 0, 0)
-          D = point3d(0, 0, h)
-          v = vecteur3d(A, B)
-          solideDessine = cylindre3d(A, D, v, v, 'blue', false, true, true, '#f15929', true)
-          texte += mathalea2d(Object.assign({}, fixeBordures([...solideDessine.c2d]), { scale: context.isHtml ? 0.7 : 0.3, style: 'inline' }), [...solideDessine.c2d])
-          context.anglePerspective = randint(2, 6) * choice([10, -10])
-          r = randint(4, 10)
-          h = randint(5, 15, [r])
-          A = point3d(0, 0, 0)
-          B = point3d(r, 0, 0)
-          D = point3d(0, 0, h)
-          v = vecteur3d(A, B)
-          solideDessine = cylindre3d(A, D, v, v, 'blue', false, true, true, '#f15929', true, '#ffb6c1')
-          texte += mathalea2d(Object.assign({}, fixeBordures([...solideDessine.c2d]), { scale: context.isHtml ? 0.7 : 0.3, style: 'inline' }), [...solideDessine.c2d])
-          context.anglePerspective = randint(2, 6) * choice([10, -10])
-          r = randint(4, 10)
-          h = randint(5, 15, [r])
-          A = point3d(0, 0, 0)
-          B = point3d(r, 0, 0)
-          D = point3d(0, h, 0)
-          v = vecteur3d(A, B)
-          solideDessine = cylindre3d(A, D, v, v, 'red', false, true, true, 'blue', true, '#90ee90')
-          texte += '<br>' + mathalea2d(Object.assign({}, fixeBordures([...solideDessine.c2d]), { scale: context.isHtml ? 0.7 : 0.3, style: 'inline' }), [...solideDessine.c2d])
-          context.anglePerspective = randint(2, 6) * choice([10, -10])
-          r = randint(4, 10)
-          h = randint(5, 15, [r])
-          A = point3d(0, 0, 0)
-          B = point3d(0, r, 0)
-          D = point3d(h, 0, 0)
-          v = vecteur3d(A, B)
-          solideDessine = cylindre3d(A, D, v, v, 'green', true, true, true, 'red', true, '#add8e6')
-          texte += mathalea2d(Object.assign({}, fixeBordures([...solideDessine.c2d]), { scale: context.isHtml ? 0.7 : 0.3, style: 'inline' }), [...solideDessine.c2d])
-          r = randint(4, 10)
-          h = randint(5, 15, [r])
-          A = point3d(0, 0, 0)
-          B = point3d(0, r, 0)
-          D = point3d(h, 0, 0)
-          v = vecteur3d(A, B)
-          B1 = point3d(0, r / 2, 0)
-          v1 = vecteur3d(A, B1)
-          solideDessine = cylindre3d(A, D, v, v1, 'green', true, true, true, 'red', true, '#add8e6')
-          texte += mathalea2d(Object.assign({}, fixeBordures([...solideDessine.c2d]), { scale: context.isHtml ? 0.7 : 0.3, style: 'inline' }), [...solideDessine.c2d])
+          objetsEnonce = sph.c2d
+          segmentAnnexe = segment(D.c2d, A.c2d, 'green')
+          segmentAnnexe.epaisseur = 2
+          segmentAnnexe.pointilles = 2
+          objetsEnonce.push(segmentATrouver, segmentAnnexe, tracePoint(B, D, A), labelPoint(A, D, B), new CodageAngleDroit3D(A, D, B, 'green', 1))
+          segmentAnnexe = segment(B.c2d, A.c2d, 'green')
+          segmentAnnexe.epaisseur = 2
+          segmentAnnexe.pointilles = 2
+          objetsEnonce.push(segmentAnnexe)
+          texteCorr += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
+          texteCorr += `<br> Le triangle ${longueurATrouver + A.label} est rectangle en ${D.label}  donc d'après le théorème de Pythagore, on a : `
+          texteCorr += `$${B.label + A.label}^2=${longueurATrouver}^2+${D.label + A.label}^2$.`
 
-          setReponse(this, i, new Grandeur(reponse, listeUnites[j]), { formatInteractif: 'unites' })
-          if (this.interactif && context.isHtml) texte += `<br>$${longueurATrouver}\\approx$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
+          reponse = arrondi(Math.sqrt(r ** 2 - h ** 2), 1)
+          texteCorr += `<br> $${r}^2=${longueurATrouver}^2+${texNombre(h)}^2$`
+          texteCorr += `<br> $${r * r}=${longueurATrouver}^2+${texNombre(h * h)}$`
+          texteCorr += `<br> $${longueurATrouver}^2=${r * r}-${texNombre(h * h)}=${texNombre(r ** 2 - h ** 2)}$`
+          texteCorr += `<br> $${longueurATrouver}=\\sqrt{${texNombre(r ** 2 - h ** 2)}}$`
+          texteCorr += `<br> $${longueurATrouver}\\approx${miseEnEvidence(texNombre(reponse))}$ ${texteEnCouleurEtGras(listeUnites[j])}`
           break
       }
+      setReponse(this, i, new Grandeur(reponse, listeUnites[j]), { formatInteractif: 'unites' })
+      if (this.interactif && context.isHtml) texte += `<br>$${longueurATrouver}\\approx$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
+
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,
@@ -565,7 +482,7 @@ export default function CalculPythagoreEspace () {
               propositions: [
                 {
                   reponse: { // utilisé si type = 'AMCNum'
-                    texte: texte,
+                    texte,
                     valeur: [reponse], // obligatoire (la réponse numérique à comparer à celle de l'élève). EE : Si une fraction est la réponse, mettre un tableau sous la forme [num,den]
                     alignement: 'center', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
                     param: {
@@ -607,5 +524,5 @@ export default function CalculPythagoreEspace () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Exercice AMC', 2, '1 : Question ouverte\n2 : Réponse numérique']
-  this.besoinFormulaire2Texte = ['Type de longueur à trouver', 'Nombres séparés par des tirets\n1 : Diagonale d\'une face d\'un cube\n2 : Diagonale d\'un cube\n3 : Diagonale d\'une face d\'un pavé droit\n4 : Diagonale d\'un pavé droit\n5 : Dans un cylindre\n6 : Dans une pyramide\n7 : Dans un cône\n8 : Dans une sphère\n9 : Mélange']
+  this.besoinFormulaire2Texte = ['Type de longueur à trouver', 'Nombres séparés par des tirets\n1 : Diagonale d\'une face d\'un cube\n2 : Diagonale d\'un cube\n3 : Diagonale d\'une face d\'un pavé droit\n4 : Diagonale d\'un pavé droit\n5 : Dans un cylindre\n6 : Dans une pyramide\n7 : Dans un cône\n8 : Rayon d\'une sphère\n9 : Rayon d\'une section d\'une sphère\n10 : Mélange']
 }

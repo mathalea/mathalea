@@ -685,7 +685,7 @@ function Sphere3d (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue'
   p.epaisseur = 1.5
   this.c2d.push(p)
 
-  if (affichageAxe) {
+  if (this.affichageAxe) {
     const l = longueur(poleNord.c2d, poleSud.c2d)
     let ee = 1
     while (ee < 2 && pointSurSegment(poleNord.c2d, poleSud.c2d, ee * l).estDansPolygone(polygone(enveloppeSphere))) {
@@ -1229,6 +1229,7 @@ export function pyramide3d (base, vecteur, color = 'black') {
    * @property {boolean} affichageNom Permet (ou pas) l'affichage du nom des sommets de la pyramide.
    * @property {string} nom Nom de la pyramide (si affichageNom = true)
    * @property {string} colorCone Couleur du cône : du type 'blue' ou du type '#f15929'
+   * @property {arete3d[]} aretesSommet Ce tableau contient les arêtes liant le sommet de la pyramide aux sommets de la base
    * @property {Array} c2d Contient les commandes à tracer en 2d de cette fonction
    * @author Eric Elter (d'après version précédente de Jean-Claude Lhote)
    * @class
@@ -1252,10 +1253,10 @@ class Pyramide3d {
     let s
 
     // Stockage de toutes les arêtes issues du sommet
-    const aretesSommet = []
+    this.aretesSommet = []
     for (let i = 0; i < this.base.listePoints.length; i++) {
       s = arete3d(this.base.listePoints[i], this.sommet, this.color, true)
-      aretesSommet.push(s)
+      this.aretesSommet.push(s)
     }
 
     // Stockage de toutes les arêtes de la base
@@ -1277,13 +1278,14 @@ class Pyramide3d {
           sommetCache = sommetCache || this.base.listePoints[i].c2d.estDansPolygone(polygone(this.sommet.c2d, this.base.listePoints[(i + j) % this.base.listePoints.length].c2d, this.base.listePoints[(i + j + 1) % this.base.listePoints.length].c2d))
         }
         if (this.estCone && sommetCacheAvant !== sommetCache && i !== 0) {
-          if (sommetCache) sommetGeneratriceCone.push(aretesSommet[(aretesSommet.length + i - 1) % aretesSommet.length])
-          else sommetGeneratriceCone.push(aretesSommet[i])
+          if (sommetCache) sommetGeneratriceCone.push(this.aretesSommet[(this.aretesSommet.length + i - 1) % this.aretesSommet.length])
+          else sommetGeneratriceCone.push(this.aretesSommet[i])
           if (sommetCache) angleReference[1] = i
           else angleReference[0] = i
         }
         if (sommetCache) {
-          aretesSommet[i].c2d.pointilles = 2
+          this.aretesSommet[i].visible = false
+          this.aretesSommet[i].c2d.pointilles = 2
           aretesBase[i].c2d.pointilles = 2
           aretesBase[(this.base.listePoints.length + i - 1) % this.base.listePoints.length].c2d.pointilles = 2
         }
@@ -1293,8 +1295,8 @@ class Pyramide3d {
     if (this.estCone && angleReference[1] < angleReference[0]) { angleReference[1] += this.base.listePoints.length }
 
     if (this.estCone && sommetGeneratriceCone.length === 1) {
-      sommetGeneratriceCone.push(aretesSommet[aretesSommet.length - 1])
-      angleReference[1] = aretesSommet.length - 1
+      sommetGeneratriceCone.push(this.aretesSommet[this.aretesSommet.length - 1])
+      angleReference[1] = this.aretesSommet.length - 1
     }
     if (this.estCone) {
       const premierPlan = [this.sommet.c2d]
@@ -1307,21 +1309,32 @@ class Pyramide3d {
     }
 
     if (!this.estCone) {
-      if (sommet.z > this.base.listePoints[0].z) { // Si le sommet est au-dessus de la base
+      let longueurSegment
+      if (this.sommet.z > this.base.listePoints[0].z) { // Si le sommet est au-dessus de la base
       // Recherche de l'arête cachée possible issue de deux sommets non cachés.
-        let longueurSegment
         for (let i = 0; i < this.base.listePoints.length; i++) {
           sommetCache = false
           longueurSegment = longueur(this.base.listePoints[i].c2d, this.base.listePoints[(i + 1) % this.base.listePoints.length].c2d)
           s = segment(pointSurSegment(this.base.listePoints[i].c2d, this.base.listePoints[(i + 1) % this.base.listePoints.length].c2d, longueurSegment / 20), pointSurSegment(this.base.listePoints[i].c2d, this.base.listePoints[(i + 1) % this.base.listePoints.length].c2d, 19 * longueurSegment / 20))
-          for (let j = 0; j < aretesSommet.length; j++) {
-            sommetCache = sommetCache || s.estSecant(aretesSommet[j].c2d)
+          for (let j = 0; j < this.aretesSommet.length; j++) {
+            sommetCache = sommetCache || s.estSecant(this.aretesSommet[j].c2d)
           }
           if (sommetCache) aretesBase[i].c2d.pointilles = 2
         }
+      } else { // Si le sommet est en-dessous de la base
+        for (let i = 0; i < this.base.listePoints.length; i++) {
+          longueurSegment = longueur(this.base.listePoints[i].c2d, this.sommet.c2d)
+          s = segment(pointSurSegment(this.base.listePoints[i].c2d, this.sommet.c2d, longueurSegment / 20), this.sommet.c2d, 'red')
+          let j = 0
+          while (j < aretesBase.length && !s.estSecant(aretesBase[j].c2d)) {
+            j++
+          }
+          //  if (j < aretesBase.length && s.estSecant(aretesBase[j].c2d)) this.aretesSommet[i].c2d.pointilles = 2
+          if (j < aretesBase.length) this.aretesSommet[i].c2d.pointilles = 2
+        }
       }
       for (let i = 0; i < this.base.listePoints.length; i++) {
-        this.c2d.push(aretesSommet[i].c2d)
+        this.c2d.push(this.aretesSommet[i].c2d)
       }
     } else {
       for (let i = 0; i < sommetGeneratriceCone.length; i++) {
@@ -1339,25 +1352,38 @@ class Pyramide3d {
       this.c2d.push(labelPoint(this.centre.c2d))
 
       if (affichageAxe) { // Axe affiché que si centre précisé
-        let intersectionTrouvee = false
-        let ee = 0
-        // Recherche du point d'intersection visuelle entre l'axe et une arête visible de la base
-        while (!intersectionTrouvee && ee < aretesBase.length) {
-          s = aretesBase[ee].c2d
-          if (s.pointilles !== 2) { // L'arête coupée doit être visible
-            intersectionTrouvee = s.estSecant(droite(this.centre.c2d, this.sommet.c2d))
+        if (this.sommet.z > 0) {
+          let intersectionTrouvee = false
+          let ee = 0
+          // Recherche du point d'intersection visuelle entre l'axe et une arête visible de la base
+          while (!intersectionTrouvee && ee < aretesBase.length) {
+            s = aretesBase[ee].c2d
+            if (s.pointilles !== 2) { // L'arête coupée doit être visible
+              intersectionTrouvee = s.estSecant(droite(this.centre.c2d, this.sommet.c2d))
+            }
+            ee++
           }
-          ee++
-        }
-        if (ee < aretesBase.length) {
-          ee--
-          const ptBase = pointIntersectionDD(droite(this.base.listePoints[ee].c2d, this.base.listePoints[(ee + 1) % this.base.listePoints.length].c2d), droite(this.centre.c2d, this.sommet.c2d))
-          s = segment(ptBase, this.sommet.c2d, this.colorAxe)
+          if (ee < aretesBase.length) {
+            ee--
+            const ptBase = pointIntersectionDD(droite(this.base.listePoints[ee].c2d, this.base.listePoints[(ee + 1) % this.base.listePoints.length].c2d), droite(this.centre.c2d, this.sommet.c2d))
+            s = segment(ptBase, this.sommet.c2d, this.colorAxe)
+            s.pointilles = 2
+            this.c2d.push(s)
+            s = segment(ptBase, translation(ptBase, vecteur(this.centre.c2d, ptBase)), this.colorAxe)
+            this.c2d.push(s)
+            s = segment(this.sommet.c2d, translation(this.sommet.c2d, vecteur(ptBase, this.centre.c2d)), this.colorAxe)
+            this.c2d.push(s)
+          }
+        } else {
+          s = segment(this.centre.c2d, this.sommet.c2d, this.colorAxe)
           s.pointilles = 2
           this.c2d.push(s)
-          s = segment(ptBase, translation(ptBase, vecteur(this.centre.c2d, ptBase)), this.colorAxe)
+          const v = vecteur(this.centre.c2d, this.sommet.c2d)
+          const L = longueur(this.base.listePoints[0].c2d, this.centre.c2d)
+          const h = 2 * norme(v)
+          s = segment(this.sommet.c2d, translation(this.sommet.c2d, vecteur(L * v.x / h, L * v.y / h)), this.colorAxe)
           this.c2d.push(s)
-          s = segment(this.sommet.c2d, translation(this.sommet.c2d, vecteur(ptBase, this.centre.c2d)), this.colorAxe)
+          s = segment(this.centre.c2d, translation(this.centre.c2d, vecteur(-L * v.x / h, -L * v.y / h)), this.colorAxe)
           this.c2d.push(s)
         }
       }
@@ -1369,7 +1395,7 @@ class Pyramide3d {
       const nomBase = choisitLettresDifferentes(this.base.listePoints.length, 'OQWX' + this.sommet.label + this.centre.label)
       renommePolygone(p, nomBase)
       for (let ee = 0; ee < this.base.listePoints2d.length; ee++) {
-        this.base.listePoints2d[ee].positionLabel = 'below'
+        this.base.listePoints2d[ee].positionLabel = this.sommet.z > 0 ? 'below' : 'above'
       }
       this.c2d.push(labelPoint(...p.listePoints))
       this.c2d.push(labelPoint(this.sommet))
