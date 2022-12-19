@@ -70,7 +70,7 @@ export default function ExerciceLabyrintheDivisibilite1 () {
       monChemin = laby.choisitChemin(laby.niveau) // On choisit un chemin
       laby.murs2d = laby.construitMurs(monChemin) // On construit le labyrinthe
       laby.chemin2d = laby.traceChemin(monChemin) // On trace le chemin solution
-      texte = `${texteEnCouleurEtGras('Trouver la sortie en ne passant que par les cases contenant un nombre divisible par ', 'black')}$${tables[q]}$.<br>`
+      texte = `Trouver la sortie en ne passant que par les cases contenant un nombre divisible par ${tables[q]}.<br>`
       texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en couleur et la sortie est le numéro $${nbL - 1 - monChemin[monChemin.length - 1][1] + 1}$.`, 'black')}<br>`
       // Zone de construction du tableau de nombres : S'ils sont sur monChemin et seulement si, ils doivent vérifier la consigne
       let listeMultiples = []
