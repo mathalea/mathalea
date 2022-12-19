@@ -11523,7 +11523,7 @@ function pattern ({
  * @class
  */
 // JSDOC Validee par EE Septembre 2022
-export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6 } = {}) {
+export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = {}) {
   // Fonction qui permet de copier des tableaux
   function arrayCopy (arr) {
     return JSON.parse(JSON.stringify(arr))
@@ -11841,9 +11841,9 @@ export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6 } = {}) {
     for (let a = 1; a < nbColonnes + 1; a++) {
       for (let b = 0; b < nbLignes; b++) {
         if (typeof (nombres[a - 1][b]) === 'number') {
-          objets.push(texteParPoint(nombreAvecEspace(nombres[a - 1][b]), point(-1.5 + a * 3, 2.5 + b * 3), 'milieu', 'black', taille, 0, true))
+          objets.push(texteParPointEchelle(nombreAvecEspace(nombres[a - 1][b]), point(-1.5 + a * 3, 2.5 + b * 3), 'milieu', 'black', taille, 0, true, scaleFigure))
         } else if (typeof (nombres[a - 1][b]) === 'string') { // écriture mode Maths
-          objets.push(texteParPosition(nombres[a - 1][b], -1.5 + a * 3, 2.5 + b * 3, 'milieu', 'black', taille, 0, true))
+          objets.push(texteParPositionEchelle(nombres[a - 1][b], -1.5 + a * 3, 2.5 + b * 3, 'milieu', 'black', taille, 0, true, scaleFigure))
         } else {
           objets.push(latexParCoordonnees(nombres[a - 1][b].texFraction, -1.5 + a * 3, 2.5 + b * 3, 'black', 20, 20, 'white', 6))
         }
@@ -11863,8 +11863,8 @@ export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6 } = {}) {
  * @return {Labyrinthe}
  */
 // JSDOC Validee par EE Septembre 2022
-export function labyrinthe ({ nbLignes = 3, nbColonnes = 6 } = {}) {
-  return new Labyrinthe({ nbLignes, nbColonnes })
+export function labyrinthe ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = {}) {
+  return new Labyrinthe({ nbLignes, nbColonnes, scaleFigure })
 }
 
 /**
