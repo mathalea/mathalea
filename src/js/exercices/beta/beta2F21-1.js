@@ -17,7 +17,7 @@ export default function ModeliserParUneFonction () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
   this.nbQuestions = 1
-  // this.nbQuestionsModifiable = false
+  this.nbQuestionsModifiable = false
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 1
@@ -111,25 +111,24 @@ export default function ModeliserParUneFonction () {
               epaisseur: 2
             }), TexteX, TexteY, r1, o, sAAx)
             texte = ` Dans une salle de sport, deux formules sont proposées :<br>
-          ${texteGras('Formule A :')} abonnement mensuel de $${a}$ € puis $${texPrix(b)}$ € par séance ;<br>
-          ${texteGras('Formule B :')} abonnement mensuel de $${c}$ € puis $${texPrix(d)}$ € par séance.<br>
-          Le nombre de séances mensuelles ne peut excéder $${e}$. <br>
-          On note $x$ le nombre de séances mensuelles d’un abonné, $f(x)$ le prix payé avec la formule A et $g(x)$ le prix payé avec la formule B.<br>
-          ${numAlpha(0)} Donner l'ensemble de définition des fonctions $f$ et $g$.<br> 
-          ${numAlpha(1)} Exprimer en fonction de $x$, $f(x)$, puis $g(x)$.<br> 
-                    ${numAlpha(2)} ${P} choisit une formule mais ne veut pas dépenser plus de $${T}$ € pour un mois. Quelle formule lui conseiller s'il veut faire le maximum de séances de sport dans le mois ?<br>
-                    ${numAlpha(3)} À partir de combien de séances mensuelles, la formule B est-elle plus avantageuse ?
+            ${texteGras('Formule A :')} abonnement mensuel de $${a}$ € puis $${texPrix(b)}$ € par séance ;<br>
+            ${texteGras('Formule B :')} abonnement mensuel de $${c}$ € puis $${texPrix(d)}$ € par séance.<br>
+            Le nombre de séances mensuelles ne peut excéder $${e}$. <br>
+            On note $x$ le nombre de séances mensuelles d’un abonné, $f(x)$ le prix payé avec la formule A et $g(x)$ le prix payé avec la formule B.<br>
+            ${numAlpha(0)} Donner l'ensemble de définition des fonctions $f$ et $g$.<br>
+            ${numAlpha(1)} Exprimer en fonction de $x$, $f(x)$, puis $g(x)$.<br>
+            ${numAlpha(2)} ${P} choisit une formule mais ne veut pas dépenser plus de $${T}$ € pour un mois. Quelle formule lui conseiller s'il veut faire le maximum de séances de sport dans le mois ?<br>
+            ${numAlpha(3)} À partir de combien de séances mensuelles, la formule B est-elle plus avantageuse ?
                 `
 
             texteCorr = `
           ${numAlpha(0)} Le nombre minimal de séances dans le mois est 0 et le nombre maximal est $${e}$, donc l'ensemble de définition des fonctions $f$ et $g$ est $[0\\,;\\,${e}]$.<br><br>
           ${numAlpha(1)} Les formules comprennent un abonnement fixe et un tarif particulier pour une séance. <br>
           Ainsi, le montant mensuel pour une formule est : Abonnement + Coût d'une séance $\\times$ Nombre de séances. <br>
-           La fonction $f$ est définie par : $f(x)=${a}+${texPrix(b)}x$ et la fonction $g$ est définie par $g(x)=${c}+${texPrix(d)}x$.<br><br>
+          La fonction $f$ est définie par : $f(x)=${a}+${texPrix(b)}x$ et la fonction $g$ est définie par $g(x)=${c}+${texPrix(d)}x$.<br><br>
           ${numAlpha(2)} On cherche le nombre de séances maximum  que l'on peut faire avec $${T}$ € avec les formule A et B.<br>
           Pour la formule A, on cherche $x$ tel que $f(x)\\leqslant${T}$.<br>
-
-$\\begin{aligned}
+          $\\begin{aligned}
 ${a}+${texPrix(b)}x&\\leqslant${T}\\\\
 ${texPrix(b)}x&\\leqslant ${T}-${a}${sp(8)} \\text{(On retranche ${a} dans chaque membre)} \\\\
 ${texPrix(b)}x&\\leqslant ${T - a}\\\\
@@ -139,7 +138,6 @@ x&\\leqslant \\dfrac{${T - a}}{${texPrix(b)}}${sp(8)}\\text{(On divise par ${tex
 Le plus grand entier inférieur ou égal à $\\dfrac{${T - a}}{${texPrix(b)}}$ est $${Math.floor((T - a) / b)}$.<br>
 Avec la formule A, ${P} pourra faire au maximum $${Math.floor((T - a) / b)}$ séances.<br><br>
 Pour la formule B, on cherche $x$ tel que $g(x)\\leqslant${T}$.<br>
-
 $\\begin{aligned}
 ${c}+${texPrix(d)}x&\\leqslant${T}\\\\
 ${texPrix(d)}x&\\leqslant ${T}-${c}${sp(8)} \\text{(On retranche ${c} dans chaque membre)} \\\\
@@ -242,9 +240,9 @@ Avec la formule B, ${P} pourra faire au maximum $${Math.floor((T - c) / d)}$ sé
             texte = `  Une société de location de véhicules particuliers propose le tarif suivant pour un week-end de location :<br>
           ${texteGras('TARIF WEEK-END :')}  forfait de $${a}$ € puis $${texNombre(c, 2)}$ € par km parcouru (dans la limite de $${texNombre(km, 0)}$ km).<br> 
           On note $x$ le nombre de km parcourus par un client au cours d'un week-end et on considère la fonction $T$ qui à chaque valeur de $x$ associe le prix payé par le client.<br>
-          ${numAlpha(0)} Donner l'ensemble de définition de la fonction $T$.<br> 
+          ${numAlpha(0)} Donner l'ensemble de définition de la fonction $T$.<br>
           ${numAlpha(1)} Exprimer $T(x)$ en fonction de $x$.<br> 
-          ${numAlpha(2)} Résoudre l'équation $T(x)=${texNombre(prix, 2)}$.<br> 
+          ${numAlpha(2)} Résoudre l'équation $T(x)=${texNombre(prix, 2)}$.<br>
           Interpréter ce résultat dans le contexte de l'exercice. `
             texteCorr = `  ${numAlpha(0)} On ne peut pas faire plus de $${texNombre(km)}$ km durant le week-end, ainsi l'ensemble de définition de la fonction $T$ est $[0\\,;\\,${km}]$.<br> 
           ${numAlpha(1)} Le tarif  comprend un forfait fixe et un tarif par km parcouru. <br>
@@ -328,10 +326,10 @@ On retrouve ce résultat graphiquement. Ci-dessous, la droite bleue représente 
             , r1, o, sAAx, TexteVal1, TexteVal2)
             texte = `  Sur toute sèche, la distance de freinage en mètres, d'une voiture est modélisée de la façon suivante : <br>
           En notant $v$ la vitesse du véhicule (en km/h), sa distance de freinage $d(v)$  (en m) est donnée par le carré de sa vitesse divisée par $${texNombre(a, 1)}$.<br>
-          ${numAlpha(0)} Donner l'expression de $d(v)$ en fonction de $v$. <br> 
-          ${numAlpha(1)} Calculer au mètre près, la distance de freinage de la voiture si elle roule à $${v}$ km/h.<br> 
-                    ${numAlpha(2)} La distance de freinage est-elle proportionnelle à la vitesse ?<br>
-                    ${numAlpha(3)}   La distance de freinage de cette voiture a été de $${b}$ m. Quelle était sa vitesse en km/h arrondie à l'unité ? `
+          ${numAlpha(0)} Donner l'expression de $d(v)$ en fonction de $v$. <br>
+          ${numAlpha(1)} Calculer au mètre près, la distance de freinage de la voiture si elle roule à $${v}$ km/h.<br>
+          ${numAlpha(2)} La distance de freinage est-elle proportionnelle à la vitesse ?<br>
+          ${numAlpha(3)}   La distance de freinage de cette voiture a été de $${b}$ m. Quelle était sa vitesse en km/h arrondie à l'unité ? `
             texteCorr = `${numAlpha(0)} Le carré de la vitesse est $v^2$, donc la fonction $d$ est définie par : $d(v)=\\dfrac{v^2}{${texNombre(a, 1)}}$. <br> 
           ${numAlpha(1)} $d(${v})=\\dfrac{${v}^2}{${texNombre(a, 1)}}\\simeq ${Math.round(v ** 2 / a, 0)}$. La distance de freinage est d'environ $${Math.round(v ** 2 / a, 0)}$.<br> 
                     ${numAlpha(2)} La distance de freinage n'est pas proportionnelle à la vitesse car la fonction $d$ n'est pas une fonction linéaire. Elle ne traduit pas une situation de proportionnalité.<br>
@@ -543,20 +541,17 @@ ${P} fait le plein de sa voiture dans cette station service. Le réservoir de sa
 On note $x$ le nombre de litres que met ${P} pour faire le plein du réservoir  de sa voiture. <br>
 On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix payé en euros par ${P}.<br>
 
-            ${numAlpha(0)} Donner l'ensemble de définition de la fonction $${nom}$ <br> 
-            ${numAlpha(1)} Déterminer l'expression algébrique de la fonction $${nom}$ (c'est-à-dire l'expression de $${nom}(x)$ en fonction de $x$).<br> 
-            ${numAlpha(2)} Le prix payé est-il proportionnel au nombre de litres mis dans le réservoir ? Justifier.<br>           
+            ${numAlpha(0)} Donner l'ensemble de définition de la fonction $${nom}$ <br>
+            ${numAlpha(1)} Déterminer l'expression algébrique de la fonction $${nom}$ (c'est-à-dire l'expression de $${nom}(x)$ en fonction de $x$).<br>
+            ${numAlpha(2)} Le prix payé est-il proportionnel au nombre de litres mis dans le réservoir ? Justifier.<br>
             ${numAlpha(3)} Résoudre l'équation $${nom}(x)=${texNombre(prix, 2)}$. Interpréter ce résultat dans le contexte de l'exercice. `
             texteCorr = `${numAlpha(0)} Le minimum de litres que ${P} peut mettre est  $${b}$ et le maximum est $${c}$. <br> 
             L'ensemble de définition de $${nom}$ est donc $[${b}\\,;\\,${c}]$.<br>
-
             ${numAlpha(1)} Pour obtenir le prix payé, on multiplie le nombre de litres par le prix d'un litre. <br>
-            Ainsi, l'expression algébrique de $${nom}$ est : $${nom}(x)=${texNombre(a, 2)}\\times x$, soit $${nom}(x)=${texNombre(a, 2)}x$.<br>         
-                                   
+            Ainsi, l'expression algébrique de $${nom}$ est : $${nom}(x)=${texNombre(a, 2)}\\times x$, soit $${nom}(x)=${texNombre(a, 2)}x$.<br>
             ${numAlpha(2)} Le prix payé est proportionnel au nombre de litres. La fonction $${nom}$ est une fonction linéaire traduisant une situation de proportionnalité.<br>
-                   
             ${numAlpha(3)}   On cherche $x$ tel que $${nom}(x)=${texNombre(prix, 2)}$.<br>
-                      $\\begin{aligned}
+            $\\begin{aligned}
                       ${texNombre(a, 2)}x&=${texNombre(prix, 2)}\\\\
   x&=\\dfrac{${texNombre(prix, 2)}}{${texNombre(a, 2)}} ${sp(8)} \\text{(On divise par ${texNombre(a, 2)} dans chaque membre)} \\\\
   x&= ${d}
@@ -587,7 +582,7 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
           $\\bullet$ chaque hausse de $1$ € du prix du menu diminue le nombre de couverts de $${c}$.<br>
           On note $x$ le montant de la hausse proposée du prix du menu (en €) par rapport au
           prix initial qui était de $${a}$ €. On admet que $0 \\leqslant x \\leqslant ${d}$.<br>
-            ${numAlpha(0)} Donner l'ensemble de définition de la fonction $${nom}$ <br> 
+            ${numAlpha(0)} Donner l'ensemble de définition de la fonction $${nom}$ <br>
             ${numAlpha(1)} Pour une hausse  de $${h}$ €, donner le prix du menu, le nombre de couverts servis et la recette (en €) du restaurateur (obtenu par le produit du prix d'un menu par le nombre de couverts servis).<br>
             ${numAlpha(2)} Exprimer en fonction de $x$ le prix du menu après une hausse de $x$ €.<br>
             ${numAlpha(3)} Exprimer en fonction de $x$ le nombre de couverts servis après une hausse de $x$ €.<br>
@@ -662,8 +657,8 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
           `
             texte += `${graphique}<br>
           `
-            texte += ` ${numAlpha(0)} Calculer $${nom}(4)$. Que peut-on en dduire ? <br> 
-            ${numAlpha(1)} À quelle hauteur ${P} se trouve-t-il lorsqu'il quitte la rampe ? <br>
+            texte += ` ${numAlpha(0)} Calculer $${nom}(4)$. Que peut-on en dduire ?<br>
+            ${numAlpha(1)} À quelle hauteur ${P} se trouve-t-il lorsqu'il quitte la rampe ?<br>
             ${numAlpha(2)} Combien de temps dure le saut de ${P} ?<br>
             ${numAlpha(3)} Développer et réduire l'expression de $${nom}$.<br>
            `
@@ -702,8 +697,8 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             const b5 = b4 + 5
             const nom = choice(nomF)
             const o = texteParPosition('O', 0, 15.5, 'milieu', 'black', 1)
-            const TexteX = texteParPosition('Pression artérielle en mmHg', 150 * 0.03, 155 * 0.2, 'milieu', 'black', 1.5)
-            const TexteY = texteParPosition('Temps (en ms)', 670 * 0.03, 72 * 0.2, 'milieu', 'black', 1.5)
+            const TexteX = texteParPosition('Pression artérielle en mmHg', 150 * 0.03, 155 * 0.2, 'milieu', 'black', 1.2)
+            const TexteY = texteParPosition('Temps (en ms)', 670 * 0.03, 72 * 0.2, 'milieu', 'black', 1.2)
 
             const r1 = repere({
               xMin: 0,
@@ -762,24 +757,23 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
           Un enregistrement des mesures permet d’apprécier la courbe de pression artérielle.<br>
           On note $${nom}$ la fonction qui au temps $t$ en millisecondes (ms) associe la pression artérielle radiale $${nom}(t)$ en millimètres
           de mercure (mmHg), mesurée au repos chez un patient suspecté d’insuffisance cardiaque. On donne la courbe représentative de $${nom}$ ci-dessous.<br>
-          ${numAlpha(0)} Quel est l'ensemble de définition de $${nom}$. <br> 
-          ${numAlpha(1)} Quelle inéquation a pour ensemble de solution l'imtervalle de temps pendant lequel la pression artérielle est supérieure ou égale à $130$ mmHg ? <br>
-                    ${numAlpha(2)} Déterminer la valeur systolique mesurée, c’est-à-dire la valeur maximale de la pression artérielle.<br>
-                    ${numAlpha(3)}  Déterminer la valeur diastolique mesurée, c’est-à-dire la valeur minimale de la pression artérielle.<br>
-                    ${numAlpha(4)}  Un patient est en hypertension artérielle lorsque la pression systolique est supérieure ou égale à $140$ mmHg
+          ${numAlpha(0)} Quel est l'ensemble de définition de $${nom}$.<br>
+          ${numAlpha(1)} Quelle inéquation a pour ensemble de solution l'imtervalle de temps pendant lequel la pression artérielle est supérieure ou égale à $130$ mmHg ?<br>
+          ${numAlpha(2)} Déterminer la valeur systolique mesurée, c’est-à-dire la valeur maximale de la pression artérielle.<br>
+          ${numAlpha(3)}  Déterminer la valeur diastolique mesurée, c’est-à-dire la valeur minimale de la pression artérielle.<br>
+          ${numAlpha(4)}  Un patient est en hypertension artérielle lorsque la pression systolique est supérieure ou égale à $140$ mmHg
                     ou que la pression diastolique est supérieure ou égale à $90$ mmHg.<br>
                     Ce patient est-il en hypertension ? Justifier.<br>
                     ${numAlpha(5)} La fonction $${nom}$ a été représentée sur un intervalle de temps  correspondant à celui
-                    d’un battement de cœur du patient. <br>
-                    On parle de tachycardie lorsque, au repos, le nombre de battements du cœur est supérieur à $100$ par minute. <br>
+                    d’un battement de cœur du patient.<br>On parle de tachycardie lorsque, au repos, le nombre de battements du cœur est supérieur à $100$ par minute. <br>
                     D’après cet examen, peut-on estimer que le patient souffre de tachycardie ?`
             texte += ` <br>        
               ${graphique}<br>
               
               `
 
-            texteCorr = ` ${numAlpha(0)} L'ensemble de définition de $${nom}$ est $[0\\,;\\, ${a5}]$. <br> 
-                    ${numAlpha(1)} L'inéquation ayant pour ensemble de solution l'imtervalle de temps pendant lequel la pression artérielle est supérieure ou égale à $${a}$ mmHg est $${nom}(t)\\geqslant ${a}$. <br>
+            texteCorr = ` ${numAlpha(0)} L'ensemble de définition de $${nom}$ est $[0\\,;\\, ${a5}]$. <br>
+            ${numAlpha(1)} L'inéquation ayant pour ensemble de solution l'imtervalle de temps pendant lequel la pression artérielle est supérieure ou égale à $${a}$ mmHg est $${nom}(t)\\geqslant ${a}$. <br>
                               ${numAlpha(2)} La valeur systolique mesurée est est donnée par l'ordonnée du point le plus haut de la courbe : $${b1}$ mmHg.<br>
                               ${numAlpha(3)}  La valeur diastolique mesurée est est donnée par l'ordonnée du point le plus bas de la courbe : $${b4}$ mmHg.<br>
                               ${numAlpha(4)}   La valeur systolique est $${b1}$ mmHg, la valeur diastolique est $${b4}$ mmHg. <br>
@@ -927,8 +921,7 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             }),
             r1, o])
             texte = `             Le Code de la route interdit toute conduite d’un véhicule lorsque le taux d’alcoolémie est supérieur ou égal à $0,5$ g/L.<br>
-          
-          Le taux d’alcoolémie d’une personne pendant les $10$ heures suivant la consommation d’une certaine quantité d’alcool est modélisé par la fonction $${nom}$.<br>
+            Le taux d’alcoolémie d’une personne pendant les $10$ heures suivant la consommation d’une certaine quantité d’alcool est modélisé par la fonction $${nom}$.<br>
           $\\bullet$  $t$ représente le temps (exprimé en heure) écoulé depuis la consommation d’alcool ;<br>
           $\\bullet$  $${nom} (t)$ représente le taux d’alcoolémie (exprimé en g/L) de cette personne.<br>
           On donne la représentation graphique de la fonction $${nom}$ dans un repère. <br>
