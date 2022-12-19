@@ -8,6 +8,8 @@ export const dateDePublication = '17/12/2022'
  *
  * @author Mickael Guironnet
  */
+export const uuid = 'e1e64'
+export const ref = '6G21-3'
 export default class ConstruireUnTriangleParticulier extends ConstruireUnTriangle {
   constructor () {
     super()
