@@ -11,6 +11,8 @@ export const dateDePublication = '08/12/2022'
  * Date de publication
 */
 
+export const uuid = '05bc2'
+export const ref = 'can2L09'
 export default function ÉcrireUnQuotient () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

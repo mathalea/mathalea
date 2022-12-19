@@ -275,7 +275,7 @@ export function TracePoint (...points) {
           c.isVisible = false
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
-          c.couleurDeRemplissage = this.color[0]
+          c.couleurDeRemplissage = this.color
           c.opaciteDeRemplissage = this.opacite / 2
           objetssvg.push(c)
         } else if (this.style === '#') {
@@ -341,7 +341,7 @@ export function TracePoint (...points) {
           c = cercle(p1, this.tailleTikz, this.color[1])
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
-          c.couleurDeRemplissage = this.color[1]
+          c.couleurDeRemplissage = this.color
           c.opaciteDeRemplissage = this.opacite / 2
           objetstikz.push(c)
         } else if (this.style === '#') {
@@ -350,7 +350,7 @@ export function TracePoint (...points) {
           c = carre(p2, p1, this.color[1])
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
-          c.couleurDeRemplissage = this.color[1]
+          c.couleurDeRemplissage = this.color
           c.opaciteDeRemplissage = this.opacite / 2
           objetstikz.push(c)
         } else if (this.style === '+') {
@@ -519,10 +519,10 @@ export function pointSurDroite (d, x, nom, positionLabel = 'above') {
 export function pointIntersectionDD (d, f, nom = '', positionLabel = 'above') {
   let x, y
   if (f.a * d.b - f.b * d.a === 0) {
-    console.log('Les droites sont parallèles, pas de point d\'intersection')
+    // console.log('Les droites sont parallèles, pas de point d\'intersection')
     return false
   } else { y = (f.c * d.a - d.c * f.a) / (f.a * d.b - f.b * d.a) }
-  if (d.a === 0) { // si d est horizontale alors f ne l'est pas donc f.a<>0
+  if (egal(d.a, 0, 6)) { // si d est horizontale alors f ne l'est pas donc f.a<>0
     x = (-f.c - f.b * y) / f.a
   } else { // d n'est pas horizontale donc ...
     x = (-d.c - d.b * y) / d.a
@@ -601,7 +601,7 @@ export function LabelPoint (...points) {
       }
       x = A.x
       y = A.y
-      if (this.positionLabel && unPoint.typeObjet === 'point3d') A.positionLabel = this.positionLabel
+      if (this.positionLabel === '' && unPoint.typeObjet === 'point3d') A.positionLabel = this.positionLabel
       switch (A.positionLabel) {
         case 'left':
           code += texteParPosition(A.nom, x - 10 / coeff, y, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
@@ -2714,8 +2714,9 @@ export function polygone (...args) {
 /**
  * Crée un groupe d'objets contenant le polygone et ses sommets
  * @param  {...any} args
- * @return {array} [p, p.sommets]
+ * @return {array} [polygone,sommets]
  * Si le dernier argument est un nombre, celui-ci sera utilisé pour fixer la distance entre le sommet et le label (par défaut 0.5)
+ * @exemple [poly, sommets] = polygoneAvecNom(A, B, C, D) // où A, B, C, D sont des objets Point
  */
 export function polygoneAvecNom (...args) {
   let k = 0.5
@@ -2725,7 +2726,9 @@ export function polygoneAvecNom (...args) {
   }
   const p = polygone(...args)
   let nom = ''
-  args.forEach(el => (nom += el.nom + ','))
+  args.forEach(el => {
+    nom += el.nom + ','
+  })
   nom = nom.substring(0, nom.length - 1)
   p.sommets = nommePolygone(p, nom, k)
   p.sommets.bordures = []
@@ -3194,7 +3197,7 @@ export function parallelogramme3points (NOM, A, B, C, color = 'black') {
   A.nom = NOM[0]
   B.nom = NOM[1]
   C.nom = NOM[2]
-  return polygoneAvecNom([A, B, C, D], color)
+  return polygoneAvecNom(A, B, C, D)
 }
 /**
  * parallelogramme2points1hauteur(A,B,5) renvoie un parallélogramme ABCD de base [AB] et de hauteur h
@@ -3216,7 +3219,7 @@ export function parallelogramme2points1hauteur (NOM, A, B, h, color = 'black') {
   H = pointSurSegment(A, H, h)
   const D = translation(H, homothetie(vecteur(A, B), A, randint(-4, 4, 0) / 10), NOM[3])
   const C = translation(D, vecteur(A, B), NOM[2])
-  return polygoneAvecNom([A, B, C, D], color)
+  return polygoneAvecNom(A, B, C, D)
 }
 
 /**
@@ -5873,7 +5876,7 @@ export function codageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur =
  * @class
  */
 // JSDOC Validee par EE Juin 2022
-export function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm', horizontal = false) {
+export function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm', horizontal = false, precision = 1) {
   ObjetMathalea2D.call(this, { })
   this.color = color
   const O = milieu(A, B)
@@ -5881,7 +5884,7 @@ export function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 
   const s = segment(A, B)
   let angle
   s.isVisible = false
-  const l = stringNombre(s.longueur, 1)
+  const l = stringNombre(s.longueur, precision)
   const longueurSeg = `${l}${unite !== '' ? ' ' + unite : ''}`
   this.distance = horizontal ? (d - 0.1 + longueurSeg.length / 10) : d
   if (horizontal) {
@@ -5917,8 +5920,8 @@ export function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
-export function afficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm', horizontal = false) {
-  return new AfficheLongueurSegment(A, B, color, d, unite, horizontal)
+export function afficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm', horizontal = false, precision = 1) {
+  return new AfficheLongueurSegment(A, B, color, d, unite, horizontal, precision)
 }
 
 /**
@@ -11152,7 +11155,7 @@ export function scratchblock (stringLatex) {
   let fin; let result = []; let index
   let compteur = 0
   if (!((stringLatex.match(/\{/g) || []).length === (stringLatex.match(/\}/g) || []).length)) {
-    console.log("Il n'y a pas le même nombre de { que de }. Je préfère m'arrêter.")
+    // console.log("Il n'y a pas le même nombre de { que de }. Je préfère m'arrêter.")
     return false
   }
   if (!context.isHtml) {
@@ -11523,7 +11526,7 @@ function pattern ({
  * @class
  */
 // JSDOC Validee par EE Septembre 2022
-export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6 } = {}) {
+export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = {}) {
   // Fonction qui permet de copier des tableaux
   function arrayCopy (arr) {
     return JSON.parse(JSON.stringify(arr))
@@ -11841,9 +11844,9 @@ export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6 } = {}) {
     for (let a = 1; a < nbColonnes + 1; a++) {
       for (let b = 0; b < nbLignes; b++) {
         if (typeof (nombres[a - 1][b]) === 'number') {
-          objets.push(texteParPoint(nombreAvecEspace(nombres[a - 1][b]), point(-1.5 + a * 3, 2.5 + b * 3), 'milieu', 'black', taille, 0, true))
+          objets.push(texteParPointEchelle(nombreAvecEspace(nombres[a - 1][b]), point(-1.5 + a * 3, 2.5 + b * 3), 'milieu', 'black', taille, 0, true, scaleFigure))
         } else if (typeof (nombres[a - 1][b]) === 'string') { // écriture mode Maths
-          objets.push(texteParPosition(nombres[a - 1][b], -1.5 + a * 3, 2.5 + b * 3, 'milieu', 'black', taille, 0, true))
+          objets.push(texteParPositionEchelle(nombres[a - 1][b], -1.5 + a * 3, 2.5 + b * 3, 'milieu', 'black', taille, 0, true, scaleFigure))
         } else {
           objets.push(latexParCoordonnees(nombres[a - 1][b].texFraction, -1.5 + a * 3, 2.5 + b * 3, 'black', 20, 20, 'white', 6))
         }
@@ -11863,8 +11866,8 @@ export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6 } = {}) {
  * @return {Labyrinthe}
  */
 // JSDOC Validee par EE Septembre 2022
-export function labyrinthe ({ nbLignes = 3, nbColonnes = 6 } = {}) {
-  return new Labyrinthe({ nbLignes, nbColonnes })
+export function labyrinthe ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = {}) {
+  return new Labyrinthe({ nbLignes, nbColonnes, scaleFigure })
 }
 
 /**

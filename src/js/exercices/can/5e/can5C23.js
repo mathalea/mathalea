@@ -12,6 +12,8 @@ export const dateDePublication = '08/12/2022'
  *
  */
 
+export const uuid = 'cb5d5'
+export const ref = 'can5C23'
 export default function MultiplierPar () {
   Exercice.call(this)
   this.nbQuestions = 1

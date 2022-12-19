@@ -57,7 +57,7 @@ export default function AireCarresRectanglesTriangles () {
       a = b
       b = tmp
     }
-    const d = randint(b - a, a + b, [a - b, a + b])
+    const d = randint(b - a, a + b, [b - a, a + b])
     const A = point(0, 0, nom[0])
     const B = rotation(point(c, 0), A, randint(-15, 15), nom[1])
     const C = rotation(A, B, -90, nom[2])
@@ -73,6 +73,7 @@ export default function AireCarresRectanglesTriangles () {
     J.positionLabel = 'right'
     const cI = cercle(I, b)
     const cJ = cercle(J, d)
+    debugger
     const K = pointIntersectionCC(cI, cJ, nom[10], 1)
     K.positionLabel = 'above'
     const triangle = polygoneAvecNom(I, J, K)

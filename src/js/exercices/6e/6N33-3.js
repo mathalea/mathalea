@@ -51,7 +51,7 @@ export default function AppliquerUnPourcentage () {
           texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: ' €' })
           texteCorr = `On doit calculer $${pourcent[i]}${sp()}\\%$ de $${prix[i]}$${sp()}€ :<br>`
           texteCorr += `$${pourcent[i]}${sp()}\\%\\text{ de }${prix[i]}=${texFraction(pourcent[i], 100)}\\times${prix[i]}=(${pourcent[i]}\\times${prix[i]})\\div100=${texNombre(pourcent[i] * prix[i])}\\div100=${texNombre(montant)}$<br>`
-          texteCorr += `Le montant de la réduction est de ${texPrix(montant)}${sp()}€.`
+          texteCorr += `Le montant de la réduction est de $${texPrix(montant)}$${sp()}€.`
           setReponse(this, i, montant, { formatInteractif: 'calcul', digits: 5, decimals: 2, signe: false })
           break
         case 2:

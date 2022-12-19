@@ -3513,6 +3513,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "3G44": {
+    "titre": "Déterminer des longueurs dans la géométrie dans l'espace",
+    "url": "/exercices/3e/3G44.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "3G44",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "3I1-1": {
     "titre": "Conjecture de Syracuse",
     "url": "/exercices/3e/3I1-1.js",
@@ -8979,8 +8998,38 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "6G21-2": {
+    "titre": "Construire un triangle quelconque avec les instruments et auto-vérification",
+    "url": "/exercices/6e/6G21-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6G21-2",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "6G21-3": {
+    "titre": "Construire un triangle particulier avec les instruments et auto-vérification",
+    "url": "/exercices/6e/6G21-3.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6G21-3",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "6G21": {
-    "titre": "Construire un triangle aux instruments",
+    "titre": "Construire un triangle avec les instruments",
     "url": "/exercices/6e/6G21.js",
     "amcReady": false,
     "interactifReady": false,
@@ -12109,6 +12158,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "beta2F12-2": {
+    "titre": "Résoudre graphiquement $f(x)>k$ ($<k$) avec une fonction de référence",
+    "url": "/exercices/beta/beta2F12-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2F12-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "beta2F21-1": {
     "titre": "Modéliser une situation à l'aide d'une fonction",
     "url": "/exercices/beta/beta2F21-1.js",
@@ -14134,7 +14198,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can1L10",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -14752,7 +14816,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can2C16",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -15308,7 +15372,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can2G20",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -17769,7 +17833,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can5P09",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -19510,7 +19574,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can6P06",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -19862,7 +19926,7 @@ export default {
     "interactifType": "mathLive",
     "name": "canc3C12",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -19878,7 +19942,7 @@ export default {
     "interactifType": "mathLive",
     "name": "canc3C13",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -20097,7 +20161,7 @@ export default {
     "interactifType": "qcm",
     "name": "canc3N06",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
