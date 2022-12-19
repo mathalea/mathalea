@@ -3197,7 +3197,7 @@ export function parallelogramme3points (NOM, A, B, C, color = 'black') {
   A.nom = NOM[0]
   B.nom = NOM[1]
   C.nom = NOM[2]
-  return polygoneAvecNom([A, B, C, D], color)
+  return polygoneAvecNom(A, B, C, D)
 }
 /**
  * parallelogramme2points1hauteur(A,B,5) renvoie un parallélogramme ABCD de base [AB] et de hauteur h
@@ -3219,7 +3219,7 @@ export function parallelogramme2points1hauteur (NOM, A, B, h, color = 'black') {
   H = pointSurSegment(A, H, h)
   const D = translation(H, homothetie(vecteur(A, B), A, randint(-4, 4, 0) / 10), NOM[3])
   const C = translation(D, vecteur(A, B), NOM[2])
-  return polygoneAvecNom([A, B, C, D], color)
+  return polygoneAvecNom(A, B, C, D)
 }
 
 /**
