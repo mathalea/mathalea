@@ -2714,8 +2714,9 @@ export function polygone (...args) {
 /**
  * Crée un groupe d'objets contenant le polygone et ses sommets
  * @param  {...any} args
- * @return {array} [p, p.sommets]
+ * @return {array} [polygone,sommets]
  * Si le dernier argument est un nombre, celui-ci sera utilisé pour fixer la distance entre le sommet et le label (par défaut 0.5)
+ * @exemple [poly, sommets] = polygoneAvecNom(A, B, C, D) // où A, B, C, D sont des objets Point
  */
 export function polygoneAvecNom (...args) {
   let k = 0.5
@@ -2725,7 +2726,9 @@ export function polygoneAvecNom (...args) {
   }
   const p = polygone(...args)
   let nom = ''
-  args.forEach(el => (nom += el.nom + ','))
+  args.forEach(el => {
+    nom += el.nom + ','
+  })
   nom = nom.substring(0, nom.length - 1)
   p.sommets = nommePolygone(p, nom, k)
   p.sommets.bordures = []
@@ -3194,7 +3197,7 @@ export function parallelogramme3points (NOM, A, B, C, color = 'black') {
   A.nom = NOM[0]
   B.nom = NOM[1]
   C.nom = NOM[2]
-  return polygoneAvecNom([A, B, C, D], color)
+  return polygoneAvecNom(A, B, C, D)
 }
 /**
  * parallelogramme2points1hauteur(A,B,5) renvoie un parallélogramme ABCD de base [AB] et de hauteur h
@@ -3216,7 +3219,7 @@ export function parallelogramme2points1hauteur (NOM, A, B, h, color = 'black') {
   H = pointSurSegment(A, H, h)
   const D = translation(H, homothetie(vecteur(A, B), A, randint(-4, 4, 0) / 10), NOM[3])
   const C = translation(D, vecteur(A, B), NOM[2])
-  return polygoneAvecNom([A, B, C, D], color)
+  return polygoneAvecNom(A, B, C, D)
 }
 
 /**
