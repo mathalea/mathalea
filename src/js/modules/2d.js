@@ -5936,6 +5936,8 @@ export function TexteSurSegment (texte, A, B, color = 'black', d = 0.5, horizont
   this.extremite1 = A
   this.extremite2 = B
   this.texte = texte
+  this.scale = 1
+  this.mathOn = true
   this.distance = horizontal ? (d - 0.1 + (isNumeric(this.texte) ? nombreDeChiffresDe(this.texte) : this.texte.length) / 10) : d
   const O = milieu(this.extremite1, this.extremite2)
   const M = rotation(this.extremite1, O, -90)
@@ -5955,11 +5957,11 @@ export function TexteSurSegment (texte, A, B, color = 'black', d = 0.5, horizont
   }
   this.svg = function (coeff) {
     const N = pointSurSegment(O, M, this.distance * 20 / coeff)
-    return texteParPoint(this.texte, N, angle, this.color, 1, 'middle', true).svg(coeff)
+    return texteParPoint(this.texte, N, angle, this.color, this.scale, 'middle', this.mathOn).svg(coeff)
   }
   this.tikz = function () {
     const N = pointSurSegment(O, M, this.distance / context.scale)
-    return texteParPoint(this.texte, N, angle, this.color, 1, 'middle', true).tikz()
+    return texteParPoint(this.texte, N, angle, this.color, this.scale, 'middle', this.mathOn).tikz()
   }
 }
 /**
