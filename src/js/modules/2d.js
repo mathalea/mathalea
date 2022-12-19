@@ -5873,7 +5873,7 @@ export function codageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur =
  * @class
  */
 // JSDOC Validee par EE Juin 2022
-export function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm', horizontal = false) {
+export function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm', horizontal = false, precision = 1) {
   ObjetMathalea2D.call(this, { })
   this.color = color
   const O = milieu(A, B)
@@ -5881,7 +5881,7 @@ export function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 
   const s = segment(A, B)
   let angle
   s.isVisible = false
-  const l = stringNombre(s.longueur, 1)
+  const l = stringNombre(s.longueur, precision)
   const longueurSeg = `${l}${unite !== '' ? ' ' + unite : ''}`
   this.distance = horizontal ? (d - 0.1 + longueurSeg.length / 10) : d
   if (horizontal) {
@@ -5917,8 +5917,8 @@ export function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
-export function afficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm', horizontal = false) {
-  return new AfficheLongueurSegment(A, B, color, d, unite, horizontal)
+export function afficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm', horizontal = false, precision = 1) {
+  return new AfficheLongueurSegment(A, B, color, d, unite, horizontal, precision)
 }
 
 /**
