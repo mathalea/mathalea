@@ -1465,15 +1465,29 @@ class PyramideTronquee3d {
 export function pyramideTronquee3d (base, sommet, coeff = 0.5, color = 'black') {
   return new PyramideTronquee3d(base, sommet, coeff, color)
 }
+
 /**
-   * LE cube
-   * @author Jean-Claude Lhote
-   * usage : cube(x,y,z,c,color) construit le cube d'arète c dont le sommet en bas à gauche a les coordonnées x,y,z.
-   * le face avant est dans le plan xz
-   *
-*/
+   * Classe du cube : construit le cube d'arète c dont le sommet en bas à gauche a les coordonnées x,y,z
+   * (la face avant est dans le plan xz, la face de droite est toujours visible, la face de haut ou du bas est visible selon context.anglePerspective)
+   * @param {number} x Abscisse du sommet du cube en bas à gauche
+   * @param {number} y Ordonnée du sommet du cube en bas à gauche
+   * @param {number} x Altitude du sommet du cube en bas à gauche
+   * @param {number} c Longueur de l'arête du cube
+   * @param {string} [color = 'black'] Couleur des arêtes du cube : du type 'blue' ou du type '#f15929'
+   * @param {string} [colorAV = 'lightgray'] Couleur de la face avant du cube : du type 'blue' ou du type '#f15929'
+   * @param {string} [colorHautouBas = 'white'] Couleur de la face visible du dessus (ou du dessous) du cube : du type 'blue' ou du type '#f15929'
+   * @param {string} [colorDr = 'darkgray'] Couleur de la face de droite (toujours visible) du cube : du type 'blue' ou du type '#f15929'
+   * @param {boolean} [aretesCachee = true] Si true, les arêtes cachées sont visibles.
+   * @param {boolean} [affichageNom = false] Si true, le nom des sommets est affiché
+   * @param {string[]} [nom = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']] Nom du cube
+   * @property {boolean} affichageNom Si true, le nom des sommets est affiché
+   * @property {Point3d[]} sommets Tableau contenant les sommets du cube
+   * @property {Array} c2d Contient les commandes à tracer en 2d de cette fonction
+   * @author Jean-Claude Lhote (Amendée par Eric Elter)
+   * @class
+   */
 class Cube3d {
-  constructor (x, y, z, c, color = 'black', colorAV = 'lightgray', colorTOP = 'white', colorDr = 'darkgray', aretesCachee = true, affichageNom = false, nom = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']) {
+  constructor (x, y, z, c, color = 'black', colorAV = 'lightgray', colorHautouBas = 'white', colorDr = 'darkgray', aretesCachee = true, affichageNom = false, nom = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']) {
     ObjetMathalea2D.call(this, { })
     this.affichageNom = affichageNom
     const A = point3d(x, y, z)
@@ -1502,29 +1516,65 @@ class Cube3d {
     const faceArr = this.affichageNom ? polygoneAvecNom(...pointsFace) : vide2d
 
     const faceDr = polygone([B.c2d, F.c2d, G.c2d, C.c2d], color)
-    const faceTOP = polygone([D.c2d, C.c2d, G.c2d, H.c2d], color)
-    const areteEH = segment(E.c2d, H.c2d, color)
-    areteEH.pointilles = 2
-    const areteEF = segment(E.c2d, F.c2d, color)
-    areteEF.pointilles = 2
-    const areteEA = segment(E.c2d, A.c2d, color)
-    areteEA.pointilles = 2
+    let faceVisibleHautOuBas, areteCachee3, areteCachee2, areteCachee1
+    if (context.anglePerspective > 0) {
+      faceVisibleHautOuBas = polygone([D.c2d, C.c2d, G.c2d, H.c2d], color) // Cette face est en fonction de context.anglePerspective
+      areteCachee1 = segment(E.c2d, H.c2d, color)
+      areteCachee2 = segment(E.c2d, F.c2d, color)
+      areteCachee3 = segment(E.c2d, A.c2d, color)
+    } else {
+      faceVisibleHautOuBas = polygone([A.c2d, B.c2d, F.c2d, E.c2d], color)
+      areteCachee1 = segment(E.c2d, H.c2d, color)
+      areteCachee2 = segment(D.c2d, H.c2d, color)
+      areteCachee3 = segment(G.c2d, H.c2d, color)
+    }
+    areteCachee1.pointilles = 2
+    areteCachee2.pointilles = 2
+    areteCachee3.pointilles = 2
+
     this.sommets = [A, B, C, D, E, F, G, H]
     // Les 8 sommets sont indispensables pour pouvoir les utiliser ensuite.
 
     if (aretesCachee) {
       faceAV.couleurDeRemplissage = colorToLatexOrHTML(colorAV)
-      faceTOP.couleurDeRemplissage = colorToLatexOrHTML(colorTOP)
+      faceVisibleHautOuBas.couleurDeRemplissage = colorToLatexOrHTML(colorHautouBas)
       faceDr.couleurDeRemplissage = colorToLatexOrHTML(colorDr)
-      this.c2d = [faceAV.length === 2 ? faceAV[0] : faceAV, faceAV.length === 2 ? faceAV[1] : vide2d, faceDr, faceTOP]
+      this.c2d = [faceAV.length === 2 ? faceAV[0] : faceAV, faceAV.length === 2 ? faceAV[1] : vide2d, faceDr, faceVisibleHautOuBas]
     } else {
-      this.c2d = [faceAV.length === 2 ? faceAV[0] : faceAV, faceAV.length === 2 ? faceAV[1] : vide2d, faceDr, faceTOP, faceArr.length === 2 ? faceArr[1] : vide2d, areteEH, areteEF, areteEA]
+      this.c2d = [faceAV.length === 2 ? faceAV[0] : faceAV, faceAV.length === 2 ? faceAV[1] : vide2d, faceDr, faceVisibleHautOuBas, faceArr.length === 2 ? faceArr[1] : vide2d, areteCachee1, areteCachee2, areteCachee3]
     }
   }
 }
-export function cube3d (x, y, z, c, color = 'black', colorAV = 'lightgray', colorTOP = 'white', colorDr = 'darkgray', aretesCachee = true, affichageNom = false, nom = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']) {
-  return new Cube3d(x, y, z, c, color, colorAV, colorTOP, colorDr, aretesCachee, affichageNom, nom)
+/**
+   * Crée un cube d'arète c dont le sommet en bas à gauche a les coordonnées x,y,z
+   * (la face avant est dans le plan xz, la face de droite est toujours visible, la face de haut ou du bas est visible selon context.anglePerspective)
+   * @param {number} x Abscisse du sommet du cube en bas à gauche
+   * @param {number} y Ordonnée du sommet du cube en bas à gauche
+   * @param {number} x Altitude du sommet du cube en bas à gauche
+   * @param {number} c Longueur de l'arête du cube
+   * @param {string} [color = 'black'] Couleur des arêtes du cube : du type 'blue' ou du type '#f15929'
+   * @param {string} [colorAV = 'lightgray'] Couleur de la face avant du cube : du type 'blue' ou du type '#f15929'
+   * @param {string} [colorHautouBas = 'white'] Couleur de la face visible du dessus (ou du dessous) du cube : du type 'blue' ou du type '#f15929'
+   * @param {string} [colorDr = 'darkgray'] Couleur de la face de droite (toujours visible) du cube : du type 'blue' ou du type '#f15929'
+   * @param {boolean} [aretesCachee = true] Si true, les arêtes cachées sont visibles.
+   * @param {boolean} [affichageNom = false] Si true, le nom des sommets est affiché
+   * @param {string[]} [nom = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']] Nom du cube
+   * @example cube(0,0,0,10)
+   * // Construit un cube noir d'arête 10 dont le sommet en bas à gauche est l'origine du repère et dont les faces visibles sont colorées aux couleurs par défaut.
+   * // Les arêtes cachées sont visibles et le cube ne porte pas de nom.
+   * @example cube(0,0,0,10,'red','','','',false)
+   * // Construit un cube rouge d'arête 10 dont le sommet en bas à gauche est l'origine du repère et dont aucune face n'est coloriée.
+   * // Les arêtes cachées sont invisibles et le cube ne porte pas de nom.
+   * @example cube(0,0,0,10,'#f15929','','','',trie,true)
+   * // Construit un cube orange d'arête 10 dont le sommet en bas à gauche est l'origine du repère et dont aucune face n'est coloriée.
+   * // Les arêtes cachées sont visibles et le cube s'appelle ABCDEFGH.
+   * @author Jean-Claude Lhote (Amendée par Eric Elter)
+   * @return {Cube3d}
+   */
+export function cube3d (x, y, z, c, color = 'black', colorAV = 'lightgray', colorHautouBas = 'white', colorDr = 'darkgray', aretesCachee = true, affichageNom = false, nom = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']) {
+  return new Cube3d(x, y, z, c, color, colorAV, colorHautouBas, colorDr, aretesCachee, affichageNom, nom)
 }
+
 /**
  * @author Jean-Claude Lhote
  * Créer une barre de l cubes de c de côté à partir du point (x,y,z)

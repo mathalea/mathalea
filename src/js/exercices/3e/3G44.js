@@ -27,19 +27,19 @@ export default function CalculPythagoreEspace () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.nbQuestions = 4
-  this.sup = 1
-  this.sup2 = 10
+  this.sup2 = 1
+  this.sup = 10
 
   this.nouvelleVersion = function (numeroExercice) {
     this.autoCorrection = []
     let typesDeQuestionsDisponibles = []
-    if (!this.sup2) { // Si aucune liste n'est saisie
+    if (!this.sup) { // Si aucune liste n'est saisie
       typesDeQuestionsDisponibles = rangeMinMax(1, 9)
     } else {
-      if (typeof (this.sup2) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        typesDeQuestionsDisponibles[0] = contraindreValeur(1, 10, this.sup4, 10)
+      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
+        typesDeQuestionsDisponibles[0] = contraindreValeur(1, 10, this.sup24, 10)
       } else {
-        typesDeQuestionsDisponibles = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+        typesDeQuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
           typesDeQuestionsDisponibles[i] = contraindreValeur(1, 10, parseInt(typesDeQuestionsDisponibles[i]), 10) // parseInt en fait un tableau d'entiers
         }
@@ -95,13 +95,13 @@ export default function CalculPythagoreEspace () {
           K = nomSolide[parseInt(segmentChoisi[0][1])]
           I = nomSolide[parseInt(segmentChoisi[1])] // IJK est rectangle en I
           longueurATrouver = J + K
-          texte += `Sachant que le cube $${nomSolide}$ possède des arêtes de ${c} ${listeUnites[j]}, calculer la longueur $${longueurATrouver}$, arrondie au dixième de ${listeUnites[j]}.<br>`
+          texte += `Sachant que le cube $${nomSolide}$ possède des arêtes de $${c}$ ${listeUnites[j]}, calculer la longueur $${longueurATrouver}$, arrondie au dixième de ${listeUnites[j]}.<br>`
           segmentATrouver = segment(solideDessine.sommets[parseInt(segmentChoisi[0][0])].c2d, solideDessine.sommets[parseInt(segmentChoisi[0][1])].c2d, '#f15929')
           segmentATrouver.epaisseur = 2
           objetsEnonce.push(...solideDessine.c2d, segmentATrouver)
           texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: 0.7, style: 'block' }), objetsEnonce) + '<br>'
           objetsEnonce.push(new CodageAngleDroit3D(solideDessine.sommets[parseInt(segmentChoisi[0][0])], solideDessine.sommets[parseInt(segmentChoisi[1])], solideDessine.sommets[parseInt(segmentChoisi[0][1])], '#f15929', 2))
-          texteCorr += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: 0.7, style: 'block' }), objetsEnonce) + '<br>'
+          texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: 0.7, style: 'block' }), objetsEnonce) + '<br>'
           texteCorr += `Le triangle $${longueurATrouver + I}$ est rectangle en $${I}$  donc d'après le théorème de Pythagore, on a : `
           texteCorr += `$${longueurATrouver}^2=${I + J}^2+${I + K}^2$.`
 
@@ -124,7 +124,7 @@ export default function CalculPythagoreEspace () {
           D = nomSolide[parseInt(segmentChoisi[3])] // ACD est rectangle en D
 
           longueurATrouver = B + C
-          texte = `Sachant que le cube $${nomSolide}$ possède des arêtes de ${c} ${listeUnites[j]}, calculer la longueur $${longueurATrouver}$, arrondie au dixième de ${listeUnites[j]}.<br>`
+          texte += `Sachant que le cube $${nomSolide}$ possède des arêtes de $${c}$ ${listeUnites[j]}, calculer la longueur $${longueurATrouver}$, arrondie au dixième de ${listeUnites[j]}.<br>`
           solideDessine = cube3d(1, 1, 1, c, 'blue', '', '', '', false, true, nomSolide)
           segmentATrouver = segment(solideDessine.sommets[parseInt(segmentChoisi[0][0])].c2d, solideDessine.sommets[parseInt(segmentChoisi[0][1])].c2d, '#f15929')
           segmentATrouver.epaisseur = 2
@@ -137,7 +137,7 @@ export default function CalculPythagoreEspace () {
           segmentAnnexe.pointilles = 1
           objetsEnonce.push(segmentAnnexe)
           objetsEnonce.push(new CodageAngleDroit3D(solideDessine.sommets[parseInt(segmentChoisi[1])], solideDessine.sommets[parseInt(segmentChoisi[3])], solideDessine.sommets[parseInt(segmentChoisi[0][1])], 'green', 2))
-          texteCorr += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: 0.7, style: 'block' }), objetsEnonce) + '<br>'
+          texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: 0.7, style: 'block' }), objetsEnonce) + '<br>'
           texteCorr += `Le triangle $${longueurATrouver + A}$ est rectangle en $${A}$  donc d'après le théorème de Pythagore, on a : `
           texteCorr += `$${longueurATrouver}^2=${A + B}^2+${A + C}^2$.`
           texteCorr += `<br> On ne peut pas continuer si on ne connaît pas la valeur de $${A + C}^2$. Trouvons-la.`
@@ -148,13 +148,13 @@ export default function CalculPythagoreEspace () {
           reponse = arrondi(Math.sqrt(c ** 2 + c ** 2 + c ** 2), 1)
           texteCorr += `<br> ${sp(10)}$${A + C}^2=${texNombre(c)}^2+${texNombre(c)}^2$`
           texteCorr += `<br> ${sp(10)}$${miseEnEvidence(A + C, 'green')}^2=${miseEnEvidence(texNombre(c ** 2 + c ** 2), 'green')}$`
+          texteCorr += `<br> ${sp(10)} Inutile de trouver la valeur de $${A + C}$ car seul son carré nous intéresse ici.`
           texteCorr += `<br> Revenons à $${longueurATrouver}^2=${A + B}^2+${A + C}^2$.`
           texteCorr += `<br> $${longueurATrouver}^2=${texNombre(c)}^2+${miseEnEvidence(texNombre(c ** 2 + c ** 2), 'green')}=${texNombre(c ** 2 + c ** 2 + c ** 2)}$`
           texteCorr += `<br> $${longueurATrouver}=\\sqrt{${texNombre(c ** 2 + c ** 2 + c ** 2)}}$`
           texteCorr += `<br> $${longueurATrouver}\\approx${miseEnEvidence(BC)}$ ${texteEnCouleurEtGras(listeUnites[j])}`
           break
         case 3: // Diagonale de la face d'un pavé droit
-          // c = new Decimal(randint(2, 10)).plus(partieDecimale1)
           L = randint(5, 20)
           h = randint(5, 20, [L])
           p = randint(5, 20, [L, h])
@@ -166,7 +166,8 @@ export default function CalculPythagoreEspace () {
 
           nomSolide = choisitLettresDifferentes(8, 'OQWX').join('')
           solideDessine = pave3d(A, B, D, E, 'blue', true, nomSolide)
-
+          texteCorr += choixProfondeur
+          choixSegments = []
           choixSegments.push(['02', '1', L, h], ['13', '2', h, L])
           if (choixProfondeur > 0) {
             choixSegments.push(['16', '5', p, h], ['25', '6', p, h]) // Ce sont les diagonales des faces visibles et le sommet qui forme un triangle rectangle
@@ -184,13 +185,13 @@ export default function CalculPythagoreEspace () {
           I = nomSolide[parseInt(segmentChoisi[1])] // IJK est rectangle en I
 
           longueurATrouver = J + K
-          texte += `Sachant que dans le pavé droit $${nomSolide}$, $${nomSolide[0]}${nomSolide[1]}$=${L} ${listeUnites[j]}, $${nomSolide[0]}${nomSolide[3]}$=${h} ${listeUnites[j]} et $${nomSolide[0]}${nomSolide[4]}$=${p} ${listeUnites[j]},, calculer la longueur $${longueurATrouver}$, arrondie au dixième de ${listeUnites[j]}.<br>`
+          texte += `Sachant que dans le pavé droit $${nomSolide}$, $${nomSolide[0]}${nomSolide[1]}=${L}$ ${listeUnites[j]}, $${nomSolide[0]}${nomSolide[3]}=${h}$ ${listeUnites[j]} et $${nomSolide[0]}${nomSolide[4]}=${p}$ ${listeUnites[j]},, calculer la longueur $${longueurATrouver}$, arrondie au dixième de ${listeUnites[j]}.<br>`
           segmentATrouver = segment(solideDessine.sommets[parseInt(segmentChoisi[0][0])].c2d, solideDessine.sommets[parseInt(segmentChoisi[0][1])].c2d, '#f15929')
           segmentATrouver.epaisseur = 2
           objetsEnonce.push(...solideDessine.c2d, segmentATrouver)
           texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce) + '<br>'
           objetsEnonce.push(new CodageAngleDroit3D(solideDessine.sommets[parseInt(segmentChoisi[0][0])], solideDessine.sommets[parseInt(segmentChoisi[1])], solideDessine.sommets[parseInt(segmentChoisi[0][1])], '#f15929', 2))
-          texteCorr += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce) + '<br>'
+          texteCorr += 'tt<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce) + '<br>'
           texteCorr += `Le triangle $${longueurATrouver + I}$ est rectangle en $${I}$  donc d'après le théorème de Pythagore, on a : `
           texteCorr += `$${longueurATrouver}^2=${I + J}^2+${I + K}^2$.`
 
@@ -220,7 +221,7 @@ export default function CalculPythagoreEspace () {
           I = nomSolide[parseInt(segmentChoisi[1])] // IJK est rectangle en I
           M = nomSolide[parseInt(segmentChoisi[3])] // ACD est rectangle en
           longueurATrouver = J + K
-          texte += `Sachant que dans le pavé droit $${nomSolide}$, $${nomSolide[0]}${nomSolide[1]}$=${L} ${listeUnites[j]}, $${nomSolide[0]}${nomSolide[3]}$=${h} ${listeUnites[j]} et $${nomSolide[0]}${nomSolide[4]}$=${p} ${listeUnites[j]},, calculer la longueur $${longueurATrouver}$, arrondie au dixième de ${listeUnites[j]}.<br>`
+          texte += `Sachant que dans le pavé droit $${nomSolide}$, $${nomSolide[0]}${nomSolide[1]}=${L}$ ${listeUnites[j]}, $${nomSolide[0]}${nomSolide[3]}=${h}$ ${listeUnites[j]} et $${nomSolide[0]}${nomSolide[4]}=${p}$ ${listeUnites[j]},, calculer la longueur $${longueurATrouver}$, arrondie au dixième de ${listeUnites[j]}.<br>`
           segmentATrouver = segment(solideDessine.sommets[parseInt(segmentChoisi[0][0])].c2d, solideDessine.sommets[parseInt(segmentChoisi[0][1])].c2d, '#f15929')
           segmentATrouver.epaisseur = 2
           segmentATrouver.pointilles = 2
@@ -230,8 +231,9 @@ export default function CalculPythagoreEspace () {
           segmentAnnexe.epaisseur = 2
           segmentAnnexe.pointilles = 1
           objetsEnonce.push(segmentAnnexe)
+          objetsEnonce.push(new CodageAngleDroit3D(solideDessine.sommets[parseInt(segmentChoisi[0][0])], solideDessine.sommets[parseInt(segmentChoisi[1])], solideDessine.sommets[parseInt(segmentChoisi[0][1])], '#f15929', 2))
           objetsEnonce.push(new CodageAngleDroit3D(solideDessine.sommets[parseInt(segmentChoisi[1])], solideDessine.sommets[parseInt(segmentChoisi[3])], solideDessine.sommets[parseInt(segmentChoisi[0][1])], 'green', 2))
-          texteCorr += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: 0.7, style: 'block' }), objetsEnonce) + '<br>'
+          texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: 0.7, style: 'block' }), objetsEnonce) + '<br>'
           texteCorr += `Le triangle $${longueurATrouver + I}$ est rectangle en $${I}$  donc d'après le théorème de Pythagore, on a : `
           texteCorr += `$${longueurATrouver}^2=${I + J}^2+${I + K}^2$.`
           texteCorr += `<br> On ne peut pas continuer si on ne connaît pas la valeur de $${I + K}^2$. Trouvons-la.`
@@ -242,6 +244,7 @@ export default function CalculPythagoreEspace () {
           reponse = arrondi(Math.sqrt(segmentChoisi[4] ** 2 + segmentChoisi[5] ** 2 + segmentChoisi[6] ** 2), 1)
           texteCorr += `<br> ${sp(10)}$${I + K}^2=${texNombre(segmentChoisi[4])}^2+${texNombre(segmentChoisi[5])}^2$`
           texteCorr += `<br> ${sp(10)}$${miseEnEvidence(I + K, 'green')}^2=${miseEnEvidence(texNombre(segmentChoisi[4] ** 2 + segmentChoisi[5] ** 2), 'green')}$`
+          texteCorr += `<br> ${sp(10)} Inutile de trouver la valeur de $${I + K}$ car seul son carré nous intéresse ici.`
           texteCorr += `<br> Revenons à $${longueurATrouver}^2=${I + J}^2+${I + K}^2$.`
           texteCorr += `<br> $${longueurATrouver}^2=${texNombre(segmentChoisi[6])}^2+${miseEnEvidence(texNombre(segmentChoisi[4] ** 2 + segmentChoisi[5] ** 2), 'green')}=${texNombre(segmentChoisi[6] ** 2 + segmentChoisi[4] ** 2 + segmentChoisi[5] ** 2)}$`
           texteCorr += `<br> $${longueurATrouver}=\\sqrt{${texNombre(segmentChoisi[6] ** 2 + segmentChoisi[4] ** 2 + segmentChoisi[5] ** 2)}}$`
@@ -278,7 +281,7 @@ export default function CalculPythagoreEspace () {
           segmentATrouver.epaisseur = 2
           segmentATrouver.pointilles = 2
           objetsEnonce.push(...solideDessine.c2d, segmentATrouver, tracePoint(ptBase2), labelPoint(A, D, ptBase2.c2d))
-          texte += `Dans ce cylindre de révolution, le rayon de ses bases (de centre respectif $${A.label}$ et $${D.label}$) est de ${r} ${listeUnites[j]} et sa hauteur est de ${h} ${listeUnites[j]}. Sachant que le point $${ptBase2.c2d.nom}$ est sur la base de centre $${D.label}$, calculer la longueur $${longueurATrouver}$, arrondie au dixième de ${listeUnites[j]}.<br>`
+          texte += `Dans ce cylindre de révolution, le rayon de ses bases (de centre respectif $${A.label}$ et $${D.label}$) est de $${r}$ ${listeUnites[j]} et sa hauteur est de $${h}$ ${listeUnites[j]}. Sachant que le point $${ptBase2.c2d.nom}$ est sur la base de centre $${D.label}$, calculer la longueur $${longueurATrouver}$, arrondie au dixième de ${listeUnites[j]}.<br>`
           texte += '<br>' + mathalea2d(Object.assign({}, fixeBordures([...solideDessine.c2d]), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
 
           objetsEnonce.push(new CodageAngleDroit3D(A, D, ptBase2, 'green', 2))
@@ -286,7 +289,7 @@ export default function CalculPythagoreEspace () {
           objetsEnonce.push(segmentAnnexe)
           segmentAnnexe = segment(D.c2d, A.c2d, 'green')
           objetsEnonce.push(segmentAnnexe)
-          texteCorr += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
+          texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
 
           texteCorr += `<br> Le triangle $${longueurATrouver + D.label}$ est rectangle en $${D.label}$  donc d'après le théorème de Pythagore, on a : `
           texteCorr += `$${longueurATrouver}^2=${D.label + A.label}^2+${D.label + ptBase2.c2d.nom}^2$.`
@@ -317,7 +320,7 @@ export default function CalculPythagoreEspace () {
           segmentATrouver.epaisseur = 2
           segmentATrouver.color = colorToLatexOrHTML('#f15929')
           longueurATrouver = D.label + p.listePoints2d[numeroSommet].nom
-          texte += `$${solideDessine.nom}$ est une pyramide régulière. La distance entre $${A.label}$, le centre de la base, et l'un des sommets de la base est de ${r} ${listeUnites[j]} et la hauteur de cette pyramide est de ${h} ${listeUnites[j]}. Calculer la longueur $${longueurATrouver}$, arrondie au dixième de ${listeUnites[j]}.<br>`
+          texte += `$${solideDessine.nom}$ est une pyramide régulière. La distance entre $${A.label}$, le centre de la base, et l'un des sommets de la base est de $${r}$ ${listeUnites[j]} et la hauteur de cette pyramide est de $${h}$ ${listeUnites[j]}. Calculer la longueur $${longueurATrouver}$, arrondie au dixième de ${listeUnites[j]}.<br>`
           texte += mathalea2d(Object.assign({}, fixeBordures([...solideDessine.c2d]), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), [...solideDessine.c2d, segmentATrouver])
 
           objetsEnonce.push(...solideDessine.c2d, segmentATrouver, new CodageAngleDroit3D(D, A, p.listePoints[numeroSommet], 'green', 2))
@@ -325,7 +328,7 @@ export default function CalculPythagoreEspace () {
           objetsEnonce.push(segmentAnnexe)
           segmentAnnexe = segment(D.c2d, A.c2d, 'green')
           objetsEnonce.push(segmentAnnexe)
-          texteCorr += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
+          texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
 
           texteCorr += `<br> Le triangle $${longueurATrouver + A.label}$ est rectangle en $${A.label}$  donc d'après le théorème de Pythagore, on a : `
           texteCorr += `$${longueurATrouver}^2=${D.label + A.label}^2+${A.label + p.listePoints2d[numeroSommet].nom}^2$.`
@@ -353,7 +356,7 @@ export default function CalculPythagoreEspace () {
           if (context.anglePerspective < 0) numeroSommet = (nbSommets - numeroSommet) % nbSommets
           segmentATrouver = segment(D.c2d, p.listePoints2d[numeroSommet], '#f15929')
           segmentATrouver.epaisseur = 2
-          texte += `Dans ce cône de révolution, le rayon de sa base est de ${r} ${listeUnites[j]} et sa hauteur est de ${h} ${listeUnites[j]}. Calculer la longueur d'une génératrice de ce cône, arrondie au dixième de ${listeUnites[j]}.<br>`
+          texte += `Dans ce cône de révolution, le rayon de sa base est de $${r}$ ${listeUnites[j]} et sa hauteur est de $${h}$ ${listeUnites[j]}. Calculer la longueur d'une génératrice de ce cône, arrondie au dixième de ${listeUnites[j]}.<br>`
           texte += mathalea2d(Object.assign({}, fixeBordures([...solideDessine.c2d]), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), [...solideDessine.c2d, segmentATrouver])
 
           ptBase = p.listePoints2d[numeroSommet]
@@ -366,7 +369,7 @@ export default function CalculPythagoreEspace () {
           segmentAnnexe = segment(D.c2d, A.c2d, 'green')
           objetsEnonce.push(segmentAnnexe)
           objetsEnonce.push(labelPoint(ptBase, D.c2d))
-          texteCorr += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
+          texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
 
           texteCorr += `<br> Le triangle $${longueurATrouver + A.label}$ est rectangle en $${A.label}$  donc d'après le théorème de Pythagore, on a : `
           texteCorr += `$${longueurATrouver}^2=${D.label + A.label}^2+${A.label + p.listePoints2d[numeroSommet].nom}^2$.`
@@ -410,7 +413,7 @@ export default function CalculPythagoreEspace () {
           segmentAnnexe.epaisseur = 2
           segmentAnnexe.pointilles = 2
           objetsEnonce.push(segmentAnnexe)
-          texteCorr += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
+          texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
           texteCorr += `<br> Le triangle $${longueurATrouver + D.label}$ est rectangle en $${D.label}$  donc d'après le théorème de Pythagore, on a : `
           texteCorr += `$${longueurATrouver}^2=${D.label + A.label}^2+${D.label + B.label}^2$.`
 
@@ -453,7 +456,7 @@ export default function CalculPythagoreEspace () {
           segmentAnnexe.epaisseur = 2
           segmentAnnexe.pointilles = 2
           objetsEnonce.push(segmentAnnexe)
-          texteCorr += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
+          texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
           texteCorr += `<br> Le triangle $${longueurATrouver + A.label}$ est rectangle en $${D.label}$  donc d'après le théorème de Pythagore, on a : `
           texteCorr += `$${B.label + A.label}^2=${longueurATrouver}^2+${D.label + A.label}^2$.`
 
@@ -471,13 +474,13 @@ export default function CalculPythagoreEspace () {
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,
-          enonceAvant: this.sup === 2,
+          enonceAvant: this.sup2 === 2,
           options: {
             ordered: false
           }
         }
         this.autoCorrection[i].propositions = []
-        if (this.sup === 1) {
+        if (this.sup2 === 1) {
           this.autoCorrection[i].propositions.push(
             {
               type: 'AMCNum',
@@ -525,6 +528,6 @@ export default function CalculPythagoreEspace () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Exercice AMC', 2, '1 : Question ouverte\n2 : Réponse numérique']
-  this.besoinFormulaire2Texte = ['Type de longueur à trouver', 'Nombres séparés par des tirets\n1 : Diagonale d\'une face d\'un cube\n2 : Diagonale d\'un cube\n3 : Diagonale d\'une face d\'un pavé droit\n4 : Diagonale d\'un pavé droit\n5 : Dans un cylindre\n6 : Dans une pyramide\n7 : Dans un cône\n8 : Rayon d\'une sphère\n9 : Rayon d\'une section d\'une sphère\n10 : Mélange']
+  if (context.isAmc) this.besoinFormulaire2Numerique = ['Exercice AMC', 2, '1 : Question ouverte\n2 : Réponse numérique']
+  this.besoinFormulaireTexte = ['Type de longueur à trouver', 'Nombres séparés par des tirets\n1 : Diagonale d\'une face d\'un cube\n2 : Diagonale d\'un cube\n3 : Diagonale d\'une face d\'un pavé droit\n4 : Diagonale d\'un pavé droit\n5 : Dans un cylindre\n6 : Dans une pyramide\n7 : Dans un cône\n8 : Rayon d\'une sphère\n9 : Rayon d\'une section d\'une sphère\n10 : Mélange']
 }
