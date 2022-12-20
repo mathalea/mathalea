@@ -16,7 +16,7 @@ export default function ProprietesMediatrice () {
   Exercice.call(this)
   this.nbQuestions = 4
 
-  this.besoinFormulaireNumerique = ['Situation', 3, '1 : C appartenant (ou pas) à la médiatrice\n2 : C équidistant (ou pas) de A et B\n3 : Mélange']
+  this.besoinFormulaireNumerique = ['Situation', 3, '1 : C appartenant (ou pas) à la médiatrice\n2 : C équidistant (ou pas) de A et de B\n3 : Mélange']
   this.sup = 3
   this.besoinFormulaire2CaseACocher = ['Inclure des situations où le point C n\'appartient pas à la médiatrice']
   this.sup2 = true
@@ -84,17 +84,17 @@ export default function ProprietesMediatrice () {
         }
         objetsCorrection.push(codageMilieu(A, B, 'red', '||', false), mediatriceAB)
         if (listeSurLaMediatrice[i]) { // S'il est sur la médiatrice
-          texteCorr = `$CA = CB = ${texNombre(arrondi(longueur(C, A), 1))}$ donc le point $C$ est équidistant à $A$ et $B$.<br>`
-          texteCorr += 'Comme un point équidistant à $A$ et $B$ appartient à la médiatrice du segment [$AB$],<br>'
+          texteCorr = `$CA = CB = ${texNombre(arrondi(longueur(C, A), 1))}$ donc le point $C$ est équidistant de $A$ et de $B$.<br>`
+          texteCorr += 'Comme un point équidistant de $A$ et de $B$ appartient à la médiatrice du segment [$AB$],<br>'
           texteCorr += 'alors, le point $C$ appartient à la médiatrice du segment [$AB$]'
         } else { // Si le point C doit ne pas être sur la médiatrice,
-          texteCorr = `$CA = ${texNombre(arrondi(longueur(C, A), 1))}$ alors que $CB = ${texNombre(arrondi(longueur(C, B), 1))}$ donc le point C n'est pas équidistant à A et B.<br>`
-          texteCorr += 'Comme un point qui n\'est pas équidistant à A et B n\'appartient pas à la médiatrice du segment [AB],<br>'
-          texteCorr += 'alors, le point C n\'appartient pas à la médiatrice du segment [AB]'
+          texteCorr = `$CA = ${texNombre(arrondi(longueur(C, A), 1))}$ alors que $CB = ${texNombre(arrondi(longueur(C, B), 1))}$ donc le point C n'est pas équidistant de A et de B.<br>`
+          texteCorr += 'Comme un point qui n\'est pas équidistant de A et de B n\'appartient pas à la médiatrice du segment [AB],<br>'
+          texteCorr += 'alors, le point C n\'appartient pas à la médiatrice du segment [AB].'
         }
       } else if (listeTypeDeQuestions[i] === 'equidistant') {
         objetsCorrection.push(segmentAC, segmentBC, affLongueurAC, affLongueurBC) // On affiche les longueurs dans la correction
-        texte = 'Le point C est-il équidistant à A et B ? Justifier.<br>'
+        texte = 'Le point C est-il équidistant de A et de B ? Justifier.<br>'
         // On construit et code la médiatrice puis on la push dans l'énoncé
         D = pointIntersectionDD(mediatriceAB, droite(A, B))
         if (C.x > A.x) {
@@ -105,12 +105,12 @@ export default function ProprietesMediatrice () {
         objetsEnonce.push(codageMilieu(A, B, 'red', '||', false), mediatriceAB)
         if (listeSurLaMediatrice[i]) { // S'il est sur la médiatrice
           texteCorr = 'Le point C appartient à la médiatrice du segment [AB].<br>'
-          texteCorr += 'Comme un point qui appartient à la médiatrice d\'un segment est équidistant aux extrémités de ce segment,<br>'
-          texteCorr += 'alors le point C est équidistant à A et B.'
+          texteCorr += 'Comme un point qui appartient à la médiatrice d\'un segment est équidistant des extrémités de ce segment,<br>'
+          texteCorr += 'alors le point C est équidistant de A et de B.'
         } else { // Si le point C doit ne pas être sur la médiatrice,
           texteCorr = 'Le point C n\'appartient pas à la médiatrice du segment [AB].<br>'
-          texteCorr += 'Comme un point qui n\'appartient pas à la médiatrice d\'un segment n\'est pas équidistant aux extrémités de ce segment,<br>'
-          texteCorr += 'alors le point C n\'est pas équidistant à A et B.'
+          texteCorr += 'Comme un point qui n\'appartient pas à la médiatrice d\'un segment n\'est pas équidistant des extrémités de ce segment,<br>'
+          texteCorr += 'alors le point C n\'est pas équidistant de A et de B.'
         }
       }
       // On push les objets
@@ -123,7 +123,7 @@ export default function ProprietesMediatrice () {
       const ymin = Math.min(A.y, B.y, C.y) - 2
       const ymax = Math.max(A.y, B.y, C.y) + 2
       // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
-      paramsEnonce = { xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 20, scale: 1 }
+      paramsEnonce = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 1 }
       // paramètres de la fenêtre Mathalea2d pour la correction
       paramsCorrection = paramsEnonce
       // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.

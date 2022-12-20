@@ -48,7 +48,6 @@ export default function UtiliserLeCodagePourDecrire () {
       sommets = shuffle(sommets)
 
       A = point(0, 0, sommets[0], 'left')
-      listeTypeDeQuestions[i] = 2
       switch (listeTypeDeQuestions[i]) {
         case 1:
           C = pointAdistance(A, randint(5, 7), randint(-45, 45), sommets[2], 'right')
@@ -78,7 +77,7 @@ export default function UtiliserLeCodagePourDecrire () {
           texte += '- deux segments de même longueur ;<br>'
           texte += '- le milieu d\'un segment ;<br>'
           texte += '- un triangle rectangle ;<br>'
-          texte += '- un triangle isocèle ;<br>'
+          texte += '- un triangle isocèle.<br>'
           texteCorr = `- Deux segments de même mesure : [$${sommets[0] + sommets[4]}$] et $[${sommets[4] + sommets[2]}]$ ou $[${sommets[0] + sommets[5]}]$ et $[${sommets[5] + sommets[2]}]$`
           texteCorr += ` ou $[${sommets[1] + sommets[3]}]$ et $[${sommets[3] + sommets[2]}]$.<br>`
           texteCorr += `- $${sommets[4]}$ est le milieu du segment $[${sommets[0] + sommets[2]}]$.<br>`
@@ -148,7 +147,7 @@ export default function UtiliserLeCodagePourDecrire () {
           texte = '<br>À l\'aide du schéma ci-dessous, déterminer :<br>'
           texte += `- la nature du triangle $${sommets[0] + sommets[1] + sommets[5]}$ ;<br>`
           texte += `- la nature du quadrilatère $${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$ ;<br>`
-          texte += `- la nature de l'angle $\\widehat{${sommets[5] + sommets[1] + sommets[2]}}$ ;<br>`
+          texte += `- la nature de l'angle $\\widehat{${sommets[5] + sommets[1] + sommets[2]}}$.<br>`
           texteCorr = `Le triangle $${sommets[0] + sommets[1] + sommets[5]}$ a deux angles de même mesure, c'est donc un triangle isocèle en $${sommets[1]}$.<br>`
           texteCorr += `Le quadrilatère  $${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$ a des diagonales qui se coupent en leur milieu, c'est donc un parallélogramme.<br>`
           texteCorr += 'Dans un parallélogramme, les angles consécutifs sont supplémentaires (leur somme vaut 180°).<br>'

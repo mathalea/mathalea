@@ -14,7 +14,7 @@ export const ref = '5G24-2'
 export default function TrianglesEgaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Les triangles sont-ils égaux ? Si ils sont égaux, justifier la réponse.'
+  this.consigne = 'Les triangles sont-ils égaux ? S\'ils sont égaux, justifier la réponse.'
   this.nbQuestions = 4
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
@@ -81,7 +81,7 @@ export default function TrianglesEgaux () {
             scale: 0.5
           },
           p1, p2, code1, code2, code3, code4, code5, code6, nommeP1, nommeP2)
-          texteCorr = 'Ces deux triangles sont égaux car ils ont leurs trois côtés de même longueur 2 à 2 (CCC).'
+          texteCorr = 'Ces deux triangles sont égaux car ils ont leurs trois côtés de même longueur 2 à 2.'
           break
         case 'CAC':
           texte = '<br>' + mathalea2d({
@@ -92,7 +92,7 @@ export default function TrianglesEgaux () {
             scale: 0.5
           },
           p1, p2, code1, code2, code3, code4, codeA1, codeA2, nommeP1, nommeP2)
-          texteCorr = 'Ces deux triangles sont égaux car ils ont ont un angle de même mesure compris entre deux côtés de même longueur 2 à 2 (CAC). '
+          texteCorr = 'Ces deux triangles sont égaux car ils ont ont un angle de même mesure compris entre deux côtés de même longueur 2 à 2. '
           break
         case 'ACA':
           texte = '<br>' + mathalea2d({
@@ -103,7 +103,7 @@ export default function TrianglesEgaux () {
             scale: 0.5
           },
           p1, p2, code1, code2, codeA1, codeA2, codeA5, codeA6, nommeP1, nommeP2)
-          texteCorr = 'Ces deux triangles sont égaux car ils ont un côté de même longueur compris entre deux angles de même mesure 2 à 2 (ACA). '
+          texteCorr = 'Ces deux triangles sont égaux car ils ont un côté de même longueur compris entre deux angles de même mesure 2 à 2. '
           break
         case 'AAA':
           texte = '<br>' + mathalea2d({
@@ -114,7 +114,7 @@ export default function TrianglesEgaux () {
             scale: 0.5
           },
           p1, p2, codeA1, codeA2, codeA3, codeA4, codeA5, codeA6, nommeP1, nommeP2)
-          texteCorr = `On ne peut pas déterminer si ces triangles sont égaux. Ils ont la même forme mais leurs longueurs peuvent être différentes. On dit qu'ils sont ${texteEnCouleur('semblables')}`
+          texteCorr = `On ne peut pas déterminer si ces triangles sont égaux. Ils ont la même forme mais leurs longueurs peuvent être différentes. On dit qu'ils sont ${texteEnCouleur('semblables')}.`
           break
         case 'CC':
           texte = '<br>' + mathalea2d({
