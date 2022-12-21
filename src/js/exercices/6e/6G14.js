@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, range, egal, rangeMinMax, shuffle, combinaisonListes, contraindreValeur, choice } from '../../modules/outils.js'
-import { point, pointIntersectionDD, droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, droiteParPointEtPente, rotation, codageAngleDroit, latexParCoordonneesBox, pointSurDroite } from '../../modules/2d.js'
+import { point, pointIntersectionDD, droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, droiteParPointEtPente, rotation, codageAngleDroit, latexParCoordonneesBox, pointSurDroite, segment, pointIntersectionCC } from '../../modules/2d.js'
 export const amcReady = true
 export const amcType = 'AMCOpen' // type de question AMC
 export const titre = 'Utiliser les propriétés des droites perpendiculaires'
@@ -329,22 +329,51 @@ export default function ProprietesParallelesPerpendiculaires () {
   this.besoinFormulaire2CaseACocher = ['Que des perpendiculaires', false]
   this.besoinFormulaire3CaseACocher = ['Avec le dessin', true]
 }
+/**
+ * Ajouter une étiquette sur une droite.
+ * @param {*} droite La droite où on va rajouter une étiquette
+ * @param {*} nom Le nom de la droite doit être au format latex, c'est-à-dire compris entre $ et $
+ * @param {*} options Les options permettant de personnaliser la position de l'étiquette et la mise en forme
+ *  options.preferedPosition La position à privilégier si possible sur le bord de l'image ('left', 'right', 'above', 'below'), par défaut 'left'
+ *  options.usedPosition Un tableau des anciennes positions déjà allouées pour éviter les colisions avec des étiquettes d'autres droites
+ *  options.taille La taille de la police de l'étiquette par défaut 6
+ *  options.color La couleur de l'étiquette par défaut 'red'
+ * @returns LatexParCoordonneesBox L'étiquette
+ *
+ * Exemple :
+ *   context.fenetreMathalea2d = [xmin + 0.2, ymin, xmax, ymax] // important pour la position des labels
+ *   const d3nom = labelOnLine(d3, '$' + noms[3] + '$', { color: 'blue', taille: 8, preferedPosition: 'left' })
+ *   const d0nom = labelOnLine(d0, '$' + noms[0] + '$', { color: 'red', taille: 8, usedPosition: [d3nom] })
+ *
+ * @author Mickael Guironnet
+ */
+export function labelOnLine (droite, nom, options = {}) {
+  if (options.preferedPosition === undefined) options.preferedPosition = 'left'
+  if (options.usedPosition === undefined) options.usedPosition = []
+  if (options.taille === undefined) options.taille = 6
+  if (options.color === undefined) options.color = 'red'
 
-function labelOnLine (droite, nom) {
-  const largeur = Math.ceil((nom.replaceAll('$', '').length) * 10 * Math.log10(6))
+  const largeur = Math.ceil((nom.replaceAll('$', '').length) * 10 * Math.log10(options.taille))
   const hauteur = 20
-  let absNom, ordNom, leNom, anchor
+
+  let absNom, ordNom, leNom, anchor, usedPosition; const positions = []
   if (nom !== '') {
     if (egal(droite.b, 0, 0.05)) { // ax+c=0 x=-c/a est l'équation de la droite
       // droite quasi verticale
       absNom = -droite.c / droite.a + largeur * 0.5 / context.pixelsParCm + 2 / context.pixelsParCm
       ordNom = context.fenetreMathalea2d[1] + 1 // l'ordonnée du label est ymin +1
       anchor = 'right'
+      usedPosition = 'below'
+      leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, '', options.taille, { anchor })
+      positions.push({ label: leNom, position: usedPosition })
     } else if (egal(droite.a, 0, 0.05)) { // by+c=0 y=-c/b est l'équation de la droite
       // droite quasi horizontale
       absNom = context.fenetreMathalea2d[0] + 1 // l'abscisse du label est xmin +1
       ordNom = -droite.c / droite.b + hauteur * 0.5 / context.pixelsParCm
       anchor = 'above'
+      usedPosition = 'left'
+      leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, '', options.taille, { anchor })
+      positions.push({ label: leNom, position: usedPosition })
     } else { // a et b sont différents de 0 ax+by+c=0 est l'équation
       // y=(-a.x-c)/b est l'equation cartésienne et x=(-by-c)/a
       const y0 = (-droite.a * (context.fenetreMathalea2d[0] + 1) - droite.c) / droite.b
@@ -356,30 +385,109 @@ function labelOnLine (droite, nom) {
         absNom = context.fenetreMathalea2d[0] + 1
         ordNom = y0 - droite.pente * (largeur * 0.5 / context.pixelsParCm) + (droite.pente > 0 ? -1 : 1) * hauteur * 0.5 / context.pixelsParCm
         anchor = (droite.pente > 0 ? 'below' : 'above')
-      } else if (y1 > context.fenetreMathalea2d[1] && y1 < context.fenetreMathalea2d[3]) {
+        usedPosition = 'left'
+        if (ordNom < context.fenetreMathalea2d[1] + 1 || ordNom > context.fenetreMathalea2d[3] - 1) {
+          // console.log('problème:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[1] + 1) + '<' + ordNom + '<' + (context.fenetreMathalea2d[3] - 1))
+        } else {
+          leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, '', options.taille, { anchor })
+          positions.push({ label: leNom, position: usedPosition })
+        }
+      }
+      if (y1 > context.fenetreMathalea2d[1] && y1 < context.fenetreMathalea2d[3]) {
         // à droite
         absNom = context.fenetreMathalea2d[2] - 1
         ordNom = y1 - droite.pente * (largeur * 0.5 / context.pixelsParCm) + (droite.pente > 0 ? -1 : 1) * hauteur * 0.5 / context.pixelsParCm
         anchor = (droite.pente > 0 ? 'below' : 'above')
-      } else if (x0 > context.fenetreMathalea2d[0] && x0 < context.fenetreMathalea2d[2]) {
+        usedPosition = 'right'
+        if (ordNom < context.fenetreMathalea2d[1] + 1 || ordNom > context.fenetreMathalea2d[3] - 1) {
+          // console.log('problème:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[1] + 1) + '<' + ordNom + '<' + (context.fenetreMathalea2d[3] - 1))
+        } else {
+          leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, '', options.taille, { anchor })
+          positions.push({ label: leNom, position: usedPosition })
+        }
+      }
+      if (x0 > context.fenetreMathalea2d[0] && x0 < context.fenetreMathalea2d[2]) {
         // en bas
-        absNom = x0 + (droite.pente > 0 ? -1 : 1) * largeur * 0.5 / context.pixelsParCm - (droite.pente > 0 ? 1 : -1) * (hauteur * 0.5 / context.pixelsParCm) / droite.pente - (droite.pente > 0 ? 1 : -1) * 2 / context.pixelsParCm
+        absNom = x0 + (droite.pente > 0 ? -1 : 1) * largeur * 0.5 / context.pixelsParCm - (droite.pente > 0 ? 1 : 1) * (hauteur * 0.5 / context.pixelsParCm) / droite.pente - (droite.pente > 0 ? 1 : -1) * 2 / context.pixelsParCm
         ordNom = context.fenetreMathalea2d[1] + 1
         anchor = (droite.pente > 0 ? 'left' : 'right')
-      } else if (x1 > context.fenetreMathalea2d[0] && x1 < context.fenetreMathalea2d[2]) {
+        usedPosition = 'below'
+        if (absNom < context.fenetreMathalea2d[0] + 1 || absNom > context.fenetreMathalea2d[2] - 1) {
+          // console.log('problème:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[0] + 1) + '<' + absNom + '<' + (context.fenetreMathalea2d[2] - 1))
+        } else {
+          leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, '', options.taille, { anchor })
+          positions.push({ label: leNom, position: usedPosition })
+        }
+      }
+      if (x1 > context.fenetreMathalea2d[0] && x1 < context.fenetreMathalea2d[2]) {
         // au haut
-        absNom = x1 + (droite.pente > 0 ? -1 : 1) * largeur * 0.5 / context.pixelsParCm - (droite.pente > 0 ? 1 : -1) * (hauteur * 0.5 / context.pixelsParCm) / droite.pente - (droite.pente > 0 ? 1 : -1) * 2 / context.pixelsParCm
+        absNom = x1 + (droite.pente > 0 ? -1 : 1) * largeur * 0.5 / context.pixelsParCm - (droite.pente > 0 ? 1 : 1) * (hauteur * 0.5 / context.pixelsParCm) / droite.pente - (droite.pente > 0 ? 1 : -1) * 2 / context.pixelsParCm
         ordNom = context.fenetreMathalea2d[3] - 1
         anchor = (droite.pente > 0 ? 'left' : 'right')
-      } else {
+        usedPosition = 'above'
+        if (absNom < context.fenetreMathalea2d[0] + 1 || absNom > context.fenetreMathalea2d[2] - 1) {
+          // console.log('problème:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[0] + 1) + '<' + absNom + '<' + (context.fenetreMathalea2d[2] - 1))
+        } else {
+          leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, '', options.taille, { anchor })
+          positions.push({ label: leNom, position: usedPosition })
+        }
+      }
+      if (positions.length === 0) {
         // au milieu
         absNom = (context.fenetreMathalea2d[0] + context.fenetreMathalea2d[2]) / 2
-        ordNom = pointSurDroite(this, absNom).y
+        ordNom = pointSurDroite(droite, absNom).y
         anchor = (droite.pente > 0 ? 'left' : 'right')
+        usedPosition = 'middle'
+        leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, '', options.taille, { anchor })
+        positions.push({ label: leNom, position: usedPosition })
       }
     }
-    const options = { anchor }
-    leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, 'red', largeur, hauteur, '', 6, options)
+
+    // vérifie s'il y a des colisions entre labels
+    for (let i = 0; i < positions.length; i++) {
+      const coli = []
+      for (let j = 0; j < options.usedPosition.length; j++) {
+        const label = options.usedPosition[j]
+        const dis = segment(point(label.x, label.y), point(positions[i].label.x, positions[i].label.y)).longueur * context.pixelsParCm
+        // console.log('nom:' + nom + ':position:' + positions[i].position + ':i:' + i + ':j:' + j + ':dis:' + dis + 'texte:' + label.texte)
+        const r0 = Math.max(label.largeur / 2, label.hauteur / 2)
+        const r1 = Math.max(positions[i].label.largeur / 2, positions[i].label.hauteur / 2)
+        let colision = true
+        if (dis > r0 + r1 || dis < Math.abs(r0 - r1)) colision = false
+        coli[j] = [dis, colision]
+      }
+      positions[i].colision = coli
+    }
+    // 1ere stratégie : la préférence de l'utilisateur
+    // on vérifie seulement s'il y a une colision
+    const found = [false, 0]
+    for (let i = 0; i < positions.length && !found[0]; i++) {
+      if (positions[i].position === options.preferedPosition) {
+        found[0] = true
+        for (let j = 0; j < options.usedPosition.length; j++) {
+          if (positions[i].colision[j][2]) found[0] = false
+        }
+        found[1] = i
+        // console.log('1er : nom:' + nom + ':position:' + positions[i].position + ':i:' + i + ':preferedPosition:' + options.preferedPosition)
+      }
+    }
+
+    // 2e stratégie : le plus loin en terme de distance!
+    let disMax = [0, 0, 0]
+    for (let i = 0; i < positions.length && !found[0]; i++) {
+      let dis = [1000, 0, 0]
+      for (let j = 0; j < options.usedPosition.length; j++) {
+        if (positions[i].colision[j][0] < dis[0]) {
+          dis = [positions[i].colision[j][0], i, j]
+          // console.log('2e:nom:' + nom + ':position:' + positions[i].position + ':i:' + i + ':j:' + j + 'dis:' + dis[0])
+        }
+      }
+      if (dis[0] > disMax[0]) {
+        disMax = dis
+        // console.log('Max 2e:nom:' + nom + ':position:' + positions[i].position + ':i:' + i + 'dis:' + dis[0])
+      }
+    }
+    leNom = found[0] ? positions[found[1]].label : (disMax[0] > 0 ? positions[disMax[1]].label : positions[0].label)
   } else {
     leNom = vide2d()
   }
