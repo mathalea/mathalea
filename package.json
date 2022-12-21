@@ -30,6 +30,7 @@
     "buildDicosV3": "cd ./src/js/modulesV3 && node exercice_to_json2.js"
   },
   "dependencies": {
+    "-": "^0.0.1",
     "@bugsnag/js": "^7.18.0",
     "@cortex-js/compute-engine": "^0.12.1",
     "@svgdotjs/svg.js": "^3.1.2",
@@ -48,6 +49,7 @@
     "mathjs": "^11.4.0",
     "mathlive": "^0.85.1",
     "mathsteps": "github:mathalea/mathsteps",
+    "pnpm": "^7.18.2",
     "qrcode": "^1.5.1",
     "regenerator-runtime": "^0.13.11",
     "seedrandom": "^3.0.5",
