@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, shuffle, miseEnEvidence } from '../../modules/outils.js'
-import { point, codageAngleDroit, droite, droiteParPointEtPerpendiculaire, pointSurDroite, droiteParPointEtPente, labelLatexPoint } from '../../modules/2d.js'
+import { point, codageAngleDroit, droite, droiteParPointEtPerpendiculaire, pointSurDroite, droiteParPointEtPente } from '../../modules/2d.js'
 import { labelOnLine } from './6G14.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Se servir des relations entre perpendicularité et parallélisme'
@@ -99,9 +99,6 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
       // On ajoute au texte de la correction, la figure de la correction
       function couleur (indice) { // La fonction permet d'ajouter facilement une condition en fonction du contexte si besoin
         return couleurs[indice]
-      }
-      function texDroiteFigure (indice) {
-        return `${miseEnEvidence(noms[indice], couleurs[indice])}`
       }
       function texDroiteEnonce (indice) {
         return `$${miseEnEvidence(noms[indice], couleurs[indice])}$`
