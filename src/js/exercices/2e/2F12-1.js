@@ -50,7 +50,7 @@ export default function EquationsFonctionsRef () {
        //
     }
     function ecritureParentheseSiNegatif (a, maximumFractionDigits = 15) {
-      const result = Intl.NumberFormat('fr-FR', { maximumFractionDigits: maximumFractionDigits }).format(a).replace(',', '{,}')
+      const result = Intl.NumberFormat('fr-FR', { maximumFractionDigits }).format(a).replace(',', '{,}')
       return a < 0 ? `(${result})` : result
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
@@ -110,7 +110,7 @@ export default function EquationsFonctionsRef () {
                   correction += `L'équation est de la forme $x^2=k$ avec $k=${k}$. Comme $k=${k}$ alors L'équation admet une unique solution : $0$.<br>
                 Ainsi, $S=\\{0\\}$.`
                 } else {
-                  correction += `L'équation est de la forme $x^2=k$. Comme $k=${k}$ et $${k}<0$, alors l'équation n'admet aucune solution.<br>
+                  correction += `L'équation est de la forme $x^2=k$ avec $k=${k}$. Comme $${k}<0$, alors l'équation n'admet aucune solution.<br>
                   Ainsi, $S=\\emptyset$.`
                 }
               }
@@ -138,19 +138,18 @@ export default function EquationsFonctionsRef () {
               }
               if (k > 0) {
                 if (k === 1 || k === 4 || k === 9 || k === 16 || k === 25) {
-                  correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}>0$, donc l'équation a deux solutions : $-\\sqrt{${texNombre(k, 0)}}$ et $\\sqrt{${texNombre(k, 0)}}$. 
+                  correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}$. Comme $${texNombre(k, 0)}>0$,  l'équation a deux solutions : $-\\sqrt{${texNombre(k, 0)}}$ et $\\sqrt{${texNombre(k, 0)}}$. 
                 <br> Comme $-\\sqrt{${texNombre(k, 0)}}=-${extraireRacineCarree(k)[0]}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}$ alors 
                 les solutions de l'équation peuvent s'écrire plus simplement : $-${extraireRacineCarree(k)[0]}$ et $${extraireRacineCarree(k)[0]}$.<br>
                 Ainsi,  $S=\\{-${extraireRacineCarree(k)[0]}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\}$.`
                 } else {
                   if (extraireRacineCarree(k)[1] !== k) {
-                    correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}>0$, donc l'équation a deux solutions : $-\\sqrt{${texNombre(k, 0)}}$ et $\\sqrt{${texNombre(k, 0)}}$. <br>
+                    correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}$. Comme $${texNombre(k, 0)}>0$, l'équation a deux solutions : $-\\sqrt{${texNombre(k, 0)}}$ et $\\sqrt{${texNombre(k, 0)}}$. <br>
                     Comme $-\\sqrt{${k}}=-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ alors 
                     les solutions de l'équation peuvent s'écrire plus simplement : $-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ et $${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$.<br>
                     Ainsi,  $S=\\{-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}\\}$.`
                   } else {
-                    correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${c - b}>0$, 
-                    donc l'équation a deux solutions : $-\\sqrt{${c - b}}$ et $\\sqrt{${c - b}}$.<br> 
+                    correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${c - b}$. Comme $${c - b}>0$, l'équation a deux solutions : $-\\sqrt{${c - b}}$ et $\\sqrt{${c - b}}$.<br> 
                     Ainsi,  $S=\\{-\\sqrt{${c - b}}${sp(1)};${sp(1)}\\sqrt{${c - b}}\\}$.`
                   }
                 }
@@ -160,7 +159,7 @@ export default function EquationsFonctionsRef () {
               Ainsi, $S=\\{0\\}$. `
               }
               if (k < 0) {
-                correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(c - b, 0)}$, alors l'équation n'a pas de solution.
+                correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(c - b, 0)}$. Comme $${texNombre(c - b, 0)}<0$, l'équation n'a pas de solution.
                 <br>Ainsi, $S=\\emptyset$. `
               }
               break
@@ -189,27 +188,27 @@ export default function EquationsFonctionsRef () {
 
               if (k > 0) {
                 if (k === 1 || k === 4 || k === 9 || k === 16 || k === 25) {
-                  correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}>0$, donc l'équation a deux solutions : $-\\sqrt{${texNombre(k, 0)}}$ et $\\sqrt{${texNombre(k, 0)}}$. 
+                  correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}$. Comme $${texNombre(k, 0)}>0$, l'équation a deux solutions : $-\\sqrt{${texNombre(k, 0)}}$ et $\\sqrt{${texNombre(k, 0)}}$. 
                 <br>  Comme $-\\sqrt{${texNombre(k, 0)}}=-${extraireRacineCarree(k)[0]}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}$ alors 
                 les solutions de l'équation peuvent s'écrire plus simplement : $-${extraireRacineCarree(k)[0]}$ et $${extraireRacineCarree(k)[0]}$.<br>
                 Ainsi,  $S=\\{-${extraireRacineCarree(k)[0]}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\}$.`
                 } else {
                   if (extraireRacineCarree(k)[1] !== k) {
-                    correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}>0$, donc l'équation a deux solutions : $-\\sqrt{${texNombre(k, 0)}}$ et $\\sqrt{${texNombre(k, 0)}}$.<br>Comme $-\\sqrt{${k}}=-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ alors 
+                    correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}$. Comme $${texNombre(k, 0)}>0$, l'équation a deux solutions : $-\\sqrt{${texNombre(k, 0)}}$ et $\\sqrt{${texNombre(k, 0)}}$.<br>Comme $-\\sqrt{${k}}=-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ alors 
                     les solutions de l'équation peuvent s'écrire plus simplement : $-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ et $${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$.<br>
                     Ainsi,  $S=\\{-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}\\}$.`
                   } else {
-                    correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}>0$, donc l'équation a deux solutions : $-\\sqrt{${texNombre(k, 0)}}$ et $\\sqrt{${texNombre(k, 0)}}$.<br>
+                    correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}$. Comme $${texNombre(k, 0)}>0$, alors l'équation a deux solutions : $-\\sqrt{${texNombre(k, 0)}}$ et $\\sqrt{${texNombre(k, 0)}}$.<br>
                     Ainsi,  $S=\\{-\\sqrt{${k}}${sp(1)};${sp(1)}\\sqrt{${k}}\\}$.`
                   }
                 }
               }
               if (k === 0) {
-                correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}=0$, donc l'équation a une solution : $0$.<br>
+                correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}$, donc l'équation a une solution : $0$.<br>
               Ainsi, $S=\\{0\\}$. `
               }
               if (k < 0) {
-                correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(b - c)}$, alors l'équation n'a pas de solution.
+                correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(b - c)}$. Comme $${texNombre(b - c)}<0$, l'équation n'a pas de solution.
                 <br> Ainsi, $S=\\emptyset$. `
               }
               break
@@ -240,18 +239,18 @@ export default function EquationsFonctionsRef () {
               }
               if (k > 0) {
                 if (c - b === a || c - b === 4 * a || c - b === 9 * a || c - b === 16 * a || c - b === 25 * a) {
-                  correction += `<br>$${texNombre(k, 0)}>0$, donc l'équation a deux solutions : $-\\sqrt{${texNombre(k, 0)}}$ et $\\sqrt{${texNombre(k, 0)}}$. 
+                  correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}$. Comme $${texNombre(k, 0)}>0$, alors l'équation a deux solutions : $-\\sqrt{${texNombre(k, 0)}}$ et $\\sqrt{${texNombre(k, 0)}}$. 
                 <br>  Comme $-\\sqrt{${texNombre(k, 0)}}=-${extraireRacineCarree(k)[0]}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}$ alors 
                 les solutions de l'équation peuvent s'écrire plus simplement : $-${extraireRacineCarree(k)[0]}$ et $${extraireRacineCarree(k)[0]}$.
                 <br> Ainsi, $S=\\left\\{-${extraireRacineCarree(k)[0]}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\right\\}$.`
                 } else {
                   if (((c - b === 4) && a === 9) || ((c - b === 9) && a === 4) || ((c - b === 16) && a === 9) || ((c - b === 9) && a === 16)) {
-                    correction += `<br>$${texFractionReduite(c - b, a)}>0$, donc l'équation a deux solutions : $-\\sqrt{${texFractionReduite(c - b, a)}}$ et $\\sqrt{${texFractionReduite(c - b, a)}}$. 
+                    correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texFractionReduite(c - b, a)}$. Comme $${texFractionReduite(c - b, a)}>0$, alors l'équation a deux solutions : $-\\sqrt{${texFractionReduite(c - b, a)}}$ et $\\sqrt{${texFractionReduite(c - b, a)}}$. 
                   <br>  Comme $-\\sqrt{${texFractionReduite(c - b, a)}}=-\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}$ et $\\sqrt{${texFractionReduite(c - b, a)}}=\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}$ alors 
                   les solutions de l'équation peuvent s'écrire plus simplement : $-\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}$ et $\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}$.<br>
                   Ainsi, $S=\\left\\{-\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}${sp(1)};${sp(1)}\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}\\right\\}$`
                   } else {
-                    correction += `<br>$${texFractionReduite(c - b, a)}>0$, donc l'équation a deux solutions : 
+                    correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texFractionReduite(c - b, a)}$. Comme $${texFractionReduite(c - b, a)}>0$, alors l'équation a deux solutions : 
                   $-${f1.racineCarree().texFractionSimplifiee}$ et $${f1.racineCarree().texFractionSimplifiee}$. <br>
                   Ainsi, $S=\\left\\{-${f1.racineCarree().texFractionSimplifiee}${sp(1)};${sp(1)}${f1.racineCarree().texFractionSimplifiee}\\right\\}$`
                   }
@@ -259,11 +258,11 @@ export default function EquationsFonctionsRef () {
               }
 
               if (c - b === 0) {
-                correction += `L'équation a une solution : $0$.<br>
+                correction += `<br>L'équation est de la forme $x^2=k$ avec $k=0$. Alorsl'équation a une solution : $0$.<br>
               Ainsi, $S=\\{0\\}$. `
               }
               if ((c - b) / a < 0) {
-                correction += `<br>$${texFractionReduite(c - b, a)}<0$, donc l'équation n'a pas de solution. <br>
+                correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texFractionReduite(c - b, a)}$. Comme $${texFractionReduite(c - b, a)}<0$, alors l'équation n'a pas de solution. <br>
               Ainsi, $S=\\emptyset$. `
               }
 
