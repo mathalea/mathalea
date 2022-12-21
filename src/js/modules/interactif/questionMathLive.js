@@ -121,9 +121,9 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           if (!isNaN(parseFloat(saisie))) {
             saisieParsee = engine.parse(`\\frac{${saisie}}{1}`).canonical
           } else {
-            saisieParsee = engine.parse(saisie)
+            saisieParsee = engine.parse(saisie, { canonical: false })
           }
-          fReponse = engine.parse(reponse.texFSD.replace('dfrac', 'frac'))
+          fReponse = engine.parse(reponse.texFSD.replace('dfrac', 'frac'), { canonical: false })
           if (saisieParsee.isEqual(fReponse) && saisieParsee.json[1] < fReponse.json[1]) resultat = 'OK'
           break
         case 'fractionEgale': // Pour les exercices de calcul où on attend une fraction peu importe son écriture (3/4 ou 300/400 ou 30 000/40 000...)
