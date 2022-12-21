@@ -24,6 +24,7 @@ export default class ProduitEtSommeOuDifferenceDeDecimaux extends Exercice {
     this.sup = 3
     this.besoinFormulaire2CaseACocher = ['Mélanger additions et soustractions']
     this.sup2 = false
+    this.listePackages = 'xlop'
   }
 
   nouvelleVersion (numeroExercice) {
@@ -58,8 +59,10 @@ export default class ProduitEtSommeOuDifferenceDeDecimaux extends Exercice {
         texteCorr += Operation({ operande1: couple.A, operande2: couple.B, type: addition ? 'addition' : 'soustraction', style: 'display: inline', methodeParCompensation: addition })
         texteCorr += ' et '
         texteCorr += Operation({ operande1: couple.A, operande2: couple.B, type: 'multiplication', style: 'display: inline' })
+        texteCorr += '<br>'
         indice++
       }
+      texteCorr = texteCorr.slice(0, texteCorr.length - 4).slice(4) // Retrait du premier et du dernier <br> pour éviter des erreurs en LaTeX
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
