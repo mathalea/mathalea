@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { choice, combinaisonListes, compteOccurences, contraindreValeur, lampeMessage, lettreDepuisChiffre, listeQuestionsToContenu, numAlpha, randint, texteEnCouleurEtGras } from '../../modules/outils.js'
-import { scratchblock } from '../../modules/2d.js'
+import { scratchblock } from '../../modules/scratchblock.js'
 import { min, max } from 'mathjs'
 import { context } from '../../modules/context.js'
 export const titre = 'Comprendre un script Scratch - 2'

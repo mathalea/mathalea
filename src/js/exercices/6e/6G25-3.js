@@ -2,8 +2,9 @@ import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, egal, randint, shuffle, nombreAvecEspace, texcolors } from '../../modules/outils.js'
-import { tracePoint, mediatrice, codageMediatrice, segment, symetrieAxiale, texteParPosition, pavage } from '../../modules/2d.js'
+import { tracePoint, mediatrice, codageMediatrice, segment, symetrieAxiale, texteParPosition } from '../../modules/2d.js'
 import { symetrieAnimee } from '../../modules/2dAnimation.js'
+import { pavage } from '../../modules/Pavage'
 export const titre = 'Trouver l\'image d\'une figure par une symétrie axiale dans un pavage'
 
 // Gestion de la date de publication initiale
