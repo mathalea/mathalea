@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, shuffle, miseEnEvidence } from '../../modules/outils.js'
-import { point, codageAngleDroit, droite, droiteParPointEtPerpendiculaire, pointSurDroite, droiteParPointEtPente, labelLatexPoint } from '../../modules/2d.js'
+import { point, codageAngleDroit, droite, droiteParPointEtPerpendiculaire, pointSurDroite, droiteParPointEtPente } from '../../modules/2d.js'
 import { labelOnLine } from './6G14.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Se servir des relations entre perpendicularité et parallélisme'
@@ -49,7 +49,7 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const objetsEnonce = []
       const noms = shuffle(['(d_1)', '(d_2)', '(d_3)', '(d_4)', '(d_5)', '(d_6)', '(d_7)'])
-      const couleurs = shuffle(['black', 'blue', '#7e22ce', '#f15929', 'purple', 'red', 'brown'])
+      const couleurs = shuffle(['black', 'blue', 'green', '#2471A3', 'purple', 'red', 'brown'])
       const x = []
       const y = []
       for (let i = 0; i < 6; i++) {
@@ -80,19 +80,20 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
       const A23 = codageAngleDroit(P2, P23, P43, couleur(2), 0.7, 1, 0.6, couleur(2), 0.2)
       objetsEnonce.push(d0, d1, d2, d3, d4, d5, d6, A13, A23) // , labelLatexPoint({ points: [P03, P13, P23, P43, P53, P63, P3] }))
       // Les lignes ci-dessous permettent d'avoir un affichage aux dimensions optimisées
-      const xmin = Math.min(P03.x, P13.x, P23.x, P43.x, P53.x, P63.x) - 2
+      const xmin = Math.min(P03.x, P13.x, P23.x, P43.x, P53.x, P63.x) - 3
       const xmax = Math.max(P03.x, P13.x, P23.x, P43.x, P53.x, P63.x) + 3
       const ymin = Math.min(P03.y, P13.y, P23.y, P43.y, P53.y, P63.y) - 4
       const ymax = Math.max(P03.y, P13.y, P23.y, P43.y, P53.y, P63.y) + 4
 
-      context.fenetreMathalea2d = [xmin + 0.2, ymin, xmax, ymax] // important pour la position des labels
-      const d3nom = labelOnLine(d3, '$' + noms[3] + '$', { color: couleurs[3], taille: 8 })
-      const d0nom = labelOnLine(d0, '$' + noms[0] + '$', { color: couleurs[0], taille: 8, usedPosition: [d3nom] })
-      const d1nom = labelOnLine(d1, '$' + noms[1] + '$', { color: couleurs[1], taille: 8, usedPosition: [d3nom, d0nom] })
-      const d2nom = labelOnLine(d2, '$' + noms[2] + '$', { color: couleurs[2], taille: 8, usedPosition: [d3nom, d0nom, d1nom] })
-      const d4nom = labelOnLine(d4, '$' + noms[4] + '$', { color: couleurs[4], taille: 8, usedPosition: [d3nom, d0nom, d1nom, d2nom] })
-      const d5nom = labelOnLine(d5, '$' + noms[5] + '$', { color: couleurs[5], taille: 8, usedPosition: [d3nom, d0nom, d1nom, d2nom, d4nom] })
-      const d6nom = labelOnLine(d6, '$' + noms[6] + '$', { color: couleurs[6], taille: 8, usedPosition: [d3nom, d0nom, d1nom, d2nom, d4nom, d5nom] })
+      context.fenetreMathalea2d = [xmin, ymin, xmax, ymax] // important pour la position des labels
+      const d5nom = labelOnLine(d5, '$' + noms[5] + '$', { color: couleurs[5], taille: 8 })
+      const d6nom = labelOnLine(d6, '$' + noms[6] + '$', { color: couleurs[6], taille: 8, usedPosition: [d5nom] })
+      const d0nom = labelOnLine(d0, '$' + noms[0] + '$', { color: couleurs[0], taille: 8, usedPosition: [d5nom, d6nom] })
+      const d1nom = labelOnLine(d1, '$' + noms[1] + '$', { color: couleurs[1], taille: 8, usedPosition: [d5nom, d6nom, d0nom] })
+      const d2nom = labelOnLine(d2, '$' + noms[2] + '$', { color: couleurs[2], taille: 8, usedPosition: [d5nom, d6nom, d0nom, d1nom] })
+      const d4nom = labelOnLine(d4, '$' + noms[4] + '$', { color: couleurs[4], taille: 8, usedPosition: [d5nom, d6nom, d0nom, d1nom, d2nom] })
+      const d3nom = labelOnLine(d3, '$' + noms[3] + '$', { color: couleurs[3], taille: 8, usedPosition: [d5nom, d6nom, d0nom, d1nom, d2nom, d4nom] })
+
       objetsEnonce.push(d0nom, d1nom, d2nom, d3nom, d4nom, d5nom, d6nom)
       // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
       const params = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 1 }
