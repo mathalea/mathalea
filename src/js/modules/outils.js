@@ -1941,10 +1941,10 @@ export function texNum (expression, formatFraction = false) {
  * renvoie le résultat de l'expression en couleur (vert=positif, rouge=négatif, noir=nul)
  * @param {string} expression l'expression à calculer
  */
-export function texNombreCoul (nombre) {
-  if (nombre > 0) return miseEnEvidence(texNombrec(nombre), 'green')
-  else if (nombre < 0) return miseEnEvidence(texNombrec(nombre), 'red')
-  else return miseEnEvidence(texNombrec(0), 'black')
+export function texNombreCoul (nombre, positif = 'green', negatif = 'red', nul = 'black') {
+  if (nombre > 0) return miseEnEvidence(texNombrec(nombre), positif)
+  else if (nombre < 0) return miseEnEvidence(texNombrec(nombre), negatif)
+  else return miseEnEvidence(texNombrec(0), nul)
 }
 
 /**

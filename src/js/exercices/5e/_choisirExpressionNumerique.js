@@ -475,7 +475,7 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
           } else {
             if (3 * (a + b) < 2 * (c + d)) { a = calcul(a + c + d) }
           }
-          expf = `La différence du triple de la somme de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} et du double de la somme de ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
+          expf = `La différence entre le triple de la somme de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} et le double de la somme de ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
           expn = `$3${signex}(${texNombrec(a)}+${texNombrec(b)})-2${signex}(${texNombrec(c)}+${texNombrec(d)})$`
           expc = `$3${signex}(${texNombrec(a)}+${texNombrec(b)})-2${signex}(${texNombrec(c)}+${texNombrec(d)}) = 3  \\times  ${texNombrec(a + b)} - 2  \\times  ${texNombrec(c + d)} = ${texNombrec(3 * (a + b))} - ${texNombrec(2 * (c + d))} = ${texNombrec(3 * (a + b) - 2 * (c + d))}$`
           repNum = arrondi(3 * (a + b) - 2 * (c + d))

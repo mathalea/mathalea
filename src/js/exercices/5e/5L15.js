@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, combinaisonListes, ecritureParentheseSiNegatif } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, combinaisonListes, ecritureParentheseSiNegatif, sp } from '../../modules/outils.js'
 
 export const titre = 'Tester une égalité'
 
@@ -52,7 +52,7 @@ export default function TesterUneEgalite () {
             x1 = randint(-10, 10, [0, x2])
           }
 
-          texte = `Tester l'égalité $3x-${ecritureParentheseSiNegatif(a)}=2x+${ecritureParentheseSiNegatif(b)}~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`
+          texte = `Tester l'égalité $${sp(2)}3x-${ecritureParentheseSiNegatif(a)}=2x+${ecritureParentheseSiNegatif(b)}${sp(1)}$ pour $${sp(1)}x=${x1}${sp(1)}$ puis pour $${sp(1)}x=${x2}$.`
           texteCorr = `Pour $x=${x1}$ : <br>`
           texteCorr += `$3x-${ecritureParentheseSiNegatif(a)}=3\\times ${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(a)}=${3 * x1 - a}$ <br> $2x+${ecritureParentheseSiNegatif(b)}=2\\times ${ecritureParentheseSiNegatif(x1)}+${ecritureParentheseSiNegatif(b)}=${2 * x1 + b}$<br>`
           texteCorr += `$${3 * x1 - a}\\not=${2 * x1 + b}$ donc l'égalité n'est pas vraie.<br><br>`
@@ -73,7 +73,7 @@ export default function TesterUneEgalite () {
             x2 = randint(-9, 9, [0, x1])
           }
 
-          texte = `Tester l'égalité $3x+${ecritureParentheseSiNegatif(a)}=5x-${ecritureParentheseSiNegatif(b)}~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`
+          texte = `Tester l'égalité $${sp(2)}3x+${ecritureParentheseSiNegatif(a)}=5x-${ecritureParentheseSiNegatif(b)}${sp(1)}$ pour $${sp(1)}x=${x1}${sp(1)}$ puis pour $${sp(1)}x=${x2}$.`
           texteCorr = `Pour $x=${x1}$ : <br>`
           texteCorr += `$3x+${ecritureParentheseSiNegatif(a)}=3\\times ${ecritureParentheseSiNegatif(x1)}+${ecritureParentheseSiNegatif(a)}=${3 * x1 + a}$ <br> $5x-${ecritureParentheseSiNegatif(b)}=5\\times ${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(b)}=${5 * x1 - b}$<br>`
           texteCorr += 'On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l\'égalité est vraie.<br><br>'
@@ -94,7 +94,7 @@ export default function TesterUneEgalite () {
             x1 = randint(-9, 9, [0, x2])
           }
 
-          texte = `Tester l'égalité $10(x-${ecritureParentheseSiNegatif(a)})=4(2x+${ecritureParentheseSiNegatif(b)})~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`
+          texte = `Tester l'égalité $${sp(2)}10(x-${ecritureParentheseSiNegatif(a)})=4(2x+${ecritureParentheseSiNegatif(b)})${sp(1)}$ pour $${sp(1)}x=${x1}${sp(1)}$ puis pour $${sp(1)}x=${x2}$.`
           texteCorr = `Pour $x=${x1}$ : <br>`
           texteCorr += `$10(x-${ecritureParentheseSiNegatif(a)})=10\\times (${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(a)})=10\\times ${x1 - a}=${10 * (x1 - a)}$ <br> $4(2x+${ecritureParentheseSiNegatif(b)})=4\\times (2\\times ${ecritureParentheseSiNegatif(x1)}+${ecritureParentheseSiNegatif(b)})=4\\times ${2 * x1 + b}=${4 * (2 * x1 + b)}$<br>`
           texteCorr += `$${10 * (x1 - a)}\\not=${4 * (2 * x1 + b)}$ donc l'égalité n'est pas vraie.<br><br>`
@@ -117,7 +117,7 @@ export default function TesterUneEgalite () {
             x2 = randint(2, 10, x1) * randint(-1, 1, 0)
           }
 
-          texte = `Tester l'égalité $${ecritureParentheseSiNegatif(a)}x+${ecritureParentheseSiNegatif(b)}=${a + 1}x-${ecritureParentheseSiNegatif(c)}~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`
+          texte = `Tester l'égalité $${sp(2)}${ecritureParentheseSiNegatif(a)}x+${ecritureParentheseSiNegatif(b)}=${a + 1}x-${ecritureParentheseSiNegatif(c)}${sp(1)}$ pour $${sp(1)}x=${x1}${sp(1)}$ puis pour $${sp(1)}x=${x2}$.`
           texteCorr = `Pour $x=${x1}$ : <br>`
           texteCorr += `$${a}x+${ecritureParentheseSiNegatif(b)}=${ecritureParentheseSiNegatif(a)}\\times ${ecritureParentheseSiNegatif(x1)}+${ecritureParentheseSiNegatif(b)}=${a * x1 + b}$ <br> $${a + 1}x-${ecritureParentheseSiNegatif(c)}=${a + 1}\\times ${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(c)}=${(a + 1) * x1 - c}$<br>`
           texteCorr += 'On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l\'égalité est vraie.<br><br>'
@@ -138,7 +138,7 @@ export default function TesterUneEgalite () {
             x2 = randint(1, 11, x1)
           }
 
-          texte = `Tester l'égalité $${a}-2x=${b}+2x~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`
+          texte = `Tester l'égalité $${sp(2)}${a}-2x=${b}+2x${sp(1)}$ pour $${sp(1)}x=${x1}${sp(1)}$ puis pour $${sp(1)}x=${x2}$`
           texteCorr = `Pour $x=${x1}$ : <br>`
           texteCorr += `$${a}-2x=${a}-2\\times ${ecritureParentheseSiNegatif(x1)}=${a - 2 * x1}$ <br> $${b}+2x=${b}+2\\times ${ecritureParentheseSiNegatif(x1)}=${b + 2 * x1}$<br>`
           texteCorr += 'On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l\'égalité est vraie.<br><br>'
@@ -160,7 +160,7 @@ export default function TesterUneEgalite () {
             x3 = b
             x2 = randint(-9, 9, [x1, x3])
           }
-          texte = `Tester l'égalité $${a}x-${ecritureParentheseSiNegatif(a * b)}=x^2-${ecritureParentheseSiNegatif(b)}x~$ pour $~x=${x1}~$ , pour $~x=${x2}~$ puis pour $~x=${x3}$`
+          texte = `Tester l'égalité $${sp(2)}${a}x-${ecritureParentheseSiNegatif(a * b)}=x^2-${ecritureParentheseSiNegatif(b)}x${sp(1)}$ pour $${sp(1)}x=${x1}${sp(1)}$ , pour $${sp(1)}x=${x2}${sp(1)}$ puis pour $${sp(1)}x=${x3}$.`
           texteCorr = `Pour $x=${x1}$ : <br>`
           texteCorr += `$${a}x-${ecritureParentheseSiNegatif(a * b)}=${a}\\times ${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(a * b)}=${a * x1 - a * b}$ <br> $x^2-${b}\\times  x=${ecritureParentheseSiNegatif(x1)}^2-${ecritureParentheseSiNegatif(b)}\\times ${ecritureParentheseSiNegatif(x1)}=${x1 * x1}-${ecritureParentheseSiNegatif(b * x1)}=${x1 * x1 - b * x1}$<br>`
           texteCorr += 'On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l\'égalité est vraie.<br><br>'
@@ -189,7 +189,7 @@ export default function TesterUneEgalite () {
             b = a * x2
             d = c * x3
           }
-          texte = `Tester l'égalité $${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x~$ pour $~x=${x1}~$, pour $~x=${x2}~$ puis pour $~x=${x3}$`
+          texte = `Tester l'égalité $${sp(2)}${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x${sp(1)}$ pour $${sp(1)}x=${x1}${sp(1)}$, pour $${sp(1)}x=${x2}${sp(1)}$ puis pour $${sp(1)}x=${x3}$.`
           texteCorr = `Pour $x=${x1}$ : <br>`
           texteCorr += `$${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * d}\\times ${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(b * d)}=${a * d * x1 - d * b}$ <br> $${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x=${a * c}\\times ${ecritureParentheseSiNegatif(x1)}^2-${ecritureParentheseSiNegatif(b * c)}\\times ${ecritureParentheseSiNegatif(x1)}=${a * c * x1 * x1}-${ecritureParentheseSiNegatif(b * c * x1)}=${a * c * x1 * x1 - b * c * x1}$<br>`
           texteCorr += `$${a * d * x1 - d * b}\\not=${a * c * x1 * x1 - b * c * x1}$ donc l'égalité n'est pas vraie.<br><br>`

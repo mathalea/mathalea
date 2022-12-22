@@ -268,7 +268,7 @@ L'angle rouge mesure $${angle}\\degree$ sur les $360\\degree$ d'un tour complet,
       for (let k = 0; k < 1; k++) {
         enonces.push({
           enonce: `
-On a représenté sur le diagramme circulaire ci-contre la répartition des ${situations[k].fin_enonce_situation}.<br>
+On a représenté sur le diagramme circulaire ci-dessous la répartition des ${situations[k].fin_enonce_situation}.<br>
 ${texteGras('Les angles de même couleur ont la même mesure.')}<br>
 ${texteGras('L\'angle vert est un angle plat.')}<br>
 ${situations[k].fig}<br>
@@ -276,14 +276,14 @@ ${numAlpha(indexSouSegmentQuestion++)} Quelle fraction représente les ${situati
 ${numAlpha(indexSouSegmentQuestion++)} Quelle fraction représente les ${situations[k].nom_enonce} vers ${situations[k].cat2.destination} ?<br>
 ${numAlpha(indexSouSegmentQuestion++)} Sachant que ${situations[k].last_question[0]} ${situations[k].nb_total} ${situations[k].last_question[1]}
 et que les ${situations[k].nom_enonce} vers ${situations[k].cat3.destination} représentent $\\dfrac{${situations[k].cat3.frac[0]}}{${situations[k].cat3.frac[1]}}$ de ce total,
-calculer ${situations[k].last_question[2]} vers ${situations[k].cat3.destination}?
+calculer ${situations[k].last_question[2]} vers ${situations[k].cat3.destination} ?
 
 `,
           correction: `
-${numAlpha(indexSouSegmentQuestionCorr++)} Pour ${situations[k].cat1.destination} l'angle ${myTexteVolsCorr(situations[k].cat1.angle)}<br>
+${numAlpha(indexSouSegmentQuestionCorr++)} Pour ${situations[k].cat1.destination}, l'angle ${myTexteVolsCorr(situations[k].cat1.angle)}<br>
 ${texteEnCouleur(`La fraction qui représente les ${situations[k].nom_enonce} vers ${situations[k].cat1.destination} vaut donc $\\dfrac{${situations[k].cat1.frac[0]}}{${situations[k].cat1.frac[1]}}$`)}.<br>
 
-${numAlpha(indexSouSegmentQuestionCorr++)} Pour ${situations[k].cat2.destination} l'angle ${myTexteVolsCorr(situations[k].cat2.angle)}<br>
+${numAlpha(indexSouSegmentQuestionCorr++)} Pour ${situations[k].cat2.destination}, l'angle ${myTexteVolsCorr(situations[k].cat2.angle)}<br>
 ${texteEnCouleur(`La fraction qui représente les ${situations[k].nom_enonce} vers ${situations[k].cat2.destination} vaut donc $\\dfrac{${situations[k].cat2.frac[0]}}{${situations[k].cat2.frac[1]}}$`)}<br>
 
 ${numAlpha(indexSouSegmentQuestionCorr++)} Calculons $\\dfrac{${situations[k].cat3.frac[0]}}{${situations[k].cat3.frac[1]}}$ de ${situations[k].nb_total} :<br> 

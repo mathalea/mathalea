@@ -3854,8 +3854,8 @@ export function cercleCentrePoint (O, M, color = 'black', couleurDeRemplissage =
 /** Trace un arc de cercle, connaissant une extrémité, son centre et la mesure de l'angle
  * @param {Point} M Extrémité de départ de l'arc
  * @param {Point} Omega Centre de l'arc
- * @param {number} angle Mesure de l'angle compris entre -360 et 360 (valeur négative = sens indirect)
- * @param {boolean} [rayon = false] Booléen. Si true, les rayons délimitant l'arc sont ajoutés.
+ * @param {number|Point} angle Mesure de l'angle compris entre -360 et 360 (valeur négative = sens indirect) ou bien point formant un angle avec M et Omega.
+ * @param {boolean} [rayon = false] Si true, les rayons délimitant l'arc sont ajoutés.
  * @param {string} [couleurDeRemplissage = 'none'] Couleur ou 'none' : du type 'blue' ou du type '#f15929'
  * @param {string} [color = 'black'] Couleur de l'arc ou 'none' : du type 'blue' ou du type '#f15929'
  * @param {number} [opaciteDeRemplissage = 0.2] Opacité de remplissage de 0 à 1.
@@ -4026,8 +4026,7 @@ export function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'non
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
     if (rayon && (this.couleurDeRemplissage[1] !== 'none' && this.couleurDeRemplissage !== '')) {
-      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage[1]}}`)
-      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
+      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage[1]},opacity = ${this.opaciteDeRemplissage}}`)
     }
 
     if (this.hachures) {
@@ -4043,7 +4042,7 @@ export function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'non
     if (tableauOptions.length > 0) {
       optionsDraw = '[' + tableauOptions.join(',') + ']'
     }
-    if (rayon) return `\\draw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) -- cycle ;`
+    if (rayon) return `\\draw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) ;`
     else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) ;`
   }
   let code, P

@@ -21,7 +21,7 @@ export const ref = '5M10'
 export default function AireDuParallelogramme () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = "Calculer l'aire des parallélogrammes suivants"
+  this.consigne = "Calculer l'aire des parallélogrammes suivants."
   this.spacing = 2
   this.spacingCorr = 2
   this.nbQuestions = 1
@@ -47,7 +47,7 @@ export default function AireDuParallelogramme () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.listeQuestions = []
     this.autoCorrection = []
-    if (this.nbQuestions === 1) this.consigne = "Calculer l'aire du parallélogramme suivant"
+    if (this.nbQuestions === 1) this.consigne = "Calculer l'aire du parallélogramme suivant."
     const typeQuestionsDisponibles = ['type1', 'type2', 'type3'] // On créé 3 types de questions
     const nom = creerNomDePolygone(this.nbQuestions * 4, 'QD')
 
