@@ -157,10 +157,11 @@ export default function ListeDesDiviseurs5e () {
           } else {
             texte += `Écrire la liste de tous les diviseurs de ${texNombre(M)}.`
           }
-          texteCorr = `Pour trouver la liste des diviseurs de ${M} on cherche tous les produits de deux facteurs qui donnent ${M}. En écrivant toujours le plus petit facteur en premier.<br>`
-          texteCorr += `Il est suffisant de chercher des diviseurs inférieurs au plus grand nombre dont le carré vaut ${M}, par exemple ici, ${Math.trunc(Math.sqrt(M))}$\\times $${Math.trunc(Math.sqrt(M))} = ${Math.trunc(Math.sqrt(M)) * Math.trunc(Math.sqrt(M))}<${M}`
-          texteCorr += ` et ${Math.trunc(Math.sqrt(M)) + 1}$\\times $${Math.trunc(Math.sqrt(M)) + 1} = ${(Math.trunc(Math.sqrt(M)) + 1) * (Math.trunc(Math.sqrt(M)) + 1)}>${M} donc il suffit d'arrêter la recherche de facteur à ${Math.trunc(Math.sqrt(M))}.`
-          texteCorr += ` En effet, si ${M} est le produit de deux entiers p et q  (p$\\times $q = ${M}) avec p < q alors, si p$\\times $p > ${M}, c'est que q$\\times $q < ${M} mais dans ce cas p serait supérieur à q sinon p$\\times $q serait inférieur à ${M} ce qui ne doit pas être le cas.<br>`
+          texteCorr = `Pour trouver la liste des diviseurs de ${M}, on cherche tous les produits de deux facteurs qui donnent ${M}, en écrivant toujours le plus petit facteur en premier.<br>`
+          texteCorr += `On vérifie si les nombres de 1 à ${Math.trunc(Math.sqrt(M))} sont des diviseurs de ${M} (inutile d’aller au-delà car $${1 + Math.trunc(Math.sqrt(M))} \\times ${1 + Math.trunc(Math.sqrt(M))} = ${(1 + Math.trunc(Math.sqrt(M))) ** 2})$, on trouve alors :<br>`
+          // texteCorr += `Il est suffisant de chercher des diviseurs inférieurs au plus grand nombre dont le carré vaut ${M}, par exemple ici, ${Math.trunc(Math.sqrt(M))}$\\times $${Math.trunc(Math.sqrt(M))} = ${Math.trunc(Math.sqrt(M)) * Math.trunc(Math.sqrt(M))}<${M}`
+          // texteCorr += ` et ${Math.trunc(Math.sqrt(M)) + 1}$\\times $${Math.trunc(Math.sqrt(M)) + 1} = ${(Math.trunc(Math.sqrt(M)) + 1) * (Math.trunc(Math.sqrt(M)) + 1)}>${M} donc il suffit d'arrêter la recherche de facteur à ${Math.trunc(Math.sqrt(M))}.`
+          // texteCorr += ` En effet, si ${M} est le produit de deux entiers p et q  (p$\\times $q = ${M}) avec p < q alors, si p$\\times $p > ${M}, c'est que q$\\times $q < ${M} mais dans ce cas p serait supérieur à q sinon p$\\times $q serait inférieur à ${M} ce qui ne doit pas être le cas.<br>`
           if (listeDiviseurs(M).length % 2 === 0) { // si il y a un nombre pair de diviseurs
             for (let m = 0; m < (listeDiviseurs(M).length / 2); m++) {
               texteCorr += '' + listeDiviseurs(M)[m] + '$\\times $' + listeDiviseurs(M)[(listeDiviseurs(M).length - m - 1)] + ` = ${M}<br>`

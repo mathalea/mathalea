@@ -673,7 +673,7 @@ export default function SujetCAN2022troisieme () {
             reponse = [`\\sqrt{${b ** 2 - a ** 2}}`]
             texte = 'Recopie la bonne réponse. <br>'
             texte += `${propositions[0]} ${sp(7)} ${propositions[1]} ${sp(7)} ${propositions[2]}${sp(7)} ${propositions[3]}<br>`
-            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $IJK$ :<br>
               On a $IJ^2=JK^2-IK^2$, soit $IJ^2=${b}^2-${a}^2=${b ** 2 - a ** 2}$.<br>
@@ -701,7 +701,7 @@ export default function SujetCAN2022troisieme () {
             reponse = [`\\sqrt{${b ** 2 + a ** 2}}`]
             texte = 'Recopie la bonne réponse. <br>'
             texte += `${propositions[0]} ${sp(7)} ${propositions[1]} ${sp(7)} ${propositions[2]}${sp(7)} ${propositions[3]}<br>`
-            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $IJK$ :<br>
                     On a $IJ^2=JK^2+IK^2$, soit $IJ^2=${b}^2+${a}^2=${b ** 2 + a ** 2}$.<br>

@@ -9,7 +9,9 @@ export const dateDePublication = '19/12/2022'
  * @author Mickael Guironnet
  */
 
-export default class ConstruireQuadrilatèresParticuliers extends TracerQuadrilatèresParticuliers {
+export const uuid = 'b3a4c'
+export const ref = '6G21-5'
+export default class ConstruireUnLosangeOuParallélogrammes extends TracerQuadrilatèresParticuliers {
   constructor () {
     super()
     this.titre = titre

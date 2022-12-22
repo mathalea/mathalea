@@ -66,7 +66,7 @@ export default function DroiteRemarquableDuTriangle () {
           c[i] = codageHauteurTriangle(C[i], B[i], A[i])
           objets[i] = [A[i], B[i], C[i], t[i], d[i], n[i], c[i]]
           texteCorr = `La droite tracée est la hauteur issue de $${sommets[i][2]}$ dans le triangle ${triangles[i].getNom()}.<br>`
-          texteCorr += mathalea2d({ xmin: -3, ymin: -3, xmax: 8, ymax: 8, scale: 0.5, pixelsParCm: 20 }, ...objets[i])
+          // texteCorr += mathalea2d({ xmin: -3, ymin: -3, xmax: 8, ymax: 8, scale: 0.5, pixelsParCm: 20 }, ...objets[i])
           break
         case 2:
           d[i] = mediatrice(A[i], B[i], '', 'blue')
@@ -74,7 +74,7 @@ export default function DroiteRemarquableDuTriangle () {
           c[i] = codageMediatrice(A[i], B[i])
           objets[i] = [A[i], B[i], C[i], t[i], d[i], n[i], c[i]]
           texteCorr = `La droite tracée est la médiatrice du segment [$${sommets[i][0]}${sommets[i][1]}]$.<br>`
-          texteCorr += mathalea2d({ xmin: -3, ymin: -3, xmax: 8, ymax: 8, scale: 0.5, pixelsParCm: 20 }, ...objets[i], mediatrice(A[i], B[i], '', 'blue', 'gray', 'green', true, true, '×', '||', 1))
+          // texteCorr += mathalea2d({ xmin: -3, ymin: -3, xmax: 8, ymax: 8, scale: 0.5, pixelsParCm: 20 }, ...objets[i], mediatrice(A[i], B[i], '', 'blue', 'gray', 'green', true, true, '×', '||', 1))
           break
         case 3:
           d[i] = medianeTriangle(C[i], B[i], A[i], 'blue')
@@ -82,7 +82,7 @@ export default function DroiteRemarquableDuTriangle () {
           c[i] = codageMedianeTriangle(B[i], A[i], 'black', '//')
           objets[i] = [A[i], B[i], C[i], t[i], d[i], n[i], c[i]]
           texteCorr = `La droite tracée est la médiane issue de $${sommets[i][2]}$ dans le triangle ${triangles[i].getNom()}.<br>`
-          texteCorr += mathalea2d({ xmin: -3, ymin: -3, xmax: 8, ymax: 8, scale: 0.5, pixelsParCm: 20 }, ...objets[i])
+          // texteCorr += mathalea2d({ xmin: -3, ymin: -3, xmax: 8, ymax: 8, scale: 0.5, pixelsParCm: 20 }, ...objets[i])
           break
         case 4:
           d[i] = bissectrice(A[i], B[i], C[i], 'blue')
@@ -90,7 +90,7 @@ export default function DroiteRemarquableDuTriangle () {
           c[i] = codageBissectrice(A[i], B[i], C[i])
           objets[i] = [A[i], B[i], C[i], t[i], d[i], n[i], c[i]]
           texteCorr = `La droite tracée est la bissectrice de l'angle $\\widehat{${sommets[i][0]}${sommets[i][1]}${sommets[i][2]}}$.<br>`
-          texteCorr += mathalea2d({ xmin: -3, ymin: -3, xmax: 8, ymax: 8, scale: 0.5, pixelsParCm: 20 }, ...objets[i], bissectrice(A[i], B[i], C[i], 'blue', 'red', 'green', true, true, '×', 3, 1))
+          // texteCorr += mathalea2d({ xmin: -3, ymin: -3, xmax: 8, ymax: 8, scale: 0.5, pixelsParCm: 20 }, ...objets[i], bissectrice(A[i], B[i], C[i], 'blue', 'red', 'green', true, true, '×', 3, 1))
           break
       }
 

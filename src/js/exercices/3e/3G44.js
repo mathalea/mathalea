@@ -7,6 +7,7 @@ import { assombrirOuEclaircir, colorToLatexOrHTML, fixeBordures, mathalea2d } fr
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { labelPoint, longueur, segment, tracePoint } from '../../modules/2d.js'
+import { RedactionPythagore } from '../4e/_pythagore.js'
 
 export const titre = 'Déterminer des longueurs dans la géométrie dans l\'espace'
 export const amcReady = true
@@ -37,7 +38,7 @@ export default function CalculPythagoreEspace () {
       typesDeQuestionsDisponibles = rangeMinMax(1, 9)
     } else {
       if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        typesDeQuestionsDisponibles[0] = contraindreValeur(1, 10, this.sup24, 10)
+        typesDeQuestionsDisponibles[0] = contraindreValeur(1, 10, this.sup, 10)
       } else {
         typesDeQuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
@@ -102,14 +103,9 @@ export default function CalculPythagoreEspace () {
           texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: 0.7, style: 'block' }), objetsEnonce) + '<br>'
           objetsEnonce.push(new CodageAngleDroit3D(solideDessine.sommets[parseInt(segmentChoisi[0][0])], solideDessine.sommets[parseInt(segmentChoisi[1])], solideDessine.sommets[parseInt(segmentChoisi[0][1])], '#f15929', 2))
           texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: 0.7, style: 'block' }), objetsEnonce) + '<br>'
-          texteCorr += `Le triangle $${longueurATrouver + I}$ est rectangle en $${I}$  donc d'après le théorème de Pythagore, on a : `
-          texteCorr += `$${longueurATrouver}^2=${I + J}^2+${I + K}^2$.`
-
-          JK = texNombre(calcul(Math.sqrt(c ** 2 + c ** 2), 1))
           reponse = arrondi(Math.sqrt(c ** 2 + c ** 2), 1)
-          texteCorr += `<br> $${longueurATrouver}^2=${texNombre(c)}^2+${texNombre(c)}^2=${texNombre(c ** 2 + c ** 2)}$`
-          texteCorr += `<br> $${longueurATrouver}=\\sqrt{${texNombre(c ** 2 + c ** 2)}}$`
-          texteCorr += `<br> $${longueurATrouver}\\approx${miseEnEvidence(JK)}$ ${texteEnCouleurEtGras(listeUnites[j])}`
+          texteCorr += '<br>' + RedactionPythagore(I, J, K, true, c, c, reponse, listeUnites[j])[0]
+
           break
         case 2: // Diagonale d'un cube
           // c = new Decimal(randint(2, 10)).plus(partieDecimale1)
@@ -166,7 +162,6 @@ export default function CalculPythagoreEspace () {
 
           nomSolide = choisitLettresDifferentes(8, 'OQWX').join('')
           solideDessine = pave3d(A, B, D, E, 'blue', true, nomSolide)
-          texteCorr += choixProfondeur
           choixSegments = []
           choixSegments.push(['02', '1', L, h], ['13', '2', h, L])
           if (choixProfondeur > 0) {
@@ -191,15 +186,10 @@ export default function CalculPythagoreEspace () {
           objetsEnonce.push(...solideDessine.c2d, segmentATrouver)
           texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce) + '<br>'
           objetsEnonce.push(new CodageAngleDroit3D(solideDessine.sommets[parseInt(segmentChoisi[0][0])], solideDessine.sommets[parseInt(segmentChoisi[1])], solideDessine.sommets[parseInt(segmentChoisi[0][1])], '#f15929', 2))
-          texteCorr += 'tt<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce) + '<br>'
-          texteCorr += `Le triangle $${longueurATrouver + I}$ est rectangle en $${I}$  donc d'après le théorème de Pythagore, on a : `
-          texteCorr += `$${longueurATrouver}^2=${I + J}^2+${I + K}^2$.`
-
-          JK = texNombre(calcul(Math.sqrt(segmentChoisi[2] ** 2 + segmentChoisi[3] ** 2), 1))
+          texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce) + '<br>'
           reponse = arrondi(Math.sqrt(segmentChoisi[2] ** 2 + segmentChoisi[3] ** 2), 1)
-          texteCorr += `<br> $${longueurATrouver}^2=${texNombre(segmentChoisi[2])}^2+${texNombre(segmentChoisi[3])}^2=${texNombre(segmentChoisi[2] ** 2 + segmentChoisi[3] ** 2)}$`
-          texteCorr += `<br> $${longueurATrouver}=\\sqrt{${texNombre(segmentChoisi[2] ** 2 + segmentChoisi[3] ** 2)}}$`
-          texteCorr += `<br> $${longueurATrouver}\\approx${miseEnEvidence(JK)}$ ${texteEnCouleurEtGras(listeUnites[j])}`
+          texteCorr += '<br>' + RedactionPythagore(I, J, K, true, segmentChoisi[2], segmentChoisi[3], reponse, listeUnites[j])[0]
+
           break
         case 4: // Diagonale d'un pavé droit
           L = randint(5, 20)
@@ -290,21 +280,14 @@ export default function CalculPythagoreEspace () {
           segmentAnnexe = segment(D.c2d, A.c2d, 'green')
           objetsEnonce.push(segmentAnnexe)
           texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
-
-          texteCorr += `<br> Le triangle $${longueurATrouver + D.label}$ est rectangle en $${D.label}$  donc d'après le théorème de Pythagore, on a : `
-          texteCorr += `$${longueurATrouver}^2=${D.label + A.label}^2+${D.label + ptBase2.c2d.nom}^2$.`
-
           reponse = arrondi(Math.sqrt(h ** 2 + r ** 2), 1)
-          texteCorr += `<br> $${longueurATrouver}^2=${texNombre(h)}^2+${texNombre(r)}^2=${texNombre(h ** 2 + r ** 2)}$`
-          texteCorr += `<br> $${longueurATrouver}=\\sqrt{${texNombre(h ** 2 + r ** 2)}}$`
-          texteCorr += `<br> $${longueurATrouver}\\approx${miseEnEvidence(texNombre(reponse))}$ ${texteEnCouleurEtGras(listeUnites[j])}`
+          texteCorr += '<br>' + RedactionPythagore(D.label, A.label, ptBase2.c2d.nom, true, h, r, reponse, listeUnites[j])[0]
           break
         case 6: // Dans une pyramide à base régulière
           r = randint(4, 10)
           h = randint(5, 15, [r])
           A = point3d(0, 0, 0, true, choisitLettresDifferentes(1, 'OQWX'), 'left')
           B = point3d(r, 0, 0)
-          // D = point3d(0, 0, h * choice([1, -1]), true, choisitLettresDifferentes(1, 'OQWX' + A.label), 'left')
           D = point3d(0, 0, h * (1), true, choisitLettresDifferentes(1, 'OQWX' + A.label), 'left')
           v = vecteur3d(A, B)
           ptsBase = [B]
@@ -329,14 +312,8 @@ export default function CalculPythagoreEspace () {
           segmentAnnexe = segment(D.c2d, A.c2d, 'green')
           objetsEnonce.push(segmentAnnexe)
           texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
-
-          texteCorr += `<br> Le triangle $${longueurATrouver + A.label}$ est rectangle en $${A.label}$  donc d'après le théorème de Pythagore, on a : `
-          texteCorr += `$${longueurATrouver}^2=${D.label + A.label}^2+${A.label + p.listePoints2d[numeroSommet].nom}^2$.`
-
           reponse = arrondi(Math.sqrt(h ** 2 + r ** 2), 1)
-          texteCorr += `<br> $${longueurATrouver}^2=${texNombre(h)}^2+${texNombre(r)}^2=${texNombre(h ** 2 + r ** 2)}$`
-          texteCorr += `<br> $${longueurATrouver}=\\sqrt{${texNombre(h ** 2 + r ** 2)}}$`
-          texteCorr += `<br> $${longueurATrouver}\\approx${miseEnEvidence(texNombre(reponse))}$ ${texteEnCouleurEtGras(listeUnites[j])}`
+          texteCorr += '<br>' + RedactionPythagore(A.label, D.label, p.listePoints2d[numeroSommet].nom, true, h, r, reponse, listeUnites[j])[0]
           break
         case 7: // Dans un cône
           r = randint(4, 10)
@@ -370,14 +347,8 @@ export default function CalculPythagoreEspace () {
           objetsEnonce.push(segmentAnnexe)
           objetsEnonce.push(labelPoint(ptBase, D.c2d))
           texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
-
-          texteCorr += `<br> Le triangle $${longueurATrouver + A.label}$ est rectangle en $${A.label}$  donc d'après le théorème de Pythagore, on a : `
-          texteCorr += `$${longueurATrouver}^2=${D.label + A.label}^2+${A.label + p.listePoints2d[numeroSommet].nom}^2$.`
-
           reponse = arrondi(Math.sqrt(h ** 2 + r ** 2), 1)
-          texteCorr += `<br> $${longueurATrouver}^2=${texNombre(h)}^2+${texNombre(r)}^2=${texNombre(h ** 2 + r ** 2)}$`
-          texteCorr += `<br> $${longueurATrouver}=\\sqrt{${texNombre(h ** 2 + r ** 2)}}$`
-          texteCorr += `<br> $${longueurATrouver}\\approx${miseEnEvidence(texNombre(reponse))}$ ${texteEnCouleurEtGras(listeUnites[j])}`
+          texteCorr += '<br>' + RedactionPythagore(A.label, D.label, ptBase.nom, true, h, r, reponse, listeUnites[j])[0]
           break
         case 8: // Rayon dans une sphère
           context.anglePerspective = randint(2, 6) * choice([10, -10])
@@ -414,13 +385,8 @@ export default function CalculPythagoreEspace () {
           segmentAnnexe.pointilles = 2
           objetsEnonce.push(segmentAnnexe)
           texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
-          texteCorr += `<br> Le triangle $${longueurATrouver + D.label}$ est rectangle en $${D.label}$  donc d'après le théorème de Pythagore, on a : `
-          texteCorr += `$${longueurATrouver}^2=${D.label + A.label}^2+${D.label + B.label}^2$.`
-
           reponse = arrondi(Math.sqrt(h ** 2 + r2 ** 2), 1)
-          texteCorr += `<br> $${longueurATrouver}^2=${texNombre(h)}^2+${texNombre(r2)}^2=${texNombre(h ** 2 + r2 ** 2)}$`
-          texteCorr += `<br> $${longueurATrouver}=\\sqrt{${texNombre(h ** 2 + r2 ** 2)}}$`
-          texteCorr += `<br> $${longueurATrouver}\\approx${miseEnEvidence(texNombre(reponse))}$ ${texteEnCouleurEtGras(listeUnites[j])}`
+          texteCorr += '<br>' + RedactionPythagore(D.label, A.label, B.label, true, h, r2, reponse, listeUnites[j])[0]
           break
         case 9: // Hauteur dans une sphère
           context.anglePerspective = randint(2, 6) * choice([10, -10])
@@ -457,15 +423,8 @@ export default function CalculPythagoreEspace () {
           segmentAnnexe.pointilles = 2
           objetsEnonce.push(segmentAnnexe)
           texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
-          texteCorr += `<br> Le triangle $${longueurATrouver + A.label}$ est rectangle en $${D.label}$  donc d'après le théorème de Pythagore, on a : `
-          texteCorr += `$${B.label + A.label}^2=${longueurATrouver}^2+${D.label + A.label}^2$.`
-
           reponse = arrondi(Math.sqrt(r ** 2 - h ** 2), 1)
-          texteCorr += `<br> $${r}^2=${longueurATrouver}^2+${texNombre(h)}^2$`
-          texteCorr += `<br> $${r * r}=${longueurATrouver}^2+${texNombre(h * h)}$`
-          texteCorr += `<br> $${longueurATrouver}^2=${r * r}-${texNombre(h * h)}=${texNombre(r ** 2 - h ** 2)}$`
-          texteCorr += `<br> $${longueurATrouver}=\\sqrt{${texNombre(r ** 2 - h ** 2)}}$`
-          texteCorr += `<br> $${longueurATrouver}\\approx${miseEnEvidence(texNombre(reponse))}$ ${texteEnCouleurEtGras(listeUnites[j])}`
+          texteCorr += '<br>' + RedactionPythagore(D.label, A.label, B.label, false, reponse, r2, r, listeUnites[j])[0]
           break
       }
       setReponse(this, i, new Grandeur(reponse, listeUnites[j]), { formatInteractif: 'unites' })

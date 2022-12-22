@@ -128,7 +128,8 @@ export default function ConservationTransformation () {
         case 'parallelisme':
           objetsEnonceEtCorr.push(tracePoint(A, B, C))
           objetsEnonceEtCorr.push(d1)
-          texte = 'La droite $(d_1)$ est parallèle au segment [$AB$] et passe par le point $C$.<br>'
+          texte = `Les points $${A.nom}'$, $${B.nom}'$ et $${C.nom}'$ sont les images respectives de $${A.nom}$, $${B.nom}$ et $${C.nom}$ ${enonceTransformation}.<br>`
+          texte += 'La droite $(d_1)$ est parallèle au segment [$AB$] et passe par le point $C$.<br>'
           figure = 'de la droite $(d_1)$'
           texteCorr = texte
           texteCorr += `Or, la ${transformation} conserve le parallélisme.<br>`
@@ -138,7 +139,8 @@ export default function ConservationTransformation () {
           objetsEnonceEtCorr.push(segment(A, C), segment(B, C))
           objetsEnonceEtCorr.push(afficheLongueurSegment(C, B))
           objetsEnonceEtCorr.push(afficheMesureAngle(A, B, C, 'black', 1, Math.round(angle(A, B, C)) + '°'))
-          texte = `L'angle $\\widehat{ABC}$ mesure $${texNombre(Math.round(angle(A, B, C)))}$ °.<br>`
+          texte = `Les points $${A.nom}'$ et $${B.nom}'$ sont les images respectives de $${A.nom}$ et $${B.nom}$ ${enonceTransformation}.<br>`
+          texte += `L'angle $\\widehat{ABC}$ mesure $${texNombre(Math.round(angle(A, B, C)))}$ °.<br>`
           figure = 'du triangle $ABC$'
           texteCorr = texte
           texteCorr += `Or, la ${transformation} conserve les angles.<br>`
@@ -151,9 +153,10 @@ export default function ConservationTransformation () {
       texte += `Compléter l'image ${figure} ${enonceTransformation} en utilisant les propriétés de${getVueFromUrl() === 'multi' ? '<br>' : ' '}conservation de la ${transformation} et en justifiant ses démarches.<br>`
       // On applique la transformation
       imPoly = polygoneAvecNom(imageA, imageB, imageC)
+      const imPolyEnonce = polygoneAvecNom(imageA, imageB)
       objetsCorrectionOnly.push(imPoly[1])
       objetsEnonceEtCorr.push(segment(imageA, imageB))
-      objetsEnonceOnly.push(tracePoint(imageA, imageB), labelPoint(imageA, imageB))
+      objetsEnonceOnly.push(tracePoint(imageA, imageB), imPolyEnonce[1])
       if (figureRetournee) {
         objetsEnonceOnly.push(afficheLongueurSegment(imageA, imageB))
         objetsCorrectionOnly.push(afficheLongueurSegment(imageB, imageA))

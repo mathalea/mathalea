@@ -438,7 +438,7 @@ export default function SujetCAN2021Seconde () {
            $A$, $C$ et $B$ sont alignés <br>
            $D$, $C$ et $E$ sont alignés.<br>
            <br>`
-          texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
+          texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
           texteCorr = `Le triangle $ACD$ est un agrandissement du triangle $EBC$. Le coefficient d'agrandissement est donné par : $\\dfrac{${b}}{${a}}=${k}$.<br>
           On obtient donc la longueur $EB$ en divisant par $${k}$ la longueur $AD$.<br>
           $EB=\\dfrac{${d}}{${k}}=${c}$ cm.<br>`
@@ -659,7 +659,7 @@ export default function SujetCAN2021Seconde () {
           reponse = [`\\sqrt{${2 * a ** 2}}`, `${Math.sqrt(2 * a ** 2)}`, `${a}\\sqrt{2}`]
           texte = `Compléter : <br>
             `
-          texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
+          texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
           texteCorr = `Le théorème de Pythagore dans le triangle rectangle $ADB$ donne : <br>
             $DB^2=AD^2+AB^2$ soit $DB^2=${a}^2+${a}^2=2\\times ${a}^2=${2 * a ** 2}$.<br>
             Ainsi, $DB=\\sqrt{${2 * a ** 2}}$ ou encore $DB=${a}\\sqrt{2}$.`

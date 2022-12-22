@@ -9,6 +9,8 @@ export const dateDePublication = '19/12/2022'
  * @author Mickael Guironnet
  */
 
+export const uuid = '4f9a6'
+export const ref = '6G13-1'
 export default class ConstruireCarréOuRectangles extends TracerQuadrilatèresParticuliers {
   constructor () {
     super()

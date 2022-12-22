@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, shuffle, calcul, texteEnCouleur, combinaisonListes } from '../../modules/outils.js'
-import { scratchblock } from '../../modules/2d.js'
+import { scratchblock } from '../../modules/scratchblock.js'
 import { allerA, avance, baisseCrayon, creerLutin, leveCrayon, tournerD } from '../../modules/2dLutin.js'
 
 export const titre = 'Dessiner avec scratch'
@@ -43,7 +43,7 @@ export default function TracerAvecScratch () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const fenetreMathalea2D = { xmin: -10, ymin: -15, xmax: 60, ymax: 2, pixelsParCm: 10, scale: 0.2 }
-    const pixelsParCm = fenetreMathalea2D.pixelsParCm * 5// 100;
+    const pixelsParCm = fenetreMathalea2D.pixelsParCm * 5 / 100
     //    var unitesLutinParCm = 100;
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
