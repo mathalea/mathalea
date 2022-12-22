@@ -38,7 +38,7 @@ export default function CalculPythagoreEspace () {
       typesDeQuestionsDisponibles = rangeMinMax(1, 9)
     } else {
       if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        typesDeQuestionsDisponibles[0] = contraindreValeur(1, 10, this.sup24, 10)
+        typesDeQuestionsDisponibles[0] = contraindreValeur(1, 10, this.sup, 10)
       } else {
         typesDeQuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
