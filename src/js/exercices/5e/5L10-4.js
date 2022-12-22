@@ -178,7 +178,7 @@ export default function TableauxEtFonction () {
               // `2\\times \\color{blue}{${coteConnu} \\; \\text{${unites[1]}}} \\color{black}{+2\\times} \\color{red}{${L4} \\; \\text{${unites[0]}}} ${etapeCorrective(`\\color{black}{\\; = 2\\times} \\color{blue}{${petitLNum[0]} \\; \\text{${unitepetitL}}} \\color{black}{+2\\times} \\color{red}{${texNombre(grandLNum[3])} \\; \\text{${unitegrandL}}}`,this.sup)} \\color{black}{ \\;= ${texNombre(2*petitLNum[0]+2*grandLNum[3])} \\; \\text{${unitegrandL}}}`,
             ]
           ),
-          secondeQ: `2\\times {\\color{blue}{${coteConnu} \\text{ ${unites[1]}}}} +2\\times {\\color{red}{${coteInconnu} \\text{ ${unites[0]}}}} = ${etapeCorrective(`2\\times {\\color{blue}{${petitLNum[0]} \\text{ ${unitepetitL}}}} +2\\times {\\color{red}{${coteInconnuCorr} \\text{ ${unitegrandL}}}}`, this.sup)} = ${texNombre(2 * petitLNum[0])} + ${coteInconnuCorrNum} \\text{ exprimé en ${unitegrandL}.}`,
+          secondeQ: `2\\times {\\color{blue}{${coteConnu} \\text{ ${unites[1]}}}} +2\\times {\\color{red}{${coteInconnu} \\text{ ${unites[0]}}}} ${etapeCorrective(`=2\\times {\\color{blue}{${petitLNum[0]} \\text{ ${unitepetitL}}}} +2\\times {\\color{red}{${coteInconnuCorr} \\text{ ${unitegrandL}}}}`, this.sup)} = ${texNombre(2 * petitLNum[0])} + ${coteInconnuCorrNum} \\text{ exprimé en ${unitegrandL}.}`,
           intro: txtCorr,
           fig: figure
         }
