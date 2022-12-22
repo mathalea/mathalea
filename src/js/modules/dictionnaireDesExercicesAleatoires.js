@@ -12218,6 +12218,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "beta2F11-2": {
+    "titre": "Comparer deux images avec une fonction de référence",
+    "url": "/exercices/beta/beta2F11-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2F11-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "beta2F12-2": {
     "titre": "Résoudre graphiquement $f(x)>k$ ($<k$) avec une fonction de référence",
     "url": "/exercices/beta/beta2F12-2.js",
