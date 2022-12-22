@@ -90,7 +90,7 @@ export default function AdditionnerSoustrairesDecimaux () {
           texte = `$${texNombre(a)}-${texNombre(b)}$`
           texte += grilletxt
           reponse = calcul(a - b)
-          texteCorr = '<br>' + Operation({ operande1: a, operande2: b, type: 'soustraction', style: 'display: inline-block' })
+          texteCorr = Operation({ operande1: a, operande2: b, type: 'soustraction', style: 'display: inline-block' })
           texteCorr += Operation({ operande1: a, operande2: b, type: 'soustraction', style: 'display: inline-block', methodeParCompensation: false })
           break
         case 2: // xxx-xx,xx
@@ -104,7 +104,7 @@ export default function AdditionnerSoustrairesDecimaux () {
           texte = `$${texNombre(a)}-${texNombre(b)}$`
           texte += grilletxt
           reponse = calcul(a - b)
-          texteCorr = '<br>' + Operation({ operande1: a, operande2: b, type: 'soustraction', style: 'display: inline-block' })
+          texteCorr = Operation({ operande1: a, operande2: b, type: 'soustraction', style: 'display: inline-block' })
           texteCorr += Operation({ operande1: a, operande2: b, type: 'soustraction', style: 'display: inline-block', methodeParCompensation: false })
           break
         case 3: // xxx,x-xxx
@@ -118,7 +118,7 @@ export default function AdditionnerSoustrairesDecimaux () {
           texte = `$${texNombre(a)}-${texNombre(b)}$`
           texte += grilletxt
           reponse = calcul(a - b)
-          texteCorr = '<br>' + Operation({ operande1: a, operande2: b, type: 'soustraction', style: 'display: inline-block' })
+          texteCorr = Operation({ operande1: a, operande2: b, type: 'soustraction', style: 'display: inline-block' })
           texteCorr += Operation({ operande1: a, operande2: b, type: 'soustraction', style: 'display: inline-block', methodeParCompensation: false })
           break
         case 4: // x0x-xx9,x
@@ -129,7 +129,7 @@ export default function AdditionnerSoustrairesDecimaux () {
           texte = `$${texNombre(a)}-${texNombre(b)}$`
           texte += grilletxt
           reponse = calcul(a - b)
-          texteCorr = '<br>' + Operation({ operande1: a, operande2: b, type: 'soustraction', style: 'display: inline-block' })
+          texteCorr = Operation({ operande1: a, operande2: b, type: 'soustraction', style: 'display: inline-block' })
           texteCorr += Operation({ operande1: a, operande2: b, type: 'soustraction', style: 'display: inline-block', methodeParCompensation: false })
           break
         case 5: // xxx+xx,x
@@ -138,7 +138,7 @@ export default function AdditionnerSoustrairesDecimaux () {
           texte = `$${texNombre(a)}+${texNombre(b)}$`
           texte += grilletxt
           reponse = calcul(a + b)
-          texteCorr = Operation({ operande1: a, operande2: b, type: 'addition' })
+          texteCorr = Operation({ operande1: a, operande2: b, type: 'addition', style: 'display: inline-block' })
           break
         case 6: // xxx+xx,xx
           a = randint(1, 4) * 100 + randint(2, 5) * 10 + randint(1, 9)
@@ -151,7 +151,7 @@ export default function AdditionnerSoustrairesDecimaux () {
           texte = `$${texNombre(a)}+${texNombre(b)}$`
           texte += grilletxt
           reponse = calcul(a + b)
-          texteCorr = Operation({ operande1: a, operande2: b, type: 'addition' })
+          texteCorr = Operation({ operande1: a, operande2: b, type: 'addition', style: 'display: inline-block' })
           break
         case 7: // xxx,x+xxx
           a = calcul(
@@ -164,7 +164,7 @@ export default function AdditionnerSoustrairesDecimaux () {
           texte = `$${texNombre(a)}+${texNombre(b)}$`
           texte += grilletxt
           reponse = calcul(a + b)
-          texteCorr = Operation({ operande1: a, operande2: b, type: 'addition' })
+          texteCorr = Operation({ operande1: a, operande2: b, type: 'addition', style: 'display: inline-block' })
           break
         case 8: // x0x+xx9,x
           a = calcul(randint(5, 9) * 100 + randint(1, 5))
@@ -174,7 +174,7 @@ export default function AdditionnerSoustrairesDecimaux () {
           texte = `$${texNombre(a)}+${texNombre(b)}$`
           texte += grilletxt
           reponse = calcul(a + b)
-          texteCorr = Operation({ operande1: a, operande2: b, type: 'addition' })
+          texteCorr = Operation({ operande1: a, operande2: b, type: 'addition', style: 'display: inline-block' })
           break
       }
       setReponse(this, i, reponse)
