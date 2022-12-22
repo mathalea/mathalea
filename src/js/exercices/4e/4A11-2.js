@@ -1,4 +1,4 @@
-import FractionsIrreductibles from '../3e/3A12.js'
+import FractionsIrreductibles from '../3e/3A11.js'
 export const titre = 'Fractions irréductibles'
 
 /**
