@@ -49,12 +49,12 @@ export default class ProduitEtSommeOuDifferenceDeDecimaux extends Exercice {
         }
       }
       const couples = shuffle(couplesPossibles).slice(0, this.sup)
-      texte = 'Calculer'
+      texte = 'Calculer.'
       texteCorr = ''
       let indice = 0
       for (const couple of couples) {
         const addition = this.sup2 ? choice([true, false]) : true
-        texte += `<br>${numAlpha(indice)}$${texNombre(couple.A)} ${addition ? '+' : '-'} ${texNombre(couple.B)}$ ${sp()} ${sp()} ${sp()} et ${sp()} ${sp()} ${sp()} $${texNombre(couple.A)} \\times ${texNombre(couple.B)}$`
+        texte += `<br>${numAlpha(indice)}$${texNombre(couple.A)} ${addition ? '+' : '-'} ${texNombre(couple.B)}$ ${sp()} ${sp()} ${sp()} et ${sp()} ${sp()} ${sp()} $${texNombre(couple.A)} \\times ${texNombre(couple.B)}$.`
         texteCorr += `<br>${numAlpha(indice)}`
         texteCorr += Operation({ operande1: couple.A, operande2: couple.B, type: addition ? 'addition' : 'soustraction', style: 'display: inline', methodeParCompensation: addition })
         texteCorr += ' et '
