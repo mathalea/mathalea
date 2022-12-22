@@ -154,10 +154,10 @@ export default function TableauxEtFonction () {
           tableau_corr: tableauColonneLigne([`\\text{Longueur $${coteInconnuCorr}$ du côté (en ${unitegrandL})}`, `\\phantom{0}${grandL[0]}\\phantom{0}`, `\\phantom{0}${grandL[1]}\\phantom{0}`, `\\phantom{0}${grandL[2]}\\phantom{0}`, `\\phantom{0}${grandL[3]}\\phantom{0}`],
             [`\\text{Périmètre du rectangle (en ${unitepetitL})}`],
             [
-`${texNombre(2 * petitLNum[0] + 2 * grandLNum[0])} \\text{ ${unitegrandL} }`,
-`${texNombre(2 * petitLNum[0] + 2 * grandLNum[1])} \\text{ ${unitegrandL} }`,
-`${texNombre(2 * petitLNum[0] + 2 * grandLNum[2])} \\text{ ${unitegrandL} }`,
-`${texNombre(2 * petitLNum[0] + 2 * grandLNum[3])} \\text{ ${unitegrandL} }`
+`${texNombre(2 * petitLNum[0] + 2 * grandLNum[0])} \\text{ ${unitegrandL}}`,
+`${texNombre(2 * petitLNum[0] + 2 * grandLNum[1])} \\text{ ${unitegrandL}}`,
+`${texNombre(2 * petitLNum[0] + 2 * grandLNum[2])} \\text{ ${unitegrandL}}`,
+`${texNombre(2 * petitLNum[0] + 2 * grandLNum[3])} \\text{ ${unitegrandL}}`
             ]
           ),
           tableau_corr_p1: tableauColonneLigne([`\\text{Longueur $${coteInconnuCorr}$ du côté (en $${unitegrandL}$)}`, `\\phantom{000}${grandL[0]}\\phantom{000}`, `\\phantom{000}${grandL[1]}\\phantom{000}`], //, `\\phantom{000}${grandL[2]}\\phantom{000}`,`\\phantom{000}${grandL[3]}\\phantom{000}`],
