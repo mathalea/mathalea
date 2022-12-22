@@ -1,6 +1,6 @@
 import TracerQuadrilatèresParticuliers from './6G13.js'
 
-export const titre = 'Tracer des quadrilatères particuliers et auto-vérification'
+export const titre = 'Construire des quadrilatères particuliers et auto-vérification'
 export const dateDePublication = '19/12/2022'
 
 /**
@@ -9,6 +9,8 @@ export const dateDePublication = '19/12/2022'
  * @author Mickael Guironnet
  */
 
+export const uuid = 'b3a4c'
+export const ref = '6G21-5'
 export default class ConstruireUnLosangeOuParallélogrammes extends TracerQuadrilatèresParticuliers {
   constructor () {
     super()

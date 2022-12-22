@@ -119,12 +119,12 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
         case 'fractionPlusSimple':
           saisie = champTexte.value.replace(',', '.')
           if (!isNaN(parseFloat(saisie))) {
-            saisieParsee = engine.parse(`\\frac{${saisie}}{1}`).canonical
+            if (parseInt(saisie) === reponse.n) resultat = 'OK'
           } else {
             saisieParsee = engine.parse(saisie, { canonical: false })
+            fReponse = engine.parse(reponse.texFSD.replace('dfrac', 'frac'), { canonical: false })
+            if (saisieParsee.isEqual(fReponse) && saisieParsee.json[1] && saisieParsee.json[1] < fReponse.json[1] && Number.isInteger(saisieParsee.json[1])) resultat = 'OK'
           }
-          fReponse = engine.parse(reponse.texFSD.replace('dfrac', 'frac'), { canonical: false })
-          if (saisieParsee.isEqual(fReponse) && saisieParsee.json[1] < fReponse.json[1]) resultat = 'OK'
           break
         case 'fractionEgale': // Pour les exercices de calcul où on attend une fraction peu importe son écriture (3/4 ou 300/400 ou 30 000/40 000...)
         // Si l'utilisateur entre un nombre décimal n, on transforme en n/1
@@ -143,12 +143,12 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
         case 'fraction': // Pour les exercices où l'on attend un écriture donnée d'une fraction
           saisie = champTexte.value.replace(',', '.')
           if (!isNaN(parseFloat(saisie))) {
-            saisieParsee = engine.parse(new FractionEtendue(saisie, 1).texFSD)
+            if (parseInt(saisie) === reponse.n) resultat = 'OK'
           } else {
             saisieParsee = engine.parse(saisie.replace('frac', 'dfrac').replace('ddfrac', 'dfrac'))
+            fReponse = engine.parse(reponse.texFSD)
+            if (saisieParsee.isEqual(fReponse)) resultat = 'OK'
           }
-          fReponse = engine.parse(reponse.texFSD)
-          if (saisieParsee.isEqual(fReponse)) resultat = 'OK'
           break
         case 'unites': // Pour les exercices où l'on attend une mesure avec une unité au choix
           saisie = champTexte.value.replace('²', '^2').replace('³', '^3')

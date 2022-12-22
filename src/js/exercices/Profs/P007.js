@@ -2,7 +2,8 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, nombreAvecEspace } from '../../modules/outils.js'
-import { pavage, texteParPosition } from '../../modules/2d.js'
+import { texteParPosition } from '../../modules/2d.js'
+import { pavage } from '../../modules/Pavage'
 
 export const titre = 'Fabriquer des pavages pour travailler les transformations'
 

@@ -14,7 +14,7 @@ export const dateDePublication = '10/09/2022'
 */
 export const uuid = '2203a'
 export const ref = '6G13'
-export default class TracerCarresRectangleslongueurDonnees extends Exercice {
+export default class TracerQuadrilatèresParticuliers extends Exercice {
   constructor () {
     super()
     this.titre = titre

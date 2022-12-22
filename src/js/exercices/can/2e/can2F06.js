@@ -1,8 +1,8 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, reduireAxPlusB, randint, choice, texFractionReduite } from '../../../modules/outils.js'
-import { tableauDeVariation } from '../../../modules/2d.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
+import { tableauDeVariation } from '../../../modules/TableauDeVariation.js'
 export const titre = 'Dresser le tableau de signes d’une fonction affine'
 export const interactifReady = true
 export const interactifType = 'qcm'

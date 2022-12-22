@@ -1,5 +1,5 @@
 /* global $ jQuery JSZip saveAs */
-import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube, exerciceSimpleToContenu, listeQuestionsToContenu, introLatexCan, arrondi, dataTailleDiaporama, contraindreValeur } from './modules/outils.js'
+import { strRandom, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube, exerciceSimpleToContenu, listeQuestionsToContenu, introLatexCan, arrondi, dataTailleDiaporama, contraindreValeur } from './modules/outils.js'
 import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch, getUserId, setUrlAndGo, replaceQueryParam, goTabVue } from './modules/gestionUrl.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders.js'
@@ -28,6 +28,7 @@ import gestionScores from './modules/gestionScores.js'
 import { modalTimer } from './modules/modalTimer.js'
 import { zoomAffichage } from './modules/zoom.js'
 import { ajouteChampTexteMathLive } from './modules/interactif/questionMathLive.js'
+import { creerDocumentAmc } from './modules/creerDocumentAmc'
 
 // "3" isNumeric (pour gérer le sup venant de l'URL)
 function isNumeric (n) {
@@ -869,7 +870,7 @@ function miseAJourDuCode () {
         }
       }
       context.isHtml = output
-      codeAmc = creerDocumentAmc({ questions: questions, nbQuestions: nbQuestions, nbExemplaires: nbExemplaires, typeEntete: typeEntete, format: format })
+      codeAmc = creerDocumentAmc({ questions, nbQuestions, nbExemplaires, typeEntete, format })
         .replace(/<br><br>/g, '\n\n\\medskip\n')
         .replace(/<br>/g, '\\\\\n')
 
@@ -1215,7 +1216,7 @@ function miseAJourDuCode () {
           }
           \\addtocounter{nbEx}{-1}
           `
-        }        
+        }
       }
       if ($('#supprimer_correction:checked').val()) {
         codeMoodle = codeEnonces
@@ -3275,8 +3276,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             nomCopie = itemListe[0] + ' ' + itemListe[1]
           }
           $('#listeEval').append(ligneExercices({
-            nomCopie: nomCopie,
-            items: items
+            nomCopie,
+            items
           }))
         }
       }
