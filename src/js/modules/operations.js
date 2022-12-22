@@ -463,10 +463,10 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       if (context.isHtml) { Code = MultiplicationPosee3d(operande1, operande2, base) } else { Code = `\\opmul[displayshiftintermediary=all,decimalsepsymbol={,},voperator=bottom]{${operande1}}{${operande2}}` }
       break
     case 'division':
-      if (context.isHtml) { Code = DivisionPosee3d(operande1, operande2, precision, retenuesOn) } else { Code = `\\opdiv[displayintermediary=all,voperation=top,period,decimalsepsymbol={,},shiftdecimalsep=none]{${operande1}}{${operande2}}` }
+      if (context.isHtml) { Code = DivisionPosee3d(operande1, operande2, precision, retenuesOn) } else { Code = `\\opdiv[displayintermediary=all,voperation=top,period,decimalsepsymbol={,},shiftdecimalsep=none,voperator=bottom]{${operande1}}{${operande2}}` }
       break
     case 'divisionE':
-      if (context.isHtml) { Code = DivisionPosee3d(operande1, operande2, 0, retenuesOn) } else { Code = `\\opidiv{${operande1}}{${operande2}}` }
+      if (context.isHtml) { Code = DivisionPosee3d(operande1, operande2, 0, retenuesOn) } else { Code = `\\opidiv[voperator=bottom]{${operande1}}{${operande2}}` }
       break
   }
   return Code
