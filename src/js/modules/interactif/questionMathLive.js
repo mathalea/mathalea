@@ -143,12 +143,12 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
         case 'fraction': // Pour les exercices où l'on attend un écriture donnée d'une fraction
           saisie = champTexte.value.replace(',', '.')
           if (!isNaN(parseFloat(saisie))) {
-            saisieParsee = engine.parse(new FractionEtendue(saisie, 1).texFSD)
+            if (parseInt(saisie) === reponse.n) resultat = 'OK'
           } else {
             saisieParsee = engine.parse(saisie.replace('frac', 'dfrac').replace('ddfrac', 'dfrac'))
+            fReponse = engine.parse(reponse.texFSD)
+            if (saisieParsee.isEqual(fReponse)) resultat = 'OK'
           }
-          fReponse = engine.parse(reponse.texFSD)
-          if (saisieParsee.isEqual(fReponse)) resultat = 'OK'
           break
         case 'unites': // Pour les exercices où l'on attend une mesure avec une unité au choix
           saisie = champTexte.value.replace('²', '^2').replace('³', '^3')
