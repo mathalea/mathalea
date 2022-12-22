@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif } from '../../modules/outils.js'
-import { tableauDeVariation } from '../../modules/TableauDeVariation'
+import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 export const titre = 'Résoudre une inéquation du second degré'
 
 /**

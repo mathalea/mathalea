@@ -4,7 +4,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, egal, randint, shuffle, nombreAvecEspace, texcolors } from '../../modules/outils.js'
 import { tracePoint, vecteur, segment, translation, codageSegment, texteParPosition } from '../../modules/2d.js'
 import { translationAnimee } from '../../modules/2dAnimation.js'
-import { pavage } from '../../modules/Pavage'
+import { pavage } from '../../modules/Pavage.js'
 export const titre = 'Trouver l\'image d\'une figure par une translation dans un pavage'
 
 /**

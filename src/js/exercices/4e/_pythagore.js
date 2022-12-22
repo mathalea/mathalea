@@ -1,4 +1,4 @@
-import { calcul, miseEnEvidence, texNombre, texNombrec, texteEnCouleurEtGras } from '../../modules/outils'
+import { calcul, miseEnEvidence, texNombre, texNombrec, texteEnCouleurEtGras } from '../../modules/outils.js'
 
 export function RedactionPythagore (A = 'A', B = 'B', C = 'C', rechercheHypotenuse = true, AB = 3, AC = 4, BC = 5, unite = 'cm', couleurReponse = '#f15929') {
   let texte, signeEgal

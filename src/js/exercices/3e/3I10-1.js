@@ -6,7 +6,7 @@ import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGe
 import { ajouterAx, ajouterAy, allerA, angleScratchTo2d, attendre, baisseCrayon, creerLutin, leveCrayon, orienter } from '../../modules/2dLutin.js'
 import { context } from '../../modules/context.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
-import { scratchblock } from '../../modules/scratchblock'
+import { scratchblock } from '../../modules/scratchblock.js'
 
 export const titre = 'Analyser des scripts Scratch'
 export const interactifReady = true

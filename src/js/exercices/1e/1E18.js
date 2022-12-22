@@ -4,7 +4,7 @@ import Trinome from '../../modules/Trinome.js'
 import FractionX from '../../modules/FractionEtendue.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { tableauDeVariation } from '../../modules/TableauDeVariation'
+import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 export const titre = 'Équations et inéquations du second degré'
 export const interactifReady = false
 

@@ -2,7 +2,7 @@ import { xcas, listeQuestionsToContenu, randint, texMasse } from '../../modules/
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { tableauDeVariation } from '../../modules/TableauDeVariation'
+import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 export const titre = 'Equation avec une valeur absolue'
 
 /**

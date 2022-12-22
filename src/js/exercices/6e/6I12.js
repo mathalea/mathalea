@@ -7,7 +7,7 @@ import { listeQuestionsToContenuSansNumero, randint, combinaisonListesSansChange
 import { point, segment, tracePoint, grille, texteParPoint } from '../../modules/2d.js'
 import { allerA, angleScratchTo2d, avance, baisseCrayon, creerLutin, leveCrayon, orienter, tournerD, tournerG } from '../../modules/2dLutin.js'
 import { afficheScore } from '../../modules/gestionInteractif.js'
-import { scratchblock } from '../../modules/scratchblock'
+import { scratchblock } from '../../modules/scratchblock.js'
 export const interactifReady = true
 // il y avait un fonctionnement avec amcType cf commit 3ae7c43
 export const interactifType = 'custom' // La correction doit être gérée dans l'exercice avec la méthode this.correctionInteractive()

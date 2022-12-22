@@ -5,7 +5,7 @@ import { context } from '../../modules/context.js'
 
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { tableauDeVariation } from '../../modules/TableauDeVariation'
+import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDeModificationImportante = '03/04/2022'

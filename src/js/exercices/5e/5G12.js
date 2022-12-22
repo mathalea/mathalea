@@ -4,7 +4,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, egal, randint, choice, shuffle, nombreAvecEspace, texcolors } from '../../modules/outils.js'
 import { tracePoint, labelPoint, codageMilieu, segment, rotation, texteParPosition, vecteur, translation } from '../../modules/2d.js'
 import { rotationAnimee } from '../../modules/2dAnimation.js'
-import { pavage } from '../../modules/Pavage'
+import { pavage } from '../../modules/Pavage.js'
 
 export const titre = 'Trouver l\'image d\'une figure par symétrie centrale dans un pavage'
 

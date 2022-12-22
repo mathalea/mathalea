@@ -14,6 +14,8 @@ export const dateDePublication = '20/12/2022'
  * idée originale de Mireille Gain
  * Référence 6C30-9
 */
+export const uuid = 'c6836'
+export const ref = '6C30-9'
 export default class ProduitEtSommeOuDifferenceDeDecimaux extends Exercice {
   constructor () {
     super()

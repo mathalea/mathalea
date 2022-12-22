@@ -4,7 +4,7 @@ import { randint, choice, listeQuestionsToContenu } from '../../../modules/outil
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { context } from '../../../modules/context.js'
-import { tableauDeVariation } from '../../../modules/TableauDeVariation'
+import { tableauDeVariation } from '../../../modules/TableauDeVariation.js'
 export const titre = 'Lire les extremums dans un tableau de variations'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint, reduireAxPlusB, choice, texFractionRe
 import { resoudre } from '../../modules/outilsMathjs.js'
 import { labelPoint, point, tracePoint, courbe, repere } from '../../modules/2d.js'
 import { create, all } from 'mathjs'
-import { tableauDeVariation } from '../../modules/TableauDeVariation'
+import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 
 export const titre = 'Déterminer le signe d\'une fonction affine'
 

@@ -1,4 +1,4 @@
-import { egal, nombreAvecEspace } from './outils'
+import { egal, nombreAvecEspace } from './outils.js'
 import {
   barycentre,
   homothetie,
@@ -11,7 +11,7 @@ import {
   tracePoint,
   translation,
   vecteur
-} from './2d'
+} from './2d.js'
 
 /**
  * Classe Pavage : permet de créer des pavages de polygones en un tour de main et de manipuler les polygones qu'il contient
