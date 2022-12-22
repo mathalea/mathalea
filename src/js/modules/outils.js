@@ -4833,7 +4833,7 @@ export function lampeMessage ({ titre, texte, couleur }) {
       `
     } else {
       return `
-      <div class="ui compact icon message">
+      <div class="ui compact icon message" style="width: auto">
         <i class="lightbulb outline icon"></i>
         <div class="content">
             <div class="header">
