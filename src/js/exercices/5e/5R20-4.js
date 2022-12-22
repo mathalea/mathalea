@@ -166,13 +166,13 @@ $${situations[k].nb_tot_lancers}-${situations[k].nb_pertes}-${situations[k].nb_g
 ${situations[k].pronomMin} a donc ${situations[k].correction_1} $${situations[k].nb_gains}$ fois.
 
 <br>${texteGras(`Gains lorsqu'${situations[k].pronomMin} a ${situations[k].correction_1} :`)}
-<br>$${myGainPerteString(situations[k].nb_gains, 'gain', situations[k].gain_multiple)} = ${situations[k].nb_gains}\\times (+${texPrix(situations[k].gain_multiple)}~$€$) = +${texPrix(situations[k].nb_gains * situations[k].gain_multiple)}~$€
+<br>$${myGainPerteString(situations[k].nb_gains, 'gain', situations[k].gain_multiple)} = ${situations[k].nb_gains}\\times (+${texPrix(situations[k].gain_multiple)}~$€$) = (+${texPrix(situations[k].nb_gains * situations[k].gain_multiple)}~$€)
 
 <br>${texteGras(`Gains lorsqu'${situations[k].pronomMin} n'a ${situations[k].correction_2} :`)}
-<br>$${myGainPerteString(situations[k].nb_gains_unitaires, 'gain', situations[k].gain_unitaire)} = ${situations[k].nb_gains_unitaires}\\times (+${texPrix(situations[k].gain_unitaire)}~$€$) = +${texPrix(situations[k].nb_gains_unitaires * situations[k].gain_unitaire)}$€
+<br>$${myGainPerteString(situations[k].nb_gains_unitaires, 'gain', situations[k].gain_unitaire)} = ${situations[k].nb_gains_unitaires}\\times (+${texPrix(situations[k].gain_unitaire)}~$€$) = (+${texPrix(situations[k].nb_gains_unitaires * situations[k].gain_unitaire)}~$€)
 
 <br>${texteGras('Pertes :')}
-<br>$${myGainPerteString(situations[k].nb_pertes, 'perte', situations[k].perte)} = ${situations[k].nb_pertes}\\times (-${texPrix(situations[k].perte)}~$€$) = -${texPrix(situations[k].nb_pertes * situations[k].perte)}~$€
+<br>$${myGainPerteString(situations[k].nb_pertes, 'perte', situations[k].perte)} = ${situations[k].nb_pertes}\\times (-${texPrix(situations[k].perte)}~$€$) = (-${texPrix(situations[k].nb_pertes * situations[k].perte)}~$€)
 
 <br>${numAlpha(indexSousQuestionCorr++)} ${situations[k].bilan[0]} ${situations[k].bilan[1]}.
 <br> ${situations[k].bilan[2]}   
