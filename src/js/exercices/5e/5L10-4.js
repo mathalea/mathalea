@@ -16,7 +16,7 @@ export const ref = '5L10-4'
 export default function TableauxEtFonction () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.debug = true
+  this.debug = false
   this.sup = 1
   if (this.debug) {
     this.nbQuestions = 1
