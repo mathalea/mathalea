@@ -665,7 +665,7 @@ export default function SujetCAN2022Seconde () {
             reponse = a[1]
             texte = 'Calculer la longueur $AB$. <br>'
 
-            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
               On a $AB^2=BC^2-AC^2$, soit $AB^2=${a[2]}^2-${a[0]}^2=${a[2] ** 2 - a[0] ** 2}$.<br>
@@ -680,7 +680,7 @@ export default function SujetCAN2022Seconde () {
             reponse = a[0]
             texte = 'Calculer la longueur $AC$. <br>'
 
-            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
                 On a $AC^2=BC^2-AB^2$, soit $AC^2=${a[2]}^2-${a[1]}^2=${a[2] ** 2 - a[1] ** 2}$.<br>
@@ -695,7 +695,7 @@ export default function SujetCAN2022Seconde () {
             reponse = a[2]
             texte = 'Calculer la longueur $BC$. <br>'
 
-            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
                   On a $BC^2=AB^2+AC^2$, soit $BC^2=${a[0]}^2+${a[1]}^2=${a[0] ** 2 + a[1] ** 2}$.<br>
@@ -918,7 +918,7 @@ export default function SujetCAN2022Seconde () {
           reponse = d
           texte = `$(AB)//(CD)$<br><br>
           `
-          texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
+          texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
           texteCorr = `Le triangle $ECD$ est un agrandissement du triangle $EAB$. La longueur $EC$ est $${texNombre(k, 1)}$ fois plus grande que la longueur $EB$. 
           On en déduit que la longueur $DE$ est $${texNombre(k, 1)}$ fois plus grande que la longueur $AE$.<br>
           Ainsi, $DE=${texNombre(k, 1)}\\times ${a}=${texNombre(reponse, 1)}$.`
