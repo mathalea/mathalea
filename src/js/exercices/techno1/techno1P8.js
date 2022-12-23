@@ -50,7 +50,7 @@ export default class nomExercice extends Exercice {
           $\\quad\\bullet\\quad p_B$ la proportion de personnes du club qui jouent à la belote.<br>
           $\\quad\\bullet\\quad p_{T\\cup B}$ la proportion de personnes du club qui jouent au tarot ${texteGras('ou')} à la belote.<br>
           $\\quad\\bullet\\quad p_{T\\cap B}$ la proportion de personnes du club qui jouent au tarot ${texteGras('et')} à la belote.<br>
-        La population de référence est les membres du club, son effectif est $${effectif}$.<br>
+        La population de référence est l'ensemble des membres du club, son effectif est $${effectif}$.<br>
         <br>D'après le cours, pour calculer la proportion d'une sous-population dans une population, on calcule :<br>
         <br>$p=\\dfrac{\\text{effectif de la sous-population}}{\\text{effectif de la population de référence}}$<br>
         <br>On a donc :  $p_T=\\dfrac{${tarot}}{${effectif}}\\quad;\\quad p_B=\\dfrac{${belote}}{${effectif}} \\quad;\\quad p_{T\\cap B}=\\dfrac{${inter}}{${effectif}}$<br>
@@ -75,7 +75,7 @@ export default class nomExercice extends Exercice {
           $\\quad\\bullet\\quad p_B$ la proportion de personnes du club qui jouent à la belote.<br>
           $\\quad\\bullet\\quad p_{T\\cup B}$ la proportion de personnes du club qui jouent au tarot ${texteGras('ou')} à la belote.<br>
           $\\quad\\bullet\\quad p_{T\\cap B}$ la proportion de personnes du club qui jouent au tarot ${texteGras('et')} à la belote.<br>
-        La population de référence est les membres du club, son effectif est $${effectif}$.<br>
+        La population de référence est l'ensemble des membres du club, son effectif est $${effectif}$.<br>
        <br>
         D'après le cours, pour calculer la proportion d'une sous-population dans une population, on calcule :<br>
         <br>$p=\\dfrac{\\text{effectif de la sous-population}}{\\text{effectif de la population de référence}}$<br>

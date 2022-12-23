@@ -67,16 +67,16 @@ export default function ProblemeCourse () {
     const prixTotal = calcul(prixTotalAliment1 + prixTotalAliment2)
     const masseEnKgDeAliment2 = calcul(masseEnGdeAliment2 / 1000)
     let texte = `${prenom} achète $${texNombre(masseEnKgDeAliment1, 1)}$ kg de ${aliment1} à $${texPrix(prixAliment1)}$ €/kg `
-    texte += `et ${masseEnGdeAliment2} g de ${aliment2} à $${texPrix(prixAliment2)}$ €/kg. Quel est le prix total à payer ?`
+    texte += `et $${texNombre(masseEnGdeAliment2)}$ g de ${aliment2} à $${texPrix(prixAliment2)}$ €/kg. Quel est le prix total à payer ?`
     let texteCorr = `Prix des ${aliment1} : $${texNombre(masseEnKgDeAliment1, 1)}\\text{ kg} \\times ${texPrix(prixAliment1)}$ €/kg $ = ${texPrix(prixTotalAliment1)}$ €<br>`
     texteCorr += `Prix du ${aliment2} : $${texNombre(masseEnKgDeAliment2)}\\text{ kg} \\times ${texPrix(prixAliment2)}$ €/kg $${egalOuApprox(prixTotalAliment2, 2)} ${texPrix(prixTotalAliment2)}$ €<br>`
-    texteCorr += `Prix total à payer : $${texNombre(prixTotalAliment1)}$ € + $${texPrix(prixTotalAliment2)}$ € `
+    texteCorr += `Prix total à payer : $${texPrix(prixTotalAliment1)}$ € + $${texPrix(prixTotalAliment2)}$ € `
     texteCorr += `$${egalOuApprox(prixTotal, 2)} ${texNombre(prixTotal, 2)}$ €<br>`
     texteCorr += `<br><i>Le prix total aurait aussi pu être trouvé en un seul calcul</i> : $${texNombre(masseEnKgDeAliment1, 1)} \\text{ kg} \\times ${texPrix(prixAliment1)}$ €/kg + $${texNombre(masseEnKgDeAliment2, 2)} \\text{ kg} \\times ${texPrix(prixAliment2)}$ €/kg `
     texteCorr += `$${egalOuApprox(prixTotal, 2)} ${texNombre(prixTotal, 2)}$ €<br>`
     if (!context.isHtml) {
       texteCorr = `Prix des ${aliment1} : $${texNombre(masseEnKgDeAliment1, 2)}\\text{ kg}\\times${texPrix(prixAliment1)}\\text{ \\euro{}/kg} = ${texPrix(prixTotalAliment1)}\\text{ \\euro}$` + '<br>'
-      texteCorr += `Prix du ${aliment2} : $${texNombre(masseEnKgDeAliment2, 2)}\\text{ kg}\\times${texPrix(prixAliment2)}\\text{ \\euro{}/kg} = ${texPrix(prixTotalAliment2)}\\text{ \\euro}$` + '<br>'
+      texteCorr += `Prix du ${aliment2} : $${texNombre(masseEnKgDeAliment2, 2)}\\text{ kg}\\times${texPrix(prixAliment2)}\\text{ \\euro{}/kg} ${egalOuApprox(prixTotalAliment2, 2)} ${texPrix(prixTotalAliment2)}\\text{ \\euro}$` + '<br>'
       texteCorr += `Prix total à payer : $${texPrix(prixTotalAliment1)}\\text{ \\euro} + ${texPrix(prixTotalAliment2)}\\text{ \\euro}`
       texteCorr += `${egalOuApprox(prixTotal, 2)} ${texPrix(prixTotal)}\\text{ \\euro}$<br>`
     }
