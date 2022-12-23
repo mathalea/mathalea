@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, arrondi, contraindreValeur, egalOuApprox } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, arrondi, contraindreValeur, egalOuApprox, sp } from '../../modules/outils.js'
 import { latexParCoordonnees, point, segment } from '../../modules/2d.js'
 import { number, fraction } from 'mathjs'
 export const titre = 'Probabilités conditionnelles'
@@ -49,7 +49,7 @@ export default function ProbabilitesConditionnelles () {
       listeTypeDeQuestions = combinaisonListes([`sujetE3C${this.sup2}`], this.nbQuestions)
     }
 
-    // const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    // const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque  «${sp(1)}cycle${sp(1)}»
     for (let i = 0, a, c, ec, ce, v, av, A, B, A1, A2, A3, A4, O, k1, k2, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       objets = []
       switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
@@ -89,35 +89,35 @@ export default function ProbabilitesConditionnelles () {
 
           texte = 'Une agence de voyage propose deux formules week-end pour se rendre à Londres depuis Paris.'
           texte += '<br> Les clients choisissent leur moyen de transport : train ou avion.'
-          texte += '<br> De plus, s\'ils le souhaitent, ils peuvent compléter leur formule par l\'option "visites guidées".'
-          texte += '<br> Une étude a produit les données suivantes:'
-          texte += `<br> $\\bullet~~ ${a}$% des clients optent pour l'avion;`
-          texte += `<br> $\\bullet~~$ Parmi   les clients ayant choisi le train, $${v}$ % choisissent aussi l'option "visites guidées".`
-          texte += `<br> $\\bullet~~ ${av}$% des clients ont choisi à la fois l'avion et l'option "visites guidées".<br>`
+          texte += `<br> De plus, s'ils le souhaitent, ils peuvent compléter leur formule par l'option  «${sp(1)}visites guidées${sp(1)}».`
+          texte += `<br> Une étude a produit les données suivantes${sp(1)}:`
+          texte += `<br> $\\bullet ${sp(3)} ${a}${sp()}\\%$ des clients optent pour l'avion;`
+          texte += `<br> $\\bullet ${sp(3)}$Parmi les clients ayant choisi le train, $${v}${sp()}\\%$ choisissent aussi l'option  «${sp(1)}visites guidées${sp(1)}».`
+          texte += `<br> $\\bullet ${sp(3)} ${av}${sp()}\\%$ des clients ont choisi à la fois l'avion et l'option  «${sp(1)}visites guidées${sp(1)}».<br>`
           texte += '<br> On interroge au hasard un client de l\'agence ayant souscrit à une formule week-end à Londres.'
-          texte += '<br> On considère les évènements suivants:'
+          texte += `<br> On considère les évènements suivants${sp(1)}:`
           texte += '<br> $\\bullet~~$ $A$ :  le client a choisi l\'avion.'
-          texte += '<br> $\\bullet~~$ $V$ : le client a choisi l\'option "visites guidées".<br>'
+          texte += `<br> $\\bullet~~$ $V$ : le client a choisi l'option  «${sp(1)}visites guidées${sp(1)}».<br>`
           texte += '<br> 1. Déterminer $P_A(V)$.'
-          texte += `<br> 2.  Démontrer que la probabilité pour que le client interrogé ait choisi l'option "visites guidées" est environ égale à $${texProba(av / 100 + (1 - a / 100) * v / 100, false)}$.`
-          texte += '<br> 3. Calculer la probabilité pour que le client interrogé ait pris l\'avion sachant qu\'il n\'a pas choisi l\'option "visites guidées". Arrondir le résultat au centième.'
+          texte += `<br> 2.  Démontrer que la probabilité pour que le client interrogé ait choisi l'option  «${sp(1)}visites guidées${sp(1)}»  est environ égale à $${texProba(av / 100 + (1 - a / 100) * v / 100, false)}$.`
+          texte += `<br> 3. Calculer la probabilité pour que le client interrogé ait pris l'avion sachant qu'il n'a pas choisi l'option  «${sp(1)}visites guidées${sp(1)}». Arrondir le résultat au centième.`
           texte += '<br> 4. On interroge au hasard deux clients de manière aléatoire et indépendante.'
-          texte += '<br> Quelle est la probabilité qu\'aucun des deux ne prennent l\'option "visites guidées" ?'
+          texte += `<br> Quelle est la probabilité qu'aucun des deux ne prennent l'option  «${sp(1)}visites guidées${sp(1)}»${sp(1)}? `
           texte += 'On donnera les résultats sous forme de valeurs approchées à $10^{-3}$ près.'
-          texteCorr = '1. De l\'énoncé on déduit que :'
+          texteCorr = `1. De l'énoncé, on déduit que${sp()}:`
           texteCorr += `<br> $P(A)=${texProba(a / 100, this.sup)}$`
           texteCorr += `<br> $P_{\\bar{A}}(V)=${texProba(v / 100, this.sup)}$`
           texteCorr += `<br> $P(A \\cap V)=${texProba(av / 100, this.sup)}$`
-          texteCorr += ' <br>On peut alors construire cet arbre pondéré : <br>'
+          texteCorr += `<br>On peut alors construire cet arbre de probabilités${sp(1)}: <br>`
           texteCorr += mathalea2d({ xmin: -5, ymin: -1, xmax: 18, ymax: 10 }, objets)
           texteCorr += `<br>On a donc $P_{A}(V)=\\dfrac{P(A \\cap V)}{P(A)}=\\dfrac{${texProba(av / 100, this.sup)}}{${texProba(a / 100, this.sup)}}=${texFraction(av, a)} $.`
-          texteCorr += '<br><br>2. Comme $A$ et $\\bar A$ forment une partition de l\'univers, d\'après la loi des probabilités totales :'
-          texteCorr += ' <br>$P(V)=P(A \\cap V)+P(\\bar{A} \\cap V) . $'
+          texteCorr += `<br><br>2. Comme $A$ et $\\bar A$ forment une partition de l'univers, on peut appliquer la loi des probabilités totales${sp()}:`
+          texteCorr += ' <br>$P(V)=P(A \\cap V)+P(\\bar{A} \\cap V). $'
 
           texteCorr += `<br>Or $P(\\bar{A} \\cap V)=P(\\bar{A}) \\times P_{\\bar{A}}(V)=(1-${texProba(a / 100, this.sup)}) \\times ${texProba(v / 100, this.sup)}=${texProba((1 - a / 100) * v / 100, this.sup)}$.`
           texteCorr += `<br>Donc $P(V)=${texProba(av / 100, this.sup)}+${texProba((1 - a / 100) * v / 100, this.sup)}=${texProba(av / 100 + (1 - a / 100) * v / 100, this.sup)}$.`
           texteCorr += '<br><br>3. On a $P_{\\bar{V}}(A)=\\dfrac{P(\\bar{V} \\cap A)}{P(\\bar{V})}=\\dfrac{P(A \\cap \\bar{V})}{P(\\bar{V})}=\\dfrac{P(A) \\times P_A(\\bar{V})}{P(\\bar{V})}$.'
-          texteCorr += `<br>Or d'après la question précédente: $P(\\bar{V})=1-P(V)=1-${texProba(av / 100 + (1 - a / 100) * v / 100, this.sup)}=${texProba(1 - (av / 100 + (1 - a / 100) * v / 100), this.sup)}$`
+          texteCorr += `<br>Or, d'après la question précédente${sp(1)}:${sp(1)}$P(\\bar{V})=1-P(V)=1-${texProba(av / 100 + (1 - a / 100) * v / 100, this.sup)}=${texProba(1 - (av / 100 + (1 - a / 100) * v / 100), this.sup)}$`
           texteCorr += `<br>et d'après la question $1: P_{A}(\\bar{V})=1-P_{A}(V)=1-${texFraction(av, a)}=${texFraction(a - av, a)}$.`
           k1 = (a - av) / a
           k2 = 1 - (av / 100 + (1 - a / 100) * v / 100)
@@ -156,42 +156,42 @@ export default function ProbabilitesConditionnelles () {
           objets.push(latexParCoordonnees('\\bar E', 9, 4.3, 'black', 20, 12, 'white', 10))// 2ème noeud issu de A
           objets.push(latexParCoordonnees('E', 9, 3.1, 'black', 20, 12, 'white', 10)) // 2ème noeud issu de \bar A
           objets.push(latexParCoordonnees('\\bar E', 9, 0.2, 'black', 20, 12, 'white', 10))// 2ème noeud issu de \bar A
-          texte = 'Une chaîne de salons de coiffure propose à ses clients qui viennent pour une coupe deux prestations supplémentaires cumulables :'
-          texte += '<br>$\\bullet$ Une coloration naturelle à base de plantes appelée "couleur-soin",'
-          texte += '<br>$\\bullet$  Des mèches blondes pour donner du relief à la chevelure, appelées  "effet coup de soleil".'
-          texte += `<br><br> Il apparaît que : <br>$\\diamond ~~ ${c}~\\%$ des clients demandent une "couleur-soin".`
-          texte += `<br>$\\diamond ~~$Parmi ceux qui ne veulent pas de "couleur soin", $${ec}~\\%$ des clients demandent un "effet coup de soleil".`
-          texte += `<br>$\\diamond ~~$ Par ailleurs, $${ce}\\%$ des clients demandent une "couleur soin" et un "effet coup de soleil" .`
+          texte = `Une chaîne de salons de coiffure propose à ses clients qui viennent pour une coupe deux prestations supplémentaires cumulables${sp()}:`
+          texte += `<br>$\\bullet$ Une coloration naturelle à base de plantes appelée  «${sp(1)}couleur-soin${sp(1)}»,`
+          texte += `<br>$\\bullet$  Des mèches blondes pour donner du relief à la chevelure, appelées   «${sp(1)}effet coup de soleil${sp(1)}».`
+          texte += `<br><br> Il apparaît que : <br>$\\diamond ${sp(3)} ${c}${sp()}\\%$ des clients demandent une  «${sp(1)}couleur-soin${sp(1)}».`
+          texte += `<br>$\\diamond ${sp(3)}$ Parmi ceux qui ne veulent pas de  «${sp(1)}couleur-soin${sp(1)}» , $${ec}${sp()}\\%$ des clients demandent un  «${sp(1)}effet coup de soleil${sp(1)}».`
+          texte += `<br>$\\diamond ${sp(3)}$ Par ailleurs, $${ce}${sp()}\\%$ des clients demandent une  «${sp(1)}couleur-soin${sp(1)}»  et un  «${sp(1)}effet coup de soleil${sp(1)}».`
           texte += '<br>On interroge un client au hasard.'
-          texte += '<br>On notera $C$ l\'évènement : "Le client souhaite une "couleur-soin."'
-          texte += '<br>On notera $E$ l\'évènement: "Le client souhaite un "effet coup de soleil."<br>'
+          texte += `<br>On notera $C$ l'évènement :  «${sp(1)}Le client souhaite une  «${sp(1)}couleur-soin${sp(1)}».`
+          texte += `<br>On notera $E$ l'évènement:  «${sp(1)}Le client souhaite un  «${sp(1)}effet coup de soleil${sp(1)}».<br>`
 
           texte += '$1.$ Donner les valeurs de $P(C)$, $P( C \\cap E)$ et $P_{\\bar{C}}(E)$.<br>'
-          texte += '$2.$ Calculer la probabilité que le client ne souhaite ni une "couleur-soin", ni un "effet coup de soleil".<br>'
-          texte += '$3.$ Calculer la probabilité qu\'un client choisisse l\'"effet coup de soleil" sachant qu\'il a pris une "couleur soin".<br>'
+          texte += `$2.$ Calculer la probabilité que le client ne souhaite ni une  «${sp(1)}couleur-soin${sp(1)}» , ni un  «${sp(1)}effet coup de soleil${sp(1)}».<br>`
+          texte += `$3.$ Calculer la probabilité qu'un client choisisse l'«${sp(1)}effet coup de soleil${sp(1)}»  sachant qu'il a pris une  «${sp(1)}couleur-soin${sp(1)}».<br>`
           texte += `$4.$ Montrer que la probabilité de l'évènement $E$ est égale à $${texProba(ce / 100 + (1 - c / 100) * ec / 100, false)}$ (à $10^{-3}$ près).<br>`
           texte += '$5.$ Les évènements $C$ et $E$ sont-ils indépendants ?<br>'
           texte += 'On donnera les résultats sous forme de valeurs approchées à $10^{-3}$ près.'
-          texteCorr = `1. D'après l'énoncé, on a :<br>$\\bullet~~P(C)=${texProba(c / 100, this.sup)}$.`
-          texteCorr += `<br>$\\bullet~~P(C \\cap E)=${texProba(ce / 100, this.sup)}$.`
-          texteCorr += `<br>$\\bullet~~P_{\\bar C}(E)=${texProba(ec / 100, this.sup)}$.`
-          texteCorr += '<br>Ce qui permet de construire cet arbre de probabilités : '
+          texteCorr = `1. D'après l'énoncé, on a :<br>$\\bullet~~P(C)=${texProba(c / 100, this.sup)}$`
+          texteCorr += `<br>$\\bullet~~P(C \\cap E)=${texProba(ce / 100, this.sup)}$`
+          texteCorr += `<br>$\\bullet~~P_{\\bar C}(E)=${texProba(ec / 100, this.sup)}$`
+          texteCorr += `<br>Ce qui permet de construire cet arbre de probabilités${sp()}:${sp()}`
           texteCorr += mathalea2d({ xmin: -5, ymin: -1, xmax: 18, ymax: 10 }, objets)
-          texteCorr += '<br>$2.$ L\'événement  : le client ne souhaite ni une "couleur-soin", ni un "effet coup de soleil" correspond à $\\bar{C} \\cap \\bar{E}$'
+          texteCorr += `<br>$2.$ L'événement  : le client ne souhaite ni une  «${sp(1)}couleur-soin${sp(1)}» , ni un  «${sp(1)}effet coup de soleil${sp(1)}»  correspond à $\\bar{C} \\cap \\bar{E}$.`
           texteCorr += `<br>On a $P(\\bar{C} \\cap \\bar{E})=P(\\bar{C}) \\times P_{\\bar{C}}(\\bar{E})=P(\\bar{C}) \\times (1-P_{\\bar{C}}(E))=${texProba(1 - c / 100, false)} \\times ${texProba(1 - ec / 100, false)}\\approx ${texProba((1 - c / 100) * (1 - ec / 100), false)}$.`
-          texteCorr += '<br>$3.$  La probabilité qu\'un client choisisse l\'"effet coup de soleil" sachant qu\'il a pris une "couleur soin" est $P_{C}(E)$.'
-          texteCorr += '<br>On a alors d\'après l\'arbre pondéré :'
+          texteCorr += `<br>$3.$  La probabilité qu'un client choisisse l'«${sp(1)}effet coup de soleil${sp(1)}»  sachant qu'il a pris une  «${sp(1)}couleur-soin${sp(1)}»  est $P_{C}(E)$.`
+          texteCorr += `<br>On a alors d'après l'arbre pondéré${sp()}:`
           texteCorr += `<br>$P(C) \\times P_{C}(E)=${texProba(c / 100, false)} \\times P_{C}(E)=${texProba(ce / 100, false)}$.`
           texteCorr += `<br>On en déduit que $P_{C}(E)=\\dfrac{${texProba(ce / 100, false)}}{${texProba(c / 100, false)}}\\approx${texProba(ce / c, false)}$.`
           texteCorr += '<br>$4.$   On cherche $P(E)$ qui est une probabilité totale.'
-          texteCorr += '<br>Comme $C$ et $\\bar C$ forment une partition de l\'univers, on peut appliquer la loi des probabilités totales :'
+          texteCorr += `<br>Comme $C$ et $\\bar C$ forment une partition de l'univers, on peut appliquer la loi des probabilités totales${sp()}:`
           texteCorr += '<br>$P(E)=P(E \\cap C)+P(E \\cap \\bar{C} )$'
           texteCorr += `<br>$P(E)=${texProba(ce / 100, false)}+${texProba(1 - c / 100, false)}\\times ${texProba(ec / 100, false)}$`
           texteCorr += `<br>$P(E)\\approx${texProba(ce / 100 + (1 - c / 100) * ec / 100, false)}$`
-          texteCorr += '<br>$5.$   Pour savoir si les évènements $C$ et $E$ sont-indépendants, on calcule séparément : '
-          texteCorr += '<br>$P(C \\cap E)$ et $P(C) \\times P(E)$, pour tester s\'ils sont égaux.'
+          texteCorr += '<br>$5.$   Pour savoir si les évènements $C$ et $E$ sont indépendants, on calcule séparément '
+          texteCorr += '$P(C \\cap E)$ et $P(C) \\times P(E)$, pour tester si elles sont égales.'
           texteCorr += `<br>On a $P(C \\cap E)=${texProba(ce / 100, false)}$ `
-          texteCorr += `et $P(C) \\times P(E)\\approx${texProba(c / 100 * (ce / 100 + (1 - c / 100) * ec / 100), false)}$`
+          texteCorr += `et $P(C) \\times P(E)\\approx${texProba(c / 100 * (ce / 100 + (1 - c / 100) * ec / 100), false)}$.`
           texteCorr += '<br>On en déduit que les évènements $C$ et $E$ ne sont pas indépendants.'
           break
       }

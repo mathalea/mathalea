@@ -37,7 +37,7 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
 
   this.nouvelleVersion = function () {
     if (!this.sup3 && !context.isAmc) {
-      this.consigne = 'Calculer :'
+      this.consigne = 'Calculer.'
     } else {
       this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée."
     }

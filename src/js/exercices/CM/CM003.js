@@ -23,7 +23,7 @@ export default function TablesMultiplicationsDivisions (
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = tablesParDefaut
   this.sup2 = 1 // classique|a_trous|melange
-  this.consigne = 'Calculer :'
+  this.consigne = 'Calculer.'
   this.spacing = 2
   this.tailleDiaporama = 3
 

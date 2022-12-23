@@ -36,7 +36,7 @@ export default function ExerciceSubstituer (difficulte = 1) {
   this.amcType = amcType
   this.interactifReady = interactifReady
   this.interactifType = interactifType
-  this.consigne = 'Calculer :'
+  this.consigne = 'Calculer.'
   this.spacing = 1
   this.consigneModifiable = false
 

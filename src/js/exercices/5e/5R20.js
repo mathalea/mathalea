@@ -25,7 +25,7 @@ export default function ExerciceAdditionsRelatifs (max = 20) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = max
   this.sup2 = false // écriture simplifiée
-  this.consigne = 'Calculer :'
+  this.consigne = 'Calculer.'
   this.spacing = 2
   this.modeQcm = false
   this.sup3 = false

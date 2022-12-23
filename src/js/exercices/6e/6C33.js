@@ -47,7 +47,7 @@ export const ref = '6C33'
 export default function Priorites () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Calculer :'
+  this.consigne = 'Calculer.'
   this.nbQuestions = 5
   this.nbCols = 2
   this.nbColsCorr = 1

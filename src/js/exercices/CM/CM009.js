@@ -17,7 +17,7 @@ export const uuid = '14688'
 export const ref = 'CM009'
 export default function Moitie () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Calculer :'
+  this.consigne = 'Calculer.'
   this.nbQuestions = 10
   this.nbCols = 2
   this.nbColsCorr = 2

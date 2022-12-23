@@ -177,7 +177,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
           a = choice([2, 3, 4, 5])
           b = randint(3, 9)
           c = prenom()
-          texte = `J'ai ${calcul(a * b)} ans. Je suis ${a} fois plus âgé que ${c}.<br>Quel âge a ${c} ?`
+          texte = `J'ai $${calcul(a * b)}$ ans. Je suis $${a}$ fois plus âgé que ${c}.<br>Quel âge a ${c} ?`
           texteCorr = `L'âge de ${c} est : $${calcul(a * b)} \\div ${a}=${b}$ ans.`
           setReponse(this, i, b, { formatInteractif: 'calcul' })
           break
