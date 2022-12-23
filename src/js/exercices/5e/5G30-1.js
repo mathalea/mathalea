@@ -49,11 +49,13 @@ export default function EgaliteDAngles () {
       const E = similitude(A, C, c, ce / ac, noms[4], 'above right')
       const CA = droite(C, A)
       const CE = droite(C, E)
-      const AE = droite(A, E, '', 'gray')
-      AE.epaisseur = 2
+      const AE = droite(A, E, '', '#f15929')
+      // const AE = droite(A, E, '', 'gray')
+      // AE.epaisseur = 2
       const B = pointSurSegment(A, C, randint(3, ac - 4), noms[1], 'above left')
-      const BD = droiteParPointEtParallele(B, AE, '', 'gray')
-      BD.epaisseur = 2
+      const BD = droiteParPointEtParallele(B, AE, '', '#f15929')
+      // const BD = droiteParPointEtParallele(B, AE, '', 'gray')
+      // BD.epaisseur = 2
       const D = pointIntersectionDD(BD, CE, noms[3], 'above right')
       const m1 = codageAngle(E, A, C, 1, '', 'black', 2, 1, 'black', 0.1, true)
       const m2 = codageAngle(A, C, E, 1, '', 'black', 2, 1, 'black', 0.1, true)

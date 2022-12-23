@@ -91,7 +91,7 @@ export default function VitesseDistanceTemps () {
           texteCorr += '<br><br>'
           texteCorr += `$t=\\dfrac{${texNombre(d)}\\times 60}{${v}}=${t}$ \n`
           texteCorr += '<br><br>'
-          texteCorr += `${pronomgenre.charAt(0).toUpperCase() + pronomgenre.slice(1)} mettra ${minToHour(t)} minutes pour aller ${destination}.`
+          texteCorr += `${pronomgenre.charAt(0).toUpperCase() + pronomgenre.slice(1)} mettra ${minToHour(t)} pour aller ${destination}.`
           setReponse(this, i, t)
           break
         case 'distance':

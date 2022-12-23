@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, texNombrec, texNombre, miseEnEvidence, texPrix, tableauColonneLigne } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, texNombrec, texNombre, miseEnEvidence, texPrix, tableauColonneLigne, sp } from '../../modules/outils.js'
 
 /**
  * * Tableaux et pourcentages
@@ -93,31 +93,31 @@ export default function TableauxEtPourcentages () {
         let sortie = ''
         switch (type) {
           case 'pourcentage':
-            sortie = `-- L'énoncé indique le montant pour une remise de $${remiseInit.str}$ du prix initial or $${texNombre(remise.nb / remiseInit.nb)} \\times ${remiseInit.str} = ${remise.str}$.<br>
+            sortie = `L'énoncé indique le montant pour une remise de $${remiseInit.str}$ du prix initial or $${texNombre(remise.nb / remiseInit.nb)} \\times ${remiseInit.str} = ${remise.str}$.<br>
 Donc pour une remise de $${remise.str}$ du prix initial, le montant de la remise sera $${texNombre(remise.nb / remiseInit.nb)}$ fois celui de la remise de $${remiseInit.str}$ du prix initial,<br>
 d'où le calcul pour le montant de la remise : $${miseEnEvidence(`${texPrix(prix * remiseInit.nb / 100)} \\times ${texNombre(remise.nb / remiseInit.nb)} = ${texPrix(prix * remise.nb / 100)}`)}$.<br>
 Et celui pour le nouveau prix : $${miseEnEvidence(`${texPrix(prix)}-${texPrix(prix * remise.nb / 100)} = ${texPrix(prix - prix * remise.nb / 100)}`)}$.<br><br>
 Mais on peut aussi calculer directement le prix réduit en faisant :<br>
-$${miseEnEvidence(`${texPrix(prix)} \\times (100\\% - ${remise.str}) = ${texPrix(prix)} \\times ${100 - remise.nb}\\% = ${texPrix(prix)} \\times ${texNombre(calcul(1 - remise.nb / 100))} = ${texPrix(prix * calcul(1 - remise.nb / 100))}`)}$
+$${miseEnEvidence(`${texPrix(prix)} \\times (100${sp(1)}\\% - ${remise.str}) = ${texPrix(prix)} \\times ${100 - remise.nb}${sp(1)}\\% = ${texPrix(prix)} \\times ${texNombre(calcul(1 - remise.nb / 100))} = ${texPrix(prix * calcul(1 - remise.nb / 100))}`)}$
 `
             break
           case 'remise':
-            sortie = `-- L'énoncé indique $${texPrix(prix * remise.nb / 100)}$ € de remise pour un montant de $${texPrix(prix)}$ €<br>
+            sortie = `L'énoncé indique $${texPrix(prix * remise.nb / 100)}$ € de remise pour un montant de $${texPrix(prix)}$ €,<br>
 d'où le calcul pour le pourcentage de remise : $${miseEnEvidence(`${texPrix(prix * remise.nb / 100)} \\div ${texPrix(prix)} = ${texNombrec(remise.nb / 100)} = ${remise.str}`)}$.<br>
 Et celui pour le nouveau prix : $${miseEnEvidence(`${texPrix(prix)}-${texPrix(prix * remise.nb / 100)} = ${texPrix(prix - prix * remise.nb / 100)}`)}$.`
 
             break
           case 'nouveau_prix':
-            sortie = `-- L'énoncé indique un nouveau prix de $${texPrix(prix - prix * remise.nb / 100)}$ € pour un montant de $${texPrix(prix)}$ €<br>
+            sortie = `L'énoncé indique un nouveau prix de $${texPrix(prix - prix * remise.nb / 100)}$ € pour un montant de $${texPrix(prix)}$ €,<br>
 d'où le calcul pour le nouveau prix : $${miseEnEvidence(`${texPrix(prix)} - ${texPrix(prix - prix * remise.nb / 100)} = ${texPrix(prix * remise.nb / 100)}`)}$.<br>
 Et celui pour le pourcentage de remise : $${miseEnEvidence(`${texPrix(prix * remise.nb / 100)} \\div ${texPrix(prix)} = ${texNombrec(remise.nb / 100)} = ${remise.str}`)}$.`
             break
           case 'pourcentage_constant':
-            sortie = `-- L'énoncé indique un prix de $${texPrix(prix)}$ € et une remise de $${remise.str}$ du prix initial<br>
+            sortie = `L'énoncé indique un prix de $${texPrix(prix)}$ € et une remise de $${remise.str}$ du prix initial,<br>
 d'où le calcul pour le montant de la remise : $${miseEnEvidence(`${texPrix(prix)} \\times ${remise.str} = ${texPrix(prix)} \\times ${texNombre(remise.nb / 100)} = ${texPrix(prix * remise.nb / 100)}`)}$.<br>
 Et celui pour le nouveau prix : $${miseEnEvidence(`${texPrix(prix)}-${texPrix(prix * remise.nb / 100)} = ${texPrix(prix - prix * remise.nb / 100)}`)}$.<br><br>
 Mais on peut aussi calculer directement le prix réduit en faisant :<br>
-$${miseEnEvidence(`${texPrix(prix)} \\times (100\\% - ${remise.str}) = ${texPrix(prix)} \\times ${100 - remise.nb}\\% = ${texPrix(prix)} \\times ${texNombre(calcul(1 - remise.nb / 100))} = ${texPrix(prix * calcul(1 - remise.nb / 100))}`)}$
+$${miseEnEvidence(`${texPrix(prix)} \\times (100${sp(1)}\\% - ${remise.str}) = ${texPrix(prix)} \\times ${100 - remise.nb}${sp(1)}\\% = ${texPrix(prix)} \\times ${texNombre(calcul(1 - remise.nb / 100))} = ${texPrix(prix * calcul(1 - remise.nb / 100))}`)}$
 `
             break
         };
@@ -143,63 +143,63 @@ $${miseEnEvidence(`${texPrix(prix)} \\times (100\\% - ${remise.str}) = ${texPrix
       if (this.sup === 1 || this.sup === '1') { // coeff entier // Rajout EE du 'ou' pour 5N11-2
         if (this.exo === '5N11-1') { // prix constant
           remises = choice([
-            [{ str: '5\\%', nb: 5 }, { str: '10\\%', nb: 10 }, { str: '15\\%', nb: 15 }, { str: '20\\%', nb: 20 }, { str: '25\\%', nb: 25 }, { str: '30\\%', nb: 30 }],
-            [{ str: '5\\%', nb: 5 }, { str: '35\\%', nb: 35 }, { str: '45\\%', nb: 45 }, { str: '55\\%', nb: 55 }, { str: '65\\%', nb: 65 }, { str: '75\\%', nb: 75 }],
-            [{ str: '5\\%', nb: 5 }, { str: '15\\%', nb: 15 }, { str: '25\\%', nb: 25 }, { str: '35\\%', nb: 35 }, { str: '45\\%', nb: 45 }, { str: '55\\%', nb: 55 }],
-            [{ str: '5\\%', nb: 5 }, { str: '30\\%', nb: 30 }, { str: '40\\%', nb: 40 }, { str: '50\\%', nb: 50 }, { str: '60\\%', nb: 60 }, { str: '70\\%', nb: 70 }],
-            [{ str: '5\\%', nb: 5 }, { str: '25\\%', nb: 25 }, { str: '40\\%', nb: 40 }, { str: '45\\%', nb: 45 }, { str: '50\\%', nb: 50 }, { str: '55\\%', nb: 55 }],
-            [{ str: '5\\%', nb: 5 }, { str: '45\\%', nb: 45 }, { str: '50\\%', nb: 50 }, { str: '55\\%', nb: 55 }, { str: '60\\%', nb: 60 }, { str: '65\\%', nb: 65 }],
-            [{ str: '5\\%', nb: 5 }, { str: '50\\%', nb: 50 }, { str: '55\\%', nb: 55 }, { str: '60\\%', nb: 60 }, { str: '65\\%', nb: 65 }, { str: '70\\%', nb: 70 }],
-            [{ str: '10\\%', nb: 10 }, { str: '20\\%', nb: 20 }, { str: '30\\%', nb: 30 }, { str: '40\\%', nb: 40 }, { str: '50\\%', nb: 50 }, { str: '60\\%', nb: 60 }],
-            [{ str: '10\\%', nb: 10 }, { str: '30\\%', nb: 30 }, { str: '40\\%', nb: 40 }, { str: '50\\%', nb: 50 }, { str: '60\\%', nb: 60 }, { str: '70\\%', nb: 70 }],
-            [{ str: '10\\%', nb: 10 }, { str: '40\\%', nb: 40 }, { str: '50\\%', nb: 50 }, { str: '60\\%', nb: 60 }, { str: '70\\%', nb: 70 }, { str: '80\\%', nb: 80 }]
+            [{ str: `5${sp(1)}\\%`, nb: 5 }, { str: `10${sp(1)}\\%`, nb: 10 }, { str: `15${sp(1)}\\%`, nb: 15 }, { str: `20${sp(1)}\\%`, nb: 20 }, { str: `25${sp(1)}\\%`, nb: 25 }, { str: `30${sp(1)}\\%`, nb: 30 }],
+            [{ str: `5${sp(1)}\\%`, nb: 5 }, { str: `35${sp(1)}\\%`, nb: 35 }, { str: `45${sp(1)}\\%`, nb: 45 }, { str: `55${sp(1)}\\%`, nb: 55 }, { str: `65${sp(1)}\\%`, nb: 65 }, { str: `75${sp(1)}\\%`, nb: 75 }],
+            [{ str: `5${sp(1)}\\%`, nb: 5 }, { str: `15${sp(1)}\\%`, nb: 15 }, { str: `25${sp(1)}\\%`, nb: 25 }, { str: `35${sp(1)}\\%`, nb: 35 }, { str: `45${sp(1)}\\%`, nb: 45 }, { str: `55${sp(1)}\\%`, nb: 55 }],
+            [{ str: `5${sp(1)}\\%`, nb: 5 }, { str: `30${sp(1)}\\%`, nb: 30 }, { str: `40${sp(1)}\\%`, nb: 40 }, { str: `50${sp(1)}\\%`, nb: 50 }, { str: `60${sp(1)}\\%`, nb: 60 }, { str: `70${sp(1)}\\%`, nb: 70 }],
+            [{ str: `5${sp(1)}\\%`, nb: 5 }, { str: `25${sp(1)}\\%`, nb: 25 }, { str: `40${sp(1)}\\%`, nb: 40 }, { str: `45${sp(1)}\\%`, nb: 45 }, { str: `50${sp(1)}\\%`, nb: 50 }, { str: `55${sp(1)}\\%`, nb: 55 }],
+            [{ str: `5${sp(1)}\\%`, nb: 5 }, { str: `45${sp(1)}\\%`, nb: 45 }, { str: `50${sp(1)}\\%`, nb: 50 }, { str: `55${sp(1)}\\%`, nb: 55 }, { str: `60${sp(1)}\\%`, nb: 60 }, { str: `65${sp(1)}\\%`, nb: 65 }],
+            [{ str: `5${sp(1)}\\%`, nb: 5 }, { str: `50${sp(1)}\\%`, nb: 50 }, { str: `55${sp(1)}\\%`, nb: 55 }, { str: `60${sp(1)}\\%`, nb: 60 }, { str: `65${sp(1)}\\%`, nb: 65 }, { str: `70${sp(1)}\\%`, nb: 70 }],
+            [{ str: `10${sp(1)}\\%`, nb: 10 }, { str: `20${sp(1)}\\%`, nb: 20 }, { str: `30${sp(1)}\\%`, nb: 30 }, { str: `40${sp(1)}\\%`, nb: 40 }, { str: `50${sp(1)}\\%`, nb: 50 }, { str: `60${sp(1)}\\%`, nb: 60 }],
+            [{ str: `10${sp(1)}\\%`, nb: 10 }, { str: `30${sp(1)}\\%`, nb: 30 }, { str: `40${sp(1)}\\%`, nb: 40 }, { str: `50${sp(1)}\\%`, nb: 50 }, { str: `60${sp(1)}\\%`, nb: 60 }, { str: `70${sp(1)}\\%`, nb: 70 }],
+            [{ str: `10${sp(1)}\\%`, nb: 10 }, { str: `40${sp(1)}\\%`, nb: 40 }, { str: `50${sp(1)}\\%`, nb: 50 }, { str: `60${sp(1)}\\%`, nb: 60 }, { str: `70${sp(1)}\\%`, nb: 70 }, { str: `80${sp(1)}\\%`, nb: 80 }]
           ])
         } else if (this.exo === '5N11-2') { // pourcentage constant
           remises = choice([
-            [{ str: '5\\%', nb: 5 }, { str: '5\\%', nb: 5 }, { str: '5\\%', nb: 5 }, { str: '5\\%', nb: 5 }, { str: '5\\%', nb: 5 }, { str: '5\\%', nb: 5 }],
-            [{ str: '10\\%', nb: 10 }, { str: '10\\%', nb: 10 }, { str: '10\\%', nb: 10 }, { str: '10\\%', nb: 10 }, { str: '10\\%', nb: 10 }, { str: '10\\%', nb: 10 }],
-            [{ str: '15\\%', nb: 15 }, { str: '15\\%', nb: 15 }, { str: '15\\%', nb: 15 }, { str: '15\\%', nb: 15 }, { str: '15\\%', nb: 15 }, { str: '15\\%', nb: 15 }],
-            [{ str: '20\\%', nb: 20 }, { str: '20\\%', nb: 20 }, { str: '20\\%', nb: 20 }, { str: '20\\%', nb: 20 }, { str: '20\\%', nb: 20 }, { str: '20\\%', nb: 20 }],
-            [{ str: '25\\%', nb: 25 }, { str: '25\\%', nb: 25 }, { str: '25\\%', nb: 25 }, { str: '25\\%', nb: 25 }, { str: '25\\%', nb: 25 }, { str: '25\\%', nb: 25 }],
-            [{ str: '30\\%', nb: 30 }, { str: '30\\%', nb: 30 }, { str: '30\\%', nb: 30 }, { str: '30\\%', nb: 30 }, { str: '30\\%', nb: 30 }, { str: '30\\%', nb: 30 }],
-            [{ str: '35\\%', nb: 35 }, { str: '35\\%', nb: 35 }, { str: '35\\%', nb: 35 }, { str: '35\\%', nb: 35 }, { str: '35\\%', nb: 35 }, { str: '35\\%', nb: 35 }],
-            [{ str: '40\\%', nb: 40 }, { str: '40\\%', nb: 40 }, { str: '40\\%', nb: 40 }, { str: '40\\%', nb: 40 }, { str: '40\\%', nb: 40 }, { str: '40\\%', nb: 40 }],
-            [{ str: '45\\%', nb: 45 }, { str: '45\\%', nb: 45 }, { str: '45\\%', nb: 45 }, { str: '45\\%', nb: 45 }, { str: '45\\%', nb: 45 }, { str: '45\\%', nb: 45 }],
-            [{ str: '50\\%', nb: 50 }, { str: '50\\%', nb: 50 }, { str: '50\\%', nb: 50 }, { str: '50\\%', nb: 50 }, { str: '50\\%', nb: 50 }, { str: '50\\%', nb: 50 }],
-            [{ str: '55\\%', nb: 55 }, { str: '55\\%', nb: 55 }, { str: '55\\%', nb: 55 }, { str: '55\\%', nb: 55 }, { str: '55\\%', nb: 55 }, { str: '55\\%', nb: 55 }],
-            [{ str: '60\\%', nb: 60 }, { str: '60\\%', nb: 60 }, { str: '60\\%', nb: 60 }, { str: '60\\%', nb: 60 }, { str: '60\\%', nb: 60 }, { str: '60\\%', nb: 60 }],
-            [{ str: '65\\%', nb: 65 }, { str: '65\\%', nb: 65 }, { str: '65\\%', nb: 65 }, { str: '65\\%', nb: 65 }, { str: '65\\%', nb: 65 }, { str: '65\\%', nb: 65 }],
-            [{ str: '70\\%', nb: 70 }, { str: '70\\%', nb: 70 }, { str: '70\\%', nb: 70 }, { str: '70\\%', nb: 70 }, { str: '70\\%', nb: 70 }, { str: '70\\%', nb: 70 }],
-            [{ str: '75\\%', nb: 75 }, { str: '75\\%', nb: 75 }, { str: '75\\%', nb: 75 }, { str: '75\\%', nb: 75 }, { str: '75\\%', nb: 75 }, { str: '75\\%', nb: 75 }],
-            [{ str: '80\\%', nb: 80 }, { str: '80\\%', nb: 80 }, { str: '80\\%', nb: 80 }, { str: '80\\%', nb: 80 }, { str: '80\\%', nb: 80 }, { str: '80\\%', nb: 80 }]
+            [{ str: `5${sp(1)}\\%`, nb: 5 }, { str: `5${sp(1)}\\%`, nb: 5 }, { str: `5${sp(1)}\\%`, nb: 5 }, { str: `5${sp(1)}\\%`, nb: 5 }, { str: `5${sp(1)}\\%`, nb: 5 }, { str: `5${sp(1)}\\%`, nb: 5 }],
+            [{ str: `10${sp(1)}\\%`, nb: 10 }, { str: `10${sp(1)}\\%`, nb: 10 }, { str: `10${sp(1)}\\%`, nb: 10 }, { str: `10${sp(1)}\\%`, nb: 10 }, { str: `10${sp(1)}\\%`, nb: 10 }, { str: `10${sp(1)}\\%`, nb: 10 }],
+            [{ str: `15${sp(1)}\\%`, nb: 15 }, { str: `15${sp(1)}\\%`, nb: 15 }, { str: `15${sp(1)}\\%`, nb: 15 }, { str: `15${sp(1)}\\%`, nb: 15 }, { str: `15${sp(1)}\\%`, nb: 15 }, { str: `15${sp(1)}\\%`, nb: 15 }],
+            [{ str: `20${sp(1)}\\%`, nb: 20 }, { str: `20${sp(1)}\\%`, nb: 20 }, { str: `20${sp(1)}\\%`, nb: 20 }, { str: `20${sp(1)}\\%`, nb: 20 }, { str: `20${sp(1)}\\%`, nb: 20 }, { str: `20${sp(1)}\\%`, nb: 20 }],
+            [{ str: `25${sp(1)}\\%`, nb: 25 }, { str: `25${sp(1)}\\%`, nb: 25 }, { str: `25${sp(1)}\\%`, nb: 25 }, { str: `25${sp(1)}\\%`, nb: 25 }, { str: `25${sp(1)}\\%`, nb: 25 }, { str: `25${sp(1)}\\%`, nb: 25 }],
+            [{ str: `30${sp(1)}\\%`, nb: 30 }, { str: `30${sp(1)}\\%`, nb: 30 }, { str: `30${sp(1)}\\%`, nb: 30 }, { str: `30${sp(1)}\\%`, nb: 30 }, { str: `30${sp(1)}\\%`, nb: 30 }, { str: `30${sp(1)}\\%`, nb: 30 }],
+            [{ str: `35${sp(1)}\\%`, nb: 35 }, { str: `35${sp(1)}\\%`, nb: 35 }, { str: `35${sp(1)}\\%`, nb: 35 }, { str: `35${sp(1)}\\%`, nb: 35 }, { str: `35${sp(1)}\\%`, nb: 35 }, { str: `35${sp(1)}\\%`, nb: 35 }],
+            [{ str: `40${sp(1)}\\%`, nb: 40 }, { str: `40${sp(1)}\\%`, nb: 40 }, { str: `40${sp(1)}\\%`, nb: 40 }, { str: `40${sp(1)}\\%`, nb: 40 }, { str: `40${sp(1)}\\%`, nb: 40 }, { str: `40${sp(1)}\\%`, nb: 40 }],
+            [{ str: `45${sp(1)}\\%`, nb: 45 }, { str: `45${sp(1)}\\%`, nb: 45 }, { str: `45${sp(1)}\\%`, nb: 45 }, { str: `45${sp(1)}\\%`, nb: 45 }, { str: `45${sp(1)}\\%`, nb: 45 }, { str: `45${sp(1)}\\%`, nb: 45 }],
+            [{ str: `50${sp(1)}\\%`, nb: 50 }, { str: `50${sp(1)}\\%`, nb: 50 }, { str: `50${sp(1)}\\%`, nb: 50 }, { str: `50${sp(1)}\\%`, nb: 50 }, { str: `50${sp(1)}\\%`, nb: 50 }, { str: `50${sp(1)}\\%`, nb: 50 }],
+            [{ str: `55${sp(1)}\\%`, nb: 55 }, { str: `55${sp(1)}\\%`, nb: 55 }, { str: `55${sp(1)}\\%`, nb: 55 }, { str: `55${sp(1)}\\%`, nb: 55 }, { str: `55${sp(1)}\\%`, nb: 55 }, { str: `55${sp(1)}\\%`, nb: 55 }],
+            [{ str: `60${sp(1)}\\%`, nb: 60 }, { str: `60${sp(1)}\\%`, nb: 60 }, { str: `60${sp(1)}\\%`, nb: 60 }, { str: `60${sp(1)}\\%`, nb: 60 }, { str: `60${sp(1)}\\%`, nb: 60 }, { str: `60${sp(1)}\\%`, nb: 60 }],
+            [{ str: `65${sp(1)}\\%`, nb: 65 }, { str: `65${sp(1)}\\%`, nb: 65 }, { str: `65${sp(1)}\\%`, nb: 65 }, { str: `65${sp(1)}\\%`, nb: 65 }, { str: `65${sp(1)}\\%`, nb: 65 }, { str: `65${sp(1)}\\%`, nb: 65 }],
+            [{ str: `70${sp(1)}\\%`, nb: 70 }, { str: `70${sp(1)}\\%`, nb: 70 }, { str: `70${sp(1)}\\%`, nb: 70 }, { str: `70${sp(1)}\\%`, nb: 70 }, { str: `70${sp(1)}\\%`, nb: 70 }, { str: `70${sp(1)}\\%`, nb: 70 }],
+            [{ str: `75${sp(1)}\\%`, nb: 75 }, { str: `75${sp(1)}\\%`, nb: 75 }, { str: `75${sp(1)}\\%`, nb: 75 }, { str: `75${sp(1)}\\%`, nb: 75 }, { str: `75${sp(1)}\\%`, nb: 75 }, { str: `75${sp(1)}\\%`, nb: 75 }],
+            [{ str: `80${sp(1)}\\%`, nb: 80 }, { str: `80${sp(1)}\\%`, nb: 80 }, { str: `80${sp(1)}\\%`, nb: 80 }, { str: `80${sp(1)}\\%`, nb: 80 }, { str: `80${sp(1)}\\%`, nb: 80 }, { str: `80${sp(1)}\\%`, nb: 80 }]
           ])
         }
       } else if (this.sup === 2) { // coeff décimal
         if (this.exo === '5N11-1') { // prix constant
           remises = choice([
-            [{ str: '10\\%', nb: 10 }, { str: '5\\%', nb: 5 }, { str: '15\\%', nb: 15 }, { str: '25\\%', nb: 25 }, { str: '35\\%', nb: 35 }, { str: '45\\%', nb: 45 }],
-            [{ str: '50\\%', nb: 50 }, { str: '30\\%', nb: 30 }, { str: '10\\%', nb: 10 }, { str: '20\\%', nb: 20 }, { str: '40\\%', nb: 40 }, { str: '60\\%', nb: 60 }],
-            [{ str: '20\\%', nb: 20 }, { str: '10\\%', nb: 10 }, { str: '50\\%', nb: 50 }, { str: '30\\%', nb: 30 }, { str: '40\\%', nb: 40 }, { str: '60\\%', nb: 60 }],
-            [{ str: '40\\%', nb: 40 }, { str: '10\\%', nb: 10 }, { str: '5\\%', nb: 5 }, { str: '20\\%', nb: 20 }, { str: '50\\%', nb: 50 }, { str: '30\\%', nb: 30 }],
-            [{ str: '80\\%', nb: 80 }, { str: '10\\%', nb: 10 }, { str: '50\\%', nb: 50 }, { str: '30\\%', nb: 30 }, { str: '40\\%', nb: 40 }, { str: '20\\%', nb: 20 }],
-            [{ str: '10\\%', nb: 10 }, { str: '15\\%', nb: 15 }, { str: '25\\%', nb: 25 }, { str: '35\\%', nb: 35 }, { str: '45\\%', nb: 45 }, { str: '55\\%', nb: 55 }],
-            [{ str: '50\\%', nb: 50 }, { str: '35\\%', nb: 35 }, { str: '10\\%', nb: 10 }, { str: '25\\%', nb: 25 }, { str: '40\\%', nb: 40 }, { str: '65\\%', nb: 65 }],
-            [{ str: '20\\%', nb: 20 }, { str: '5\\%', nb: 5 }, { str: '50\\%', nb: 50 }, { str: '35\\%', nb: 35 }, { str: '40\\%', nb: 40 }, { str: '55\\%', nb: 55 }],
-            [{ str: '40\\%', nb: 40 }, { str: '15\\%', nb: 15 }, { str: '5\\%', nb: 5 }, { str: '20\\%', nb: 20 }, { str: '30\\%', nb: 30 }, { str: '25\\%', nb: 25 }],
-            [{ str: '80\\%', nb: 80 }, { str: '20\\%', nb: 20 }, { str: '55\\%', nb: 55 }, { str: '30\\%', nb: 30 }, { str: '40\\%', nb: 40 }, { str: '20\\%', nb: 20 }]
+            [{ str: `10${sp(1)}\\%`, nb: 10 }, { str: `5${sp(1)}\\%`, nb: 5 }, { str: `15${sp(1)}\\%`, nb: 15 }, { str: `25${sp(1)}\\%`, nb: 25 }, { str: `35${sp(1)}\\%`, nb: 35 }, { str: `45${sp(1)}\\%`, nb: 45 }],
+            [{ str: `50${sp(1)}\\%`, nb: 50 }, { str: `30${sp(1)}\\%`, nb: 30 }, { str: `10${sp(1)}\\%`, nb: 10 }, { str: `20${sp(1)}\\%`, nb: 20 }, { str: `40${sp(1)}\\%`, nb: 40 }, { str: `60${sp(1)}\\%`, nb: 60 }],
+            [{ str: `20${sp(1)}\\%`, nb: 20 }, { str: `10${sp(1)}\\%`, nb: 10 }, { str: `50${sp(1)}\\%`, nb: 50 }, { str: `30${sp(1)}\\%`, nb: 30 }, { str: `40${sp(1)}\\%`, nb: 40 }, { str: `60${sp(1)}\\%`, nb: 60 }],
+            [{ str: `40${sp(1)}\\%`, nb: 40 }, { str: `10${sp(1)}\\%`, nb: 10 }, { str: `5${sp(1)}\\%`, nb: 5 }, { str: `20${sp(1)}\\%`, nb: 20 }, { str: `50${sp(1)}\\%`, nb: 50 }, { str: `30${sp(1)}\\%`, nb: 30 }],
+            [{ str: `80${sp(1)}\\%`, nb: 80 }, { str: `10${sp(1)}\\%`, nb: 10 }, { str: `50${sp(1)}\\%`, nb: 50 }, { str: `30${sp(1)}\\%`, nb: 30 }, { str: `40${sp(1)}\\%`, nb: 40 }, { str: `20${sp(1)}\\%`, nb: 20 }],
+            [{ str: `10${sp(1)}\\%`, nb: 10 }, { str: `15${sp(1)}\\%`, nb: 15 }, { str: `25${sp(1)}\\%`, nb: 25 }, { str: `35${sp(1)}\\%`, nb: 35 }, { str: `45${sp(1)}\\%`, nb: 45 }, { str: `55${sp(1)}\\%`, nb: 55 }],
+            [{ str: `50${sp(1)}\\%`, nb: 50 }, { str: `35${sp(1)}\\%`, nb: 35 }, { str: `10${sp(1)}\\%`, nb: 10 }, { str: `25${sp(1)}\\%`, nb: 25 }, { str: `40${sp(1)}\\%`, nb: 40 }, { str: `65${sp(1)}\\%`, nb: 65 }],
+            [{ str: `20${sp(1)}\\%`, nb: 20 }, { str: `5${sp(1)}\\%`, nb: 5 }, { str: `50${sp(1)}\\%`, nb: 50 }, { str: `35${sp(1)}\\%`, nb: 35 }, { str: `40${sp(1)}\\%`, nb: 40 }, { str: `55${sp(1)}\\%`, nb: 55 }],
+            [{ str: `40${sp(1)}\\%`, nb: 40 }, { str: `15${sp(1)}\\%`, nb: 15 }, { str: `5${sp(1)}\\%`, nb: 5 }, { str: `20${sp(1)}\\%`, nb: 20 }, { str: `30${sp(1)}\\%`, nb: 30 }, { str: `25${sp(1)}\\%`, nb: 25 }],
+            [{ str: `80${sp(1)}\\%`, nb: 80 }, { str: `20${sp(1)}\\%`, nb: 20 }, { str: `55${sp(1)}\\%`, nb: 55 }, { str: `30${sp(1)}\\%`, nb: 30 }, { str: `40${sp(1)}\\%`, nb: 40 }, { str: `20${sp(1)}\\%`, nb: 20 }]
           ])
         } else if (this.exo === '5N11-2') { // pourcentage constant
           // remises = choice([
-          // [{str:'10\\%',nb:10},{str:'5\\%',nb:5},{str:'15\\%',nb:15},{str:'25\\%',nb:25},{str:'35\\%',nb:35},{str:'45\\%',nb:45}],
-          // [{str:'50\\%',nb:50},{str:'30\\%',nb:30},{str:'10\\%',nb:10},{str:'20\\%',nb:20},{str:'40\\%',nb:40},{str:'60\\%',nb:60}],
-          // [{str:'20\\%',nb:20},{str:'10\\%',nb:10},{str:'50\\%',nb:50},{str:'30\\%',nb:30},{str:'40\\%',nb:40},{str:'60\\%',nb:60}],
-          // [{str:'40\\%',nb:40},{str:'10\\%',nb:10},{str:'5\\%',nb:5},{str:'20\\%',nb:20},{str:'50\\%',nb:50},{str:'30\\%',nb:30}],
-          // [{str:'80\\%',nb:80},{str:'10\\%',nb:10},{str:'50\\%',nb:50},{str:'30\\%',nb:30},{str:'40\\%',nb:40},{str:'20\\%',nb:20}],
-          // [{str:'10\\%',nb:10},{str:'15\\%',nb:15},{str:'25\\%',nb:25},{str:'35\\%',nb:35},{str:'45\\%',nb:45},{str:'55\\%',nb:55}],
-          // [{str:'50\\%',nb:50},{str:'35\\%',nb:35},{str:'10\\%',nb:10},{str:'25\\%',nb:25},{str:'40\\%',nb:40},{str:'65\\%',nb:65}],
-          // [{str:'20\\%',nb:20},{str:'5\\%',nb:5},{str:'50\\%',nb:50},{str:'35\\%',nb:35},{str:'40\\%',nb:40},{str:'55\\%',nb:55}],
-          // [{str:'40\\%',nb:40},{str:'15\\%',nb:15},{str:'5\\%',nb:5},{str:'20\\%',nb:20},{str:'30\\%',nb:30},{str:'25\\%',nb:25}],
-          // [{str:'80\\%',nb:80},{str:'20\\%',nb:20},{str:'55\\%',nb:55},{str:'30\\%',nb:30},{str:'40\\%',nb:40},{str:'20\\%',nb:20}],
+          // [{str:`10${sp(1)}\\%`,nb:10},{str:`5${sp(1)}\\%`,nb:5},{str:`15${sp(1)}\\%`,nb:15},{str:`25${sp(1)}\\%`,nb:25},{str:`35${sp(1)}\\%`,nb:35},{str:`45${sp(1)}\\%`,nb:45}],
+          // [{str:`50${sp(1)}\\%`,nb:50},{str:`30${sp(1)}\\%`,nb:30},{str:`10${sp(1)}\\%`,nb:10},{str:`20${sp(1)}\\%`,nb:20},{str:`40${sp(1)}\\%`,nb:40},{str:`60${sp(1)}\\%`,nb:60}],
+          // [{str:`20${sp(1)}\\%`,nb:20},{str:`10${sp(1)}\\%`,nb:10},{str:`50${sp(1)}\\%`,nb:50},{str:`30${sp(1)}\\%`,nb:30},{str:`40${sp(1)}\\%`,nb:40},{str:`60${sp(1)}\\%`,nb:60}],
+          // [{str:`40${sp(1)}\\%`,nb:40},{str:`10${sp(1)}\\%`,nb:10},{str:`5${sp(1)}\\%`,nb:5},{str:`20${sp(1)}\\%`,nb:20},{str:`50${sp(1)}\\%`,nb:50},{str:`30${sp(1)}\\%`,nb:30}],
+          // [{str:`80${sp(1)}\\%`,nb:80},{str:`10${sp(1)}\\%`,nb:10},{str:`50${sp(1)}\\%`,nb:50},{str:`30${sp(1)}\\%`,nb:30},{str:`40${sp(1)}\\%`,nb:40},{str:`20${sp(1)}\\%`,nb:20}],
+          // [{str:`10${sp(1)}\\%`,nb:10},{str:`15${sp(1)}\\%`,nb:15},{str:`25${sp(1)}\\%`,nb:25},{str:`35${sp(1)}\\%`,nb:35},{str:`45${sp(1)}\\%`,nb:45},{str:`55${sp(1)}\\%`,nb:55}],
+          // [{str:`50${sp(1)}\\%`,nb:50},{str:`35${sp(1)}\\%`,nb:35},{str:`10${sp(1)}\\%`,nb:10},{str:`25${sp(1)}\\%`,nb:25},{str:`40${sp(1)}\\%`,nb:40},{str:`65${sp(1)}\\%`,nb:65}],
+          // [{str:`20${sp(1)}\\%`,nb:20},{str:`5${sp(1)}\\%`,nb:5},{str:`50${sp(1)}\\%`,nb:50},{str:`35${sp(1)}\\%`,nb:35},{str:`40${sp(1)}\\%`,nb:40},{str:`55${sp(1)}\\%`,nb:55}],
+          // [{str:`40${sp(1)}\\%`,nb:40},{str:`15${sp(1)}\\%`,nb:15},{str:`5${sp(1)}\\%`,nb:5},{str:`20${sp(1)}\\%`,nb:20},{str:`30${sp(1)}\\%`,nb:30},{str:`25${sp(1)}\\%`,nb:25}],
+          // [{str:`80${sp(1)}\\%`,nb:80},{str:`20${sp(1)}\\%`,nb:20},{str:`55${sp(1)}\\%`,nb:55},{str:`30${sp(1)}\\%`,nb:30},{str:`40${sp(1)}\\%`,nb:40},{str:`20${sp(1)}\\%`,nb:20}],
           // ]);
         };
       };

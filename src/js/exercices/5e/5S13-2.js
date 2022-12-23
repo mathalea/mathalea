@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, choice, calcul, shuffle, tableauColonneLigne, texNombre, contraindreValeur, numAlpha, combinaisonListes, arrondi, egalOuApprox } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, calcul, shuffle, tableauColonneLigne, texNombre, contraindreValeur, numAlpha, combinaisonListes, arrondi, egalOuApprox, sp } from '../../modules/outils.js'
 import { diagrammeBarres } from '../../modules/2d.js'
 import { fraction } from '../../modules/fractions.js'
 import { context } from '../../modules/context.js'
@@ -68,7 +68,7 @@ function listeEntiersDepuisSomme (total, nbElements) {
 }
 
 function graphique (hauteursBarres, etiquettes, { reperageTraitPointille = false, couleurDeRemplissage = 'blue', titreAxeVertical = '', titre = '', hauteurDiagramme = 8, coeff = 2, axeVertical = false, etiquetteValeur = true, labelAxeVert = false }) {
-  const diagramme = diagrammeBarres(hauteursBarres, etiquettes, { reperageTraitPointille: reperageTraitPointille, couleurDeRemplissage: couleurDeRemplissage, titreAxeVertical: titreAxeVertical, titre: titre, hauteurDiagramme: hauteurDiagramme, coeff: coeff, axeVertical: axeVertical, etiquetteValeur: etiquetteValeur, labelAxeVert: labelAxeVert })
+  const diagramme = diagrammeBarres(hauteursBarres, etiquettes, { reperageTraitPointille, couleurDeRemplissage, titreAxeVertical, titre, hauteurDiagramme, coeff, axeVertical, etiquetteValeur, labelAxeVert })
   return mathalea2d(Object.assign({}, fixeBordures([diagramme], { rxmin: -3, rymin: -3, rymax: 1.5 }), { style: 'inline', scale: 0.5 }), diagramme)
 }
 
@@ -242,7 +242,7 @@ export default function CalculerDesFrequences () {
         enteteTableau.push(`\\text{${serie.modalites[index]}}`)
         const f = fraction(eff, serie.effectifTotal)
         premiereLigneTableau.push(f.texFraction)
-        deuxiemeLigneTableau.push(`${texNombre(f.pourcentage)} \\%`)
+        deuxiemeLigneTableau.push(`${texNombre(f.pourcentage)} ${sp(1)}\\%`)
       })
       premiereColonne.push('\\textbf{Fréquences}', '\\textbf{Fréquences en pourcentages}')
       correction2 += tableauColonneLigne(enteteTableau, premiereColonne, premiereLigneTableau.concat(deuxiemeLigneTableau))
@@ -254,7 +254,7 @@ export default function CalculerDesFrequences () {
       correction2 += 'On en déduit donc :<br>'
       const fValeur = fraction(serie.effectifs[rangValeurChoisie], serie.effectifTotal)
       correction2 += `$\\text{Fréquence}_{${serie.modalites[rangValeurChoisie]}}= ${fValeur.texFraction}$<br>`
-      correction2 += `$\\text{Fréquence}_{${serie.modalites[rangValeurChoisie]}}${egalOuApprox(serie.effectifs[rangValeurChoisie] * 100 / serie.effectifTotal, 1)}${texNombre(arrondi(fValeur.pourcentage, 1))} \\%$`
+      correction2 += `$\\text{Fréquence}_{${serie.modalites[rangValeurChoisie]}}${egalOuApprox(serie.effectifs[rangValeurChoisie] * 100 / serie.effectifTotal, 1)}${texNombre(arrondi(fValeur.pourcentage, 1))} ${sp(1)}\\%$`
     }
 
     if (!exercice.interactif && !context.isAmc) { // Questions normales pour version non interactive html ou latex
