@@ -2,7 +2,9 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { splineCatmullRom } from '../../modules/fonctionsMaths.js'
 import { courbe, repere } from '../../modules/2d.js'
-import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
+import { max, min } from 'mathjs'
+
 export const titre = 'Resoudre graphiquement une équation'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -19,7 +21,7 @@ export default class nomExercice extends Exercice {
     super()
     this.titre = titre
     this.consigne = 'Consigne'
-    this.nbQuestions = 10 // Nombre de questions par défaut
+    this.nbQuestions = 2 // Nombre de questions par défaut
     this.nbCols = 2 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
     this.video = '' // Id YouTube ou url
@@ -30,34 +32,36 @@ export default class nomExercice extends Exercice {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
-    const typeQuestionsDisponibles = ['type1', 'type2', 'type3'] // On créé 3 types de questions
+    const typeQuestionsDisponibles = ['2solA'] // On créé 3 types de questions
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, r, tabY, f, F, c2, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+    for (let i = 0, r, tabY, f, F, c2, y1, y2, y3, y4, y5, y6, x0, ymin, ymax, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
-        case 'type1':
-          r = repere({ xMin: -5, xMax: 5, yMin: -5, yMax: 5, xUnite: 2, yUnite: 2 })
+        case '2solA':// Cas où f croissante puis décroissante avec 2 solutions
+          y1 = -5
+          y2 = y1 + randint(2, 8)
+          y3 = min(y2 + randint(2, 5), 5)
+          y4 = max(y3 - randint(2, 4), y2 + 1)
+          y5 = y2
+          y6 = y5 - randint(2, 4)
+          x0 = randint(-5, -2)
+          ymin = min(y1, y2, y3, y4, y5, y6, -1)
+          ymax = max(y1, y2, y3, y4, y5, y6, 1)
+          texte = `Résoudre $f(x)=${y2}$` // Le LateX entre deux symboles $, les variables dans des ${ }
+          r = repere({ xMin: x0, xMax: x0 + 10, yMin: ymin, yMax: ymax, xUnite: 2, yUnite: 2 })
 
-          tabY = [1, 0, -0, -2, 0, 1, 2, 1, 0, 1, -1] // Voici les ordonnées successives par lesquelles passera la courbe à partir de x0, puis x0 + step, ...
-          f = splineCatmullRom({ tabY, x0: -5, step: 1 }) // le tableau des ordonnées successives = tabY, x0 = -5, step = 1.
+          tabY = [y1, y2, y3, y4, y5, y6] // Voici les ordonnées successives par lesquelles passera la courbe à partir de x0, puis x0 + step, ...
+          f = splineCatmullRom({ tabY, x0, step: 2 }) // le tableau des ordonnées successives = tabY, x0 = -5, step = 1.
           F = x => f.image(x) // On crée une fonction de x f.image(x) est une fonction polynomiale par morceaux utilisée dans courbeSpline()
           // const c = courbeSpline(f, { repere: r, step: 0.1 }) // Une première façon de tracer la courbe.
           c2 = courbe(F, { repere: r, step: 0.1, color: 'red' }) // F peut ainsi être utilisée dans courbe.
 
-          this.contenu = mathalea2d({ xmin: -15, xmax: 15, ymin: -10, ymax: 10 }, r, c2)
+          texte += this.contenu = mathalea2d({ xmin: -15, xmax: 15, ymin: -15, ymax: 15 }, r, c2)
           for (let i = 0; i < tabY.length; i++) {
-            this.contenu += `(${-5 + i};${tabY[i]}), `
+            this.contenu += `(${x0 + i};${tabY[i]}), `
           }
-          texte = `Question ${i + 1} de type 1` // Le LateX entre deux symboles $, les variables dans des ${ }
+
           texteCorr = `Correction ${i + 1} de type 1`
-          break
-        case 'type2':
-          texte = `Question ${i + 1} de type 2`
-          texteCorr = `Correction ${i + 1} de type 2`
-          break
-        case 'type3':
-          texte = `Question ${i + 1} de type 3`
-          texteCorr = `Correction ${i + 1} de type 3`
           break
       }
       // Si la question n'a jamais été posée, on l'enregistre
