@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, texNombre, sp } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -57,7 +57,7 @@ export default function MultiplierDecimaux () {
       texte = `$${texNombre(a)}\\times${texNombre(b)}$`
       reponse = calcul(a * b)
       texteCorr = Operation({ operande1: a, operande2: b, type: 'multiplication', style: 'display: inline' })
-      texteCorr += Operation({ operande1: b, operande2: a, type: 'multiplication', style: 'display: inline' })
+      texteCorr += '$\\phantom{espace}$' + Operation({ operande1: b, operande2: a, type: 'multiplication', style: 'display: inline' })
       if (context.isHtml && this.interactif) texte += '$~=$' + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
       setReponse(this, i, reponse)
       this.autoCorrection[i].options = { digits: 0, decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
