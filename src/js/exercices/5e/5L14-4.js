@@ -59,13 +59,13 @@ export default function DeterminerDerniereOperationExpressionLitterale () {
       texte = `${expn}`
       if (this.debug) {
         texte += '<br><br>=====CORRECTION======<br>'
-        texte += `Pour fixer les idées, choissions des valeurs pour $x$ et $y$, par exemple $x=${val1}$ et $y=${val2}$.`
+        texte += `Pour fixer les idées, choisissons des valeurs pour $x$ et $y$, par exemple $x=${val1}$ et $y=${val2}$.`
         texte += `<br>Le calcul serait le suivant :<br> ${expc}.`
         texte += '<br>Pour n\'importe quelles valeurs de $x$ et de $y$ choisies, les étapes sont les mêmes, elles respectent les priorités opératoires.'
         texte += texteEnCouleur(`<br>La dernière opération dans ${expn} est une ${lastOp}.`)
         texteCorr = ''
       } else {
-        texteCorr = `Pour fixer les idées, choissions des valeurs pour $x$ et $y$, par exemple $x=${val1}$ et $y=${val2}$.`
+        texteCorr = `Pour fixer les idées, choisissons des valeurs pour $x$ et $y$, par exemple $x=${val1}$ et $y=${val2}$.`
         texteCorr += `<br>Le calcul serait le suivant : ${expc}.`
         texteCorr += '<br>Pour n\'importe quelles valeurs de $x$ et de $y$ choisies, les étapes sont les mêmes, elles respectent les priorités opératoires.'
         texteCorr += texteEnCouleur(`<br>La dernière opération dans ${expn} est une ${lastOp}.`)

@@ -126,7 +126,7 @@ export default function ConstruireUnDiagramme () {
         }
         contenutableau.push('360\\degree')
 
-        texteCorr += `${tableauColonneLigne(entete, ['\\text{Éffectifs}', '\\text{Fréquences}', '\\text{Angles}'], contenutableau, 3)}<br>`
+        texteCorr += `${tableauColonneLigne(entete, ['\\text{Effectifs}', '\\text{Fréquences}', '\\text{Angles}'], contenutableau, 3)}<br>`
 
         A = point(0, 0)
         B = point(6, 0)
@@ -180,7 +180,7 @@ export default function ConstruireUnDiagramme () {
         }
         contenutableau.push('180\\degree')
 
-        texteCorr += `${tableauColonneLigne(entete, ['\\text{Éffectifs}', '\\text{Fréquences}', '\\text{Angles}'], contenutableau, 3)}<br>`
+        texteCorr += `${tableauColonneLigne(entete, ['\\text{Effectifs}', '\\text{Fréquences}', '\\text{Angles}'], contenutableau, 3)}<br>`
 
         A = point(0, 0)
         B = point(6, 0)

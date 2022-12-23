@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleurEtGras } from '../../modules/outils.js'
 import ChoisirUneExpressionLitterale from './_Choisir_expression_litterale.js'
 
 export const titre = 'Déterminer la dernière opération à effectuer dans une expression numérique'
@@ -40,32 +40,17 @@ export default function DeterminerDerniereOperationExpNum () {
       lastOp = resultats[4]
       const str = expc.split('=')
 
-      switch (listeTypeDeQuestions[i]) {
-        case 5:
-          if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
-          this.consigne = 'Déterminer la dernière opération à effectuer .'
-          texte = `$${str[1]}$`
-          // texte=`${expn}`
-          if (this.debug) {
-            texte += '<br><br>=====CORRECTION======<br>'
-            texte += '$'
-            for (let l = 1; l < str.length - 1; l++) {
-              texte += `${str[l]}=`
-            };
-            texte += `${str[str.length - 1]}`
-            texte += `<br>$\\textbf{La dernière opération dans $${str[1]}$ est donc une ${lastOp}.}$`
-            texteCorr = ''
-          } else {
-            texteCorr = '$'
-            for (let l = 1; l < str.length - 1; l++) {
-              texteCorr += `${str[l]}=`
-            };
-            texteCorr += `${str[str.length - 1]}`
-            texteCorr += `<br>$\\textbf{La dernière opération dans $${str[1]}$ est donc une ${lastOp}.}$`
-          };
+      if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
+      this.consigne = 'Déterminer la dernière opération à effectuer.'
+      texte = `$${str[1]}$`
 
-          break
-      }
+      texteCorr = '$'
+      for (let l = 1; l < str.length - 1; l++) {
+        texteCorr += `${str[l]}=`
+      };
+      texteCorr += `${str[str.length - 1]}`
+      texteCorr += `<br>La dernière opération dans $${str[1]}$ est donc une ${texteEnCouleurEtGras(lastOp)}.`
+
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
