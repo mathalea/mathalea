@@ -351,7 +351,13 @@ class SplineCatmullRom {
     this.x = []
     this.y = []
     this.f = []
-
+    this.solve = function (y, precision) {
+      const antecedents = []
+      for (let x = this.x[0]; x <= this.x[this.x.length - 1]; x += 0.1) {
+        if (Math.abs(this.image(x) - y) < precision) antecedents.push(Number(x.toFixed(2)))
+      }
+      return antecedents
+    }
     const n = tabY.length // on a n valeurs de y et donc de x, soit n-1 intervalles numérotés de 1 à n-1.
     for (let i = 0; i < n; i++) {
       this.x[i] = x0 + step * i
@@ -404,7 +410,7 @@ class SplineCatmullRom {
 }
 
 export function splineCatmullRom ({ tabY = [], x0 = -5, step = 1 }) {
-  return new SplineCatmullRom({ tabY: tabY, x0: x0, step: step })
+  return new SplineCatmullRom({ tabY, x0, step })
 }
 
 /**

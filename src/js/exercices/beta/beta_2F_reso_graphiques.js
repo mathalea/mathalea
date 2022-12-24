@@ -1,8 +1,8 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { splineCatmullRom } from '../../modules/fonctionsMaths.js'
-import { courbe, repere } from '../../modules/2d.js'
-import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
+import { antecedentParDichotomie, courbe, repere } from '../../modules/2d.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, texNombre } from '../../modules/outils.js'
 import { max, min } from 'mathjs'
 
 export const titre = 'Resoudre graphiquement une équation'
@@ -35,35 +35,41 @@ export default class nomExercice extends Exercice {
     const typeQuestionsDisponibles = ['2solA'] // On créé 3 types de questions
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, r, tabY, f, F, c2, y1, y2, y3, y4, y5, y6, x0, ymin, ymax, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+      const tabY = []
+      let x0 = -3 // on l'initialise pour ne pas qu'il se retrouve undefined par oubli
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case '2solA':// Cas où f croissante puis décroissante avec 2 solutions
-          y1 = -5
-          y2 = y1 + randint(2, 8)
-          y3 = min(y2 + randint(2, 5), 5)
-          y4 = max(y3 - randint(2, 4), y2 + 1)
-          y5 = y2
-          y6 = y5 - randint(2, 4)
+          tabY[0] = -5
+          tabY[1] = tabY[0] + randint(2, 8)
+          tabY[2] = min(tabY[1] + randint(2, 5), 5)
+          tabY[3] = max(tabY[2] - randint(2, 4), tabY[1] + 1)
+          tabY[4] = tabY[1]
+          tabY[5] = tabY[4] - randint(2, 4)
           x0 = randint(-5, -2)
-          ymin = min(y1, y2, y3, y4, y5, y6, -1)
-          ymax = max(y1, y2, y3, y4, y5, y6, 1)
-          texte = `Résoudre $f(x)=${y2}$` // Le LateX entre deux symboles $, les variables dans des ${ }
-          r = repere({ xMin: x0, xMax: x0 + 10, yMin: ymin, yMax: ymax, xUnite: 2, yUnite: 2 })
-
-          tabY = [y1, y2, y3, y4, y5, y6] // Voici les ordonnées successives par lesquelles passera la courbe à partir de x0, puis x0 + step, ...
-          f = splineCatmullRom({ tabY, x0, step: 2 }) // le tableau des ordonnées successives = tabY, x0 = -5, step = 1.
-          F = x => f.image(x) // On crée une fonction de x f.image(x) est une fonction polynomiale par morceaux utilisée dans courbeSpline()
-          // const c = courbeSpline(f, { repere: r, step: 0.1 }) // Une première façon de tracer la courbe.
-          c2 = courbe(F, { repere: r, step: 0.1, color: 'red' }) // F peut ainsi être utilisée dans courbe.
-
-          texte += this.contenu = mathalea2d({ xmin: -15, xmax: 15, ymin: -15, ymax: 15 }, r, c2)
-          for (let i = 0; i < tabY.length; i++) {
-            this.contenu += `(${x0 + i};${tabY[i]}), `
-          }
-
-          texteCorr = `Correction ${i + 1} de type 1`
           break
       }
+      const ymin = min(...tabY, -1)
+      const ymax = max(...tabY, 1)
+      texte = `Résoudre $f(x)=${tabY[1]}$` // Le LateX entre deux symboles $, les variables dans des ${ }
+      const r = repere({ xMin: x0, xMax: x0 + 10, yMin: ymin, yMax: ymax, xUnite: 2, yUnite: 2 })
+
+      // tabY = [y1, y2, y3, y4, y5, y6] inutile // Voici les ordonnées successives par lesquelles passera la courbe à partir de x0, puis x0 + step, ...
+      const f = splineCatmullRom({ tabY, x0, step: 2 }) // le tableau des ordonnées successives = tabY, x0 = -5, step = 1.
+      const F = x => f.image(x) // On crée une fonction de x f.image(x) est une fonction polynomiale par morceaux utilisée dans courbeSpline()
+      // const c = courbeSpline(f, { repere: r, step: 0.1 }) // Une première façon de tracer la courbe.
+      const c2 = courbe(F, { repere: r, step: 0.1, color: 'red' }) // F peut ainsi être utilisée dans courbe.
+
+      // Là, il y a erreur !
+      texte += mathalea2d({ xmin: -15, xmax: 15, ymin: -15, ymax: 15 }, r, c2)
+      /* ça ne sert à rien vu que this.contenu sera écrasé par listeQuestionsToContenu(this)
+      for (let i = 0; i < tabY.length; i++) {
+        this.contenu += `(${x0 + i};${tabY[i]}), `
+      }
+      */
+      const antecedents = f.solve(tabY[1], 0.001)
+      texteCorr = `Correction ${i + 1} de type 1 : la liste des antécédents est : ${antecedents.reduce((accu, current) => accu + ' ; ' + current)}`
+      texte += texteCorr
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
