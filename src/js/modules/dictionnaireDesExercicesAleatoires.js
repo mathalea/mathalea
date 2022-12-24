@@ -5641,22 +5641,6 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "4L10": {
-    "titre": "Utiliser la simple distributivité",
-    "url": "/exercices/4e/4L10.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "4L10",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
   "4L11": {
     "titre": "Factoriser une expression littérale",
     "url": "/exercices/4e/4L11.js",
@@ -9059,7 +9043,7 @@ export default {
     }
   },
   "6G21-4": {
-    "titre": "Tracer des losanges ou des parallélogrammes et auto-vérification",
+    "titre": "Construire des losanges ou des parallélogrammes et auto-vérification",
     "url": "/exercices/6e/6G21-4.js",
     "amcReady": false,
     "interactifReady": false,
@@ -9074,7 +9058,7 @@ export default {
     }
   },
   "6G21-5": {
-    "titre": "Tracer des quadrilatères particuliers et auto-vérification",
+    "titre": "Construire des quadrilatères particuliers et auto-vérification",
     "url": "/exercices/6e/6G21-5.js",
     "amcReady": false,
     "interactifReady": false,

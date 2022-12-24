@@ -8,6 +8,7 @@ import ExerciceDevelopper from '../3e/3L11.js'
  */
 export const uuid = '71dd8'
 export const ref = '4L10'
+export const titre = 'Utiliser la simple distributivité'
 export default function ExerciceDevelopper4e () {
   ExerciceDevelopper.call(this)
   this.sup = 3 // difficulté
