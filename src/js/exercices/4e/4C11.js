@@ -48,7 +48,7 @@ export default function PrioritesEtRelatifs () {
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType
-  this.consigne = 'Calculer :'
+  this.consigne = 'Calculer.'
   this.nbQuestions = 5
   this.nbCols = 2
   this.nbColsCorr = 1

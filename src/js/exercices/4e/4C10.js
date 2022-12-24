@@ -15,7 +15,7 @@ export const uuid = '745ba'
 export const ref = '4C10'
 export default function ProduitsEtQuotientRelatifs () {
   Exercice.call(this)
-  this.consigne = 'Calculer :'
+  this.consigne = 'Calculer.'
   this.sup = 1
   this.sup2 = 1
   this.nbQuestions = 10

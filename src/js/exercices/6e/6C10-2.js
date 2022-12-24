@@ -26,7 +26,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
   this.sup = tablesParDefaut
   this.sup2 = 1
   this.titre = titre
-  this.consigne = 'Calculer :'
+  this.consigne = 'Calculer.'
   this.spacing = 2
   this.tailleDiaporama = 3
 

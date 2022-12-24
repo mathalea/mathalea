@@ -22,7 +22,7 @@ export const ref = '6N33-1'
 export default function PourcentageDunNombre () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 5
-  this.consigne = 'Calculer :'
+  this.consigne = 'Calculer.'
   this.spacing = 2
   this.spacingCorr = 3.5
   this.nbCols = 2

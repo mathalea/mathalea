@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, simplificationDeFractionAvecEtapes, prenom, texFraction, numAlpha, range } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, simplificationDeFractionAvecEtapes, prenom, texFraction, numAlpha, range, sp } from '../../modules/outils.js'
 
 export const titre = 'Calculer des probabilités dans une expérience aléatoire à une épreuve'
 
@@ -90,16 +90,16 @@ export default function FonctionsProbabilite1 () {
         - tomber sur ${article} ${objet} ${singulier(qualites[index1][2], index1)} ;<br>
         - tomber sur ${article} ${objet} ${singulier(qualites[index1][3], index1)} ;<br>
         - tomber sur ${article} ${objet} ${singulier(qualites[index1][4], index1)}.<br>`
-        texte += numAlpha(2) + ` Quelles issues réalisent l'événement "Tomber sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]}" ?<br>`
-        texteCorr += numAlpha(2) + `Les issues qui réalisent l'événement "Tomber sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]}" sont :<br>
+        texte += numAlpha(2) + ` Quelles issues réalisent l'événement «${sp(1)}Tomber sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]}${sp(1)}» ?<br>`
+        texteCorr += numAlpha(2) + `Les issues qui réalisent l'événement «${sp(1)}Tomber sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]}${sp(1)}» sont :<br>
         - tomber sur ${article} ${objet} ${singulier(qualites[index1][m], index1)} ;<br>
         - tomber sur ${article} ${objet} ${singulier(qualites[index1][p], index1)}.<br>`
         if (parseInt(this.niveau) > 2) {
-          texte += numAlpha(3) + ` Quel est l'événement contraire de "Tomber sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]}" ?<br>`
-          texteCorr += numAlpha(3) + ` L'événement contraire de "Tomber sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]}" est l'événement "Tomber sur l'${article} des ${objets} ${qualites[index1][indexEvenementContraire[0]]}, ${qualites[index1][indexEvenementContraire[1]]} ou ${qualites[index1][indexEvenementContraire[2]]}".`
+          texte += numAlpha(3) + ` Quel est l'événement contraire de «${sp(1)}Tomber sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]}${sp(1)}» ?<br>`
+          texteCorr += numAlpha(3) + ` L'événement contraire de «${sp(1)}Tomber sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]}${sp(1)}» est l'événement «${sp(1)}Tomber sur l'${article} des ${objets} ${qualites[index1][indexEvenementContraire[0]]}, ${qualites[index1][indexEvenementContraire[1]]} ou ${qualites[index1][indexEvenementContraire[2]]}${sp(1)}».`
         } else {
-          texte += numAlpha(3) + ` Quelles issues ne réalisent pas l'événement "Tomber sur l'${article} des ${objets} ${qualites[index1][q]} ou ${qualites[index1][m]}" ?<br>`
-          texteCorr += numAlpha(3) + ` Les issues qui ne réalisent pas l'événement "Tomber sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]}" sont :<br>
+          texte += numAlpha(3) + ` Quelles issues ne réalisent pas l'événement «${sp(1)}Tomber sur l'${article} des ${objets} ${qualites[index1][q]} ou ${qualites[index1][m]}${sp(1)}» ?<br>`
+          texteCorr += numAlpha(3) + ` Les issues qui ne réalisent pas l'événement «${sp(1)}Tomber sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]}${sp(1)}» sont :<br>
           - tomber sur ${article} ${objet} ${singulier(qualites[index1][indexEvenementContraire[0]], index1)} ;<br>
           - tomber sur ${article} ${objet} ${singulier(qualites[index1][indexEvenementContraire[1]], index1)} ;<br>
           - tomber sur ${article} ${objet} ${singulier(qualites[index1][indexEvenementContraire[2]], index1)}.`

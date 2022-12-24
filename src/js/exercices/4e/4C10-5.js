@@ -14,7 +14,7 @@ export default function ExerciceTableauMultiplicationsRelatifs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = false
   this.titre = titre
-  this.consigne = 'Calculer :'
+  this.consigne = 'Calculer.'
   this.spacing = 1
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false

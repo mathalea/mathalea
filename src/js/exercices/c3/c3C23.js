@@ -20,7 +20,7 @@ export default function CalculsFractionsSimples () {
   this.formatInteractif = 'fractionEgale'
   this.nbQuestions = 6
   this.sup = 4
-  this.consigne = 'Calculer :'
+  this.consigne = 'Calculer.'
   this.tailleDiaporama = 4
   this.version = 'c3'
 
@@ -44,7 +44,7 @@ export default function CalculsFractionsSimples () {
       if (a === 1) a = randint(2, 10)
       this.question = `$${a} \\times \\dfrac{${b}}{${den}} = $`
       num = a * b
-      this.correction = `$${a} \\times $\\dfrac{${b}}{${den}} = \\dfrac{${num}}{${den}}$`
+      this.correction = `$${a} \\times \\dfrac{${b}}{${den}} = \\dfrac{${num}}{${den}}$`
     }
     this.reponse = new FractionX(num, den)
   }

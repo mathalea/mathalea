@@ -22,7 +22,7 @@ export const ref = '6N33-0'
 export default function FractionDuneQuantite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 5
-  this.consigne = 'Calculer :'
+  this.consigne = 'Calculer.'
   context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2)
   context.isHtml ? (this.spacing = 2) : (this.spacing = 2)
   this.sup = 1

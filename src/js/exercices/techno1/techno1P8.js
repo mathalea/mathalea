@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, texNombre, texteGras } from '../../modules/outils.js'
 import { min } from 'mathjs'
 export const titre = 'Union et Intersection de proportions'
 
@@ -44,20 +44,20 @@ export default class nomExercice extends Exercice {
           texte = `Dans un club du 3ème age comprenant $${effectif}$ personnes, $${belote}$ jouent à la belote régulièrement,
           $${tarot}$ jouent au tarot et $${inter}$ d'entre eux pratiquent chacun des
           deux jeux de cartes. <br>
-         Quelle est la proportion de personnes du club qui jouent  au tarot <B> ou </B> à la belote?` // Le LateX entre deux symboles $, les variables dans des ${ }
+         Quelle est la proportion de personnes du club qui jouent  au tarot ${texteGras('ou')} à la belote?` // Le LateX entre deux symboles $, les variables dans des ${ }
           texteCorr = `On note :<br>
           $\\quad\\bullet\\quad p_T$ la proportion de personnes du club qui jouent au tarot.<br>
           $\\quad\\bullet\\quad p_B$ la proportion de personnes du club qui jouent à la belote.<br>
-          $\\quad\\bullet\\quad p_{T\\cup B}$ la proportion de personnes du club qui jouent au tarot <B>ou</B> à la belote.<br>
-          $\\quad\\bullet\\quad p_{T\\cap B}$ la proportion de personnes du club qui jouent au tarot <B>et</B> à la belote.<br>
-        La population de référence est les membres du club, son effectif est $${effectif}$.<br>
+          $\\quad\\bullet\\quad p_{T\\cup B}$ la proportion de personnes du club qui jouent au tarot ${texteGras('ou')} à la belote.<br>
+          $\\quad\\bullet\\quad p_{T\\cap B}$ la proportion de personnes du club qui jouent au tarot ${texteGras('et')} à la belote.<br>
+        La population de référence est l'ensemble des membres du club, son effectif est $${effectif}$.<br>
         <br>D'après le cours, pour calculer la proportion d'une sous-population dans une population, on calcule :<br>
         <br>$p=\\dfrac{\\text{effectif de la sous-population}}{\\text{effectif de la population de référence}}$<br>
         <br>On a donc :  $p_T=\\dfrac{${tarot}}{${effectif}}\\quad;\\quad p_B=\\dfrac{${belote}}{${effectif}} \\quad;\\quad p_{T\\cap B}=\\dfrac{${inter}}{${effectif}}$<br>
           On sait que  $p_{T\\cup B} = p_T + p_B -  p_{T\\cap B}$.<br>
-         ce qui revient, en appliquant les données de l'énoncé, à écrire :<br>
+         Ce qui revient, en appliquant les données de l'énoncé, à écrire :<br>
          $p_{T\\cup B} = \\dfrac{${tarot}}{${effectif}} +\\dfrac{${belote}}{${effectif}}-\\dfrac{${inter}}{${effectif}}=\\dfrac{${union}}{${effectif}} \\approx ${texNombre(union / effectif, 2)}$<br>
-         Il y a donc environ $${texNombre(100 * union / effectif, 0)}\\%$ de personens du club qui jouent à la belote et au tarot dans ce club.<br>
+         Il y a donc environ $${texNombre(100 * union / effectif, 0)}\\%$ de personnes du club qui jouent à la belote et au tarot dans ce club.<br>
          `
           break
         case 'type2':
@@ -69,23 +69,23 @@ export default class nomExercice extends Exercice {
           texte = `Dans un club du 3ème age comprenant $${effectif}$ personnes, $${belote}$ jouent à la belote régulièrement,
           $${tarot}$ jouent au tarot et $${union}$ d'entre eux pratiquent au moins un des
           deux jeux de cartes. <br>
-         Quelle est la proportion de personnes du club qui jouent au tarot <B> et </B> à la belote ?` // Le LateX entre deux symboles $, les variables dans des ${ }
+         Quelle est la proportion de personnes du club qui jouent au tarot ${texteGras('et')} à la belote ?` // Le LateX entre deux symboles $, les variables dans des ${ }
           texteCorr = `On note :<br>
           $\\quad\\bullet\\quad p_T$ la proportion de personnes du club qui jouent au tarot.<br>
           $\\quad\\bullet\\quad p_B$ la proportion de personnes du club qui jouent à la belote.<br>
-          $\\quad\\bullet\\quad p_{T\\cup B}$ la proportion de personnes du club qui jouent au tarot <B>ou</B> à la belote.<br>
-          $\\quad\\bullet\\quad p_{T\\cap B}$ la proportion de personnes du club qui jouent au tarot <B>et</B> à la belote.<br>
-        La population de référence est les membres du club, son effectif est $${effectif}$.<br>
+          $\\quad\\bullet\\quad p_{T\\cup B}$ la proportion de personnes du club qui jouent au tarot ${texteGras('ou')} à la belote.<br>
+          $\\quad\\bullet\\quad p_{T\\cap B}$ la proportion de personnes du club qui jouent au tarot ${texteGras('et')} à la belote.<br>
+        La population de référence est l'ensemble des membres du club, son effectif est $${effectif}$.<br>
        <br>
         D'après le cours, pour calculer la proportion d'une sous-population dans une population, on calcule :<br>
         <br>$p=\\dfrac{\\text{effectif de la sous-population}}{\\text{effectif de la population de référence}}$<br>
         <br>On a donc :  $p_T=\\dfrac{${tarot}}{${effectif}}\\quad ; \\quad p_B=\\dfrac{${belote}}{${effectif}}\\quad ; \\quad p_{T\\cup B}=\\dfrac{${union}}{${effectif}}$<br>
          On note 
          On sait que  $p_{T\\cup B} = p_T + p_B -  p_{T\\cap B}$.<br>
-         ce qui revient, en appliquant les données de l'énoncé, à écrire :
+         Ce qui revient, en appliquant les données de l'énoncé, à écrire :
          $ \\dfrac{${union}}{${effectif}}= \\dfrac{${tarot}}{${effectif}} +\\dfrac{${belote}}{${effectif}} - p_{T\\cap B}$<br>
          $p_{T\\cap B}=\\dfrac{${tarot}}{${effectif}} +\\dfrac{${belote}}{${effectif}}-\\dfrac{${union}}{${effectif}} =\\dfrac{${inter}}{${effectif}} \\approx ${texNombre(inter / effectif, 2)}$<br>
-         Il y a donc environ $${texNombre(100 * inter / effectif, 0)}\\%$ de personens du club qui jouent à la belote et au tarot dans ce club.<br>
+         Il y a donc environ $${texNombre(100 * inter / effectif, 0)}\\%$ de personnes du club qui jouent à la belote et au tarot dans ce club.<br>
          `
           break
       }

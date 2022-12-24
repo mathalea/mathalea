@@ -23,7 +23,7 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = tablesParDefaut
   this.titre = titre
-  this.consigne = 'Calculer :'
+  this.consigne = 'Calculer.'
   this.spacing = 2
   this.tailleDiaporama = 3
   this.nbQuestions = 10
