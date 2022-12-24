@@ -351,10 +351,17 @@ class SplineCatmullRom {
     this.x = []
     this.y = []
     this.f = []
-    this.solve = function (y, precision) {
+    /**
+     * @param {number} y la valeur cherchée
+     * @param {number} precision la précision sur y (par défaut 0.001)
+     * @param {number} stepX pas de recherche en x (par défaut 0.1)
+     * @param {number} nbDecimales nombre de décimales pour l'arrondi des antécédents (par défaut 2)
+     * @returns {number[]} la liste des antécédents (arrondis à 0.01)
+     */
+    this.solve = function (y, precision = 0.001, stepX = 0.1, nbDecimales = 2) {
       const antecedents = []
-      for (let x = this.x[0]; x <= this.x[this.x.length - 1]; x += 0.1) {
-        if (Math.abs(this.image(x) - y) < precision) antecedents.push(Number(x.toFixed(2)))
+      for (let x = this.x[0]; x <= this.x[this.x.length - 1]; x += stepX) {
+        if (Math.abs(this.image(x) - y) < precision) antecedents.push(Number(x.toFixed(nbDecimales)))
       }
       return antecedents
     }
