@@ -67,7 +67,7 @@ export default class nomExercice extends Exercice {
         this.contenu += `(${x0 + i};${tabY[i]}), `
       }
       */
-      const antecedents = f.solve(tabY[1], 0.001)
+      const antecedents = f.solve(tabY[1], 0.001, 0.1, 2)
       texteCorr = `Correction ${i + 1} de type 1 : la liste des antécédents est : ${antecedents.reduce((accu, current) => accu + ' ; ' + current)}`
       texte += texteCorr
       // Si la question n'a jamais été posée, on l'enregistre
