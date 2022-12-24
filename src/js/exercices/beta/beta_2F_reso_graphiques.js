@@ -35,7 +35,12 @@ export default class nomExercice extends Exercice {
     const typeQuestionsDisponibles = ['2solA'] // On créé 3 types de questions
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+    // règles de bon codage :
+    // définir les variables au plus près de leur utilisation
+    // éviter les variables globales qui changent de valeur à chaque tour de boucle : on ne verra pas si on oublie d'en initialiser une (ç vaut aussi pour texte et texteCorr même si on a toujours fait autrement)
+    // ne mettre dans le switch case que ce qui est différent d'un case à l'autre => le tronc commun n'est à coder qu'une fois, donc à corriger une fois
+
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       const tabY = []
       let x0 = -3 // on l'initialise pour ne pas qu'il se retrouve undefined par oubli
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
@@ -51,27 +56,22 @@ export default class nomExercice extends Exercice {
       }
       const ymin = min(...tabY, -1)
       const ymax = max(...tabY, 1)
-      texte = `Résoudre $f(x)=${tabY[1]}$` // Le LateX entre deux symboles $, les variables dans des ${ }
+      let texte = `Résoudre $f(x)=${tabY[1]}$` // Le LateX entre deux symboles $, les variables dans des ${ }
       const r = repere({ xMin: x0, xMax: x0 + 10, yMin: ymin, yMax: ymax, xUnite: 2, yUnite: 2 })
 
-      // tabY = [y1, y2, y3, y4, y5, y6] inutile // Voici les ordonnées successives par lesquelles passera la courbe à partir de x0, puis x0 + step, ...
       const f = splineCatmullRom({ tabY, x0, step: 2 }) // le tableau des ordonnées successives = tabY, x0 = -5, step = 1.
       const F = x => f.image(x) // On crée une fonction de x f.image(x) est une fonction polynomiale par morceaux utilisée dans courbeSpline()
       // const c = courbeSpline(f, { repere: r, step: 0.1 }) // Une première façon de tracer la courbe.
       const c2 = courbe(F, { repere: r, step: 0.1, color: 'red' }) // F peut ainsi être utilisée dans courbe.
 
-      // Là, il y a erreur !
       texte += mathalea2d({ xmin: -15, xmax: 15, ymin: -15, ymax: 15 }, r, c2)
-      /* ça ne sert à rien vu que this.contenu sera écrasé par listeQuestionsToContenu(this)
-      for (let i = 0; i < tabY.length; i++) {
-        this.contenu += `(${x0 + i};${tabY[i]}), `
-      }
-      */
+
       const antecedents = f.solve(tabY[1], 0.001, 0.1, 2)
-      texteCorr = `Correction ${i + 1} de type 1 : la liste des antécédents est : ${antecedents.reduce((accu, current) => accu + ' ; ' + current)}`
-      texte += texteCorr
+      const texteCorr = `Correction ${i + 1} de type 1 : la liste des antécédents est : ${antecedents.reduce((accu, current) => accu + ' ; ' + current)}`
+      texte += texteCorr // sert à voir la correction sans avoir à cliquer (à virer)
       // Si la question n'a jamais été posée, on l'enregistre
-      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      // Ne pas mettre texte (il peut être différent avec les mêmes données à cause des listeners de l'interactif qui sont labelisés de façon unique par question)
+      if (this.questionJamaisPosee(i, ...tabY, listeTypeQuestions[i])) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
