@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, arrondi, contraindreValeur, egalOuApprox } from '../../modules/outils.js'
-import { latexParCoordonnees, point, segment } from '../../modules/2d.js'
+import { latexParCoordonnees, latexParCoordonneesBox, point, segment } from '../../modules/2d.js'
 import { number, fraction } from 'mathjs'
 export const titre = 'Probabilités conditionnelles'
 
@@ -11,6 +11,7 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
 
 /**
  * Description didactique de l'exercice
+ * Amélioration de l'affichage Mickael Guironnet quand on zoome!
  * @author
  * Référence
 */
@@ -144,18 +145,26 @@ export default function ProbabilitesConditionnelles () {
           objets.push(segment(A, A2, 'blue'))
           objets.push(segment(B, A3, 'blue'))
           objets.push(segment(B, A4, 'blue'))
-          objets.push(latexParCoordonnees('C', 5, 5.2, 'black', 20, 12, 'white', 10)) // 1er noeud  = C
-          objets.push(latexParCoordonnees('\\bar C', 5, 1.3, 'black', 20, 12, 'white', 10))// 1er noeud événement contraire \bar C
+          objets.push(latexParCoordonnees('C', 5, 5, 'black', 20, 12, 'white', 10)) // 1er noeud  = C
+          objets.push(latexParCoordonnees('\\bar C', 5, 1, 'black', 20, 12, 'white', 10))// 1er noeud événement contraire \bar C
           objets.push(latexParCoordonnees('\\Omega', 0, 2.3))// Univers, point de départ de l'arbre Omega
-          objets.push(latexParCoordonnees(texProba(c / 100, this.sup), 2.5, 4.1, 'black', 20, 20, 'white', 6))// proba de C, ici ${c}
-          objets.push(latexParCoordonnees(texProba(1 - c / 100, this.sup), 2.5, 2.1, 'black', 20, 20, 'white', 6))// proba de \\bar C 1-${c}
-          objets.push(latexParCoordonnees(texProba(1 - ec / 100, this.sup), 6.8, 0.9, 'black', 20, 20, 'white', 6))// proba de \\bar E sachant \\bar C
-          objets.push(latexParCoordonnees(texProba(ec / 100, this.sup), 6.8, 2.7, 'black', 20, 20, 'white', 6))// proba de E sachant \\bar C
+          // objets.push(latexParCoordonnees(texProba(c / 100, this.sup), 2.5, 4.1, 'black', 20, 20, 'white', 6))// proba de C, ici ${c}
+          objets.push(latexParCoordonneesBox(texProba(c / 100, this.sup), 2.5, 4.1, 'red', 20, 20, '', 6, { anchor: 'above' }))// proba de C, ici ${c}
+          // objets.push(latexParCoordonnees(texProba(1 - c / 100, this.sup), 2.5, 2.1, 'black', 20, 20, 'white', 6))// proba de \\bar C 1-${c}
+          objets.push(latexParCoordonneesBox(texProba(1 - c / 100, this.sup), 2.5, 2.1, 'red', 20, 20, '', 6, { anchor: 'above' }))// proba de \\bar C 1-${c}
+          // objets.push(latexParCoordonnees(texProba(1 - ec / 100, this.sup), 6.8, 0.9, 'black', 20, 20, 'white', 6))// proba de \\bar E sachant \\bar C
+          objets.push(latexParCoordonneesBox(texProba(1 - ec / 100, this.sup), 6.8, 0.9, 'red', 20, 20, '', 6, { anchor: 'above' }))// proba de \\bar E sachant \\bar C
+          // objets.push(latexParCoordonnees(texProba(ec / 100, this.sup), 6.8, 2.7, 'black', 20, 20, 'white', 6))// proba de E sachant \\bar C
+          objets.push(latexParCoordonneesBox(texProba(ec / 100, this.sup), 6.8, 2.7, 'red', 20, 20, '', 6, { anchor: 'above' }))// proba de E sachant \\bar C
           objets.push(latexParCoordonnees(`P(C\\cap E)=${texProba(ce / 100, this.sup)}`, 10.5, 7.8, 'red', 20, 20, 'white', 10))// proba de C \\cap E
-          objets.push(latexParCoordonnees('E', 9, 7.7, 'black', 20, 12, 'white', 10)) // 2ème noeud issu de A
-          objets.push(latexParCoordonnees('\\bar E', 9, 4.3, 'black', 20, 12, 'white', 10))// 2ème noeud issu de A
-          objets.push(latexParCoordonnees('E', 9, 3.1, 'black', 20, 12, 'white', 10)) // 2ème noeud issu de \bar A
-          objets.push(latexParCoordonnees('\\bar E', 9, 0.2, 'black', 20, 12, 'white', 10))// 2ème noeud issu de \bar A
+          // objets.push(latexParCoordonnees('E', 9, 7.7, 'black', 20, 12, 'white', 10)) // 2ème noeud issu de A
+          objets.push(latexParCoordonneesBox('E', 9, 7.7, 'black', 20, 12, 'white', 10)) // 2ème noeud issu de A
+          // objets.push(latexParCoordonnees('\\bar E', 9, 4.3, 'black', 20, 12, 'white', 10))// 2ème noeud issu de A
+          objets.push(latexParCoordonneesBox('\\bar E', 9, 4.3, 'black', 20, 12, 'white', 10))// 2ème noeud issu de A
+          // objets.push(latexParCoordonnees('E', 9, 3.1, 'black', 20, 12, 'white', 10)) // 2ème noeud issu de \bar A
+          objets.push(latexParCoordonneesBox('E', 9, 3.1, 'black', 20, 12, 'white', 10)) // 2ème noeud issu de \bar A
+          // objets.push(latexParCoordonnees('\\bar E', 9, 0.2, 'black', 20, 12, 'white', 10))// 2ème noeud issu de \bar A
+          objets.push(latexParCoordonneesBox('\\bar E', 9, 0.2, 'black', 20, 12, 'white', 10))// 2ème noeud issu de \bar A
           texte = 'Une chaîne de salons de coiffure propose à ses clients qui viennent pour une coupe deux prestations supplémentaires cumulables :'
           texte += '<br>$\\bullet$ Une coloration naturelle à base de plantes appelée "couleur-soin",'
           texte += '<br>$\\bullet$  Des mèches blondes pour donner du relief à la chevelure, appelées  "effet coup de soleil".'
@@ -176,7 +185,7 @@ export default function ProbabilitesConditionnelles () {
           texteCorr += `<br>$\\bullet~~P(C \\cap E)=${texProba(ce / 100, this.sup)}$.`
           texteCorr += `<br>$\\bullet~~P_{\\bar C}(E)=${texProba(ec / 100, this.sup)}$.`
           texteCorr += '<br>Ce qui permet de construire cet arbre de probabilités : '
-          texteCorr += mathalea2d({ xmin: -5, ymin: -1, xmax: 18, ymax: 10 }, objets)
+          texteCorr += mathalea2d({ xmin: -1, ymin: -1, xmax: 25, ymax: 10 }, objets)
           texteCorr += '<br>$2.$ L\'événement  : le client ne souhaite ni une "couleur-soin", ni un "effet coup de soleil" correspond à $\\bar{C} \\cap \\bar{E}$'
           texteCorr += `<br>On a $P(\\bar{C} \\cap \\bar{E})=P(\\bar{C}) \\times P_{\\bar{C}}(\\bar{E})=P(\\bar{C}) \\times (1-P_{\\bar{C}}(E))=${texProba(1 - c / 100, false)} \\times ${texProba(1 - ec / 100, false)}\\approx ${texProba((1 - c / 100) * (1 - ec / 100), false)}$.`
           texteCorr += '<br>$3.$  La probabilité qu\'un client choisisse l\'"effet coup de soleil" sachant qu\'il a pris une "couleur soin" est $P_{C}(E)$.'

@@ -353,27 +353,57 @@ export function labelOnLine (droite, nom, options = {}) {
   if (options.taille === undefined) options.taille = 6
   if (options.color === undefined) options.color = 'red'
 
-  let debug = false
-
+  let debug = true
+  if (nom === '$(d_5)$') {
+    console.log('ici')
+  }
   // const largeur = Math.ceil((nom.replaceAll('$', '').length) * 10 * Math.log10(options.taille))
-  const largeur = Math.ceil((nom.replaceAll('$', '').length) * options.taille * 10 / 12)
+  const largeur = Math.ceil((nom.replaceAll('$', '').replaceAll('_', '').length) * options.taille * 10 / 12)
   const hauteur = 20
   let absNom, ordNom, leNom, anchor, usedPosition; const positions = []
   if (nom !== '') {
     if (egal(droite.b, 0, 0.05)) { // ax+c=0 x=-c/a est l'équation de la droite
-      // droite quasi verticale
+      // droite quasi verticale -> en bas
       absNom = -droite.c / droite.a + largeur * 0.5 / context.pixelsParCm + 2 / context.pixelsParCm
-      ordNom = context.fenetreMathalea2d[1] + 1 // l'ordonnée du label est ymin +1
+      ordNom = context.fenetreMathalea2d[1] + 1 // l'ordonnée du label est ymin + 1
       anchor = 'right'
       usedPosition = 'below'
       leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, '', options.taille, { anchor })
       positions.push({ label: leNom, position: usedPosition, anch: anchor })
+      // droite quasi verticale -> en haut
+      absNom = -droite.c / droite.a + largeur * 0.5 / context.pixelsParCm + 2 / context.pixelsParCm
+      ordNom = context.fenetreMathalea2d[3] - 1 // l'ordonnée du label est ymmax - 1
+      anchor = 'right'
+      usedPosition = 'above'
+      leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, '', options.taille, { anchor })
+      positions.push({ label: leNom, position: usedPosition, anch: anchor })
+      // au milieu
+      absNom = -droite.c / droite.a + largeur * 0.5 / context.pixelsParCm + 2 / context.pixelsParCm
+      ordNom = (context.fenetreMathalea2d[1] + context.fenetreMathalea2d[3]) / 2
+      anchor = 'right'
+      usedPosition = 'middle'
+      leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, '', options.taille, { anchor })
+      positions.push({ label: leNom, position: usedPosition, anch: anchor })
     } else if (egal(droite.a, 0, 0.05)) { // by+c=0 y=-c/b est l'équation de la droite
-      // droite quasi horizontale
-      absNom = context.fenetreMathalea2d[0] + 1 // l'abscisse du label est xmin +1
+      // droite quasi horizontale -> à gauche
+      absNom = context.fenetreMathalea2d[0] + 1 // l'abscisse du label est xmin + 1
       ordNom = -droite.c / droite.b + hauteur * 0.5 / context.pixelsParCm
       anchor = 'above'
       usedPosition = 'left'
+      leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, '', options.taille, { anchor })
+      positions.push({ label: leNom, position: usedPosition, anch: anchor })
+      // droite quasi horizontale -> à droite
+      absNom = context.fenetreMathalea2d[2] - 1 // l'abscisse du label est xmax - 1
+      ordNom = -droite.c / droite.b + hauteur * 0.5 / context.pixelsParCm
+      anchor = 'above'
+      usedPosition = 'right'
+      leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, '', options.taille, { anchor })
+      positions.push({ label: leNom, position: usedPosition, anch: anchor })
+      // au milieu
+      absNom = (context.fenetreMathalea2d[0] + context.fenetreMathalea2d[2]) / 2
+      ordNom = -droite.c / droite.b + hauteur * 0.5 / context.pixelsParCm
+      anchor = 'above'
+      usedPosition = 'middle'
       leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, '', options.taille, { anchor })
       positions.push({ label: leNom, position: usedPosition, anch: anchor })
     } else { // a et b sont différents de 0 ax+by+c=0 est l'équation
