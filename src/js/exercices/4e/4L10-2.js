@@ -51,7 +51,8 @@ export default function AirePerimetrePolygone () {
           quad = polygone(A, B, C, D)
           quad.epaisseur = 2
           params = fixeBordures([quad, texteParPosition(`$${inc1}$`, 2, 4.7)])
-          texte += (context.isHtml ? '' : '<br>') + mathalea2d(params,
+          params.optionsTikz = 'baseline={([yshift={-\\ht\\strutbox}]current bounding box.north)}'
+          texte += mathalea2d(params,
             quad, codageAngleDroit(A, B, C), codageAngleDroit(A, D, C), codageAngleDroit(D, C, B), codageAngleDroit(B, A, D), codageSegments('//', 'blue', A, B, B, C, C, D, D, A), texteParPosition(`$${inc1}$`, 2, 4.7)
           )
           texteCorr += 'Périmètre :'
@@ -72,7 +73,8 @@ export default function AirePerimetrePolygone () {
           o = choice([1, 2])
           if (o === 1) {
             params = fixeBordures([quad, texteParPosition(`$${inc1}$`, 3, 4.7), texteParPosition(`$${inc2}$`, -0.7, 2)])
-            texte += (context.isHtml ? '' : '<br>') + mathalea2d(params,
+            params.optionsTikz = 'baseline={([yshift={-\\ht\\strutbox}]current bounding box.north)}'
+            texte += mathalea2d(params,
               quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codageSegments('/', 'red', E, F, G, H), codageSegments('||', 'blue', F, G, H, E), texteParPosition(`$${inc1}$`, 3, 4.7), texteParPosition(`$${inc2}$`, -0.7, 2)
             )
             texteCorr += 'Périmètre :'
@@ -83,7 +85,8 @@ export default function AirePerimetrePolygone () {
             texteCorr += `<br>$\\mathcal{A} =${inc1}${inc2}$`
           } else {
             params = fixeBordures([quad, texteParPosition(L, 3, 4.7), texteParPosition(`$${inc1}$`, -0.7, 2)])
-            texte += (context.isHtml ? '' : '<br>') + mathalea2d(params,
+            params.optionsTikz = 'baseline={([yshift={-\\ht\\strutbox}]current bounding box.north)}'
+            texte += mathalea2d(params,
               quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codageSegments('/', 'red', E, F, G, H), codageSegments('||', 'blue', F, G, H, E), texteParPosition(L, 3, 4.7), texteParPosition(`$${inc1}$`, -0.7, 2)
             )
             texteCorr += 'Périmètre :'
@@ -111,7 +114,8 @@ export default function AirePerimetrePolygone () {
           o = choice([1, 2])
           if (o === 1) {
             params = fixeBordures([quad, texteParPosition(`$${inc1}$`, 1, 2.7), texteParPosition(`$${inc1}$`, -0.7, 1)])
-            texte += (context.isHtml ? '' : '<br>') + mathalea2d(params,
+            params.optionsTikz = 'baseline={([yshift={-\\ht\\strutbox}]current bounding box.north)}'
+            texte += mathalea2d(params,
               quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), segment(I, J), segment(K, M), codageSegments('/', 'red', [H, N, P, G]), codageSegments('/', 'red', F, G, H, E), texteParPosition(`$${inc1}$`, 1, 2.7), texteParPosition(`$${inc1}$`, -0.7, 1)
             )
             texteCorr += 'Périmètre :'
@@ -122,7 +126,8 @@ export default function AirePerimetrePolygone () {
             texteCorr += `<br>$\\mathcal{A} =3${inc1}^2$`
           } else {
             params = fixeBordures([quad, texteParPosition(`$${inc1}$`, 1, 2.7), texteParPosition(`$${inc2}$`, -0.7, 1)])
-            texte += (context.isHtml ? '' : '<br>') + mathalea2d(params,
+            params.optionsTikz = 'baseline={([yshift={-\\ht\\strutbox}]current bounding box.north)}'
+            texte += mathalea2d(params,
               quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), segment(I, J), segment(K, M), codageSegments('/', 'red', [H, N, P, G]), codageSegments('/', 'red', F, G, H, E), texteParPosition(`$${inc1}$`, 1, 2.7), texteParPosition(`$${inc2}$`, -0.7, 1)
             )
             texteCorr += 'Périmètre :'
@@ -144,7 +149,8 @@ export default function AirePerimetrePolygone () {
           quad = polygone(E, F, G, H)
           quad.epaisseur = 2
           params = fixeBordures([quad, texteParPosition(`$${inc1}$`, l / 2, 4.7), texteParPosition(`$${inc2}$`, 3 + l / 2, 4.7), texteParPosition(l, -0.7, 2)])
-          texte += (context.isHtml ? '' : '<br>') + mathalea2d(params,
+          params.optionsTikz = 'baseline={([yshift={-\\ht\\strutbox}]current bounding box.north)}'
+          texte += mathalea2d(params,
             quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codageSegments('/', 'red', E, F, G, H), codageSegments('||', 'blue', F, G, H, E), segment(I, J), texteParPosition(`$${inc1}$`, l / 2, 4.7), texteParPosition(`$${inc2}$`, 3 + l / 2, 4.7), texteParPosition(l, -0.7, 2)
           )
           texteCorr += 'Périmètre :'

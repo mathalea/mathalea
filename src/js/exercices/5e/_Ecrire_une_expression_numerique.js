@@ -35,7 +35,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
       if (this.sup4 === 1) {
         this.sup = '1-1-2-2-3'
       } else if (this.sup4 === 2) {
-        this.sup = '1-2-2-3-3'
+        this.sup = '2-2-3-3-3'
       } else if (this.sup4 === 3) {
         this.sup = '2-2-3-3-4'
       } else if (this.sup4 === 4) {

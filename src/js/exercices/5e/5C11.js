@@ -10,10 +10,10 @@ export const ref = '5C11'
 export default function TraduireUnePhraseParUneExpression () {
   EcrireUneExpressionNumerique.call(this)
   this.version = 1
-  this.sup = false
+  this.sup = NaN
   this.sup2 = false
   this.titre = titre
   this.nbQuestions = 5
   this.sup4 = 1
-  this.besoinFormulaire4Numerique = ['Niveau de difficulté', 4, '1 : 2-2-1\n2 : 1-2-2\n3 : 0-2-2-1\n4 : 0-1-1-1-1']
+  this.besoinFormulaire4Numerique = ['Niveau de difficulté', 4, '1 : de 1 à 3 opérations\n2 : de 2 à 3 opérations\n3 : jusqu\'à 4 opérations\n4 : opérations plus complexes']
 }

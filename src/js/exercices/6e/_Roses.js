@@ -178,11 +178,11 @@ export class Rose {
         if (!(this.type === 'can1' && (this.indexInconnue === i || i === (this.indexInconnue - 1) % this.nombreDeValeurs || i === (this.indexInconnue + 1) % this.nombreDeValeurs))) {
           if (!(this.type === 'can2' && (this.indexInconnue === i || i === (this.indexInconnue + 1) % this.nombreDeValeurs))) {
             if (this.typeDonnees !== 'litteraux' && this.typeDonnees.substring(0, 4) !== 'frac') {
-              objets.push(texteParPoint(this.values[i].toString(), M))
+              objets.push(texteParPoint(this.values[i].toString(), M, 'milieu', 'black', 1, 'middle', true))
             } else {
               if (this.typeDonnees !== 'litteraux') {
                 if (this.values[i].d === 1) {
-                  objets.push(texteParPoint(this.values[i].toLatex().replace('frac', 'dfrac'), M))
+                  objets.push(texteParPoint(this.values[i].toLatex().replace('frac', 'dfrac'), M, 'milieu', 'black', 1, 'middle', true))
                 } else {
                   objets.push(latexParPoint(this.values[i].toLatex().replace('frac', 'dfrac'), M, 'black', 20, 0, ''))
                 }
@@ -199,11 +199,11 @@ export class Rose {
       if (this.type === 'solutions' || this.type === 'valeurs' || this.type === 'can1' || this.type === 'can2') { // on ajoute les produits
         if (!(this.type === 'can2' && this.indexInconnue === i)) {
           if (this.typeDonnees !== 'litteraux' && this.typeDonnees.substring(0, 4) !== 'frac') {
-            objets.push(texteParPoint((this.resultats[i]).toString(), P))
+            objets.push(texteParPoint((this.resultats[i]).toString(), P, 'milieu', 'black', 1, 'middle', true))
           } else {
             if (this.typeDonnees !== 'litteraux') {
               if (this.resultats[i].d === 1) {
-                objets.push(texteParPoint(this.resultats[i].toLatex().replace('frac', 'dfrac'), P))
+                objets.push(texteParPoint(this.resultats[i].toLatex().replace('frac', 'dfrac'), P, 'milieu', 'black', 1, 'middle', true))
               } else {
                 objets.push(latexParPoint(this.resultats[i].toLatex().replace('frac', 'dfrac'), P, 'black', 20, 0, ''))
               }
@@ -221,7 +221,7 @@ export class Rose {
           }
         }
       } else {
-        objets.push(texteParPoint(this.cellulesPreremplies[i], P))
+        objets.push(texteParPoint(this.cellulesPreremplies[i], P, 'milieu', 'black', 1, 'middle', true))
       }
 
       objets.push(bulle2)

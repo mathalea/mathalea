@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 538 
-- nombre d'exos interactifReady 831 
+- nombre d'exos interactifReady 830 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -213,7 +213,6 @@
 |4L10-1|Réduire, si possible, une expression littérale simple|KO|KO|OK|mathLive|
 |4L10-3|Yohaku additif expressions littérales niveau 1|KO|KO|OK|custom|
 |4L10-4|Rose additive littéraux|KO|KO|OK|custom|
-|4L10|Utiliser la simple distributivité|KO|KO|OK|mathLive|
 |4L11|Factoriser une expression littérale|OK|AMCOpen|OK|mathLive|
 |4L13-2|Mettre un problème en équation et le résoudre|OK|AMCNum|OK|mathLive|
 |4L15-1|Équations du type $\dfrac{x}{a}=\dfrac{b}{c}$|KO|KO|OK|mathLive|

@@ -152,7 +152,7 @@ export class Yohaku {
     }
     for (let i = 0; i < this.taille; i++) {
       if (this.type !== 'littéraux' && this.type.substring(0, 4) !== 'frac') {
-        resultats[i] = texteParPosition(this.resultats[i], (i + 0.5) * this.largeur, -(0.5 + this.taille) * this.hauteur)
+        resultats[i] = texteParPosition(this.resultats[i], (i + 0.5) * this.largeur, -(0.5 + this.taille) * this.hauteur, 'milieu', 'black', 1, 'middle', true)
       } else {
         if (this.type !== 'littéraux') {
           resultats[i] = latexParCoordonnees(this.resultats[i].toLatex().replace('frac', 'dfrac'), (i + 0.5) * this.largeur, -(0.5 + this.taille) * this.hauteur, 'black', 20)
@@ -163,7 +163,7 @@ export class Yohaku {
     }
     for (let i = this.taille; i < 2 * this.taille; i++) {
       if (this.type !== 'littéraux' && this.type.substring(0, 4) !== 'frac') {
-        resultats[i] = texteParPosition(this.resultats[i], (this.taille + 0.5) * this.largeur, (this.taille - 0.5 - i) * this.hauteur)
+        resultats[i] = texteParPosition(this.resultats[i], (this.taille + 0.5) * this.largeur, (this.taille - 0.5 - i) * this.hauteur, 'milieu', 'black', 1, 'middle', true)
       } else {
         if (this.type !== 'littéraux') {
           resultats[i] = latexParCoordonnees(this.resultats[i].toLatex().replace('frac', 'dfrac'), (this.taille + 0.5) * this.largeur, (this.taille - 0.5 - i) * this.hauteur, 'black', 20)
@@ -174,7 +174,7 @@ export class Yohaku {
     }
     if (this.Case !== null) {
       if (this.type !== 'littéraux' && this.type.substring(0, 4) !== 'frac') {
-        donnees.push(texteParPosition(stringNombre(this.cellules[this.Case]), (this.Case % this.taille + 0.5) * this.largeur, -(Math.floor(this.Case / this.taille) + 0.5) * this.hauteur))
+        donnees.push(texteParPosition(stringNombre(this.cellules[this.Case]), (this.Case % this.taille + 0.5) * this.largeur, -(Math.floor(this.Case / this.taille) + 0.5) * this.hauteur, 'milieu', 'black', 1, 'middle', true))
       } else {
         if (this.type !== 'littéraux') {
           donnees.push(latexParCoordonnees(this.cellules[this.Case].toLatex().replace('frac', 'dfrac'), (this.Case % this.taille + 0.5) * this.largeur, -(Math.floor(this.Case / this.taille) + 0.5) * this.hauteur, 'black', 20))
@@ -186,7 +186,7 @@ export class Yohaku {
     if (this.solution) {
       for (let i = 0; i < this.cellules.length; i++) {
         if (this.type !== 'littéraux' && this.type.substring(0, 4) !== 'frac') {
-          if (i !== this.Case) donnees.push(texteParPosition(stringNombre(this.cellules[i]), (i % this.taille + 0.5) * this.largeur, -(Math.floor(i / this.taille) + 0.5) * this.hauteur))
+          if (i !== this.Case) donnees.push(texteParPosition(stringNombre(this.cellules[i]), (i % this.taille + 0.5) * this.largeur, -(Math.floor(i / this.taille) + 0.5) * this.hauteur, 'milieu', 'black', 1, 'middle', true))
         } else {
           if (this.type !== 'littéraux') {
             if (i !== this.Case) donnees.push(latexParCoordonnees(this.cellules[i].toLatex().replace('frac', 'dfrac'), (i % this.taille + 0.5) * this.largeur, -(Math.floor(i / this.taille) + 0.5) * this.hauteur, 'black', 20))
@@ -197,7 +197,7 @@ export class Yohaku {
       }
     } else if (this.cellulesPreremplies.length !== 0) {
       for (let i = 0; i < this.cellulesPreremplies.length; i++) {
-        if (i !== this.Case) donnees.push(texteParPosition(this.cellulesPreremplies[i], (i % this.taille + 0.5) * this.largeur, -(Math.floor(i / this.taille) + 0.5) * this.hauteur))
+        if (i !== this.Case) donnees.push(texteParPosition(this.cellulesPreremplies[i], (i % this.taille + 0.5) * this.largeur, -(Math.floor(i / this.taille) + 0.5) * this.hauteur, 'milieu', 'black', 1, 'middle', true))
       }
     }
     return mathalea2d(Object.assign({}, fixeBordures([...lignes, ...colonnes, ...resultats, ...donnees, operateur])), operateur, ...lignes, ...colonnes, ...resultats, ...donnees)

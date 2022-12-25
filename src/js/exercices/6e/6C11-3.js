@@ -38,7 +38,8 @@ export default function APartirDeDivisionsEuclidiennes () {
   this.sup = 3
   this.titre = titre
   this.spacing = 2
-  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opidiv n'est pas joli
+  this.spacing = context.isHtml ? 2 : 1 // Important sinon opidiv n'est pas joli
+  this.spacingCorr = context.isHtml ? 2 : 1
   this.nbQuestions = 4
   this.listePackages = 'xlop'
 
@@ -98,7 +99,7 @@ export default function APartirDeDivisionsEuclidiennes () {
       }
       r = randint(0, b - 1) // reste inférieur au diviseur
       a = b * q + r
-      texte = `${Operation({ operande1: a, operande2: b, type: 'divisionE' })}`
+      texte = `${Operation({ operande1: a, operande2: b, type: 'divisionE' })}<br>`
       if (r === 0) {
         texteCorr = `$${texNombre(a)}\\div${b}=${texNombre(q)}$`
         setReponse(this, i, [`${a}=${b}\\times${q}`, `${a}=${q}\\times${b}`,

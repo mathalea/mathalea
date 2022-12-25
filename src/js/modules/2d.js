@@ -9238,14 +9238,17 @@ export function antecedentParDichotomie (xmin, xmax, f, y, precision = 0.01) {
   }
   xmoy = (xmax + xmin) / 2
   ymoy = f(xmoy)
-  while (Math.abs(ymoy - y) > precision) {
+  let cpt = 0
+  while (Math.abs(ymoy - y) > precision && cpt < 1000) {
     if (f(xmin) < f(xmax)) {
       if (ymoy > y) { xmax = xmoy } else { xmin = xmoy }
     } else
     if (ymoy > y) { xmin = xmoy } else { xmax = xmoy }
     xmoy = (xmin + xmax) / 2
     ymoy = f(xmoy)
+    cpt++
   }
+  if (cpt > 1000) return false
   return xmoy
 }
 
