@@ -201,7 +201,7 @@ export default function ReciproqueThales () {
         }
 
         if (this.sup !== 3) {
-          texte += mathalea2d({ xmin: xMin, xMax: xMax, ymin: yMin, ymax: yMax }, t1, t2, marqueNomA, marqueNomB, marqueNomC, marqueNomM, marqueNomN)
+          texte += mathalea2d({ xmin: xMin, xMax, ymin: yMin, ymax: yMax }, t1, t2, marqueNomA, marqueNomB, marqueNomC, marqueNomM, marqueNomN)
         }
 
         const epaisseurTriangle = (k < 0) ? 2 : 6 // En cas de configuration papillon il est inutile de changer l'épaisseur
@@ -239,7 +239,7 @@ export default function ReciproqueThales () {
         // niveau 1 : Calcul direct
           texte =
           '\\begin{minipage}{.7 \\linewidth} \\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
-          texte += `\n\t \\item ${s1 + s2}=${s12} cm \n\t \\item ${s1 + s3}=${s13} cm\n\t \\item ${s1 + s5}=${s15} cm\n\t \\item ${s1 + s4}=${s14} cm.<br>`
+          texte += `\n\t \\item ${s1 + s2}=${s12} cm \n\t \\item ${s1 + s3}=${s13} cm\n\t \\item ${s1 + s5}=${s15} cm\n\t \\item ${s1 + s4}=${s14} cm.`
           texte +=
           '\\end{itemize}  ' +
           `Les droites (${s2 + s3}) et (${s4 + s5}) sont-elles parallèles ?<br>` +
@@ -248,7 +248,7 @@ export default function ReciproqueThales () {
         // niveau 2 : Calcul intermédiaire nécessaire
           texte =
           '\\begin{minipage}{.7 \\linewidth} \\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
-          texte += `\n\t \\item ${s1 + s2} = ${s12} cm\n\t \\item ${s1 + s3} = ${s13} cm\n\t \\item ${s3 + s5} = ${s35} cm\n\t \\item ${s2 + s4} = ${s24} cm.<br>`
+          texte += `\n\t \\item ${s1 + s2} = ${s12} cm\n\t \\item ${s1 + s3} = ${s13} cm\n\t \\item ${s3 + s5} = ${s35} cm\n\t \\item ${s2 + s4} = ${s24} cm.`
           texte +=
           '\\end{itemize}  ' +
           `Les droites (${s2 + s3}) et (${s4 + s5}) sont-elles parallèles ?<br>` +
@@ -355,13 +355,13 @@ export default function ReciproqueThales () {
       )}}{${s14}\\times${miseEnEvidence(s15)}}=${texFraction(
         texNombre(dist12 * dist15, 3),
         texNombre(dist14 * dist15, 4)
-      )}$`
+      )}$.`
         texteCorr += `<br>D'autre part on a $\\dfrac{${s1 + s3}}{${s1 + s5}}=\\dfrac{${s13}}{${s15}}=\\dfrac{${s13}\\times${miseEnEvidence(
         s14
       )}}{${s15}\\times${miseEnEvidence(s14)}}=${texFraction(
         texNombre(dist13 * dist14, 3),
         texNombre(dist14 * dist15, 4)
-      )}$`
+      )}$.`
 
         if (!k.eq(k2)) {
         // droites pas parallèles

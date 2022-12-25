@@ -82,7 +82,7 @@ export default function FonctionsProbabilite1 () {
         texteCorr += numAlpha(3) + ` La probabilité d'un événement est la somme des probabilités des issues qui le composent. Donc la probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]} est :<br> $${texFraction(n[m], somme)}+${texFraction(n[p], somme)}=${texFraction(n[p] + n[m], somme)}${simplificationDeFractionAvecEtapes(n[p] + n[m], somme)}$.<br>`
       } else {
         texte += numAlpha(0) + ' Est-ce que c\'est une expérience aléatoire ? Pourquoi ?<br>'
-        texteCorr = '<br>' + numAlpha(0) + ` On sait qu'on tombera sur ${article} ${objet} mais on ne sait pas ${defini} sera ${singulier(qualites[index1][0], index1)}, ${singulier(qualites[index1][1], index1)}, ${singulier(qualites[index1][2], index1)}, ${singulier(qualites[index1][3], index1)} ou ${singulier(qualites[index1][4], index1)}.<br>On ne peut pas prévoir à l'avance le résultat, c'est donc une expérience aléatoire.<br>`
+        texteCorr = numAlpha(0) + ` On sait qu'on tombera sur ${article} ${objet} mais on ne sait pas ${defini} sera ${singulier(qualites[index1][0], index1)}, ${singulier(qualites[index1][1], index1)}, ${singulier(qualites[index1][2], index1)}, ${singulier(qualites[index1][3], index1)} ou ${singulier(qualites[index1][4], index1)}.<br>On ne peut pas prévoir à l'avance le résultat, c'est donc une expérience aléatoire.<br>`
         texte += numAlpha(1) + ' Quelles sont les issues ?<br>'
         texteCorr += numAlpha(1) + `Les issues sont :<br>
         - tomber sur ${article} ${objet} ${singulier(qualites[index1][0], index1)} ;<br>

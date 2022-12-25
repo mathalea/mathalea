@@ -100,7 +100,7 @@ export default function OrganiserDonneesDepuisTexte () {
     texte += numAlpha(0) + ' Remplir le tableau suivant. <br>'
 
     if (this.sup) {
-      texte += numAlpha(1) + ' Quel est la masse totale de fruits achetés par les amis ? <br>'
+      texte += numAlpha(1) + ' Quelle est la masse totale de fruits achetés par les amis ? <br>'
     } else {
       texte += numAlpha(1) + ' Quel est le nombre total de fruits achetés par les amis ? <br>'
     }

@@ -244,17 +244,17 @@ export default function FabriqueAYohaku () {
       const largeur = this.type === 'littéraux' ? operateur === 'addition' ? 4 : 5 : 2
       const yohaku = new Yohaku({ type, taille, largeur, operation: operateur, cellules: donnees, Case, valeurMax, cellulesPreremplies })
       yohaku.calculeResultats()
-      const mot = type === 'littéraux' ? 'expressions' : 'nombres'
+      const mot = type === 'littéraux' ? ['expressions', 'contenues'] : ['nombres', 'contenus']
       texte = operateur === 'addition'
-        ? `Les ${mot} en bout de ligne ou de colonne sont les sommes des ${mot} contenus dans la ligne ou la colonne.`
-        : `Les ${mot} en bout de ligne ou de colonne sont les produits des ${mot} contenus dans la ligne ou la colonne.`
-      texte += `<br>Compléter la grille avec des ${mot} qui conviennent (plusieurs solutions possibles).<br>`
+        ? `Les ${mot[0]} en bout de ligne ou de colonne sont les sommes des ${mot[0]} ${mot[1]} dans la ligne ou la colonne.`
+        : `Les ${mot[0]} en bout de ligne ou de colonne sont les produits des ${mot[0]} ${mot[1]} dans la ligne ou la colonne.`
+      texte += `<br>Compléter la grille avec des ${mot[0]} qui conviennent (plusieurs solutions possibles).<br>`
       texte += yohaku.representation()
       for (let k = 0; k < yohaku.cellulesPreremplies.length; k++) {
         texte += ajouteChampTexteMathLive(this, i * taille ** 2 + k, 'largeur10 inline nospacebefore', { texte: `${lettreMinusculeDepuisChiffre(k + 1)}=`, tailleExtensible: true })
         texte += sp(4)
       }
-      texteCorr = 'La grille ci-dessous n\'est donnnée qu\'à titre d\'exemple, il y a d\'autres solutions.<br>'
+      texteCorr = 'La grille ci-dessous n\'est donnée qu\'à titre d\'exemple, il y a d\'autres solutions.<br>'
       yohaku.solution = true
       texteCorr += yohaku.representation()
       this.yohaku[i] = yohaku
