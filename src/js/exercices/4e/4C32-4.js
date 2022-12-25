@@ -74,8 +74,8 @@ export default function CalculsPuissancesDe10 () {
       exp = aexp + bexp - cexp - dexp
       scientifiquestring = `${texNombre(mantisse)} \\times 10^{${exp}}`
 
-      texte = `$\\dfrac{${texNombre(a)}\\times 10^{${aexp}}}{${texNombre(c)}\\times 10^{${cexp}}} \\times \\dfrac{${texNombre(b)}\\times 10^{${bexp}}}{${texNombre(d)}\\times 10^{${dexp}}} =$`
-      texteCorr = `$\\dfrac{ ${miseEnEvidence(`${texNombre(a)}\\times 10^{${aexp}}`, 'blue')}  }{ ${miseEnEvidence(`${texNombre(c)}\\times 10^{${cexp}}`, '#8A2BE2')} } \\times \\dfrac{ ${miseEnEvidence(`${texNombre(b)}\\times 10^{${bexp}}`, '#FF1493')} }{ ${miseEnEvidence(`${texNombre(d)}\\times 10^{${dexp}}`, '#2E8B57')} } =$`
+      texte = `$\\dfrac{${texNombre(a)}\\times 10^{${aexp}}}{${texNombre(c)}\\times 10^{${cexp}}} \\times \\dfrac{${texNombre(b)}\\times 10^{${bexp}}}{${texNombre(d)}\\times 10^{${dexp}}}$`
+      texteCorr = `$ = \\dfrac{ ${miseEnEvidence(`${texNombre(a)}\\times 10^{${aexp}}`, 'blue')}  }{ ${miseEnEvidence(`${texNombre(c)}\\times 10^{${cexp}}`, '#8A2BE2')} } \\times \\dfrac{ ${miseEnEvidence(`${texNombre(b)}\\times 10^{${bexp}}`, '#FF1493')} }{ ${miseEnEvidence(`${texNombre(d)}\\times 10^{${dexp}}`, '#2E8B57')} } =$`
       if (this.correctionDetaillee) {
         texteCorr += `$ \\dfrac{${miseEnEvidence(texFactorisation(a), 'blue')} \\times ${miseEnEvidence(texFactorisation(b), '#FF1493')}}{${miseEnEvidence(texFactorisation(c), '#8A2BE2')} \\times ${miseEnEvidence(texFactorisation(d), '#2E8B57')}} $`
         texteCorr += `$ \\times \\dfrac{${miseEnEvidence(`10^{${aexp}}`, 'blue')} \\times ${miseEnEvidence(`10^{${bexp}}`, '#FF1493')}}{${miseEnEvidence(`10^{${cexp}}`, '#8A2BE2')} \\times ${miseEnEvidence(`10^{${dexp}}`, '#2E8B57')}} =$`
