@@ -187,7 +187,7 @@ export default function PavageEtTranslation2d () {
     texte += '<br>'
     for (let i = 0; i < this.nbQuestions; i++) {
       texte += `Quelle est l'image de la figure $${couples[i][0]}$ dans la translation transformant la figure $${index1 + 1}$ en la figure $${index2 + 1}$ ?<br>`
-      texteCorr += `L'image de la figure $${couples[i][0]}$ dans la translation transformant la figure $${index1 + 1}$ en la figure $${index2 + 1}$ est la figure ${couples[i][1]}<br>`
+      texteCorr += `L'image de la figure $${couples[i][0]}$ dans la translation transformant la figure $${index1 + 1}$ en la figure $${index2 + 1}$ est la figure ${couples[i][1]}.<br>`
       //      symetriques=associesommets(monpavage.polygones[couples[i][0]-1],monpavage.polygones[couples[i][1]-1],d)
       if (this.correctionDetaillee) {
         A = monpavage.barycentres[couples[i][0] - 1]

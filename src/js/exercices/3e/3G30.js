@@ -182,7 +182,7 @@ export default function CalculDeLongueur () {
       objetsEnonce.push(p2, codage, nomme, t1, t2, t3, codageDeAngle)
       objetsCorrection.push(p2, codage, nomme, t1, t2, t3, hypo, codageDeAngle)
 
-      const paramsEnonce = { xmin: Math.min(A.x, B.x, C.x) - 4, ymin: Math.min(A.y, B.y, C.y) - 4, xmax: Math.max(A.x, B.x, C.x) + 2, ymax: Math.max(A.y, B.y, C.y) + 2, pixelsParCm: 20, scale: 0.37, mainlevee: true, amplitude: 0.4 }
+      const paramsEnonce = { xmin: Math.min(A.x, B.x, C.x) - 4, ymin: Math.min(A.y, B.y, C.y) - 4, xmax: Math.max(A.x, B.x, C.x) + 2, ymax: Math.max(A.y, B.y, C.y) + 2, pixelsParCm: 20, scale: 0.37, mainlevee: true, amplitude: context.isHtml ? 0.4 : 1 }
       const paramsCorrection = { xmin: Math.min(A.x, B.x, C.x) - 4, ymin: Math.min(A.y, B.y, C.y) - 4, xmax: Math.max(A.x, B.x, C.x) + 2, ymax: Math.max(A.y, B.y, C.y) + 2, pixelsParCm: 20, scale: 0.35, mainlevee: false }
       if (!context.isHtml && this.sup) {
         texte += '\\begin{minipage}{.3\\linewidth}\n'

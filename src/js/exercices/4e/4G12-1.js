@@ -95,28 +95,28 @@ export default function TrouverLaTransformations () {
         texteInteractif = `la symétrie d'axe (${noeuds[arrivee].nom}${Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom})`
         axe = Est ? droite(noeuds[arrivee], noeuds[arrivee + 1]) : droite(noeuds[arrivee], noeuds[arrivee + 6])
         animation = symetrieAnimee(poly1, axe, 'begin="0s" dur="5s" repeatCount="indefinite"')
-        return { animation: animation, depart: depart, arrivee: arrivee, texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, axe: axe }
+        return { animation, depart, arrivee, texte, texteCorr, texteInteractif, type, axe }
       case 'trans': // facile pour la translation : depart->arrivee
         texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la translation transformant $${noeuds[depart].nom}$ en $${noeuds[arrivee].nom}$.`
         texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la translation transformant ${sp(1)}\\ldots${sp(1)} en ${sp(1)}\\ldots${sp(1)}.`
         texteInteractif = `la translation transformant ${noeuds[depart].nom} en ${noeuds[arrivee].nom}`
         vector = vecteur(noeuds[depart], noeuds[arrivee])
         animation = translationAnimee(poly1, vector, 'begin="0s" dur="5s" repeatCount="indefinite"')
-        return { animation: animation, depart: depart, arrivee: arrivee, texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, vecteur: vecteur(noeuds[depart], noeuds[arrivee]) }
+        return { animation, depart, arrivee, texte, texteCorr, texteInteractif, type, vecteur: vecteur(noeuds[depart], noeuds[arrivee]) }
       case 'rot90': // la position du centre dépend du sens de rotation et de départ et arrivee.
         texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la rotation de centre $${Est ? (leSens ? noeuds[arrivee + 1].nom : noeuds[arrivee].nom) : (leSens ? noeuds[arrivee].nom : noeuds[arrivee + 6].nom)}$ d'angle $90\\degree$ dans le sens ${leSens ? 'direct' : 'indirect'}.`
         texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la rotation de centre ${sp(1)}\\ldots${sp(1)} d'angle $90\\degree$ dans le sens  ${leSens ? 'direct' : 'indirect'}.`
         texteInteractif = `la rotation de centre ${Est ? (leSens ? noeuds[arrivee + 1].nom : noeuds[arrivee].nom) : (leSens ? noeuds[arrivee].nom : noeuds[arrivee + 6].nom)} d'angle 90° dans le sens ${leSens ? 'direct' : 'indirect'}`
         centre = Est ? (leSens ? noeuds[arrivee + 1] : noeuds[arrivee]) : (leSens ? noeuds[arrivee] : noeuds[arrivee + 6])
         animation = rotationAnimee(poly1, centre, leSens ? 90 : -90, 'begin="0s" dur="5s" repeatCount="indefinite"')
-        return { animation: animation, depart: depart, arrivee: arrivee, texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, centre: centre, sens: leSens }
+        return { animation, depart, arrivee, texte, texteCorr, texteInteractif, type, centre, sens: leSens }
       case 'rot180': // pas besoin du sens, mais le milieu choisit dépend de depart et arrivee
         texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la symétrie de centre le milieu de $[${noeuds[arrivee].nom}${Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom}]$.`
         texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la symétrie de centre le milieu de $[${sp(1)}\\ldots${sp(1)}]$.`
         texteInteractif = `la symétrie de centre le milieu de [${noeuds[arrivee].nom}${Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom}]`
         centre = milieu(noeuds[arrivee], Est ? noeuds[arrivee + 1] : noeuds[arrivee + 6])
         animation = rotationAnimee(poly1, centre, 180, 'begin="0s" dur="5s" repeatCount="indefinite"')
-        return { animation: animation, depart: depart, arrivee: arrivee, texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, centre: centre }
+        return { animation, depart, arrivee, texte, texteCorr, texteInteractif, type, centre }
     }
   }
   this.nouvelleVersion = function () {

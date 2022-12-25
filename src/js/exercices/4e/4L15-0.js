@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, shuffle, combinaisonListesSansChangerOrdre, ecritureParentheseSiNegatif, fractionSimplifiee, prenomF, prenomM, miseEnEvidence, texteEnCouleur, texteGras } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, shuffle, combinaisonListesSansChangerOrdre, ecritureParentheseSiNegatif, fractionSimplifiee, prenomF, prenomM, miseEnEvidence, texteEnCouleur, texteGras, sp } from '../../modules/outils.js'
 export const titre = 'Trouver l\'erreur dans une résolution d\'équation du premier degré'
 
 /**
@@ -117,11 +117,11 @@ export default function TrouverErreurResolEqDeg1 () {
         { // case 1 --> ax+b=d+cx  erreur à l'étape 1 on passe cx de l'autre côté
           pronom: currentGenreEtPrenom.pronom,
           prenom: currentGenreEtPrenom.prenom,
-          a: a,
-          b: b,
-          c: c,
-          d: d,
-          inc: inc,
+          a,
+          b,
+          c,
+          d,
+          inc,
           eq: `$${a}${inc} ${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}$`,
           et1: `${texteGras('Étape 1 :')} $${a}${inc} ${signeDansEq(c).signe} ${c}${inc} ${signeDansEq(b).signe} ${b} = ${d} $`, // l'erreur est là, on passe de l'autre côté d'où l'oubli du chgt de signe
           et2: `${texteGras('Étape 2 :')} $${a}${inc} ${signeDansEq(c).signe} ${c}${inc} = ${d} ${signeDansEq(-b).signe} ${-b} $`,
@@ -129,7 +129,7 @@ export default function TrouverErreurResolEqDeg1 () {
           et4: `${texteGras('Étape 4 :')} $${inc} = \\dfrac{${d} ${signeDansEq(-b).signe} ${-b}}{${a + c}} $`,
           et_fin: `${texteGras('Étape 5 :')} $${inc} = \\dfrac{${d - b}}{${a + c}}$ ${simpFrac(d - b, a + c)}`,
           err: `L'erreur se situe à l'étape 1.
-            <br>${currentGenreEtPrenom.prenom} "a fait passer" le terme $${signeDansEq(c).signe} ${c}${inc}$ "de l'autre côté"
+            <br>${currentGenreEtPrenom.prenom} «${sp(1)}a fait passer${sp(1)}» le terme $${signeDansEq(c).signe} ${c}${inc}$ «${sp(1)}de l'autre côté${sp(1)}»
             or pour obtenir une équation équivalente, il s'agit d'opérer de la même manière sur les deux membres de l'équation.
             <br>Ici il faut ${signeDansEq(c).operation} $${signeDansEq(c).chgt_signe}${inc}$ aux deux membres.            
             `,
@@ -152,11 +152,11 @@ export default function TrouverErreurResolEqDeg1 () {
         { // case 2 --> ax+b=d+cx  erreur à l'étape 2 on passe b de l'autre côté
           pronom: currentGenreEtPrenom.pronom,
           prenom: currentGenreEtPrenom.prenom,
-          a: a,
-          b: b,
-          c: c,
-          d: d,
-          inc: inc,
+          a,
+          b,
+          c,
+          d,
+          inc,
           eq: `$${a}${inc} ${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}$`,
           et1: `${texteGras('Étape 1 :')} $${a}${inc} ${signeDansEq(-c).signe} ${-c}${inc} ${signeDansEq(b).signe} ${b} = ${d}$`,
           et2: `${texteGras('Étape 2 :')} $${a}${inc} ${signeDansEq(-c).signe} ${-c}${inc} = ${d} ${signeDansEq(b).signe} ${b}$`, // l'erreur est là on passe de l'autre côté
@@ -164,7 +164,7 @@ export default function TrouverErreurResolEqDeg1 () {
           et4: `${texteGras('Étape 4 :')} $${inc} = \\dfrac{${d} ${signeDansEq(b).signe} ${b}}{${a - c}} $`,
           et_fin: `${texteGras('Étape 5 :')} $${inc} = \\dfrac{${d + b}}{${a - c}}$ ${simpFrac(d + b, a - c)}`,
           err: `L'erreur se situe à l'étape 2.
-            <br>${currentGenreEtPrenom.prenom} "a fait passer" le terme $${signeDansEq(b).signe} ${b}$ "de l'autre côté"
+            <br>${currentGenreEtPrenom.prenom} «${sp(1)}a fait passer${sp(1)}» le terme $${signeDansEq(b).signe} ${b}$ «${sp(1)}de l'autre côté${sp(1)}»
             or pour obtenir une équation équivalente, il s'agit d'opérer de la même manière sur les deux membres de l'équation.
             <br>Ici il faut ${signeDansEq(b).operation} $${signeDansEq(b).chgt_signe}$ aux deux membres.            
             `,
@@ -187,11 +187,11 @@ export default function TrouverErreurResolEqDeg1 () {
         { // case 3 --> ax+b=cx+d  erreur à l'étape 2 on passe cx de l'autre côté
           pronom: currentGenreEtPrenom.pronom,
           prenom: currentGenreEtPrenom.prenom,
-          a: a,
-          b: b,
-          c: c,
-          d: d,
-          inc: inc,
+          a,
+          b,
+          c,
+          d,
+          inc,
           eq: `$${a}${inc} ${signeDansEq(b).signe} ${b} = ${c}${inc} ${signeDansEq(d).signe} ${d} $`,
           et1: `${texteGras('Étape 1 :')} $${a}${inc} = ${c}${inc} ${signeDansEq(d).signe} ${d} ${signeDansEq(-b).signe} ${-b}$`,
           et2: `${texteGras('Étape 2 :')} $${a}${inc} ${signeDansEq(c).signe} ${c}${inc} = ${d} ${signeDansEq(-b).signe} ${-b}$`, // l'erreur est là on passe de l'autre côté
@@ -199,7 +199,7 @@ export default function TrouverErreurResolEqDeg1 () {
           et4: `${texteGras('Étape 4 :')} $${inc} = \\dfrac{${d} ${signeDansEq(-b).signe} ${-b}}{${a + c}} $`,
           et_fin: `${texteGras('Étape 5 :')} $${inc} = \\dfrac{${d - b}}{${a + c}}$ ${simpFrac(d - b, a + c)}`,
           err: `            L'erreur se situe à l'étape 2.
-            <br>${currentGenreEtPrenom.prenom} "a fait passer" le terme $${signeDansEq(c).signe} ${c}${inc}$ "de l'autre côté"
+            <br>${currentGenreEtPrenom.prenom} «${sp(1)}a fait passer${sp(1)}» le terme $${signeDansEq(c).signe} ${c}${inc}$ «${sp(1)}de l'autre côté${sp(1)}»
             or pour obtenir une équation équivalente, il s'agit d'opérer de la même manière sur les deux membres de l'équation.
             <br>Ici il faut ${signeDansEq(c).operation} $${signeDansEq(c).chgt_signe}${inc}$ aux deux membres.            
             `,
@@ -222,11 +222,11 @@ export default function TrouverErreurResolEqDeg1 () {
         { // case 4 --> ax+b=cx+d  erreur à l'étape 1 on passe b de l'autre côté
           pronom: currentGenreEtPrenom.pronom,
           prenom: currentGenreEtPrenom.prenom,
-          a: a,
-          b: b,
-          c: c,
-          d: d,
-          inc: inc,
+          a,
+          b,
+          c,
+          d,
+          inc,
           eq: `$${a}${inc} ${signeDansEq(b).signe} ${b} = ${c}${inc} ${signeDansEq(d).signe} ${d} $`,
           et1: `${texteGras('Étape 1 :')} $${a}${inc} = ${c}${inc} ${signeDansEq(d).signe} ${d} ${signeDansEq(b).signe} ${b}$`, // l'erreur est là on passe de l'autre côté
           et2: `${texteGras('Étape 2 :')} $${a}${inc} ${signeDansEq(-c).signe} ${-c}${inc} = ${d} ${signeDansEq(b).signe} ${b}$`,
@@ -234,7 +234,7 @@ export default function TrouverErreurResolEqDeg1 () {
           et4: `${texteGras('Étape 4 :')} $${inc} = \\dfrac{${d} ${signeDansEq(b).signe} ${b}}{${a - c}} $`,
           et_fin: `${texteGras('Étape 5 :')} $${inc} = \\dfrac{${d + b}}{${a - c}}$ ${simpFrac(d + b, a - c)}`,
           err: `            L'erreur se situe à l'étape 1.
-            <br>${currentGenreEtPrenom.prenom} "a fait passer" le terme $${signeDansEq(b).signe} ${b}$ "de l'autre côté"
+            <br>${currentGenreEtPrenom.prenom} «${sp(1)}a fait passer${sp(1)}» le terme $${signeDansEq(b).signe} ${b}$ «${sp(1)}de l'autre côté${sp(1)}»
             or pour obtenir une équation équivalente, il s'agit d'opérer de la même manière sur les deux membres de l'équation.
             <br>Ici il faut ${signeDansEq(b).operation} $${signeDansEq(b).chgt_signe}$ aux deux membres.            
             `,
@@ -257,11 +257,11 @@ export default function TrouverErreurResolEqDeg1 () {
         { // case 5 --> ax+b=cx+d  erreur à l'étape 4 on soustrait au lieu de diviser
           pronom: currentGenreEtPrenom.pronom,
           prenom: currentGenreEtPrenom.prenom,
-          a: a,
-          b: b,
-          c: c,
-          d: d,
-          inc: inc,
+          a,
+          b,
+          c,
+          d,
+          inc,
           eq: `$${a}${inc} ${signeDansEq(b).signe} ${b} = ${c}${inc} ${signeDansEq(d).signe} ${d} $`,
           et1: `${texteGras('Étape 1 :')} $${a}${inc} = ${c}${inc} ${signeDansEq(d).signe} ${d} ${signeDansEq(-b).signe} ${-b}$`,
           et2: `${texteGras('Étape 2 :')} $${a}${inc} ${signeDansEq(-c).signe} ${-c}${inc} = ${d} ${signeDansEq(-b).signe} ${-b}$`,

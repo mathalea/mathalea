@@ -125,7 +125,7 @@ export default function MettreEnEquationSansResoudre () {
       // on prépare l'objet polygone
       const polygone = {
         nb_cotes: n,
-        unite: unite,
+        unite,
         article: myPolyName(n).article,
         nom: myPolyName(n).name,
         let_cote: inc,
@@ -145,11 +145,11 @@ export default function MettreEnEquationSansResoudre () {
 
       const enonces = []
       enonces.push({
-        enonce: `On considère la figure suivante où l'unité est le $${polygone.unite}$.<br>${prenom()} se demande pour quelle valeur de ${polygone.let_cote}, exprimée en $${polygone.unite}$, le périmètre ${polygone.article}${polygone.nom} est égal à $${polygone.perimetre}$ $${polygone.unite}$ .<br> ${polygone.fig}`,
+        enonce: `On considère la figure suivante où l'unité est le ${polygone.unite}.<br>${prenom()} se demande pour quelle valeur de $${polygone.let_cote}$, exprimée en ${polygone.unite}, le périmètre ${polygone.article}${polygone.nom} est égal à $${polygone.perimetre}$ ${polygone.unite} .<br> ${polygone.fig}`,
         question: '',
         correction: `La figure est un ${polygone.nom}, il a donc ${polygone.nb_cotes} côtés de même longueur.<br>
         Cette longueur est notée ${polygone.let_cote}, le périmètre de la figure, exprimé en fonction de ${polygone.let_cote}, vaut donc $${polygone.nb_cotes}\\times$ ${polygone.let_cote}.<br>
-        D'après l'énoncé, ce périmètre vaut $${polygone.perimetre}$ $${polygone.unite}$.<br>
+        D'après l'énoncé, ce périmètre vaut $${polygone.perimetre}$ ${polygone.unite}.<br>
         L'équation suivante permet donc de résoudre le problème : <br>
         ${texteEnCouleur(`$${polygone.nb_cotes}\\times$ ${polygone.let_cote} $= ${polygone.perimetre}$.`)}`
       })
@@ -157,11 +157,11 @@ export default function MettreEnEquationSansResoudre () {
       const p = randint(3, 8, [n])
       polygone.nb_cotes = p
       enonces.push({
-        enonce: `On considère la figure suivante où l'unité est le $${polygone.unite}$.<br>${prenom()} se demande pour quelle valeur de ${polygone.let_cote}, exprimée en $${polygone.unite}$, le périmètre ${polygone.article}${polygone.nom} est égal à $${polygone.perimetre}$ $${polygone.unite}$ .<br> ${polygone.fig}`,
+        enonce: `On considère la figure suivante où l'unité est le ${polygone.unite}.<br>${prenom()} se demande pour quelle valeur de $${polygone.let_cote}$, exprimée en ${polygone.unite}, le périmètre ${polygone.article}${polygone.nom} est égal à $${polygone.perimetre}$ ${polygone.unite} .<br> ${polygone.fig}`,
         question: '',
         correction: `La figure est un ${polygone.nom}, il a donc ${polygone.nb_cotes} côtés de même longueur.<br>
         Cette longueur est notée ${polygone.let_cote}, le périmètre de la figure, exprimé en fonction de ${polygone.let_cote}, vaut donc $${polygone.nb_cotes}\\times$ ${polygone.let_cote}.<br>
-        D'après l'énoncé, ce périmètre vaut $${polygone.perimetre}$ $${polygone.unite}$.<br>
+        D'après l'énoncé, ce périmètre vaut $${polygone.perimetre}$ ${polygone.unite}.<br>
         L'équation suivante permet donc de résoudre le problème : <br>
         ${texteEnCouleur(`$${polygone.nb_cotes}\\times$ ${polygone.let_cote} $= ${polygone.perimetre}$.`)}`
       })

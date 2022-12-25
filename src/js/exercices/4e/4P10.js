@@ -387,7 +387,7 @@ export default function ProblemesGrandeursComposees () {
               'La vitesse est le quotient de la distance parcourue par le temps de parcours.<br>L\'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$)'
             ) +
             ` de $${texNombrec(vitesseMoy)}$ m/s.<br>`
-          texte += `Elle pèse ${masse} kg.<br>`
+          texte += `Elle pèse $${masse}$ kg.<br>`
           texte +=
             numAlpha(0) +
             ' Calculer sa ' +
@@ -427,7 +427,7 @@ export default function ProblemesGrandeursComposees () {
           masse = randint(20, 30) // masse de l'enfant
           distance = arrondi(randint(25, 35) / 10)
           texte =
-            `${quidam} qui pèse ${masse} kg se trouve sur le siège d'une balançoire "` +
+            `${quidam} qui pèse $${masse}$ kg se trouve sur le siège d'une balançoire "` +
             katexPopup2(
               numeroExercice + i * 3,
               2,
@@ -445,7 +445,7 @@ export default function ProblemesGrandeursComposees () {
               numeroExercice + i * 3 + 1,
               typeAide,
               'moment',
-              'Définition : momnent (grandeur physique)',
+              'Définition : moment (grandeur physique)',
               'Le moment d\'une force d\'intensité F(en Newton ou kg.m.s$^{-2}$) en un point M par rapport à un pivot P est le produit de F par la distance PM (appelée bras de levier) exprimée en mètres (lorsque cette force s\'exerce perpendiculairement au bras de levier). Le moment est l\'energie permettant de faire tourner l\'objet autour du pivot.<br>L\'unité de mesure du moment est le Joule (J).<br>$1J=1\\text{ kg.m}^2\\text{s}^{-2}$.'
             ) +
             ' du ' +
@@ -454,12 +454,12 @@ export default function ProblemesGrandeursComposees () {
               typeAide,
               'poids',
               'Définition : Poids',
-              'Le poids est le produit de la masse d\'un objet par l\'accélération de la pesanteur terrestre ($9,81\\text{ m.s}^{-2}$).<br>L\'unité du poids est le Newton (N) : 1N=1kg.m.s$^{-2}$'
+              'Le poids est le produit de la masse d\'un objet par l\'accélération de la pesanteur terrestre ($9,81\\text{ m.s}^{-2}$).<br>L\'unité du poids est le Newton (N) : 1N = 1kg.m.s$^{-2}$'
             ) +
             ` de ${quidam} sur son siège par rapport au pivot central du trébuchet en Joules (on admettra que le bras de levier est horizontal).<br>`
           texte +=
             numAlpha(1) +
-            ` Le père de ${quidam} vient s'installer de l'autre côté du pivot central. Il pèse ${index} kg et s'installe de façon à ce que son poids permette d'équilibrer la balançoire à l'horizontale. Quelle doit être la longueur du bras de levier de son côté ( à quelle distance du pivot est-il assis ) ?<br>`
+            ` Le père de ${quidam} vient s'installer de l'autre côté du pivot central. Il pèse $${index}$ kg et s'installe de façon à ce que son poids permette d'équilibrer la balançoire à l'horizontale. Quelle doit être la longueur du bras de levier de son côté ( à quelle distance du pivot est-il assis ) ?<br>`
           texteCorr =
             numAlpha(0) +
             ` Le moment du poids de ${quidam} appliqué sur son siège par rapport au pivot central du trébuchet est :<br>`
@@ -526,7 +526,7 @@ export default function ProblemesGrandeursComposees () {
           I1 = arrondi(appareils[index][1] / 230, 0) + 1
           texte =
             numAlpha(0) +
-            ` Un ${appareils[index][0]} est protégé par un fusible de ${I1} ampères, quelle est la ` +
+            ` Un ${appareils[index][0]} est protégé par un fusible de $${I1}$ ampères.<br>Quelle est la ` +
             katexPopup2(
               numeroExercice + i * 3 + 1,
               typeAide,
@@ -537,7 +537,7 @@ export default function ProblemesGrandeursComposees () {
             ' maximale de cet appareil s\'il fonctionne sur le secteur ?<br>'
           texte +=
             numAlpha(1) +
-            ` Un ${appareils[index1][0]} fonctionne à une puissance maximum de ${appareils[index1][1]} W.<br>Quel est l'ampérage minimum nécessaire pour le fusible qui protégera ${index1 === 3 ? 'cet' : 'ce'} ${appareils[index1][0]} des court-ciruits ?<br>`
+            ` Un ${appareils[index1][0]} fonctionne à une puissance maximum de $${texNombre(appareils[index1][1])}$ W.<br>Quel est l'ampérage (entier) minimum nécessaire pour le fusible qui protégera ${index1 === 3 ? 'cet' : 'ce'} ${appareils[index1][0]} des courts-circuits ?<br>`
           texteCorr =
             numAlpha(0) +
             ` La tension du secteur étant de 230V, la puissance maximale de ce ${appareils[index][0]} est de :<br>`
@@ -551,7 +551,7 @@ export default function ProblemesGrandeursComposees () {
             }\\text{ W}}{230 \\text{ V}} \\approx ${texNombrec(
               arrondi(appareils[index1][1] / 230)
             )}\\text{ A}$.<br>`
-          texteCorr += `Le fusible nécessaire pour protéger cet appareil des courts-circuits devra avoir une intensité de rupture minimum de ${I2} ampères.`
+          texteCorr += `Le fusible nécessaire pour protéger cet appareil des courts-circuits devra avoir une intensité de rupture minimum de $${I2}$ ampères.`
           break
         case 7: // problème de vitesses
           index2 = liste7[flag7]
@@ -853,7 +853,7 @@ export default function ProblemesGrandeursComposees () {
           prix2 = arrondi(masse2 * fruits[index2][1])
           prix3 = arrondi(masse3 * fruits[index][1])
           quidam = prenomF()
-          texte = `${quidam} se rends à l'épicerie de son quartier. Elle y achète $${texNombre(
+          texte = `${quidam} se rend à l'épicerie de son quartier. Elle y achète $${texNombre(
             masse
           )}$ kg de ${fruits[index1][0]} à $${texPrix(
             fruits[index1][1]
@@ -1000,7 +1000,7 @@ export default function ProblemesGrandeursComposees () {
             numAlpha(1) +
             ` Quel est le volume d'une pièce de ${materiaux[index2][0]} ayant une masse de `
           texte += `$${texNombre(masse2)}\\text{ kg}$ (la masse volumique du ${materiaux[index2][0]
-            } est de $${texNombre(materiaux[index2][1])}\\text{ kg/m}^3$)<br>`
+            } est de $${texNombre(materiaux[index2][1])}\\text{ kg/m}^3$) ?<br>`
           texteCorr =
             numAlpha(0) +
             ` La masse de cette pièce de ${materiaux[index1][0]
@@ -1083,19 +1083,19 @@ export default function ProblemesGrandeursComposees () {
               'Le débit est le quotient d\'un volume d\'eau écoulée dans une section de conduit par le temps d\'écoulement.<br>L\'unité officielle est le mètre cube par seconde ($\\text{m}^3/\\text{s}$  et dans certains cas on peut utiliser le litre par minute (L/min)'
             ) +
             ` annuel moyen ${rivieres[index2][6]}${rivieres[index2][0]
-            } mesuré à ${rivieres[index2][1]} est de ${rivieres[index2][2]
-            } m${texteExposant(3)}/s.<br>`
+            } mesuré à ${rivieres[index2][1]} est de $${texNombre(rivieres[index2][2])
+            }$ m${texteExposant(3)}/s.<br>`
           texte +=
             numAlpha(0) +
             ` Calculer le volume d'eau en m${texteExposant(
               3
-            )} écoulé en ${duree} heures à ce débit.<br>`
+            )} écoulé en $${duree}$ heures à ce débit.<br>`
           texte +=
             numAlpha(1) +
             ` En ${rivieres[index2][4]} à ${rivieres[index2][1]}, ${rivieres[index2][5]
-            }${rivieres[index2][0]} a débité ${nombreAvecEspace(
+            }${rivieres[index2][0]} a débité $${texNombre(
               vMax
-            )} m${texteExposant(
+            )}$ m${texteExposant(
               3
             )} en une heure. Quel a été alors le débit en m³/s ?`
           texteCorr =

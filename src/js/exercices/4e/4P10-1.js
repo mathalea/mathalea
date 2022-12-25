@@ -165,15 +165,14 @@ export default function GraphiquesEtProportionnalite2 () {
         enonce: `
           À ${situation.lieu}, ${situation.prenom} utilise le graphique ci-dessous pour indiquer le prix de ses ${situation.articles} en fonction du ${situation.qte} ${situation.art_articles}.
           <br>${situation.fig}
-          ${numAlpha(k++)} Justifier que c'est une situation de proportionnalité à l'aide du graphique.
-          <br> ${numAlpha(k++)} Quel est le prix de $${situation.qte_max}$ ${situation.unite}  ${situation.articles}?
-          <br> ${numAlpha(k++)} Quel est le prix de $${situation.qte2}$ ${situation.unite}  ${situation.articles}?
+          <br>${numAlpha(k++)} Justifier que c'est une situation de proportionnalité à l'aide du graphique.
+          <br> ${numAlpha(k++)} Quel est le prix de $${situation.qte_max}$ ${situation.unite}  ${situation.articles} ?
+          <br> ${numAlpha(k++)} Quel est le prix de $${situation.qte2}$ ${situation.unite}  ${situation.articles} ?
           `,
         // question:``,
         correction: `
-        <br> ${numAlpha(kCorr++)} Ce graphique est une droite qui passe par l'origine.
+         ${numAlpha(kCorr++)} Ce graphique est une droite qui passe par l'origine.
         <br> ${texteEnCouleur('C\'est donc bien le graphique d\'une situation de proportionnalité.')}
-
         <br> ${numAlpha(kCorr++)} Par lecture graphique, en utilisant les pointillés rouges du graphe ci-dessous, ${texteEnCouleur(`$${situation.qte_max}$ ${situation.unite}  ${situation.articles} coûtent $${texPrix(calcul(situation.qte_max * situation.prix_unitaire))}$ €.`)}
         <br> ${situation.figureCorr}
         <br> ${numAlpha(kCorr++)} Pour $${situation.qte2}$ ${situation.unite}  ${situation.articles}, la lecture graphique est moins facile, nous allons détailler deux méthodes.
