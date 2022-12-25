@@ -345,9 +345,22 @@ export function trieCouples (x, y) {
  * La spline de Catmull-Rom utilise ici un tableau d'ordonnées successives pour des abscisses équiréparties.
  * Donc on donne le tableau des valeurs de y, l'abscisse correspondant à la première valeur de y et le pas (step) permettant de passer d'une abscisse à la suivante.
  * Adaptation pour Mathalea
+ * @property {number[]} x liste des abscisses des noeuds (rempli à partir de x0 et step)
+ * @property {number[]} y liste des ordonnées des noeuds
+ * @property {number} n nombre de noeuds
+ * @property {Polynome[]} polys liste des polynomes correspondants à chaque intervalle
+ * @property {Function[]} fonctions liste des fonctions correspondantes à chaque polynome
+ * @method  {(number)=>number[]} solve(y) retourne les antécédents de y
+ * @methode {number=>number} image(x) retourne l'image de x par la fonction
  * @author Jean-Claude Lhote
  */
 class SplineCatmullRom {
+  /**
+   *
+   * @param {number[]} tabY liste des valeurs de y au niveau des noeuds (sa longueur détermine le nombre d'intervalles
+   * @param {number} x0 l'abscisse du début de l'intervalle de définition
+   * @param {number} step le pas entre chaque valeur de x pour les différents noeuds successifs
+   */
   constructor ({ tabY = [], x0 = -5, step = 1 }) {
     this.x = []
     this.y = []
@@ -466,7 +479,24 @@ class SplineCatmullRom {
     }
   }
 }
-
+/**
+ * inspiré de https://yahiko.developpez.com/tutoriels/introduction-interpolation/?page=page_8#L8-3
+ * La spline de Catmull-Rom utilise ici un tableau d'ordonnées successives pour des abscisses équiréparties.
+ * Donc on donne le tableau des valeurs de y, l'abscisse correspondant à la première valeur de y et le pas (step) permettant de passer d'une abscisse à la suivante.
+ * Adaptation pour Mathalea
+ * @property {number[]} x liste des abscisses des noeuds (rempli à partir de x0 et step)
+ * @property {number[]} y liste des ordonnées des noeuds
+ * @property {number} n nombre de noeuds
+ * @property {Polynome[]} polys liste des polynomes correspondants à chaque intervalle
+ * @property {Function[]} fonctions liste des fonctions correspondantes à chaque polynome
+ * @method  {(number)=>number[]} solve(y) retourne les antécédents de y
+ * @methode {number=>number} image(x) retourne l'image de x par la fonction
+ * @author Jean-Claude Lhote
+ *
+ * @param {number[]} tabY liste des valeurs de y au niveau des noeuds (sa longueur détermine le nombre d'intervalles
+ * @param {number} x0 l'abscisse du début de l'intervalle de définition
+ * @param {number} step le pas entre chaque valeur de x pour les différents noeuds successifs
+ */
 export function splineCatmullRom ({ tabY = [], x0 = -5, step = 1 }) {
   return new SplineCatmullRom({ tabY, x0, step })
 }
