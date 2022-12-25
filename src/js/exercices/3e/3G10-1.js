@@ -460,7 +460,6 @@ export default function TransformationsDuPlanEtCoordonnees () {
 
           t[8] = 1
           O.positionLabel = 'right'
-          console.log(O)
           if (i === 0) {
             objetsEnonce.push(tracePoint(A, O, pointO), labelPoint(A, O, pointO), vecteur(pointO, O).representant(pointO))
             objetsCorrection.push(tracePoint(A, Aprime, O, pointO), labelPoint(A, Aprime, O, pointO),
