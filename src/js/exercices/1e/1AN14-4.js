@@ -168,7 +168,7 @@ export default function DeriveeProduit () {
           texteCorr += `On utilise la formule rappelée plus haut et on a \\[${namef}'(x)=${intermediaire}.\\]`
           // 2ème étape : simplification
           let interm2
-          if (racineGauche) interm2 = `\\frac{${poly}}{2\\sqrt{x}}${derivee.toMathExpr(true)}\\sqrt{x}`
+          if (racineGauche) interm2 = `\\frac{${poly}}{2\\sqrt{x}}${derivee.toLatex(true)}\\sqrt{x}`
           else interm2 = `${!derivee.isMon() ? `(${derivee})` : derivee}\\sqrt{x}+\\frac{${poly}}{2\\sqrt{x}}`
           texteCorr += 'L\'énoncé ne demandant rien de plus, on se contente de simplifier l\'expression :'
           texteCorr += `\\[${namef}'(x)=${interm2}\\]`
@@ -186,7 +186,7 @@ export default function DeriveeProduit () {
           else intermediaire = `\\underbrace{(${derivee})}_{u'(x)}\\times e^x+(${poly})\\times\\underbrace{e^x}_{v'(x)}`
           texteCorr += `On utilise la formule rappelée plus haut et on a \\[${namef}'(x)=${intermediaire}.\\]`
           // 2ème étape : Factorisation
-          const interm2 = `(${poly}${derivee.toMathExpr(true)})`
+          const interm2 = `(${poly}${derivee.toLatex(true)})`
           const termeGauche = expGauche ? 'e^x' : interm2
           const termeDroite = expGauche ? interm2 : 'e^x'
           texteCorr += 'Comme demandé, on factorise l\'expression par $e^x$ : '

@@ -983,8 +983,8 @@ export function rienSi1 (a) {
   if (equal(a, 1)) return ''
   if (equal(a, -1)) return '-'
   if (a instanceof Fraction || a instanceof FractionX) return a.toLatex()
-  if (Number(a)) return texNombre(a)
-  window.notify('rienSi1 : type de valeur non prise en compte')
+  if (Number(a) || a === 0) return stringNombre(a) // on retourne 0 ce sera pas joli, mais Number(0) est false !!!
+  window.notify('rienSi1 : type de valeur non prise en compte : ', { a })
 }
 
 /**

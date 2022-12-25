@@ -1,8 +1,8 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { splineCatmullRom } from '../../modules/fonctionsMaths.js'
-import { antecedentParDichotomie, courbe, repere } from '../../modules/2d.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, texNombre } from '../../modules/outils.js'
+import { courbe, repere } from '../../modules/2d.js'
+import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
 import { max, min } from 'mathjs'
 
 export const titre = 'Resoudre graphiquement une équation'
@@ -62,12 +62,18 @@ export default class nomExercice extends Exercice {
       const f = splineCatmullRom({ tabY, x0, step: 2 }) // le tableau des ordonnées successives = tabY, x0 = -5, step = 1.
       const F = x => f.image(x) // On crée une fonction de x f.image(x) est une fonction polynomiale par morceaux utilisée dans courbeSpline()
       // const c = courbeSpline(f, { repere: r, step: 0.1 }) // Une première façon de tracer la courbe.
-      const c2 = courbe(F, { repere: r, step: 0.1, color: 'red' }) // F peut ainsi être utilisée dans courbe.
+      const c = courbe(F, { repere: r, step: 0.1, color: 'red', epaisseur: 5 }) // F peut ainsi être utilisée dans courbe.
+      const C0 = courbe(f.fonctions[0], { repere: r, step: 0.1, xMin: f.x[0], xMax: f.x[1], color: 'blue' })
+      const C1 = courbe(f.fonctions[1], { repere: r, step: 0.1, xMin: f.x[1], xMax: f.x[2], color: 'green' })
+      const C2 = courbe(f.fonctions[2], { repere: r, step: 0.1, xMin: f.x[2], xMax: f.x[3], color: 'orange' })
+      const C3 = courbe(f.fonctions[3], { repere: r, step: 0.1, xMin: f.x[3], xMax: f.x[4], color: 'purple' })
+      const C4 = courbe(f.fonctions[4], { repere: r, step: 0.1, xMin: f.x[4], xMax: f.x[5], color: 'yellow' })
 
-      texte += mathalea2d({ xmin: -15, xmax: 15, ymin: -15, ymax: 15 }, r, c2)
+      texte += mathalea2d({ xmin: -15, xmax: 15, ymin: -15, ymax: 15 }, r, c, C0, C1, C2, C3, C4)
 
-      const antecedents = f.solve(tabY[1], 0.001, 0.1, 2)
-      const texteCorr = `Correction ${i + 1} de type 1 : la liste des antécédents est : ${antecedents.reduce((accu, current) => accu + ' ; ' + current)}`
+      const antecedents = f.solve(tabY[1])
+      let texteCorr = `Correction ${i + 1} de type 1 : la liste des antécédents est : `
+      texteCorr += antecedents.length > 0 ? antecedents.reduce((accu, current) => accu + ' ; ' + current) : ''
       texte += texteCorr // sert à voir la correction sans avoir à cliquer (à virer)
       // Si la question n'a jamais été posée, on l'enregistre
       // Ne pas mettre texte (il peut être différent avec les mêmes données à cause des listeners de l'interactif qui sont labelisés de façon unique par question)

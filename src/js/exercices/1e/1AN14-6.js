@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre, rienSi1, prettyTex } from '../../modules/outils.js'
 import { Polynome } from '../../modules/fonctionsMaths.js'
 import { simplify, parse, derivative, divide } from 'mathjs'
-const math = { simplify: simplify, parse: parse, derivative: derivative }
+const math = { simplify, parse, derivative }
 export const titre = 'Dérivée d\'une composée affine'
 
 /**
@@ -80,7 +80,7 @@ export default function DeriveeComposee () {
           deriveeF = '1/(2*sqrt(x))'
           break
         case 'monome':
-          deriveeF = f.derivee().toMathExpr()
+          deriveeF = f.derivee().toLatex()
           break
       }
       texteCorr += `Ici : \\[\\begin{aligned}u&:x\\mapsto ${prettyTex(math.simplify(exprF, reglesDeSimplifications))}\\\\ u'&:x\\mapsto ${prettyTex(math.simplify(deriveeF, reglesDeSimplifications))}\\\\a&=${a}\\\\b&=${b}.\\end{aligned}\\]`

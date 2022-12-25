@@ -1,6 +1,7 @@
 import { number, add, unequal, largerEq, fraction, equal, multiply, inv, matrix, max } from 'mathjs'
 import FractionX from './FractionEtendue.js'
 import { calcul, arrondi, ecritureAlgebrique, egal, randint, rienSi1, ecritureAlgebriqueSauf1, choice } from './outils.js'
+import { nroots } from 'algebrite'
 /**
 * Convertit un angle de radian vers degrés et fonction inverse
 * @Example
@@ -350,68 +351,118 @@ class SplineCatmullRom {
   constructor ({ tabY = [], x0 = -5, step = 1 }) {
     this.x = []
     this.y = []
-    this.f = []
-    /**
-     * @param {number} y la valeur cherchée
-     * @param {number} precision la précision sur y (par défaut 0.001)
-     * @param {number} stepX pas de recherche en x (par défaut 0.1)
-     * @param {number} nbDecimales nombre de décimales pour l'arrondi des antécédents (par défaut 2)
-     * @returns {number[]} la liste des antécédents (arrondis à 0.01)
-     */
-    this.solve = function (y, precision = 0.001, stepX = 0.1, nbDecimales = 2) {
-      const antecedents = []
-      for (let x = this.x[0]; x <= this.x[this.x.length - 1]; x += stepX) {
-        if (Math.abs(this.image(x) - y) < precision) antecedents.push(Number(x.toFixed(nbDecimales)))
-      }
-      return antecedents
-    }
-    const n = tabY.length // on a n valeurs de y et donc de x, soit n-1 intervalles numérotés de 1 à n-1.
-    for (let i = 0; i < n; i++) {
+    this.n = tabY.length // on a n valeurs de y et donc de x, soit n-1 intervalles numérotés de 1 à n-1.
+
+    for (let i = 0; i < this.n; i++) {
       this.x[i] = x0 + step * i
       this.y[i] = tabY[i]
     }
+    this.polys = this.defineFunctions()
+    this.fonctions = this.convertPolyFunction()
+  }
 
-    this.image = function (x) {
-      let trouveK = false
-      let k = 0
-      let y0, y1, y2, y3, t
-      for (let i = 2; i <= n; i++) {
-        if (x >= this.x[i - 2] && x <= this.x[i - 1]) {
-          k = i
-          trouveK = true
-          break
-        }
-      }
-      if (!trouveK) {
-        return false
+  /**
+   * définis les polynomes de CatMulRom
+   * @returns {Polynome[]}
+   */
+  defineFunctions () {
+    const polys = []
+    for (let i = 1; i < this.n; i++) {
+      let y0, y1, y2, y3
+      if (i === 1) { // on est dans l'intervalle [x0,x1] le premier intervalle. i est le numéro de l'intervalle.
+        y1 = this.y[i - 1]
+        y2 = this.y[i]
+        y0 = 2 * y1 - y2
+        y3 = this.y[i + 1]
+      } else if (i === this.n - 1) { // on est dans le dernier intervalle [xn-2,xn-1]
+        y0 = this.y[i - 2]
+        y1 = this.y[i - 1]
+        y2 = this.y[i]
+        y3 = 2 * y2 - y1
       } else {
-        const i = k - 1
-        if (i === 1) { // on est dans l'intervalle [x0,x1] le premier intervalle. i est le numéro de l'intervalle.
-          y1 = this.y[i - 1]
-          y2 = this.y[i]
-          y0 = 2 * y1 - y2
-          y3 = this.y[i + 1]
-        } else if (i === n - 1) { // on est dans le dernier intervalle [xn-2,xn-1]
-          y0 = this.y[i - 2]
-          y1 = this.y[i - 1]
-          y2 = this.y[i]
-          y3 = 2 * y2 - y1
-        } else {
-          y0 = this.y[i - 2]
-          y1 = this.y[i - 1]
-          y2 = this.y[i]
-          y3 = this.y[i + 1]
-        }
-
-        t = calcul((x - this.x[i - 1]) / (this.x[i] - this.x[i - 1]))
-        const t2 = t * t
-        const t3 = t2 * t
-        const b0 = -t + 2 * t2 - t3
-        const b1 = 2 - 5 * t2 + 3 * t3
-        const b2 = t + 4 * t2 - 3 * t3
-        const b3 = -t2 + t3
-        return calcul((b0 * y0 + b1 * y1 + b2 * y2 + b3 * y3) / 2)
+        y0 = this.y[i - 2]
+        y1 = this.y[i - 1]
+        y2 = this.y[i]
+        y3 = this.y[i + 1]
       }
+      // t = (x - this.x[i - 1]) / (this.x[i] - this.x[i - 1])
+      const k = 1 / (this.x[i] - this.x[i - 1])
+      const t0 = new Polynome({ isUseFraction: false, coeffs: [-this.x[i - 1], 1] })
+      const t = t0.multiply(k)
+      const t2 = t.multiply(t)
+      const t3 = t2.multiply(t)
+      const b0 = t.multiply(-1).add(t2.multiply(2)).add(t3.multiply(-1)) // -t + 2 * t2 - t3
+      const b1 = t3.multiply(3).add(t2.multiply(-5)).add(2) // b1 = 2 - 5 * t2 + 3 * t3
+      const b2 = t.add(t2.multiply(4)).add(t3.multiply(-3)) // b2 = t + 4 * t2 - 3 * t3
+      const b3 = t3.add(t2.multiply(-1)) // b3 = -t2 + t3 // tous les bi sont de degré 3 en x
+      // pol est le polynome de degré 3 pour cet intervalle !
+      const pol = b0.multiply(y0).add(b1.multiply(y1)).add(b2.multiply(y2)).add(b3.multiply(y3)).multiply(0.5)//  (b0 * y0 + b1 * y1 + b2 * y2 + b3 * y3) / 2
+      polys.push(pol)
+    }
+    return polys
+  }
+
+  /**
+   * convertit les polynomes en fonctions
+   * @returns {Function[]}
+   */
+  convertPolyFunction () {
+    const f = []
+    for (let i = 0; i < this.n - 1; i++) {
+      const c0 = this.polys[i].monomes[0]
+      const c1 = this.polys[i].monomes[1]
+      const c2 = this.polys[i].monomes[2]
+      const c3 = this.polys[i].monomes[3]
+      f.push((x) => (c0 + c1 * x + c2 * x ** 2 + c3 * x ** 3))
+    }
+    return f
+  }
+
+  solve (y) {
+    const antecedents = []
+    for (let i = 0; i < this.polys.length; i++) {
+      const equation = this.polys[i].add(-y).multiply(10000) // on multiplie tout par 1000 dans l'espoir d'avoir des coefficients entiers (ça ne change rien 0*10000 = 0)
+      // Algebrite n'aime pas beaucoup les coefficients decimaux...
+      try {
+        const solutions = nroots(equation.toMathExpr())
+        let antecedentTrouve = false
+        for (const valeur of solutions.tensor.elem) {
+          console.log(valeur, equation.toMathExpr())
+          if (valeur.k === 2) { // je ne sais pas ce que c'est que ce k mais il semble que pour les valeurs réelles, il vaut 2
+            if (valeur.d !== undefined) {
+              const arr = Number(valeur.d.toFixed(2))
+              if (arr >= this.x[i] && arr <= this.x[i + 1] && !antecedents.includes(arr)) {
+                antecedents.push(arr)
+                console.log(`antécédent ${arr.toString()} trouvé entre ${this.x[i]} <= et < ${this.x[i + 1]}`)
+                antecedentTrouve = true
+              }
+            }
+          }
+        }
+        if (!antecedentTrouve) console.log(`aucune antécédent trouvé entre ${this.x[i]} <= et < ${this.x[i + 1]}`)
+      } catch (e) {
+        console.log(equation)
+      }
+    }
+    return antecedents
+  }
+
+  image (x) {
+    let trouveK = false
+    let k = 0
+    for (let i = 0; i < this.n - 1; i++) {
+      if (x >= this.x[i] && x <= this.x[i + 1]) {
+        k = i
+        trouveK = true
+        break
+      }
+    }
+    if (!trouveK) {
+      const intervalle = `D = [${this.x[0]} ; ${this.x[this.n - 1]}]`
+      window.notify('SplineCatmullRom : la valeur de x fournie n\'est pas dans lìntervalle de définition de la fonction', { x, intervalle })
+      return NaN
+    } else {
+      return this.fonctions[k](x)
     }
   }
 }
@@ -421,6 +472,7 @@ export function splineCatmullRom ({ tabY = [], x0 = -5, step = 1 }) {
 }
 
 /**
+ * @param {boolean} useFraction si false, les coefficients ne seront pas convertis en fractions. (true par défaut, rendant l'expression mathématique inutilisable avec Algebrite)
 * @param {boolean} rand Donner true si on veut un polynôme aléatoire
 * @param {number} deg à fournir >=0 en plus de rand === true pour fixer le degré
 * @param {Array} coeffs liste de coefficients par ordre de degré croissant OU liste de couples [valeurMax, relatif?]
@@ -431,7 +483,8 @@ export function splineCatmullRom ({ tabY = [], x0 = -5, step = 1 }) {
 * Les monomes sont maintenant stockés sous forme de fractions (même pour les entiers)
 */
 export class Polynome {
-  constructor ({ rand = false, deg = -1, coeffs = [[10, true], [10, true]] }) {
+  constructor ({ isUseFraction = true, rand = false, deg = -1, coeffs = [[10, true], [10, true]] }) {
+    this.isUseFraction = isUseFraction
     if (rand) {
       if (largerEq(deg, 0)) {
         // on construit coeffs indépendamment de la valeur fournie
@@ -440,30 +493,45 @@ export class Polynome {
       }
       // Création de this.monomes
       this.monomes = coeffs.map(function (el, i) {
-        if (equal(el[0], 0)) { return fraction(0) } else { return el[1] ? fraction(choice([-1, 1]) * randint(1, number(el[0]))) : fraction(randint(1, number(el[0]))) }
+        if (isUseFraction) {
+          if (equal(el[0], 0)) {
+            return fraction(0)
+          } else {
+            return el[1] ? fraction(choice([-1, 1]) * randint(1, number(el[0]))) : fraction(randint(1, number(el[0])))
+          }
+        } else {
+          if (equal(el[0], 0)) {
+            return 0
+          } else {
+            return el[1] ? choice([-1, 1]) * randint(1, number(el[0])) : randint(1, number(el[0]))
+          }
+        }
       })
     } else {
       // les coeffs sont fourni
       this.monomes = coeffs.map(function (el, i) {
-        return fraction(el)
+        if (isUseFraction) {
+          return fraction(el)
+        } else {
+          return el
+        }
       })
     }
     this.deg = this.monomes.length - 1
   }
 
   isMon () { return this.monomes.filter(el => unequal(el, 0)).length === 1 }
-
   /**
-  * @param {boolean} alg si true alors le coefficient dominant est doté de son signe +/-
-  * @returns {string} expression mathématique
-  */
+   * @param {boolean} alg si true alors le coefficient dominant est doté de son signe +/-
+   * @returns {string} expression mathématique compatible avec Algebrite
+   */
   toMathExpr (alg = false) {
     let res = ''
     let maj = ''
     for (const [i, c] of this.monomes.entries()) {
       switch (i) {
         case this.deg: {
-          const coeffD = alg ? ecritureAlgebriqueSauf1(fraction(c)) : this.deg === 0 ? fraction(c).toLatex() : rienSi1(fraction(c))
+          const coeffD = alg ? ecritureAlgebriqueSauf1(c) : this.deg === 0 ? ecritureAlgebrique(c) : rienSi1(c)
           switch (this.deg) {
             case 1:
               maj = equal(c, 0) ? '' : `${coeffD}x`
@@ -477,13 +545,52 @@ export class Polynome {
           break
         }
         case 0:
-          maj = equal(c, 0) ? '' : ecritureAlgebrique(fraction(c))
+          maj = equal(c, 0) ? '' : ecritureAlgebrique(c)
           break
         case 1:
-          maj = equal(c, 0) ? '' : `${ecritureAlgebriqueSauf1(fraction(c))}x`
+          maj = equal(c, 0) ? '' : `${ecritureAlgebriqueSauf1(c)}x`
           break
         default:
-          maj = equal(c, 0) ? '' : `${ecritureAlgebriqueSauf1(fraction(c))}x^${i}`
+          maj = equal(c, 0) ? '' : `${ecritureAlgebriqueSauf1(c)}x^${i}`
+          break
+      }
+      maj = maj.replace(/\s/g, '').replace(',', '.')
+      res = maj + res
+    }
+    return res
+  }
+
+  /**
+  * @param {boolean} alg si true alors le coefficient dominant est doté de son signe +/-
+  * @returns {string} expression mathématique
+  */
+  toLatex (alg = false) {
+    let res = ''
+    let maj = ''
+    for (const [i, c] of this.monomes.entries()) {
+      switch (i) {
+        case this.deg: {
+          const coeffD = alg ? ecritureAlgebriqueSauf1(this.isUseFraction ? fraction(c) : c) : this.deg === 0 ? (this.isUseFraction ? fraction(c).toLatex() : c) : rienSi1(this.isUseFraction ? fraction(c) : c)
+          switch (this.deg) {
+            case 1:
+              maj = equal(c, 0) ? '' : `${coeffD}x`
+              break
+            case 0:
+              maj = equal(c, 0) ? '' : `${coeffD}`
+              break
+            default:
+              maj = equal(c, 0) ? '' : `${coeffD}x^${i}`
+          }
+          break
+        }
+        case 0:
+          maj = equal(c, 0) ? '' : ecritureAlgebrique(this.isUseFraction ? fraction(c) : c)
+          break
+        case 1:
+          maj = equal(c, 0) ? '' : `${ecritureAlgebriqueSauf1(this.isUseFraction ? fraction(c) : c)}x`
+          break
+        default:
+          maj = equal(c, 0) ? '' : `${ecritureAlgebriqueSauf1(this.isUseFraction ? fraction(c) : c)}x^${i}`
           break
       }
       res = maj + res
@@ -496,7 +603,7 @@ export class Polynome {
    * @returns le résultat de toMathExpr()
    */
   toString () {
-    return this.toMathExpr()
+    return this.toLatex()
   }
 
   /**
@@ -506,16 +613,19 @@ export class Polynome {
   * @returns {Polynome} this+p
   */
   add (p) {
+    const isUseFraction = this.isUseFraction
     if (typeof p === 'number' || p.type === 'Fraction') {
       const coeffs = this.monomes
       coeffs[0] = add(this.monomes[0], p)
-      return new Polynome({ coeffs })
+      return new Polynome({ isUseFraction, coeffs })
     } else if (p instanceof Polynome) {
       const degSomme = max(this.deg, p.deg)
       const pInf = equal(p.deg, degSomme) ? this : p
       const pSup = equal(p.deg, degSomme) ? p : this
-      const coeffSomme = pSup.monomes.map(function (el, index) { return index <= pInf.deg ? fraction(add(el, pInf.monomes[index])) : fraction(el) })
-      return new Polynome({ coeffs: coeffSomme })
+      const coeffSomme = isUseFraction
+        ? pSup.monomes.map(function (el, index) { return index <= pInf.deg ? fraction(add(el, pInf.monomes[index])) : fraction(el) })
+        : pSup.monomes.map(function (el, index) { return index <= pInf.deg ? add(el, pInf.monomes[index]) : el })
+      return new Polynome({ isUseFraction, coeffs: coeffSomme })
     } else {
       window.notify('Polynome.add(arg) : l\'argument n\'est ni un nombre, ni un polynome', { p })
     }
@@ -528,9 +638,12 @@ export class Polynome {
  * @returns q fois this
  */
   multiply (q) {
+    const isUseFraction = this.isUseFraction
     let coeffs
     if (typeof q === 'number' || q.type === 'Fraction') {
-      coeffs = this.monomes.map(function (el, i) { return fraction(multiply(el, q)) })
+      coeffs = isUseFraction
+        ? this.monomes.map(function (el, i) { return fraction(multiply(el, q)) })
+        : this.monomes.map(function (el, i) { return multiply(el, q) })
     } else if (q instanceof Polynome) {
       coeffs = new Array(this.deg + q.deg + 1)
       coeffs.fill(0)
@@ -542,7 +655,7 @@ export class Polynome {
     } else {
       window.notify('Polynome.multiply(arg) : l\'argument n\'est ni un nombre, ni un polynome', { q })
     }
-    return new Polynome({ coeffs })
+    return new Polynome({ isUseFraction, coeffs })
   }
 
   /**
@@ -550,7 +663,9 @@ export class Polynome {
   * @returns {Polynome} dérivée de this
   */
   derivee () {
-    const coeffDerivee = this.monomes.map(function (el, i) { return fraction(multiply(i, el)) })
+    const coeffDerivee = this.isUseFraction
+      ? this.monomes.map(function (el, i) { return fraction(multiply(i, el)) })
+      : this.monomes.map(function (el, i) { return multiply(i, el) })
     coeffDerivee.shift()
     return new Polynome({ coeffs: coeffDerivee })
   }
@@ -563,7 +678,7 @@ export class Polynome {
   */
   static print (coeffs, alg = false) {
     const p = new Polynome({ coeffs })
-    return p.toMathExpr(alg)
+    return p.toLatex(alg)
   }
 }
 
