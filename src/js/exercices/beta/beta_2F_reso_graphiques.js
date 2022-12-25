@@ -63,13 +63,8 @@ export default class nomExercice extends Exercice {
       const F = x => f.image(x) // On crée une fonction de x f.image(x) est une fonction polynomiale par morceaux utilisée dans courbeSpline()
       // const c = courbeSpline(f, { repere: r, step: 0.1 }) // Une première façon de tracer la courbe.
       const c = courbe(F, { repere: r, step: 0.1, color: 'red', epaisseur: 5 }) // F peut ainsi être utilisée dans courbe.
-      const C0 = courbe(f.fonctions[0], { repere: r, step: 0.1, xMin: f.x[0], xMax: f.x[1], color: 'blue' })
-      const C1 = courbe(f.fonctions[1], { repere: r, step: 0.1, xMin: f.x[1], xMax: f.x[2], color: 'green' })
-      const C2 = courbe(f.fonctions[2], { repere: r, step: 0.1, xMin: f.x[2], xMax: f.x[3], color: 'orange' })
-      const C3 = courbe(f.fonctions[3], { repere: r, step: 0.1, xMin: f.x[3], xMax: f.x[4], color: 'purple' })
-      const C4 = courbe(f.fonctions[4], { repere: r, step: 0.1, xMin: f.x[4], xMax: f.x[5], color: 'yellow' })
 
-      texte += mathalea2d({ xmin: -15, xmax: 15, ymin: -15, ymax: 15 }, r, c, C0, C1, C2, C3, C4)
+      texte += mathalea2d({ xmin: -15, xmax: 15, ymin: -15, ymax: 15 }, r, c)
 
       const antecedents = f.solve(tabY[1])
       let texteCorr = `Correction ${i + 1} de type 1 : la liste des antécédents est : `
