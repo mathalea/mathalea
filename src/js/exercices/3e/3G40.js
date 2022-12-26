@@ -3,7 +3,7 @@ import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGe
 import { context } from '../../modules/context.js'
 import { numAlpha, combinaisonListes, randint, choisitLettresDifferentes, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
 import { tracePoint, labelPoint, labelLatexPoint } from '../../modules/2d.js'
-import { point3d, droite3d, vecteur3d, arete3d, sphere3d, rotation3d, rotationV3d, demicercle3d, sensDeRotation3d } from '../../modules/3d.js'
+import { point3d, droite3d, vecteur3d, arete3d, rotation3d, rotationV3d, sensDeRotation3d, demicercle3d, sphere3d } from '../../modules/3d.js'
 
 export const dateDeModifImportante = '02/11/2022' // EE : Mise en place de this.sup2, des unités et du grossissement des points
 export const titre = 'Repérage sur la sphère'
@@ -27,7 +27,6 @@ export default function ReperageSurLaSphere () {
   this.sup2 = false
   this.sup3 = false
   this.sup4 = false
-
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
@@ -81,13 +80,11 @@ export default function ReperageSurLaSphere () {
 
     if (context.isAmc) origine = rotation3d(origine, droite3d(O, normalH), 2) // Parce qu'il existe un décalage en Latex
 
-    const Sph = sphere3d(O, 10, 8, 9)
-    const equateur1 = demicercle3d(O, normalV, R, 'visible', context.isAmc ? 'darkgray' : 'red', 0)
-    const greenwitch = demicercle3d(O, normalH, vecteur3d(0, 0, -10), 'visible', context.isAmc ? 'darkgray' : 'green', 0)
-    greenwitch.epaisseur = context.isAmc ? 1.5 : 3
+    const Sph = sphere3d(O, 10, (context.isAmc ? 'darkgray' : 'red'), 'black', 18, 'black', 36, 'black')
+    const greenwich = demicercle3d(O, normalH, vecteur3d(0, 0, -10), 'indirect', false, context.isAmc ? 'darkgray' : 'green', 0)
+    greenwich.epaisseur = context.isAmc ? 1.5 : 3
 
-    greenwitch.opacite = 1
-    equateur1.epaisseur = context.isAmc ? 1.5 : 3
+    greenwich.opacite = 1
     const objetsEnonce = []; const objetsCorrection = []// on initialise les tableaux des objets Mathalea2d
     const latitudes = []; const longitudes = []; const P = []; const EstouOuest = []; const NordouSud = []; let nom = []
     const E = labelPoint(point3d(13.2, 0, 0, true, 'Est'))
@@ -99,7 +96,7 @@ export default function ReperageSurLaSphere () {
     W.color = colorToLatexOrHTML('brown')
     W.positionLabel = 'below left'
     if (this.sup4) {
-      const equateur2 = demicercle3d(O, normalV, R, 'caché', context.isAmc ? 'black' : 'red', 0)
+      const equateur2 = demicercle3d(O, normalV, R, 'direct', true, context.isAmc ? 'black' : 'red', 0)
       equateur2.epaisseur = context.isAmc ? 1.5 : 3
       objetsEnonce.push(equateur2)
       objetsCorrection.push(equateur2)
@@ -111,14 +108,14 @@ export default function ReperageSurLaSphere () {
       objetsEnonce.push(Axe.c2d)
       objetsCorrection.push(Axe.c2d)
     }
-    
+
     if (this.sup2) {
       const rotationTerre = sensDeRotation3d(droite3d(O, normalV), vecteur3d(8, -8, 0), 60, 3, 'purple')
       objetsEnonce.push(...rotationTerre.c2d)
       objetsCorrection.push(...rotationTerre.c2d)
     }
-    objetsEnonce.push(...Sph.c2d, equateur1, greenwitch, Pn, Ps, E, W, labelUnites)
-    objetsCorrection.push(...Sph.c2d, equateur1, greenwitch, Pn, Ps, E, W, labelUnites)
+    objetsEnonce.push(...Sph.c2d, greenwich, Pn, Ps, E, W, labelUnites)
+    objetsCorrection.push(...Sph.c2d, greenwich, Pn, Ps, E, W, labelUnites)
     for (let i = 0; i < this.nbQuestions; i++) {
       latitudes.push(0)
       longitudes.push(0)
@@ -242,7 +239,7 @@ export default function ReperageSurLaSphere () {
     if (context.isAmc) this.autoCorrection[0].enonce = mathalea2d(paramsEnonce, objetsEnonce) + '<br>'
 
     texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
-    texteCorrection += '<br>' + mathalea2d(paramsEnonce, objetsCorrection)
+    // texteCorrection += '<br>' + mathalea2d(paramsEnonce, objetsCorrection)
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorrection)
     listeQuestionsToContenuSansNumero(this)
@@ -250,6 +247,6 @@ export default function ReperageSurLaSphere () {
 
   this.besoinFormulaireNumerique = ['Type de questions', 3, ' 1 : Lire des coordonnées\n 2 : Placer des points\n 3 : Mélange']
   this.besoinFormulaire2CaseACocher = ['Coordonnées relatives']
-  this.besoinFormulaire3CaseACocher = ['Axe Nord-Sud']
+  this.besoinFormulaire3CaseACocher = ['Axe Ouest-Est']
   this.besoinFormulaire4CaseACocher = ['Afficher demi-équateur caché']
 }

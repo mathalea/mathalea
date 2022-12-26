@@ -30,6 +30,8 @@ export default function PremierOuPasCriterePar7Par11 () {
   this.nbCols = 2
   this.nbColsCorr = 1
   this.listePackages = 'bclogo'
+  this.besoinFormulaireCaseACocher = ['Afficher un coup de pouce']
+  this.sup = true
   const prems = cribleEratostheneN(529) // constante contenant tous les nombres premiers jusqu'à 529...
 
   this.nouvelleVersion = function (numeroExercice) {
@@ -81,7 +83,7 @@ export default function PremierOuPasCriterePar7Par11 () {
     };
     stringRappelB += '.'
 
-    this.introduction = warnMessage(stringRappelB, 'nombres', 'Coup de pouce')
+    if (this.sup) this.introduction = warnMessage(stringRappelB, 'nombres', 'Coup de pouce')
 
     for (let i = 0, texte, texteCorr, N, sum, bonneReponse, evenSum, oddSum, r, r1, r2, tabPremiersATester, prime1, prime2, NLongueur, N1Longueur, N1, sum1, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
@@ -274,5 +276,4 @@ export default function PremierOuPasCriterePar7Par11 () {
 
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"];
 }

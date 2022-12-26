@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import Decimal from 'decimal.js'
 import { randint, choice, ecritureAlgebrique, ecritureAlgebriqueSauf1, texNombre, reduireAxPlusB } from '../../../modules/outils.js'
 import FractionX from '../../../modules/FractionEtendue.js'
 export const titre = 'Déterminer la fonction dérivée d’une fonction affine'

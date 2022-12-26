@@ -18,7 +18,7 @@ export const interactifType = 'mathLive'
 
 export const uuid = '6babf'
 export const ref = '6N10-0'
-export default function EcrireNombresEntiers () {
+export default function ÉcrireNombresEntiers () {
   Exercice.call(this)
   this.nbQuestions = 5
   this.nbCols = 1

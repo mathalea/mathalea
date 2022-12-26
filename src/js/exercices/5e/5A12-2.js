@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, choice, premiersEntreBornes, egalOuApprox, texNombre } from '../../modules/outils.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import Decimal from 'decimal.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { context } from '../../modules/context.js'
 export const amcReady = true
@@ -27,7 +27,7 @@ export default class PremierOuPas extends Exercice {
   constructor () {
     super()
     this.titre = titre
-    this.consigne = 'Les nombres suivants sont ils premiers ?'
+    this.consigne = 'Les nombres suivants sont-ils premiers ?'
     this.consigneCorrection = 'Il faut mémoriser la liste des nombres premiers inférieur à $30$ : $2, 3, 5, 7, 11, 13, 17, 19, 23$ et $29$.' // Chaîne de caractère en général vide qui apparaît au-dessus des corrections.
     this.nbQuestions = 3 // Nombre de questions par défaut
     this.nbCols = 2 // Uniquement pour la sortie LaTeX

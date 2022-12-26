@@ -62,7 +62,7 @@ export default function ExploiterRepresentationGraphique () {
         graphique = courbe(f, { repere: repeRe, xMax: t1 + 1, step: 0.2 })
         zero = texteParPosition('0', -0.5, 0, 'milieu', 'black', 1, 'middle', true)
         this.introduction =
-          'On a représenté ci-dessous l\'évolution de la hauteur d\'un projectile lancé depuis le sol (en ms) en fonction du temps (en secondes).'
+          'On a représenté ci-dessous l\'évolution de la hauteur d\'un projectile lancé depuis le sol (en m) en fonction du temps (en secondes).'
 
         this.introduction +=
           '<br><br>' +

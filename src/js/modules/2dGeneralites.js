@@ -417,7 +417,6 @@ export function convertCodeCouleurToHex (color) {
 // JSDOC Validee par EE Novembre 2022
 export function assombrirOuEclaircir (couleur, coefficient) {
   const convertCodeCouleur = convertCodeCouleurToHex(couleur)
-  console.log(convertCodeCouleur)
   if (convertCodeCouleur !== false) couleur = convertCodeCouleur
   couleur = couleur.replace('#', '')
   if (couleur.length === 6) {

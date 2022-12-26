@@ -452,7 +452,7 @@ export default function SujetCAN20214ieme () {
               , segment(B, D), labelPoint(A, B, C, D))
             reponse = calcul(L * L / 2)
             texte = '$ABCD$ est un carré. Calcule l\'aire du triangle $ABD$. <br>'
-            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
             texteCorr = `$ABD$ est un triangle rectangle isocèle. Son aire est donc la moitié de celle du carré :<br>
             $\\dfrac{${L}\\times ${L}}{2}=${L * L / 2}$ cm$^2$
                            `
@@ -476,7 +476,7 @@ export default function SujetCAN20214ieme () {
               segment(B, D), labelPoint(A, B, C, D))
             reponse = calcul(L * l2 / 2)
             texte = '$ABCD$ est un rectangle. Calcule l\'aire du triangle $ABD$. <br>'
-            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
             texteCorr = `$ABD$ est un triangle rectangle. Son aire est donc la moitié de celle du rectangle : <br>
             $\\dfrac{${L}\\times ${l2}}{2}=${L * l2 / 2}$ cm$^2$
             `
@@ -606,7 +606,7 @@ export default function SujetCAN20214ieme () {
             reponse = a[1]
             texte = 'Calcule la longueur $AB$. <br>'
 
-            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
             texte += '<br>$AB=$'
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
@@ -622,7 +622,7 @@ export default function SujetCAN20214ieme () {
             reponse = a[0]
             texte = 'Calcule la longueur $AC$. <br>'
 
-            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
             texte += '<br>$AC=$'
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
@@ -638,7 +638,7 @@ export default function SujetCAN20214ieme () {
             reponse = a[2]
             texte = 'Calcule la longueur $BC$. <br>'
 
-            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
             texte += '<br>$BC=$'
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>

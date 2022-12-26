@@ -54,7 +54,7 @@ export default function CalculHypotenusePythagore () {
         this.question = `Sur cette figure, calculer la valeur exacte de $${nom[0]}${nom[2]}$.<br>
         
         `
-        this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 22, mainlevee: false, amplitude: 0.3, scale: 0.5, style: 'margin: auto' }, objets)
+        this.question += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 22, mainlevee: false, amplitude: 0.3, scale: 0.5, style: 'margin: auto' }, objets)
 
         if (entiere) {
           this.correction = ` On utilise le théorème de Pythagore dans le triangle $${nom[0]}${nom[1]}${nom[2]}$,  rectangle en $${nom[1]}$.<br>

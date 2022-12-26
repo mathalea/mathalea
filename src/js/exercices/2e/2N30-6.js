@@ -1,7 +1,7 @@
 export const titre = 'Fractions irréductibles'
 
 // eslint-disable-next-line import/first
-import FractionsIrreductibles from '../3e/3A12.js'
+import FractionsIrreductibles from '../3e/3A11.js'
 
 // export { interactifReady, interactifType } from '../3e/3A12.js'
 // export { amcReady, amcType } from '../3e/3A12.js'

@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice, texNombre, choisitLettresDifferentes, sp } from '../../../modules/outils.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import Decimal from 'decimal.js'
 import { Arbre } from '../../../modules/arbres.js'
 
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'

@@ -45,7 +45,7 @@ export default function ProportionnaliteCompliquee () {
     La masse de fruits est proportionnelle au prix payé.<br>
     On remarque que le prix demandé est celui qui correspond à la différence des deux masses données dans la question. <br>
     Ainsi, le prix est alors donné par la différence des deux prix. <br>
-      On a  $${d}$ kg $= ${c + d}$ kg - $${c}$ kg, donc les $${d}$ kg de ${fruits[a][0]} côuteront $${texPrix((c + d) * b)}$€ $ - ${texPrix(c * b)}$€ $ =${texPrix(this.reponse)}$€.`
+      On a  $${d}$ kg $= ${c + d}$ kg - $${c}$ kg, donc les $${d}$ kg de ${fruits[a][0]} coûteront $${texPrix((c + d) * b)}$ € $ - ${texPrix(c * b)}$ € $ =${texPrix(this.reponse)}$ €.`
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\dots$ €'
   }

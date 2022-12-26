@@ -11,9 +11,10 @@ import * as pkg from '@cortex-js/compute-engine'
 const { ComputeEngine } = pkg
 export const interactifReady = true
 export const interactifType = 'custom'
-const math = create(all)
 let engine
 if (context.versionMathalea) engine = new ComputeEngine()
+const math = create(all)
+
 /**
  * Travailler les tables de multiplication autrement
  * @author Jean-Claude Lhote
@@ -34,7 +35,7 @@ export class Rose {
     this.indexInconnue = indexInconnue
 
     if (values === undefined || values.length === 0) {
-      while (this.valeuMax - 2 < this.nombreDeValeurs) {
+      while (this.valeurMax - 2 < this.nombreDeValeurs) {
         this.valeurMax++
       }
       const den = randint(2, this.valeurMax)
@@ -49,7 +50,7 @@ export class Rose {
             this.rayon = 2
             break
           case 'litteraux' :
-            values.push(calculer(`${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`).printResult)
+            values.push(calculer(`${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`, null).printResult)
             this.rayon = 3
             break
           case 'fractions dénominateurs multiples':
@@ -81,7 +82,7 @@ export class Rose {
             values.push(randint(-this.valeurMax, this.valeurMax, [0, ...values]))
             break
           case 'litteraux' :
-            values.push(calculer(`${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`).printResult)
+            values.push(calculer(`${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`, null).printResult)
             break
           case 'fractions dénominateurs multiples':
             values.push(math.fraction(randint(1, this.valeurMax), values[i - 1].d))
@@ -120,7 +121,7 @@ export class Rose {
             return math.add(a, b)
           }
         } else {
-          return calculer(`${a.toString()}+${b.toString()}`).printResult
+          return calculer(`${a.toString()}+${b.toString()}`, null).printResult
         }
       case 'multiplication':
         if (this.typeDonnees !== 'litteraux') {
@@ -130,7 +131,7 @@ export class Rose {
             return math.multiply(a, b)
           }
         } else {
-          return calculer(`(${a.toString()})*(${b.toString()})`).printResult
+          return calculer(`(${a.toString()})*(${b.toString()})`, null).printResult
         }
     }
   }
@@ -144,8 +145,8 @@ export class Rose {
       else this.rayonBoite = 1
     }
     const objets = []
-    const O = point(0, 0)
-    const A = rotation(point(this.rayon, 0), O, 180 / this.nombreDeValeurs - 90)
+    const O = point(0, 0, '', '')
+    const A = rotation(point(this.rayon, 0, '', ''), O, 180 / this.nombreDeValeurs - 90)
     for (let i = 0, bulle1, bulle2; i < this.nombreDeValeurs; i++) {
       const M = rotation(A, O, 360 * i / this.nombreDeValeurs)
       M.positionLabel = 'center'
@@ -177,11 +178,11 @@ export class Rose {
         if (!(this.type === 'can1' && (this.indexInconnue === i || i === (this.indexInconnue - 1) % this.nombreDeValeurs || i === (this.indexInconnue + 1) % this.nombreDeValeurs))) {
           if (!(this.type === 'can2' && (this.indexInconnue === i || i === (this.indexInconnue + 1) % this.nombreDeValeurs))) {
             if (this.typeDonnees !== 'litteraux' && this.typeDonnees.substring(0, 4) !== 'frac') {
-              objets.push(texteParPoint(this.values[i].toString(), M))
+              objets.push(texteParPoint(this.values[i].toString(), M, 'milieu', 'black', 1, 'middle', true))
             } else {
               if (this.typeDonnees !== 'litteraux') {
                 if (this.values[i].d === 1) {
-                  objets.push(texteParPoint(this.values[i].toLatex().replace('frac', 'dfrac'), M))
+                  objets.push(texteParPoint(this.values[i].toLatex().replace('frac', 'dfrac'), M, 'milieu', 'black', 1, 'middle', true))
                 } else {
                   objets.push(latexParPoint(this.values[i].toLatex().replace('frac', 'dfrac'), M, 'black', 20, 0, ''))
                 }
@@ -198,11 +199,11 @@ export class Rose {
       if (this.type === 'solutions' || this.type === 'valeurs' || this.type === 'can1' || this.type === 'can2') { // on ajoute les produits
         if (!(this.type === 'can2' && this.indexInconnue === i)) {
           if (this.typeDonnees !== 'litteraux' && this.typeDonnees.substring(0, 4) !== 'frac') {
-            objets.push(texteParPoint((this.resultats[i]).toString(), P))
+            objets.push(texteParPoint((this.resultats[i]).toString(), P, 'milieu', 'black', 1, 'middle', true))
           } else {
             if (this.typeDonnees !== 'litteraux') {
               if (this.resultats[i].d === 1) {
-                objets.push(texteParPoint(this.resultats[i].toLatex().replace('frac', 'dfrac'), P))
+                objets.push(texteParPoint(this.resultats[i].toLatex().replace('frac', 'dfrac'), P, 'milieu', 'black', 1, 'middle', true))
               } else {
                 objets.push(latexParPoint(this.resultats[i].toLatex().replace('frac', 'dfrac'), P, 'black', 20, 0, ''))
               }
@@ -220,7 +221,7 @@ export class Rose {
           }
         }
       } else {
-        objets.push(texteParPoint(this.cellulesPreremplies[i], P))
+        objets.push(texteParPoint(this.cellulesPreremplies[i], P, 'milieu', 'black', 1, 'middle', true))
       }
 
       objets.push(bulle2)
@@ -376,15 +377,15 @@ export function ExoRose () {
     let resultatOK = true
     if (this.type === 'can2') {
       if (this.roses[question].typeDonnees.substring(0, 4) === 'frac') {
-        return engine.parse(this.roses[question].resultats[this.indexInconnue[question]].toLatex()).canonical.isSame(engine.parse(saisies[0]).canonical)
+        return engine.parse(this.roses[question].resultats[this.indexInconnue[question]].toLatex()).canonical.isSame(engine.parse(saisies[0].toLatex()).canonical)
       } else {
-        return engine.parse(this.roses[question].resultats[this.indexInconnue[question]]).canonical.isSame(engine.parse(saisies[0]).canonical)
+        return engine.parse(this.roses[question].resultats[this.indexInconnue[question]]).canonical.isSame(engine.parse(saisies[0].toString()).canonical)
       }
     } else if (this.type === 'can1') {
       if (this.roses[question].typeDonnees.substring(0, 4) === 'frac') {
         return engine.parse(saisies[0]).canonical.isSame(engine.parse(this.roses[question].values[this.indexInconnue[question]].toLatex()).canonical)
       } else {
-        return engine.parse(saisies[0]).canonical.isSame(engine.parse(this.roses[question].values[this.indexInconnue[question]]).canonical)
+        return engine.parse(saisies[0]).canonical.isSame(engine.parse(this.roses[question].values[this.indexInconnue[question]].toString()).canonical)
       }
     } else {
       for (let i = 0; i < taille; i++) {
@@ -392,13 +393,13 @@ export function ExoRose () {
           if (this.roses[question].typeDonnees.substring(0, 4) === 'frac') {
             resultatOK = resultatOK && engine.parse(saisies[i]).canonical.isEqual(engine.parse(this.roses[question].resultats[i].toLatex()))
           } else {
-            resultatOK = resultatOK && engine.parse(saisies[i]).canonical.isEqual(engine.parse(this.roses[question].resultats[i]).canonical)
+            resultatOK = resultatOK && engine.parse(saisies[i]).canonical.isEqual(engine.parse(this.roses[question].resultats[i].toString()).canonical)
           }
         } else {
           if (this.roses[question].typeDonnees.substring(0, 4) === 'frac') {
             resultatOK = resultatOK && engine.parse(`${saisies[i]}${this.roses[question].operation === 'addition' ? '+' : '\\times'}${saisies[(i + 1) % this.nombreDeValeurs]}`).canonical.isEqual(engine.parse(this.roses[question].resultats[i].toLatex()))
           } else {
-            resultatOK = resultatOK && engine.parse(this.roses[question].operate(saisies[i], saisies[(i + 1) % this.nombreDeValeurs])).canonical.isEqual(engine.parse(this.roses[question].resultats[i]).canonical)
+            resultatOK = resultatOK && engine.parse(this.roses[question].operate(saisies[i], saisies[(i + 1) % this.nombreDeValeurs])).canonical.isEqual(engine.parse(this.roses[question].resultats[i].toString()).canonical)
           }
         }
       }

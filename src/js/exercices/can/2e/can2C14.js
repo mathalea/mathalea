@@ -57,11 +57,11 @@ export default function CalculAvecRacineDef () {
 
         this.question = `Calculer $\\sqrt{${ecritureParentheseSiNegatif(a)}^2}$. `
         if (a < 0) {
-          this.correction = `$\\sqrt{(${a})^2}=\\sqrt{${-a}^2}=\\sqrt{${-a}\\times ${-a}}=\\sqrt{${-a}}\\times \\sqrt{${-a}}=(\\sqrt{${-a}})^2$.<br>
+          this.correction = `$\\sqrt{(${a})^2}=\\sqrt{${-a}^2}=\\sqrt{${-a}\\times ${-a}}=\\sqrt{${-a}}\\times \\sqrt{${-a}}=(\\sqrt{${-a}})^2$<br>
         $\\sqrt{${-a}}$ est le nombre positif dont le carré est $${-a}$, donc $(\\sqrt{${-a}})^2=${-a}$. <br>
          Ainsi, $\\sqrt{(${a})^2}=${-a}$.`
         } else {
-          this.correction = `$\\sqrt{${a}^2}=\\sqrt{${a}\\times ${a}}=\\sqrt{${a}}\\times \\sqrt{${a}}=(\\sqrt{${a}})^2$.<br>
+          this.correction = `$\\sqrt{${a}^2}=\\sqrt{${a}\\times ${a}}=\\sqrt{${a}}\\times \\sqrt{${a}}=(\\sqrt{${a}})^2$<br>
          $\\sqrt{${a}}$ est le nombre positif dont le carré est $${a}$, donc $(\\sqrt{${a}})^2=${a}$. <br>
           Ainsi, $\\sqrt{${a}^2}=${a}$.`
         }
@@ -74,12 +74,12 @@ export default function CalculAvecRacineDef () {
         choix = choice([true, false])
         if (choice([true, false])) {
           this.question = `Calculer $${choix ? '' : '-'}\\sqrt{${a}}\\times \\sqrt{${a}}$. `
-          this.correction = `$ ${choix ? '' : '-'}\\sqrt{${a}}\\times \\sqrt{${a}}= ${choix ? '' : '-'}(\\sqrt{${a}})^2$.<br>
+          this.correction = `$ ${choix ? '' : '-'}\\sqrt{${a}}\\times \\sqrt{${a}}= ${choix ? '' : '-'}(\\sqrt{${a}})^2$<br>
            $\\sqrt{${a}}$ est le nombre positif dont le carré est $${a}$, donc $(\\sqrt{${a}})^2=${a}$. <br>
             Ainsi, $${choix ? '' : '-'}\\sqrt{${a}}\\times \\sqrt{${a}}=${choix ? '' : '-'} ${a}$.`
         } else {
           this.question = `Calculer $\\sqrt{${a}}\\times${choix ? '' : '(-'} \\sqrt{${a}}${choix ? '' : ')'}$. `
-          this.correction = `$\\sqrt{${a}}\\times${choix ? '' : '(-'} \\sqrt{${a}}${choix ? '' : ')'}= ${choix ? '' : '-'}(\\sqrt{${a}})^2$.<br>
+          this.correction = `$\\sqrt{${a}}\\times${choix ? '' : '(-'} \\sqrt{${a}}${choix ? '' : ')'}= ${choix ? '' : '-'}(\\sqrt{${a}})^2$<br>
             $\\sqrt{${a}}$ est le nombre positif dont le carré est $${a}$, donc $(\\sqrt{${a}})^2=${a}$. <br>
              Ainsi, $\\sqrt{${a}}\\times${choix ? '' : '(-'} \\sqrt{${a}}${choix ? '' : ')'}=${choix ? '' : '-'} ${a}$.`
         }

@@ -21,7 +21,6 @@ export default function FactoriserUneExpression3e () {
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType
-  this.consigne = 'Factoriser les expressions suivantes.'
   this.nbQuestions = 5
   this.nbCols = 2
   this.nbColsCorr = 2
@@ -33,6 +32,7 @@ export default function FactoriserUneExpression3e () {
   this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
+    this.consigne = this.nbQuestions > 1 ? 'Factoriser les expressions suivantes.' : 'Factoriser l\'expression suivante.'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles

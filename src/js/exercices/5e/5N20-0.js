@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, calcul, texteEnCouleur, texteGras, numAlpha } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, calcul, texteEnCouleur, texteGras, numAlpha, lampeMessage } from '../../modules/outils.js'
 import { point, labelPoint, segment, cercleCentrePoint, rotation, codageAngleDroit, codageAngle } from '../../modules/2d.js'
 export const titre = 'Résoudre un problème en utilisant des fractions'
 
@@ -19,7 +19,7 @@ export default function ProblemesAdditifsFractions5e () {
   this.nbQuestions = 1
 
   this.titre = titre
-  this.consigne = 'Calculatrice autorisée.'
+  this.consigne = ''
 
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -43,7 +43,11 @@ export default function ProblemesAdditifsFractions5e () {
 
     // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
-
+    this.introduction = lampeMessage({
+      titre: '',
+      texte: 'Calculatrice autorisée',
+      couleur: 'nombres'
+    })
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // on définit les fractions pour les vols et les arguments pour le graphique
       let fracVols = [
@@ -113,8 +117,6 @@ export default function ProblemesAdditifsFractions5e () {
             angle: calcul(360 / fracVols[4][1]),
             arg_graph: fracVols[4][2]
           },
-          // q1a:q1a,
-          // q1b:q1b,
           nb_total: nbVolsTotal,
           fig: ''
         },
@@ -268,7 +270,7 @@ L'angle rouge mesure $${angle}\\degree$ sur les $360\\degree$ d'un tour complet,
       for (let k = 0; k < 1; k++) {
         enonces.push({
           enonce: `
-On a représenté sur le diagramme circulaire ci-contre la répartition des ${situations[k].fin_enonce_situation}.<br>
+On a représenté sur le diagramme circulaire ci-dessous la répartition des ${situations[k].fin_enonce_situation}.<br>
 ${texteGras('Les angles de même couleur ont la même mesure.')}<br>
 ${texteGras('L\'angle vert est un angle plat.')}<br>
 ${situations[k].fig}<br>
@@ -276,14 +278,14 @@ ${numAlpha(indexSouSegmentQuestion++)} Quelle fraction représente les ${situati
 ${numAlpha(indexSouSegmentQuestion++)} Quelle fraction représente les ${situations[k].nom_enonce} vers ${situations[k].cat2.destination} ?<br>
 ${numAlpha(indexSouSegmentQuestion++)} Sachant que ${situations[k].last_question[0]} ${situations[k].nb_total} ${situations[k].last_question[1]}
 et que les ${situations[k].nom_enonce} vers ${situations[k].cat3.destination} représentent $\\dfrac{${situations[k].cat3.frac[0]}}{${situations[k].cat3.frac[1]}}$ de ce total,
-calculer ${situations[k].last_question[2]} vers ${situations[k].cat3.destination}?
+calculer ${situations[k].last_question[2]} vers ${situations[k].cat3.destination} ?
 
 `,
           correction: `
-${numAlpha(indexSouSegmentQuestionCorr++)} Pour ${situations[k].cat1.destination} l'angle ${myTexteVolsCorr(situations[k].cat1.angle)}<br>
+${numAlpha(indexSouSegmentQuestionCorr++)} Pour ${situations[k].cat1.destination}, l'angle ${myTexteVolsCorr(situations[k].cat1.angle)}<br>
 ${texteEnCouleur(`La fraction qui représente les ${situations[k].nom_enonce} vers ${situations[k].cat1.destination} vaut donc $\\dfrac{${situations[k].cat1.frac[0]}}{${situations[k].cat1.frac[1]}}$`)}.<br>
 
-${numAlpha(indexSouSegmentQuestionCorr++)} Pour ${situations[k].cat2.destination} l'angle ${myTexteVolsCorr(situations[k].cat2.angle)}<br>
+${numAlpha(indexSouSegmentQuestionCorr++)} Pour ${situations[k].cat2.destination}, l'angle ${myTexteVolsCorr(situations[k].cat2.angle)}<br>
 ${texteEnCouleur(`La fraction qui représente les ${situations[k].nom_enonce} vers ${situations[k].cat2.destination} vaut donc $\\dfrac{${situations[k].cat2.frac[0]}}{${situations[k].cat2.frac[1]}}$`)}<br>
 
 ${numAlpha(indexSouSegmentQuestionCorr++)} Calculons $\\dfrac{${situations[k].cat3.frac[0]}}{${situations[k].cat3.frac[1]}}$ de ${situations[k].nb_total} :<br> 

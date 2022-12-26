@@ -1,13 +1,14 @@
 import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, calcul, creerNomDePolygone, lettreDepuisChiffre, nombreAvecEspace, range1 } from '../../modules/outils.js'
 import { codageSegments, point, pointIntersectionDD, longueur, pointAdistance, droite, droiteParPointEtPerpendiculaire, segmentAvecExtremites, polygoneAvecNom, cercle, pointIntersectionLC, pointIntersectionCC, traceCompas, dansLaCibleRonde, cibleRonde, rotation, similitude, codageAngleDroit, afficheLongueurSegment, afficheMesureAngle, codageAngle, texteParPoint, angle } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
+import { context } from '../../modules/context.js'
 
 /**
  * publié le 1/12/2020
  * @author Jean-Claude Lhote
- * Réfrence 6G21-1 et ... (exercice en 5e ? pas encore fait)
+ * Réfrence 6G21-1 et 5G20
  */
 export default function ConstruireUnTriangleAvecCible () {
   'use strict'
@@ -32,7 +33,7 @@ export default function ConstruireUnTriangleAvecCible () {
       return lettre + chiffre
     }
 
-    let typesDeQuestionsDisponibles, cible, cellule, result, A, B, C, CC, lAB, lBC, lAC, cA, cB, T, TT, dBC, dAC, dAB, objetsEnonceml, objetsEnonce, objetsCorrection, paramsEnonceml, paramsEnonce, paramsCorrection, nom, sommets, montriangle
+    let typesDeQuestionsDisponibles, cible, cellule, result, A, B, C, CC, lAB, lBC, lAC, cA, cB, T, TT, dBC, dAC, dAB, objetsEnonceml, objetsEnonce, objetsCorrection, nom, sommets, montriangle
     if (this.classe === 6) typesDeQuestionsDisponibles = range1(6)
     else typesDeQuestionsDisponibles = range1(9)
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
@@ -195,7 +196,7 @@ export default function ConstruireUnTriangleAvecCible () {
           IEP.recadre(xMin, yMax)
           IEP.triangle2longueurs1angle(nom, lAB, lAC, Math.round(angle(B, A, C)), true)
           break
-        case 7: // triangle ABC dont ont connais AB et les deux angles adjacents
+        case 7: // triangle ABC dont on connait AB et les deux angles adjacents
           lAB = calcul(randint(46, 60) / 10)
           B = pointAdistance(A, lAB, randint(-45, 45), sommets[1])
           B.positionLabel = 'right'
@@ -270,11 +271,10 @@ export default function ConstruireUnTriangleAvecCible () {
       TT = polygoneAvecNom(A, B, CC)
       objetsEnonceml.push(TT[0], TT[1])
       objetsCorrection.push(T[0], T[1])
-      paramsEnonceml = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 3), ymin: Math.min(A.y - 1, B.y - 1, C.y - 3), xmax: Math.max(A.x + 1, B.x + 1, C.x + 3), ymax: Math.max(A.y + 1, B.y + 1, C.y + 3), pixelsParCm: 20, scale: 0.58, mainlevee: true, amplitude: 0.3 }
-      paramsEnonce = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 3), ymin: Math.min(A.y - 1, B.y - 1, C.y - 3), xmax: Math.max(A.x + 1, B.x + 1, C.x + 3), ymax: Math.max(A.y + 1, B.y + 1, C.y + 3), pixelsParCm: 30, scale: 1, mainlevee: false, amplitude: 1 }
-      paramsCorrection = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 3), ymin: Math.min(A.y - 1, B.y - 1, C.y - 3), xmax: Math.max(A.x + 1, B.x + 1, C.x + 3), ymax: Math.max(A.y + 1, B.y + 1, C.y + 3), pixelsParCm: 30, scale: 1 }
-      texte += mathalea2d(paramsEnonceml, objetsEnonceml) + mathalea2d(paramsEnonce, objetsEnonce)
-      texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
+      texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonceml), { pixelsParCm: 30, scale: 1, mainlevee: true, amplitude: context.isHtml ? 0.3 : 1 }), objetsEnonceml)
+      texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { pixelsParCm: 30, scale: 1, mainlevee: false, amplitude: 1 }), objetsEnonce)
+
+      texteCorr += mathalea2d(Object.assign({}, fixeBordures(objetsCorrection), { pixelsParCm: 30, scale: 1, mainlevee: false, amplitude: 1 }), objetsCorrection)
       texteCorr += '<br>' + IEP.htmlBouton(this.numeroExercice, i)
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

@@ -118,7 +118,7 @@ export default function DemonstrationsParallelogrammes () {
       texteCorr = 'Les segments de même couleur sont parallèles sur le schéma suivant :<br>'
       texteCorr += mathalea2d({ xmin: -5, ymin: -4.5, xmax: 5, ymax: 4.5, pixelsParCm: 20, scale: 0.5, mainlevee: true, amplitude: 0.3 }, objets) + '<br>'
       texteCorr += `On sait que ${prop2}.<br>`
-      texteCorr += `Si un parralélogramme ${prop1}, alors c'est un ${type}.<br>`
+      texteCorr += `Si un parallélogramme ${prop1}, alors c'est un ${type}.<br>`
       texteCorr += `${nom} est donc un ${type}.`
 
       if (this.listeQuestions.indexOf(texte) === -1) {

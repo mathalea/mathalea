@@ -1,4 +1,4 @@
-import { scratchblock } from '../../../modules/2d.js'
+import { scratchblock } from '../../../modules/scratchblock.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'

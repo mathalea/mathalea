@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { reduirePolynomeDegre3, calcul, texFractionSigne, fractionSimplifiee, listeQuestionsToContenu, printlatex, texNombre, xcas } from '../../modules/outils.js'
-import { tableauDeVariation, repere, courbe, segment, vecteur, rotation, translation, point, tracePoint } from '../../modules/2d.js'
+import { repere, courbe, segment, vecteur, rotation, translation, point, tracePoint } from '../../modules/2d.js'
+import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 export const titre = 'Étude de fonctions de degré 3'
 
 /**
@@ -536,7 +537,7 @@ export default function VariationPolynomeDegre3 () {
       texte += '<br>' + mathalea2d({ xmin: (XMINI - 1) * scalex, ymin: (YMINI - 1) * scaley, xmax: (XMAXI + 2) * scalex, ymax: (YMAXI + 1) * scaley, pixelsParCm: 30 }, macourbe, monrepere, vecteurs) + '<br>'
       solutions = xcas('fsolve(' + fxstring + '=0,x)').replace('[', '').replace(']', '').split(',')
       if (solutions[0] === '') {
-        texte += 'A la vue du tableau de variation de la fonction $f$, il n\'y a pas de solution à l\'équation $f(x)=0$.'
+        texte += 'À la vue du tableau de variation de la fonction $f$, il n\'y a pas de solution à l\'équation $f(x)=0$.'
       } else {
         texte += 'Par lecture graphique on peut lire les solutions de $f(x)=0$ : '
         if (solutions.length === 1) {

@@ -1,10 +1,10 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { randint, listeQuestionsToContenu, combinaisonListes, texteExposant, texteGras, stringNombre, texNombre, range1, contraindreValeur, compteOccurences, choice, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
-import { point3d, vecteur3d, sphere3d, cylindre3d } from '../../modules/3d.js'
+import { point3d, vecteur3d, cylindre3d, sphere3d } from '../../modules/3d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import Decimal from 'decimal.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { context } from '../../modules/context.js'
 export const interactifReady = true
@@ -109,8 +109,8 @@ export default function VolumeBoule () {
           OO = point3d(0, 0, 5)
           o = point3d(0, 0, 2.5)
           R = vecteur3d(O, B)
-          s = sphere3d(o, 2.5, 5, 5, 'blue')
-          c = cylindre3d(O, OO, R, R, 'black')
+          s = sphere3d(o, 2.5, 'blue', 'blue', 4, 'gray', 10, 'gray')
+          c = cylindre3d(O, OO, R, R, 'black', false)
           reponse = Decimal.acos(-1).mul(2 * rayon ** 3).div(3).toDP(1)
           texteCorr += '<br>' + mathalea2d({ xmin: -5, max: 9, ymin: -1.5, ymax: 6, scale: 0.8 }, ...s.c2d, ...c.c2d) + '<br>'
           texteCorr += 'Méthode : on calcule le volume du cylindre auquel on va retrancher le volume de la boule. <br>'

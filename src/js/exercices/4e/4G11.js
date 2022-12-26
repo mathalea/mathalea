@@ -2,8 +2,9 @@ import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, egal, randint, shuffle, nombreAvecEspace, texcolors } from '../../modules/outils.js'
-import { tracePoint, vecteur, segment, translation, codageSegment, texteParPosition, pavage } from '../../modules/2d.js'
+import { tracePoint, vecteur, segment, translation, codageSegment, texteParPosition } from '../../modules/2d.js'
 import { translationAnimee } from '../../modules/2dAnimation.js'
+import { pavage } from '../../modules/Pavage.js'
 export const titre = 'Trouver l\'image d\'une figure par une translation dans un pavage'
 
 /**
@@ -186,7 +187,7 @@ export default function PavageEtTranslation2d () {
     texte += '<br>'
     for (let i = 0; i < this.nbQuestions; i++) {
       texte += `Quelle est l'image de la figure $${couples[i][0]}$ dans la translation transformant la figure $${index1 + 1}$ en la figure $${index2 + 1}$ ?<br>`
-      texteCorr += `L'image de la figure $${couples[i][0]}$ dans la translation transformant la figure $${index1 + 1}$ en la figure $${index2 + 1}$ est la figure ${couples[i][1]}<br>`
+      texteCorr += `L'image de la figure $${couples[i][0]}$ dans la translation transformant la figure $${index1 + 1}$ en la figure $${index2 + 1}$ est la figure ${couples[i][1]}.<br>`
       //      symetriques=associesommets(monpavage.polygones[couples[i][0]-1],monpavage.polygones[couples[i][1]-1],d)
       if (this.correctionDetaillee) {
         A = monpavage.barycentres[couples[i][0] - 1]

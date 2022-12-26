@@ -1378,9 +1378,9 @@ L'aire du carré est donc $${AireEFGH.format()}$
           const p = variables.p
           const graph = graphic.getFigure(ABCD, AB, BC, ...angles.map(x => { x.right = true; return x }))
           const resolution = resoudre(`${p}=2*(${exprAB}) + 2*(${exprBC})`, { suppr1: false, substeps: this.correctionDetaillee })
-          const calculAB = calculer('a*(x)+b'.replace('x', resolution.solution.exact), { name: AB.name, suppr1: false, substeps: this.correctionDetaillee, variables: variables })
-          const calculBC = calculer('c*(x)+d'.replace('x', resolution.solution.exact), { name: BC.name, suppr1: false, substeps: this.correctionDetaillee, variables: variables })
-          const calculAire = calculer(`${calculAB.result}*${calculBC.result}`, { name: '\\mathcal{A}', suppr1: false, substeps: this.correctionDetaillee, variables: variables })
+          const calculAB = calculer('a*(x)+b'.replace('x', resolution.solution.exact), { name: AB.name, suppr1: false, substeps: this.correctionDetaillee, variables })
+          const calculBC = calculer('c*(x)+d'.replace('x', resolution.solution.exact), { name: BC.name, suppr1: false, substeps: this.correctionDetaillee, variables })
+          const calculAire = calculer(`${calculAB.result}*${calculBC.result}`, { name: '\\mathcal{A}', suppr1: false, substeps: this.correctionDetaillee, variables })
           let solutionDecimale = math.fraction(calculAire.result.replaceAll(' ', '')).valueOf()
           const environ = solutionDecimale === math.round(solutionDecimale, 2) ? '' : 'environ'
           solutionDecimale = math.round(solutionDecimale, 2).toString()
@@ -1451,9 +1451,9 @@ Donc l'aire du rectangle $${ABCD}$ est ${environ} $${toTex(solutionDecimale)}~cm
           const p = variables.p
           const graph = graphic.getFigure(ABCD, AB, CD, ...angles.map(x => { x.right = true; return x }))
           const resolution = resoudre(`${exprAB}=${exprCD}`, { suppr1: false, substeps: this.correctionDetaillee })
-          const calculAB = calculer('a*(x)+b'.replace('x', resolution.solution.exact), { name: AB.name, suppr1: false, substeps: this.correctionDetaillee, variables: variables })
+          const calculAB = calculer('a*(x)+b'.replace('x', resolution.solution.exact), { name: AB.name, suppr1: false, substeps: this.correctionDetaillee, variables })
           const resolution2 = resoudre(name`${p} = 2*${calculAB.result} + 2*${BC}`, { suppr1: false, substeps: this.correctionDetaillee })
-          const calculAire = calculer(`${calculAB.result}*${resolution2.solution.exact}`, { name: '\\mathcal{A}', suppr1: false, substeps: this.correctionDetaillee, variables: variables })
+          const calculAire = calculer(`${calculAB.result}*${resolution2.solution.exact}`, { name: '\\mathcal{A}', suppr1: false, substeps: this.correctionDetaillee, variables })
           let solutionDecimale = math.fraction(calculAire.result.replaceAll(' ', '')).valueOf()
           const environ = solutionDecimale === math.round(solutionDecimale, 2) ? '' : 'environ'
           solutionDecimale = math.round(solutionDecimale, 2).toString()

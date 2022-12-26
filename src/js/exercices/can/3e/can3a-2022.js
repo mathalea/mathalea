@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import Decimal from 'decimal.js'
 import {
   point, labelPoint, polygoneAvecNom, milieu, texteParPosition, polygone, codageAngleDroit
 } from '../../../modules/2d.js'
@@ -453,7 +453,7 @@ export default function SujetCAN2022troisieme () {
           b = choice([0.25, 0.5, 0.75])
           d = calcul(b * 60)
           if (!this.interactif) {
-            texte = `Convertir en heures/minutes : <br>$${texNombre(a + b, 2)}$ h $=$ ..... h..... min`
+            texte = `Convertir en heures/minutes : <br>$${texNombre(a + b, 2)}$ h $=$ .....  h ..... min`
             texteCorr = `$${texNombre(a + b, 2)}$h$ = ${a}$ h $ + ${texNombre(b, 2)} \\times 60  = ${a}$ h $${d}$ min`
           } else {
             texte = `Convertir en heures/minutes : <br>$${texNombre(a + b, 2)}$ h $=$`
@@ -673,7 +673,7 @@ export default function SujetCAN2022troisieme () {
             reponse = [`\\sqrt{${b ** 2 - a ** 2}}`]
             texte = 'Recopie la bonne réponse. <br>'
             texte += `${propositions[0]} ${sp(7)} ${propositions[1]} ${sp(7)} ${propositions[2]}${sp(7)} ${propositions[3]}<br>`
-            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $IJK$ :<br>
               On a $IJ^2=JK^2-IK^2$, soit $IJ^2=${b}^2-${a}^2=${b ** 2 - a ** 2}$.<br>
@@ -701,7 +701,7 @@ export default function SujetCAN2022troisieme () {
             reponse = [`\\sqrt{${b ** 2 + a ** 2}}`]
             texte = 'Recopie la bonne réponse. <br>'
             texte += `${propositions[0]} ${sp(7)} ${propositions[1]} ${sp(7)} ${propositions[2]}${sp(7)} ${propositions[3]}<br>`
-            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $IJK$ :<br>
                     On a $IJ^2=JK^2+IK^2$, soit $IJ^2=${b}^2+${a}^2=${b ** 2 + a ** 2}$.<br>
@@ -722,7 +722,7 @@ export default function SujetCAN2022troisieme () {
             texte = `Benoît prend le départ d'un marathon à $${a}$h $${b}$. <br>
             Il parcourt la distance en $3$ h  $${c}$ min. <br>
             À quelle heure arrive-t-il ?<br>
-             ..... h..... min`
+             .....  h ..... min`
             texteCorr = `On ajoute $3$ h à $${a}$h $${b}$. Cela fait $${a + 3}$h $${b}$.<br>
             On complète l'heure avec $60-${b}$ soit $${60 - b}$ min. Il reste $${c}-${60 - b}$ soit $${c - 60 + b}$ min qu'il faut encore ajouter.<br>
             Benoît arrive  à $${a + 4}$h $${c - 60 + b}$.`

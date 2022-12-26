@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeNombresPremiersStrictJusqua, shuffle2tableaux, choice, listeQuestionsToContenu, randint, troncature, calcul, texNombre, miseEnEvidence, texFraction, combinaisonListes } from '../../modules/outils.js'
+import { listeNombresPremiersStrictJusqua, shuffle2tableaux, choice, listeQuestionsToContenu, randint, troncature, calcul, texNombre, miseEnEvidence, texFraction, combinaisonListes, sp } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { degCos } from '../../modules/fonctionsMaths.js'
 
@@ -24,11 +24,10 @@ export default function ArrondirUneValeur () {
   Exercice.call(this) // Héritage de la classe Exercice()
 
   this.nbQuestions = 3
-  this.nbCols = 2 // Valeur différente de 3 car sinon en Latex, 3 colonnes, c'est trop !
   this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = 1
-  this.spacingCorr = context.isHtml ? 2.5 : 3.5
+  this.spacingCorr = context.isHtml ? 2.5 : 1
 
   this.nouvelleVersion = function () {
     if (this.version === 3) {
@@ -38,6 +37,10 @@ export default function ArrondirUneValeur () {
     }
     this.sup = parseInt(this.sup)
     this.sup2 = parseInt(this.sup2)
+    if (this.sup === 2 && !context.isHtml) {
+      this.spacingCorr = 2.5
+      this.spacing = 1.5
+    }
     this.amcType = this.sup2 === 1 ? 'qcmMono' : 'AMCHybride'
     this.spacing = (this.interactif && this.sup === 2) ? 3 : 1
     this.autoCorrection = []
@@ -87,7 +90,7 @@ export default function ArrondirUneValeur () {
           di = 10 * (troncature(n - troncature(n, 0), 1))
           ci = 100 * (troncature(n - troncature(n, 1), 2))
           mi = 1000 * (troncature(n - troncature(n, 2), 3))
-          texte = `$${nb}$<br>($\\text{Quand~on~écrit~sur~la~calculatrice~} ${num}\\div ${den}, \\text{~elle~renvoie} : ${texNombre(n)}$.)`
+          texte = ` $${nb}\\quad (\\text{Quand on${sp()}écrit${sp()}sur${sp()}la${sp()}calculatrice${sp()}} ${num}\\div ${den}, \\text{${sp()}elle${sp()}renvoie} : ${texNombre(n)}.$`
           break
         case 3:
           rac = randint(2, 300, [listeNombresPremiersStrictJusqua(300)])
@@ -96,7 +99,7 @@ export default function ArrondirUneValeur () {
           di = 10 * (troncature(n - troncature(n, 0), 1))
           ci = 100 * (troncature(n - troncature(n, 1), 2))
           mi = 1000 * (troncature(n - troncature(n, 2), 3))
-          texte = `$${nb}$<br>($\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n)}$.)`
+          texte = ` $${nb}\\quad (\\text{Quand${sp()}on${sp()}écrit${sp()}sur${sp()}la${sp()}calculatrice${sp()}} ${nb}, \\text{${sp()}elle${sp()}renvoie} : ${texNombre(n)}.)$`
           break
         case 4:
           v = randint(11, 99) / 10
@@ -114,7 +117,7 @@ export default function ArrondirUneValeur () {
             ci = 100 * (troncature(n - troncature(n, 1), 2))
             mi = 1000 * (troncature(n - troncature(n, 2), 3))
           }
-          texte = `$${nb}$<br>($\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n)}$.)`
+          texte = `$${nb}\\quad \\text{Quand${sp()}on${sp()}écrit${sp()}sur${sp()}la${sp()}calculatrice${sp()}} ${nb}, \\text{${sp()}elle${sp()}renvoie} : ${texNombre(n)}$.`
           break
       }
 
@@ -164,7 +167,7 @@ export default function ArrondirUneValeur () {
         tabicone.push(preTabIcone[0], preTabIcone[1])
       }
 
-      texteCorr += '<br>Encadrement et arrondi au centième : $~$'
+      texteCorr += `<br>Encadrement et arrondi au centième : ${sp()}`
       if (mi < 5) {
         texteCorr += `$${miseEnEvidence(texNombre(troncature(n, 2)))} < ${nb} < ${texNombre(troncature(n + 0.01, 2))}$`
         preTabRep[0] = `$${miseEnEvidence(texNombre(troncature(n, 2)))} < ${nb} < ${texNombre(troncature(n + 0.01, 2))}$`

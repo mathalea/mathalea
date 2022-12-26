@@ -1,5 +1,5 @@
 // Export de Mathalea pour Moodle au format GIFT
-// Créé le 27/11/2022
+// Créé le 24/12/2022
 
 $CATEGORY: Mathalea/1e
 
@@ -87,6 +87,17 @@ $CATEGORY: Mathalea/1e
     =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
     #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
     <mathalea-moodle ex\="1G12" correction />
+}
+
+$CATEGORY: Mathalea/1e
+
+:: Mathalea - Somme des termes d'une suite arithmétique (1N12) ::
+<script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+<mathalea-moodle ex\="1N12" />
+{
+    =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
+    #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+    <mathalea-moodle ex\="1N12" correction />
 }
 
 $CATEGORY: Mathalea/2e
@@ -1169,6 +1180,17 @@ $CATEGORY: Mathalea/3e
 
 $CATEGORY: Mathalea/3e
 
+:: Mathalea - Déterminer des longueurs dans la géométrie dans l'espace (3G44) ::
+<script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+<mathalea-moodle ex\="3G44" />
+{
+    =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
+    #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+    <mathalea-moodle ex\="3G44" correction />
+}
+
+$CATEGORY: Mathalea/3e
+
 :: Mathalea - Analyser des scripts Scratch (3I10-1) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="3I10-1" />
@@ -1191,7 +1213,18 @@ $CATEGORY: Mathalea/3e
 
 $CATEGORY: Mathalea/3e
 
-:: Mathalea - Donner l'opposé d'une expression (3L10) ::
+:: Mathalea - Supprimer les parenthèses puis réduire une expression (niveau 2) (3L10-2) ::
+<script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+<mathalea-moodle ex\="3L10-2" />
+{
+    =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
+    #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+    <mathalea-moodle ex\="3L10-2" correction />
+}
+
+$CATEGORY: Mathalea/3e
+
+:: Mathalea - Supprimer les parenthèses puis réduire une expression (3L10) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="3L10" />
 {
@@ -1345,7 +1378,7 @@ $CATEGORY: Mathalea/3e
 
 $CATEGORY: Mathalea/3e
 
-:: Mathalea - Equations résolvantes pour le théorème de Thalès (3L13-2) ::
+:: Mathalea - Équations résolvantes pour le théorème de Thalès (3L13-2) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="3L13-2" />
 {
@@ -2166,17 +2199,6 @@ $CATEGORY: Mathalea/4e
     =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
     #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
     <mathalea-moodle ex\="4L10-4" correction />
-}
-
-$CATEGORY: Mathalea/4e
-
-:: Mathalea - Utiliser la simple distributivité (4L10) ::
-<script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
-<mathalea-moodle ex\="4L10" />
-{
-    =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
-    #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
-    <mathalea-moodle ex\="4L10" correction />
 }
 
 $CATEGORY: Mathalea/4e
@@ -3259,6 +3281,28 @@ $CATEGORY: Mathalea/6e
 
 $CATEGORY: Mathalea/6e
 
+:: Mathalea - Connaitre le vocabulaire de base des angles (6G22-1) ::
+<script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+<mathalea-moodle ex\="6G22-1" />
+{
+    =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
+    #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+    <mathalea-moodle ex\="6G22-1" correction />
+}
+
+$CATEGORY: Mathalea/6e
+
+:: Mathalea - Reconnaître un angle particulier (6G22-2) ::
+<script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+<mathalea-moodle ex\="6G22-2" />
+{
+    =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
+    #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+    <mathalea-moodle ex\="6G22-2" correction />
+}
+
+$CATEGORY: Mathalea/6e
+
 :: Mathalea - Nommer un angle (6G22) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="6G22" />
@@ -3464,6 +3508,17 @@ $CATEGORY: Mathalea/6e
     =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
     #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
     <mathalea-moodle ex\="6M11-2" correction />
+}
+
+$CATEGORY: Mathalea/6e
+
+:: Mathalea - Calculer le périmètre de carrés, rectangles et triangles (6M11-3) ::
+<script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+<mathalea-moodle ex\="6M11-3" />
+{
+    =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
+    #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+    <mathalea-moodle ex\="6M11-3" correction />
 }
 
 $CATEGORY: Mathalea/6e
@@ -5316,7 +5371,7 @@ $CATEGORY: Mathalea/can/1e
 
 $CATEGORY: Mathalea/can/1e
 
-:: Mathalea - Ecrire une probabilté avec les notations (can1P01) ::
+:: Mathalea - Écrire une probabilté avec les notations (can1P01) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="can1P01" />
 {
@@ -6174,6 +6229,17 @@ $CATEGORY: Mathalea/can/2e
 
 $CATEGORY: Mathalea/can/2e
 
+:: Mathalea - Écrire avec un seul quotient (can2L09) ::
+<script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+<mathalea-moodle ex\="can2L09" />
+{
+    =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
+    #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+    <mathalea-moodle ex\="can2L09" correction />
+}
+
+$CATEGORY: Mathalea/can/2e
+
 :: Mathalea - Utiliser les intervalles (can2N01) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="can2N01" />
@@ -6621,6 +6687,17 @@ $CATEGORY: Mathalea/can/3e
     =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
     #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
     <mathalea-moodle ex\="can3L05" correction />
+}
+
+$CATEGORY: Mathalea/can/3e
+
+:: Mathalea - Réduire une expression avec une fraction (can3L06) ::
+<script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+<mathalea-moodle ex\="can3L06" />
+{
+    =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
+    #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+    <mathalea-moodle ex\="can3L06" correction />
 }
 
 $CATEGORY: Mathalea/can/3e
@@ -7384,6 +7461,17 @@ $CATEGORY: Mathalea/can/5e
 
 $CATEGORY: Mathalea/can/5e
 
+:: Mathalea - Multiplier par 1,5 ou 2,5 ou ... (can5C23) ::
+<script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+<mathalea-moodle ex\="can5C23" />
+{
+    =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
+    #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+    <mathalea-moodle ex\="can5C23" correction />
+}
+
+$CATEGORY: Mathalea/can/5e
+
 :: Mathalea - Convertir des heures décimales en heures/minutes et inversement (can5D01) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="can5D01" />
@@ -7538,7 +7626,7 @@ $CATEGORY: Mathalea/can/5e
 
 $CATEGORY: Mathalea/can/5e
 
-:: Mathalea - Ecrire sous la forme d’un pourcentage (can5P06) ::
+:: Mathalea - Écrire sous la forme d’un pourcentage (can5P06) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="can5P06" />
 {
@@ -8473,7 +8561,7 @@ $CATEGORY: Mathalea/can/6e
 
 $CATEGORY: Mathalea/can/6e
 
-:: Mathalea - Ecrire sous forme d'une fraction décimale (can6N11) ::
+:: Mathalea - Écrire sous forme d'une fraction décimale (can6N11) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="can6N11" />
 {

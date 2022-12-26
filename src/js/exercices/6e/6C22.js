@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, lampeMessage, texteEnCouleur, texteEnCouleurEtGras, calcul, texPrix, prenomF } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, lampeMessage, texteEnCouleur, texteEnCouleurEtGras, calcul, texPrix, prenomF, sp } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -87,7 +87,7 @@ export default function ProblemesDePlusEtDeMoins () {
           m = r - e
           somme = m + r
 
-          texte = `${prenom2} dit à ${prenom1}  : « J'ai $${texPrix(r)}$ €, soit $${texPrix(e)}$ € de plus que toi. »<br>`
+          texte = `${prenom2} dit à ${prenom1}  : «${sp()}J'ai $${texPrix(r)}$ €, soit $${texPrix(e)}$ € de plus que toi.${sp()}»<br>`
           if (this.interactif && !context.isAmc) {
             texte += 'Combien d\'argent en tout possèdent les deux filles ?'
             texte += '<br>Les deux filles possèdent en tout : '
@@ -109,7 +109,7 @@ export default function ProblemesDePlusEtDeMoins () {
           m = r + e
           somme = m + r
 
-          texte = `${prenom2} dit à ${prenom1} : « J'ai $${texPrix(r)}$ €, soit $${texPrix(e)}$ € de moins que toi. »<br>`
+          texte = `${prenom2} dit à ${prenom1} : «${sp()}J'ai $${texPrix(r)}$ €, soit $${texPrix(e)}$ € de moins que toi.${sp()}»<br>`
           if (this.interactif && !context.isAmc) {
             texte += 'Combien d\'argent en tout possèdent les deux filles ?<br>Les deux filles possèdent en tout :'
             texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline') + '   €.'

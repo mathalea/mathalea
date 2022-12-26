@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { choice, combinaisonListes, compteOccurences, contraindreValeur, enleveDoublonNum, lampeMessage, lettreDepuisChiffre, listeQuestionsToContenu, randint, range1, shuffle } from '../../modules/outils.js'
-import { scratchblock } from '../../modules/2d.js'
+import { scratchblock } from '../../modules/scratchblock.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Compléter un script Scratch - 2'
 export const amcReady = true

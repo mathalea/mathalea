@@ -1,4 +1,4 @@
-import { arc, cercle, codageAngle, lignesHorizontales, labelPoint, point, polygone, rapporteur, tracePoint } from '../../modules/2d.js'
+import { arc, cercle, codageAngle, lignesHorizontales, labelPoint, point, polygone, rapporteur, tracePoint, cibleRonde } from '../../modules/2d.js'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
@@ -50,7 +50,7 @@ export default function CalculedddrUnAngle () {
       const m7 = arc(E, B, 60, 5, '#f15929', 'blue', 1, 'none')
       const m8 = rapporteur({ x: 0, y: 0, taille: 7, depart: 20, semi: true, avecNombre: 'unSens', rayonsVisibles: true, precisionAuDegre: 10 })
       const p13 = codageAngle(C, A, 45, 5, 'X', 'blue', 1, 1, '#f15929', 0.4)
-      objetsEnonce.push(p1, p5, p13)
+      // objetsEnonce.push(p1, p5, p13)
       /*
       const p2 = segment(A, B, '#f15929')
       const p3 = cercle(A, 5, 'blue')
@@ -80,7 +80,6 @@ export default function CalculedddrUnAngle () {
       p16.color = colorToLatexOrHTML('#f15929')
       // const p17 = cibleCarree({ x: -3, y: 0, rang: 5, num: 8, taille: 0.6, color: '#f15929' })
       // const p17 = cibleCarree({ x: -2, y: 0, rang: 6, num: 15, taille: 0.6, color: '#f15929' })
-      // const p18 = cibleRonde({ x: -1, y: 1, rang: 6, num: 8, taille: 0.5, color: '#f15929' })
       // const p18b = cibleCouronne({ x: 3, y: 3, taille: 4, taille2: 2, depart: 20, nbDivisions: 5, nbSubDivisions: 3, semi: true, label: true, color: '#f15929' })
       const p19a = constructionBissectrice(B, C, D, true, '#f15929', 'ooo', 2, '#f15929', 1, '#f15929')
       // const p19a = bissectrice(B, C, D, '#f15929')
@@ -101,8 +100,9 @@ export default function CalculedddrUnAngle () {
       objetsEnonce.push(p23.representant(A, '#f15929'), p24, p16, p19a, p25, p26, p29, p27)
       // objetsEnonce.push(p29)
       */
+      const p18 = cibleRonde({ x: -1, y: 1, rang: 6, num: 8, taille: 0.5, color: '#f15929' })
       const p27 = lignesHorizontales(-3, -1, 7, 5, '#f15929')
-      objetsEnonce.push(p27)
+      objetsEnonce.push(p18)
       texte += 'essai'
       paramsEnonce = { xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1, mainlevee: false, amplitude: 0.5 }
       texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)

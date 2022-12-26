@@ -1,5 +1,5 @@
 /* global $ jQuery JSZip saveAs */
-import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube, exerciceSimpleToContenu, listeQuestionsToContenu, introLatexCan, arrondi, dataTailleDiaporama, contraindreValeur } from './modules/outils.js'
+import { strRandom, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube, exerciceSimpleToContenu, listeQuestionsToContenu, introLatexCan, arrondi, dataTailleDiaporama, contraindreValeur } from './modules/outils.js'
 import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch, getUserId, setUrlAndGo, replaceQueryParam, goTabVue } from './modules/gestionUrl.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders.js'
@@ -28,6 +28,7 @@ import gestionScores from './modules/gestionScores.js'
 import { modalTimer } from './modules/modalTimer.js'
 import { zoomAffichage } from './modules/zoom.js'
 import { ajouteChampTexteMathLive } from './modules/interactif/questionMathLive.js'
+import { creerDocumentAmc } from './modules/creerDocumentAmc'
 
 // "3" isNumeric (pour gérer le sup venant de l'URL)
 function isNumeric (n) {
@@ -869,7 +870,7 @@ function miseAJourDuCode () {
         }
       }
       context.isHtml = output
-      codeAmc = creerDocumentAmc({ questions: questions, nbQuestions: nbQuestions, nbExemplaires: nbExemplaires, typeEntete: typeEntete, format: format })
+      codeAmc = creerDocumentAmc({ questions, nbQuestions, nbExemplaires, typeEntete, format })
         .replace(/<br><br>/g, '\n\n\\medskip\n')
         .replace(/<br>/g, '\\\\\n')
 
@@ -1158,6 +1159,7 @@ function miseAJourDuCode () {
             \\thenbEx  \\addtocounter{nbEx}{1}&`).replace('\\end{enumerate}', `&&\\tabularnewline \\hline
           }
           \\addtocounter{nbEx}{-1}`).replace('\\begin{multicols}{2}', '').replace('\\end{multicols}', '').replaceAll('\\\\', '')
+          codeCorrections = monSuperExercice.contenuCorrection.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '')
         } else {
           let msgAlerteCanEnonce = ''
           let msgAlerteCanReponseACompleter = ''
@@ -1215,7 +1217,6 @@ function miseAJourDuCode () {
           \\addtocounter{nbEx}{-1}
           `
         }
-        // codeCorrections = monSuperExercice.contenuCorrection.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '')
       }
       if ($('#supprimer_correction:checked').val()) {
         codeMoodle = codeEnonces
@@ -1250,6 +1251,7 @@ function miseAJourDuCode () {
                 \\thenbEx  \\addtocounter{nbEx}{1}&`).replace('\\end{enumerate}', `&&\\tabularnewline \\hline
               }
               \\addtocounter{nbEx}{-1}`).replace('\\begin{multicols}{2}', '').replace('\\end{multicols}', '').replace('\\\\', '')
+              codeCorrection += monSuperExercice.contenuCorrection.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '')
             } else {
               let msgAlerteCanEnonce = ''
               let msgAlerteCanReponseACompleter = ''
@@ -1310,7 +1312,6 @@ function miseAJourDuCode () {
               `
             }
             codeExercices += '\n\n'
-            // codeCorrection += monSuperExercice.contenuCorrection.replace('\\exo{}', '').replace('\\marginpar{\\footnotesize }', '')
             codeCorrection += '\n\n'
           } else {
             for (let i = 0; i < listeDesExercices.length; i++) {
@@ -2774,7 +2775,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   //  * du chargement
   //  * de l'ajout d'un exercice (click sur le lien)
   //  * du déplacement, suppression d'un exercice (manipulation des étiquettes et ou utilisation des icones.
-  // A la fin appel de la fonction miseAJourDeLaListeDesExercices() => pour l'affichage des exercices choisis.
+  // À la fin appel de la fonction miseAJourDeLaListeDesExercices() => pour l'affichage des exercices choisis.
   const formChoixDesExercices = document.getElementById('choix_des_exercices')
   if (formChoixDesExercices !== null) {
     formChoixDesExercices.addEventListener('change', function (e) {
@@ -3275,8 +3276,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             nomCopie = itemListe[0] + ' ' + itemListe[1]
           }
           $('#listeEval').append(ligneExercices({
-            nomCopie: nomCopie,
-            items: items
+            nomCopie,
+            items
           }))
         }
       }

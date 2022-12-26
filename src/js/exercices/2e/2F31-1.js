@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, choice, randint, texNombre, miseEnEvidence, texFraction, stringNombre } from '../../modules/outils.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import Decimal from 'decimal.js'
 export const titre = 'Utiliser les variations des fonctions de référence pour comparer des images'
 export const dateDePublication = '07/01/2022'
 /**

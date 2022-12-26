@@ -1,0 +1,149 @@
+import { codageAngleDroit, codageSegments, pointAdistance, polygoneAvecNom, point, translation, vecteur, rotation, similitude, afficheLongueurSegment, cercle, pointIntersectionCC } from '../../modules/2d.js'
+import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { context } from '../../modules/context.js'
+import { listeQuestionsToContenu, randint, creerNomDePolygone } from '../../modules/outils.js'
+import Grandeur from '../../modules/Grandeur.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+export const titre = 'Calculer le périmètre de carrés, rectangles et triangles'
+export const amcReady = true
+export const amcType = 'AMCNum'
+export const interactifType = 'mathLive'
+export const interactifReady = true
+
+export const dateDePublication = '27/11/2022'
+/**
+ * Un carré, un rectangle et un triangle sont tracés.
+ *
+ * Il faut calculer les périmètres
+ *
+ * @author Sébastien LOZANO
+ * Lachement repiquer à Remi Angot et adapté
+ * Référence 6M11-3
+ */
+export const uuid = '5563e'
+export const ref = '6M11-3'
+export default function AireCarresRectanglesTriangles () {
+  Exercice.call(this) // Héritage de la classe Exercice()
+  this.titre = titre
+  this.amcReady = amcReady
+  this.amcType = amcType
+  this.interactif = false
+  this.interactifReady = interactifReady
+  this.interactifType = interactifType
+  this.consigne = 'Calculer le périmètre des 3 figures suivantes.'
+  this.spacing = 2
+  this.nbCols = 1
+  this.nbColsCorr = 1
+  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
+  this.nbQuestions = 1
+  this.nbQuestionsModifiable = false
+
+  this.nouvelleVersion = function (numeroExercice) {
+    let texte = ''; let texteCorr = ''
+    const nom = creerNomDePolygone(11, 'QD')
+    this.listeQuestions = []
+    this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
+    const c = randint(2, 6)
+    const L = randint(2, 5)
+    const l = randint(2, 5, L)
+    let a = randint(2, 5)
+    let b = randint(2, 5)
+    // Si b<a on permute pour le choix de c
+    if (b < a) {
+      const tmp = a
+      a = b
+      b = tmp
+    }
+    const d = randint(b - a, a + b, [b - a, a + b])
+    const A = point(0, 0, nom[0])
+    const B = rotation(point(c, 0), A, randint(-15, 15), nom[1])
+    const C = rotation(A, B, -90, nom[2])
+    const D = rotation(B, A, 90, nom[3])
+    const carre = polygoneAvecNom(A, B, C, D)
+    const E = point(8, 0, nom[4])
+    const F = pointAdistance(E, L, randint(-15, 15), nom[5])
+    const G = similitude(E, F, -90, l / L, nom[6])
+    const H = translation(G, vecteur(F, E), nom[7])
+    const rectangle = polygoneAvecNom(E, F, G, H)
+    const I = point(15, 0, nom[8])
+    const J = pointAdistance(I, a, randint(-25, 25), nom[9])
+    J.positionLabel = 'right'
+    const cI = cercle(I, b)
+    const cJ = cercle(J, d)
+    debugger
+    const K = pointIntersectionCC(cI, cJ, nom[10], 1)
+    K.positionLabel = 'above'
+    const triangle = polygoneAvecNom(I, J, K)
+    this.introduction = mathalea2d({ xmin: -2, xmax: 22, ymin: -3, ymax: 7, pixelsParCm: 20, scale: 0.75, mainlevee: false },
+      carre, codageAngleDroit(A, B, C), codageAngleDroit(A, D, C), codageAngleDroit(D, C, B), codageAngleDroit(B, A, D), codageSegments('//', 'blue', [A, B, C, D, A]), afficheLongueurSegment(B, A),
+      rectangle, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codageSegments('/', 'red', E, F, G, H), codageSegments('||', 'blue', F, G, H, E), afficheLongueurSegment(F, E), afficheLongueurSegment(G, F),
+      triangle, afficheLongueurSegment(J, I), afficheLongueurSegment(K, J), afficheLongueurSegment(I, K)
+    )
+    for (let i = 0; i < 3; i++) {
+      texte = ''
+      texteCorr = ''
+      switch (i) {
+        case 0 :
+          texte = 'Calculer le périmètre du carré en cm.'
+
+          texteCorr += `$\\mathcal{P}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=4\\times ${c}~\\text{cm}=${4 * c}~\\text{cm}$`
+          setReponse(this, i, new Grandeur(4 * c, 'cm'), { formatInteractif: 'unites' })
+          if (context.isAmc) {
+            this.autoCorrection[i] = {
+              enonce: `Calculer le périmètre du carré de côté ${c}cm en cm.`,
+              propositions: [{ texte: texteCorr, statut: 0 }],
+              reponse: {
+                texte: 'Périmètre en cm',
+                valeur: 4 * c,
+                param: { digits: 2, decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
+              }
+            }
+          }
+          break
+        case 1 :
+          texte = 'Calculer le périmètre du rectangle en cm.'
+          texteCorr += `$\\mathcal{P}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=2\\times ${L}~\\text{cm} + 2\\times${l}~\\text{cm}=${2 * L + 2 * l
+          }~\\text{cm}$`
+          setReponse(this, i, new Grandeur(2 * L + 2 * l, 'cm'), { formatInteractif: 'unites' })
+          if (context.isAmc) {
+            this.autoCorrection[i] = {
+              enonce: `Calculer le périmètre du rectangle de longueur ${L}cm et de largeur ${l}cm en cm.`,
+              propositions: [{ texte: texteCorr, statut: 0 }],
+              reponse: {
+                texte: 'Périmètre en cm',
+                valeur: 2 * L + 2 * l,
+                param: { digits: 2, decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
+              }
+            }
+          }
+          break
+        case 2 :
+          texte = 'Calculer le périmètre du triangle en cm.'
+          texteCorr += `$\\mathcal{P}_{${nom[8] + nom[9] + nom[10]}}=${a}~\\text{cm} + ${b}~\\text{cm} + ${d}~\\text{cm} =${a + b + d}~\\text{cm}$`
+          setReponse(this, i, new Grandeur(a + b + d, 'cm'), { formatInteractif: 'unites' })
+          if (context.isAmc) {
+            this.autoCorrection[i] = {
+              enonce: `Calculer le périmètre du triangle dont les côtés de l'angle droit mesurent ${a}cm, ${b}cm et ${d}cm en cm.`,
+              propositions: [{ texte: texteCorr, statut: 0 }],
+              reponse: {
+                texte: 'Périmètre en cm',
+                valeur: a + b + d,
+                param: { digits: 2, decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
+              }
+            }
+          }
+          break
+      }
+      texte += ajouteChampTexteMathLive(this, i, 'unites[longueurs,aires]')
+      this.listeQuestions.push(texte)
+      this.listeCorrections.push(texteCorr)
+    }
+    listeQuestionsToContenu(this)
+  }
+
+  // this.besoinFormulaireNumerique = ['Niveau de difficulté',3,"1 : Périmètres\n\
+  // 2 : Aires\n3 : Périmètres et aires"];
+}

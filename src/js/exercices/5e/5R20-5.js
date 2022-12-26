@@ -12,7 +12,7 @@ export const uuid = '41254'
 export const ref = '5R20-5'
 export default function ExerciceTableauAdditionsRelatifs () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Calculer :'
+  this.consigne = 'Calculer.'
   this.spacing = 1
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false

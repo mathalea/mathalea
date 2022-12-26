@@ -4,7 +4,7 @@ import { Polynome } from '../../modules/fonctionsMaths.js'
 import { simplify, parse, derivative, abs } from 'mathjs'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-const math = { simplify: simplify, parse: parse, derivative: derivative }
+const math = { simplify, parse, derivative }
 export const titre = 'Dérivée d\'un produit'
 export const dateDePublication = '22/01/2022'
 export const interactifReady = true
@@ -116,7 +116,7 @@ export default function DeriveeProduit () {
           texteCorr += `\\[${namef}'(x)=\\frac{${Polynome.print([-b])}}{x^2}.\\]`
           // Remarque sur la méthode alternative
           const fExpand = math.simplify(`${a}${ecritureAlgebrique(b)}/x`)
-          texteCorr += `<b>Remarque</b> : on pourrait bien entendu développer avant de dériver.<br>Dans ce cas, $${namef}(x)=${prettyTex(fExpand)}$.<br>`
+          texteCorr += `Remarque : on pourrait bien entendu développer avant de dériver.<br>Dans ce cas, $${namef}(x)=${prettyTex(fExpand)}$.<br>`
           texteCorr += `Et donc $${namef}'(x)=${prettyTex(math.simplify(math.derivative(fExpand, 'x')))}$. Ce qui est bien cohérent avec le résultat trouvé plus haut.`
           // Sans le replace { x} est mal interprété par le parser de mathLive
           const maReponse = prettyTex(math.simplify(math.derivative(fExpand, 'x'))).replace('{ x}', 'x')
@@ -133,9 +133,9 @@ export default function DeriveeProduit () {
           texteCorr += `On développe pour obtenir : \\[${namef}'(x)=${mon2.derivee().multiply(poly1)}${mon2.multiply(a).toMathExpr(true)}.\\]`
           texteCorr += `Puis, en regroupant les termes de même degré : \\[${namef}'(x)=${polExpand.derivee()}.\\]`
           // Remarque sur la méthode alternative
-          texteCorr += `<b>Remarque</b> : on pourrait bien entendu développer avant de dériver.<br>Dans ce cas, $${namef}(x)=${polExpand}$.<br>`
+          texteCorr += `Remarque : on pourrait bien entendu développer avant de dériver.<br>Dans ce cas, $${namef}(x)=${polExpand}$.<br>`
           texteCorr += `Et donc $${namef}'(x)=${polExpand.derivee()}$. Ce qui est bien cohérent avec le résultat trouvé plus haut.`
-          setReponse(this, i, polExpand.derivee())
+          setReponse(this, i, polExpand.derivee().toString())
           break
         }
         case 'monome2/racine': {
@@ -168,7 +168,7 @@ export default function DeriveeProduit () {
           texteCorr += `On utilise la formule rappelée plus haut et on a \\[${namef}'(x)=${intermediaire}.\\]`
           // 2ème étape : simplification
           let interm2
-          if (racineGauche) interm2 = `\\frac{${poly}}{2\\sqrt{x}}${derivee.toMathExpr(true)}\\sqrt{x}`
+          if (racineGauche) interm2 = `\\frac{${poly}}{2\\sqrt{x}}${derivee.toLatex(true)}\\sqrt{x}`
           else interm2 = `${!derivee.isMon() ? `(${derivee})` : derivee}\\sqrt{x}+\\frac{${poly}}{2\\sqrt{x}}`
           texteCorr += 'L\'énoncé ne demandant rien de plus, on se contente de simplifier l\'expression :'
           texteCorr += `\\[${namef}'(x)=${interm2}\\]`
@@ -186,7 +186,7 @@ export default function DeriveeProduit () {
           else intermediaire = `\\underbrace{(${derivee})}_{u'(x)}\\times e^x+(${poly})\\times\\underbrace{e^x}_{v'(x)}`
           texteCorr += `On utilise la formule rappelée plus haut et on a \\[${namef}'(x)=${intermediaire}.\\]`
           // 2ème étape : Factorisation
-          const interm2 = `(${poly}${derivee.toMathExpr(true)})`
+          const interm2 = `(${poly}${derivee.toLatex(true)})`
           const termeGauche = expGauche ? 'e^x' : interm2
           const termeDroite = expGauche ? interm2 : 'e^x'
           texteCorr += 'Comme demandé, on factorise l\'expression par $e^x$ : '

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import Decimal from 'decimal.js'
 import { listeQuestionsToContenu, randint, range, combinaisonListes, prenomF, prenomM, texNombre, miseEnEvidence, texPrix, compteOccurences, contraindreValeur, sp, rangeMinMax } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { getVueFromUrl } from '../../modules/gestionUrl.js'
@@ -175,11 +175,11 @@ export default function ProportionnalitePasProportionnalite () {
             z = pu.mul(p)
             texte = `${prenoms[0]} achète ${listeDeLieux[index1]} des ${objet}.<br>`
             // texte += parseInt('p')
-            texte += `Elle  repart avec ${y} ${objet} pour $${texPrix(somme)}$€.<br> ${prenoms[1]} achète quant à lui, au même endroit ${p} ${objet} pour $${texPrix(z)}$€.<br>`
+            texte += `Elle  repart avec ${y} ${objet} pour $${texPrix(somme)}$${sp()}€.<br> ${prenoms[1]} achète quant à lui, au même endroit ${p} ${objet} pour $${texPrix(z)}$${sp()}€.<br>`
             texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`
-            texteCorr = `${prenoms[0]} dépense $${miseEnEvidence(texPrix(somme), 'blue')}$€.<br>`
-            texteCorr += `${prenoms[1]} a acheté  $${miseEnEvidence(Math.round(p / y))}$ fois la quantité des ${objet} achetée par ${prenoms[0]} pour $${miseEnEvidence(texPrix(somme), 'blue')}$€.<br>`
-            texteCorr += `Il a payé $${texPrix(z)}$€ $=${miseEnEvidence(Math.round(p / y))}\\times${miseEnEvidence(texPrix(somme), 'blue')}$€.<br>`
+            texteCorr = `${prenoms[0]} dépense $${miseEnEvidence(texPrix(somme), 'blue')}$${sp()}€.<br>`
+            texteCorr += `${prenoms[1]} a acheté  $${miseEnEvidence(Math.round(p / y))}$ fois la quantité des ${objet} achetée par ${prenoms[0]} pour $${miseEnEvidence(texPrix(somme), 'blue')}$${sp()}€.<br>`
+            texteCorr += `Il a payé $${texPrix(z)}$${sp()}€ $=${miseEnEvidence(Math.round(p / y))}\\times${miseEnEvidence(texPrix(somme), 'blue')}$${sp()}€.<br>`
             texteCorr += `À l'aide de ces données, on constate que le prix des ${objet} et leur quantité sont tous les deux multipliés par le même nombre, donc ces deux grandeurs sont proportionnelles.<br>`
             bonneReponse = 'oui'
           } else {
@@ -193,11 +193,11 @@ export default function ProportionnalitePasProportionnalite () {
             p = y * randint(2, 5)
             z = pu.sub(0.1).mul(p).toDP(2)
             texte = `${prenoms[0]} achète ${listeDeLieux[index1]} des ${objet}. `
-            texte += `Elle a obtenu ${y} ${objet} pour $${texPrix(somme)}${sp()}$€. ${prenoms[1]} achète quant à lui, au même endroit ${p}${sp()}${objet} pour $${texPrix(z)}$€.<br>`
+            texte += `Elle a obtenu ${y} ${objet} pour $${texPrix(somme)}${sp()}$${sp()}€. ${prenoms[1]} achète quant à lui, au même endroit ${p}${sp()}${objet} pour $${texPrix(z)}$${sp()}€.<br>`
             texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`
-            texteCorr = `${prenoms[0]} dépense $${miseEnEvidence(texPrix(somme), 'blue')}$${sp()}€.<br>`
-            texteCorr += `${prenoms[1]} a acheté  $${miseEnEvidence(Math.round(p / y))}$ fois la quantité des ${objet} achetée par ${prenoms[0]} pour $${miseEnEvidence(texPrix(somme), 'blue')}$€.<br>`
-            texteCorr += `Il a payé $${texPrix(z)}$€.<br>Mais $${miseEnEvidence(Math.round(p / y))}\\times${miseEnEvidence(texPrix(somme), 'blue')}$€ $=${texPrix(somme.mul(p).div(y))}$€.<br>`
+            texteCorr = `${prenoms[0]} dépense $${miseEnEvidence(texPrix(somme), 'blue')}$${sp()}${sp()}€.<br>`
+            texteCorr += `${prenoms[1]} a acheté  $${miseEnEvidence(Math.round(p / y))}$ fois la quantité des ${objet} achetée par ${prenoms[0]} pour $${miseEnEvidence(texPrix(somme), 'blue')}$${sp()}€.<br>`
+            texteCorr += `Il a payé $${texPrix(z)}$${sp()}€.<br>Mais $${miseEnEvidence(Math.round(p / y))}\\times${miseEnEvidence(texPrix(somme), 'blue')}$${sp()}€ $=${texPrix(somme.mul(p).div(y))}$${sp()}€.<br>`
             texteCorr += `À l'aide de ces données, on constate que le prix unitaire des ${objet} n'est pas le même pour ${prenoms[0]} qui en a acheté $${y}$ que pour ${prenoms[1]} qui en a acheté ${p}, donc ces deux grandeurs ne sont pas proportionnelles.<br>`
             bonneReponse = 'non'
           }
@@ -275,7 +275,7 @@ export default function ProportionnalitePasProportionnalite () {
           for (let j = 0; j <= tirages.length; j++) texte += '|c'
           texte += `|}\\hline  \\text{${objet}}`
           for (let j = 0; j < tirages.length; j++) texte += `&${tirages[j][0]}`
-          texte += '\\\\\\hline \\text{Prix (en €})'
+          texte += `\\\\\\hline \\text{Prix (en $${sp()}€$})`
           for (let j = 0; j < tirages.length; j++) { texte += `&${texPrix(tirages[j][1])}` }
           texte += '\\\\\\hline\\end{array}$<br> <br>'
           texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée ?<br>`
@@ -284,12 +284,12 @@ export default function ProportionnalitePasProportionnalite () {
           else index3 = range(3, [p])
           texteCorr += '$'
           for (let j = 0; j < index3.length; j++) {
-            texteCorr += `\\dfrac{${texPrix(tirages[index3[j]][1])}\\text{ €}}{${tirages[index3[j]][0]}\\text{ ${objet}}}=`
+            texteCorr += `\\dfrac{${texPrix(tirages[index3[j]][1])}\\text{ ${sp()}€}}{${tirages[index3[j]][0]}\\text{ ${objet}}}=`
           }
-          texteCorr += `${texPrix(pu)}\\text{ €}/_{\\text{${objet.substring(0, objet.length - 1)}}}$<br><br>`
+          texteCorr += `${texPrix(pu)}\\text{ ${sp()}€}/_{\\text{${objet.substring(0, objet.length - 1)}}}$<br><br>`
           if (!met) {
-            texteCorr += `Mais $\\dfrac{${texPrix(tirages[p][1])}\\text{ €}}{${tirages[p][0]}\\text{ ${objet}}}
-            =${texPrix(tirages[p][1].div(tirages[p][0]).toDP(2))}\\text{ €}/_{\\text{${objet.substring(0, objet.length - 1)}}}$.<br>`
+            texteCorr += `Mais $\\dfrac{${texPrix(tirages[p][1])}\\text{ ${sp()}€}}{${tirages[p][0]}\\text{ ${objet}}}
+            =${texPrix(tirages[p][1].div(tirages[p][0]).toDP(2))}\\text{ ${sp()}€}/_{\\text{${objet.substring(0, objet.length - 1)}}}$.<br>`
             texteCorr += `Le prix des ${objet} n'est pas proportionnel à leur nombre.<br>`
             bonneReponse = 'non'
           } else {

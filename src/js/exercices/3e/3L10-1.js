@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { randint, combinaisonListes, lettreDepuisChiffre, printlatex, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
+import { randint, combinaisonListes, lettreDepuisChiffre, printlatex, listeQuestionsToContenuSansNumero, sp } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
@@ -20,7 +20,6 @@ export const ref = '3L10-1'
 export default function ParenthesesPrecedesDeMoinsOuPlus () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Développer et réduire les expressions suivantes.'
   this.spacing = context.isHtml ? 3 : 2
   this.spacingCorr = context.isHtml ? 3 : 2
   this.nbQuestions = 5
@@ -28,6 +27,7 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
   this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
+    this.consigne = this.nbQuestions > 1 ? 'Réduire les expressions suivantes.' : 'Réduire l\'expression suivante.'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const typesDeQuestionsDisponibles = ['a-()', 'a+()']
@@ -86,7 +86,7 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
           break
       }
       if (this.interactif) {
-        texte += '$ = $' + ajouteChampTexteMathLive(this, i, 'inline largeur75')
+        texte += ajouteChampTexteMathLive(this, i, 'inline largeur 75 nospacebefore', { texte: `$${sp(3)} =$` })
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {

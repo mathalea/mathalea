@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, choice, reduirePolynomeDegre3, reduireAxPlusB } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, choice, reduirePolynomeDegre3, reduireAxPlusB, sp } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { droiteParPointEtPente, point, repere, tracePoint, texteParPosition, labelPoint } from '../../modules/2d.js'
 export const interactifReady = true
@@ -70,7 +70,7 @@ export default function VocabulaireNotationsFonctions2 () {
           if (this.interactif) { choix = randint(0, 5) } else { choix = randint(0, 3) }
           if (choix === 0) {
             nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-            texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase contenant le mot « image ».`
+            texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase contenant le mot «${sp(1)}image${sp(1)}».`
             if (this.interactif) { texte += '<br>Une ou plusieurs réponses correctes.' }
             texteCorr = `L'égalité  $${nomF}(${x})=${y}$ se traduit par : <br>
             $\\bullet$ L'image de $${x}$ par la fonction $${nomF}$ est $${y}$.<br>
@@ -99,7 +99,7 @@ export default function VocabulaireNotationsFonctions2 () {
           }
           if (choix === 1) {
             nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-            texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase contenant le mot « image ».`
+            texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase contenant le mot «${sp(1)}image${sp(1)}».`
             if (this.interactif) { texte += '<br>Une ou plusieurs réponses correctes.' }
             if (this.interactif) {
               texteCorr = `L'égalité  $${nomF}(${x})=${y}$ se traduit par : <br>
@@ -136,7 +136,7 @@ export default function VocabulaireNotationsFonctions2 () {
 
           if (choix === 2) {
             nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-            texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase contenant le mot « antécédent ».`
+            texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase contenant le mot «${sp(1)}antécédent${sp(1)}».`
             if (this.interactif) { texte += '<br>Une ou plusieurs réponses correctes.' }
             texteCorr = `L'égalité  $${nomF}(${x})=${y}$ se traduit par : <br>
             $\\bullet$ Un antécédent de $${y}$ par la fonction $${nomF}$ est $${x}$.<br>
@@ -165,7 +165,7 @@ export default function VocabulaireNotationsFonctions2 () {
           }
           if (choix === 3) {
             nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-            texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase contenant le mot « antécédent ».`
+            texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase contenant le mot «${sp(1)}antécédent${sp(1)}».`
             if (this.interactif) { texte += '<br>Une ou plusieurs réponses correctes.' }
             if (this.interactif) {
               texteCorr = `L'égalité  $${nomF}(${x})=${y}$ se traduit par : <br>
@@ -284,7 +284,7 @@ export default function VocabulaireNotationsFonctions2 () {
           }
           if (choix === 4) {
             nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-            texte = ` Un antécédent de $${y}$ par la fonction $${nomF}$ est  $${x}$ .<br>
+            texte = ` Un antécédent de $${y}$ par la fonction $${nomF}$ est  $${x}$.<br>
             Traduire cette phrase par une égalité.`
           }
 
@@ -446,7 +446,7 @@ export default function VocabulaireNotationsFonctions2 () {
               Traduire cette phrase par une égalité.`
             }
 
-            texteCorr = `L'égalité traduisant cette phrase est : $${nomF}(x)=${fonction1}$
+            texteCorr = `L'égalité traduisant cette phrase est : $${nomF}(x)=${fonction1}.$
               `
           } else {
             choix = randint(0, 2)

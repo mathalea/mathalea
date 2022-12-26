@@ -90,7 +90,7 @@ export default function CalculValeurApprocheeRacineCarree () {
         a = randint(2, 300, [4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256, 289])
         reponseG = Math.floor(Math.sqrt(a))
         reponseD = Math.ceil(Math.sqrt(a))
-        texte = `Sans utiliser de calculatrice, encadrer $\\sqrt{${a}}$ entre deux nombres entiers.<br>`
+        texte = `Sans utiliser de calculatrice, encadrer $\\sqrt{${a}}$ entre deux nombres entiers consécutifs.<br>`
         if (this.interactif) {
           texte += ajouteChampTexteMathLive(this, indexRep, 'largeur10 inline')
           texte += ` $< \\sqrt{${a}} <$ `
@@ -113,7 +113,7 @@ export default function CalculValeurApprocheeRacineCarree () {
                   type: 'AMCOpen',
                   propositions: [{
                     texte: texteCorr,
-                    statut: 3
+                    statut: 1
                   }]
                 },
                 {
@@ -143,7 +143,7 @@ export default function CalculValeurApprocheeRacineCarree () {
                   type: 'AMCOpen',
                   propositions: [{
                     texte: texteCorr,
-                    statut: 3
+                    statut: 2
                   }]
                 },
                 {

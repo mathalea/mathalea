@@ -47,7 +47,7 @@ export default function AugmenterEtReduireDunPourcentage () {
     this.introduction = (this.interactif && context.isHtml)
       ? lampeMessage({
         titre: 'Calculatrice autorisée.',
-        texte: 'Ecrire les réponses dans les cases sans arrondir, ne pas préciser "€" ni "euros" ...',
+        texte: 'Écrire les réponses dans les cases sans arrondir, ne pas préciser "€" ni "euros" ...',
         couleur: 'nombres'
       })
       : ''
@@ -87,7 +87,7 @@ export default function AugmenterEtReduireDunPourcentage () {
           nombreDecimales(n)
           mr = calcul(pr * billet / 100)
           final1 = calcul(billet - mr)
-          texte = `Un billet d'avion coûte ${billet} €. ${prenom1} bénéficie d'une réduction de $${pr} \\%$.`
+          texte = `Un billet d'avion coûte ${billet} ${sp()}€. ${prenom1} bénéficie d'une réduction de $${pr} ${sp()}\\%$.`
           enonceInit = texte
           enonceAMC = (this.interactif && context.isHtml) ? `${numAlpha(0)} Le montant de la réduction est :` : `${numAlpha(0)} Calculer le montant de la réduction.`
           texte = enonceInit + '<br>' + enonceAMC
@@ -146,18 +146,18 @@ export default function AugmenterEtReduireDunPourcentage () {
               }
             )
           }
-          texteCorr = `${numAlpha(0)} Le montant de la réduction est : $${billet} € \\times ${pr} \\div 100$` + sp(1)
+          texteCorr = `${numAlpha(0)} Le montant de la réduction est : $${billet} ${sp()}€ \\times ${pr} \\div 100$` + sp(1)
           texteCorr += nombreDeChiffresDansLaPartieDecimale(mr) < 3 ? '$ =$' : '$ \\approx$'
-          texteCorr += texteEnCouleurEtGras(` $${texPrix(mr)}$ €.<br>`)
-          texteCorr += `${numAlpha(1)} Finalement, ${prenom1} paiera son billet : $${billet} € - ${texPrix(mr)} € =$` + sp(1)
-          texteCorr += texteEnCouleurEtGras(`$${texPrix(final1)}$ €.`)
+          texteCorr += texteEnCouleurEtGras(` $${texPrix(mr)} ${sp()}€$.<br>`)
+          texteCorr += `${numAlpha(1)} Finalement, ${prenom1} paiera son billet : $${billet} ${sp()}€ - ${texPrix(mr)} ${sp()}€ =$` + sp(1)
+          texteCorr += texteEnCouleurEtGras(`$${texPrix(final1)} ${sp()}€$.`)
           break
         case 'augmentation':
           nombreDecimales(n)
           calcul(ma = pa * loyer / 100)
           calcul(final2 = loyer + ma)
 
-          enonceInit = `Le loyer de l'appartement de ${prenom2} coûte ${loyer} €. Au 1er janvier, il augmente de $${pa} \\%$.`
+          enonceInit = `Le loyer de l'appartement de ${prenom2} coûte ${loyer} ${sp()}€. Au 1er janvier, il augmente de $${pa} ${sp()}\\%$.`
           enonceAMC = (this.interactif && context.isHtml) ? `${numAlpha(0)} Le montant de l'augmentation est :` : `${numAlpha(0)} Calculer le montant de l'augmentation.`
           texte = enonceInit + '<br>' + enonceAMC
           texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texteApres: ' €' }) : ''
@@ -215,11 +215,11 @@ export default function AugmenterEtReduireDunPourcentage () {
               }
             )
           }
-          texteCorr = `${numAlpha(0)} Le montant de l'augmentation est :     $${loyer} € \\times ${pa} \\div 100$` + sp(1)
+          texteCorr = `${numAlpha(0)} Le montant de l'augmentation est :     $${loyer} ${sp()}€ \\times ${pa} \\div 100$` + sp(1)
           texteCorr += nombreDeChiffresDansLaPartieDecimale(ma) < 3 ? '$ =$' : '$ \\approx$'
-          texteCorr += texteEnCouleurEtGras(` $${texPrix(ma)}$ €.<br>`)
-          texteCorr += `${numAlpha(1)} Finalement, ${prenom2} paiera son loyer : $${loyer} € + ${texPrix(ma)} € =$` + sp(1)
-          texteCorr += texteEnCouleurEtGras(`$${texPrix(final2)}$ €.`)
+          texteCorr += texteEnCouleurEtGras(` $${texPrix(ma)} ${sp()}€$.<br>`)
+          texteCorr += `${numAlpha(1)} Finalement, ${prenom2} paiera son loyer : $${loyer} ${sp()}€ + ${texPrix(ma)} ${sp()}€ =$` + sp(1)
+          texteCorr += texteEnCouleurEtGras(`$${texPrix(final2)} ${sp()}€$.`)
           break
       }
       if (this.listeQuestions.indexOf(texte) === -1) {

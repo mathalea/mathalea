@@ -40,7 +40,7 @@ export default function ExerciceAdditionsDe5Relatifs (max = 20) {
   this.sup = max
   this.sup2 = false // écriture simplifiée
   this.titre = titre
-  this.consigne = 'Calculer :'
+  this.consigne = 'Calculer.'
   this.spacing = 2
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -80,10 +80,10 @@ export default function ExerciceAdditionsDe5Relatifs (max = 20) {
       if (this.sup2) {
         texte = `$ ${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(
           e
-        )} =$`
+        )}$`
         if (this.interactif && !context.isAmc) {
           texte = `$ ${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(e)} = $`
-          texte += ajouteChampTexteMathLive(this, i)
+          texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 nospacebefore')
         }
         if (!context.isHtml && !context.isAmc) {
           texte += `<br>$ ${lettreDepuisChiffre(i + 1)} =$`
@@ -94,11 +94,11 @@ export default function ExerciceAdditionsDe5Relatifs (max = 20) {
       } else {
         texte = `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(
           c
-        )}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)} =$`
+        )}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)}$`
         if (this.interactif && !context.isAmc) {
           texte = `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(
             c)}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)} = $`
-          texte += ajouteChampTexteMathLive(this, i)
+          texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 nospacebefore')
         }
 
         if (!context.isHtml && !context.isAmc) {
@@ -110,18 +110,18 @@ export default function ExerciceAdditionsDe5Relatifs (max = 20) {
         relatifs = triePositifsNegatifs([a, s1 * b, s2 * c, s3 * d, s4 * e])
 
         if ((relatifs[0] > 0) & (relatifs[4] < 0)) {
-          texteCorr += `<br>$ \\phantom{A}= ${ecritureNombreRelatifc(relatifs[0])}+${ecritureNombreRelatifc(relatifs[1])}+${ecritureNombreRelatifc(
+          texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}= ${ecritureNombreRelatifc(relatifs[0])}+${ecritureNombreRelatifc(relatifs[1])}+${ecritureNombreRelatifc(
             relatifs[2]
           )}+${ecritureNombreRelatifc(relatifs[3])}+${ecritureNombreRelatifc(relatifs[4])} $`
         }
         const sommesSignees = sommeDesTermesParSigne([relatifs[0], relatifs[1], relatifs[2], relatifs[3], relatifs[4]])
         if (sommesSignees[0] !== 0 && sommesSignees[1] !== 0) {
-          texteCorr += `<br>$ \\phantom{A}= ${ecritureNombreRelatifc(sommesSignees[0])}+${ecritureNombreRelatifc(sommesSignees[1])} $`
-          texteCorr += `<br>$ \\phantom{A}= ${ecritureAlgebriquec(a + s1 * b + s2 * c + s3 * d + s4 * e)}$<br>`
+          texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}= ${ecritureNombreRelatifc(sommesSignees[0])}+${ecritureNombreRelatifc(sommesSignees[1])} $`
+          texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}= ${ecritureAlgebriquec(a + s1 * b + s2 * c + s3 * d + s4 * e)}$<br>`
         } else if (sommesSignees[0] !== 0) {
-          texteCorr += `<br>$ \\phantom{A}=${ecritureAlgebriquec(sommesSignees[0])}$`
+          texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}=${ecritureAlgebriquec(sommesSignees[0])}$`
         } else {
-          texteCorr += `<br>$ \\phantom{A}=${ecritureAlgebriquec(sommesSignees[1])}$<br>`
+          texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}=${ecritureAlgebriquec(sommesSignees[1])}$<br>`
         }
       }
       if (this.listeQuestions.indexOf(texte) === -1) {

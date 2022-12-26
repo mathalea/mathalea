@@ -21,7 +21,7 @@ export const ref = '6N33'
 export default function FractionDUnNombre () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 5
-  this.consigne = 'Calculer :'
+  this.consigne = 'Calculer.'
   context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2)
   context.isHtml ? (this.spacing = 2) : (this.spacing = 2)
   this.sup = true

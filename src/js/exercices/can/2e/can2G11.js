@@ -51,10 +51,10 @@ export default function RelationChasles2 () {
 
           texte += propositionsQcm(this, 0).texte
         } else {
-          texte = `Ecrire à l'aide d'un seul vecteur : <br>
+          texte = `Écrire à l'aide d'un seul vecteur : <br>
       $\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[2]}${nom[3]}}+\\overrightarrow{${nom[1]}${nom[2]}}=$`
         }
-        this.canEnonce = 'Ecrire à l\'aide d\'un seul vecteur.'
+        this.canEnonce = 'Écrire à l\'aide d\'un seul vecteur.'
         this.canReponseACompleter = ` $\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[2]}${nom[3]}}+\\overrightarrow{${nom[1]}${nom[2]}}=\\ldots$`
         texteCorr = `On utilise la relation de Chasles :<br>
         $\\begin{aligned}
@@ -95,10 +95,10 @@ export default function RelationChasles2 () {
 
             texte += propositionsQcm(this, 0).texte
           } else {
-            texte = `Ecrire à l'aide d'un seul vecteur : <br>
+            texte = `Écrire à l'aide d'un seul vecteur : <br>
           $\\overrightarrow{${nom[5]}${nom[1]}}+\\overrightarrow{${nom[2]}${nom[3]}}-\\overrightarrow{${nom[2]}${nom[1]}}=$`
           }
-          this.canEnonce = 'Ecrire à l\'aide d\'un seul vecteur.'
+          this.canEnonce = 'Écrire à l\'aide d\'un seul vecteur.'
           this.canReponseACompleter = ` $\\overrightarrow{${nom[5]}${nom[1]}}+\\overrightarrow{${nom[2]}${nom[3]}}-\\overrightarrow{${nom[2]}${nom[1]}}=\\ldots$`
           texteCorr = `On utilise la relation de Chasles :<br>
         $\\begin{aligned}
@@ -137,10 +137,10 @@ export default function RelationChasles2 () {
 
             texte += propositionsQcm(this, 0).texte
           } else {
-            texte = `Ecrire à l'aide d'un seul vecteur : <br>
+            texte = `Écrire à l'aide d'un seul vecteur : <br>
           $\\overrightarrow{${nom[0]}${nom[1]}}-\\overrightarrow{${nom[3]}${nom[2]}}+\\overrightarrow{${nom[1]}${nom[2]}}=$`
           }
-          this.canEnonce = 'Ecrire à l\'aide d\'un seul vecteur.'
+          this.canEnonce = 'Écrire à l\'aide d\'un seul vecteur.'
           this.canReponseACompleter = `  $\\overrightarrow{${nom[0]}${nom[1]}}-\\overrightarrow{${nom[3]}${nom[2]}}+\\overrightarrow{${nom[1]}${nom[2]}}=\\ldots$`
           texteCorr = `On utilise la relation de Chasles       :<br>
         $\\begin{aligned}
@@ -182,10 +182,10 @@ export default function RelationChasles2 () {
 
             texte += propositionsQcm(this, 0).texte
           } else {
-            texte = `Ecrire à l'aide d'un seul vecteur : <br>
+            texte = `Écrire à l'aide d'un seul vecteur : <br>
           $\\overrightarrow{${nom[3]}${nom[4]}}+\\overrightarrow{${nom[5]}${nom[0]}}+\\overrightarrow{${nom[4]}${nom[3]}}=$`
           }
-          this.canEnonce = 'Ecrire à l\'aide d\'un seul vecteur.'
+          this.canEnonce = 'Écrire à l\'aide d\'un seul vecteur.'
           this.canReponseACompleter = `   $\\overrightarrow{${nom[3]}${nom[4]}}+\\overrightarrow{${nom[5]}${nom[0]}}+\\overrightarrow{${nom[4]}${nom[3]}}=\\ldots$`
           texteCorr = `On utilise la relation de Chasles :<br>
         $\\begin{aligned}
@@ -220,10 +220,10 @@ export default function RelationChasles2 () {
 
             texte += propositionsQcm(this, 0).texte
           } else {
-            texte = `Ecrire à l'aide d'un seul vecteur : <br>
+            texte = `Écrire à l'aide d'un seul vecteur : <br>
           $\\overrightarrow{${nom[2]}${nom[0]}}+\\overrightarrow{${nom[3]}${nom[2]}}+\\overrightarrow{${nom[0]}${nom[3]}}=$`
           }
-          this.canEnonce = 'Ecrire à l\'aide d\'un seul vecteur.'
+          this.canEnonce = 'Écrire à l\'aide d\'un seul vecteur.'
           this.canReponseACompleter = `    $\\overrightarrow{${nom[2]}${nom[0]}}+\\overrightarrow{${nom[3]}${nom[2]}}+\\overrightarrow{${nom[0]}${nom[3]}}=\\ldots$`
           texteCorr = `On utilise la relation de Chasles       :<br>
         $\\begin{aligned}
@@ -259,10 +259,10 @@ export default function RelationChasles2 () {
 
             texte += propositionsQcm(this, 0).texte
           } else {
-            texte = `Ecrire à l'aide d'un seul vecteur : <br>
+            texte = `Écrire à l'aide d'un seul vecteur : <br>
           $\\overrightarrow{${nom[4]}${nom[1]}}+\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[0]}${nom[4]}}=$`
           }
-          this.canEnonce = 'Ecrire à l\'aide d\'un seul vecteur.'
+          this.canEnonce = 'Écrire à l\'aide d\'un seul vecteur.'
           this.canReponseACompleter = `    $\\overrightarrow{${nom[4]}${nom[1]}}+\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[0]}${nom[4]}}=\\ldots$`
           texteCorr = `On utilise la relation de Chasles       :<br>
         $\\begin{aligned}
@@ -297,10 +297,10 @@ export default function RelationChasles2 () {
 
             texte += propositionsQcm(this, 0).texte
           } else {
-            texte = `Ecrire à l'aide d'un seul vecteur : <br>
+            texte = `Écrire à l'aide d'un seul vecteur : <br>
           $\\overrightarrow{${nom[6]}${nom[1]}}-\\overrightarrow{${nom[6]}${nom[0]}}+\\overrightarrow{${nom[1]}${nom[0]}}=$`
           }
-          this.canEnonce = 'Ecrire à l\'aide d\'un seul vecteur.'
+          this.canEnonce = 'Écrire à l\'aide d\'un seul vecteur.'
           this.canReponseACompleter = `   $\\overrightarrow{${nom[6]}${nom[1]}}-\\overrightarrow{${nom[6]}${nom[0]}}+\\overrightarrow{${nom[1]}${nom[0]}}=\\ldots$`
           texteCorr = `On utilise la relation de Chasles       :<br>
         $\\begin{aligned}

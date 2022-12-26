@@ -51,7 +51,7 @@ export default function CalculCoordonneesMilieu () {
         $\\left(\\dfrac{0+${ecritureParentheseSiNegatif(a)}}{2};\\dfrac{0+${ecritureParentheseSiNegatif(b)}}{2}\\right)
         =(${texNombre((a) / 2)};${texNombre((b) / 2)})$<br>`
         this.correction += texteEnCouleur(` Mentalement : <br>
-       Puisque le premier point est l'orogine du repère, les coordonnées du milieu sont données par la moitié de l'abscisse et de l'ordonnée du deuxième point.
+       Puisque le premier point est l'origine du repère, les coordonnées du milieu sont données par la moitié de l'abscisse et de l'ordonnée du deuxième point.
          `)
         this.reponse = `(${arrondi((a) / 2, 1)};${arrondi((b) / 2, 1)})`
 
@@ -62,7 +62,7 @@ export default function CalculCoordonneesMilieu () {
         this.question = `Dans un repère du plan d'origine $O$, on donne $${nom[0]}(${a};${b})$.<br>
         Déterminer les coordonnées du point $${nom[1]}$ de façon que $O$ soit le milieu de $[${nom[0]}${nom[1]}]$.<br>`
         this.optionsChampTexte = { texteApres: '' }
-        this.correction = `Les points $${nom[0]}$ et $${nom[1]}$ ont des coordonnées oppsées (faites un petit dessin pour représenter la situation), donc $${nom[1]}(${texNombre(-a)};${texNombre(-b)})$`
+        this.correction = `Les points $${nom[0]}$ et $${nom[1]}$ ont des coordonnées opposées (faire un petit dessin pour représenter la situation), donc $${nom[1]}(${texNombre(-a)};${texNombre(-b)})$`
         this.reponse = `(${arrondi(-a, 0)};${arrondi(-b, 0)})`
 
         break

@@ -38,7 +38,8 @@ export default function APartirDeDivisionsEuclidiennes () {
   this.sup = 3
   this.titre = titre
   this.spacing = 2
-  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opidiv n'est pas joli
+  this.spacing = context.isHtml ? 2 : 1 // Important sinon opidiv n'est pas joli
+  this.spacingCorr = context.isHtml ? 2 : 1
   this.nbQuestions = 4
   this.listePackages = 'xlop'
 
@@ -98,15 +99,15 @@ export default function APartirDeDivisionsEuclidiennes () {
       }
       r = randint(0, b - 1) // reste inférieur au diviseur
       a = b * q + r
-      texte = `${Operation({ operande1: a, operande2: b, type: 'divisionE' })}`
+      texte = `${Operation({ operande1: a, operande2: b, type: 'divisionE' })}<br>`
       if (r === 0) {
         texteCorr = `$${texNombre(a)}\\div${b}=${texNombre(q)}$`
-        setReponse(this, i, [`${a}=${b}\\times${texNombre(q)}`, `${a}=${texNombre(q)}\\times${b}`,
-        `${b}\\times${texNombre(q)}`, `${texNombre(q)}\\times${b}=${a}`])
+        setReponse(this, i, [`${a}=${b}\\times${q}`, `${a}=${q}\\times${b}`,
+        `${b}\\times${q}`, `${q}\\times${b}=${a}`])
       } else {
         texteCorr = `$${texNombre(a)}=${b}\\times${texNombre(q)}+${r}$`
-        setReponse(this, i, [`${a}=${b}\\times${texNombre(q)}+${r}`, `${a}=${texNombre(q)}\\times${b}+${r}`,
-        `${b}\\times${texNombre(q)}+${r}=${a}`, `${texNombre(q)}\\times${b}+${r}=${a}`])
+        setReponse(this, i, [`${a}=${b}\\times ${q}+${r}`, `${a}=${q}\\times ${b}+${r}`,
+        `${b}\\times ${q}+${r}=${a}`, `${q}\\times ${b}+${r}=${a}`])
       }
       texte += ajouteChampTexteMathLive(this, i)
       // Pour AMC question AmcOpen

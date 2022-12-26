@@ -5,9 +5,9 @@ import { calculer } from '../../modules/outilsMathjs.js'
 import { create, all } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import * as pkg from '@cortex-js/compute-engine'
 import { fractionLatexToMathjs } from '../../modules/fonctionsMaths.js'
 import { context } from '../../modules/context.js'
+import * as pkg from '@cortex-js/compute-engine'
 const { ComputeEngine } = pkg
 let engine
 if (context.versionMathalea) engine = new ComputeEngine()
@@ -152,7 +152,7 @@ export class Yohaku {
     }
     for (let i = 0; i < this.taille; i++) {
       if (this.type !== 'littéraux' && this.type.substring(0, 4) !== 'frac') {
-        resultats[i] = texteParPosition(this.resultats[i], (i + 0.5) * this.largeur, -(0.5 + this.taille) * this.hauteur)
+        resultats[i] = texteParPosition(this.resultats[i], (i + 0.5) * this.largeur, -(0.5 + this.taille) * this.hauteur, 'milieu', 'black', 1, 'middle', true)
       } else {
         if (this.type !== 'littéraux') {
           resultats[i] = latexParCoordonnees(this.resultats[i].toLatex().replace('frac', 'dfrac'), (i + 0.5) * this.largeur, -(0.5 + this.taille) * this.hauteur, 'black', 20)
@@ -163,7 +163,7 @@ export class Yohaku {
     }
     for (let i = this.taille; i < 2 * this.taille; i++) {
       if (this.type !== 'littéraux' && this.type.substring(0, 4) !== 'frac') {
-        resultats[i] = texteParPosition(this.resultats[i], (this.taille + 0.5) * this.largeur, (this.taille - 0.5 - i) * this.hauteur)
+        resultats[i] = texteParPosition(this.resultats[i], (this.taille + 0.5) * this.largeur, (this.taille - 0.5 - i) * this.hauteur, 'milieu', 'black', 1, 'middle', true)
       } else {
         if (this.type !== 'littéraux') {
           resultats[i] = latexParCoordonnees(this.resultats[i].toLatex().replace('frac', 'dfrac'), (this.taille + 0.5) * this.largeur, (this.taille - 0.5 - i) * this.hauteur, 'black', 20)
@@ -174,7 +174,7 @@ export class Yohaku {
     }
     if (this.Case !== null) {
       if (this.type !== 'littéraux' && this.type.substring(0, 4) !== 'frac') {
-        donnees.push(texteParPosition(stringNombre(this.cellules[this.Case]), (this.Case % this.taille + 0.5) * this.largeur, -(Math.floor(this.Case / this.taille) + 0.5) * this.hauteur))
+        donnees.push(texteParPosition(stringNombre(this.cellules[this.Case]), (this.Case % this.taille + 0.5) * this.largeur, -(Math.floor(this.Case / this.taille) + 0.5) * this.hauteur, 'milieu', 'black', 1, 'middle', true))
       } else {
         if (this.type !== 'littéraux') {
           donnees.push(latexParCoordonnees(this.cellules[this.Case].toLatex().replace('frac', 'dfrac'), (this.Case % this.taille + 0.5) * this.largeur, -(Math.floor(this.Case / this.taille) + 0.5) * this.hauteur, 'black', 20))
@@ -186,7 +186,7 @@ export class Yohaku {
     if (this.solution) {
       for (let i = 0; i < this.cellules.length; i++) {
         if (this.type !== 'littéraux' && this.type.substring(0, 4) !== 'frac') {
-          if (i !== this.Case) donnees.push(texteParPosition(stringNombre(this.cellules[i]), (i % this.taille + 0.5) * this.largeur, -(Math.floor(i / this.taille) + 0.5) * this.hauteur))
+          if (i !== this.Case) donnees.push(texteParPosition(stringNombre(this.cellules[i]), (i % this.taille + 0.5) * this.largeur, -(Math.floor(i / this.taille) + 0.5) * this.hauteur, 'milieu', 'black', 1, 'middle', true))
         } else {
           if (this.type !== 'littéraux') {
             if (i !== this.Case) donnees.push(latexParCoordonnees(this.cellules[i].toLatex().replace('frac', 'dfrac'), (i % this.taille + 0.5) * this.largeur, -(Math.floor(i / this.taille) + 0.5) * this.hauteur, 'black', 20))
@@ -197,7 +197,7 @@ export class Yohaku {
       }
     } else if (this.cellulesPreremplies.length !== 0) {
       for (let i = 0; i < this.cellulesPreremplies.length; i++) {
-        if (i !== this.Case) donnees.push(texteParPosition(this.cellulesPreremplies[i], (i % this.taille + 0.5) * this.largeur, -(Math.floor(i / this.taille) + 0.5) * this.hauteur))
+        if (i !== this.Case) donnees.push(texteParPosition(this.cellulesPreremplies[i], (i % this.taille + 0.5) * this.largeur, -(Math.floor(i / this.taille) + 0.5) * this.hauteur, 'milieu', 'black', 1, 'middle', true))
       }
     }
     return mathalea2d(Object.assign({}, fixeBordures([...lignes, ...colonnes, ...resultats, ...donnees, operateur])), operateur, ...lignes, ...colonnes, ...resultats, ...donnees)
@@ -244,17 +244,17 @@ export default function FabriqueAYohaku () {
       const largeur = this.type === 'littéraux' ? operateur === 'addition' ? 4 : 5 : 2
       const yohaku = new Yohaku({ type, taille, largeur, operation: operateur, cellules: donnees, Case, valeurMax, cellulesPreremplies })
       yohaku.calculeResultats()
-      const mot = type === 'littéraux' ? 'expressions' : 'nombres'
+      const mot = type === 'littéraux' ? ['expressions', 'contenues'] : ['nombres', 'contenus']
       texte = operateur === 'addition'
-        ? `Les ${mot} en bout de ligne ou de colonne sont les sommes des ${mot} contenus dans la ligne ou la colonne.`
-        : `Les ${mot} en bout de ligne ou de colonne sont les produits des ${mot} contenus dans la ligne ou la colonne.`
-      texte += `<br>Compléter la grille avec des ${mot} qui conviennent (plusieurs solutions possibles).<br>`
+        ? `Les ${mot[0]} en bout de ligne ou de colonne sont les sommes des ${mot[0]} ${mot[1]} dans la ligne ou la colonne.`
+        : `Les ${mot[0]} en bout de ligne ou de colonne sont les produits des ${mot[0]} ${mot[1]} dans la ligne ou la colonne.`
+      texte += `<br>Compléter la grille avec des ${mot[0]} qui conviennent (plusieurs solutions possibles).<br>`
       texte += yohaku.representation()
       for (let k = 0; k < yohaku.cellulesPreremplies.length; k++) {
         texte += ajouteChampTexteMathLive(this, i * taille ** 2 + k, 'largeur10 inline nospacebefore', { texte: `${lettreMinusculeDepuisChiffre(k + 1)}=`, tailleExtensible: true })
         texte += sp(4)
       }
-      texteCorr = 'La grille ci-dessous n\'est donnnée qu\'à titre d\'exemple, il y a d\'autres solutions.<br>'
+      texteCorr = 'La grille ci-dessous n\'est donnée qu\'à titre d\'exemple, il y a d\'autres solutions.<br>'
       yohaku.solution = true
       texteCorr += yohaku.representation()
       this.yohaku[i] = yohaku

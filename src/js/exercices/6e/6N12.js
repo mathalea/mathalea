@@ -21,7 +21,7 @@ export const uuid = 'bb9d8'
 export const ref = '6N12'
 export default function MultiplierEntierPar101001000 () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Calculer :'
+  this.consigne = 'Calculer.'
   this.nbQuestions = 8
   this.nbCols = 2
   this.nbColsCorr = 2

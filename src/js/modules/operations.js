@@ -1,5 +1,5 @@
 import { ordreDeGrandeur, base10VersBaseN, nombreDeChiffresDansLaPartieEntiere } from './outils.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import Decimal from 'decimal.js'
 import { texteParPosition, segment } from './2d.js'
 import { context } from './context.js'
 import { mathalea2d } from './2dGeneralites.js'
@@ -454,19 +454,19 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
   operande2 = new Decimal(operande2)
   switch (type) {
     case 'addition':
-      if (context.isHtml) { Code = AdditionPosee3d(operande1, operande2, base, retenuesOn) } else { Code = `\\opadd[decimalsepsymbol={,}]{${operande1}}{${operande2}}` }
+      if (context.isHtml) { Code = AdditionPosee3d(operande1, operande2, base, retenuesOn) } else { Code = `\\opadd[decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}` }
       break
     case 'soustraction':
-      if (context.isHtml || !methodeParCompensation) { Code = SoustractionPosee3d(operande1, operande2, base, retenuesOn, methodeParCompensation) } else { Code = `\\opsub[carrysub,lastcarry,decimalsepsymbol={,}]{${operande1}}{${operande2}}` }
+      if (context.isHtml || !methodeParCompensation) { Code = SoustractionPosee3d(operande1, operande2, base, retenuesOn, methodeParCompensation) } else { Code = `\\opsub[carrysub,lastcarry,decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}` }
       break
     case 'multiplication':
-      if (context.isHtml) { Code = MultiplicationPosee3d(operande1, operande2, base) } else { Code = `\\opmul[displayshiftintermediary=all,decimalsepsymbol={,}]{${operande1}}{${operande2}}` }
+      if (context.isHtml) { Code = MultiplicationPosee3d(operande1, operande2, base) } else { Code = `\\opmul[displayshiftintermediary=all,decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}` }
       break
     case 'division':
       if (context.isHtml) { Code = DivisionPosee3d(operande1, operande2, precision, retenuesOn) } else { Code = `\\opdiv[displayintermediary=all,voperation=top,period,decimalsepsymbol={,},shiftdecimalsep=none]{${operande1}}{${operande2}}` }
       break
     case 'divisionE':
-      if (context.isHtml) { Code = DivisionPosee3d(operande1, operande2, 0, retenuesOn) } else { Code = `\\opidiv{${operande1}}{${operande2}}` }
+      if (context.isHtml) { Code = DivisionPosee3d(operande1, operande2, 0, retenuesOn) } else { Code = `\\opidiv[voperation=top]{${operande1}}{${operande2}}` }
       break
   }
   return Code

@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, lettreDepuisChiffre, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, lettreDepuisChiffre, texNombre, miseEnEvidence } from '../../modules/outils.js'
 
 export const titre = 'Distributivité et calcul mental'
 
@@ -45,9 +45,9 @@ export default class DistributiviteNumerique extends Exercice {
       if (formeInitiale === 'factorisee') {
         sortie = `
         $\\textbf{Ici, il est plus judicieux de distribuer d'abord :}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${operation === 1 ? texNombre(b + c) : texNombre(b - c)}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times (${texNombre(b)} ${operation === 1 ? `+ ${texNombre(c)}` : `- ${texNombre(c)}`})$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre(b)} ${operation === 1 ? '+' : '-'} ${k}\\times ${texNombre(c)}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(k)}\\times ${operation === 1 ? texNombre(b + c) : texNombre(b - c)}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(k)}\\times (${texNombre(b)} ${operation === 1 ? `+ ${texNombre(c)}` : `- ${texNombre(c)}`})$<br>
+        $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(k)}\\times ${texNombre(b)} ${operation === 1 ? '+' : '-'} ${miseEnEvidence(k)}\\times ${texNombre(c)}$<br>
         $${lettreDepuisChiffre(i + 1)}=${texNombre(k * b)} ${operation === 1 ? '+' : '-'} ${texNombre(k * c)}$<br>
         $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? texNombre(k * b + k * c) : texNombre(k * b - k * c)}$
         `
@@ -55,9 +55,9 @@ export default class DistributiviteNumerique extends Exercice {
       if (formeInitiale === 'developpee') {
         sortie = `
         $\\textbf{Ici, il est plus judicieux de factoriser d'abord :}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre(b)} ${operation === 1 ? '+' : '-'} ${k}\\times ${texNombre(c)}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times (${texNombre(b)} ${operation === 1 ? `+ ${texNombre(c)}` : `- ${texNombre(c)}`})$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${operation === 1 ? texNombre(b + c) : texNombre(b - c)}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(k)}\\times ${texNombre(b)} ${operation === 1 ? '+' : '-'} ${miseEnEvidence(k)}\\times ${texNombre(c)}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(k)}\\times (${texNombre(b)} ${operation === 1 ? `+ ${texNombre(c)}` : `- ${texNombre(c)}`})$<br>
+        $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(k)}\\times ${operation === 1 ? texNombre(b + c) : texNombre(b - c)}$<br>
         $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? texNombre(k * (b + c)) : texNombre(k * (b - c))}$
         `
       }

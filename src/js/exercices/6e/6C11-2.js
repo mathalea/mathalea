@@ -146,9 +146,8 @@ export default function VocabulaireDivisionEuclidienne () {
         }
       } else {
         texteCorr = `$${Nbutilises[3]}$ est inférieur à $${Nbutilises[2]}$ mais pas à $${Nbutilises[1]}$ donc l'égalité ` + EgaliteDivEuclidienne + ' est associée à'
-        TabCorrection[2] = `$${Nbutilises[1]}$ est le diviseur`
-        TabCorrection[1] = `$${Nbutilises[2]}$ est le quotient`
-        TabCorrection[ChoixQuestions[i]] = texteEnCouleurEtGras(TabCorrection[ChoixQuestions[i]])
+        TabCorrection[1] = `$${Nbutilises[1]}$ est le quotient`
+        TabCorrection[2] = `$${Nbutilises[2]}$ est le diviseur`
         texteCorr += ` la division euclidienne de $ ${texNombre(Nbutilises[0])} $ par $ ${Nbutilises[2]} $. Alors, `
         for (let kk = 0; kk < 3; kk++) {
           texteCorr += kk === ChoixQuestions[i] ? texteEnCouleurEtGras(TabCorrection[kk]) : TabCorrection[kk]
@@ -156,7 +155,7 @@ export default function VocabulaireDivisionEuclidienne () {
         }
         texteCorr += ChoixQuestions[i] === 3 ? texteEnCouleurEtGras(TabCorrection[3]) : TabCorrection[3]
         texteCorr += '.<br>'
-        ReponsesCorrectes = [ChoixReponses[ChoixQuestions[i]]]
+        ReponsesCorrectes = [ChoixReponses[(3 - ChoixQuestions[i]) === 0 ? 3 : ((3 - ChoixQuestions[i]) % 3)]]
       }
       if (this.questionJamaisPosee(i, ...Nbutilises)) {
         // Si la question n'a jamais été posée, on en crée une autre

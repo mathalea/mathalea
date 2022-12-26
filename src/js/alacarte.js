@@ -444,15 +444,19 @@ window.addEventListener('load', function () {
 function creer_fichier () {
   // Gestion du style pour l'entête du fichier
   if ($('#style_classique:checked').val()) {
-    contenu_fichier = introLatex($('#entete_du_fichier').val(), listePackages) + macro_nom_copie() + codeLatex + intro_correction +
-            codeLatex_corr + '\n\n\\end{document}'
+    contenu_fichier = introLatex($('#entete_du_fichier').val(), listePackages) + macro_nom_copie()
   } else {
     contenu_fichier = introLatexCoop(listePackages) + macro_nom_copie('coop')
     // contenu_fichier +='\n\n\\theme{' + $('input[name=theme]:checked').val() + '}{' + $("#entete_droit_du_fichier").val() + '}'
     // contenu_fichier += '{' + $("#items").val() + '}{' + $("#domaine").val() + '}\n'
-    contenu_fichier += '\\begin{document}\n\n' + codeLatex + intro_correction +
-            codeLatex_corr + '\n\n\\end{document}'
+    contenu_fichier += '\\begin{document}\n\n'
   }
+  contenu_fichier += codeLatex
+  let supprimerCorrection = false
+  const supprimerCorrectionCheckbox = document.getElementById('supprimer_correction')
+  if (supprimerCorrectionCheckbox !== null) supprimerCorrection = supprimerCorrectionCheckbox.checked
+  if (!supprimerCorrection) contenu_fichier += intro_correction + codeLatex_corr
+  contenu_fichier += '\n\n\\end{document}'
 }
 
 // Gestion des en-têtes
@@ -467,7 +471,7 @@ if ($('#style_classique:checked').val()) {
 function entete_eleve (prenom = '', nom = '') {
   return `\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n
-\\newpage
+\\cleardoublepage
 \\NomCopie{${prenom.toUpperCase()} ${nom.toUpperCase()}}
 \\bigskip
 `

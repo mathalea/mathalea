@@ -1,6 +1,6 @@
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, scientifiqueToDecimal, sp, stringNombre, texNombre } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
 
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -12,7 +12,7 @@ export const amcReady = true
 export const amcType = 'AMCNum' // type de question AMC
 
 /**
- * Ecrire un nombre décimal en notation scientifique et inversement
+ * Écrire un nombre décimal en notation scientifique et inversement
  * @author Jean-Claude Lhote
  * 4C32
  */

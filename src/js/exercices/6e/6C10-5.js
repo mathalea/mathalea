@@ -57,14 +57,15 @@ export default function ExerciceLabyrintheMultiples () {
     for (let q = 0, texte, texteCorr, monChemin, laby, listeMultiples; q < this.nbQuestions;) {
       const nbL = this.sup3 === 1 ? randint(2, 8) : Math.max(2, this.sup3)
       const nbC = this.sup4 === 1 ? randint(3, 11 - nbL) : Math.max(3, this.sup4)
-      laby = labyrinthe({ nbLignes: nbL, nbColonnes: nbC })
+      laby = labyrinthe({ nbLignes: nbL, nbColonnes: nbC, scaleFigure: 0.7 })
       laby.niveau = parseInt(this.sup2) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
       monChemin = laby.choisitChemin(laby.niveau) // On choisit un chemin
       laby.murs2d = laby.construitMurs(monChemin) // On construit le labyrinthe
       laby.chemin2d = laby.traceChemin(monChemin) // On trace le chemin solution
 
-      texte = `${texteEnCouleurEtGras('Trouve la sortie en ne passant que par les cases contenant un multiple de ', 'black')}$${table[q]}$.<br>`
-      texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en couleur et la sortie était le numéro $${2 - monChemin[monChemin.length - 1][1] + 1}$.`, 'black')}<br>`
+      texte = `${texteEnCouleurEtGras('Trouver la sortie en ne passant que par les cases contenant un multiple de ', 'black')}$${table[q]}$.<br>`
+      // texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en couleur et la sortie était le numéro $${2 - monChemin[monChemin.length - 1][1] + 1}$.`, 'black')}<br>`
+      texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en couleur et la sortie était le numéro $${nbL - monChemin[monChemin.length - 1][1]}$.`, 'black')}<br>`
       // Zone de construction des tableaux de nombres
       listeMultiples = []
       const listeNonMultiples = []
@@ -79,7 +80,7 @@ export default function ExerciceLabyrintheMultiples () {
 
       // Le tableau de nombre étant fait, on place les objets nombres.
       laby.nombres2d = laby.placeNombres(monChemin, listeMultiples, listeNonMultiples, tailleChiffre)
-      const params = { xmin: -4, ymin: 0, xmax: 5 + 3 * nbC, ymax: 2 + 3 * nbL, pixelsParCm: 20, scale: 0.7 }
+      const params = { xmin: -4, ymin: 0, xmax: 5 + 3 * nbC, ymax: 2 + 3 * nbL, pixelsParCm: 20, scale: 0.4 }
       texte += mathalea2d(params, laby.murs2d, laby.nombres2d)
       if ((1 + q) % 3 === 0 && !context.isHtml && !context.isAmc && this.nbQuestions > 3) { // en contexte Latex, on évite que la consigne soit sur un page différente du labyrinthe
         texte += '\\newpage'

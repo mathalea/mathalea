@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
 import { choice, listeQuestionsToContenu, randint, texNombre } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -58,11 +58,11 @@ export default function ArrondirUneValeur () {
         }
       }
 
-      texte = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n, 10)}$`
+      texte = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n, 10)}.$`
 
       texte += '<br>Arrondi à l\'unité : '
       texte += ajouteChampTexteMathLive(this, 3 * i)
-      texteCorr = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n, 10)}$`
+      texteCorr = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n, 10)}.$`
       texteCorr += "<br>Arrondi à l'unité : "
       texteCorr += `$${texNombre(n, 0)}$`
       setReponse(this, 3 * i, n.round())

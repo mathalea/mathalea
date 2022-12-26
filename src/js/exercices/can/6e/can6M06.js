@@ -4,7 +4,7 @@ import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import {
   tracePoint, point, milieu, texteParPosition, pointAdistance, longueur, cercle, pointIntersectionCC, polygoneAvecNom
 } from '../../../modules/2d.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import Decimal from 'decimal.js'
 export const titre = 'Calculer le périmètre d’une figure'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -53,7 +53,7 @@ export default function Perimetre () {
     this.question = `Quel est le périmètre du quadrilatère $${nom}$ ?<br>
 
     ` +
-     mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 20, mainlevee: true, amplitude: 0.5, scale: 0.6, style: 'margin: auto' }, objets)
+     mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: true, amplitude: 0.5, scale: 0.6, style: 'margin: auto' }, objets)
     this.reponse = reponse
     this.correction = ` Le périmètre est : $${texNombre(reponse, 1)}$ m. `
     this.optionsChampTexte = { texteApres: ' m' }

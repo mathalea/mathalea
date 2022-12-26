@@ -35,7 +35,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
       if (this.sup4 === 1) {
         this.sup = '1-1-2-2-3'
       } else if (this.sup4 === 2) {
-        this.sup = '1-2-2-3-3'
+        this.sup = '2-2-3-3-3'
       } else if (this.sup4 === 3) {
         this.sup = '2-2-3-3-4'
       } else if (this.sup4 === 4) {
@@ -83,14 +83,14 @@ export default function EcrireUneExpressionNumerique (calculMental) {
         case 1:
           this.consigne = 'Traduire la phrase par un calcul (il n\'est pas demandé d\'effectuer ce calcul).'
           texte = `${expf}.`
-          texteCorr = `${expf} s'écrit<br>${expn}.`
+          texteCorr = `${expf} s'écrit : ${expn}.`
           break
         case 2:
           if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
           this.consigne = 'Traduire le calcul par une phrase en français.'
           texte = `${expn}`
           expf = 'l' + expf.substring(1)
-          texteCorr = `${expn} est ${expf}.`
+          texteCorr = `${expn} s'écrit : ${expf}.`
           break
         case 3:
           // this.consigne = 'Traduire la phrase par un calcul et effectuer ce calcul en respectant les priorités opératoires.'
@@ -102,7 +102,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
           if (!this.litteral) texte = `${expf}.`
           else if (nbval === 2) texte = `${expf} puis calculer pour $x=${val1}$ et $y=${val2}$.` // nbval contient le nombre de valeurs en cas de calcul littéral
           else texte = `${expf} puis calculer pour $x=${val1}$.`
-          texteCorr = `${expf} s'écrit ${expn}.<br>`
+          texteCorr = `${expf} s'écrit : ${expn}.<br>`
 
           if (!this.litteral) {
             if (!this.sup4) {

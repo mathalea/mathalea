@@ -56,7 +56,7 @@ export default function LaBonneUnite () {
     if (!context.isAmc) {
       texte += monQcm.texte
     }
-    const texteCorr = `La hauteur d'une ${hauteurs[a][0]} est ${b} ${hauteurs[a][3]}`
+    const texteCorr = `La hauteur d'une ${hauteurs[a][0]} est ${b} ${hauteurs[a][3]}.`
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)

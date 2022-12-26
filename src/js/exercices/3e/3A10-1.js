@@ -301,8 +301,7 @@ export default function PremierOuPas () {
         this.listeCorrections.push(texteCorr)
         i++
       }
-      cpt++
-      console.log(i, cpt)
+      cpt++      
     }
 
     listeQuestionsToContenu(this)
