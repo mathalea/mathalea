@@ -1639,6 +1639,7 @@ export function quatriemeProportionnelle (a, b, c, precision) { // calcul de b*c
 
 /**
  * renvoie une chaine correspondant à l'écriture réduite de ax+b selon les valeurs de a et b
+ * La lettre par défaut utilisée est 'x' mais peut être tout autre chose.
  * @author Jean-Claude Lhote
  * @param {number} a
  * @param {number} b
@@ -1662,43 +1663,43 @@ export function reduireAxPlusB (a, b) {
  * renvoie une chaine correspondant à l'écriture réduite de ax^3+bx^2+cx+d selon les valeurs de a,b,c et d
  * @author Jean-Claude Lhote
  */
-export function reduirePolynomeDegre3 (a, b, c, d) {
+export function reduirePolynomeDegre3 (a, b, c, d, x = 'x') {
   let result = ''
   if (a !== 0) {
     switch (a) {
       case 1:
-        result += 'x^3'
+        result += `${x}^3`
         break
       case -1:
-        result += '-x^3'
+        result += `-${x}^3`
         break
       default:
-        result += `${a}x^3`
+        result += `${a}${x}^3`
         break
     }
     if (b !== 0) {
       switch (b) {
         case 1:
-          result += '+x^2'
+          result += `+${x}^2`
           break
         case -1:
-          result += '-x^2'
+          result += `-${x}^2`
           break
         default:
-          result += `${ecritureAlgebrique(b)}x^2`
+          result += `${ecritureAlgebrique(b)}${x}^2`
           break
       }
     }
     if (c !== 0) {
       switch (c) {
         case 1:
-          result += '+x'
+          result += `+${x}`
           break
         case -1:
-          result += '-x'
+          result += `-${x}`
           break
         default:
-          result += `${ecritureAlgebrique(c)}x`
+          result += `${ecritureAlgebrique(c)}${x}`
           break
       }
     }
@@ -1709,25 +1710,25 @@ export function reduirePolynomeDegre3 (a, b, c, d) {
     if (b !== 0) {
       switch (b) {
         case 1:
-          result += 'x^2'
+          result += `${x}^2`
           break
         case -1:
-          result += '-x^2'
+          result += `-${x}^2`
           break
         default:
-          result += `${b}x^2`
+          result += `${b}${x}^2`
           break
       }
       if (c !== 0) {
         switch (c) {
           case 1:
-            result += '+x'
+            result += `+${x}`
             break
           case -1:
-            result += '-x'
+            result += `-${x}`
             break
           default:
-            result += `${ecritureAlgebrique(c)}x`
+            result += `${ecritureAlgebrique(c)}${x}`
             break
         }
       }
@@ -1738,13 +1739,13 @@ export function reduirePolynomeDegre3 (a, b, c, d) {
     if (c !== 0) {
       switch (c) {
         case 1:
-          result += 'x'
+          result += `${x}`
           break
         case -1:
-          result += '-x'
+          result += `-${x}`
           break
         default:
-          result += `${c}x`
+          result += `${c}${x}`
           break
       }
       if (d !== 0) {

@@ -6,13 +6,12 @@ import { context } from '../../modules/context.js'
 export const titre = 'Utiliser la double distributivité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcType = 'AMCHybride'
 export const amcReady = true
-export const amcType = 'AMCOpenNum✖︎3'
 
 /**
- * Développer des expressions de la forme(ax+ou-b)(cx+ou-d)
-* @author Jean-Claude Lhote
-* 3L11-1
+* Développer des expressions de la forme(ax+ou-b)(cx+ou-d)
+* @author Jean-Claude Lhote  (Amélioration AMC par Eric Elter)
 */
 export const uuid = '4197c'
 export const ref = '3L11-1'
@@ -97,14 +96,76 @@ export default function DoubleDistributivite () {
           reponse3 = b * d
           break
       }
-      texte += ajouteChampTexteMathLive(this, i)
-      setReponse(this, i, reponse)
-      if (context.isAmc) {
-        this.autoCorrection[i].enonce = texte
-        this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: 4 }]
-        this.autoCorrection[i].reponse = { texte: '$x^2 $ ', textePosition: 'right', valeur: [reponse1], param: { digits: 2, decimals: 0, approx: 0, signe: false, exposantNbChiffres: 0, vertical: true } }
-        this.autoCorrection[i].reponse2 = { texte: '$x $ ', textePosition: 'right', valeur: [reponse2], param: { digits: 3, decimals: 0, approx: 0, signe: true, exposantNbChiffres: 0, vertical: true } }
-        this.autoCorrection[i].reponse3 = { texte: '', textePosition: 'right', valeur: [reponse3], param: { digits: 2, decimals: 0, approx: 0, signe: true, exposantNbChiffres: 0, vertical: true } }
+      if (!context.isAmc && this.interactif) {
+        setReponse(this, i, reponse)
+        texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')) : ''
+      } else {
+        this.autoCorrection[i] = {
+          enonce: '',
+          enonceAvant: false,
+          options: { multicols: true, barreseparation: true },
+          propositions: [
+            {
+              type: 'AMCOpen',
+              propositions: [{
+                texte: texteCorr,
+                enonce: texte + '<br>',
+                statut: 4
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: 'valeur de $a$ dans $ax^2+bx+c$',
+                  valeur: reponse1,
+                  param: {
+                    digits: 2,
+                    decimals: 0,
+                    signe: true,
+                    approx: 0
+                  }
+                }
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: 'valeur de $b$ dans $ax^2+bx+c$',
+                  valeur: reponse2,
+                  param: {
+                    digits: 2,
+                    decimals: 0,
+                    signe: true,
+                    approx: 0
+                  }
+                }
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: 'valeur de $c$ dans $ax^2+bx+c$',
+                  valeur: reponse3,
+                  param: {
+                    digits: 2,
+                    decimals: 0,
+                    signe: true,
+                    approx: 0
+                  }
+                }
+              }]
+            }
+          ]
+        }
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
