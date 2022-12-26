@@ -1,7 +1,6 @@
-import { number, add, unequal, largerEq, fraction, equal, multiply, inv, matrix, max } from 'mathjs'
+import { number, add, unequal, largerEq, fraction, equal, multiply, inv, matrix, max, polynomialRoot, round, acos, abs } from 'mathjs'
 import FractionX from './FractionEtendue.js'
 import { calcul, arrondi, ecritureAlgebrique, egal, randint, rienSi1, ecritureAlgebriqueSauf1, choice } from './outils.js'
-import { nroots } from 'algebrite'
 /**
 * Convertit un angle de radian vers degrés et fonction inverse
 * @Example
@@ -434,27 +433,38 @@ class SplineCatmullRom {
   solve (y) {
     const antecedents = []
     for (let i = 0; i < this.polys.length; i++) {
-      const equation = this.polys[i].add(-y).multiply(10000) // on multiplie tout par 1000 dans l'espoir d'avoir des coefficients entiers (ça ne change rien 0*10000 = 0)
+      const polEquation = this.polys[i].add(-y) // Le polynome dont les racines sont les antécédents de y
       // Algebrite n'aime pas beaucoup les coefficients decimaux...
       try {
-        const solutions = nroots(equation.toMathExpr())
+        const liste = polynomialRoot(...polEquation.monomes)
         let antecedentTrouve = false
-        for (const valeur of solutions.tensor.elem) {
-          console.log(valeur, equation.toMathExpr())
-          if (valeur.k === 2) { // je ne sais pas ce que c'est que ce k mais il semble que pour les valeurs réelles, il vaut 2
-            if (valeur.d !== undefined) {
-              const arr = Number(valeur.d.toFixed(2))
-              if (arr >= this.x[i] && arr <= this.x[i + 1] && !antecedents.includes(arr)) {
-                antecedents.push(arr)
-                console.log(`antécédent ${arr.toString()} trouvé entre ${this.x[i]} <= et < ${this.x[i + 1]}`)
-                antecedentTrouve = true
+        for (const valeur of liste) {
+          let arr
+          if (typeof valeur === 'number') {
+            arr = round(valeur, 3)
+          } else { // complexe !
+            const module = valeur.toPolar().r
+            if (module < 1e-5) { // module trop petit pour être complexe, c'est 0 !
+              arr = 0
+            } else {
+              if (abs(valeur.arg()) < 0.01 || (abs(valeur.arg() - acos(-1)) < 0.01)) { // si l'argument est proche de 0 ou de Pi
+                arr = round(valeur.re, 3) // on prend la partie réelle
+              } else {
+                arr = null // c'est une vraie racine complexe, du coup, on prend null
               }
             }
           }
+          if (arr !== null && arr >= this.x[i] && arr <= this.x[i + 1]) {
+            if (!antecedents.includes(arr)) {
+              antecedents.push(arr)
+              antecedentTrouve = true
+            } else {
+              antecedentTrouve = true
+            }
+          }
         }
-        if (!antecedentTrouve) console.log(`aucune antécédent trouvé entre ${this.x[i]} <= et < ${this.x[i + 1]}`)
       } catch (e) {
-        console.log(equation)
+        console.log(e)
       }
     }
     return antecedents
