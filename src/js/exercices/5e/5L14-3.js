@@ -13,5 +13,7 @@ export default function TraduireUnePhraseParUneExpressionLitteraleEtCalculer () 
   this.version = 3
   this.titre = titre
   this.litteral = true
-  this.sup = 1
+  this.sup = NaN
+  this.sup4 = 1
+  this.besoinFormulaire4Numerique = ['Niveau de difficulté', 4, '1 : de 1 à 3 opérations\n2 : de 2 à 3 opérations\n3 : jusqu\'à 4 opérations\n4 : opérations plus complexes']
 }
