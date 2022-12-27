@@ -1,9 +1,9 @@
-import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint, calcul, texNombrec, choice, texNombre, texPrix, range1, prenom, personne, miseEnEvidence, stringNombre } from '../../modules/outils.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { afficheCoteSegment, codageSegments, homothetie, point, polygoneRegulier, segment, texteSurSegment } from '../../modules/2d.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import Exercice from '../../Exercice.js'
+import { listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint, calcul, texNombrec, choice, texNombre, texPrix, range1, prenom, personne, miseEnEvidence, stringNombre } from '../../../modules/outils.js'
+import { setReponse } from '../../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { afficheCoteSegment, codageSegments, homothetie, point, polygoneRegulier, segment, texteSurSegment } from '../../../modules/2d.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 export const titre = 'Course aux nombres CM1'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -30,7 +30,6 @@ export default function CourseAuxNombresCM (numeroExercice) {
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -134,8 +133,8 @@ export default function CourseAuxNombresCM (numeroExercice) {
           b = randint(1, 9, a)
           c = randint(1, 9, [a, b])
           resultat = calcul(a * 1000 + b * 10 + c * 100)
-          texte = `$${texNombre(a)}\\times 1000 + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100$`
-          texteCorr = `$${texNombre(a)}\\times 1000 + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100 =${texNombre(resultat)}$`
+          texte = `$${texNombre(a)}\\times ${texNombre(1000)} + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100$`
+          texteCorr = `$${texNombre(a)}\\times ${texNombre(1000)} + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100 =${texNombre(resultat)}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
           break
         case 'q6': // Division d'entiers
@@ -186,8 +185,8 @@ export default function CourseAuxNombresCM (numeroExercice) {
           b = randint(1, 2) * 10 + randint(1, 5)
           c = randint(1, 2) * 10 + randint(1, 9)
           d = personne()
-          texte = `${d.prenom} participe à une course par étapes. La première étape fait ${a} km, la deuxième fait ${b} km et la dernière fait ${c} km.<br>Combien de kilomètres ${d.prenom} a-t-${d.pronom} parcourus ?`
-          texteCorr = `${d.prenom} a parcouru : ${a} + ${b} + ${c} = ${a + b + c} km`
+          texte = `${d.prenom} participe à une course par étapes. La première étape fait $${a}$ km, la deuxième fait $${b}$ km et la dernière fait $${c}$ km.<br>Combien de kilomètres ${d.prenom} a-t-${d.pronom} parcourus ?`
+          texteCorr = `${d.prenom} a parcouru : $${a} + ${b} + ${c} = ${a + b + c}$ km.`
           setReponse(this, i, calcul(a + b + c), { formatInteractif: 'calcul' })
           break
         case 'q13' : // Différence d'entiers
@@ -197,12 +196,12 @@ export default function CourseAuxNombresCM (numeroExercice) {
           d = personne()
           switch (randint(1, 2)) {
             case 1:
-              texte = `${d.prenom} a ${a} ans. ${d.pronom} a ${b} ans de plus que son frère.<br>Quel âge a son frère ?`
-              texteCorr = `Le frère de ${d.prenom} a : ${a} - ${b} = ${a - b} ans.`
+              texte = `${d.prenom} a $${a}$ ans. ${d.pronom} a $${b}$ ans de plus que son frère.<br>Quel âge a son frère ?`
+              texteCorr = `Le frère de ${d.prenom} a : $${a} - ${b} = ${a - b}$ ans.`
               break
             case 2:
-              texte = `${d.prenom} a ${a} ans. Sa soeur a ${b} ans.<br>Quelle est leur différence d'âge ?`
-              texteCorr = `La différence d'âge entre ${d.prenom} et sa soeur est : ${a}-${b}=${a - b} ans.`
+              texte = `${d.prenom} a $${a}$ ans. Sa soeur a $${b}$ ans.<br>Quelle est leur différence d'âge ?`
+              texteCorr = `La différence d'âge entre ${d.prenom} et sa soeur est : $${a}-${b}=${a - b}$ ans.`
               break
           }
           setReponse(this, i, calcul(a - b), { formatInteractif: 'calcul' })
@@ -213,11 +212,11 @@ export default function CourseAuxNombresCM (numeroExercice) {
           d = personne()
           switch (randint(1, 2)) {
             case 1:
-              texte = `${d.prenom} possède ${a} lots de ${b} ${choice(['crayons', 'cartes', 'stylos', 'livres'])}. Combien en a-t-${d.pronom} ?`
-              texteCorr = `${d.prenom} en possède : $${a} \\times ${b}=${calcul(a * b)}$`
+              texte = `${d.prenom} possède $${a}$ lots de $${b}$ ${choice(['crayons', 'cartes', 'stylos', 'livres'])}. Combien en a-t-${d.pronom} ?`
+              texteCorr = `${d.prenom} en possède : $${a} \\times ${b}=${calcul(a * b)}$.`
               break
             case 2:
-              texte = `${d.prenom} a couru ${a} séquences de ${b} minutes. Combien de minutes a-t-${d.pronom} couru en tout ?`
+              texte = `${d.prenom} a couru $${a}$ séquences de $${b}$ minutes. Combien de minutes a-t-${d.pronom} couru en tout ?`
               texteCorr = `${d.prenom} a couru : $${a} \\times ${b}=${calcul(a * b)}$ minutes.`
               break
           }
@@ -228,8 +227,8 @@ export default function CourseAuxNombresCM (numeroExercice) {
           b = randint(2, 5)
           c = choice(fruits2)
           d = personne()
-          texte = `Les ${c[0]} sont vendus ${texPrix(c[1])} € par kilogramme. ${d.prenom} en achète ${b} kg. Combien va-t-${d.pronom} payer ?`
-          texteCorr = `${d.prenom} devra payer $${b}*${texPrix(c[1])}=${texPrix(c[1] * b)}$ €.`
+          texte = `Les ${c[0]} sont vendus $${texPrix(c[1])}$ € par kilogramme. ${d.prenom} en achète $${b}$ kg. Combien va-t-${d.pronom} payer ?`
+          texteCorr = `${d.prenom} devra payer $${b}\\times${texPrix(c[1])}=${texPrix(c[1] * b)}$ €.`
           setReponse(this, i, calcul(b * c[1]), { formatInteractif: 'calcul' })
           break
         case 'q16': // ajout d'un décimal à un entier
@@ -237,7 +236,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
           b = randint(1, 15)
           switch (randint(1, 3)) {
             case 1:
-              texte = `Combien font ${b} de plus que ${texNombre(a)} ?`
+              texte = `Combien font $${b}$ de plus que $${texNombre(a)}$ ?`
               texteCorr = `$${texNombre(a)}+${b}=${texNombrec(a + b)}$`
               break
             case 2:
@@ -283,7 +282,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
               texteCorr = `$${a} \\times 4=${calcul(a * 4)}$`
               break
             case 3:
-              texte = `Le double du double de ${a}`
+              texte = `Le double du double de $${a}$`
               break
           }
           texteCorr = `$${a} \\times 4=${calcul(a * 4)}$`
@@ -295,7 +294,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
           c = calcul(a + b)
           switch (randint(1, 3)) {
             case 1:
-              texte = `On a coupé ${texNombre(a)} cm d'une ficelle qui en faisait ${texNombre(c)}.<br>Combien de centimètres en reste-t-il ?`
+              texte = `On a coupé $${texNombre(a)}$ cm d'une ficelle qui en faisait $${texNombre(c)}$.<br>Combien de centimètres en reste-t-il ?`
               texteCorr = `$${texNombre(c)}-${texNombre(a)}=${texNombre(b)}$`
               break
             case 2:
@@ -309,13 +308,13 @@ export default function CourseAuxNombresCM (numeroExercice) {
               objets = []
               objets[0] = segment(A, B)
               objets[0].styleExtremites = '|-|'
-              objets[1] = afficheCoteSegment(objets[0], texNombre(c), 0.5, 'green')
+              objets[1] = texteSurSegment(`${stringNombre(c)}`, B, A, 'black', -0.5)
               objets[2] = segment(A, C)
               objets[2].styleExtremites = '|-|'
-              objets[3] = afficheCoteSegment(objets[2], texNombre(a), -1, 'blue')
+              objets[3] = afficheCoteSegment(segment(A, C), `${stringNombre(a)}`, -1, 'blue')
               objets[4] = afficheCoteSegment(segment(C, B), '?', -1, 'red')
               texte = mathalea2d({ xmin: -0.1, xmax: 5.1, ymin: -1.5, ymax: 1.5, pixelsParCm: 20, scale: 1 }, objets)
-              texteCorr = `$${miseEnEvidence(texNombre(c))} - ${texNombre(a)}=${texNombre(b)}$`
+              texteCorr = `$${texNombre(c)} - ${texNombre(a)}=${texNombre(b)}$`
               break
           }
           setReponse(this, i, b, { formatInteractif: 'calcul' })
@@ -326,7 +325,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
           c = calcul(a + b)
           switch (randint(1, 3)) {
             case 1:
-              texte = `On a soudé ensemble une barre de ${texNombre(a)} m et une autre de ${texNombre(b)} m.<br>Combien de mètres fait l'assemblage ?`
+              texte = `On a soudé ensemble une barre de $${texNombre(a)}$ m et une autre de $${texNombre(b)}$ m.<br>Combien de mètres fait l'assemblage ?`
               texteCorr = `$${texNombre(a)}+${texNombre(b)}=${texNombre(c)}$`
               break
             case 2:
@@ -343,8 +342,8 @@ export default function CourseAuxNombresCM (numeroExercice) {
               objets[1] = afficheCoteSegment(objets[0], '?', 0.5, 'red')
               objets[2] = segment(A, C)
               objets[2].styleExtremites = '|-|'
-              objets[3] = afficheCoteSegment(objets[2], texNombre(a), -1, 'blue')
-              objets[4] = afficheCoteSegment(segment(C, B), texNombre(b), -1, 'green')
+              objets[3] = afficheCoteSegment(objets[2], `${stringNombre(a)}`, -1, 'blue')
+              objets[4] = afficheCoteSegment(segment(C, B), `${stringNombre(b)}`, -1, 'green')
               texte = mathalea2d({ xmin: -0.1, xmax: 5.1, ymin: -1.5, ymax: 1.5, pixelsParCm: 20, scale: 1 }, objets)
               texteCorr = `$${miseEnEvidence(texNombre(a))} + ${texNombre(b)}=${texNombre(c)}$`
               break
@@ -366,7 +365,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
               setReponse(this, i, a, { formatInteractif: 'calcul' })
               break
             case 3:
-              texte = `Le quadruple du double de ${a}`
+              texte = `Le quadruple du double de $${a}$`
               texteCorr = `$${a} \\times 8=${calcul(a * 8)}$`
               setReponse(this, i, calcul(a * 8), { formatInteractif: 'calcul' })
               break
@@ -390,21 +389,21 @@ export default function CourseAuxNombresCM (numeroExercice) {
               objets[2] = codageSegments('//', 'red', C.listePoints)
               texte = 'Quel est le périmètre de ce polygone ?<br>'
               texte += mathalea2d({ xmin: -2.5, xmax: 3, ymin: -1, ymax: 5, pixelsParCm: 20, scale: 0.8 }, objets)
-              texteCorr = `Le périmètre mesure : $${b} \\times ${texNombre(a)}=${calcul(a * b)}$.`
+              texteCorr = `Le périmètre mesure : $${b} \\times ${texNombre(a)}$ cm $=${texNombre(a * b)}$ cm.`
               break
             case 2:
               a = calcul(randint(4, 5) + choice([0.1, 0.25, 0.5]))
               b = choice([2, 4, 8])
               d = personne()
-              texte = `${d.prenom} a acheté ${b} ${choice(['livres', 'gâteaux', 'jouets'])} à ${texPrix(a)} € pièce.<br>Combien a-t-${d.pronom} dépensé ?`
-              texteCorr += `${d.prenom} a dépensé : $${b} \\times ${texNombre(a)} = ${texPrix(calcul(a * b))} $`
+              texte = `${d.prenom} a acheté $${b}$ ${choice(['livres', 'gâteaux', 'jouets'])} à $${texPrix(a)}$ € pièce.<br>Combien a-t-${d.pronom} dépensé ?`
+              texteCorr = `${d.prenom} a dépensé : $${b} \\times ${texNombre(a)} = ${texPrix(calcul(a * b))} $ €.`
               break
             case 3:
               a = calcul(randint(1, 9) + randint(1, 5) / 10)
               b = randint(2, 9)
               d = personne()
-              texte = `${d.prenom} a vendu ${b} ${choice(['tableaux', 'photos', 'poteries'])} à ${texPrix(a)} € pièce.<br>Quelle somme d'argent a-t-${d.pronom} obtenu ?`
-              texteCorr += `${d.prenom} a obtenu : $${b} \\times ${texNombre(a)} = ${texPrix(calcul(a * b))} $`
+              texte = `${d.prenom} a vendu $${b}$ ${choice(['tableaux', 'photos', 'poteries'])} à $${texPrix(a)}$ € pièce.<br>Quelle somme d'argent a-t-${d.pronom} obtenu ?`
+              texteCorr = `${d.prenom} a obtenu : $${b} \\times ${texNombre(a)} = ${texPrix(calcul(a * b))} $ €.`
               break
           }
           setReponse(this, i, calcul(a * b), { formatInteractif: 'calcul' })
@@ -419,7 +418,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
               break
             case 2:
               texte = `$\\ldots \\times 20=${texNombrec(a * 20)}$`
-              texteCorr = `$${miseEnEvidence(a)} \\times 20=${texNombrec(a * 20)}$`
+              texteCorr = `$${miseEnEvidence(texNombre(a))} \\times 20=${texNombrec(a * 20)}$`
               setReponse(this, i, a, { formatInteractif: 'calcul' })
               break
           }
@@ -430,7 +429,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
           c = randint(2, 5)
           d = randint(2, 5)
           texte = `$${c}$ kg de ${fruits2[a][0]} coûtent $${texNombrec(c * b)}$ €, combien coûtent $${c * d}$ kg de ${fruits2[a][0]} ?`
-          texteCorr = `$${c * d}$ kg de ${fruits2[a][0]} coûtent : $${texNombrec(c * b)} \\times ${d} = ${texPrix(c * b * d)}$`
+          texteCorr = `$${c * d}$ kg de ${fruits2[a][0]} coûtent : $${texNombrec(c * b)} \\times ${d} = ${texPrix(c * b * d)}$ €.`
           setReponse(this, i, calcul(c * d * b), { formatInteractif: 'calcul' })
           break
         case 'q25' : // quotient par 4
@@ -455,11 +454,11 @@ export default function CourseAuxNombresCM (numeroExercice) {
           a = randint(11, 99)
           switch (randint(1, 3)) {
             case 1:
-              texte = `Le double de ${a}`
+              texte = `Le double de $${a}$`
               texteCorr = `$2 \\times ${a} = ${2 * a}$`
               break
             case 2:
-              texte = `Le diamètre d'un cercle de ${a} unités de rayon.`
+              texte = `Le diamètre d'un cercle de $${a}$ unités de rayon.`
               texteCorr = `Le diamètre est le double du rayon : $2 \\times ${a} = ${2 * a}$`
               break
             case 3:
@@ -495,20 +494,22 @@ export default function CourseAuxNombresCM (numeroExercice) {
           d = a + ((b + c) / 60 >> 0) // heure pleine de fin
           resultat = calcul((b + c) % 60) // minutes de fin
           if (resultat !== 0) {
-            texte = `Le film a commencé à ${a} h ${b}. Il s'est terminé à ${d} h ${resultat}.<br> Combien de minutes a-t-il duré ?`
+            if (resultat !== 5) {
+              texte = `Le film a commencé à $${a}$ h $${b}$. Il s'est terminé à $${d}$ h $${resultat}$.<br> Combien de minutes a-t-il duré ?`
+            } else { texte = `Le film a commencé à $${a}$ h $${b}$. Il s'est terminé à $${d}$ h $0${resultat}$.<br> Combien de minutes a-t-il duré ?` }
           } else {
-            texte = `Le film a commencé à ${a} h ${b}. Il s'est terminé à ${d} h.<br> Combien de minutes a-t-il duré ?`
+            texte = `Le film a commencé à $${a}$ h $${b}$. Il s'est terminé à $${d}$ h.<br> Combien de minutes a-t-il duré ?`
           }
-          texteCorr = `Il a duré ${calcul(c / 60 >> 0)} h ${c % 60} soit ${c} minutes.`
+          texteCorr = `Le film a duré $${calcul(c / 60 >> 0)}$ h $${c % 60}$ min soit $${c}$ minutes.`
           setReponse(this, i, c, { formatInteractif: 'calcul' })
           break
         case 'q29': // proportionnalité
           a = choice([2, 3, 4, 5]) // choix du coefficient
           b = randint(3, 10) // donnée 1
           c = randint(2, 10, b) // donnée 2
-          d = choice([['un train électrique', 'il'], ['une voiture électrique', 'elle'], ['un manège', 'il']])
-          texte = `En ${a * b} minutes, ${d[0]} fait ${a * c} tours.<br>En ${b} minutes ${d[1]} fait \\ldots tours.`
-          texteCorr = `En ${a} fois moins de temps, ${d[1]} fait ${a} fois moins de tours, soit : $${a * c} \\div ${a}=${c}$ tours.`
+          d = choice([['un train électrique', 'il', 'ce train électrique'], ['une voiture électrique', 'elle', 'cette voiture électrique'], ['un manège', 'il', 'ce manège']])
+          texte = `En $${a * b}$ minutes, ${d[0]} fait $${a * c}$ tours.<br>En $${b}$ minutes ${d[1]} fait \\ldots tours.`
+          texteCorr = `En $${a}$ fois moins de temps, ${d[2]} fait $${a}$ fois moins de tours, soit : $${a * c}$ tours $\\div ${a}=${c}$ tours.`
           setReponse(this, i, c, { formatInteractif: 'calcul' })
           break
         case 'q30': // additions d'entiers mesure
