@@ -209,8 +209,9 @@ export default function FactoriserUneExpression3e () {
           reponse = [`(${rienSi1(c - e)}x${ecritureAlgebrique(d - f)})(${rienSi1(a)}x${ecritureAlgebrique(b)})`, `(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(c - e)}x${ecritureAlgebrique(d - f)})`]
           break
       }
-      texte += ajouteChampTexteMathLive(this, i)
+      texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')) : ''
       setReponse(this, i, reponse)
+
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

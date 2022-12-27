@@ -6,7 +6,7 @@ import FractionX from '../../modules/FractionEtendue.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
-export const titre = 'Équations résolvantes pour le théorème de Thalès'
+export const titre = 'Résoudre une equation résolvante pour le théorème de Thalès'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -149,7 +149,7 @@ export default function EqResolvantesThales () {
         a: nbAlea[0] * coeff[0],
         b: nbAlea[1] * coeff[1],
         c: nbAlea[2] * coeff[2],
-        inc: inc,
+        inc,
         fraction: new FractionX(nbAlea[1] * nbAlea[0], nbAlea[2] / coeff[0] / coeff[1])
       }
 
