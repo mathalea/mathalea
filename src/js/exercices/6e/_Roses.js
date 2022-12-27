@@ -325,7 +325,7 @@ export function ExoRose () {
       objets = this.roses[i].representation()
       this.roses[i].type = 'solutions'
       objetsCorr = this.roses[i].representation()
-      texte = mathalea2d(Object.assign({}, fixeBordures(objets)), objets)
+      texte = mathalea2d(Object.assign({ scale: 0.6 }, fixeBordures(objets)), objets)
       if (this.interactif) {
         if (this.type.substring(0, 3) === 'can') {
           texte += ajouteChampTexteMathLive(this, i, 'nospacebefor', { texte: `${lettreMinusculeDepuisChiffre(this.indexInconnue[i] + 1)}=`, tailleExtensible: true })
@@ -336,7 +336,7 @@ export function ExoRose () {
           }
         }
       }
-      texteCorr = mathalea2d(Object.assign({}, fixeBordures(objetsCorr)), objetsCorr)
+      texteCorr = mathalea2d(Object.assign({ scale: 0.6 }, fixeBordures(objetsCorr)), objetsCorr)
       if (this.questionJamaisPosee(i, ...this.roses[i].values)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
