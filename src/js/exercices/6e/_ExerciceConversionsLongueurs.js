@@ -214,7 +214,6 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
 function getDigitFromNumbers (nb, pos) {
   const n = new Decimal(nb)
   const exp = Decimal.ln(pos).div(Decimal.ln(10))
-  console.log('nb:' + nb + ':exp:' + exp)
   let res = ''
   if (pos >= 1) {
     // partie entière : milliers, centaines, dizaines, unités
