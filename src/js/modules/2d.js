@@ -9783,6 +9783,22 @@ export function LatexParCoordonneesBox (texte, x, y, color, largeur, hauteur, co
   let style = ''
   if (options.anchor !== undefined && options.anchor !== '') {
     switch (options.anchor) {
+      case 'center': {
+        let dy = 0
+        if (options.dy === undefined || options.dy === '' || options.dy.indexOf('%') < 0) {
+          dy = 0
+        } else {
+          dy = parseInt(options.dy.substr(0, options.dy.indexOf('%')))
+        }
+        let dx = 0
+        if (options.dx === undefined || options.dx === '' || options.dx.indexOf('%') < 0) {
+          dx = 0
+        } else {
+          dx = parseInt(options.dx.substr(0, options.dx.indexOf('%')))
+        }
+        style = `position:fixed;top: 50%;left: 50%;transform: translate(${-50 + dx}%, ${-50 + dy}%);`
+        break
+      }
       case 'above':
         style = 'position:fixed;bottom:0;'
         break

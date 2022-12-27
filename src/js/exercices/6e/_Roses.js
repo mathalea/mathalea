@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { choice, contraindreValeur, lettreMinusculeDepuisChiffre, listeQuestionsToContenu, randint, sp } from '../../modules/outils.js'
-import { point, rotation, similitude, texteParPoint, longueur, segment, homothetie, polygoneRegulierParCentreEtRayon, latexParPoint } from '../../modules/2d.js'
+import { point, rotation, similitude, texteParPoint, longueur, segment, homothetie, polygoneRegulierParCentreEtRayon, latexParCoordonneesBox, droite, latexParPoint, tracePoint, labelPoint, pointIntersectionDD } from '../../modules/2d.js'
 import { create, all } from 'mathjs'
 import { calculer } from '../../modules/outilsMathjs.js'
 import Exercice from '../Exercice.js'
@@ -51,7 +51,7 @@ export class Rose {
             break
           case 'litteraux' :
             values.push(calculer(`${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`, null).printResult)
-            this.rayon = 3
+            this.rayon = 4
             break
           case 'fractions dénominateurs multiples':
             values.push(math.fraction(randint(1, this.valeurMax), den))
@@ -141,23 +141,25 @@ export class Rose {
       this.rayonBoite = 1
     } else {
       if (this.typeDonnees.substring(0, 4) === 'frac') this.rayonBoite = 1.5
-      else if (this.typeDonnees === 'litteraux') this.rayonBoite = 2.8
+      else if (this.typeDonnees === 'litteraux') this.rayonBoite = 3.5
       else this.rayonBoite = 1
     }
     const objets = []
     const O = point(0, 0, '', '')
-    const A = rotation(point(this.rayon, 0, '', ''), O, 180 / this.nombreDeValeurs - 90)
+    const A = rotation(point(this.rayon, 0, '', ''), O, 180 / this.nombreDeValeurs - 90, 'A')
     for (let i = 0, bulle1, bulle2; i < this.nombreDeValeurs; i++) {
-      const M = rotation(A, O, 360 * i / this.nombreDeValeurs)
+      const M = rotation(A, O, 360 * i / this.nombreDeValeurs, 'M')
       M.positionLabel = 'center'
-      const B = similitude(M, O, 180 / this.nombreDeValeurs, 1.3)
-      const D = similitude(M, O, -180 / this.nombreDeValeurs, 1.3)
-      const C = homothetie(M, O, 1.6)
-      const N = rotation(C, O, 360 / this.nombreDeValeurs)
-      const P = similitude(M, O, 180 / this.nombreDeValeurs, 2.5)
+      const B = similitude(M, O, 180 / this.nombreDeValeurs, 1.3, 'B')
+      const D = similitude(M, O, -180 / this.nombreDeValeurs, 1.3, 'D')
+      const C = homothetie(M, O, 1.6, 'C')
+      const N = rotation(C, O, 360 / this.nombreDeValeurs, 'N')
+      const P = similitude(M, O, 180 / this.nombreDeValeurs, 2.5, 'P')
       const s = segment(O, B, 'black')
       const t = segment(B, C, 'black')
       const u = segment(C, D, 'black')
+      const M2 = pointIntersectionDD(droite(O, C), droite(B, D), 'M2')
+      // objets.push(tracePoint(C, P, M2), labelPoint(C, P, M2), segment(O, C, 'red'), segment(B, D, 'green'))
       const s1 = homothetie(segment(C, P), C, (longueur(C, P) - this.rayonBoite) / longueur(C, P))
       s1.styleExtremites = '->'
       s1.tailleExtremites = 2
@@ -187,7 +189,8 @@ export class Rose {
                   objets.push(latexParPoint(this.values[i].toLatex().replace('frac', 'dfrac'), M, 'black', 20, 0, ''))
                 }
               } else {
-                objets.push(latexParPoint(this.values[i], M, 'black', 70, 12, ''))
+                objets.push(latexParCoordonneesBox(this.values[i], M2.x, M2.y, 'black', 50, 12, '', 8, { anchor: 'center' }))
+                // objets.push(latexParPoint(this.values[i], M, 'black', 70, 12, '', 6))
               }
             }
           }
@@ -208,7 +211,8 @@ export class Rose {
                 objets.push(latexParPoint(this.resultats[i].toLatex().replace('frac', 'dfrac'), P, 'black', 20, 0, ''))
               }
             } else {
-              objets.push(latexParPoint(this.resultats[i], P, 'black', 70, 10, ''))
+              objets.push(latexParCoordonneesBox(this.resultats[i], P.x, P.y, 'black', 50, 12, '', 8, { anchor: 'center', dy: (this.nombreDeValeurs === 3 ? '-35%' : '') }))
+              //  objets.push(latexParPoint(this.resultats[i], P, 'black', 70, 10, ''))
             }
           }
         }
@@ -232,7 +236,7 @@ export class Rose {
 export function ExoRose () {
   Exercice.call(this)
   this.spacing = 2
-  this.tailleDiaporama = 3
+  this.tailleDiaporama = 1
   this.nbQuestions = 1
   this.sup = 10
   this.sup2 = 4
