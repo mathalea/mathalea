@@ -158,7 +158,7 @@ export class Rose {
       const s = segment(O, B, 'black')
       const t = segment(B, C, 'black')
       const u = segment(C, D, 'black')
-      const M2 = pointIntersectionDD(droite(O, C), droite(B, D), 'M2')
+      const M2 = pointIntersectionDD(droite(B, D), droite(O, C), 'M2')
       // objets.push(tracePoint(C, P, M2), labelPoint(C, P, M2), segment(O, C, 'red'), segment(B, D, 'green'))
       const s1 = homothetie(segment(C, P), C, (longueur(C, P) - this.rayonBoite) / longueur(C, P))
       s1.styleExtremites = '->'
