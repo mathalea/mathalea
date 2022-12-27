@@ -3,6 +3,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, arrondi, texNombre, texTexte, calcul } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import Decimal from 'decimal.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = 'true'
@@ -106,7 +107,6 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
         resultat = calcul(a * prefixeMulti[k][1]).toString() // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
         texte = `$${texNombre(a)} ${texTexte(prefixeMulti[k][0] + unite)} = `
         texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '&nbsp;&nbsp;&nbsp; ' + unite })}` : `\\dotfill  ${texTexte(unite)}$`
-
         texteCorr =
           '$ ' +
           texNombre(a) +
@@ -120,6 +120,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
           texNombre(resultat) +
           texTexte(unite) +
           '$'
+        texteCorr += '<br>' + buildTab(a, prefixeMulti[k][0] + 'm', resultat, unite)
       } else if (div && typesDeQuestions < 4) {
         resultat = calcul(a / prefixeDiv[k][1]).toString() // Attention aux notations scientifiques pour 10e-8
         texte = `$${texNombre(a)} ${texTexte(prefixeDiv[k][0] + unite)} = `
@@ -137,6 +138,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
           texNombre(resultat) +
           texTexte(unite) +
           '$'
+        texteCorr += '<br>' + buildTab(a, prefixeDiv[k][0] + 'm', resultat, unite)
       } else {
         // pour type de question = 4
         let unite1 = listeUnite1[i]
@@ -162,6 +164,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
             texNombre(resultat) +
             texTexte(listeUnite[unite1]) +
             '$'
+          texteCorr += '<br>' + buildTab(a, listeUnite[unite2], resultat, listeUnite[unite1])
         } else {
           resultat = calcul(a / Math.pow(10, ecart))
           texte = `$${texNombre(a)} ${texTexte(listeUnite[unite1])} = `
@@ -179,6 +182,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
             texNombre(resultat) +
             texTexte(listeUnite[unite2]) +
             '$'
+          texteCorr += '<br>' + buildTab(a, listeUnite[unite1], resultat, listeUnite[unite2])
         }
       }
 
@@ -205,4 +209,125 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, ' 1 : De dam, hm, km vers m\n 2 : De dm, cm, mm vers m\n 3 : Conversions en mètres\n4 : Mélange']
   this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
+}
+
+function getDigitFromNumbers (nb, pos) {
+  const n = new Decimal(nb)
+  const exp = Decimal.ln(pos).div(Decimal.ln(10))
+  console.log('nb:' + nb + ':exp:' + exp)
+  let res = ''
+  if (pos >= 1) {
+    // partie entière : milliers, centaines, dizaines, unités
+    res = n.sub(n.div(pos * 10).trunc().mul(pos * 10))
+    res = res.div(pos).trunc()
+    res = (pos === 1 || n > pos) ? res.toString() : ''
+  } else {
+    // partie décimale : dixième, centième, millième
+    res = n.sub(n.div(pos * 10).trunc().mul(pos * 10))
+    res = res.div(pos).trunc()
+    res = Math.abs(exp) <= n.decimalPlaces() ? res.toString() : ''
+  }
+  return res
+}
+
+function buildTab (a, uniteA, r, uniteR) {
+  const tabRep = function (nbre, uniteNbre) {
+    const res = ['', '', '', '', '', '', '', '', '', '', '']
+    switch (uniteNbre.replaceAll(' ', '')) {
+      case 'km':
+        res[0] = getDigitFromNumbers(nbre, 100)
+        res[1] = getDigitFromNumbers(nbre, 10)
+        res[2] = '\\color{red}{' + getDigitFromNumbers(nbre, 1) + (new Decimal(nbre).decimalPlaces() === 0 ? '' : ',') + '}'// km
+        res[3] = getDigitFromNumbers(nbre, 0.1)
+        res[4] = getDigitFromNumbers(nbre, 0.01)
+        res[5] = getDigitFromNumbers(nbre, 0.001)
+        break
+      case 'hm':
+        res[0] = getDigitFromNumbers(nbre, 1000)
+        res[1] = getDigitFromNumbers(nbre, 100)
+        res[2] = getDigitFromNumbers(nbre, 10) // km
+        res[3] = '\\color{red}{' + getDigitFromNumbers(nbre, 1) + (new Decimal(nbre).decimalPlaces() === 0 ? '' : ',') + '}'
+        res[4] = getDigitFromNumbers(nbre, 0.1)
+        res[5] = getDigitFromNumbers(nbre, 0.01)
+        res[6] = getDigitFromNumbers(nbre, 0.001)
+        res[7] = getDigitFromNumbers(nbre, 0.0001)
+        break
+      case 'dam':
+        res[0] = getDigitFromNumbers(nbre, 10000)
+        res[1] = getDigitFromNumbers(nbre, 1000)
+        res[2] = getDigitFromNumbers(nbre, 100) // km
+        res[3] = getDigitFromNumbers(nbre, 10)
+        res[4] = '\\color{red}{' + getDigitFromNumbers(nbre, 1) + (new Decimal(nbre).decimalPlaces() === 0 ? '' : ',') + '}'
+        res[5] = getDigitFromNumbers(nbre, 0.1)
+        res[6] = getDigitFromNumbers(nbre, 0.01)
+        res[7] = getDigitFromNumbers(nbre, 0.001)
+        res[8] = getDigitFromNumbers(nbre, 0.0001)
+        break
+      case 'm':
+        res[0] = getDigitFromNumbers(nbre, 100000)
+        res[1] = getDigitFromNumbers(nbre, 10000)
+        res[2] = getDigitFromNumbers(nbre, 1000) // km
+        res[3] = getDigitFromNumbers(nbre, 100)
+        res[4] = getDigitFromNumbers(nbre, 10)
+        res[5] = '\\color{red}{' + getDigitFromNumbers(nbre, 1) + (new Decimal(nbre).decimalPlaces() === 0 ? '' : ',') + '}'
+        res[6] = getDigitFromNumbers(nbre, 0.1)
+        res[7] = getDigitFromNumbers(nbre, 0.01)
+        res[8] = getDigitFromNumbers(nbre, 0.001)
+        res[9] = getDigitFromNumbers(nbre, 0.0001)
+        res[10] = getDigitFromNumbers(nbre, 0.00001)
+        break
+      case 'dm':
+        res[0] = getDigitFromNumbers(nbre, 1000000)
+        res[1] = getDigitFromNumbers(nbre, 100000)
+        res[2] = getDigitFromNumbers(nbre, 10000) // km
+        res[3] = getDigitFromNumbers(nbre, 1000)
+        res[4] = getDigitFromNumbers(nbre, 100)
+        res[5] = getDigitFromNumbers(nbre, 10)
+        res[6] = '\\color{red}{' + getDigitFromNumbers(nbre, 1) + (new Decimal(nbre).decimalPlaces() === 0 ? '' : ',') + '}'
+        res[7] = getDigitFromNumbers(nbre, 0.1)
+        res[8] = getDigitFromNumbers(nbre, 0.01)
+        res[9] = getDigitFromNumbers(nbre, 0.001)
+        res[10] = getDigitFromNumbers(nbre, 0.0001)
+        break
+      case 'cm':
+        res[0] = getDigitFromNumbers(nbre, 10000000)
+        res[1] = getDigitFromNumbers(nbre, 1000000)
+        res[2] = getDigitFromNumbers(nbre, 100000) // km
+        res[3] = getDigitFromNumbers(nbre, 10000)
+        res[4] = getDigitFromNumbers(nbre, 1000)
+        res[5] = getDigitFromNumbers(nbre, 100)
+        res[6] = getDigitFromNumbers(nbre, 10)
+        res[7] = '\\color{red}{' + getDigitFromNumbers(nbre, 1) + (new Decimal(nbre).decimalPlaces() === 0 ? '' : ',') + '}'
+        res[8] = getDigitFromNumbers(nbre, 0.1)
+        res[9] = getDigitFromNumbers(nbre, 0.01)
+        res[10] = getDigitFromNumbers(nbre, 0.001)
+        break
+      case 'mm':
+        res[0] = getDigitFromNumbers(nbre, 100000000)
+        res[1] = getDigitFromNumbers(nbre, 10000000)
+        res[2] = getDigitFromNumbers(nbre, 1000000) // km
+        res[3] = getDigitFromNumbers(nbre, 100000)
+        res[4] = getDigitFromNumbers(nbre, 10000)
+        res[5] = getDigitFromNumbers(nbre, 1000)
+        res[6] = getDigitFromNumbers(nbre, 100)
+        res[7] = getDigitFromNumbers(nbre, 10)
+        res[8] = '\\color{red}{' + getDigitFromNumbers(nbre, 1) + (new Decimal(nbre).decimalPlaces() === 0 ? '' : ',') + '}'
+        res[9] = getDigitFromNumbers(nbre, 0.1)
+        res[10] = getDigitFromNumbers(nbre, 0.01)
+        break
+    }
+    return res
+  }
+  const aTab = tabRep(a, uniteA)
+  const rTab = tabRep(r, uniteR)
+  const texte = `$\\def\\arraystretch{1.5}\\begin{array}{|c|c|c|c|c|c|c|c|c|c|c|}
+  \\hline
+  \\;\\;\\;\\; & \\;\\;\\;\\; & \\; km \\; & \\; hm  \\; & dam & \\;\\; m \\;\\; & \\; dm \\; & \\; cm \\; & \\; mm\\; & \\;\\;\\;\\; & \\;\\;\\;\\; \\\\
+  \\hline
+  ${aTab[0]} & ${aTab[1]}& ${aTab[2]} & ${aTab[3]}& ${aTab[4]} & ${aTab[5]}& ${aTab[6]} & ${aTab[7]} & ${aTab[8]} & ${aTab[9]} & ${aTab[10]}\\\\
+  \\hline
+  ${rTab[0]} & ${rTab[1]}& ${rTab[2]} & ${rTab[3]}& ${rTab[4]} & ${rTab[5]}& ${rTab[6]} & ${rTab[7]} & ${rTab[8]} & ${rTab[9]} & ${aTab[10]}\\\\
+  \\hline
+  \\end{array}$`
+  return texte
 }
