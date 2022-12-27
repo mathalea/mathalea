@@ -240,6 +240,9 @@ function buildTab (a, uniteA, r, uniteR) {
         res[3] = getDigitFromNumbers(nbre, 0.1)
         res[4] = getDigitFromNumbers(nbre, 0.01)
         res[5] = getDigitFromNumbers(nbre, 0.001)
+        res[6] = getDigitFromNumbers(nbre, 0.0001)
+        res[7] = getDigitFromNumbers(nbre, 0.00001)
+        res[8] = getDigitFromNumbers(nbre, 0.000001)
         break
       case 'hm':
         res[0] = getDigitFromNumbers(nbre, 1000)
@@ -250,6 +253,7 @@ function buildTab (a, uniteA, r, uniteR) {
         res[5] = getDigitFromNumbers(nbre, 0.01)
         res[6] = getDigitFromNumbers(nbre, 0.001)
         res[7] = getDigitFromNumbers(nbre, 0.0001)
+        res[8] = getDigitFromNumbers(nbre, 0.00001)
         break
       case 'dam':
         res[0] = getDigitFromNumbers(nbre, 10000)
