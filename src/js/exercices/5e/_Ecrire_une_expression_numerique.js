@@ -93,16 +93,15 @@ export default function EcrireUneExpressionNumerique (calculMental) {
           texteCorr = `${expn} s'écrit : ${expf}.`
           break
         case 3:
-          // this.consigne = 'Traduire la phrase par un calcul et effectuer ce calcul en respectant les priorités opératoires.'
           if (this.interactif) {
-            this.consigne = 'Traduire la phrase par un calcul et effectuer ce calcul au brouillon en respectant les priorités opératoires.<br> Saisir uniquement le résultat.'
+            this.consigne = 'Traduire la phrase par un calcul et effectuer le calcul demandé au brouillon.<br> Saisir uniquement le résultat.'
           } else {
-            this.consigne = 'Traduire la phrase par un calcul et effectuer ce calcul en respectant les priorités opératoires.'
+            this.consigne = 'Traduire la phrase par un calcul et effectuer le calcul demandé.'
           }
           if (!this.litteral) texte = `${expf}.`
           else if (nbval === 2) texte = `${expf} puis calculer pour $x=${val1}$ et $y=${val2}$.` // nbval contient le nombre de valeurs en cas de calcul littéral
           else texte = `${expf} puis calculer pour $x=${val1}$.`
-          texteCorr = `${expf} s'écrit : ${expn}.<br>`
+          texteCorr = `${expf} s'écrit : ${resultats[1]}.<br>`
 
           if (!this.litteral) {
             if (!this.sup4) {
@@ -119,14 +118,14 @@ export default function EcrireUneExpressionNumerique (calculMental) {
                 texteCorr += `${lettreDepuisChiffre(i + 1)} = $${etape}$ <br>`
               })
             }
-          } else if (nbval === 2) texteCorr += `Pour $x=${val1}$ et $y=${val2}$ :<br> ${expc}.`
-          else texteCorr += `Pour $x=${val1}$ :<br>${expc}.`
+          } else if (nbval === 2) texteCorr += `Pour $x=${val1}$ et $y=${val2}$ :<br> ${expc}`
+          else texteCorr += `Pour $x=${val1}$ :<br>${expc}`
           // reponse = parseInt(expc.split('=')[expc.split('=').length - 1])
           reponse = expc.split('=')[expc.split('=').length - 1].replace('$', '')
           break
         case 4:
           if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
-          this.consigne = 'Calculer en respectant les priorités opératoires.'
+          this.consigne = 'Calculer.'
           if (!this.litteral) texte = `${expn}`
           else if (nbval === 2) texte = `Pour $x=${val1}$ et $y=${val2}$, calculer ${expn}.`
           else texte = `Pour $x=${val1}$, calculer ${expn}.`

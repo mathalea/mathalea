@@ -1501,7 +1501,7 @@ export function egalOuApprox (a, precision) {
     return egal(a.n / a.d, arrondi(a.n / a.d, precision)) ? '=' : '\\approx'
   } else if (a instanceof Decimal) {
     return a.eq(a.toDP(precision)) ? '=' : '\\approx'
-  } else if (!isNaN(a) && !isNaN(precision)) return egal(a, arrondi(a, precision)) ? '=' : '\\approx'
+  } else if (!isNaN(a) && !isNaN(precision)) return egal(a, round(a, precision), 10 ** (-precision - 2)) ? '=' : '\\approx'
   else {
     window.notify('egalOuApprox : l\'argument n\'est pas un nombre', { a, precision })
     return 'Mauvais argument (nombres attendus).'

@@ -1,6 +1,28 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texteExposant, arrondi, texFractionReduite, produitsEnCroix, quatriemeProportionnelle, calcul, texNombrec, prenomF, prenom, texNombre, nombreAvecEspace, miseEnEvidence, texPrix, katexPopup2, numAlpha, contraindreValeur } from '../../modules/outils.js'
+import {
+  listeQuestionsToContenu,
+  randint,
+  combinaisonListes,
+  texteExposant,
+  arrondi,
+  texFractionReduite,
+  produitsEnCroix,
+  quatriemeProportionnelle,
+  calcul,
+  texNombrec,
+  prenomF,
+  prenom,
+  texNombre,
+  nombreAvecEspace,
+  miseEnEvidence,
+  texPrix,
+  katexPopup2,
+  numAlpha,
+  contraindreValeur,
+  egalOuApprox
+} from '../../modules/outils.js'
+import { round } from 'mathjs'
 export const titre = 'Résoudre des problèmes de grandeurs composées et de conversion d\'unités complexes'
 
 /**
@@ -190,15 +212,15 @@ export default function ProblemesGrandeursComposees () {
             duree
           )} heures `
           if (nbQuartsDHeures !== 0) { texte += `et ${nbQuartsDHeures * 15} minutes` }
-          texte += `.<br>Le prix d'un kWh est de $${texNombrec(
+          texte += `.<br>Le prix d'un kWh est de $${texNombre(
             prixkWh
-          )}$ €.<br>`
+          , 2)}$ €.<br>`
           if (context.isHtml) {
             // les boutons d'aide uniquement pour la version html
           }
           texte +=
             numAlpha(0) +
-            ' Exprimer en kWh l\' ' +
+            ' Exprimer en kWh l\'' +
             katexPopup2(
               numeroExercice + i + 1,
               typeAide,
@@ -446,7 +468,7 @@ export default function ProblemesGrandeursComposees () {
               typeAide,
               'moment',
               'Définition : moment (grandeur physique)',
-              'Le moment d\'une force d\'intensité F(en Newton ou kg.m.s$^{-2}$) en un point M par rapport à un pivot P est le produit de F par la distance PM (appelée bras de levier) exprimée en mètres (lorsque cette force s\'exerce perpendiculairement au bras de levier). Le moment est l\'energie permettant de faire tourner l\'objet autour du pivot.<br>L\'unité de mesure du moment est le Joule (J).<br>$1J=1\\text{ kg.m}^2\\text{s}^{-2}$.'
+              'Le moment d\'une force d\'intensité $F$ (en Newton ou kg.m.s$^{-2}$) en un point M par rapport à un pivot P est le produit de $F$ par la distance $d=$PM (appelée bras de levier) exprimée en mètres soit $F\\times d$ (lorsque cette force s\'exerce perpendiculairement au bras de levier). Le moment est l\'energie permettant de faire tourner l\'objet autour du pivot.<br>L\'unité de mesure du moment est le Joule (J).<br>$1J=1\\text{ kg.m}^2\\text{s}^{-2}$.'
             ) +
             ' du ' +
             katexPopup2(
@@ -454,7 +476,7 @@ export default function ProblemesGrandeursComposees () {
               typeAide,
               'poids',
               'Définition : Poids',
-              'Le poids est le produit de la masse d\'un objet par l\'accélération de la pesanteur terrestre ($9,81\\text{ m.s}^{-2}$).<br>L\'unité du poids est le Newton (N) : 1N = 1kg.m.s$^{-2}$'
+              'Le poids est le produit de la masse $m$ d\'un objet par l\'accélération de la pesanteur terrestre ($g=9,81\\text{ m.s}^{-2}$) soit $m\\times g$.<br>L\'unité du poids est le Newton (N) : 1N = 1kg.m.s$^{-2}$'
             ) +
             ` de ${quidam} sur son siège par rapport au pivot central du trébuchet en Joules (on admettra que le bras de levier est horizontal).<br>`
           texte +=
@@ -513,18 +535,18 @@ export default function ProblemesGrandeursComposees () {
             numAlpha(0)
           texteCorr =
             numAlpha(0) +
-            ` Le trafic moyen de ce bus de ville est : $${n1}\\text{voyageurs}\\times${d1}\\text{km}=${n1 * d1
-            }\\text{voyageurs.km}$.<br>`
+            ` Le trafic moyen de ce bus de ville est : $${n1}\\text{ voyageurs}\\times${d1}\\text{ km}=${n1 * d1
+            }\\text{ voyageurs.km}$.<br>`
           texteCorr +=
             numAlpha(1) +
-            ` Le trafic moyen de ce bus de ville est : $${n2}\\text{voyageurs}\\times${d2}\\text{km}=${n2 * d2
-            }\\text{voyageurs.km}$, donc ces deux bus ont le même trafic.`
+            ` Le trafic moyen de ce bus de ville est : $${n2}\\text{ voyageurs}\\times${d2}\\text{ km}=${n2 * d2
+            }\\text{ voyageurs.km}$, donc ces deux bus ont le même trafic.`
           break
         case 6: // problème de puissance électrique.
           index = randint(0, 3)
           index1 = randint(0, 3, [index])
           I1 = arrondi(appareils[index][1] / 230, 0) + 1
-          texte =
+          texte = 'Les appareils de cet exercices fonctionnent sur le secteur, soit à une tension de 230V<br>' +
             numAlpha(0) +
             ` Un ${appareils[index][0]} est protégé par un fusible de $${I1}$ ampères.<br>Quelle est la ` +
             katexPopup2(
@@ -534,15 +556,15 @@ export default function ProblemesGrandeursComposees () {
               'Définition : Puissance (grandeur physique)',
               'C\'est le produit de la force électromotrice (tension) exprimée en Volt (V) par l\'intensité du courant électrique exprimée en ampères (A).<br>L\'unité de mesure de la puissance est le Watt (W)'
             ) +
-            ' maximale de cet appareil s\'il fonctionne sur le secteur ?<br>'
+            ' maximale de cet appareil ?<br>'
           texte +=
             numAlpha(1) +
-            ` Un ${appareils[index1][0]} fonctionne à une puissance maximum de $${texNombre(appareils[index1][1])}$ W.<br>Quel est l'ampérage (entier) minimum nécessaire pour le fusible qui protégera ${index1 === 3 ? 'cet' : 'ce'} ${appareils[index1][0]} des courts-circuits ?<br>`
+            ` Un ${appareils[index1][0]} fonctionne à une puissance maximale de $${texNombre(appareils[index1][1])}$ W.<br>Quel est l'ampérage (entier) minimum nécessaire pour le fusible qui protégera ${index1 === 3 ? 'cet' : 'ce'} ${appareils[index1][0]} des courts-circuits ?<br>`
           texteCorr =
             numAlpha(0) +
             ` La tension du secteur étant de 230V, la puissance maximale de ce ${appareils[index][0]} est de :<br>`
           texteCorr += `$230\\text{ V}\\times${I1}\\text{ A}=${230 * I1
-            }\\text{ W}$<br>`
+            }\\text{ W}$.<br>`
           I2 = Math.floor(appareils[index1][1] / 230) + 1
           texteCorr +=
             numAlpha(1) +
@@ -874,21 +896,21 @@ export default function ProblemesGrandeursComposees () {
             numAlpha(0) +
             ` ${quidam} dépense pour les ${fruits[index1][0]} : $${texNombre(
               masse
-            )}\\text{ kg} \\times ${texPrix(
+            )}\\text{ kg}\\times ${texPrix(
               fruits[index1][1]
-            )}$ €$\\text{/kg} = ${texPrix(prix1)}$ €.<br>`
+            )}$ €$\\text{/kg }=${texPrix(prix1)}$ €.<br>`
           texteCorr +=
             numAlpha(1) +
             ` La masse de ${fruits[index2][0]
-            } qu'elle a achetée est : $${texPrix(prix2)} $ €$ \\div ${texPrix(
+            } qu'elle a acheté${fruits[index2][0] === 'citrons' ? 's' : 'es'} est : $${texPrix(prix2)}$ € $~\\div~ ${texPrix(
               fruits[index2][1]
-            )}$ €$\\text{/kg} = ${texNombre(masse2)}\\text{ kg}$.<br>`
+            )}$ € $\\text{/kg } = ${texNombre(masse2)}\\text{ kg}$.<br>`
           texteCorr +=
             numAlpha(2) +
             ` Enfin, ${quidam} a acheté des ${fruits[index][0]
-            } au prix unitaire de : $${texPrix(prix3)}$ € $\\div ${texNombre(
+            } au prix unitaire de : $${texPrix(prix3)}$ € $~\\div~ ${texNombre(
               masse3
-            )}\\text{ kg} = ${texPrix(fruits[index][1])}$ €$\\text{/kg}$.`
+            )}\\text{ kg } = ${texPrix(fruits[index][1])}$ € $\\text{/kg}$.`
           break
         case 9: // problème de prix horaire
           index1 = randint(0, 3)
@@ -931,7 +953,7 @@ export default function ProblemesGrandeursComposees () {
               villes[index1][1]
             )}$ habitants pour une superficie de $${texNombrec(
               villes[index1][2] * 100
-            )}$ ha.<br> Calculer la densité de population en hab/km$^2$.<br>`
+            )}$ ha.<br> Calculer la densité de population en hab/km$^2$ arrondi à l'unité.<br>`
           texte +=
             numAlpha(1) +
             ' La même année, la ' +
@@ -942,44 +964,44 @@ export default function ProblemesGrandeursComposees () {
               'Définition : Densité de population',
               'C\'est le quotient du nombre d\'habitants par la superficie en km$^2$.<br>L\'unité de la densité de population est l\'habitant par km$^2$ (hab/km$^2$).'
             ) +
-            ` de ${villes[index2][0]} était de $${texNombrec(villes[index2][1] / villes[index2][2], 8)}$ hab/km$^2$ pour une superficie de $${texNombrec(
+            ` de ${villes[index2][0]} était de $${texNombre(villes[index2][1] / villes[index2][2], 0)}$ hab/km$^2$ pour une superficie de $${texNombre(
               villes[index2][2] * 100
-            )}$ ha.<br> Calculer le nombre d'habitants de ${villes[index2][0]
+            , 0)}$ ha.<br> Calculer le nombre d'habitants de ${villes[index2][0]
             } à cette date.<br>`
           texteCorr =
             numAlpha(0) +
             ` En 2016, la densité de population à ${villes[index1][0]
             } était de :<br> $\\dfrac{${texNombre(
               villes[index1][1], 0
-            )}\\text{ hab}}{${texNombrec(
+            )}\\text{ hab}}{${texNombre(
               villes[index1][2] * 100, 0
             )}\\text{ ha}}=\\dfrac{${texNombre(
               villes[index1][1], 0
             )}\\text{ hab}}{${texNombre(
               villes[index1][2], 2
-            )}\\text{ km}^2}\\approx${texNombrec(
-              villes[index1][1] / villes[index1][2], 2
+            )}\\text{ km}^2}\\approx${texNombre(
+              villes[index1][1] / villes[index1][2], 0
             )}\\text{ hab/km}^{2}$.<br>`
           texteCorr +=
             numAlpha(1) +
             ` À cette date, le nombre d'habitants de ${villes[index2][0]
-            } était de :<br> $${texNombrec(
+            } était de :<br> $${texNombre(
               villes[index2][1] / villes[index2][2]
-            )}\\text{ hab/km}^2\\times ${texNombrec(
+            , 2)}\\text{ hab/km}^2\\times ${texNombre(
               villes[index2][2] * 100
-            )}\\text{ ha}=${texNombrec(
+            , 0)}\\text{ ha}=${texNombre(
               villes[index2][1] / villes[index2][2]
-            )}\\text{ hab/km}^2\\times ${texNombrec(
+            , 2)}\\text{ hab/km}^2\\times ${texNombre(
               villes[index2][2]
-            )}\\text{ km}^{2}=${texNombre(villes[index2][1])}\\text{ hab}$.`
+            , 1)}\\text{ km}^{2}=${texNombre(villes[index2][1], 0)}\\text{ hab}$.`
           break
         case 11: // problème de masse volumique
           index1 = randint(0, 14)
           index2 = randint(0, 14, [index1])
           v1 = randint(50, 100)
           masse2 = randint(5, 30)
-          masse = arrondi((materiaux[index1][1] * v1) / 1000000)
-          v2 = arrondi(masse2 / materiaux[index2][1], 7)
+          masse = (materiaux[index1][1] * v1) / 1000000
+          v2 = masse2 / materiaux[index2][1]
           texte =
             numAlpha(0) +
             ' La ' +
@@ -1006,23 +1028,23 @@ export default function ProblemesGrandeursComposees () {
             ` La masse de cette pièce de ${materiaux[index1][0]
             } est de :<br>$${texNombre(
               materiaux[index1][1]
-            )}\\text{ kg/m}^3\\times ${texNombre(
+            , 0)}\\text{ kg/m}^3\\times ${texNombre(
               v1
-            )}\\text{ cm}^3=${texNombre(
+           , 0)}\\text{ cm}^3=${texNombre(
               materiaux[index1][1]
-            )}\\text{ kg/m}^3\\times ${texNombrec(
+            , 0)}\\text{ kg/m}^3\\times ${texNombre(
               v1 / 1000000
-            )}\\text{ m}^3=${texNombre(masse)}\\text{ kg}$.<br>`
+            , 6)}\\text{ m}^3=${texNombre(masse, 6)}\\text{ kg}${egalOuApprox(masse * 1000, 0)}${texNombre(masse * 1000, 0)}$ g.<br>`
           texteCorr +=
             numAlpha(1) +
             ` Le volume de cette pièce de ${materiaux[index2][0]
-            } est de :<br>$${texNombre(masse2)}\\text{ kg}\\div ${texNombre(
+            } est de :<br>$${texNombre(masse2, 0)}\\text{ kg}\\div ${texNombre(
               materiaux[index2][1]
-            )}\\text{ kg/m}^3\\approx${texNombre(
+           , 0)}\\text{ kg/m}^3${egalOuApprox(v2, 6)}${texNombre(
               v2
-            )}\\text{ m}^3\\approx${texNombrec(
+            , 6)}\\text{ m}^3${egalOuApprox(round(v2, 6) * 1000000, 0)}${texNombre(
               v2 * 1000000
-            )}\\text{ cm}^3$<br>`
+            , 0)}\\text{ cm}^3$<br>`
           break
         case 12: // problème de concentration massique
           index1 = randint(0, 4)
@@ -1037,7 +1059,7 @@ export default function ProblemesGrandeursComposees () {
           if (solutes[index2][2] < 10) { // concentration en g/L soluté 2.
             concentration2 = arrondi(randint(11, solutes[index2][2] * 10) / 10)
           } else concentration2 = randint(2, solutes[index2][2])
-          texte =
+          texte = 'La concentration massique exprimée ici en $g/L$ est la quantité de matière (masse) en g par unité de volume (L).<br>On l\'obtient donc en divisant la masse de produit dissout par le volume de la solution ($\\dfrac{m}{V}$).<br>' +
             numAlpha(0) +
             ` On a dissout $${texNombre(masse)}\\text{ g}$ de ${solutes[index1][0]
             } dans $${texNombre(volume1)}\\text{ litres}$ ${solutes[index1][1]
@@ -1061,7 +1083,7 @@ export default function ProblemesGrandeursComposees () {
           )}\\text{ g/L}$<br>`
           texteCorr +=
             numAlpha(1) +
-            ` La masse de ${solutes[index2][0]} dissoute est de :<br>`
+            ` La masse de ${solutes[index2][0]} dissout est de :<br>`
           texteCorr += `$${texNombre(volume2)}\\text{ L}\\times ${texNombre(
             concentration2
           )}\\text{ g/L}=${texNombre(
@@ -1145,7 +1167,7 @@ export default function ProblemesGrandeursComposees () {
             numAlpha(1) +
             ` ${quidam} veut télécharger un fichier de $${texNombre(
               masse
-            )}$ Go. Quelle sera la durée du téléchargement si sa vitesse de téléchargement est de ${vitesseMoy} ${unites[index]
+            , 1)}$ Go. Quelle sera la durée du téléchargement si sa vitesse de téléchargement est de ${vitesseMoy} ${unites[index]
             }/s ?<br>`
           texteCorr =
             numAlpha(0) + ' La taille du fichier téléchargé est :<br>'
@@ -1153,25 +1175,25 @@ export default function ProblemesGrandeursComposees () {
           texteCorr += `$(${nbminutes}\\times 60 +${nbsecondes})\\text{ s}\\times ${vitesseMoy} \\text{ ${unites[index]
             }/s} = ${nbminutes * 60 + nbsecondes
             }\\text{ s}\\times ${vitesseMoy} \\text{ ${unites[index]
-            }/s} = ${tailleFichier} \\text{ ${unites[index]} }$`
+            }/s} = ${texNombre(tailleFichier, 0)} \\text{ ${unites[index]} }$`
           if (tailleFichier > 1000) {
-            texteCorr += `$ =${texNombrec(tailleFichier / 1000)} \\text{ ${unites[index + 1]
+            texteCorr += `$ =${texNombre(tailleFichier / 1000, 3)} \\text{ ${unites[index + 1]
               }}.$<br>`
           }
           texteCorr +=
             numAlpha(1) + ' La durée du téléchargement sera de :<br>'
           if (index === 0) {
-            texteCorr += `$${masse}\\times ${texNombrec(
+            texteCorr += `$${texNombre(masse, 1)}\\times ${texNombre(
               10 ** 6
-            )} \\text{ ko} \\div ${vitesseMoy} \\text{ ${unites[index]}/s}$`
+            , 0)} \\text{ ko} \\div ${vitesseMoy} \\text{ ${unites[index]}/s}$ `
             tailleFichier = masse * 10 ** 6
           } else {
-            texteCorr += `$${masse}\\times ${texNombrec(
+            texteCorr += `$${masse}\\times ${texNombre(
               10 ** 3
-            )} \\text{ Mo} \\div ${vitesseMoy} \\text{ ${unites[index]}/s}$`
+           , 0)} \\text{ Mo} \\div ${vitesseMoy} \\text{ ${unites[index]}/s}$`
             tailleFichier = masse * 10 ** 3
           }
-          texteCorr += `$=\\dfrac{${tailleFichier}}{${vitesseMoy}}\\text{ s}`
+          texteCorr += `$=\\dfrac{${texNombre(tailleFichier, 0)}}{${vitesseMoy}}\\text{ s}`
           nbheures = Math.floor(tailleFichier / vitesseMoy / 3600)
           nbminutes = Math.floor(
             (tailleFichier / vitesseMoy - 3600 * nbheures) / 60
@@ -1182,7 +1204,7 @@ export default function ProblemesGrandeursComposees () {
           )
           if (
             tailleFichier / vitesseMoy ===
-            nbsecondes + 60 * nbheures + 3600 * nbheures
+            nbsecondes + 60 * nbminutes + 3600 * nbheures
           ) { texteCorr += '=' } else texteCorr += '\\approx'
           if (nbheures !== 0) texteCorr += `${nbheures} \\text{ h }`
           if (nbminutes !== 0) texteCorr += `${nbminutes} \\text{ min }`

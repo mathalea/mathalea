@@ -37,9 +37,9 @@ export default function RelationRec () {
           b = calcul(randint(1, 10) * 100)
           c = calcul(randint(5, 20) * 1000)
           texte = `Chaque année, un magazine perd $${a}${sp(1)}\\%$  de ses abonnés mais en gagne $${b}$ nouveaux.<br>
-          En $2020$, ce magazine compte $${texNombre(c)}$ abonnés.
+          En $${texNombre(2020)}$, ce magazine compte $${texNombre(c)}$ abonnés.
 
-          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $2020+n$.<br>
+          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $${texNombre(2020)}+n$.<br>
           
           `
           if (this.interactif) {
@@ -54,7 +54,7 @@ export default function RelationRec () {
           texteCorr = `On a $${s}_{n+1}=\\underbrace{${s}_{n}-${texNombrec(a / 100)}${s}_{n}}_{\\text{Perte de } ${a}${sp(1)}\\%} +${b}=${texNombrec(1 - a / 100)}${s}_{n}+${b}$.<br>
 
 
-          Le premier terme de la suite est $${s}_{0}=${c}$ et  $${s}_{n+1}=${texNombrec(1 - a / 100)}${s}_{n}+${b}$.<br>`
+          Le premier terme de la suite est $${s}_{0}=${texNombre(c)}$ et  $${s}_{n+1}=${texNombrec(1 - a / 100)}${s}_{n}+${b}$.<br>`
           setReponse(this, 2 * i, 1 - a / 100)
           setReponse(this, 2 * i + 1, b)
           this.canEnonce = texte
@@ -68,8 +68,8 @@ export default function RelationRec () {
           c = calcul(randint(5, 20) * 1000)
 
           texte = `Chaque année, un magazine perd $${a}${sp()} \\%$  de ses abonnés.<br>
-          En 2020, ce magazine compte $${c}$ abonnés.
-          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $2020+n$.<br>
+          En $${texNombre(2020)}$, ce magazine compte $${c}$ abonnés.
+          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $${texNombre(2020)}+n$.<br>
           
           `
           if (this.interactif) {
@@ -85,7 +85,7 @@ export default function RelationRec () {
           texteCorr = `On a $${s}_{n+1}=\\underbrace{${s}_{n}-${texNombrec(a / 100)}${s}_{n}}_{\\text{Perte de } ${a}${sp(1)}\\%} =${texNombrec(1 - a / 100)}${s}_{n}$.<br>
 
 
-          Le premier terme de la suite est $${s}_{0}=${c}$ et  $${s}_{n+1}=${texNombrec(1 - a / 100)}${s}_{n}$.<br>`
+          Le premier terme de la suite est $${s}_{0}=${texNombre(c)}$ et  $${s}_{n+1}=${texNombrec(1 - a / 100)}${s}_{n}$.<br>`
           setReponse(this, 2 * i, 1 - a / 100)
           setReponse(this, 2 * i + 1, 0)
           this.canEnonce = texte
@@ -98,8 +98,8 @@ export default function RelationRec () {
           b = calcul(randint(1, 10) * 100)
           c = calcul(randint(5, 20) * 1000)
           texte = `Chaque année, un magazine perd $${a}$ abonnés.<br>
-          En $2020$, ce magazine compte $${texNombre(c)}$ abonnés.
-          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $2020+n$.<br>
+          En $${texNombre(2020)}$, ce magazine compte $${texNombre(c)}$ abonnés.
+          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $${texNombre(2020)}+n$.<br>
           
           `
           if (this.interactif) {
@@ -114,7 +114,7 @@ export default function RelationRec () {
 
           texteCorr = `On a $${s}_{n+1}=${s}_{n}-${a}$.<br>
 
-          Le premier terme de la suite est $${s}_{0}=${c}$ et  $${s}_{n+1}=${s}_{n}-${a}$.<br>`
+          Le premier terme de la suite est $${s}_{0}=${texNombre(c)}$ et  $${s}_{n+1}=${s}_{n}-${a}$.<br>`
           setReponse(this, 2 * i, 1)
           setReponse(this, 2 * i + 1, -a)
           this.canEnonce = texte
@@ -129,8 +129,8 @@ export default function RelationRec () {
           c = calcul(randint(5, 20) * 1000)
           T = choice(proportion)
           texte = `Chaque année, un magazine perd ${T}  de ses abonnés mais en gagne $${b}$ nouveaux.<br>
-          En 2020, ce magazine compte $${texNombre(c)}$ abonnés.
-          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $2020+n$.<br>
+          En $${texNombre(2020)}$, ce magazine compte $${texNombre(c)}$ abonnés.
+          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $${texNombre(2020)}+n$.<br>
           
           `
           if (this.interactif) {
