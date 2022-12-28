@@ -38,7 +38,8 @@ export default function TrouverErreurResolEqDeg1 () {
 
   this.nouvelleVersion = function () {
     if (this.debug) {
-      typeDeQuestionsDisponibles = [1, 2, 3, 4, 5]
+      // typeDeQuestionsDisponibles = [1, 2, 3, 4, 5]
+      typeDeQuestionsDisponibles = [1]
     } else {
       typeDeQuestionsDisponibles = shuffle([choice([1, 3]), choice([2, 4]), 5])
     };
@@ -65,9 +66,9 @@ export default function TrouverErreurResolEqDeg1 () {
       // une fonction pour gérer le signe
       function signeDansEq (nb) {
         if (nb > 0) {
-          return { signe: '+', operation: 'soustraire', chgt_signe: nb }
+          return { signe: '+', operation: '\\textbf{soustraire}', chgt_signe: nb }
         } else {
-          return { signe: '', operation: 'ajouter', chgt_signe: nb * (-1) }
+          return { signe: '', operation: '\\textbf{ajouter}', chgt_signe: nb * (-1) }
         };
       };
 
