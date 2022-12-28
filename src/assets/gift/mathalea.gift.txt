@@ -100,6 +100,17 @@ $CATEGORY: Mathalea/1e
     <mathalea-moodle ex\="1N12" correction />
 }
 
+$CATEGORY: Mathalea/1e
+
+:: Mathalea - Somme des termes d'une suite géométrique (1N13) ::
+<script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+<mathalea-moodle ex\="1N13" />
+{
+    =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
+    #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+    <mathalea-moodle ex\="1N13" correction />
+}
+
 $CATEGORY: Mathalea/2e
 
 :: Mathalea - Reconnaître une fonction affine (2F10-1) ::
@@ -971,7 +982,7 @@ $CATEGORY: Mathalea/3e
 
 $CATEGORY: Mathalea/3e
 
-:: Mathalea - Trouver les coordonnées de l'image d'un point par une transformation du plan (3G10-1) ::
+:: Mathalea - Trouver les coordonnées de l'image d'un point par une rotation et une homothétie (3G10-1) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="3G10-1" />
 {
@@ -982,7 +993,7 @@ $CATEGORY: Mathalea/3e
 
 $CATEGORY: Mathalea/3e
 
-:: Mathalea - Trouver l'image d'un point par une transformation choisie aléatoirement (3G10-2) ::
+:: Mathalea - Trouver l'image d'un point par une homothétie ou une rotation (3G10-2) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="3G10-2" />
 {
@@ -1983,7 +1994,7 @@ $CATEGORY: Mathalea/4e
 
 $CATEGORY: Mathalea/4e
 
-:: Mathalea - Trouver les coordonnées de l'image d'un point par une translation (4G10-1) ::
+:: Mathalea - Trouver les coordonnées de l'image d'un point par une translation et une rotation (4G10-1) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="4G10-1" />
 {
@@ -2434,7 +2445,7 @@ $CATEGORY: Mathalea/5e
 
 $CATEGORY: Mathalea/5e
 
-:: Mathalea - Trouver les symétries successives dans un damiers (5G12-2) ::
+:: Mathalea - Trouver les symétries successives dans un damier (5G12-2) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="5G12-2" />
 {

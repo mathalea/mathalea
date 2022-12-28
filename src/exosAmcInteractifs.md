@@ -94,8 +94,8 @@
 |3F21-1|Déterminer une fonction affine|OK|AMCOpenNum✖︎2|OK|mathLive|
 |3F21-2|Déterminer une fonction affine par la donnée des images de deux nombres|KO|KO|OK|mathLive|
 |3F21-3|Lire graphiquement les caractéristiques de la courbe représentative d'une fonction affine|KO|KO|OK|mathLive|
-|3G10-1|Trouver les coordonnées de l'image d'un point par une transformation du plan|OK|AMCHybride|OK|mathLive|
-|3G10-2|Trouver l'image d'un point par une transformation choisie aléatoirement|OK|AMCHybride|OK|mathLive|
+|3G10-1|Trouver les coordonnées de l'image d'un point par une rotation et une homothétie|OK|AMCHybride|OK|mathLive|
+|3G10-2|Trouver l'image d'un point par une homothétie ou une rotation|OK|AMCHybride|OK|mathLive|
 |3G12-1|Trouver l'image d'une figure par une rotation de 90 degrés dans un pavage|OK|AMCHybride|OK|mathLive|
 |3G20|Calculer des longueurs avec le théorème de Thalès|OK|AMCOpenNum✖︎2|OK|mathLive|
 |3G21|Démontrer que deux droites sont ou ne sont pas parallèles avec le théorème de Thalès|OK|AMCHybride|OK|mathLive|
@@ -194,7 +194,7 @@
 |4C36|Utiliser les ordres de grandeur pour vérifier ses résultats|KO|KO|OK|qcm|
 |4C37|Déterminer le signe d'une puissance|OK|qcmMono|OK|qcm|
 |4F12|Problème s'appuyant sur la lecture d'une représentation graphique|OK|AMCHybride|KO|KO|
-|4G10-1|Trouver les coordonnées de l'image d'un point par une translation|OK|AMCHybride|OK|mathLive|
+|4G10-1|Trouver les coordonnées de l'image d'un point par une translation et une rotation|OK|AMCHybride|OK|mathLive|
 |4G10|Trouver l'image d'un point par une symétrie axiale ou centrale ou par une translation|OK|AMCHybride|OK|mathLive|
 |4G11-1|Trouver l'image d'une figure par une translation dans un pavage|OK|AMCHybride|OK|mathLive|
 |4G12-1|Trouver la transformation|KO|KO|OK|listeDeroulante|
@@ -235,7 +235,7 @@
 |5G11-6|Compléter un nuage de points symétriques|OK|AMCOpenNum|OK|custom|
 |5G11|Trouver l'image d'un point par une symétrie axiale ou centrale|OK|AMCHybride|OK|mathLive|
 |5G12-1|Symétrique d'une figure dans un pavage|OK|AMCHybride|OK|mathLive|
-|5G12-2|Trouver les symétries successives dans un damiers|OK|AMCOpen|OK|mathLive|
+|5G12-2|Trouver les symétries successives dans un damier|OK|AMCOpen|OK|mathLive|
 |5G12-3|Identifier une transformation|KO|KO|OK|listeDeroulante|
 |5L10-2|Traduire un programme de calcul par une expression littérale|OK|qcmMono|OK|qcm|
 |5L10|Écrire une expression littérale|OK|qcmMult|OK|qcm|
