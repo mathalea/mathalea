@@ -1497,7 +1497,6 @@ export function abs (a) {
 * @author Jean-Claude Lhote
 */
 export function egalOuApprox (a, precision) {
-  debugger
   if (typeof a === 'object' && ['Fraction', 'FractionX'].indexOf(a.type) !== -1) {
     return egal(a.n / a.d, arrondi(a.n / a.d, precision)) ? '=' : '\\approx'
   } else if (a instanceof Decimal) {
