@@ -176,7 +176,7 @@ export default function TrouverErreurResolEqDeg1 () {
           <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b} = ${d}$
           `, // l'erreur est là, on passe de l'autre côté d'où l'oubli du chgt de signe
           eq_corr_et2: `${texteGras('Étape 3 :')} $${miseEnEvidence(signeDansEq(b).operation)}$ $${miseEnEvidence(signeDansEq(b).chgt_signe)}$ aux deux membres 
-          <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b} ${miseEnEvidence(signeDansEq(-b).signe)} ${miseEnEvidence(-b)} = ${d} ${miseEnEvidence(signeDansEq(-b).signe)} ${miseEnEvidence(-b)}$
+          <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b}\\,${miseEnEvidence(signeDansEq(-b).signe)}\\,${miseEnEvidence(-b)} = ${d}\\,${miseEnEvidence(signeDansEq(-b).signe)}\\,${miseEnEvidence(-b)}$
           <br>${texteGras('Étape 4 : ')} Réduction à nouveau.
           <br> $${a - c}${inc} = ${d - b}$
           `,
