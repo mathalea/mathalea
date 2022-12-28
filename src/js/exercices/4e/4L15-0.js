@@ -13,7 +13,7 @@ export const ref = '4L15-0'
 export default function TrouverErreurResolEqDeg1 () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.debug = true
+  this.debug = false
   this.sup = 1
   if (this.debug) {
     this.nbQuestions = 5
@@ -38,8 +38,7 @@ export default function TrouverErreurResolEqDeg1 () {
 
   this.nouvelleVersion = function () {
     if (this.debug) {
-      // typeDeQuestionsDisponibles = [1, 2, 3, 4, 5]
-      typeDeQuestionsDisponibles = [5]
+      typeDeQuestionsDisponibles = [1, 2, 3, 4, 5]
     } else {
       typeDeQuestionsDisponibles = shuffle([choice([1, 3]), choice([2, 4]), 5])
     };
