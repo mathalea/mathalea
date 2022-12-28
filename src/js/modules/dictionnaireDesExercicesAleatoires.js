@@ -439,7 +439,7 @@ export default {
     "interactifType": "mathLive",
     "name": "1N13",
     "newEx": {
-      "isNew": false,
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -3010,7 +3010,7 @@ export default {
     }
   },
   "3G10-1": {
-    "titre": "Trouver les coordonnées de l'image d'un point par une transformation du plan",
+    "titre": "Trouver les coordonnées de l'image d'un point par une rotation et une homothétie",
     "url": "/exercices/3e/3G10-1.js",
     "amcReady": true,
     "amcType": {
@@ -3024,12 +3024,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3G10-2": {
-    "titre": "Trouver l'image d'un point par une transformation choisie aléatoirement",
+    "titre": "Trouver l'image d'un point par une homothétie ou une rotation",
     "url": "/exercices/3e/3G10-2.js",
     "amcReady": true,
     "amcType": {
@@ -5131,7 +5131,7 @@ export default {
     }
   },
   "4G10-1": {
-    "titre": "Trouver les coordonnées de l'image d'un point par une translation",
+    "titre": "Trouver les coordonnées de l'image d'un point par une translation et une rotation",
     "url": "/exercices/4e/4G10-1.js",
     "amcReady": true,
     "amcType": {
@@ -5145,7 +5145,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -6369,7 +6369,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -6388,7 +6388,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -6450,7 +6450,7 @@ export default {
     }
   },
   "5G12-2": {
-    "titre": "Trouver les symétries successives dans un damiers",
+    "titre": "Trouver les symétries successives dans un damier",
     "url": "/exercices/5e/5G12-2.js",
     "amcReady": true,
     "amcType": {
@@ -12210,6 +12210,21 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "P020",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "beta-2F30-1": {
+    "titre": "Dresser un tableau de variations à partir d'une courbe",
+    "url": "/exercices/beta/beta-2F30-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta-2F30-1",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
