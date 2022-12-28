@@ -39,7 +39,7 @@ export default function TrouverErreurResolEqDeg1 () {
   this.nouvelleVersion = function () {
     if (this.debug) {
       // typeDeQuestionsDisponibles = [1, 2, 3, 4, 5]
-      typeDeQuestionsDisponibles = [1]
+      typeDeQuestionsDisponibles = [2]
     } else {
       typeDeQuestionsDisponibles = shuffle([choice([1, 3]), choice([2, 4]), 5])
     };
@@ -167,7 +167,7 @@ export default function TrouverErreurResolEqDeg1 () {
           err: `L'erreur se situe à l'étape 2.
             <br>${currentGenreEtPrenom.prenom} «${sp(1)}a fait passer${sp(1)}» le terme $${signeDansEq(b).signe} ${b}$ «${sp(1)}de l'autre côté${sp(1)}»
             or pour obtenir une équation équivalente, il s'agit d'opérer de la même manière sur les deux membres de l'équation.
-            <br>Ici il faut ${signeDansEq(b).operation} $${signeDansEq(b).chgt_signe}$ aux deux membres.            
+            <br>Ici il faut ${signeDansEq(b).operationTexte} $${signeDansEq(b).chgt_signe}$ aux deux membres.            
             `,
           eq_corr: `${texteGras('Équation d\'origine : ')} $${a}${inc} ${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}$`,
           eq_corr_et1: `${texteGras('Étape 1 :')} $${miseEnEvidence(signeDansEq(c).operation)}$ $${miseEnEvidence(signeDansEq(c).chgt_signe)}$${texteEnCouleur(`$${inc}$`)} aux deux membres 
