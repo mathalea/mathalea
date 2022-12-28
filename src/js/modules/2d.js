@@ -541,7 +541,7 @@ export function pointIntersectionDD (d, f, nom = '', positionLabel = 'above') {
     // console.log('Les droites sont parallèles, pas de point d\'intersection')
     return false
   } else { y = (f.c * d.a - d.c * f.a) / (f.a * d.b - f.b * d.a) }
-  if (egal(d.a, 0, 6)) { // si d est horizontale alors f ne l'est pas donc f.a<>0
+  if (egal(d.a, 0, 0.01)) { // si d est horizontale alors f ne l'est pas donc f.a<>0
     x = (-f.c - f.b * y) / f.a
   } else { // d n'est pas horizontale donc ...
     x = (-d.c - d.b * y) / d.a
@@ -618,37 +618,39 @@ export function LabelPoint (...points) {
       } else {
         A = unPoint
       }
-      x = A.x
-      y = A.y
-      if (this.positionLabel === '' && unPoint.typeObjet === 'point3d') A.positionLabel = this.positionLabel
-      switch (A.positionLabel) {
-        case 'left':
-          code += texteParPosition(A.nom, x - 10 / coeff, y, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
-          break
-        case 'right':
-          code += texteParPosition(A.nom, x + 10 / coeff, y, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
-          break
-        case 'below':
-          code += texteParPosition(A.nom, x, y - 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
-          break
-        case 'above':
-          code += texteParPosition(A.nom, x, y + 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
-          break
-        case 'above left':
-          code += texteParPosition(A.nom, x - 10 / coeff, y + 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
-          break
-        case 'above right':
-          code += texteParPosition(A.nom, x + 10 / coeff, y + 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
-          break
-        case 'below left':
-          code += texteParPosition(A.nom, x - 10 / coeff, y - 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
-          break
-        case 'below right':
-          code += texteParPosition(A.nom, x + 10 / coeff, y - 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
-          break
-        default:
-          code += texteParPosition(A.nom, x, y, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
-          break
+      if (A.nom !== undefined) {
+        x = A.x
+        y = A.y
+        if (this.positionLabel === '' && unPoint.typeObjet === 'point3d') A.positionLabel = this.positionLabel
+        switch (A.positionLabel) {
+          case 'left':
+            code += texteParPosition(A.nom, x - 10 / coeff, y, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
+            break
+          case 'right':
+            code += texteParPosition(A.nom, x + 10 / coeff, y, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
+            break
+          case 'below':
+            code += texteParPosition(A.nom, x, y - 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
+            break
+          case 'above':
+            code += texteParPosition(A.nom, x, y + 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
+            break
+          case 'above left':
+            code += texteParPosition(A.nom, x - 10 / coeff, y + 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
+            break
+          case 'above right':
+            code += texteParPosition(A.nom, x + 10 / coeff, y + 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
+            break
+          case 'below left':
+            code += texteParPosition(A.nom, x - 10 / coeff, y - 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
+            break
+          case 'below right':
+            code += texteParPosition(A.nom, x + 10 / coeff, y - 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
+            break
+          default:
+            code += texteParPosition(A.nom, x, y, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
+            break
+        }
       }
     }
 
@@ -9400,6 +9402,7 @@ export function TexteParPoint (texte, A, orientation = 'milieu', color = 'black'
   if (typeof texte !== 'string') {
     texte = String(texte)
   }
+  texte = texte.replaceAll('$$', '$') // ça arrive que des fonctions ajoutent des $ alors qu'il y en a déjà...
   if (texte.charAt(0) === '$') {
     A.positionLabel = 'above'
     this.svg = function (coeff) {
@@ -9783,6 +9786,22 @@ export function LatexParCoordonneesBox (texte, x, y, color, largeur, hauteur, co
   let style = ''
   if (options.anchor !== undefined && options.anchor !== '') {
     switch (options.anchor) {
+      case 'center': {
+        let dy = 0
+        if (options.dy === undefined || options.dy === '' || options.dy.indexOf('%') < 0) {
+          dy = 0
+        } else {
+          dy = parseInt(options.dy.substr(0, options.dy.indexOf('%')))
+        }
+        let dx = 0
+        if (options.dx === undefined || options.dx === '' || options.dx.indexOf('%') < 0) {
+          dx = 0
+        } else {
+          dx = parseInt(options.dx.substr(0, options.dx.indexOf('%')))
+        }
+        style = `position:fixed;top: 50%;left: 50%;transform: translate(${-50 + dx}%, ${-50 + dy}%);`
+        break
+      }
       case 'above':
         style = 'position:fixed;bottom:0;'
         break

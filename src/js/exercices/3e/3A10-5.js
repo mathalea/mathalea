@@ -74,7 +74,7 @@ export default function RecourirDecompositionFacteursPremiers () {
     if (this.interactif) this.consigne += '<br>Indiquer les facteurs par ordre croissant.'
     let typesDeQuestionsDisponibles = []
     if (!this.sup) { // Si aucune liste n'est saisie
-      typesDeQuestionsDisponibles = 5
+      typesDeQuestionsDisponibles = [5]
     } else {
       if (typeof (this.sup) === 'number') {
         this.sup = Math.max(Math.min(parseInt(this.sup), 5), 1)

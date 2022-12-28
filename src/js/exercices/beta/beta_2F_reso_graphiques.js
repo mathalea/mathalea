@@ -43,6 +43,7 @@ export default class nomExercice extends Exercice {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       const tabY = []
       let x0 = -3 // on l'initialise pour ne pas qu'il se retrouve undefined par oubli
+      let y = 0 // idem
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case '2solA':// Cas où f croissante puis décroissante avec 2 solutions
           tabY[0] = -5
@@ -52,6 +53,7 @@ export default class nomExercice extends Exercice {
           tabY[4] = tabY[1]
           tabY[5] = tabY[4] - randint(2, 4)
           x0 = randint(-5, -2)
+          y = tabY[1]
           break
       }
       const ymin = min(...tabY, -1)
@@ -66,9 +68,14 @@ export default class nomExercice extends Exercice {
 
       texte += mathalea2d({ xmin: -15, xmax: 15, ymin: -15, ymax: 15 }, r, c)
 
-      const antecedents = f.solve(tabY[1])
-      let texteCorr = `Correction ${i + 1} de type 1 : la liste des antécédents est : `
-      texteCorr += antecedents.length > 0 ? antecedents.reduce((accu, current) => accu + ' ; ' + current) : ''
+      const antecedents = f.solve(y)
+      let texteCorr = `Correction ${i + 1} de type 1 : `
+      if (antecedents.length > 0) {
+        texteCorr += `$${y}$ à comme antécédent${antecedents.length > 1 ? 's' : ''} : `
+        texteCorr += antecedents.reduce((accu, current) => (accu != null ? `$${accu}$` : '') + ' ; ' + `$${current}$`)
+      } else {
+        texteCorr += `$${y}$ n'a pas d'anétécédent sur l'intervalle étudié`
+      }
       texte += texteCorr // sert à voir la correction sans avoir à cliquer (à virer)
       // Si la question n'a jamais été posée, on l'enregistre
       // Ne pas mettre texte (il peut être différent avec les mêmes données à cause des listeners de l'interactif qui sont labelisés de façon unique par question)

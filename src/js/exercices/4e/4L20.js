@@ -5,7 +5,7 @@ import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
 
-export const titre = 'Équation du premier degré'
+export const titre = 'Résoudre une equation du premier degré'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

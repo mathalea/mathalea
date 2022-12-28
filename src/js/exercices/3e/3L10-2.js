@@ -1,8 +1,10 @@
 import OpposeExpression from '../3e/3L10.js'
 
-export const titre = 'Supprimer les parenthèses puis réduire une expression (niveau 2)'
+export const titre = 'Supprimer les parenthèses puis réduire l\'expression (niveau 2)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcType = 'AMCHybride'
+export const amcReady = true
 
 export const dateDePublication = '28/11/2022'
 /**

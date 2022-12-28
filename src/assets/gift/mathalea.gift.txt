@@ -1,5 +1,5 @@
 // Export de Mathalea pour Moodle au format GIFT
-// Créé le 24/12/2022
+// Créé le 28/12/2022
 
 $CATEGORY: Mathalea/1e
 
@@ -1213,7 +1213,7 @@ $CATEGORY: Mathalea/3e
 
 $CATEGORY: Mathalea/3e
 
-:: Mathalea - Supprimer les parenthèses puis réduire une expression (niveau 2) (3L10-2) ::
+:: Mathalea - Supprimer les parenthèses puis réduire l'expression (niveau 2) (3L10-2) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="3L10-2" />
 {
@@ -1224,7 +1224,7 @@ $CATEGORY: Mathalea/3e
 
 $CATEGORY: Mathalea/3e
 
-:: Mathalea - Supprimer les parenthèses puis réduire une expression (3L10) ::
+:: Mathalea - Supprimer les parenthèses puis réduire l'expression (3L10) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="3L10" />
 {
@@ -1312,7 +1312,7 @@ $CATEGORY: Mathalea/3e
 
 $CATEGORY: Mathalea/3e
 
-:: Mathalea - Yohaku multiplicatif expressions littérales niveau 1 (3L11-8) ::
+:: Mathalea - Résoudre un Yohaku multiplicatif expressions littérales niveau 1 (3L11-8) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="3L11-8" />
 {
@@ -1356,7 +1356,7 @@ $CATEGORY: Mathalea/3e
 
 $CATEGORY: Mathalea/3e
 
-:: Mathalea - Équation du premier degré à solutions entières (3L13-0) ::
+:: Mathalea - Résoudre une equation du premier degré à solutions entières (3L13-0) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="3L13-0" />
 {
@@ -1367,7 +1367,7 @@ $CATEGORY: Mathalea/3e
 
 $CATEGORY: Mathalea/3e
 
-:: Mathalea - Équation du premier degré (utilisant la distributivité) (3L13-1) ::
+:: Mathalea - Résoudre une equation du premier degré (utilisant la distributivité) (3L13-1) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="3L13-1" />
 {
@@ -1378,7 +1378,7 @@ $CATEGORY: Mathalea/3e
 
 $CATEGORY: Mathalea/3e
 
-:: Mathalea - Équations résolvantes pour le théorème de Thalès (3L13-2) ::
+:: Mathalea - Résoudre une equation résolvante pour le théorème de Thalès (3L13-2) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="3L13-2" />
 {
@@ -1389,7 +1389,7 @@ $CATEGORY: Mathalea/3e
 
 $CATEGORY: Mathalea/3e
 
-:: Mathalea - Problèmes à mettre en équation et à résoudre (3L13-3) ::
+:: Mathalea - Mettre en équation un problème et le résoudre (3L13-3) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="3L13-3" />
 {
@@ -1400,7 +1400,7 @@ $CATEGORY: Mathalea/3e
 
 $CATEGORY: Mathalea/3e
 
-:: Mathalea - Équation du premier degré (3L13) ::
+:: Mathalea - Résoudre une equation du premier degré (3L13) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="3L13" />
 {
@@ -1620,7 +1620,7 @@ $CATEGORY: Mathalea/4e
 
 $CATEGORY: Mathalea/4e
 
-:: Mathalea - Yohaku multiplicatif nombres relatifs niveau 1 (4C10-8) ::
+:: Mathalea - Résoudre un Yohaku multiplicatif nombres relatifs niveau 1 (4C10-8) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="4C10-8" />
 {
@@ -1631,7 +1631,7 @@ $CATEGORY: Mathalea/4e
 
 $CATEGORY: Mathalea/4e
 
-:: Mathalea - Rose multiplicative relatifs (4C10-9) ::
+:: Mathalea - Résoudre une Rose multiplicative avec des relatifs (4C10-9) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="4C10-9" />
 {
@@ -1697,7 +1697,7 @@ $CATEGORY: Mathalea/4e
 
 $CATEGORY: Mathalea/4e
 
-:: Mathalea - Yohaku additif fractions niveau 1 (4C21-2) ::
+:: Mathalea - Résoudre un Yohaku additif fractions niveau 1 (4C21-2) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="4C21-2" />
 {
@@ -1708,7 +1708,7 @@ $CATEGORY: Mathalea/4e
 
 $CATEGORY: Mathalea/4e
 
-:: Mathalea - Rose additive fractions (4C21-3) ::
+:: Mathalea - Résoudre une Rose additive avec des fractions (4C21-3) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="4C21-3" />
 {
@@ -1752,7 +1752,7 @@ $CATEGORY: Mathalea/4e
 
 $CATEGORY: Mathalea/4e
 
-:: Mathalea - Yohaku multiplicatif fractions niveau 1 (4C22-3) ::
+:: Mathalea - Résoudre un Yohaku multiplicatif fractions niveau 1 (4C22-3) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="4C22-3" />
 {
@@ -1763,7 +1763,7 @@ $CATEGORY: Mathalea/4e
 
 $CATEGORY: Mathalea/4e
 
-:: Mathalea - Rose multiplicative fractions (4C22-4) ::
+:: Mathalea - Résoudre une Rose multiplicative avec des fractions (4C22-4) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="4C22-4" />
 {
@@ -1983,7 +1983,7 @@ $CATEGORY: Mathalea/4e
 
 $CATEGORY: Mathalea/4e
 
-:: Mathalea - Trouver les coordonnée de l'image d'un point par une translation (4G10-1) ::
+:: Mathalea - Trouver les coordonnées de l'image d'un point par une translation (4G10-1) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="4G10-1" />
 {
@@ -2181,7 +2181,7 @@ $CATEGORY: Mathalea/4e
 
 $CATEGORY: Mathalea/4e
 
-:: Mathalea - Yohaku additif expressions littérales niveau 1 (4L10-3) ::
+:: Mathalea - Résoudre un Yohaku additif expressions littérales niveau 1 (4L10-3) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="4L10-3" />
 {
@@ -2192,7 +2192,7 @@ $CATEGORY: Mathalea/4e
 
 $CATEGORY: Mathalea/4e
 
-:: Mathalea - Rose additive littéraux (4L10-4) ::
+:: Mathalea - Résoudre une Rose additive avec calcul littéral (4L10-4) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="4L10-4" />
 {
@@ -2236,7 +2236,7 @@ $CATEGORY: Mathalea/4e
 
 $CATEGORY: Mathalea/4e
 
-:: Mathalea - Équation du premier degré à solutions entières (4L20-0) ::
+:: Mathalea - Résoudre une equation du premier degré à solutions entières (4L20-0) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="4L20-0" />
 {
@@ -2247,7 +2247,7 @@ $CATEGORY: Mathalea/4e
 
 $CATEGORY: Mathalea/4e
 
-:: Mathalea - Équation du premier degré (4L20) ::
+:: Mathalea - Résoudre une equation du premier degré (4L20) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="4L20" />
 {
@@ -2379,7 +2379,7 @@ $CATEGORY: Mathalea/5e
 
 $CATEGORY: Mathalea/5e
 
-:: Mathalea - Trouver les coordonnée de l'image d'un point par une symétrie centrale (5G11-4) ::
+:: Mathalea - Trouver les coordonnées de l'image d'un point par une symétrie centrale (5G11-4) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="5G11-4" />
 {
@@ -2390,7 +2390,7 @@ $CATEGORY: Mathalea/5e
 
 $CATEGORY: Mathalea/5e
 
-:: Mathalea - Trouver les coordonnée de l'image d'un point par une symétrie axiale ou centrale (5G11-5) ::
+:: Mathalea - Trouver les coordonnées de l'image d'un point par une symétrie axiale ou centrale (5G11-5) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="5G11-5" />
 {
@@ -2720,7 +2720,7 @@ $CATEGORY: Mathalea/5e
 
 $CATEGORY: Mathalea/5e
 
-:: Mathalea - Yohaku additif nombres relatifs niveau 1 (5R20-6) ::
+:: Mathalea - Résoudre un Yohaku additif nombres relatifs niveau 1 (5R20-6) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="5R20-6" />
 {
@@ -2731,7 +2731,7 @@ $CATEGORY: Mathalea/5e
 
 $CATEGORY: Mathalea/5e
 
-:: Mathalea - Rose additive relatifs (5R20-7) ::
+:: Mathalea - Résoudre une Rose additive avec des relatifs (5R20-7) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="5R20-7" />
 {
@@ -2819,7 +2819,7 @@ $CATEGORY: Mathalea/5e
 
 $CATEGORY: Mathalea/6e
 
-:: Mathalea - Rose additive (6C10-0) ::
+:: Mathalea - Résoudre une Rose additive (6C10-0) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="6C10-0" />
 {
@@ -2874,7 +2874,7 @@ $CATEGORY: Mathalea/6e
 
 $CATEGORY: Mathalea/6e
 
-:: Mathalea - Rose multiplicative (6C10-6) ::
+:: Mathalea - Résoudre une Rose multiplicative (6C10-6) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="6C10-6" />
 {
@@ -2885,7 +2885,7 @@ $CATEGORY: Mathalea/6e
 
 $CATEGORY: Mathalea/6e
 
-:: Mathalea - Yohaku additif niveau 1 (6C10-7a) ::
+:: Mathalea - Résoudre un Yohaku additif niveau 1 (6C10-7a) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="6C10-7a" />
 {
@@ -2896,7 +2896,7 @@ $CATEGORY: Mathalea/6e
 
 $CATEGORY: Mathalea/6e
 
-:: Mathalea - Yohaku multiplicatif niveau 1 (6C10-7b) ::
+:: Mathalea - Résoudre un Yohaku multiplicatif niveau 1 (6C10-7b) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="6C10-7b" />
 {
@@ -4828,17 +4828,6 @@ $CATEGORY: Mathalea/c3
     =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
     #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
     <mathalea-moodle ex\="c3C31" correction />
-}
-
-$CATEGORY: Mathalea/c3
-
-:: Mathalea - Course aux nombres CM1 (c3C3CaN) ::
-<script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
-<mathalea-moodle ex\="c3C3CaN" />
-{
-    =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
-    #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
-    <mathalea-moodle ex\="c3C3CaN" correction />
 }
 
 $CATEGORY: Mathalea/c3
@@ -9052,6 +9041,17 @@ $CATEGORY: Mathalea/can/c3
     =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
     #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
     <mathalea-moodle ex\="canc3N06" correction />
+}
+
+$CATEGORY: Mathalea/can/c3
+
+:: Mathalea - Course aux nombres CM1 (canc3a) ::
+<script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+<mathalea-moodle ex\="canc3a" />
+{
+    =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
+    #### <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
+    <mathalea-moodle ex\="canc3a" correction />
 }
 
 $CATEGORY: Mathalea/techno1

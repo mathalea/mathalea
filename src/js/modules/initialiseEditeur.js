@@ -1,7 +1,7 @@
 import { engrenage, polygoneATrous, semiEllipse, diagrammeBarres, axeY, texteParPointEchelle, motifs, nomVecteurParPosition, point, tracePoint, tracePointSurDroite, milieu, pointSurSegment, pointSurCercle, pointSurDroite, pointIntersectionDD, pointAdistance, labelPoint, barycentre, droite, droiteParPointEtVecteur, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, droiteHorizontaleParPoint, droiteVerticaleParPoint, droiteParPointEtPente, mediatrice, codageMediatrice, codageMilieu, codageBissectrice, bissectrice, polyline, pave, vecteur, segment, segmentAvecExtremites, demiDroite, polygone, polygoneAvecNom, polygoneRegulier, carre, codageCarre, polygoneRegulierParCentreEtRayon, triangle2points2longueurs, triangle2points2angles, triangle2points1angle1longueur, triangle2points1angle1longueurOppose, nommePolygone, deplaceLabel, aireTriangle, cercle, ellipse, pointIntersectionLC, pointIntersectionCC, cercleCentrePoint, arc, arcPointPointAngle, traceCompas, dansLaCibleCarree, dansLaCibleRonde, cibleCarree, cibleRonde, cibleCouronne, translation, translation2Points, rotation, sensDeRotation, homothetie, symetrieAxiale, distancePointDroite, projectionOrtho, affiniteOrtho, similitude, medianeTriangle, centreGraviteTriangle, hauteurTriangle, codageHauteurTriangle, codageMedianeTriangle, orthoCentre, centreCercleCirconscrit, codageAngleDroit, afficheLongueurSegment, texteSurSegment, afficheMesureAngle, afficheCoteSegment, codageSegment, codageSegments, codageAngle, nomAngleSaillantParPosition, nomAngleRentrantParPosition, droiteGraduee, axes, labelY, grille, lignesHorizontales, lignesVerticales, seyes, repere, pointDansRepere, traceGraphiqueCartesien, traceBarre, traceBarreHorizontale, lectureImage, lectureAntecedent, courbe, courbeInterpolee, graphiqueInterpole, imageInterpolee, antecedentInterpole, crochetD, crochetG, intervalle, texteParPoint, texteParPosition, latexParPoint, latexParCoordonnees, longueur, norme, angle, angleOriente, angleradian, labyrinthe, tableau, glisseNombre, boite, plot, papierPointe, traceMilieuSegment, positionLabelDroite, texteSurArc, cone, diagrammeCirculaire } from './2d.js'
 import { sensDeRotation3d, cube, cube3d, plaque3d, paveLPH3d, barre3d, point3d, vecteur3d, arete3d, droite3d, demicercle3d, cercle3d, polygone3d, sphere3d, cylindre3d, pyramide3d, prisme3d, pave3d, rotationV3d, rotation3d, translation3d, homothetie3d, CodageAngleDroit3D, cone3d } from './3d.js'
 import { pointCliquable } from './2dinteractif.js'
-import { randint, texNombre, nombreDecimal, calcul } from './outils.js'
+import { randint, texNombre, nombreDecimal, calcul, couleurAleatoire } from './outils.js'
 import { fraction } from './fractions.js'
 import { context } from './context.js'
 import { calcule } from './fonctionsMaths.js'
@@ -202,6 +202,7 @@ export default function InitialiseEditeur () {
   window.cone = cone
   window.pave = pave
   window.colorToLatexOrHTML = colorToLatexOrHTML
+  window.couleurAleatoire = couleurAleatoire
 
   // La 3d
   window.sensDeRotation3d = sensDeRotation3d
@@ -281,6 +282,7 @@ export default function InitialiseEditeur () {
     polyline: window.polyline,
     pave: window.pave,
     colorToLatexOrHTML: window.colorToLatexOrHTML,
+    couleurAleatoire: window.couleurAleatoire,
     vecteur: window.vecteur,
     segment: window.segment,
     segmentAvecExtremites: window.segmentAvecExtremites,
@@ -416,6 +418,7 @@ export default function InitialiseEditeur () {
     diagrammeBarres: window.diagrammeBarres,
     diagrammeCirculaire: window.diagrammeCirculaire,
     axeY: window.axeY,
+    axes: window.axes,
 
     // 3d
     sensDeRotation3d: window.sensDeRotation3d,

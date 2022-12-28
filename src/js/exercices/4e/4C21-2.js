@@ -1,5 +1,5 @@
 import FabriqueAYohaku from '../6e/_Yohaku.js'
-export const titre = 'Yohaku additif fractions niveau 1'
+export const titre = 'Résoudre un Yohaku additif fractions niveau 1'
 export const dateDePublication = '10/08/2022'
 export { interactifReady, interactifType } from '../6e/_Yohaku.js'
 

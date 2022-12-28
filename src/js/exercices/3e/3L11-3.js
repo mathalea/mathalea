@@ -12,8 +12,7 @@ export const amcReady = true
 /**
 * Utiliser la simple ou la double distributivité et réduire l'expression
 *
-* @author Rémi Angot
-* 3L11-3
+* @author Rémi Angot (Amélioration AMC par Eric Elter)
 */
 export const uuid = '82313'
 export const ref = '3L11-3'
@@ -113,15 +112,18 @@ export default function DistributiviteSimpleDoubleReduction () {
       }
       if (!context.isAmc && this.interactif) {
         setReponse(this, i, reponse)
-        texte += `<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur75 inline')
+        texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')) : ''
       } else {
         this.autoCorrection[i] = {
-          enonce: texte,
+          enonce: '',
+          enonceAvant: false,
+          options: { multicols: true, barreseparation: true },
           propositions: [
             {
               type: 'AMCOpen',
               propositions: [{
                 texte: texteCorr,
+                enonce: texte + '<br>',
                 statut: 3
               }]
             },
