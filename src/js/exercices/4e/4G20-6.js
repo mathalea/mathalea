@@ -11,7 +11,7 @@ export const amcType = 'AMCHybride'
 
 /**
  * Encadrer une racine carrée et en donner une valeur approchée
- * @author Guillaume Valmont
+ * @author Guillaume Valmont  (Amélioration AMC par Eric Elter)
  * Référence 4G20-6
  * Date de publication : 08/08/2021
 */
@@ -107,12 +107,14 @@ export default function CalculValeurApprocheeRacineCarree () {
         if (context.isAmc) {
           if (listeAvecOuSansCalculatrice[i] === 'avec') {
             this.autoCorrection[i] = {
-              enonce: `À l'aide de la calculatrice, donner un encadrement de $\\sqrt{${a}}$ ${type} près puis la valeur arrondie ${type} près: \\\\`,
+              enonce: '',
+              enonceAvant: false,
               propositions: [
                 {
                   type: 'AMCOpen',
                   propositions: [{
                     texte: texteCorr,
+                    enonce: `À l'aide de la calculatrice, donner un encadrement de $\\sqrt{${a}}$ ${type} près puis la valeur arrondie ${type} près: \\\\`,
                     statut: 1
                   }]
                 },
@@ -137,12 +139,14 @@ export default function CalculValeurApprocheeRacineCarree () {
             }
           } else {
             this.autoCorrection[i] = {
-              enonce: `Sans utiliser de calculatrice, encadrer $\\sqrt{${a}}$ entre deux nombres entiers.\\\\`,
+              enonce: '',
+              enonceAvant: false,
               propositions: [
                 {
                   type: 'AMCOpen',
                   propositions: [{
                     texte: texteCorr,
+                    enonce: `Sans utiliser de calculatrice, encadrer $\\sqrt{${a}}$ entre deux nombres entiers.\\\\`,
                     statut: 2
                   }]
                 },

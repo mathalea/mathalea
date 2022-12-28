@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { randint, choice, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, ecritureParentheseSiMoins, lettreDepuisChiffre, listeQuestionsToContenuSansNumero, sp } from '../../modules/outils.js'
+import { randint, choice, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, ecritureParentheseSiMoins, lettreDepuisChiffre, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -8,6 +8,8 @@ export const titre = 'Utiliser la simple distributivité'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcType = 'AMCHybride'
+export const amcReady = true
 
 /**
  * Développer en utilisant la distributivité simple
@@ -27,7 +29,7 @@ export const interactifType = 'mathLive'
  * * 3 : Multiplication par un facteur relatif et les termes sont relatifs
  * *
  * * Refactoring 21/12/2012
- * @author Rémi Angot et Mickael Guironnet
+ * @author Rémi Angot et Mickael Guironnet (AMC par Eric Elter)
  * 4L10 et 3L11
  */
 export const uuid = '77a62'
@@ -74,7 +76,7 @@ export default function ExerciceDevelopper () {
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
-    for (let i = 0, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, reponse, reponse1, reponse2, reponse3, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const typesDeQuestions = listeTypeDeQuestions[i]
       const k = randint(2, 11) * (this.sup === 3 ? choice([-1, 1]) : 1)
       const a = randint(1, 9, [Math.abs(k)]) * (this.sup >= 2 ? choice([-1, 1]) : 1)
@@ -86,50 +88,68 @@ export default function ExerciceDevelopper () {
           // ne pas écrire 1x
           texte = `$${lettreDepuisChiffre(i + 1)}=${k}(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})$<br>
-          $\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}\\times ${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}$`
+          $${lettreDepuisChiffre(i + 1)}=${k}\\times ${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}$`
           reponse = `${k * a}${inconnue}${ecritureAlgebrique(k * b)}`
           texteCorr += `<br>Et si on réduit l'expression, on obtient : <br> $${lettreDepuisChiffre(i + 1)}=${reponse}$.`
+          reponse1 = 0
+          reponse2 = k * a
+          reponse3 = k * b
           break
         case '(ax+b)×k':
           texte = `$${lettreDepuisChiffre(i + 1)}=(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiNegatif(k)}$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiNegatif(k)}$<br>
-          $\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}\\times ${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}$`
+          $${lettreDepuisChiffre(i + 1)}=${k}\\times ${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}$`
           reponse = `${k * a}${inconnue}${ecritureAlgebrique(k * b)}`
           texteCorr += `<br>Et si on réduit l'expression, on obtient : <br> $${lettreDepuisChiffre(i + 1)}=${reponse}$.`
+          reponse1 = 0
+          reponse2 = k * a
+          reponse3 = k * b
           break
         case '(ax+b)×kx':
           texte = `$${lettreDepuisChiffre(i + 1)}=(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiMoins(k + inconnue)}$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiMoins(k + inconnue)}$<br>
-          $\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}${inconnue}\\times ${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiMoins(k + inconnue)}\\times${ecritureParentheseSiNegatif(b)}$`
+          $${lettreDepuisChiffre(i + 1)}=${k}${inconnue}\\times ${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiMoins(k + inconnue)}\\times${ecritureParentheseSiNegatif(b)}$`
           reponse = `${k * a}${inconnue}^2${ecritureAlgebrique(k * b)}${inconnue}`
           texteCorr += `<br>Et si on réduit l'expression, on obtient : <br> $${lettreDepuisChiffre(i + 1)}=${reponse}$.`
+          reponse1 = k * a
+          reponse2 = k * b
+          reponse3 = 0
           break
         case 'kx(ax+b)':
           texte = `$${lettreDepuisChiffre(i + 1)}=${k}${inconnue}(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}${inconnue}(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})$<br>
-          $\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}${inconnue}\\times ${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)} + ${ecritureParentheseSiMoins(k + inconnue)}\\times ${ecritureParentheseSiNegatif(b)}$`
+          $${lettreDepuisChiffre(i + 1)}=${k}${inconnue}\\times ${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)} + ${ecritureParentheseSiMoins(k + inconnue)}\\times ${ecritureParentheseSiNegatif(b)}$`
           reponse = `${k * a}${inconnue}^2${ecritureAlgebrique(k * b)}${inconnue}`
           texteCorr += `<br>Et si on réduit l'expression, on obtient : <br> $${lettreDepuisChiffre(i + 1)}=${reponse}$.`
+          reponse1 = k * a
+          reponse2 = k * b
+          reponse3 = 0
           break
         case 'k(ax+b)+c':
           texte = `$${lettreDepuisChiffre(i + 1)}=${k}(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})${ecritureAlgebrique(c)}$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})${ecritureAlgebrique(c)}$<br>
-          $\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}\\times${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}${ecritureAlgebrique(c)}$`
+          $${lettreDepuisChiffre(i + 1)}=${k}\\times${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}${ecritureAlgebrique(c)}$`
           reponse = `${k * a}${inconnue}${ecritureAlgebrique(k * b)}${ecritureAlgebrique(c)} = ${k * a}${inconnue}${ecritureAlgebrique(k * b + c)}`
           texteCorr += `<br>Et si on réduit l'expression, on obtient : <br> $${lettreDepuisChiffre(i + 1)}=${reponse}$.`
           if (this.sup2 === 1) {
             reponse = [`${k * a}${inconnue}${ecritureAlgebrique(k * b)}${ecritureAlgebrique(c)}`, `${k * a}${inconnue}${ecritureAlgebrique(k * b + c)}`]
           }
+          reponse1 = 0
+          reponse2 = k * a
+          reponse3 = k * b + c
           break
         case 'c+k(ax+b)':
           texte = `$${lettreDepuisChiffre(i + 1)}=${c}${ecritureAlgebrique(k)}(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${c}${ecritureAlgebrique(k)}(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})$<br>
-          $\\phantom{${lettreDepuisChiffre(i + 1)}}=${c}${ecritureAlgebrique(k)}\\times${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}$`
+          $${lettreDepuisChiffre(i + 1)}=${c}${ecritureAlgebrique(k)}\\times${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}$`
           reponse = `${c}${ecritureAlgebrique(k * a)}${inconnue}${ecritureAlgebrique(k * b)} = ${k * a}${inconnue}${ecritureAlgebrique(k * b + c)}`
           texteCorr += `<br>Et si on réduit l'expression, on obtient : <br> $${lettreDepuisChiffre(i + 1)}=${reponse}$.`
           if (this.sup2 === 1) {
             reponse = [`${k * a}${inconnue}${ecritureAlgebrique(k * b)}${ecritureAlgebrique(c)}`, `${k * a}${inconnue}${ecritureAlgebrique(k * b + c)}`]
           }
+          reponse1 = 0
+          reponse2 = k * a
+          reponse3 = k * b + c
           break
       }
       if (this.sup2 === 1) {
@@ -137,7 +157,76 @@ export default function ExerciceDevelopper () {
       } else {
         setReponse(this, i, reponse, { formatInteractif: 'formeDeveloppee' })
       }
-      texte += ajouteChampTexteMathLive(this, i, 'inline largeur 75 nospacebefore', { texte: `$${sp(3)} =$` })
+      if (!context.isAmc) {
+        texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')) : ''
+      } else {
+        this.autoCorrection[i] = {
+          enonce: '',
+          enonceAvant: false,
+          options: { multicols: true, barreseparation: true },
+          propositions: [
+            {
+              type: 'AMCOpen',
+              propositions: [{
+                texte: texteCorr,
+                enonce: texte + '<br>',
+                statut: 4
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: 'valeur de $a$ dans $ax^2+bx+c$',
+                  valeur: reponse1,
+                  param: {
+                    digits: 2,
+                    decimals: 0,
+                    signe: true,
+                    approx: 0
+                  }
+                }
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: 'valeur de $b$ dans $ax^2+bx+c$',
+                  valeur: reponse2,
+                  param: {
+                    digits: 2,
+                    decimals: 0,
+                    signe: true,
+                    approx: 0
+                  }
+                }
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: 'valeur de $c$ dans $ax^2+bx+c$',
+                  valeur: reponse3,
+                  param: {
+                    digits: 2,
+                    decimals: 0,
+                    signe: true,
+                    approx: 0
+                  }
+                }
+              }]
+            }
+          ]
+        }
+      }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre

@@ -5,7 +5,7 @@ import { arrondi, choice, combinaisonListes, ecritureAlgebrique, listeQuestionsT
 import { aleaVariables, resoudre } from '../../modules/outilsMathjs.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-export const titre = 'Problèmes à mettre en équation et à résoudre'
+export const titre = 'Mettre en équation un problème et le résoudre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

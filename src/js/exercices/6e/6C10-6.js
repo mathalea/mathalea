@@ -1,5 +1,5 @@
 import { ExoRose } from './_Roses.js'
-export const titre = 'Rose multiplicative'
+export const titre = 'Résoudre une Rose multiplicative'
 export { interactifReady, interactifType } from './_Roses.js'
 export const dateDePublication = '12/08/2022'
 /**
