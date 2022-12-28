@@ -17,7 +17,7 @@ export const interactifType = 'mathLive'
 
 /**
  * Exercices sur le théorème de Pythagore avec MathALEA2D
- * @author Rémi Angot (Factorisation de la rédaction de Pythagore par Eric Elter)
+ * @author Rémi Angot (Factorisation de la rédaction de Pythagore par Eric Elter )
  * 4G20
  */
 export const uuid = 'bd660'
@@ -206,7 +206,7 @@ export default function Pythagore2D () {
           redaction = RedactionPythagore(A.nom, C.nom, B.nom, false, reponse, longueurAB, longueurBC)
         }
         texteCorr = redaction[0]
-        texteCorr += this.interactif ? (`$${redaction[1]}$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')) : ''
+        texte += this.interactif ? (`$${A.nom + C.nom} ${redaction[1]}$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore unites[longueurs]')) : ''
         context.isAmc ? setReponse(this, i, reponse) : setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'unites', precision: 0.001 })
 
         if (context.isAmc) {
@@ -214,6 +214,22 @@ export default function Pythagore2D () {
           this.autoCorrection[i].enonce = 'Calculer la longueur manquante.\\\\' + texte
         }
       } else {
+        reponse = []
+        const hypotenuse = [`${B.nom + C.nom}^2`, `${C.nom + B.nom}^2`]
+        const cote1 = [`${B.nom + A.nom}^2`, `${A.nom + B.nom}^2`]
+        const cote2 = [`${C.nom + A.nom}^2`, `${A.nom + C.nom}^2`]
+        for (let j = 0; j < 2; j++) {
+          for (let k = 0; k < 2; k++) {
+            for (let m = 0; m < 2; m++) {
+              reponse.push(hypotenuse[j] + '=' + cote1[k] + '+' + cote2[m])
+              reponse.push(hypotenuse[j] + '=' + cote2[m] + '+' + cote1[k])
+              reponse.push(cote1[k] + '+' + cote2[m] + '=' + hypotenuse[j])
+              reponse.push(cote2[m] + '+' + cote1[k] + '=' + hypotenuse[j])
+            }
+          }
+        }
+
+        setReponse(this, i, reponse)
         texte += ajouteChampTexteMathLive(this, i)
       }
 

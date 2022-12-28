@@ -3830,6 +3830,7 @@ export function pointIntersectionCC (c1, c2, nom = '', n = 1) {
   const xiPrime = x2 - rx
   const yi = y2 + ry
   const yiPrime = y2 - ry
+  console.log('toto')
   if (n === 1) {
     if (yiPrime > yi) {
       return point(xiPrime, yiPrime, nom)
@@ -4125,10 +4126,10 @@ export function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'non
  * @param {string} [color = 'black'] Couleur de l'arc ou 'none' : du type 'blue' ou du type '#f15929'
  * @param {number} [opaciteDeRemplissage = 0.2] Opacité de remplissage de 0 à 1.
  * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none' : du type 'blue' ou du type '#f15929' Si 'none', pas de hachures.
- * @example arc(M,0,35)
-  // Trace l'arc en noir de centre 0, d'extrémité M et d'angle orienté 35° (sans remplissage et sans hachures)
+ * @example arc(M,O,35)
+  // Trace l'arc en noir de centre O, d'extrémité M et d'angle orienté 35° (sans remplissage et sans hachures)
  * @example arc(M,O,true,-40,'red','green',0.8,'white')
-  // Trace l'arc en vert de centre 0, d'extrémité M et d'angle orienté -40°, rempli en rouge à 80 %, avec des hachures blanches
+  // Trace l'arc en vert de centre O, d'extrémité M et d'angle orienté -40°, rempli en rouge à 80 %, avec des hachures blanches
  * @return {Arc}
  * @author Jean-Claude Lhote
  */
@@ -4158,7 +4159,7 @@ export function arcPointPointAngle (M, N, angle, rayon = false, couleurDeRemplis
   let anglerot
   if (angle < 0) anglerot = (angle + 180) / 2
   else anglerot = (angle - 180) / 2
-  const d = mediatrice(M, N, 'black')
+  const d = mediatrice(M, N)
   d.isVisible = false
   const e = droite(N, M)
   e.isVisible = false
@@ -4168,7 +4169,7 @@ export function arcPointPointAngle (M, N, angle, rayon = false, couleurDeRemplis
   const Omegax = (d.b * f.c - f.b * d.c) / determinant
   const Omegay = (f.a * d.c - d.a * f.c) / determinant
   const Omega = point(Omegax, Omegay)
-  return new Arc(M, Omega, angle, rayon, couleurDeRemplissage, color, opaciteDeRemplissage)
+  return new Arc(M, Omega, angle, rayon, couleurDeRemplissage, color, opaciteDeRemplissage, couleurDesHachures)
 }
 
 /**
@@ -5225,7 +5226,7 @@ export function rotation (A, O, angle, nom = '', positionLabel = 'above', color 
   if (A.constructor === Droite) {
     const M = rotation(point(A.x1, A.y1), O, angle)
     const N = rotation(point(A.x2, A.y2), O, angle)
-    return droite(M, N, color)
+    return droite(M, N, '', color)
   }
   if (A.constructor === Segment) {
     const M = rotation(A.extremite1, O, angle)
