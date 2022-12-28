@@ -618,37 +618,39 @@ export function LabelPoint (...points) {
       } else {
         A = unPoint
       }
-      x = A.x
-      y = A.y
-      if (this.positionLabel === '' && unPoint.typeObjet === 'point3d') A.positionLabel = this.positionLabel
-      switch (A.positionLabel) {
-        case 'left':
-          code += texteParPosition(A.nom, x - 10 / coeff, y, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
-          break
-        case 'right':
-          code += texteParPosition(A.nom, x + 10 / coeff, y, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
-          break
-        case 'below':
-          code += texteParPosition(A.nom, x, y - 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
-          break
-        case 'above':
-          code += texteParPosition(A.nom, x, y + 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
-          break
-        case 'above left':
-          code += texteParPosition(A.nom, x - 10 / coeff, y + 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
-          break
-        case 'above right':
-          code += texteParPosition(A.nom, x + 10 / coeff, y + 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
-          break
-        case 'below left':
-          code += texteParPosition(A.nom, x - 10 / coeff, y - 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
-          break
-        case 'below right':
-          code += texteParPosition(A.nom, x + 10 / coeff, y - 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
-          break
-        default:
-          code += texteParPosition(A.nom, x, y, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
-          break
+      if (A.nom !== undefined) {
+        x = A.x
+        y = A.y
+        if (this.positionLabel === '' && unPoint.typeObjet === 'point3d') A.positionLabel = this.positionLabel
+        switch (A.positionLabel) {
+          case 'left':
+            code += texteParPosition(A.nom, x - 10 / coeff, y, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
+            break
+          case 'right':
+            code += texteParPosition(A.nom, x + 10 / coeff, y, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
+            break
+          case 'below':
+            code += texteParPosition(A.nom, x, y - 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
+            break
+          case 'above':
+            code += texteParPosition(A.nom, x, y + 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
+            break
+          case 'above left':
+            code += texteParPosition(A.nom, x - 10 / coeff, y + 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
+            break
+          case 'above right':
+            code += texteParPosition(A.nom, x + 10 / coeff, y + 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
+            break
+          case 'below left':
+            code += texteParPosition(A.nom, x - 10 / coeff, y - 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
+            break
+          case 'below right':
+            code += texteParPosition(A.nom, x + 10 / coeff, y - 10 / coeff, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
+            break
+          default:
+            code += texteParPosition(A.nom, x, y, 'milieu', this.color[0], this.taille / 10, 'middle', true).svg(coeff) + '\n'
+            break
+        }
       }
     }
 
