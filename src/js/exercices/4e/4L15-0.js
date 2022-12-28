@@ -13,7 +13,7 @@ export const ref = '4L15-0'
 export default function TrouverErreurResolEqDeg1 () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.debug = false
+  this.debug = true
   this.sup = 1
   if (this.debug) {
     this.nbQuestions = 5
@@ -306,11 +306,11 @@ export default function TrouverErreurResolEqDeg1 () {
           question: '',
           correction: `
         ${situations[k].err}
-        ${texteGras('=== Voici une proposition de résolution détaillée : ===')}         
-        ${situations[k].eq_corr}
-        ${situations[k].eq_corr_et1}
-        ${situations[k].eq_corr_et2}
-        ${situations[k].eq_corr_et3}
+        <br>${texteGras('=== Voici une proposition de résolution détaillée : ===')}         
+        <br>${situations[k].eq_corr}
+        <br>${situations[k].eq_corr_et1}
+        <br>${situations[k].eq_corr_et2}
+        <br>${situations[k].eq_corr_et3}
         `
         })
       };
