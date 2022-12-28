@@ -9400,6 +9400,7 @@ export function TexteParPoint (texte, A, orientation = 'milieu', color = 'black'
   if (typeof texte !== 'string') {
     texte = String(texte)
   }
+  texte = texte.replaceAll('$$', '$') // ça arrive que des fonctions ajoutent des $ alors qu'il y en a déjà...
   if (texte.charAt(0) === '$') {
     A.positionLabel = 'above'
     this.svg = function (coeff) {

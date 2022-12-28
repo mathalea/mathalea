@@ -7,6 +7,9 @@ import Alea2iep from '../../modules/Alea2iep.js'
 import { rotationAnimee, symetrieAnimee, translationAnimee } from '../../modules/2dAnimation.js'
 
 export const titre = 'Tranformations de triangle'
+/**
+ * @author Liouba Leroux & Jean-Claude Lhote
+ */
 export const uuid = '0da6a'
 export const ref = '4G15'
 export default function TransformationsDeTriangle () {
@@ -46,8 +49,10 @@ export default function TransformationsDeTriangle () {
     const objetsCorrection = [] // Idem pour la correction
 
     let texteCorr = '' // Idem pour le texte de la correction.
-    let largeur = 20; let hauteur = 20
-    let A, B, C, triangle, triangle0, O, M, X, Y, triangle1, A1, B1, C1, d1, triangle2, med, D, F, triangle3, triangle4, triangle5, traces, labels
+    let largeur = 20
+    let hauteur = 20
+    let A, B, C, triangle, triangle0, O, M, X, Y, triangle1, A1, B1, C1, d1, triangle2, med, D, F, triangle3, triangle4,
+      triangle5, traces, labels
     let xMin, xMax, yMin, yMax
     let alpha, beta
     const anim = new Alea2iep()
@@ -124,10 +129,22 @@ export default function TransformationsDeTriangle () {
     anim.couleur = 'black'
     anim.traitRapide(X, Y)
     anim.textePoint('(d)', milieu(B, B1))
-    anim.symetrieAxialePolygone(triangle0, med, ['A_1', 'B_1', 'C_1'], { couleur: 'blue', couleurCodage: 'lightblue' })
-    anim.demiTourPolygone(triangle2, D, ['A_2', 'B_2', 'C_2'], { couleur: 'red', couleurCodage: 'pink' })
-    anim.translationPolygone(triangle3, D, F, ['A_3', 'B_3', 'C_3'], { couleur: 'brown', couleurCodage: '#f15929' })
-    anim.rotationPolygone(triangle4, F, alpha, ['A_4', 'B_4', 'C_4'], { couleur: 'green', couleurCodage: 'lightgreen' })
+    anim.symetrieAxialePolygone(triangle0, med, ['A_1', 'B_1', 'C_1'], {
+      couleur: 'blue',
+      couleurCodage: 'lightblue'
+    })
+    anim.demiTourPolygone(triangle2, D, ['A_2', 'B_2', 'C_2'], {
+      couleur: 'red',
+      couleurCodage: 'pink'
+    })
+    anim.translationPolygone(triangle3, D, F, ['A_3', 'B_3', 'C_3'], {
+      couleur: 'brown',
+      couleurCodage: '#f15929'
+    })
+    anim.rotationPolygone(triangle4, F, alpha, ['A_4', 'B_4', 'C_4'], {
+      couleur: 'green',
+      couleurCodage: 'lightgreen'
+    })
     anim.crayonMasquer()
 
     context.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
@@ -137,29 +154,39 @@ export default function TransformationsDeTriangle () {
     // paramètres de la fenêtre Mathalea2d pour l'énoncé main levée
     //    paramsEnonceml = { xmin: Math.min(objetsEnonceml.x), ymin: Math.min(objetsEnonceml.y), xmax: Math.max(objetsEnonceml.x), ymax: Math.max(objetsEnonceml.y), pixelsParCm: 20, scale: 1, mainlevee: true, amplitude: 1 }
     // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
-    const paramsEnonce = { xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 1, mainlevee: false }
+    const paramsEnonce = {
+      xmin: xMin,
+      ymin: yMin,
+      xmax: xMax,
+      ymax: yMax,
+      pixelsParCm: 20,
+      scale: 1,
+      mainlevee: false
+    }
     // paramètres de la fenêtre Mathalea2d pour la correction
-    const paramsCorrection = { xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 1 }
+    const paramsCorrection = {
+      xmin: xMin,
+      ymin: yMin,
+      xmax: xMax,
+      ymax: yMax,
+      pixelsParCm: 20,
+      scale: 1
+    }
     // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
     texte += mathalea2d(paramsEnonce, objetsEnonce)
     // On ajoute au texte de la correction, la figure de la correction
     texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
-    texteCorr += '<br>'
-    texteCorr += `<button class="ui mini compact button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}A').beginElement()"><i class="redo circle icon"></i>symétrie axiale</button>`
-    texteCorr += `<button class="ui mini compact button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}B').beginElement()"><i class="redo circle icon"></i>symétrie centrale</button>`
-    texteCorr += `<button class="ui mini compact button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}C').beginElement()"><i class="redo circle icon"></i>translation</button>`
-    texteCorr += `<button class="ui mini compact button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}D').beginElement()"><i class="redo circle icon"></i>rotation</button>`
+    if (context.isHtml) {
+      texteCorr += '<br>'
+      texteCorr += `<button class="ui mini compact button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}A').beginElement()"><i class="redo circle icon"></i>symétrie axiale</button>`
+      texteCorr += `<button class="ui mini compact button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}B').beginElement()"><i class="redo circle icon"></i>symétrie centrale</button>`
+      texteCorr += `<button class="ui mini compact button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}C').beginElement()"><i class="redo circle icon"></i>translation</button>`
+      texteCorr += `<button class="ui mini compact button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}D').beginElement()"><i class="redo circle icon"></i>rotation</button>`
 
-    texteCorr += anim.html(numeroExercice)
+      texteCorr += anim.html(numeroExercice)
+    }
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
-  // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
-  // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
-
-  // this.besoinFormulaireNumerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
-  //  this.besoinFormulaire2Numerique = ["Type de cahier",3,`1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`];
-  // this.besoinFormulaire3CaseACocher =['figure à main levée',true]
-} // Fin de l'exercice.
+}

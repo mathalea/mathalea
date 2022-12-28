@@ -194,7 +194,7 @@ export default function TrouverLaTransformations () {
       objetsCorrection.push(transfos[i].animation)
     }
 
-    const paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.7 }
+    const paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.6 }
     const paramsCorrection = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.6 }
     for (let i = 0, texte, texteCorr, propositions, trans; i < this.nbQuestions; i++) {
       propositions = []
@@ -241,8 +241,8 @@ export default function TrouverLaTransformations () {
       this.listeCorrections.push(texteCorr)
     }
     listeQuestionsToContenu(this)
-    this.contenu = deuxColonnes(this.contenu, mathalea2d(paramsEnonce, objetsEnonce), 50)
-    this.contenuCorrection = deuxColonnes(this.contenuCorrection, mathalea2d(paramsCorrection, objetsCorrection), 50)
+    this.contenu = deuxColonnes(this.contenu, mathalea2d(paramsEnonce, objetsEnonce), 45)
+    this.contenuCorrection = deuxColonnes(this.contenuCorrection, mathalea2d(paramsCorrection, objetsCorrection), 45)
   }
   this.besoinFormulaireNumerique = ['Types de transformations possibles', 3, '1 : Symétries axiales et centrales\n2 : Symétries et translations\n3 : Symétries, translations et quarts de tour']
 }
