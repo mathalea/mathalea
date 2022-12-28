@@ -75,7 +75,8 @@ export default function ProblemesGrandeursComposees () {
       }
     }
 
-    const listeIndex = combinaisonListes(grandeurs, this.nbQuestions)
+    // const listeIndex = combinaisonListes(grandeurs, this.nbQuestions)
+    const listeIndex = grandeurs
     let typeAide = 1
     if (!context.isHtml) typeAide = 0
     const solutes = [
@@ -208,11 +209,11 @@ export default function ProblemesGrandeursComposees () {
           nbheures = randint(dureeMax / 4, dureeMax, [1])
           duree = nbheures + nbQuartsDHeures * 0.25
           prixkWh = calcul(randint(0, 5) / 100 + 0.14)
-          texte = `L'étiquette apposée au dos d'un ${appareil} indique une puissance de ${puissance} Watts. On le fait fonctionner pendant ${Math.floor(
+          texte = `L'étiquette apposée au dos d'un ${appareil} indique une puissance de $${texNombre(puissance)}$ Watts. On le fait fonctionner pendant $${Math.floor(
             duree
-          )} heures `
-          if (nbQuartsDHeures !== 0) { texte += `et ${nbQuartsDHeures * 15} minutes` }
-          texte += `.<br>Le prix d'un kWh est de $${texNombre(
+          )}$ heures `
+          if (nbQuartsDHeures !== 0) { texte += `et $${nbQuartsDHeures * 15}$ minutes` }
+          texte += `.<br>Le prix d'un kWh est de $${texPrix(
             prixkWh
           , 2)}$ €.<br>`
           if (context.isHtml) {
@@ -225,17 +226,17 @@ export default function ProblemesGrandeursComposees () {
               numeroExercice + i + 1,
               typeAide,
               'énergie',
-              'Définition : énergie (grandeur physique)',
-              'C\'est le produit de la puissance électrique (Watt) par le temps (s) et se mesure en Joule (J).<br>1 J=1 W × 1 s.<br>Cependant pour mesurer des énergies plus importantes on utilise plutôt le kiloWattheure (kWh).<br>1 kWh=1000 W × 1 h.'
+              'Définition : Énergie (grandeur physique)',
+              'C\'est le produit de la puissance électrique (Watt) par le temps (s) et se mesure en Joules (J).<br>1 J = 1 W × 1 s<br>Cependant, pour mesurer des énergies plus importantes, on utilise plutôt le kiloWattheure (kWh).<br>1 kWh = 1000 W × 1 h'
             ) +
             ' consommée.<br>'
           texte += numAlpha(1) + ' Calculer la dépense correspondante.'
           texteCorr =
             numAlpha(0) +
-            ` Un ${appareil} d'une puissance de ${puissance} Watts qui fonctionne pendant ${Math.floor(
+            ` Un ${appareil} d'une puissance de $${texNombre(puissance)}$ Watts qui fonctionne pendant $${Math.floor(
               duree
-            )} heures `
-          if (nbQuartsDHeures !== 0) { texteCorr += `et ${nbQuartsDHeures * 15} minutes` }
+            )}$ heures `
+          if (nbQuartsDHeures !== 0) { texteCorr += `et $${nbQuartsDHeures * 15}$ minutes` }
           texteCorr += ' consomme : <br>'
           if (nbQuartsDHeures !== 0) {
             texteCorr += `$${nbheures}\\text{ h } ${nbQuartsDHeures * 15
@@ -252,21 +253,19 @@ export default function ProblemesGrandeursComposees () {
             puissance / 1000
           )}\\text{ kW}\\times${texNombre(duree)}\\text{ h}=${texNombre(
             calcul(puissance * duree * 0.001)
-          )}\\text{ kWh}.$<br>`
+          )}\\text{ kWh}$<br>`
           texteCorr +=
             numAlpha(1) +
-            ` Le prix de cette énergie consommée est : $${texNombre(
+            ` Le prix de cette énergie consommée est : $${texPrix(
               prixkWh
-            )}$ €$\\text{ /kWh} \\times${texNombre(
+            )}$ €$\\text{/kWh} \\times${texNombre(
               calcul(puissance * duree * 0.001)
             )}\\text{ kWh}`
           if (!((prixkWh * puissance * duree) / 10 === Math.round((prixkWh * puissance * duree) / 10))) {
-            texteCorr += `\\approx${texNombre(((prixkWh * puissance) / 1000) * duree, 2)}$ €`
+            texteCorr += `\\approx${texPrix(((prixkWh * puissance) / 1000) * duree)}$ €.`
           } else {
-            texteCorr += `=${texNombre(
-              ((prixkWh * puissance) / 1000) * duree,
-              2
-            )}$ €`
+            texteCorr += `=${texPrix(
+              ((prixkWh * puissance) / 1000) * duree)}$ €.`
           }
           break
         case 2: // problèmes de volumes
@@ -279,8 +278,8 @@ export default function ProblemesGrandeursComposees () {
               l = 5 + randint(0, 5)
               L = l * 2 + randint(0, 4) * 2
               deltaT = randint(2, 5)
-              texte = `Une piscine a la forme d'un prisme droit. La profondeur à son extrémité nord est de ${h1} cm et la profondeur à son extrémité sud est de ${h2} cm.<br>`
-              texte += `D'une extrémité à l'autre la pente au fond de la piscine est régulière.<br>La largeur de la piscine (Est-Ouest) est de ${l} m et sa longueur (Nord-Sud) est de ${L} m.<br>`
+              texte = `Une piscine a la forme d'un prisme droit. La profondeur à son extrémité nord est de $${h1}$ cm et la profondeur à son extrémité sud est de $${h2}$ cm.<br>`
+              texte += `D'une extrémité à l'autre, la pente au fond de la piscine est régulière.<br>La largeur de la piscine (Est-Ouest) est de $${l}$ m et sa longueur (Nord-Sud) est de $${L}$ m.<br>`
               texte +=
                 numAlpha(0) +
                 ' Calculer le ' +
@@ -288,22 +287,22 @@ export default function ProblemesGrandeursComposees () {
                   numeroExercice + i * 3,
                   typeAide,
                   'volume',
-                  'Définition : volume (grandeur physique)',
-                  `C'est le produit de trois longueurs ou le produit d'une aire et d'une longueur.<br>L'unité de mesure du volume est le mètre cube (m${texteExposant(
+                  'Définition : Volume (grandeur physique)',
+                  `C'est le produit de trois longueurs ou le produit d'une aire et d'une longueur.<br>L'unité de mesure du volume est le mètre-cube (m${texteExposant(
                     3
                   )}) mais on peut aussi rencontrer le litre (L) avec comme correspondance 1dm${texteExposant(
                     3
-                  )}=1L`
+                  )} = 1L.`
                 ) +
                 ` d'eau en m${texteExposant(
                   3
                 )} contenu dans cette piscine quand elle est pleine.<br>`
               texte +=
                 numAlpha(1) +
-                ` Sachant que pour élever la température d'un litre d'eau de 1 degré, il faut une énergie de 1,162 Wattheure.<br> Quelle est l'énergie consommée en kWh pour augmenter de ${deltaT} degrés ?<br>`
+                ` Sachant que pour élever la température d'un litre d'eau de 1 degré, il faut une énergie de $${texNombre(1.162)}$ Wattheure, quelle est l'énergie consommée en kWh pour augmenter la température de la piscine de $${deltaT}$ degrés ?<br>`
               texteCorr =
                 numAlpha(0) +
-                ` La base de ce prisme droit est un trapèze rectangle de petite base ${h2} cm, de grande base ${h1} cm et de hauteur ${L} m.<br>`
+                ` La base de ce prisme droit est un trapèze rectangle de petite base $${h2}$ cm, de grande base $${h1}$ cm et de hauteur $${L}$ m.<br>`
               texteCorr += `$\\mathcal{A}=\\dfrac{\\left(${h1}\\text{ cm}+${h2}\\text{ cm}\\right)}{2}\\times${L}\\text{ m}$`
               texteCorr += ` $=\\dfrac{\\left(${texNombre(
                 h1 / 100, 2
@@ -318,14 +317,14 @@ export default function ProblemesGrandeursComposees () {
               )}\\text{ m}\\times${L}\\text{ m}$`
               texteCorr += ` $=${texNombre(
                 ((h1 + h2) / 200) * L, 2
-              )}\\text{ m}$${texteExposant(2)}<br>`
-              texteCorr += 'Le volume de ce prisme et donc par extension le volume d\'eau conteu dans la piscine est :<br>'
+              )}\\text{ m}^2$<br>`
+              texteCorr += 'Le volume de ce prisme, et donc, par extension, le volume d\'eau contenu dans la piscine, est :<br>'
               texteCorr += `$\\mathcal{A}\\times\\mathcal{h}=${texNombre(
                 ((h1 + h2) / 200) * L, 2
               )}\\text{ m}^2\\times${l}\\text{ m}$`
               texteCorr += ` $=${texNombre(
                 ((h1 + h2) / 200) * L * l, 2
-              )}$m${texteExposant(3)}.<br>`
+              )}\\text{ m}^3$.<br>`
               texteCorr +=
                 numAlpha(1) +
                 ` Convertissons le volume de la piscine en litres : $${texNombre(
@@ -335,7 +334,7 @@ export default function ProblemesGrandeursComposees () {
                 )}\\text{ dm}^3=${texNombre(
                   (h1 + h2) * L * l * 5
                 )}\\text{ L}$<br>`
-              texteCorr += ` L'énergie consomée pour élever la température de l'eau de cette piscine de ${deltaT} degrés est :<br>`
+              texteCorr += ` L'énergie consommée pour élever la température de l'eau de cette piscine de $${deltaT}$ degrés est :<br>`
               texteCorr += `$\\mathcal{E}=${texNombre(
                 (h1 + h2) * L * l * 5
               )}\\text{ L}\\times${deltaT}\\text{ °C}\\times 1,162 \\dfrac{\\text{Wh}}{\\text{°C}\\times\\text{L}}=${texNombre(
@@ -348,7 +347,7 @@ export default function ProblemesGrandeursComposees () {
               index2 = randint(0, 5)
               r = randint(10, 15) * 2
               h = randint(0, 10) + r * 4
-              texte = `Un tonneau cylindrique a un rayon de ${r} cm et une hauteur de ${h} cm.<br>`
+              texte = `Un tonneau cylindrique a un rayon de $${r}$ cm et une hauteur de $${h}$ cm.<br>`
               texte +=
                 numAlpha(0) +
                 ' Calculer le ' +
@@ -356,10 +355,10 @@ export default function ProblemesGrandeursComposees () {
                   numeroExercice + i * 3,
                   typeAide,
                   'volume',
-                  'Définition : volume (grandeur physique)',
-                  'C\'est le produit de trois longueurs ou le produit d\'une aire et d\'une longueur.<br>L\'unité de mesure du volume est le mètre cube ($\\text{m}^3$) mais on peut aussi rencontrer le litre (L) avec comme correspondance $\\text{1dm}^3=\\text{1L}$'
+                  'Définition : Volume (grandeur physique)',
+                  'C\'est le produit de trois longueurs ou le produit d\'une aire et d\'une longueur.<br>L\'unité de mesure du volume est le mètre-cube ($\\text{m}^3$) mais on peut aussi rencontrer le litre (L) avec comme correspondance $\\text{1dm}^3 = \\text{1L}.$'
                 ) +
-                ` en dm${texteExposant(3)} à 0,1 près de ce tonneau.<br>`
+                ` en dm${texteExposant(3)} à $${texNombre(0.1)}$ près de ce tonneau.<br>`
               texte +=
                 numAlpha(1) +
                 ` Si on le remplit ${liquides[index2][0]} (dont la ` +
@@ -367,15 +366,15 @@ export default function ProblemesGrandeursComposees () {
                   numeroExercice + i * 3,
                   typeAide,
                   'densité',
-                  'Définition : densité (grandeur physique)',
-                  'La densité d\'une substance est égale à la masse volumique de la substance divisée par la masse volumique du corps de référence à la même température.<br>Pour les liquides et les solides, l\'eau est utilisée comme référence (sa masse volumique est de 1kg/dm$^3$), pour les gaz, la mesure s\'effectue par rapport à l\'air.<br>Donc pour les liquides, la densité est égale à la masse volumique exprimée en kg/dm$^3$.'
+                  'Définition : Densité (grandeur physique)',
+                  'La densité d\'une substance est égale à la masse volumique de la substance divisée par la masse volumique du corps de référence à la même température.<br>Pour les liquides et les solides, l\'eau est utilisée comme référence (sa masse volumique est de 1 kg/dm$^3$), pour les gaz, la mesure s\'effectue par rapport à l\'air.<br>Donc pour les liquides, la densité est égale à la masse volumique exprimée en kg/dm$^3$.'
                 ) +
-                ` est de $${texNombrec(liquides[index2][1])} $kg/dm$^3$), quelle masse ${liquides[index2][0]
+                ` est de $${texNombrec(liquides[index2][1])}$ kg/dm$^3$), quelle masse ${liquides[index2][0]
                 } en kg contiendra-t-il au gramme près ?<br>`
               texteCorr =
                 numAlpha(0) +
-                ` Le volume d'un cylindre est donné par la formule $\\mathcal{A}\\text{ire de base}\\times\\mathcal{h}$.<br> Ici la base est un disque de rayon ${r} cm.<br>`
-              texteCorr += `$\\mathcal{A}\\text{ire de base}\\times\\mathcal{h}=\\pi\\times${r}^{2}\\text{ cm}^2\\times${h}\\text{ cm}=${r * r * h
+                ` Le volume d'un cylindre est donné par la formule $\\mathcal{A}\\text{ire de base}\\times\\mathcal{h}$.<br> Ici, la base est un disque de rayon $${r}$ cm.<br>`
+              texteCorr += `$\\mathcal{A}\\text{ire de base}\\times\\mathcal{h}=\\pi\\times${r}^{2}\\text{ cm}^2\\times${h}\\text{ cm}=${texNombre(r * r * h)
                 }\\pi\\text{ cm}^3\\approx${texNombre(
                   arrondi(r * r * h * Math.PI, 1)
                 )}\\text{ cm}^3\\approx${texNombre(
@@ -388,9 +387,9 @@ export default function ProblemesGrandeursComposees () {
                 arrondi((r * r * h * Math.PI) / 1000, 1)
               )}\\text{ dm}^3\\times ${texNombrec(
                 liquides[index2][1]
-              )} \\times 1 \\dfrac{kg}{dm^3}\\approx${texNombre(
+              )} \\dfrac{kg}{dm^3}\\approx${texNombre(
                 arrondi(((r * r * h * Math.PI) / 1000) * liquides[index2][1], 3)
-              )}\\text{ kg}$`
+              )}\\text{ kg}.$`
               break
           }
           break
@@ -406,10 +405,10 @@ export default function ProblemesGrandeursComposees () {
               typeAide,
               'vitesse',
               'Définition : Vitesse (grandeur physique)',
-              'La vitesse est le quotient de la distance parcourue par le temps de parcours.<br>L\'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$)'
+              'La vitesse est le quotient de la distance parcourue par le temps de parcours.<br>L\'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$).'
             ) +
-            ` de $${texNombrec(vitesseMoy)}$ m/s.<br>`
-          texte += `Elle pèse $${masse}$ kg.<br>`
+            ` de $${texNombrec(vitesseMoy)}\\text{ m/s}$.<br>`
+          texte += `Elle pèse $${masse}\\text{ kg}$.<br>`
           texte +=
             numAlpha(0) +
             ' Calculer sa ' +
@@ -417,8 +416,8 @@ export default function ProblemesGrandeursComposees () {
               numeroExercice + i * 3 + 1,
               typeAide,
               'quantité de mouvement',
-              'Définition : quantité de mouvement (grandeur physique)',
-              'C\'est le produit de la masse d\'un corps par sa vitesse.<br>L\'unité de mesure de la quantité de mouvement est le ($\\text{kg.m.s}^{-1}$)'
+              'Définition : Quantité de mouvement (grandeur physique)',
+              'C\'est le produit de la masse d\'un corps par sa vitesse.<br>L\'unité de mesure de la quantité de mouvement est le $\\text{kg.m.s}^{-1}$.'
             ) +
             ' en $\\text{kg.m.s}^{-1}$.<br>'
           texte +=
@@ -428,20 +427,20 @@ export default function ProblemesGrandeursComposees () {
               numeroExercice + i * 3 + 2,
               typeAide,
               'énergie cinétique',
-              'Définition : énergie cinétique (grandeur physique)',
-              'L\'énergie cinétique d\'un corps de masse $m$ (en kg) assimilé à un point matériel se déplaçant à la vitesse $v$ (en m/s) est donné par la formule $E=\\dfrac{1}{2}\\times m\\times v^2$.<br>L\'unité de mesure de l\'énergie cinétique est le Joule (J).<br>$1J=1\\text{ kg.m}^2\\text{s}^{-2}$.'
+              'Définition : Énergie cinétique (grandeur physique)',
+              'L\'énergie cinétique d\'un corps de masse $m$ (en kg) assimilé à un point matériel se déplaçant à la vitesse $v$ (en m/s) est donné par la formule <br>$E=\\dfrac{1}{2}\\times m\\times v^2$.<br>L\'unité de mesure de l\'énergie cinétique est le Joule (J).<br>$1J = 1\\text{ kg.m}^2\\text{s}^{-2}$'
             ) +
             ' en Joules.'
           texteCorr =
             numAlpha(0) +
             ` La quantité de mouvement de ${quidam} est : $${masse} \\text{ kg}\\times ${vitesseMoy}\\text{ m/s}=${texNombrec(
               masse * vitesseMoy
-            )}\\text{ kg.m.s}^{-1}$<br>`
+            )}\\text{ kg.m.s}^{-1}$.<br>`
           texteCorr +=
             numAlpha(1) +
             ` L'énergie cinétique de ${quidam} est : $\\dfrac{1}{2}\\times ${masse} \\text{ kg}\\times (${vitesseMoy}\\text{ m/s})^2=\\dfrac{${masse}\\times${vitesseMoy}^2}{2}\\text{ J}=${texNombrec(
               (masse * vitesseMoy ** 2) / 2
-            )}\\text{ J}$`
+            )}\\text{ J}$.`
           break
         case 4: // problème de moment et de couple de forces qui s'annulent.
           quidam = prenom()
