@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { splineCatmullRom } from '../../modules/fonctionsMaths.js'
-import { courbe, repere } from '../../modules/2d.js'
+import { courbe, repere, segmentAvecExtremites } from '../../modules/2d.js'
 import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
 import { max, min } from 'mathjs'
 
@@ -53,6 +53,15 @@ export default class nomExercice extends Exercice {
           tabY[5] = tabY[4] - randint(2, 4)
           x0 = randint(-5, -2)
           break
+        case '1solA':// Cas où f croissante puis décroissante avec 2 solutions
+          tabY[0] = -5
+          tabY[1] = tabY[0] + randint(1, 3)
+          tabY[2] = tabY[1] + randint(3, 9)
+          tabY[3] = min(tabY[2] + randint(2, 5), 5)
+          tabY[4] = max(tabY[3] - randint(2, 8), tabY[1] + 1)
+          tabY[5] = tabY[4] + randint(2, 4)
+          x0 = randint(-5, -2)
+          break
       }
       const ymin = min(...tabY, -1)
       const ymax = max(...tabY, 1)
@@ -63,19 +72,24 @@ export default class nomExercice extends Exercice {
       const F = x => f.image(x) // On crée une fonction de x f.image(x) est une fonction polynomiale par morceaux utilisée dans courbeSpline()
       // const c = courbeSpline(f, { repere: r, step: 0.1 }) // Une première façon de tracer la courbe.
       const c = courbe(F, { repere: r, step: 0.1, color: 'red', epaisseur: 5 }) // F peut ainsi être utilisée dans courbe.
-      const k=tabY[1]
+      const k = tabY[1]
       const g = x => k
-      
+      const fleches = []
+
       const cg = courbe(g, { repere: r, step: 0.1, color: 'blue', epaisseur: 3 })
       texte += mathalea2d({ xmin: -15, xmax: 15, ymin: -15, ymax: 15 }, r, c)
 
       const antecedents = f.solve(tabY[1])
-      let texteCorr = `Les solutions de l'équation $f(x)=${tabY[1]}$ sont les abscisses des points de la courbe d'ordonnées  ${tabY[1]}. <br>`
-      texteCorr += `Pour les déterminer, il suffit de tracer la droite d'équation $y= ${tabY[1]}$, c'est à dire la droite horizontale d'ordonnée à l'origine  ${tabY[1]}<br>`
-      texteCorr += mathalea2d({ xmin: -15, xmax: 15, ymin: -15, ymax: 15 }, r, c, cg)
+      for (let pas = 0; pas < antecedents.length; pas++) {
+        fleches[pas] = segmentAvecExtremites(antecedents, 0, antecedents, k, 'blue')
+      }
+      let texteCorr = `Lire graphiquement les solutions de l'équation $f(x)=${tabY[1]}$ c'est déterminer les abscisses des points de la courbe d'ordonnées.  ${tabY[1]}. <br>`
+      texteCorr += `Pour les déterminer, il suffit de tracer la droite d'équation $y= ${tabY[1]}$, c'est à dire la droite horizontale d'ordonnée à l'origine.  ${tabY[1]}<br>`
+      texteCorr += 'On lit alors les abscisses des points d\'intersection comme illustré sur le graphique.'
+      texteCorr += mathalea2d({ xmin: -15, xmax: 15, ymin: -10, ymax: 10 }, r, c, cg, ...fleches)
       texteCorr += '$S=\\{$'
       texteCorr += antecedents.length > 0 ? antecedents.reduce((accu, current) => accu + ' ; ' + current) : ''
-      texteCorr +='$\\}$'
+      texteCorr += '$\\}$'
 
       // Si la question n'a jamais été posée, on l'enregistre
       // Ne pas mettre texte (il peut être différent avec les mêmes données à cause des listeners de l'interactif qui sont labelisés de façon unique par question)
