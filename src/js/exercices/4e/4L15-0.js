@@ -39,7 +39,7 @@ export default function TrouverErreurResolEqDeg1 () {
   this.nouvelleVersion = function () {
     if (this.debug) {
       // typeDeQuestionsDisponibles = [1, 2, 3, 4, 5]
-      typeDeQuestionsDisponibles = [4]
+      typeDeQuestionsDisponibles = [5]
     } else {
       typeDeQuestionsDisponibles = shuffle([choice([1, 3]), choice([2, 4]), 5])
     };
@@ -276,12 +276,12 @@ export default function TrouverErreurResolEqDeg1 () {
             `,
           eq_corr: `${texteGras('Équation d\'origine : ')} $${a}${inc} ${signeDansEq(b).signe} ${b} = ${c}${inc} ${signeDansEq(d).signe} ${d} $`,
           eq_corr_et1: `          ${texteGras('Étape 1 :')} $${miseEnEvidence(signeDansEq(c).operation)}$ $${miseEnEvidence(signeDansEq(c).chgt_signe)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)} aux deux membres 
-          <br> $${a}${inc} ${miseEnEvidence(signeDansEq(-c).signe)} ${miseEnEvidence(-c)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)} $${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc} ${miseEnEvidence(signeDansEq(-c).signe)} ${miseEnEvidence(-c)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)}
+          <br> $${a}${inc} ${miseEnEvidence(signeDansEq(-c).signe)}\\,${miseEnEvidence(-c)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)} $${signeDansEq(b).signe}\\,${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}\\,${miseEnEvidence(signeDansEq(-c).signe)}\\,${miseEnEvidence(-c)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)}
           <br>${texteGras('Étape 2 : ')} On réduit.
           <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b} = ${d}$
           `, // l'erreur est là, on passe de l'autre côté d'où l'oubli du chgt de signe
           eq_corr_et2: `          ${texteGras('Étape 3 :')} $${miseEnEvidence(signeDansEq(b).operation)}$ $${miseEnEvidence(signeDansEq(b).chgt_signe)}$ aux deux membres 
-          <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b} ${miseEnEvidence(signeDansEq(-b).signe)} ${miseEnEvidence(-b)} = ${d} ${miseEnEvidence(signeDansEq(-b).signe)} ${miseEnEvidence(-b)}$
+          <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b}\\,${miseEnEvidence(signeDansEq(-b).signe)}\\,${miseEnEvidence(-b)} = ${d}\\,${miseEnEvidence(signeDansEq(-b).signe)}\\,${miseEnEvidence(-b)}$
           <br>${texteGras('Étape 4 : ')} Réduction à nouveau.
           <br> $${a - c}${inc} = ${d - b}$
           `,
