@@ -140,9 +140,9 @@ export default function ResoudreGraphFonctionRef () {
             if (choix === true) { texteCorr += `${graphiqueCO}<br>` } else { texteCorr += `    ${graphiqueCF}<br>` }
 
             if (a === 1 || a === 4 || a === 9 || a === 16 || a === 25) {
-              texteCorr += `Comme $\\sqrt{${a}}=${arrondi(Math.sqrt(a), 0)}$, l'ensemble des solutions de l'inéquation $x^2${choix ? '<' : ' \\leqslant '}${a}$ est :
+              texteCorr += `Comme la fonction carré est définie sur $\\mathbb{R}$ et que $\\sqrt{${a}}=${arrondi(Math.sqrt(a), 0)}$, l'ensemble des solutions de l'inéquation $x^2${choix ? '<' : ' \\leqslant '}${a}$ est :
             ${choix ? `$S=]-${arrondi(Math.sqrt(a), 0)}\\,;\\,${arrondi(Math.sqrt(a), 0)}[$.` : `$S=[-${arrondi(Math.sqrt(a), 0)}\\,;\\,${arrondi(Math.sqrt(a), 0)}]$.`} `
-            } else { texteCorr += `    L'ensemble des solutions de l'inéquation $x^2${choix ? '<' : ' \\leqslant '}${a}$ est : ${choix ? `$S=]-\\sqrt{${a}}\\,;\\,\\sqrt{${a}}[$` : `$S=[-\\sqrt{${a}}\\,;\\,\\sqrt{${a}}]$`}.` }
+            } else { texteCorr += `Comme la fonction carré est définie sur $\\mathbb{R}$, l'ensemble des solutions de l'inéquation $x^2${choix ? '<' : ' \\leqslant '}${a}$ est : ${choix ? `$S=]-\\sqrt{${a}}\\,;\\,\\sqrt{${a}}[$` : `$S=[-\\sqrt{${a}}\\,;\\,\\sqrt{${a}}]$`}.` }
           }
           break
 
@@ -249,9 +249,9 @@ export default function ResoudreGraphFonctionRef () {
             if (choix === true) { texteCorr += `${graphiqueCO}<br>` } else { texteCorr += `    ${graphiqueCF}<br>` }
 
             if (a === 1 || a === 4 || a === 9 || a === 16 || a === 25) {
-              texteCorr += `Comme $\\sqrt{${a}}=${arrondi(Math.sqrt(a), 0)}$, l'ensemble des solutions de l'inéquation $x^2${choix ? '>' : ' \\geqslant '}${a}$ est :
+              texteCorr += `Comme la fonction carré est définie sur $\\mathbb{R}$ et que $\\sqrt{${a}}=${arrondi(Math.sqrt(a), 0)}$, l'ensemble des solutions de l'inéquation $x^2${choix ? '>' : ' \\geqslant '}${a}$ est :
             ${choix ? `$S=]-\\infty\\,;\\,-${arrondi(Math.sqrt(a), 0)}[\\cup ]${arrondi(Math.sqrt(a), 0)}\\,;\\, +\\infty[$.` : `$S=]-\\infty\\,;\\,-${arrondi(Math.sqrt(a), 0)}]\\cup [${arrondi(Math.sqrt(a), 0)}\\,;\\, +\\infty[$.`} `
-            } else { texteCorr += `    L'ensemble des solutions de l'inéquation $x^2${choix ? '>' : ' \\geqslant '}${a}$ est : ${choix ? `$S=]-\\infty\\,;\\,-\\sqrt{${a}}[\\cup ]\\sqrt{${a}}\\,;\\, +\\infty[$` : `$S=]-\\infty\\,;\\,-\\sqrt{${a}}]\\cup [\\sqrt{${a}}\\,;\\, +\\infty[$`}.` }
+            } else { texteCorr += `Comme la fonction carré est définie sur $\\mathbb{R}$, l'ensemble des solutions de l'inéquation $x^2${choix ? '>' : ' \\geqslant '}${a}$ est : ${choix ? `$S=]-\\infty\\,;\\,-\\sqrt{${a}}[\\cup ]\\sqrt{${a}}\\,;\\, +\\infty[$` : `$S=]-\\infty\\,;\\,-\\sqrt{${a}}]\\cup [\\sqrt{${a}}\\,;\\, +\\infty[$`}.` }
           }
           break
 
@@ -406,11 +406,11 @@ export default function ResoudreGraphFonctionRef () {
             $\\bullet$    Les solutions de l'inéquation sont les abscisses des points de la courbe qui se situent ${choix ? 'strictement en dessous de' : ' sur ou sous '} la droite.<br>`
             if (a > 0) {
               if (choix === true) { texteCorr += `${graphiqueCO1}<br>` } else { texteCorr += `    ${graphiqueCF1}<br>` }
-              texteCorr += `Comme $0$ est une valeur interdite, l'ensemble des solutions de l'inéquation $\\dfrac{1}{x}${choix ? '<' : ' \\leqslant '}${a}$ est :
+              texteCorr += `Comme la fonction inverse est définie sur $\\mathbb{R}^*$, $0$ est une valeur interdite et donc l'ensemble des solutions de l'inéquation $\\dfrac{1}{x}${choix ? '<' : ' \\leqslant '}${a}$ est :
             ${choix ? `$S=]-\\infty\\,;\\,0[\\cup\\left]\\dfrac{1}{${a}}\\,;\\,+\\infty\\right[$.` : `$S=]-\\infty\\,;\\,0[\\cup\\left[\\dfrac{1}{${a}}\\,;\\,+\\infty\\right[$.`} `
             } else {
               if (choix === true) { texteCorr += `${graphiqueCO2}<br>` } else { texteCorr += `    ${graphiqueCF2}<br>` }
-              texteCorr += `Comme  $0$ est une valeur interdite, l'ensemble des solutions de l'inéquation $\\dfrac{1}{x}${choix ? '<' : ' \\leqslant '}${a}$ est :
+              texteCorr += `Comme la fonction inverse est définie sur $\\mathbb{R}^*$, $0$ est une valeur interdite et donc l'ensemble des solutions de l'inéquation $\\dfrac{1}{x}${choix ? '<' : ' \\leqslant '}${a}$ est :
               ${choix ? `$S=\\left]-\\dfrac{1}{${-a}}\\,;\\,0\\right[$.` : `$S=\\left[-\\dfrac{1}{${-a}}\\,;\\,0\\right[$.`} `
             }
           }
@@ -569,11 +569,11 @@ export default function ResoudreGraphFonctionRef () {
             $\\bullet$    Les solutions de l'inéquation sont les abscisses des points de la courbe qui se situent ${choix ? 'strictement au dessus de' : ' sur ou au dessus de '} la droite.<br>`
             if (a > 0) {
               if (choix === true) { texteCorr += `${graphiqueCO1}<br>` } else { texteCorr += `    ${graphiqueCF1}<br>` }
-              texteCorr += `Comme $0$ est une valeur interdite, l'ensemble des solutions de l'inéquation $\\dfrac{1}{x}${choix ? '>' : ' \\geqslant '}${a}$ est :
+              texteCorr += `Comme la fonction inverse est définie sur $\\mathbb{R}^*$, $0$ est une valeur interdite et donc l'ensemble des solutions de l'inéquation $\\dfrac{1}{x}${choix ? '>' : ' \\geqslant '}${a}$ est :
             ${choix ? `$S=\\left]0\\,;\\,\\dfrac{1}{${a}}\\right[$.` : `$S=\\left]0\\,;\\,\\dfrac{1}{${a}}\\right]$.`} `
             } else {
               if (choix === true) { texteCorr += `${graphiqueCO2}<br>` } else { texteCorr += `    ${graphiqueCF2}<br>` }
-              texteCorr += `Comme  $0$ est une valeur interdite, l'ensemble des solutions de l'inéquation $\\dfrac{1}{x}${choix ? '>' : ' \\geqslant '}${a}$ est :
+              texteCorr += `Comme la fonction inverse est définie sur $\\mathbb{R}^*$, $0$ est une valeur interdite et donc l'ensemble des solutions de l'inéquation $\\dfrac{1}{x}${choix ? '>' : ' \\geqslant '}${a}$ est :
               ${choix ? `$S=\\left]-\\infty\\,;\\,-\\dfrac{1}{${-a}}\\right[\\cup ]0\\,;\\,+\\infty[$.` : `$S=\\left]-\\infty\\,;\\,-\\dfrac{1}{${-a}}\\right]\\cup ]0\\,;\\,+\\infty[$.`} `
             }
           }
@@ -767,7 +767,7 @@ export default function ResoudreGraphFonctionRef () {
             $\\bullet$  Les solutions de l'inéquation sont les abscisses des points de la courbe qui se situent ${choix ? 'strictement au dessus de' : ' sur ou au dessus de'} la droite.<br>`
             if (choix === true) { texteCorr += `${graphiqueCO}<br>` } else { texteCorr += `    ${graphiqueCF}<br>` }
 
-            texteCorr += `L'ensemble des solutions de l'inéquation $\\sqrt{x}${choix ? '>' : ' \\geqslant '}${a}$ est :
+            texteCorr += `Comme la fonction racine carrée est définie sur $[0\\,;\\,+\\infty[$, l'ensemble des solutions de l'inéquation $\\sqrt{x}${choix ? '>' : ' \\geqslant '}${a}$ est :
             ${choix ? `$S=]${a ** 2}\\,;\\,+\\infty[$.` : `$S=[${a ** 2}\\,;\\,+\\infty[$.`} `
           }
           break
