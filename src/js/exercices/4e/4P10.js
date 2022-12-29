@@ -18,7 +18,7 @@ import {
   katexPopup2,
   numAlpha,
   contraindreValeur,
-  egalOuApprox, stringNombre
+  egalOuApprox, stringNombre, sp
 } from '../../modules/outils.js'
 import { round } from 'mathjs'
 export const titre = 'Résoudre des problèmes de grandeurs composées et de conversion d\'unités complexes'
@@ -684,17 +684,17 @@ export default function ProblemesGrandeursComposees () {
                   typeAide,
                   'vitesse',
                   'Définition : Vitesse (grandeur physique)',
-                  'La vitesse est le quotient de la distance parcourue par le temps de parcours.<br>L\'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$)'
+                  'La vitesse est le quotient de la distance parcourue par le temps de parcours.<br>L\'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$).'
                 ) +
-                ' de 340 m/s.<br>'
+                ' de $340\\text{ m/s}$.<br>'
               texte +=
                 numAlpha(0) +
-                ` ${quidam} voit un éclair dans le ciel et compte dans sa tête ${duree} secondes avant d'entendre le tonnerre.<br>`
-              texte += 'Quelle est la distance à laquelle l\'éclair est tombé ?<br>'
+                ` ${quidam} voit un éclair dans le ciel et compte dans sa tête $${duree}$ secondes avant d'entendre le tonnerre.<br>`
+              texte += `À quelle la distance de ${quidam}, l'éclair est-il tombé ?<br>`
               texte +=
                 numAlpha(1) +
                 ' L\'éclair suivant tombe sur le paratonnerre situé sur le clocher de l\'église du village voisin.<br>'
-              texte += `${quidam} sait que le clocher est situé à ${distance} m de sa position. Combien de temps se passe-t-il avant que ${quidam} n'entende le tonnerre ?`
+              texte += `${quidam} sait que le clocher est situé à $${texNombre(distance)}$ m de sa position. Combien de temps se passe-t-il avant que ${quidam} n'entende le tonnerre ?`
               texteCorr =
                 numAlpha(0) +
                 ' Calculons la distance à laquelle le premier éclair est tombé en utilisant la vitesse du son (on considère que la vitesse de la lumière est telle que l\'éclair est visible instantanément) :<br>'
@@ -702,25 +702,25 @@ export default function ProblemesGrandeursComposees () {
                 duree
               )}\\times 340\\text{ m}}{${miseEnEvidence(
                 duree
-              )}\\times 1\\text{ s}}=\\dfrac{${stringNombre(
+              )}\\times 1\\text{ s}}=\\dfrac{${texNombre(
                 duree * 340
               , 0)}\\text{ m}}{${duree}\\text{ s}}$<br>`
-              texteCorr += `La distance à laquelle l'éclair est tombé est donc de ${stringNombre(
+              texteCorr += `La distance à laquelle l'éclair est tombé est donc de $${texNombre(
                 duree * 340
-              , 0)} m.<br>`
+              , 0)}\\text{ m}$.<br>`
               texteCorr +=
                 numAlpha(1) +
-                ' Avec les données de l\'énoncé nous pouvons écrire :<br>'
-              texteCorr += `$\\dfrac{340\\text{ m}}{1\\text{ s}}=\\dfrac{${stringNombre(
+                ' Avec les données de l\'énoncé, nous pouvons écrire :<br>'
+              texteCorr += `$\\dfrac{340\\text{ m}}{1\\text{ s}}=\\dfrac{${texNombre(
                 distance
-              , 0)}\\text{ m}}{\\mathcal{T}\\text{ s}}$<br>`
+              , 0)}\\text{ m}}{\\mathcal{T}\\text{ s}}$.<br>`
               texteCorr += `Soit grâce à l'égalité des produits en croix : $\\mathcal{T}\\text{ s}=${quatriemeProportionnelle(
                 '340 \\text{ m}',
                 '1 \\text{ s}',
-                stringNombre(distance, 0) + '\\text{ m}',
+                texNombre(distance, 0) + '\\text{ m}',
                 0
-              )}=${stringNombre(distance / 340, 0)}\\text{ s}$<br>`
-              texteCorr += `${quidam} entendra le tonnerre $${stringNombre(
+              )}=${texNombre(distance / 340, 0)}\\text{ s}$.<br>`
+              texteCorr += `${quidam} entendra le tonnerre $${texNombre(
                 distance / 340, 0
               )}$ secondes après avoir vu l'éclair tomber sur le clocher.`
               break
@@ -734,8 +734,8 @@ export default function ProblemesGrandeursComposees () {
                   numeroExercice + i,
                   typeAide,
                   'allure',
-                  'Définition : allure (grandeur physique)',
-                  'L\'allure est le temps exprimé en h,min,s pour parcourir un kilomètre.<br>L\'unité est alors h/km ou min/km'
+                  'Définition : Allure (grandeur physique)',
+                  'L\'allure est le temps exprimé en h, min, s pour parcourir un kilomètre.<br>L\'unité est alors h/km ou min/km.'
                 ) +
                 'pour chaque kilomètre parcouru :'
               allures = []
@@ -774,12 +774,12 @@ export default function ProblemesGrandeursComposees () {
                   typeAide,
                   'vitesse',
                   'Définition : Vitesse (grandeur physique)',
-                  'La vitesse est le quotient de la distance parcourue par le temps de parcours.<br>L\'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$)'
+                  'La vitesse est le quotient de la distance parcourue par le temps de parcours.<br>L\'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$).'
                 ) +
-                ' moyenne en km/h sur le trajet total.<br>'
+                ' moyenne en $\\text{km/h}$ sur le trajet total.<br>'
               texte +=
                 numAlpha(2) +
-                ` ${quidam} s'entraîne pour un semi-marathon (${stringNombre(21.0975, 4)} km). En courant à la même vitesse, combien de temps durerait son semi-marathon ?`
+                ` ${quidam} s'entraîne pour un semi-marathon ($${texNombre(21.0975, 4)}\\text{ km}$). En courant à la même vitesse moyenne, combien de temps durerait son semi-marathon ?`
               texteCorr =
                 numAlpha(0) +
                 ` La durée totale de la course de ${quidam} est :<br>`
@@ -799,44 +799,44 @@ export default function ProblemesGrandeursComposees () {
                 }
               }
               for (let j = 0; j < distance - 1; j++) {
-                texteCorr += `${allures[j][0]} min ${allures[j][1]} s + `
+                texteCorr += `$${allures[j][0]}\\text{ min }${allures[j][1]}\\text{ s }+${sp()}$`
               }
-              texteCorr += `${allures[distance - 1][0]} min ${allures[distance - 1][1]
-                } s = `
-              if (duree !== 0) texteCorr += `${duree} h `
-              if (allures[distance][0] !== 0) { texteCorr += `${allures[distance][0]} min ` }
-              if (allures[distance][1] !== 0) { texteCorr += `${allures[distance][1]} s.` }
+              texteCorr += `$${allures[distance - 1][0]}\\text{ min }${allures[distance - 1][1]
+                }\\text{ s }= ${sp()}$`
+              if (duree !== 0) texteCorr += `$${duree}\\text{ h}$`
+              if (allures[distance][0] !== 0) { texteCorr += `$${sp()}${allures[distance][0]}\\text{ min}$` }
+              if (allures[distance][1] !== 0) { texteCorr += `$${sp()}${allures[distance][1]}\\text{ s}$.` }
               texteCorr +=
                 '<br>' +
                 numAlpha(1) +
-                ` ${quidam} a effectué ${distance} km en `
-              if (duree !== 0) texteCorr += `${duree} h `
-              if (allures[distance][0] !== 0) { texteCorr += `${allures[distance][0]} min ` }
-              if (allures[distance][1] !== 0) { texteCorr += `${allures[distance][1]} s<br>Soit ` }
-              if (duree !== 0) texteCorr += `${duree} h `
-              if (allures[distance][0] !== 0) { texteCorr += ` $\\dfrac{${allures[distance][0]}}{60}$ h ` }
+                ` ${quidam} a effectué $${distance}\\text{ km}$ en `
+              if (duree !== 0) texteCorr += `$${duree}\\text{ h}$`
+              if (allures[distance][0] !== 0) { texteCorr += `$${sp()}${allures[distance][0]}\\text{ min}$` }
+              if (allures[distance][1] !== 0) { texteCorr += `$${sp()}${allures[distance][1]}\\text{ s}$.<br>Soit ` }
+              if (duree !== 0) texteCorr += `$${duree}\\text{ h}$`
+              if (allures[distance][0] !== 0) { texteCorr += ` $\\dfrac{${allures[distance][0]}}{60}\\text{ h}$ ` }
               if (allures[distance][1] !== 0) {
                 texteCorr += ` $\\dfrac{${allures[distance][1]}}{${texNombre(
                   3600
-                )}}$ h = `
+                )}}\\text{ h}$ = `
               }
               texteCorr += '$\\dfrac{'
               if (duree !== 0) { texteCorr += `${duree}\\times ${texNombre(3600)} + ` }
               texteCorr += `${allures[distance][0]}\\times 60+${allures[distance][1]
-                }}{${texNombre(3600)}}$ h = `
+                }}{${texNombre(3600)}}\\text{ h}$ = `
               texteCorr += '$\\dfrac{'
               if (duree !== 0) {
                 duree =
                   duree * 3600 +
                   allures[distance][0] * 60 +
                   allures[distance][1]
-                texteCorr += `${duree}}`
+                texteCorr += `${texNombre(duree)}}`
               } else {
                 duree = allures[distance][0] * 60 + allures[distance][1]
-                texteCorr += `${duree}}`
+                texteCorr += `${texNombre(duree)}}`
               }
-              texteCorr += `{${texNombre(3600)}}$ h.<br>`
-              texteCorr += `Sa vitesse en km/h est par conséquent :<br>$${distance} \\text{ km}\\div\\dfrac{${duree}}{${texNombre(
+              texteCorr += `{${texNombre(3600)}}\\text{ h}$.<br>`
+              texteCorr += `Sa vitesse moyenne en $\\text{km/h}$ est par conséquent :<br>$${distance} \\text{ km}\\div\\dfrac{${duree}}{${texNombre(
                 3600
               )}}\\text{ h}=`
               texteCorr += `${distance} \\text{ km}\\times\\dfrac{${texNombre(
@@ -845,18 +845,18 @@ export default function ProblemesGrandeursComposees () {
                 3600
               )}}{${duree}}\\text{km.h}^{-1}`
               vitesseMoy = Number(((distance * 3600) / duree).toFixed(1))
-              texteCorr += `\\approx${texNombre(vitesseMoy, 1)}$ km/h<br>`
+              texteCorr += `\\approx${texNombre(vitesseMoy, 1)}\\text{ km/h}$.<br>`
               texteCorr +=
                 numAlpha(2) +
-                ` Si elle court ${stringNombre(21.0975, 4)} km à cette vitesse de $${texNombre(
+                ` Si elle court $${texNombre(21.0975, 4)}\\text{ km}$ à cette vitesse moyenne de $${texNombre(
                   vitesseMoy
-                , 1)}$ km/h, ${quidam} mettra :<br>`
+                , 1)}\\text{ km/h}$, ${quidam} mettra :<br>`
               duree = Number((21.0975 / vitesseMoy).toFixed(4))
               texteCorr += `$\\dfrac{${texNombre(
                 21.0975
               )} \\text{ km}}{${texNombre(
                 vitesseMoy
-              , 1)} \\text{ km.h}^{-1}}\\approx${texNombre(duree, 4)}$ h<br>`
+              , 1)} \\text{ km.h}^{-1}}\\approx${texNombre(duree, 4)}\\text{ h}$ soit `
               nbheures = Math.floor(duree)
               texteCorr += `$${texNombre(
                 duree, 4)}\\times ${stringNombre(
@@ -897,18 +897,18 @@ export default function ProblemesGrandeursComposees () {
           quidam = prenomF()
           texte = `${quidam} se rend à l'épicerie de son quartier. Elle y achète $${texNombre(
             masse
-          )}$ kg de ${fruits[index1][0]} à $${texPrix(
+          )}\\text{ kg}$ de ${fruits[index1][0]} à $${texPrix(
             fruits[index1][1]
-          )}$ €/kg et pour $${texPrix(prix2)}$ € de ${fruits[index2][0]
-            } à $${texPrix(fruits[index2][1])}$ €/kg.<br>`
-          texte += `Enfin, elle achète $${texNombre(masse3)}$ kg de ${fruits[index][0]
+          )}$ €$\\text{/kg }$ et pour $${texPrix(prix2)}$ € de ${fruits[index2][0]
+            } à $${texPrix(fruits[index2][1])}$ €$\\text{/kg }$.<br>`
+          texte += `Enfin, elle achète $${texNombre(masse3)}\\text{ kg}$ de ${fruits[index][0]
             } pour $${texPrix(prix3)}$ €.<br>`
           texte +=
             numAlpha(0) +
             ` Combien lui coûtent les ${fruits[index1][0]} ?<br>`
           texte +=
             numAlpha(1) +
-            ` Quelle masse de ${fruits[index2][0]} a-t-elle achetée ?<br>`
+            ` Quelle masse de ${fruits[index2][0]} a-t-elle acheté${fruits[index2][0] === 'citrons' ? 's' : 'es'} ?<br>`
           texte +=
             numAlpha(2) +
             ` Quel est le prix au kilogramme des ${fruits[index][0]} ?`
@@ -924,13 +924,13 @@ export default function ProblemesGrandeursComposees () {
             ` La masse de ${fruits[index2][0]
             } qu'elle a acheté${fruits[index2][0] === 'citrons' ? 's' : 'es'} est : $${texPrix(prix2)}$ € $~\\div~ ${texPrix(
               fruits[index2][1]
-            )}$ € $\\text{/kg } = ${texNombre(masse2)}\\text{ kg}$.<br>`
+            )}$ €$\\text{/kg } = ${texNombre(masse2)}\\text{ kg}$.<br>`
           texteCorr +=
             numAlpha(2) +
             ` Enfin, ${quidam} a acheté des ${fruits[index][0]
             } au prix unitaire de : $${texPrix(prix3)}$ € $~\\div~ ${texNombre(
               masse3
-            )}\\text{ kg } = ${texPrix(fruits[index][1])}$ € $\\text{/kg}$.`
+            )}\\text{ kg } = ${texPrix(fruits[index][1])}$ €$\\text{/kg}$.`
           break
         case 9: // problème de prix horaire
           index1 = randint(0, 3)
