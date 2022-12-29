@@ -643,10 +643,8 @@ export default function ProblemesGrandeursComposees () {
                 distance * 1000
               , 0)}\\text{ m}}{${vitesseMoy}\\text{ m}\\times${texNombre(
                 3600
-              )}\\text{ s/h}}$ ($t$ est le nombre décimal d'heures : les mètres et les secondes disparaissent car ils sont, tous deux, présents au numérateur et au dénominateur).<br>`
+              )}\\text{ s/h}}=${texNombre((distance * 1000) / vitesseMoy / 3600, 1)}\\text{ h}$ ($t$ est le nombre décimal d'heures : les mètres et les secondes disparaissent car ils sont, tous deux, présents au numérateur et au dénominateur).<br>`
               texteCorr += `Soit : $\\mathcal{t}=${texNombre(
-                (distance * 1000) / vitesseMoy / 3600
-              , 1)}\\text{ h}=${texNombre(
                 (distance * 1000) / vitesseMoy / 3600
                 , 1)}\\times ${stringNombre(
                 3600
@@ -663,17 +661,14 @@ export default function ProblemesGrandeursComposees () {
                 60 * nbminutes,
                 0
               )
-              texteCorr += nbheures > 0
-                ? `(${nbheures}\\times ${stringNombre(
-                3600
-              , 0)}`
-                : '' + nbminutes > 0
-                  ? '{nbminutes}\\times 60'
-                  : '' + nbsecondes > 0
-                    ? `${texNombre(
-                nbsecondes
-              )})\\text{ s}`
-                    : '' + '='
+              if (nbheures > 0) {
+                texteCorr += `${nbheures}\\times ${stringNombre(3600, 0)}+`
+              }
+              if (nbminutes > 0) texteCorr += `${nbminutes}\\times 60`
+              if (nbsecondes > 0) {
+                texteCorr += `+${nbsecondes}`
+              }
+              texteCorr = texteCorr.replace('++', '+') + '\\text{ s}=' // au cas ou nbminutes === 0 il y aurait ++
               if (nbheures !== 0) texteCorr += `${texNombre(nbheures)}\\text{ h }` // affichage de la réponse
               if (nbminutes !== 0) texteCorr += `${texNombre(nbminutes)}\\text{ min }`
               if (nbsecondes !== 0) texteCorr += `${nbsecondes}\\text{ s}$`
@@ -861,12 +856,31 @@ export default function ProblemesGrandeursComposees () {
                 21.0975
               )} \\text{ km}}{${texNombre(
                 vitesseMoy
-              , 1)} \\text{ km.h}^{-1}}\\approx${texNombre(duree, 4)}$ h soit `
+              , 1)} \\text{ km.h}^{-1}}\\approx${texNombre(duree, 4)}$ h<br>`
               nbheures = Math.floor(duree)
+              texteCorr += `$${texNombre(
+                duree, 4)}\\times ${stringNombre(
+                3600
+                , 0)}\\text{ s}\\approx${texNombre(
+                duree * 3600, 0
+              )}\\text{ s}=`
               duree = (Number(duree.toFixed(4)) - nbheures) * 60
               nbminutes = Math.floor(duree)
               duree = Math.round((Number(duree.toFixed(3)) - nbminutes) * 60)
-              texteCorr += ` environ ${nbheures} h ${nbminutes} min ${texNombre(duree, 0)} s.`
+              nbsecondes = duree
+
+              if (nbheures > 0) {
+                texteCorr += `${nbheures}\\times ${stringNombre(3600, 0)}+`
+              }
+              if (nbminutes > 0) texteCorr += `${nbminutes}\\times 60`
+              if (nbsecondes > 0) {
+                texteCorr += `+${nbsecondes}`
+              }
+              texteCorr = texteCorr.replace('++', '+') + '\\text{ s}=' // au cas ou nbminutes === 0 il y aurait ++
+              if (nbheures !== 0) texteCorr += `${texNombre(nbheures)}\\text{ h }` // affichage de la réponse
+              if (nbminutes !== 0) texteCorr += `${texNombre(nbminutes)}\\text{ min }`
+              if (nbsecondes !== 0) texteCorr += `${nbsecondes}\\text{ s}$`
+              else texteCorr += '$'
               break
           }
           break
