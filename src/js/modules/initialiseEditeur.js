@@ -241,6 +241,7 @@ export default function InitialiseEditeur () {
   // On importe toutes les commandes que l'on souhaite avoir dans l'interpréteur
   // Ainsi que les variables globales anim et mathalea
   interpreter.import({
+    context,
     anim: window.anim,
     mathalea: window.mathalea,
     fenetreMathalea2d: [-1, -10, 29, 10],
