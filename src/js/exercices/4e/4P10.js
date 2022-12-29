@@ -5,7 +5,6 @@ import {
   randint,
   combinaisonListes,
   texteExposant,
-  arrondi,
   texFractionReduite,
   produitsEnCroix,
   quatriemeProportionnelle,
@@ -336,9 +335,9 @@ export default function ProblemesGrandeursComposees () {
               texteCorr += `$\\mathcal{E}=${texNombre(
                 (h1 + h2) * L * l * 5
               )}\\text{ L}\\times${deltaT}\\text{ °C}\\times 1,162 \\dfrac{\\text{Wh}}{\\text{°C}\\times\\text{L}}=${texNombre(
-                arrondi((h1 + h2) * L * l * 5 * deltaT * 1.162, 3)
+                (h1 + h2) * L * l * 5 * deltaT * 1.162, 3
               )}\\text{ Wh}=${texNombre(
-                arrondi((((h1 + h2) * L * l) / 200) * deltaT * 1.162, 7)
+                (((h1 + h2) * L * l) / 200) * deltaT * 1.162, 7
               )}\\text{ kWh}$<br>`
               break
             case 1: // Volume d'un tonneau cylindrique
@@ -374,19 +373,19 @@ export default function ProblemesGrandeursComposees () {
                 ` Le volume d'un cylindre est donné par la formule $\\mathcal{A}\\text{ire de base}\\times\\mathcal{h}$.<br> Ici, la base est un disque de rayon $${r}$ cm.<br>`
               texteCorr += `$\\mathcal{A}\\text{ire de base}\\times\\mathcal{h}=\\pi\\times${r}^{2}\\text{ cm}^2\\times${h}\\text{ cm}=${texNombre(r * r * h)
                 }\\pi\\text{ cm}^3\\approx${texNombre(
-                  arrondi(r * r * h * Math.PI, 1)
+                  r * r * h * Math.PI, 1
                 )}\\text{ cm}^3\\approx${texNombre(
-                  arrondi((r * r * h * Math.PI) / 1000, 1)
+                  (r * r * h * Math.PI) / 1000, 1
                 )}\\text{ dm}^3$<br>`
               texteCorr +=
                 numAlpha(1) +
                 ` La masse ${liquides[index2][0]} contenue dans ce tonneau est :<br>`
               texteCorr += `$${texNombre(
-                arrondi((r * r * h * Math.PI) / 1000, 1)
+                (r * r * h * Math.PI) / 1000, 1
               )}\\text{ dm}^3\\times ${texNombre(
                 liquides[index2][1]
               )} \\dfrac{kg}{dm^3}\\approx${texNombre(
-                arrondi(((r * r * h * Math.PI) / 1000) * liquides[index2][1], 3)
+                ((r * r * h * Math.PI) / 1000) * liquides[index2][1], 3
               )}\\text{ kg}.$`
               break
           }
@@ -655,11 +654,10 @@ export default function ProblemesGrandeursComposees () {
               nbminutes = Math.floor(
                 (Math.floor((distance * 1000) / vitesseMoy) % 3600) / 60
               )
-              nbsecondes = arrondi(
+              nbsecondes = Math.round(
                 (distance * 1000) / vitesseMoy -
                 3600 * nbheures -
-                60 * nbminutes,
-                0
+                60 * nbminutes
               )
               if (nbheures > 0) {
                 texteCorr += `${nbheures}\\times ${stringNombre(3600, 0)}+`
@@ -888,12 +886,12 @@ export default function ProblemesGrandeursComposees () {
           index1 = randint(0, 7)
           index2 = randint(0, 5, [index1])
           index = randint(0, 5, [index1, index2])
-          masse = arrondi(randint(fruits[index1][2], fruits[index1][3]) / 10)
-          masse2 = arrondi(randint(fruits[index2][2], fruits[index2][3]) / 10)
-          masse3 = arrondi(randint(fruits[index][2], fruits[index][3]) / 10)
-          prix1 = arrondi(masse * fruits[index1][1])
-          prix2 = arrondi(masse2 * fruits[index2][1])
-          prix3 = arrondi(masse3 * fruits[index][1])
+          masse = randint(fruits[index1][2], fruits[index1][3]) / 10
+          masse2 = randint(fruits[index2][2], fruits[index2][3]) / 10
+          masse3 = randint(fruits[index][2], fruits[index][3]) / 10
+          prix1 = masse * fruits[index1][1]
+          prix2 = masse2 * fruits[index2][1]
+          prix3 = masse3 * fruits[index][1]
           quidam = prenomF()
           texte = `${quidam} se rend à l'épicerie de son quartier. Elle y achète $${texNombre(
             masse
@@ -1168,7 +1166,7 @@ export default function ProblemesGrandeursComposees () {
           quidam = prenom()
           nbminutes = randint(3, 10)
           nbsecondes = randint(2, 59)
-          masse = arrondi(randint(15, 35) / 10)
+          masse = randint(15, 35) / 10
           texte =
             numAlpha(0) +
             ` ${quidam} télécharge un fichier depuis un espace de stockage en ligne. Sa ` +
@@ -1216,10 +1214,7 @@ export default function ProblemesGrandeursComposees () {
           nbminutes = Math.floor(
             (tailleFichier / vitesseMoy - 3600 * nbheures) / 60
           )
-          nbsecondes = arrondi(
-            tailleFichier / vitesseMoy - 3600 * nbheures - 60 * nbminutes,
-            0
-          )
+          nbsecondes = Math.floor(tailleFichier / vitesseMoy - 3600 * nbheures - 60 * nbminutes)
           if (
             tailleFichier / vitesseMoy ===
             nbsecondes + 60 * nbminutes + 3600 * nbheures
