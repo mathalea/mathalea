@@ -466,21 +466,21 @@ export default function ProblemesGrandeursComposees () {
               numeroExercice + i * 3 + 1,
               typeAide,
               'moment',
-              'Définition : moment (grandeur physique)',
-              'Le moment d\'une force d\'intensité $F$ (en Newton ou kg.m.s$^{-2}$) en un point M par rapport à un pivot P est le produit de $F$ par la distance $d=$PM (appelée bras de levier) exprimée en mètres soit $F\\times d$ (lorsque cette force s\'exerce perpendiculairement au bras de levier). Le moment est l\'energie permettant de faire tourner l\'objet autour du pivot.<br>L\'unité de mesure du moment est le Joule (J).<br>$1J=1\\text{ kg.m}^2\\text{s}^{-2}$.'
+              'Définition : Moment (grandeur physique)',
+              'Le moment d\'une force d\'intensité $F$ (en Newton ou kg.m.s$^{-2}$) en un point M par rapport à un pivot P est le produit de $F$ par la distance $d=$PM (appelée bras de levier) exprimée en mètres, soit $F\\times d$ (lorsque cette force s\'exerce perpendiculairement au bras de levier). Le moment est l\'energie permettant de faire tourner l\'objet autour du pivot.<br>L\'unité de mesure du moment est le Joule (J).<br>$1J=1\\text{ kg.m}^2\\text{s}^{-2}$'
             ) +
             ' du ' +
             katexPopup2(
               numeroExercice + i * 3 + 2,
               typeAide,
               'poids',
-              'Définition : Poids',
-              'Le poids est le produit de la masse $m$ d\'un objet par l\'accélération de la pesanteur terrestre ($g=9,81\\text{ m.s}^{-2}$) soit $m\\times g$.<br>L\'unité du poids est le Newton (N) : 1N = 1kg.m.s$^{-2}$'
+              'Définition : Poids (grandeur physique)',
+              'Le poids est le produit de la masse $m$ d\'un objet par l\'accélération de la pesanteur terrestre ($g=9,81\\text{ m.s}^{-2}$).<br>L\'unité du poids est le Newton (N) : 1 N = 1 kg.m.s$^{-2}$'
             ) +
             ` de ${quidam} sur son siège par rapport au pivot central du trébuchet en Joules (on admettra que le bras de levier est horizontal).<br>`
           texte +=
             numAlpha(1) +
-            ` Le père de ${quidam} vient s'installer de l'autre côté du pivot central. Il pèse $${index}$ kg et s'installe de façon à ce que son poids permette d'équilibrer la balançoire à l'horizontale. Quelle doit être la longueur du bras de levier de son côté ( à quelle distance du pivot est-il assis ) ?<br>`
+            ` Le père de ${quidam} vient s'installer de l'autre côté du pivot central. Il pèse $${index}$ kg et s'installe de façon à ce que son poids permette d'équilibrer la balançoire à l'horizontale. Quelle doit être la longueur du bras de levier de son côté ? Autrement dit, à quelle distance du pivot, le père de ${quidam} est-il assis ?<br>`
           texteCorr =
             numAlpha(0) +
             ` Le moment du poids de ${quidam} appliqué sur son siège par rapport au pivot central du trébuchet est :<br>`
@@ -491,7 +491,7 @@ export default function ProblemesGrandeursComposees () {
             index1
           )}\\text{ kg.m}^2\\text{.s}^{-2}=${texNombre(
             index1
-          )}\\text{ J}$<br>`
+          )}\\text{ J}$.<br>`
           texteCorr +=
             numAlpha(1) +
             ` Afin d'équilibrer le trébuchet, le père de ${quidam} doit se placer de façon que le moment de son poids sur son point d'assise par rapport au pivot central du trébuchet soit égal à celui de ${quidam}, on obtient l'équation suivante où $${miseEnEvidence(
@@ -501,8 +501,8 @@ export default function ProblemesGrandeursComposees () {
           texteCorr += `$ ${index}\\text{ kg}\\times 9,81 \\text{m.s}^{-2} \\times ${miseEnEvidence(
             'd',
             'black'
-          )} \\text{ m}=${texNombre(index1)}\\text{ J}$<br>`
-          texteCorr += `D'où $${miseEnEvidence(
+          )} \\text{ m}=${texNombre(index1)}\\text{ J}$.<br>`
+          texteCorr += `D'où, $${miseEnEvidence(
             'd',
             'black'
           )}\\text{ m} = \\dfrac{${texNombre(
@@ -511,7 +511,7 @@ export default function ProblemesGrandeursComposees () {
             arrondi(index1 / (9.81 * index))
           )}\\text{ m}.$`
           break
-        case 5: // problème de trafic de coyageurs.
+        case 5: // problème de trafic de voyageurs.
           d1 = randint(3, 6)
           d2 = randint(3, 6, [d1])
           k = randint(5, 8)
@@ -519,19 +519,19 @@ export default function ProblemesGrandeursComposees () {
           n2 = k * d1
           texte =
             numAlpha(0) +
-            ` Un bus de ville transporte en moyenne ${n1} personnes à la fois.<br> La longueur moyenne de déplacement est de ${d1} km.<br> Calculer le ` +
+            ` Un bus de ville transporte en moyenne $${n1}$ personnes à la fois.<br> La longueur moyenne de déplacement est de $${d1}$ km.<br> Calculer le ` +
             katexPopup2(
               numeroExercice + i * 3,
               typeAide,
               'trafic',
               'Définition : Trafic de voyageurs',
-              'Le trafic de voyageurs est le produit du nombre de voyageurs par la distance parcourue. L\'unité est le voyageur.km qui correspond au déplacement d\'un voyageur sur 1km'
+              'Le trafic de voyageurs est le produit du nombre de voyageurs par la distance parcourue. L\'unité est le voyageur.km qui correspond au déplacement d\'un voyageur sur 1km.'
             ) +
             ' moyen de voyageurs en voyageurs.km.<br> '
           texte +=
             numAlpha(1) +
-            ` Un autre bus de ville transporte en moyenne ${n2} personnes à la fois.<br> La longueur moyenne de déplacement est de ${d2} km.<br> Montrer que le trafic de voyageur est le même qu'à la question ` +
-            numAlpha(0)
+            ` Un autre bus de ville transporte en moyenne $${n2}$ personnes à la fois.<br> La longueur moyenne de déplacement est de $${d2}$ km.<br> Montrer que le trafic de voyageurs est le même qu'à la question ` +
+            numAlpha(0) + '.'
           texteCorr =
             numAlpha(0) +
             ` Le trafic moyen de ce bus de ville est : $${n1}\\text{ voyageurs}\\times${d1}\\text{ km}=${n1 * d1
@@ -545,15 +545,14 @@ export default function ProblemesGrandeursComposees () {
           index = randint(0, 3)
           index1 = randint(0, 3, [index])
           I1 = arrondi(appareils[index][1] / 230, 0) + 1
-          texte = 'Les appareils de cet exercices fonctionnent sur le secteur, soit à une tension de 230V<br>' +
-            numAlpha(0) +
-            ` Un ${appareils[index][0]} est protégé par un fusible de $${I1}$ ampères.<br>Quelle est la ` +
+          texte = numAlpha(0) +
+            ` Un ${appareils[index][0]} est protégé par un fusible de $${I1}$ ampères et fonctionne sur le secteur, soit à une tension de $${texNombre(230)}$ V.<br>Quelle est la ` +
             katexPopup2(
               numeroExercice + i * 3 + 1,
               typeAide,
               'puissance',
               'Définition : Puissance (grandeur physique)',
-              'C\'est le produit de la force électromotrice (tension) exprimée en Volt (V) par l\'intensité du courant électrique exprimée en ampères (A).<br>L\'unité de mesure de la puissance est le Watt (W)'
+              'C\'est le produit de la force électromotrice (tension) exprimée en Volt (V) par l\'intensité du courant électrique exprimée en ampères (A).<br>L\'unité de mesure de la puissance est le Watt (W).'
             ) +
             ' maximale de cet appareil ?<br>'
           texte +=
@@ -561,8 +560,8 @@ export default function ProblemesGrandeursComposees () {
             ` Un ${appareils[index1][0]} fonctionne à une puissance maximale de $${texNombre(appareils[index1][1])}$ W.<br>Quel est l'ampérage (entier) minimum nécessaire pour le fusible qui protégera ${index1 === 3 ? 'cet' : 'ce'} ${appareils[index1][0]} des courts-circuits ?<br>`
           texteCorr =
             numAlpha(0) +
-            ` La tension du secteur étant de 230V, la puissance maximale de ce ${appareils[index][0]} est de :<br>`
-          texteCorr += `$230\\text{ V}\\times${I1}\\text{ A}=${230 * I1
+            ` La tension du secteur étant de $${texNombre(230)}$ V, la puissance maximale de ce ${appareils[index][0]} est de :<br>`
+          texteCorr += `$230\\text{ V}\\times${I1}\\text{ A}=${texNombre(230 * I1)
             }\\text{ W}$.<br>`
           I2 = Math.floor(appareils[index1][1] / 230) + 1
           texteCorr +=
@@ -598,16 +597,16 @@ export default function ProblemesGrandeursComposees () {
                 ` de $${texNombrec(vitesseMoy)}$ m/s.<br>`
               texte +=
                 numAlpha(0) +
-                ` En se déplaçant à cette vitesse pendant ${duree} h, quelle est la distance parcourue par ${quidam} en km ?<br>`
+                ` En se déplaçant à cette vitesse pendant $${duree}$ h, quelle est la distance parcourue par ${quidam} en $\\text{km}$ ?<br>`
               texte +=
                 numAlpha(1) +
-                ` Si ${quidam} veut parcourir ${nombreAvecEspace(
+                ` Si ${quidam} veut parcourir $${texNombre(
                   distance
-                )} km à cette vitesse, combien de temps durera le trajet ? Donner le résultat en heures, minutes et secondes.`
+                )}$ km à cette vitesse, combien de temps durera le trajet ? Donner le résultat en heures, minutes et secondes.`
               texteCorr =
                 numAlpha(0) +
                 ` La distance parcourue par ${quidam} ${vitesses[index1][0]
-                } en ${duree} h à la vitesse de $${texNombrec(
+                } en $${duree}$ h à la vitesse de $${texNombrec(
                   vitesseMoy
                 )}$ m/s est :<br>`
               texteCorr += `$${texNombrec(
@@ -621,12 +620,12 @@ export default function ProblemesGrandeursComposees () {
                 vitesseMoy * 3600 * duree
               )}\\text{ m}=${texNombrec(
                 vitesseMoy * 3.6 * duree
-              )}\\text{ km}$<br>`
+              )}\\text{ km}$.<br>`
               texteCorr +=
                 numAlpha(1) +
-                ` Pour parcourir ${nombreAvecEspace(
+                ` Pour parcourir $${texNombre(
                   distance
-                )} km à cette vitesse, ${quidam} mettra :<br>`
+                )}$ km à cette vitesse, ${quidam} mettra :<br>`
               texteCorr += ` Partons de la formule $\\mathcal{V}=\\dfrac{\\mathcal{d}}{\\mathcal{t}}$ et remplaçons : $\\dfrac{${vitesseMoy}\\text{ m}}{1 \\text{ s}}=\\dfrac{${texNombre(
                 distance
               )}\\text{ km}}{\\mathcal{t}\\text{ h}}$<br>`
