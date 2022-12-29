@@ -367,7 +367,7 @@ export default function ProblemesGrandeursComposees () {
                   'Définition : Densité (grandeur physique)',
                   'La densité d\'une substance est égale à la masse volumique de la substance divisée par la masse volumique du corps de référence à la même température.<br>Pour les liquides et les solides, l\'eau est utilisée comme référence (sa masse volumique est de 1 kg/dm$^3$), pour les gaz, la mesure s\'effectue par rapport à l\'air.<br>Donc pour les liquides, la densité est égale à la masse volumique exprimée en kg/dm$^3$.'
                 ) +
-                ` est de $${texNombre(liquides[index2][1], 3)} $kg/dm$^3$), quelle masse ${liquides[index2][0]
+                ` est de $${texNombre(liquides[index2][1])}$ kg/dm$^3$), quelle masse ${liquides[index2][0]
                 } en kg contiendra-t-il au gramme près ?<br>`
               texteCorr =
                 numAlpha(0) +
@@ -385,7 +385,7 @@ export default function ProblemesGrandeursComposees () {
                 arrondi((r * r * h * Math.PI) / 1000, 1)
               )}\\text{ dm}^3\\times ${texNombre(
                 liquides[index2][1]
-              , 3)} \\times 1 \\dfrac{kg}{dm^3}\\approx${texNombre(
+              )} \\dfrac{kg}{dm^3}\\approx${texNombre(
                 arrondi(((r * r * h * Math.PI) / 1000) * liquides[index2][1], 3)
               )}\\text{ kg}.$`
               break
@@ -405,8 +405,8 @@ export default function ProblemesGrandeursComposees () {
               'Définition : Vitesse (grandeur physique)',
               'La vitesse est le quotient de la distance parcourue par le temps de parcours.<br>L\'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$).'
             ) +
-            ` de $${vitesseMoy}$ m/s.<br>`
-          texte += `Elle pèse $${masse}$ kg.<br>`
+            ` de $${texNombre(vitesseMoy)}\\text{ m/s}$.<br>`
+          texte += `Elle pèse $${masse}\\text{ kg}$.<br>`
           texte +=
             numAlpha(0) +
             ' Calculer sa ' +
@@ -433,12 +433,12 @@ export default function ProblemesGrandeursComposees () {
             numAlpha(0) +
             ` La quantité de mouvement de ${quidam} est : $${masse} \\text{ kg}\\times ${vitesseMoy}\\text{ m/s}=${stringNombre(
               masse * vitesseMoy
-            , 0)}\\text{ kg.m.s}^{-1}$<br>`
+            )}\\text{ kg.m.s}^{-1}$.<br>`
           texteCorr +=
             numAlpha(1) +
             ` L'énergie cinétique de ${quidam} est : $\\dfrac{1}{2}\\times ${masse} \\text{ kg}\\times (${vitesseMoy}\\text{ m/s})^2=\\dfrac{${masse}\\times${vitesseMoy}^2}{2}\\text{ J}=${texNombre(
               (masse * vitesseMoy ** 2) / 2
-            , 1)}\\text{ J}$`
+            )}\\text{ J}$.`
           break
         case 4: // problème de moment et de couple de forces qui s'annulent.
           quidam = prenom()
@@ -499,8 +499,8 @@ export default function ProblemesGrandeursComposees () {
           texteCorr += `$ ${index}\\text{ kg}\\times 9,81 \\text{m.s}^{-2} \\times ${miseEnEvidence(
             'd',
             'black'
-          )} \\text{ m}=${texNombre(index1, 3)}\\text{ J}$<br>`
-          texteCorr += `D'où $${miseEnEvidence(
+          )} \\text{ m}=${texNombre(index1)}\\text{ J}$.<br>`
+          texteCorr += `D'où, $${miseEnEvidence(
             'd',
             'black'
           )}\\text{ m} = \\dfrac{${texNombre(
@@ -558,8 +558,8 @@ export default function ProblemesGrandeursComposees () {
             ` Un ${appareils[index1][0]} fonctionne à une puissance maximale de $${stringNombre(appareils[index1][1], 0)}$ W.<br>Quel est l'ampérage (entier) minimum nécessaire pour le fusible qui protégera ${index1 === 3 ? 'cet' : 'ce'} ${appareils[index1][0]} des courts-circuits ?<br>`
           texteCorr =
             numAlpha(0) +
-            ` La tension du secteur étant de 230V, la puissance maximale de ce ${appareils[index][0]} est de :<br>`
-          texteCorr += `$230\\text{ V}\\times${I1}\\text{ A}=${stringNombre(230 * I1, 0)
+            ` La tension du secteur étant de $${texNombre(230)}$ V, la puissance maximale de ce ${appareils[index][0]} est de :<br>`
+          texteCorr += `$230\\text{ V}\\times${I1}\\text{ A}=${texNombre(230 * I1)
             }\\text{ W}$.<br>`
           I2 = Math.round(appareils[index1][1] / 230) + 1
           texteCorr +=
@@ -590,46 +590,46 @@ export default function ProblemesGrandeursComposees () {
                   typeAide,
                   'vitesse',
                   'Définition : Vitesse (grandeur physique)',
-                  'La vitesse est le quotient de la distance parcourue par le temps de parcours.<br>L\'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$)'
+                  'La vitesse est le quotient de la distance parcourue par le temps de parcours.<br>L\'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$).'
                 ) +
-                ` de ${vitesseMoy} m/s.<br>`
+                ` de $${vitesseMoy}\\text{ m/s}$.<br>`
               texte +=
                 numAlpha(0) +
                 ` En se déplaçant à cette vitesse pendant $${duree}$ h, quelle est la distance parcourue par ${quidam} en $\\text{km}$ ?<br>`
               texte +=
                 numAlpha(1) +
-                ` Si ${quidam} veut parcourir ${stringNombre(
+                ` Si ${quidam} veut parcourir $${texNombre(
                   distance
-                , 2)} km à cette vitesse, combien de temps durera le trajet ? Donner le résultat en heures, minutes et secondes.`
+                , 2)}\\text{ km}$ à cette vitesse, combien de temps durera le trajet ? Donner le résultat en heures, minutes et secondes.`
               texteCorr =
                 numAlpha(0) +
                 ` La distance parcourue par ${quidam} ${vitesses[index1][0]
                 } en ${duree} h à la vitesse de $${vitesseMoy}$ m/s est :<br>`
-              texteCorr += `$${stringNombre(
+              texteCorr += `$${texNombre(
                 vitesseMoy
-              , 0)}\\text{ m/s}\\times${duree}\\text{ h}=\\dfrac{${stringNombre(
+              , 0)}\\text{ m/s}\\times${duree}\\text{ h}=\\dfrac{${texNombre(
                 vitesseMoy
-             , 0)}\\text{ m}}{1 \\text{ s}}\\times ${duree}\\times ${stringNombre(
+             , 0)}\\text{ m}}{1 \\text{ s}}\\times ${duree}\\times ${texNombre(
                 3600
               , 0)}\\text{ s}`
-              texteCorr += `=${stringNombre(
+              texteCorr += `=${texNombre(
                 vitesseMoy * 3600 * duree
               , 0)}\\text{ m}=${texNombre(
                 vitesseMoy * 3.6 * duree
-              , 1)}\\text{ km}$<br>`
+              )}\\text{ km}$.<br>`
               texteCorr +=
                 numAlpha(1) +
-                ` Pour parcourir ${stringNombre(
+                ` Pour parcourir $${texNombre(
                   distance
-                , 2)} km à cette vitesse, ${quidam} mettra :<br>`
+                )}$ km à cette vitesse, cherchons le temps que ${quidam} mettra.<br>`
               texteCorr += ` Partons de la formule $\\mathcal{V}=\\dfrac{\\mathcal{d}}{\\mathcal{t}}$ et remplaçons : $\\dfrac{${vitesseMoy}\\text{ m}}{1 \\text{ s}}=\\dfrac{${texNombre(
                 distance
-              )}\\text{ km}}{\\mathcal{t}\\text{ h}}$<br>`
+              )}\\text{ km}}{\\mathcal{t}\\text{ h}}$.<br>`
               texteCorr += `Rendons les unités homogènes : $\\dfrac{${vitesseMoy}\\text{ m}}{1 \\text{ s}}=\\dfrac{${stringNombre(
                 distance * 1000
               , 0)}\\text{ m}}{\\mathcal{t}\\text{ h}\\times ${stringNombre(
                 3600
-              , 0)}\\text{ s/h}}$<br>`
+              , 0)}\\text{ s/h}}$.<br>`
               texteCorr += `Appliquons l'égalité des produits en croix : ${produitsEnCroix(
                 [
                   [`${vitesseMoy}\\text{ m}`, '1 \\text{ s}'],
@@ -638,12 +638,12 @@ export default function ProblemesGrandeursComposees () {
                     `\\mathcal{t}\\times ${stringNombre(3600, 0)}\\text{ s/h}`
                   ]
                 ]
-              )}<br>`
+              )}.<br>`
               texteCorr += `D'où : $\\mathcal{t}=\\dfrac{1 \\text{ s}\\times${stringNombre(
                 distance * 1000
               , 0)}\\text{ m}}{${vitesseMoy}\\text{ m}\\times${texNombre(
                 3600
-              )}\\text{ s/h}}$ (t est le nombre décimal d'heures : les mètres et les secondes disparaissent car elles sont présentes au numérateur et au dénominateur.)<br>`
+              )}\\text{ s/h}}$ ($t$ est le nombre décimal d'heures : les mètres et les secondes disparaissent car ils sont, tous deux, présents au numérateur et au dénominateur).<br>`
               texteCorr += `Soit : $\\mathcal{t}=${texNombre(
                 (distance * 1000) / vitesseMoy / 3600
               , 1)}\\text{ h}=${texNombre(
