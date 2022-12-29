@@ -8,7 +8,6 @@ import {
   texFractionReduite,
   produitsEnCroix,
   quatriemeProportionnelle,
-  calcul,
   prenomF,
   prenom,
   texNombre,
@@ -205,7 +204,7 @@ export default function ProblemesGrandeursComposees () {
           nbQuartsDHeures = randint(0, 3)
           nbheures = randint(dureeMax / 4, dureeMax, [1])
           duree = nbheures + nbQuartsDHeures * 0.25
-          prixkWh = calcul(randint(0, 5) / 100 + 0.14)
+          prixkWh = randint(0, 5) / 100 + 0.14
           texte = `L'étiquette apposée au dos d'un ${appareil} indique une puissance de $${texNombre(puissance)}$ Watts. On le fait fonctionner pendant $${Math.floor(
             duree
           )}$ heures `
@@ -249,14 +248,14 @@ export default function ProblemesGrandeursComposees () {
           )}\\text{ h}=${texNombre(
             puissance / 1000
           )}\\text{ kW}\\times${texNombre(duree)}\\text{ h}=${texNombre(
-            calcul(puissance * duree * 0.001)
-          )}\\text{ kWh}$<br>`
+            puissance * duree * 0.001
+          , 3)}\\text{ kWh}$<br>`
           texteCorr +=
             numAlpha(1) +
             ` Le prix de cette énergie consommée est : $${texPrix(
               prixkWh
             )}$ €$\\text{/kWh} \\times${texNombre(
-              calcul(puissance * duree * 0.001)
+              puissance * duree * 0.001, 3
             )}\\text{ kWh}`
           if (!((prixkWh * puissance * duree) / 10 === Math.round((prixkWh * puissance * duree) / 10))) {
             texteCorr += `\\approx${texPrix(((prixkWh * puissance) / 1000) * duree)}$ €.`
