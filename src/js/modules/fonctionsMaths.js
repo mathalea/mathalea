@@ -364,12 +364,13 @@ class SplineCatmullRom {
     this.x = []
     this.y = []
     this.n = tabY.length // on a n valeurs de y et donc de x, soit n-1 intervalles numérotés de 1 à n-1.
+    this.step = step // on en a besoin pour la dérivée...
 
     for (let i = 0; i < this.n; i++) {
       this.x[i] = x0 + step * i
       this.y[i] = tabY[i]
     }
-    this.polys = this.defineFunctions()
+    this.polys = this.definePolys()
     this.fonctions = this.convertPolyFunction()
   }
 
@@ -377,7 +378,7 @@ class SplineCatmullRom {
    * définis les polynomes de CatMulRom
    * @returns {Polynome[]}
    */
-  defineFunctions () {
+  definePolys () {
     const polys = []
     for (let i = 1; i < this.n; i++) {
       let y0, y1, y2, y3
@@ -420,12 +421,9 @@ class SplineCatmullRom {
    */
   convertPolyFunction () {
     const f = []
+    debugger
     for (let i = 0; i < this.n - 1; i++) {
-      const c0 = this.polys[i].monomes[0]
-      const c1 = this.polys[i].monomes[1]
-      const c2 = this.polys[i].monomes[2]
-      const c3 = this.polys[i].monomes[3]
-      f.push((x) => (c0 + c1 * x + c2 * x ** 2 + c3 * x ** 3))
+      f.push(this.polys[i].fonction)
     }
     return f
   }
@@ -437,7 +435,6 @@ class SplineCatmullRom {
       // Algebrite n'aime pas beaucoup les coefficients decimaux...
       try {
         const liste = polynomialRoot(...polEquation.monomes)
-        let antecedentTrouve = false
         for (const valeur of liste) {
           let arr
           if (typeof valeur === 'number') {
@@ -457,9 +454,6 @@ class SplineCatmullRom {
           if (arr !== null && arr >= this.x[i] && arr <= this.x[i + 1]) {
             if (!antecedents.includes(arr)) {
               antecedents.push(arr)
-              antecedentTrouve = true
-            } else {
-              antecedentTrouve = true
             }
           }
         }
@@ -468,6 +462,10 @@ class SplineCatmullRom {
       }
     }
     return antecedents
+  }
+
+  get fonction () {
+    return x => this.image(x)
   }
 
   image (x) {
@@ -487,6 +485,22 @@ class SplineCatmullRom {
     } else {
       return this.fonctions[k](x)
     }
+  }
+
+  /**
+   * retourne une nouvelle splineCatmulRom correspondant à la fonction dérivée de this.
+   */
+  get derivee () {
+    const derivees = []
+    for (let i = 0; i < this.n; i++) {
+      derivees.push(this.polys[Math.min(i, this.n - 2)].derivee().fonction(this.x[i]))
+    }
+    const maSpline = new SplineCatmullRom({ tabY: derivees, x0: this.x[0], step: this.step })
+    for (let i = 0; i < this.n - 1; i++) { // on redéfinit les polynomes
+      maSpline.polys[i] = this.polys[i].derivee()
+    }
+    maSpline.fonctions = maSpline.convertPolyFunction() // on remets les 'bonnes' fonctions
+    return maSpline
   }
 }
 /**
@@ -707,7 +721,7 @@ export class Polynome {
       ? this.monomes.map(function (el, i) { return fraction(multiply(i, el)) })
       : this.monomes.map(function (el, i) { return multiply(i, el) })
     coeffDerivee.shift()
-    return new Polynome({ coeffs: coeffDerivee })
+    return new Polynome({ isUseFraction: this.isUseFraction, coeffs: coeffDerivee })
   }
 
   /**
@@ -719,6 +733,24 @@ export class Polynome {
   static print (coeffs, alg = false) {
     const p = new Polynome({ coeffs })
     return p.toLatex(alg)
+  }
+
+  /**
+   * la fonction à utiliser pour tracer la courbe par exemple ou calculer des valeurs comme dans pol.image()
+   * const f = pol.fonction est une fonction utilisable dans courbe()
+   * @returns {function(number): number}
+   */
+  get fonction () {
+    return x => this.monomes.reduce((val, current) => val + current * x ** this.monomes.findIndex(coeff => coeff === current))
+  }
+
+  /**
+   * Pour calculer l'image d'un nombre
+   * @param x
+   * @returns {math.Fraction | number | int} // à mon avis ça ne retourne que des number...
+   */
+  image (x) {
+    return this.fonction(x)
   }
 }
 
