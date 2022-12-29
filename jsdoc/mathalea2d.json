@@ -6,6 +6,11 @@
     "source"   : {
       "include": [
         "./src/js/modules/2d.js",
+        "./src/js/modules/2dAnimation.js",
+        "./src/js/modules/2dGeneralites.js",
+        "./src/js/modules/2dInstruments.js",
+        "./src/js/modules/2dInteractif.js",
+        "./src/js/modules/2dLutin.js",
         "./jsdoc/2d.md"
       ]
     },
