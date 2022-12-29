@@ -83,7 +83,7 @@ export default function ProblemesGrandeursComposees () {
       ['carbonate de sodium', 'd\'eau', 300]
     ] // soluté, masse maximale en gramme pour saturer 1 L de solvant
     const materiaux = [
-      ['Paladium', 12000],
+      ['palladium', 12000],
       ['acier', 7800],
       ['fonte', 7100],
       ['aluminium', 2700],
@@ -1027,7 +1027,7 @@ export default function ProblemesGrandeursComposees () {
               typeAide,
               'masse volumique',
               'Définition : Masse volumique (grandeur physique)',
-              'La masse volumique d\'un élément est le quotient de la masse de cet élément par le volume qu\'il occupe.<br>L\'unité de la masse volumique dépend de la nature de l\'élément et peut s\'exprimer kg/m$^3$ pour les solides g/L pour les gaz par exemple.'
+              'La masse volumique d\'un élément est le quotient de la masse de cet élément par le volume qu\'il occupe.<br>L\'unité de la masse volumique dépend de la nature de l\'élément et peut s\'exprimer en kg/m$^3$ pour les solides ou en g/L pour les gaz, par exemple.'
             ) +
             ` du ${materiaux[index1][0]} est de $${texNombre(
               materiaux[index1][1]
@@ -1061,7 +1061,7 @@ export default function ProblemesGrandeursComposees () {
               v2
             , 6)}\\text{ m}^3${egalOuApprox(round(v2, 6) * 1000000, 0)}${texNombre(
               v2 * 1000000
-            , 0)}\\text{ cm}^3$<br>`
+            , 0)}\\text{ cm}^3$.<br>`
           break
         case 12: // problème de concentration massique
           index1 = randint(0, 4)
@@ -1074,9 +1074,9 @@ export default function ProblemesGrandeursComposees () {
           if (solutes[index2][2] < 10) { // concentration en g/L soluté 2.
             concentration2 = randint(11, solutes[index2][2] * 10) / 10
           } else concentration2 = randint(2, solutes[index2][2])
-          texte = 'La concentration massique exprimée ici en $g/L$ est la quantité de matière (masse) en g par unité de volume (L).<br>On l\'obtient donc en divisant la masse de produit dissout par le volume de la solution ($\\dfrac{m}{V}$).<br>' +
+          texte = 'La concentration massique exprimée ici en $g/L$ est la quantité de matière (masse) en g par unité de volume (L).<br>On l\'obtient donc en divisant la masse de produit dissous par le volume de la solution ($\\dfrac{m}{V}$).<br>' +
             numAlpha(0) +
-            ` On a dissout $${texNombre(masse, 1)}\\text{ g}$ de ${solutes[index1][0]
+            ` On a dissous $${texNombre(masse, 1)}\\text{ g}$ de ${solutes[index1][0]
             } dans $${texNombre(volume1, 1)}\\text{ litres}$ ${solutes[index1][1]
             }.<br>Calculer la concentration massique de cette solution.<br>`
           texte +=
@@ -1087,23 +1087,23 @@ export default function ProblemesGrandeursComposees () {
             } à $${texNombre(
               concentration2
             , 1)}\\text{ g/L}$.<br>Quelle masse de ${solutes[index2][0]
-            } a été dissoute dans l'eau ?`
+            } a été dissous dans l'eau ?`
           texteCorr =
             numAlpha(0) +
             ` La concentration en ${solutes[index1][0]} de cette solution aqueuse est de :<br>`
           texteCorr += ` $\\dfrac{${texNombre(masse, 1)}\\text{ g}}{${texNombre(
             volume1
-          , 1)}\\text{ litres}}=${texNombre(
+          , 1)}\\text{ L}}=${texNombre(
             masse / volume1
-          , 1)}\\text{ g/L}$<br>`
+          , 1)}\\text{ g/L}.$<br>`
           texteCorr +=
             numAlpha(1) +
-            ` La masse de ${solutes[index2][0]} dissout est de :<br>`
+            ` La masse de ${solutes[index2][0]} dissous est de :<br>`
           texteCorr += `$${texNombre(volume2, 1)}\\text{ L}\\times ${texNombre(
             concentration2
           , 1)}\\text{ g/L}=${texNombre(
             volume2 * concentration2
-          , 2)}\\text{ g}$`
+          , 2)}\\text{ g}.$`
           break
 
         case 13: // problème de débit
@@ -1117,11 +1117,11 @@ export default function ProblemesGrandeursComposees () {
               typeAide,
               'débit',
               'Définition : Débit (grandeur physique)',
-              'Le débit est le quotient d\'un volume d\'eau écoulée dans une section de conduit par le temps d\'écoulement.<br>L\'unité officielle est le mètre cube par seconde ($\\text{m}^3/\\text{s}$  et dans certains cas on peut utiliser le litre par minute (L/min)'
+              'Le débit est le quotient d\'un volume d\'eau écoulée dans une section de conduit par le temps d\'écoulement.<br>L\'unité officielle est le mètre cube par seconde ($\\text{m}^3/\\text{s}$)  et dans certains cas, on peut utiliser le litre par minute (L/min).'
             ) +
             ` annuel moyen ${rivieres[index2][6]}${rivieres[index2][0]
             } mesuré à ${rivieres[index2][1]} est de $${texNombre(rivieres[index2][2])
-            }$ m${texteExposant(3)}/s.<br>`
+            }\\text{ m}^3\\text{/s}$.<br>`
           texte +=
             numAlpha(0) +
             ` Calculer le volume d'eau en m${texteExposant(
@@ -1132,21 +1132,20 @@ export default function ProblemesGrandeursComposees () {
             ` En ${rivieres[index2][4]} à ${rivieres[index2][1]}, ${rivieres[index2][5]
             }${rivieres[index2][0]} a débité $${texNombre(
               vMax
-            )}$ m${texteExposant(
-              3
-            )} en une heure. Quel a été alors le débit en m³/s ?`
+            )}\\text{ m}^3$
+             en une heure. Quel a été alors son débit en $\\text{ m}^3\\text{/s}$ ?`
           texteCorr =
             numAlpha(0) +
-            ` En ${duree} heures il s'écoule en moyenne dans ${rivieres[index2][5]}${rivieres[index2][0]} à ${rivieres[index2][1]} :<br>`
+            ` En $${duree}$ heures, il s'écoule en moyenne dans ${rivieres[index2][5]}${rivieres[index2][0]} à ${rivieres[index2][1]} :<br>`
           texteCorr += `$\\mathcal{V}=${duree}\\text{ h}\\times${rivieres[index2][2]
             }\\text{ m}^3\\text{/s}=${duree}\\times 3600\\text{ s}\\times${rivieres[index2][2]
             }\\text{ m}^3\\text{/s}=${texNombre(
               duree * 3600 * rivieres[index2][2]
-            )}\\text{ m}^3$<br>`
+            )}\\text{ m}^3$.<br>`
           texteCorr +=
             numAlpha(1) +
-            ` En ${rivieres[index2][4]} lors de la crue historique ${rivieres[index2][6]}${rivieres[index2][0]} à ${rivieres[index2][1]} le débit maximal a été de :<br>`
-          texteCorr += `Débit =$${texNombre(
+            ` En ${rivieres[index2][4]}, lors de la crue historique ${rivieres[index2][6]}${rivieres[index2][0]} à ${rivieres[index2][1]}, le débit a été de :<br>`
+          texteCorr += `$\\text{Débit} = ${texNombre(
             vMax
           )}\\text{ m}^3\\text{/h}=\\dfrac{${texNombre(
             vMax
@@ -1154,7 +1153,7 @@ export default function ProblemesGrandeursComposees () {
             vMax
           )}\\text{ m}^3}{${texNombre(3600)}\\text{ s}}=${texNombre(
             vMax / 3600
-          , 0)}\\text{ m}^3\\text{/s}$<br>`
+          , 0)}\\text{ m}^3\\text{/s}$.<br>`
 
           break
         case 14: // problème de vitesse de téléchargement
@@ -1174,27 +1173,29 @@ export default function ProblemesGrandeursComposees () {
               typeAide,
               'vitesse de téléchargement',
               'Définition : Vitesse de téléchargement',
-              'La vitesse de téléchargement est le quotient de la quantité de données téléchargées (en ko,Mo ou Go) par la durée de téléchargement (en seconde).<br>L\'unité de cette grandeur quotient est le ko/s (ou Mo/s)'
+              'La vitesse de téléchargement est le quotient de la quantité de données téléchargées (en ko, Mo ou Go) par la durée de téléchargement (en secondes).<br>L\'unité de cette grandeur quotient est le ko/s (ou Mo/s)'
             ) +
-            ` est de ${vitesseMoy} ${unites[index]}/s.<br>`
-          texte += `Le téléchargement dure ${nbminutes} minutes et ${nbsecondes} secondes. Quelle est la taille du fichier téléchargé en ${unites[index]} ?<br>`
+            ` est de $${vitesseMoy}$ $\\text{${unites[index]
+            }/s}$.<br>`
+          texte += `Le téléchargement dure $${nbminutes}$ minutes et $${nbsecondes}$ secondes. Quelle est la taille du fichier téléchargé en $\\text{${unites[index]}}$ ?<br>`
           texte +=
             numAlpha(1) +
             ` ${quidam} veut télécharger un fichier de $${texNombre(
               masse
-            , 1)}$ Go. Quelle sera la durée du téléchargement si sa vitesse de téléchargement est de ${vitesseMoy} ${unites[index]
-            }/s ?<br>`
+            , 1)}\\text{ Go}$. Quelle sera la durée du téléchargement si sa vitesse de téléchargement est de $${vitesseMoy}$ $\\text{${unites[index]
+            }/s}$ ?<br>`
           texteCorr =
             numAlpha(0) + ' La taille du fichier téléchargé est :<br>'
           tailleFichier = (nbminutes * 60 + nbsecondes) * vitesseMoy
           texteCorr += `$(${nbminutes}\\times 60 +${nbsecondes})\\text{ s}\\times ${vitesseMoy} \\text{ ${unites[index]
             }/s} = ${nbminutes * 60 + nbsecondes
             }\\text{ s}\\times ${vitesseMoy} \\text{ ${unites[index]
-            }/s} = ${texNombre(tailleFichier, 0)} \\text{ ${unites[index]} }$`
+            }/s} = ${texNombre(tailleFichier, 0)} \\text{ ${unites[index]}}$`
           if (tailleFichier > 1000) {
             texteCorr += `$ =${texNombre(tailleFichier / 1000, 3)} \\text{ ${unites[index + 1]
-              }}.$<br>`
+              }}$`
           }
+          texteCorr += '.<br>'
           texteCorr +=
             numAlpha(1) + ' La durée du téléchargement sera de :<br>'
           if (index === 0) {
@@ -1203,12 +1204,12 @@ export default function ProblemesGrandeursComposees () {
             , 0)} \\text{ ko} \\div ${vitesseMoy} \\text{ ${unites[index]}/s}$ `
             tailleFichier = masse * 10 ** 6
           } else {
-            texteCorr += `$${masse}\\times ${texNombre(
+            texteCorr += `$${texNombre(masse, 1)}\\times ${texNombre(
               10 ** 3
            , 0)} \\text{ Mo} \\div ${vitesseMoy} \\text{ ${unites[index]}/s}$`
             tailleFichier = masse * 10 ** 3
           }
-          texteCorr += `$=\\dfrac{${texNombre(tailleFichier, 0)}}{${vitesseMoy}}\\text{ s}`
+          texteCorr += `$${sp(2)}=\\dfrac{${texNombre(tailleFichier, 0)}}{${vitesseMoy}}\\text{ s}`
           nbheures = Math.floor(tailleFichier / vitesseMoy / 3600)
           nbminutes = Math.floor(
             (tailleFichier / vitesseMoy - 3600 * nbheures) / 60
@@ -1221,7 +1222,7 @@ export default function ProblemesGrandeursComposees () {
           if (nbheures !== 0) texteCorr += `${nbheures} \\text{ h }`
           if (nbminutes !== 0) texteCorr += `${nbminutes} \\text{ min }`
           if (nbsecondes !== 0) texteCorr += `${nbsecondes} \\text { s}`
-          texteCorr += '$'
+          texteCorr += '$.'
 
           break
       }
