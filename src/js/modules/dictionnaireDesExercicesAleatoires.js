@@ -5950,7 +5950,7 @@ export default {
     }
   },
   "4P10": {
-    "titre": "Résoudre des problèmes de grandeurs composées et de conversion d\\",
+    "titre": "Résoudre des problèmes de grandeurs composées et de conversion d'unités complexes",
     "url": "/exercices/4e/4P10.js",
     "amcReady": false,
     "interactifReady": false,

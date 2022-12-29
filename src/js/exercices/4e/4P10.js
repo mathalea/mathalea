@@ -541,10 +541,10 @@ export default function ProblemesGrandeursComposees () {
         case 6: // problème de puissance électrique.
           index = randint(0, 3)
           index1 = randint(0, 3, [index])
-<<<<<<< Updated upstream
-          I1 = arrondi(appareils[index][1] / 230, 0) + 1
-          texte = numAlpha(0) +
-            ` Un ${appareils[index][0]} est protégé par un fusible de $${I1}$ ampères et fonctionne sur le secteur, soit à une tension de $${texNombre(230)}$ V.<br>Quelle est la ` +
+          I1 = Math.round(appareils[index][1] / 230) + 1
+          texte = 'Les appareils de cet exercices fonctionnent sur le secteur, soit à une tension de 230V<br>' +
+            numAlpha(0) +
+            ` Un ${appareils[index][0]} est protégé par un fusible de $${I1}$ ampères.<br>Quelle est la ` +
             katexPopup2(
               numeroExercice + i * 3 + 1,
               typeAide,
@@ -598,17 +598,6 @@ export default function ProblemesGrandeursComposees () {
                 ` En se déplaçant à cette vitesse pendant $${duree}$ h, quelle est la distance parcourue par ${quidam} en $\\text{km}$ ?<br>`
               texte +=
                 numAlpha(1) +
-                ` Si ${quidam} veut parcourir $${texNombre(
-                  distance
-                )}$ km à cette vitesse, combien de temps durera le trajet ? Donner le résultat en heures, minutes et secondes.`
-              texteCorr =
-                numAlpha(0) +
-                ` La distance parcourue par ${quidam} ${vitesses[index1][0]
-                } en $${duree}$ h à la vitesse de $${texNombrec(
-                  vitesseMoy
-                )}$ m/s est :<br>`
-              texteCorr += `$${texNombrec(
-=======
                 ` Si ${quidam} veut parcourir ${stringNombre(
                   distance
                 , 2)} km à cette vitesse, combien de temps durera le trajet ? Donner le résultat en heures, minutes et secondes.`
@@ -617,7 +606,6 @@ export default function ProblemesGrandeursComposees () {
                 ` La distance parcourue par ${quidam} ${vitesses[index1][0]
                 } en ${duree} h à la vitesse de $${vitesseMoy}$ m/s est :<br>`
               texteCorr += `$${stringNombre(
->>>>>>> Stashed changes
                 vitesseMoy
               , 0)}\\text{ m/s}\\times${duree}\\text{ h}=\\dfrac{${stringNombre(
                 vitesseMoy
