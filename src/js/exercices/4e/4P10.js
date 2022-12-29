@@ -367,11 +367,7 @@ export default function ProblemesGrandeursComposees () {
                   'Définition : Densité (grandeur physique)',
                   'La densité d\'une substance est égale à la masse volumique de la substance divisée par la masse volumique du corps de référence à la même température.<br>Pour les liquides et les solides, l\'eau est utilisée comme référence (sa masse volumique est de 1 kg/dm$^3$), pour les gaz, la mesure s\'effectue par rapport à l\'air.<br>Donc pour les liquides, la densité est égale à la masse volumique exprimée en kg/dm$^3$.'
                 ) +
-<<<<<<< Updated upstream
-                ` est de $${texNombrec(liquides[index2][1])}$ kg/dm$^3$), quelle masse ${liquides[index2][0]
-=======
                 ` est de $${texNombre(liquides[index2][1], 3)} $kg/dm$^3$), quelle masse ${liquides[index2][0]
->>>>>>> Stashed changes
                 } en kg contiendra-t-il au gramme près ?<br>`
               texteCorr =
                 numAlpha(0) +
@@ -389,11 +385,7 @@ export default function ProblemesGrandeursComposees () {
                 arrondi((r * r * h * Math.PI) / 1000, 1)
               )}\\text{ dm}^3\\times ${texNombre(
                 liquides[index2][1]
-<<<<<<< Updated upstream
-              )} \\dfrac{kg}{dm^3}\\approx${texNombre(
-=======
               , 3)} \\times 1 \\dfrac{kg}{dm^3}\\approx${texNombre(
->>>>>>> Stashed changes
                 arrondi(((r * r * h * Math.PI) / 1000) * liquides[index2][1], 3)
               )}\\text{ kg}.$`
               break
@@ -413,13 +405,8 @@ export default function ProblemesGrandeursComposees () {
               'Définition : Vitesse (grandeur physique)',
               'La vitesse est le quotient de la distance parcourue par le temps de parcours.<br>L\'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$).'
             ) +
-<<<<<<< Updated upstream
-            ` de $${texNombrec(vitesseMoy)}\\text{ m/s}$.<br>`
-          texte += `Elle pèse $${masse}\\text{ kg}$.<br>`
-=======
             ` de $${vitesseMoy}$ m/s.<br>`
           texte += `Elle pèse $${masse}$ kg.<br>`
->>>>>>> Stashed changes
           texte +=
             numAlpha(0) +
             ' Calculer sa ' +
@@ -446,20 +433,12 @@ export default function ProblemesGrandeursComposees () {
             numAlpha(0) +
             ` La quantité de mouvement de ${quidam} est : $${masse} \\text{ kg}\\times ${vitesseMoy}\\text{ m/s}=${stringNombre(
               masse * vitesseMoy
-<<<<<<< Updated upstream
-            )}\\text{ kg.m.s}^{-1}$.<br>`
-=======
             , 0)}\\text{ kg.m.s}^{-1}$<br>`
->>>>>>> Stashed changes
           texteCorr +=
             numAlpha(1) +
             ` L'énergie cinétique de ${quidam} est : $\\dfrac{1}{2}\\times ${masse} \\text{ kg}\\times (${vitesseMoy}\\text{ m/s})^2=\\dfrac{${masse}\\times${vitesseMoy}^2}{2}\\text{ J}=${texNombre(
               (masse * vitesseMoy ** 2) / 2
-<<<<<<< Updated upstream
-            )}\\text{ J}$.`
-=======
             , 1)}\\text{ J}$`
->>>>>>> Stashed changes
           break
         case 4: // problème de moment et de couple de forces qui s'annulent.
           quidam = prenom()
@@ -520,13 +499,8 @@ export default function ProblemesGrandeursComposees () {
           texteCorr += `$ ${index}\\text{ kg}\\times 9,81 \\text{m.s}^{-2} \\times ${miseEnEvidence(
             'd',
             'black'
-<<<<<<< Updated upstream
-          )} \\text{ m}=${texNombre(index1)}\\text{ J}$.<br>`
-          texteCorr += `D'où, $${miseEnEvidence(
-=======
           )} \\text{ m}=${texNombre(index1, 3)}\\text{ J}$<br>`
           texteCorr += `D'où $${miseEnEvidence(
->>>>>>> Stashed changes
             'd',
             'black'
           )}\\text{ m} = \\dfrac{${texNombre(
@@ -567,16 +541,10 @@ export default function ProblemesGrandeursComposees () {
         case 6: // problème de puissance électrique.
           index = randint(0, 3)
           index1 = randint(0, 3, [index])
-<<<<<<< Updated upstream
-          I1 = arrondi(appareils[index][1] / 230, 0) + 1
-          texte = numAlpha(0) +
-            ` Un ${appareils[index][0]} est protégé par un fusible de $${I1}$ ampères et fonctionne sur le secteur, soit à une tension de $${texNombre(230)}$ V.<br>Quelle est la ` +
-=======
           I1 = Math.round(appareils[index][1] / 230) + 1
           texte = 'Les appareils de cet exercices fonctionnent sur le secteur, soit à une tension de 230V<br>' +
             numAlpha(0) +
             ` Un ${appareils[index][0]} est protégé par un fusible de $${I1}$ ampères.<br>Quelle est la ` +
->>>>>>> Stashed changes
             katexPopup2(
               numeroExercice + i * 3 + 1,
               typeAide,
@@ -590,13 +558,8 @@ export default function ProblemesGrandeursComposees () {
             ` Un ${appareils[index1][0]} fonctionne à une puissance maximale de $${stringNombre(appareils[index1][1], 0)}$ W.<br>Quel est l'ampérage (entier) minimum nécessaire pour le fusible qui protégera ${index1 === 3 ? 'cet' : 'ce'} ${appareils[index1][0]} des courts-circuits ?<br>`
           texteCorr =
             numAlpha(0) +
-<<<<<<< Updated upstream
-            ` La tension du secteur étant de $${texNombre(230)}$ V, la puissance maximale de ce ${appareils[index][0]} est de :<br>`
-          texteCorr += `$230\\text{ V}\\times${I1}\\text{ A}=${texNombre(230 * I1)
-=======
             ` La tension du secteur étant de 230V, la puissance maximale de ce ${appareils[index][0]} est de :<br>`
           texteCorr += `$230\\text{ V}\\times${I1}\\text{ A}=${stringNombre(230 * I1, 0)
->>>>>>> Stashed changes
             }\\text{ W}$.<br>`
           I2 = Math.round(appareils[index1][1] / 230) + 1
           texteCorr +=
@@ -635,18 +598,6 @@ export default function ProblemesGrandeursComposees () {
                 ` En se déplaçant à cette vitesse pendant $${duree}$ h, quelle est la distance parcourue par ${quidam} en $\\text{km}$ ?<br>`
               texte +=
                 numAlpha(1) +
-<<<<<<< Updated upstream
-                ` Si ${quidam} veut parcourir $${texNombre(
-                  distance
-                )}$ km à cette vitesse, combien de temps durera le trajet ? Donner le résultat en heures, minutes et secondes.`
-              texteCorr =
-                numAlpha(0) +
-                ` La distance parcourue par ${quidam} ${vitesses[index1][0]
-                } en $${duree}$ h à la vitesse de $${texNombrec(
-                  vitesseMoy
-                )}$ m/s est :<br>`
-              texteCorr += `$${texNombrec(
-=======
                 ` Si ${quidam} veut parcourir ${stringNombre(
                   distance
                 , 2)} km à cette vitesse, combien de temps durera le trajet ? Donner le résultat en heures, minutes et secondes.`
@@ -655,7 +606,6 @@ export default function ProblemesGrandeursComposees () {
                 ` La distance parcourue par ${quidam} ${vitesses[index1][0]
                 } en ${duree} h à la vitesse de $${vitesseMoy}$ m/s est :<br>`
               texteCorr += `$${stringNombre(
->>>>>>> Stashed changes
                 vitesseMoy
               , 0)}\\text{ m/s}\\times${duree}\\text{ h}=\\dfrac{${stringNombre(
                 vitesseMoy
@@ -666,21 +616,12 @@ export default function ProblemesGrandeursComposees () {
                 vitesseMoy * 3600 * duree
               , 0)}\\text{ m}=${texNombre(
                 vitesseMoy * 3.6 * duree
-<<<<<<< Updated upstream
-              )}\\text{ km}$.<br>`
-              texteCorr +=
-                numAlpha(1) +
-                ` Pour parcourir $${texNombre(
-                  distance
-                )}$ km à cette vitesse, ${quidam} mettra :<br>`
-=======
               , 1)}\\text{ km}$<br>`
               texteCorr +=
                 numAlpha(1) +
                 ` Pour parcourir ${stringNombre(
                   distance
                 , 2)} km à cette vitesse, ${quidam} mettra :<br>`
->>>>>>> Stashed changes
               texteCorr += ` Partons de la formule $\\mathcal{V}=\\dfrac{\\mathcal{d}}{\\mathcal{t}}$ et remplaçons : $\\dfrac{${vitesseMoy}\\text{ m}}{1 \\text{ s}}=\\dfrac{${texNombre(
                 distance
               )}\\text{ km}}{\\mathcal{t}\\text{ h}}$<br>`
