@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 
-import { repere, texteParPosition, courbeInterpolee } from '../../modules/2d.js'
+import { repere, texteParPosition, courbeInterpolee, point, tracePoint } from '../../modules/2d.js'
 import { listeQuestionsToContenu, combinaisonListes, choice, randint } from '../../modules/outils.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 export const titre = 'Dresser un tableau de variations à partir d\'une courbe'
@@ -26,8 +26,8 @@ export default function VariationsCourbe () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    const listeTypeDeQuestions = combinaisonListes([1, 2, 3, 4, 5, 6, 7], this.nbQuestions)
-    for (let i = 0, texte, texteCorr, cpt = 0, x0, y0, x1, y1, x2, y2, x3, y3, x4, y4, o, r1, gr, graphique, nom, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
+    const listeTypeDeQuestions = combinaisonListes([1, 2, 3, 4, 5, 6, 7], this.nbQuestions)//
+    for (let i = 0, texte, texteCorr, cpt = 0, A0, A1, A2, A3, A4, Tk, x0, y0, x1, y1, x2, y2, x3, y3, x4, y4, o, r1, gr, graphique, nom, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
       const nomF = [
         ['f'], ['g'], ['h'], ['u'],
@@ -42,6 +42,11 @@ export default function VariationsCourbe () {
           y1 = randint(-1, 5)// max de y
           x2 = randint(4, 5)
           y2 = y1 - randint(1, 4)
+          A0 = point(x0, y0)
+          A1 = point(x1, y1)
+          A2 = point(x2, y2)
+          Tk = tracePoint(A0, A1, A2)
+          Tk.epaisseur = 2
           nom = choice(nomF)
           o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
           r1 = repere({
@@ -83,9 +88,9 @@ export default function VariationsCourbe () {
             pixelsParCm: 30,
             scale: 0.8,
             style: 'margin: auto'
-          }, r1, o, gr)
+          }, r1, o, gr, Tk)
           texte = `  Voici la courbe représentative d'une fonction $${nom}$.<br>
-            Dresser son tableau de variations sur son ensemble de définition. <br>`
+            Dresser son tableau de variations sur son ensemble de définition.<br><br>`
           texte += `${graphique}`
 
           texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x2}]$.<br>
@@ -94,7 +99,7 @@ export default function VariationsCourbe () {
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                ['$x$', 3, 8], [`$${nom}(x)$`, 4, 20]
+                ['$x$', 1.5, 10], [`$${nom}(x)$`, 4, 30]
               ],
               // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
               [`$${x0}$`, 10, `$${x1}$`, 10, `$${x2}$`, 10]
@@ -102,9 +107,9 @@ export default function VariationsCourbe () {
             // tabLines ci-dessous contient les autres lignes du tableau.
             tabLines: [['Var', 10, `-/$${y0}$`, 10, `+/$${y1}$`, 10, `-/$${y2}$`, 10]],
             colorBackground: '',
-            espcl: 3, // taille en cm entre deux antécédents
+            espcl: 2, // taille en cm entre deux antécédents
             deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
-            lgt: 3, // taille de la première colonne en cm
+            lgt: 2.5, // taille de la première colonne en cm
             hauteurLignes: [15, 15]
           })) + '<br>'
 
@@ -117,6 +122,11 @@ export default function VariationsCourbe () {
           y1 = randint(-5, 1)// min de y
           x2 = randint(4, 5)
           y2 = y1 + randint(1, 4)
+          A0 = point(x0, y0)
+          A1 = point(x1, y1)
+          A2 = point(x2, y2)
+          Tk = tracePoint(A0, A1, A2)
+          Tk.epaisseur = 2
           nom = choice(nomF)
           o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
           r1 = repere({
@@ -157,9 +167,9 @@ export default function VariationsCourbe () {
             pixelsParCm: 30,
             scale: 0.8,
             style: 'margin: auto'
-          }, r1, o, gr)
+          }, r1, o, gr, Tk)
           texte = `  Voici la courbe représentative d'une fonction $${nom}$.<br>
-        Dresser son tableau de variations sur son ensemble de définition. <br>`
+        Dresser son tableau de variations sur son ensemble de définition.<br><br>`
           texte += `${graphique}`
 
           texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x2}]$.<br>
@@ -168,7 +178,7 @@ export default function VariationsCourbe () {
             tabInit: [
               [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                ['$x$', 3, 8], [`$${nom}(x)$`, 4, 20]
+                ['$x$', 1.5, 10], [`$${nom}(x)$`, 4, 30]
               ],
               // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
               [`$${x0}$`, 10, `$${x1}$`, 10, `$${x2}$`, 10]
@@ -192,6 +202,12 @@ export default function VariationsCourbe () {
           y2 = y1 + randint(2, 7)
           x3 = randint(5, 6)
           y3 = y2 - randint(1, 4)
+          A0 = point(x0, y0)
+          A1 = point(x1, y1)
+          A2 = point(x2, y2)
+          A3 = point(x3, y3)
+          Tk = tracePoint(A0, A1, A2, A3)
+          Tk.epaisseur = 2
           nom = choice(nomF)
           o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
           r1 = repere({
@@ -232,9 +248,9 @@ export default function VariationsCourbe () {
             pixelsParCm: 30,
             scale: 0.8,
             style: 'margin: auto'
-          }, r1, o, gr)
+          }, r1, o, gr, Tk)
           texte = `  Voici la courbe représentative d'une fonction $${nom}$.<br>
-        Dresser son tableau de variations sur son ensemble de définition. <br>`
+        Dresser son tableau de variations sur son ensemble de définition.<br><br>`
           texte += `${graphique}`
 
           texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x3}]$.<br>
@@ -243,7 +259,7 @@ export default function VariationsCourbe () {
             tabInit: [
               [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                ['$x$', 3, 8], [`$${nom}(x)$`, 4, 20]
+                ['$x$', 1.5, 10], [`$${nom}(x)$`, 4, 30]
               ],
               // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
               [`$${x0}$`, 10, `$${x1}$`, 10, `$${x2}$`, 10, `$${x3}$`, 10]
@@ -267,6 +283,12 @@ export default function VariationsCourbe () {
           y2 = y1 - randint(2, 7)
           x3 = randint(7, 9)
           y3 = y2 + randint(1, 4)
+          A0 = point(x0, y0)
+          A1 = point(x1, y1)
+          A2 = point(x2, y2)
+          A3 = point(x3, y3)
+          Tk = tracePoint(A0, A1, A2, A3)
+          Tk.epaisseur = 2
           nom = choice(nomF)
           o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
           r1 = repere({
@@ -307,9 +329,9 @@ export default function VariationsCourbe () {
             pixelsParCm: 30,
             scale: 0.7,
             style: 'margin: auto'
-          }, r1, o, gr)
+          }, r1, o, gr, Tk)
           texte = `  Voici la courbe représentative d'une fonction $${nom}$.<br>
-        Dresser son tableau de variations sur son ensemble de définition. <br>`
+        Dresser son tableau de variations sur son ensemble de définition.<br><br>`
           texte += `${graphique}`
 
           texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x3}]$.<br>
@@ -318,7 +340,7 @@ export default function VariationsCourbe () {
             tabInit: [
               [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                ['$x$', 3, 8], [`$${nom}(x)$`, 4, 20]
+                ['$x$', 1.5, 10], [`$${nom}(x)$`, 4, 30]
               ],
               // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
               [`$${x0}$`, 10, `$${x1}$`, 10, `$${x2}$`, 10, `$${x3}$`, 10]
@@ -344,6 +366,13 @@ export default function VariationsCourbe () {
           y3 = y2 + randint(1, 4)
           x4 = randint(7, 9)
           y4 = y3 - randint(1, 4)
+          A0 = point(x0, y0)
+          A1 = point(x1, y1)
+          A2 = point(x2, y2)
+          A3 = point(x3, y3)
+          A4 = point(x4, y4)
+          Tk = tracePoint(A0, A1, A2, A3, A4)
+          Tk.epaisseur = 2
           nom = choice(nomF)
           o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
           r1 = repere({
@@ -384,9 +413,9 @@ export default function VariationsCourbe () {
             pixelsParCm: 25,
             scale: 0.7,
             style: 'margin: auto'
-          }, r1, o, gr)
+          }, r1, o, gr, Tk)
           texte = `  Voici la courbe représentative d'une fonction $${nom}$.<br>
-        Dresser son tableau de variations sur son ensemble de définition. <br>`
+        Dresser son tableau de variations sur son ensemble de définition.<br><br>`
           texte += `${graphique}`
 
           texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x4}]$.<br>
@@ -395,7 +424,7 @@ export default function VariationsCourbe () {
             tabInit: [
               [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                ['$x$', 3, 8], [`$${nom}(x)$`, 4, 20]
+                ['$x$', 1.5, 10], [`$${nom}(x)$`, 4, 30]
               ],
               // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
               [`$${x0}$`, 10, `$${x1}$`, 10, `$${x2}$`, 10, `$${x3}$`, 10, `$${x4}$`, 10]
@@ -421,6 +450,13 @@ export default function VariationsCourbe () {
           y3 = y2 - randint(1, 4)
           x4 = randint(7, 8)
           y4 = y3 + randint(1, 5)
+          A0 = point(x0, y0)
+          A1 = point(x1, y1)
+          A2 = point(x2, y2)
+          A3 = point(x3, y3)
+          A4 = point(x4, y4)
+          Tk = tracePoint(A0, A1, A2, A3, A4)
+          Tk.epaisseur = 2
           nom = choice(nomF)
           o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
           r1 = repere({
@@ -461,9 +497,9 @@ export default function VariationsCourbe () {
             pixelsParCm: 25,
             scale: 0.7,
             style: 'margin: auto'
-          }, r1, o, gr)
+          }, r1, o, gr, Tk)
           texte = `  Voici la courbe représentative d'une fonction $${nom}$.<br>
-        Dresser son tableau de variations sur son ensemble de définition. <br>`
+        Dresser son tableau de variations sur son ensemble de définition.<br><br>`
           texte += `${graphique}`
 
           texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x4}]$.<br>
@@ -472,7 +508,7 @@ export default function VariationsCourbe () {
             tabInit: [
               [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                ['$x$', 3, 8], [`$${nom}(x)$`, 4, 20]
+                ['$x$', 1.5, 10], [`$${nom}(x)$`, 4, 30]
               ],
               // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
               [`$${x0}$`, 10, `$${x1}$`, 10, `$${x2}$`, 10, `$${x3}$`, 10, `$${x4}$`, 10]
@@ -488,7 +524,7 @@ export default function VariationsCourbe () {
           break
 
         case 7:// avec des grandes valeurs
-          if (choice([false, false])) { // croissante, décroissante, croissante
+          if (choice([true, false])) { // croissante, décroissante, croissante
             nom = choice(nomF)
             x0 = randint(0, 10) * 10
             y0 = randint(0, 15) * 2
@@ -498,7 +534,13 @@ export default function VariationsCourbe () {
             y2 = randint(0, 10) * 2
             x3 = randint(70, 80) * 10
             y3 = randint(20, 40) * 2
+            A0 = point(x0 * 0.03, y0 * 0.15)
+            A1 = point(x1 * 0.03, y1 * 0.15)
+            A2 = point(x2 * 0.03, y2 * 0.15)
+            A3 = point(x3 * 0.03, y3 * 0.15)
 
+            Tk = tracePoint(A0, A1, A2, A3)
+            Tk.epaisseur = 2
             o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
 
             r1 = repere({
@@ -552,9 +594,9 @@ export default function VariationsCourbe () {
               scale: 0.5,
               style: 'margin: auto'
             }
-            , r1, o, gr)
+            , r1, o, gr, Tk)
             texte = `  Voici la courbe représentative d'une fonction $${nom}$.<br>
-        Dresser son tableau de variations sur son ensemble de définition. <br>`
+        Dresser son tableau de variations sur son ensemble de définition.<br><br>`
             texte += `${graphique}`
 
             texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x3}]$.<br>
@@ -563,7 +605,7 @@ export default function VariationsCourbe () {
               tabInit: [
                 [
                   // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                  ['$x$', 3, 8], [`$${nom}(x)$`, 4, 20]
+                  ['$x$', 1.5, 10], [`$${nom}(x)$`, 4, 30]
                 ],
                 // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
                 [`$${x0}$`, 10, `$${x1}$`, 10, `$${x2}$`, 10, `$${x3}$`, 10]
@@ -586,7 +628,13 @@ export default function VariationsCourbe () {
             y2 = randint(20, 50) * 2
             x3 = randint(70, 80) * 10
             y3 = randint(0, 15) * 2
+            A0 = point(x0 * 0.03, y0 * 0.15)
+            A1 = point(x1 * 0.03, y1 * 0.15)
+            A2 = point(x2 * 0.03, y2 * 0.15)
+            A3 = point(x3 * 0.03, y3 * 0.15)
 
+            Tk = tracePoint(A0, A1, A2, A3)
+            Tk.epaisseur = 2
             o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
 
             r1 = repere({
@@ -640,9 +688,9 @@ export default function VariationsCourbe () {
               scale: 0.5,
               style: 'margin: auto'
             }
-            , r1, o, gr)
+            , r1, o, gr, Tk)
             texte = `  Voici la courbe représentative d'une fonction $${nom}$.<br>
-            Dresser son tableau de variations sur son ensemble de définition. <br>`
+            Dresser son tableau de variations sur son ensemble de définition.<br><br>`
             texte += `${graphique}`
 
             texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x3}]$.<br>
@@ -651,7 +699,7 @@ export default function VariationsCourbe () {
               tabInit: [
                 [
                   // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                  ['$x$', 3, 8], [`$${nom}(x)$`, 4, 20]
+                  ['$x$', 1.5, 10], [`$${nom}(x)$`, 4, 30]
                 ],
                 // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
                 [`$${x0}$`, 10, `$${x1}$`, 10, `$${x2}$`, 10, `$${x3}$`, 10]
