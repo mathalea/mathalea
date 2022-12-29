@@ -17,8 +17,6 @@ export default class SommeSuite extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.spacingCorr = 2
-    this.correctionDetaillee = true
-    this.correctionDetailleeDisponible = true
   }
 
   nouvelleVersion () {
