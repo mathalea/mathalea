@@ -643,7 +643,7 @@ export default function ProblemesGrandeursComposees () {
                 distance * 1000
               , 0)}\\text{ m}}{${vitesseMoy}\\text{ m}\\times${texNombre(
                 3600
-              )}\\text{ s/h}}=${texNombre((distance * 1000) / vitesseMoy / 3600, 1)}\\text{ h}$ ($t$ est le nombre décimal d'heures : les mètres et les secondes disparaissent car ils sont, tous deux, présents au numérateur et au dénominateur).<br>`
+              )}\\text{ s/h}}$ ($t$ est le nombre décimal d'heures : les mètres et les secondes disparaissent car ils sont, tous deux, présents au numérateur et au dénominateur).<br>`
               texteCorr += `Soit : $\\mathcal{t}=${texNombre(
                 (distance * 1000) / vitesseMoy / 3600
                 , 1)}\\times ${stringNombre(
