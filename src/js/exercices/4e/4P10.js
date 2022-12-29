@@ -593,7 +593,7 @@ export default function ProblemesGrandeursComposees () {
                 ` de $${vitesseMoy}\\text{ m/s}$.<br>`
               texte +=
                 numAlpha(0) +
-                ` En se déplaçant à cette vitesse pendant $${duree}$ h, quelle est la distance parcourue par ${quidam} en $\\text{km}$ ?<br>`
+                ` En se déplaçant à cette vitesse pendant $${duree}\\text{ h}$, quelle est la distance parcourue par ${quidam} ?<br>`
               texte +=
                 numAlpha(1) +
                 ` Si ${quidam} veut parcourir $${texNombre(
@@ -602,7 +602,7 @@ export default function ProblemesGrandeursComposees () {
               texteCorr =
                 numAlpha(0) +
                 ` La distance parcourue par ${quidam} ${vitesses[index1][0]
-                } en ${duree} h à la vitesse de $${vitesseMoy}$ m/s est :<br>`
+                } en $${duree}$ h à la vitesse de $${vitesseMoy}\\text{ m/s}$ est :<br>`
               texteCorr += `$${texNombre(
                 vitesseMoy
               , 0)}\\text{ m/s}\\times${duree}\\text{ h}=\\dfrac{${texNombre(
@@ -619,7 +619,7 @@ export default function ProblemesGrandeursComposees () {
                 numAlpha(1) +
                 ` Pour parcourir $${texNombre(
                   distance
-                )}$ km à cette vitesse, cherchons le temps que ${quidam} mettra.<br>`
+                )}\\text{ km}$ à cette vitesse, cherchons le temps que ${quidam} mettra.<br>`
               texteCorr += ` Partons de la formule $\\mathcal{V}=\\dfrac{\\mathcal{d}}{\\mathcal{t}}$ et remplaçons : $\\dfrac{${vitesseMoy}\\text{ m}}{1 \\text{ s}}=\\dfrac{${texNombre(
                 distance
               )}\\text{ km}}{\\mathcal{t}\\text{ h}}$.<br>`
@@ -666,10 +666,10 @@ export default function ProblemesGrandeursComposees () {
                 texteCorr += `+${nbsecondes}`
               }
               texteCorr = texteCorr.replace('++', '+') + '\\text{ s}=' // au cas ou nbminutes === 0 il y aurait ++
-              if (nbheures !== 0) texteCorr += `${texNombre(nbheures)}\\text{ h }` // affichage de la réponse
-              if (nbminutes !== 0) texteCorr += `${texNombre(nbminutes)}\\text{ min }`
-              if (nbsecondes !== 0) texteCorr += `${nbsecondes}\\text{ s}$`
-              else texteCorr += '$'
+              if (nbheures !== 0) texteCorr += `${texNombre(nbheures)}\\text{ h}` // affichage de la réponse
+              if (nbminutes !== 0) texteCorr += ` ${texNombre(nbminutes)}\\text{ min}`
+              if (nbsecondes !== 0) texteCorr += ` ${nbsecondes}\\text{s}`
+              texteCorr += '$.'
               break
             case 1: // l'orage et la vitesse du son
               duree = randint(2, 15) // durée pour question a)
@@ -853,7 +853,7 @@ export default function ProblemesGrandeursComposees () {
                 21.0975
               )} \\text{ km}}{${texNombre(
                 vitesseMoy
-              , 1)} \\text{ km.h}^{-1}}\\approx${texNombre(duree, 4)}\\text{ h}$ soit `
+              , 1)} \\text{ km.h}^{-1}}\\approx${texNombre(duree, 4)}\\text{ h}$, soit `
               nbheures = Math.floor(duree)
               texteCorr += `$${texNombre(
                 duree, 4)}\\times ${stringNombre(
@@ -874,10 +874,10 @@ export default function ProblemesGrandeursComposees () {
                 texteCorr += `+${nbsecondes}`
               }
               texteCorr = texteCorr.replace('++', '+') + '\\text{ s}=' // au cas ou nbminutes === 0 il y aurait ++
-              if (nbheures !== 0) texteCorr += `${texNombre(nbheures)}\\text{ h }` // affichage de la réponse
-              if (nbminutes !== 0) texteCorr += `${texNombre(nbminutes)}\\text{ min }`
-              if (nbsecondes !== 0) texteCorr += `${nbsecondes}\\text{ s}$`
-              else texteCorr += '$'
+              if (nbheures !== 0) texteCorr += `${texNombre(nbheures)}\\text{ h}` // affichage de la réponse
+              if (nbminutes !== 0) texteCorr += ` ${texNombre(nbminutes)}\\text{ min}`
+              if (nbsecondes !== 0) texteCorr += ` ${nbsecondes}\\text{s}`
+              texteCorr += '$.'
               break
           }
           break
@@ -932,7 +932,7 @@ export default function ProblemesGrandeursComposees () {
         case 9: // problème de prix horaire
           index1 = randint(0, 3)
           index2 = randint(0, 4)
-          nbheures = randint(locations[index1][1], locations[index1][2])
+          nbheures = randint(locations[index1][2], locations[index1][3])
           prix1 = locations[index1][1]
           prix2 = cours[index2][1] * randint(2, 6)
           quidam = prenomF()
@@ -941,14 +941,14 @@ export default function ProblemesGrandeursComposees () {
           texte +=
             numAlpha(1) +
             ` ${quidam} a pris des leçons particulières ${cours[index2][0]
-            }. En tout ce mois-ci elle a eu $${stringNombre(
+            }. En tout, ce mois-ci, elle a eu $${stringNombre(
               prix2 / cours[index2][1]
-            , 0)}$ heures de cours pour ${texPrix(
+            , 0)}$ heures de cours pour $${texPrix(
               prix2
-            )} €. Combien demande son professeur pour une heure de cours ?<br>`
+            )}$ €. Combien demande son professeur pour une heure de cours ?<br>`
           texteCorr =
             numAlpha(0) +
-            ` ${quidam} va dépenser pour sa location : $${texNombre(
+            ` ${quidam} va dépenser pour sa location d'${locations[index1][0]} : $${texNombre(
               nbheures
             )}\\text{ h} \\times ${texPrix(prix1)}$ €$\\text{/h} = ${texPrix(
               nbheures * prix1
@@ -957,7 +957,7 @@ export default function ProblemesGrandeursComposees () {
             numAlpha(1) +
             ` L'heure de cours ${cours[index2][0]} coûte : $${texPrix(
               prix2
-            )}$ € $ \\div ${texNombre(
+            )}$ € $${sp()}\\div${sp()}${texNombre(
               prix2 / cours[index2][1]
             )}\\text{ h} = ${texPrix(cours[index2][1])}$ €$\\text{/h}$.<br>`
           break
@@ -966,11 +966,11 @@ export default function ProblemesGrandeursComposees () {
           index2 = randint(0, 14, [index1])
           texte =
             numAlpha(0) +
-            ` En 2016, à ${villes[index1][0]} il y avait ${texNombre(
+            ` En 2016, à ${villes[index1][0]} il y avait $${texNombre(
               villes[index1][1]
-            )} habitants pour une superficie de ${stringNombre(
+            )}$ habitants pour une superficie de $${texNombre(
               villes[index1][2] * 100
-            , 0)} ha.<br> Calculer la densité de population en hab/km$^2$ arrondi à l'unité.<br>`
+            , 0)}\\text{ ha}$.<br> Calculer la densité de population en $\\text{hab/km}^2$ arrondi à l'unité.<br>`
           texte +=
             numAlpha(1) +
             ' La même année, la ' +
@@ -981,9 +981,9 @@ export default function ProblemesGrandeursComposees () {
               'Définition : Densité de population',
               'C\'est le quotient du nombre d\'habitants par la superficie en km$^2$.<br>L\'unité de la densité de population est l\'habitant par km$^2$ (hab/km$^2$).'
             ) +
-            ` de ${villes[index2][0]} était de $${texNombre(villes[index2][1] / villes[index2][2], 0)}$ hab/km$^2$ pour une superficie de $${texNombre(
+            ` de ${villes[index2][0]} était de $${texNombre(villes[index2][1] / villes[index2][2], 0)}\\text{ hab/km}^2$ pour une superficie de $${texNombre(
               villes[index2][2] * 100
-            , 0)}$ ha.<br> Calculer le nombre d'habitants de ${villes[index2][0]
+            , 0)}\\text{ ha}$.<br> Calculer le nombre d'habitants de ${villes[index2][0]
             } à cette date.<br>`
           texteCorr =
             numAlpha(0) +
@@ -1004,13 +1004,13 @@ export default function ProblemesGrandeursComposees () {
             ` À cette date, le nombre d'habitants de ${villes[index2][0]
             } était de :<br> $${texNombre(
               villes[index2][1] / villes[index2][2]
-            , 2)}\\text{ hab/km}^2\\times ${texNombre(
+            , 0)}\\text{ hab/km}^2\\times ${texNombre(
               villes[index2][2] * 100
             , 0)}\\text{ ha}=${texNombre(
               villes[index2][1] / villes[index2][2]
-            , 2)}\\text{ hab/km}^2\\times ${texNombre(
+            , 0)}\\text{ hab/km}^2\\times ${texNombre(
               villes[index2][2]
-            , 1)}\\text{ km}^{2}=${texNombre(villes[index2][1], 0)}\\text{ hab}$.`
+            , 1)}\\text{ km}^{2}\\approx${texNombre(villes[index2][1], 0)}\\text{ hab}$.`
           break
         case 11: // problème de masse volumique
           index1 = randint(0, 14)
