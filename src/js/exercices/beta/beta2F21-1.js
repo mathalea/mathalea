@@ -54,10 +54,10 @@ export default function ModeliserParUneFonction () {
             const dec2 = choice([0, 0.25, 0.5, 0.75, 1])
             const d = (new Decimal(randint(2, 3))).add(dec2)
             const d1 = Math.round(d * 100) / 100
-            const P = prenom()
+            const P = prenomM()
             const T = randint(30, 70)
             const e = randint(25, 30)
-            const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+            const o = texteParPosition('$O$', -0.3, -0.3, 'milieu', 'black', 1)
             const A = point(0.5 * (c - a) / (b - d), 0.1 * (a + b * (c - a) / (b - d)))
             const Ax = point(A.x, 0)
             const sAAx = segment(A, Ax)
@@ -122,11 +122,11 @@ export default function ModeliserParUneFonction () {
                 `
 
             texteCorr = `
-          ${numAlpha(0)} Le nombre minimal de séances dans le mois est 0 et le nombre maximal est $${e}$, donc l'ensemble de définition des fonctions $f$ et $g$ est $[0\\,;\\,${e}]$.<br><br>
+          ${numAlpha(0)} Le nombre minimal de séances dans le mois est $0$ et le nombre maximal est $${e}$, donc l'ensemble de définition des fonctions $f$ et $g$ est $[0\\,;\\,${e}]$.<br><br>
           ${numAlpha(1)} Les formules comprennent un abonnement fixe et un tarif particulier pour une séance. <br>
           Ainsi, le montant mensuel pour une formule est : Abonnement + Coût d'une séance $\\times$ Nombre de séances. <br>
-          La fonction $f$ est définie par : $f(x)=${a}+${texPrix(b)}x$ et la fonction $g$ est définie par $g(x)=${c}+${texPrix(d)}x$.<br><br>
-          ${numAlpha(2)} On cherche le nombre de séances maximum  que l'on peut faire avec $${T}$ € avec les formule A et B.<br>
+          La fonction $f$ est définie par $f(x)=${a}+${texPrix(b)}x$ et la fonction $g$ est définie par $g(x)=${c}+${texPrix(d)}x$.<br><br>
+          ${numAlpha(2)} On cherche le nombre de séances maximum que l'on peut faire avec $${T}$ € avec les formule A et B.<br>
           Pour la formule A, on cherche $x$ tel que $f(x)\\leqslant${T}$.<br>
           $\\begin{aligned}
 ${a}+${texPrix(b)}x&\\leqslant${T}\\\\
@@ -151,7 +151,7 @@ Avec la formule B, ${P} pourra faire au maximum $${Math.floor((T - c) / d)}$ sé
             if (Math.floor((T - c) / d) === Math.floor((T - a) / b)) {
               texteCorr += `Les deux formules permettent autant de séances avec un budget de $${T}$ €.`
             } else {
-              texteCorr += ` ${texteGras('Conclusion :')}  ${Math.floor((T - c) / d) > Math.floor((T - a) / b) ? 'La formule B ' : ', La formule A'} permet de faire plus de séances, elle est plus avanatgeuse pour ${P}.
+              texteCorr += ` ${texteGras('Conclusion : ')}  ${Math.floor((T - c) / d) > Math.floor((T - a) / b) ? 'La formule B ' : 'La formule A'} permet de faire plus de séances, elle est plus avanatgeuse pour ${P}.
 
 <br><br>`
             }
@@ -167,7 +167,7 @@ Avec la formule B, ${P} pourra faire au maximum $${Math.floor((T - c) / d)}$ sé
             Le plus grand entier supérieur  à $\\dfrac{${c - a}}{${texPrix(b - d)}}$ est $${Math.floor((a - c) / (d - b)) + 1}$.<br>
             La formule B est plus intéressante que la formule A à partir de $${Math.floor((a - c) / (d - b)) + 1}$  séances.<br><br>
             On retrouve ce résultat avec un graphique : ci-dessous, on a tracé en bleu la représentation graphique de $f$ et en rouge celle de $g$.<br>
-            La droite rouge passe bien en dessous de la bleue à partir de $x=${Math.floor((a - c) / (d - b)) + 1}$.
+            La droite rouge passe bien en dessous de la bleue à partir de l'entier $x=${Math.floor((a - c) / (d - b)) + 1}$.
             ${graphique}`
           }
           break
@@ -180,7 +180,7 @@ Avec la formule B, ${P} pourra faire au maximum $${Math.floor((T - c) / d)}$ sé
             const d = randint(50, 400)// nbre km
             const prix = new Decimal(c).mul(d).add(a)// prix payé
             const prix2 = Math.round(prix, 0)
-            const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+            const o = texteParPosition('$O$', -0.3, -0.3, 'milieu', 'black', 1)
             const A = point(0.01 * (prix - a) / c, 0.01 * prix)
             const Ax = point(A.x, 0)
             const sAAx = segment(A, Ax)
@@ -268,7 +268,7 @@ On retrouve ce résultat graphiquement. Ci-dessous, la droite bleue représente 
             const a1 = Math.round(a * 100) / 100 //
             const b = randint(30, 80)
             const v = randint(70, 100) //
-            const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+            const o = texteParPosition('$O$', -0.3, -0.3, 'milieu', 'black', 1)
             const TexteX = texteParPosition('v (en km/h)', 12, 0.5, 'milieu', 'black', 1.5)
             const TexteY = texteParPosition('d (en m)', 1.8, 9.5, 'milieu', 'black', 1.5)
             const A = point(0.1 * Math.sqrt(a * b), 0.1 * b)
@@ -356,7 +356,7 @@ Voici la courbe représentative de la fonction $d$ avec la solution de la questi
             const b = choice([40, 50, 80, 100])
             const c = randint(31, 49) * 100 //
             const d = randint(30, 39) * 10
-            const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+            const o = texteParPosition('$O$', -0.3, -0.3, 'milieu', 'black', 1)
             const TexteX = texteParPosition('Prix de l\'abonnement (en €)', 11, -2, 'milieu', 'black', 1.5)
             const TexteY = texteParPosition('Nombre d\'abonnés', 1.5, 10.5, 'milieu', 'black', 1.5)
             const A = point(0.05 * (a - c) / b, 0.001 * c)
@@ -477,7 +477,7 @@ Pour avoir $${texNombre(c)}$ abonnés, la directrice des abonnements doit fixer 
             const prix1 = Math.round(prix * 100) / 100
             const P = prenom()
             const nom = choice(nomF)
-            const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+            const o = texteParPosition('$O$', -0.3, -0.3, 'milieu', 'black', 1)
             const TexteX = texteParPosition('Nombre de litres', 11, -1.7, 'milieu', 'black', 1.5)
             const TexteY = texteParPosition('Prix payé (en €)', 1.2, 11.5, 'milieu', 'black', 1.5)
             const A = point(0.2 * d, 0.08 * prix)
@@ -613,7 +613,7 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             const c = new Decimal(randint(-39, -25)).div(10)
             const P = prenomM()
             const nom = choice(nomF)
-            const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+            const o = texteParPosition('$O$', -0.3, -0.3, 'milieu', 'black', 1)
             const TexteX = texteParPosition('Temps (en s)', 6, -0.7, 'milieu', 'black', 1.2)
             const TexteY = texteParPosition('Hauter (en m)', 1.5, 7, 'milieu', 'black', 1.2)
             const r1 = repere({
@@ -657,7 +657,7 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
           `
             texte += `${graphique}<br>
           `
-            texte += ` ${numAlpha(0)} Calculer $${nom}(4)$. Que peut-on en dduire ?<br>
+            texte += ` ${numAlpha(0)} Calculer $${nom}(4)$. Que peut-on en déduire ?<br>
             ${numAlpha(1)} À quelle hauteur ${P} se trouve-t-il lorsqu'il quitte la rampe ?<br>
             ${numAlpha(2)} Combien de temps dure le saut de ${P} ?<br>
             ${numAlpha(3)} Développer et réduire l'expression de $${nom}$.<br>
@@ -696,7 +696,7 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             const a5 = randint(56, 65) * 10
             const b5 = b4 + 5
             const nom = choice(nomF)
-            const o = texteParPosition('O', 0, 15.5, 'milieu', 'black', 1)
+            const o = texteParPosition('$O$', 0, 15.5, 'milieu', 'black', 1)
             const TexteX = texteParPosition('Pression artérielle en mmHg', 150 * 0.03, 155 * 0.2, 'milieu', 'black', 1.2)
             const TexteY = texteParPosition('Temps (en ms)', 670 * 0.03, 72 * 0.2, 'milieu', 'black', 1.2)
 
@@ -814,7 +814,7 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             const b = randint(-10, -5) / 10 //
             const h = choice([11, 12, 13, 17, 18]) //
             const nom = choice(nomF)
-            const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+            const o = texteParPosition('$O$', -0.3, -0.3, 'milieu', 'black', 1)
             const f = x => a * x * exp(b * x)
             const fprime = x => (a + a * b * x) * exp(b * x)
             const g = x => 0.5

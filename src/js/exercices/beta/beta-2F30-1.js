@@ -212,9 +212,9 @@ export default function VariationsCourbe () {
           o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
           r1 = repere({
             xMin: x0 - 1,
-            yMin: y1 - 2,
+            yMin: Math.min(y1 - 1, y3 - 1),
             yMax: Math.max(y2 + 1, y0 + 1),
-            xMax: 6,
+            xMax: 7,
             xUnite: 1,
             yUnite: 1,
             xThickDistance: 1,
@@ -225,8 +225,8 @@ export default function VariationsCourbe () {
             grilleXDistance: 1,
             grilleYDistance: 1,
             grilleXMin: x0 - 1,
-            grilleYMin: y1 - 2,
-            grilleXMax: 6,
+            grilleYMin: Math.min(y1 - 1, y3 - 1),
+            grilleXMax: 7,
             grilleYMax: Math.max(y2 + 1, y0 + 1)
           })
           gr = courbeInterpolee(
@@ -242,8 +242,8 @@ export default function VariationsCourbe () {
             })
           graphique = mathalea2d({
             xmin: x0 - 1,
-            xmax: 6,
-            ymin: y1 - 2,
+            xmax: 7,
+            ymin: Math.min(y1 - 1, y3 - 1),
             ymax: Math.max(y2 + 1, y0 + 1),
             pixelsParCm: 30,
             scale: 0.8,

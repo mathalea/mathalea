@@ -6,7 +6,7 @@ import { repere, texteParPosition, point, segment, courbe } from '../../modules/
 import { listeQuestionsToContenu, combinaisonListes, arrondi, choice, randint } from '../../modules/outils.js'
 import { sqrt } from 'mathjs'
 
-export const titre = 'Résoudre graphiquement $f(x)>k$ ($<k$) avec une fonction de référence'
+export const titre = 'Résoudre graphiquement $f(x)\\gt k$ ou $f(x) \\lt k$ avec une fonction de référence'
 
 /**
  * Description didactique de l'exercice
@@ -59,7 +59,7 @@ export default function ResoudreGraphFonctionRef () {
             sBBx.pointilles = 5
             const sAxBx = segment(Ax, Bx, 'red')
             sAxBx.epaisseur = 4
-            const Texte1 = texteParPosition(`$y=${a}$`, 4, 2.3, 'milieu', 'red', 1)
+            const Texte1 = texteParPosition(`$y=${a}$`, 4, 2.3, 'milieu', 'green', 1)
             const Texte2 = texteParPosition('$y=x^2$', 3.5, 4.5, 'milieu', 'blue', 1)
             const Texte3 = texteParPosition(`$-\\sqrt{${a}}$`, -1.73, -1.5, 'milieu', 'red', 1)
             const Texte4 = texteParPosition(`$\\sqrt{${a}}$`, 1.73, -1.5, 'milieu', 'red', 1)
@@ -108,7 +108,7 @@ export default function ResoudreGraphFonctionRef () {
             }),
             courbe(g, {
               repere: r1,
-              color: 'red',
+              color: 'green',
               epaisseur: 2
             })
             , r1, o, sAAx, sBBx, sAxBx, crochet1O, crochet2O, Texte1, Texte2, Texte3, Texte4)
@@ -126,7 +126,7 @@ export default function ResoudreGraphFonctionRef () {
               epaisseur: 2
             }), courbe(g, {
               repere: r1,
-              color: 'red',
+              color: 'green',
               epaisseur: 2
             })
             , r1, o, sAAx, sBBx, sAxBx, crochet1F, crochet2F, Texte1, Texte2, Texte3, Texte4)
@@ -168,7 +168,7 @@ export default function ResoudreGraphFonctionRef () {
             const sAxAxI = segment(Ax, AxI, 'red')
             sAxAxI.epaisseur = 2
 
-            const Texte1 = texteParPosition(`$y=${a}$`, 4, 2.3, 'milieu', 'red', 1)
+            const Texte1 = texteParPosition(`$y=${a}$`, 4, 2.3, 'milieu', 'green', 1)
             const Texte2 = texteParPosition('$y=x^2$', 3.5, 4.5, 'milieu', 'blue', 1)
             const Texte3 = texteParPosition(`$-\\sqrt{${a}}$`, -1.73, -1.5, 'milieu', 'red', 1)
             const Texte4 = texteParPosition(`$\\sqrt{${a}}$`, 1.73, -1.5, 'milieu', 'red', 1)
@@ -217,7 +217,7 @@ export default function ResoudreGraphFonctionRef () {
             }),
             courbe(g, {
               repere: r1,
-              color: 'red',
+              color: 'green',
               epaisseur: 2
             })
             , r1, o, sAAx, sBBx, sAxAxI, sBxBxI, crochet1O, crochet2O, Texte1, Texte2, Texte3, Texte4)
@@ -235,7 +235,7 @@ export default function ResoudreGraphFonctionRef () {
               epaisseur: 2
             }), courbe(g, {
               repere: r1,
-              color: 'red',
+              color: 'green',
               epaisseur: 2
             })
             , r1, o, sAAx, sBBx, sAxAxI, sBxBxI, crochet1F, crochet2F, Texte1, Texte2, Texte3, Texte4)
@@ -281,8 +281,8 @@ export default function ResoudreGraphFonctionRef () {
             const AxI2 = point(4, 0)
             const sAxI2Ax = segment(AxI2, Ax, 'red')
             sAxI2Ax.epaisseur = 2
-            const Texte1 = texteParPosition(`$y=${a}$`, 4, 2.3, 'milieu', 'red', 1)
-            const Texte1B = texteParPosition(`$y=${a}$`, 4, -1.7, 'milieu', 'red', 1)
+            const Texte1 = texteParPosition(`$y=${a}$`, 4, 2.3, 'milieu', 'green', 1)
+            const Texte1B = texteParPosition(`$y=${a}$`, 4, -1.7, 'milieu', 'green', 1)
             const Texte2 = texteParPosition('$y=\\dfrac{1}{x}$', 1, 3, 'milieu', 'blue', 1)
             const Texte3 = texteParPosition(`$\\dfrac{1}{${a}}$`, 0.7, -1, 'milieu', 'red', 1)
             const Texte3B = texteParPosition(`$-\\dfrac{1}{${-a}}$`, -1.5, 0.7, 'milieu', 'red', 1)
@@ -335,7 +335,7 @@ export default function ResoudreGraphFonctionRef () {
             }),
             courbe(g1, {
               repere: r1,
-              color: 'red',
+              color: 'green',
               epaisseur: 2
             })
             , r1, o, sAAx, crochet1O, crochet1F, sAxIO, sAxI2Ax, Texte1, Texte2, Texte3)
@@ -354,7 +354,7 @@ export default function ResoudreGraphFonctionRef () {
               epaisseur: 2
             }), courbe(g1, {
               repere: r1,
-              color: 'red',
+              color: 'green',
               epaisseur: 2
             })
             , r1, o, sAAx, crochet1O, crochet1F3, sAxIO, sAxI2Ax, Texte1, Texte2, Texte3)
@@ -374,7 +374,7 @@ export default function ResoudreGraphFonctionRef () {
             }),
             courbe(g2, {
               repere: r1,
-              color: 'red',
+              color: 'green',
               epaisseur: 2
             })
             , r1, o, crochet1O2, sA2A2x, crochet1O, sA2xO, Texte1B, Texte2, Texte3B)
@@ -392,7 +392,7 @@ export default function ResoudreGraphFonctionRef () {
               epaisseur: 2
             }), courbe(g2, {
               repere: r1,
-              color: 'red',
+              color: 'green',
               epaisseur: 2
             })
             , r1, o, crochet1F2, sA2A2x, sA2xO, crochet1O, Texte1B, Texte2, Texte3B)
@@ -445,8 +445,8 @@ export default function ResoudreGraphFonctionRef () {
             sA2xO.epaisseur = 2
             const sAxO = segment(Ax, O, 'red')
             sAxO.epaisseur = 2
-            const Texte1 = texteParPosition(`$y=${a}$`, 4, 2.3, 'milieu', 'red', 1)
-            const Texte1B = texteParPosition(`$y=${a}$`, 4, -1.7, 'milieu', 'red', 1)
+            const Texte1 = texteParPosition(`$y=${a}$`, 4, 2.3, 'milieu', 'green', 1)
+            const Texte1B = texteParPosition(`$y=${a}$`, 4, -1.7, 'milieu', 'green', 1)
             const Texte2 = texteParPosition('$y=\\dfrac{1}{x}$', 1, 3, 'milieu', 'blue', 1)
             const Texte3 = texteParPosition(`$\\dfrac{1}{${a}}$`, 0.7, -1, 'milieu', 'red', 1)
             const Texte3B = texteParPosition(`$-\\dfrac{1}{${-a}}$`, -1.5, 0.7, 'milieu', 'red', 1)
@@ -498,7 +498,7 @@ export default function ResoudreGraphFonctionRef () {
             }),
             courbe(g1, {
               repere: r1,
-              color: 'red',
+              color: 'green',
               epaisseur: 2
             })
             , r1, o, sAAx, sAxO, Texte1, Texte2, Texte3, crochet1O, crochet1O2B)
@@ -517,7 +517,7 @@ export default function ResoudreGraphFonctionRef () {
               epaisseur: 2
             }), courbe(g1, {
               repere: r1,
-              color: 'red',
+              color: 'green',
               epaisseur: 2
             })
             , r1, o, sAAx, sAxO, Texte1, Texte2, Texte3, crochet1O2, crochet1O2B)
@@ -537,7 +537,7 @@ export default function ResoudreGraphFonctionRef () {
             }),
             courbe(g2, {
               repere: r1,
-              color: 'red',
+              color: 'green',
               epaisseur: 2
             })
             , r1, o, sA2A2x, sAxIA2x, sAxIPAx, crochet1F2, crochet1O2B, Texte1B, Texte2, Texte3B)
@@ -555,7 +555,7 @@ export default function ResoudreGraphFonctionRef () {
               epaisseur: 2
             }), courbe(g2, {
               repere: r1,
-              color: 'red',
+              color: 'green',
               epaisseur: 2
             })
             , r1, o, sA2A2x, sAxIA2x, sAxIPAx, crochet1F2B, crochet1O2B, Texte1B, Texte2, Texte3B)
@@ -593,7 +593,7 @@ export default function ResoudreGraphFonctionRef () {
             sAAx.pointilles = 5
             const sAxBx = segment(Ax, O, 'red')
             sAxBx.epaisseur = 4
-            const Texte1 = texteParPosition(`$y=${a}$`, 4, 0.9, 'milieu', 'red', 1)
+            const Texte1 = texteParPosition(`$y=${a}$`, 4, 0.9, 'milieu', 'green', 1)
             const Texte2 = texteParPosition('$y=\\sqrt{x}$', 4, 2.3, 'milieu', 'blue', 1)
             const Texte3 = texteParPosition(`$${a ** 2}$`, 2.7, -0.6, 'milieu', 'red', 1)
             const crochet2O = texteParPosition('[', 2.25, 0, 'milieu', 'red', 3)
@@ -639,7 +639,7 @@ export default function ResoudreGraphFonctionRef () {
             }),
             courbe(g, {
               repere: r1,
-              color: 'red',
+              color: 'green',
               epaisseur: 2
             })
             , r1, o, sAAx, sAxBx, crochet2O, Texte1, Texte2, Texte3)
@@ -657,7 +657,7 @@ export default function ResoudreGraphFonctionRef () {
               epaisseur: 2
             }), courbe(g, {
               repere: r1,
-              color: 'red',
+              color: 'green',
               epaisseur: 2
             })
             , r1, o, sAAx, sAxBx, crochet1F, Texte1, Texte2, Texte3)
@@ -690,7 +690,7 @@ export default function ResoudreGraphFonctionRef () {
             sAxBx.epaisseur = 4
             const sAxAInf = segment(Ax, AInf, 'red')
             sAxAInf.epaisseur = 4
-            const Texte1 = texteParPosition(`$y=${a}$`, 4, 0.9, 'milieu', 'red', 1)
+            const Texte1 = texteParPosition(`$y=${a}$`, 4, 0.9, 'milieu', 'green', 1)
             const Texte2 = texteParPosition('$y=\\sqrt{x}$', 4, 2.3, 'milieu', 'blue', 1)
             const Texte3 = texteParPosition(`$${a ** 2}$`, 2.7, -0.6, 'milieu', 'red', 1)
             const crochet2O = texteParPosition('[', 2.25, 0, 'milieu', 'red', 3)
@@ -736,7 +736,7 @@ export default function ResoudreGraphFonctionRef () {
             }),
             courbe(g, {
               repere: r1,
-              color: 'red',
+              color: 'green',
               epaisseur: 2
             })
             , r1, o, sAAx, sAxAInf, crochet1F, Texte1, Texte2, Texte3)
@@ -754,7 +754,7 @@ export default function ResoudreGraphFonctionRef () {
               epaisseur: 2
             }), courbe(g, {
               repere: r1,
-              color: 'red',
+              color: 'green',
               epaisseur: 2
             })
             , r1, o, sAAx, sAxAInf, crochet2O, Texte1, Texte2, Texte3)
