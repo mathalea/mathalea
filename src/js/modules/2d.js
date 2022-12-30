@@ -2155,6 +2155,7 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
   // JSDOC Validee par EE Aout 2022
   this.estSecant = function (objet) {
     const ab = droite(this.extremite1, this.extremite2)
+    ab.isVisible = false
     if (objet instanceof Cercle) {
       const P1 = pointIntersectionLC(ab, objet, '', 1)
       const P2 = pointIntersectionLC(ab, objet, '', 2)
@@ -2165,6 +2166,7 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
       I = pointIntersectionDD(ab, objet)
     } else {
       const cd = droite(objet.extremite1, objet.extremite2)
+      cd.isVisible = false
       I = pointIntersectionDD(ab, cd)
     }
     if (!I) return false
