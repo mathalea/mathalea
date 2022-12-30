@@ -12,7 +12,6 @@ export const dateDePublication = '30/12/2022'
  * Date de publication
 */
 
-
 export default function SimplifierQuotient () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
@@ -22,19 +21,20 @@ export default function SimplifierQuotient () {
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     switch (choice([1])) {
-      case 1 ://ax/b 
+      case 1 :// ax/b
         { const a = randint(2, 9)
-                   const k = randint(-9, 9, [0,1])
-          const maFraction1 = new FractionX(a, k*a)
+          const k = randint(-9, 9, [0, 1])
+          const maFraction1 = new FractionX(a, k * a)
           const maFraction2 = maFraction1.inverse()
-         if(choice([true, false])) {
-          this.question = ` Simplifier l'écriture fractionnaire : $\\dfrac{${a}x}{${k*a}}$.`
-          this.correction = `$\\dfrac{${a}x}{${k*a}}=\\dfrac{${a}x}{${k}\\times ${a}}=\\dfrac{x}{${k}}=${maFraction1.texFractionSimplifiee}x$`
-          this.reponse = [`\\dfrac{x}{${k}}`, `${arrondi(1/k,2)}x`]}
-          else{this.question = ` Simplifier l'écriture fractionnaire : $\\dfrac{${k*a}x}{${a}}$.`
-          this.correction = `$\\dfrac{${k*a}x}{${a}}=\\dfrac{${a}\\times ${k}x}{${a}}=${k}x$`
-          this.reponse = [`${k}x`]}
-         
+          if (choice([true, false])) {
+            this.question = ` Simplifier l'écriture fractionnaire : $\\dfrac{${a}x}{${k * a}}$.`
+            this.correction = `$\\dfrac{${a}x}{${k * a}}=\\dfrac{${a}x}{${k}\\times ${a}}=\\dfrac{x}{${k}}=${maFraction1.texFractionSimplifiee}x$`
+            this.reponse = [`\\dfrac{x}{${k}}`, `${arrondi(1 / k, 2)}x`]
+          } else {
+            this.question = ` Simplifier l'écriture fractionnaire : $\\dfrac{${k * a}x}{${a}}$.`
+            this.correction = `$\\dfrac{${k * a}x}{${a}}=\\dfrac{${a}\\times ${k}x}{${a}}=${k}x$`
+            this.reponse = [`${k}x`]
+          }
         }
         break
       case 2 :
