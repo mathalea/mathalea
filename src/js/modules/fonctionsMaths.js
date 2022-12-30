@@ -1,6 +1,8 @@
 import { number, add, unequal, largerEq, fraction, equal, multiply, inv, matrix, max, polynomialRoot, round, acos, abs } from 'mathjs'
 import FractionX from './FractionEtendue.js'
 import { calcul, arrondi, ecritureAlgebrique, egal, randint, rienSi1, ecritureAlgebriqueSauf1, choice } from './outils.js'
+import { ObjetMathalea2D } from './2dGeneralites'
+import { Courbe, Segment } from './2d'
 /**
 * Convertit un angle de radian vers degrés et fonction inverse
 * @Example
@@ -421,7 +423,6 @@ class SplineCatmullRom {
    */
   convertPolyFunction () {
     const f = []
-    debugger
     for (let i = 0; i < this.n - 1; i++) {
       f.push(this.polys[i].fonction)
     }
@@ -495,12 +496,26 @@ class SplineCatmullRom {
     for (let i = 0; i < this.n; i++) {
       derivees.push(this.polys[Math.min(i, this.n - 2)].derivee().fonction(this.x[i]))
     }
-    const maSpline = new SplineCatmullRom({ tabY: derivees, x0: this.x[0], step: this.step })
+    const maSpline = new SplineCatmullRom({ tabY: derivees, x0: this.x[0], step: this.step, repere: this.repere })
     for (let i = 0; i < this.n - 1; i++) { // on redéfinit les polynomes
       maSpline.polys[i] = this.polys[i].derivee()
     }
     maSpline.fonctions = maSpline.convertPolyFunction() // on remets les 'bonnes' fonctions
     return maSpline
+  }
+
+  courbe ({
+    repere,
+    step = 0.1,
+    color = 'black',
+    epaisseur = 1
+  } = {}) {
+    return new Trace(this, {
+      repere,
+      step,
+      color,
+      epaisseur
+    })
   }
 }
 /**
@@ -521,8 +536,61 @@ class SplineCatmullRom {
  * @param {number} x0 l'abscisse du début de l'intervalle de définition
  * @param {number} step le pas entre chaque valeur de x pour les différents noeuds successifs
  */
-export function splineCatmullRom ({ tabY = [], x0 = -5, step = 1 }) {
+export function splineCatmullRom ({ tabY = [], x0 = -5, step = 1 } = {}) {
   return new SplineCatmullRom({ tabY, x0, step })
+}
+
+/**
+ * @class
+ * crée la courbe de la spline
+ */
+class Trace extends ObjetMathalea2D {
+  /**
+   * @param spline La splineCatmulRom dont on veut la Trace
+   * @param repere le repère associé
+   * @param step le pas entre deux points
+   * @param color la couleur
+   * @param epaisseur son épaisseur
+   */
+  constructor (spline, {
+    repere,
+    step = 0.1,
+    color = 'black',
+    epaisseur = 1
+  } = {}) {
+    super()
+    const objets = []
+    for (let i = 0; i < spline.n - 1; i++) {
+      if (spline.polys[i].deg > 1) {
+        objets.push(new Courbe(spline.fonctions[i], {
+          repere,
+          epaisseur,
+          color,
+          step,
+          xMin: spline.x[i],
+          xMax: spline.x[i + 1]
+        }))
+      } else {
+        const s = new Segment(spline.x[i] * repere.xUnite, spline.y[i] * repere.yUnite, spline.x[i + 1] * repere.xUnite, spline.fonctions[i](spline.x[i + 1]) * repere.yUnite, color)
+        s.epaisseur = epaisseur
+        objets.push(s)
+      }
+    }
+    this.svg = function (coeff) {
+      let code = ''
+      for (const objet of objets) {
+        code += '\n\t' + objet.svg(coeff)
+      }
+      return code
+    }
+    this.tikz = function () {
+      let code = ''
+      for (const objet of objets) {
+        code += '\n\t' + objet.tikz()
+      }
+      return code
+    }
+  }
 }
 
 /**
