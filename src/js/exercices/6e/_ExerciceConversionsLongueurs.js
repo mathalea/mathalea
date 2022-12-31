@@ -108,7 +108,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
         // Si il faut multiplier pour convertir
         resultat = calcul(a * prefixeMulti[k][1]).toString() // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
         texte = `$${texNombre(a)} ${texTexte(prefixeMulti[k][0] + unite)} = `
-        texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '&nbsp;&nbsp;&nbsp; ' + unite })}` : `\\dotfill  ${texTexte(unite)}$`
+        texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '&nbsp;&nbsp;&nbsp; ' + unite })}` : `\\dotfills  ${texTexte(unite)}$`
         texteCorr =
           '$ ' +
           texNombre(a) +
@@ -127,7 +127,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
       } else if (div && typesDeQuestions < 4) {
         resultat = calcul(a / prefixeDiv[k][1]).toString() // Attention aux notations scientifiques pour 10e-8
         texte = `$${texNombre(a)} ${texTexte(prefixeDiv[k][0] + unite)} = `
-        texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '&nbsp;&nbsp;&nbsp; ' + unite })}` : `\\dotfill  ${texTexte(unite)}$`
+        texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '&nbsp;&nbsp;&nbsp; ' + unite })}` : `\\dotfills  ${texTexte(unite)}$`
         texteCorr =
           '$ ' +
           texNombre(a) +
@@ -154,7 +154,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
         if (randint(0, 1) > 0) {
           resultat = calcul(a * Math.pow(10, ecart))
           texte = `$${texNombre(a)} ${texTexte(listeUnite[unite2])} = `
-          texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '&nbsp;&nbsp;&nbsp; ' + listeUnite[unite1] })}` : `\\dotfill  ${texTexte(listeUnite[unite1])}$`
+          texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '&nbsp;&nbsp;&nbsp; ' + listeUnite[unite1] })}` : `\\dotfills  ${texTexte(listeUnite[unite1])}$`
           texteCorr =
             '$ ' +
             texNombre(a) +
@@ -173,7 +173,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
         } else {
           resultat = calcul(a / Math.pow(10, ecart))
           texte = `$${texNombre(a)} ${texTexte(listeUnite[unite1])} = `
-          texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '&nbsp;&nbsp;&nbsp; ' + listeUnite[unite2] })}` : `\\dotfill  ${texTexte(listeUnite[unite2])}$`
+          texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '&nbsp;&nbsp;&nbsp; ' + listeUnite[unite2] })}` : `\\dotfills  ${texTexte(listeUnite[unite2])}$`
           texteCorr =
             '$ ' +
             texNombre(a) +
@@ -197,11 +197,11 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
         setReponse(this, i, resultat.toString().replace('.', ','))
         // Si la question n'a jamais été posée, on en crée une autre
         if (context.vue === 'diap') {
-          texte = texte.replace('= \\dotfill', '\\text{ en }')
+          texte = texte.replace('= \\dotfills', '\\text{ en }')
         }
         if (context.isHtml) {
           texte = texte.replace(
-            '\\dotfill',
+            '\\dotfills',
             '................................................'
           )
         }
@@ -233,8 +233,11 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
       document.addEventListener('exercicesAffiches', insertInDom)
     }
     listeQuestionsToContenu(this)
-    const options = { eleId: numeroExercice, widthmincol1: '350px', widthmincol2: '200px' }
-    if (context.vue !== 'diap' && context.isHtml && this.sup3) {
+
+    if (context.vue === 'latex' && this.sup3) {
+      this.contenu += '\n\n' + buildTab(0, '', 0, '', Math.min(10, this.nbQuestions), true)
+    } else if (context.vue !== 'diap' && context.isHtml && this.sup3) {
+      const options = { eleId: numeroExercice, widthmincol1: '350px', widthmincol2: '200px' }
       this.contenu = deuxColonnesResp(this.contenu, buildTab(0, '', 0, '', Math.min(10, this.nbQuestions), true), options)
 
       // listener
