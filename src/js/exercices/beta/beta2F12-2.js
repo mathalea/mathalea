@@ -6,7 +6,7 @@ import { repere, texteParPosition, point, segment, courbe } from '../../modules/
 import { listeQuestionsToContenu, combinaisonListes, arrondi, choice, randint } from '../../modules/outils.js'
 import { sqrt } from 'mathjs'
 
-export const titre = 'Résoudre graphiquement $f(x)\\gt k$ ou $f(x) \\lt k$ avec une fonction de référence'
+export const titre = 'Résoudre graphiquement $f(x)\\gt k \\quad (\\lt k)$ avec une fonction de référence'
 
 /**
  * Description didactique de l'exercice
