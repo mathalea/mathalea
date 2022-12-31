@@ -12298,7 +12298,7 @@ export default {
     }
   },
   "beta2F12-2": {
-    "titre": "Résoudre graphiquement $f(x)>k$ ($<k$) avec une fonction de référence",
+    "titre": "Résoudre graphiquement $f(x)\\gt k \\quad (\\lt k)$ avec une fonction de référence",
     "url": "/exercices/beta/beta2F12-2.js",
     "amcReady": false,
     "interactifReady": false,
@@ -13103,7 +13103,7 @@ export default {
     }
   },
   "betaSpline": {
-    "titre": "Nom de l'exercice",
+    "titre": "Fichier test sur les splines de Catmul Rom",
     "url": "/exercices/beta/betaSpline.js",
     "amcReady": false,
     "interactifReady": false,
