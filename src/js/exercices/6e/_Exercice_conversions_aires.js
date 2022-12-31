@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import Decimal from 'decimal.js'
+import { getDigitFromNumber } from './_ExerciceConversionsLongueurs.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombre, texTexte } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -147,6 +148,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
           '^2' +
           '$'
         prefixe = prefixeMulti[k][2]
+        texteCorr += '<br>' + buildTab(a, prefixeMulti[k][0] + 'm', resultat, unite)
       } else if (div && typesDeQuestions < 4) {
         prefixeDiv = [
           [' d', '\\div10\\div10', 100],
@@ -184,6 +186,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
           '^2' +
           '$'
         prefixe = prefixeDiv[k][2]
+        texteCorr += '<br>' + buildTab(a, prefixeDiv[k][0] + 'm', resultat, unite)
       } else if (typesDeQuestions === 4) {
         const unite1 = randint(0, 3)
         let ecart = randint(1, 2) // nombre de multiplication par 10 pour passer de l'un à l'autre
@@ -223,6 +226,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
             '^2' +
             '$'
           prefixe = Math.pow(10, 2 * ecart)
+          texteCorr += '<br>' + buildTab(a, listeUnite[unite2], resultat, listeUnite[unite1])
         } else {
           resultat = a.div(Math.pow(10, 2 * ecart))
           resultat2 = resultat.div(10)
@@ -255,6 +259,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
             '^2' +
             '$'
           prefixe = Math.pow(10, 2 * ecart)
+          texteCorr += '<br>' + buildTab(a, listeUnite[unite1], resultat, listeUnite[unite2])
         }
       } else if (typesDeQuestions === 5) {
         // Pour typesDeQuestions==5
@@ -291,6 +296,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
           '^2' +
           '$'
         prefixe = prefixeMulti[k][2]
+        texteCorr += '<br>' + buildTab(a, prefixeMulti[k][0], resultat, unite)
       }
       this.autoCorrection[i].enonce = `${texte}\n`
       this.autoCorrection[i].propositions = [{
@@ -347,4 +353,79 @@ export default function ExerciceConversionsAires (niveau = 1) {
   ]
   this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
   if (context.isHtml && !context.vue === 'diap') this.besoinFormulaire3Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
+}
+
+function buildTab (a, uniteA, r, uniteR) {
+  const tabRep = function (nbre, uniteNbre) {
+    const res = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
+    switch (uniteNbre.replaceAll(' ', '')) {
+      case 'km':
+        for (let i = 0; i <= 21; i++) {
+          res[i] = (5 - i === 0 ? '\\color{red}{' : '') + getDigitFromNumber(nbre, Decimal.pow(10, 5 - i)) + (5 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
+        }
+        break
+      case 'hm':
+      case 'ha':
+        for (let i = 0; i <= 21; i++) {
+          res[i] = (7 - i === 0 ? '\\color{red}{' : '') + getDigitFromNumber(nbre, Decimal.pow(10, 7 - i)) + (7 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
+        }
+        break
+      case 'dam':
+      case 'a':
+        for (let i = 0; i <= 21; i++) {
+          res[i] = (9 - i === 0 ? '\\color{red}{' : '') + getDigitFromNumber(nbre, Decimal.pow(10, 9 - i)) + (9 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
+        }
+        break
+      case 'm':
+        for (let i = 0; i <= 21; i++) {
+          res[i] = (11 - i === 0 ? '\\color{red}{' : '') + getDigitFromNumber(nbre, Decimal.pow(10, 11 - i)) + (11 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
+        }
+        break
+      case 'dm':
+        for (let i = 0; i <= 21; i++) {
+          res[i] = (13 - i === 0 ? '\\color{red}{' : '') + getDigitFromNumber(nbre, Decimal.pow(10, 13 - i)) + (13 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
+        }
+        break
+      case 'cm':
+        for (let i = 0; i <= 21; i++) {
+          res[i] = (15 - i === 0 ? '\\color{red}{' : '') + getDigitFromNumber(nbre, Decimal.pow(10, 15 - i)) + (15 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
+        }
+        break
+      case 'mm':
+        for (let i = 0; i <= 21; i++) {
+          res[i] = (17 - i === 0 ? '\\color{red}{' : '') + getDigitFromNumber(nbre, Decimal.pow(10, 17 - i)) + (17 - i === 0 ? (new Decimal(nbre).decimalPlaces() === 0 ? '}' : ',}') : '')
+        }
+        break
+    }
+    return res
+  }
+  const createTab = function (aT, rT, first, end) {
+    let texte = '$\\def\\arraystretch{1.5}\\begin{array}{'
+    for (let i = first; i <= end; i++) {
+      if (i % 2 === 0) { texte += '|c' + (i === end ? ':}' : '') } else { texte += ':c' + (i === end ? '|}' : '') }
+    }
+    const headers = ['\\hspace*{0.6cm}', '\\hspace*{0.6cm}', '\\hspace*{0.6cm}', '\\hspace*{0.6cm}', '\\hspace*{0.6cm}', 'km^2', '\\hspace*{0.6cm}', 'hm^2', '\\hspace*{0.6cm}', 'dam^2', '\\hspace*{0.6cm}', 'm^2', '\\hspace*{0.6cm}', 'dm^2', '\\hspace*{0.6cm}', 'cm^2', '\\hspace*{0.6cm}', 'mm^2', '\\hspace*{0.6cm}', '\\hspace*{0.6cm}', '\\hspace*{0.6cm}', '\\hspace*{0.6cm}']
+    texte += '\\hline '
+    for (let i = first; i <= end; i++) {
+      texte += `${headers[i]} ${i < end ? '&' : '\\\\'}`
+    }
+    texte += '\\hline '
+    for (let i = first; i <= end; i++) {
+      texte += `${aT[i]} ${i < end ? '&' : '\\\\'}`
+    }
+    texte += '\\hline '
+    for (let i = first; i <= end; i++) {
+      texte += `${rT[i]} ${i < end ? '&' : '\\\\'}`
+    }
+    texte += '\\hline \\end{array}$'
+    return texte
+  }
+  const aTab = tabRep(a, uniteA)
+  const rTab = tabRep(r, uniteR)
+  const minTab1 = aTab[0] !== '' || aTab[1] !== '' ? 0 : aTab[2] !== '' || aTab[3] !== '' ? 2 : 4
+  const minTab2 = rTab[0] !== '' || rTab[1] !== '' ? 0 : rTab[2] !== '' || rTab[3] !== '' ? 2 : 4
+  const maxTab1 = aTab[21] !== '' || aTab[20] !== '' ? 21 : aTab[19] !== '' || aTab[18] !== '' ? 19 : 17
+  const maxTab2 = rTab[21] !== '' || rTab[20] !== '' ? 21 : rTab[19] !== '' || rTab[18] !== '' ? 19 : 17
+  const texte = createTab(aTab, rTab, Math.min(minTab1, minTab2), Math.max(maxTab1, maxTab2))
+  return texte
 }

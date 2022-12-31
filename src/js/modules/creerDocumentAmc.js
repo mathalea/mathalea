@@ -514,11 +514,12 @@ export function exportQcmAmc (exercice, idExo) {
                   lastchoice = prop.options.lastChoice
                 }
               }
+
               texQr += `${qr > 0 && (qrType === 'qcmMono' || (qrType === 'qcmMult' && !autoCorrection[j].options.avecSymboleMult)) ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{${qrType === 'qcmMono' ? 'question' : 'questionmult'}}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
               if (prop.enonce !== undefined) {
                 texQr += prop.enonce + '\n'
               }
-              /* EE 13/10/1022 : A mon avis, ne sert à rien. Je le laisse car si pb, on saura que c'est peut-être cela la raison.
+              /* EE 13/10/2022 : A mon avis, ne sert à rien. Je le laisse car si pb, on saura que c'est peut-être cela la raison.
               if (propositions[0].reponse !== undefined) {
                 if (propositions[0].reponse.texte) {
                   texQr += propositions[0].reponse.texte + '\n'
@@ -556,6 +557,7 @@ export function exportQcmAmc (exercice, idExo) {
                 texQr += '\\begin{minipage}{\\textwidth}\n'
                 texQr += '\\begin{multicols}{2}\n'
                 texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
+
                 if (propositions !== undefined) {
                   texQr += `\\explain{${propositions[0].texte}}\n`
                 }
@@ -650,7 +652,29 @@ export function exportQcmAmc (exercice, idExo) {
                   valeurAMCNum = rep.param.milieuIntervalle
                   rep.param.approx = autoCorrection[j].reponse.param.approx === 'intervalleStrict' ? demiMediane * 10 ** nbChiffresPd - 1 : demiMediane * 10 ** nbChiffresPd
                 }
-                texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
+
+                // Rajout EE 27/12/2022 : Si on veut que l'énoncé soit après le numéro de la question
+                if (qr === 0 && autoCorrection[j].enonceApresNumQuestion !== undefined && autoCorrection[j].enonceApresNumQuestion) {
+                  texQr += `\\begin{questionmultx}{Enonce-${ref}/${lettreDepuisChiffre(idExo + 1)}} \n `
+                  texQr += `${autoCorrection[j].enonce} \n`
+                  texQr += '\\end{questionmultx}'
+                }
+
+                // Rajout EE 27/12/2022 : Si on veut que le multicols commence avant cette question
+                if (typeof propositions[0].multicolsBegin !== 'undefined' && propositions[0].multicolsBegin) {
+                  texQr += '\\setlength{\\columnseprule}{'
+                  if (autoCorrection[j].options.barreseparation !== undefined && autoCorrection[j].options.barreseparation) {
+                    texQr += '0.5'
+                  } else {
+                    texQr += '0'
+                  }
+                  texQr += 'pt}\\begin{multicols}{2}\n'
+                  texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
+                }
+
+                texQr += texQr.charAt(texQr.length - 1) === 'e' ? '' : '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
+                texQr += `\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
+
                 if (propositions !== undefined) {
                   texQr += `\\explain{${propositions[0].texte}}\n`
                 }
@@ -687,6 +711,13 @@ export function exportQcmAmc (exercice, idExo) {
                   texQr += `${propositions[0].reponse.alignement}}`
                 }
                 texQr += '\\end{questionmultx}\n'
+                // Rajout EE 27/12/2022 : Si on veut que le multicols finisse eprès cette question
+                if (typeof propositions[0].multicolsEnd !== 'undefined') {
+                  if (propositions[0].multicolsEnd) {
+                    texQr += '\\end{multicols}\n'
+                  }
+                }
+
                 id++
               }
               break
