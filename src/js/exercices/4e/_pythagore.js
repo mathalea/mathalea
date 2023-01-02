@@ -29,7 +29,7 @@ export function RedactionPythagore (A = 'A', B = 'B', C = 'C', rechercheHypotenu
     texte += `<br> $${B + C}=\\sqrt{${texNombrec(AB ** 2 + AC ** 2)}}$`
     if (calcul(Math.sqrt(AB ** 2 + AC ** 2), 1) === calcul(Math.sqrt(AB ** 2 + AC ** 2), 5)) signeEgal = '='
     else signeEgal = '\\approx'
-    texte += `<br> Donc $${B + C} ${signeEgal} ${miseEnEvidence(texNombre(BC), couleurReponse)}$ ${texteEnCouleurEtGras(unite, couleurReponse)}`
+    texte += `<br> Donc $${B + C} ${signeEgal} ${miseEnEvidence(texNombre(BC), couleurReponse)}$ ${texteEnCouleurEtGras(unite, couleurReponse)}.`
   } else if (rechercheHypotenuse === 2) {
     texte += `<br> D'où  $${A + B}^2=${B + C}^2-${A + C}^2$.`
     texte += `<br> $${A + B}^2=${texNombre(BC)}^2-${texNombre(AC)}^2$`
@@ -37,7 +37,7 @@ export function RedactionPythagore (A = 'A', B = 'B', C = 'C', rechercheHypotenu
     texte += `<br> $${A + B}=\\sqrt{${texNombrec(BC ** 2 - AC ** 2)}}$`
     if (calcul(Math.sqrt(BC ** 2 - AC ** 2), 1) === calcul(Math.sqrt(BC ** 2 - AC ** 2), 5)) signeEgal = '='
     else signeEgal = '\\approx'
-    texte += `<br> Donc $${A + B} ${signeEgal} ${miseEnEvidence(texNombre(AB), couleurReponse)}$ ${texteEnCouleurEtGras(unite, couleurReponse)}`
+    texte += `<br> Donc $${A + B} ${signeEgal} ${miseEnEvidence(texNombre(AB), couleurReponse)}$ ${texteEnCouleurEtGras(unite, couleurReponse)}.`
   }
   return [texte, signeEgal]
 }
