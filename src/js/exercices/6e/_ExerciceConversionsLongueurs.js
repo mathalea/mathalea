@@ -233,16 +233,10 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
       document.addEventListener('exercicesAffiches', insertInDom)
     }
     listeQuestionsToContenu(this)
-<<<<<<< HEAD
-
     if (context.vue === 'latex' && this.sup3) {
       this.contenu += '\n\n' + buildTab(0, '', 0, '', Math.min(10, this.nbQuestions), true)
     } else if (context.vue !== 'diap' && context.isHtml && this.sup3) {
       const options = { eleId: numeroExercice, widthmincol1: '350px', widthmincol2: '200px' }
-=======
-    const options = { eleId: numeroExercice, widthmincol1: '350px', widthmincol2: '200px' }
-    if (context.vue !== 'diap' && context.isHtml && this.sup3) {
->>>>>>> master
       this.contenu = deuxColonnesResp(this.contenu, buildTab(0, '', 0, '', Math.min(10, this.nbQuestions), true), options)
 
       // listener
@@ -363,7 +357,7 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false) {
     }
     return res
   }
-  const createTab = function (aT, rT, first, end, ligne, force) {
+  const createTab = function (aT, rT, first, end, ligne) {
     let texte = '$\\def\\arraystretch{1.5}\\begin{array}{'
     for (let i = first; i <= end; i++) {
       texte += '|c' + (i === end ? '|}' : '')
@@ -396,6 +390,6 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false) {
   const minTab2 = rTab[0] !== '' || rTab[1] !== '' || force ? 0 : 2
   const maxTab1 = aTab[9] !== '' || aTab[10] !== '' || force ? 10 : 8
   const maxTab2 = rTab[9] !== '' || rTab[10] !== '' || force ? 10 : 8
-  const texte = createTab(aTab, rTab, Math.min(minTab1, minTab2), Math.max(maxTab1, maxTab2), ligne, force)
+  const texte = createTab(aTab, rTab, Math.min(minTab1, minTab2), Math.max(maxTab1, maxTab2), ligne)
   return texte
 }
