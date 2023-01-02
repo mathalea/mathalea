@@ -185,7 +185,7 @@ export default function ProblemesPythagore () {
             )}$ cm.<br>`
           texteCorr += `On sait que les diagonales d'un losange se coupent perpendiculairement donc $${A + O + B
             }$ est un triangle rectangle en $O$.<br>`
-          texteCorr += RedactionPythagore('O', B, A, false, b, a, c)
+          texteCorr += RedactionPythagore('O', B, A, 2, b, a, c)
           texteCorr += `<br>Finalement comme $O$ est aussi le milieu de $[${D + B
             }]$ : $${D + B}=2\\times ${O + B}=2\\times${texNombre(
               b
@@ -197,7 +197,7 @@ export default function ProblemesPythagore () {
             }=${texNombre(a)}$ cm et $${A + C}=${texNombre(c)}$ cm.<br>`
           texte += `Calculer $${B + C}$.`
           texteCorr = `$${nomQuadrilatere}$ est un rectangle donc il possède 4 angles droits .`
-          texteCorr += RedactionPythagore(B, A, C, false, b, a, c)
+          texteCorr += RedactionPythagore(B, A, C, 2, b, a, c)
           break
 
         case 'rectangle_diagonale_a_trouver':
@@ -205,7 +205,7 @@ export default function ProblemesPythagore () {
             }=${texNombre(a)}$ cm et $${B + C}=${texNombre(b)}$ cm.<br>`
           texte += `Calculer $${A + C}$.`
           texteCorr = `$${nomQuadrilatere}$ est un rectangle donc il possède 4 angles droits `
-          texteCorr += RedactionPythagore(B, A, C, true, b, a, c)
+          texteCorr += RedactionPythagore(B, A, C, 1, b, a, c)
           break
 
         case 'parallelogramme_est_losange':

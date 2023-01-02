@@ -1,5 +1,5 @@
 import SerieDeTransformations from '../4e/4G12.js'
-export const titre = 'Trouver les symétries successives dans un damiers'
+export const titre = 'Trouver les symétries successives dans un damier'
 export { interactifReady, interactifType, amcReady, amcType } from '../4e/4G12.js'
 export const dateDePublication = '4/12/2021'
 

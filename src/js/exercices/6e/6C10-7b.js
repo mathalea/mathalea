@@ -1,5 +1,5 @@
 import FabriqueAYohaku from './_Yohaku.js'
-export const titre = 'Yohaku multiplicatif niveau 1'
+export const titre = 'Résoudre un Yohaku multiplicatif niveau 1'
 export const dateDePublication = '10/08/2022'
 export { interactifReady, interactifType } from './_Yohaku.js'
 export const uuid = '08680'

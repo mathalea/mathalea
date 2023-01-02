@@ -415,6 +415,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "1N12-1": {
+    "titre": "Calculer une somme",
+    "url": "/exercices/1e/1N12-1.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "1N12-1",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "1N12": {
     "titre": "Somme des termes d'une suite arithmétique",
     "url": "/exercices/1e/1N12.js",
@@ -424,6 +440,22 @@ export default {
     "name": "1N12",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "1N13": {
+    "titre": "Somme des termes d'une suite géométrique",
+    "url": "/exercices/1e/1N13.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "1N13",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -2994,7 +3026,7 @@ export default {
     }
   },
   "3G10-1": {
-    "titre": "Trouver les coordonnées de l'image d'un point par une transformation du plan",
+    "titre": "Trouver les coordonnées de l'image d'un point par une rotation et une homothétie",
     "url": "/exercices/3e/3G10-1.js",
     "amcReady": true,
     "amcType": {
@@ -3008,12 +3040,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "3G10-2": {
-    "titre": "Trouver l'image d'un point par une transformation choisie aléatoirement",
+    "titre": "Trouver l'image d'un point par une homothétie ou une rotation",
     "url": "/exercices/3e/3G10-2.js",
     "amcReady": true,
     "amcType": {
@@ -3053,7 +3085,7 @@ export default {
     "interactifReady": false,
     "name": "3G11-1",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -3640,10 +3672,32 @@ export default {
   "3L10-1": {
     "titre": "Additionner ou soustraire une expression entre parenthèses",
     "url": "/exercices/3e/3L10-1.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "3L10-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "3L10-2": {
+    "titre": "Supprimer les parenthèses puis réduire l'expression (niveau 2)",
+    "url": "/exercices/3e/3L10-2.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "3L10-2",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -3653,26 +3707,13 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "3L10-2": {
-    "titre": "Supprimer les parenthèses puis réduire une expression (niveau 2)",
-    "url": "/exercices/3e/3L10-2.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "3L10-2",
-    "newEx": {
-      "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
   "3L10": {
-    "titre": "Supprimer les parenthèses puis réduire une expression",
+    "titre": "Supprimer les parenthèses puis réduire l'expression",
     "url": "/exercices/3e/3L10.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "3L10",
@@ -3690,7 +3731,7 @@ export default {
     "url": "/exercices/3e/3L11-1.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCOpenNum✖︎3"
+      "text": "AMCHybride"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
@@ -3796,7 +3837,10 @@ export default {
   "3L11-7": {
     "titre": "Développer des carrés avec la double distributivité",
     "url": "/exercices/3e/3L11-7.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "3L11-7",
@@ -3810,7 +3854,7 @@ export default {
     }
   },
   "3L11-8": {
-    "titre": "Yohaku multiplicatif expressions littérales niveau 1",
+    "titre": "Résoudre un Yohaku multiplicatif expressions littérales niveau 1",
     "url": "/exercices/3e/3L11-8.js",
     "amcReady": false,
     "interactifReady": true,
@@ -3826,7 +3870,7 @@ export default {
     }
   },
   "3L11-9": {
-    "titre": "Rose multiplicative littéraux",
+    "titre": "Résoudre une Rose multiplicative avec calcul littéral",
     "url": "/exercices/3e/3L11-9.js",
     "amcReady": false,
     "interactifReady": false,
@@ -3843,7 +3887,10 @@ export default {
   "3L11": {
     "titre": "Utiliser la simple distributivité",
     "url": "/exercices/3e/3L11.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "3L11",
@@ -3859,7 +3906,10 @@ export default {
   "3L12-1": {
     "titre": "Développer (a-b)(a+b)",
     "url": "/exercices/3e/3L12-1.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "3L12-1",
@@ -3868,7 +3918,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -3889,7 +3939,7 @@ export default {
     }
   },
   "3L13-0": {
-    "titre": "Équation du premier degré à solutions entières",
+    "titre": "Résoudre une equation du premier degré à solutions entières",
     "url": "/exercices/3e/3L13-0.js",
     "amcReady": true,
     "amcType": {
@@ -3908,7 +3958,7 @@ export default {
     }
   },
   "3L13-1": {
-    "titre": "Équation du premier degré (utilisant la distributivité)",
+    "titre": "Résoudre une equation du premier degré (utilisant la distributivité)",
     "url": "/exercices/3e/3L13-1.js",
     "amcReady": false,
     "interactifReady": true,
@@ -3924,7 +3974,7 @@ export default {
     }
   },
   "3L13-2": {
-    "titre": "Équations résolvantes pour le théorème de Thalès",
+    "titre": "Résoudre une equation résolvante pour le théorème de Thalès",
     "url": "/exercices/3e/3L13-2.js",
     "amcReady": true,
     "amcType": {
@@ -3943,7 +3993,7 @@ export default {
     }
   },
   "3L13-3": {
-    "titre": "Problèmes à mettre en équation et à résoudre",
+    "titre": "Mettre en équation un problème et le résoudre",
     "url": "/exercices/3e/3L13-3.js",
     "amcReady": true,
     "amcType": {
@@ -3962,7 +4012,7 @@ export default {
     }
   },
   "3L13-4": {
-    "titre": "Périmètre, aire, équation",
+    "titre": "Trouver périmètre ou aire en résolvant une équation",
     "url": "/exercices/3e/3L13-4.js",
     "amcReady": false,
     "interactifReady": false,
@@ -3977,7 +4027,7 @@ export default {
     }
   },
   "3L13": {
-    "titre": "Équation du premier degré",
+    "titre": "Résoudre une equation du premier degré",
     "url": "/exercices/3e/3L13.js",
     "amcReady": true,
     "amcType": {
@@ -4043,7 +4093,7 @@ export default {
     }
   },
   "3L15": {
-    "titre": "Équations du second degré se ramenant au premier degré",
+    "titre": "Résoudre une equation du second degré se ramenant au premier degré",
     "url": "/exercices/3e/3L15.js",
     "amcReady": false,
     "interactifReady": false,
@@ -4426,7 +4476,7 @@ export default {
     }
   },
   "4C10-8": {
-    "titre": "Yohaku multiplicatif nombres relatifs niveau 1",
+    "titre": "Résoudre un Yohaku multiplicatif nombres relatifs niveau 1",
     "url": "/exercices/4e/4C10-8.js",
     "amcReady": false,
     "interactifReady": true,
@@ -4442,7 +4492,7 @@ export default {
     }
   },
   "4C10-9": {
-    "titre": "Rose multiplicative relatifs",
+    "titre": "Résoudre une Rose multiplicative avec des relatifs",
     "url": "/exercices/4e/4C10-9.js",
     "amcReady": false,
     "interactifReady": true,
@@ -4565,7 +4615,7 @@ export default {
     }
   },
   "4C21-2": {
-    "titre": "Yohaku additif fractions niveau 1",
+    "titre": "Résoudre un Yohaku additif fractions niveau 1",
     "url": "/exercices/4e/4C21-2.js",
     "amcReady": false,
     "interactifReady": true,
@@ -4581,7 +4631,7 @@ export default {
     }
   },
   "4C21-3": {
-    "titre": "Rose additive fractions",
+    "titre": "Résoudre une Rose additive avec des fractions",
     "url": "/exercices/4e/4C21-3.js",
     "amcReady": false,
     "interactifReady": true,
@@ -4651,7 +4701,7 @@ export default {
     }
   },
   "4C22-3": {
-    "titre": "Yohaku multiplicatif fractions niveau 1",
+    "titre": "Résoudre un Yohaku multiplicatif fractions niveau 1",
     "url": "/exercices/4e/4C22-3.js",
     "amcReady": false,
     "interactifReady": true,
@@ -4667,7 +4717,7 @@ export default {
     }
   },
   "4C22-4": {
-    "titre": "Rose multiplicative fractions",
+    "titre": "Résoudre une Rose multiplicative avec des fractions",
     "url": "/exercices/4e/4C22-4.js",
     "amcReady": false,
     "interactifReady": true,
@@ -5097,7 +5147,7 @@ export default {
     }
   },
   "4G10-1": {
-    "titre": "Trouver les coordonnée de l'image d'un point par une translation",
+    "titre": "Trouver les coordonnées de l'image d'un point par une translation et une rotation",
     "url": "/exercices/4e/4G10-1.js",
     "amcReady": true,
     "amcType": {
@@ -5111,7 +5161,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -5260,7 +5310,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -5595,7 +5645,7 @@ export default {
     }
   },
   "4L10-2": {
-    "titre": "Donner l'expression littérale d'un Périmètre et d'une aire de quadrilatère",
+    "titre": "Donner l'expression littérale d'un périmètre et d'une aire de quadrilatère",
     "url": "/exercices/4e/4L10-2.js",
     "amcReady": false,
     "interactifReady": false,
@@ -5610,7 +5660,7 @@ export default {
     }
   },
   "4L10-3": {
-    "titre": "Yohaku additif expressions littérales niveau 1",
+    "titre": "Résoudre un Yohaku additif expressions littérales niveau 1",
     "url": "/exercices/4e/4L10-3.js",
     "amcReady": false,
     "interactifReady": true,
@@ -5626,12 +5676,27 @@ export default {
     }
   },
   "4L10-4": {
-    "titre": "Rose additive littéraux",
+    "titre": "Résoudre une Rose additive avec calcul littéral",
     "url": "/exercices/4e/4L10-4.js",
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "custom",
     "name": "4L10-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "4L10": {
+    "titre": "Utiliser la simple distributivité",
+    "url": "/exercices/4e/4L10.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4L10",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -5816,7 +5881,7 @@ export default {
     }
   },
   "4L20-0": {
-    "titre": "Équation du premier degré à solutions entières",
+    "titre": "Résoudre une equation du premier degré à solutions entières",
     "url": "/exercices/4e/4L20-0.js",
     "amcReady": true,
     "amcType": {
@@ -5835,7 +5900,7 @@ export default {
     }
   },
   "4L20": {
-    "titre": "Équation du premier degré",
+    "titre": "Résoudre une equation du premier degré",
     "url": "/exercices/4e/4L20.js",
     "amcReady": true,
     "amcType": {
@@ -6169,7 +6234,7 @@ export default {
     "interactifReady": false,
     "name": "5C12-2",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -6184,7 +6249,7 @@ export default {
     "interactifReady": false,
     "name": "5C12-3",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -6306,7 +6371,7 @@ export default {
     }
   },
   "5G11-4": {
-    "titre": "Trouver les coordonnée de l'image d'un point par une symétrie centrale",
+    "titre": "Trouver les coordonnées de l'image d'un point par une symétrie centrale",
     "url": "/exercices/5e/5G11-4.js",
     "amcReady": true,
     "amcType": {
@@ -6320,12 +6385,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G11-5": {
-    "titre": "Trouver les coordonnée de l'image d'un point par une symétrie axiale ou centrale",
+    "titre": "Trouver les coordonnées de l'image d'un point par une symétrie axiale ou centrale",
     "url": "/exercices/5e/5G11-5.js",
     "amcReady": true,
     "amcType": {
@@ -6339,7 +6404,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -6401,7 +6466,7 @@ export default {
     }
   },
   "5G12-2": {
-    "titre": "Trouver les symétries successives dans un damiers",
+    "titre": "Trouver les symétries successives dans un damier",
     "url": "/exercices/5e/5G12-2.js",
     "amcReady": true,
     "amcType": {
@@ -7591,7 +7656,7 @@ export default {
     }
   },
   "5R20-6": {
-    "titre": "Yohaku additif nombres relatifs niveau 1",
+    "titre": "Résoudre un Yohaku additif nombres relatifs niveau 1",
     "url": "/exercices/5e/5R20-6.js",
     "amcReady": false,
     "interactifReady": true,
@@ -7607,7 +7672,7 @@ export default {
     }
   },
   "5R20-7": {
-    "titre": "Rose additive relatifs",
+    "titre": "Résoudre une Rose additive avec des relatifs",
     "url": "/exercices/5e/5R20-7.js",
     "amcReady": false,
     "interactifReady": true,
@@ -7879,7 +7944,7 @@ export default {
     }
   },
   "6C10-0": {
-    "titre": "Rose additive",
+    "titre": "Résoudre une Rose additive",
     "url": "/exercices/6e/6C10-0.js",
     "amcReady": false,
     "interactifReady": true,
@@ -7988,7 +8053,7 @@ export default {
     }
   },
   "6C10-6": {
-    "titre": "Rose multiplicative",
+    "titre": "Résoudre une Rose multiplicative",
     "url": "/exercices/6e/6C10-6.js",
     "amcReady": false,
     "interactifReady": true,
@@ -8004,7 +8069,7 @@ export default {
     }
   },
   "6C10-7a": {
-    "titre": "Yohaku additif niveau 1",
+    "titre": "Résoudre un Yohaku additif niveau 1",
     "url": "/exercices/6e/6C10-7a.js",
     "amcReady": false,
     "interactifReady": true,
@@ -8020,7 +8085,7 @@ export default {
     }
   },
   "6C10-7b": {
-    "titre": "Yohaku multiplicatif niveau 1",
+    "titre": "Résoudre un Yohaku multiplicatif niveau 1",
     "url": "/exercices/6e/6C10-7b.js",
     "amcReady": false,
     "interactifReady": true,
@@ -8574,7 +8639,7 @@ export default {
     "interactifReady": false,
     "name": "6C32-1",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -9714,7 +9779,7 @@ export default {
     "interactifType": "mathLive",
     "name": "6M11-3",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -12170,6 +12235,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "beta-2F30-1": {
+    "titre": "Dresser un tableau de variations à partir d'une courbe",
+    "url": "/exercices/beta/beta-2F30-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta-2F30-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "beta-CAN6-2022": {
     "titre": "CAN Sixième sujet 2022",
     "url": "/exercices/beta/beta-CAN6-2022.js",
@@ -12218,7 +12298,7 @@ export default {
     }
   },
   "beta2F12-2": {
-    "titre": "Résoudre graphiquement $f(x)>k$ ($<k$) avec une fonction de référence",
+    "titre": "Résoudre graphiquement $f(x)\\gt k \\quad (\\lt k)$ avec une fonction de référence",
     "url": "/exercices/beta/beta2F12-2.js",
     "amcReady": false,
     "interactifReady": false,
@@ -13023,7 +13103,7 @@ export default {
     }
   },
   "betaSpline": {
-    "titre": "Nom de l'exercice",
+    "titre": "Fichier test sur les splines de Catmul Rom",
     "url": "/exercices/beta/betaSpline.js",
     "amcReady": false,
     "interactifReady": false,
@@ -13137,6 +13217,21 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaTracerParabole",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "beta_2F_reso_graphiques": {
+    "titre": "Resoudre graphiquement une équation",
+    "url": "/exercices/beta/beta_2F_reso_graphiques.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta_2F_reso_graphiques",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -13403,25 +13498,6 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "c3C31",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "c3C3CaN": {
-    "titre": "Course aux nombres CM1",
-    "url": "/exercices/c3/c3C3CaN.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "c3C3CaN",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -20219,6 +20295,25 @@ export default {
     "interactifReady": true,
     "interactifType": "qcm",
     "name": "canc3N06",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "canc3a": {
+    "titre": "Course aux nombres CM1",
+    "url": "/exercices/can/c3/canc3a.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "canc3a",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"

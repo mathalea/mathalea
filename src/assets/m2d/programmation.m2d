@@ -2,7 +2,7 @@ let O = point(12,4)
 let nb_cotes = randint(3,6) // entier aléatoire entre 3 et 6
 let p = polygoneRegulierParCentreEtRayon(O,4,nb_cotes)
 p.epaisseur = 2
-for(let i =0, image ; i < 360 ; i+=30){ // i = 0 ; 30 ; 60 ; 90 ... 300 ; 330
+for (let i =0, image ; i < 360 ; i+=30){ // i = 0 ; 30 ; 60 ; 90 ... 300 ; 330
   image = rotation(p,O,i) // image est un nouveau polygone
   image.color = colorToLatexOrHTML(couleurAleatoire()) // on choisit une couleur au hasard
   image.epaisseur = 2

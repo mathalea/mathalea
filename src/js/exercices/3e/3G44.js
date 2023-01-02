@@ -104,7 +104,7 @@ export default function CalculPythagoreEspace () {
           objetsEnonce.push(new CodageAngleDroit3D(solideDessine.sommets[parseInt(segmentChoisi[0][0])], solideDessine.sommets[parseInt(segmentChoisi[1])], solideDessine.sommets[parseInt(segmentChoisi[0][1])], '#f15929', 2))
           texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: 0.7, style: 'block' }), objetsEnonce) + '<br>'
           reponse = arrondi(Math.sqrt(c ** 2 + c ** 2), 1)
-          texteCorr += '<br>' + RedactionPythagore(I, J, K, true, c, c, reponse, listeUnites[j])[0]
+          texteCorr += '<br>' + RedactionPythagore(I, J, K, 1, c, c, reponse, listeUnites[j])[0]
 
           break
         case 2: // Diagonale d'un cube
@@ -188,7 +188,7 @@ export default function CalculPythagoreEspace () {
           objetsEnonce.push(new CodageAngleDroit3D(solideDessine.sommets[parseInt(segmentChoisi[0][0])], solideDessine.sommets[parseInt(segmentChoisi[1])], solideDessine.sommets[parseInt(segmentChoisi[0][1])], '#f15929', 2))
           texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce) + '<br>'
           reponse = arrondi(Math.sqrt(segmentChoisi[2] ** 2 + segmentChoisi[3] ** 2), 1)
-          texteCorr += '<br>' + RedactionPythagore(I, J, K, true, segmentChoisi[2], segmentChoisi[3], reponse, listeUnites[j])[0]
+          texteCorr += '<br>' + RedactionPythagore(I, J, K, 1, segmentChoisi[2], segmentChoisi[3], reponse, listeUnites[j])[0]
 
           break
         case 4: // Diagonale d'un pavé droit
@@ -281,7 +281,7 @@ export default function CalculPythagoreEspace () {
           objetsEnonce.push(segmentAnnexe)
           texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
           reponse = arrondi(Math.sqrt(h ** 2 + r ** 2), 1)
-          texteCorr += '<br>' + RedactionPythagore(D.label, A.label, ptBase2.c2d.nom, true, h, r, reponse, listeUnites[j])[0]
+          texteCorr += '<br>' + RedactionPythagore(D.label, A.label, ptBase2.c2d.nom, 1, h, r, reponse, listeUnites[j])[0]
           break
         case 6: // Dans une pyramide à base régulière
           r = randint(4, 10)
@@ -313,7 +313,7 @@ export default function CalculPythagoreEspace () {
           objetsEnonce.push(segmentAnnexe)
           texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
           reponse = arrondi(Math.sqrt(h ** 2 + r ** 2), 1)
-          texteCorr += '<br>' + RedactionPythagore(A.label, D.label, p.listePoints2d[numeroSommet].nom, true, h, r, reponse, listeUnites[j])[0]
+          texteCorr += '<br>' + RedactionPythagore(A.label, D.label, p.listePoints2d[numeroSommet].nom, 1, h, r, reponse, listeUnites[j])[0]
           break
         case 7: // Dans un cône
           r = randint(4, 10)
@@ -348,7 +348,7 @@ export default function CalculPythagoreEspace () {
           objetsEnonce.push(labelPoint(ptBase, D.c2d))
           texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
           reponse = arrondi(Math.sqrt(h ** 2 + r ** 2), 1)
-          texteCorr += '<br>' + RedactionPythagore(A.label, D.label, ptBase.nom, true, h, r, reponse, listeUnites[j])[0]
+          texteCorr += '<br>' + RedactionPythagore(A.label, D.label, ptBase.nom, 1, h, r, reponse, listeUnites[j])[0]
           break
         case 8: // Rayon dans une sphère
           context.anglePerspective = randint(2, 6) * choice([10, -10])
@@ -386,7 +386,7 @@ export default function CalculPythagoreEspace () {
           objetsEnonce.push(segmentAnnexe)
           texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
           reponse = arrondi(Math.sqrt(h ** 2 + r2 ** 2), 1)
-          texteCorr += '<br>' + RedactionPythagore(D.label, A.label, B.label, true, h, r2, reponse, listeUnites[j])[0]
+          texteCorr += '<br>' + RedactionPythagore(D.label, A.label, B.label, 1, h, r2, reponse, listeUnites[j])[0]
           break
         case 9: // Hauteur dans une sphère
           context.anglePerspective = randint(2, 6) * choice([10, -10])
@@ -424,7 +424,7 @@ export default function CalculPythagoreEspace () {
           objetsEnonce.push(segmentAnnexe)
           texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce)
           reponse = arrondi(Math.sqrt(r ** 2 - h ** 2), 1)
-          texteCorr += '<br>' + RedactionPythagore(D.label, A.label, B.label, false, reponse, r2, r, listeUnites[j])[0]
+          texteCorr += '<br>' + RedactionPythagore(D.label, A.label, B.label, 2, reponse, r2, r, listeUnites[j])[0]
           break
       }
       setReponse(this, i, new Grandeur(reponse, listeUnites[j]), { formatInteractif: 'unites' })

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { randint, combinaisonListes, ecritureParentheseSiNegatif, lettreDepuisChiffre, printlatex, listeQuestionsToContenuSansNumero, sp } from '../../modules/outils.js'
+import { randint, combinaisonListes, ecritureParentheseSiNegatif, lettreDepuisChiffre, printlatex, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Réduire une expression'
@@ -12,8 +12,7 @@ export const amcReady = true
 /**
 * Réduire des expressions lorsque c'est possible
 *
-* @author Rémi Angot
-* 3L11-2
+* @author Rémi Angot (Amélioration AMC par Eric Elter)
 */
 export const uuid = 'f6853'
 export const ref = '3L11-2'
@@ -150,15 +149,18 @@ export default function ReductionSiPossible () {
       }
       if (!context.isAmc) {
         setReponse(this, i, reponse)
-        texte += ajouteChampTexteMathLive(this, i, 'inline largeur 75 nospacebefore', { texte: `$${sp(3)} =$` })
+        texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')) : ''
       } else {
         this.autoCorrection[i] = {
-          enonce: texte,
+          enonce: '',
+          enonceAvant: false,
+          options: { multicols: true, barreseparation: true },
           propositions: [
             {
               type: 'AMCOpen',
               propositions: [{
                 texte: texteCorr,
+                enonce: texte + '<br>',
                 statut: 3
               }]
             },

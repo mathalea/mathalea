@@ -65,9 +65,9 @@ export default function TrouverErreurResolEqDeg1 () {
       // une fonction pour gérer le signe
       function signeDansEq (nb) {
         if (nb > 0) {
-          return { signe: '+', operation: 'soustraire', chgt_signe: nb }
+          return { signe: '+', operation: '\\bf{soustraire}', operationTexte: 'soustraire', chgt_signe: nb }
         } else {
-          return { signe: '', operation: 'ajouter', chgt_signe: nb * (-1) }
+          return { signe: '', operation: '\\bf{ajouter}', operationTexte: 'ajouter', chgt_signe: nb * (-1) }
         };
       };
 
@@ -131,16 +131,16 @@ export default function TrouverErreurResolEqDeg1 () {
           err: `L'erreur se situe à l'étape 1.
             <br>${currentGenreEtPrenom.prenom} «${sp(1)}a fait passer${sp(1)}» le terme $${signeDansEq(c).signe} ${c}${inc}$ «${sp(1)}de l'autre côté${sp(1)}»
             or pour obtenir une équation équivalente, il s'agit d'opérer de la même manière sur les deux membres de l'équation.
-            <br>Ici il faut ${signeDansEq(c).operation} $${signeDansEq(c).chgt_signe}${inc}$ aux deux membres.            
+            <br>Ici il faut ${signeDansEq(c).operationTexte} $${signeDansEq(c).chgt_signe}${inc}$ aux deux membres.            
             `,
           eq_corr: `${texteGras('Équation d\'origine : ')} $${a}${inc} ${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}$`,
-          eq_corr_et1: `${texteGras('Étape 1 : ')} $${miseEnEvidence(signeDansEq(c).operation)}$ $${miseEnEvidence(signeDansEq(c).chgt_signe)}$${texteEnCouleur(`$${inc}$`)} aux deux membres. 
-          <br> $${a}${inc} ${miseEnEvidence(signeDansEq(-c).signe)} ${miseEnEvidence(-c)}$${texteEnCouleur(`$${inc}$`)} $${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc} ${miseEnEvidence(signeDansEq(-c).signe)} ${miseEnEvidence(-c)}$${texteEnCouleur(`$${inc}$`)} 
+          eq_corr_et1: `${texteGras('Étape 1 : ')} $${miseEnEvidence(signeDansEq(c).operation)}$ $${miseEnEvidence(signeDansEq(c).chgt_signe)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)} aux deux membres. 
+          <br> $${a}${inc}\\,${miseEnEvidence(signeDansEq(-c).signe)}\\,${miseEnEvidence(-c)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)} $${signeDansEq(b).signe}\\,${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}\\,${miseEnEvidence(signeDansEq(-c).signe)}\\,${miseEnEvidence(-c)}$${texteEnCouleur(`$${inc}$`)} 
           <br>${texteGras('Étape 2 : ')} On réduit.
           <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b} = ${d}$
           `, // l'erreur est là, on passe de l'autre côté d'où l'oubli du chgt de signe
           eq_corr_et2: `${texteGras('Étape 3 :')} $${miseEnEvidence(signeDansEq(b).operation)}$ $${miseEnEvidence(signeDansEq(b).chgt_signe)}$ aux deux membres. 
-          <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b} ${miseEnEvidence(signeDansEq(-b).signe)} ${miseEnEvidence(-b)} = ${d} ${miseEnEvidence(signeDansEq(-b).signe)} ${miseEnEvidence(-b)}$
+          <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b}\\,${miseEnEvidence(signeDansEq(-b).signe)}\\,${miseEnEvidence(-b)} = ${d}\\,${miseEnEvidence(signeDansEq(-b).signe)}\\,${miseEnEvidence(-b)}$
           <br>${texteGras('Étape 4 : ')} Réduction à nouveau.
           <br> $${a - c}${inc} = ${d - b}$
           `,
@@ -166,16 +166,16 @@ export default function TrouverErreurResolEqDeg1 () {
           err: `L'erreur se situe à l'étape 2.
             <br>${currentGenreEtPrenom.prenom} «${sp(1)}a fait passer${sp(1)}» le terme $${signeDansEq(b).signe} ${b}$ «${sp(1)}de l'autre côté${sp(1)}»
             or pour obtenir une équation équivalente, il s'agit d'opérer de la même manière sur les deux membres de l'équation.
-            <br>Ici il faut ${signeDansEq(b).operation} $${signeDansEq(b).chgt_signe}$ aux deux membres.            
+            <br>Ici il faut ${signeDansEq(b).operationTexte} $${signeDansEq(b).chgt_signe}$ aux deux membres.            
             `,
           eq_corr: `${texteGras('Équation d\'origine : ')} $${a}${inc} ${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}$`,
-          eq_corr_et1: `${texteGras('Étape 1 :')} $${miseEnEvidence(signeDansEq(c).operation)}$ $${miseEnEvidence(signeDansEq(c).chgt_signe)}$${texteEnCouleur(`$${inc}$`)} aux deux membres 
-          <br> $${a}${inc} ${miseEnEvidence(signeDansEq(-c).signe)} ${miseEnEvidence(-c)}$${texteEnCouleur(`$${inc}$`)} $ ${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc} ${miseEnEvidence(signeDansEq(-c).signe)} ${miseEnEvidence(-c)}$${texteEnCouleur(`$${inc}$`)} 
+          eq_corr_et1: `${texteGras('Étape 1 :')} $${miseEnEvidence(signeDansEq(c).operation)}$ $${miseEnEvidence(signeDansEq(c).chgt_signe)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)} aux deux membres 
+          <br> $${a}${inc}\\,${miseEnEvidence(signeDansEq(-c).signe)}\\,${miseEnEvidence(-c)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)} $ ${signeDansEq(b).signe}\\,${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}\\,${miseEnEvidence(signeDansEq(-c).signe)}\\,${miseEnEvidence(-c)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)} 
           <br>${texteGras('Étape 2 : ')} On réduit.
           <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b} = ${d}$
           `, // l'erreur est là, on passe de l'autre côté d'où l'oubli du chgt de signe
           eq_corr_et2: `${texteGras('Étape 3 :')} $${miseEnEvidence(signeDansEq(b).operation)}$ $${miseEnEvidence(signeDansEq(b).chgt_signe)}$ aux deux membres 
-          <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b} ${miseEnEvidence(signeDansEq(-b).signe)} ${miseEnEvidence(-b)} = ${d} ${miseEnEvidence(signeDansEq(-b).signe)} ${miseEnEvidence(-b)}$
+          <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b}\\,${miseEnEvidence(signeDansEq(-b).signe)}\\,${miseEnEvidence(-b)} = ${d}\\,${miseEnEvidence(signeDansEq(-b).signe)}\\,${miseEnEvidence(-b)}$
           <br>${texteGras('Étape 4 : ')} Réduction à nouveau.
           <br> $${a - c}${inc} = ${d - b}$
           `,
@@ -201,16 +201,16 @@ export default function TrouverErreurResolEqDeg1 () {
           err: `            L'erreur se situe à l'étape 2.
             <br>${currentGenreEtPrenom.prenom} «${sp(1)}a fait passer${sp(1)}» le terme $${signeDansEq(c).signe} ${c}${inc}$ «${sp(1)}de l'autre côté${sp(1)}»
             or pour obtenir une équation équivalente, il s'agit d'opérer de la même manière sur les deux membres de l'équation.
-            <br>Ici il faut ${signeDansEq(c).operation} $${signeDansEq(c).chgt_signe}${inc}$ aux deux membres.            
+            <br>Ici il faut ${signeDansEq(c).operationTexte} $${signeDansEq(c).chgt_signe}${inc}$ aux deux membres.            
             `,
           eq_corr: `${texteGras('Équation d\'origine : ')} $${a}${inc} ${signeDansEq(b).signe} ${b} = ${c}${inc} ${signeDansEq(d).signe} ${d} $`,
-          eq_corr_et1: `          ${texteGras('Étape 1 :')} $${miseEnEvidence(signeDansEq(c).operation)}$ $${miseEnEvidence(signeDansEq(c).chgt_signe)}$${texteEnCouleur(`$${inc}$`)} aux deux membres 
-          <br> $${a}${inc} ${miseEnEvidence(signeDansEq(-c).signe)} ${miseEnEvidence(-c)}$${texteEnCouleur(`$${inc}$`)} $${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc} ${miseEnEvidence(signeDansEq(-c).signe)} ${miseEnEvidence(-c)}$${texteEnCouleur(`$${inc}$`)}
+          eq_corr_et1: `          ${texteGras('Étape 1 :')} $${miseEnEvidence(signeDansEq(c).operation)}$ $${miseEnEvidence(signeDansEq(c).chgt_signe)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)} aux deux membres 
+          <br> $${a}${inc}\\,${miseEnEvidence(signeDansEq(-c).signe)}\\,${miseEnEvidence(-c)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)} $${signeDansEq(b).signe}\\,${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}\\,${miseEnEvidence(signeDansEq(-c).signe)}\\,${miseEnEvidence(-c)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)}
           <br>${texteGras('Étape 2 : ')} On réduit.
           <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b} = ${d}$
           `, // l'erreur est là, on passe de l'autre côté d'où l'oubli du chgt de signe
           eq_corr_et2: `          ${texteGras('Étape 3 :')} $${miseEnEvidence(signeDansEq(b).operation)}$ $${miseEnEvidence(signeDansEq(b).chgt_signe)}$ aux deux membres 
-          <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b} ${miseEnEvidence(signeDansEq(-b).signe)} ${miseEnEvidence(-b)} = ${d} ${miseEnEvidence(signeDansEq(-b).signe)} ${miseEnEvidence(-b)}$
+          <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b}\\,${miseEnEvidence(signeDansEq(-b).signe)}\\,${miseEnEvidence(-b)} = ${d}\\,${miseEnEvidence(signeDansEq(-b).signe)}\\,${miseEnEvidence(-b)}$
           <br>${texteGras('Étape 4 : ')} Réduction à nouveau.
           <br> $${a - c}${inc} = ${d - b}$
           `,
@@ -236,16 +236,16 @@ export default function TrouverErreurResolEqDeg1 () {
           err: `            L'erreur se situe à l'étape 1.
             <br>${currentGenreEtPrenom.prenom} «${sp(1)}a fait passer${sp(1)}» le terme $${signeDansEq(b).signe} ${b}$ «${sp(1)}de l'autre côté${sp(1)}»
             or pour obtenir une équation équivalente, il s'agit d'opérer de la même manière sur les deux membres de l'équation.
-            <br>Ici il faut ${signeDansEq(b).operation} $${signeDansEq(b).chgt_signe}$ aux deux membres.            
+            <br>Ici il faut ${signeDansEq(b).operationTexte} $${signeDansEq(b).chgt_signe}$ aux deux membres.            
             `,
           eq_corr: `${texteGras('Équation d\'origine : ')} $${a}${inc} ${signeDansEq(b).signe} ${b} = ${c}${inc} ${signeDansEq(d).signe} ${d} $`,
-          eq_corr_et1: `          ${texteGras('Étape 1 :')} $${miseEnEvidence(signeDansEq(c).operation)}$ $${miseEnEvidence(signeDansEq(c).chgt_signe)}$${texteEnCouleur(`$${inc}$`)} aux deux membres 
-          <br> $${a}${inc} ${miseEnEvidence(signeDansEq(-c).signe)} ${miseEnEvidence(-c)}$${texteEnCouleur(`$${inc}$`)} $${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc} ${miseEnEvidence(signeDansEq(-c).signe)} ${miseEnEvidence(-c)}$${texteEnCouleur(`$${inc}$`)}
+          eq_corr_et1: `          ${texteGras('Étape 1 :')} $${miseEnEvidence(signeDansEq(c).operation)}$ $${miseEnEvidence(signeDansEq(c).chgt_signe)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)} aux deux membres 
+          <br> $${a}${inc}\\,${miseEnEvidence(signeDansEq(-c).signe)}\\,${miseEnEvidence(-c)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)} $${signeDansEq(b).signe}\\,${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}\\,${miseEnEvidence(signeDansEq(-c).signe)}\\,${miseEnEvidence(-c)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)}
           <br>${texteGras('Étape 2 : ')} On réduit.
           <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b} = ${d}$
           `, // l'erreur est là, on passe de l'autre côté d'où l'oubli du chgt de signe
           eq_corr_et2: `          ${texteGras('Étape 3 :')} $${miseEnEvidence(signeDansEq(b).operation)}$ $${miseEnEvidence(signeDansEq(b).chgt_signe)}$ aux deux membres 
-          <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b} ${miseEnEvidence(signeDansEq(-b).signe)} ${miseEnEvidence(-b)} = ${d} ${miseEnEvidence(signeDansEq(-b).signe)} ${miseEnEvidence(-b)}$
+          <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b}\\,${miseEnEvidence(signeDansEq(-b).signe)}\\,${miseEnEvidence(-b)} = ${d}\\,${miseEnEvidence(signeDansEq(-b).signe)}\\,${miseEnEvidence(-b)}$
           <br>${texteGras('Étape 4 : ')} Réduction à nouveau.
           <br> $${a - c}${inc} = ${d - b}$
           `,
@@ -274,13 +274,13 @@ export default function TrouverErreurResolEqDeg1 () {
             <br>Ici il faut diviser les deux membres par $${a - c}$.            
             `,
           eq_corr: `${texteGras('Équation d\'origine : ')} $${a}${inc} ${signeDansEq(b).signe} ${b} = ${c}${inc} ${signeDansEq(d).signe} ${d} $`,
-          eq_corr_et1: `          ${texteGras('Étape 1 :')} $${miseEnEvidence(signeDansEq(c).operation)}$ $${miseEnEvidence(signeDansEq(c).chgt_signe)}$${texteEnCouleur(`$${inc}$`)} aux deux membres 
-          <br> $${a}${inc} ${miseEnEvidence(signeDansEq(-c).signe)} ${miseEnEvidence(-c)}$${texteEnCouleur(`$${inc}$`)} $${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc} ${miseEnEvidence(signeDansEq(-c).signe)} ${miseEnEvidence(-c)}$${texteEnCouleur(`$${inc}$`)}
+          eq_corr_et1: `          ${texteGras('Étape 1 :')} $${miseEnEvidence(signeDansEq(c).operation)}$ $${miseEnEvidence(signeDansEq(c).chgt_signe)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)} aux deux membres 
+          <br> $${a}${inc} ${miseEnEvidence(signeDansEq(-c).signe)}\\,${miseEnEvidence(-c)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)} $${signeDansEq(b).signe}\\,${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}\\,${miseEnEvidence(signeDansEq(-c).signe)}\\,${miseEnEvidence(-c)}$${texteEnCouleur(`$\\boldsymbol{${inc}}$`)}
           <br>${texteGras('Étape 2 : ')} On réduit.
           <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b} = ${d}$
           `, // l'erreur est là, on passe de l'autre côté d'où l'oubli du chgt de signe
           eq_corr_et2: `          ${texteGras('Étape 3 :')} $${miseEnEvidence(signeDansEq(b).operation)}$ $${miseEnEvidence(signeDansEq(b).chgt_signe)}$ aux deux membres 
-          <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b} ${miseEnEvidence(signeDansEq(-b).signe)} ${miseEnEvidence(-b)} = ${d} ${miseEnEvidence(signeDansEq(-b).signe)} ${miseEnEvidence(-b)}$
+          <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b}\\,${miseEnEvidence(signeDansEq(-b).signe)}\\,${miseEnEvidence(-b)} = ${d}\\,${miseEnEvidence(signeDansEq(-b).signe)}\\,${miseEnEvidence(-b)}$
           <br>${texteGras('Étape 4 : ')} Réduction à nouveau.
           <br> $${a - c}${inc} = ${d - b}$
           `,
@@ -306,11 +306,11 @@ export default function TrouverErreurResolEqDeg1 () {
           question: '',
           correction: `
         ${situations[k].err}
-        ${texteGras('=== Voici une proposition de résolution détaillée : ===')}         
-        ${situations[k].eq_corr}
-        ${situations[k].eq_corr_et1}
-        ${situations[k].eq_corr_et2}
-        ${situations[k].eq_corr_et3}
+        <br>${texteGras('=== Voici une proposition de résolution détaillée : ===')}         
+        <br>${situations[k].eq_corr}
+        <br>${situations[k].eq_corr_et1}
+        <br>${situations[k].eq_corr_et2}
+        <br>${situations[k].eq_corr_et3}
         `
         })
       };

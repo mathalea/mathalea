@@ -233,11 +233,16 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
       document.addEventListener('exercicesAffiches', insertInDom)
     }
     listeQuestionsToContenu(this)
+<<<<<<< HEAD
 
     if (context.vue === 'latex' && this.sup3) {
       this.contenu += '\n\n' + buildTab(0, '', 0, '', Math.min(10, this.nbQuestions), true)
     } else if (context.vue !== 'diap' && context.isHtml && this.sup3) {
       const options = { eleId: numeroExercice, widthmincol1: '350px', widthmincol2: '200px' }
+=======
+    const options = { eleId: numeroExercice, widthmincol1: '350px', widthmincol2: '200px' }
+    if (context.vue !== 'diap' && context.isHtml && this.sup3) {
+>>>>>>> master
       this.contenu = deuxColonnesResp(this.contenu, buildTab(0, '', 0, '', Math.min(10, this.nbQuestions), true), options)
 
       // listener

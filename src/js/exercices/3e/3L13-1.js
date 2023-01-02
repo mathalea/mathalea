@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureA
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
-export const titre = 'Équation du premier degré (utilisant la distributivité)'
+export const titre = 'Résoudre une equation du premier degré (utilisant la distributivité)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = false // AMC : pour l'instant on ne peut pas tester une réponse parfois décimale parfois fractionnaire

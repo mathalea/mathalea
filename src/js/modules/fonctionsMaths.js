@@ -1,7 +1,8 @@
-import { number, add, unequal, largerEq, fraction, equal, multiply, inv, matrix, max } from 'mathjs'
+import { number, add, unequal, largerEq, fraction, equal, multiply, inv, matrix, max, polynomialRoot, round, acos, abs } from 'mathjs'
 import FractionX from './FractionEtendue.js'
 import { calcul, arrondi, ecritureAlgebrique, egal, randint, rienSi1, ecritureAlgebriqueSauf1, choice } from './outils.js'
-import { nroots } from 'algebrite'
+import { ObjetMathalea2D } from './2dGeneralites'
+import { Courbe, Segment } from './2d'
 /**
 * Convertit un angle de radian vers degrés et fonction inverse
 * @Example
@@ -365,12 +366,13 @@ class SplineCatmullRom {
     this.x = []
     this.y = []
     this.n = tabY.length // on a n valeurs de y et donc de x, soit n-1 intervalles numérotés de 1 à n-1.
+    this.step = step // on en a besoin pour la dérivée...
 
     for (let i = 0; i < this.n; i++) {
       this.x[i] = x0 + step * i
       this.y[i] = tabY[i]
     }
-    this.polys = this.defineFunctions()
+    this.polys = this.definePolys()
     this.fonctions = this.convertPolyFunction()
   }
 
@@ -378,7 +380,7 @@ class SplineCatmullRom {
    * définis les polynomes de CatMulRom
    * @returns {Polynome[]}
    */
-  defineFunctions () {
+  definePolys () {
     const polys = []
     for (let i = 1; i < this.n; i++) {
       let y0, y1, y2, y3
@@ -422,11 +424,7 @@ class SplineCatmullRom {
   convertPolyFunction () {
     const f = []
     for (let i = 0; i < this.n - 1; i++) {
-      const c0 = this.polys[i].monomes[0]
-      const c1 = this.polys[i].monomes[1]
-      const c2 = this.polys[i].monomes[2]
-      const c3 = this.polys[i].monomes[3]
-      f.push((x) => (c0 + c1 * x + c2 * x ** 2 + c3 * x ** 3))
+      f.push(this.polys[i].fonction)
     }
     return f
   }
@@ -434,30 +432,41 @@ class SplineCatmullRom {
   solve (y) {
     const antecedents = []
     for (let i = 0; i < this.polys.length; i++) {
-      const equation = this.polys[i].add(-y).multiply(10000) // on multiplie tout par 1000 dans l'espoir d'avoir des coefficients entiers (ça ne change rien 0*10000 = 0)
+      const polEquation = this.polys[i].add(-y) // Le polynome dont les racines sont les antécédents de y
       // Algebrite n'aime pas beaucoup les coefficients decimaux...
       try {
-        const solutions = nroots(equation.toMathExpr())
-        let antecedentTrouve = false
-        for (const valeur of solutions.tensor.elem) {
-          console.log(valeur, equation.toMathExpr())
-          if (valeur.k === 2) { // je ne sais pas ce que c'est que ce k mais il semble que pour les valeurs réelles, il vaut 2
-            if (valeur.d !== undefined) {
-              const arr = Number(valeur.d.toFixed(2))
-              if (arr >= this.x[i] && arr <= this.x[i + 1] && !antecedents.includes(arr)) {
-                antecedents.push(arr)
-                console.log(`antécédent ${arr.toString()} trouvé entre ${this.x[i]} <= et < ${this.x[i + 1]}`)
-                antecedentTrouve = true
+        const liste = polynomialRoot(...polEquation.monomes)
+        for (const valeur of liste) {
+          let arr
+          if (typeof valeur === 'number') {
+            arr = round(valeur, 3)
+          } else { // complexe !
+            const module = valeur.toPolar().r
+            if (module < 1e-5) { // module trop petit pour être complexe, c'est 0 !
+              arr = 0
+            } else {
+              if (abs(valeur.arg()) < 0.01 || (abs(valeur.arg() - acos(-1)) < 0.01)) { // si l'argument est proche de 0 ou de Pi
+                arr = round(valeur.re, 3) // on prend la partie réelle
+              } else {
+                arr = null // c'est une vraie racine complexe, du coup, on prend null
               }
             }
           }
+          if (arr !== null && arr >= this.x[i] && arr <= this.x[i + 1]) {
+            if (!antecedents.includes(arr)) {
+              antecedents.push(arr)
+            }
+          }
         }
-        if (!antecedentTrouve) console.log(`aucune antécédent trouvé entre ${this.x[i]} <= et < ${this.x[i + 1]}`)
       } catch (e) {
-        console.log(equation)
+        console.log(e)
       }
     }
     return antecedents
+  }
+
+  get fonction () {
+    return x => this.image(x)
   }
 
   image (x) {
@@ -478,6 +487,36 @@ class SplineCatmullRom {
       return this.fonctions[k](x)
     }
   }
+
+  /**
+   * retourne une nouvelle splineCatmulRom correspondant à la fonction dérivée de this.
+   */
+  get derivee () {
+    const derivees = []
+    for (let i = 0; i < this.n; i++) {
+      derivees.push(this.polys[Math.min(i, this.n - 2)].derivee().fonction(this.x[i]))
+    }
+    const maSpline = new SplineCatmullRom({ tabY: derivees, x0: this.x[0], step: this.step, repere: this.repere })
+    for (let i = 0; i < this.n - 1; i++) { // on redéfinit les polynomes
+      maSpline.polys[i] = this.polys[i].derivee()
+    }
+    maSpline.fonctions = maSpline.convertPolyFunction() // on remets les 'bonnes' fonctions
+    return maSpline
+  }
+
+  courbe ({
+    repere,
+    step = 0.1,
+    color = 'black',
+    epaisseur = 1
+  } = {}) {
+    return new Trace(this, {
+      repere,
+      step,
+      color,
+      epaisseur
+    })
+  }
 }
 /**
  * inspiré de https://yahiko.developpez.com/tutoriels/introduction-interpolation/?page=page_8#L8-3
@@ -497,8 +536,61 @@ class SplineCatmullRom {
  * @param {number} x0 l'abscisse du début de l'intervalle de définition
  * @param {number} step le pas entre chaque valeur de x pour les différents noeuds successifs
  */
-export function splineCatmullRom ({ tabY = [], x0 = -5, step = 1 }) {
+export function splineCatmullRom ({ tabY = [], x0 = -5, step = 1 } = {}) {
   return new SplineCatmullRom({ tabY, x0, step })
+}
+
+/**
+ * @class
+ * crée la courbe de la spline
+ */
+class Trace extends ObjetMathalea2D {
+  /**
+   * @param spline La splineCatmulRom dont on veut la Trace
+   * @param repere le repère associé
+   * @param step le pas entre deux points
+   * @param color la couleur
+   * @param epaisseur son épaisseur
+   */
+  constructor (spline, {
+    repere,
+    step = 0.1,
+    color = 'black',
+    epaisseur = 1
+  } = {}) {
+    super()
+    const objets = []
+    for (let i = 0; i < spline.n - 1; i++) {
+      if (spline.polys[i].deg > 1) {
+        objets.push(new Courbe(spline.fonctions[i], {
+          repere,
+          epaisseur,
+          color,
+          step,
+          xMin: spline.x[i],
+          xMax: spline.x[i + 1]
+        }))
+      } else {
+        const s = new Segment(spline.x[i] * repere.xUnite, spline.y[i] * repere.yUnite, spline.x[i + 1] * repere.xUnite, spline.fonctions[i](spline.x[i + 1]) * repere.yUnite, color)
+        s.epaisseur = epaisseur
+        objets.push(s)
+      }
+    }
+    this.svg = function (coeff) {
+      let code = ''
+      for (const objet of objets) {
+        code += '\n\t' + objet.svg(coeff)
+      }
+      return code
+    }
+    this.tikz = function () {
+      let code = ''
+      for (const objet of objets) {
+        code += '\n\t' + objet.tikz()
+      }
+      return code
+    }
+  }
 }
 
 /**
@@ -697,7 +789,7 @@ export class Polynome {
       ? this.monomes.map(function (el, i) { return fraction(multiply(i, el)) })
       : this.monomes.map(function (el, i) { return multiply(i, el) })
     coeffDerivee.shift()
-    return new Polynome({ coeffs: coeffDerivee })
+    return new Polynome({ isUseFraction: this.isUseFraction, coeffs: coeffDerivee })
   }
 
   /**
@@ -709,6 +801,24 @@ export class Polynome {
   static print (coeffs, alg = false) {
     const p = new Polynome({ coeffs })
     return p.toLatex(alg)
+  }
+
+  /**
+   * la fonction à utiliser pour tracer la courbe par exemple ou calculer des valeurs comme dans pol.image()
+   * const f = pol.fonction est une fonction utilisable dans courbe()
+   * @returns {function(number): number}
+   */
+  get fonction () {
+    return x => this.monomes.reduce((val, current) => val + current * x ** this.monomes.findIndex(coeff => coeff === current))
+  }
+
+  /**
+   * Pour calculer l'image d'un nombre
+   * @param x
+   * @returns {math.Fraction | number | int} // à mon avis ça ne retourne que des number...
+   */
+  image (x) {
+    return this.fonction(x)
   }
 }
 

@@ -598,7 +598,7 @@ export function menuDesExercicesDisponibles () {
     document.getElementById('liste_des_exercices').innerHTML = ''
   }
   const listeThemesCan = [
-    ['canc3', 'canc3 - Course aux nombres niveau CM1-CM2', 'canc3C - Calculs', 'canc3D - Durées', 'canc3M - Mesures', 'canc3N - Numération'],
+    ['canc3', 'canc3 - Course aux nombres niveau CM1-CM2', 'canc3a - Annales aléatoires', 'canc3C - Calculs', 'canc3D - Durées', 'canc3M - Mesures', 'canc3N - Numération'],
     ['can6', 'can6 - Course aux nombres niveau 6e', 'can6a - Annales aléatoires', 'can6C - Calculs', 'can6D - Durées', 'can6G - Géométrie', 'can6I - Algorithmique', 'can6M - Mesures', 'can6N - Numération', 'can6P - Proportionnalité', 'can6S - Statistiques'],
     ['can5', 'can5 - Course aux nombres niveau 5e', 'can5a - Annales aléatoires', 'can5A - Algorithmes', 'can5C - Calculs', 'can5D - Durées', 'can5G - Géométrie', 'can5L - Calcul littéral', 'can5N - Numération', 'can5P - Proportionnalité'],
     ['can4', 'can4 - Course aux nombres niveau 4e', 'can4a - Annales aléatoires', 'can4C - Calculs', 'can4G - Géométrie', 'can4L - Calcul littéral', 'can4P - Proportionnalité'],
