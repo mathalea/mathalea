@@ -1,8 +1,9 @@
+/* global jQuery */
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import Decimal from 'decimal.js'
 import { getDigitFromNumber } from './_ExerciceConversionsLongueurs.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombre, texTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombre, texTexte, deuxColonnesResp } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
@@ -31,6 +32,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
   this.sup = niveau // Niveau de difficulté de l'exercice
   this.sup2 = false // Avec des nombres décimaux ou pas
   this.sup3 = 1 // interactifType Qcm
+  this.sup4 = false // tableau
   this.titre = "Conversions d'aires"
   this.consigne = 'Compléter :'
   this.spacing = 2
@@ -39,7 +41,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
   this.amcType = amcType
   this.interactifReady = interactifReady
 
-  this.nouvelleVersion = function () {
+  this.nouvelleVersion = function (numeroExercice) {
     this.interactifType = parseInt(this.sup3) === 2 ? 'mathLive' : 'qcm'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -128,7 +130,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
           texNombre(a, 2) +
           texTexte(prefixeMulti[k][0] + unite) +
           '^2' +
-          ' = \\dotfill ' +
+          ' = \\dotfills ' +
           texTexte(unite) +
           '^2' +
           '$'
@@ -166,7 +168,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
           texNombre(a, 2) +
           texTexte(prefixeDiv[k][0] + unite) +
           '^2' +
-          ' = \\dotfill ' +
+          ' = \\dotfills ' +
           texTexte(unite) +
           '^2' +
           '$'
@@ -205,7 +207,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
             texNombre(a, 2) +
             texTexte(listeUnite[unite2]) +
             '^2' +
-            ' = \\dotfill ' +
+            ' = \\dotfills ' +
             texTexte(listeUnite[unite1]) +
             '^2' +
             '$'
@@ -238,7 +240,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
             texNombre(a, 2) +
             texTexte(listeUnite[unite1]) +
             '^2' +
-            ' = \\dotfill ' +
+            ' = \\dotfills ' +
             texTexte(listeUnite[unite2]) +
             '^2' +
             '$'
@@ -277,7 +279,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
           '$ ' +
           texNombre(a, 2) +
           texTexte(prefixeMulti[k][0]) +
-          ' = \\dotfill ' +
+          ' = \\dotfills ' +
           texTexte(unite) +
           '^2' +
           '$'
@@ -330,11 +332,11 @@ export default function ExerciceConversionsAires (niveau = 1) {
       if (this.questionJamaisPosee(i, a, prefixe, div)) {
         // Si la question n'a jamais été posée, on en crée une autre
         if (context.vue === 'diap') {
-          texte = texte.replace('= \\dotfill', '\\text{ en }')
+          texte = texte.replace('= \\dotfills', '\\text{ en }')
         }
         if (context.isHtml) {
           texte = texte.replace(
-            '\\dotfill',
+            '\\dotfills',
             '................................................'
           )
         }
@@ -344,7 +346,75 @@ export default function ExerciceConversionsAires (niveau = 1) {
       }
       cpt++
     }
+    function insertInDom () {
+      const div = document.getElementById('exercice' + numeroExercice)
+      if (div) {
+        const button1 = document.createElement('button')
+        button1.setAttribute('data-tooltip', 'Moins d\'espace vertical')
+        button1.innerText = '- ⇕'
+        button1.onclick = function () { jQuery('#exercice' + numeroExercice + ' ol > li').css({ 'margin-top': '-=5px', 'margin-bottom': '-=5px' }) }
+        div.appendChild(button1)
+        const button2 = document.createElement('button')
+        button2.innerText = '+ ⇕'
+        button2.setAttribute('data-tooltip', 'Plus d\'espace vertical')
+        button2.onclick = function () { jQuery('#exercice' + numeroExercice + ' ol > li').css({ 'margin-top': '+=5px', 'margin-bottom': '+=5px' }) }
+        div.appendChild(button2)
+        button1.classList.add('btn', 'ui', 'icon', 'button')
+        button2.classList.add('btn', 'ui', 'icon', 'button')
+        document.removeEventListener('exercicesAffiches', insertInDom)
+      }
+    }
+    if (context.vue !== 'diap' && context.isHtml) {
+      document.addEventListener('exercicesAffiches', insertInDom)
+    }
+    if (context.vue === 'latex') this.listePackages = ['arydshln'] // pour les lignes en pointillés
     listeQuestionsToContenu(this)
+
+    if (context.vue === 'latex' && this.sup4) {
+      this.contenu += '\n\n' + buildTab(0, '', 0, '', Math.min(10, this.nbQuestions), true)
+    } else if (context.vue !== 'diap' && context.isHtml && this.sup4) {
+      const options = { eleId: numeroExercice, widthmincol1: '300px', widthmincol2: '200px' }
+      this.contenu = deuxColonnesResp(this.contenu, buildTab(0, '', 0, '', Math.min(10, this.nbQuestions), true), options)
+
+      // listener
+      const reportWindowSize = function () {
+        const element = document.getElementById('cols-responsive1-' + options.eleId)
+        const element2 = document.getElementById('cols-responsive2-' + options.eleId)
+        if (element !== null &&
+          element !== undefined &&
+          element2 !== null &&
+          element2 !== undefined &&
+          element.clientWidth !== 0) {
+          // console.log('ele1:' + element.clientWidth + ': ' + element.offsetWidth)
+          // console.log('ele2:' + element2.clientWidth + ': ' + element2.offsetWidth)
+          // console.log('parent:' + element.parentElement.clientWidth + ': ' + element.parentElement.offsetWidth)
+          const col2 = element2.children[0].offsetWidth
+          const diff = element.parentElement.clientWidth - parseInt(options.widthmincol1.replaceAll('px', ''))
+          if (diff > col2) {
+            element.parentElement.style.gridTemplateColumns = 'repeat(2, 1fr)'
+          } else {
+            element.parentElement.style.gridTemplateColumns = 'auto'
+          }
+        }
+      }
+
+      const removelistener = function () {
+        document.removeEventListener('exercicesAffiches', reportWindowSize)
+        document.removeEventListener('zoominOrout', reportWindowSize)
+        document.removeEventListener('pleinEcran', reportWindowSize)
+        window.removeEventListener('resize', reportWindowSize)
+        document.removeEventListener('buildex', removelistener)
+      }
+
+      const createlistener = function () {
+        document.addEventListener('exercicesAffiches', reportWindowSize)
+        document.addEventListener('zoominOrout', reportWindowSize)
+        document.addEventListener('pleinEcran', reportWindowSize)
+        window.addEventListener('resize', reportWindowSize)
+        document.addEventListener('buildex', removelistener)
+      }
+      createlistener()
+    }
   }
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
@@ -352,10 +422,11 @@ export default function ExerciceConversionsAires (niveau = 1) {
     "1 : Conversions en m² avec des multiplications\n2 : Conversions en m² avec des divisions\n3 : Conversions en m² avec des multiplications ou divisions\n4 : Conversions avec des multiplications ou divisions\n5 : Conversions d'hectares et ares en m² \n6 : Mélange"
   ]
   this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
-  if (context.isHtml && !context.vue === 'diap') this.besoinFormulaire3Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
+  if (context.isHtml && !(context.vue === 'diap')) this.besoinFormulaire3Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
+  this.besoinFormulaire4CaseACocher = ['Avec tableau']
 }
 
-function buildTab (a, uniteA, r, uniteR) {
+function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false) {
   const tabRep = function (nbre, uniteNbre) {
     const res = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
     switch (uniteNbre.replaceAll(' ', '')) {
@@ -402,30 +473,43 @@ function buildTab (a, uniteA, r, uniteR) {
   const createTab = function (aT, rT, first, end) {
     let texte = '$\\def\\arraystretch{1.5}\\begin{array}{'
     for (let i = first; i <= end; i++) {
-      if (i % 2 === 0) { texte += '|c' + (i === end ? ':}' : '') } else { texte += ':c' + (i === end ? '|}' : '') }
+      const col = (context.vue === 'latex' ? '>{\\centering\\arraybackslash}m{0.45cm}' : 'c')
+      if (i % 2 === 0) { texte += `|${col}` + (i === end ? ':}' : '') } else { texte += `:${col}` + (i === end ? '|}' : '') }
     }
-    const headers = ['\\hspace*{0.6cm}', '\\hspace*{0.6cm}', '\\hspace*{0.6cm}', '\\hspace*{0.6cm}', '\\hspace*{0.6cm}', 'km^2', '\\hspace*{0.6cm}', 'hm^2', '\\hspace*{0.6cm}', 'dam^2', '\\hspace*{0.6cm}', 'm^2', '\\hspace*{0.6cm}', 'dm^2', '\\hspace*{0.6cm}', 'cm^2', '\\hspace*{0.6cm}', 'mm^2', '\\hspace*{0.6cm}', '\\hspace*{0.6cm}', '\\hspace*{0.6cm}', '\\hspace*{0.6cm}']
+    const headers = ['\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', 'km^2', '\\hspace*{0.4cm}', 'hm^2', '\\hspace*{0.4cm}', 'dam^2', '\\hspace*{0.4cm}', 'm^2', '\\hspace*{0.6cm}', 'dm^2', '\\hspace*{0.4cm}', 'cm^2', '\\hspace*{0.4cm}', 'mm^2', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}', '\\hspace*{0.4cm}']
     texte += '\\hline '
     for (let i = first; i <= end; i++) {
-      texte += `${headers[i]} ${i < end ? '&' : '\\\\'}`
+      if (context.vue === 'latex') {
+        if (i % 2 === 0 && i === first) texte += `\\multicolumn{2}{|c|}{${headers[i + 1]}} & `
+        if (i % 2 === 0 && i > first && i + 1 < end) texte += `\\multicolumn{2}{c|}{${headers[i + 1]}} & `
+        if (i % 2 === 0 && i + 1 === end) texte += `\\multicolumn{2}{c|}{${headers[i + 1]}} \\\\`
+      } else {
+        texte += `${headers[i]} ${i < end ? ' &' : ' \\\\'}`
+      }
     }
     texte += '\\hline '
     for (let i = first; i <= end; i++) {
-      texte += `${aT[i]} ${i < end ? '&' : '\\\\'}`
+      texte += `${aT[i]} ${i < end ? ' &' : ' \\\\'}`
     }
     texte += '\\hline '
     for (let i = first; i <= end; i++) {
-      texte += `${rT[i]} ${i < end ? '&' : '\\\\'}`
+      texte += `${rT[i]} ${i < end ? ' &' : ' \\\\'}`
+    }
+    for (let k = 3; k <= ligne; k++) {
+      texte += '\\hline '
+      for (let i = first; i <= end; i++) {
+        texte += `${i < end ? ' &' : ' \\\\'}`
+      }
     }
     texte += '\\hline \\end{array}$'
     return texte
   }
   const aTab = tabRep(a, uniteA)
   const rTab = tabRep(r, uniteR)
-  const minTab1 = aTab[0] !== '' || aTab[1] !== '' ? 0 : aTab[2] !== '' || aTab[3] !== '' ? 2 : 4
-  const minTab2 = rTab[0] !== '' || rTab[1] !== '' ? 0 : rTab[2] !== '' || rTab[3] !== '' ? 2 : 4
-  const maxTab1 = aTab[21] !== '' || aTab[20] !== '' ? 21 : aTab[19] !== '' || aTab[18] !== '' ? 19 : 17
-  const maxTab2 = rTab[21] !== '' || rTab[20] !== '' ? 21 : rTab[19] !== '' || rTab[18] !== '' ? 19 : 17
-  const texte = createTab(aTab, rTab, Math.min(minTab1, minTab2), Math.max(maxTab1, maxTab2))
+  const minTab1 = aTab[0] !== '' || aTab[1] !== '' ? 0 : aTab[2] !== '' || aTab[3] !== '' || force ? 2 : 4
+  const minTab2 = rTab[0] !== '' || rTab[1] !== '' ? 0 : rTab[2] !== '' || rTab[3] !== '' || force ? 2 : 4
+  const maxTab1 = aTab[21] !== '' || aTab[20] !== '' ? 21 : aTab[19] !== '' || aTab[18] !== '' || force ? 19 : 17
+  const maxTab2 = rTab[21] !== '' || rTab[20] !== '' ? 21 : rTab[19] !== '' || rTab[18] !== '' || force ? 19 : 17
+  const texte = createTab(aTab, rTab, Math.min(minTab1, minTab2), Math.max(maxTab1, maxTab2), ligne)
   return texte
 }
