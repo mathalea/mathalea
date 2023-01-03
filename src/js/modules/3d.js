@@ -298,7 +298,7 @@ export function arc3d (centre, normal, rayon, cote, color, angledepart, angledef
     * visible est un booléen
     *
     */
-export function cercle3d (centre, normal, rayon, visible = true, color = 'black') {
+export function cercle3d (centre, normal, rayon, visible = true, color = 'black', pointilles = false) {
   const M = []; const listepoints = []; const listepoints3d = []
   const d = droite3d(centre, normal)
   M.push(rotation3d(translation3d(centre, rayon), d, context.anglePerspective))
@@ -309,10 +309,9 @@ export function cercle3d (centre, normal, rayon, visible = true, color = 'black'
     listepoints3d.push(M[i])
     listepoints.push(M[i].c2d)
   }
-  // const C = polygone(listepoints, color)
-  const C = polygone(listepoints, 'red')
-  C.isVisible = false
-  if (!visible) {
+  const C = polygone(listepoints, color)
+  C.isVisible = visible
+  if (pointilles) {
     C.pointilles = 2
   }
   return [C, listepoints3d, listepoints]
@@ -491,7 +490,7 @@ function Sphere3d (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue'
     normal = vecteur3d(0, 0, 1)
     poly = polygone(unDesParalleles[2])
     poly.isVisible = false
-    unDesParalleles = cercle3d(centreParallele, normal, rayonDuParallele)
+    unDesParalleles = cercle3d(centreParallele, normal, rayonDuParallele, false)
     paralleles.listepts2d.push(unDesParalleles[1])
     for (let ee = 0; ee < paralleles.listepts2d[0].length; ee++) {
       paralleles.listepts2d[j][ee].isVisible = !(paralleles.listepts2d[j][ee].c2d.estDansPolygone(poly))
