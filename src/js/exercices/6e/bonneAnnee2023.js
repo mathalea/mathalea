@@ -32,7 +32,7 @@ export default function Questions2023 () {
     this.autoCorrection = []
     let QuestionsDisponibles = []
     if (!this.sup) { // Si aucune liste n'est saisie
-      QuestionsDisponibles = choice(rangeMinMax(1, 28))
+      QuestionsDisponibles[0] = choice(rangeMinMax(1, 28))
     } else {
       if (!isNaN(this.sup)) { // Si c'est un nombre c'est qu'il y a qu'un problème
         QuestionsDisponibles[0] = contraindreValeur(1, 28, parseInt(this.sup), 1)
@@ -309,5 +309,5 @@ export default function Questions2023 () {
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\nDe 1 à 4 : Niveau CM2\nDe 5 à 9 : Niveau 6ème\nDe 10 à 13 : Niveau 5ème\nDe 14 à 16 : Niveau 4ème\nDe 17 à 19 : Niveau 3ème\nDe 20 à 22 : Niveau 1ère\nDe 23 à 27 : Niveau Terminale\n28 : Niveau Post-Bac']
+  this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\nDe 1 à 4 : Niveau CM2\nDe 5 à 9 : Niveau 6ème\nDe 10 à 13 : Niveau 5ème\nDe 14 à 16 : Niveau 4ème\nDe 17 à 19 : Niveau 3ème\nDe 20 à 22 : Niveau 1ère\nDe 23 à 27 : Niveau Terminale\n28 : Niveau Post-Bac', '1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28']
 }
