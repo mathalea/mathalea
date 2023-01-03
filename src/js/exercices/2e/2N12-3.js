@@ -136,8 +136,7 @@ export default function EncadrerRacineCarreeEntre2Entiers () {
           break
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
-        // Si la question n'a jamais été posée, on en crée une autre
+      if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

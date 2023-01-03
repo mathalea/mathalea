@@ -33,7 +33,7 @@ export default function ExerciceInequationProduit () {
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = false // Désactive la correction détaillée par défaut
   this.sup = 1 // Choix du type d'inéquation
-  this.nbQuestions = 1 // Choix du nombre de questions
+  this.nbQuestions = 4 // Choix du nombre de questions
 
   this.listePackages = 'tkz-tab' // Pour la compilation LateX des tableaux de signes
   this.nbCols = 1 // Fixe le nombre de colonnes pour les énoncés de la sortie LateX
@@ -686,7 +686,7 @@ export default function ExerciceInequationProduit () {
           })
         }
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, a, b, c, d, e, f)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

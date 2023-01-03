@@ -128,7 +128,7 @@ export default class CalculerAvecEcritureScientifique extends Exercice {
       setReponse(this, i, reponse, { formatInteractif: 'ecritureScientifique' })
       // JC : setReponse(this, i, reponse, {formatInteractif: 'ecritureScientifique'})
       // JC : Si on ne précise pas le formatInteractif, alors par défaut, c'est 'calcul', et alors, réponse doit contenir un nombre, pas une chaine de caractère.
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, reponse, somme, a, b, c, prod)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
