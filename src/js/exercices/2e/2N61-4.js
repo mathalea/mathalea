@@ -33,7 +33,7 @@ export default function ExerciceInequationQuotient () {
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = false // Désactive la correction détaillée par défaut
   this.sup = 1 // Choix du type d'inéquation
-  this.nbQuestions = 1 // Choix du nombre de questions
+  this.nbQuestions = 4 // Choix du nombre de questions
   let debutConsigne
   if (this.nbQuestions.toString() === '1') {
     debutConsigne = 'Résoudre l\'inéquation suivante :'
@@ -822,7 +822,7 @@ export default function ExerciceInequationQuotient () {
         texte += ajouteChampTexteMathLive(this, i, 'inline largeur25', { texte: '<br>S = ' })
         setReponse(this, i, correctionInteractif, { formatInteractif: 'texte' })
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, a, b, c, e, d)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

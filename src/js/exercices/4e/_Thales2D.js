@@ -199,6 +199,7 @@ export default function Thales2D () {
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
+      // Il n'y a qu'une seule question donc test inutile...
         if (context.isAmc) {
           this.autoCorrection[i] = {
             enonce: texte,

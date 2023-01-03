@@ -170,7 +170,7 @@ export default function DeterminerFonctionAffine () {
       texte = `La fonction $f$ est une fonction affine et on sait que $f(${x1})=${y1}$ et $f(${x2})=${y2}$.<br>`
       texte += 'Déterminer la forme algébrique de la fonction $f$.'
       texte += ajouteChampTexteMathLive(this, i)
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, x1, x2, y1, y2, a, b, listeTypeDeQuestions[i])) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

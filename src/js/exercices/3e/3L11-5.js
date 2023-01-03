@@ -353,6 +353,7 @@ export default function IdentitesCalculs () {
         // comment
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+        // ToDo traiter les éventuelles question interactives en double
         let mybool = false
         this.listeQuestions.forEach(elt => {
           if (texte.split('$')[1].substr(2).indexOf(elt.split('$')[1].substr(2)) !== -1) {

@@ -423,7 +423,7 @@
 |6P14|Agrandir ou réduire des figures, d'après une situation de proportionnalité|OK|AMCHybride|OK|mathLive|
 |6S10-1|Représenter des données par un diagramme|OK|AMCHybride|OK|qcm|
 |6S10|Lire un diagramme en barres|OK|AMCHybride|OK|mathLive|
-|FichierDeTests|Calculer un angle, déduit de figures simples|KO|KO|OK|mathLive|
+|FichierDeTests|Bonne année...|KO|KO|OK|mathLive|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|mathLive|
 |CM001|Tables de multiplication|OK|AMCNum|OK|mathLive|
 |CM002|Tables de divisions|OK|AMCNum|OK|mathLive|
