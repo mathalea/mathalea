@@ -11,6 +11,8 @@ export const dateDePublication = '28/12/2022'
  * @author Rémi Angot
  * Référence 1N14
 */
+export const uuid = '8ed19'
+export const ref = '1N12-1'
 export default class SommeSuite extends Exercice {
   constructor () {
     super()
