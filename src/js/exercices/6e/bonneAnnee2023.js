@@ -14,6 +14,8 @@ export const dateDePublication = '02/01/2023'
  * @author Eric Elter (et Jean-Claude Lhote pour l'exercice 22)
  */
 
+export const uuid = '75002'
+export const ref = 'bonneAnnee2023'
 export default function Questions2023 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
