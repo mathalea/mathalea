@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, choice, rienSi1, arrondi } from '../../../modules/outils.js'
+import { randint, choice, rienSi1, arrondi, ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
 import FractionX from '../../../modules/FractionEtendue.js'
 export const titre = 'Simplifier un quotient'
 export const interactifReady = true
@@ -20,97 +20,35 @@ export default function SimplifierQuotient () {
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
-    switch (choice([1])) {
+    switch (choice([1, 2])) {
       case 1 :// ax/b
         { const a = randint(2, 9)
           const k = randint(-9, 9, [0, 1])
           const maFraction1 = new FractionX(a, k * a)
-          const maFraction2 = maFraction1.inverse()
           if (choice([true, false])) {
             this.question = ` Simplifier l'écriture fractionnaire : $\\dfrac{${a}x}{${k * a}}$.`
             this.correction = `$\\dfrac{${a}x}{${k * a}}=\\dfrac{${a}x}{${k}\\times ${a}}=\\dfrac{x}{${k}}=${maFraction1.texFractionSimplifiee}x$`
             this.reponse = [`\\dfrac{x}{${k}}`, `${arrondi(1 / k, 2)}x`]
           } else {
             this.question = ` Simplifier l'écriture fractionnaire : $\\dfrac{${k * a}x}{${a}}$.`
-            this.correction = `$\\dfrac{${k * a}x}{${a}}=\\dfrac{${a}\\times ${k}x}{${a}}=${k}x$`
+            this.correction = `$\\dfrac{${k * a}x}{${a}}=\\dfrac{${a}\\times ${ecritureParentheseSiNegatif(k)}x}{${a}}=${rienSi1(k)}x$`
             this.reponse = [`${k}x`]
           }
         }
         break
       case 2 :
         { const a = randint(1, 9)
+          const k = randint(-9, 9, [-1, 0, 1])
           const b = randint(-9, 9, 0)
-          this.question = ` Écrire avec un seul quotient : $${rienSi1(b)}x-\\dfrac{${a}}{x}$.`
-          this.correction = `$${rienSi1(b)}x-\\dfrac{${a}}{x}=\\dfrac{${rienSi1(b)}x^2}{x}-\\dfrac{${a}}{x}=\\dfrac{${rienSi1(b)}x^2-${a}}{x}$`
-          this.reponse = [`\\dfrac{${b}x^2-${a}}{x}`]
-        }
-        break
-      case 3 :
-        {
-          const a = randint(1, 9)
-          const b = randint(-9, 9, 0)
-
-          this.question = ` Écrire avec un seul quotient : $${rienSi1(b)}x^2-\\dfrac{${a}}{x}$.`
-          this.correction = `$${rienSi1(b)}x^2-\\dfrac{${a}}{x}=\\dfrac{${rienSi1(b)}x^3}{x}-\\dfrac{${a}}{x}=\\dfrac{${rienSi1(b)}x^3-${a}}{x}$`
-          this.reponse = [`\\dfrac{${b}x^3-${a}}{x}`] }
-        break
-      case 4 :
-        { const a = randint(1, 9)
-          const b = randint(-9, 9, 0)
-          this.question = ` Écrire avec un seul quotient : $${rienSi1(b)}x^2+\\dfrac{${a}}{x}$.`
-          this.correction = `$${rienSi1(b)}x^2+\\dfrac{${a}}{x}=\\dfrac{${rienSi1(b)}x^3}{x}+\\dfrac{${a}}{x}=\\dfrac{${rienSi1(b)}x^3+${a}}{x}$`
-          this.reponse = [`\\dfrac{${b}x^3+${a}}{x}`]
-        }
-        break
-      case 5 :
-        { const a = randint(1, 9)
-          const b = randint(-9, 9, 0)
-          this.question = ` Écrire avec un seul quotient : $${b}+\\dfrac{${a}}{x}$.`
-          this.correction = `$${b}+\\dfrac{${a}}{x}=\\dfrac{${rienSi1(b)}x}{x}+\\dfrac{${a}}{x}=\\dfrac{${rienSi1(b)}x+${a}}{x}$`
-          this.reponse = [`\\dfrac{${b}x+${a}}{x}`]
-        }
-        break
-      case 6 :
-        { const a = randint(1, 9)
-          const b = randint(-9, 9, 0)
-          this.question = ` Écrire avec un seul quotient : $${b}-\\dfrac{${a}}{x}$.`
-          this.correction = `$${b}-\\dfrac{${a}}{x}=\\dfrac{${rienSi1(b)}x}{x}-\\dfrac{${a}}{x}=\\dfrac{${rienSi1(b)}x-${a}}{x}$`
-          this.reponse = [`\\dfrac{${b}x-${a}}{x}`]
-        }
-        break
-
-      case 7 :
-        { const a = randint(1, 9)
-          const b = randint(-9, 9, 0)
-          this.question = ` Écrire avec un seul quotient : $${b}+\\dfrac{${a}}{x^2}$.`
-          this.correction = `$${b}+\\dfrac{${a}}{x^2}=\\dfrac{${rienSi1(b)}x^2}{x^2}+\\dfrac{${a}}{x^2}=\\dfrac{${rienSi1(b)}x^2+${a}}{x^2}$`
-          this.reponse = [`\\dfrac{${b}x^2+${a}}{x^2}`]
-        }
-        break
-      case 8 :
-        { const a = randint(1, 9)
-          const b = randint(-9, 9, 0)
-          this.question = ` Écrire avec un seul quotient : $${b}-\\dfrac{${a}}{x^2}$.`
-          this.correction = `$${b}-\\dfrac{${a}}{x^2}=\\dfrac{${rienSi1(b)}x^2}{x^2}-\\dfrac{${a}}{x^2}=\\dfrac{${rienSi1(b)}x^2-${a}}{x^2}$`
-          this.reponse = [`\\dfrac{${b}x^2-${a}}{x^2}`]
-        }
-        break
-      case 9 :
-        {
-          const a = randint(2, 9)
-          const b = randint(-9, 9, 0)
-
-          this.question = ` Écrire avec un seul quotient : $${b}+\\dfrac{x}{${a}}$.`
-          this.correction = `$${b}+\\dfrac{x}{${a}}=\\dfrac{${a * b}}{${a}}+\\dfrac{x}{${a}}=\\dfrac{${a * b}+x}{${a}}$`
-          this.reponse = [`\\dfrac{${a * b}+x}{${a}}`]
-        }
-        break
-      case 10 :
-        { const a = randint(2, 9)
-          const b = randint(-9, 9, 0)
-          this.question = ` Écrire avec un seul quotient : $${b}-\\dfrac{x}{${a}}$.`
-          this.correction = `$${b}-\\dfrac{x}{${a}}=\\dfrac{${a * b}}{${a}}-\\dfrac{x}{${a}}=\\dfrac{${a * b}-x}{${a}}$`
-          this.reponse = [`\\dfrac{${a * b}-x}{${a}}`]
+          if (choice([true, false])) {
+            this.question = ` Simplifier l'écriture fractionnaire : $\\dfrac{${k * a}x${ecritureAlgebrique(k * b)}}{${k}}$.`
+            this.correction = `$\\dfrac{${k * a}x${ecritureAlgebrique(k * b)}}{${k}}=\\dfrac{${k}(${rienSi1(a)}x${ecritureAlgebrique(b)})}{${k}}=${rienSi1(a)}x${ecritureAlgebrique(b)}$.`
+            this.reponse = [`${a}x+${b}`]
+          } else {
+            this.question = ` Simplifier l'écriture fractionnaire : $\\dfrac{${k}x${ecritureAlgebrique(k * b)}}{${k}}$.`
+            this.correction = `$\\dfrac{${k}x${ecritureAlgebrique(k * b)}}{${k}}=\\dfrac{${k}(x${ecritureAlgebrique(b)})}{${k}}=x${ecritureAlgebrique(b)}$.`
+            this.reponse = [`x+${b}`]
+          }
         }
         break
     }
