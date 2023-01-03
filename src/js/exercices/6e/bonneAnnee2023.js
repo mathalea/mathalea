@@ -24,7 +24,6 @@ export default function Questions2023 () {
   this.spacing = context.isHtml ? 2 : 1
   this.spacingCorr = context.isHtml ? 2 : 1
   this.listePackages = 'xlop'
-  this.listePackages = 'oldprsn'
   this.sup = '1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28'
 
   this.nouvelleVersion = function () {
@@ -67,33 +66,39 @@ export default function Questions2023 () {
         case 3 : // CM
           texte += ` Comment écrire $${texNombre(2023)}$ comme somme de deux entiers consécutifs ?<br>`
           texteCorr += ` $${texNombre(2023)}\\div2=${texNombre(1011.5)}$<br>`
-          texteCorr += ` Et donc $2023=${miseEnEvidence(texNombre(1011))}+${miseEnEvidence(texNombre(1012))}$.<br>`
+          texteCorr += ` Et donc $${texNombre(2023)}=${miseEnEvidence(texNombre(1011))}+${miseEnEvidence(texNombre(1012))}$.<br>`
           break
         case 4 : // CM
           texte += ` Quelle est l'écriture romaine de $${texNombre(2023)}$ ?<br>`
           texteCorr += ` L'écriture romaine de $${texNombre(2023)}$ est : $\\underbrace{\\text{MMXXIII}}_{(${texNombre(1000)}\\times2)+(10\\times2)+(1\\times3)}$.<br>`
           break
         case 5 : // 6e
-          texte += ' Comment écrire $2023$ comme somme de sept entiers consécutifs ?<br>'
+          texte += ` Comment écrire $${texNombre(2023)}$ comme somme de sept entiers consécutifs ?<br>`
           texteCorr += ` $${texNombre(2023)}\\div7=289$<br>`
-          texteCorr += ` Et donc $2023=${miseEnEvidence(texNombre(286))}+${miseEnEvidence(texNombre(287))}+${miseEnEvidence(texNombre(288))}+${miseEnEvidence(texNombre(289))}+${miseEnEvidence(texNombre(290))}+${miseEnEvidence(texNombre(291))}+${miseEnEvidence(texNombre(292))}$.<br>`
+          texteCorr += ` Et donc $${texNombre(2023)}=${miseEnEvidence(texNombre(286))}+${miseEnEvidence(texNombre(287))}+${miseEnEvidence(texNombre(288))}+${miseEnEvidence(texNombre(289))}+${miseEnEvidence(texNombre(290))}+${miseEnEvidence(texNombre(291))}+${miseEnEvidence(texNombre(292))}$.<br>`
           break
         case 6: // 6e
-          texte += ' Comment écrire $2023$ comme somme de quatorze entiers consécutifs ?<br>'
+          texte += ` Comment écrire $${texNombre(2023)}$ comme somme de quatorze entiers consécutifs ?<br>`
           texteCorr += ` $${texNombre(2023)}\\div14=${texNombre(144.5)}$<br>`
-          texteCorr += ` Et donc $2023=\\underbrace{${miseEnEvidence(texNombre(138))}+${miseEnEvidence(texNombre(139))}+\\dots+${miseEnEvidence(texNombre(144))}}_{\\text{7 nombres}}+\\underbrace{${miseEnEvidence(texNombre(145))}+\\dots+${miseEnEvidence(texNombre(150))}+${miseEnEvidence(texNombre(151))}}_{\\text{7 nombres}}$.<br>`
+          texteCorr += ` Et donc $${texNombre(2023)}=\\underbrace{${miseEnEvidence(texNombre(138))}+${miseEnEvidence(texNombre(139))}+\\dots+${miseEnEvidence(texNombre(144))}}_{\\text{7 nombres}}+\\underbrace{${miseEnEvidence(texNombre(145))}+\\dots+${miseEnEvidence(texNombre(150))}+${miseEnEvidence(texNombre(151))}}_{\\text{7 nombres}}$.<br>`
           break
         case 7 : // 6e
-          texte += ' Comment écrire $2023$ comme somme de dix-sept entiers consécutifs ?<br>'
+          texte += ` Comment écrire $${texNombre(2023)}$ comme somme de dix-sept entiers consécutifs ?<br>`
           texteCorr += ` $${texNombre(2023)}\\div17=119$<br>`
-          texteCorr += ` Et donc $2023=\\underbrace{${miseEnEvidence(texNombre(111))}+${miseEnEvidence(texNombre(112))}+\\dots+${miseEnEvidence(texNombre(118))}}_{\\text{8 nombres}}+${miseEnEvidence(texNombre(119))}+\\underbrace{${miseEnEvidence(texNombre(120))}+\\dots+${miseEnEvidence(texNombre(126))}+${miseEnEvidence(texNombre(127))}}_{\\text{8 nombres}}$.<br>`
+          texteCorr += ` Et donc $${texNombre(2023)}=\\underbrace{${miseEnEvidence(texNombre(111))}+${miseEnEvidence(texNombre(112))}+\\dots+${miseEnEvidence(texNombre(118))}}_{\\text{8 nombres}}+${miseEnEvidence(texNombre(119))}+\\underbrace{${miseEnEvidence(texNombre(120))}+\\dots+${miseEnEvidence(texNombre(126))}+${miseEnEvidence(texNombre(127))}}_{\\text{8 nombres}}$.<br>`
           break
         case 8 : // 6e
-          texte += ' Comment écrire $2023$ comme somme de trente-quatre entiers consécutifs ?<br>'
+          texte += ` Comment écrire $${texNombre(2023)}$ comme somme de trente-quatre entiers consécutifs ?<br>`
           texteCorr += ` $${texNombre(2023)}\\div34=${texNombre(59.5)}$<br>`
           texteCorr += ` Et donc $${texNombre(2023)}=\\underbrace{${miseEnEvidence(texNombre(43))}+${miseEnEvidence(texNombre(44))}+\\dots+${miseEnEvidence(texNombre(59))}}_{\\text{17 nombres}}+\\underbrace{${miseEnEvidence(texNombre(60))}+\\dots+${miseEnEvidence(texNombre(75))}+${miseEnEvidence(texNombre(76))}}_{\\text{17 nombres}}$.<br>`
           break
         case 9 : // 6e
+          texte += ` $${texNombre(2023)}$ est-il divisible par la somme de ses chiffres ?<br>`
+          texteCorr += `La somme des chiffres de $${texNombre(2023)}$ est $2+0+2+3=7$. Posons : $${texNombre(2023)}\\div7$.<br>`
+          texteCorr += Operation({ operande1: 2023, operande2: 7, type: 'divisionE' })
+          texteCorr += `<br>Le reste de la division euclidienne de $${texNombre(2023)}$ par $7$ est $0$ donc $${texNombre(2023)}$ est bien ${texteEnCouleurEtGras('divisible')} par la somme de ses chiffres.<br>`
+          break
+        case 10 : // 5e
           texte += ` Calculer : $${choixLettre[i]}=((10+9)\\times(8+7)\\div(6-5)+4)\\times(3\\times2+1)$<br>`
           texteCorr += ` $${choixLettre[i]}=((10+9)\\times(8+7)\\div(6-5)+4)\\times(3\\times2+1)$<br>`
           texteCorr += ` $${unEspace}${choixLettre[i]}=(19\\times15\\div1+4)\\times(6+1)$<br>`
@@ -102,24 +107,18 @@ export default function Questions2023 () {
           texteCorr += ` $${unEspace}${choixLettre[i]}=289\\times7$<br>`
           texteCorr += ` $${unEspace}${choixLettre[i]}=${miseEnEvidence(texNombre(2023))}$<br>`
           break
-        case 10 : // 6e
-          texte += ` $${texNombre(2023)}$ est-il divisible par la somme de ses chiffres ?<br>`
-          texteCorr += `La somme des chiffres de $${texNombre(2023)}$ est $2+0+2+3=7$. Posons : $2023\\div7$.`
-          texteCorr += Operation({ operande1: 2023, operande2: 7, type: 'divisionE' })
-          texteCorr += `Le reste de la division euclidienne de $${texNombre(2023)}$ par $7$ est $0$ donc $${texNombre(2023)}$ est bien ${texteEnCouleurEtGras('divisible')} par la somme de ses chiffres.<br>`
-          break
-        case 11 : // 6e
-          texte += ` Calculer : $${choixLettre[i]}=(10+(9\\times(((8-(7-6))\\times5)-4)))\\times(3\\times2+1)$<br>`
-          texteCorr += ` $${choixLettre[i]}=(10+(9\\times(((8-(7-6))\\times5)-4)))\\times(3\\times2+1)$<br>`
-          texteCorr += ` $${unEspace}${choixLettre[i]}=(10+(9\\times(((8-1)\\times5)-4)))\\times(6+1)$<br>`
-          texteCorr += ` $${unEspace}${choixLettre[i]}=(10+(9\\times((7\\times5)-4)))\\times7$<br>`
-          texteCorr += ` $${unEspace}${choixLettre[i]}=(10+(9\\times(35-4)))\\times7$<br>`
-          texteCorr += ` $${unEspace}${choixLettre[i]}=(10+(9\\times31))\\times7$<br>`
-          texteCorr += ` $${unEspace}${choixLettre[i]}=(10+279))\\times7$<br>`
+        case 11 : // 5e
+          texte += ` Calculer : $${choixLettre[i]}=(10+9\\times((8-(7-6))\\times5-4))\\times(3\\times2+1)$<br>`
+          texteCorr += ` $${choixLettre[i]}=(10+9\\times((8-(7-6))\\times5-4))\\times(3\\times2+1)$<br>`
+          texteCorr += ` $${unEspace}${choixLettre[i]}=(10+9\\times((8-1)\\times5-4))\\times(6+1)$<br>`
+          texteCorr += ` $${unEspace}${choixLettre[i]}=(10+9\\times(7\\times5-4))\\times7$<br>`
+          texteCorr += ` $${unEspace}${choixLettre[i]}=(10+9\\times(35-4))\\times7$<br>`
+          texteCorr += ` $${unEspace}${choixLettre[i]}=(10+9\\times31)\\times7$<br>`
+          texteCorr += ` $${unEspace}${choixLettre[i]}=(10+279)\\times7$<br>`
           texteCorr += ` $${unEspace}${choixLettre[i]}=289\\times7$<br>`
           texteCorr += ` $${unEspace}${choixLettre[i]}=${miseEnEvidence(texNombre(2023))}$<br>`
           break
-        case 12 : // 6e
+        case 12 : // 5e
           texte += ` Calculer : $${choixLettre[i]}=(10+(9+8\\times7)\\times 6)\\times 5+4\\times 3\\times 2-1$<br>`
           texteCorr += ` $${choixLettre[i]}=(10+(9+8\\times7)\\times 6)\\times 5+4\\times 3\\times 2-1$<br>`
           texteCorr += ` $${unEspace}${choixLettre[i]}=(10+(9+56)\\times 6)\\times 5+12\\times 2-1$<br>`
@@ -130,13 +129,13 @@ export default function Questions2023 () {
           texteCorr += ` $${unEspace}${choixLettre[i]}=${miseEnEvidence(texNombre(2023))}$<br>`
           break
         case 13 : // 5e
-          texte += ` Calculer : $${choixLettre[i]}=(10+(9\\times(8-(7-6\\times5))))\\times(4\\times3\\div2+1)$<br>`
-          texteCorr += ` $${choixLettre[i]}=(10+(9\\times(8-(7-6\\times5))))\\times(4\\times3\\div2+1)$<br>`
-          texteCorr += ` $${unEspace}${choixLettre[i]}=(10+(9\\times(8-(7-30))))\\times(12\\div2+1)$<br>`
-          texteCorr += ` $${unEspace}${choixLettre[i]}=(10+(9\\times(8-(-23))))\\times(6+1)$<br>`
-          texteCorr += ` $${unEspace}${choixLettre[i]}=(10+(9\\times(8+23)))\\times7$<br>`
-          texteCorr += ` $${unEspace}${choixLettre[i]}=(10+(9\\times31))\\times7$<br>`
-          texteCorr += ` $${unEspace}${choixLettre[i]}=(10+279))\\times7$<br>`
+          texte += ` Calculer : $${choixLettre[i]}=(10+9\\times(8-(7-6\\times5)))\\times(4\\times3\\div2+1)$<br>`
+          texteCorr += ` $${choixLettre[i]}=(10+9\\times(8-(7-6\\times5)))\\times(4\\times3\\div2+1)$<br>`
+          texteCorr += ` $${unEspace}${choixLettre[i]}=(10+9\\times(8-(7-30)))\\times(12\\div2+1)$<br>`
+          texteCorr += ` $${unEspace}${choixLettre[i]}=(10+9\\times(8-(-23)))\\times(6+1)$<br>`
+          texteCorr += ` $${unEspace}${choixLettre[i]}=(10+9\\times(8+23))\\times7$<br>`
+          texteCorr += ` $${unEspace}${choixLettre[i]}=(10+9\\times31)\\times7$<br>`
+          texteCorr += ` $${unEspace}${choixLettre[i]}=(10+279)\\times7$<br>`
           texteCorr += ` $${unEspace}${choixLettre[i]}=289\\times7$<br>`
           texteCorr += ` $${unEspace}${choixLettre[i]}=${miseEnEvidence(texNombre(2023))}$<br>`
           break
@@ -163,7 +162,7 @@ export default function Questions2023 () {
         case 17 : // 3e
           texte += ` $${texNombre(2023)}$ est un nombre déficient. Prouver-le.<br>`
           texteCorr += ` Un nombre est déficient lorsque la somme de ses diviseurs est inférieure à 2 fois ce nombre. Or, les diviseurs de $${texNombre(2023)}$ sont : $1$, $7$, $17$, $119$, $289$ et $${texNombre(2023)}$.<br>`
-          texteCorr += `$${texNombre(2023)}\\times2=${texNombre(4046)}$ et  $1+7+17+119+289+${texNombre(2023)}=${texNombre(2456)}${miseEnEvidence('<')}${texNombre(4046)}$.<br>`
+          texteCorr += `$${texNombre(2023)}\\times2=${texNombre(4046)}$ et  $1+7+17+119+289+${texNombre(2023)}=${texNombre(2456)}${sp()}${miseEnEvidence(' < ')}${sp()}${texNombre(4046)}$.<br>`
           break
         case 18 : // 3e
           texte += ` $${texNombre(2023)}$ est un nombre équidigital. Prouver-le.<br>`
@@ -171,11 +170,11 @@ export default function Questions2023 () {
           texteCorr += `Il y a donc autant de chiffres dans $${texNombre(2023)}$ ($2$, $0$, $2$ et $3$) que dans sa décomposition en facteurs premiers ($7$, $1$, $7$ et $2$).<br>`
           break
         case 19 : // 3e
-          texte += ` $${texNombre(2023)}$ est un nombre équidigital. Prouver-le.<br>`
-          texteCorr += ' Un nombre équidigital est un entier naturel qui est divisible par la somme de ses chiffres.<br>'
-          texteCorr += `La somme des chiffres de $${texNombre(2023)}$ est $2+0+2+3=7$. Posons : $2023\\div7$.`
+          texte += ` $${texNombre(2023)}$ est un nombre de Harshad  . Prouver-le.<br>`
+          texteCorr += ' Un nombre de Harshad est un entier naturel qui est divisible par la somme de ses chiffres.<br>'
+          texteCorr += `La somme des chiffres de $${texNombre(2023)}$ est $2+0+2+3=7$. Posons : $${texNombre(2023)}\\div7$.<br>`
           texteCorr += Operation({ operande1: 2023, operande2: 7, type: 'divisionE' })
-          texteCorr += `Le reste de la division euclidienne de $${texNombre(2023)}$ par $7$ est $0$ donc $${texNombre(2023)}$ est bien ${texteEnCouleurEtGras('divisible')} par la somme de ses chiffres.<br>`
+          texteCorr += `<br>Le reste de la division euclidienne de $${texNombre(2023)}$ par $7$ est $0$ donc $${texNombre(2023)}$ est bien ${texteEnCouleurEtGras('divisible')} par la somme de ses chiffres.<br>`
           break
         case 20 : // Première
           texte += ` Calculer : $${choixLettre[i]}=(2^3-1)\\displaystyle\\sum_{k=0}^{2^4}(2k+1)$<br>`
@@ -234,7 +233,7 @@ export default function Questions2023 () {
           normale = texteParPosition('normale', -2.5, 7.7, 'milieu', 'black', 0.8, 'middle', false)
           texteCorr += 'La figure ci-dessous n\'est pas réaliste.<br>'
           texteCorr += mathalea2d({ xmin: -3, xmax: 3, ymin: -1, ymax: 10, pixelsParCm: 30, scale: 1 }, rep, c, axeX, axeY, c1, c2, rayon1, rayon2, texte1, texte2, texte3, h1, H1, M1, H2, M2, h2, d, normale, labelPoint(centre1, centre2))
-          texteCorr += 'Préambule : Soit $y = ax+b$, l\'équation de la normale à la parabole en $( x_0 ; x_0^2 )$.<br>'
+          texteCorr += '<br>Préambule : Soit $y = ax+b$, l\'équation de la normale à la parabole en $( x_0 ; x_0^2 )$.<br>'
           texteCorr += sp(29) + 'Vu que le nombre dérivé en $x_0$ est $2x_0$, alors $a=\\dfrac{-1}{2x_0}$.<br>'
           texteCorr += sp(29) + 'Pour le point considéré, $x_0^2=\\dfrac{-1}{2x_0}x_0+b$ d\'où $b=x_0^2+0{,}5$.<br>'
           texteCorr += `${texteEnCouleur('Conclusion de ce préambule')}` + ' : La normale à la parabole coupe l\'axe des ordonnées une demie-unité plus haut que le point considéré de la parabole.<br><br>'
@@ -250,13 +249,15 @@ export default function Questions2023 () {
           texteCorr += `En réorganisant cette équation, nous obtenons : $r^2 - ${texNombre(2022)}^2 = ${texNombre(2022)}+r$.<br>`
           texteCorr += `On en déduit que : $(r-${texNombre(2022)})(r+${texNombre(2022)}) = r+${texNombre(2022)}$.<br>`
           texteCorr += `Ce qui conduit à : $r-${texNombre(2022)}=1$ d'où $r=${miseEnEvidence(texNombre(2023))}$.<br>`
+          texte += '<br>'
           texte += (mathalea2d({ xmin: -3, xmax: 3, ymin: -1, ymax: 10, pixelsParCm: 30, scale: 1 }, rep, c, axeX, axeY, c1, c2, rayon1, rayon2, texte1, texte2, texte3))
+          texte += '<br>'
           break
         case 23 : // Terminale
           texte += ' Quel est le reste de la division euclidienne de $\\text{7}^\\text{7}$ par $\\text{7!}$ ?<br>'
-          texteCorr += `$\\text{7}^\\text{7}=${texNombre(823543)}$ et $\\text{7!}=${texNombre(5040)}$. Posons : $${texNombre(823543)}\\div${texNombre(5040)}$.`
+          texteCorr += `$\\text{7}^\\text{7}=${texNombre(823543)}$ et $\\text{7!}=${texNombre(5040)}$. Posons : $${texNombre(823543)}\\div${texNombre(5040)}$.<br>`
           texteCorr += Operation({ operande1: 823543, operande2: 5040, type: 'divisionE' })
-          texteCorr += `Le reste de la division euclidienne de $\\text{7}^\\text{7}$ par $\\text{7!}$ est $${miseEnEvidence(texNombre(2023))}$.<br>`
+          texteCorr += `<br>Le reste de la division euclidienne de $\\text{7}^\\text{7}$ par $\\text{7!}$ est $${miseEnEvidence(texNombre(2023))}$.<br>`
           break
         case 24 : // Terminale
           texte += ` Calculer : $${choixLettre[i]}=(10+9)\\times(8+7+6)\\times 5+4!+3+2-1$<br>`
@@ -308,5 +309,5 @@ export default function Questions2023 () {
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\nDe 1 à 4 : Niveau CM2\nDe 5 à 12 : Niveau 6ème\n13 : Niveau 5ème\nDe 14 à 16 : Niveau 4ème\nDe 17 à 19 : Niveau 3ème\nDe 20 à 22 : Niveau 1ère\nDe 23 à 27 : Niveau Terminale\n28 : Niveau Post-Bac']
+  this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\nDe 1 à 4 : Niveau CM2\nDe 5 à 9 : Niveau 6ème\nDe 10 à 13 : Niveau 5ème\nDe 14 à 16 : Niveau 4ème\nDe 17 à 19 : Niveau 3ème\nDe 20 à 22 : Niveau 1ère\nDe 23 à 27 : Niveau Terminale\n28 : Niveau Post-Bac']
 }
