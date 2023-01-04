@@ -4,7 +4,7 @@ import FractionX from '../../../modules/FractionEtendue.js'
 export const titre = 'Simplifier un quotient'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const dateDePublication = '30/12/2022'
+export const dateDePublication = '04/01/2023'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
