@@ -32,6 +32,7 @@ export default function Pythagore2D () {
   this.nbQuestions = 3
   this.nbCols = 3
   this.nbColsCorr = 1
+  this.sup = 3
   this.sup2 = 3
   this.typeDeQuestion = 'Calculer :'
   this.video = 'M9sceJ8gzNc'
@@ -188,4 +189,5 @@ export default function Pythagore2D () {
     }
     listeQuestionsToContenu(this)
   }
+  this.besoinFormulaire2Numerique = ['Recherche de côtés ', 3, '1 : Hypoténuse\n2 : Côtés de l\'angle droit\n3: Peu importe']
 }

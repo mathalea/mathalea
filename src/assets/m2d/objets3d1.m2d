@@ -1,4 +1,4 @@
-fenetreMathalea2d = [-0.9,-8.1,29.1,11.9]
+fenetreMathalea2d = [-3.6,-10.1,26.4,9.9]
 context.anglePerspective=30 // angle de la direction de fuite
 context.coeffPerspective=0.5 // coefficient de réduction des longueurs fuyantes
 // on définit les points par leur coordonnées cartésiennes
@@ -14,12 +14,12 @@ C.visible=false // C sera un point caché... les arêtes dont il est une extrém
 // le pavé définit par A et les trois points liés à lui.
 let Pav=pave3d(A,B,D,C).c2d
 
-let v=vecteur3d(0,0,1) // v sera le vecteur normal au plan de base du cône
-let centreS=point3d(7,4,7) // le centre de la sphère
-let rayon=vecteur3d(2,0,0) // un vecteur pour définir le rayon de la sphère et de la base du cône
-// la sphère avec 5 parallèles et 3(×2) méridiens
-let S=sphere3d(centreS,rayon,'red','blue',5,'gray',6) 
+let centreS=point3d(13,4,5) // le centre de la sphère
+let r=2 // le rayon de la sphère
+// la sphère avec 7 parallèles et 10 méridiens
+let S=sphere3d(centreS,2,'red','blue',7,'gray',10) 
 
-let centreC=point3d(7,4,0) // le centre de la base du cône
-let sommet=point3d(7,4,5) // le sommet du cône
-let cone=cone3d(centreC,sommet,v,rayon).c2d
+let rayon=vecteur3d(2,0,0) // un vecteur pour définir le rayon de la base du cône
+let centreC=point3d(8,4,0) // le centre de la base du cône
+let sommet=point3d(8,4,5) // le sommet du cône
+let solide=cone3d(centreC,sommet,rayon).c2d

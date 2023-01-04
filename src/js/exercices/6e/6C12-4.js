@@ -67,7 +67,6 @@ export default function ExerciceInformationsProblemes () {
       choixVersion = choice([1, 2])
       texte = ''
       texteCorr = ''
-      listeDesProblemes[i] = 10
       switch (listeDesProblemes[i]) {
         case 1 :
           nb1 = randint(17, 35)
