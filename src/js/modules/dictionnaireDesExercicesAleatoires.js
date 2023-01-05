@@ -3172,6 +3172,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "3G20-2": {
+    "titre": "Écrire les relations de Thalès",
+    "url": "/exercices/3e/3G20-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "3G20-2",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "3G20": {
     "titre": "Calculer des longueurs avec le théorème de Thalès",
     "url": "/exercices/3e/3G20.js",
@@ -5443,7 +5458,7 @@ export default {
     "interactifReady": false,
     "name": "4G30-1",
     "newEx": {
-      "isNew": false,
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

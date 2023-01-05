@@ -18,7 +18,6 @@ export default function RelationDeThales () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 1 // Triangles imbriqués / configuration papillon / les 2
-  this.vspace = -0.5 // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
 
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
@@ -54,11 +53,9 @@ export default function RelationDeThales () {
       let k = calcul(randint(3, 8, 5) / 10)
       if (parseInt(this.sup) === 2) {
         k *= -1
-        this.vspace = -0.5 // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
       }
       if (parseInt(this.sup) === 3 && ((i + premiereQuestionPapillon) % 2 === 0)) {
         k *= -1
-        this.vspace = -0.5 // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
       }
       const M = homothetie(A, C, k)
       const N = homothetie(B, C, k)
@@ -138,7 +135,7 @@ export default function RelationDeThales () {
        <br> $\\leadsto$  $(${nomA + nomB})//(${nomM + nomN})$,
        <br> donc d'après le théorème de Thalès, les triangles $${nomA + nomB + nomC}$ et $${nomM + nomN + nomC}$ ont des longueurs proportionnelles.`
       } else {
-        texteCorr = `<br> $\\leadsto$ Les droites $(${nomA + nomM})$ et $(${nomB + nomN})$ sont sécantes en $${nomC}$,
+        texteCorr = `$\\leadsto$ Les droites $(${nomA + nomM})$ et $(${nomB + nomN})$ sont sécantes en $${nomC}$,
         <br> $\\leadsto$ les droites $(${nomA + nomB})$ et $(${nomM + nomN})$ sont parallèles,<br>
         donc d'après le théorème de Thalès, les triangles $${nomA + nomB + nomC}$ et $${nomM + nomN + nomC}$ ont des longueurs proportionnelles.`
       }
