@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 544 
-- nombre d'exos interactifReady 835 
+- nombre d'exos interactifReady 836 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -452,6 +452,7 @@
 |beta6C38|Augmenter ou diminuer d'un pourcentage|KO|KO|OK|mathLive|
 |beta6M21-1|Aire d'assemblages de rectangles|KO|KO|OK|mathLive|
 |beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
+|betaCAN2024|CAN Spéciale année 2024|KO|KO|OK|mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
 |betaCanTs|Somme de deux entiers|KO|KO|OK|mathLive|
