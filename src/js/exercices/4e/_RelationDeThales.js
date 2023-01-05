@@ -4,7 +4,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, calcul, creerNomDePolygone, creerBoutonMathalea2d, texteGras } from '../../modules/outils.js'
 import { point, pointSurSegment, pointAdistance, polygone, triangle2points2longueurs, homothetie, similitude, texteParPoint, longueur, angle, angleOriente } from '../../modules/2d.js'
 
-export const titre = 'Écrire les relations de Thalès'
+export const titre = 'Écrire une relation de Thalès'
 
 /**
  * Relation de Thalès
