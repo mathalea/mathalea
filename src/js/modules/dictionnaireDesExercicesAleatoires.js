@@ -5436,6 +5436,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "4G30-1": {
+    "titre": "Écrire les relations de Thalès",
+    "url": "/exercices/4e/4G30-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4G30-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "4G30": {
     "titre": "Calculer des longueurs avec le théorème de Thalès",
     "url": "/exercices/4e/4G30.js",
