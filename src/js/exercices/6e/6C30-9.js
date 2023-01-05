@@ -52,15 +52,17 @@ export default class ProduitEtSommeOuDifferenceDeDecimaux extends Exercice {
       }
       const couples = shuffle(couplesPossibles).slice(0, this.sup)
       texte = 'Calculer.'
-      texteCorr = ''
+      texteCorr = '<br>'
+      texteCorr += Operation({ operande1: A, operande2: B, type: 'multiplication', style: 'display: inline' }) + '<br>'
       let indice = 0
       for (const couple of couples) {
         const addition = this.sup2 ? choice([true, false]) : true
         texte += `<br>${numAlpha(indice)}$${texNombre(couple.A)} ${addition ? '+' : '-'} ${texNombre(couple.B)}$ ${sp()} ${sp()} ${sp()} et ${sp()} ${sp()} ${sp()} $${texNombre(couple.A)} \\times ${texNombre(couple.B)}$.`
-        texteCorr += `<br>${numAlpha(indice)}`
+        texteCorr += `<br>${numAlpha(indice)}<br>`
         texteCorr += Operation({ operande1: couple.A, operande2: couple.B, type: addition ? 'addition' : 'soustraction', style: 'display: inline', methodeParCompensation: addition })
-        texteCorr += ' et '
-        texteCorr += Operation({ operande1: couple.A, operande2: couple.B, type: 'multiplication', style: 'display: inline' })
+        texteCorr += `<br> Je sais que $${texNombre(A)}\\times${texNombre(B)}=${texNombre(B.mul(A))}$.`
+        texteCorr += '<br>'
+        texteCorr += `<br> J'en déduis que $${texNombre(couple.A)}\\times${texNombre(couple.B)}=${texNombre(couple.B.mul(couple.A))}$.`
         texteCorr += '<br>'
         indice++
       }
