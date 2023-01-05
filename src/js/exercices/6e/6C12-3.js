@@ -449,7 +449,7 @@ export default function ExerciceInformationsProblemes () {
         case 4:
           personnage1 = choice(FamilleH)
           quidam2 = prenomF()
-          nb1 = '1 h ' + 5 * randint(1, 10) + ' min'
+          nb1 = '1 h ' + 5 * randint(1, 10)
           nb2 = stringNombre(arrondi(randint(50, 90) / 10 + randint(1, 9) / 100))
           nb3 = randint(5, 9)
           nb4 = choice([10, 20, 50])
@@ -582,9 +582,9 @@ export default function ExerciceInformationsProblemes () {
           }
           nb = randint(13, 21)
           nb1 = jour() + ' ' + randint(2, 29) + ' ' + nomDuMois(randint(1, 12))
-          nb2 = nb + ' h ' + 5 * randint(2, 11) + ' min'
-          nb3 = nb + 2 + ' h ' + 5 * randint(2, 11) + ' min'
-          nb4 = nb + 1 + ' h ' + 5 * randint(2, 11) + ' min'
+          nb2 = nb + ' h ' + 5 * randint(2, 11)
+          nb3 = nb + 2 + ' h ' + 5 * randint(2, 11)
+          nb4 = nb + 1 + ' h ' + 5 * randint(2, 11)
           nb5 = randint(37, 58)
           texte += `${quidam} décide de programmer la box de ${personnage1} pour enregistrer un film prévu le ${nb1} et une émission prévue le lendemain. `
           texte += `Le film doit commencer à ${nb2} et se terminer à ${nb3}. L'émission commence à ${nb4} et dure ${nb5} minutes.<br>`
@@ -958,7 +958,7 @@ export default function ExerciceInformationsProblemes () {
           quidam = prenomM()
           nb1 = randint(45, 58)
           nb2 = randint(3, 5)
-          nb3 = randint(7, 9) + ' h ' + 5 * randint(2, 11) + ' min'
+          nb3 = randint(7, 9) + ' h ' + 5 * randint(2, 11)
           nb4 = stringNombre(arrondi(randint(9, 15, [10]) / 10), 1) + '0'
           nb5 = 5 * randint(4, 11)
           texte += `Le ${personnage1} de ${quidam}, âgé de ${nb1} ans, se rend ${nb2} fois par semaine à ${choice(['Paris', 'Toulouse', 'Bordeaux', 'Rouen'])} en train. `
@@ -1084,7 +1084,7 @@ export default function ExerciceInformationsProblemes () {
           nb1 = randint(21, 39)
           nb2 = randint(7, 18)
           nb3 = randint(7, 15)
-          nb4 = randint(10, 12) + ' h ' + 5 * randint(2, 11) + ' min'
+          nb4 = randint(10, 12) + ' h ' + 5 * randint(2, 11)
           nb5 = randint(16, 29)
           texte += `Un livreur part de son entrepôt avec ${nb1} colis. Au premier arrêt, le plus près, il depose ${nb2} colis. ${nb3} km plus loin, il livre le reste de ses colis. `
           texte += `Ensuite, à ${nb4}, le livreur reprend la même route et retourne à l'entrepôt, à ${nb5} km de là.<br>`
