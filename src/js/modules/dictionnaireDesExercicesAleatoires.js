@@ -3173,7 +3173,11 @@ export default {
     }
   },
   "3G20-2": {
+<<<<<<< HEAD
+    "titre": "Écrire les relations de Thalès",
+=======
     "titre": "Écrire une relation de Thalès",
+>>>>>>> master
     "url": "/exercices/3e/3G20-2.js",
     "amcReady": false,
     "interactifReady": false,
@@ -5468,7 +5472,11 @@ export default {
     }
   },
   "4G30-1": {
+<<<<<<< HEAD
+    "titre": "Écrire les relations de Thalès",
+=======
     "titre": "Écrire une relation de Thalès",
+>>>>>>> master
     "url": "/exercices/4e/4G30-1.js",
     "amcReady": false,
     "interactifReady": false,
