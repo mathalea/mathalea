@@ -1,6 +1,6 @@
 import RelationDeThales from './_RelationDeThales.js'
 export { titre } from './_RelationDeThales.js'
-
+export const dateDePublication = '05/01/2023'
 /**
  * Relation de Thalès
  * @author Sébastien LOZANO
