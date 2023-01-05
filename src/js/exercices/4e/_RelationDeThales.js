@@ -90,7 +90,7 @@ export default function RelationDeThales () {
         texte += `<br> $\\leadsto$ les droites $(${nomA + nomM})$ et $(${nomB + nomN})$ sont sécantes en $${nomC}$,`
       }
 
-      texte += `<br> $\\leadsto$ les droites $(${nomA + nomB})$ et $(${nomM + nomN})$ sont parallèles.<br>`
+      texte += `<br> $\\leadsto$ les droites $(${nomA + nomB})$ et $(${nomM + nomN})$ sont parallèles.<br> Écrire une relation de Thalès.`
 
       texte += mathalea2d({
         xmin: Math.min(A.x, B.x, C.x, M.x, N.x) - 1.5,
