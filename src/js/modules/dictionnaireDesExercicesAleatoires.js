@@ -3173,11 +3173,7 @@ export default {
     }
   },
   "3G20-2": {
-<<<<<<< HEAD
-    "titre": "Écrire les relations de Thalès",
-=======
     "titre": "Écrire une relation de Thalès",
->>>>>>> master
     "url": "/exercices/3e/3G20-2.js",
     "amcReady": false,
     "interactifReady": false,
@@ -5472,11 +5468,7 @@ export default {
     }
   },
   "4G30-1": {
-<<<<<<< HEAD
-    "titre": "Écrire les relations de Thalès",
-=======
     "titre": "Écrire une relation de Thalès",
->>>>>>> master
     "url": "/exercices/4e/4G30-1.js",
     "amcReady": false,
     "interactifReady": false,
@@ -12666,6 +12658,22 @@ export default {
     "name": "betaAsymptotesObliques",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "betaCAN2024": {
+    "titre": "CAN Spéciale année 2024",
+    "url": "/exercices/beta/betaCAN2024.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2024",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
