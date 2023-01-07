@@ -5,9 +5,9 @@ import {
   point, polygoneAvecNom, codageAngleDroit, labelPoint, segment, milieu, texteParPosition
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
+import FractionX from '../../../modules/FractionEtendue.js'
 import { listeQuestionsToContenu, randint, texNombre, texFractionReduite, stringNombre, tableauColonneLigne, combinaisonListes, texFraction, miseEnEvidence, shuffle, simplificationDeFractionAvecEtapes, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 export const titre = 'CAN 4ième sujet 2021'
 export const interactifReady = true
@@ -58,7 +58,7 @@ export default function SujetCAN20214ieme () {
       [1, 5], [2, 5], [3, 5], [4, 5], [1, 6], [5, 6]
     ]
 
-    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, fraction1 = [], fraction2 = [], triplet, propositions, prix, choix, truc, a, b, c, d, e, m, n, p, k, A, B, C, D, pol, L, l2, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, fraction1 = [], fraction2 = [], triplet, propositions, r, prix, choix, truc, a, b, c, d, e, m, n, p, k, A, B, C, D, pol, L, l2, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typeQuestionsDisponibles[i]) {
         case 1:
           a = randint(4, 9)
@@ -200,7 +200,7 @@ export default function SujetCAN20214ieme () {
           if (choice([true, false])) {
             reponse = calcul(a * 10000 + b * 100 + c * 10)
             texte = `$${texNombre(a)}\\times ${texNombre(10000)} + ${texNombre(b)}\\times 100 + ${texNombre(c)}\\times 10=$`
-            texteCorr = `$${texNombre(a)}\\times ${texNombre(1000)} + ${texNombre(b)}\\times 100 + ${texNombre(c)}\\times 10 =
+            texteCorr = `$${texNombre(a)}\\times ${texNombre(10000)} + ${texNombre(b)}\\times 100 + ${texNombre(c)}\\times 10 =
      ${texNombre(a * 10000)} + ${texNombre(b * 100)} + ${texNombre(c * 10)}=${texNombre(reponse)}$`
           } else {
             reponse = calcul(c * 10000 + b * 1000 + a * 10)
@@ -315,7 +315,7 @@ export default function SujetCAN20214ieme () {
            =\\dfrac{${a.n}\\times ${c}}{${a.d}\\times ${c}}+ ${b.texFraction}
           =${a.reduire(c).texFraction} + ${b.texFraction}
           =\\dfrac{${a.n * c}+${b.n}}{${b.d}}
-          =\\dfrac{${a.n * c + b.n}}{${b.d}}${simplificationDeFractionAvecEtapes(a.n * c + b.n, b.d)}$`
+          =\\dfrac{${a.n * c + b.n}}{${b.d}}${simplificationDeFractionAvecEtapes(a.n * c + b.n, b.d)}$.`
           } else {
             texte = `$ ${b.texFraction}+${a.texFraction}=$`
             texteCorr = `Pour additionner des fractions, on les met au même dénominateur.<br>
@@ -324,7 +324,7 @@ export default function SujetCAN20214ieme () {
            = ${b.texFraction}+\\dfrac{${a.n}\\times ${c}}{${a.d}\\times ${c}}
           =${b.texFraction}+${a.reduire(c).texFraction}
           =\\dfrac{${b.n}+${a.n * c}}{${b.d}}
-          =\\dfrac{${b.n + a.n * c}}{${b.d}}${simplificationDeFractionAvecEtapes(a.n * c + b.n, b.d)}$`
+          =\\dfrac{${b.n + a.n * c}}{${b.d}}${simplificationDeFractionAvecEtapes(a.n * c + b.n, b.d)}$.`
           }
 
           reponse = fraction(a.n * c + b.n, b.d)
@@ -364,17 +364,11 @@ export default function SujetCAN20214ieme () {
           a = choice(obtenirListeFractionsIrreductibles())
           c = choice([2, 3, 4, 5, 6])
           b = a.d * c
-          reponse = calcul(a.n * c)
-          texte = `$${a.texFraction}\\times ${b}= $`
-          if (a.n === 1) {
-            texteCorr = `Pour multiplier $${b}$ par $${a.texFraction}$, on divise $'${b}$ par $${a.d}$ : on obtient $\\dfrac{${b}}{${a.d}}=${b / a.d}$<br>`
-            texteCorr += `Ainsi $${a.texFraction}\\times ${b}= \\dfrac{${b}}{${a.d}}=${a.n * c}$.<br>`
-          } else {
-            texteCorr = `Pour multiplier $${b}$ par $${a.texFraction}$, on commence par diviser  $${b}$ par $${a.d}$ (car la division "tombe juste") : on obtient $\\dfrac{${b}}{${a.d}}=${b / a.d}$.<br>`
-            texteCorr += `Puis, on multiplie ce résultat par $${a.n}$, ce qui donne : $${a.n} \\times ${b / a.d}=${a.n * c}$.<br>`
-          }
+          reponse = arrondi(a.n * c, 0)
+          texte = `Ecris sous la forme d'un entier : $${a.texFraction}\\times ${b}$`
+          texteCorr = `$${a.texFraction}\\times ${b}= ${a.n}\\times\\dfrac{${b}}{${a.d}}=${a.n}\\times ${c}=${reponse}$`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
           break
 
@@ -422,11 +416,11 @@ export default function SujetCAN20214ieme () {
           a = randint(1, 5) * 10
           p = randint(2, 9, 5) * 10
           reponse = calcul(a * p / 100)
-          texte = `$${p}\\%$ de $${a}= $`
+          texte = `$${p}\\,\\%$ de $${a}= $`
 
-          texteCorr = `          Prendre $${p}\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10\\%$  de $${a}$.<br>
-          Comme $10\\%$  de $${a}$ vaut $${a / 10}$ (pour prendre $10\\%$  d'une quantité, on la divise par $10$), alors
-          $${p}\\%$ de $${a}=${p / 10}\\times ${a / 10}=${reponse}$.
+          texteCorr = `          Prendre $${p}\\,\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10\\,\\%$  de $${a}$.<br>
+          Comme $10\\,\\%$  de $${a}$ vaut $${a / 10}$ (pour prendre $10\\,\\%$  d'une quantité, on la divise par $10$), alors
+          $${p}\\,\\%$ de $${a}=${p / 10}\\times ${a / 10}=${reponse}$.
          `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
@@ -492,13 +486,14 @@ export default function SujetCAN20214ieme () {
           a = fraction(fraction2[0], fraction2[1])
 
           b = fraction(4 * fraction2[0], 2 * fraction2[1])
+          r = (new FractionX(-fraction2[0], fraction2[1])).simplifie()
           texte = `$A=${a.texFraction} -${b.texFraction}$<br>
            Donne la valeur de $A$ sous la forme d'une fraction simplifiée au maximum ou d'un nombre entier.`
           texteCorr = ` $A=${a.texFraction} -${b.texFraction}=${texFraction(2 * fraction2[0], 2 * fraction2[1])}-${b.texFraction}=${texFraction(-2 * fraction2[0], 2 * fraction2[1])}=${texFractionReduite(-2 * fraction2[0], 2 * fraction2[1])}$.
            <br>
           `
 
-          setReponse(this, index, (new FractionEtendue(-fraction2[0], fraction2[1])).simplifie(), { formatInteractif: 'fraction' })
+          setReponse(this, index, r, { formatInteractif: 'fraction' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
           break
@@ -666,14 +661,14 @@ export default function SujetCAN20214ieme () {
           a = calcul(randint(2, 6) * 10)
           n = choice(['pull', 'pantalon', 'tee-shirt', 'vêtement', 'blouson', 'sweat'])
           b = choice([5, 15])
-          texte = `Le prix d'un ${n} est $${a}$ €. Il baisse de $${b}\\%$ . <br>
+          texte = `Le prix d'un ${n} est $${a}$ €. Il baisse de $${b}\\,\\%$ . <br>
           Quel est son nouveau prix ? `
 
           if (b === 5) {
             texteCorr = `
 
-       $10\\%$  de $${a}$ est égal à $${a}\\div 10=${a / 10}$.<br>
-      Puisque $5\\%$  est deux fois plus petit  que $10\\%$ ,  $5\\%$  de $${a}$ est égal à $ ${a / 10}\\div 2=${a / 20}$.<br>
+       $10\\,\\%$  de $${a}$ est égal à $${a}\\div 10=${a / 10}$.<br>
+      Puisque $5\\,\\%$  est deux fois plus petit  que $10\\,\\%$ ,  $5\\,\\%$  de $${a}$ est égal à $ ${a / 10}\\div 2=${a / 20}$.<br>
                    La réduction est donc de : $${texNombre(b * a / 100)}$ €.<br>
            Le nouveau prix est :   $${a}-${texNombre(b * a / 100)}= ${texNombre(a - (b * a) / 100)}$  €.
 
