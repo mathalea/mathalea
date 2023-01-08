@@ -322,10 +322,10 @@ export default function SujetCAN2022quatrieme () {
 
           a = choice([1, 10])
           b = randint(2, 199)
-          texte = `$${a}\\%$ de $${b} =$
+          texte = `$${a}\\,\\%$ de $${b} =$
          `
 
-          texteCorr = `$${a}\\%$ de $${b} =${texNombre(a / 100, 2)}\\times ${b}=${texNombre(b * a / 100, 2)}$.
+          texteCorr = `$${a}\\,\\%$ de $${b} =${texNombre(a / 100, 2)}\\times ${b}=${texNombre(b * a / 100, 2)}$.
           `
 
           reponse = arrondi((a / 100) * b, 2)
@@ -461,7 +461,7 @@ export default function SujetCAN2022quatrieme () {
             if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$=\\ldots$' }
           } else {
             a = randint(3, 6)
-            reponse = 0
+            reponse = '$0$'
             for (indice = 1; indice < a; indice++) {
               reponse = reponse * indice
             }
@@ -764,8 +764,9 @@ export default function SujetCAN2022quatrieme () {
                 `
 
           texteCorr = `$${a}x+${b}y=${a}\\times ${ecritureParentheseSiNegatif(c)}+${b}\\times ${ecritureParentheseSiNegatif(d)}=${a * c}+${ecritureParentheseSiNegatif(b * d)}=${reponse}$`
-
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (a * c + b * d === 0) {
+            setReponse(this, index, '0', { formatInteractif: 'texte' })
+          } else { setReponse(this, index, a * c + b * d, { formatInteractif: 'calcul' }) }
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
           break
