@@ -4838,9 +4838,11 @@ export function lampeMessage ({ titre, texte, couleur }) {
   if (context.isHtml) {
     if (context.versionMathalea === 3) {
       return `
-      <div class='bg-gray-100 border-solid border-2 border-black rounded p-2'>
-      <h1 class='font-bold'>${titre}</h1>
-      <p>${texte}</p>
+      <div id="lampeMessage-${timeStamp}">
+        <div id="title-lampeMessage-${timeStamp}">
+        ${titre}
+        </div>
+        ${texte}
       </div>
       `
     } else {
