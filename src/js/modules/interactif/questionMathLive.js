@@ -33,6 +33,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
     let feedbackSaisie
     let feedbackCorrection
     let ii = 0
+    let nbDeMoins
     while ((resultat === 'KO') && (ii < reponses.length)) {
       reponse = reponses[ii]
       switch (formatInteractif) {
@@ -141,7 +142,16 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           }
           break
         case 'fraction': // Pour les exercices où l'on attend un écriture donnée d'une fraction
-          saisie = champTexte.value.replace(',', '.')
+          saisie = champTexte.value.replaceAll(',', '.')
+          nbDeMoins = saisie.split('-')
+          if (saisie.indexOf('-') !== -1) {
+            if (nbDeMoins % 2 === 1) {
+              saisie = saisie.replace('-', '')
+            } else {
+              saisie = saisie.replaceAll('-', '')
+              saisie = '-' + saisie
+            }
+          }
           if (!isNaN(parseFloat(saisie))) {
             if (parseInt(saisie) === reponse.n) resultat = 'OK'
           } else {
