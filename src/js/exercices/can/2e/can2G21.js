@@ -14,6 +14,8 @@ export const dateDePublication = '04/01/2023'
  * Référence can2G21
  *
 */
+export const uuid = '21bc0'
+export const ref = 'can2G21'
 export default function LectureCoordonnees () {
   Exercice.call(this)
   this.typeExercice = 'simple'

@@ -12,6 +12,8 @@ export const dateDePublication = '04/01/2023'
  * Date de publication
 */
 
+export const uuid = '0bb5f'
+export const ref = 'can2L10'
 export default function SimplifierQuotient () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

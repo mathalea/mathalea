@@ -11,6 +11,8 @@ export const interactifType = 'mathLive'
  * @author Mickael Guironnet
 */
 
+export const uuid = 'b8afd'
+export const ref = '3S14'
 export default function CalculerCaracteristiques () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
