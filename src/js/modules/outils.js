@@ -4456,6 +4456,17 @@ export function numAlpha (k, nospace = false) {
 }
 
 /**
+ * Crée une liste de questions numérique
+ * @param {number} k valeur numérique
+ * @author Eric Elter
+ */
+export function numAlphaNum (k, nospace = false) {
+  k = k + 1
+  if (context.isHtml) return '<span style="color:#f15929; font-weight:bold">' + k + ')' + (nospace ? '' : '&nbsp;') + '</span>'
+  else return '\\textbf {' + k + '.}' + (nospace ? '' : ' ')
+}
+
+/**
  * crée un cadre orange autour d'un paragraphe
  * utilisé notamment dans 3F12 pour entourer les programmes de calcul
  * @param {string} texte paragraphe entouré par le cadre orange rectangulaire
@@ -4827,9 +4838,11 @@ export function lampeMessage ({ titre, texte, couleur }) {
   if (context.isHtml) {
     if (context.versionMathalea === 3) {
       return `
-      <div class='bg-gray-100 border-solid border-2 border-black rounded p-2'>
-      <h1 class='font-bold'>${titre}</h1>
-      <p>${texte}</p>
+      <div id="lampeMessage-${timeStamp}">
+        <div id="title-lampeMessage-${timeStamp}">
+        ${titre}
+        </div>
+        ${texte}
       </div>
       `
     } else {

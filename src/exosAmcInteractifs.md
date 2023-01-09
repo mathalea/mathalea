@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 544 
-- nombre d'exos interactifReady 832 
+- nombre d'exos interactifReady 836 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -147,6 +147,7 @@
 |3P10-1|Coefficient multiplicateur d'une variation en pourcentage|KO|KO|OK|mathLive|
 |3P10|Variations en pourcentage|KO|KO|OK|mathLive|
 |3S12|Calculer des effectifs et des fréquences|KO|KO|OK|mathLive|
+|3S14|Calculer des caractéristiques d'une série|KO|KO|OK|mathLive|
 |3S15|Calculer des étendues|KO|KO|OK|mathLive|
 |3S21|Expérience aléatoire à deux épreuves|KO|KO|OK|mathLive|
 |4A10|Nombre premier ou pas|OK|qcmMono|OK|qcm|
@@ -423,7 +424,7 @@
 |6P14|Agrandir ou réduire des figures, d'après une situation de proportionnalité|OK|AMCHybride|OK|mathLive|
 |6S10-1|Représenter des données par un diagramme|OK|AMCHybride|OK|qcm|
 |6S10|Lire un diagramme en barres|OK|AMCHybride|OK|mathLive|
-|FichierDeTests|Calculer un angle, déduit de figures simples|KO|KO|OK|mathLive|
+|FichierDeTests|Bonne année...|KO|KO|OK|mathLive|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|mathLive|
 |CM001|Tables de multiplication|OK|AMCNum|OK|mathLive|
 |CM002|Tables de divisions|OK|AMCNum|OK|mathLive|
@@ -451,6 +452,7 @@
 |beta6C38|Augmenter ou diminuer d'un pourcentage|KO|KO|OK|mathLive|
 |beta6M21-1|Aire d'assemblages de rectangles|KO|KO|OK|mathLive|
 |beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
+|betaCAN2024|CAN Spéciale année 2024|KO|KO|OK|mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
 |betaCanTs|Somme de deux entiers|KO|KO|OK|mathLive|
@@ -593,6 +595,7 @@
 |can2G18|Déterminer les coordonnées d’un vecteur à partir d’un graphique|KO|KO|OK|mathLive|
 |can2G19|Déterminer le coefficient directeur d'une droite (graphique)|KO|KO|OK|mathLive|
 |can2G20|Déterminer une équation de droite (graphique)|KO|KO|OK|mathLive|
+|can2G21|Lire les coordonnées d'un point dans un repère|KO|KO|OK|mathLive|
 |can2L01|Déterminer le nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
 |can2L02|Calculer les coordonnées d’un point sur une droite|KO|KO|OK|mathLive|
 |can2L03|Calculer les coordonnées du point d’intersection entre l’axe des abscisses/droite|KO|KO|OK|mathLive|
@@ -602,6 +605,7 @@
 |can2L07|Factoriser une expression|KO|KO|OK|mathLive|
 |can2L08|Résoudre une équation du type $\dfrac{x+a}{b}=c$|KO|KO|OK|mathLive|
 |can2L09|Écrire avec un seul quotient|KO|KO|OK|mathLive|
+|can2L10|Simplifier un quotient|KO|KO|OK|mathLive|
 |can2N01|Utiliser les intervalles|KO|KO|OK|mathLive|
 |can2N02|Déterminer le plus petit ensemble de nombres|KO|KO|OK|mathLive|
 |can2P01|Calculer une probabilité|OK|AMCNum|OK|mathLive|

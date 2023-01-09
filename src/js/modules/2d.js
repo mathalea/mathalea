@@ -3832,7 +3832,6 @@ export function pointIntersectionCC (c1, c2, nom = '', n = 1) {
   const xiPrime = x2 - rx
   const yi = y2 + ry
   const yiPrime = y2 - ry
-  console.log('toto')
   if (n === 1) {
     if (yiPrime > yi) {
       return point(xiPrime, yiPrime, nom)

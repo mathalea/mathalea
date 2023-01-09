@@ -20,7 +20,6 @@ export const dateDeModifImportante = '18/03/2022'
 export const uuid = 'ecf62'
 export const ref = '3L14'
 export default function ResoudreUneEquationProduitNul () {
-  'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.nbQuestions = 5
@@ -129,7 +128,7 @@ export default function ResoudreUneEquationProduitNul () {
         texte += ajouteChampTexteMathLive(this, i, 'inline largeur25')
       }
       this.introduction = (this.interactif && context.isHtml) ? "<em>S'il y a plusieurs réponses, les séparer par un point-virgule. Si c'est une fraction, elle doit être irréductible.</em>" : ''
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, a, b, c, d)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         // alert(this.listeQuestions)

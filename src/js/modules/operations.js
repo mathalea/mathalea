@@ -127,6 +127,9 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
   const AdditionPosee3d = function (operande1, operande2, base, retenuesOn) {
     const dec1 = nombreDeChiffresApresLaVirgule(operande1)
     const dec2 = nombreDeChiffresApresLaVirgule(operande2)
+    const terme1 = operande1
+    const terme2 = operande2
+    const somme = terme1.plus(terme2)
     let code = ''
     const objets = []
     let sop1; let sop2
@@ -136,12 +139,17 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     let decalage
     if (base ? base === 10 : true) {
       decalage = Math.max(dec1, dec2)
+      sop1 = (operande1.mul(10 ** dec1)).toString()
+      sop2 = (operande2.mul(10 ** dec2)).toString()
       operande1 = operande1.mul(10 ** decalage)
       operande2 = operande2.mul(10 ** decalage)
-      sop1 = operande1.toString()
-      sop2 = operande2.toString()
+      if (dec1 > dec2) for (let j = 0; j < dec1 - dec2; j++) sop2 += ' ' // On complète par des espaces si besoin
+      else for (let j = 0; j < dec2 - dec1; j++) sop1 += ' ' // On complète par des espaces si besoin
+      for (let j = 0; j < Math.abs(Math.min(0, Math.floor(Math.log10(terme1)))); j++) sop1 = '0' + sop1 // On complète par des zéros si besoin
+      for (let j = 0; j < Math.abs(Math.min(0, Math.floor(Math.log10(terme2)))); j++) sop2 = '0' + sop2 // On complète par des zéros si besoin
       resultat = operande1.plus(operande2)
       sresultat = resultat.toString()
+      for (let j = 0; j < Math.abs(Math.min(0, Math.floor(Math.log10(somme)))); j++) sresultat = '0' + sresultat // On complète par des zéros si besoin
       lresultat = sresultat.length
     } else {
       decalage = 0
@@ -155,7 +163,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     const lop2 = sop2.length
     const longueuroperandes = Math.max(lop1, lop2)
     let retenues = ' '
-    if (lop1 > lop2) { // si op1 a plus de chiffres qu'op2 on complète op2 avec des zéros.
+    if (lop1 > lop2) { // si op1 a plus de chiffres qu'op2, on complète op2 avec des espaces.
       for (let j = 0; j < lop1 - lop2; j++) {
         sop2 = ' ' + sop2
       }
@@ -164,7 +172,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
         sop1 = ' ' + sop1
       }
     }
-    // les deux operande ont le même nomre de chiffres
+    // les deux operandes ont le même nombre de chiffres
     for (let i = longueuroperandes - 1; i > 0; i--) { // on construit la chaine des retenues.
       if (parseInt(sop1[i], base) + parseInt(sop2[i], base) + parseInt(retenues[0] > 0 ? retenues[0] : 0) > base - 1) {
         retenues = `1${retenues}`

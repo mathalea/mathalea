@@ -56,7 +56,7 @@ export default function EcritureDecimalePuissance () {
           break
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a, n)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

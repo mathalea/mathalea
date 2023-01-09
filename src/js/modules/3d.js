@@ -28,7 +28,6 @@ function ObjetMathalea2D () {
   this.pointilles = false
   this.id = numId
   numId++
-  //   mesObjets.push(this);
   context.objets2D.push(this)
 }
 
@@ -299,7 +298,7 @@ export function arc3d (centre, normal, rayon, cote, color, angledepart, angledef
     * visible est un booléen
     *
     */
-export function cercle3d (centre, normal, rayon, visible = true, color = 'black') {
+export function cercle3d (centre, normal, rayon, visible = true, color = 'black', pointilles = false) {
   const M = []; const listepoints = []; const listepoints3d = []
   const d = droite3d(centre, normal)
   M.push(rotation3d(translation3d(centre, rayon), d, context.anglePerspective))
@@ -311,7 +310,8 @@ export function cercle3d (centre, normal, rayon, visible = true, color = 'black'
     listepoints.push(M[i].c2d)
   }
   const C = polygone(listepoints, color)
-  if (!visible) {
+  C.isVisible = visible
+  if (pointilles) {
     C.pointilles = 2
   }
   return [C, listepoints3d, listepoints]
@@ -413,7 +413,7 @@ export function sphere3d (centre, rayon, nbParalleles, nbMeridiens, color = 'bla
 /**
    * Classe de la sphère
    * @param {Point3d} centre Centre de la sphère
-   * @param {Vecteur3d} rayon Rayon de la sphère
+   * @param {number} rayon Rayon de la sphère
    * @param {string} [colorEquateur = 'red'] Couleur de l'équateur : du type 'blue' ou du type '#f15929'
    * @param {string} [colorEnveloppe = 'blue'] Couleur de l'enveloppe de la sphère : du type 'blue' ou du type '#f15929'
    * @param {number} [nbParalleles = 0]  Le nombre de parallèles au total
@@ -484,37 +484,43 @@ function Sphere3d (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue'
   paralleles.indicePtCacheDernier.push('')
 
   // Construction de tous les autres parallèles jusqu'au plus proche du pôle sud
-  for (let k = nbParallelesDeConstruction - 2, p, j = 1; k > -nbParallelesDeConstruction; k -= 1) {
+  for (let k = nbParallelesDeConstruction - 2, poly, j = 1; k > -nbParallelesDeConstruction; k -= 1) {
     centreParallele = point3d(this.centre.x, this.centre.y, this.centre.z + this.rayon * Math.sin(k / nbParallelesDeConstruction * Math.PI / 2))
     rayonDuParallele = vecteur3d(this.rayon * Math.cos(k / nbParallelesDeConstruction * Math.PI / 2), 0, 0)
     normal = vecteur3d(0, 0, 1)
-    p = unDesParalleles[2]
-    unDesParalleles = cercle3d(centreParallele, normal, rayonDuParallele)
+    poly = polygone(unDesParalleles[2])
+    poly.isVisible = false
+    unDesParalleles = cercle3d(centreParallele, normal, rayonDuParallele, false)
     paralleles.listepts2d.push(unDesParalleles[1])
     for (let ee = 0; ee < paralleles.listepts2d[0].length; ee++) {
-      paralleles.listepts2d[j][ee].visible = !(paralleles.listepts2d[j][ee].c2d.estDansPolygone(polygone(p)))
+      paralleles.listepts2d[j][ee].isVisible = !(paralleles.listepts2d[j][ee].c2d.estDansPolygone(poly))
     }
     paralleles.ptCachePremier.push('')
     paralleles.indicePtCachePremier.push('')
     paralleles.ptCacheDernier.push('')
     paralleles.indicePtCacheDernier.push('')
 
-    for (let ee = 0, s, s1, jj, pt; ee < paralleles.listepts2d[0].length; ee++) {
+    for (let ee = 0, s, s1, d1, d2, jj, pt; ee < paralleles.listepts2d[0].length; ee++) {
       s = segment(paralleles.listepts2d[j][ee].c2d, paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].c2d)
-
+      s.isVisible = false
       // Recherche du point d'intersection entre le parallèle actuel et le précédent.
-      if ((!paralleles.listepts2d[j][ee].visible) && (paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].visible)) {
+      if ((!paralleles.listepts2d[j][ee].isVisible) && (paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].isVisible)) {
         jj = ee - 3
         s1 = segment(paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj) % paralleles.listepts2d[0].length].c2d, paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj - 1) % paralleles.listepts2d[0].length].c2d)
+        s1.isVisible = false
         // Le point d'intersection avec ce segment précis du parallèle actuel est avec l'un des 7 (nombre totalement empirique) segments les plus proches du parallèle précédent.
         while (!s.estSecant(s1)) {
           jj++
           s1 = segment(paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj) % paralleles.listepts2d[0].length].c2d, paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj - 1) % paralleles.listepts2d[0].length].c2d)
+          s1.isVisible = false
         }
 
         // s étant secant avec s1, on mène plusieurs actions :
-        pt = pointIntersectionDD(droite(paralleles.listepts2d[j][ee].c2d, paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].c2d), droite(paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj) % paralleles.listepts2d[0].length].c2d, paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj - 1) % paralleles.listepts2d[0].length].c2d))
-        // 1) Tout d'abord, ce point d'intersection est donc la frontière entre le visible et le caché et on l'enregistre comme élément de l'enveloppe de la sphère
+        d1 = droite(paralleles.listepts2d[j][ee].c2d, paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].c2d)
+        d1.isVisible = false
+        d2 = droite(paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj) % paralleles.listepts2d[0].length].c2d, paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj - 1) % paralleles.listepts2d[0].length].c2d)
+        d2.isVisible = false
+        pt = pointIntersectionDD(d1, d2) // 1) Tout d'abord, ce point d'intersection est donc la frontière entre le visible et le caché et on l'enregistre comme élément de l'enveloppe de la sphère
         enveloppeSphere1.push(pt)
         //  2) Ensuite, si pt est le tout premier point d'intersection trouvé, on enregistre quel est le premier parallèle et quel est son indice
         // Ces informmations serviront pour le tracé de l'enveloppe près du pôle Nord.
@@ -525,18 +531,24 @@ function Sphere3d (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue'
         // 3) On note ce point pour le futur tracé du parallèle, si besoin
         paralleles.ptCachePremier[j] = pt
         paralleles.indicePtCachePremier[j] = ee
-      } else if ((paralleles.listepts2d[j][ee].visible) && (!paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].visible)) {
+      } else if ((paralleles.listepts2d[j][ee].isVisible) && (!paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].isVisible)) {
         // Si le point précédent était l'entrée dans la partie cachée, alors celui-ci sera celui de l'entrée dans la partie visible (ou inversement)
         // car pour chaque parallèle intersecté avec le précédent, il y a "forcément" deux points sauf tangence mais ce n'est pas un pb.
         jj = ee - 3
         s1 = segment(paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj) % paralleles.listepts2d[0].length].c2d, paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj - 1) % paralleles.listepts2d[0].length].c2d)
+        s1.isVisible = false
         // On recherche le point d'intersection
         while (!s.estSecant(s1)) {
           jj++
           s1 = segment(paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj) % paralleles.listepts2d[0].length].c2d, paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj - 1) % paralleles.listepts2d[0].length].c2d)
+          s1.isVisible = false
         }
         // s étant secant avec s1, on mène plusieurs actions :
-        pt = pointIntersectionDD(droite(paralleles.listepts2d[j][ee].c2d, paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].c2d), droite(paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj) % paralleles.listepts2d[0].length].c2d, paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj - 1) % paralleles.listepts2d[0].length].c2d))
+        d1 = droite(paralleles.listepts2d[j][ee].c2d, paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].c2d)
+        d1.isVisible = false
+        d2 = droite(paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj) % paralleles.listepts2d[0].length].c2d, paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj - 1) % paralleles.listepts2d[0].length].c2d)
+        d2.isVisible = false
+        pt = pointIntersectionDD(d1, d2)
         // 1) Tout d'abord, ce point d'intersection est donc la frontière entre le visible et le caché et on l'enregistre comme élément de l'enveloppe de la sphère
         enveloppeSphere2.push(pt)
         // 2) Ensuite, si pt est le tout premier point d'intersection trouvé, on enregistre quel est le premier parallèle et quel est son indice
@@ -594,7 +606,7 @@ function Sphere3d (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue'
         } else {
         // Tracé des pointilles ou pas des parallèles
           s = segment(paralleles.listepts2d[j][ee].c2d, paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].c2d, this.colorParalleles)
-          if ((!paralleles.listepts2d[j][ee].visible) && (!paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].visible)) {
+          if ((!paralleles.listepts2d[j][ee].isVisible) && (!paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].isVisible)) {
             s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient pas dans les petits cercles
             s.opacite = 0.5
           }
@@ -616,13 +628,13 @@ function Sphere3d (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue'
       for (let ee = 1, s; ee < paralleles.listepts2d.length - 1; ee++) {
         // Affichage des méridiens sans le dernier segment relié aux pôles
         s = segment(paralleles.listepts2d[ee][k].c2d, paralleles.listepts2d[(ee + 1) % paralleles.listepts2d.length][k].c2d, this.colorMeridiens)
-        if ((!paralleles.listepts2d[ee][k].visible) && (!paralleles.listepts2d[(ee + 1) % paralleles.listepts2d.length][k].visible)) {
+        if ((!paralleles.listepts2d[ee][k].isVisible) && (!paralleles.listepts2d[(ee + 1) % paralleles.listepts2d.length][k].isVisible)) {
           s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient dans les petits cercles
           s.opacite = 0.5
         }
         this.c2d.push(s)
         s = segment(paralleles.listepts2d[ee][k + 18].c2d, paralleles.listepts2d[(ee + 1) % paralleles.listepts2d.length][k + 18].c2d, this.colorMeridiens)
-        if ((!paralleles.listepts2d[ee][k + 18].visible) && (!paralleles.listepts2d[(ee + 1) % paralleles.listepts2d.length][k + 18].visible)) {
+        if ((!paralleles.listepts2d[ee][k + 18].isVisible) && (!paralleles.listepts2d[(ee + 1) % paralleles.listepts2d.length][k + 18].isVisible)) {
           s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient dans les petits cercles
           s.opacite = 0.5
         }
@@ -636,13 +648,13 @@ function Sphere3d (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue'
 
         // Affichage de la partie reliée au pôle Sud
         s = segment(poleSud.c2d, paralleles.listepts2d[paralleles.listepts2d.length - 1][k].c2d, this.colorMeridiens)
-        if (!paralleles.listepts2d[paralleles.listepts2d.length - 1][0].visible) {
+        if (!paralleles.listepts2d[paralleles.listepts2d.length - 1][0].isVisible) {
           s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient dans les petits cercles
           s.opacite = 0.5
         }
         this.c2d.push(s)
         s = segment(paralleles.listepts2d[paralleles.listepts2d.length - 1][k + 18].c2d, poleSud.c2d, this.colorMeridiens)
-        if (!paralleles.listepts2d[paralleles.listepts2d.length - 1][k].visible) {
+        if (!paralleles.listepts2d[paralleles.listepts2d.length - 1][k].isVisible) {
           s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient dans les petits cercles
           s.opacite = 0.5
         }
@@ -683,12 +695,15 @@ function Sphere3d (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue'
   }
   const p = polygone(enveloppeSphere, this.colorEnveloppe)
   p.epaisseur = 1.5
+
   this.c2d.push(p)
 
   if (this.affichageAxe) {
     const l = longueur(poleNord.c2d, poleSud.c2d)
     let ee = 1
-    while (ee < 2 && pointSurSegment(poleNord.c2d, poleSud.c2d, ee * l).estDansPolygone(polygone(enveloppeSphere))) {
+    const poly = polygone(enveloppeSphere)
+    // poly.isVisible = false
+    while (ee < 2 && pointSurSegment(poleNord.c2d, poleSud.c2d, ee * l).estDansPolygone(poly)) {
       ee += 0.01
     }
 
@@ -852,7 +867,7 @@ function Cone3d (centre, sommet, rayon, color = 'black', affichageAxe = true, co
    * @author Eric Elter
    * @return {Cone3d}
    */
-export function cone3d (centre, sommet, rayon, color = 'black', affichageAxe = true, colorAxe = 'black', colorCone = 'gray') {
+export function cone3d (centre, sommet, rayon, color = 'black', affichageAxe = false, colorAxe = 'black', colorCone = 'gray') {
   return new Cone3d(centre, sommet, rayon, color, affichageAxe, colorAxe, colorCone)
 }
 
@@ -1218,7 +1233,7 @@ export function pyramide3d (base, vecteur, color = 'black') {
    * @param {boolean} [affichageAxe = false] Permet (ou pas) l'affichage de l'axe de la pyramide. Ne fonctionne que si centre est défini.
    * @param {string} [colorAxe = 'black'] Couleur de l'axe et du centre de la base de la pyramide : du type 'blue' ou du type '#f15929'
    * @param {boolean} [affichageNom = false] Permet (ou pas) l'affichage du nom des sommets de la pyramide.
-   * @param {boolean} [estCone = false] Permet (ou pas) de considérer la pyramide comme un cône
+   * @param {boolean} [estCone = false] Permet (ou pas) de considérer la pyramide comme un cône... dans le cas où la base est un disque.
    * @param {string} [colorCone = 'gray'] Couleur du cône : du type 'blue' ou du type '#f15929'
    * @property {Polygone3d} base Base de la pyramide
    * @property {Point3d} sommet Sommet de la pyramide
@@ -1254,8 +1269,10 @@ class Pyramide3d {
 
     // Stockage de toutes les arêtes issues du sommet
     this.aretesSommet = []
+
     for (let i = 0; i < this.base.listePoints.length; i++) {
       s = arete3d(this.base.listePoints[i], this.sommet, this.color, true)
+      // s.c2d.isVisible = false
       this.aretesSommet.push(s)
     }
 
@@ -1265,25 +1282,29 @@ class Pyramide3d {
       s = arete3d(this.base.listePoints[i], this.base.listePoints[(i + 1) % this.base.listePoints.length], this.color, true)
       aretesBase.push(s)
     }
+
     // Recherche des sommets arrières (donc toutes les arêtes issues de ce point sont cachées)
     let sommetCache = false
     let sommetCacheAvant
     const angleReference = [0, 0]
     const sommetGeneratriceCone = []
-    if (sommet.z > this.base.listePoints[0].z) { // Si le sommet est au-dessus de la base
-      for (let i = 0; i < this.base.listePoints.length; i++) {
-        sommetCacheAvant = sommetCache
-        sommetCache = false
-        for (let j = 1; j < this.base.listePoints.length - 1; j++) {
-          sommetCache = sommetCache || this.base.listePoints[i].c2d.estDansPolygone(polygone(this.sommet.c2d, this.base.listePoints[(i + j) % this.base.listePoints.length].c2d, this.base.listePoints[(i + j + 1) % this.base.listePoints.length].c2d))
-        }
-        if (this.estCone && sommetCacheAvant !== sommetCache && i !== 0) {
-          if (sommetCache) sommetGeneratriceCone.push(this.aretesSommet[(this.aretesSommet.length + i - 1) % this.aretesSommet.length])
-          else sommetGeneratriceCone.push(this.aretesSommet[i])
-          if (sommetCache) angleReference[1] = i
-          else angleReference[0] = i
-        }
-        if (sommetCache) {
+
+    for (let i = 0; i < this.base.listePoints.length; i++) {
+      sommetCacheAvant = sommetCache
+      sommetCache = false
+      for (let j = 1; j < this.base.listePoints.length - 1; j++) {
+        const poly = polygone([this.sommet.c2d, this.base.listePoints[(i + j) % this.base.listePoints.length].c2d, this.base.listePoints[(i + j + 1) % this.base.listePoints.length].c2d])
+        poly.isVisible = false
+        sommetCache = sommetCache || this.base.listePoints[i].c2d.estDansPolygone(poly)
+      }
+      if (this.estCone && sommetCacheAvant !== sommetCache && i !== 0) {
+        if (sommetCache) sommetGeneratriceCone.push(this.aretesSommet[(this.aretesSommet.length + i - 1) % this.aretesSommet.length])
+        else sommetGeneratriceCone.push(this.aretesSommet[i])
+        if (sommetCache) angleReference[1] = i
+        else angleReference[0] = i
+      }
+      if (sommetCache) {
+        if (sommet.z > this.base.listePoints[0].z) { // Si le sommet est au-dessus de la base
           this.aretesSommet[i].visible = false
           this.aretesSommet[i].c2d.pointilles = 2
           aretesBase[i].c2d.pointilles = 2
@@ -1292,7 +1313,7 @@ class Pyramide3d {
       }
     }
 
-    if (this.estCone && angleReference[1] < angleReference[0]) { angleReference[1] += this.base.listePoints.length }
+    if (this.estCone && angleReference[1] <= angleReference[0]) { angleReference[1] += this.base.listePoints.length }
 
     if (this.estCone && sommetGeneratriceCone.length === 1) {
       sommetGeneratriceCone.push(this.aretesSommet[this.aretesSommet.length - 1])
@@ -1304,6 +1325,7 @@ class Pyramide3d {
         premierPlan.push(this.base.listePoints[i % this.base.listePoints.length].c2d)
       }
       const faceAv = polygone(premierPlan, this.colorCone)
+      // faceAv.isVisible = false
       faceAv.couleurDeRemplissage = colorToLatexOrHTML(this.colorCone)
       this.c2d.push(faceAv)
     }
@@ -1311,11 +1333,12 @@ class Pyramide3d {
     if (!this.estCone) {
       let longueurSegment
       if (this.sommet.z > this.base.listePoints[0].z) { // Si le sommet est au-dessus de la base
-      // Recherche de l'arête cachée possible issue de deux sommets non cachés.
+        // Recherche de l'arête cachée possible issue de deux sommets non cachés.
         for (let i = 0; i < this.base.listePoints.length; i++) {
           sommetCache = false
           longueurSegment = longueur(this.base.listePoints[i].c2d, this.base.listePoints[(i + 1) % this.base.listePoints.length].c2d)
           s = segment(pointSurSegment(this.base.listePoints[i].c2d, this.base.listePoints[(i + 1) % this.base.listePoints.length].c2d, longueurSegment / 20), pointSurSegment(this.base.listePoints[i].c2d, this.base.listePoints[(i + 1) % this.base.listePoints.length].c2d, 19 * longueurSegment / 20))
+          s.isVisible = false
           for (let j = 0; j < this.aretesSommet.length; j++) {
             sommetCache = sommetCache || s.estSecant(this.aretesSommet[j].c2d)
           }
@@ -1324,12 +1347,12 @@ class Pyramide3d {
       } else { // Si le sommet est en-dessous de la base
         for (let i = 0; i < this.base.listePoints.length; i++) {
           longueurSegment = longueur(this.base.listePoints[i].c2d, this.sommet.c2d)
-          s = segment(pointSurSegment(this.base.listePoints[i].c2d, this.sommet.c2d, longueurSegment / 20), this.sommet.c2d, 'red')
+          s = segment(pointSurSegment(this.base.listePoints[i].c2d, this.sommet.c2d, longueurSegment / 20), this.sommet.c2d)
+          s.isVisible = false
           let j = 0
           while (j < aretesBase.length && !s.estSecant(aretesBase[j].c2d)) {
             j++
           }
-          //  if (j < aretesBase.length && s.estSecant(aretesBase[j].c2d)) this.aretesSommet[i].c2d.pointilles = 2
           if (j < aretesBase.length) this.aretesSommet[i].c2d.pointilles = 2
         }
       }
@@ -1351,7 +1374,7 @@ class Pyramide3d {
       if (this.centre.label === '') this.centre.label = choisitLettresDifferentes(1, 'OQWX')
       this.c2d.push(labelPoint(this.centre.c2d))
 
-      if (affichageAxe) { // Axe affiché que si centre précisé
+      if (this.affichageAxe) { // Axe affiché que si centre précisé
         if (this.sommet.z > 0) {
           let intersectionTrouvee = false
           let ee = 0
@@ -1359,13 +1382,19 @@ class Pyramide3d {
           while (!intersectionTrouvee && ee < aretesBase.length) {
             s = aretesBase[ee].c2d
             if (s.pointilles !== 2) { // L'arête coupée doit être visible
-              intersectionTrouvee = s.estSecant(droite(this.centre.c2d, this.sommet.c2d))
+              const d1 = droite(this.centre.c2d, this.sommet.c2d)
+              d1.isVisible = false
+              intersectionTrouvee = s.estSecant(d1)
             }
             ee++
           }
-          if (ee < aretesBase.length) {
+          if (intersectionTrouvee) {
             ee--
-            const ptBase = pointIntersectionDD(droite(this.base.listePoints[ee].c2d, this.base.listePoints[(ee + 1) % this.base.listePoints.length].c2d), droite(this.centre.c2d, this.sommet.c2d))
+            const d1 = droite(this.base.listePoints[ee].c2d, this.base.listePoints[(ee + 1) % this.base.listePoints.length].c2d)
+            d1.isVisible = false
+            const d2 = droite(this.centre.c2d, this.sommet.c2d)
+            d2.isVisible = false
+            const ptBase = pointIntersectionDD(d1, d2)
             s = segment(ptBase, this.sommet.c2d, this.colorAxe)
             s.pointilles = 2
             this.c2d.push(s)
@@ -1391,6 +1420,7 @@ class Pyramide3d {
 
     if (this.affichageNom) {
       const p = polygone(this.base.listePoints2d)
+      p.isVisible = false
       if (this.centre.label === '' || this.centre.label === this.sommet.label) this.sommet.label = choisitLettresDifferentes(1, 'OQWX')
       const nomBase = choisitLettresDifferentes(this.base.listePoints.length, 'OQWX' + this.sommet.label + this.centre.label)
       renommePolygone(p, nomBase)
@@ -1425,8 +1455,8 @@ class Pyramide3d {
    * @example pyramide3d(c,A,'red',B,true,'green',false,true,'blue') // Créé un CONE de cercle c et de sommet A et dont les "arêtes" sont rouges, le centre affiché est B, l'axe affiché est vert et le cône est peint en vert
    * @return {Pyramide3d}
    */
-export function pyramide3d (base, vecteur, color = 'black', centre, affichageAxe = false, colorAxe = 'black', affichageNom = false, estCone = false, colorCone = 'gray') {
-  return new Pyramide3d(base, vecteur, color, centre, affichageAxe, colorAxe, affichageNom, estCone, colorCone)
+export function pyramide3d (base, sommet, color = 'black', centre, affichageAxe = false, colorAxe = 'black', affichageNom = false, estCone = false, colorCone = 'gray') {
+  return new Pyramide3d(base, sommet, color, centre, affichageAxe, colorAxe, affichageNom, estCone, colorCone)
 }
 
 /**

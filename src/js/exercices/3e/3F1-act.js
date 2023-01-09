@@ -16,7 +16,6 @@ export const titre = 'Fonctions : Notion et vocabulaire'
 export const uuid = '77d18'
 export const ref = '3F1-act'
 export default function FonctionNotionVocabulaire () {
-  'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1
   this.titre = titre
@@ -585,7 +584,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
           break
       };
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, typesDeQuestions, x, y, z)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

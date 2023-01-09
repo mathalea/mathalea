@@ -1,24 +1,16 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul, texNombrec, creerNomDePolygone, texNombre, creerBoutonMathalea2d, nombreDeChiffresDansLaPartieEntiere, texteGras } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, creerNomDePolygone, creerBoutonMathalea2d, texteGras } from '../../modules/outils.js'
 import { point, pointSurSegment, pointAdistance, polygone, triangle2points2longueurs, homothetie, similitude, texteParPoint, longueur, angle, angleOriente } from '../../modules/2d.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import Grandeur from '../../modules/Grandeur.js'
 
-export const amcReady = true
-export const amcType = 'AMCOpenNum✖︎2'
-export const interactifReady = true
-export const interactifType = 'mathLive'
-export const titre = 'Calculer des longueurs avec le théorème de Thalès'
+export const titre = 'Écrire une relation de Thalès'
 
 /**
- * Calcul de longueurs avec le théorème de Thalès
- * @author Rémi Angot
- * Utilisée dans 4G30 et 3G20
+ * Relation de Thalès
+ * @author Sébastien LOZANO
 */
-export default function Thales2D () {
+export default function RelationDeThales () {
   Exercice.call(this) // Héritage de la classe Exercice()
 
   this.consigne = ''
@@ -26,10 +18,6 @@ export default function Thales2D () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 1 // Triangles imbriqués / configuration papillon / les 2
-  this.vspace = -0.5 // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
-
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = false
 
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
@@ -40,7 +28,6 @@ export default function Thales2D () {
       this.sup = 1
     }
     const premiereQuestionPapillon = randint(0, 1) // Pour alterner les configurations et savoir par laquelle on commence
-    let reponse, reponse2
 
     for (let i = 0, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // this.autoCorrection[i] = {}
@@ -66,11 +53,9 @@ export default function Thales2D () {
       let k = calcul(randint(3, 8, 5) / 10)
       if (parseInt(this.sup) === 2) {
         k *= -1
-        this.vspace = -0.5 // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
       }
       if (parseInt(this.sup) === 3 && ((i + premiereQuestionPapillon) % 2 === 0)) {
         k *= -1
-        this.vspace = -0.5 // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
       }
       const M = homothetie(A, C, k)
       const N = homothetie(B, C, k)
@@ -96,10 +81,16 @@ export default function Thales2D () {
       }
       const marqueNomC = texteParPoint(nomC, c, 'milieu', 'black', 1, 'middle', true)
 
-      texte = `Sur la figure suivante, $${nomA + nomC}=${ac}~\\text{cm}$, $${nomA + nomB}=${ab}~\\text{cm}$, $${nomC + nomM}=${texNombrec(Math.abs(k) * ac)}~\\text{cm}$, $${nomC + nomN}=${texNombrec(Math.abs(k) * bc)}~\\text{cm}$ et $(${nomA + nomB})//(${nomM + nomN})$.<br>`
-      if (!this.interactif) {
-        texte += `Calculer $${nomM + nomN}$ et $${nomC + nomB}$.<br><br>`
+      texte = 'Sur la figure suivante : '
+      if (k > 0) {
+        texte += `
+        <br> $\\leadsto ${nomM}$ est sur $${'[' + nomC + nomA + ']'}$,
+        <br> $\\leadsto ${nomN}$ est sur $${'[' + nomC + nomB + ']'}$,`
+      } else {
+        texte += `<br> $\\leadsto$ les droites $(${nomA + nomM})$ et $(${nomB + nomN})$ sont sécantes en $${nomC}$,`
       }
+
+      texte += `<br> $\\leadsto$ les droites $(${nomA + nomB})$ et $(${nomM + nomN})$ sont parallèles.<br>Écrire une relation de Thalès.<br>`
 
       texte += mathalea2d({
         xmin: Math.min(A.x, B.x, C.x, M.x, N.x) - 1.5,
@@ -144,7 +135,9 @@ export default function Thales2D () {
        <br> $\\leadsto$  $(${nomA + nomB})//(${nomM + nomN})$,
        <br> donc d'après le théorème de Thalès, les triangles $${nomA + nomB + nomC}$ et $${nomM + nomN + nomC}$ ont des longueurs proportionnelles.`
       } else {
-        texteCorr = `Les droites $(${nomA + nomM})$ et $(${nomB + nomN})$ sont sécantes en $${nomC}$ et $(${nomA + nomB})//(${nomM + nomN})$ <br> donc d'après le théorème de Thalès, les triangles $${nomA + nomB + nomC}$ et $${nomM + nomN + nomC}$ ont des longueurs proportionnelles.`
+        texteCorr = `$\\leadsto$ Les droites $(${nomA + nomM})$ et $(${nomB + nomN})$ sont sécantes en $${nomC}$,
+        <br> $\\leadsto$ les droites $(${nomA + nomB})$ et $(${nomM + nomN})$ sont parallèles,<br>
+        donc d'après le théorème de Thalès, les triangles $${nomA + nomB + nomC}$ et $${nomM + nomN + nomC}$ ont des longueurs proportionnelles.`
       }
       texteCorr += '<br><br>'
       if (context.isHtml) {
@@ -152,62 +145,20 @@ export default function Thales2D () {
       } else {
         texteCorr += `$\\dfrac{${nomC + nomM}}{${nomC + nomA}}=\\dfrac{${nomC + nomN}}{${nomC + nomB}}=\\dfrac{${nomM + nomN}}{${nomA + nomB}}$`
       }
-      texteCorr += '<br><br>'
-      texteCorr += `$\\dfrac{${texNombrec(Math.abs(k) * ac)}}{${texNombre(ac)}}=\\dfrac{${texNombrec(Math.abs(k) * bc)}}{${nomC + nomB}}=\\dfrac{${nomM + nomN}}{${texNombre(ab)}}$`
-      texteCorr += '<br><br>'
-      if (this.correctionDetaillee) {
-        texteCorr += texteGras(`Calcul de ${nomM + nomN} : `)
-        texteCorr += '<br><br>'
-        texteCorr += `On utilise l'égalité $\\dfrac{${texNombrec(Math.abs(k) * ac)}}{${texNombre(ac)}}=\\dfrac{${nomM + nomN}}{${texNombre(ab)}}$.`
-        texteCorr += '<br><br>'
-        texteCorr += 'Les produits en croix sont égaux,'
-        texteCorr += '<br><br>'
-        texteCorr += `donc $${texNombrec(Math.abs(k) * ac)}\\times ${texNombre(ab)}=${nomM + nomN}\\times ${texNombre(ac)}$.`
-        texteCorr += '<br><br>'
-        texteCorr += `On divise les deux membres par $${texNombre(ac)}$.`
-        texteCorr += '<br><br>'
+
+      texteCorr += context.isHtml ? '<br>' : '\\medskip'
+      texteCorr += `<br>${texteGras('Remarque')}<br>On pourrait aussi écrire : `
+      if (context.isHtml) {
+        texteCorr += `$\\dfrac{\\color{blue}${nomC + nomA}}{\\color{red}${nomC + nomM}}=\\dfrac{\\color{blue}${nomC + nomB}}{\\color{red}${nomC + nomN}}=\\dfrac{\\color{blue}${nomA + nomB}}{\\color{red}${nomM + nomN}}$`
+      } else {
+        texteCorr += `$\\dfrac{${nomC + nomA}}{${nomC + nomM}}=\\dfrac{${nomC + nomB}}{${nomC + nomN}}=\\dfrac{${nomA + nomB}}{${nomM + nomN}}$`
       }
-      texteCorr += `$${nomM + nomN}=\\dfrac{${texNombrec(Math.abs(k) * ac)}\\times${texNombre(ab)}}{${texNombre(ac)}}=${texNombrec(Math.abs(k) * ab)}$ cm`
-      reponse = Math.abs(k) * ab
-      texteCorr += '<br><br>'
-      if (this.correctionDetaillee) {
-        texteCorr += texteGras(`Calcul de ${nomC + nomB} : `)
-        texteCorr += '<br><br>'
-        texteCorr += `On utilise l'égalité $\\dfrac{${texNombrec(Math.abs(k) * bc)}}{${nomC + nomB}}=\\dfrac{${texNombrec(Math.abs(k) * ac)}}{${texNombre(ac)}}$.`
-        texteCorr += '<br><br>'
-        texteCorr += 'Les produits en croix sont égaux,'
-        texteCorr += '<br><br>'
-        texteCorr += `donc $${texNombrec(Math.abs(k) * ac)}\\times ${nomC + nomB}=${texNombre(ac)}\\times ${texNombrec(Math.abs(k) * bc)}$.`
-        texteCorr += '<br><br>'
-        texteCorr += `On divise les deux membres par $${texNombrec(Math.abs(k) * ac)}$.`
-        texteCorr += '<br><br>'
-      }
-      texteCorr += `$${nomC + nomB}=\\dfrac{${texNombrec(Math.abs(k) * bc)}\\times${texNombre(ac)}}{${texNombrec(Math.abs(k) * ac)}}=${texNombrec(bc)}$ cm`
-      reponse2 = bc
+
       if (context.isHtml) {
         texte += `<br><div style="display: inline-block;margin-top:20px;">${boutonAideMathalea2d}</div>`
       }
 
-      if (this.interactif && context.isHtml) {
-        texte += '<br><br><em>Il faut saisir une unité.</em>'
-        texte += `<br><br>$${nomM + nomN} = $`
-        setReponse(this, i * 2, new Grandeur(calcul(Math.abs(k) * ab), 'cm'), { formatInteractif: 'unites' }) // 2 réponses par question donc 2i et 2i + 1 ainsi elles restent ordonnées
-        texte += ajouteChampTexteMathLive(this, i * 2, 'unites[longueurs] inline largeur25')
-        texte += `<br>$${nomC + nomB} = $`
-        texte += ajouteChampTexteMathLive(this, i * 2 + 1, 'unites[longueurs] inline largeur25')
-        setReponse(this, i * 2 + 1, new Grandeur(bc, 'cm'), { formatInteractif: 'unites' })
-      }
-
       if (this.listeQuestions.indexOf(texte) === -1) {
-      // Il n'y a qu'une seule question donc test inutile...
-        if (context.isAmc) {
-          this.autoCorrection[i] = {
-            enonce: texte,
-            propositions: [{ texte: texteCorr, statut: 4, feedback: '' }],
-            reponse: { texte: `$\\hspace{21pt}${nomM + nomN}$`, valeur: reponse, param: { digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(reponse)) + 1, decimals: 1, approx: 0, signe: false, exposantNbChiffres: 0 } },
-            reponse2: { texte: `$\\hspace{21pt}${nomC + nomB}$`, valeur: reponse2, param: { digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(reponse2)) + 1, decimals: 1, approx: 0, signe: false, exposantNbChiffres: 0 } }
-          }
-        }
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
