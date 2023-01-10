@@ -8,7 +8,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-export const dateDePublication = '09/01/2023'
+export const dateDePublication = '10/01/2023'
 
 /*!
  * @author Gilles Mora
