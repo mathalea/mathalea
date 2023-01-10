@@ -68,7 +68,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
               }
             }
           }
-          B = point(dis[1] / 10, 0, nomPoly.charAt(1), 'below right')
+          B = point(disSave[1] / 10, 0, nomPoly.charAt(1), 'below right')
           figure = polygoneRegulier(A, B, 4)
           C = point(figure.listePoints[2].x, figure.listePoints[2].y, nomPoly.charAt(2), 'above right')
           D = point(figure.listePoints[3].x, figure.listePoints[3].y, nomPoly.charAt(3), 'above left')
@@ -84,9 +84,11 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
             const cote = diagonale / Math.sqrt(2)
             const m = cote * 0.1 - Math.floor(cote /* * 0.1 * 10  */) * 0.1
             dis = [diagonale, cote, m]
+            // console.log('Carré1diag:j' + jj + ':dis:' + dis[0].toFixed(2) + ':' + dis[1].toFixed(2) + ':dis' + dis[2].toFixed(4))
             if (dis[2] < 0.005) {
               disSave = dis
               ok = true
+              // console.log('TROUVE:Carré1diag:' + jj + ':dis:' + dis[0].toFixed(2) + ':' + dis[1].toFixed(2) + ':dis' + dis[2].toFixed(4))
               break
             } else {
               if (dis[2] < disSave[2]) {
@@ -94,7 +96,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
               }
             }
           }
-          B = point(dis[1] / 10, 0, nomPoly.charAt(1), 'below right')
+          B = point(disSave[1] / 10, 0, nomPoly.charAt(1), 'below right')
           figure = polygoneRegulier(A, B, 4)
           C = point(figure.listePoints[2].x, figure.listePoints[2].y, nomPoly.charAt(2), 'above right')
           D = point(figure.listePoints[3].x, figure.listePoints[3].y, nomPoly.charAt(3), 'above left')
@@ -104,16 +106,18 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
         case 'Rectangle': {
           naturePoly = 'rectangle'
           let ok = false; let disSave = [0, 0, 0, 1000]; const old = []; let dis
-          for (let jj = 0; jj < 20; jj++) {
+          for (let jj = 0; jj < 20 && !ok; jj++) {
             const lAB = randint(22, 45, old) * 2 // paire seulement!
             old.push(lAB / 2)
             for (let kk = 0; kk < 20 && !ok; kk++) {
-              const lAC = randint(35, 60, lAB)
-              const lBC = Math.sqrt(lAC * lAC + lAB * lAB)
-              dis = [lAB, lBC, lAC, lBC * 0.1 - Math.floor(lBC /** 0.1 * 10 */) * 0.1]
+              const lBC = randint(35, 60, lAB)
+              const lAC = Math.sqrt(lBC * lBC + lAB * lAB)
+              dis = [lAB, lBC, lAC, lAC * 0.1 - Math.floor(lAC /** 0.1 * 10 */) * 0.1]
+              // console.log('Rectangle: j' + jj + 'k' + kk + ':dis:' + dis[0].toFixed(2) + ':' + dis[1].toFixed(2) + ':' + dis[2].toFixed(2) + ':dis:' + dis[3].toFixed(4))
               if (dis[3] < 0.005) {
                 disSave = dis
                 ok = true
+                // console.log('TROUVE:Rectangle: j' + jj + 'k' + kk + ':dis:' + dis[0].toFixed(2) + ':' + dis[1].toFixed(2) + ':' + dis[2].toFixed(2) + ':dis:' + dis[3].toFixed(4))
                 break
               } else {
                 if (dis[3] < disSave[3]) {
@@ -122,9 +126,9 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
               }
             }
           }
-          B = point(dis[0] / 10, 0, nomPoly.charAt(1), 'below right')
-          C = pointAdistance(B, dis[1] / 10, 90, nomPoly.charAt(2))
-          D = pointAdistance(C, dis[0] / 10, 180, nomPoly.charAt(3))
+          B = point(disSave[0] / 10, 0, nomPoly.charAt(1), 'below right')
+          C = pointAdistance(B, disSave[1] / 10, 90, nomPoly.charAt(2))
+          D = pointAdistance(C, disSave[0] / 10, 180, nomPoly.charAt(3))
           figure = polygone(A, B, C, D)
           break
         }
@@ -132,16 +136,18 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
         case 'Rectangle1diag': {
           naturePoly = 'rectangle'
           let ok = false; let disSave = [0, 0, 0, 1000]; const old = []; let dis
-          for (let jj = 0; jj < 20; jj++) {
+          for (let jj = 0; jj < 20 && !ok; jj++) {
             const lAB = randint(22, 45, old) * 2 // paire seulement!
             old.push(lAB / 2)
             for (let kk = 0; kk < 20 && !ok; kk++) {
               const lBC = randint(lAB + 5, 100)
               const lAC = Math.sqrt(lBC * lBC - lAB * lAB)
               dis = [lAB, lBC, lAC, lAC * 0.1 - Math.floor(lAC /** 0.1 * 10 */) * 0.1]
+              // console.log('Rectangle1diag:j' + jj + 'k' + kk + ':dis:' + dis[0].toFixed(2) + ':' + dis[1].toFixed(2) + ':' + dis[2].toFixed(2) + ':dis:' + dis[3].toFixed(4))
               if (dis[3] < 0.005) {
                 disSave = dis
                 ok = true
+                // console.log('TROUVE:Rectangle1diag:j' + jj + 'k' + kk + ':dis:' + dis[0].toFixed(2) + ':' + dis[1].toFixed(2) + ':' + dis[2].toFixed(2) + ':dis:' + dis[3].toFixed(4))
                 break
               } else {
                 if (dis[3] < disSave[3]) {
@@ -152,12 +158,12 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
           }
 
           const diagonale = disSave[1] / 10
-          B = point(dis[0] / 10, 0, nomPoly.charAt(1), 'below right')
+          B = point(disSave[0] / 10, 0, nomPoly.charAt(1), 'below right')
 
-          C = pointIntersectionLC(droiteParPointEtPerpendiculaire(B, droite(A, B)), cercle(A, diagonale), nomPoly[3], 1)
+          C = pointIntersectionLC(droiteParPointEtPerpendiculaire(B, droite(A, B)), cercle(A, diagonale), nomPoly[2], 1)
           C.positionLabel = 'above right'
 
-          D = pointIntersectionLC(droiteParPointEtPerpendiculaire(A, droite(A, B)), cercle(B, diagonale), nomPoly[1], 1)
+          D = pointIntersectionLC(droiteParPointEtPerpendiculaire(A, droite(A, B)), cercle(B, diagonale), nomPoly[3], 1)
           D.positionLabel = 'above left'
           figure = polygone(A, B, C, D)
           break
@@ -167,7 +173,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
           naturePoly = 'losange'
           // triangle isocèle donné par deux longueurs et auto-correction
           let ok = false; let disSave = [0, 0, 0, 1000]; const old = []; let dis
-          for (let jj = 0; jj < 20; jj++) {
+          for (let jj = 0; jj < 20 && !ok; jj++) {
             const base = randint(20, 50, old) * 2 // paire seulement!
             old.push(base / 2)
             for (let kk = 0; kk < 20 && !ok; kk++) {
@@ -202,7 +208,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
           naturePoly = 'losange'
           // triangle rectangle avec deux longueurs et auto-correction
           let ok = false; let disSave = [0, 0, 0, 1000]; const old = []; let dis
-          for (let jj = 0; jj < 10; jj++) {
+          for (let jj = 0; jj < 10 & !ok; jj++) {
             const lAB = randint(15, 30, old) * 2
             old.push(lAB)
             for (let kk = 0; kk < 20 && !ok; kk++) {
@@ -240,7 +246,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
           for (let kk = 0; kk < 10 && !ok; kk++) {
             const lBC = randint(30, 80, old)
             old.push(lBC)
-            for (let jj = 0; jj < 30; jj++) {
+            for (let jj = 0; jj < 30 && !ok; jj++) {
               const lAC = randint(Math.max(Math.abs(lAB - lBC) + 20, 30), Math.min(lAB + lBC - 20, 150))
               const m = Math.sqrt(lAC * lAC * 0.01 / 2 + lBC * lBC * 0.01 / 2 - lAB * lAB * 0.01 / 4)
               dis = [lAB, lBC, lAC, m - Math.floor(m * 10) * 0.1]
@@ -285,7 +291,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
       objetsCorrection.push(traces2, labels2, figure, aA, aB, aC, aD, aE, segmentAC, segmentBC)
       if (listeTypeDeQuestions[i] === 'Rectangle' || listeTypeDeQuestions[i] === 'Carré') {
         objetsCorrection.push(afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), afficheLongueurSegment(D, C), afficheLongueurSegment(A, D))
-        const txt = texteSurSegment(`${A.nom}${C.nom}≃${stringNombre(segment(A, C).longueur, 1)} cm`, milieu(A, C), C, 'blue')
+        const txt = texteSurSegment(`${A.nom}${C.nom}≃${stringNombre(segment(A, C).longueur, 2)} cm`, milieu(A, C), C, 'blue')
         txt.mathOn = false
         txt.scale = 1.2
         objetsCorrection.push(txt)
@@ -295,7 +301,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
         txt.mathOn = false
         const txt2 = texteSurSegment(`${B.nom}${D.nom}=${stringNombre(segment(B, D).longueur, 1)} cm`, milieu(B, D), D)
         txt2.mathOn = false
-        const txt3 = texteSurSegment(`${D.nom}${C.nom}≃${stringNombre(segment(D, C).longueur, 1)} cm`, D, C, 'blue')
+        const txt3 = texteSurSegment(`${D.nom}${C.nom}≃${stringNombre(segment(D, C).longueur, 2)} cm`, D, C, 'blue')
         txt3.mathOn = false
         txt3.scale = 1.2
         objetsCorrection.push(txt, txt2, txt3)
@@ -304,7 +310,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
         objetsCorrection.push(afficheLongueurSegment(B, A))
         const txt = texteSurSegment(`${A.nom}${C.nom}=${stringNombre(segment(A, C).longueur, 1)} cm`, milieu(A, C), C)
         txt.mathOn = false
-        const txt3 = texteSurSegment(`${B.nom}${C.nom}≃${stringNombre(segment(B, C).longueur, 1)} cm`, C, B, 'blue')
+        const txt3 = texteSurSegment(`${B.nom}${C.nom}≃${stringNombre(segment(B, C).longueur, 2)} cm`, C, B, 'blue')
         txt3.mathOn = false
         txt3.scale = 1.2
         objetsCorrection.push(txt, txt3)
@@ -313,7 +319,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
         objetsCorrection.push(afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), afficheLongueurSegment(D, C), afficheLongueurSegment(A, D))
         const txt = texteSurSegment(`${A.nom}${C.nom}=${stringNombre(segment(A, C).longueur, 1)} cm`, milieu(A, C), C)
         txt.mathOn = false
-        const txt2 = texteSurSegment(`${B.nom}${D.nom}≃${stringNombre(segment(B, D).longueur, 1)} cm`, milieu(B, D), D, 'blue')
+        const txt2 = texteSurSegment(`${B.nom}${D.nom}≃${stringNombre(segment(B, D).longueur, 2)} cm`, milieu(B, D), D, 'blue')
         txt2.mathOn = false
         txt2.scale = 1.2
         objetsCorrection.push(txt, txt2)
@@ -323,7 +329,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
         txt.mathOn = false
         const txt2 = texteSurSegment(`${B.nom}${D.nom}=${stringNombre(segment(B, D).longueur, 1)} cm`, milieu(B, D), D)
         txt2.mathOn = false
-        const txt3 = texteSurSegment(`${D.nom}${C.nom}≃${stringNombre(segment(D, C).longueur, 1)} cm`, D, C, 'blue')
+        const txt3 = texteSurSegment(`${D.nom}${C.nom}≃${stringNombre(segment(D, C).longueur, 2)} cm`, D, C, 'blue')
         txt3.mathOn = false
         txt3.scale = 1.2
         objetsCorrection.push(txt, txt2, txt3)
@@ -331,7 +337,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
       if (listeTypeDeQuestions[i] === 'Parallélogramme') {
         const txt = texteSurSegment(`${A.nom}${C.nom}=${stringNombre(segment(A, C).longueur, 1)} cm`, milieu(A, C), C)
         txt.mathOn = false
-        const txt2 = texteSurSegment(`${B.nom}${D.nom}≃${stringNombre(segment(B, D).longueur, 1)} cm`, milieu(A, C), B, 'blue')
+        const txt2 = texteSurSegment(`${B.nom}${D.nom}≃${stringNombre(segment(B, D).longueur, 2)} cm`, milieu(A, C), B, 'blue')
         txt2.mathOn = false
         txt2.scale = 1.2
         objetsCorrection.push(txt, afficheLongueurSegment(A, D), afficheLongueurSegment(D, C), txt2)
@@ -528,11 +534,11 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
       const paramsCorrection = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 1 }
       // On ajoute au texte de la correction, la figure de la correction
       texteCorr = mathalea2d(paramsCorrection, objetsCorrection)
-      if (listeTypeDeQuestions[i] === 'Rectangle' || listeTypeDeQuestions[i] === 'Carré') texteCorr += `<br><br>${texteEnCouleur(`Pour l'auto-correction, on peut vérifier que $[${A.nom + C.nom}]$ et $[${B.nom + D.nom}]$ mesurent bien tous les deux $${texNombre(segment(A, C).longueur, 2)}~\\text{cm}$`)}.<br>`
-      if (listeTypeDeQuestions[i] === 'Losange') texteCorr += `<br><br>${texteEnCouleur(`Pour l'auto-correction, on peut vérifier que $[${B.nom + D.nom}]$ mesure environ $${texNombre(segment(B, D).longueur, 2)}~\\text{cm}$`)}.<br>`
-      if (listeTypeDeQuestions[i] === 'Losange2diag' || listeTypeDeQuestions[i] === 'Carré1diag') texteCorr += `<br><br>${texteEnCouleur(`Pour l'auto-correction, on peut vérifier que tous les côtés du ${naturePoly} mesure environ $${texNombre(segment(A, B).longueur, 2)}~\\text{cm}$`)}.<br>`
-      if (listeTypeDeQuestions[i] === 'Rectangle1diag') texteCorr += `<br><br>${texteEnCouleur(`Pour l'auto-correction, on peut vérifier que $[${B.nom + C.nom}]$ mesure environ $${texNombre(segment(B, C).longueur, 2)}~\\text{cm}$`)}.<br>`
-      if (listeTypeDeQuestions[i] === 'Parallélogramme') texteCorr += `<br><br>${texteEnCouleur(`Pour l'auto-correction, on peut vérifier que $[${B.nom + D.nom}]$ mesure environ $${texNombre(segment(B, D).longueur, 2)}~\\text{cm}$`)}.<br>`
+      if (listeTypeDeQuestions[i] === 'Rectangle' || listeTypeDeQuestions[i] === 'Carré') texteCorr += `<br><br>${texteEnCouleur(`Pour l'auto-correction, on peut vérifier que $[${A.nom + C.nom}]$ et $[${B.nom + D.nom}]$ mesurent bien tous les deux $${texNombre(segment(A, C).longueur, 2, true)}~\\text{cm}$`)}.<br>`
+      if (listeTypeDeQuestions[i] === 'Losange') texteCorr += `<br><br>${texteEnCouleur(`Pour l'auto-correction, on peut vérifier que $[${B.nom + D.nom}]$ mesure environ $${texNombre(segment(B, D).longueur, 2, true)}~\\text{cm}$`)}.<br>`
+      if (listeTypeDeQuestions[i] === 'Losange2diag' || listeTypeDeQuestions[i] === 'Carré1diag') texteCorr += `<br><br>${texteEnCouleur(`Pour l'auto-correction, on peut vérifier que tous les côtés du ${naturePoly} mesure environ $${texNombre(segment(A, B).longueur, 2, true)}~\\text{cm}$`)}.<br>`
+      if (listeTypeDeQuestions[i] === 'Rectangle1diag') texteCorr += `<br><br>${texteEnCouleur(`Pour l'auto-correction, on peut vérifier que $[${B.nom + C.nom}]$ mesure environ $${texNombre(segment(B, C).longueur, 2, true)}~\\text{cm}$`)}.<br>`
+      if (listeTypeDeQuestions[i] === 'Parallélogramme') texteCorr += `<br><br>${texteEnCouleur(`Pour l'auto-correction, on peut vérifier que $[${B.nom + D.nom}]$ mesure environ $${texNombre(segment(B, D).longueur, 2, true)}~\\text{cm}$`)}.<br>`
       texteCorr += anim.htmlBouton(numeroExercice, i)
 
       // Si la question n'a jamais été posée, on l'enregistre
