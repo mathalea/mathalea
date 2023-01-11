@@ -10,7 +10,7 @@ function underbraceMediane (nbVal) {
   return sortie
 }
 
-function desTabEffCumul (tirages, effCumulBool, categories = [], lignes = ['Catégories', 'Scores', 'Nombres d\'apparitions', 'Nombre d\'apparitions cumulées']) {
+function desTabEffCumul (tirages, effCumulBool, categories = [], lignes = ['Catégories', 'Scores', 'Nombre d\'apparitions', 'Nombre d\'apparitions cumulées']) {
   let sortie
   if (!effCumulBool) {
     sortie = ''

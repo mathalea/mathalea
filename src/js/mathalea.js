@@ -1223,7 +1223,9 @@ function miseAJourDuCode () {
       } else {
         codeMoodle =
           codeEnonces +
-          '\n\n%%%%%%%%%%%%%%%%%%%%%%\n%%%   CORRECTION   %%%\n%%%%%%%%%%%%%%%%%%%%%%\n\n\\newpage\n\\begin{correction}\n\n' +
+          '\n\n%%%%%%%%%%%%%%%%%%%%%%\n%%%   CORRECTION   %%%\n%%%%%%%%%%%%%%%%%%%%%%\n\n\\newpage\n\\begin{correction}\n' +
+          // pour compatibilité avec bclogo!
+          ($('#style_CoopMaths:checked').val() ? '\\mdfsetup{frametitle=}\\mdfsetup{tikzsetting={draw=correction,line width=3pt}}\n\n' : '\n\n') +
           codeCorrections +
           '\\end{correction}'
       }
@@ -1239,6 +1241,12 @@ function miseAJourDuCode () {
         for (let v = 0; v < $('#nombre_de_versions').val(); v++) {
           codeExercices += '\\version{' + (v + 1) + '}\n\n'
           codeCorrection += '\n\n\\newpage\n\\version{' + (v + 1) + '}\n\\begin{correction}'
+
+          if ($('#style_CoopMaths:checked').val()) {
+            // pour compatibilité avec bclogo!
+            codeCorrection += '\n\n\\mdfsetup{frametitle=}\\mdfsetup{tikzsetting={draw=correction,line width=3pt}}'
+          }
+
           if ($('#style_can:checked').val()) {
             const monSuperExercice = concatExercices(listeObjetsExercice)
             if (listeObjetsExercice.length === 1) {
