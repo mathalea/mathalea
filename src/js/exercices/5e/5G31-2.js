@@ -1,4 +1,5 @@
 import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, Triangles, tableauColonneLigne, miseEnEvidence } from '../../modules/outils.js'
 
 export const titre = 'Déterminer un angle dans un triangle et sa nature'
@@ -23,7 +24,8 @@ export default class anglesTrianglesTableau extends Exercice {
     this.titre = titre
     this.sup = 1
     this.nbQuestions = 1
-    this.spacing = 2
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5
+    context.isHtml ? this.spacing = 2 : this.spacing = 2
     this.consigneModifiable = false
     this.correctionDetailleeDisponible = true
     this.besoinFormulaireNumerique = ['Type de triangle', 6, ' 1 : Quelconque \n 2 : Rectangle \n 3 : Isocèle \n 4 : Isocèle rectangle \n 5 : Équilatéral \n 6 : Mélange']
@@ -129,12 +131,14 @@ export default class anglesTrianglesTableau extends Exercice {
       const anglesEnonce = this.affichageFactorise(triangle, type).enonce
       const anglesCorrection = this.affichageFactorise(triangle, type).correction
       sortie.texte = anglesEnonce.tableau
-      sortie.texteCorr = `Dans le triangle ${triangle.getNom()}, `
       if (this.correctionDetaillee) {
+        sortie.texteCorr = `Dans le triangle ${triangle.getNom()}, `
         sortie.texteCorr += `${anglesEnonce.noms[0]} + ${anglesEnonce.noms[1]} + ${anglesEnonce.noms[2]} $=180\\degree$<br>`
-        sortie.texteCorr += anglesCorrection.details
+        sortie.texteCorr += `${anglesCorrection.details}<br>`
       }
+      sortie.texteCorr += context.isHtml ? '' : '\\medskip '
       sortie.texteCorr += `${anglesCorrection.tableau} <br>`
+      sortie.texteCorr += context.isHtml ? '' : '<br>\\medskip '
       if (this.correctionDetaillee) {
         sortie.texteCorr += sortie.natureTriangleCorr
       }
