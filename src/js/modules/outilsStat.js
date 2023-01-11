@@ -215,8 +215,8 @@ function texteCorrMoyenneNotes (notesSeries, somme, nombreNotes, notes = 'notes'
   const data = [
     ['notes', 'la moyenne des notes', ''],
     ['lancers', 'la moyenne des lancers', ''],
-    ['températures', 'la moyenne des températures', '$\\mathbf{^\\circ\\text{C}}$'],
-    ['salaires', 'le salaire moyen', '€']
+    ['températures', 'la moyenne des températures', ' $\\mathbf{^\\circ\\text{C}}$'],
+    ['salaires', 'le salaire moyen', ' €']
   ]
 
   const noteStr = data.find(el => el[0] === notes) || ['', '', '']
@@ -259,9 +259,9 @@ function texteCorrMoyenneNotes (notesSeries, somme, nombreNotes, notes = 'notes'
   texteCorr += `La somme des ${notes} est : $${texNombre(somme)}$.<br> Il y a $${texNombre(nombreNotes)}$ ${notes}.<br>`
   texteCorr += `Donc ${texteGras(`${noteStr[1]} est `)} $\\mathbf{${texFraction(texNombre(somme), texNombre(nombreNotes))}`
   if (arrondi(somme / nombreNotes, 2) === somme / nombreNotes) { // moyenne exacte
-    texteCorr += `=${texNombre(somme / nombreNotes, 2)}}$ ${noteStr[2]}<br>.`
+    texteCorr += `=${texNombre(somme / nombreNotes, 2)}}$${noteStr[2]}.<br>`
   } else { // moyenne arrondie
-    texteCorr += ` \\approx${texNombre(somme / nombreNotes, 2)}}$ ${noteStr[2]}<br>.`
+    texteCorr += ` \\approx${texNombre(somme / nombreNotes, 2)}}$${noteStr[2]}.<br>`
   }
   return texteCorr
 }
@@ -270,11 +270,11 @@ function texteCorrEtendueNotes (min, max, note = 'note') {
   const data = [
     ['note', 'La note la plus basse', 'La note la plus haute', ''],
     ['lancer', 'Le résultat du lancer le plus faible', 'Le résultat du lancer le plus élevé', ''],
-    ['température', 'La température la plus basse', 'La température la plus haute', '$\\mathbf{^\\circ\\text{C}}$'],
-    ['salaire', 'Le salaire le plus bas', 'Le salaire le plus haut', '€']
+    ['température', 'La température la plus basse', 'La température la plus haute', ' $\\mathbf{^\\circ\\text{C}}$'],
+    ['salaire', 'Le salaire le plus bas', 'Le salaire le plus haut', ' €']
   ]
   const notes = data.find(el => el[0] === note) || ['', '', '', '']
-  let texteCorr = `${notes[1]} est $${min}$ ${notes[3]}.<br>${notes[2]} est $${max}$ ${notes[3]}.<br>`
+  let texteCorr = `${notes[1]} est $${min}$${notes[3]}.<br>${notes[2]} est $${max}$${notes[3]}.<br>`
   texteCorr += `Donc ${texteGras(`l'étendue des ${note}s est  $\\mathbf{${texNombre(max)}-${ecritureParentheseSiNegatif(min)}=${texNombre(max - min)}}$ ${notes[3]}`)}.`
   return texteCorr
 }
@@ -286,7 +286,7 @@ function texteCorrMedianeTemperatures (temperatures, medianeCorr, scoresMedians)
 function texteCorrMedianeNotes (notes, medianeCorr, scoresMedians, note = 'note') {
   const data = [
     ['note', '', '', ''],
-    ['température', '$\\mathbf{^\\circ\\text{C}}$', '', '']
+    ['température', ' $\\mathbf{^\\circ\\text{C}}$', '', '']
   ]
   const noteStr = data.find(el => el[0] === note) || ['', '', '', '']
   let texteCorr = `Au total, il y a $${notes.length}$ ${noteStr[0]}s. `
@@ -327,7 +327,7 @@ function texteCorrMedianeNotes (notes, medianeCorr, scoresMedians, note = 'note'
     En effet, ${underbraceMediane(notes.length)}<br>
     La médiane est donc la $${(notes.length + 1) / 2}^{e}$ ${noteStr[0]}.<br>`
   };
-  texteCorr += `D'où ${texteGras(`la médiane des ${noteStr[0]}s est ${scoresMedians[0] === scoresMedians[1] ? '' : `$\\mathbf{(${scoresMedians[0]} + ${scoresMedians[1]}) \\div 2=}$`} ${stringNombre(medianeCorr)} ${noteStr[1]}`)}.<br>`
+  texteCorr += `D'où ${texteGras(`la médiane des ${noteStr[0]}s est ${scoresMedians[0] === scoresMedians[1] ? '' : `$\\mathbf{(${scoresMedians[0]} + ${scoresMedians[1]}) \\div 2=}$`} ${stringNombre(medianeCorr)}${noteStr[1]}`)}.<br>`
   if (notes.length % 2 === 0) {
     texteCorr += lampeMessage({
       titre: 'Interprétation',
