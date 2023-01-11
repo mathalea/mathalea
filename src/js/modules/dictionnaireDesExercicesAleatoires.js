@@ -16913,6 +16913,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "can4C13": {
+    "titre": "Passer d'une fraction à un décimal",
+    "url": "/exercices/can/4e/can4C13.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4C13",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "can4G01": {
     "titre": "Déterminer une longueur avec des triangles semblables",
     "url": "/exercices/can/4e/can4G01.js",

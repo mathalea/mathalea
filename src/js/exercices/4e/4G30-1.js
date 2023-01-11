@@ -7,6 +7,8 @@ export const dateDePublication = '05/01/2023'
  * Référence 4G30-1
 */
 
+export const uuid = 'ff410'
+export const ref = '4G30-1'
 export default function RelationDeThales4e () {
   RelationDeThales.call(this)
   this.level = 4

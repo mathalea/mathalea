@@ -7,6 +7,8 @@ export const dateDePublication = '05/01/2023'
  * Référence 3G20-2
 */
 
+export const uuid = '6fd12'
+export const ref = '3G20-2'
 export default function RelationDeThales3e () {
   RelationDeThales.call(this)
   this.sup = 2

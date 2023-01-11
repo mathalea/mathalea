@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 544 
-- nombre d'exos interactifReady 836 
+- nombre d'exos amcReady 545 
+- nombre d'exos interactifReady 837 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -671,6 +671,7 @@
 |can4C10|Calculer une somme/différence de fractions égyptiennes|OK|AMCNum|OK|mathLive|
 |can4C11|Déterminer le signe d’une puissance|KO|KO|OK|qcm|
 |can4C12|Calculer la moitié d’une fraction|OK|AMCNum|OK|mathLive|
+|can4C13|Passer d'une fraction à un décimal|OK|AMCNum|OK|mathLive|
 |can4G01|Déterminer une longueur avec des triangles semblables|OK|AMCNum|OK|mathLive|
 |can4G02|Trouver l’image d’un point par une transformation|KO|KO|OK|mathLive|
 |can4G03|Calculer l’hypoténuse avec le théorème de Pythagore|KO|KO|OK|mathLive|

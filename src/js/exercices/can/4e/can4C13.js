@@ -15,6 +15,8 @@ export const dateDePublication = '10/01/2023'
  *
  */
 
+export const uuid = '7a0b1'
+export const ref = 'can4C13'
 export default function CalculFractionDecimal () {
   Exercice.call(this)
   this.typeExercice = 'simple'
