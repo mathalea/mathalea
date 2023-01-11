@@ -9,8 +9,9 @@ export const dateDePublication = '11/01/2023'
 *
 * Correction avec ou sans détails.
 * * Triangle quelconque.
-* * Triangle rectangle. 2 cas
-* * Triangle isocèle. 2 cas
+* * Triangle rectangle.
+* * Triangle isocèle.
+* * Triangle isocèle rectangle.
 * * Triangle équilatéral
 * @author Sébastien LOZANO
 * Référence 5G31-2
@@ -25,7 +26,7 @@ export default class anglesTrianglesTableau extends Exercice {
     this.spacing = 2
     this.consigneModifiable = false
     this.correctionDetailleeDisponible = true
-    this.besoinFormulaireNumerique = ['Type de triangle', 5, ' 1 : Quelconque \n 2 : Rectangle \n 3 : Isocèle \n 4 : Équilatéral \n 5 : Mélange']
+    this.besoinFormulaireNumerique = ['Type de triangle', 6, ' 1 : Quelconque \n 2 : Rectangle \n 3 : Isocèle \n 4 : Isocèle rectangle \n 5 : Équilatéral \n 6 : Mélange']
     // Une fonction pour calculer le troisième angle d'un triangle
     this.troisiemeAngle = function (a1, a2) {
       let sortie = -1
@@ -44,7 +45,7 @@ export default class anglesTrianglesTableau extends Exercice {
       switch (choix) {
         case 0:
           sortie.enonce.valeurs = ['\\ldots', triangle.a2, triangle.a3]
-          sortie.correction.details =  `Donc ${sortie.enonce.noms[0]} $=180\\degree-($ ${sortie.enonce.noms[1]} $+$ ${sortie.enonce.noms[2]} $)$.<br>`
+          sortie.correction.details = `Donc ${sortie.enonce.noms[0]} $=180\\degree-($ ${sortie.enonce.noms[1]} $+$ ${sortie.enonce.noms[2]} $)$.<br>`
           sortie.correction.details += `Donc ${sortie.enonce.noms[0]} $=180\\degree-( ${sortie.enonce.valeurs[1]}\\degree + ${sortie.enonce.valeurs[2]}\\degree )$.<br>`
           sortie.correction.details += `Donc ${sortie.enonce.noms[0]} $=180\\degree-${sortie.enonce.valeurs[1] + sortie.enonce.valeurs[2]}\\degree$.<br>`
           sortie.correction.details += `Donc ${sortie.enonce.noms[0]} $=${180 - sortie.enonce.valeurs[1] - sortie.enonce.valeurs[2]}\\degree$.<br>`
@@ -56,7 +57,7 @@ export default class anglesTrianglesTableau extends Exercice {
           break
         case 1:
           sortie.enonce.valeurs = [triangle.a1, '\\ldots', triangle.a3]
-          sortie.correction.details =  `Donc ${sortie.enonce.noms[1]} $=180\\degree-($ ${sortie.enonce.noms[0]} $+$ ${sortie.enonce.noms[2]} $)$.<br>`
+          sortie.correction.details = `Donc ${sortie.enonce.noms[1]} $=180\\degree-($ ${sortie.enonce.noms[0]} $+$ ${sortie.enonce.noms[2]} $)$.<br>`
           sortie.correction.details += `Donc ${sortie.enonce.noms[1]} $=180\\degree-( ${sortie.enonce.valeurs[0]}\\degree + ${sortie.enonce.valeurs[2]}\\degree )$.<br>`
           sortie.correction.details += `Donc ${sortie.enonce.noms[1]} $=180\\degree-${sortie.enonce.valeurs[0] + sortie.enonce.valeurs[2]}\\degree$.<br>`
           sortie.correction.details += `Donc ${sortie.enonce.noms[1]} $=${180 - sortie.enonce.valeurs[0] - sortie.enonce.valeurs[2]}\\degree$.<br>`
@@ -68,7 +69,7 @@ export default class anglesTrianglesTableau extends Exercice {
           break
         case 2:
           sortie.enonce.valeurs = [triangle.a1, triangle.a2, '\\ldots']
-          sortie.correction.details =  `Donc ${sortie.enonce.noms[2]} $=180\\degree-($ ${sortie.enonce.noms[1]} $+$ ${sortie.enonce.noms[0]} $)$.<br>`
+          sortie.correction.details = `Donc ${sortie.enonce.noms[2]} $=180\\degree-($ ${sortie.enonce.noms[1]} $+$ ${sortie.enonce.noms[0]} $)$.<br>`
           sortie.correction.details += `Donc ${sortie.enonce.noms[2]} $=180\\degree-( ${sortie.enonce.valeurs[1]}\\degree + ${sortie.enonce.valeurs[0]}\\degree )$.<br>`
           sortie.correction.details += `Donc ${sortie.enonce.noms[2]} $=180\\degree-${sortie.enonce.valeurs[1] + sortie.enonce.valeurs[0]}\\degree$.<br>`
           sortie.correction.details += `Donc ${sortie.enonce.noms[2]} $=${180 - sortie.enonce.valeurs[1] - sortie.enonce.valeurs[0]}\\degree$.<br>`
@@ -99,6 +100,30 @@ export default class anglesTrianglesTableau extends Exercice {
           triangle.a3 = this.troisiemeAngle(triangle.a1, triangle.a2)
           sortie.natureTriangleCorr = `Le triangle ${triangle.getNom()} ne présente aucune particularité donc c'est un triangle ${type}.`
           break
+        case 'rectangle':
+          triangle.a1 = 90
+          triangle.a2 = randint(20, 100, [triangle.a1])
+          triangle.a3 = this.troisiemeAngle(triangle.a1, triangle.a2)
+          sortie.natureTriangleCorr = `Le triangle ${triangle.getNom()} a un angle droit donc c'est un triangle ${type}.`
+          break
+        case 'isocèle':
+          triangle.a1 = randint(20, 100, [90])
+          triangle.a2 = triangle.a1
+          triangle.a3 = this.troisiemeAngle(triangle.a1, triangle.a2)
+          sortie.natureTriangleCorr = `Le triangle ${triangle.getNom()} a deux angles égaux donc c'est un triangle ${type}.`
+          break
+        case 'isocèle rectangle':
+          triangle.a1 = 90
+          triangle.a2 = 45
+          triangle.a3 = triangle.a2
+          sortie.natureTriangleCorr = `Le triangle ${triangle.getNom()} a deux angles égaux et un angle droit donc c'est un triangle ${type}.`
+          break
+        case 'équilatéral':
+          triangle.a1 = 60
+          triangle.a2 = 60
+          triangle.a3 = triangle.a2
+          sortie.natureTriangleCorr = `Le triangle ${triangle.getNom()} a trois angles égaux donc c'est un triangle ${type}.`
+          break
       }
       // On mélange pour l'affichage
       const anglesEnonce = this.affichageFactorise(triangle, type).enonce
@@ -125,20 +150,23 @@ export default class anglesTrianglesTableau extends Exercice {
 
     let typesDeQuestionsDisponibles
     switch (this.sup) {
-      case 1:
+      case 1: // quelconque
         typesDeQuestionsDisponibles = [1]
         break
-      case 2:
-        typesDeQuestionsDisponibles = [1]
+      case 2: // rectangle
+        typesDeQuestionsDisponibles = [2]
         break
-      case 3:
-        typesDeQuestionsDisponibles = [1]
+      case 3: // isocele
+        typesDeQuestionsDisponibles = [3]
         break
-      case 4:
-        typesDeQuestionsDisponibles = [1]
+      case 4: // isocele rectangle
+        typesDeQuestionsDisponibles = [4]
         break
-      case 5:
-        typesDeQuestionsDisponibles = [1]
+      case 5: // equilateral
+        typesDeQuestionsDisponibles = [5]
+        break
+      case 6:
+        typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
         break
     }
 
@@ -153,28 +181,30 @@ export default class anglesTrianglesTableau extends Exercice {
           texte = currentTriangle.texte
           texteCorr = currentTriangle.texteCorr
         }
-        //   // On crée le triangle
-        //   const triangle = new Triangles()
-        //   triangle.a1 = randint(10, 40)
-        //   triangle.a2 = randint(20, 100)
-        //   triangle.a3 = this.troisiemeAngle(triangle.a1, triangle.a2)
-        //   // On mélange pour l'affichage
-        //   const angles = this.affichageAnglesTableau(`${triangle.a1}\\degree`, `${triangle.a2}\\degree`, `${triangle.a3}\\degree`)
-        //   texte = `${tableauColonneLigne(
-        //     [`\\text{${triangle.getAngles()[0]}}`, `\\text{${triangle.getAngles()[1]}}`, `\\text{${triangle.getAngles()[2]}}`, '\\text{Nature du triangle}'],
-        //     [angles[0]],
-        //     [angles[1], angles[2], '']
-        //   )}`
-        //   if (this.correctionDetaillee) {
-        //     texteCorr += `${triangle.getAngles()[0]} + ${triangle.getAngles()[1]} + ${triangle.getAngles()[2]} $=180\\degree$<br>`
-        //     texteCorr += `Donc ${triangle.getAngles()[2]} $=180-($ ${triangle.getAngles()[0]} $+$ ${triangle.getAngles()[1]} $)$.<br>D'où le tableau complété : <br>`
-        //   }
-        //   texteCorr += `${tableauColonneLigne(
-        //     [`\\text{${triangle.getAngles()[0]}}`, `\\text{${triangle.getAngles()[1]}}`, `\\text{${triangle.getAngles()[2]}}`, '\\text{Nature du triangle}'],
-        //     [`${triangle.a1}\\degree`],
-        //     [`${triangle.a2}\\degree`, `${triangle.a3}\\degree`, '\\text{quelconque}']
-        //   )}`
-        // }
+          break
+        case 2: { // triangle rectangle
+          const currentTriangle = this.typeTriangle('rectangle')
+          texte = currentTriangle.texte
+          texteCorr = currentTriangle.texteCorr
+        }
+          break
+        case 3: { // triangle isocèle
+          const currentTriangle = this.typeTriangle('isocèle')
+          texte = currentTriangle.texte
+          texteCorr = currentTriangle.texteCorr
+        }
+          break
+        case 4: { // triangle isocèle rectangle
+          const currentTriangle = this.typeTriangle('isocèle rectangle')
+          texte = currentTriangle.texte
+          texteCorr = currentTriangle.texteCorr
+        }
+          break
+        case 5: { // triangle équilatéral
+          const currentTriangle = this.typeTriangle('équilatéral')
+          texte = currentTriangle.texte
+          texteCorr = currentTriangle.texteCorr
+        }
           break
       }
 
