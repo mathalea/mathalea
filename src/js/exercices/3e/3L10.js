@@ -172,7 +172,7 @@ export default function OpposeExpression () {
                 texte: '',
                 statut: '',
                 reponse: {
-                  texte: 'valeur de $a$ dans $ax^2+bx+c$',
+                  texte: `valeur de $m$ dans $m${choixLettre}^2+n${choixLettre}+p$`,
                   valeur: reponse1,
                   param: {
                     digits: 2,
@@ -189,7 +189,7 @@ export default function OpposeExpression () {
                 texte: '',
                 statut: '',
                 reponse: {
-                  texte: 'valeur de $b$ dans $ax^2+bx+c$',
+                  texte: `valeur de $n$ dans $m${choixLettre}^2+n${choixLettre}+p$`,
                   valeur: reponse2,
                   param: {
                     digits: 2,
@@ -206,7 +206,7 @@ export default function OpposeExpression () {
                 texte: '',
                 statut: '',
                 reponse: {
-                  texte: 'valeur de $c$ dans $ax^2+bx+c$',
+                  texte: `valeur de $p$ dans $m${choixLettre}^2+n${choixLettre}+p$`,
                   valeur: reponse3,
                   param: {
                     digits: 2,
