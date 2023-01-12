@@ -12,7 +12,7 @@ function ecritureParentheseSiNegatif (a, maximumFractionDigits = 15) {
   if (a instanceof Decimal) {
     return a.isNeg() ? `(${stringNombre(a, maximumFractionDigits)})` : `${stringNombre(a, maximumFractionDigits)}`
   }
-  const result = Intl.NumberFormat('fr-FR', { maximumFractionDigits: maximumFractionDigits }).format(a).replace(',', '{,}')
+  const result = Intl.NumberFormat('fr-FR', { maximumFractionDigits }).format(a).replace(',', '{,}')
   return a < 0 ? `(${result})` : result
 }
 export const uuid = '1803c'

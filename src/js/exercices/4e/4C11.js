@@ -402,7 +402,7 @@ export default function PrioritesEtRelatifs () {
           texteCorr += `${lettreDepuisChiffre(i + 1)} = $${etape}$ <br>`
         })
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a, b, c, d)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

@@ -1,0 +1,17 @@
+fenetreMathalea2d = [-11.5,-11.9,18.5,8.1]
+const A=point(1,0); B=point(4,0); D=point(-1,5)
+const E=point(-4,2); F=point(-2,-5);G=point(-5,-8); H=point(-9,-4);I=point(-7,0)
+const C=rotation(A,B,-90); J=rotation(H,I,90)
+const s1=segment(A,B); s2=segment(B,C); s3=segment(C,D); s4=segment(D,E,'blue')
+const s5=segment(E,F,'blue'); s6=segment(D,F,'blue');s7=segment(A,C,'red'); s8=segment(A,D,'red')
+const p=polygone([G,H,I,J],'#f15929')
+const monCodage1=afficheLongueurSegment(A,B)
+const monCodage2=codageSegments('X','blue',A,B, B,C, C,D)
+const monCodage3=codageSegments('||','red',[D,E,F])
+const monCodage4=codageSegments('O','black',s7,s8)
+const monCodage5=codageSegments('\\','black',p.listePoints)
+const monCodage6 = codageAngleDroit(A,B,C) //Fait un codage noir d’angle droit de 3 mm pour l’angle ABC
+const monCodage7 = codageAngleDroit(H,I,J,'blue',0.8) //Fait un codage bleu d’angle droit de 8 mm pour l’angle HIJ
+console.log(angle(B,C,D))
+console.log(B,C,D)
+const monCodage8 = afficheMesureAngle(B,C,D,'red', 1.5) // Affiche la mesure de l’angle ABC arrondie au degré près

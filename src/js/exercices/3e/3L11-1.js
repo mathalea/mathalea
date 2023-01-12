@@ -167,7 +167,7 @@ export default function DoubleDistributivite () {
           ]
         }
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions[i])) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

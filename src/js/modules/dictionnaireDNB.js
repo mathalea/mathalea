@@ -7363,7 +7363,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2022/tex/dnb_2022_09_metropole_1.tex',
     urlcor: '/dnb/2022/tex/dnb_2022_09_metropole_1_cor.tex',
-    tags: ['QCM', 'Puissances', 'Arithmétique', 'Calcul littéral', 'Equations', 'Probabilités']
+    tags: ['QCM', 'Puissances', 'Arithmétique', 'Calcul littéral', 'Équations', 'Probabilités']
   },
   dnb_2022_09_metropole_2: {
     annee: '2022',
@@ -7375,7 +7375,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2022/tex/dnb_2022_09_metropole_2.tex',
     urlcor: '/dnb/2022/tex/dnb_2022_09_metropole_2_cor.tex',
-    tags: ['Fonctions', 'Equations', 'Lecture graphique']
+    tags: ['Fonctions', 'Équations', 'Lecture graphique']
   },
   dnb_2022_09_metropole_3: {
     annee: '2022',
@@ -7459,7 +7459,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2022/tex/dnb_2022_09_polynesie_4.tex',
     urlcor: '/dnb/2022/tex/dnb_2022_09_polynesie_4_cor.tex',
-    tags: ['Fonctions', 'Programme de calculs', 'Equations', 'Lecture graphique']
+    tags: ['Fonctions', 'Programme de calculs', 'Équations', 'Lecture graphique']
   },
   dnb_2022_09_polynesie_5: {
     annee: '2022',

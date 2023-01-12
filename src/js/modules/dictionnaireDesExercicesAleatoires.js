@@ -3172,6 +3172,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "3G20-2": {
+    "titre": "Écrire une relation de Thalès",
+    "url": "/exercices/3e/3G20-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "3G20-2",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "3G20": {
     "titre": "Calculer des longueurs avec le théorème de Thalès",
     "url": "/exercices/3e/3G20.js",
@@ -4146,6 +4161,22 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "3S12",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "3S14": {
+    "titre": "Calculer des caractéristiques d'une série",
+    "url": "/exercices/3e/3S14.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "3S14",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -5436,6 +5467,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "4G30-1": {
+    "titre": "Écrire une relation de Thalès",
+    "url": "/exercices/4e/4G30-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4G30-1",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "4G30": {
     "titre": "Calculer des longueurs avec le théorème de Thalès",
     "url": "/exercices/4e/4G30.js",
@@ -6718,6 +6764,21 @@ export default {
     "name": "5G31-1",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "5G31-2": {
+    "titre": "Déterminer un angle dans un triangle",
+    "url": "/exercices/5e/5G31-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "5G31-2",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -9160,7 +9221,7 @@ export default {
     "interactifType": "qcm",
     "name": "6G22-1",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -9176,7 +9237,7 @@ export default {
     "interactifType": "qcm",
     "name": "6G22-2",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -11319,7 +11380,7 @@ export default {
     }
   },
   "FichierDeTests": {
-    "titre": "Calculer un angle, déduit de figures simples",
+    "titre": "Bonne année...",
     "url": "/exercices/6e/FichierDeTests.js",
     "amcReady": false,
     "interactifReady": true,
@@ -11327,6 +11388,21 @@ export default {
     "name": "FichierDeTests",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "bonneAnnee2023": {
+    "titre": "Bonne année...",
+    "url": "/exercices/6e/bonneAnnee2023.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "bonneAnnee2023",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -12604,6 +12680,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "betaCAN2024": {
+    "titre": "CAN Spéciale année 2024",
+    "url": "/exercices/beta/betaCAN2024.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCAN2024",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "betaCaNCM2": {
     "titre": "Course aux nombres CM2",
     "url": "/exercices/beta/betaCaNCM2.js",
@@ -12873,12 +12965,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "betaModele30_constructions_géométriques": {
+  "betaModele30_constructions_géométriques": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
+    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele30_constructions_géométriques",
+    "name": "betaModele30_constructions_géométriques",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -15515,6 +15607,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "can2G21": {
+    "titre": "Lire les coordonnées d'un point dans un repère",
+    "url": "/exercices/can/2e/can2G21.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2G21",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "can2L01": {
     "titre": "Déterminer le nombre de solutions d’une équation se ramenant à $x^2=a$",
     "url": "/exercices/can/2e/can2L01.js",
@@ -15653,6 +15761,22 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can2L09",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can2L10": {
+    "titre": "Simplifier un quotient",
+    "url": "/exercices/can/2e/can2L10.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2L10",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -16386,7 +16510,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can3L06",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -16797,6 +16921,25 @@ export default {
     "name": "can4C12",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can4C13": {
+    "titre": "Passer d'une fraction à un décimal",
+    "url": "/exercices/can/4e/can4C13.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4C13",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -17638,7 +17781,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can5C23",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

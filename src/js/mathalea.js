@@ -1223,7 +1223,9 @@ function miseAJourDuCode () {
       } else {
         codeMoodle =
           codeEnonces +
-          '\n\n%%%%%%%%%%%%%%%%%%%%%%\n%%%   CORRECTION   %%%\n%%%%%%%%%%%%%%%%%%%%%%\n\n\\newpage\n\\begin{correction}\n\n' +
+          '\n\n%%%%%%%%%%%%%%%%%%%%%%\n%%%   CORRECTION   %%%\n%%%%%%%%%%%%%%%%%%%%%%\n\n\\newpage\n\\begin{correction}\n' +
+          // pour compatibilité avec bclogo!
+          ($('#style_CoopMaths:checked').val() ? '\\mdfsetup{frametitle=}\\mdfsetup{tikzsetting={draw=correction,line width=3pt}}\n\n' : '\n\n') +
           codeCorrections +
           '\\end{correction}'
       }
@@ -1239,6 +1241,12 @@ function miseAJourDuCode () {
         for (let v = 0; v < $('#nombre_de_versions').val(); v++) {
           codeExercices += '\\version{' + (v + 1) + '}\n\n'
           codeCorrection += '\n\n\\newpage\n\\version{' + (v + 1) + '}\n\\begin{correction}'
+
+          if ($('#style_CoopMaths:checked').val()) {
+            // pour compatibilité avec bclogo!
+            codeCorrection += '\n\n\\mdfsetup{frametitle=}\\mdfsetup{tikzsetting={draw=correction,line width=3pt}}'
+          }
+
           if ($('#style_can:checked').val()) {
             const monSuperExercice = concatExercices(listeObjetsExercice)
             if (listeObjetsExercice.length === 1) {
@@ -2150,7 +2158,7 @@ function parametresExercice (exercice) {
       const paramTooltip = exercice[i].besoinFormulaireTexte[1] ? `data-tooltip="${exercice[i].besoinFormulaireTexte[1]}"` : ''
       divParametresGeneraux.innerHTML += `<div><label for='form_sup${i}'> ${exercice[i].besoinFormulaireTexte[0]} : </label>
                     <div style='display: inline' ${paramTooltip} data-inverted=''>
-                    <input id='form_sup${i}' type='text' size='20' ></div></div>`
+                    <input id='form_sup${i}' type='text' size='20' value="${exercice[i].sup}" ></div></div>`
     }
 
     if (exercice[i].besoin_formulaire_long_texte) {
@@ -2232,7 +2240,7 @@ function parametresExercice (exercice) {
       const paramTooltip = exercice[i].besoinFormulaire2Texte[1] ? `data-tooltip="${exercice[i].besoinFormulaire2Texte[1]}"` : ''
       divParametresGeneraux.innerHTML += `<div><label for='form_sup2${i}'> ${exercice[i].besoinFormulaire2Texte[0]} : </label>
                     <div style='display: inline' ${paramTooltip} data-inverted=''>
-                    <input id='form_sup2${i}' type='text' size='20' ></div></div>`
+                    <input id='form_sup2${i}' type='text' size='20'  value="${exercice[i].sup2}"  ></div></div>`
     }
 
     if (exercice[i].besoinFormulaire3CaseACocher) {
@@ -2282,7 +2290,7 @@ function parametresExercice (exercice) {
       const paramTooltip = exercice[i].besoinFormulaire3Texte[1] ? `data-tooltip="${exercice[i].besoinFormulaire3Texte[1]}"` : ''
       divParametresGeneraux.innerHTML += `<div><label for='form_sup3${i}'> ${exercice[i].besoinFormulaire3Texte[0]} : </label>
                     <div style='display: inline' ${paramTooltip} data-inverted=''>
-                    <input id='form_sup3${i}' type='text' size='20' ></div></div>`
+                    <input id='form_sup3${i}' type='text' size='20'  value="${exercice[i].sup3}" ></div></div>`
     }
 
     if (exercice[i].besoinFormulaire4CaseACocher) {
@@ -2332,7 +2340,7 @@ function parametresExercice (exercice) {
       const paramTooltip = exercice[i].besoinFormulaire4Texte[1] ? `data-tooltip="${exercice[i].besoinFormulaire4Texte[1]}"` : ''
       divParametresGeneraux.innerHTML += `<div><label for='form_sup4${i}'> ${exercice[i].besoinFormulaire4Texte[0]} : </label>
                     <div style='display: inline' ${paramTooltip} data-inverted=''>
-                    <input id='form_sup4${i}' type='text' size='20' ></div></div>`
+                    <input id='form_sup4${i}' type='text' size='20'  value="${exercice[i].sup4}" ></div></div>`
     }
   }
 
