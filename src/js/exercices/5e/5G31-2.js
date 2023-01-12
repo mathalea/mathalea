@@ -28,7 +28,7 @@ export default class anglesTrianglesTableau extends Exercice {
     context.isHtml ? this.spacing = 2 : this.spacing = 2
     this.consigneModifiable = false
     this.correctionDetailleeDisponible = true
-    this.besoinFormulaireNumerique = ['Type de triangle', 6, ' 1 : Quelconque \n 2 : Rectangle \n 3 : Isocèle \n 4 : Isocèle rectangle \n 5 : Équilatéral \n 6 : Mélange']
+    this.besoinFormulaireNumerique = ['Type de triangle', 6, ' 1 : Quelconque \n 2 : Rectangle \n 3 : Isocèle-Équlatéral \n 4 : Mélange']
     // Une fonction pour calculer le troisième angle d'un triangle
     this.troisiemeAngle = function (a1, a2) {
       let sortie = -1
@@ -158,16 +158,10 @@ export default class anglesTrianglesTableau extends Exercice {
         typesDeQuestionsDisponibles = [1]
         break
       case 2: // rectangle
-        typesDeQuestionsDisponibles = [2]
+        typesDeQuestionsDisponibles = [2, 4]
         break
-      case 3: // isocele
-        typesDeQuestionsDisponibles = [3]
-        break
-      case 4: // isocele rectangle
-        typesDeQuestionsDisponibles = [4]
-        break
-      case 5: // equilateral
-        typesDeQuestionsDisponibles = [5]
+      case 3: // isocele - equilatéral
+        typesDeQuestionsDisponibles = [3, 4, 5]
         break
       case 6:
         typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
