@@ -2,7 +2,7 @@ import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import { point, polygoneAvecNom, droiteGraduee, segmentAvecExtremites, segment, milieu, texteParPosition } from '../../../modules/2d.js'
-import { listeQuestionsToContenu, randint, stringNombre, texNombre, miseEnEvidence, shuffle, prenomF, choice, arrondi, sp } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, stringNombre, texNombre, texPrix, miseEnEvidence, shuffle, prenomF, choice, arrondi, sp } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { round, min } from 'mathjs'
@@ -58,7 +58,7 @@ export default function SujetCAN20186ieme () {
           a = randint(4, 8)
           b = randint(4, 9)
           texte = `$${a} \\times ${b}=$ `
-          texteCorr = `$${a} \\times ${b}=${a * b}$`
+          texteCorr = `$${a} \\times ${b}=${miseEnEvidence(a * b)}$`
           reponse = a * b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
@@ -72,7 +72,7 @@ export default function SujetCAN20186ieme () {
 
           reponse = a + b
           texte = `$${a} + ${b}=$ `
-          texteCorr = `$${a}+${b}=${a + b}$`
+          texteCorr = `$${a}+${b}=${miseEnEvidence(a + b)}$`
           reponse = a + b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
@@ -90,18 +90,18 @@ export default function SujetCAN20186ieme () {
           texte = `Quel est le nombre entier de ${m} dans $${texNombre(n)}$ ? `
           if (a !== 0) {
             if (m === 'centaines') {
-              texteCorr = `Comme $${a * 1000 + b * 100 + c * 10 + d}=${a * 10 + b}\\times 100+${c * 10 + d}$, il y a $${a * 10 + b}$ ${m} dans $${a * 1000 + b * 100 + c * 10 + d}$.`
+              texteCorr = `Comme $${a * 1000 + b * 100 + c * 10 + d}=${a * 10 + b}\\times 100+${c * 10 + d}$, il y a $${miseEnEvidence(a * 10 + b)}$ ${m} dans $${a * 1000 + b * 100 + c * 10 + d}$.`
               reponse = a * 10 + b
             } if (m === 'dizaines') {
-              texteCorr = `Comme $${a * 1000 + b * 100 + c * 10 + d}=${a * 100 + b * 10 + c}\\times 10+${d}$, il y a $${a * 100 + b * 10 + c}$ ${m} dans $${a * 1000 + b * 100 + c * 10 + d}$.`
+              texteCorr = `Comme $${a * 1000 + b * 100 + c * 10 + d}=${a * 100 + b * 10 + c}\\times 10+${d}$, il y a $${miseEnEvidence(a * 100 + b * 10 + c)}$ ${m} dans $${a * 1000 + b * 100 + c * 10 + d}$.`
               reponse = a * 100 + b * 10 + c
             }
           } else {
             if (m === 'centaines') {
-              texteCorr = `Comme  $${b * 100 + c * 10 + d}=${b}\\times 100+${c * 10 + d}$, il y a $${b}$ ${m} dans $${a * 1000 + b * 100 + c * 10 + d}$.`
+              texteCorr = `Comme  $${b * 100 + c * 10 + d}=${b}\\times 100+${c * 10 + d}$, il y a $${miseEnEvidence(b)}$ ${m} dans $${a * 1000 + b * 100 + c * 10 + d}$.`
               reponse = b
             } if (m === 'dizaines') {
-              texteCorr = `Comme $${b * 100 + c * 10 + d}=${b * 10 + c}\\times 10+${d}$, il y a $${b * 10 + c}$ ${m} dans $${a * 1000 + b * 100 + c * 10 + d}$.`
+              texteCorr = `Comme $${b * 100 + c * 10 + d}=${b * 10 + c}\\times 10+${d}$, il y a $${miseEnEvidence(b * 10 + c)}$ ${m} dans $${a * 1000 + b * 100 + c * 10 + d}$.`
               reponse = b * 10 + c
             }
           }
@@ -115,7 +115,7 @@ export default function SujetCAN20186ieme () {
           a = randint(1, 3) * 100 + randint(1, 10)
           b = choice([11, 12, 13])
           texte = `$${a}-${b}=$ `
-          texteCorr = `$${a}-${b}=${a - b}$. `
+          texteCorr = `$${a}-${b}=${miseEnEvidence(a - b)}$ `
           reponse = a - b
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -145,7 +145,7 @@ export default function SujetCAN20186ieme () {
           reponse = b + 15
           texte = `Ajoute un quart d'heure à $${a}$ h $${b}$ min.`
 
-          texteCorr = `Un quart d'heure est égal à $15$ minutes. Ainsi $${a}$ h $${b}$ min + $15$ min est égal à $${a}$ h $${b + 15}$ min.`
+          texteCorr = `Un quart d'heure est égal à $15$ minutes. Ainsi $${a}$ h $${b}$ min + $15$ min est égal à $${miseEnEvidence(a)}$ h $${miseEnEvidence(b + 15)}$ min.`
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'largeur12 inline', { texteApres: sp(5) + 'h' })
             setReponse(this, index, a, { formatInteractif: 'calcul' })
@@ -162,7 +162,7 @@ export default function SujetCAN20186ieme () {
           reponse = Math.round(a / 2)
           texte = `La moitié de $${a}$ est égale à : `
 
-          texteCorr = `La moitié de $${a}$ est égale à $${a}\\div 2=${texNombre(a / 2)}$.`
+          texteCorr = `La moitié de $${a}$ est égale à $${a}\\div 2=${miseEnEvidence(texNombre(a / 2))}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
@@ -191,7 +191,7 @@ export default function SujetCAN20186ieme () {
             step1: 1,
             step2: 1
           }))
-          texteCorr = `L'unité est divisée en $${a}$. Ainsi, le point d'interrogation est   $\\dfrac{${b}}{${a}}$.`
+          texteCorr = `L'unité est divisée en $${a}$. Ainsi, le point d'interrogation est   $\\dfrac{${miseEnEvidence(b)}}{${miseEnEvidence(a)}}$.`
           setReponse(this, index, reponse, { formatInteractif: 'fraction' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
@@ -206,7 +206,7 @@ export default function SujetCAN20186ieme () {
           texte = `$${a}$ ${truc} pèsent $${b}$ g.<br>
            `
 
-          texteCorr = `Si $${a}$ ${truc} pèsent $${b}$ g, alors $${k}\\times ${a}=${k * a}$ ${truc} pèsent $${k * b}$ g. `
+          texteCorr = `Si $${a}$ ${truc} pèsent $${b}$ g, alors $${k}\\times ${a}\\text{ ${truc} }=${k * a}$ ${truc} pèsent $${miseEnEvidence(k * b)}$ g. `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += `$${a * k}$ ${truc} pèsent ` + ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' g' } else { texte += `$${a * k}$ ${truc} pèsent ....... g.` }
@@ -219,7 +219,7 @@ export default function SujetCAN20186ieme () {
           reponse = Math.round(a / k)
           texte = `$${a}\\div ${k}=$`
 
-          texteCorr = `$${a}\\div ${k}=${a / k}$ car $${k}\\times ${a / k}=${a}$.`
+          texteCorr = `$${a}\\div ${k}=${miseEnEvidence(a / k)}$ car $${k}\\times ${a / k}=${a}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
@@ -229,7 +229,7 @@ export default function SujetCAN20186ieme () {
           a = randint(2, 9)
           b = randint(2, 9)
           texte = `Donne l'écriture décimale de $(${a}\\times 10)+\\left(${b}\\times \\dfrac{1}{100}\\right)$.`
-          texteCorr = `$(${a}\\times 10)+\\left(${b}\\times \\dfrac{1}{100}\\right)=${10 * a}+${b}\\times 0,01=${10 * a}+${texNombre(b / 100)}=${texNombre(10 * a + b / 100)}$`
+          texteCorr = `$(${a}\\times 10)+\\left(${b}\\times \\dfrac{1}{100}\\right)=${10 * a}+${b}\\times 0,01=${10 * a}+${texNombre(b / 100)}=${miseEnEvidence(texNombre(10 * a + b / 100))}$`
           reponse = arrondi(10 * a + b / 100, 2)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -241,7 +241,7 @@ export default function SujetCAN20186ieme () {
           reponse = a * 10 + b
           texte = `$${a}$ dizaines $${b}$ unités $=$ `
 
-          texteCorr = `$${a}$ dizaines $${b}$ unités $=${texNombre(a * 10)}+${b}=${texNombre(a * 10 + b)}$`
+          texteCorr = `$${a}$ dizaines $${b}$ unités $=${texNombre(a * 10)}+${b}=${miseEnEvidence(texNombre(a * 10 + b))}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
@@ -251,7 +251,7 @@ export default function SujetCAN20186ieme () {
         case 13 :
           a = choice([1, 2, 3, 4, 6, 7, 8, 9]) // numérateur
           reponse = arrondi(a / 5, 1)
-          texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee({
+          texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.7, style: 'margin: auto' }, droiteGraduee({
             Unite: 3,
             Min: 0,
             Max: 3.2,
@@ -268,7 +268,7 @@ export default function SujetCAN20186ieme () {
             step1: 1,
             step2: 1
           }))
-          texteCorr = `L'unité est divisée en $5$. Ainsi, l'abscisse du point A est $\\dfrac{${a}}{5}=${texNombre(reponse)}$`
+          texteCorr = `L'unité est divisée en $5$. Ainsi, l'abscisse du point $A$ est $\\dfrac{${a}}{5}=${miseEnEvidence(texNombre(reponse))}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
@@ -281,11 +281,11 @@ export default function SujetCAN20186ieme () {
           texte = `$${a}\\times ${texNombre(b)}=$ `
           if (b === 0.5) {
             texteCorr = `Multiplier par $0,5$ revient à multiplier par $\\dfrac{1}{2}$, c'est-à-dire diviser par $2$. <br>
-                                Ainsi : $${a}\\times ${texNombre(b)}=${a}\\div 2=${texNombre(reponse)}$.`
+                                Ainsi : $${a}\\times ${texNombre(b)}=${a}\\div 2=${miseEnEvidence(texNombre(reponse))}$.`
           }
           if (b === 0.25) {
             texteCorr = `Multiplier par $0,25$ revient à multiplier par $\\dfrac{1}{4}$, c'est-à-dire diviser par $4$. <br>
-                                Ainsi : $${a}\\times ${texNombre(b)}=${a}\\div 4=${texNombre(reponse)}$.`
+                                Ainsi : $${a}\\times ${texNombre(b)}=${a}\\div 4=${miseEnEvidence(texNombre(reponse))}$.`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
@@ -303,7 +303,7 @@ export default function SujetCAN20186ieme () {
           texte = `Avec $${a}$ ${fleurs}, un fleuriste compose $${b}$ bouquets identiques.<br>
           Combien y a-t-il de ${fleurs} dans chaque bouquet ?`
           texteCorr = `Le nombre de bouquets est donné par la division de  $${a}$ par $${b}$.<br>
-          On a $${a}\\div ${b}=${k}$. Ainsi, le fleuriste pourra composer $${k}$ bouquets identiques.`
+          On a $${a}\\div ${b}=${k}$. Ainsi, le fleuriste pourra composer $${miseEnEvidence(k)}$ bouquets identiques.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
@@ -314,19 +314,19 @@ export default function SujetCAN20186ieme () {
           texte = `L'écriture décimale ${a} de $1$ est : `
           if (a === 'du quart') {
             reponse = '0.25' // ça c'est un mon moyen d'éviter d'avoir des chiffres qui viennent s'ajouter à la fin du nombre.
-            texteCorr = `Le quart de $1$ est égal à $${1}\\div 4=0,25$.`
+            texteCorr = `Le quart de $1$ est égal à $${1}\\div 4=${miseEnEvidence(texNombre(0.25, 2))}$.`
           }
           if (a === 'du cinquième') {
             reponse = '0.2'
-            texteCorr = `Le cinquième de $1$ est égal à $${1}\\div 5=0,2$.`
+            texteCorr = `Le cinquième de $1$ est égal à $${1}\\div 5=${miseEnEvidence(texNombre(0.2, 1))}$.`
           }
           if (a === 'des trois quarts') {
             reponse = '0.75'
-            texteCorr = `Les trois quarts de  $1$ valent :  $${1}\\times\\dfrac{3}{4}=3\\times \\dfrac{1}{4}=3\\times 0,25=0,75$.`
+            texteCorr = `Les trois quarts de  $1$ valent :  $${1}\\times\\dfrac{3}{4}=3\\times \\dfrac{1}{4}=3\\times 0,25=${miseEnEvidence(texNombre(0.75, 2))}$.`
           }
           if (a === 'de la moitié') {
             reponse = '0.5'
-            texteCorr = `La moitié de $1$ est égale à $${1}\\div 2=0,5$.`
+            texteCorr = `La moitié de $1$ est égale à $${1}\\div 2=${miseEnEvidence(texNombre(0.5, 1))}$.`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
@@ -340,7 +340,7 @@ export default function SujetCAN20186ieme () {
 
           reponse = a * b * truc[c][1]
           texte = `Quel est le nombre $${a}$ fois plus grand que $${b}$ ${truc[c][0]} ?`
-          texteCorr = `Le nombre $${a}$ fois plus grand que $${b}$ ${truc[c][0]} est $${a}\\times ${b}\\times ${texNombre(truc[c][1])}=${texNombre(a * b * truc[c][1])}$.`
+          texteCorr = `Le nombre $${a}$ fois plus grand que $${b}$ ${truc[c][0]} est $${a}\\times ${b}\\times ${texNombre(truc[c][1])}=${miseEnEvidence(texNombre(a * b * truc[c][1]))}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -373,10 +373,10 @@ export default function SujetCAN20186ieme () {
           )
           reponse = arrondi(j * 1.5, 1)
           texte = 'Quelle est l\'aire du rectangle ?<br>'
-          texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+          texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
 
           texteCorr = `Le rectangle est constitué de  $${j}$ carrés d'aire $1$ cm$^2$ et de $${j}$ rectangles d'aire $0,5$ cm$^2$.<br>
-            Son aire totale est donc :  $1\\times ${j}+0,5\\times ${j}=${reponse}$ cm$^2$.
+            Son aire totale est donc :  $ ${j} \\times 1 \\text{ cm}^2+ ${j} \\times 0,5\\text{ cm}^2=${miseEnEvidence(texNombre(reponse, 2))}$ cm$^2$.
             `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -388,7 +388,7 @@ export default function SujetCAN20186ieme () {
           reponse = 2 * randint(3, 12) + 1
           a = arrondi(reponse / 2, 1)
           texte = `Le double de $${texNombre(a)}$ est égal à : `
-          texteCorr = `Le double de $${texNombre(a)}$ est égal à : $${texNombre(a)}\\times 2=${reponse}$.`
+          texteCorr = `Le double de $${texNombre(a)}$ est égal à : $${texNombre(a)}\\times 2=${miseEnEvidence(reponse)}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
@@ -403,7 +403,7 @@ export default function SujetCAN20186ieme () {
 
           texte = 'Encadre la fraction par deux entiers consécutifs :<br>'
 
-          texteCorr = `$${a} < \\dfrac{${n1}}{${d1}} < ${a + 1}$`
+          texteCorr = `$${miseEnEvidence(a)} < \\dfrac{${n1}}{${d1}} < ${miseEnEvidence(a + 1)}$`
           texteCorr += `$\\quad$  car $\\quad ${a}=\\dfrac{${a * d1}}{${d1}}\\quad$ et $\\quad${a + 1}=\\dfrac{${(a + 1) * d1}}{${d1}}$ `
 
           if (this.interactif) {
@@ -421,11 +421,11 @@ export default function SujetCAN20186ieme () {
           if (choice([true, false])) {
             texte = `Le tiers de $${a}$ oeufs est `
             reponse = Math.round(a / 3)
-            texteCorr = `Le tiers de $${a}$ oeufs est $${a}\\div 3=${a / 3}$ oeufs. `
+            texteCorr = `Le tiers de $${a}$ oeufs est $${a}\\div 3=${miseEnEvidence(a / 3)}$ oeufs. `
           } else {
             texte = `Le quart de $${a}$ oeufs est `
             reponse = Math.round(a / 4)
-            texteCorr = `Le quart de $${a}$ oeufs est $${a}\\div 4=${a / 4}$ oeufs. `
+            texteCorr = `Le quart de $${a}$ oeufs est $${a}\\div 4=${miseEnEvidence(a / 4)}$ oeufs. `
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -439,11 +439,11 @@ export default function SujetCAN20186ieme () {
           if (choice([true, false])) {
             texte = `Le tiers de $${a}$ g est `
             reponse = Math.round(a / 3)
-            texteCorr = `Le tiers de $${a}$ g est $${a}\\div 3=${a / 3}$ g. `
+            texteCorr = `Le tiers de $${a}$ g est $${a} \\text{ g }\\div 3=${miseEnEvidence(a / 3)}$ g. `
           } else {
             texte = `Le quart de $${a}$ g est `
             reponse = Math.round(a / 4)
-            texteCorr = `Le quart de $${a}$ g est $${a}\\div 4=${a / 4}$ g. `
+            texteCorr = `Le quart de $${a}$ g est $${a} \\text{ g } \\div 4=${miseEnEvidence(a / 4)}$ g. `
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -462,7 +462,7 @@ export default function SujetCAN20186ieme () {
             reponse = 2 * 1000000 + chiffre[a][1] * 100000 + chiffre[a][1] * 1000 + chiffre[a][1]
             texteCorr = `Deux-millions-${chiffre[a][0]}-cent-${chiffre[a][0]}-mille-${chiffre[a][0]} $=
             ${texNombre(2 * 1000000)} + ${texNombre(chiffre[a][1] * 100000)} + ${texNombre(chiffre[a][1] * 1000)} + ${texNombre(chiffre[a][1])}
-                        =${texNombre(2 * 1000000 + chiffre[a][1] * 100000 + chiffre[a][1] * 1000 + chiffre[a][1])}$. `
+                        =${miseEnEvidence(texNombre(2 * 1000000 + chiffre[a][1] * 100000 + chiffre[a][1] * 1000 + chiffre[a][1]))}$. `
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -472,7 +472,7 @@ export default function SujetCAN20186ieme () {
             texte = `Ecris en chiffres : <br>
               Deux-millions-${chiffre[a][0]}-mille-${chiffre[a][0]} `
             reponse = 2 * 1000000 + chiffre[a][1] * 1000 + chiffre[a][1]
-            texteCorr = `Deux-millions-${chiffre[a][0]}-mille-${chiffre[a][0]} $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre[a][1] * 1000)} + ${texNombre(chiffre[a][1])}=${texNombre(2 * 1000000 + chiffre[a][1] * 1000 + chiffre[a][1])}$. `
+            texteCorr = `Deux-millions-${chiffre[a][0]}-mille-${chiffre[a][0]} $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre[a][1] * 1000)} + ${texNombre(chiffre[a][1])}=${miseEnEvidence(texNombre(2 * 1000000 + chiffre[a][1] * 1000 + chiffre[a][1]))}$. `
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -482,7 +482,7 @@ export default function SujetCAN20186ieme () {
             texte = `Ecris en chiffres : <br>
               Deux-millions-${chiffre2[a][0]}-mille-${chiffre[a][0]} `
             reponse = 2 * 1000000 + chiffre2[a][1] * 1000 + chiffre[a][1]
-            texteCorr = `Deux-millions-${chiffre2[a][0]}-mille-${chiffre[a][0]} $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre2[a][1] * 1000)} + ${texNombre(chiffre[a][1])}=${texNombre(2 * 1000000 + chiffre2[a][1] * 1000 + chiffre[a][1])}$. `
+            texteCorr = `Deux-millions-${chiffre2[a][0]}-mille-${chiffre[a][0]} $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre2[a][1] * 1000)} + ${texNombre(chiffre[a][1])}=${miseEnEvidence(texNombre(2 * 1000000 + chiffre2[a][1] * 1000 + chiffre[a][1]))}$. `
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -492,7 +492,7 @@ export default function SujetCAN20186ieme () {
             texte = `Ecris en chiffres : <br>
               Deux-millions-${chiffre[a][0]}-mille-${chiffre2[a][0]} `
             reponse = 2 * 1000000 + chiffre[a][1] * 1000 + chiffre2[a][1]
-            texteCorr = `Deux-millions-${chiffre[a][0]}-mille-${chiffre2[a][0]} $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre[a][1] * 1000)} + ${texNombre(chiffre2[a][1])}=${texNombre(2 * 1000000 + chiffre[a][1] * 1000 + chiffre2[a][1])}$. `
+            texteCorr = `Deux-millions-${chiffre[a][0]}-mille-${chiffre2[a][0]} $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre[a][1] * 1000)} + ${texNombre(chiffre2[a][1])}=${miseEnEvidence(texNombre(2 * 1000000 + chiffre[a][1] * 1000 + chiffre2[a][1]))}$. `
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -504,12 +504,12 @@ export default function SujetCAN20186ieme () {
           a = arrondi(randint(4, 9) / 10, 1)
           k = randint(2, 5)
           reponse = a
-          texte = `$${k}$ sucettes coûtent $${texNombre(k * a, 1)}$ €. <br>
+          texte = `$${k}$ sucettes coûtent $${texPrix(k * a)}$ €. <br>
             Combien coûte $1$ sucette ?
              `
 
-          texteCorr = `$${k}$ sucettes couûtent $${texNombre(k * a, 2, true)}$ €, donc $1$ sucette coûte $${k}$ fois moins, c'est-à-dire :
-            $${texNombre(k * a, 2, true)}\\div ${k}=${texNombre(a, 2, true)}$ €.  `
+          texteCorr = `$${k}$ sucettes couûtent $${texPrix(k * a)}$ €, donc $1$ sucette coûte $${k}$ fois moins, c'est-à-dire :
+            $${texPrix(k * a)} \\text{ € }\\div ${k}=${miseEnEvidence(texPrix(a))}$ €.  `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' €' }
@@ -547,12 +547,12 @@ export default function SujetCAN20186ieme () {
             texteParPosition('B ', milieu(B, C).x - 2, milieu(B, C).y)
           )
           reponse = l2 * k
-          texte = 'Le rectangle B est un agrandissement du rectangle A. <br>'
+          texte = 'Le rectangle B est un agrandissement du rectangle A.<br>'
+          texte += 'Quelle est la longueur du rectangle B ?<br>'
+          texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
 
-          texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
-          texte += '<br>Quelle est la longueur du rectangle B ?'
           texteCorr = `La longueur du rectangle A est $${k}$ fois plus grande que sa largeur. On en déduit que la longueur du rectangle B est aussi $${k}$ fois plus grande que sa largeur.<br>
-          Elle est donc égale à $${l2}\\times ${k}=${k * l2}$ cm.
+          Elle est donc égale à $${l2}\\times ${k}=${miseEnEvidence(k * l2)}$ cm.
                   `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -565,7 +565,7 @@ export default function SujetCAN20186ieme () {
           b = randint(1, 9) / 10
           reponse = Math.round((a + b) * 1000)
           texte = `$${texNombre(a + b, 1)}$ milliers $=$ `
-          texteCorr = `$${texNombre(a + b, 1)}$ milliers $=${texNombre(a + b, 1)}\\times 1000=${texNombre(reponse)}$`
+          texteCorr = `$${texNombre(a + b, 1)}$ milliers $=${texNombre(a + b, 1)}\\times 1000=${miseEnEvidence(texNombre(reponse))}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
@@ -580,7 +580,7 @@ export default function SujetCAN20186ieme () {
           a = reponse * b
           texte = `${prenom1} a $${a}$ billes. Elle en a $${b}$ fois plus que sa soeur.<br>
             Combien de billes sa soeur  a-t-elle ? `
-          texteCorr = `Puisque ${prenom1} en  a $${b}$ fois plus, sa soeur en a $${b}$ fois moins, soit  : $${a}\\div ${b}=${a / b}$. `
+          texteCorr = `Puisque ${prenom1} en  a $${b}$ fois plus, sa soeur en a $${b}$ fois moins, soit  : $${a}\\div ${b}=${miseEnEvidence(a / b)}$. `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -590,7 +590,7 @@ export default function SujetCAN20186ieme () {
         case 28 :
           a = randint(2, 9)
           texte = `Complète $${a}$ m$^3=$ `
-          texteCorr = `$1$ m$^3$ est égal à $1000$ litres. Ainsi, $${a}$ m$^3=${a}\\times 1000=${texNombre(1000 * a)}$ L.`
+          texteCorr = `$1$ m$^3$ est égal à $1000$ litres. Ainsi, $${a}$ m$^3=${a}\\times ${texNombre(1000)} \\text{ L }=${miseEnEvidence(texNombre(1000 * a))}$ L.`
           reponse = a * 1000
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -607,7 +607,8 @@ export default function SujetCAN20186ieme () {
           texte = 'Recopie  le plus grand nombre : <br>'
 
           texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}`
-          texteCorr = 'Les trois nombres ont les mêmes unités, le plus grand est celui qui a le plus grand chiffre des dixièmes. S\'ils ont le même chiffre des dixièmes, le plus grand est celui qui a le plus grand chiffre des centièmes, etc...'
+          texteCorr = `Les trois nombres ont les mêmes unités, le plus grand est celui qui a le plus grand chiffre des dixièmes. S'ils ont le même chiffre des dixièmes, le plus grand est celui qui a le plus grand chiffre des centièmes, etc...<br>
+          Le plus grand nombre est donc : $${miseEnEvidence(texNombre(Math.max(a, b, c), 3))}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -620,7 +621,7 @@ export default function SujetCAN20186ieme () {
           c = randint(2, 3)
           texte = `À la cantine, il y a toujours $${a}$ entrées différentes, $${b}$ plats différents et $${c}$ desserts différents.<br>
             Combien de menus (composés d'une entrée, d'un plat et d'un dessert) différents peut-on avoir dans cette cantine ?`
-          texteCorr = `On peut avoir : $${a}\\times ${b}\\times ${c} =${a * b * c}$ menus diférents.`
+          texteCorr = `On peut avoir : $${a}\\times ${b}\\times ${c} =${miseEnEvidence(a * b * c)}$ menus diférents.`
           reponse = a * b * c
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }

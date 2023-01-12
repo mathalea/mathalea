@@ -61,26 +61,30 @@ export default function LectureCoordonnees () {
     `
     if (this.interactif) { this.question += 'Respecter les notations.<br>' }
     this.question += mathalea2d({ xmin: -3, xmax: 3, ymin: -2, ymax: 2, scale: 1, pixelsParCm: 50 }, r, o, traceA)
-    this.correction = 'L\'abscisse du point se lit sur l\'axe horizontal.'
+    this.correction = 'L\'abscisse du point se lit sur l\'axe horizontal.<br>'
     if (k1 === 3) {
-      if (a * k1 === 3 || a * k1 === -3 || a * k1 === 6 || a * k1 === -6) { this.correction += ` On lit $${texNombre(a, 2)}$.<br>` } else {
+      if (arrondi(a, 1) === arrondi(a, 0)) { this.correction += ` On lit $${texNombre(a, 2)}$.<br>` } else {
         this.correction += ` L'unité (sur l'axe des abscisses) est divisée en $${k1}$. <br>
       Le point a pour abscisse $\\dfrac{${arrondi(a * k1, 0)}}{${k1}}$.<br>`
       }
     } else {
-      this.correction += `L'unité (sur l'axe des abscisses) est divisée en $${k1}$. <br>
-    Le point a pour abscisse $\\dfrac{${arrondi(a * k1, 0)}}{${k1}}=${texNombre(a, 2)}$.<br>`
+      if (arrondi(a, 1) === arrondi(a, 0)) { this.correction += ` On lit $${texNombre(a, 2)}$.<br>` } else {
+        this.correction += ` L'unité (sur l'axe des abscisses) est divisée en $${k1}$. <br>
+      Le point a pour abscisse $\\dfrac{${arrondi(a * k1, 0)}}{${k1}}$.<br>`
+      }
     }
 
-    this.correction += 'L\'ordonnée du point  se lit sur l\'axe vertical.'
+    this.correction += 'L\'ordonnée du point se lit sur l\'axe vertical.<br>'
     if (k2 === 3) {
-      if (b * k2 === 3 || b * k2 === -3 || b * k2 === 6 || b * k2 === -6) { this.correction += ` On lit $${texNombre(a, 2)}$.<br>` } else {
+      if (arrondi(b, 1) === arrondi(b, 0)) { this.correction += ` On lit $${texNombre(b, 2)}$.<br>` } else {
         this.correction += ` L'unité (sur l'axe des ordonnées) est divisée en $${k2}$. <br>
       Le point a pour ordonnée $\\dfrac{${arrondi(b * k2, 0)}}{${k2}}$.<br>`
       }
     } else {
-      this.correction += ` L'unité (sur l'axe des ordonnées) est divisée en $${k2}$. <br>
-    Le point a pour ordonnée $\\dfrac{${arrondi(b * k2, 0)}}{${k2}}=${texNombre(b, 2)}$.<br>`
+      if (arrondi(b, 1) === arrondi(b, 0)) { this.correction += ` On lit $${texNombre(b, 2)}$.<br>` } else {
+        this.correction += ` L'unité (sur l'axe des ordonnées) est divisée en $${k2}$. <br>
+      Le point a pour ordonnée $\\dfrac{${arrondi(b * k2, 0)}}{${k2}}$.<br>`
+      }
     }
 
     this.reponse = [`(\\dfrac{${arrondi(a * k1, 0)}}{${k1}};\\dfrac{${arrondi(b * k2, 0)}}{${k2}})`,

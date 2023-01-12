@@ -111,7 +111,7 @@ export function exportQcmAmc (exercice, idExo) {
           texQr += '[true]'
         }
 
-        texQr += `\n\t\\end{${type === 'qcmMono' ? 'question' : 'questionmult'}}\n }\n`
+        texQr += '\n\t\\end{question}\n }\n'
         id++
         break
       case 'AMCNum': // AMCNum avec encodage numérique de la réponse
