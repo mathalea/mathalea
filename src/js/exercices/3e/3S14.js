@@ -90,15 +90,15 @@ export default function CalculerCaracteristiques () {
               // moyenne
               texte += '<br>' + numAlpha(questind) + 'Calculer la moyenne des lancers.'
               const [, somme] = OutilsStats.computeMoyenneTirages2D(tirages)
-              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(somme, nombreTirages, 'lancers')
+              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(tirages, somme, nombreTirages, 'lancers')
             } else if (typeQuestions[k] === 2) {
               // médiane
               texte += '<br>' + numAlpha(questind) + 'Calculer la médiane des lancers.'
-              const [, medianeCorr] = OutilsStats.computeMedianeTirages2D(nombreTirages, tirages)
-              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMedianeTirages2D(nombreTirages, medianeCorr, tirages)
+              const [scoresMedians, medianeCorr] = OutilsStats.computeMedianeTirages2D(nombreTirages, tirages)
+              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMedianeTirages2D(nombreTirages, medianeCorr, scoresMedians, tirages)
             } else {
               // étendue
-              texte += '<br>' + numAlpha(questind) + 'Calculer l\'étendue de ces lancers.'
+              texte += '<br>' + numAlpha(questind) + 'Calculer l\'étendue des lancers.'
               const [min, max] = [tirages[0][0], tirages[tirages.length - 1][0]]
               texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrEtendueNotes(min, max, 'lancer')
             }
@@ -121,12 +121,12 @@ export default function CalculerCaracteristiques () {
               // moyenne
               texte += '<br>' + numAlpha(questind) + 'Calculer la moyenne de ces notes.'
               const [, somme] = OutilsStats.computeMoyenne(notes)
-              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(somme, nombreNotes)
+              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(notes, somme, nombreNotes)
             } else if (typeQuestions[k] === 2) {
               // médiane
               texte += '<br>' + numAlpha(questind) + 'Calculer la médiane de ces notes.'
-              const [, medianeCorr] = OutilsStats.computeMediane(notes)
-              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMedianeNotes(notes, medianeCorr)
+              const [mediane, medianeCorr] = OutilsStats.computeMediane(notes)
+              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMedianeNotes(notes, medianeCorr, mediane)
             } else {
               // étendue
               texte += '<br>' + numAlpha(questind) + 'Calculer l\'étendue de ces notes.'
@@ -160,15 +160,15 @@ export default function CalculerCaracteristiques () {
               // moyenne
               texte += '<br>' + numAlpha(questind) + 'Calculer la moyenne des températures.'
               const [, somme] = OutilsStats.computeMoyenne(temperatures)
-              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(somme, temperatures.length, 'températures')
+              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(temperatures, somme, temperatures.length, 'températures')
             } else if (typeQuestions[k] === 2) {
               // médiane
-              texte += '<br>' + numAlpha(questind) + 'Calculer la médiane de ces temperatures.'
-              const [, medianeCorr] = OutilsStats.computeMediane(temperatures)
-              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMedianeTemperature(temperatures, medianeCorr)
+              texte += '<br>' + numAlpha(questind) + 'Calculer la médiane des temperatures.'
+              const [mediane, medianeCorr] = OutilsStats.computeMediane(temperatures)
+              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMedianeTemperatures(temperatures, medianeCorr, mediane)
             } else {
               // étendue
-              texte += '<br>' + numAlpha(questind) + 'Calculer l\'étendue de ces températures.'
+              texte += '<br>' + numAlpha(questind) + 'Calculer l\'étendue des températures.'
               const [min, max] = OutilsStats.computeEtendue(temperatures)
               texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrEtendueNotes(min, max, 'température')
             }
@@ -190,13 +190,13 @@ export default function CalculerCaracteristiques () {
               // moyenne
               texte += '<br>' + numAlpha(questind) + 'Calculer le salaire moyen.'
               const [, somme, effectif] = OutilsStats.computeMoyenneTirages2D(salaires)
-              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(somme, effectif, 'salaires')
+              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(salaires, somme, effectif, 'salaires')
             } else if (typeQuestions[k] === 2) {
               // médiane
               texte += '<br>' + numAlpha(questind) + 'Calculer le salaire médian.'
               const [, , effectif] = OutilsStats.computeMoyenneTirages2D(salaires)
-              const [, medianeCorr] = OutilsStats.computeMedianeTirages2D(effectif, salaires)
-              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMedianeTirages2DSalaires(effectif, medianeCorr, salaires, ['\\hspace{0.3cm}Ouvrier\\hspace{0.3cm}', 'Ouvrier qualifié', '\\hspace{0.5cm}Cadre\\hspace{0.5cm}', 'Cadre supérieur', 'Dirigeant'])
+              const [scoresMedians, medianeCorr] = OutilsStats.computeMedianeTirages2D(effectif, salaires)
+              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMedianeTirages2DSalaires(effectif, medianeCorr, scoresMedians, salaires, ['\\hspace{0.3cm}Ouvrier\\hspace{0.3cm}', 'Ouvrier qualifié', '\\hspace{0.5cm}Cadre\\hspace{0.5cm}', 'Cadre supérieur', 'Dirigeant'])
             } else {
               // étendue
               texte += '<br>' + numAlpha(questind) + 'Calculer l\'étendue des salaires.'

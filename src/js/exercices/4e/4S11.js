@@ -53,8 +53,8 @@ export default function DeterminerDesMedianes () {
         }
         tirages = tirerLesDes(nombreTirages, nombreFaces, nombreDes) // on récupère une série rangée dans l'ordre croissant avec les effectifs correspondants
         texte = OutilsStats.texteTirages2D(nombreDes, nombreTirages, nombreFaces, tirages)
-        const [, medianeCorr] = OutilsStats.computeMedianeTirages2D(nombreTirages, tirages)
-        texteCorr = OutilsStats.texteCorrMedianeTirages2D(nombreTirages, medianeCorr, tirages)
+        const [scoresMedians, medianeCorr] = OutilsStats.computeMedianeTirages2D(nombreTirages, tirages)
+        texteCorr = OutilsStats.texteCorrMedianeTirages2D(nombreTirages, medianeCorr, scoresMedians, tirages)
         repInteractive = medianeCorr
       } else if (this.sup === 2) { // ici on trie des notes
         if (listePairOuImpair[i] === 'pair') {
@@ -65,7 +65,7 @@ export default function DeterminerDesMedianes () {
         notes = listeDeNotes(nombreNotes, randint(0, 7), randint(13, 20)) // on récupère une liste de notes (série brute)
         texte = OutilsStats.texteNotes(nombreNotes, notes)
         const [mediane, medianeCorr] = OutilsStats.computeMediane(notes)
-        texteCorr = OutilsStats.texteCorrNotes(nombreNotes, notes, medianeCorr)
+        texteCorr = OutilsStats.texteCorrMedianeNotes(nombreNotes, notes, medianeCorr, mediane)
         repInteractive = mediane
       } else { // ici on relève des températures
         const annee = randint(1980, 2019)
@@ -85,7 +85,7 @@ export default function DeterminerDesMedianes () {
         temperatures = unMoisDeTemperature(temperaturesDeBase[mois - 1], mois, annee) // on récupère une série de température correspondant à 1 mois d'une année (série brute)
         texte = OutilsStats.texteTemperatures(annee, mois, temperatures)
         const [mediane, medianeCorr] = OutilsStats.computeMediane(temperatures)
-        texteCorr = OutilsStats.texteCorrMedianeTemperature(temperatures, medianeCorr)
+        texteCorr = OutilsStats.texteCorrMedianeTemperatures(temperatures, medianeCorr, mediane)
         repInteractive = mediane
       }
 
