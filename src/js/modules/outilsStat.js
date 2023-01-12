@@ -216,7 +216,8 @@ function texteCorrMoyenneNotes (notesSeries, somme, nombreNotes, notes = 'notes'
     ['notes', 'la moyenne des notes', ''],
     ['lancers', 'la moyenne des lancers', ''],
     ['températures', 'la moyenne des températures', ' $\\mathbf{^\\circ\\text{C}}$'],
-    ['salaires', 'le salaire moyen', ' €']
+    ['salaires', 'le salaire moyen', ' €'],
+    ['pointures', 'la pointure moyenne', '']
   ]
 
   const noteStr = data.find(el => el[0] === notes) || ['', '', '']
@@ -271,7 +272,8 @@ function texteCorrEtendueNotes (min, max, note = 'note') {
     ['note', 'La note la plus basse', 'La note la plus haute', ''],
     ['lancer', 'Le résultat du lancer le plus faible', 'Le résultat du lancer le plus élevé', ''],
     ['température', 'La température la plus basse', 'La température la plus haute', ' $\\mathbf{^\\circ\\text{C}}$'],
-    ['salaire', 'Le salaire le plus bas', 'Le salaire le plus haut', ' €']
+    ['salaire', 'Le salaire le plus bas', 'Le salaire le plus haut', ' €'],
+    ['pointure', 'La pointure la plus basse', 'La pointure la plus haute', '']
   ]
   const notes = data.find(el => el[0] === note) || ['', '', '', '']
   let texteCorr = `${notes[1]} est $${min}$${notes[3]}.<br>${notes[2]} est $${max}$${notes[3]}.<br>`
@@ -344,33 +346,40 @@ function texteCorrMedianeNotes (notes, medianeCorr, scoresMedians, note = 'note'
   return texteCorr
 }
 
-function texteCorrMedianeTirages2DSalaires (nombreTirages, medianeCorr, scoresMedians, salaires, categories) {
-  let texteCorr = `Dans l'entreprise, le nombre de salariés est $${nombreTirages}$.<br>`
+function texteCorrMedianeTirages2DSalaires (nombreTirages, medianeCorr, scoresMedians, salaires, categories, salaire = 'salaire') {
+  const data = [
+    ['note', 'F', 'la médiane des notes', '', `En comptant les coefficients, le nombre équivalent de notes est $${nombreTirages}$.<br> Par exemple, un coefficient de 3 revient à avoir 3 fois la note correspondante.`, ['', 'Note', 'Coefficient (Effectif)', 'Effectifs cumulés']],
+    ['salaire', 'M', 'le salaire médian', ' €', `Dans l'entreprise, le nombre de salariés est $${nombreTirages}$.`, ['Catégories', 'Salaires en €', 'Effectif', 'Effectifs cumulés']],
+    ['pointure', 'M', 'la pointure médianne', '', `Le nombre de pointures relevées est $${nombreTirages}$.`, ['', 'Pointure', 'Effectif', 'Effectifs cumulés']]
+  ]
+  const salairesStr = data.find(el => el[0] === salaire) || ['', '', '', '', '', '']
+
+  let texteCorr = salairesStr[4] + '<br>'
   if (nombreTirages % 2 === 0) {
-    texteCorr += `Ce nombre est pair, les salaires sont rangés dans l'ordre croissant.<br>
+    texteCorr += `Ce nombre est pair, les ${salairesStr[0]}s sont rangé${salairesStr[0] === 'M' ? '' : 'e'}s dans l'ordre croissant.<br>
               Les deux valeurs centrales sont la $${nombreTirages / 2}^{e}$ valeur et la $${nombreTirages / 2 + 1}^{e}$ valeur.<br>
               En effet, ${underbraceMediane(nombreTirages)} <br>
               La médiane est la demi-somme des deux valeurs centrales. <br>              
               On peut ajouter une ligne avec les effectifs cumulés pour trouver ces deux valeurs.<br><br>
-              ${desTabEffCumul(salaires, true, categories, ['Catégories', 'Salaires en €', 'Effectif', 'Effectifs cumulés'])}<br><br>
+              ${desTabEffCumul(salaires, true, categories, salairesStr[5])}<br><br>
               La $${nombreTirages / 2}^{e}$ valeur est $${scoresMedians[0]}$ et la $${nombreTirages / 2 + 1}^{e}$ valeur est $${scoresMedians[1]}$.<br>`
-    texteCorr += `D'où ${texteGras(`le salaire médian est ${scoresMedians[0] === scoresMedians[1] ? '' : `$(${scoresMedians[0]} + ${scoresMedians[1]}) \\div 2=$`} ${stringNombre(medianeCorr)}`)} €.<br>`
+    texteCorr += `D'où ${texteGras(`${salairesStr[2]} est ${scoresMedians[0] === scoresMedians[1] ? '' : `$(${scoresMedians[0]} + ${scoresMedians[1]}) \\div 2=$`} ${stringNombre(medianeCorr)}`)}${salairesStr[3]}.<br>`
     texteCorr += lampeMessage({
       titre: 'Interprétation',
-      texte: `Il y a bien $${(nombreTirages) / 2}$ salaires dont la valeure est inférieure ou égale à  $${texNombre(medianeCorr)}$ € et $${(nombreTirages) / 2}$ salaires dont la valeur est supérieure ou égale à  $${texNombre(medianeCorr)}$ €.`,
+      texte: `Il y a bien $${(nombreTirages) / 2}$ ${salairesStr[0]}s dont la valeure est inférieure ou égale à  $${texNombre(medianeCorr)}$${salairesStr[3]} et $${(nombreTirages) / 2}$ ${salairesStr[0]}s dont la valeur est supérieure ou égale à  $${texNombre(medianeCorr)}$${salairesStr[3]}.`,
       couleur: 'nombres'
     })
   } else { // Le nombre de tirages est impair
-    texteCorr += `Ce nombre est impair, les salaires sont rangés dans l'ordre croissant.<br>
+    texteCorr += `Ce nombre est impair, les ${salairesStr[0]}s sont rangé${salairesStr[0] === 'M' ? '' : 'e'}s dans l'ordre croissant.<br>
                   La valeur centrale est la $${(nombreTirages - 1) / 2 + 1}^{e}$ valeur.<br>
                   En effet, ${underbraceMediane(nombreTirages)} <br>
-                  La médiane est donc le $${(nombreTirages - 1) / 2 + 1}^{e}$ salaire.<br>
+                  La médiane est donc la $${(nombreTirages - 1) / 2 + 1}^{e}$ valeur.<br>
                   On peut ajouter une ligne avec les effectifs cumulés pour trouver cette valeur.<br><br>
-                  ${desTabEffCumul(salaires, true, categories, ['Catégories', 'Salaires en €', 'Effectif', 'Effectifs cumulés'])}<br><br>`
-    texteCorr += `D'où ${texteGras(`le salaire médian est ${stringNombre(medianeCorr)}`)} €.<br>`
+                  ${desTabEffCumul(salaires, true, categories, salairesStr[5])}<br><br>`
+    texteCorr += `D'où ${texteGras(`${salairesStr[2]} est ${stringNombre(medianeCorr)}`)}${salairesStr[3]}.<br>`
     texteCorr += lampeMessage({
       titre: 'Interprétation',
-      texte: `Il y a bien $${(nombreTirages - 1) / 2}$ salaires dont la valeure est inférieure ou égale à  $${texNombre(medianeCorr)}$ et $${(nombreTirages - 1) / 2}$ salaires dont la valeur est supérieure ou égale à  $${texNombre(medianeCorr)}$ €.`,
+      texte: `Il y a bien $${(nombreTirages - 1) / 2}$ ${salairesStr[0]}s dont la valeure est inférieure ou égale à  $${texNombre(medianeCorr)}$${salairesStr[3]} et $${(nombreTirages - 1) / 2}$ ${salairesStr[0]}s dont la valeur est supérieure ou égale à  $${texNombre(medianeCorr)}$${salairesStr[3]}.`,
       couleur: 'nombres'
     })
   }
@@ -439,9 +448,15 @@ function texteTemperatures (annee, mois, temperatures) {
   return texte
 }
 
-function texteSalaires (salaires, categories) {
-  let texte = 'La grille des salaires des employés d\'une PME est donnée par le tableau ci-dessous :<br> '
-  texte += desTabEffCumul(salaires, false, categories, ['Catégories', 'Salaires en €', 'Effectif'])
+function texteSalaires (salaires, categoriesCol, salaire = 'salaires') {
+  const data = [
+    ['salaires', 'La grille des salaires des employés d\'une PME est donnée par le tableau ci-dessous', ['Catégories', 'Salaires en €', 'Effectif']],
+    ['notes', `Voici les notes obtenues par ${prenom()} en mathématiques ce trimestre`, ['', 'Note', 'Coefficient']],
+    ['pointures', `Pour passer une commande de chaussures de foot, ${prenom()} a noté les pointures des membres de son club dans un tableau`, ['', 'Pointure', 'Effectif']]
+  ]
+  const salairesStr = data.find(el => el[0] === salaire) || ['', '', '', '']
+  let texte = salairesStr[1] + ' :<br> '
+  texte += desTabEffCumul(salaires, false, categoriesCol, salairesStr[2])
   return texte
 }
 
