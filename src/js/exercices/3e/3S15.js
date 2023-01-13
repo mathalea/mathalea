@@ -1,5 +1,6 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, ecritureParentheseSiNegatif, prenom, listeDeNotes, unMoisDeTemperature, nomDuMois, texNombre, sp, miseEnEvidence, combinaisonListes } from '../../modules/outils.js'
+import { OutilsStats } from '../../modules/outilsStat.js'
+import { listeQuestionsToContenu, randint, listeDeNotes, unMoisDeTemperature, combinaisonListes } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Calculer des étendues'
@@ -13,6 +14,7 @@ export const dateDeModifImportante = '31/08/2022'
  * @author Jean-Claude Lhote
  * Référence 3S15
  * Ajout d'un paramètre "Mélange" par Guillaume Valmont le 31/08/2022
+ * 12/01/2023 Mickael Guironnet Refactoring
 */
 export const uuid = '36e68'
 export const ref = '3S15'
@@ -44,62 +46,22 @@ export default function CalculerEtendues () {
         case 'notes':
           nombreNotes = randint(8, 12)
           notes = listeDeNotes(nombreNotes, randint(0, 7), randint(13, 20)) // on récupère une série de notes (série brute)
-          min = 20
-          max = 0
-          for (let j = 0; j < nombreNotes; j++) { // On cherche la note minimum et la note maximum
-            min = Math.min(notes[j], min)
-            max = Math.max(notes[j], max)
-          }
-          texte = `${prenom()} a obtenu ces notes ce trimestre-ci en mathématiques :<br>`
-          texte += `$${notes[0]}$`
-          for (let j = 1; j < nombreNotes - 1; j++) { texte += `; $${notes[j]}$ ` } // On liste les notes
-          texte += `et $${notes[nombreNotes - 1]}$.<br>`
-          texte += 'Calculer l\'étendue de cette série de notes.'
-          texteCorr = `La note la plus basse est : $${min}$.<br>La note la plus haute est $${max}$<br>`
-          texteCorr += 'Donc l\'étendue de cette série est : ' + `$${texNombre(max)}-${texNombre(min)}=${texNombre(max - min)}$`
+          texte = OutilsStats.texteNotes(notes)
+          texte += '<br>Calculer l\'étendue de ces notes.';
+          [min, max] = OutilsStats.computeEtendue(notes)
+          texteCorr = '<br>' + OutilsStats.texteCorrEtendueNotes(min, max)
           break
         case 'températures': {
           const mois = randint(1, 12)
           const annee = randint(1980, 2019)
           const temperaturesDeBase = [3, 5, 9, 13, 19, 24, 26, 25, 23, 18, 10, 5]
           temperatures = unMoisDeTemperature(temperaturesDeBase[mois - 1], mois, annee) // série brute de un mois de température
-          max = 0
-          min = 20
-          texte = `En ${nomDuMois(mois)} ${annee}, à ${choice(['Moscou', 'Berlin', 'Paris', 'Bruxelles', 'Rome', 'Belgrade'])}, on a relevé les températures suivantes<br>`
-
-          texte += '$\\def\\arraystretch{1.5}\\begin{array}{|c' // tableau des températures 1/2
-          texte += '|c'
-          for (let j = 0; j < Math.round(temperatures.length / 2); j++) { texte += '|c' }
-          texte += '}\\hline  \\text{Jour}'
-          for (let j = 0; j < Math.round(temperatures.length / 2); j++) { texte += '&' + texNombre(j + 1) }
-          texte += '\\\\\\hline \\text{Température en}  ^\\circ\\text{C}'
-          for (let j = 0; j < Math.round(temperatures.length / 2); j++) { // on cherche le minimum et le maximum
-            texte += '&' + temperatures[j]
-            min = Math.min(temperatures[j], min)
-            max = Math.max(temperatures[j], max)
-          }
-          texte += '\\\\\\hline\\end{array}$<br><br>'
-
-          texte += '$\\def\\arraystretch{1.5}\\begin{array}{|c' // tableau des températures 2/2
-          texte += '|c'
-          for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++) { texte += '|c' }
-          texte += '}\\hline  \\text{Jour}'
-          for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++) { texte += '&' + texNombre(j + 1) }
-          texte += '\\\\\\hline \\text{Température en}  ^\\circ\\text{C}'
-          for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++) { // on cherche le minimum et le maximum
-            texte += '&' + temperatures[j]
-            min = Math.min(temperatures[j], min)
-            max = Math.max(temperatures[j], max)
-          }
-          texte += '\\\\\\hline\\end{array}$<br><br>'
-
-          texte += 'Calculer l\'amplitude thermique de ce mois (l\'étendue de la série).'
-          texteCorr = `En ${nomDuMois(mois)} ${annee}, la température minimale est ` + `$${min}^\\circ\\text{C}$.<br>La température maximale est $${max}^\\circ\\text{C}$.<br> L'amplitude thermique est : `
-          texteCorr += `$${texNombre(max)}^\\circ\\text{C}-${ecritureParentheseSiNegatif(min)}^\\circ\\text{C}$`
-          if (min < 0) { texteCorr += `$${sp(2)}=${texNombre(max)}^\\circ\\text{C}+${texNombre(-min)}^\\circ\\text{C}$` }
-          texteCorr += `$${sp(2)}=${miseEnEvidence(texNombre(max - min) + '^\\circ\\text{C}')}$.`
-        }
+          texte = OutilsStats.texteTemperatures(annee, mois, temperatures)
+          texte += '<br>Calculer l\'étendue des températures.';
+          [min, max] = OutilsStats.computeEtendue(temperatures)
+          texteCorr = '<br>' + OutilsStats.texteCorrEtendueNotes(min, max, 'température')
           break
+        }
       }
       setReponse(this, i, max - min)
       texte += ajouteChampTexteMathLive(this, i)

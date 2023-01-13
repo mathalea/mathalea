@@ -34,17 +34,17 @@ export default function CalculerCaracteristiques () {
 
     let questionsDisponibles = []
     if (!this.sup) { // Si aucune liste n'est saisie
-      questionsDisponibles = rangeMinMax(1, 4)
+      questionsDisponibles = rangeMinMax(1, 5)
       questionsDisponibles = combinaisonListes(questionsDisponibles, this.nbQuestions)
     } else {
       if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        if (this.sup >= 1 && this.sup <= 4) { questionsDisponibles = [this.sup] } else { questionsDisponibles = rangeMinMax(1, 4) }
+        if (this.sup >= 1 && this.sup <= 6) { questionsDisponibles = [this.sup] } else { questionsDisponibles = rangeMinMax(1, 5) }
         questionsDisponibles = combinaisonListes(questionsDisponibles, this.nbQuestions)
       } else {
         const questions = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < questions.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
           questions[i] = parseInt(questions[i])
-          if (questions[i] >= 1 && questions[i] <= 4) { questionsDisponibles.push(questions[i]) } else { questionsDisponibles.push(...rangeMinMax(1, 4)) }
+          if (questions[i] >= 1 && questions[i] <= 6) { questionsDisponibles.push(questions[i]) } else { questionsDisponibles.push(...rangeMinMax(1, 5)) }
         }
         questionsDisponibles = combinaisonListesSansChangerOrdre(questionsDisponibles, this.nbQuestions)
       }
@@ -176,13 +176,16 @@ export default function CalculerCaracteristiques () {
           break
         }
         case 4 : {
-          // ses salaires
+          // les salaires
           const salaires = [
             [1250 + randint(2, 8) * 10, randint(30, 50)], // 'Ouvrier'
             [1450 + randint(2, 8) * 10, randint(21, 29)], // 'Ouvrier qualifié'
             [1700 + randint(2, 8) * 10, randint(15, 20)], // 'Cadre'
             [3500 + randint(2, 8) * 10, randint(5, 10)], // 'Cadre supérieur'
             [8000 + randint(2, 8) * 100, 1]] // 'Dirigeant'
+          const effectifTotal = salaires.reduce((accumulator, currentValue, currentIndex) => { return accumulator + currentValue[1] }, 0)
+          if (listePairOuImpair[i] === 'pair' && effectifTotal % 2 === 1) { salaires[0][1]++ }
+          if (listePairOuImpair[i] === 'impair' && effectifTotal % 2 === 0) { salaires[0][1]++ }
           texte += OutilsStats.texteSalaires(salaires, ['\\hspace{0.3cm}Ouvrier\\hspace{0.3cm}', 'Ouvrier qualifié', '\\hspace{0.5cm}Cadre\\hspace{0.5cm}', 'Cadre supérieur', 'Dirigeant'])
           let questind = 0
           for (let k = 0; k < typeQuestions.length; k++) {
@@ -206,6 +209,74 @@ export default function CalculerCaracteristiques () {
           }
           break
         }
+        case 5 : {
+          // les pointures de chaussure
+          const nombreNotes = randint(5, 8) // colonnes
+          const min = randint(33, 35)
+          const max = randint(min + nombreNotes, min + nombreNotes + 3)
+          const notes = listeDeNotes(nombreNotes, min, max, true).sort() // on récupère une série de notes (pointures) distinctes et ordonnées
+          const effectifs = listeDeNotes(nombreNotes, randint(2, 4), randint(8, 12)) // on récupère une liste d'effectifs
+          const pointures = Array.from(notes, (x, i) => [x, effectifs[i]])
+          const effectifTotal = pointures.reduce((accumulator, currentValue, currentIndex) => { return accumulator + currentValue[1] }, 0)
+          if (listePairOuImpair[i] === 'pair' && effectifTotal % 2 === 1) { pointures[0][1]++ }
+          if (listePairOuImpair[i] === 'impair' && effectifTotal % 2 === 0) { pointures[0][1]++ }
+          texte += OutilsStats.texteSalaires(pointures, [], 'pointures')
+          let questind = 0
+          for (let k = 0; k < typeQuestions.length; k++) {
+            if (typeQuestions[k] === 1) {
+              // moyenne
+              texte += '<br>' + numAlpha(questind) + 'Calculer la moyenne de ces pointures.'
+              const [, somme, effectif] = OutilsStats.computeMoyenneTirages2D(pointures)
+              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(pointures, somme, effectif, 'pointures')
+            } else if (typeQuestions[k] === 2) {
+              // médiane
+              texte += '<br>' + numAlpha(questind) + 'Calculer la médiane de ces pointures.'
+              const [, , effectif] = OutilsStats.computeMoyenneTirages2D(pointures)
+              const [scoresMedians, medianeCorr] = OutilsStats.computeMedianeTirages2D(effectif, pointures)
+              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMedianeTirages2DSalaires(effectif, medianeCorr, scoresMedians, pointures, [], 'pointure')
+            } else {
+              // étendue
+              texte += '<br>' + numAlpha(questind) + 'Calculer l\'étendue de ces pointures.'
+              const [min, max] = [pointures[0][0], pointures[pointures.length - 1][0]]
+              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrEtendueNotes(min, max, 'pointure')
+            }
+          }
+          break
+        }
+        case 6 : {
+          // les notes avec coefficient
+          const notes = [
+            [5 + randint(0, 2), randint(1, 3)],
+            [8 + randint(0, 2), randint(1, 3)],
+            [11 + randint(0, 2), randint(1, 4)],
+            [14 + randint(0, 2), randint(1, 3)],
+            [18 + randint(0, 2), randint(1, 3)]] //
+          const effectifTotal = notes.reduce((accumulator, currentValue, currentIndex) => { return accumulator + currentValue[1] }, 0)
+          if (listePairOuImpair[i] === 'pair' && effectifTotal % 2 === 1) { notes[0][1]++ }
+          if (listePairOuImpair[i] === 'impair' && effectifTotal % 2 === 0) { notes[0][1]++ }
+          texte += OutilsStats.texteSalaires(notes, [], 'notes')
+          let questind = 0
+          for (let k = 0; k < typeQuestions.length; k++) {
+            if (typeQuestions[k] === 1) {
+              // moyenne
+              texte += '<br>' + numAlpha(questind) + 'Calculer la moyenne de ces notes.'
+              const [, somme, effectif] = OutilsStats.computeMoyenneTirages2D(notes)
+              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(notes, somme, effectif, 'notes')
+            } else if (typeQuestions[k] === 2) {
+              // médiane
+              texte += '<br>' + numAlpha(questind) + 'Calculer la médiane de ces notes.'
+              const [, , effectif] = OutilsStats.computeMoyenneTirages2D(notes)
+              const [scoresMedians, medianeCorr] = OutilsStats.computeMedianeTirages2D(effectif, notes)
+              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMedianeTirages2DSalaires(effectif, medianeCorr, scoresMedians, notes, [], 'note')
+            } else {
+              // étendue
+              texte += '<br>' + numAlpha(questind) + 'Calculer l\'étendue de ces notes.'
+              const [min, max] = [notes[0][0], notes[notes.length - 1][0]]
+              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrEtendueNotes(min, max, 'note')
+            }
+          }
+          break
+        }
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
@@ -217,7 +288,7 @@ export default function CalculerCaracteristiques () {
   }
   this.besoinFormulaireTexte = [
     'Type de séries',
-    'Nombres séparés par des tirets\n1 : Lancers de dés.\n2 : Liste de notes.\n3 : Un mois de températures.\n4 : Salaires.\n5 : Mélange.']
+    'Nombres séparés par des tirets\n1 : Lancers de dés.\n2 : Notes.\n3 : Températures.\n4 : Salaires.\n5 : Pointures.\n6 : Notes avec coefficients.\n7 Mélange']
   this.besoinFormulaire2Texte = [
     'Choix des questions',
     'Nombres séparés par des tirets\n1 : Moyenne.\n2 : Médiane.\n3 : Etendue\n4 : Toutes.']
