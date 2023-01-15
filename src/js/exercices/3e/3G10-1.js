@@ -2,7 +2,7 @@ import { codageAngleDroit, droiteParPointEtPente, droiteVerticaleParPoint, point
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { randint, choice, combinaisonListes, imagePointParTransformation, texFractionReduite, texNombrec, texNombre, contraindreValeur, numAlpha, listeQuestionsToContenu } from '../../modules/outils.js'
+import { randint, choice, combinaisonListes, imagePointParTransformation, texFractionReduite, texNombre, contraindreValeur, numAlpha, listeQuestionsToContenu, miseEnCouleur, miseEnEvidence } from '../../modules/outils.js'
 import { calcule } from '../../modules/fonctionsMaths.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -11,7 +11,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const dateDeModifImportante = '28/12/2022'
+export const dateDeModifImportante = '15/01/2023' //  Par EE
 
 /**
  * Trouver les coordonnées d'un punto transformé d'un autre par une des transformations du plan
@@ -29,9 +29,8 @@ export default function TransformationsDuPlanEtCoordonnees () {
   this.nbCols = 1
   this.nbColsCorr = 1
   context.fenetreMathalea2d = [-9, -9, 9, 9]
-  this.sup = '4-5-6' //
+  this.sup = '4-5-6'
 
-  context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
   this.nouvelleVersion = function (numeroExercice) {
     let enonceAmc = ''
     this.listeQuestions = []
@@ -45,6 +44,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
     const t = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] // il y a 14 transformations mais je n'utilise pas t[0] pour coller avec les index.
     const lettre1 = ['A', 'B', 'C']; const lettre2 = ['O\'', 'A', 'B'] // si t[i]=0 alors la transformation concernée n'existe pas, si t[i]=1, on la dessine.
     const punto = [[]]
+    const couleurs = ['brown', 'green', 'blue']
     const listeTypeDeQuestions = [[1, 2, 3, 4], [7], [8], [5, 6], [9], [10]]
     let typesDeQuestionsDisponibles = []
     if (!this.sup) { // Si aucune liste n'est saisie
@@ -79,27 +79,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
       const pointO = point(0, 0, 'O', 'above right')
 
       const O = point(xO, yO, "O'", 'above left') // on crée le point O'
-      const droited1 = droiteParPointEtPente(O, 1, '$(d_1)$') // et les trois axes passant par O'
-      const droited = droiteHorizontaleParPoint(O, '$(d)$')
-      const droited2 = droiteParPointEtPente(O, -1, '$(d_2)$')
-      const droitedprime = droiteVerticaleParPoint(O, "$(d')$")
-      droited1.isVisible = true
-      droited2.isVisible = true
-      droited.isVisible = true
-      droitedprime.isVisible = true
-      droited1.epaisseur = 2
-      droited2.epaisseur = 2
-      droited.epaisseur = 2
-      droitedprime.epaisseur = 2
-      droited1.color = colorToLatexOrHTML('green')
-      droited2.color = colorToLatexOrHTML('green')
-      droited.color = colorToLatexOrHTML('green')
-      droitedprime.color = colorToLatexOrHTML('green')
-      droited1.opacite = 0.5
-      droited1.nom = '$(d_1)$'
-      droited2.opacite = 0.5
-      droited.opacite = 0.5
-      droitedprime.opacite = 0.5
+      let droited1, droited2, droited, droitedprime
       let trouve = false
       let compteur = 0
       while (trouve === false) {
@@ -157,112 +137,132 @@ export default function TransformationsDuPlanEtCoordonnees () {
       for (let i = 0; i < 3; i++) {
         switch (choixTransformation[i]) {
           case 1: // symétrie axiale
+            droited1 = droiteParPointEtPente(O, 1, '$(d_1)$', context.isHtml ? couleurs[i] : 'black')
+            droited1.color = colorToLatexOrHTML(context.isHtml ? couleurs[i] : 'black')
+            droited1.isVisible = true
+            droited1.epaisseur = 2
+            droited1.opacite = 0.5
             t[1] = 1
             if (i === 0) {
               objetsEnonce.push(tracePoint(A), labelPoint(A))
-              objetsCorrection.push(tracePoint(A, Aprime), labelPoint(A, Aprime), segment(A, Aprime, 'blue'), codageAngleDroit(A, milieu(A, Aprime), pointSurDroite(droited1, -15)), codageSegments('||', 'red', A, milieu(A, Aprime), milieu(A, Aprime), Aprime))
+              objetsCorrection.push(tracePoint(A), labelPoint(A), tracePoint(Aprime, '#f15929'), labelPoint(Aprime, '#f15929'), segment(A, Aprime, couleurs[i]), codageAngleDroit(A, milieu(A, Aprime), pointSurDroite(droited1, -15), couleurs[i]), codageSegments('//', couleurs[i], A, milieu(A, Aprime), milieu(A, Aprime), Aprime))
               xP[1] = xA
               yP[1] = yA
             } else if (i === 1) {
               objetsEnonce.push(tracePoint(B), labelPoint(B))
-              objetsCorrection.push(tracePoint(B, Bprime), labelPoint(B, Bprime), segment(B, Bprime, 'blue'), codageAngleDroit(B, milieu(B, Bprime), pointSurDroite(droited1, -15)), codageSegments('O', 'red', B, milieu(B, Bprime), milieu(B, Bprime), Bprime))
+              objetsCorrection.push(tracePoint(B), labelPoint(B), tracePoint(Bprime, '#f15929'), labelPoint(Bprime, '#f15929'), segment(B, Bprime, couleurs[i]), codageAngleDroit(B, milieu(B, Bprime), pointSurDroite(droited1, -15), couleurs[i]), codageSegments('O', couleurs[i], B, milieu(B, Bprime), milieu(B, Bprime), Bprime))
               xP[1] = xB
               yP[1] = yB
             } else {
               objetsEnonce.push(tracePoint(C), labelPoint(C))
-              objetsCorrection.push(tracePoint(C, Cprime), labelPoint(C, Cprime), segment(C, Cprime, 'blue'), codageAngleDroit(C, milieu(C, Cprime), pointSurDroite(droited1, -15)), codageSegments('X', 'red', C, milieu(C, Cprime), milieu(C, Cprime), Cprime))
+              objetsCorrection.push(tracePoint(C), labelPoint(C), tracePoint(Cprime, '#f15929'), labelPoint(Cprime, '#f15929'), segment(C, Cprime, couleurs[i]), codageAngleDroit(C, milieu(C, Cprime), pointSurDroite(droited1, -15), couleurs[i]), codageSegments('|||', couleurs[i], C, milieu(C, Cprime), milieu(C, Cprime), Cprime))
               xP[1] = xC
               yP[1] = yC
             }
             objetsEnonce.push(droited1)
             objetsCorrection.push(droited1)
 
-            texte += numAlpha(i) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d_1)$.`
+            texte += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d_1)', droited1.color)}$.`
             if (context.isAmc) {
-              enonceAmc += numAlpha(i) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d_1)$.`
+              enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d_1)', droited1.color)}$.`
             }
-            texteCorr += numAlpha(i) + ` Le symétrique de $${lettre1[i]}$ par rapport à $(d_1)$ a pour coordonnées ($${texNombre(punto[i][0])};${texNombre(punto[i][1])}$).<br>`
+            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, le symétrique de $${lettre1[i]}$ par rapport à $(d_1)$ a pour coordonnées ($${miseEnEvidence(texNombre(punto[i][0]))};${miseEnEvidence(texNombre(punto[i][1]))}$).<br>`
             break
 
           case 2: // symétrie axiale
+            droited2 = droiteParPointEtPente(O, -1, '$(d_2)$', context.isHtml ? couleurs[i] : 'black')
+            droited2.color = colorToLatexOrHTML(context.isHtml ? couleurs[i] : 'black')
+            droited2.isVisible = true
+            droited2.epaisseur = 2
+            droited2.opacite = 0.5
             t[2] = 1
             if (i === 0) {
               objetsEnonce.push(tracePoint(A), labelPoint(A))
-              objetsCorrection.push(tracePoint(A, Aprime), labelPoint(A, Aprime), segment(A, Aprime, 'blue'), codageAngleDroit(A, milieu(A, Aprime), pointSurDroite(droited2, -15)), codageSegments('||', 'red', A, milieu(A, Aprime), milieu(A, Aprime), Aprime))
+              objetsCorrection.push(tracePoint(A), labelPoint(A), tracePoint(Aprime, '#f15929'), labelPoint(Aprime, '#f15929'), segment(A, Aprime, couleurs[i]), codageAngleDroit(A, milieu(A, Aprime), pointSurDroite(droited2, -15), couleurs[i]), codageSegments('//', couleurs[i], A, milieu(A, Aprime), milieu(A, Aprime), Aprime))
               xP[2] = xA
               yP[2] = yA
             } else if (i === 1) {
               objetsEnonce.push(tracePoint(B), labelPoint(B))
-              objetsCorrection.push(tracePoint(B, Bprime), labelPoint(B, Bprime), segment(B, Bprime, 'blue'), codageAngleDroit(B, milieu(B, Bprime), pointSurDroite(droited2, -15)), codageSegments('O', 'red', B, milieu(B, Bprime), milieu(B, Bprime), Bprime))
+              objetsCorrection.push(tracePoint(B), labelPoint(B), tracePoint(Bprime, '#f15929'), labelPoint(Bprime, '#f15929'), segment(B, Bprime, couleurs[i]), codageAngleDroit(B, milieu(B, Bprime), pointSurDroite(droited2, -15), couleurs[i]), codageSegments('O', couleurs[i], B, milieu(B, Bprime), milieu(B, Bprime), Bprime))
               xP[2] = xB
               yP[2] = yB
             } else {
               objetsEnonce.push(tracePoint(C), labelPoint(C))
-              objetsCorrection.push(tracePoint(C, Cprime), labelPoint(C, Cprime), segment(C, Cprime, 'blue'), codageAngleDroit(C, milieu(C, Cprime), pointSurDroite(droited2, -15)), codageSegments('X', 'red', C, milieu(C, Cprime), milieu(C, Cprime), Cprime))
+              objetsCorrection.push(tracePoint(C), labelPoint(C), tracePoint(Cprime, '#f15929'), labelPoint(Cprime, '#f15929'), segment(C, Cprime, couleurs[i]), codageAngleDroit(C, milieu(C, Cprime), pointSurDroite(droited2, -15), couleurs[i]), codageSegments('|||', couleurs[i], C, milieu(C, Cprime), milieu(C, Cprime), Cprime))
               xP[2] = xC
               yP[2] = yC
             }
             objetsEnonce.push(droited2)
             objetsCorrection.push(droited2)
-            texte += numAlpha(i) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d_2)$.`
+            texte += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d_2)', droited2.color)}$.`
             if (context.isAmc) {
-              enonceAmc += numAlpha(i) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d_2)$.`
+              enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d_2)', droited2.color)}$.`
             }
-            texteCorr += numAlpha(i) + ` Le symétrique de $${lettre1[i]}$ par rapport à $(d_2)$ a pour coordonnées ($${texNombre(punto[i][0])};${texNombre(punto[i][1])}$).<br>`
+            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, le symétrique de $${lettre1[i]}$ par rapport à $(d_2)$ a pour coordonnées ($${miseEnEvidence(texNombre(punto[i][0]))};${miseEnEvidence(texNombre(punto[i][1]))}$).<br>`
             break
 
           case 3: // symétrie axiale
+            droited = droiteHorizontaleParPoint(O, '$(d)$', context.isHtml ? couleurs[i] : 'black')
+            droited.color = colorToLatexOrHTML(context.isHtml ? couleurs[i] : 'black')
+            droited.isVisible = true
+            droited.epaisseur = 2
+            droited.opacite = 0.5
             t[3] = 1
             if (i === 0) {
               objetsEnonce.push(tracePoint(A), labelPoint(A))
-              objetsCorrection.push(tracePoint(A, Aprime), labelPoint(A, Aprime), segment(A, Aprime, 'blue'), codageAngleDroit(A, milieu(A, Aprime), pointSurDroite(droited, -15)), codageSegments('||', 'red', A, milieu(A, Aprime), milieu(A, Aprime), Aprime))
+              objetsCorrection.push(tracePoint(A), labelPoint(A), tracePoint(Aprime, couleurs[i]), labelPoint(Aprime, '#f15929'), segment(A, Aprime, '#f15929'), codageAngleDroit(A, milieu(A, Aprime), pointSurDroite(droited, -15), couleurs[i]), codageSegments('//', couleurs[i], A, milieu(A, Aprime), milieu(A, Aprime), Aprime))
               xP[3] = xA
               yP[3] = yA
             } else if (i === 1) {
               objetsEnonce.push(tracePoint(B), labelPoint(B))
-              objetsCorrection.push(tracePoint(B, Bprime), labelPoint(B, Bprime), segment(B, Bprime, 'blue'), codageAngleDroit(B, milieu(B, Bprime), pointSurDroite(droited, -15)), codageSegments('O', 'red', B, milieu(B, Bprime), milieu(B, Bprime), Bprime))
+              objetsCorrection.push(tracePoint(B), labelPoint(B), tracePoint(Bprime, couleurs[i]), labelPoint(Bprime, '#f15929'), segment(B, Bprime, '#f15929'), codageAngleDroit(B, milieu(B, Bprime), pointSurDroite(droited, -15), couleurs[i]), codageSegments('O', couleurs[i], B, milieu(B, Bprime), milieu(B, Bprime), Bprime))
               xP[3] = xB
               yP[3] = yB
             } else {
               objetsEnonce.push(tracePoint(C), labelPoint(C))
-              objetsCorrection.push(tracePoint(C, Cprime), labelPoint(C, Cprime), segment(C, Cprime, 'blue'), codageAngleDroit(C, milieu(C, Cprime), pointSurDroite(droited, -15)), codageSegments('X', 'red', C, milieu(C, Cprime), milieu(C, Cprime), Cprime))
+              objetsCorrection.push(tracePoint(C), labelPoint(C), tracePoint(Cprime, couleurs[i]), labelPoint(Cprime, '#f15929'), segment(C, Cprime, '#f15929'), codageAngleDroit(C, milieu(C, Cprime), pointSurDroite(droited, -15), couleurs[i]), codageSegments('|||', couleurs[i], C, milieu(C, Cprime), milieu(C, Cprime), Cprime))
               xP[3] = xC
               yP[3] = yC
             }
             objetsEnonce.push(droited)
             objetsCorrection.push(droited)
-            texte += numAlpha(i) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d)$.`
+            texte += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d)', droited.color)}$.`
             if (context.isAmc) {
-              enonceAmc += numAlpha(i) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d)$.`
+              enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d)', droited.color)}$.`
             }
-            texteCorr += numAlpha(i) + ` Le symétrique de $${lettre1[i]}$ par rapport à $(d)$ a pour coordonnées ($${texNombre(punto[i][0])};${texNombre(punto[i][1])}$).<br>`
+            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, le symétrique de $${lettre1[i]}$ par rapport à $(d)$ a pour coordonnées ($${miseEnEvidence(texNombre(punto[i][0]))};${miseEnEvidence(texNombre(punto[i][1]))}$).<br>`
             break
 
           case 4: // symétrie axiale
+            droitedprime = droiteVerticaleParPoint(O, "$(d')$", context.isHtml ? couleurs[i] : 'black')
+            droitedprime.color = colorToLatexOrHTML(context.isHtml ? couleurs[i] : 'black')
+            droitedprime.isVisible = true
+            droitedprime.epaisseur = 2
+            droitedprime.opacite = 0.5
             t[4] = 1
             if (i === 0) {
               objetsEnonce.push(tracePoint(A), labelPoint(A))
-              objetsCorrection.push(tracePoint(A, Aprime), labelPoint(A, Aprime), segment(A, Aprime, 'blue'), codageAngleDroit(A, milieu(A, Aprime), pointSurDroite(droitedprime, -15)), codageSegments('||', 'red', A, milieu(A, Aprime), milieu(A, Aprime), Aprime))
+              objetsCorrection.push(tracePoint(A), labelPoint(A), tracePoint(Aprime, '#f15929'), labelPoint(Aprime, '#f15929'), segment(A, Aprime, couleurs[i]), codageAngleDroit(A, milieu(A, Aprime), pointSurDroite(droitedprime, -15), couleurs[i]), codageSegments('//', couleurs[i], A, milieu(A, Aprime), milieu(A, Aprime), Aprime))
               xP[4] = xA
               yP[4] = yA
             } else if (i === 1) {
               objetsEnonce.push(tracePoint(B), labelPoint(B))
-              objetsCorrection.push(tracePoint(B, Bprime), labelPoint(B, Bprime), segment(B, Bprime, 'blue'), codageAngleDroit(B, milieu(B, Bprime), pointSurDroite(droitedprime, -15)), codageSegments('O', 'red', B, milieu(B, Bprime), milieu(B, Bprime), Bprime))
+              objetsCorrection.push(tracePoint(B), labelPoint(B), tracePoint(Bprime, '#f15929'), labelPoint(Bprime, '#f15929'), segment(B, Bprime, couleurs[i]), codageAngleDroit(B, milieu(B, Bprime), pointSurDroite(droitedprime, -15), couleurs[i]), codageSegments('O', couleurs[i], B, milieu(B, Bprime), milieu(B, Bprime), Bprime))
               xP[4] = xB
               yP[4] = yB
             } else {
               objetsEnonce.push(tracePoint(C), labelPoint(C))
-              objetsCorrection.push(tracePoint(C, Cprime), labelPoint(C, Cprime), segment(C, Cprime, 'blue'), codageAngleDroit(C, milieu(C, Cprime), pointSurDroite(droitedprime, -15)), codageSegments('X', 'red', C, milieu(C, Cprime), milieu(C, Cprime), Cprime))
+              objetsCorrection.push(tracePoint(C), labelPoint(C), tracePoint(Cprime, '#f15929'), labelPoint(Cprime, '#f15929'), segment(C, Cprime, couleurs[i]), codageAngleDroit(C, milieu(C, Cprime), pointSurDroite(droitedprime, -15), couleurs[i]), codageSegments('|||', couleurs[i], C, milieu(C, Cprime), milieu(C, Cprime), Cprime))
               xP[4] = xC
               yP[4] = yC
             }
             objetsEnonce.push(droitedprime)
             objetsCorrection.push(droitedprime)
-            texte += numAlpha(i) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d')$.`
+            texte += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d\')', droitedprime.color)}$.`
             if (context.isAmc) {
-              enonceAmc += numAlpha(i) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d')$.`
+              enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d\')', droitedprime.color)}$.`
             }
-            texteCorr += numAlpha(i) + ` Le symétrique de $${lettre1[i]}$ par rapport à $(d')$ a pour coordonnées ($${texNombre(punto[i][0])};${texNombre(punto[i][1])}$).<br>`
+            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, le symétrique de $${lettre1[i]}$ par rapport à $(d')$ a pour coordonnées ($${miseEnEvidence(texNombre(punto[i][0]))};${miseEnEvidence(texNombre(punto[i][1]))}$).<br>`
             break
 
           case 5: // rotation de 90°
@@ -270,29 +270,29 @@ export default function TransformationsDuPlanEtCoordonnees () {
             t[5] = 1
             if (i === 0) {
               objetsEnonce.push(tracePoint(A, O), labelPoint(A, O))
-              objetsCorrection.push(tracePoint(A, Aprime, O), labelPoint(A, Aprime, O),
-                segment(O, A, 'blue'), segment(O, Aprime, 'blue'), afficheMesureAngle(A, O, Aprime), codageSegments('//', 'red', O, A, O, Aprime)
+              objetsCorrection.push(tracePoint(A, O), labelPoint(A, O), tracePoint(Aprime, '#f15929'), labelPoint(Aprime, '#f15929'), codageAngleDroit(A, O, Aprime, couleurs[i]),
+                segment(O, A, couleurs[i]), segment(O, Aprime, couleurs[i]), afficheMesureAngle(A, O, Aprime), codageSegments('//', couleurs[i], O, A, O, Aprime)
               )
               xP[5] = xA
               yP[5] = yA
             } else if (i === 1) {
               objetsEnonce.push(tracePoint(B, A), labelPoint(B, A))
-              objetsCorrection.push(tracePoint(B, Bprime, A), labelPoint(B, Bprime, A),
-                segment(A, B, 'blue'), segment(A, Bprime, 'blue'), afficheMesureAngle(B, A, Bprime), codageSegments('O', 'red', A, B, A, Bprime))
+              objetsCorrection.push(tracePoint(B, A), labelPoint(B, A), tracePoint(Bprime, '#f15929'), labelPoint(Bprime, '#f15929'), codageAngleDroit(B, O, Bprime, couleurs[i]),
+                segment(A, B, couleurs[i]), segment(A, Bprime, couleurs[i]), afficheMesureAngle(B, A, Bprime), codageSegments('O', couleurs[i], A, B, A, Bprime))
               xP[5] = xB
               yP[5] = yB
             } else {
               objetsEnonce.push(tracePoint(C, B), labelPoint(C, B))
-              objetsCorrection.push(tracePoint(C, Cprime, B), labelPoint(C, Cprime, B),
-                segment(B, C, 'blue'), segment(B, Cprime, 'blue'), afficheMesureAngle(C, B, Cprime), codageSegments('X', 'red', B, C, B, Cprime))
+              objetsCorrection.push(tracePoint(C, B), labelPoint(C, B), tracePoint(Cprime, '#f15929'), labelPoint(Cprime, '#f15929'), codageAngleDroit(C, O, Cprime, couleurs[i]),
+                segment(B, C, couleurs[i]), segment(B, Cprime, couleurs[i]), afficheMesureAngle(C, B, Cprime), codageSegments('|||', couleurs[i], B, C, B, Cprime))
               xP[5] = xC
               yP[5] = yC
             }
-            texte += numAlpha(i) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens anti-horaire.`
+            texte += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens anti-horaire.`
             if (context.isAmc) {
-              enonceAmc += numAlpha(i) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens anti-horaire.`
+              enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens anti-horaire.`
             }
-            texteCorr += numAlpha(i) + ` L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens anti-horaire a pour coordonnées ($${texNombre(punto[i][0])};${texNombre(punto[i][1])}$).<br>`
+            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens anti-horaire a pour coordonnées ($${miseEnEvidence(texNombre(punto[i][0]))};${miseEnEvidence(texNombre(punto[i][1]))}$).<br>`
             break
 
           case 6: // rotation de 90°
@@ -300,28 +300,28 @@ export default function TransformationsDuPlanEtCoordonnees () {
             t[6] = 1
             if (i === 0) {
               objetsEnonce.push(tracePoint(A, O), labelPoint(A, O))
-              objetsCorrection.push(tracePoint(A, Aprime, O), labelPoint(A, Aprime, O),
-                segment(O, A, 'blue'), segment(O, Aprime, 'blue'), afficheMesureAngle(A, O, Aprime), codageSegments('//', 'red', O, A, O, Aprime))
+              objetsCorrection.push(tracePoint(A, O), labelPoint(A, O), tracePoint(Aprime, '#f15929'), labelPoint(Aprime, '#f15929'), codageAngleDroit(A, O, Aprime, couleurs[i]),
+                segment(O, A, couleurs[i]), segment(O, Aprime, couleurs[i]), afficheMesureAngle(A, O, Aprime), codageSegments('//', couleurs[i], O, A, O, Aprime))
               xP[6] = xA
               yP[6] = yA
             } else if (i === 1) {
               objetsEnonce.push(tracePoint(B, A), labelPoint(B, A))
-              objetsCorrection.push(tracePoint(B, Bprime, A), labelPoint(B, Bprime, A),
-                segment(A, B, 'blue'), segment(A, Bprime, 'blue'), afficheMesureAngle(B, A, Bprime), codageSegments('O', 'red', A, B, A, Bprime))
+              objetsCorrection.push(tracePoint(B, A), labelPoint(B, A), tracePoint(Bprime, '#f15929'), labelPoint(Bprime, '#f15929'), codageAngleDroit(B, A, Bprime, couleurs[i]),
+                segment(A, B, couleurs[i]), segment(A, Bprime, couleurs[i]), afficheMesureAngle(B, A, Bprime), codageSegments('O', couleurs[i], A, B, A, Bprime))
               xP[6] = xB
               yP[6] = yB
             } else {
               objetsEnonce.push(tracePoint(C, B), labelPoint(C, B))
-              objetsCorrection.push(tracePoint(C, Cprime, B), labelPoint(C, Cprime, B),
-                segment(B, C, 'blue'), segment(B, Cprime, 'blue'), afficheMesureAngle(C, B, Cprime), codageSegments('X', 'red', B, C, B, Cprime))
+              objetsCorrection.push(tracePoint(C, B), labelPoint(C, B), tracePoint(Cprime, '#f15929'), labelPoint(Cprime, '#f15929'), codageAngleDroit(C, B, Cprime, couleurs[i]),
+                segment(B, C, couleurs[i]), segment(B, Cprime, couleurs[i]), afficheMesureAngle(C, B, Cprime), codageSegments('|||', couleurs[i], B, C, B, Cprime))
               xP[6] = xC
               yP[6] = yC
             }
-            texte += numAlpha(i) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens horaire.`
+            texte += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens horaire.`
             if (context.isAmc) {
-              enonceAmc += numAlpha(i) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens horaire.`
+              enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens horaire.`
             }
-            texteCorr += numAlpha(i) + ` L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens horaire a pour coordonnées ($${texNombre(punto[i][0])};${texNombre(punto[i][1])}$).<br>`
+            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens horaire a pour coordonnées ($${miseEnEvidence(texNombre(punto[i][0]))};${miseEnEvidence(texNombre(punto[i][1]))}$).<br>`
             break
 
           case 7: // symétrie centrale
@@ -329,28 +329,28 @@ export default function TransformationsDuPlanEtCoordonnees () {
             t[7] = 1
             if (i === 0) {
               objetsEnonce.push(tracePoint(A, O), labelPoint(A, O))
-              objetsCorrection.push(tracePoint(A, Aprime, O), labelPoint(A, Aprime, O),
-                segment(O, A, 'blue'), segment(O, Aprime, 'blue'), codageSegments('//', 'red', O, A, O, Aprime))
+              objetsCorrection.push(tracePoint(A, O), labelPoint(A, O), tracePoint(Aprime, '#f15929'), labelPoint(Aprime, '#f15929'),
+                segment(O, A, couleurs[i]), segment(O, Aprime, couleurs[i]), codageSegments('//', couleurs[i], O, A, O, Aprime))
               xP[7] = xA
               yP[7] = yA
             } else if (i === 1) {
               objetsEnonce.push(tracePoint(B, A), labelPoint(B, A))
-              objetsCorrection.push(tracePoint(B, Bprime, A), labelPoint(B, Bprime, A),
-                segment(A, B, 'blue'), segment(A, Bprime, 'blue'), codageSegments('O', 'red', A, B, A, Bprime))
+              objetsCorrection.push(tracePoint(B, A), labelPoint(B, A), tracePoint(Bprime, '#f15929'), labelPoint(Bprime, '#f15929'),
+                segment(A, B, couleurs[i]), segment(A, Bprime, couleurs[i]), codageSegments('O', couleurs[i], A, B, A, Bprime))
               xP[7] = xB
               yP[7] = yB
             } else {
               objetsEnonce.push(tracePoint(C, B), labelPoint(C, B))
-              objetsCorrection.push(tracePoint(C, Cprime, B), labelPoint(C, Cprime, B),
-                segment(B, C, 'blue'), segment(B, Cprime, 'blue'), codageSegments('X', 'red', B, C, B, Cprime))
+              objetsCorrection.push(tracePoint(C, B), labelPoint(C, B), tracePoint(Cprime, '#f15929'), labelPoint(Cprime, '#f15929'),
+                segment(B, C, couleurs[i]), segment(B, Cprime, couleurs[i]), codageSegments('|||', couleurs[i], B, C, B, Cprime))
               xP[7] = xC
               yP[7] = yC
             }
-            texte += numAlpha(i) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la symétrie de centre $${lettre2[i]}$.`
+            texte += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la symétrie de centre $${lettre2[i]}$.`
             if (context.isAmc) {
-              enonceAmc += numAlpha(i) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la symétrie de centre $${lettre2[i]}$.`
+              enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la symétrie de centre $${lettre2[i]}$.`
             }
-            texteCorr += numAlpha(i) + ` L'image de $${lettre1[i]}$ par la symétrie de centre $${lettre2[i]}$ a pour coordonnées ($${texNombrec(punto[i][0])};${texNombre(punto[i][1])}$).<br>`
+            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par la symétrie de centre $${lettre2[i]}$ a pour coordonnées ($${miseEnEvidence(texNombre(punto[i][0]))};${miseEnEvidence(texNombre(punto[i][1]))}$).<br>`
             break
           case 8: // translation
 
@@ -358,28 +358,28 @@ export default function TransformationsDuPlanEtCoordonnees () {
             O.positionLabel = 'right'
             if (i === 0) {
               objetsEnonce.push(tracePoint(A, O, pointO), labelPoint(A, O, pointO), vecteur(pointO, O).representant(pointO))
-              objetsCorrection.push(tracePoint(A, Aprime, O, pointO), labelPoint(A, Aprime, O, pointO),
-                vecteur(pointO, O).representant(A), vecteur(pointO, O).representant(pointO))
+              objetsCorrection.push(tracePoint(A, O, pointO), labelPoint(A, O, pointO), tracePoint(Aprime, '#f15929'), labelPoint(Aprime, '#f15929'),
+                vecteur(pointO, O).representant(A, couleurs[i]), vecteur(pointO, O).representant(pointO, couleurs[i]))
               xP[8] = xA
               yP[8] = yA
             } else if (i === 1) {
               objetsEnonce.push(tracePoint(B, A, pointO), labelPoint(B, A, pointO), vecteur(pointO, A).representant(pointO))
-              objetsCorrection.push(tracePoint(B, Bprime, A, pointO), labelPoint(B, Bprime, A, pointO),
-                vecteur(pointO, A).representant(B), vecteur(pointO, A).representant(pointO))
+              objetsCorrection.push(tracePoint(B, A, pointO), labelPoint(B, A, pointO), tracePoint(Bprime, '#f15929'), labelPoint(Bprime, '#f15929'),
+                vecteur(pointO, A).representant(B, couleurs[i]), vecteur(pointO, A).representant(pointO, couleurs[i]))
               xP[8] = xB
               yP[8] = yB
             } else {
               objetsEnonce.push(tracePoint(C, B, pointO), labelPoint(C, B, pointO), vecteur(pointO, B).representant(pointO))
-              objetsCorrection.push(tracePoint(C, Cprime, B, pointO), labelPoint(C, Cprime, B, pointO),
-                vecteur(pointO, B).representant(C), vecteur(pointO, B).representant(pointO))
+              objetsCorrection.push(tracePoint(C, B, pointO), labelPoint(C, B, pointO), tracePoint(Cprime, '#f15929'), labelPoint(Cprime, '#f15929'),
+                vecteur(pointO, B).representant(C, couleurs[i]), vecteur(pointO, B).representant(pointO, couleurs[i]))
               xP[8] = xC
               yP[8] = yC
             }
-            texte += numAlpha(i) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la translation qui transforme $O$ en $${lettre2[i]}$.`
+            texte += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la translation qui transforme $O$ en $${lettre2[i]}$.`
             if (context.isAmc) {
-              enonceAmc += numAlpha(i) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la translation qui transforme $O$ en $${lettre2[i]}$.`
+              enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la translation qui transforme $O$ en $${lettre2[i]}$.`
             }
-            texteCorr += numAlpha(i) + ` L'image de $${lettre1[i]}$ par la translation qui transforme $O$ en $${lettre2[i]}$ a pour coordonnées ($${texNombre(punto[i][0])};${texNombre(punto[i][1])}$).<br>`
+            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par la translation qui transforme $O$ en $${lettre2[i]}$ a pour coordonnées ($${miseEnEvidence(texNombre(punto[i][0]))};${miseEnEvidence(texNombre(punto[i][1]))}$).<br>`
             break
 
           case 9: // homothétie de rapport entier
@@ -387,30 +387,30 @@ export default function TransformationsDuPlanEtCoordonnees () {
             t[9] = 1
             if (i === 0) {
               objetsEnonce.push(tracePoint(A, O), labelPoint(A, O))
-              objetsCorrection.push(tracePoint(A, Aprime, O), labelPoint(A, Aprime, O),
-                segment(O, A, 'blue'), segment(O, Aprime, '#f15929'))
+              objetsCorrection.push(tracePoint(A, O), labelPoint(A, O), tracePoint(Aprime, '#f15929'), labelPoint(Aprime, '#f15929'),
+                segment(O, A, couleurs[i]), segment(O, Aprime, couleurs[i]))
               xP[9] = xA
               yP[9] = yA
             } else if (i === 1) {
               objetsEnonce.push(tracePoint(B, A), labelPoint(B, A))
-              objetsCorrection.push(tracePoint(B, Bprime, A), labelPoint(B, Bprime, A),
-                segment(A, B, 'blue'), segment(A, Bprime, '#f15929'))
+              objetsCorrection.push(tracePoint(B, A), labelPoint(B, A), tracePoint(Bprime, '#f15929'), labelPoint(Bprime, '#f15929'),
+                segment(A, B, couleurs[i]), segment(A, Bprime, couleurs[i]))
 
               xP[9] = xB
               yP[9] = yB
             } else {
               objetsEnonce.push(tracePoint(C, B), labelPoint(C, B))
-              objetsCorrection.push(tracePoint(C, Cprime, B), labelPoint(C, Cprime, B),
-                segment(B, C, 'blue'), segment(B, Cprime, '#f15929'))
+              objetsCorrection.push(tracePoint(C, B), labelPoint(C, B), tracePoint(Cprime, '#f15929'), labelPoint(Cprime, '#f15929'),
+                segment(B, C, couleurs[i]), segment(B, Cprime, couleurs[i]))
 
               xP[9] = xC
               yP[9] = yC
             }
-            texte += numAlpha(i) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${texNombre(k[i])}$.`
+            texte += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${texNombre(k[i])}$.`
             if (context.isAmc) {
-              enonceAmc += numAlpha(i) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${texNombre(k[i])}$.`
+              enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${texNombre(k[i])}$.`
             }
-            texteCorr += numAlpha(i) + ` L'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${texNombre(k[i])}$ a pour coordonnées ($${texNombre(punto[i][0])};${texNombre(punto[i][1])}$).<br>`
+            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${texNombre(k[i])}$ a pour coordonnées ($${miseEnEvidence(texNombre(punto[i][0]))};${miseEnEvidence(texNombre(punto[i][1]))}$).<br>`
             break
 
           case 10: // homothétie de rapport fractionnaire
@@ -418,28 +418,28 @@ export default function TransformationsDuPlanEtCoordonnees () {
             t[10] = 1
             if (i === 0) {
               objetsEnonce.push(tracePoint(A, O), labelPoint(A, O))
-              objetsCorrection.push(tracePoint(A, Aprime, O), labelPoint(A, Aprime, O),
-                segment(O, A, 'blue'), segment(O, Aprime, '#f15929'))
+              objetsCorrection.push(tracePoint(A, O), labelPoint(A, O), tracePoint(Aprime, '#f15929'), labelPoint(Aprime, '#f15929'),
+                segment(O, A, couleurs[i]), segment(O, Aprime, couleurs[i]))
               xP[10] = xA
               yP[10] = yA
             } else if (i === 1) {
               objetsEnonce.push(tracePoint(B, A), labelPoint(B, A))
-              objetsCorrection.push(tracePoint(B, Bprime, A), labelPoint(B, Bprime, A),
-                segment(A, B, 'blue'), segment(A, Bprime, '#f15929'))
+              objetsCorrection.push(tracePoint(B, A), labelPoint(B, A), tracePoint(Bprime, '#f15929'), labelPoint(Bprime, '#f15929'),
+                segment(A, B, couleurs[i]), segment(A, Bprime, couleurs[i]))
               xP[10] = xB
               yP[10] = yB
             } else {
               objetsEnonce.push(tracePoint(C, B), labelPoint(C, B))
-              objetsCorrection.push(tracePoint(C, Cprime, B), labelPoint(C, Cprime, B),
-                segment(B, C, 'blue'), segment(B, Cprime, '#f15929'))
+              objetsCorrection.push(tracePoint(C, B), labelPoint(C, B), tracePoint(Cprime, '#f15929'), labelPoint(Cprime, '#f15929'),
+                segment(B, C, couleurs[i]), segment(B, Cprime, couleurs[i]))
               xP[10] = xC
               yP[10] = yC
             }
-            texte += numAlpha(i) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${texFractionReduite(1, k[i])}$.`
+            texte += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${texFractionReduite(1, k[i])}$.`
             if (context.isAmc) {
-              enonceAmc += numAlpha(i) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${texFractionReduite(1, k[i])}$.`
+              enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${texFractionReduite(1, k[i])}$.`
             }
-            texteCorr += numAlpha(i) + ` L'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${texFractionReduite(1, k[i])}$ a pour coordonnées ($${texNombre(punto[i][0])};${texNombre(punto[i][1])}$).<br>`
+            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${texFractionReduite(1, k[i])}$ a pour coordonnées ($${miseEnEvidence(texNombre(punto[i][0]))};${miseEnEvidence(texNombre(punto[i][1]))}$).<br>`
             break
 
           case 11: // rotation de 60°
@@ -448,27 +448,27 @@ export default function TransformationsDuPlanEtCoordonnees () {
             if (i === 0) {
               objetsEnonce.push(tracePoint(A, O), labelPoint(A, O))
               objetsCorrection.push(tracePoint(A, Aprime, O), labelPoint(A, Aprime, O),
-                segment(O, A, 'blue'), segment(O, Aprime, 'blue'), afficheMesureAngle(A, O, Aprime), codageSegments('//', 'red', O, A, O, Aprime))
+                segment(O, A, couleurs[i]), segment(O, Aprime, couleurs[i]), afficheMesureAngle(A, O, Aprime), codageSegments('//', couleurs[i], O, A, O, Aprime))
               xP[11] = xA
               yP[11] = yA
             } else if (i === 1) {
               objetsEnonce.push(tracePoint(B, A), labelPoint(B, A))
               objetsCorrection.push(tracePoint(B, Bprime, A), labelPoint(B, Bprime, A),
-                segment(A, B, 'blue'), segment(A, Bprime, 'blue'), afficheMesureAngle(B, A, Bprime), codageSegments('O', 'red', A, B, A, Bprime))
+                segment(A, B, couleurs[i]), segment(A, Bprime, couleurs[i]), afficheMesureAngle(B, A, Bprime), codageSegments('O', couleurs[i], A, B, A, Bprime))
               xP[11] = xB
               yP[11] = yB
             } else {
               objetsEnonce.push(tracePoint(C, B), labelPoint(C, B))
               objetsCorrection.push(tracePoint(C, Cprime, B), labelPoint(C, Cprime, B),
-                segment(B, C, 'blue'), segment(B, Cprime, 'blue'), afficheMesureAngle(C, B, Cprime), codageSegments('X', 'red', B, C, B, Cprime))
+                segment(B, C, couleurs[i]), segment(B, Cprime, couleurs[i]), afficheMesureAngle(C, B, Cprime), codageSegments('|||', couleurs[i], B, C, B, Cprime))
               xP[11] = xC
               yP[11] = yC
             }
-            texte += numAlpha(i) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens anti-horaire.`
+            texte += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens anti-horaire.`
             if (context.isAmc) {
-              enonceAmc += numAlpha(i) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens anti-horaire.`
+              enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens anti-horaire.`
             }
-            texteCorr += numAlpha(i) + ` L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens anti-horaire a pour coordonnées ($${texNombre(calcule(punto[i][0], 2))};${texNombre(calcule(punto[i][1], 2))}$).<br>`
+            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens anti-horaire a pour coordonnées ($${texNombre(calcule(punto[i][0], 2))};${texNombre(calcule(punto[i][1], 2))}$).<br>`
             break
           case 12: // rotation de 60°
 
@@ -476,27 +476,27 @@ export default function TransformationsDuPlanEtCoordonnees () {
             if (i === 0) {
               objetsEnonce.push(tracePoint(A, O), labelPoint(A, O))
               objetsCorrection.push(tracePoint(A, Aprime, O), labelPoint(A, Aprime, O),
-                segment(O, A, 'blue'), segment(O, Aprime, 'blue'), afficheMesureAngle(A, O, Aprime), codageSegments('//', 'red', O, A, O, Aprime))
+                segment(O, A, couleurs[i]), segment(O, Aprime, couleurs[i]), afficheMesureAngle(A, O, Aprime), codageSegments('//', couleurs[i], O, A, O, Aprime))
               xP[12] = xA
               yP[12] = yA
             } else if (i === 1) {
               objetsEnonce.push(tracePoint(B, A), labelPoint(B, A))
               objetsCorrection.push(tracePoint(B, Bprime, A), labelPoint(B, Bprime, A),
-                segment(A, B, 'blue'), segment(A, Bprime, 'blue'), afficheMesureAngle(B, A, Bprime), codageSegments('O', 'red', A, B, A, Bprime))
+                segment(A, B, couleurs[i]), segment(A, Bprime, couleurs[i]), afficheMesureAngle(B, A, Bprime), codageSegments('O', couleurs[i], A, B, A, Bprime))
               xP[12] = xB
               yP[12] = yB
             } else {
               objetsEnonce.push(tracePoint(C, B), labelPoint(C, B))
               objetsCorrection.push(tracePoint(C, Cprime, B), labelPoint(C, Cprime, B),
-                segment(B, C, 'blue'), segment(B, Cprime, 'blue'), afficheMesureAngle(C, B, Cprime), codageSegments('X', 'red', B, C, B, Cprime))
+                segment(B, C, couleurs[i]), segment(B, Cprime, couleurs[i]), afficheMesureAngle(C, B, Cprime), codageSegments('|||', couleurs[i], B, C, B, Cprime))
               xP[12] = xC
               yP[12] = yC
             }
-            texte += numAlpha(i) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens horaire.`
+            texte += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens horaire.`
             if (context.isAmc) {
-              enonceAmc += numAlpha(i) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens horaire.`
+              enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens horaire.`
             }
-            texteCorr += numAlpha(i) + ` L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens horaire a pour coordonnées ($${texNombre(calcule(punto[i][0], 2))};${texNombre(calcule(punto[i][1], 2))}$).<br>`
+            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens horaire a pour coordonnées ($${texNombre(calcule(punto[i][0], 2))};${texNombre(calcule(punto[i][1], 2))}$).<br>`
             break
 
           case 13: // rotation de 120°
@@ -505,27 +505,27 @@ export default function TransformationsDuPlanEtCoordonnees () {
             if (i === 0) {
               objetsEnonce.push(tracePoint(A, O), labelPoint(A, O))
               objetsCorrection.push(tracePoint(A, Aprime, O), labelPoint(A, Aprime, O),
-                segment(O, A, 'blue'), segment(O, Aprime, 'blue'), afficheMesureAngle(A, O, Aprime), codageSegments('//', 'red', O, A, O, Aprime))
+                segment(O, A, couleurs[i]), segment(O, Aprime, couleurs[i]), afficheMesureAngle(A, O, Aprime), codageSegments('//', couleurs[i], O, A, O, Aprime))
               xP[13] = xA
               yP[13] = yA
             } else if (i === 1) {
               objetsEnonce.push(tracePoint(B, A), labelPoint(B, A))
               objetsCorrection.push(tracePoint(B, Bprime, A), labelPoint(B, Bprime, A),
-                segment(A, B, 'blue'), segment(A, Bprime, 'blue'), afficheMesureAngle(B, A, Bprime), codageSegments('O', 'red', A, B, A, Bprime))
+                segment(A, B, couleurs[i]), segment(A, Bprime, couleurs[i]), afficheMesureAngle(B, A, Bprime), codageSegments('O', couleurs[i], A, B, A, Bprime))
               xP[13] = xB
               yP[13] = yB
             } else {
               objetsEnonce.push(tracePoint(C, B), labelPoint(C, B))
               objetsCorrection.push(tracePoint(C, Cprime, B), labelPoint(C, Cprime, B),
-                segment(B, C, 'blue'), segment(B, Cprime, 'blue'), afficheMesureAngle(C, B, Cprime), codageSegments('X', 'red', B, C, B, Cprime))
+                segment(B, C, couleurs[i]), segment(B, Cprime, couleurs[i]), afficheMesureAngle(C, B, Cprime), codageSegments('|||', couleurs[i], B, C, B, Cprime))
               xP[13] = xC
               yP[13] = yC
             }
-            texte += numAlpha(i) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens anti-horaire.`
+            texte += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens anti-horaire.`
             if (context.isAmc) {
-              enonceAmc += numAlpha(i) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens anti-horaire.`
+              enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens anti-horaire.`
             }
-            texteCorr += numAlpha(i) + ` L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens anti-horaire a pour coordonnées ($${texNombre(calcule(punto[i][0], 2))};${texNombre(calcule(punto[i][1], 2))}$).<br>`
+            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens anti-horaire a pour coordonnées ($${texNombre(calcule(punto[i][0], 2))};${texNombre(calcule(punto[i][1], 2))}$).<br>`
             break
 
           case 14: // rotation de 120°
@@ -534,27 +534,27 @@ export default function TransformationsDuPlanEtCoordonnees () {
             if (i === 0) {
               objetsEnonce.push(tracePoint(A, O), labelPoint(A, O))
               objetsCorrection.push(tracePoint(A, Aprime, O), labelPoint(A, Aprime, O),
-                segment(O, A, 'blue'), segment(O, Aprime, 'blue'), afficheMesureAngle(A, O, Aprime), codageSegments('//', 'red', O, A, O, Aprime))
+                segment(O, A, couleurs[i]), segment(O, Aprime, couleurs[i]), afficheMesureAngle(A, O, Aprime), codageSegments('//', couleurs[i], O, A, O, Aprime))
               xP[14] = xA
               yP[14] = yA
             } else if (i === 1) {
               objetsEnonce.push(tracePoint(B, A), labelPoint(B, A))
               objetsCorrection.push(tracePoint(B, Bprime, A), labelPoint(B, Bprime, A),
-                segment(A, B, 'blue'), segment(A, Bprime, 'blue'), afficheMesureAngle(B, A, Bprime), codageSegments('O', 'red', A, B, A, Bprime))
+                segment(A, B, couleurs[i]), segment(A, Bprime, couleurs[i]), afficheMesureAngle(B, A, Bprime), codageSegments('O', couleurs[i], A, B, A, Bprime))
               xP[14] = xB
               yP[14] = yB
             } else {
               objetsEnonce.push(tracePoint(C, B), labelPoint(C, B))
               objetsCorrection.push(tracePoint(C, Cprime, B), labelPoint(C, Cprime, B),
-                segment(B, C, 'blue'), segment(B, Cprime, 'blue'), afficheMesureAngle(C, B, Cprime), codageSegments('X', 'red', B, C, B, Cprime))
+                segment(B, C, couleurs[i]), segment(B, Cprime, couleurs[i]), afficheMesureAngle(C, B, Cprime), codageSegments('|||', couleurs[i], B, C, B, Cprime))
               xP[14] = xC
               yP[14] = yC
             }
-            texte += numAlpha(i) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens horaire.`
+            texte += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens horaire.`
             if (context.isAmc) {
-              enonceAmc += numAlpha(i) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens horaire.`
+              enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens horaire.`
             }
-            texteCorr += numAlpha(i) + ` L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens horaire a pour coordonnées ($${texNombre(calcule(punto[i][0], 2))};${texNombre(calcule(punto[i][1], 2))}$).<br>`
+            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens horaire a pour coordonnées ($${texNombre(calcule(punto[i][0], 2))};${texNombre(calcule(punto[i][1], 2))}$).<br>`
             break
         }
         if (this.interactif) {

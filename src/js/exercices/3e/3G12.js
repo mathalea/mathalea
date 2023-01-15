@@ -1,11 +1,12 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, egal, randint, choice, shuffle, nombreAvecEspace, arcenciel, texcolors } from '../../modules/outils.js'
+import { listeQuestionsToContenu, egal, randint, choice, shuffle, nombreAvecEspace, arcenciel, texcolors, miseEnEvidence } from '../../modules/outils.js'
 import { tracePoint, labelPoint, segment, rotation, codageAngle, texteParPosition } from '../../modules/2d.js'
 import { rotationAnimee } from '../../modules/2dAnimation.js'
 import { pavage } from '../../modules/Pavage.js'
 export const titre = 'Trouver l\'image d\'une figure par une rotation dans un pavage'
+export const dateDeModifImportante = '15/01/2023' //  Par EE
 
 /**
  * Publié le 16/12/2020
@@ -147,9 +148,9 @@ export default function PavageEtRotation2D () {
           }
         }
         A.nom = 'A'
-        A.positionLabel = 'above left'
+        A.positionLabel = 'below'
         trace = tracePoint(A, 'red') // la trace du centre de symétrie sera rouge et grosse
-        label = labelPoint(A)
+        label = labelPoint(A, 'red')
         trace.epaisseur = 3
         trace.taille = 4
         alpha = alphas[typeDePavage - 1][randint(0, alphas[typeDePavage - 1].length - 1)]
@@ -178,8 +179,11 @@ export default function PavageEtRotation2D () {
     objets.push(trace) // le centre est OK on pousse sa trace
     objets.push(label) // et son label
     couples = shuffle(couples) // on mélange les couples
+    const texteNoir = []
+    const texteGris = []
     for (let i = 0; i < monpavage.nb_polygones; i++) {
-      objets.push(texteParPosition(nombreAvecEspace(i + 1), monpavage.barycentres[i].x + 0.5, monpavage.barycentres[i].y, 'milieu', 'gray', 1, 0, true))
+      texteNoir.push(texteParPosition(nombreAvecEspace(i + 1), monpavage.barycentres[i].x, monpavage.barycentres[i].y + 0.65, 'milieu', 'black', 1, 0, true))
+      texteGris.push(texteParPosition(nombreAvecEspace(i + 1), monpavage.barycentres[i].x, monpavage.barycentres[i].y + 0.65, 'milieu', 'gray', 1, 0, true))
     }
     if (this.sup2) { // Doit-on montrer les centres des figures ?
       for (let i = 0; i < monpavage.nb_polygones; i++) {
@@ -189,7 +193,7 @@ export default function PavageEtRotation2D () {
     for (let i = 0; i < monpavage.nb_polygones; i++) { // il faut afficher tous les polygones du pavage
       objets.push(monpavage.polygones[i])
     }
-    texte = mathalea2d(fenetre, objets) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
+    texte = mathalea2d(fenetre, objets, texteNoir) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
     texte += `<br>Soit la rotation de centre $A$ et d'angle ${alpha}° dans le sens `
     if (sensdirect === 1) {
       texte += 'inverse des aiguilles d\'une montre.<br>'
@@ -204,7 +208,7 @@ export default function PavageEtRotation2D () {
     }
     for (let i = 0; i < this.nbQuestions; i++) {
       texte += `Quelle est l'image de la figure $${couples[i][0]}$ ?<br>`
-      texteCorr += `L'image de la figure $${couples[i][0]}$ est la figure ${couples[i][1]}.<br>`
+      texteCorr += `L'image de la figure $${couples[i][0]}$ est la figure $${miseEnEvidence(couples[i][1])}$.<br>`
 
       if (this.correctionDetaillee) {
         t = this.nbQuestions * 3
@@ -227,7 +231,7 @@ export default function PavageEtRotation2D () {
       }
     }
     if (this.correctionDetaillee) {
-      texteCorr += mathalea2d(fenetre, objets, objetsCorrection)
+      texteCorr += mathalea2d(fenetre, objets, objetsCorrection, texteGris)
     }
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)

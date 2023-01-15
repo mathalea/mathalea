@@ -2,6 +2,7 @@ import PavagesEtTransformations from './_Pavages_et_transformations.js'
 
 export const titre = 'Trouver l\'image d\'une figure par une symétrie axiale dans un pavage carré'
 export { interactifReady, interactifType, amcReady, amcType } from '../6e/_Pavages_et_transformations.js'
+export const dateDeModifImportante = '15/01/2023' //  Par EE
 
 /**
  * Exercice en html seulement. Symétrie axiale dans un pavage.
