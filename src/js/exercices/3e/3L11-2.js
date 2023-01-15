@@ -161,7 +161,7 @@ export default function ReductionSiPossible () {
               propositions: [{
                 texte: texteCorr,
                 enonce: texte + '<br>',
-                statut: 3
+                statut: 4
               }]
             },
             {
