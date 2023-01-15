@@ -99,8 +99,7 @@ export default function Intervalles () {
           this.reponse = Math.trunc(d) - 1
         }
         if (N === 'd') {
-          this.question = `Quel est le plus grand entier de l'intervalle
-          $\\bigg]${texNombrec(e - 4)}  ${sp(1)} ; ${sp(1)} ${texNombrec(e)}\\bigg[$ ?`
+          this.question = `Quel est le plus grand entier de l'intervalle $\\bigg]${texNombrec(e - 4)}  ${sp(1)} ; ${sp(1)} ${texNombrec(e)}\\bigg[$ ?`
           this.correction = `C'est le plus grand entier strictement inférieur à  $${texNombrec(e)}$ : il s'agit de $${e - 1}$.`
           this.reponse = e - 1
         }
