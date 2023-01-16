@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 545 
-- nombre d'exos interactifReady 837 
+- nombre d'exos amcReady 546 
+- nombre d'exos interactifReady 839 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -606,6 +606,7 @@
 |can2L08|Résoudre une équation du type $\dfrac{x+a}{b}=c$|KO|KO|OK|mathLive|
 |can2L09|Écrire avec un seul quotient|KO|KO|OK|mathLive|
 |can2L10|Simplifier un quotient|KO|KO|OK|mathLive|
+|can2L11|Exprimer une variable en fonction d'une autre|KO|KO|OK|mathLive|
 |can2N01|Utiliser les intervalles|KO|KO|OK|mathLive|
 |can2N02|Déterminer le plus petit ensemble de nombres|KO|KO|OK|mathLive|
 |can2P01|Calculer une probabilité|OK|AMCNum|OK|mathLive|
@@ -672,6 +673,7 @@
 |can4C11|Déterminer le signe d’une puissance|KO|KO|OK|qcm|
 |can4C12|Calculer la moitié d’une fraction|OK|AMCNum|OK|mathLive|
 |can4C13|Passer d'une fraction à un décimal|OK|AMCNum|OK|mathLive|
+|can4C14|Augmenter un nombre d'une fraction|OK|AMCNum|OK|mathLive|
 |can4G01|Déterminer une longueur avec des triangles semblables|OK|AMCNum|OK|mathLive|
 |can4G02|Trouver l’image d’un point par une transformation|KO|KO|OK|mathLive|
 |can4G03|Calculer l’hypoténuse avec le théorème de Pythagore|KO|KO|OK|mathLive|
