@@ -18,6 +18,8 @@ export const dateDePublication = '11/01/2023'
 * Référence 5G31-2
 */
 
+export const uuid = 'c2f77'
+export const ref = '5G31-2'
 export default class anglesTrianglesTableau extends Exercice {
   constructor () {
     super()
