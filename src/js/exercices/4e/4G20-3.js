@@ -51,21 +51,22 @@ export default class calculsDeCarre extends Exercice {
     }
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    this.nbQuestions === 1 ? this.consigne = 'Compléter le tableau suivant avec la mesure de l\'angle manquant et la nature du triangle.' : this.consigne = 'Compléter les tableaux suivants avec la mesure de l\'angle manquant et la nature du triangle.'
+    this.nbQuestions === 1 ? this.consigne = 'Calculer le carré du nombre suivant.' : this.consigne = 'Calculer les carrés des nombres suivants.'
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const a = randint(1, 15)
+      const entier = randint(1, 15)
+      const signe = randint(-1, 1, [0])
       switch (listeTypeDeQuestions[i]) {
         case 1: // entier relatif
-          texte = `Entier relatif ${a}`
-          texteCorr = `$ ${miseEnEvidence('Correction entier relatif')}$`
+          texte = `${signe * entier}`
+          texteCorr = signe === -1 ? `$(${signe * entier})^2 = ${miseEnEvidence(signe * entier * signe * entier)}$` : `$${signe * entier}^2 = ${miseEnEvidence(signe * entier * signe * entier)}$`
           break
         case 2: // décimal relatif
-          texte = `Décimal relatif ${a}`
+          texte = `Décimal relatif ${entier}`
           texteCorr = `$ ${miseEnEvidence('Correction décimal relatif')}$`
           break
         case 3: // fractionnaire relatif
-          texte = `Fractionnaire relatif ${a}`
+          texte = `Fractionnaire relatif ${entier}`
           texteCorr = `$ ${miseEnEvidence('Correction fractionnaire relatif')}$`
           break
       }
