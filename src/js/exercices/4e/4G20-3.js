@@ -58,6 +58,11 @@ export default class calculsDeCarre extends Exercice {
       const entier = randint(1, 15)
       const signe = randint(-1, 1, [0])
       const decimal = new Decimal(randint(11, 99, [20, 30, 40, 50, 60, 70, 80, 90])).div(10)
+      const numerateur = randint(2, 9)
+      let denominateur = randint(2, 9, [numerateur])
+      while (denominateur % numerateur === 0 || numerateur % denominateur === 0) {
+        denominateur = randint(2, 9)
+      }
       switch (listeTypeDeQuestions[i]) {
         case 1: // entier relatif
           texte = `$${signe * entier}$`
@@ -70,8 +75,10 @@ export default class calculsDeCarre extends Exercice {
           texteCorr += `=${miseEnEvidence(texNombre(decimal.pow(2), 2))}$`
           break
         case 3: // fractionnaire relatif
-          texte = `Fractionnaire relatif ${entier}`
-          texteCorr = `$ ${miseEnEvidence('Correction fractionnaire relatif')}$`
+          texte = signe === -1 ? '$-' : '$'
+          texte += `\\dfrac{${numerateur}}{${denominateur}}$`
+          texteCorr = signe === -1 ? `$\\left(-\\dfrac{${numerateur}}{${denominateur}}\\right)^2` : `$\\left(\\dfrac{${numerateur}}{${denominateur}}\\right)^2`
+          texteCorr += `=${miseEnEvidence(`\\dfrac{${numerateur * numerateur}}{${denominateur * denominateur}}`)}$`
           break
       }
 
