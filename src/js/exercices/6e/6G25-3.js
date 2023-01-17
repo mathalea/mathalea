@@ -1,8 +1,8 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, egal, randint, shuffle, nombreAvecEspace, texcolors } from '../../modules/outils.js'
-import { tracePoint, mediatrice, codageMediatrice, segment, symetrieAxiale, texteParPosition } from '../../modules/2d.js'
+import { listeQuestionsToContenu, egal, randint, shuffle, nombreAvecEspace, texteEnCouleur, miseEnEvidence, numAlpha } from '../../modules/outils.js'
+import { tracePoint, mediatrice, codageMediatrice, segment, symetrieAxiale, texteParPosition, pointIntersectionDD, droiteHorizontaleParPoint, point, droiteVerticaleParPoint, latexParCoordonnees } from '../../modules/2d.js'
 import { symetrieAnimee } from '../../modules/2dAnimation.js'
 import { pavage } from '../../modules/Pavage.js'
 export const titre = 'Trouver l\'image d\'une figure par une symétrie axiale dans un pavage'
@@ -32,7 +32,7 @@ export default function PavageEtReflexion2d () {
   this.sup = 1 // 1 pour des pavages modestes, 2 pour des plus grands.
   this.sup2 = false // On cache les centres par défaut.
   this.sup3 = 7
-  context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
+  // context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
   this.nouvelleVersion = function () {
     const videcouples = function (tableau) {
       for (let k = 0; k < tableau.length; k++) {
@@ -150,7 +150,7 @@ export default function PavageEtReflexion2d () {
           A = monpavage.polygones[index1].listePoints[randint(0, 2)] // idem ci-dessus
           B = monpavage.polygones[index2].listePoints[randint(0, 2)] // mais à la sortie du While A!=B
         }
-        d = mediatrice(A, B, '(d)', 'red') // l'axe sera la droite passant par ces deux points si ça fonctionne
+        d = mediatrice(A, B, '', 'red') // l'axe sera la droite passant par ces deux points si ça fonctionne
         d.epaisseur = 3
         for (let i = 1; i <= monpavage.nb_polygones; i++) { // on crée une liste des couples (antécédents, images)
           image = refleccion(monpavage, d, i)
@@ -174,9 +174,35 @@ export default function PavageEtReflexion2d () {
     }
 
     objets.push(d) // la droite d est trouvée
+    let pt1, pt2
+    if (d.pente < 0 && d.pente > -10) {
+      pt1 = pointIntersectionDD(d, droiteHorizontaleParPoint(point(context.fenetreMathalea2d[2], context.fenetreMathalea2d[3])))
+      pt2 = pointIntersectionDD(d, droiteVerticaleParPoint(point(context.fenetreMathalea2d[0], context.fenetreMathalea2d[1])))
+      if (pt1.x > pt2.x) {
+        objets.push(latexParCoordonnees('(d)', pt1.x, pt1.y - 2.5, 'red', 20, 10, '', 12))
+      } else {
+        if (pt2.x < context.fenetreMathalea2d[2] + 0.5) objets.push(latexParCoordonnees('(d)', pt2.x + 0.75 * context.zoom, pt2.y - 0.8 * context.zoom, 'red', 20, 10, '', 12))
+        else objets.push(latexParCoordonnees('(d)', pt2.x + 0.75 * context.zoom, pt2.y + 0.15 * context.zoom, 'red', 20, 10, '', 12))
+      }
+    } else if (d.pente >= 0 && d.pente < 10) {
+      pt1 = pointIntersectionDD(d, droiteHorizontaleParPoint(point(context.fenetreMathalea2d[2], context.fenetreMathalea2d[3])))
+      pt2 = pointIntersectionDD(d, droiteVerticaleParPoint(point(context.fenetreMathalea2d[2], context.fenetreMathalea2d[3])))
+      if (pt1.x < pt2.x) {
+        objets.push(latexParCoordonnees('(d)', pt1.x - 0.75 * context.zoom, pt1.y - 2.5, 'red', 20, 10, '', 12))
+      } else {
+        objets.push(latexParCoordonnees('(d)', pt2.x - 0.75 * context.zoom, pt2.y + 0.5 * context.zoom, 'red', 20, 10, '', 12))
+      }
+    } else { // d est verticale
+      pt1 = pointIntersectionDD(d, droiteHorizontaleParPoint(point(context.fenetreMathalea2d[2], context.fenetreMathalea2d[3])))
+      objets.push(latexParCoordonnees('(d)', pt1.x - 1, pt1.y - 1.5, 'red', 20, 10, '', 12))
+    }
+
     couples = shuffle(couples) // on mélange les couples
+    const texteNoir = []
+    const texteGris = []
     for (let i = 0; i < monpavage.nb_polygones; i++) {
-      objets.push(texteParPosition(nombreAvecEspace(i + 1), monpavage.barycentres[i].x + 0.5, monpavage.barycentres[i].y, 'milieu', 'gray', 1, 0, true))
+      texteNoir.push(texteParPosition(nombreAvecEspace(i + 1), monpavage.barycentres[i].x, monpavage.barycentres[i].y + 0.5, 'milieu', 'black', 1, 0, true))
+      texteGris.push(texteParPosition(nombreAvecEspace(i + 1), monpavage.barycentres[i].x, monpavage.barycentres[i].y + 0.5, 'milieu', 'gray', 1, 0, true))
     }
     if (this.sup2) { // Doit-on montrer les centres des figures ?
       for (let i = 0; i < monpavage.nb_polygones; i++) {
@@ -186,34 +212,36 @@ export default function PavageEtReflexion2d () {
     for (let i = 0; i < monpavage.nb_polygones; i++) { // il faut afficher tous les polygones du pavage
       objets.push(monpavage.polygones[i])
     }
-    texte = mathalea2d(fenetre, objets) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
+
+    texte = mathalea2d(fenetre, objets, texteNoir) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
     texte += '<br>'
+    const couleurs = ['green', 'red', 'blue']
     for (let i = 0; i < this.nbQuestions; i++) {
-      texte += `Quelle est l'image de la figure $${couples[i][0]}$ dans la symétrie d'axe $(d)$ ?<br>`
-      texteCorr += `L'image de la figure $${couples[i][0]}$ dans la symétrie d'axe $(d)$ est la figure ${couples[i][1]}.<br>`
-      //      symetriques=associesommets(monpavage.polygones[couples[i][0]-1],monpavage.polygones[couples[i][1]-1],d)
+      texte += numAlpha(i) + `Quelle est l'image de la figure $${couples[i][0]}$ dans la symétrie d'axe $(d)$ ?<br>`
+      texteCorr += numAlpha(i) + `L'image de ${texteEnCouleur('la figure', couleurs[i])} $${miseEnEvidence(couples[i][0], couleurs[i])}$ dans la symétrie d'axe $(d)$ est la figure $${miseEnEvidence(couples[i][1])}$.<br>`
       if (this.correctionDetaillee) {
         t = this.nbQuestions * 3
         A = monpavage.barycentres[couples[i][0] - 1]
         B = monpavage.barycentres[couples[i][1] - 1]
         P1 = monpavage.polygones[couples[i][0] - 1]
-        P1.color = colorToLatexOrHTML(texcolors(i))
-        P1.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i))
+        P1.color = colorToLatexOrHTML(couleurs[i])
+        P1.couleurDeRemplissage = colorToLatexOrHTML(couleurs[i])
         P1.opaciteDeRemplissage = 0.5
         P1.epaisseur = 2
         P2 = monpavage.polygones[couples[i][1] - 1]
-        P2.color = colorToLatexOrHTML(texcolors(i))
-        P2.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i))
+        P2.color = colorToLatexOrHTML(couleurs[i])
+        P2.couleurDeRemplissage = colorToLatexOrHTML(couleurs[i])
         P2.opaciteDeRemplissage = 0.5
         P2.epaisseur = 2
         P3 = symetrieAnimee(P1, d, `begin="${i * 3}s;${i * 3 + t}s;${i * 3 + t * 2}s" end="${i * 3 + 2}s;${i * 3 + t + 2}s;${i * 3 + t * 2 + 2}s" dur="2s" repeatCount="indefinite" repeatDur="${9 * this.nbQuestions}s" id="poly-${i}-anim"`)
-        P3.color = colorToLatexOrHTML(texcolors(i))
+        P3.color = colorToLatexOrHTML(couleurs[i])
         P3.epaisseur = 2
-        objetsCorrection.push(tracePoint(A, B), segment(A, B, texcolors(i)), codageMediatrice(A, B, texcolors(i), codes[i]), P1, P2, P3)
+        objetsCorrection.push(tracePoint(A, B), segment(A, B, couleurs[i]), P1, P2, P3)
+        if (A !== B) objetsCorrection.push(codageMediatrice(A, B, couleurs[i], codes[i]))
       }
     }
     if (this.correctionDetaillee) {
-      texteCorr += mathalea2d(fenetre, objets, objetsCorrection)
+      texteCorr += mathalea2d(fenetre, objets, objetsCorrection, texteGris)
     }
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)

@@ -182,8 +182,8 @@ export default function PavageEtRotation2D () {
     const texteNoir = []
     const texteGris = []
     for (let i = 0; i < monpavage.nb_polygones; i++) {
-      texteNoir.push(texteParPosition(nombreAvecEspace(i + 1), monpavage.barycentres[i].x, monpavage.barycentres[i].y + 0.65, 'milieu', 'black', 1, 0, true))
-      texteGris.push(texteParPosition(nombreAvecEspace(i + 1), monpavage.barycentres[i].x, monpavage.barycentres[i].y + 0.65, 'milieu', 'gray', 1, 0, true))
+      texteNoir.push(texteParPosition(nombreAvecEspace(i + 1), monpavage.barycentres[i].x, monpavage.barycentres[i].y + 0.5, 'milieu', 'black', 1, 0, true))
+      texteGris.push(texteParPosition(nombreAvecEspace(i + 1), monpavage.barycentres[i].x, monpavage.barycentres[i].y + 0.5, 'milieu', 'gray', 1, 0, true))
     }
     if (this.sup2) { // Doit-on montrer les centres des figures ?
       for (let i = 0; i < monpavage.nb_polygones; i++) {
