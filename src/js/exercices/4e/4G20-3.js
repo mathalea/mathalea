@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, miseEnEvidence } from '../../modules/outils.js'
+import Decimal from 'decimal.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, miseEnEvidence, texNombre } from '../../modules/outils.js'
 
 export const titre = 'Calculer un carré'
 export const dateDePublication = '17/01/2023'
@@ -56,14 +57,17 @@ export default class calculsDeCarre extends Exercice {
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const entier = randint(1, 15)
       const signe = randint(-1, 1, [0])
+      const decimal = new Decimal(randint(11, 99, [20, 30, 40, 50, 60, 70, 80, 90])).div(10)
       switch (listeTypeDeQuestions[i]) {
         case 1: // entier relatif
-          texte = `${signe * entier}`
-          texteCorr = signe === -1 ? `$(${signe * entier})^2 = ${miseEnEvidence(signe * entier * signe * entier)}$` : `$${signe * entier}^2 = ${miseEnEvidence(signe * entier * signe * entier)}$`
+          texte = `$${signe * entier}$`
+          texteCorr = signe === -1 ? `$(${signe * entier})^2` : `$${signe * entier}^2`
+          texteCorr += `=${miseEnEvidence(entier * entier)}$`
           break
         case 2: // décimal relatif
-          texte = `Décimal relatif ${entier}`
-          texteCorr = `$ ${miseEnEvidence('Correction décimal relatif')}$`
+          texte = `$${texNombre(signe * decimal, 2)}$`
+          texteCorr = signe === -1 ? `$(${texNombre(signe * decimal, 2)})^2` : `$${texNombre(signe * decimal, 2)}^2`
+          texteCorr += `=${miseEnEvidence(texNombre(decimal.pow(2), 2))}$`
           break
         case 3: // fractionnaire relatif
           texte = `Fractionnaire relatif ${entier}`
