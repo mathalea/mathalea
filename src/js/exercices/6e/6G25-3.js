@@ -5,7 +5,11 @@ import { listeQuestionsToContenu, egal, randint, shuffle, nombreAvecEspace, text
 import { tracePoint, mediatrice, codageMediatrice, segment, symetrieAxiale, texteParPosition, pointIntersectionDD, droiteHorizontaleParPoint, point, droiteVerticaleParPoint, latexParCoordonnees } from '../../modules/2d.js'
 import { symetrieAnimee } from '../../modules/2dAnimation.js'
 import { pavage } from '../../modules/Pavage.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Trouver l\'image d\'une figure par une symétrie axiale dans un pavage'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '14/12/2020'
@@ -217,7 +221,8 @@ export default function PavageEtReflexion2d () {
     texte += '<br>'
     const couleurs = ['green', 'red', 'blue']
     for (let i = 0; i < this.nbQuestions; i++) {
-      texte += numAlpha(i) + `Quelle est l'image de la figure $${couples[i][0]}$ dans la symétrie d'axe $(d)$ ?<br>`
+      setReponse(this, i, couples[i][1])
+      texte += numAlpha(i) + `Quelle est l'image de la figure $${couples[i][0]}$ dans la symétrie d'axe $(d)$ ?` + ajouteChampTexteMathLive(this, i, 'largeur25 inline') + '<br>'
       texteCorr += numAlpha(i) + `L'image de ${texteEnCouleur('la figure', couleurs[i])} $${miseEnEvidence(couples[i][0], couleurs[i])}$ dans la symétrie d'axe $(d)$ est la figure $${miseEnEvidence(couples[i][1])}$.<br>`
       if (this.correctionDetaillee) {
         t = this.nbQuestions * 3

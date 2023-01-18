@@ -173,8 +173,8 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(2, [tabfigA[indexA][0], tabfigA[indexA][1]], [xmil1, ymil1])
           }
         }
-        texte += numAlpha(0) + ' Quel est le numéro de la figure symétrique de la figure ' + texteEnCouleurEtGras(`${numA}`, 'green') + ` dans la symétrie par rapport à  $${miseEnEvidence('(d_1)', 'green')}$  ?<br>` + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
-        texteCorr += numAlpha(0) + ' La figure symétrique de la figure ' + texteEnCouleurEtGras(`${numA}`, 'green') + ` dans la symétrie par rapport à  $${miseEnEvidence('(d_1)', 'green')}$  porte le numéro ${texteEnCouleurEtGras(num1)}.<br>` + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
+        texte += numAlpha(0) + ' Quel est le numéro de la figure symétrique de la figure ' + texteEnCouleurEtGras(`${numA}`, 'green') + ` dans la symétrie par rapport à  $${miseEnEvidence('(d_1)', 'green')}$  ?` + ajouteChampTexteMathLive(this, 0, 'largeur25 inline') + '<br>'
+        texteCorr += numAlpha(0) + ' La figure symétrique de la figure ' + texteEnCouleurEtGras(`${numA}`, 'green') + ` dans la symétrie par rapport à  $${miseEnEvidence('(d_1)', 'green')}$  porte le numéro ${texteEnCouleurEtGras(num1)}.<br>`
 
         // Deuxième question : une figure type D par symétrie d'axe // à [AC] est une figure type B. le symétrique du sommet B est le sommet D
         indexD = randint(0, nx * ny - 1)
@@ -217,8 +217,8 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(1, [tabfigD[indexD][0], tabfigD[indexD][1]], [xmil2, ymil2])
           }
         }
-        texte += '<br>' + numAlpha(1) + ' Quel est le numéro de la figure symétrique de la figure ' + texteEnCouleurEtGras(`${numD}`, 'red') + ` dans la symétrie par rapport à  $${miseEnEvidence('(d_2)', 'red')}$  ?<br>` + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
-        texteCorr += '<br>' + numAlpha(1) + ' La figure symétrique de la figure ' + texteEnCouleurEtGras(`${numD}`, 'red') + ` dans la symétrie par rapport à  $${miseEnEvidence('(d_2)', 'red')}$  porte le numéro ${texteEnCouleurEtGras(num2)}.<br>` + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
+        texte += '<br>' + numAlpha(1) + ' Quel est le numéro de la figure symétrique de la figure ' + texteEnCouleurEtGras(`${numD}`, 'red') + ` dans la symétrie par rapport à  $${miseEnEvidence('(d_2)', 'red')}$  ?` + ajouteChampTexteMathLive(this, 1, 'largeur25 inline') + '<br>'
+        texteCorr += '<br>' + numAlpha(1) + ' La figure symétrique de la figure ' + texteEnCouleurEtGras(`${numD}`, 'red') + ` dans la symétrie par rapport à  $${miseEnEvidence('(d_2)', 'red')}$  porte le numéro ${texteEnCouleurEtGras(num2)}.<br>`
 
         // troisième question : une figure type D par symétrie d'axe // à [DC] est une figure type A. le symétrique du sommet D est le sommet A'
         indexC = randint(0, nx * ny - 1)
@@ -260,8 +260,8 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(3, [tabfigC[indexC][0], tabfigC[indexC][1]], [xmil3, ymil3])
           }
         }
-        texte += '<br>' + numAlpha(2) + ' Quel est le numéro de la figure symétrique de la figure ' + texteEnCouleurEtGras(`${numC}`, 'blue') + ` dans la symétrie par rapport à  $${miseEnEvidence('(d_3)', 'blue')}$  ?<br>` + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
-        texteCorr += '<br>' + numAlpha(2) + ' La figure symétrique de la figure ' + texteEnCouleurEtGras(`${numC}`, 'blue') + ` dans la symétrie par rapport à  $${miseEnEvidence('(d_3)', 'blue')}$  porte le numéro ${texteEnCouleurEtGras(num3)}.<br>` + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
+        texte += '<br>' + numAlpha(2) + ' Quel est le numéro de la figure symétrique de la figure ' + texteEnCouleurEtGras(`${numC}`, 'blue') + ` dans la symétrie par rapport à  $${miseEnEvidence('(d_3)', 'blue')}$  ?` + ajouteChampTexteMathLive(this, 2, 'largeur25 inline') + '<br>'
+        texteCorr += '<br>' + numAlpha(2) + ' La figure symétrique de la figure ' + texteEnCouleurEtGras(`${numC}`, 'blue') + ` dans la symétrie par rapport à  $${miseEnEvidence('(d_3)', 'blue')}$  porte le numéro ${texteEnCouleurEtGras(num3)}.<br>`
 
         objetsEnonce.push(mediatrice1, mediatrice2, mediatrice3)
         objetsCorrection.push(mediatrice1, mediatrice2, mediatrice3, symetrieAnimee(quad[numA], mediatrice1, `id="anim${numeroExercice}A" dur ="2s" repeatcount="1"`), symetrieAnimee(quad[numD], mediatrice2, `id="anim${numeroExercice}B" dur="2s" repeatcount="1"`), symetrieAnimee(quad[numC], mediatrice3, `id="anim${numeroExercice}C" dur="2s" repeatcount="1"`))
@@ -363,7 +363,7 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(7, [tabfigC[indexA][0], tabfigC[indexA][1]], [xmil1, ymil1])
           }
         }
-        texte += numAlpha(0) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numA} dans la symétrie par rapport à ${s0} ?<br>`, 'green') + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
+        texte += numAlpha(0) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numA} dans la symétrie par rapport à ${s0} ?`, 'green') + ajouteChampTexteMathLive(this, 0, 'largeur25 inline') + '<br>'
         texteCorr = numAlpha(0) + texteEnCouleurEtGras(` La figure symétrique de la figure ${numA} dans la symétrie par rapport à ${s0} porte le numéro ${num1}.<br>`, 'green')
         // Deuxième question : une figure dans tabfigD, une symétrie par rapport au milieu d'un [C'D'], le résultat est une figure dans tabfigA et C' est l'image de D !
         indexD = randint(0, nx * ny - 1)
@@ -399,7 +399,7 @@ export default function PavagesEtTransformations () {
           }
         }
 
-        texte += '<br>' + numAlpha(1) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numD} dans la symétrie par rapport à ${s1} ?<br>`, 'red') + ajouteChampTexteMathLive(this, 1, 'largeur25 inline')
+        texte += '<br>' + numAlpha(1) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numD} dans la symétrie par rapport à ${s1} ?`, 'red') + ajouteChampTexteMathLive(this, 1, 'largeur25 inline') + '<br>'
         texteCorr += numAlpha(1) + texteEnCouleurEtGras(` La figure symétrique de la figure ${numD} dans la symétrie par rapport à ${s1} porte le numéro ${num2}.<br>`, 'red')
         // troisième question : une figure dans tabfigC, une symétrie par rapport au symétrique du milieu de [A'D'] par rapport au milieu de [C'D']... pas très clair
         // le résultat est une figure dans tabfigD et le point (C'+ vecteur AC) a pour image D' !
@@ -434,7 +434,7 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(7, [tabfigC[indexC][0] + xC, tabfigC[indexC][1] + yC], [xmil3, ymil3])
           }
         }
-        texte += '<br>' + numAlpha(2) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numC} dans la symétrie par rapport à ${s2} ?<br>`, 'blue') + ajouteChampTexteMathLive(this, 2, 'largeur25 inline')
+        texte += '<br>' + numAlpha(2) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numC} dans la symétrie par rapport à ${s2} ?`, 'blue') + ajouteChampTexteMathLive(this, 2, 'largeur25 inline') + '<br>'
         texteCorr += numAlpha(2) + texteEnCouleurEtGras(` La figure symétrique de la figure ${numC} dans la symétrie par rapport à ${s2} porte le numéro ${num3}.<br>`, 'blue')
 
         objetsEnonce.push(tracePoint(centre1), tracePoint(centre2), tracePoint(centre3), labelPoint(centre1), labelPoint(centre2), labelPoint(centre3))
@@ -534,7 +534,7 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(8, [tabfigA[indexA][0], tabfigA[indexA][1]], [0, 0], [xV1, yV1])
           }
         }
-        texte += numAlpha(0) + texteEnCouleurEtGras(` Dans la translation qui transforme la figure ${tabfigB[iB1][2]} en la figure ${tabfigB[iB2][2]} quelle est le numéro de l'image de la figure ${numA} ?<br>`, 'green') + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
+        texte += numAlpha(0) + texteEnCouleurEtGras(` Dans la translation qui transforme la figure ${tabfigB[iB1][2]} en la figure ${tabfigB[iB2][2]} quel est le numéro de l'image de la figure ${numA} ?`, 'green') + ajouteChampTexteMathLive(this, 0, 'largeur25 inline') + '<br>'
         texteCorr = numAlpha(0) + texteEnCouleurEtGras(` La figure image de la figure ${numA}  dans la translation qui transforme la figure ${tabfigB[iB1][2]} en la figure ${tabfigB[iB2][2]} porte le numéro ${num1}.<br>`, 'green')
         // Deuxième question : une figure dans tabfigD, l'image dans tabfigB...
         // On choisit une figure C et une figure A pour définir le vecteur de translation.
@@ -574,7 +574,7 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(8, [tabfigD[indexD][0], tabfigD[indexD][1]], [0, 0], [xV2, yV2])
           }
         }
-        texte += '<br>' + numAlpha(1) + texteEnCouleurEtGras(` Dans la translation qui transforme la figure ${tabfigC[iC1][2]} en la figure ${tabfigA[iA1][2]} quelle est le numéro de l'image de la figure ${numD} ?<br>`, 'red') + ajouteChampTexteMathLive(this, 1, 'largeur25 inline')
+        texte += '<br>' + numAlpha(1) + texteEnCouleurEtGras(` Dans la translation qui transforme la figure ${tabfigC[iC1][2]} en la figure ${tabfigA[iA1][2]} quel est le numéro de l'image de la figure ${numD} ?`, 'red') + ajouteChampTexteMathLive(this, 1, 'largeur25 inline') + '<br>'
         texteCorr += numAlpha(1) + texteEnCouleurEtGras(` La figure image de la figure ${numD}  dans la translation qui transforme la figure ${tabfigC[iC1][2]} en la figure ${tabfigA[iA1][2]} porte le numéro ${num2}.<br>`, 'red')
 
         // troisième question : une figure dans tabfigC, l'image dans tabfigA...
@@ -615,7 +615,7 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(8, [tabfigC[indexC][0], tabfigC[indexC][1]], [0, 0], [xV3, yV3])
           }
         }
-        texte += '<br>' + numAlpha(2) + texteEnCouleurEtGras(` Dans la translation qui transforme la figure ${tabfigC[iD1][2]} en la figure ${tabfigA[iB3][2]} quelle est le numéro de l'image de la figure ${numC} ?<br>`, 'blue') + ajouteChampTexteMathLive(this, 2, 'largeur25 inline')
+        texte += '<br>' + numAlpha(2) + texteEnCouleurEtGras(` Dans la translation qui transforme la figure ${tabfigC[iD1][2]} en la figure ${tabfigA[iB3][2]} quel est le numéro de l'image de la figure ${numC} ?`, 'blue') + ajouteChampTexteMathLive(this, 2, 'largeur25 inline') + '<br>'
         texteCorr += numAlpha(2) + texteEnCouleurEtGras(` La figure image de la figure ${numC}  dans la translation qui transforme la figure ${tabfigC[iD1][2]} en la figure ${tabfigA[iB3][2]} porte le numéro ${num3}.<br>`, 'blue')
 
         objetsEnonce.push(vecteur1, vecteur2, vecteur3)
@@ -698,7 +698,7 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(6, [tabfigB[indexA][0], tabfigB[indexA][1]], [xmil1, ymil1]) // le repère est direct, donc le sens de rotation est inversé...
           }
         }
-        texte += numAlpha(0) + ' Quel est le numéro de la figure image de la figure ' + texteEnCouleurEtGras(`${numA}`, 'green') + ' dans la rotation de centre ' + texteEnCouleurEtGras(`${s0}`, 'green') + ' et d\'angle 90° dans le sens des aiguilles d\'une montre ?<br>' + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
+        texte += numAlpha(0) + ' Quel est le numéro de la figure image de la figure ' + texteEnCouleurEtGras(`${numA}`, 'green') + ' dans la rotation de centre ' + texteEnCouleurEtGras(`${s0}`, 'green') + ' et d\'angle 90° dans le sens des aiguilles d\'une montre ?' + ajouteChampTexteMathLive(this, 0, 'largeur25 inline') + '<br>'
         texteCorr += numAlpha(0) + ' La figure image de la figure ' + texteEnCouleurEtGras(`${numA}`, 'green') + ' dans la rotation de centre ' + texteEnCouleurEtGras(`${s0}`, 'green') + ' et d\'angle 90° dans le sens des aiguilles d\'une montre porte le numéro ' + texteEnCouleurEtGras(`${num1}`, '#f15929') + '.<br>'
 
         // deuxième question : centre B, rotation 90° sens horaire, une figure de tabfigD donne une figure de tabfigC
@@ -731,7 +731,7 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(5, [tabfigD[indexD][0], tabfigD[indexD][1]], [xmil2, ymil2]) // le repère est direct, donc le sens de rotation est inversé...
           }
         }
-        texte += '<br>' + numAlpha(1) + ' Quel est le numéro de la figure image de la figure ' + texteEnCouleurEtGras(`${numD}`, 'red') + ' dans la rotation de centre ' + texteEnCouleurEtGras(`${s1}`, 'red') + ' et d\'angle 90° dans le sens contraire des aiguilles d\'une montre ?<br>' + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
+        texte += '<br>' + numAlpha(1) + ' Quel est le numéro de la figure image de la figure ' + texteEnCouleurEtGras(`${numD}`, 'red') + ' dans la rotation de centre ' + texteEnCouleurEtGras(`${s1}`, 'red') + ' et d\'angle 90° dans le sens contraire des aiguilles d\'une montre ?' + ajouteChampTexteMathLive(this, 1, 'largeur25 inline') + '<br>'
         texteCorr += '<br>' + numAlpha(1) + ' La figure image de la figure ' + texteEnCouleurEtGras(`${numD}`, 'red') + ' dans la rotation de centre ' + texteEnCouleurEtGras(`${s1}`, 'red') + ' et d\'angle 90° dans le sens contraire des aiguilles d\'une montre porte le numéro ' + texteEnCouleurEtGras(`${num2}`, '#f15929') + '.<br>'
 
         // troisième question : centre B, rotation 90° sens anti-horaire, une figure de tabfigC donne une figure de tabfigD
@@ -764,7 +764,7 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(6, [tabfigC[indexC][0], tabfigC[indexC][1]], [xmil3, ymil3]) // le repère est direct, donc le sens de rotation est inversé...
           }
         }
-        texte += '<br>' + numAlpha(2) + ' Quel est le numéro de la figure image de la figure ' + texteEnCouleurEtGras(`${numC}`, 'blue') + ' dans la rotation de centre ' + texteEnCouleurEtGras(`${s2}`, 'blue') + ' et d\'angle 90° dans le sens des aiguilles d\'une montre ?<br>' + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
+        texte += '<br>' + numAlpha(2) + ' Quel est le numéro de la figure image de la figure ' + texteEnCouleurEtGras(`${numC}`, 'blue') + ' dans la rotation de centre ' + texteEnCouleurEtGras(`${s2}`, 'blue') + ' et d\'angle 90° dans le sens des aiguilles d\'une montre ?' + ajouteChampTexteMathLive(this, 2, 'largeur25 inline') + '<br>'
         texteCorr += '<br>' + numAlpha(2) + ' La figure image de la figure ' + texteEnCouleurEtGras(`${numC}`, 'blue') + ' dans la rotation de centre ' + texteEnCouleurEtGras(`${s2}`, 'blue') + ' et d\'angle 90° dans le sens des aiguilles d\'une montre porte le numéro ' + texteEnCouleurEtGras(`${num3}`, '#f15929') + '.<br>'
 
         trace = tracePoint(centre1, 'green')
