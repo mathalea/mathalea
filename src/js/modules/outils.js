@@ -2,7 +2,7 @@
 import { texteParPosition } from './2d.js'
 import { fraction } from './fractions.js'
 import Algebrite from 'algebrite'
-import { equal, evaluate, format, Fraction, gcd, isInteger, isPrime, matrix, parse, round } from 'mathjs'
+import { equal, evaluate, format, Fraction, gcd, isInteger, isPrime, matrix, parse, round, isArray } from 'mathjs'
 import { loadScratchblocks } from './loaders.js'
 import { context } from './context.js'
 import { setReponse } from './gestionInteractif.js'
@@ -3061,6 +3061,7 @@ ${texte}
 * @author Rémi Angot
 */
 export function miseEnEvidence (texte, couleur = '#f15929') {
+  if (isArray(couleur)) couleur = couleur[0]
   if (context.isHtml) {
     return `{\\color{${couleur}}\\boldsymbol{${texte}}}`
   } else {
@@ -3079,6 +3080,7 @@ export function miseEnEvidence (texte, couleur = '#f15929') {
 * @author Guillaume Valmont d'après MiseEnEvidence() de Rémi Angot
 */
 export function miseEnCouleur (texte, couleur = '#f15929') {
+  if (isArray(couleur)) couleur = couleur[0]
   if (context.isHtml) {
     return `{\\color{${couleur}} ${texte}}`
   } else {
@@ -3097,6 +3099,7 @@ export function miseEnCouleur (texte, couleur = '#f15929') {
 * @author Rémi Angot
 */
 export function texteEnCouleur (texte, couleur = '#f15929') {
+  if (isArray(couleur)) couleur = couleur[0]
   if (context.isHtml) {
     return `<span style="color:${couleur};">${texte}</span>`
   } else {
@@ -3115,6 +3118,7 @@ export function texteEnCouleur (texte, couleur = '#f15929') {
 * @author Rémi Angot
 */
 export function texteEnCouleurEtGras (texte, couleur = '#f15929') {
+  if (isArray(couleur)) couleur = couleur[0]
   if (context.isHtml) {
     return `<span style="color:${couleur};font-weight: bold;">${texte}</span>`
   } else {

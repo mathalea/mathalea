@@ -13,6 +13,8 @@ export const dateDePublication = '12/01/2023'
  *
  */
 
+export const uuid = 'bcb79'
+export const ref = 'can4C14'
 export default function AugmenterFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'

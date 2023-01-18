@@ -1,8 +1,8 @@
-import { translation, polygone, point, segment, rotation, similitude, arc, vecteur, milieu, barycentre, texteParPoint, labelPoint, mediatrice, tracePoint } from '../../modules/2d.js'
+import { translation, polygone, point, segment, rotation, similitude, arc, vecteur, milieu, barycentre, texteParPoint, labelPoint, mediatrice, tracePoint, codageAngleDroit, codageSegments, latexParCoordonnees, pointIntersectionDD, droiteHorizontaleParPoint, droiteVerticaleParPoint, pointSurDroite } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { mathalea2d, colorToLatexOrHTML, assombrirOuEclaircir, fixeBordures } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { egal, listeQuestionsToContenuSansNumero, randint, choice, imagePointParTransformation, texteEnCouleurEtGras, numAlpha } from '../../modules/outils.js'
+import { egal, listeQuestionsToContenuSansNumero, randint, choice, imagePointParTransformation, texteEnCouleurEtGras, numAlpha, miseEnEvidence } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { rotationAnimee, symetrieAnimee, translationAnimee } from '../../modules/2dAnimation.js'
@@ -11,10 +11,9 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 /**
- * Trouver l'image d'une figure par une symétrie centrale dans un pavage (7 motifs différents)
+ * Trouver l'image d'une figure par diverses transformations dans un pavage (7 motifs différents)
  * @author Jean-Claude Lhote
  * fonction servant à tous les niveaux
- * Pas de version Latex !
  * Références 5G12-1, 6G25-2, 4G11-1, 3G12-1
  * Relecture : Novembre 2021 par EE
  */
@@ -28,8 +27,8 @@ export default function PavagesEtTransformations () {
   this.nbQuestionsModifiable = false
   this.nbCols = 1
   this.nbColsCorr = 1
-  // this.sup = 1; // 1 pour symétrie axiale, 2 pour symétrie centrale, 3 pour translations, et 4 pour rotations ; paramètre fixé par les variantes respectives.
-  context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
+  // this.sup = 1 // 1 pour symétrie axiale, 2 pour symétrie centrale, 3 pour translations, et 4 pour rotations ; paramètre fixé par les variantes respectives.
+  // context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = [] // Liste de questions corrigées
@@ -42,11 +41,12 @@ export default function PavagesEtTransformations () {
     } else if (this.level === 5) {
       this.sup = 2
     } else this.sup = 1
-    // listes de pavages [nx,ny,xB,yB,xC,yC,xD,yD,zoom,anngle]  : 0=carrés, 1=cerf-volant 2=quadri concave 3=quadri quelconque 4=parallélogrammes 5=triangles rectangles isocèles 6=triangles équilatéraux 7=losanges
+    // listes de pavages [nx,ny,xB,yB,xC,yC,xD,yD,zoom,angle]  : 0=carrés, 1=cerf-volant 2=quadri concave 3=quadri quelconque 4=parallélogrammes 5=triangles rectangles isocèles 6=triangles équilatéraux 7=losanges
     const paves = [[5, 5, 4, 0, 4, 4, 0, 4, 30, 0], [5, 5, 6, 0, 8, 8, 0, 6, 60, -9], [5, 5, 8, 0, 4, 4, 2, 8, 50, 0], [5, 5, 4, 0, 6, 4, 0, 6, 50, 5], [4, 6, 8, 0, 7, 4, -1, 4, 50, 10], [5, 5, 8, 0, 4, 4, 0, 8, 50, 0], [5, 5, 4, 0, 3, 2 * Math.sin(Math.PI / 3), 2, 4 * Math.sin(Math.PI / 3), 20, 0], [4, 4, 3, 1, 4, 4, 1, 3, 20, 0]]
-    const quad = []; let quad1; let quad2; let quad3
+    const quad = []; const quadCorr = []; let quad1; let quad2; let quad3
     let mediatrice1, mediatrice2, mediatrice3, centre1, centre2, centre3, arc1, arc2, arc3, rayon11, rayon12, rayon21, rayon22, rayon31, rayon32
     let vecteur1, vecteur2, vecteur3, vector1, vector2, vector3, origine1, origine2, origine3, indexsym2, indexsym1, indexsym3
+    let segCorr11, segCorr12, segCorr21, segCorr22, segCorr31, segCorr32
     let B, C, D
     let iB1, iB2, iB3, iC1, iA1, iD1
     let texte = ''; let texteCorr = ''
@@ -55,7 +55,6 @@ export default function PavagesEtTransformations () {
     let choixPave
     switch (parseInt(this.sup)) {
       case 1:
-
         choixPave = 0 // pavages adaptés à symétrie axiale (carrés)
         break
       case 2:
@@ -65,7 +64,7 @@ export default function PavagesEtTransformations () {
         choixPave = randint(0, 7) // pavages adaptés à translation (tous)
         break
       case 4:
-        choixPave = 0 // pavages adaptés à rotation (carrés  )
+        choixPave = 0 // pavages adaptés à rotation (carrés)
         break
     }
     pave = paves[choixPave]
@@ -112,20 +111,26 @@ export default function PavagesEtTransformations () {
         numAxy = 2 * x + 4 * y * nx
         tabfigA.push([xAxy, yAxy, numAxy])
         quad[numAxy] = translation(polygone(A, B, C, D), vecteur(xAxy, yAxy))
+        quadCorr[numAxy] = translation(polygone(A, B, C, D), vecteur(xAxy, yAxy))
         tabfigB.push([xAxy + xB, yAxy + yB, numAxy + 1])
         quad[numAxy + 1] = translation(rotation(polygone(A, B, C, D), I, 180), vecteur(xAxy, yAxy))
+        quadCorr[numAxy + 1] = translation(rotation(polygone(A, B, C, D), I, 180), vecteur(xAxy, yAxy))
         tabfigD.push([xAxy + xD, yAxy + yD, numAxy + 2 * nx])
         quad[numAxy + 2 * nx] = translation(rotation(polygone(A, B, C, D), J, 180), vecteur(xAxy, yAxy))
+        quadCorr[numAxy + 2 * nx] = translation(rotation(polygone(A, B, C, D), J, 180), vecteur(xAxy, yAxy))
         tabfigC.push([xAxy + xC, yAxy + yC, numAxy + 2 * nx + 1])
         quad[numAxy + 2 * nx + 1] = translation(translation(polygone(A, B, C, D), vecteur(A, C)), vecteur(xAxy, yAxy))
+        quadCorr[numAxy + 2 * nx + 1] = translation(translation(polygone(A, B, C, D), vecteur(A, C)), vecteur(xAxy, yAxy))
       }
     }
     for (let i = 0; i < quad.length; i++) {
       objetsEnonce.push(quad[i], texteParPoint(i, barycentre(quad[i], '', 'center'), 'milieu', 'black', 1, 'middle', false))
-      objetsCorrection.push(quad[i], texteParPoint(i, barycentre(quad[i], '', 'center'), 'milieu', 'black', 1, 'middle', false))
+      quadCorr[i].color = colorToLatexOrHTML(assombrirOuEclaircir('gray', 50))
+      objetsCorrection.push(quadCorr[i], texteParPoint(i, barycentre(quad[i], '', 'center'), 'milieu', assombrirOuEclaircir('gray', 50), 1, 'middle', false))
     }
 
     context.fenetreMathalea2d = [Xmin, Ymin, Xmax, Ymax]
+    let trace, label, pt1, pt2
     switch (parseInt(this.sup)) {
       case 1: // symétrie axiale
         // Première question : une figure type A par symétrie d'axe // à [BD] est une figure type A. le symétrique du sommet A est le sommet C
@@ -143,10 +148,17 @@ export default function PavagesEtTransformations () {
               num1 = tabfigA[j][2]
               xa = tabfigA[indexA][0]
               ya = tabfigA[indexA][1]
-              mediatrice1 = mediatrice(point(xa, ya), point(punto[0], punto[1]), '$(d_1)$')
+              mediatrice1 = mediatrice(point(xa, ya), point(punto[0], punto[1]))
               mediatrice1.color = colorToLatexOrHTML('green')
               mediatrice1.epaisseur = 2
               mediatrice1.isVisible = true
+              segCorr11 = segment(point(xa, ya), milieu(point(xa, ya), point(punto[0], punto[1])), 'green')
+              segCorr12 = segment(point(punto[0], punto[1]), milieu(point(xa, ya), point(punto[0], punto[1])), 'green')
+              segCorr11.epaisseur = 2
+              segCorr11.pointilles = 2
+              segCorr12.epaisseur = 2
+              segCorr12.pointilles = 2
+              objetsCorrection.push(codageAngleDroit(pointSurDroite(mediatrice1, 1), milieu(point(xa, ya), point(punto[0], punto[1])), point(xa, ya), 'green', 0.8, 1))
               quad[numA].couleurDeRemplissage = colorToLatexOrHTML('green')
               quad[numA].opaciteDeRemplissage = 0.6
               break
@@ -161,8 +173,9 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(2, [tabfigA[indexA][0], tabfigA[indexA][1]], [xmil1, ymil1])
           }
         }
-        texte = numAlpha(0) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numA} dans la symétrie par rapport à $(d_1)$ ?<br>`, 'green') + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
-        texteCorr = numAlpha(0) + texteEnCouleurEtGras(` La figure symétrique de la figure ${numA} dans la symétrie par rapport à $(d_1)$ porte le numéro ${num1}.<br>`, 'green')
+        texte += numAlpha(0) + ' Quel est le numéro de la figure symétrique de la figure ' + texteEnCouleurEtGras(`${numA}`, 'green') + ` dans la symétrie par rapport à  $${miseEnEvidence('(d_1)', 'green')}$  ?<br>` + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
+        texteCorr += numAlpha(0) + ' La figure symétrique de la figure ' + texteEnCouleurEtGras(`${numA}`, 'green') + ` dans la symétrie par rapport à  $${miseEnEvidence('(d_1)', 'green')}$  porte le numéro ${texteEnCouleurEtGras(num1)}.<br>` + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
+
         // Deuxième question : une figure type D par symétrie d'axe // à [AC] est une figure type B. le symétrique du sommet B est le sommet D
         indexD = randint(0, nx * ny - 1)
         numD = tabfigD[indexD][2]
@@ -178,11 +191,17 @@ export default function PavagesEtTransformations () {
               num2 = tabfigB[j][2]
               xb = tabfigD[indexD][0]
               yb = tabfigD[indexD][1] - 4
-              objetsEnonce.push(tracePoint(point(xb, yb), point(punto[0], punto[1])))
-              mediatrice2 = mediatrice(point(xb, yb + 4), point(punto[0], punto[1]), '$(d_2)$')
+              mediatrice2 = mediatrice(point(xb, yb + 4), point(punto[0], punto[1]))
               mediatrice2.color = colorToLatexOrHTML('red')
               mediatrice2.epaisseur = 2
               mediatrice2.isVisible = true
+              segCorr21 = segment(point(xb, yb + 4), milieu(point(xb, yb + 4), point(punto[0], punto[1])), 'red')
+              segCorr22 = segment(point(punto[0], punto[1]), milieu(point(xb, yb + 4), point(punto[0], punto[1])), 'red')
+              segCorr21.epaisseur = 2
+              segCorr21.pointilles = 2
+              segCorr22.epaisseur = 2
+              segCorr22.pointilles = 2
+              objetsCorrection.push(codageAngleDroit(pointSurDroite(mediatrice2, 1), milieu(point(xb, yb + 4), point(punto[0], punto[1])), point(xb, yb + 4), 'red', 0.8, 1))
               quad[numD].couleurDeRemplissage = colorToLatexOrHTML('red')
               quad[numD].opaciteDeRemplissage = 0.6
 
@@ -198,8 +217,9 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(1, [tabfigD[indexD][0], tabfigD[indexD][1]], [xmil2, ymil2])
           }
         }
-        texte += '<br>' + numAlpha(1) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numD} dans la symétrie par rapport à $(d_2)$ ?<br>`, 'red') + ajouteChampTexteMathLive(this, 1, 'largeur25 inline')
-        texteCorr += numAlpha(1) + texteEnCouleurEtGras(` La figure symétrique de la figure ${numD} dans la symétrie par rapport à $(d_2)$ porte le numéro ${num2}.<br>`, 'red')
+        texte += '<br>' + numAlpha(1) + ' Quel est le numéro de la figure symétrique de la figure ' + texteEnCouleurEtGras(`${numD}`, 'red') + ` dans la symétrie par rapport à  $${miseEnEvidence('(d_2)', 'red')}$  ?<br>` + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
+        texteCorr += '<br>' + numAlpha(1) + ' La figure symétrique de la figure ' + texteEnCouleurEtGras(`${numD}`, 'red') + ` dans la symétrie par rapport à  $${miseEnEvidence('(d_2)', 'red')}$  porte le numéro ${texteEnCouleurEtGras(num2)}.<br>` + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
+
         // troisième question : une figure type D par symétrie d'axe // à [DC] est une figure type A. le symétrique du sommet D est le sommet A'
         indexC = randint(0, nx * ny - 1)
         numC = tabfigC[indexC][2]
@@ -215,10 +235,17 @@ export default function PavagesEtTransformations () {
               num3 = tabfigB[j][2]
               xc = tabfigC[indexC][0]
               yc = tabfigC[indexC][1]
-              mediatrice3 = mediatrice(point(xc, yc), point(punto[0], punto[1]), '$(d_3)$')
+              mediatrice3 = mediatrice(point(xc, yc), point(punto[0], punto[1]))
               mediatrice3.color = colorToLatexOrHTML('blue')
               mediatrice3.epaisseur = 2
               mediatrice3.isVisible = true
+              segCorr31 = segment(point(xc, yc), milieu(point(xc, yc), point(punto[0], punto[1])), 'blue')
+              segCorr32 = segment(point(punto[0], punto[1]), milieu(point(xc, yc), point(punto[0], punto[1])), 'blue')
+              segCorr31.epaisseur = 2
+              segCorr31.pointilles = 2
+              segCorr32.epaisseur = 2
+              segCorr32.pointilles = 2
+              objetsCorrection.push(codageAngleDroit(pointSurDroite(mediatrice3, 1), milieu(point(xc, yc), point(punto[0], punto[1])), point(xc, yc), 'blue', 0.8, 1))
               quad[numC].couleurDeRemplissage = colorToLatexOrHTML('blue')
               quad[numC].opaciteDeRemplissage = 0.6
               break
@@ -233,11 +260,42 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(3, [tabfigC[indexC][0], tabfigC[indexC][1]], [xmil3, ymil3])
           }
         }
-        texte += '<br>' + numAlpha(2) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numC} dans la symétrie par rapport à $(d_3)$ ?<br>`, 'blue') + ajouteChampTexteMathLive(this, 2, 'largeur25 inline')
-        texteCorr += numAlpha(2) + texteEnCouleurEtGras(` La figure symétrique de la figure ${numC} dans la symétrie par rapport à $(d_3)$ porte le numéro ${num3}.<br>`, 'blue')
+        texte += '<br>' + numAlpha(2) + ' Quel est le numéro de la figure symétrique de la figure ' + texteEnCouleurEtGras(`${numC}`, 'blue') + ` dans la symétrie par rapport à  $${miseEnEvidence('(d_3)', 'blue')}$  ?<br>` + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
+        texteCorr += '<br>' + numAlpha(2) + ' La figure symétrique de la figure ' + texteEnCouleurEtGras(`${numC}`, 'blue') + ` dans la symétrie par rapport à  $${miseEnEvidence('(d_3)', 'blue')}$  porte le numéro ${texteEnCouleurEtGras(num3)}.<br>` + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
+
         objetsEnonce.push(mediatrice1, mediatrice2, mediatrice3)
         objetsCorrection.push(mediatrice1, mediatrice2, mediatrice3, symetrieAnimee(quad[numA], mediatrice1, `id="anim${numeroExercice}A" dur ="2s" repeatcount="1"`), symetrieAnimee(quad[numD], mediatrice2, `id="anim${numeroExercice}B" dur="2s" repeatcount="1"`), symetrieAnimee(quad[numC], mediatrice3, `id="anim${numeroExercice}C" dur="2s" repeatcount="1"`))
 
+        pt1 = pointIntersectionDD(mediatrice1, droiteHorizontaleParPoint(point(context.fenetreMathalea2d[2], context.fenetreMathalea2d[3])))
+        pt2 = pointIntersectionDD(mediatrice1, droiteVerticaleParPoint(point(context.fenetreMathalea2d[0], context.fenetreMathalea2d[1])))
+        if (pt1.x > pt2.x) {
+          objetsEnonce.push(latexParCoordonnees('(d_1)', pt1.x, pt1.y - 2.5, 'green', 20, 10, '', 12))
+          objetsCorrection.push(latexParCoordonnees('(d_1)', pt1.x, pt1.y - 2.5, 'green', 20, 10, '', 12))
+        } else {
+          objetsEnonce.push(latexParCoordonnees('(d_1)', pt2.x + 2.5, pt2.y, 'green', 20, 10, '', 12))
+          objetsCorrection.push(latexParCoordonnees('(d_1)', pt2.x + 2.5, pt2.y, 'green', 20, 10, '', 12))
+        }
+
+        pt1 = pointIntersectionDD(mediatrice2, droiteHorizontaleParPoint(point(context.fenetreMathalea2d[0], context.fenetreMathalea2d[1])))
+        pt2 = pointIntersectionDD(mediatrice2, droiteVerticaleParPoint(point(context.fenetreMathalea2d[0], context.fenetreMathalea2d[1])))
+        if (pt1.x > pt2.x) {
+          objetsEnonce.push(latexParCoordonnees('(d_2)', pt1.x, pt1.y + 2.5, 'red', 20, 10, '', 12))
+          objetsCorrection.push(latexParCoordonnees('(d_2)', pt1.x, pt1.y + 2.5, 'red', 20, 10, '', 12))
+        } else if (pt1.x < pt2.x) {
+          objetsEnonce.push(latexParCoordonnees('(d_2)', pt2.x + 2.5, pt2.y, 'red', 20, 10, '', 12))
+          objetsCorrection.push(latexParCoordonnees('(d_2)', pt2.x + 2.5, pt2.y, 'red', 20, 10, '', 12))
+        } else {
+          objetsEnonce.push(latexParCoordonnees('(d_2)', pt2.x + 3.5, pt2.y + 1, 'red', 20, 10, '', 12))
+          objetsCorrection.push(latexParCoordonnees('(d_2)', pt2.x + 3.5, pt2.y + 1, 'red', 20, 10, '', 12))
+        }
+
+        pt1 = pointIntersectionDD(mediatrice3, droiteVerticaleParPoint(point(context.fenetreMathalea2d[2], context.fenetreMathalea2d[3])))
+        objetsEnonce.push(latexParCoordonnees('(d_3)', pt1.x - 2, pt1.y + 1.5, 'blue', 20, 10, '', 12))
+        objetsCorrection.push(latexParCoordonnees('(d_3)', pt1.x - 2, pt1.y + 1.5, 'blue', 20, 10, '', 12))
+        objetsCorrection.push(segCorr11, segCorr12, segCorr21, segCorr22, segCorr31, segCorr32)
+        objetsCorrection.push(codageSegments('OO', 'green', segCorr11, segCorr12))
+        objetsCorrection.push(codageSegments('XX', 'red', segCorr21, segCorr22))
+        objetsCorrection.push(codageSegments('|||', 'blue', segCorr31, segCorr32))
         texte += mathalea2d({
           xmin: Xmin,
           xmax: Xmax,
@@ -258,7 +316,7 @@ export default function PavagesEtTransformations () {
         quad3 = translation(quad[num3], vecteur(0, 0))
         quad3.couleurDeRemplissage = colorToLatexOrHTML('blue')
         quad3.opaciteDeRemplissage = 0.3
-        objetsCorrection.push(quad1, quad2, quad3)
+        objetsCorrection.push(quad[numA], quad[numD], quad[numC], quad1, quad2, quad3)
         texteCorr += mathalea2d({
           xmin: Xmin,
           xmax: Xmax,
@@ -625,7 +683,7 @@ export default function PavagesEtTransformations () {
               num1 = tabfigD[j][2]
               xa = tabfigA[indexA][0]
               ya = tabfigA[indexA][1]
-              centre1 = point(xmil1, ymil1, s0, 'left')
+              centre1 = point(xmil1, ymil1, s0, 'above left')
               quad[numA].couleurDeRemplissage = colorToLatexOrHTML('green')
               quad[numA].opaciteDeRemplissage = 0.6
               break
@@ -640,8 +698,8 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(6, [tabfigB[indexA][0], tabfigB[indexA][1]], [xmil1, ymil1]) // le repère est direct, donc le sens de rotation est inversé...
           }
         }
-        texte += numAlpha(0) + texteEnCouleurEtGras(` Quel est le numéro de la figure image de la figure ${numA} dans la rotation de centre ${s0} et d'angle 90° dans le sens des aiguilles d'une montre ?<br>`, 'green') + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
-        texteCorr = numAlpha(0) + texteEnCouleurEtGras(` La figure image de la figure ${numA} dans la rotation de centre ${s0} et d'angle 90° dans le sens des aiguilles d'une montre porte le numéro ${num1}.<br>`, 'green')
+        texte += numAlpha(0) + ' Quel est le numéro de la figure image de la figure ' + texteEnCouleurEtGras(`${numA}`, 'green') + ' dans la rotation de centre ' + texteEnCouleurEtGras(`${s0}`, 'green') + ' et d\'angle 90° dans le sens des aiguilles d\'une montre ?<br>' + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
+        texteCorr += numAlpha(0) + ' La figure image de la figure ' + texteEnCouleurEtGras(`${numA}`, 'green') + ' dans la rotation de centre ' + texteEnCouleurEtGras(`${s0}`, 'green') + ' et d\'angle 90° dans le sens des aiguilles d\'une montre porte le numéro ' + texteEnCouleurEtGras(`${num1}`, '#f15929') + '.<br>'
 
         // deuxième question : centre B, rotation 90° sens horaire, une figure de tabfigD donne une figure de tabfigC
         indexD = randint(0, nx * ny - 1)
@@ -658,7 +716,7 @@ export default function PavagesEtTransformations () {
               num2 = tabfigC[j][2]
               xb = tabfigA[indexD][0]
               yb = tabfigA[indexD][1]
-              centre2 = point(xmil2, ymil2, s1, 'left')
+              centre2 = point(xmil2, ymil2, s1, 'above left')
               quad[numD].couleurDeRemplissage = colorToLatexOrHTML('red')
               quad[numD].opaciteDeRemplissage = 0.6
               break
@@ -673,8 +731,8 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(5, [tabfigD[indexD][0], tabfigD[indexD][1]], [xmil2, ymil2]) // le repère est direct, donc le sens de rotation est inversé...
           }
         }
-        texte += '<br>' + numAlpha(1) + texteEnCouleurEtGras(` Quel est le numéro de la figure image de la figure ${numD} dans la rotation de centre ${s1} et d'angle 90° dans le sens inverse des aiguilles d'une montre ?<br>`, 'red') + ajouteChampTexteMathLive(this, 1, 'largeur25 inline')
-        texteCorr += numAlpha(1) + texteEnCouleurEtGras(` La figure image de la figure ${numD} dans la rotation de centre ${s1} et d'angle 90° dans le sens inverse des aiguilles d'une montre porte le numéro ${num2}.<br>`, 'red')
+        texte += '<br>' + numAlpha(1) + ' Quel est le numéro de la figure image de la figure ' + texteEnCouleurEtGras(`${numD}`, 'red') + ' dans la rotation de centre ' + texteEnCouleurEtGras(`${s1}`, 'red') + ' et d\'angle 90° dans le sens contraire des aiguilles d\'une montre ?<br>' + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
+        texteCorr += '<br>' + numAlpha(1) + ' La figure image de la figure ' + texteEnCouleurEtGras(`${numD}`, 'red') + ' dans la rotation de centre ' + texteEnCouleurEtGras(`${s1}`, 'red') + ' et d\'angle 90° dans le sens contraire des aiguilles d\'une montre porte le numéro ' + texteEnCouleurEtGras(`${num2}`, '#f15929') + '.<br>'
 
         // troisième question : centre B, rotation 90° sens anti-horaire, une figure de tabfigC donne une figure de tabfigD
         indexC = randint(0, nx * ny - 1)
@@ -691,7 +749,7 @@ export default function PavagesEtTransformations () {
               num3 = tabfigD[j][2]
               xc = tabfigA[indexC][0]
               yc = tabfigA[indexC][1]
-              centre3 = point(xmil3, ymil3, s2, 'left')
+              centre3 = point(xmil3, ymil3, s2, 'above left')
               quad[numC].couleurDeRemplissage = colorToLatexOrHTML('blue')
               quad[numC].opaciteDeRemplissage = 0.6
               break
@@ -706,12 +764,28 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(6, [tabfigC[indexC][0], tabfigC[indexC][1]], [xmil3, ymil3]) // le repère est direct, donc le sens de rotation est inversé...
           }
         }
-        texte += '<br>' + numAlpha(2) + texteEnCouleurEtGras(` Quel est le numéro de la figure image de la figure ${numC} dans la rotation de centre ${s2} et d'angle 90° dans le sens des aiguilles d'une montre ?<br>`, 'blue') + ajouteChampTexteMathLive(this, 2, 'largeur25 inline')
-        texteCorr += numAlpha(2) + texteEnCouleurEtGras(` La figure image de la figure ${numC} dans la rotation de centre ${s2} et d'angle 90° dans le sens des aiguilles d'une montre porte le numéro ${num3}.<br>`, 'blue')
+        texte += '<br>' + numAlpha(2) + ' Quel est le numéro de la figure image de la figure ' + texteEnCouleurEtGras(`${numC}`, 'blue') + ' dans la rotation de centre ' + texteEnCouleurEtGras(`${s2}`, 'blue') + ' et d\'angle 90° dans le sens des aiguilles d\'une montre ?<br>' + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
+        texteCorr += '<br>' + numAlpha(2) + ' La figure image de la figure ' + texteEnCouleurEtGras(`${numC}`, 'blue') + ' dans la rotation de centre ' + texteEnCouleurEtGras(`${s2}`, 'blue') + ' et d\'angle 90° dans le sens des aiguilles d\'une montre porte le numéro ' + texteEnCouleurEtGras(`${num3}`, '#f15929') + '.<br>'
 
-        objetsEnonce.push(tracePoint(centre1), tracePoint(centre2), tracePoint(centre3), labelPoint(centre1), labelPoint(centre2), labelPoint(centre3))
-        objetsCorrection.push(tracePoint(centre1), tracePoint(centre2), tracePoint(centre3), labelPoint(centre1), labelPoint(centre2), labelPoint(centre3)
-          , rotationAnimee(quad[numA], centre1, -90, `id="anim${numeroExercice}A" dur ="2s" repeatcount="1"`), rotationAnimee(quad[numD], centre2, 90, `id="anim${numeroExercice}B" dur="2s" repeatcount="1"`), rotationAnimee(quad[numC], centre3, -90, `id="anim${numeroExercice}C" dur="2s" repeatcount="1"`))
+        trace = tracePoint(centre1, 'green')
+        label = labelPoint(centre1, 'green')
+        trace.epaisseur = 2
+        trace.taille = 4
+        objetsEnonce.push(trace, label)
+        objetsCorrection.push(trace, label)
+        trace = tracePoint(centre2, 'red')
+        label = labelPoint(centre2, 'red')
+        trace.epaisseur = 2
+        trace.taille = 4
+        objetsEnonce.push(trace, label)
+        objetsCorrection.push(trace, label)
+        trace = tracePoint(centre3, 'blue')
+        label = labelPoint(centre3, 'blue')
+        trace.epaisseur = 2
+        trace.taille = 4
+        objetsEnonce.push(trace, label)
+        objetsCorrection.push(trace, label)
+        objetsCorrection.push(rotationAnimee(quad[numA], centre1, -90, `id="anim${numeroExercice}A" dur ="2s" repeatcount="1"`), rotationAnimee(quad[numD], centre2, 90, `id="anim${numeroExercice}B" dur="2s" repeatcount="1"`), rotationAnimee(quad[numC], centre3, -90, `id="anim${numeroExercice}C" dur="2s" repeatcount="1"`))
 
         texte += mathalea2d({
           xmin: Xmin,
@@ -734,40 +808,40 @@ export default function PavagesEtTransformations () {
         quad3.couleurDeRemplissage = colorToLatexOrHTML('blue')
         quad3.opaciteDeRemplissage = 0.3
         arc1 = arc(point(tabfigA[indexA][0], tabfigA[indexA][1]), centre1, -90)
-        rayon11 = segment(point(tabfigA[indexA][0], tabfigA[indexA][1]), centre1)
+        rayon11 = segment(point(tabfigA[indexA][0], tabfigA[indexA][1]), centre1, 'green')
         rayon12 = rotation(rayon11, centre1, -90)
         rayon11.pointilles = 2
         rayon12.pointilles = 2
+        rayon12.color = colorToLatexOrHTML('green')
         arc1.pointilles = 2
         arc1.epaisseur = 2
         arc1.color = colorToLatexOrHTML('green')
         arc2 = arc(point(tabfigD[indexD][0], tabfigD[indexD][1]), centre2, 90)
-        rayon21 = segment(point(tabfigD[indexD][0], tabfigD[indexD][1]), centre2)
+        rayon21 = segment(point(tabfigD[indexD][0], tabfigD[indexD][1]), centre2, 'red')
         rayon22 = rotation(rayon21, centre2, 90)
         rayon21.pointilles = 2
         rayon22.pointilles = 2
+        rayon22.color = colorToLatexOrHTML('red')
         arc2.pointilles = 2
         arc2.epaisseur = 2
         arc2.color = colorToLatexOrHTML('red')
         arc3 = arc(point(tabfigC[indexC][0], tabfigC[indexC][1]), centre3, -90)
-        rayon31 = segment(point(tabfigC[indexC][0], tabfigC[indexC][1]), centre3)
+        rayon31 = segment(point(tabfigC[indexC][0], tabfigC[indexC][1]), centre3, 'blue')
         rayon32 = rotation(rayon31, centre3, -90)
         rayon31.pointilles = 2
         rayon32.pointilles = 2
+        rayon32.color = colorToLatexOrHTML('blue')
         arc3.pointilles = 2
         arc3.epaisseur = 2
         arc3.color = colorToLatexOrHTML('blue')
-        objetsCorrection.push(quad1, quad2, quad3, arc1, arc2, arc3, rayon11, rayon12, rayon21, rayon22, rayon31, rayon32)
-        texteCorr += mathalea2d({
-          xmin: Xmin,
-          xmax: Xmax,
-          ymin: Ymin,
-          ymax: Ymax,
-          pixelsParCm: 15,
-          scale: 0.3,
-          optionsTikz: ['every node/.style={scale=0.6}'],
-          mainlevee: false
-        }, objetsCorrection
+        objetsCorrection.push(quad1, quad2, quad3, arc1, arc2, arc3, rayon11, rayon12, rayon21, rayon22, rayon31, rayon32,
+          codageAngleDroit(point(tabfigA[indexA][0], tabfigA[indexA][1]), centre1, rotation(point(tabfigA[indexA][0], tabfigA[indexA][1]), centre1, -90), 'green', 1, 1),
+          codageAngleDroit(point(tabfigD[indexD][0], tabfigD[indexD][1]), centre2, rotation(point(tabfigD[indexD][0], tabfigD[indexD][1]), centre2, 90), 'red', 1, 1),
+          codageAngleDroit(point(tabfigC[indexC][0], tabfigC[indexC][1]), centre3, rotation(point(tabfigC[indexC][0], tabfigC[indexC][1]), centre3, -90), 'blue', 1, 1),
+          codageSegments('|||', 'green', rayon11, rayon12), codageSegments('OO', 'red', rayon21, rayon22), codageSegments('XXX', 'blue', rayon31, rayon32))
+        texteCorr += mathalea2d(
+          Object.assign({}, fixeBordures(objetsCorrection), { pixelsParCm: 15, scale: 0.3, optionsTikz: ['every node/.style={scale=0.6}'], mainlevee: false })
+          , objetsCorrection
         )
 
         break
