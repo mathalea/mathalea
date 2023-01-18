@@ -6847,7 +6847,7 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 \\fancyfoot{}
 \\fancyfoot[R]{\\scriptsize Coopmaths.fr -- CC-BY-SA}
 \\setlength{\\headheight}{14.5pt}
-\\newcommand\\dotfills[1][8]{\\newcount\\nbdots \\nbdots=#1 \\loop \\ldots \\advance \\nbdots -1 \\ifnum \\nbdots>0 \\repeat }
+\\newcommand\\dotfills[1][4cm]{\\makebox[#1]{\\dotfill}}
 
 ${preambulePersonnalise(listePackages)}
 
@@ -6939,7 +6939,7 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 {
   \\fancyhead[C]{\\textsc{${entete}}}
 }
-\\newcommand\\dotfills[1][8]{\\newcount\\nbdots \\nbdots=#1 \\loop \\ldots \\advance \\nbdots -1 \\ifnum \\nbdots>0 \\repeat }
+\\newcommand\\dotfills[1][4cm]{\\makebox[#1]{\\dotfill}}
 
 ${preambulePersonnalise(listePackages)}
 
@@ -7230,7 +7230,7 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
   }
 }
 
-\\newcommand\\dotfills[1][8]{\\newcount\\nbdots \\nbdots=#1 \\loop \\ldots \\advance \\nbdots -1 \\ifnum \\nbdots>0 \\repeat }
+\\newcommand\\dotfills[1][4cm]{\\makebox[#1]{\\dotfill}}
 
 ${preambulePersonnalise(listePackages)}
 

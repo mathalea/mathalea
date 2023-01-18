@@ -7,7 +7,7 @@
 % Remarques : 
 %		* changements importants le 28 juillet 2018 pour faciliter la lecture. La police Myriade Pro est utilisée.
 %
-%		* il faut penser à  doubler l'interligne le plus souvent possible avec \begin{spacing}{2} ou \begin{enumerate}[itemsep=1em]
+%		* il faut penser à doubler l'interligne le plus souvent possible avec \begin{spacing}{2} ou \begin{enumerate}[itemsep=1em]
 %
 %
 
@@ -19,13 +19,13 @@
 % Utilisation : 
 %		* La fiche commence avec \theme{nombres|gestion|grandeurs|geo|algo}{Texte (entrainement, évaluation, mise en route...}{numéro de version ou vide}{titre du thême et niveau}
 %
-%		* On peut préférer \themelight{couleur_theme}{couleur_numerotation} notamment pour faire des corrigés à  décalquer
+%		* On peut préférer \themelight{couleur_theme}{couleur_numerotation} notamment pour faire des corrigés à décalquer
 %
 %
 %
 %		* Chaque exercice commence par \exo{titre ou vide}. Le numéro de l'exercice utilise le compteur de section
 %		
-%		* \begin{correction}...\end{correction} remet le compteur d'exercice à  0, met le cadre adéquat et change la couleur du thême en vert 
+%		* \begin{correction}...\end{correction} remet le compteur d'exercice à 0, met le cadre adéquat et change la couleur du thême en vert 
 %
 %		* Plusieurs environnements sont définis : objectif, methode (dans lequel il faut faire précéder le titre d'un \iconemethode
 %
@@ -35,9 +35,9 @@
 %
 %       * Une macro \motimportant qui met en gras dans la couleur du thême.
 %
-%		* Une macro \mathimportant qui met en gras dans la couleur du thême à  l'intérieur d'un mode math.
+%		* Une macro \mathimportant qui met en gras dans la couleur du thême à l'intérieur d'un mode math.
 %
-%		* Une macro \mathimportantcorr qui met en gras dans la couleur de la correction à  l'intérieur d'un mode math.
+%		* Une macro \mathimportantcorr qui met en gras dans la couleur de la correction à l'intérieur d'un mode math.
 %
 
 %		* Une macro \pointillés qui met des pointillés sur la longueur choisie
@@ -50,9 +50,9 @@
 %
 %		* Une macro \pointcorrpos{x}{y}{nom}{position} qui trace un point dans le repêre au couleur du thême
 %
-%		* Une macro \tampon(nom) qui insêre le graphique tampon-nom en haut à  droite de la feuille
+%		* Une macro \tampon(nom) qui insêre le graphique tampon-nom en haut à droite de la feuille
 %
-%	* Une macro \version(v) qui insêre le numéro de version en haut à  droite de la feuille (à  ne pas utiliser en même temps que tampon)
+%	* Une macro \version(v) qui insêre le numéro de version en haut à droite de la feuille (à ne pas utiliser en même temps que tampon)
 %
 %		* Une macro \mathunderline pour souligner en couleur correction une partie d'une expression mathématique
 %
@@ -236,7 +236,7 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 }
 
 
-\usepackage{titlesec} % Le titre de section est en fait un numéro d'exercice avec sa consigne alignée à  gauche.
+\usepackage{titlesec} % Le titre de section est en fait un numéro d'exercice avec sa consigne alignée à gauche.
 % Avant le titre était plus gros
 %\titleformat{\section}{\bfseries\large}{\numb{\arabic{section}}}{1cm}{\hspace{0em}}{}
 
@@ -350,8 +350,10 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 
 \renewcommand{\deg}{\ensuremath{^\circ}}
 
+\newcommand\dotfills[1][4cm]{\makebox[#1]{\dotfill}}
+
 % Pour les corrigés avec xlop : utilisation de la police du document.
-% Toujours utile avec le passage à  Myriad ??? NON !
+% Toujours utile avec le passage à Myriad ??? NON !
 %\newcommand{\police}[1]{ 
 %{\fontfamily{lmr}\selectfont #1}
 %}
