@@ -15,6 +15,7 @@ export const ref = '6C10-1'
 export default function TablesParametres () {
   TablesDeMultiplications.call(this, '2-3-4-5-6-7-8-9')
   this.titre = titre
+  this.consigne = 'Compléter.'
   this.sup2 = 2
   this.tailleDiaporama = 3
 }
