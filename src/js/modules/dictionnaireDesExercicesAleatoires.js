@@ -5364,6 +5364,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "4G20-3": {
+    "titre": "Calculer un carré",
+    "url": "/exercices/4e/4G20-3.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4G20-3",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "4G20-4": {
     "titre": "Arrondir une racine carrée",
     "url": "/exercices/4e/4G20-4.js",
