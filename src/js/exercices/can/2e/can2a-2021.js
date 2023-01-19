@@ -1,4 +1,5 @@
 import Exercice from '../../Exercice.js'
+import { context } from '../../../modules/context.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
@@ -528,16 +529,33 @@ export default function SujetCAN2021Seconde () {
               reponse = a - b
             }
           } else {
-            texte = 'Soit le script Python suivant :<br>$\\begin{array}{|l|}\n'
-            texte += '\\hline\n'
-            texte += '\\\n \\texttt{def calcul(a,b) :}  \\\n '
-            texte += `\\\\\n ${sp(6)} \\texttt{if a!=6 or b<8 :}\\\n `
-            texte += `\\\\\n ${sp(12)} \\texttt{b = a+b}\\\n `
-            texte += `\\\\\n ${sp(6)} \\texttt{else :}\\\n `
-            texte += `\\\\\n ${sp(12)} \\texttt{b = a-b}\\\n `
-            texte += `\\\\\n ${sp(6)} \\texttt{return b}\\\\\n `
-            texte += '\\hline\n'
-            texte += '\\end{array}\n$'
+            texte = 'Soit le script Python suivant :<br>'
+            if (context.isHtml) {
+              texte += '$\\begin{array}{|l|}\n'
+              texte += '\\hline\n'
+              texte += '\\\n \\texttt{def calcul(a,b) :}  \\\n '
+              texte += `\\\\\n ${sp(6)} \\texttt{if a!=6 or b<8 :}\\\n `
+              texte += `\\\\\n ${sp(12)} \\texttt{b = a+b}\\\n `
+              texte += `\\\\\n ${sp(6)} \\texttt{else :}\\\n `
+              texte += `\\\\\n ${sp(12)} \\texttt{b = a-b}\\\n `
+              texte += `\\\\\n ${sp(6)} \\texttt{return b}\\\\\n `
+              texte += '\\hline\n'
+              texte += '\\end{array}\n$'
+            } else {
+              texte += '\\medskip'
+              texte += '\\fbox{\\\\'
+              texte += '\\parbox{0.7\\linewidth}{\\\\'
+              texte += '\\setlength{\\parskip}{.5cm}\\\\'
+              texte += ' \\texttt{def calcul(a,b) :}\\newline\\\\'
+              texte += ' \\hspace*{3mm}\\texttt{if a!=6 or b>8 :}\\newline\\\\'
+              texte += ' \\hspace*{8mm}\\texttt{b = a+b}\\newline\\\\'
+              texte += ' \\hspace*{3mm}\\texttt{else :}\\newline\\\\'
+              texte += ' \\hspace*{8mm}\\texttt{b = a-b}\\newline\\\\'
+              texte += ' \\hspace*{3mm}\\texttt{return b}\\\\'
+              texte += '}'
+              texte += '}\\newline\\\\'
+              texte += '\\medskip'
+            }
             texte += `<br> Que renvoie l'instruction $\\texttt{calcul(${a},${b})}$ ?`
             if (a !== 6 || b < 8) {
               texteCorr = `Si $a$ est différent de $6$ ou $b<8$, le script renvoie la somme de $a$ et de $b$, sinon il renvoie la différence.<br>
