@@ -106,9 +106,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
           CE.pointilles = 5
           const objets1 = []
           objets1.push(p1[0], /* labelPoint(A, B, C, D, E), */ CE, ...angles1, texteSurSeg(D, E, stringNombre(hyp) + ' cm'), texteSurSeg(A, B, stringNombre(l1) + ' cm'), texteSurSeg(E, A, stringNombre(L1) + ' cm'), texteSurSeg(B, D, stringNombre(L1 + L2) + ' cm'))
-          const val = fixeBordures(objets1, { rxmin: -1, rymin: -1 })
-          console.log(val.xmin + ':' + val.xmax + ':' + val.ymin + ':' + val.ymax)
-          texte = mathalea2d(Object.assign({ scale: 0.7, pixelsParCm: 20, zoom: 2 }, fixeBordures([A, B, C, D, E, point(C.x, C.y + 0.2)], { rxmin: -1, rymin: -1 })), ...objets1)
+          texte = mathalea2d(Object.assign({ scale: 0.7, pixelsParCm: 20, zoom: 1 }, fixeBordures([A, B, C, D, E, point(C.x, C.y + 0.2)], { rxmin: -1, rymin: -1 })), ...objets1)
           texte += ajouteChampTexteMathLive(this, i * 4, 'unites[longueurs]', { texte: 'Périmètre : ' })
           texte += ajouteChampTexteMathLive(this, i * 4 + 1, 'unites[aires]', { texte: '  Aire : ' })
           texteCorr = `La figure est composée d'un rectangle de ${stringNombre(L1)} cm par ${stringNombre(l1)} cm`
@@ -145,9 +143,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
           CE.pointilles = 5
           const objets1 = []
           objets1.push(demicercle, segment(A, E), segment(D, E), segment(B, D), /* labelPoint(A, B, C, D, E), */ FR, AB, CE, ...angles1, texteSurSeg(D, E, stringNombre(hyp) + ' cm'), texteSurSeg(E, C, stringNombre(l1) + ' cm'), texteSurSeg(E, A, stringNombre(L1) + ' cm'), texteSurSeg(B, D, stringNombre(L1 + L2) + ' cm'))
-          const val = fixeBordures(objets1, { rxmin: -1, rymin: -1 })
-          console.log(val.xmin + ':' + val.xmax + ':' + val.ymin + ':' + val.ymax)
-          texte = mathalea2d(Object.assign({ scale: 0.7, pixelsParCm: 20, zoom: 2 }, fixeBordures([demicercle, A, B, C, D, E, point(C.x, C.y + 0.2)], { rxmin: -1, rymin: -1 })), ...objets1)
+          texte = mathalea2d(Object.assign({ scale: 0.7, pixelsParCm: 20, zoom: 1 }, fixeBordures([demicercle, A, B, C, D, E, point(C.x, C.y + 0.2)], { rxmin: -1, rymin: -1 })), ...objets1)
           texte += ajouteChampTexteMathLive(this, i * 4, 'unites[longueurs]', { texte: 'Périmètre : ' })
           texte += ajouteChampTexteMathLive(this, i * 4 + 1, 'unites[aires]', { texte: '  Aire : ' })
           texteCorr = `La figure est composée d'un rectangle de ${stringNombre(L1)} cm par ${stringNombre(l1)} cm, `
@@ -188,9 +184,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
           ER.pointilles = 5
           const objets1 = []
           objets1.push(segment(A, B), segment(B, C), segment(A, D), demicercle, /* labelPoint(A, B, C, D, E), */ CD, ER, ...angles1, texteSurSeg(A, B, stringNombre(L2) + ' cm'), texteSurSeg(A, D, stringNombre(L1) + ' cm'), texteSurSeg(E, R, stringNombre(L2 / 2) + ' cm'))
-          const val = fixeBordures(objets1, { rxmin: -1, rymin: -1 })
-          console.log(val.xmin + ':' + val.xmax + ':' + val.ymin + ':' + val.ymax)
-          texte = mathalea2d(Object.assign({ scale: 0.7, pixelsParCm: 20, zoom: 2 }, fixeBordures([A, B, C, D, E, demicercle, point(C.x, C.y + 0.2)], { rxmin: -1, rymin: -1 })), ...objets1)
+          texte = mathalea2d(Object.assign({ scale: 0.7, pixelsParCm: 20, zoom: 1 }, fixeBordures([A, B, C, D, E, demicercle, point(C.x, C.y + 0.2)], { rxmin: -1, rymin: -1 })), ...objets1)
           texte += ajouteChampTexteMathLive(this, i * 4, 'unites[longueurs]', { texte: 'Périmètre : ' })
           texte += ajouteChampTexteMathLive(this, i * 4 + 1, 'unites[aires]', { texte: '  Aire : ' })
           texteCorr = `La figure est composée d'un rectangle de ${stringNombre(L1)} cm par ${stringNombre(L2)} cm`
@@ -209,7 +203,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
           break
         }
         case 'rectangle_cercle': {
-          const partieDecimale1 = calcul(randint(1, 9) / 10)
+          const partieDecimale1 = calcul(randint(1, 9, [1, 3, 5, 7, 9]) / 10)
           let L1 = randint(4, 8)
           let L2 = randint(3, L1 - 1)
           L1 = calcul(L1 * (1 + partieDecimale1))
@@ -236,7 +230,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
           FS.pointilles = 5
           const objets1 = []
           objets1.push(AB, segment(B, C), segment(A, D), demicercle, demicercle2, /* labelPoint(A, B, C, D, E), */ CD, ER, FS, ...angles1, texteSurSeg(E, R, stringNombre(L2 / 2) + ' cm'), texteSurSeg(A, D, stringNombre(L1) + ' cm'))
-          texte = mathalea2d(Object.assign({ scale: 0.7, pixelsParCm: 20, zoom: 1.5 }, fixeBordures([A, B, C, D, E, demicercle, demicercle2, point(C.x, C.y + 0.2)], { rxmin: -1, rymin: -1 })), ...objets1)
+          texte = mathalea2d(Object.assign({ scale: 0.7, pixelsParCm: 20, zoom: 1 }, fixeBordures([A, B, C, D, E, demicercle, demicercle2, point(C.x, C.y + 0.2)], { rxmin: -1, rymin: -1 })), ...objets1)
           texte += ajouteChampTexteMathLive(this, i * 4, 'unites[longueurs]', { texte: 'Périmètre : ' })
           texte += ajouteChampTexteMathLive(this, i * 4 + 1, 'unites[aires]', { texte: '  Aire : ' })
           texteCorr = `La figure est composée d'un rectangle de ${stringNombre(L1)} cm par ${stringNombre(L2)} cm`
@@ -299,8 +293,6 @@ export default function PerimetreOuAireDeFiguresComposees () {
           ]
           const [triplet1, triplet2] = choice(deuxtripletsPythagoriciens)
           const adjust = (triplet1[1] + triplet2[1] > 50 ? 0.1 : randint(3, 4) / 10)
-          console.log('adjust:' + adjust)
-          console.log('c1 et c2:' + triplet1[1] * adjust + ':' + triplet2[1] * adjust)
           const com1 = calcul(triplet1[0] * (adjust))
           const c1 = calcul(triplet1[1] * (adjust))
           const h1 = calcul(triplet1[2] * (adjust))
@@ -323,8 +315,8 @@ export default function PerimetreOuAireDeFiguresComposees () {
           NO.pointilles = 5
           const angles2 = [codageAngleDroit(M, N, O), codageAngleDroit(N, O, P), codageAngleDroit(N, H, S), codageAngleDroit(O, P, M), codageAngleDroit(P, M, N)]
           const objets2 = []
-          objets2.push(p2[0], labelPoint(M, N, S, O, P, H), HS, NO, ...angles2, texteSurSeg(P, M, stringNombre(c) + ' cm'), texteSurSeg(S, N, stringNombre(h1) + ' cm'), texteSurSeg(O, S, stringNombre(h2) + ' cm'), texteSurSeg(H, S, stringNombre(com1) + ' cm'), codageSegments('//', 'black', M, N, M, P, O, P))
-          texte = mathalea2d(Object.assign({ scale: 0.7, pixelsParCm: 20, zoom: 2 }, fixeBordures([M, N, S, O, P, point(N.x, N.y + 0.5)], { rxmin: -1, rymin: -1 })), ...objets2)
+          objets2.push(p2[0]/*, labelPoint(M, N, S, O, P, H) */, HS, NO, ...angles2, texteSurSeg(P, M, stringNombre(c) + ' cm'), texteSurSeg(S, N, stringNombre(h1) + ' cm'), texteSurSeg(O, S, stringNombre(h2) + ' cm'), texteSurSeg(H, S, stringNombre(com1) + ' cm'), codageSegments('//', 'black', M, N, M, P, O, P))
+          texte = mathalea2d(Object.assign({ scale: 0.7, pixelsParCm: 20, zoom: 1 }, fixeBordures([M, N, S, O, P, point(N.x, N.y + 0.5)], { rxmin: -1, rymin: -1 })), ...objets2)
           texte += ajouteChampTexteMathLive(this, i * 4, 'unites[longueurs]', { texte: 'Périmètre : ' })
           texte += ajouteChampTexteMathLive(this, i * 4 + 1, 'unites[aires]', { texte: '  Aire : ' })
           texteCorr = `La figure est un carré de côté ${stringNombre(c)} cm auquel il faut enlever un triangle de ${stringNombre(c)} cm de base et ${stringNombre(h)} cm de hauteur.<br>`
