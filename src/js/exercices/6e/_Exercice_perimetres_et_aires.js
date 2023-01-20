@@ -3,9 +3,10 @@ import { listeQuestionsToContenu, randint, enleveElement, choice, troncature, st
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { point, pointAdistance, polygoneRegulier, polygone, arc, pointSurCercle, texteSurSegment, segment, pointIntersectionLC, droite, cercle, droiteParPointEtPerpendiculaire, tracePoint, labelPoint, codageAngleDroit, codageSegments, afficheLongueurSegment, pointSurDroite, pointSurSegment } from '../../modules/2d.js'
+import { point, pointAdistance, polygoneRegulier, polygone, arc, pointSurCercle, texteSurSegment, segment, pointIntersectionLC, droite, cercle, droiteParPointEtPerpendiculaire, tracePoint, labelPoint, codageAngleDroit, codageSegments, afficheLongueurSegment, pointSurDroite, pointSurSegment, pointIntersectionCC } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import Grandeur from '../../modules/Grandeur.js'
+import { triangle3longueurs } from '../../modules/iepMacros/triangles.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -167,19 +168,53 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
           resultat1 = calcul(2 * L + 2 * l)
           resultat2 = calcul(L * l)
           break
-        case 'triangle_rectangle':
+        case 'triangle_rectangle': {
           triplet = choice(tripletsPythagoriciens)
-          enleveElement(tripletsPythagoriciens, triplet)
-          a = calcul(triplet[0] * (1 + partieDecimale1))
-          b = calcul(triplet[1] * (1 + partieDecimale1))
-          c = calcul(triplet[2] * (1 + partieDecimale1))
+          // enleveElement(tripletsPythagoriciens, triplet)
+          const adjust = Math.floor(10 * (randint(6, 15) + randint(4, 8) * 0.1) / Math.max(...triplet)) * 0.1
+          a = calcul(triplet[0] * (adjust))
+          b = calcul(triplet[1] * (adjust))
+          c = calcul(triplet[2] * (adjust))
           nomTriangle = creerNomDePolygone(3, listeDeNomsDePolygones)
           listeDeNomsDePolygones.push(nomTriangle)
-          if (choice([true, false])) {
-            texte = `Un triangle $${nomTriangle}$ rectangle en $${nomTriangle[1]}$ tel que $${nomTriangle[0] + nomTriangle[1] + ' = ' + texNombre(a)}$ cm, $${nomTriangle[1] + nomTriangle[2] + ' = ' + texNombre(b)}$ cm\
- et $${nomTriangle[0] + nomTriangle[2] + ' = ' + texNombre(c)}$ cm.` + '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
+          if (this.sup3) {
+            texte = 'Calculer le périmètre et l\'aire de ce triangle rectangle.'
+            const zoom = (randint(4, 8) + randint(4, 8) * 0.1) / Math.max(a, b, c)
+            const A = point(0, 0, nomTriangle.charAt(0), 'below left')
+            const B = pointAdistance(A, a * zoom, randint(-5, 5, [0]), nomTriangle.charAt(1), 'below right')
+            // const B = point(a * zoom, 0, nomTriangle.charAt(1), 'below right')
+            // const C = point(0, b * zoom, nomTriangle.charAt(2), 'above left')
+            const C = pointIntersectionCC(cercle(A, b * zoom), cercle(B, c * zoom), nomTriangle.charAt(2))
+            const figure = polygone(A, B, C)
+            // Les lignes ci-dessous permettent d'avoir un affichage aux dimensions optimisées
+            const xmin = Math.min(A.x) - 2
+            const xmax = Math.max(B.x) + 2
+            const ymin = Math.min(A.y) - 2
+            const ymax = Math.max(C.y) + 2
+            // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
+            const params = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 0.8, zoom: 1 }
+            // On ajoute au texte de la correction, la figure de la correction
+            const labels = labelPoint(A, B, C)
+            const segT = [
+              texteSurSegment(nomTriangle.charAt(1) + nomTriangle.charAt(2) + '=' + stringNombre(c) + ' cm', C, B, 'black', 1),
+              texteSurSegment(nomTriangle.charAt(0) + nomTriangle.charAt(1) + '=' + stringNombre(a) + ' cm', B, A, 'black', 1),
+              texteSurSegment(nomTriangle.charAt(2) + nomTriangle.charAt(0) + '=' + stringNombre(b) + ' cm', A, C, 'black', 1)]
+            segT.forEach(element => {
+              element.mathOn = false
+              element.scale = 1
+            })
+            figure.epaisseur = 2
+            const objets = []
+            objets.push(labels, codageAngleDroit(B, A, C, 'blue', 0.8, 1, 0.5, 'blue', 0.5), figure, ...segT)
+            texte += '<br>' + mathalea2d(params, objets)
+            texteCorr = ''
           } else {
-            texte = `Un triangle rectangle $${nomTriangle}$ a pour côtés : $${texNombre(a)}$ cm, $${texNombre(c)}$ cm et $${texNombre(b)}$ cm.` + '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
+            if (choice([true, false])) {
+              texte = `Un triangle $${nomTriangle}$ rectangle en $${nomTriangle[1]}$ tel que $${nomTriangle[0] + nomTriangle[1] + ' = ' + texNombre(a)}$ cm, $${nomTriangle[1] + nomTriangle[2] + ' = ' + texNombre(b)}$ cm\
+   et $${nomTriangle[0] + nomTriangle[2] + ' = ' + texNombre(c)}$ cm.` + '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
+            } else {
+              texte = `Un triangle rectangle $${nomTriangle}$ a pour côtés : $${texNombre(a)}$ cm, $${texNombre(c)}$ cm et $${texNombre(b)}$ cm.` + '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
+            }
           }
 
           texteCorr = `$\\mathcal{P}_{${nomTriangle}}=${texNombre(a)}~\\text{cm}+${texNombre(b)}
@@ -188,6 +223,7 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
           resultat1 = calcul(a + b + c)
           resultat2 = calcul(a * b / 2)
           break
+        }
         case 'cercle':
           R = calcul(randint(4, 5) + randint(1, 9) / 10)
           if (this.sup3) {
@@ -220,17 +256,17 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
           } else {
             donneLeDiametre = choice([true, false])
             if (donneLeDiametre) {
-              texte = `Un cercle de $${2 * R}$ cm de diamètre.` + '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
-              texteCorr = `Le diamètre est de $${2 * R}$ cm donc le rayon est de $${R}$ cm.<br>`
+              texte = `Un cercle de $${texNombre(2 * R)}$ cm de diamètre.` + '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
+              texteCorr = `Le diamètre est de $${texNombre(2 * R)}$ cm donc le rayon est de $${texNombre(R)}$ cm.<br>`
             } else {
               texte = `Un cercle de $${R}$ cm de rayon.` + sp(2) + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
               texteCorr = ''
             }
           }
 
-          texteCorr += `$\\mathcal{P}=2\\times${R}\\times\\pi~\\text{cm}=${texNombre(2 * R)}\\pi~\\text{cm}\\approx${texNombre(
+          texteCorr += `$\\mathcal{P}=2\\times${texNombre(R)}\\times\\pi~\\text{cm}=${texNombre(2 * R)}\\pi~\\text{cm}\\approx${texNombre(
             2 * R * Math.PI, 3)}~\\text{cm}$<br>`
-          texteCorr += `$\\mathcal{A}=${R}\\times${R}\\times\\pi~\\text{cm}^2=${texNombre(R * R)}\\pi~\\text{cm}^2\\approx${texNombre(
+          texteCorr += `$\\mathcal{A}=${texNombre(R)}\\times${texNombre(R)}\\times\\pi~\\text{cm}^2=${texNombre(R * R)}\\pi~\\text{cm}^2\\approx${texNombre(
             R * R * Math.PI, 3)}~\\text{cm}^2$`
           texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{P}\\approx ${texNombrec(troncature(2 * R * Math.PI, 1))}~${texTexte(' cm')}$.`
           texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{A}\\approx ${texNombre(troncature(R * R * Math.PI, 1))}~${texTexte(' cm')}^2$.<br>`
@@ -273,16 +309,16 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
           } else {
             donneLeDiametre = choice([true, false])
             if (donneLeDiametre) {
-              texte = `Un cercle de $${2 * R}$ cm de diamètre.` + '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
-              texteCorr = `Le diamètre est de $${2 * R}$ cm donc le rayon est de $${R}$ cm.<br>`
+              texte = `Un cercle de $${texNombre(2 * R)}$ cm de diamètre.` + '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
+              texteCorr = `Le diamètre est de $${texNombre(2 * R)}$ cm donc le rayon est de $${texNombre(R)}$ cm.<br>`
             } else {
-              texte = `Un cercle de $${R}$ cm de rayon.` + sp(2) + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
+              texte = `Un cercle de $${texNombre(R)}$ cm de rayon.` + sp(2) + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
               texteCorr = ''
             }
           }
 
-          texteCorr += `$\\mathcal{P}=2\\times${R}\\times\\pi\\div 2 + 2\\times${R}~\\text{cm}\\approx${texNombre(2 * R * Math.PI / 2 + 2 * R, 3)}~\\text{cm}$<br>`
-          texteCorr += `$\\mathcal{A}=${R}\\times${R}\\times\\pi \\div 2~\\text{cm}^2\\approx${texNombre(R * R * Math.PI / 2, 3)}~\\text{cm}^2$`
+          texteCorr += `$\\mathcal{P}=2\\times${texNombre(R)}\\times\\pi\\div 2 + 2\\times${texNombre(R)}~\\text{cm}\\approx${texNombre(2 * R * Math.PI / 2 + 2 * R, 3)}~\\text{cm}$<br>`
+          texteCorr += `$\\mathcal{A}=${texNombre(R)}\\times${texNombre(R)}\\times\\pi \\div 2~\\text{cm}^2\\approx${texNombre(R * R * Math.PI / 2, 3)}~\\text{cm}^2$`
           texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{P}\\approx ${texNombrec(troncature(2 * R * Math.PI / 2 + 2 * R, 1))}~${texTexte(' cm')}$.`
           texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{A}\\approx ${texNombre(troncature(R * R * Math.PI / 2, 1))}~${texTexte(' cm')}^2$.<br>`
           texteCorr += `<br>Si on utilise $\\pi \\approx 3,14$, alors <br> $\\mathcal{P}_{1}\\approx 2 \\times ${texNombre(R)} \\times 3,14 \\div 2 + 2 \\times ${texNombre(R)} \\approx ${texNombrec(2 * R * 3.14 / 2 + 2 * R, 3)}~${texTexte(' cm')}$.<br>`
