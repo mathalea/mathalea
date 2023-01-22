@@ -171,7 +171,7 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
         case 'triangle_rectangle': {
           triplet = choice(tripletsPythagoriciens)
           // enleveElement(tripletsPythagoriciens, triplet)
-          const adjust = Math.floor(10 * (randint(6, 15) + randint(4, 8) * 0.1) / Math.max(...triplet)) * 0.1
+          const adjust = (this.sup2 ? Math.floor(10 * (randint(6, 15) + randint(4, 8) * 0.1) / Math.max(...triplet)) * 0.1 : 1)
           a = calcul(triplet[0] * (adjust))
           b = calcul(triplet[1] * (adjust))
           c = calcul(triplet[2] * (adjust))
@@ -225,7 +225,7 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
           break
         }
         case 'cercle':
-          R = calcul(randint(4, 5) + randint(1, 9) / 10)
+          R = (this.sup2 ? calcul(randint(4, 5) + randint(1, 9) / 10) : calcul(randint(4, 10)))
           if (this.sup3) {
             texte = 'Calculer le périmètre et l\'aire de ce cercle. Donner une valeur approchée au dixième.'
             const nomCercle = creerNomDePolygone(4, listeDeNomsDePolygones)
@@ -278,7 +278,7 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
           resultat2 = arrondi(R * R * Math.PI, 1)
           break
         case 'demi-cercle':
-          R = calcul(randint(4, 5) + randint(1, 9) / 10)
+          R = (this.sup2 ? calcul(randint(4, 5) + randint(1, 9) / 10) : calcul(randint(4, 10)))
           if (this.sup3) {
             texte = 'Calculer le périmètre et l\'aire de ce demi-cercle. Donner une valeur approchée au dixième.'
             const nomCercle = creerNomDePolygone(4, listeDeNomsDePolygones)
