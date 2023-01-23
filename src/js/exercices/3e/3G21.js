@@ -173,7 +173,7 @@ export default function ReciproqueThales () {
           texte += `$${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s1 + s4}=${s14}$ cm et $${s1 + s5}=${s15}$ cm.<br>`
           texteCorr = ''
         }
-        texte += `Les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont-elles parallèles ? ${ajouteChampTexteMathLive(this, 0, 'largeur15 inline')}<br>`
+        texte += `Les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont-elles parallèles ? ${ajouteChampTexteMathLive(this, i, 'largeur15 inline')}<br>`
 
         texteCorr += `D'une part, on a : $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s12}}{${s14}}=\\dfrac{${s12}\\times${miseEnEvidence(
         s15
@@ -188,12 +188,12 @@ export default function ReciproqueThales () {
       $.`
 
         if (!k.eq(k2)) {
-          if (!context.isAmc) setReponse(this, 0, 'non', { formatInteractif: 'ignorerCasse' })
+          if (!context.isAmc) setReponse(this, i, 'non', { formatInteractif: 'ignorerCasse' })
           // droites non parallèles
           texteCorr += `<br>D'où : $\\dfrac{${s1 + s2}}{${s1 + s4}}\\not=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>`
           texteCorr += `Donc d'après le théorème de Thales, les droites $(${s2 + s3})$ et $(${s4 + s5})$ ne sont pas parallèles.<br>`
         } else {
-          if (!context.isAmc) setReponse(this, 0, 'oui', { formatInteractif: 'ignorerCasse' })
+          if (!context.isAmc) setReponse(this, i, 'oui', { formatInteractif: 'ignorerCasse' })
           // droites parallèles
           texteCorr += `<br>D'où : $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>`
           if (k.isPos()) { texteCorr += `De plus, $${s1}$, $${s4}$, $${s2}$ et $${s1}$, $${s5}$, $${s3}$ sont alignés dans le même ordre.<br>` } else { texteCorr += `De plus, $${s4}$, $${s1}$, $${s2}$ et $${s5}$, $${s1}$, $${s3}$ sont alignés dans le même ordre.<br>` }
