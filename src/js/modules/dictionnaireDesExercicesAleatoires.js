@@ -3571,7 +3571,7 @@ export default {
     "interactifType": "mathLive",
     "name": "3G44",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -8646,7 +8646,7 @@ export default {
     "interactifReady": false,
     "name": "6C30-9",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -9055,7 +9055,7 @@ export default {
     "interactifReady": false,
     "name": "6G13-1",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -9190,7 +9190,7 @@ export default {
     "interactifReady": false,
     "name": "6G21-4",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -9205,7 +9205,7 @@ export default {
     "interactifReady": false,
     "name": "6G21-5",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -9506,7 +9506,8 @@ export default {
     "titre": "Trouver l'image d'une figure par une symétrie axiale dans un pavage",
     "url": "/exercices/6e/6G25-3.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6G25-3",
     "newEx": {
       "isNew": false,

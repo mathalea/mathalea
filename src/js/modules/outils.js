@@ -4839,6 +4839,7 @@ export function infoMessage ({ titre, texte, couleur }) {
  */
 
 export function lampeMessage ({ titre, texte, couleur }) {
+  const timeStamp = Date.now()
   if (context.isHtml) {
     if (context.versionMathalea === 3) {
       return `
