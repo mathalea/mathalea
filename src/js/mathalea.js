@@ -1435,15 +1435,14 @@ function miseAJourDuCode () {
 
         let contenuFichier = `
     
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    % Document généré avec MathALEA sous licence CC-BY-SA
-    %
-    % ${window.location.href}
-    %
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document généré avec MathALEA sous licence CC-BY-SA
+%
+% ${window.location.href}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
-    
-    `
+`
 
         if ($('#style_classique:checked').val()) {
           contenuFichier += introLatex($('#entete_du_fichier').val(), listePackages) + codeMoodle + '\n\n\\end{document}'
