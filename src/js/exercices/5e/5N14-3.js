@@ -10,6 +10,7 @@ export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifType = 'qcm'
 export const interactifReady = true
+export const dateDeModifImportante = '25/01/2023'
 
 export const description = 'Déterminer si une égalité de deux fractions est vraie en utilisant les produits en croix.<br> 4 niveaux : petits entiers, grands entiers, décimaux, mélange.'
 
