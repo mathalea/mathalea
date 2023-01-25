@@ -98,23 +98,31 @@ export default function EqResolvantesThales () {
         let strOut
         // tous les nombres sont entiers ! on pourrait complètement se passer de texNombre (sauf pour les séparateurs de classes) => précision mise à 0
         if (bool) {
-          strOut = `D'une part, $${texNombre(f.num, 0)}\\times ${texNombre(fEqOrNot.den, 0)} = ${miseEnEvidence(texNombre(f.num * fEqOrNot.den, 0))}$.<br>
-          D'autre part, $${texNombre(f.den, 0)}\\times ${texNombre(fEqOrNot.num, 0)} = ${miseEnEvidence(texNombre(f.den * fEqOrNot.num, 0))}$.<br>
-          On constate que les produits en croix sont égaux.<br>
-          `
           if (decimal) {
+            strOut = `D'une part, $${texNombre(f.num / 10, 1)}\\times ${texNombre(fEqOrNot.den / 10, 1)} = ${miseEnEvidence(texNombre(f.num * fEqOrNot.den / 100, 2))}$.<br>
+            D'autre part, $${texNombre(f.den / 10, 1)}\\times ${texNombre(fEqOrNot.num / 10, 1)} = ${miseEnEvidence(texNombre(f.den * fEqOrNot.num / 100, 2))}$.<br>
+            On constate que les produits en croix ne sont pas égaux.<br>
+            `
             strOut += `Les quotients $${showFracNumDenDec(f.num, f.den)}$ et $${showFracNumDenDec(fEqOrNot.num, fEqOrNot.den)}$ sont donc égales.`
           } else {
+            strOut = `D'une part, $${texNombre(f.num, 0)}\\times ${texNombre(fEqOrNot.den, 0)} = ${miseEnEvidence(texNombre(f.num * fEqOrNot.den, 0))}$.<br>
+            D'autre part, $${texNombre(f.den, 0)}\\times ${texNombre(fEqOrNot.num, 0)} = ${miseEnEvidence(texNombre(f.den * fEqOrNot.num, 0))}$.<br>
+            On constate que les produits en croix sont égaux.<br>
+            `
             strOut += `Les fractions $${f.texFraction}$ et $${fEqOrNot.texFraction}$ sont donc égales.`
           }
         } else {
-          strOut = `D'une part, $${texNombre(f.num, 0)}\\times ${texNombre(fEqOrNot.den, 0)} = ${miseEnEvidence(texNombre(f.num * fEqOrNot.den, 0))}$.<br>
-          D'autre part, $${texNombre(f.den, 0)}\\times ${texNombre(fEqOrNot.num, 0)} = ${miseEnEvidence(texNombre(f.den * fEqOrNot.num, 0))}$.<br>
-          On constate que les produits en croix ne sont pas égaux.<br>
-          `
           if (!decimal) {
+            strOut = `D'une part, $${texNombre(f.num, 0)}\\times ${texNombre(fEqOrNot.den, 0)} = ${miseEnEvidence(texNombre(f.num * fEqOrNot.den, 0))}$.<br>
+            D'autre part, $${texNombre(f.den, 0)}\\times ${texNombre(fEqOrNot.num, 0)} = ${miseEnEvidence(texNombre(f.den * fEqOrNot.num, 0))}$.<br>
+            On constate que les produits en croix ne sont pas égaux.<br>
+            `
             strOut += `Les fractions $${f.texFraction}$ et $${fEqOrNot.texFraction}$ ne sont donc pas égales.`
           } else { // si on utilise des nombres décimaux au numérateur et au dénominateur, il ne faudrait pas appeler ça des fractions
+            strOut = `D'une part, $${texNombre(f.num / 10, 1)}\\times ${texNombre(fEqOrNot.den / 10, 1)} = ${miseEnEvidence(texNombre(f.num * fEqOrNot.den / 100, 2))}$.<br>
+            D'autre part, $${texNombre(f.den / 10, 1)}\\times ${texNombre(fEqOrNot.num / 10, 1)} = ${miseEnEvidence(texNombre(f.den * fEqOrNot.num / 100, 2))}$.<br>
+            On constate que les produits en croix ne sont pas égaux.<br>
+            `
             strOut += `Les quotients $${showFracNumDenDec(f.num, f.den)}$ et $${showFracNumDenDec(fEqOrNot.num, fEqOrNot.den)}$ ne sont donc pas égales.`
           }
         }
