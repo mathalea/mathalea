@@ -6106,21 +6106,21 @@ export function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, la
   this.arrivee = C
   this.sommet = B
   this.distance = distance
-  const angle = saillant ? angleOriente(this.depart, this.sommet, this.arrivee) : angleOriente(this.depart, this.sommet, this.arrivee) > 0 ? angleOriente(this.depart, this.sommet, this.arrivee) - 360 : 360 + angleOriente(this.depart, this.sommet, this.arrivee)
+  const mesureAngle = saillant ? angleOriente(this.depart, this.sommet, this.arrivee) : angleOriente(this.depart, this.sommet, this.arrivee) > 0 ? angleOriente(this.depart, this.sommet, this.arrivee) - 360 : 360 + angleOriente(this.depart, this.sommet, this.arrivee)
   this.ecart = ecart
   this.saillant = saillant
   this.epaisseur = arcEpaisseur
   this.svg = function (coeff) {
     const M = pointSurSegment(this.sommet, this.depart, this.distance)
-    const N = rotation(pointSurSegment(this.sommet, M, this.distance + this.ecart * 20 / coeff), this.sommet, angle / 2, '', 'center')
-    let mesureAngle
+    const N = rotation(pointSurSegment(this.sommet, M, this.distance + this.ecart * 20 / coeff), this.sommet, mesureAngle / 2, '', 'center')
+    let mesureAngleString
     if (label !== '') {
-      mesureAngle = label
+      mesureAngleString = label
     } else {
-      mesureAngle = Math.round(this.saillant ? angle(this.depart, this.sommet, this.arrivee) : 360 - angle(this.depart, this.sommet, this.arrivee)) + '°'
+      mesureAngleString = Math.round(mesureAngle).toString() + '°'
     }
-    const mesure = texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true)
-    const marque = arc(M, B, angle, rayon, couleurDeRemplissage, colorArc, opaciteDeRemplissage)
+    const mesure = texteParPoint(mesureAngleString, N, 'milieu', color, 1, 'middle', true)
+    const marque = arc(M, B, mesureAngle, rayon, couleurDeRemplissage, colorArc, opaciteDeRemplissage)
     mesure.contour = mesureEnGras
     mesure.couleurDeRemplissage = colorToLatexOrHTML(color)
     marque.epaisseur = this.epaisseur
@@ -6128,15 +6128,15 @@ export function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, la
   }
   this.tikz = function () {
     const M = pointSurSegment(this.sommet, this.depart, this.distance)
-    const N = rotation(pointSurSegment(this.sommet, M, this.distance + this.ecart), this.sommet, angle / 2, '', 'center')
-    let mesureAngle
+    const N = rotation(pointSurSegment(this.sommet, M, this.distance + this.ecart), this.sommet, mesureAngle / 2, '', 'center')
+    let mesureAngleString
     if (label !== '') {
-      mesureAngle = label
+      mesureAngleString = label
     } else {
-      mesureAngle = Math.round(this.saillant ? angle(this.depart, this.sommet, this.arrivee) : 360 - angle(this.depart, this.sommet, this.arrivee)) + '\\degree'
+      mesureAngleString = Math.round(mesureAngle).toString() + '\\degree'
     }
-    const mesure = texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true)
-    const marque = arc(M, B, angle, rayon, couleurDeRemplissage, colorArc, opaciteDeRemplissage)
+    const mesure = texteParPoint(mesureAngleString, N, 'milieu', color, 1, 'middle', true)
+    const marque = arc(M, B, mesureAngle, rayon, couleurDeRemplissage, colorArc, opaciteDeRemplissage)
     mesure.contour = mesureEnGras
     mesure.couleurDeRemplissage = colorToLatexOrHTML(color)
     marque.epaisseur = this.epaisseur
