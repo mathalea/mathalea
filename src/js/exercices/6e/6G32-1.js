@@ -124,7 +124,7 @@ export default function SymetrieAxialeConservation1 () {
       return (i + 12 * (i % alternance)) % 24
     }
     objetsEnonce.length = 0
-    objetsCorrection.lenght = 0
+    objetsCorrection.length = 0
     for (let i = 0, texte, texteCorr, s1, s2, choix, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeDeQuestions[i]) {
         case 'Segment':

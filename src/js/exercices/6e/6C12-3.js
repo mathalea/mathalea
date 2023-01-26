@@ -962,7 +962,7 @@ export default function ExerciceInformationsProblemes () {
           nb4 = stringNombre(arrondi(randint(9, 15, [10]) / 10), 1) + '0'
           nb5 = 5 * randint(4, 11)
           texte += `Le ${personnage1} de ${quidam}, âgé de ${nb1} ans, se rend ${nb2} fois par semaine à ${choice(['Paris', 'Toulouse', 'Bordeaux', 'Rouen'])} en train. `
-          texte += `Une fois arrivé, il prend le métro à ${nb3}, après avoir acheté systèmatiquement le même journal, dans un kiosque de la gare, qui coûte ${nb4} €. Son trajet en métro dure ${nb5} minutes pour se rendre au travail.<br>`
+          texte += `Une fois arrivé, il prend le métro à ${nb3}, après avoir acheté systématiquement le même journal, dans un kiosque de la gare, qui coûte ${nb4} €. Son trajet en métro dure ${nb5} minutes pour se rendre au travail.<br>`
 
           switch (choixVersion) {
             case 1:
@@ -1086,7 +1086,7 @@ export default function ExerciceInformationsProblemes () {
           nb3 = randint(7, 15)
           nb4 = randint(10, 12) + ' h ' + 5 * randint(2, 11)
           nb5 = randint(16, 29)
-          texte += `Un livreur part de son entrepôt avec ${nb1} colis. Au premier arrêt, le plus près, il depose ${nb2} colis. ${nb3} km plus loin, il livre le reste de ses colis. `
+          texte += `Un livreur part de son entrepôt avec ${nb1} colis. Au premier arrêt, le plus près, il dépose ${nb2} colis. ${nb3} km plus loin, il livre le reste de ses colis. `
           texte += `Ensuite, à ${nb4}, le livreur reprend la même route et retourne à l'entrepôt, à ${nb5} km de là.<br>`
 
           switch (choixVersion) {
