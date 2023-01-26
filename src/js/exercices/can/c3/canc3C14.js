@@ -13,6 +13,8 @@ export const dateDePublication = '24/01/2023'
  * Date de publication
 */
 
+export const uuid = 'd61d9'
+export const ref = 'canc3C14'
 export default function TableDivisions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

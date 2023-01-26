@@ -12,6 +12,8 @@ export const dateDePublication = '25/01/2023'
  * @author Eric Elter
  */
 
+export const uuid = '65bd7'
+export const ref = '6G32'
 export default function SymetrieAxialeProprietes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

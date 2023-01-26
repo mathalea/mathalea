@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 546 
-- nombre d'exos interactifReady 840 
+- nombre d'exos amcReady 548 
+- nombre d'exos interactifReady 842 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -854,6 +854,8 @@
 |canc3C11|Calculer la moitié d’un nombre impair|OK|AMCNum|OK|mathLive|
 |canc3C12|Calculer avec un programme de calcul|OK|AMCNum|OK|mathLive|
 |canc3C13|Trouver un nombre dans un produit de trois facteurs |KO|KO|OK|mathLive|
+|canc3C14|Connaître les tables de multiplication (avec des divisions)|OK|AMCNum|OK|mathLive|
+|canc3C15|Connaître les tables de multiplication (phrases)|OK|AMCNum|OK|mathLive|
 |canc3D01|Lire l'heure|OK|AMCHybride|OK|mathLive|
 |canc3D02|Lire une durée|KO|KO|OK|mathLive|
 |canc3D03|Ajouter des durées|KO|KO|OK|mathLive|

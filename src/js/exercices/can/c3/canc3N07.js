@@ -13,6 +13,8 @@ export const dateDePublication = '25/01/2023' // La date de publication initiale
  * @author Gilles Mora
  * Référence
 */
+export const uuid = 'ba5d4'
+export const ref = 'canc3N07'
 export default function DecompositionNombre () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1

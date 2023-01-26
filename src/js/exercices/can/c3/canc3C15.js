@@ -13,6 +13,8 @@ export const dateDePublication = '24/01/2023'
  * Référence canc3C15
  */
 
+export const uuid = 'aa8af'
+export const ref = 'canc3C15'
 export default function TablesPhrase () {
   Exercice.call(this)
   this.typeExercice = 'simple'
