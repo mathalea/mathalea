@@ -105,11 +105,11 @@ export default function PuissancesDunRelatif1 () {
         let sortie = ''
         if (base < 0 && exposant % 2 === 0) {
           sortie += '<br>'
-          sortie += `${texteGras('Remarque : ')} Dans ce cas comme les puissances d'exposant pair de deux nombres opposés sont égaux, on peut écrire $${simpNotPuissance(base, exposant)}$ à la place de $${baseUtile}^{${exposant}}$`
+          sortie += `${texteGras('Remarque : ')} Dans ce cas, comme les puissances d'exposant pair de deux nombres opposés sont égales, on peut écrire $${simpNotPuissance(base, exposant)}$ à la place de $${baseUtile}^{${exposant}}$.`
         };
         if (base < 0 && exposant % 2 === 1) {
           sortie += '<br>'
-          sortie += `${texteGras('Remarque : ')} Dans ce cas comme les puissances d'exposant impair de deux nombres négatifs sont opposées, on pourrait écrire $${simpNotPuissance(base, exposant)}$  à la place de $${baseUtile}^{${exposant}}$`
+          sortie += `${texteGras('Remarque : ')} Dans ce cas, comme les puissances d'exposant impair de deux nombres négatifs sont opposées, on pourrait écrire $${simpNotPuissance(base, exposant)}$  à la place de $${baseUtile}^{${exposant}}$.`
         };
 
         return sortie
@@ -145,7 +145,7 @@ export default function PuissancesDunRelatif1 () {
             )} \\times ${eclatePuissance(baseUtile, exp[1], coul1)}$`
           }
           texteCorr += '<br>'
-          texteCorr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[0]}}~\\color{black}{+}~\\color{${coul1}}{${exp[1]}}}$ facteurs tous égaux à $${baseUtile}$`
+          texteCorr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[0]}}~\\color{black}{+}~\\color{${coul1}}{${exp[1]}}}$ facteurs tous égaux à $${baseUtile}$.`
           texteCorr += '<br>'
           texteCorr += `$${lettre}=${baseUtile}^{${exp[0]}+${exp[1]}} = ${baseUtile}^{${exp[0] + exp[1]}}`
           // attention la baseUtile est de type str alors que la fonction switch sur un type number
@@ -287,7 +287,7 @@ export default function PuissancesDunRelatif1 () {
               }}\\thickspace\\color{black}{\\text{facteurs}}}}$`
           }
           texteCorr += '<br>'
-          texteCorr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[1]}}~\\color{black}{\\times}~\\color{${coul1}}{${exp[0]}}}$ facteurs tous égaux à $${baseUtile}$`
+          texteCorr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[1]}}~\\color{black}{\\times}~\\color{${coul1}}{${exp[0]}}}$ facteurs tous égaux à $${baseUtile}$.`
           texteCorr += '<br>'
           texteCorr += `$${lettre}=${baseUtile}^{${exp[0]}\\times${exp[1]
             }} = ${baseUtile}^{${exp[0] * exp[1]}}`

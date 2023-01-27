@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 546 
-- nombre d'exos interactifReady 839 
+- nombre d'exos amcReady 548 
+- nombre d'exos interactifReady 842 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -335,6 +335,7 @@
 |6G24|Trouver l'image d'un point par une symétrie axiale|OK|AMCHybride|OK|mathLive|
 |6G25-1|Utiliser des symétries axiales en pavage triangulaire|OK|AMCHybride|OK|qcm|
 |6G25-2|Trouver l'image d'une figure par une symétrie axiale dans un pavage carré|OK|AMCHybride|OK|mathLive|
+|6G25-3|Trouver l'image d'une figure par une symétrie axiale dans un pavage|KO|KO|OK|mathLive|
 |6G25|Construire des médiatrices avec cible auto-corrective|OK|AMCOpen|KO|KO|
 |6G26|Trouver les symétries axiales successives dans un damier|OK|AMCOpen|OK|mathLive|
 |6G32-1|Appliquer les propriétés de conservation de la symétrie axiale|OK|AMCHybride|KO|KO|
@@ -853,6 +854,8 @@
 |canc3C11|Calculer la moitié d’un nombre impair|OK|AMCNum|OK|mathLive|
 |canc3C12|Calculer avec un programme de calcul|OK|AMCNum|OK|mathLive|
 |canc3C13|Trouver un nombre dans un produit de trois facteurs |KO|KO|OK|mathLive|
+|canc3C14|Connaître les tables de multiplication (avec des divisions)|OK|AMCNum|OK|mathLive|
+|canc3C15|Connaître les tables de multiplication (phrases)|OK|AMCNum|OK|mathLive|
 |canc3D01|Lire l'heure|OK|AMCHybride|OK|mathLive|
 |canc3D02|Lire une durée|KO|KO|OK|mathLive|
 |canc3D03|Ajouter des durées|KO|KO|OK|mathLive|

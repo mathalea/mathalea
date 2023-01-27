@@ -122,7 +122,7 @@ export default function Proportions () {
               paramAMC = { digits: 4, decimals: 0, signe: false, approx: 0 } // Le nombre attendu a bien 4 chiffres maxi
               break
             case 'proportion':
-              texte = `Parmi les $${texNombre(totale, 0)}$ spectacteurs d'un concert, $${texNombre(sous, 2)}$ ont moins de $18$ ans. <br>Calculer la proportion des personnes mineures dans le public en pourcentage.`
+              texte = `Parmi les $${texNombre(totale, 0)}$ spectacteurs d'un concert, $${texNombre(sous, 2)}$ ont moins de $18$ ans. <br>Calculer la proportion en pourcentage des personnes mineures dans le public en pourcentage.`
               texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texNombre(sous, 2)}}{${texNombre(totale, 0)}} = ${texNombre(p, 2)}$.`
               texteCorr += `<br>$${texNombre(p, 2)}=\\dfrac{${texNombre(taux, 0)}}{100}$. Il y a donc $${taux}~\\%$ de personnes mineures dans le public.`
               reponse = taux
@@ -172,7 +172,7 @@ export default function Proportions () {
               paramAMC = { digits: 3, decimals: 0, signe: false, approx: 0 }
               break
             case 'proportion':
-              texte = `Le cadeau commun que nous souhaitons faire à ${prénom} coûte $${texPrix(totale)}$ €. Je participe à hauteur de $${texPrix(sous)}$ €. <br>Calculer la proportion de ma participation sur le prix total du cadeau.`
+              texte = `Le cadeau commun que nous souhaitons faire à ${prénom} coûte $${texPrix(totale)}$ €. Je participe à hauteur de $${texPrix(sous)}$ €. <br>Calculer la proportion en pourcentage de ma participation sur le prix total du cadeau.`
               texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texPrix(sous)}}{${texPrix(totale)}} = ${texNombre(p, 2)}$.`
               texteCorr += `<br>$${texNombre(p, 2)}=\\dfrac{${texNombre(taux, 0)}}{100}$. J'ai donc donné $${taux}~\\%$ du montant total du cadeau.`
               reponse = taux
@@ -225,7 +225,7 @@ export default function Proportions () {
 
               break
             case 'proportion':
-              texte = `Une réserve de protection d'oiseaux contient $${texNombre(totale, 0)}$ individus d'oiseaux. On dénombre $${texNombre(sous, 2)}$ ${espèces}. <br>Calculer la proportion de ${espèces} dans la réserve.`
+              texte = `Une réserve de protection d'oiseaux contient $${texNombre(totale, 0)}$ individus d'oiseaux. On dénombre $${texNombre(sous, 2)}$ ${espèces}. <br>Calculer la proportion en pourcentage de ${espèces} dans la réserve.`
               texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texNombre(sous, 2)}}{${texNombre(totale, 0)}} = ${texNombre(p, 2)}$.`
               texteCorr += `<br>$${texNombre(p, 2)}=\\dfrac{${texNombre(taux, 0)}}{100}$. Le pourcentage de ${espèces} dans la réserve est donc de $${taux}~\\%$.`
               reponse = taux
@@ -239,7 +239,7 @@ export default function Proportions () {
         this.autoCorrection[i].reponse.textePosition = 'left'
         this.autoCorrection[i].reponse.texte = '\\\\En \\% : '
       }
-      texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline')
+      texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: listeTypeDeQuestions[i] === 'proportion' ? ' %' : '' })
       // à cause de ajouteChampTexteMathLive qui inclus un Id unique, toutes les questions sont différentes, comparer les textes ne suffit plus
       if (this.questionJamaisPosee(i, taux, totale, sous)) { // on utilise donc cette fonction basée sur les variables aléatoires pour éviter les doublons
         this.listeQuestions.push(texte)

@@ -829,6 +829,7 @@ function miseAJourDuCode () {
     document.getElementById('corrections').innerHTML = contenuDesCorrections
     gestionModules(listeObjetsExercice)
     const exercicesAffiches = new window.Event('exercicesAffiches', { bubbles: true })
+    window.parent.postMessage({ url: window.location.href, graine: context.graine, exercicesAffiches: true }, '*')
     document.dispatchEvent(exercicesAffiches)
     // En cas de clic sur la correction, on désactive les exercices interactifs
     const bntCorrection = document.getElementById('btnCorrection')

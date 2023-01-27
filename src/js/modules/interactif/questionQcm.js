@@ -170,13 +170,13 @@ export function propositionsQcm (exercice, i) {
   if (context.isHtml && context.versionMathalea === 3 && exercice.interactif) {
     texte = ''
     for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
-      texte += `<div class="ex${exercice.numeroExercice} monQcm">
+      texte += `<div class="ex${exercice.numeroExercice} my-3">
       <input type="checkbox" tabindex="0"  id="checkEx${exercice.numeroExercice}Q${i}R${rep}">
-      <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}" class="ml-2">${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>
+      <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}" class="ml-2 text-base">${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>
       <div id="feedbackEx${exercice.numeroExercice}Q${i}"></div>
       </div>`
     }
-    texte += `<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+    texte += `<div class="m-2" id="resultatCheckEx${exercice.numeroExercice}Q${i}"></div>`
   }
   return { texte, texteCorr }
 }

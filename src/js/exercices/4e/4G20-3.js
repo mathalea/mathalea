@@ -16,6 +16,8 @@ export const dateDePublication = '17/01/2023'
 * Référence 4G20-3
 */
 
+export const uuid = 'e564b'
+export const ref = '4G20-3'
 export default class calculsDeCarre extends Exercice {
   constructor () {
     super()

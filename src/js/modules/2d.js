@@ -848,8 +848,8 @@ export function barycentre (p, nom = '', positionLabel = 'above') {
 /**  Trace une droite
  * @param {Point | number} arg1 Premier point de la droite OU BIEN coefficient a de l'équation de la droite ax+by+c=0
  * @param {Point | number} arg2 Deuxième point de la droite OU BIEN coefficient b de l'équation de la droite ax+by+c=0
- * @param {string | number} arg3 Nom affichée de la droite OU BIEN coefficient c de l'équation de la droite ax+by+c=0
- * @param {string} arg4 Couleur de la droite : du type 'blue' ou du type '#f15929' OU BIEN nom affichée de la droite si arg1 est un nombre
+ * @param {string | number} arg3 Nom affiché de la droite OU BIEN coefficient c de l'équation de la droite ax+by+c=0
+ * @param {string} arg4 Couleur de la droite : du type 'blue' ou du type '#f15929' OU BIEN Nom affiché de la droite si arg1 est un nombre
  * @param {string} arg5 Couleur de la droite : du type 'blue' ou du type '#f15929' si arg1 est un nombre
  * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
@@ -862,7 +862,7 @@ export function barycentre (p, nom = '', positionLabel = 'above') {
  * @property {number} y1 Ordonnée de arg1 (si ce point existe)
  * @property {number} x2 Abscisse de arg2 (si ce point existe)
  * @property {number} y2 Ordonnée de arg2 (si ce point existe)
- * @property {string} nom Nom affichée de la droite
+ * @property {string} nom Nom affiché de la droite
  * @property {string} color Couleur de la droite. À associer obligatoirement à colorToLatexOrHTML().
  * @property {Vecteur} normal Vecteur normal de la droite
  * @property {Vecteur} directeur Vecteur directeur de la droite
@@ -1147,8 +1147,8 @@ export function Droite (arg1, arg2, arg3, arg4, arg5) {
 /**  Trace une droite définie par 2 points OU BIEN par les coefficients de son équation
  * @param {Point | number} arg1 Premier point de la droite OU BIEN coefficient a de l'équation de la droite ax+by+c=0 avec (a,b)!=(0,0)
  * @param {Point | number} arg2 Deuxième point de la droite OU BIEN coefficient b de l'équation de la droite ax+by+c=0 avec (a,b)!=(0,0)
- * @param {string | number} arg3 Nom affichée de la droite OU BIEN coefficient c de l'équation de la droite ax+by+c=0
- * @param {string} arg4 Couleur de la droite : du type 'blue' ou du type '#f15929' OU BIEN nom affichée de la droite si arg1 est un nombre
+ * @param {string | number} arg3 Nom affiché de la droite OU BIEN coefficient c de l'équation de la droite ax+by+c=0
+ * @param {string} arg4 Couleur de la droite : du type 'blue' ou du type '#f15929' OU BIEN nom affiché de la droite si arg1 est un nombre
  * @param {string} arg5 Couleur de la droite : du type 'blue' ou du type '#f15929' si arg1 est un nombre
  * @example droite(M, N, '(d1)') // Trace la droite passant par M et N se nommant (d1) et de couleur noire
  * @example droite(M, N, '(d1)','blue') // Trace la droite passant par M et N se nommant (d1) et de couleur bleue
@@ -1230,7 +1230,7 @@ export function positionLabelDroite (d, { xmin = 0, ymin = 0, xmax = 10, ymax = 
 /**  Trace la droite passant par le point A et de vecteur directeur v
  * @param {Point} A Point de la droite
  * @param {Vecteur} v Vecteur directeur de la droite
- * @param {string} [nom = ''] Nom affichée de la droite
+ * @param {string} [nom = ''] Nom affiché de la droite
  * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
  * @example droiteParPointEtVecteur(M, v1) // Trace la droite passant par le point M et de vecteur directeur v1
  * @example droiteParPointEtVecteur(M, v1, 'd1', 'red') // Trace, en rouge, la droite d1 passant par le point M et de vecteur directeur v1
@@ -1246,7 +1246,7 @@ export function droiteParPointEtVecteur (A, v, nom = '', color = 'black') {
 /**  Trace la droite parallèle à d passant par le point A
  * @param {Point} A Point de la droite
  * @param {Droite} d Droite
- * @param {string} [nom = ''] Nom affichée de la droite
+ * @param {string} [nom = ''] Nom affiché de la droite
  * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
  * @example droiteParPointEtParallele(M, d2) // Trace la droite parallèle à d2 passant par le point M
  * @example droiteParPointEtParallele(M, d2, 'd1', 'red') // Trace, en rouge, la droite d1 parallèle à d2 passant par le point M
@@ -1261,7 +1261,7 @@ export function droiteParPointEtParallele (A, d, nom = '', color = 'black') {
 /**  Trace la droite perpendiculaire à d passant par le point A
  * @param {Point} A Point de la droite
  * @param {Droite} d Droite
- * @param {string} [nom = ''] Nom affichée de la droite
+ * @param {string} [nom = ''] Nom affiché de la droite
  * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
  * @example droiteParPointEtPerpendiculaire(M, d2) // Trace la droite perpendiculaire à d2 passant par le point M
  * @example droiteParPointEtPerpendiculaire(M, d2, 'd1', 'red') // Trace, en rouge, la droite d1 perpendiculaire à d2 passant par le point M
@@ -1275,7 +1275,7 @@ export function droiteParPointEtPerpendiculaire (A, d, nom = '', color = 'black'
 
 /**  Trace la droite horizontale passant par le point A
  * @param {Point} A Point de la droite
- * @param {string} [nom = ''] Nom affichée de la droite
+ * @param {string} [nom = ''] Nom affiché de la droite
  * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
  * @example droiteHorizontaleParPoint(M) // Trace la droite horizontale passant par le point M
  * @example droiteHorizontaleParPoint(M, 'd1', 'red') // Trace, en rouge, la droite horizontale d1 passant par le point M
@@ -1289,7 +1289,7 @@ export function droiteHorizontaleParPoint (A, nom = '', color = 'black') {
 
 /**  Trace la droite verticale passant par le point A
  * @param {Point} A Point de la droite
- * @param {string} [nom = ''] Nom affichée de la droite
+ * @param {string} [nom = ''] Nom affiché de la droite
  * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
  * @example droiteVerticaleParPoint(M) // Trace la droite verticale passant par le point M
  * @example droiteVerticaleParPoint(M, 'd1', 'red') // Trace, en rouge, la droite verticale d1 passant par le point M
@@ -1304,7 +1304,7 @@ export function droiteVerticaleParPoint (A, nom = '', color = 'black') {
 /**  Trace la droite passant par le point A et de pente k
  * @param {Point} A Point de la droite
  * @param {number} k Pente de la droite
- * @param {string} [nom = ''] Nom affichée de la droite
+ * @param {string} [nom = ''] Nom affiché de la droite
  * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
  * @example droiteParPointEtPente(M, p) // Trace la droite passant par le point M et de pente p
  * @example droiteParPointEtPente(M, p, 'd1', 'red') // Trace, en rouge, la droite d1 passant par le point M et de pente p
@@ -1379,7 +1379,7 @@ export function codageMilieu (A, B, color = 'black', mark = '×', mil = true) {
  * Trace la médiatrice d'un segment, en laissant éventuellement apparents les traits de construction au compas
  * @param {Point} A Première extrémité du segment
  * @param {Point} B Seconde extrémité du segment
- * @param {string} [nom = ''] Nom affichée de la droite
+ * @param {string} [nom = ''] Nom affiché de la droite
  * @param {string} [couleurMediatrice = 'red'] Couleur de la médiatrice : du type 'blue' ou du type '#f15929'
  * @param {string} [color='blue'] Couleur du codage : du type 'blue' ou du type '#f15929'.
  * @param {string} [couleurConstruction = 'black'] Couleur des traits de construction : du type 'blue' ou du type '#f15929'.
@@ -1503,7 +1503,7 @@ export function Mediatrice (
  * Trace la médiatrice d'un segment, en laissant éventuellement apparents les traits de construction au compas
  * @param {Point} A Première extrémité du segment
  * @param {Point} B Seconde extrémité du segment
- * @param {string} [nom=''] Nom affichée de la droite
+ * @param {string} [nom=''] Nom affiché de la droite
  * @param {string} [couleurMediatrice = 'red'] Couleur de la médiatrice : du type 'blue' ou du type '#f15929'
  * @param {string} [color='blue'] Couleur du codage : du type 'blue' ou du type '#f15929'.
  * @param {string} [couleurConstruction='black'] Couleur des traits de construction : du type 'blue' ou du type '#f15929'.
@@ -6106,21 +6106,21 @@ export function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, la
   this.arrivee = C
   this.sommet = B
   this.distance = distance
-  const angle = saillant ? angleOriente(this.depart, this.sommet, this.arrivee) : angleOriente(this.depart, this.sommet, this.arrivee) > 0 ? angleOriente(this.depart, this.sommet, this.arrivee) - 360 : 360 + angleOriente(this.depart, this.sommet, this.arrivee)
+  const mesureAngle = saillant ? angleOriente(this.depart, this.sommet, this.arrivee) : angleOriente(this.depart, this.sommet, this.arrivee) > 0 ? angleOriente(this.depart, this.sommet, this.arrivee) - 360 : 360 + angleOriente(this.depart, this.sommet, this.arrivee)
   this.ecart = ecart
   this.saillant = saillant
   this.epaisseur = arcEpaisseur
   this.svg = function (coeff) {
     const M = pointSurSegment(this.sommet, this.depart, this.distance)
-    const N = rotation(pointSurSegment(this.sommet, M, this.distance + this.ecart * 20 / coeff), this.sommet, angle / 2, '', 'center')
-    let mesureAngle
+    const N = rotation(pointSurSegment(this.sommet, M, this.distance + this.ecart * 20 / coeff), this.sommet, mesureAngle / 2, '', 'center')
+    let mesureAngleString
     if (label !== '') {
-      mesureAngle = label
+      mesureAngleString = label
     } else {
-      mesureAngle = Math.round(this.saillant ? angle(this.depart, this.sommet, this.arrivee) : 360 - angle(this.depart, this.sommet, this.arrivee)) + '°'
+      mesureAngleString = Math.round(mesureAngle).toString() + '°'
     }
-    const mesure = texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true)
-    const marque = arc(M, B, angle, rayon, couleurDeRemplissage, colorArc, opaciteDeRemplissage)
+    const mesure = texteParPoint(mesureAngleString, N, 'milieu', color, 1, 'middle', true)
+    const marque = arc(M, B, mesureAngle, rayon, couleurDeRemplissage, colorArc, opaciteDeRemplissage)
     mesure.contour = mesureEnGras
     mesure.couleurDeRemplissage = colorToLatexOrHTML(color)
     marque.epaisseur = this.epaisseur
@@ -6128,15 +6128,15 @@ export function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, la
   }
   this.tikz = function () {
     const M = pointSurSegment(this.sommet, this.depart, this.distance)
-    const N = rotation(pointSurSegment(this.sommet, M, this.distance + this.ecart), this.sommet, angle / 2, '', 'center')
-    let mesureAngle
+    const N = rotation(pointSurSegment(this.sommet, M, this.distance + this.ecart), this.sommet, mesureAngle / 2, '', 'center')
+    let mesureAngleString
     if (label !== '') {
-      mesureAngle = label
+      mesureAngleString = label
     } else {
-      mesureAngle = Math.round(this.saillant ? angle(this.depart, this.sommet, this.arrivee) : 360 - angle(this.depart, this.sommet, this.arrivee)) + '\\degree'
+      mesureAngleString = Math.round(mesureAngle).toString() + '\\degree'
     }
-    const mesure = texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true)
-    const marque = arc(M, B, angle, rayon, couleurDeRemplissage, colorArc, opaciteDeRemplissage)
+    const mesure = texteParPoint(mesureAngleString, N, 'milieu', color, 1, 'middle', true)
+    const marque = arc(M, B, mesureAngle, rayon, couleurDeRemplissage, colorArc, opaciteDeRemplissage)
     mesure.contour = mesureEnGras
     mesure.couleurDeRemplissage = colorToLatexOrHTML(color)
     marque.epaisseur = this.epaisseur

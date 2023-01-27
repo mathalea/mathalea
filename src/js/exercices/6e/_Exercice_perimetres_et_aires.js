@@ -1,12 +1,11 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, troncature, stringNombre, texTexte, combinaisonListesSansChangerOrdre, texNombre, calcul, texNombrec, creerNomDePolygone, arrondi, sp, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, rangeMinMax, contraindreValeur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, troncature, stringNombre, texTexte, combinaisonListesSansChangerOrdre, texNombre, calcul, texNombrec, creerNomDePolygone, arrondi, sp, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, rangeMinMax, contraindreValeur } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { point, pointAdistance, polygoneRegulier, polygone, arc, pointSurCercle, texteSurSegment, segment, pointIntersectionLC, droite, cercle, droiteParPointEtPerpendiculaire, tracePoint, labelPoint, codageAngleDroit, codageSegments, afficheLongueurSegment, pointSurDroite, pointSurSegment, pointIntersectionCC } from '../../modules/2d.js'
+import { point, pointAdistance, polygoneRegulier, polygone, arc, pointSurCercle, texteSurSegment, segment, pointIntersectionLC, droite, cercle, droiteParPointEtPerpendiculaire, tracePoint, labelPoint, codageAngleDroit, codageSegments, afficheLongueurSegment, pointSurSegment, pointIntersectionCC } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import Grandeur from '../../modules/Grandeur.js'
-import { triangle3longueurs } from '../../modules/iepMacros/triangles.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
