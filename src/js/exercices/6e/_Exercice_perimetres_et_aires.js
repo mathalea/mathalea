@@ -1,12 +1,11 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, troncature, stringNombre, texTexte, combinaisonListesSansChangerOrdre, texNombre, calcul, texNombrec, creerNomDePolygone, arrondi, sp, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, rangeMinMax, contraindreValeur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, troncature, stringNombre, texTexte, combinaisonListesSansChangerOrdre, texNombre, calcul, texNombrec, creerNomDePolygone, arrondi, sp, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, rangeMinMax, contraindreValeur } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { point, pointAdistance, polygoneRegulier, polygone, arc, pointSurCercle, texteSurSegment, segment, pointIntersectionLC, droite, cercle, droiteParPointEtPerpendiculaire, tracePoint, labelPoint, codageAngleDroit, codageSegments, afficheLongueurSegment, pointSurDroite, pointSurSegment, pointIntersectionCC } from '../../modules/2d.js'
+import { point, pointAdistance, polygoneRegulier, polygone, arc, pointSurCercle, texteSurSegment, segment, pointIntersectionLC, droite, cercle, droiteParPointEtPerpendiculaire, tracePoint, labelPoint, codageAngleDroit, codageSegments, afficheLongueurSegment, pointSurSegment, pointIntersectionCC } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import Grandeur from '../../modules/Grandeur.js'
-import { triangle3longueurs } from '../../modules/iepMacros/triangles.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -171,7 +170,7 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
         case 'triangle_rectangle': {
           triplet = choice(tripletsPythagoriciens)
           // enleveElement(tripletsPythagoriciens, triplet)
-          const adjust = Math.floor(10 * (randint(6, 15) + randint(4, 8) * 0.1) / Math.max(...triplet)) * 0.1
+          const adjust = (this.sup2 ? Math.floor(10 * (randint(6, 15) + randint(4, 8) * 0.1) / Math.max(...triplet)) * 0.1 : 1)
           a = calcul(triplet[0] * (adjust))
           b = calcul(triplet[1] * (adjust))
           c = calcul(triplet[2] * (adjust))
@@ -225,7 +224,7 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
           break
         }
         case 'cercle':
-          R = calcul(randint(4, 5) + randint(1, 9) / 10)
+          R = (this.sup2 ? calcul(randint(4, 5) + randint(1, 9) / 10) : calcul(randint(4, 10)))
           if (this.sup3) {
             texte = 'Calculer le périmètre et l\'aire de ce cercle. Donner une valeur approchée au dixième.'
             const nomCercle = creerNomDePolygone(4, listeDeNomsDePolygones)
@@ -278,7 +277,7 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
           resultat2 = arrondi(R * R * Math.PI, 1)
           break
         case 'demi-cercle':
-          R = calcul(randint(4, 5) + randint(1, 9) / 10)
+          R = (this.sup2 ? calcul(randint(4, 5) + randint(1, 9) / 10) : calcul(randint(4, 10)))
           if (this.sup3) {
             texte = 'Calculer le périmètre et l\'aire de ce demi-cercle. Donner une valeur approchée au dixième.'
             const nomCercle = creerNomDePolygone(4, listeDeNomsDePolygones)

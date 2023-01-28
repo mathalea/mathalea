@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, arrondi, texNombrec, stringNombre, choice, texNombre, calcul, combinaisonListesSansChangerOrdre, troncature, contraindreValeur, texTexte, rangeMinMax } from '../../modules/outils.js'
-import { texteSurSegment, cercle, codageAngleDroit, droite, labelPoint, codageSegments, point, polygoneAvecNom, segment, codageSegment, pointIntersectionCC, pointIntersectionDD, droiteParPointEtPerpendiculaire, arc, pointSurCercle } from '../../modules/2d.js'
+import { texteSurSegment, cercle, codageAngleDroit, droite, codageSegments, point, polygoneAvecNom, segment, codageSegment, pointIntersectionCC, pointIntersectionDD, droiteParPointEtPerpendiculaire, arc, pointSurCercle } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -89,7 +89,8 @@ export default function PerimetreOuAireDeFiguresComposees () {
       switch (typesDeQuestionsDisponibles[typesDeQuestions[i] - 1]) {
         case 'rectangle_triangle': {
           const triplet = choice(tripletsPythagoriciens)
-          const partieDecimale1 = calcul(randint(1, 9) / 10)
+          const adjust = (triplet[2] > 50 ? 0.1 : randint(2, 3) / 10)
+          const partieDecimale1 = adjust - 1
           const l1 = calcul(triplet[0] * (1 + partieDecimale1))
           const L2 = calcul(triplet[1] * (1 + partieDecimale1))
           const hyp = calcul(triplet[2] * (1 + partieDecimale1))
@@ -101,11 +102,11 @@ export default function PerimetreOuAireDeFiguresComposees () {
           const D = point((L1 + L2) * zoom, l1 * zoom, 'D')
           const E = point(L1 * zoom, 0, 'E')
           const p1 = polygoneAvecNom(A, B, C, D, E)
-          const angles1 = [codageAngleDroit(A, B, C), codageAngleDroit(B, C, E), codageAngleDroit(C, E, A), codageAngleDroit(E, A, B)]
+          const angles1 = [codageAngleDroit(A, B, C), codageAngleDroit(B, C, E), codageAngleDroit(C, E, A), codageAngleDroit(E, A, B), codageSegment(A, B, '/', 'black'), codageSegment(C, E, '/', 'black'), codageSegment(B, C, '//', 'black'), codageSegment(A, E, '//', 'black')]
           const CE = segment(C, E)
           CE.pointilles = 5
           const objets1 = []
-          objets1.push(p1[0], /* labelPoint(A, B, C, D, E), */ CE, ...angles1, texteSurSeg(D, E, stringNombre(hyp) + 'cm'), texteSurSeg(A, B, stringNombre(l1) + 'cm'), texteSurSeg(E, A, stringNombre(L1) + 'cm'), texteSurSeg(B, D, stringNombre(L1 + L2) + 'cm'))
+          objets1.push(p1[0], /* labelPoint(A, B, C, D, E), */ CE, ...angles1, texteSurSeg(D, E, stringNombre(hyp) + 'cm'), texteSurSeg(A, B, stringNombre(l1) + 'cm'), texteSurSeg(E, A, stringNombre(L1) + 'cm'), texteSurSeg(C, D, stringNombre(L2) + 'cm'))
           texte = mathalea2d(Object.assign({ scale: 0.7, pixelsParCm: 20, zoom: 1 }, fixeBordures([A, B, C, D, E, point(C.x, C.y + 0.2)], { rxmin: -1, rymin: -1 })), ...objets1)
           texte += ajouteChampTexteMathLive(this, i * 4, 'unites[longueurs]', { texte: 'Périmètre : ' })
           texte += ajouteChampTexteMathLive(this, i * 4 + 1, 'unites[aires]', { texte: '  Aire : ' })
@@ -289,7 +290,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
           const L2 = calcul(triplet[1] * (adjust))
           const hyp = calcul(triplet[2] * (adjust))
           const L1 = calcul(randint(Math.ceil(l1) + 1, Math.ceil(l1) + 4) + randint(1, 9) / 10)
-          const zoom = randint(12, 16) / (L1 + L2)
+          const zoom = randint(14, 16) / (L1 + L2)
           const A = point(0, 0, 'A')
           const B = point(0, l1 * zoom, 'B')
           const C = point(L1 * zoom, l1 * zoom, 'C')
@@ -298,7 +299,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
           const F = point(0, l1 * zoom * 0.5, 'E')
           const R = pointSurCercle(cercle(F, zoom * l1 / 2), 185, 'R')
           const demicercle = arc(B, F, 180, false, 'none')
-          const angles1 = [codageAngleDroit(A, B, C), codageAngleDroit(B, C, E), codageAngleDroit(C, E, A), codageAngleDroit(E, A, B), codageSegment(F, R, '//', 'black'), codageSegment(F, A, '//', 'black'), codageSegment(F, B, '//', 'black'), codageSegment(A, E, '/', 'black'), codageSegment(C, B, '/', 'black')]
+          const angles1 = [codageAngleDroit(A, B, C), codageAngleDroit(B, C, E), codageAngleDroit(C, E, A), codageAngleDroit(E, A, B), texteSurSeg(F, R, stringNombre(l1 / 2) + 'cm'), codageSegment(F, R, '//', 'black'), codageSegment(F, A, '//', 'black'), codageSegment(F, B, '//', 'black'), codageSegment(A, E, '/', 'black'), codageSegment(C, B, '/', 'black')]
           const FR = segment(F, R)
           FR.pointilles = 5
           const AB = segment(A, B)
