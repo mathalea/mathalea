@@ -6,9 +6,11 @@ import {
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import FractionX from '../../../modules/FractionEtendue.js'
-import { listeQuestionsToContenu, randint, texNombre, texFractionReduite, stringNombre, tableauColonneLigne, combinaisonListes, texFraction, miseEnEvidence, shuffle, simplificationDeFractionAvecEtapes, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombre, texFractionReduite, stringNombre, combinaisonListes, texFraction, miseEnEvidence, shuffle, simplificationDeFractionAvecEtapes, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
+// import { tableauColonneLigne } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { context } from '../../../modules/context.js'
 export const titre = 'CAN 4ième sujet 2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -521,7 +523,16 @@ export default function SujetCAN20214ieme () {
           reponse = calcul(c + c / 2)
 
           texte = 'Complète le tableau de proportionnalité ci-dessous :<br>'
-          texte += tableauColonneLigne([a, b], [c], [''])
+          // texte += tableauColonneLigne([a, b], [c], [''])
+          texte += `$
+          \\begin{array}{|c|c|}
+          \\hline
+          ${a}&${b}${context.isHtml ? '\\\\' : '\\tabularnewline'}
+          \\hline
+          ${c}&${context.isHtml ? '\\\\' : '\\tabularnewline'}
+          \\hline
+          \\end{array}
+          $`
           texteCorr = `On constate que $${b}$ s'obtient en augmentant $${a}$ de la moitié de $${a}$.
               Ainsi, on obtient la quatrième proportionnelle en augmentant $${c}$ de la moitié de $${c}$.<br>
               La valeur cherchée est donc $${c}+${c / 2}=${c + c / 2}$.`
