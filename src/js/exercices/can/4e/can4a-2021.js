@@ -560,6 +560,11 @@ export default function SujetCAN20214ieme () {
           a = choice([2, 3, 4, 5, 6, 10]) // nombre de secondes pour remplir un litre
           b = calcul(60 / a) // nombres de litres/min
           c = randint(2, b - 1) % 10 // volume du seau à remplir
+          while (c === 0) {
+            a = choice([2, 3, 4, 5, 6, 10]) // nombre de secondes pour remplir un litre
+            b = calcul(60 / a) // nombres de litres/min
+            c = randint(2, b - 1) % 10 // volume du seau à remplir
+          }
           reponse = calcul(c * a)
           texte = `Le débit d'eau d'un robinet est de $${b}$ L/min. <br>Combien de secondes faut-il pour remplir un seau de $${c}$ L ?`
           texteCorr = `
