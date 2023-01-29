@@ -169,7 +169,7 @@ export default function UtiliserLeCodagePourDecrire () {
   }
   this.besoinFormulaireTexte = [
     'Type de questions', [
-      'Choix séparés par des tirets',
+      'Nombres séparés par des tirets',
       '\n1 : À propos de longueurs d\'un polygone dessiné\n2 : À partir d\'un carré sous forme de texte\n3 : À partir d\'un rectangle sous forme de texte\n4 : À propos d\'angles dans un polygone dessiné (pas en 6ème)\n5 : Au hasard'
     ]
   ]

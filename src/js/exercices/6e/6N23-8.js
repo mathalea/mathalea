@@ -118,7 +118,7 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
   }
   this.besoinFormulaireTexte = [
     'Type de question', [
-      'Choix séparés par des tirets',
+      'Nombres séparés par des tirets',
       '0 : Mélange',
       '1 : Ecriture décimale -> fraction décimale',
       '2 : Fraction décimale -> écriture décimale'

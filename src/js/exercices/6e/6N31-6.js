@@ -188,7 +188,7 @@ export default function ArrondirUnDecimal () {
   }
   this.besoinFormulaireTexte = [
     'Type de question', [
-      'Choix séparés par des tirets',
+      'Nombres séparés par des tirets',
       '0 : mélange',
       '1 : Valeur approchée à l\'unité',
       '2 : Valeur approchée au dixième',
