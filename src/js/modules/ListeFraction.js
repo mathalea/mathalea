@@ -11,7 +11,7 @@ function ppcm ([...n]) {
  * @param {Fraction[]} liste
  * @return {Fraction[]}
  */
-const sortFractions = liste => liste.sort((f1, f2) => f1.valeurDecimale > f2.valeurDecimale)
+const sortFractions = liste => liste.slice().sort((f1, f2) => f1.valeurDecimale - f2.valeurDecimale)
 
 /**
  * Classe ListeFraction qui propose des méthodes utiles sur les collections de fractions
