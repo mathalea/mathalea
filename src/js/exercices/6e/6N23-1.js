@@ -572,7 +572,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
   }
   this.besoinFormulaireTexte = [
     'Type de question', [
-      'Choix séparés par des tirets',
+      'Nombres séparés par des tirets',
       '0 : mélange',
       '1 : n/100 = ...+.../10 + .../100',
       '2 : n/100 = ...+.../100 + .../10',

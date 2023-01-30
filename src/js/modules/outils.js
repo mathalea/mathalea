@@ -1926,12 +1926,13 @@ export function texNombrec (expression, precision) {
 export function texNum (expression, formatFraction = false) {
   if (typeof expression === 'object') {
     const signe = expression.s === 1 ? '' : '-'
-    if (formatFraction === true) {
+    if (formatFraction) {
       expression = expression.d !== 1 ? signe + texFraction(expression.n, expression.d) : signe + expression.n
+      expression = expression.replace(',', '{,}').replace('{{,}}', '{,}')
     } else {
       expression = texNombre(evaluate(format(expression)))
     }
-    expression = expression.replace(',', '{,}').replace('{{,}}', '{,}')
+  //  expression = expression.replace(',', '{,}').replace('{{,}}', '{,}') // Supprimé par EE car non fonctionnel dans le else qui précède.
   } else {
     expression = texNombre(parseFloat(Algebrite.eval(expression)))
   }

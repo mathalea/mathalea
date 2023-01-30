@@ -695,5 +695,5 @@ export default function TransformationsDuPlanEtCoordonnees () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Choix des transformations ', 'Choix séparés par des tirets (3 maximum) \n1 : Symétrie axiale\n 2 : Symétrie centrale\n 3 : Translation\n 4 : Rotation\n 5 : Homothétie de rapport entier\n 6 : Homothétie de rapport fractionnaire']
+  this.besoinFormulaireTexte = ['Choix des transformations ', 'Nombres séparés par des tirets (3 maximum) \n1 : Symétrie axiale\n 2 : Symétrie centrale\n 3 : Translation\n 4 : Rotation\n 5 : Homothétie de rapport entier\n 6 : Homothétie de rapport fractionnaire']
 }

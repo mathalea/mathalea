@@ -173,6 +173,6 @@ export default function VuesEmpilementCubes () {
   }
 
   this.besoinFormulaireNumerique = ['Longueur, largeur et hauteur', 999, 'Le nombre choisi doit être sous la forme abc :\na : la longueur du solide\nb : la largeur du solide\nc : la hauteur du solide\nChoisir 0 ou 1 si on souhaite laisser le hasard faire.']
-  this.besoinFormulaire2Texte = ['Vues possibles dans les questions ', 'Choix séparés par des tirets\n1 : Gauche\n2 : Droite\n3 : Dessus\n4 : Dessous \n5 : Face\n6 : Dos\n7 : Toutes']
+  this.besoinFormulaire2Texte = ['Vues possibles dans les questions ', 'Nombres séparés par des tirets\n1 : Gauche\n2 : Droite\n3 : Dessus\n4 : Dessous \n5 : Face\n6 : Dos\n7 : Toutes']
   this.besoinFormulaire3Numerique = ['Nombre de vues demandé', 6, 'De 1 à 6']
 }
