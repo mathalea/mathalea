@@ -124,7 +124,7 @@ export default function TableauCriteresDeDivisibilite () {
           tableauDeNombres[i] = 2 * (this.sup ? choice(listeDeFacteurs.slice(30)) : choice(listeDeFacteurs)) * (this.sup ? choice(listeDeFacteurs.slice(30)) : 1)
           tableauDeNombresAvecCorrection[i] = `${texNombre2(
             tableauDeNombres[i]
-          )} & \\color{blue} \\text{oui} & \\text{non} & \\text{non} & \\text{non} \\\\`
+          )} & \\color{blue}{\\text{oui}} & \\text{non} & \\text{non} & \\text{non} \\\\`
           this.autoCorrection[i].propositions = [
             {
               texte: '2',
@@ -159,7 +159,7 @@ export default function TableauCriteresDeDivisibilite () {
           tableauDeNombres[i] = 3 * (this.sup ? choice(listeDeFacteurs.slice(30)) : choice(listeDeFacteurs)) * (this.sup ? choice(listeDeFacteurs.slice(30)) : 1)
           tableauDeNombresAvecCorrection[i] = `${texNombre2(
             tableauDeNombres[i]
-          )} & \\text{non} & \\color{blue} \\text{oui} & \\text{non} & \\text{non} \\\\`
+          )} & \\text{non} & \\color{blue}{\\text{oui}} & \\text{non} & \\text{non} \\\\`
           this.autoCorrection[i].propositions = [
             {
               texte: '2',
@@ -193,7 +193,7 @@ export default function TableauCriteresDeDivisibilite () {
           tableauDeNombres[i] = 9 * (this.sup ? choice(listeDeFacteurs.slice(30)) : choice(listeDeFacteurs)) * (this.sup ? choice(listeDeFacteurs.slice(30)) : 1)
           tableauDeNombresAvecCorrection[i] = `${texNombre2(
             tableauDeNombres[i]
-          )} & \\text{non} & \\color{blue} \\text{oui} & \\text{non} & \\color{blue} \\text{oui} \\\\`
+          )} & \\text{non} & \\color{blue}{\\text{oui}} & \\text{non} & \\color{blue}{\\text{oui}} \\\\`
           this.autoCorrection[i].propositions = [
             {
               texte: '2',
@@ -227,7 +227,7 @@ export default function TableauCriteresDeDivisibilite () {
           tableauDeNombres[i] = 5 * (this.sup ? choice(listeDeFacteurs.slice(30)) : choice(listeDeFacteurs)) * (this.sup ? choice(listeDeFacteurs.slice(30)) : 1)
           tableauDeNombresAvecCorrection[i] = `${texNombre2(
             tableauDeNombres[i]
-          )} & \\text{non} & \\text{non} & \\color{blue} \\text{oui} & \\text{non} \\\\`
+          )} & \\text{non} & \\text{non} & \\color{blue}{\\text{oui}} & \\text{non} \\\\`
           this.autoCorrection[i].propositions = [
             {
               texte: '2',
@@ -261,7 +261,7 @@ export default function TableauCriteresDeDivisibilite () {
           tableauDeNombres[i] = 10 * (this.sup ? choice(listeDeFacteurs.slice(30)) : choice(listeDeFacteurs)) * (this.sup ? choice(listeDeFacteurs.slice(30)) : 1)
           tableauDeNombresAvecCorrection[i] = `${texNombre2(
             tableauDeNombres[i]
-          )} & \\color{blue} \\text{oui} & \\text{non} & \\color{blue} \\text{oui} & \\text{non} \\\\`
+          )} & \\color{blue}{\\text{oui}} & \\text{non} & \\color{blue}{\\text{oui}} & \\text{non} \\\\`
           this.autoCorrection[i].propositions = [
             {
               texte: '2',
@@ -295,7 +295,7 @@ export default function TableauCriteresDeDivisibilite () {
           tableauDeNombres[i] = 6 * (this.sup ? choice(listeDeFacteurs.slice(30)) : choice(listeDeFacteurs)) * (this.sup ? choice(listeDeFacteurs.slice(30)) : 1)
           tableauDeNombresAvecCorrection[i] = `${texNombre2(
             tableauDeNombres[i]
-          )} & \\color{blue} \\text{oui} & \\color{blue} \\text{oui} & \\text{non} & \\text{non} \\\\`
+          )} & \\color{blue}{\\text{oui}} & \\color{blue}{\\text{oui}} & \\text{non} & \\text{non} \\\\`
           this.autoCorrection[i].propositions = [
             {
               texte: '2',
@@ -329,7 +329,7 @@ export default function TableauCriteresDeDivisibilite () {
           tableauDeNombres[i] = 18 * (this.sup ? choice(listeDeFacteurs.slice(30)) : choice(listeDeFacteurs)) * (this.sup ? choice(listeDeFacteurs.slice(30)) : 1)
           tableauDeNombresAvecCorrection[i] = `${texNombre2(
             tableauDeNombres[i]
-          )} & \\color{blue} \\text{oui} & \\color{blue} \\text{oui} & \\text{non} & \\color{blue} \\text{oui} \\\\`
+          )} & \\color{blue}{\\text{oui}} & \\color{blue}{\\text{oui}} & \\text{non} & \\color{blue}{\\text{oui}} \\\\`
           this.autoCorrection[i].propositions = [
             {
               texte: '2',
@@ -363,7 +363,7 @@ export default function TableauCriteresDeDivisibilite () {
           tableauDeNombres[i] = 15 * (this.sup ? choice(listeDeFacteurs.slice(30)) : choice(listeDeFacteurs)) * (this.sup ? choice(listeDeFacteurs.slice(30)) : 1)
           tableauDeNombresAvecCorrection[i] = `${texNombre2(
             tableauDeNombres[i]
-          )} & \\text{non} & \\color{blue} \\text{oui} & \\color{blue} \\text{oui} & \\text{non} \\\\`
+          )} & \\text{non} & \\color{blue}{\\text{oui}} & \\color{blue}{\\text{oui}} & \\text{non} \\\\`
           this.autoCorrection[i].propositions = [
             {
               texte: '2',
@@ -397,7 +397,7 @@ export default function TableauCriteresDeDivisibilite () {
           tableauDeNombres[i] = 90 * (this.sup ? choice(listeDeFacteurs.slice(30)) : choice(listeDeFacteurs)) * (this.sup ? choice(listeDeFacteurs.slice(30)) : 1)
           tableauDeNombresAvecCorrection[i] = `${texNombre2(
             tableauDeNombres[i]
-          )} & \\color{blue} \\text{oui} & \\text{oui} & \\text{oui} & \\text{oui} \\\\`
+          )} & \\color{blue}{\\text{oui}} & \\color{blue}{\\text{oui}} & \\color{blue}{\\text{oui}} & \\color{blue}{\\text{oui}} \\\\`
           this.autoCorrection[i].propositions = [
             {
               texte: '2',
