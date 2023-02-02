@@ -240,6 +240,7 @@ export async function initDom () {
     setOutputHtml()
     section = addElement(document.body, 'section', { class: 'ui container' })
     if (vue === 'diapCorr') await addFetchHtmlToParent('templates/boutonsZoom.html', section)
+    if (vue === 'exMoodle') await addFetchHtmlToParent('templates/boutonsZoomMoodle.html', section)
     addElement(section, 'div', { id: 'containerErreur' })
     if (vue === 'exMoodle' && new URLSearchParams(window.location.search).get('moodleJson') === null) {
       const divMessage = addElement(section, 'div')
