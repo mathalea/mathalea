@@ -582,7 +582,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
                 statut: '',
                 multicolsBegin: true,
                 reponse: {
-                  texte: numAlpha(0) + ' Abscisse de A',
+                  texte: numAlpha(0) + ' Abscisse de l\'image de A',
                   valeur: punto[0][0],
                   param: {
                     digits: 1,
@@ -600,7 +600,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
                 statut: '',
                 multicolsEnd: true,
                 reponse: {
-                  texte: 'Ordonnée de A',
+                  texte: 'Ordonnée de l\'image de A',
                   valeur: punto[0][1],
                   param: {
                     digits: 1,
@@ -618,7 +618,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
                 statut: '',
                 multicolsBegin: true,
                 reponse: {
-                  texte: numAlpha(1) + ' Abscisse de B',
+                  texte: numAlpha(1) + ' Abscisse de l\'image de B',
                   valeur: punto[1][0],
                   param: {
                     digits: 1,
@@ -636,7 +636,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
                 statut: '',
                 multicolsEnd: true,
                 reponse: {
-                  texte: 'Ordonnée de B',
+                  texte: 'Ordonnée de l\'image de B',
                   valeur: punto[1][1],
                   param: {
                     digits: 1,
@@ -654,7 +654,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
                 statut: '',
                 multicolsBegin: true,
                 reponse: {
-                  texte: numAlpha(2) + ' Abscisse de C',
+                  texte: numAlpha(2) + ' Abscisse de l\'image de C',
                   valeur: punto[2][0],
                   param: {
                     digits: 1,
@@ -672,7 +672,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
                 statut: '',
                 multicolsEnd: true,
                 reponse: {
-                  texte: 'Ordonnée de C',
+                  texte: 'Ordonnée de l\'image de C',
                   valeur: punto[2][1],
                   param: {
                     digits: 1,
