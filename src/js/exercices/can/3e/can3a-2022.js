@@ -509,9 +509,10 @@ export default function SujetCAN2022troisieme () {
 
         case 20:
           a = new Decimal(((randint(1, 9) / 10 + randint(1, 9) / 100))).plus(randint(1, 9))
-          b = choice([0.1, 0.01])
+          b = choice([new Decimal('0.1'), new Decimal('0.01')])
 
-          reponse = arrondi(a / b, 2)
+          reponse = a.div(b)
+
 
           texte = `$${texNombre(a, 2)}\\div ${texNombre(b, 2)}=$
       `
