@@ -136,23 +136,23 @@ export default function SujetCAN2022troisieme () {
         case 4:
           if (choice([true, false])) {
             a = randint(1, 13) * 50
-            reponse = a / 100
+            reponse = (new Decimal(a)).div(100)
             texte = `$${a}$ cm  $=$`
 
             texteCorr = `
         Comme $1$ m $=100$ cm, alors $1$ cm $=0,01$ m.<br>
         Ainsi pour passer des "m" au "cm", on divise par $100$.<br>
-          Comme : $${a}\\div 100 =${texNombre(a / 100, 2)}$, alors $${a}$ cm$=${texNombre(a / 100, 2)}$ m.  `
+          Comme : $${a}\\div 100 =${texNombre(reponse, 2)}$<br> alors $${a}$ cm$=${texNombre(reponse, 2)}$ m.  `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'm'
             } else { texte += '  $\\ldots$ m' }
           } else {
-            a = randint(1, 9) + randint(1, 9) / 10
-            reponse = a * 100
+            a = (new Decimal(randint(1, 9))).div(10).plus(randint(1, 9))
+            reponse = a.mul(100)
             texte = `$${texNombre(a, 1)}$ m  $=$ `
             texteCorr = ` Comme $1$ m $=100$ cm,  pour passer des "m" au "cm", on multiplie par $100$.<br>
-                Comme : $${texNombre(a, 1)}\\times 100 =${texNombre(a * 100, 0)}$, alors $${texNombre(a, 2)}$ m$=${texNombre(reponse, 0)}$ cm.`
+                Comme : $${texNombre(a, 1)}\\times 100 =${texNombre(reponse, 0)}$, alors $${texNombre(a, 2)}$ m$=${texNombre(reponse, 0)}$ cm.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
@@ -468,9 +468,11 @@ export default function SujetCAN2022troisieme () {
 
         case 18:
 
-          a = randint(1, 9) * 10
-          p = randint(2, 9, 5) * 10
-          reponse = calcul(a * p / 100)
+          a = randint(1, 9)
+          p = randint(2, 9, 5)
+          reponse = a * p
+          a = a * 10
+          p = p * 10
           texte = `$${p}\\,\\%$ de $${a}= $`
 
           texteCorr = `          Prendre $${p}\\,\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10\\,\\%$  de $${a}$.<br>
@@ -509,9 +511,9 @@ export default function SujetCAN2022troisieme () {
 
         case 20:
           a = new Decimal(((randint(1, 9) / 10 + randint(1, 9) / 100))).plus(randint(1, 9))
-          b = choice([0.1, 0.01])
+          b = choice([new Decimal('0.1'), new Decimal('0.01')])
 
-          reponse = arrondi(a / b, 2)
+          reponse = a.div(b)
 
           texte = `$${texNombre(a, 2)}\\div ${texNombre(b, 2)}=$
       `
