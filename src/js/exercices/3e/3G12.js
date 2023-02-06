@@ -121,6 +121,8 @@ export default function PavageEtRotation2D () {
     let Nx; let Ny; let index1; let A; let image; let couples = []; let tailles = []; let monpavage; let fenetre
     let texte = ''; let texteCorr = ''; let typeDePavage = parseInt(this.sup)
     let nombreTentatives; let nombrePavageTestes = 1
+    const propositionsAMC = []
+    let texteAMC
     let sensdirect, M, N, trace, label, P1, P2, P3, t
     const alphas = [[60, 120, 180], [90, 180], [60, 120, 180], [60, 120, 90], [45, 90, 135, 180], [60, 120, 180], [60, 120, 180]]; let alpha
     if (this.sup3 === 8) {
@@ -215,11 +217,30 @@ export default function PavageEtRotation2D () {
     } else {
       texteCorr += 'des aiguilles d\'une montre. <br>'
     }
+    const consigneAMC = texte
     for (let i = 0; i < this.nbQuestions; i++) {
-      texte += `Quelle est l'image de la figure $${couples[i][0]}$ ?` + ajouteChampTexteMathLive(this, i, 'largeur25 inline') + '<br>'
+      texteAMC = `Quelle est l'image de la figure $${couples[i][0]}$ ?` + ajouteChampTexteMathLive(this, i, 'largeur25 inline') + '<br>'
+      texte += texteAMC
       texteCorr += `L'image de la figure $${couples[i][0]}$ est la figure $${miseEnEvidence(couples[i][1])}$.<br>`
       setReponse(this, i, couples[i][1])
+      propositionsAMC.push({
+        type: 'AMCNum',
+        propositions: [
+          {
+            texte: texteCorr,
+            reponse: {
+              texte: texteAMC,
+              valeur: couples[i][1],
+              param: {
+                signe: false,
+                digits: 2,
+                decimals: 0
+              }
+            }
+          }
+        ]
 
+      })
       if (this.correctionDetaillee) {
         t = this.nbQuestions * 3
         M = monpavage.barycentres[couples[i][0] - 1]
@@ -242,6 +263,11 @@ export default function PavageEtRotation2D () {
     }
     if (this.correctionDetaillee) {
       texteCorr += mathalea2d(fenetre, objets, objetsCorrection, texteGris)
+    }
+    this.autoCorrection[0] = {
+      options: { multicols: true },
+      enonce: consigneAMC,
+      propositions: propositionsAMC
     }
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)

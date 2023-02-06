@@ -471,11 +471,11 @@ export default function SujetCAN2022troisieme () {
           a = randint(1, 9) * 10
           p = randint(2, 9, 5) * 10
           reponse = calcul(a * p / 100)
-          texte = `$${p}\\%$ de $${a}= $`
+          texte = `$${p}\\,\\%$ de $${a}= $`
 
-          texteCorr = `          Prendre $${p}\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10\\%$  de $${a}$.<br>
-            Comme $10\\%$  de $${a}$ vaut $${a / 10}$ (pour prendre $10\\%$  d'une quantité, on la divise par $10$), alors
-            $${p}\\%$ de $${a}=${p / 10}\\times ${a / 10}=${reponse}$.
+          texteCorr = `          Prendre $${p}\\,\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10\\,\\%$  de $${a}$.<br>
+            Comme $10\\,\\%$  de $${a}$ vaut $${a / 10}$ (pour prendre $10\\,\\%$  d'une quantité, on la divise par $10$), alors
+            $${p}\\,\\%$ de $${a}=${p / 10}\\times ${a / 10}=${reponse}$.
            `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -511,7 +511,7 @@ export default function SujetCAN2022troisieme () {
           a = new Decimal(((randint(1, 9) / 10 + randint(1, 9) / 100))).plus(randint(1, 9))
           b = choice([0.1, 0.01])
 
-          reponse = a / b
+          reponse = arrondi(a / b, 2)
 
           texte = `$${texNombre(a, 2)}\\div ${texNombre(b, 2)}=$
       `
@@ -750,7 +750,7 @@ export default function SujetCAN2022troisieme () {
           Quel est le pourcentage de voix de Sylvie ?
       `
           texteCorr = `$${a}\\times ${100 / a}=100$, donc s'il y avait $100$ élèves, le nombre de  voix de Sylvie serait $${100 / a}\\times ${b}=${reponse}$.<br>
-          Ainsi, le pourcentage de voix de Sylvie est $${reponse} \\%$.
+          Ainsi, le pourcentage de voix de Sylvie est $${reponse}\\,\\%$.
 
           `
 
@@ -781,6 +781,7 @@ export default function SujetCAN2022troisieme () {
             reponse = a % 3
             texte = `Quel est le reste de la division euclidienne de $${a}$ par $3$ ?`
             if (a % 3 === 0) {
+              reponse = 0
               texteCorr = `Le reste de la division de $${a}$ par $3$ est $${a % 3}$.`
               texteCorr += ` Un entier est divisible par $3$ lorsque la somme de ses chiffres est un multiple de $3$.<br> 
             La somme des chiffres qui composent $${a}$ est :  $${b}+${c}+${d}=${b + c + d}$.<br>
@@ -814,7 +815,7 @@ export default function SujetCAN2022troisieme () {
             texte = `Quel est le reste de la division euclidienne de $${a}$ par $2$ ?`
             if (a % 2 === 0) {
               texteCorr = ` 
-            Le nombre est pair, le reste de la division de $${a}$ par $2$ est donc $0$.
+            Le nombre est pair, le reste de la division de $${a}$ par $2$ est donc $0$. 
              `
             }
             if (a % 2 === 1) {
