@@ -53,7 +53,7 @@ export default function DevelopperIdentitesRemarquables3 () {
       typesDeQuestions = listeTypeDeQuestions[i]
       a = randint(1, 12)
       b = randint(2, 12)
-      fraction = choice(listeFractions)
+      fraction = listeFractions[(a + 2 * b) % listeFractions.length]
       ns = fraction[0]
       ds = fraction[1]
       texteCorr = ''
@@ -102,7 +102,7 @@ export default function DevelopperIdentitesRemarquables3 () {
       }
       texte += ajouteChampTexteMathLive(this, i)
       setReponse(this, i, reponse)
-      if (this.questionJamaisPosee(i, typesDeQuestions, a, b, ns, ds)) {
+      if (this.questionJamaisPosee(i, typesDeQuestions, a)) {
       // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
