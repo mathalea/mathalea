@@ -5,14 +5,20 @@ import { listeQuestionsToContenu, egal, randint, choice, shuffle, nombreAvecEspa
 import { tracePoint, labelPoint, segment, rotation, codageAngle, texteParPosition } from '../../modules/2d.js'
 import { rotationAnimee } from '../../modules/2dAnimation.js'
 import { pavage } from '../../modules/Pavage.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Trouver l\'image d\'une figure par une rotation dans un pavage'
-export const dateDeModifImportante = '15/01/2023' //  Par EE
+export const dateDePublication = '16/12/2020'
+export const dateDeModifImportante = '29/01/2023' //  Par EE
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 
 /**
- * Publié le 16/12/2020
- * @author Jean-Claude Lhote
  * Trouver l'image par sune rotation d'une figure dans un pavage
- * Ref 3G12
+ * @author Jean-Claude Lhote
+ * Rajout par EE d'un quatrième paramètre, de l'interactif et de l'AMC
  */
 export const uuid = '442e0'
 export const ref = '3G12'
@@ -25,11 +31,13 @@ export default function PavageEtRotation2D () {
   this.nbQuestionsModifiable = true
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = true
+  this.spacing = 2
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 1 // 1 pour des pavages modestes, 2 pour des plus grand.
   this.sup2 = false // On cache les barycentres par défaut.
   this.sup3 = 7
+  this.sup4 = true // On ignore les rotations centrales par défaut.
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
   this.nouvelleVersion = function () {
     this.sup = Number(this.sup)
@@ -113,8 +121,10 @@ export default function PavageEtRotation2D () {
     let Nx; let Ny; let index1; let A; let image; let couples = []; let tailles = []; let monpavage; let fenetre
     let texte = ''; let texteCorr = ''; let typeDePavage = parseInt(this.sup)
     let nombreTentatives; let nombrePavageTestes = 1
+    const propositionsAMC = []
+    let texteAMC
     let sensdirect, M, N, trace, label, P1, P2, P3, t
-    const alphas = [[60, 120, 180], [90, 180], [60, 120, 180], [60, 120, 180, 90], [45, 90, 135, 180], [60, 120, 180], [60, 120, 180]]; let alpha
+    const alphas = [[60, 120, 180], [90, 180], [60, 120, 180], [60, 120, 90], [45, 90, 135, 180], [60, 120, 180], [60, 120, 180]]; let alpha
     if (this.sup3 === 8) {
       typeDePavage = randint(1, 7)
     } else {
@@ -153,7 +163,8 @@ export default function PavageEtRotation2D () {
         label = labelPoint(A, 'red')
         trace.epaisseur = 3
         trace.taille = 4
-        alpha = alphas[typeDePavage - 1][randint(0, alphas[typeDePavage - 1].length - 1)]
+        // alpha = alphas[typeDePavage - 1][randint(0, alphas[typeDePavage - 1].length - 1)]
+        alpha = choice(alphas[typeDePavage - 1], this.sup4 ? 180 : 0)
         sensdirect = choice([1, -1])
         for (let i = 1; i <= monpavage.nb_polygones; i++) { // on crée une liste des couples (antécédents, images)
           image = rotaccion(monpavage, A, alpha * sensdirect, i)
@@ -196,20 +207,40 @@ export default function PavageEtRotation2D () {
     texte = mathalea2d(fenetre, objets, texteNoir) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
     texte += `<br>Soit la rotation de centre $A$ et d'angle ${alpha}° dans le sens `
     if (sensdirect === 1) {
-      texte += 'inverse des aiguilles d\'une montre.<br>'
+      texte += 'contraire des aiguilles d\'une montre.<br>'
     } else {
       texte += 'des aiguilles d\'une montre.<br>'
     }
     texteCorr += `Soit la rotation de centre $A$ et d'angle ${alpha}° dans le sens `
     if (sensdirect === 1) {
-      texteCorr += 'inverse des aiguilles d\'une montre. <br>'
+      texteCorr += 'contraire des aiguilles d\'une montre. <br>'
     } else {
       texteCorr += 'des aiguilles d\'une montre. <br>'
     }
+    const consigneAMC = texte
     for (let i = 0; i < this.nbQuestions; i++) {
-      texte += `Quelle est l'image de la figure $${couples[i][0]}$ ?<br>`
+      texteAMC = `Quelle est l'image de la figure $${couples[i][0]}$ ?` + ajouteChampTexteMathLive(this, i, 'largeur25 inline') + '<br>'
+      texte += texteAMC
       texteCorr += `L'image de la figure $${couples[i][0]}$ est la figure $${miseEnEvidence(couples[i][1])}$.<br>`
+      setReponse(this, i, couples[i][1])
+      propositionsAMC.push({
+        type: 'AMCNum',
+        propositions: [
+          {
+            texte: texteCorr,
+            reponse: {
+              texte: texteAMC,
+              valeur: couples[i][1],
+              param: {
+                signe: false,
+                digits: 2,
+                decimals: 0
+              }
+            }
+          }
+        ]
 
+      })
       if (this.correctionDetaillee) {
         t = this.nbQuestions * 3
         M = monpavage.barycentres[couples[i][0] - 1]
@@ -233,6 +264,11 @@ export default function PavageEtRotation2D () {
     if (this.correctionDetaillee) {
       texteCorr += mathalea2d(fenetre, objets, objetsCorrection, texteGris)
     }
+    this.autoCorrection[0] = {
+      options: { multicols: true },
+      enonce: consigneAMC,
+      propositions: propositionsAMC
+    }
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
@@ -240,4 +276,5 @@ export default function PavageEtRotation2D () {
   this.besoinFormulaireNumerique = ['Taille du pavage (la grande est automatique au-delà de 5 questions)', 2, ' 1 : Taille modeste\n 2 : Grande taille']
   this.besoinFormulaire2CaseACocher = ['Montrer les centres']
   this.besoinFormulaire3Numerique = ['Choix du pavage', 8, '1 : Triangles équilatéraux\n2 : Carrés\n3 : Hexagones réguliers\n4 : Carrés et triangles équilatéraux\n5 : Octogones et carrés\n 6 : Losanges (pavage hexagonal d\'écolier)\n7 : Hexagones et triangles équilatéraux\n8 : Un des sept pavages au hasard']
+  this.besoinFormulaire4CaseACocher = ['Ignorer l\'angle de 180°']
 }

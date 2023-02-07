@@ -21,8 +21,8 @@ export const uuid = '5636e'
 export default function TrouverChiffre () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 4
-  this.besoinFormulaireTexte = ['Nombre de chiffres dans le nombre à découvrir ', 'Choix séparés par des tirets\n2 : 2 chiffres\n3 : 3 chiffres\n4 : 4 chiffres\n5 : 5 chiffres\n6 : 6 chiffres\n7 : Mélange']
-  this.besoinFormulaire2Texte = ['Critère choisi de divisibilité', 'Choix séparés par des tirets \n1 : par 2\n2 : par 3\n3 : par 5\n4 : par 9\n5 : par 2 et par 3\n6 : par 2 et par 5\n7 : par 6\n8 : par 10\n9 : Mélange']
+  this.besoinFormulaireTexte = ['Nombre de chiffres dans le nombre à découvrir ', 'Nombres séparés par des tirets\n2 : 2 chiffres\n3 : 3 chiffres\n4 : 4 chiffres\n5 : 5 chiffres\n6 : 6 chiffres\n7 : Mélange']
+  this.besoinFormulaire2Texte = ['Critère choisi de divisibilité', 'Nombres séparés par des tirets \n1 : par 2\n2 : par 3\n3 : par 5\n4 : par 9\n5 : par 2 et par 3\n6 : par 2 et par 5\n7 : par 6\n8 : par 10\n9 : Mélange']
   this.besoinFormulaire3Numerique = ['Choix du symbole remplaçant le chiffre manquant', 4, '1 : ?\n2 : _\n3 : ...\n4 : X']
   this.besoinFormulaire4CaseACocher = ['Le chiffre des unités est le seul chiffre caché', false]
   this.sup = 7

@@ -5,6 +5,7 @@ import { point, tracePoint, vecteur, polygoneAvecNom, translation, pointAdistanc
 import Alea2iep from '../../modules/Alea2iep.js'
 import { translationAnimee } from '../../modules/2dAnimation.js'
 export const titre = 'Construire les images de points par une translation'
+export const dateDeModifImportante = '29/01/2023' //  Par EE
 
 /**
  * @author Jean-Claude Lhote
@@ -17,12 +18,14 @@ export default function SommeDeVecteurs () {
   this.nbQuestions = 2
   this.nbCols = 2
   this.nbColsCorr = 2
-  this.sup = 1 //
+  this.sup = 3 //
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    let choix = 1
     let u, v, A, B, C, xU, yU, xV, yV, p, U, V, M, N, UU, VV, posLabelA
     for (let i = 0, texte, texteCorr, anim, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      choix = parseInt(this.sup) === 3 ? randint(1, 2) : parseInt(this.sup)
       anim = new Alea2iep()
       xU = randint(0, 8) * 0.5
       yU = randint(Math.round(4 - xU), 8, Math.round(xU)) * choice([-0.5, 0.5])
@@ -36,7 +39,7 @@ export default function SommeDeVecteurs () {
       posLabelA = homothetie(C, A, -1 / longueur(A, C))
       posLabelA.positionLabel = 'center'
       p = polygoneAvecNom(B, C)
-      if (parseInt(this.sup) === 1) {
+      if (choix === 1) {
         M = pointAdistance(A, 0)
         N = pointAdistance(A, 0)
       } else {
@@ -51,10 +54,10 @@ export default function SommeDeVecteurs () {
       VV.color = colorToLatexOrHTML('green')
       texte = 'Construire le point $C$ tel que $\\overrightarrow{AC} = \\vec{u} + \\vec{v}$.<br>'
       texte += mathalea2d({
-        xmin: Math.min(0, B.x, C.x, M.x, M.x + xU, N.x, N.x + xV) - 1,
-        ymin: Math.min(0, B.y, C.y, M.y, M.y + yU, N.y, N.y + yV) - 1,
-        xmax: Math.max(0, B.x, C.x, M.x, M.x + xU, N.x, N.x + xV) + 1,
-        ymax: Math.max(0, B.y, C.y, M.y, M.y + yU, N.y, N.y + yV) + 1,
+        xmin: Math.min(0, B.x, C.x, M.x, M.x + xU, N.x, N.x + xV) - 2,
+        ymin: Math.min(0, B.y, C.y, M.y, M.y + yU, N.y, N.y + yV) - 2,
+        xmax: Math.max(0, B.x, C.x, M.x, M.x + xU, N.x, N.x + xV) + 2,
+        ymax: Math.max(0, B.y, C.y, M.y, M.y + yU, N.y, N.y + yV) + 2,
         scale: 0.7
       }, U, V, UU, VV, tracePoint(A, 'red'), latexParPoint('A', posLabelA, 'red', 12, 6, ''))
       texteCorr = 'Construisons le point $B$ tel que $\\overrightarrow{AB} = \\vec{u}$ puis le point $C$ tel que $\\overrightarrow{BC} = \\vec{v}$'
@@ -70,7 +73,7 @@ export default function SommeDeVecteurs () {
       anim.tracer(translation(N, v), { vecteur: true, couleur: 'green' })
       anim.crayonMasquer()
       anim.pointCreer(A)
-      if (parseInt(this.sup) === 2) {
+      if (choix === 2) {
         anim.compasMontrer(M)
         anim.compasEcarter2Points(M, translation(M, u))
         anim.compasDeplacer(A)
@@ -120,5 +123,5 @@ export default function SommeDeVecteurs () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Situations différentes ', 2, '1 :Avec un point origine\n 2 : Avec un point extrémité']
+  this.besoinFormulaireNumerique = ['Situations différentes ', 2, '1 :Avec un point origine\n2 : Avec un point extrémité\n3 : Mélange']
 }

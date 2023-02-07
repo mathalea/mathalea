@@ -32,7 +32,7 @@ export default class constructionPerpendiculaires extends Exercice {
     ]
     this.besoinFormulaire2Texte = [
       'Type de question', [
-        'Choix séparés par des tirets',
+        'Nombres séparés par des tirets',
         '0 : Mélange',
         '1 : Orthocentre (intérieur du triangle)',
         '2 : Orthocentre (extérieur du triangle)',

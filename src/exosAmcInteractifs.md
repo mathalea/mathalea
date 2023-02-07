@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 548 
-- nombre d'exos interactifReady 842 
+- nombre d'exos amcReady 550 
+- nombre d'exos interactifReady 844 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -97,7 +97,9 @@
 |3F21-3|Lire graphiquement les caractéristiques de la courbe représentative d'une fonction affine|KO|KO|OK|mathLive|
 |3G10-1|Trouver les coordonnées de l'image d'un point par une rotation et une homothétie|OK|AMCHybride|OK|mathLive|
 |3G10-2|Trouver l'image d'un point par une homothétie ou une rotation|OK|AMCHybride|OK|mathLive|
+|3G11|Construire l'image d'un point par une homothétie avec cible auto-corrective|OK|AMCHybride|KO|KO|
 |3G12-1|Trouver l'image d'une figure par une rotation de 90 degrés dans un pavage|OK|AMCHybride|OK|mathLive|
+|3G12|Trouver l'image d'une figure par une rotation dans un pavage|OK|AMCHybride|OK|mathLive|
 |3G20|Calculer des longueurs avec le théorème de Thalès|OK|AMCOpenNum✖︎2|OK|mathLive|
 |3G21|Démontrer que deux droites sont ou ne sont pas parallèles avec le théorème de Thalès|OK|AMCHybride|OK|mathLive|
 |3G22-1|Agrandissement et réduction|KO|KO|OK|mathLive|
@@ -868,6 +870,7 @@
 |canc3N04|Arrondir à l'unité|OK|AMCHybride|OK|mathLive|
 |canc3N05|Calculer une somme (partie entière/décimale)|OK|AMCNum|OK|mathLive|
 |canc3N06|Comparer deux nombres sur une droite graduée (QCM)|OK|qcmMono|OK|qcm|
+|canc3N07|Décomposer un nombre|KO|KO|OK|mathLive|
 |canc3a|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
 |techno1E2|Associer évolution en pourcentage et coefficient|KO|KO|OK|mathLive|
 |techno1P1|Écriture fractionnaire, écriture décimale, pourcentage|KO|KO|OK|mathLive|

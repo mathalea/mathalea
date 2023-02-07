@@ -32,7 +32,6 @@ export default function TransformationsDuPlanEtCoordonnees () {
   this.sup = '4-5-6'
 
   this.nouvelleVersion = function (numeroExercice) {
-    let enonceAmc = ''
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
@@ -62,6 +61,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
     typesDeQuestionsDisponibles = combinaisonListes(typesDeQuestionsDisponibles, 3)
 
     for (let ee = 0, texte, texteCorr, xA, yA, xB, yB, xC, yC, objetsEnonce, objetsCorrection, cpt = 0; ee < this.nbQuestions && cpt < 50;) {
+      let enonceAmc = ''
       texte = ''
       texteCorr = ''
       objetsEnonce = []
@@ -569,7 +569,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
       objetsEnonce.push(repere({ xMin: -10, yMin: -10, xMax: 10, yMax: 10, grilleOpacite: 0.2 }))
       objetsCorrection.push(repere({ xMin: -10, yMin: -10, xMax: 10, yMax: 10, grilleOpacite: 0.2 }))
       if (context.isAmc) {
-        this.autoCorrection[0] = {
+        this.autoCorrection.push({
           enonce: '\\begin{center}' + mathalea2d({ xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 0.5, mainlevee: false }, objetsEnonce) + '\\\\' + '\\end{center}' + enonceAmc,
           enonceAvant: false,
           enonceApresNumQuestion: true,
@@ -582,7 +582,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
                 statut: '',
                 multicolsBegin: true,
                 reponse: {
-                  texte: numAlpha(0) + ' Abscisse de A',
+                  texte: numAlpha(0) + ' Abscisse de l\'image de A',
                   valeur: punto[0][0],
                   param: {
                     digits: 1,
@@ -600,7 +600,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
                 statut: '',
                 multicolsEnd: true,
                 reponse: {
-                  texte: 'Ordonnée de A',
+                  texte: 'Ordonnée de l\'image de A',
                   valeur: punto[0][1],
                   param: {
                     digits: 1,
@@ -618,7 +618,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
                 statut: '',
                 multicolsBegin: true,
                 reponse: {
-                  texte: numAlpha(1) + ' Abscisse de B',
+                  texte: numAlpha(1) + ' Abscisse de l\'image de B',
                   valeur: punto[1][0],
                   param: {
                     digits: 1,
@@ -636,7 +636,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
                 statut: '',
                 multicolsEnd: true,
                 reponse: {
-                  texte: 'Ordonnée de B',
+                  texte: 'Ordonnée de l\'image de B',
                   valeur: punto[1][1],
                   param: {
                     digits: 1,
@@ -654,7 +654,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
                 statut: '',
                 multicolsBegin: true,
                 reponse: {
-                  texte: numAlpha(2) + ' Abscisse de C',
+                  texte: numAlpha(2) + ' Abscisse de l\'image de C',
                   valeur: punto[2][0],
                   param: {
                     digits: 1,
@@ -672,7 +672,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
                 statut: '',
                 multicolsEnd: true,
                 reponse: {
-                  texte: 'Ordonnée de C',
+                  texte: 'Ordonnée de l\'image de C',
                   valeur: punto[2][1],
                   param: {
                     digits: 1,
@@ -684,8 +684,8 @@ export default function TransformationsDuPlanEtCoordonnees () {
               }]
             }]
         }
+        )
       }
-
       if (this.questionJamaisPosee(ee, xA, yA, xB, yB, xC, yC)) {
         this.listeQuestions.push(texte + '<br>' + mathalea2d({ xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 0.4, mainlevee: false }, objetsEnonce))
         this.listeCorrections.push(texteCorr + '<br>' + mathalea2d({ xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 0.4, mainlevee: false }, objetsCorrection))
@@ -695,5 +695,5 @@ export default function TransformationsDuPlanEtCoordonnees () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Choix des transformations ', 'Choix séparés par des tirets (3 maximum) \n1 : Symétrie axiale\n 2 : Symétrie centrale\n 3 : Translation\n 4 : Rotation\n 5 : Homothétie de rapport entier\n 6 : Homothétie de rapport fractionnaire']
+  this.besoinFormulaireTexte = ['Choix des transformations ', 'Nombres séparés par des tirets (3 maximum) \n1 : Symétrie axiale\n 2 : Symétrie centrale\n 3 : Translation\n 4 : Rotation\n 5 : Homothétie de rapport entier\n 6 : Homothétie de rapport fractionnaire']
 }

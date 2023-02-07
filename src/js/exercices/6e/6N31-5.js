@@ -194,7 +194,7 @@ export default function EncadrerUnDecimal () {
   }
   this.besoinFormulaireTexte = [
     'Type de question', [
-      'Choix séparés par des tirets',
+      'Nombres séparés par des tirets',
       '0 : Mélange',
       '1 : Encadrer à l\'unité',
       '2 : Encadrer au dixième',

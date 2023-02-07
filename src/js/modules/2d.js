@@ -4668,6 +4668,8 @@ export function dansLaCibleCarree (x, y, rang, taille, cellule) {
  * @param {number} [taille=0.6] Taille des cases
  * @param {string} [color='gray'] Couleur de la cible. Code couleur HTML acceptée
  * @param {number} [opacite=0.5] Opacité de la cible
+ * @param {string} [colorNum = color] Couleur du numéro identifiant la cible. Code couleur HTML acceptée
+ * @param {number} [opaciteNum = 0.5] Opacité du numéro identifiant la cible
  * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @property {number} x Abscisse du point au centre de la cible
@@ -4676,24 +4678,28 @@ export function dansLaCibleCarree (x, y, rang, taille, cellule) {
  * @property {number} taille Taille des cases
  * @property {string} color Couleur de la cible. À associer obligatoirement à colorToLatexOrHTML().
  * @property {number} opacite Opacité de la cible
+ * @property {string} colorNum Couleur du numéro identifiant la cible. Code couleur HTML acceptée
+ * @property {number} opaciteNum Opacité du numéro identifiant la cible
  * @author Jean-Claude Lhote
  * @class
  */
 // JSDOC Validee par EE Juin 2022
-export function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray', opacite = 0.5 }) {
+export function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray', opacite = 0.5, colorNum = color, opaciteNum = 1 }) {
   ObjetMathalea2D.call(this, { })
   this.x = x
   this.y = y
   this.rang = rang
   this.taille = taille
   this.color = color
+  this.colorNum = colorNum
   this.opacite = opacite
+  this.opaciteNum = opaciteNum
   const objets = []
   let numero
   // Si un numéro est donné, alors on l'ajoute en filigrane.
   if (typeof (num) !== 'undefined') {
-    numero = texteParPosition(num, this.x - this.rang * this.taille / 4, this.y - this.rang * this.taille / 4, 'milieu', this.color)
-    numero.opacite = 0.5
+    numero = texteParPosition(num, this.x - this.rang * this.taille / 4, this.y - this.rang * this.taille / 4, 'milieu', this.colorNum, 1, 'middle', false, this.opaciteNum)
+    // numero.opacite = 0.1 TOTALEMENT INUTILE CAR NON FONCTIONNEL
     numero.taille = 30 * this.taille
     numero.contour = true
     objets.push(numero)
@@ -4702,8 +4708,8 @@ export function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color 
   // la grille de la cible
   objets.push(grille(arrondi(this.x - this.rang * this.taille / 2), arrondi(this.y - this.rang * this.taille / 2), arrondi(this.x + this.rang * this.taille / 2), arrondi(this.y + this.rang * this.taille / 2), this.color, this.opacite, this.taille, false))
   for (let i = 0; i < rang; i++) {
-    lettre = texteParPosition(lettreDepuisChiffre(1 + i), this.x - this.rang * this.taille / 2 + (2 * i + 1) * this.taille / 2, this.y - (this.rang + 1) * this.taille / 2, 'milieu')
-    chiffre = texteParPosition(i + 1, this.x - (this.rang + 1) * this.taille / 2, this.y - this.rang * this.taille / 2 + (2 * i + 1) * this.taille / 2, 'milieu')
+    lettre = texteParPosition(lettreDepuisChiffre(1 + i), this.x - this.rang * this.taille / 2 + (2 * i + 1) * this.taille / 2, this.y - (this.rang + 1) * this.taille / 2, 'milieu', 'blue', 0.5, 0.1)
+    chiffre = texteParPosition(i + 1, this.x - (this.rang + 1) * this.taille / 2, this.y - this.rang * this.taille / 2 + (2 * i + 1) * this.taille / 2, 'milieu', 'blue', 0.5)
     lettre.taille = 10 * this.taille
     chiffre.taille = 10 * this.taille
     objets.push(lettre)
@@ -4748,6 +4754,8 @@ export function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color 
  * @param {number} [taille = 0.6] Taille des cases
  * @param {string} [color = 'gray'] Couleur de la cible. Code couleur HTML acceptée
  * @param {number} [opacite = 0.5] Opacité de la cible
+ * @param {string} [colorNum = color] Couleur du numéro identifiant la cible. Code couleur HTML acceptée
+ * @param {number} [opaciteNum = 0.5] Opacité du numéro identifiant la cible
  * @example cibleCarree({})
  * // Crée une cible Carree, de centre (0,0), avec 4 carrés en largeur dont chacune a pour côté 0.6, de couleur grise avec une opacité de 50 %
  * @example cibleCarree({ x: 2, y: -1, rang: 5, num: 17, taille: 0.5, color: 'blue', opacite: 0.8 })
@@ -4756,8 +4764,8 @@ export function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color 
  * @return {CibleCarree}
  */
 // JSDOC Validee par EE Juin 2022
-export function cibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray', opacite = 0.5 }) {
-  return new CibleCarree({ x, y, rang, num, taille, color, opacite })
+export function cibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray', opacite = 0.5, colorNum = color, opaciteNum = 1 }) {
+  return new CibleCarree({ x, y, rang, num, taille, color, opacite, colorNum, opaciteNum })
 }
 
 /**  Retourne un couple de coordonnées correspondant au centre d'une cible, connaissant les coordonnées du point réponse et de la cellule dans laquelle on veut qu'il soit
@@ -9391,12 +9399,12 @@ export function intervalle (A, B, color = 'blue', h = 0) {
  * Si le texte commence et finit par des $ la chaine est traitée par latexParPoint
  * @author Rémi Angot
  */
-export function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false) {
+export function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false, opacite = 1) {
   ObjetMathalea2D.call(this, { })
   this.color = colorToLatexOrHTML(color)
   this.contour = false
   this.taille = 10 * scale
-  this.opacite = 1
+  this.opacite = opacite
   this.couleurDeRemplissage = this.color
   this.opaciteDeRemplissage = this.opacite
   if (typeof texte === 'number' || texte instanceof Decimal) texte = stringNombre(texte)
@@ -9507,8 +9515,8 @@ export function TexteParPoint (texte, A, orientation = 'milieu', color = 'black'
     }
   }
 }
-export function texteParPoint (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false) {
-  return new TexteParPoint(texte, A, orientation, color, scale, ancrageDeRotation, mathOn)
+export function texteParPoint (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false, opacite = 1) {
+  return new TexteParPoint(texte, A, orientation, color, scale, ancrageDeRotation, mathOn, opacite)
 }
 
 export function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false, scaleFigure) {
@@ -9645,8 +9653,8 @@ export function texteParPositionEchelle (texte, x, y, orientation = 'milieu', co
  *
  * @author Rémi Angot
  */
-export function texteParPosition (texte, x, y, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false) {
-  return new TexteParPoint(texte, point(x, y), orientation, color, scale, ancrageDeRotation, mathOn)
+export function texteParPosition (texte, x, y, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false, opacite) {
+  return new TexteParPoint(texte, point(x, y), orientation, color, scale, ancrageDeRotation, mathOn, opacite)
 }
 
 /**
@@ -9947,7 +9955,8 @@ export function angleModulo (a) {
 // JSDOC Validee par EE Juin 2022
 export function angleOriente (A, O, B, precision = 2) {
   const A2 = rotation(A, O, 90)
-  const v = vecteur(O, B); const u = vecteur(O, A2)
+  const v = vecteur(O, B)
+  const u = vecteur(O, A2)
   return arrondi(unSiPositifMoinsUnSinon(arrondi(v.x * u.x + v.y * u.y, 10)) * angle(A, O, B), precision)
 }
 
