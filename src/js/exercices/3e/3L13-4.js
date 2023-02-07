@@ -27,7 +27,7 @@ export default class problemes extends Exercice {
     this.nbQuestions = 2
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = false
-    this.besoinFormulaire2Numerique = ['Types de valeurs dans l\'équation', 2, '1 - Entiers positifs\n 2 - Entiers relatifs']
+    this.besoinFormulaire2Numerique = ['Types de valeurs dans l\'équation', 2, '1 - Entiers positifs\n2 - Entiers relatifs']
   }
 
   nouvelleVersion () {
@@ -57,7 +57,7 @@ export default class problemes extends Exercice {
             b: 'AB-a*x',
             d: 'BC-c*x',
             p: '2*(a*x+b+c*x+d)',
-            test: 'a*x+b>0 and c*x+d>0'
+            test: 'a*x+b>0 and c*x+d>0 and a!=c'
           })
           delete variables.x
           const exprAB = toString(assignVariables('a*x+b', variables))
@@ -182,6 +182,7 @@ Donc l'aire du rectangle $${ABCD}$ est ${environ} $${toTex(solutionDecimale)}~cm
           break
         }
       }
+      exercice.texte += numeroquestion
       if (this.questionJamaisPosee(i, i)) {
         this.listeQuestions.push(exercice.texte.replaceAll('\n\n', '<br>'))
         this.listeCorrections.push(exercice.texteCorr.replaceAll('\n\n', '<br>'))
