@@ -7652,9 +7652,9 @@ export function Repere ({
   xLabelEcart = 0.5,
   yLabelEcart = 0.5,
   xLegende = '',
-  xLegendePosition = [xMax * xUnite + 0.5, 0.5],
+  xLegendePosition = [],
   yLegende = '',
-  yLegendePosition = [0.5, yMax * yUnite + 0.5],
+  yLegendePosition = [],
   grille = true,
   grilleDistance = false,
   grilleCouleur = 'black',
@@ -7709,12 +7709,16 @@ export function Repere ({
   const objets = []
   // LES AXES
   const ordonneeAxe = Math.max(0, yMin)
-  xLegendePosition = [xMax * xUnite + 0.5, 0.5 + ordonneeAxe]
+  if (xLegendePosition.length === 0) {
+    xLegendePosition = [xMax * xUnite + 0.5, 0.5 + ordonneeAxe]
+  }
   const axeX = segment(xMin * xUnite, ordonneeAxe * yUnite, xMax * xUnite, ordonneeAxe * yUnite, axesCouleur)
   axeX.epaisseur = axesEpaisseur
   axeX.styleExtremites = axeXStyle
   const abscisseAxe = Math.max(0, xMin)
-  yLegendePosition = [0.5 + abscisseAxe, yMax * yUnite + 0.5]
+  if (yLegendePosition.length === 0) {
+    yLegendePosition = [0.5 + abscisseAxe, yMax * yUnite + 0.5]
+  }
   const axeY = segment(abscisseAxe * xUnite, yMin * yUnite, abscisseAxe * xUnite, yMax * yUnite, axesCouleur)
   axeY.epaisseur = axesEpaisseur
   axeY.styleExtremites = axeYStyle
