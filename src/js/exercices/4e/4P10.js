@@ -39,7 +39,7 @@ export default function ProblemesGrandeursComposees () {
   this.nbColsCorr = 1
   context.isHtml ? (this.spacing = 3) : (this.spacing = 1.5)
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
-  this.sup = false
+  this.sup = ''
 
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions

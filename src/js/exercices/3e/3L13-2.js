@@ -157,7 +157,7 @@ export default function EqResolvantesThales () {
       const situations = [
         { // x/b = a/c
           eq: `\\dfrac{${params.inc}}{${texNombre(params.b, 4)}}=\\dfrac{${texNombre(params.a, 4)}}{${texNombre(params.c, 4)}}`,
-          tab: tableauColonneLigne([params.inc, params.a], [params.b], [params.c]),
+          tab: tableauColonneLigne(['\\phantom{000}' + params.inc + '\\phantom{000}', '\\phantom{000}' + params.a + '\\phantom{000}'], [params.b], [params.c]),
           a: params.a,
           b: params.b,
           c: params.c,
@@ -167,7 +167,7 @@ export default function EqResolvantesThales () {
         },
         { // a/c = x/b
           eq: `\\dfrac{${texNombre(params.a, 4)}}{${texNombre(params.c, 4)}}=\\dfrac{${params.inc}}{${texNombre(params.b, 4)}}`,
-          tab: tableauColonneLigne([params.a, params.inc], [params.c], [params.b]),
+          tab: tableauColonneLigne(['\\phantom{000}' + params.a + '\\phantom{000}', '\\phantom{000}' + params.inc + '\\phantom{000}'], [params.c], [params.b]),
           a: params.a,
           b: params.b,
           c: params.c,
@@ -177,7 +177,7 @@ export default function EqResolvantesThales () {
         },
         { // b/x = c/a
           eq: `\\dfrac{${texNombre(params.b, 4)}}{${params.inc}}=\\dfrac{${texNombre(params.c, 4)}}{${texNombre(params.a, 4)}}`,
-          tab: tableauColonneLigne([params.b, params.c], [params.inc], [params.a]),
+          tab: tableauColonneLigne(['\\phantom{000}' + params.b + '\\phantom{000}', '\\phantom{000}' + params.c + '\\phantom{000}'], [params.inc], [params.a]),
           a: params.a,
           b: params.b,
           c: params.c,
@@ -187,7 +187,7 @@ export default function EqResolvantesThales () {
         },
         { // c/a = b/x
           eq: `\\dfrac{${texNombre(params.c, 4)}}{${texNombre(params.a, 4)}}=\\dfrac{${texNombre(params.b, 4)}}{${params.inc}}`,
-          tab: tableauColonneLigne([params.c, params.b], [params.a], [params.inc]),
+          tab: tableauColonneLigne(['\\phantom{000}' + params.c + '\\phantom{000}', '\\phantom{000}' + params.b + '\\phantom{000}'], [params.a], [params.inc]),
           a: params.a,
           b: params.b,
           c: params.c,

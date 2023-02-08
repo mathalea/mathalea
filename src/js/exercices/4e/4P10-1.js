@@ -76,8 +76,8 @@ export default function GraphiquesEtProportionnalite2 () {
           xUnite: 1,
           yUnite: 1 / yscale,
           yThickDistance: yscale,
-          legendeX: situation.legendeX,
-          legendeY: situation.legendeY,
+          xLegende: situation.legendeX,
+          yLegende: situation.legendeY,
           grille: true,
           grilleOpacite: 0.5,
           grilleXDistance: 1,
@@ -91,7 +91,8 @@ export default function GraphiquesEtProportionnalite2 () {
           grilleSecondaireYMin: 0,
           grilleSecondaireXMax: situation.qte_max + 1,
           grilleSecondaireYMax: premierMultipleSuperieur(yscale, (situation.qte_max + 1) * situation.prix_unitaire + yscale),
-          yLegendePosition: [0.3, premierMultipleSuperieur(yscale, (situation.qte_max + 1) * situation.prix_unitaire + yscale) + 1]
+          yLegendePosition: [0, premierMultipleSuperieur(yscale, (situation.qte_max + 1) * situation.prix_unitaire + yscale) / yscale + 0.5],
+          xLegendePosition: [situation.qte_max + 1 + 0.2, 0]
         })
       ]
       const f = x => situation.prix_unitaire * x
@@ -102,7 +103,7 @@ export default function GraphiquesEtProportionnalite2 () {
           xmin: -xscale,
           ymin: -1,
           xmax: situation.qte_max / xscale + 3,
-          ymax: (situation.qte_max * situation.prix_unitaire + yscale) / yscale + 1,
+          ymax: ((situation.qte_max + 1) * situation.prix_unitaire + yscale) / yscale + 2,
           pixelsParCm: 30
         },
         mesAppels

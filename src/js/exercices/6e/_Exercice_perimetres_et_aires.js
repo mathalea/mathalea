@@ -267,12 +267,12 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
             2 * R * Math.PI, 3)}~\\text{cm}$<br>`
           texteCorr += `$\\mathcal{A}=${texNombre(R)}\\times${texNombre(R)}\\times\\pi~\\text{cm}^2=${texNombre(R * R)}\\pi~\\text{cm}^2\\approx${texNombre(
             R * R * Math.PI, 3)}~\\text{cm}^2$`
-          texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{P}\\approx ${texNombrec(troncature(2 * R * Math.PI, 1))}~${texTexte(' cm')}$.`
-          texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{A}\\approx ${texNombre(troncature(R * R * Math.PI, 1))}~${texTexte(' cm')}^2$.<br>`
-          texteCorr += `<br>Si on utilise $\\pi \\approx 3,14$, alors <br> $\\mathcal{P}_{1}\\approx 2 \\times ${texNombre(R)} \\times 3,14 \\approx ${texNombrec(2 * R * 3.14, 3)}~${texTexte(' cm')}$.<br>`
-          texteCorr += `$\\mathcal{A}\\approx ${texNombre(R)}\\times${texNombre(R)}\\times 3,14\\approx ${texNombre(R * R * 3.14, 3)}~${texTexte(' cm')}^2$.`
-          texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{P}\\approx ${texNombrec(troncature(2 * R * 3.14, 1))}~${texTexte(' cm')}$.`
-          texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{A}\\approx ${texNombre(troncature(R * R * 3.14, 1))}~${texTexte(' cm')}^2$.<br>`
+          texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{P}\\approx ${texNombrec(troncature(2 * R * Math.PI, 1))}~${texTexte('cm')}$.`
+          texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{A}\\approx ${texNombre(troncature(R * R * Math.PI, 1))}~${texTexte('cm')}^2$.<br>`
+          texteCorr += `<br>Si on utilise $\\pi \\approx 3,14$, alors <br> $\\mathcal{P}\\approx 2 \\times ${texNombre(R)} \\times 3,14 \\approx ${texNombrec(2 * R * 3.14, 3)}~${texTexte('cm')}$.<br>`
+          texteCorr += `$\\mathcal{A}\\approx ${texNombre(R)}\\times${texNombre(R)}\\times 3,14\\approx ${texNombre(R * R * 3.14, 3)}~${texTexte('cm')}^2$.`
+          texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{P}\\approx ${texNombrec(troncature(2 * R * 3.14, 1))}~${texTexte('cm')}$.`
+          texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{A}\\approx ${texNombre(troncature(R * R * 3.14, 1))}~${texTexte('cm')}^2$.<br>`
           resultat1 = arrondi(2 * R * Math.PI, 1)
           resultat2 = arrondi(R * R * Math.PI, 1)
           break
@@ -318,12 +318,12 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
 
           texteCorr += `$\\mathcal{P}=2\\times${texNombre(R)}\\times\\pi\\div 2 + 2\\times${texNombre(R)}~\\text{cm}\\approx${texNombre(2 * R * Math.PI / 2 + 2 * R, 3)}~\\text{cm}$<br>`
           texteCorr += `$\\mathcal{A}=${texNombre(R)}\\times${texNombre(R)}\\times\\pi \\div 2~\\text{cm}^2\\approx${texNombre(R * R * Math.PI / 2, 3)}~\\text{cm}^2$`
-          texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{P}\\approx ${texNombrec(troncature(2 * R * Math.PI / 2 + 2 * R, 1))}~${texTexte(' cm')}$.`
+          texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{P}\\approx ${texNombrec(troncature(2 * R * Math.PI / 2 + 2 * R, 1))}~${texTexte('cm')}$.`
           texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{A}\\approx ${texNombre(troncature(R * R * Math.PI / 2, 1))}~${texTexte(' cm')}^2$.<br>`
-          texteCorr += `<br>Si on utilise $\\pi \\approx 3,14$, alors <br> $\\mathcal{P}_{1}\\approx 2 \\times ${texNombre(R)} \\times 3,14 \\div 2 + 2 \\times ${texNombre(R)} \\approx ${texNombrec(2 * R * 3.14 / 2 + 2 * R, 3)}~${texTexte(' cm')}$.<br>`
-          texteCorr += `$\\mathcal{A}\\approx ${texNombre(R)}\\times${texNombre(R)}\\times 3,14 \\div 2\\approx ${texNombre(R * R * 3.14 / 2, 3)}~${texTexte(' cm')}^2$.`
-          texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{P}\\approx ${texNombrec(troncature(2 * R * 3.14 / 2 + 2 * R, 1))}~${texTexte(' cm')}$.`
-          texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{A}\\approx ${texNombre(troncature(R * R * 3.14 / 2, 1))}~${texTexte(' cm')}^2$.<br>`
+          texteCorr += `<br>Si on utilise $\\pi \\approx 3,14$, alors <br> $\\mathcal{P}\\approx 2 \\times ${texNombre(R)} \\times 3,14 \\div 2 + 2 \\times ${texNombre(R)} \\approx ${texNombrec(2 * R * 3.14 / 2 + 2 * R, 3)}~${texTexte('cm')}$.<br>`
+          texteCorr += `$\\mathcal{A}\\approx ${texNombre(R)}\\times${texNombre(R)}\\times 3,14 \\div 2\\approx ${texNombre(R * R * 3.14 / 2, 3)}~${texTexte('cm')}^2$.`
+          texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{P}\\approx ${texNombrec(troncature(2 * R * 3.14 / 2 + 2 * R, 1))}~${texTexte('cm')}$.`
+          texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{A}\\approx ${texNombre(troncature(R * R * 3.14 / 2, 1))}~${texTexte('cm')}^2$.<br>`
 
           resultat1 = arrondi(2 * R * Math.PI / 2 + 2 * R, 1)
           resultat2 = arrondi(R * R * Math.PI / 2, 1)
