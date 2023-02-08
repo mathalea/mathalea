@@ -2,8 +2,8 @@ import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
 import FractionX from '../../modules/FractionEtendue.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, combinaisonListes, texteGras, prenomF, sp, reduireAxPlusB, texPrix, ecritureParentheseSiNegatif, ecritureAlgebriqueSauf1, miseEnEvidence, rienSi1, abs, choice, texNombre, randint, ecritureAlgebrique } from '../../modules/outils.js'
-import { texteSurSegment, codageSegments, polygone, codageAngleDroit, segmentAvecExtremites, milieu, labelPoint, point, segment, texteParPosition } from '../../modules/2d.js'
+import { listeQuestionsToContenu, combinaisonListes, pgcd, texteGras, prenomF, itemize, sp, reduireAxPlusB, texPrix, ecritureParentheseSiNegatif, miseEnEvidence, rienSi1, abs, choice, texNombre, randint, ecritureAlgebrique } from '../../modules/outils.js'
+import { polygone, codageAngleDroit, milieu, labelPoint, point, segment, texteParPosition } from '../../modules/2d.js'
 export const titre = 'Modéliser un problème par une inéquation.'
 /**
  * Description didactique de l'exercice
@@ -26,13 +26,13 @@ export default function ModeliseInequations () {
     this.listeCorrections = [] // Liste de questions corrigées
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
-      typeDeQuestionsDisponibles = ['typeE4']// 'typeE1', 'typeE2',
+      typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3']// 'typeE1', 'typeE2',
     } else if (this.sup === 2) {
-      typeDeQuestionsDisponibles = ['typeE2', 'typeE3']
+      typeDeQuestionsDisponibles = ['typeE4', 'typeE5', 'typeE6']
     } else if (this.sup === 3) {
-      typeDeQuestionsDisponibles = ['typeE4']
+      typeDeQuestionsDisponibles = ['typeE7', 'typeE8']
     } else if (this.sup === 4) {
-      typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4']
+      typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4', 'typeE5', 'typeE6', 'typeE7', 'typeE8']
     }
     //
     const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
@@ -44,13 +44,10 @@ export default function ModeliseInequations () {
             const b = randint(a + 5, 50) //
             const c = new Decimal(randint(20, 35)).div(100)
             const d = new Decimal(randint(15, c - 1)).div(100)
-
             texte = `  Une société de location de véhicules particulièrs propose deux tarifs :<br>
               $\\bullet$ Tarif A : un forfait de $${a}$ € et $${texNombre(c, 2)}$ € par km parcouru ;<br>
               $\\bullet$  Tarif B : un forfait de $${b}$ € et $${texNombre(d, 2)}$ € par km parcouru ;<br>
-        
-              À partir de combien de km (arrondi à l'unité), le tarif B est-il plus intéressant que le tarif A ?<br>
-                                   `
+                      À partir de combien de km (arrondi à l'unité), le tarif B est-il plus intéressant que le tarif A ?<br>`
             texteCorr = `En notant $x$, le nombre de km parcourus, on a :<br>
               $\\bullet$ Avec le tarif A, le prix à payer est : $${reduireAxPlusB(c, a)}$ ;<br>
               $\\bullet$  Avec le tarif B, le prix à payer est : $${reduireAxPlusB(d, b)}$ ;<br>
@@ -135,7 +132,7 @@ export default function ModeliseInequations () {
 
             const P = choice([['au tiers', 3], ['au quart', 4], ['à la moitié', 2], ['au dixième', 10], ['au cinquième', 5]])
             const f = new FractionX(L * l / 2, P[1] * l / 2 + l / 2).simplifie()
-            const f2 = new FractionX(l*L, l *P[1]+l).simplifie()
+            const f2 = new FractionX(l * L, l * P[1] + l).simplifie()
             const A = point(0, 0, 'A', 'below')
             const B = point(10, 0, 'B', 'below')
             const C = point(10, 6, 'C')
@@ -171,24 +168,205 @@ export default function ModeliseInequations () {
 
               texteCorr += '\\end{aligned}$<br>'
               texteCorr += `L'aire du triangle $AMD$ est ${choix ? 'au plus' : 'au moins'} égale ${P[0]} de l'aire du triangle $CMB$ pour $x\\in ${choix ? `\\left[0\\,;\\,${f.texFraction}\\right]` : `\\left[${f.texFraction}\\,;\\,${L}\\right]`}$`
-
             } else {
-              
               texteCorr += `$\\begin{aligned}
-              \\dfrac{${l} x}{2} &${choix ? '\\leqslant' : '\\geqslant'} \\dfrac{${l}(${L}-x)}{${2*P[1]}}\\\\`
-              texteCorr += `\\dfrac{${l} x}{2} &${choix ? '\\leqslant' : '\\geqslant'} \\dfrac{${l}(${L}-x)}{${texNombre(P[1]*2,0)}}\\\\`
-              texteCorr += `\\dfrac{${l} x}{2} \\times ${2*P[1]}&${choix ? '\\leqslant' : '\\geqslant'} \\dfrac{${l}(${L}-x)}{${texNombre(P[1]*2,0)}}\\times ${2*P[1]} ${sp(7)}\\text{ On multiplie par ${2*P[1]}, le sens des inégalités ne change pas.}\\\\`
-              texteCorr += ` ${texNombre(l *P[1], 0)}x &${choix ? '\\leqslant' : '\\geqslant'} ${l}(${L}-x)\\\\`
-              texteCorr += ` ${texNombre(l *P[1], 0)}x &${choix ? '\\leqslant' : '\\geqslant'} ${l*L}-${l}x\\\\`
-              texteCorr += ` ${texNombre(l *P[1], 0)}x +${l}x&${choix ? '\\leqslant' : '\\geqslant'} ${l*L}\\\\`
-              texteCorr += ` ${texNombre(l *P[1]+l, 0)}x &${choix ? '\\leqslant' : '\\geqslant'} ${l*L}\\\\`
+              \\dfrac{${l} x}{2} &${choix ? '\\leqslant' : '\\geqslant'} \\dfrac{${l}(${L}-x)}{${2 * P[1]}}\\\\`
+              texteCorr += `\\dfrac{${l} x}{2} \\times ${2 * P[1]}&${choix ? '\\leqslant' : '\\geqslant'} \\dfrac{${l}(${L}-x)}{${texNombre(P[1] * 2, 0)}}\\times ${2 * P[1]} ${sp(7)}\\text{ On multiplie par ${2 * P[1]}, le sens des inégalités ne change pas.}\\\\`
+              texteCorr += ` ${texNombre(l * P[1], 0)}x &${choix ? '\\leqslant' : '\\geqslant'} ${l}(${L}-x)\\\\`
+              texteCorr += ` ${texNombre(l * P[1], 0)}x &${choix ? '\\leqslant' : '\\geqslant'} ${l * L}-${l}x\\\\`
+              texteCorr += ` ${texNombre(l * P[1], 0)}x +${l}x&${choix ? '\\leqslant' : '\\geqslant'} ${l * L}\\\\`
+              texteCorr += ` ${texNombre(l * P[1] + l, 0)}x &${choix ? '\\leqslant' : '\\geqslant'} ${l * L}\\\\`
               texteCorr += ` x &${choix ? '\\leqslant' : '\\geqslant'}  ${f2.texFraction}\\\\`
 
               texteCorr += '\\end{aligned}$<br>'
               texteCorr += `L'aire du triangle $AMD$ est ${choix ? 'au plus' : 'au moins'} égale ${P[0]} de l'aire du triangle $CMB$ pour $x\\in ${choix ? `\\left[0\\,;\\,${f.texFraction}\\right]` : `\\left[${f.texFraction}\\,;\\,${L}\\right]`}$`
-
             }
           }
+          break
+
+        case 'typeE5':
+
+          {
+            const a = randint(8, 15)// longueur en bas
+            const b = randint(2, 6)// longueur ajoutée à x
+            const P = randint(50, 70)
+            const A = point(0, 0, 'A')
+            const B = point(10, 0, 'B')
+            const C = point(10, 6, 'C')
+            const D = point(0, 6, 'D')
+            const E = point(0, 2, 'E')
+            const F = point(-2, 2, 'F')
+            const G = point(-2, 0, 'G')
+            const segmentEA = segment(A, E)
+            segmentEA.pointilles = 2
+            const objets = []
+            const poly = polygone([A, B, C, D, E, F, G], 'black')
+
+            poly.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
+
+            objets.push(poly, segmentEA)
+            objets.push(texteParPosition('x', milieu(G, F).x - 0.5, milieu(G, F).y, 'milieu', 'black', 1, 'middle', true),
+              texteParPosition('x', milieu(G, A).x, milieu(G, A).y - 0.5, 'milieu', 'black', 1, 'middle', true),
+              texteParPosition(`x+${texNombre(b)}`, milieu(B, C).x + 1, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
+              texteParPosition(`${texNombre(a)}`, milieu(A, B).x, milieu(A, B).y - 0.5, 'milieu', 'black', 1, 'middle', true)
+            )
+
+            texte = ` On considère la figure ci-dessous. <br>
+            Quelles sont les valeurs possibles de $x$ pour que le périmètre de la figure soit supérieur à $${P}$ cm.<br>
+              `
+            texte += mathalea2d({ xmin: -3, ymin: -1, xmax: 12, ymax: 8, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets)
+            texteCorr = `Le périmètre de la figure est : $x+${a}+(x+${b})+${a}+${b}+x+x=4x+${2 * b + 2 * a}$.<br>
+            Le périmètre de la figure doit être supérieur à $${P}$, on cherche $x$ tel que : <br>
+
+             `
+            texteCorr += `$\\begin{aligned}
+            4x+${2 * b + 2 * a} &>${P}\\\\
+            4x &>${P}-${2 * b + 2 * a}\\\\
+            4x&>${P - 2 * b - 2 * a}\\\\
+            x&>\\dfrac{${P - 2 * b - 2 * a}}{4}`
+            texteCorr += '\\end{aligned}$<br>'
+
+            texteCorr += `Comme $\\dfrac{${P - 2 * b - 2 * a}}{4}=${texNombre((P - 2 * b - 2 * a) / 4, 2)}$, $x$ doit être supérieur à $${texNombre((P - 2 * b - 2 * a) / 4, 2)}$ pour que le périmètre de la figure soit supérieur à $${P}$.
+
+             `
+          }
+          break
+
+        case 'typeE6':
+
+          {
+            const a = randint(1, 3)// côté carré
+            const b = choice([6, 8, 10, 12])// hauteur triangle
+            const Aire = randint(50, 70)
+            const f = new FractionX(Aire - a ** 2, a + b / 2).simplifie()
+            const A = point(0, 0, 'A')
+            const B = point(8, 0, 'B')
+            const C = point(10, 0, 'C')
+            const D = point(10, 2, 'D')
+            const E = point(8, 2, 'E')
+            const F = point(4, 8, 'F')
+            const G = point(0, 2, 'G')
+            const H = point(4, 2, 'H')
+            const segmentFH = segment(F, H)
+            segmentFH.pointilles = 2
+            const objets = []
+            const poly1 = polygone([A, B, E, G], 'black')
+            poly1.couleurDeRemplissage = colorToLatexOrHTML('#7dbdd8')
+            const poly2 = polygone([B, C, D, E], 'black')
+            poly2.couleurDeRemplissage = colorToLatexOrHTML('#e1ac66')
+            const poly3 = polygone([G, E, F], 'black')
+            poly3.couleurDeRemplissage = colorToLatexOrHTML('#75ee7e')
+            objets.push(poly1, poly2, poly3, segmentFH, codageAngleDroit(F, H, E))
+            objets.push(texteParPosition('x', milieu(A, B).x, milieu(A, B).y - 0.7, 'milieu', 'black', 1, 'middle', true),
+              texteParPosition(`${texNombre(a)}`, milieu(G, A).x - 0.8, milieu(G, A).y, 'milieu', 'black', 1, 'middle', true),
+              texteParPosition(`${texNombre(a)}`, milieu(B, C).x, milieu(B, C).y - 0.7, 'milieu', 'black', 1, 'middle', true),
+              texteParPosition(`${texNombre(b)}`, milieu(F, H).x + 0.5, milieu(F, H).y, 'milieu', 'black', 1, 'middle', true)
+            )
+
+            texte = ` On considère la figure ci-dessous sur laquelle les longueurs sont en cm. <br>
+            Quelles sont les valeurs possibles de $x$ pour que l'aire de cette  figure dépasse  $${Aire}$ cm$^2$ ?<br>
+            Résoudre ce problème en le modélisant par une inéquation.
+              `
+            texte += mathalea2d({ xmin: -3, ymin: -1, xmax: 12, ymax: 9, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets)
+            texteCorr = `La figure est constituée d'un rectangle, d'un carré et d'un triangle.<br>
+           $\\bullet$  L'aire du rectangle est : $${a}\\times x=${rienSi1(a)}x$.<br>
+           $\\bullet$  L'aire du carré est : $${a}\\times ${a}=${a ** 2}$.<br>
+           $\\bullet$  L'aire du triangle est : $\\dfrac{${b}\\times x}{2}=${texNombre(b / 2, 0)}x$.<br>
+Le problème revient donc à trouver les valeurs de $x$ vérifiant : $${rienSi1(a)}x+${a ** 2}+${texNombre(b / 2, 0)}x>${Aire}$, soit $${texNombre(a + b / 2, 0)}x+${a ** 2}>${Aire}$.
+
+             `
+            texteCorr += `$\\begin{aligned}
+            ${texNombre(a + b / 2, 0)}x+${a ** 2} &>${Aire}\\\\
+            ${texNombre(a + b / 2, 0)}x &>${Aire}-${a ** 2}\\\\
+            ${texNombre(a + b / 2, 0)}x &>${Aire - a ** 2}\\\\
+            x&>\\dfrac{${Aire - a ** 2}}{${texNombre(a + b / 2, 0)}}`
+            texteCorr += '\\end{aligned}$<br>'
+            if (pgcd(Aire - a ** 2, a + b / 2) === 1) {
+              texteCorr += `$x$ doit être supérieur à $\\dfrac{${Aire - a ** 2}}{${texNombre(a + b / 2, 0)}}$ cm pour que l'aire  de la figure dépasse $${Aire}$ cm$^2$.
+            `
+            } else {
+              texteCorr += `Comme $\\dfrac{${Aire - a ** 2}}{${texNombre(a + b / 2, 0)}}=${f.texFraction}$, $x$ doit être supérieur à $${f.texFraction}$ cm pour que l'aire  de la figure dépasse $${Aire}$ cm$^2$.
+             `
+            }
+          }
+          break
+
+        case 'typeE7':
+          {
+            const a = randint(-10, 10, [-1, 0, 1])
+            const b = randint(-10, 10, [-1, 0, 1])
+            const c = randint(2, 10)
+            const res = randint(-20, 20, 0)
+            const f = new FractionX(res - b * c, c * a).simplifie()
+            const choix = choice([['strictement supérieur', '>', '<'], ['strictement inférieur', '<', '>'], ['inférieur ou égal ', '\\leqslant', '\\geqslant'], ['supérieur ou égal ', '\\geqslant', '\\leqslant']])
+            texte = ` ${texteGras('Voici un programme de calcul :')} `
+            texte += itemize(['Choisir un nombre', `Multiplier ce nombre par $${a}$`, `Ajouter $${b}$`, `Multiplier le résultat par $${c}$`])
+            texte += `Quels nombres doit-on choisir au départ pour obtenir un nombre ${choix[0]} à $${res}$.<br>
+               `
+
+            texteCorr = `En notant $x$ le nombre choisi au départ, on obtient  :<br>
+          $\\bullet$ Multiplier ce nombre par $${a}$ : ${sp(6)}$${a}\\times x=${a}x$ ;<br>
+          $\\bullet$ Ajouter $${b}$ : ${sp(6)}$${a}x${ecritureAlgebrique(b)}$ ; <br>
+          $\\bullet$ Multiplier le résultat par $${c}$ :${sp(6)}$${c}\\times (${a}x${ecritureAlgebrique(b)})=${texNombre(c * a)}x${ecritureAlgebrique(b * c)}$.<br>
+          On cherche $x$ tel que : <br>`
+            texteCorr += `$\\begin{aligned}
+         ${texNombre(c * a)}x${ecritureAlgebrique(b * c)} &${choix[1]}${res}\\\\
+         ${texNombre(c * a)}x &${choix[1]}${res}${ecritureAlgebrique(-b * c)}\\\\`
+            texteCorr += ` x &${c * a > 0 ? `${choix[1]}` : `${choix[2]}`}\\dfrac{${res - b * c}}{${texNombre(c * a)}}\\\\`
+            texteCorr += '\\end{aligned}$<br>'
+            if (pgcd(res - b * c, c * a) === 1) {
+              texteCorr += `On doit choisir $x${c * a > 0 ? `${choix[1]}` : `${choix[2]}`}${f.texFraction}$ pour obtenir un nombre ${choix[0]} à $${res}$. .
+            `
+            } else {
+              texteCorr += `Comme $\\dfrac{${res - b * c}}{${texNombre(c * a)}}=${f.texFraction}$, on doit choisir $x${c * a > 0 ? `${choix[1]}` : `${choix[2]}`}${f.texFraction}$ pour obtenir un nombre ${choix[0]} à $${res}$.
+             `
+            }
+          }
+          break
+
+        case 'typeE8':
+          {
+            const a = randint(-10, 10, 0)
+
+            const b = randint(-10, 10, 0)
+            const f = new FractionX(b * b, a - 2 * b).simplifie()
+            const choix = choice([['strictement supérieur', '>', '<'], ['strictement inférieur', '<', '>'], ['inférieur ou égal ', '\\leqslant', '\\geqslant'], ['supérieur ou égal ', '\\geqslant', '\\leqslant']])
+            texte = `On donne les deux programmes de calcul suivants :<br>
+            ${texteGras('Programme 1 :')}<br>
+                   `
+            texte += itemize(['Choisir un nombre', `Ajouter $${a}$`, 'Multiplier le résultat par le nombre choisi au départ'])
+            texte += `<br>
+            ${texteGras('Programme 2 :')}<br>
+                        `
+            texte += itemize(['Choisir un nombre', `Ajouter $${b}$`, 'Prendre le carré du résultat'])
+            texte += `<br>Déterminer les nombres que l'on  doit entrer dans ces deux programmes pour qu'au final le résultat obtenu 
+            avec le programme 1 soit ${choix[0]} à celui obtenu avec le programme 2.<br><br>`
+            texteCorr = `En notant $x$ le nombre choisi au départ : <br>
+            On obtient avec le ${texteGras('programme 1 :')} <br>
+            $\\bullet$ Ajouter $${a}$ : ${sp(5)} $x+${ecritureParentheseSiNegatif(a)}$ ;<br>
+            $\\bullet$ Multiplier le résultat par le nombre choisi au départ: ${sp(5)} $x\\times(x${ecritureAlgebrique(a)})=x^2${a > 0 ? '+' : '-'}${rienSi1(abs(a))}x$.<br>
+                   On obtient avec le ${texteGras('programme 2 :')} <br>
+        $\\bullet$ Ajouter $${b}$ :${sp(5)} $x+${ecritureParentheseSiNegatif(b)}$ ;<br>
+        $\\bullet$ Prendre le carré du résultat :${sp(5)} $(x${ecritureAlgebrique(b)})^2=x^2${ecritureAlgebrique(2 * b)}x+${(b * b)}$.<br>
+                    
+        Les nombres $x$ que l'on  doit entrer dans les deux programmes pour qu'au final le résultat obtenu avec le programme 1 soit ${choix[0]} à celui obtenu avec le programme 2 vérifient : <br>
+        $\\begin{aligned}
+        x^2${a > 0 ? '+' : '-'}${rienSi1(abs(a))}x & ${choix[1]} x^2${ecritureAlgebrique(2 * b)}x+${b * b}\\\\
+ ${rienSi1(a)}x & ${choix[1]} ${ecritureAlgebrique(2 * b)}x+${b * b}\\\\
+ ${2 * b > 0 ? `${rienSi1(a)}x- ${2 * b}x` : `${rienSi1(a)}x- (${2 * b}x)`}& ${choix[1]} ${b * b}\\\\
+ ${rienSi1(a - 2 * b)}x& ${choix[1]} ${b * b}\\\\`
+            if (a - 2 * b === 1) { texteCorr += '' } else { texteCorr += ` x &${a - 2 * b > 0 ? `${choix[1]}` : `${choix[2]}`}\\dfrac{${b * b}}{${a - 2 * b}}\\\\` }
+            texteCorr += '\\end{aligned}$<br>'
+            if (pgcd(b * b, a - 2 * b) === 1) {
+              texteCorr += `On doit choisir $x${a - 2 * b > 0 ? `${choix[1]}` : `${choix[2]}`}${f.texFraction}$ pour que le résultat obtenu 
+  avec le programme 1 soit ${choix[0]} à celui obtenu avec le programme 2.
+`
+            } else {
+              texteCorr += `Comme $\\dfrac{${b * b}}{${a - 2 * b}}=${f.texFraction}$, on doit choisir $x${a - 2 * b > 0 ? `${choix[1]}` : `${choix[2]}`}${f.texFraction}$ pour que le résultat obtenu 
+  avec le programme 1 soit ${choix[0]} à celui obtenu avec le programme 2.`
+            }
+          }
+
           break
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
@@ -201,5 +379,5 @@ export default function ModeliseInequations () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix des questions', 4, '1 : Encadrer des expressions avec des racines carrées\n2 : Encadrer une expression avec une inconnue\n3 : Encadrer une expression avec deux inconnues\n4 : Mélange des cas précédents']
+  this.besoinFormulaireNumerique = ['Choix des questions', 4, '1 : Situation concrète\n2 : Situation géométrique\n3 : Programme de calcul\n4 : Mélange des cas précédents']
 }
