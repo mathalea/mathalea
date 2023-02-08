@@ -6,7 +6,7 @@ import {
   point, labelPoint, polygoneAvecNom, milieu, texteParPosition, polygone, codageAngleDroit
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, randint, texNombre, stringNombre, shuffle, simplificationDeFractionAvecEtapes, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombre, stringNombre, shuffle, simplificationDeFractionAvecEtapes, choice, calcul, sp } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
@@ -136,23 +136,23 @@ export default function SujetCAN2022troisieme () {
         case 4:
           if (choice([true, false])) {
             a = randint(1, 13) * 50
-            reponse = a / 100
+            reponse = (new Decimal(a)).div(100)
             texte = `$${a}$ cm  $=$`
 
             texteCorr = `
         Comme $1$ m $=100$ cm, alors $1$ cm $=0,01$ m.<br>
         Ainsi pour passer des "m" au "cm", on divise par $100$.<br>
-          Comme : $${a}\\div 100 =${texNombre(a / 100, 2)}$, alors $${a}$ cm$=${texNombre(a / 100, 2)}$ m.  `
+          Comme : $${a}\\div 100 =${texNombre(reponse, 2)}$<br> alors $${a}$ cm$=${texNombre(reponse, 2)}$ m.  `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'm'
             } else { texte += '  $\\ldots$ m' }
           } else {
-            a = randint(1, 9) + randint(1, 9) / 10
-            reponse = a * 100
+            a = (new Decimal(randint(1, 9))).div(10).plus(randint(1, 9))
+            reponse = a.mul(100)
             texte = `$${texNombre(a, 1)}$ m  $=$ `
             texteCorr = ` Comme $1$ m $=100$ cm,  pour passer des "m" au "cm", on multiplie par $100$.<br>
-                Comme : $${texNombre(a, 1)}\\times 100 =${texNombre(a * 100, 0)}$, alors $${texNombre(a, 2)}$ m$=${texNombre(reponse, 0)}$ cm.`
+                Comme : $${texNombre(a, 1)}\\times 100 =${texNombre(reponse, 0)}$, alors $${texNombre(a, 2)}$ m$=${texNombre(reponse, 0)}$ cm.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
@@ -248,40 +248,27 @@ export default function SujetCAN2022troisieme () {
         case 9:
           choix = choice(['a', 'b', 'c'])//, 'b'
           if (choix === 'a') {
-            a = randint(45, 49) + randint(1, 9) / 10
-            b = randint(2, 5) + randint(1, 9) / 10
-
-            propositions = shuffle([`$${texNombre(a * b / 10, 3)}$`, `$${texNombre(a * b * 10, 1)}$`, `$${texNombre(a * b, 2)}$`])
-            reponse = a * b
-            texte = `Recopie  le résultat de  : 
-            $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>`
-
-            texte += `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
-            texteCorr = `En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $50\\times ${Math.round(b)}=${50 * Math.round(b)}$.`
+            a = (new Decimal(randint(1, 9))).div(10).plus(randint(45, 49))
+            b = (new Decimal(randint(1, 9))).div(10).plus(randint(2, 5))
+            texteCorr = `En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $50\\times ${b.round()}=${b.round().mul(50)}$.`
           }
           if (choix === 'b') {
-            a = randint(3, 9) + randint(1, 9) / 10
-            b = randint(2, 5) + randint(1, 9) / 10
-            propositions = shuffle([`$${texNombre(a * b / 10, 3)}$`, `$${texNombre(a * b * 10, 1)}$`, `$${texNombre(a * b, 2)}$`])
-            reponse = a * b
-            texte = `Recopie  le résultat de  : 
-                $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>`
-
-            texte += `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
-            texteCorr = `En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $${Math.round(a)}\\times ${Math.round(b)}=${Math.round(a) * Math.round(b)}$.`
+            a = (new Decimal(randint(1, 9))).div(10).plus(randint(3, 9))
+            b = (new Decimal(randint(1, 9))).div(10).plus(randint(2, 5))
+            texteCorr = `En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $${a.round()}\\times ${b.round()}=${a.round().mul(b.round())}$.`
           }
           if (choix === 'c') {
-            a = randint(45, 49) + randint(1, 9) / 10
-            b = randint(25, 29) + randint(1, 9) / 10
-            propositions = shuffle([`$${texNombre(a * b / 10, 3)}$`, `$${texNombre(a * b * 10, 1)}$`, `$${texNombre(a * b, 2)}$`])
-            reponse = a * b
-            texte = `Recopie  le résultat de  : 
-                    $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>`
-
-            texte += `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
+            a = (new Decimal(randint(1, 9))).div(10).plus(randint(45, 49))
+            b = (new Decimal(randint(1, 9))).div(10).plus(randint(25, 29))
             texteCorr = 'En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $30\\times 50=1500$.'
           }
+          propositions = shuffle([`$${texNombre(a.mul(b).div(10), 3)}$`, `$${texNombre(a.mul(b).mul(10), 1)}$`, `$${texNombre(a.mul(b), 2)}$`])
+          reponse = a.mul(b)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          texte = `Recopie  le résultat de  : 
+            $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>`
+          texte += `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
+          texteCorr += `<br>On en déduit que la bonne réponse est $${texNombre(reponse, 2)}$`
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
           break
@@ -291,30 +278,13 @@ export default function SujetCAN2022troisieme () {
           b = randint(1, 9, a)
           c = randint(1, 9, b)
           f = a * 100 + b * 10 + c
-          d = choice([0.1, 0.01, 0.001])
-          reponse = arrondi(f * d, 3)
+          d = choice([new Decimal('0.1'), new Decimal('0.01'), new Decimal('0.001')])
+          reponse = d.mul(f)
+          texte = `$${f}\\times ${texNombre(d, 3)}=$`
+          texteCorr = `$${f}\\times ${texNombre(d, 3)}=${texNombre(reponse, 3)}$<br>`
+          texteCorr += `
+          $${f}\\times ${texNombre(d, 3)}=${f}\\div ${texNombre(Decimal.pow(d, -1), 0)}=${texNombre(reponse, 3).slice(0, -1)}\\underline{${texNombre(reponse, 3).slice(-1)}}$ `
 
-          if (d === 0.1) {
-            texte = `$${f}\\times ${texNombre(d, 1)}=$`
-            texteCorr = `$${f}\\times ${texNombre(d, 1)}=${texNombre(this.reponse)}$`
-            texteCorr += `
-          $${f}\\times ${texNombre(d, 1)}=${f}\\div 10=${a}${b},\\underline{${c}}$ `
-          }
-          if (d === 0.01) {
-            texte = `$${f}\\times ${texNombre(d, 2)}=$`
-            texteCorr = `$${f}\\times ${texNombre(d, 2)}=${texNombre(this.reponse)}$`
-            texteCorr += `
-          $${f}\\times ${texNombre(d, 2)}=${f}\\div 100=${a},${b}\\underline{${c}}$<br>
-                      `
-          }
-          if (d === 0.001) {
-            texte = `$${f}\\times ${texNombre(d, 3)}=$`
-            texteCorr = `$${f}\\times ${texNombre(d, 3)}=${texNombre(this.reponse)}$`
-            texteCorr += `
-          $${f}\\times ${texNombre(d, 3)}=${f}\\div 1000=0,${a}${b}\\underline{${c}}$<br>
-          
-             `
-          }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
@@ -354,12 +324,12 @@ export default function SujetCAN2022troisieme () {
 
         case 13:
 
-          a = randint(1, 25) / 100
-          reponse = a * 100
+          reponse = randint(1, 25)
+          a = (new Decimal(reponse)).div(100)
           texte = `Complète :<br>
           $${texNombre(a, 2)}=$`
 
-          texteCorr = `$${texNombre(a, 2)}=\\dfrac{${texNombre(a * 100, 0)}}{100}=${texNombre(a * 100, 0)} \\%$ `
+          texteCorr = `$${texNombre(a, 2)}=\\dfrac{${texNombre(reponse, 0)}}{100}=${texNombre(reponse, 0)} \\%$ `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '$\\%$' } else { texte += '$\\ldots \\%$' }
@@ -369,7 +339,7 @@ export default function SujetCAN2022troisieme () {
 
         case 14:
           if (choice([true, false])) {
-            a = new Decimal(randint(2, 9) + randint(1, 9) / 10)
+            a = (new Decimal(randint(1, 9))).div(10).plus(randint(2, 9))
             b = randint(2, 9, 5)
             c = 10 - b
             texte = `$${b}\\times${texNombre(a, 1)} + ${texNombre(a, 1)}\\times${c}=$
@@ -377,17 +347,17 @@ export default function SujetCAN2022troisieme () {
             texteCorr = ` On factorise : <br>     $\\begin{aligned}
     ${b}\\times${texNombre(a, 1)} + ${texNombre(a, 1)}\\times${c}&=${texNombre(a, 1)}\\times \\underbrace{(${b}+${c})}_{=10}\\\\
     &=${texNombre(a, 1)}\\times 10\\\\
-    &=${10 * a}
+    &=${texNombre(a.mul(10), 0)}
     \\end{aligned}$`
             reponse = a.mul(10)
           } else {
             a = new Decimal(randint(5, 99)).div(10)
             b = new Decimal(randint(2, 9)).mul(5)
             c = new Decimal(b.sub(100)).mul(-1)
-            texte = `$${texNombre(b, 0)}\\times${texNombre(a, 1)} + ${texNombre(a, 1)}\\times${c}=$
+            texte = `$${texNombre(b, 0)}\\times${texNombre(a, 1)} + ${texNombre(a, 1)}\\times${texNombre(c, 0)}=$
       `
             texteCorr = ` On factorise : <br>     $\\begin{aligned}
-      ${b}\\times${texNombre(a, 1)} + ${texNombre(a, 1)}\\times${c}&=${texNombre(a, 1)}\\times \\underbrace{(${b}+${c})}_{=100}\\\\
+      ${b}\\times${texNombre(a, 1)} + ${texNombre(a, 1)}\\times${texNombre(c, 0)}&=${texNombre(a, 1)}\\times \\underbrace{(${b}+${c})}_{=100}\\\\
       &=${texNombre(a, 1)}\\times 100\\\\
       &=${texNombre(100 * a, 0)}
       \\end{aligned}$`
@@ -424,8 +394,9 @@ export default function SujetCAN2022troisieme () {
         case 16:
 
           a = randint(3, 6)
-          b = randint(4, 5) * 2
-          c = a * b / 2
+          b = randint(4, 5)
+          c = a * b
+          b = b * 2
           A = point(0, 0, 'A', 'below')
           B = point(0, 4, 'B', 'above')
           C = point(6, 0, 'C', 'below')
@@ -450,17 +421,17 @@ export default function SujetCAN2022troisieme () {
 
         case 17:
           a = randint(1, 5)
-          b = choice([0.25, 0.5, 0.75])
-          d = calcul(b * 60)
+          b = choice([new Decimal('0.25'), new Decimal('0.5'), new Decimal('0.75')])
+          d = calcul(b.mul(60))
           if (!this.interactif) {
-            texte = `Convertir en heures/minutes : <br>$${texNombre(a + b, 2)}$ h $=$ .....  h ..... min`
-            texteCorr = `$${texNombre(a + b, 2)}$h$ = ${a}$ h $ + ${texNombre(b, 2)} \\times 60  = ${a}$ h $${d}$ min`
+            texte = `Convertir en heures/minutes : <br>$${texNombre(b.plus(a), 2)}$ h $=$ .....  h ..... min`
+            texteCorr = `$${texNombre(b.plus(a), 2)}$h$ = ${a}$ h $ + ${texNombre(b, 2)} \\times 60  = ${a}$ h $${texNombre(d, 0)}$ min`
           } else {
-            texte = `Convertir en heures/minutes : <br>$${texNombre(a + b, 2)}$ h $=$`
+            texte = `Convertir en heures/minutes : <br>$${texNombre(b.plus(a), 2)}$ h $=$`
             texte += ajouteChampTexteMathLive(this, index, 'largeur12 inline', { texteApres: sp(5) + 'h' })
             setReponse(this, index, a)
             texte += ajouteChampTexteMathLive(this, index + 1, 'largeur12 inline', { texteApres: sp(5) + 'min' })
-            texteCorr = `$${texNombre(a + b, 2)}$h$ = ${a}$ h $ + ${texNombre(b, 2)} \\times 60$ min $  = ${a}$ h $${d}$ min`
+            texteCorr = `$${texNombre(b.plus(a), 2)}\\text{ h } = ${a}\\text{ h }+${texNombre(b, 2)} \\times 60\\text{ min } = ${a}\\text{ h }${texNombre(d, 0)}\\text{ min }$`
             setReponse(this, index + 1, d)
             nbChamps = 2
           }
@@ -468,9 +439,11 @@ export default function SujetCAN2022troisieme () {
 
         case 18:
 
-          a = randint(1, 9) * 10
-          p = randint(2, 9, 5) * 10
-          reponse = calcul(a * p / 100)
+          a = randint(1, 9)
+          p = randint(2, 9, 5)
+          reponse = a * p
+          a = a * 10
+          p = p * 10
           texte = `$${p}\\,\\%$ de $${a}= $`
 
           texteCorr = `          Prendre $${p}\\,\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10\\,\\%$  de $${a}$.<br>
@@ -509,13 +482,13 @@ export default function SujetCAN2022troisieme () {
 
         case 20:
           a = new Decimal(((randint(1, 9) / 10 + randint(1, 9) / 100))).plus(randint(1, 9))
-          b = choice([0.1, 0.01])
+          b = choice([new Decimal('0.1'), new Decimal('0.01')])
 
-          reponse = arrondi(a / b, 2)
+          reponse = a.div(b)
 
           texte = `$${texNombre(a, 2)}\\div ${texNombre(b, 2)}=$
       `
-          texteCorr = `$${texNombre(a, 2)}\\div ${texNombre(b, 2)}=${texNombre(a, 2)}\\times ${texNombre(1 / b, 2)}=${texNombre(reponse, 2)}$.
+          texteCorr = `$${texNombre(a, 2)}\\div ${texNombre(b, 2)}=${texNombre(a, 2)}\\times ${texNombre(Decimal.pow(b, -1), 0)}=${texNombre(reponse, 2)}$.
           `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -524,15 +497,15 @@ export default function SujetCAN2022troisieme () {
           break
 
         case 21:
-          a = randint(3, 5) + randint(1, 9) / 10
-          b = randint(6, 10) - a
-          c = b * 10
+          a = (new Decimal(randint(1, 9))).div(10).plus(randint(3, 5))
+          b = a.mul(-1).plus(randint(6, 10))
+          c = b.mul(10)
           A = point(0, 0, 'A', 'below')
           B = point(5, 1, 'B', 'below')
           C = point(6, 4, 'C', 'above')
           D = point(1, 3, 'D', 'above')
           poly = polygone([A, B, C, D], 'black')
-          reponse = 2 * (a + b)
+          reponse = a.plus(b).mul(2)
           d = texteParPosition(`${stringNombre(a)} cm`, 6.3, 2)
           e = texteParPosition(`${stringNombre(c)} mm`, 3, 4)
           poly.epaisseur = 1
@@ -540,7 +513,7 @@ export default function SujetCAN2022troisieme () {
           texte = 'Périmètre du parallélogramme $ABCD$ :<br> '
           texte += mathalea2d({ xmin: -1.5, ymin: -1, xmax: 7.1, ymax: 6, scale: 0.7 }, poly, labelPoint(A, B, C, D), d, e)
           texteCorr = `Le périmètre en cm est donné par : 
-          $2\\times ${texNombre(a, 1)}+2\\times ${texNombre(b, 1)} =2\\times(${texNombre(a, 1)}+${texNombre(b, 1)})=${reponse}$ cm`
+          $2\\times ${texNombre(a, 1)}+2\\times ${texNombre(b, 1)} =2\\times(${texNombre(a, 1)}+${texNombre(b, 1)})=${texNombre(reponse, 0)}$ cm`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -637,13 +610,13 @@ export default function SujetCAN2022troisieme () {
 
         case 25:
           a = choice([2, 3, 6]) // diviseur de l'heure
-          b = calcul(60 / a) // nombre de minutes de l'énoncé
-          c = choice([30, 60, 90, 120])
-          reponse = c / a
+          b = (new Decimal(60)).div(a) // nombre de minutes de l'énoncé
+          c = new Decimal(choice([30, 60, 90, 120]))
+          reponse = c.div(a)
           texte = `Un véhicule se déplace à vitesse constante de $${c}$ km/h. Combien de km parcourt-il en $${b}$ minutes ?`
-          texteCorr = `Le véhicule parcourt $${c / a}$ km.<br>
-         En $${b}$ minutes, il parcourt $${a}$ fois moins de km qu'en $1$ heure, soit $\\dfrac{${c}}{${a}}=
-          ${c / a}$ km.`
+          texteCorr = `Le véhicule parcourt $${texNombre(reponse, 0)}$ km.<br>
+         En $${texNombre(b, 0)}$ minutes, il parcourt $${texNombre(a, 0)}$ fois moins de km qu'en $1$ heure, soit $\\dfrac{${texNombre(c, 0)}}{${texNombre(a, 0)}}=
+          ${texNombre(reponse, 0)}$ km.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'km' }
           nbChamps = 1
