@@ -79,7 +79,7 @@ export default function ExerciceTableauMultiplicationsRelatifs () {
       listeTermes.splice(placeLettre, 0, lettre)
       let calcul = ''
       let signeLettre, calculNombres
-      texte = `Donne le signe de $ ${lettre} $ pour que ${nomExpression} soit ${signeExpression === -1 ? 'negatif' : 'positif'}. <br>`
+      texte = `Donne le signe de $ ${lettre} $ pour que ${nomExpression} soit ${signeExpression === -1 ? 'négatif' : 'positif'}. <br>`
       texteCorr = `${texteEnCouleurEtGras('Supposons que ' + lettre + ' soit positif : ')}`
       switch (listeTypeDeQuestions[i]) {
         case 1: // multiplications

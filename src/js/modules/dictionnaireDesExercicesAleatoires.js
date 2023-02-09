@@ -3182,7 +3182,7 @@ export default {
     "interactifReady": false,
     "name": "3G20-2",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -5167,7 +5167,7 @@ export default {
     }
   },
   "4F12": {
-    "titre": "Problème s'appuyant sur la lecture d'une représentation graphique",
+    "titre": "Résoudre un problème s'appuyant sur la lecture d'une représentation graphique",
     "url": "/exercices/4e/4F12.js",
     "amcReady": true,
     "amcType": {
@@ -5492,7 +5492,7 @@ export default {
     "interactifReady": false,
     "name": "4G30-1",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -9742,8 +9742,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "6I10-1": {
+    "titre": "Programmer des déplacements relatifs (Scratch)",
+    "url": "/exercices/6e/6I10-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": false,
+    "name": "6I10-1",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    }
+  },
   "6I10": {
-    "titre": "Programmer des déplacements (Scratch)",
+    "titre": "Programmer des déplacements absolus (Scratch)",
     "url": "/exercices/6e/6I10.js",
     "amcReady": true,
     "amcType": {
@@ -12443,6 +12457,21 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "beta2F31",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "beta2N60-1": {
+    "titre": "Modéliser un problème par une inéquation.",
+    "url": "/exercices/beta/beta2N60-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2N60-1",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -15664,7 +15693,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can2G21",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -15827,7 +15856,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can2L10",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -17004,7 +17033,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can4C13",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

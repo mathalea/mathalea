@@ -1,5 +1,5 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 550 
+- nombre d'exos amcReady 551 
 - nombre d'exos interactifReady 844 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
@@ -197,7 +197,7 @@
 |4C35|Puissances : écriture décimale ou fractionnaire|KO|KO|OK|mathLive|
 |4C36|Utiliser les ordres de grandeur pour vérifier ses résultats|KO|KO|OK|qcm|
 |4C37|Déterminer le signe d'une puissance|OK|qcmMono|OK|qcm|
-|4F12|Problème s'appuyant sur la lecture d'une représentation graphique|OK|AMCHybride|KO|KO|
+|4F12|Résoudre un problème s'appuyant sur la lecture d'une représentation graphique|OK|AMCHybride|KO|KO|
 |4G10-1|Trouver les coordonnées de l'image d'un point par une translation et une rotation|OK|AMCHybride|OK|mathLive|
 |4G10|Trouver l'image d'un point par une symétrie axiale ou centrale ou par une translation|OK|AMCHybride|OK|mathLive|
 |4G11-1|Trouver l'image d'une figure par une translation dans un pavage|OK|AMCHybride|OK|mathLive|
@@ -348,7 +348,8 @@
 |6G44-1|Reconnaitre des solides|OK|qcmMono|OK|qcm,mathLive|
 |6G44|Trouver le nombre de faces ou d'arêtes d'un solide|OK|AMCNum|OK|mathLive|
 |6G52-2|Utiliser les propriétés des droites perpendiculaires|OK|AMCOpen|KO|KO|
-|6I10|Programmer des déplacements (Scratch)|OK|AMCOpen|KO|KO|
+|6I10-1|Programmer des déplacements relatifs (Scratch)|OK|AMCOpen|KO|KO|
+|6I10|Programmer des déplacements absolus (Scratch)|OK|AMCOpen|KO|KO|
 |6I12|Trouver le bon tracé avec Scratch|OK|qcmMono|OK|custom|
 |6M10-1|Problèmes d'aires de rectangles|KO|KO|OK|mathLive|
 |6M10|Calculer des périmètres et des aires de figures usuelles|OK|AMCHybride|OK|mathLive|

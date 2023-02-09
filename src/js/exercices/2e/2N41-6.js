@@ -89,7 +89,7 @@ export default function DevelopperIdentitesRemarquables2 () {
       if (this.interactif) {
         texte += '$ = $' + ajouteChampTexteMathLive(this, i, 'largeur75 inline')
       }
-      if (this.questionJamaisPosee(i, typesDeQuestions, a, b, ns, ds)) {
+      if (this.questionJamaisPosee(i, texte)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

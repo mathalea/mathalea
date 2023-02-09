@@ -3,7 +3,7 @@ import { fixeBordures, mathalea2d, vide2d } from '../../modules/2dGeneralites.js
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, calcul, texNombrec, prenomF } from '../../modules/outils.js'
 import { point, polyline, grille, courbeInterpolee, texteParPosition, repere, courbe } from '../../modules/2d.js'
-export const titre = 'Problème s\'appuyant sur la lecture d\'une représentation graphique'
+export const titre = 'Résoudre un problème s\'appuyant sur la lecture d\'une représentation graphique'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -132,7 +132,7 @@ export default function ExploiterRepresentationGraphique () {
             'À l\'aide de ce graphique, répondre aux questions suivantes :'
 
         this.listeQuestions.push(
-          'À quelle distance le projectile est-il retombé ?'
+          'À quelle distance le projectile est-il retombé au sol ?'
         )
         this.listeCorrections.push(
             `Le projectile retombe au sol à une distance de ${t1} m, car la courbe passe par le point de coordonnées $(${texNombrec(
@@ -181,7 +181,7 @@ export default function ExploiterRepresentationGraphique () {
         if (situation === 1) {
           l = polyline([point(0, 0), point(1, v1), point(2, v3), point(3, v3), point(4, 0)], 'blue')
           tempsPause = 20
-          periodeRapide = 'de la 20e à la 30e minute'
+          periodeRapide = 'de la 30e à la 40e minute'
         }
         if (situation === 2) {
           l = polyline([point(0, 0), point(1, v3), point(2, v3), point(3, v2), point(4, 0)], 'blue')

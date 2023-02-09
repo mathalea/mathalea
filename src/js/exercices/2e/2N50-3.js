@@ -93,7 +93,7 @@ export default function ModeliserEquations () {
           c = randint(20, 35) / 100
           d = randint(15, c - 1) / 100
 
-          texte = `  Une société de location de véhicules particulière propose deux tarifs :<br>
+          texte = `  Une société de location de véhicules propose deux tarifs :<br>
                 $\\bullet$ Tarif A : un forfait de $${a}$ € et $${texNombre(c)}$ € par km parcouru ;<br>
                 $\\bullet$  Tarif B : un forfait de $${b}$ € et $${texNombre(d)}$ € par km parcouru ;<br>
           
