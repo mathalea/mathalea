@@ -83,7 +83,7 @@ export default function ModeliseInequations () {
             Forfait de $${b}$ € quelque soit le nombre de km parcourus, puis un supplément par kilomètre parcouru de $${texNombre(a, 2)}$ €. <br>
             
             ${quidam} loue une voiture à cette société. Elle a un budget de $${budget}$ € et ne veut pas le dépasser.<br>
-                      Quel est le nombre maximum de km qu'elle peut pourra parcourir pour ne pas dépasser son budget ?
+                      Quel est le nombre maximum de km qu'elle pourra parcourir sans dépasser son budget ?
                                    `
             texteCorr = `En notant $x$, le nombre de km parcourus, le coût pour la location mensuelle est donné par : $${reduireAxPlusB(a, b)}$.<br>
             Le budget de ${quidam} étant de  $${budget}$ €, le nombre de km $x$ qu'elle pourra parcourir doit vérifier $${reduireAxPlusB(a, b)}<${budget}$.<br>
