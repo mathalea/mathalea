@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choisitLettresDifferentes, lettreDepuisChiffre, arcenciel, texNombre, combinaisonListes, abs, texteGras } from '../../modules/outils.js'
-import { point, tracePoint, labelPoint, segment, dansLaCibleCarree, cibleCarree, homothetie, longueur } from '../../modules/2d.js'
+import { point, tracePoint, labelPoint, segment, dansLaCibleCarree, cibleCarree, homothetie, longueur, codageSegments } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Construire l\'image d\'un point par une homothétie avec cible auto-corrective'
@@ -27,13 +27,16 @@ export default function ConstruireHomothetiePoint3e () {
   this.typeExercice = 'IEP'
 
   this.nouvelleVersion = function (numeroExercice) {
-    let nontrouve, assezloin, cible, s
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let plusieursCiblesPourUnPoint = true
-    for (let i = 0, cpt = 0, texte, texteCorr; i < this.nbQuestions && cpt < 100;) {
+    const listeRapports = [-2, -1.5, -0.5, 0.5, 1.5, 2]
+    const choixCodage = ['OO', '|||', '//']
+    for (let i = 0, s, cpt = 0, texte, texteCorr; i < this.nbQuestions && cpt < 100;) {
       const anim = new Alea2iep()
-      const rapport = randint(-4, 4, [0, -2, 2]) / 2
+      let nontrouve; let assezloin; let cible
+      const choixRapport = randint(0, 5)
+      const rapport = listeRapports[choixRapport]
       plusieursCiblesPourUnPoint = this.sup2 === 3 ? !plusieursCiblesPourUnPoint : this.sup2 === 2
       let result = [0, 0]; texteCorr = ''; const nbpoints = plusieursCiblesPourUnPoint ? 1 : parseInt(this.sup)
       const propositionsAMC = []
@@ -95,17 +98,63 @@ export default function ConstruireHomothetiePoint3e () {
 
         objetsEnonce.push(tracePoint(M[k]), labelPoint(M[k]), cibles[k])
         objetsCorrection.push(tracePoint(M[k], N[k]), labelPoint(M[k], N[k]), cibles[k])
-        if (k < 0) {
-          s = segment(M[k], N[k])
-        } else {
-          if (k < 1) {
-            s = segment(O, M[k])
-          } else {
-            s = segment(O, N[k])
-          }
+        switch (choixRapport) {
+          case 0 : // rapport = -2
+            s = segment(O, M[k], arcenciel(k))
+            objetsCorrection.push(s, codageSegments(choixCodage[k], arcenciel(k), s))
+            s = segment(O, homothetie(M[k], O, -1), arcenciel(k))
+            s.styleExtremites = '-|'
+            objetsCorrection.push(s, codageSegments(choixCodage[k], arcenciel(k), s))
+            s = segment(homothetie(M[k], O, -1), homothetie(M[k], O, -2), arcenciel(k))
+            objetsCorrection.push(s, codageSegments(choixCodage[k], arcenciel(k), s))
+            break
+          case 1 : // rapport = -1.5
+            s = segment(O, homothetie(M[k], O, 0.5), arcenciel(k))
+            s.styleExtremites = '-|'
+            objetsCorrection.push(s, codageSegments(choixCodage[k], arcenciel(k), s))
+            s = segment(homothetie(M[k], O, 0.5), homothetie(M[k], O, 1), arcenciel(k))
+            objetsCorrection.push(s, codageSegments(choixCodage[k], arcenciel(k), s))
+            s = segment(O, homothetie(M[k], O, -0.5), arcenciel(k))
+            objetsCorrection.push(s, codageSegments(choixCodage[k], arcenciel(k), s))
+            s = segment(homothetie(M[k], O, -0.5), homothetie(M[k], O, -1), arcenciel(k))
+            objetsCorrection.push(s, codageSegments(choixCodage[k], arcenciel(k), s))
+            s.styleExtremites = '|-|'
+            s = segment(homothetie(M[k], O, -1.5), homothetie(M[k], O, -1), arcenciel(k))
+            objetsCorrection.push(s, codageSegments(choixCodage[k], arcenciel(k), s))
+            break
+          case 2 : // rapport = -0.5
+            s = segment(O, homothetie(M[k], O, 0.5), arcenciel(k))
+            s.styleExtremites = '-|'
+            objetsCorrection.push(s, codageSegments(choixCodage[k], arcenciel(k), s))
+            s = segment(homothetie(M[k], O, 0.5), homothetie(M[k], O, 1), arcenciel(k))
+            objetsCorrection.push(s, codageSegments(choixCodage[k], arcenciel(k), s))
+            s = segment(O, homothetie(M[k], O, -0.5), arcenciel(k))
+            objetsCorrection.push(s, codageSegments(choixCodage[k], arcenciel(k), s))
+            break
+          case 3 : // rapport = 0.5
+            s = segment(O, homothetie(M[k], O, 0.5), arcenciel(k))
+            s.styleExtremites = '-|'
+            objetsCorrection.push(s, codageSegments(choixCodage[k], arcenciel(k), s))
+            s = segment(homothetie(M[k], O, 0.5), homothetie(M[k], O, 1), arcenciel(k))
+            objetsCorrection.push(s, codageSegments(choixCodage[k], arcenciel(k), s))
+            break
+          case 4 : // rapport = 1.5
+            s = segment(O, homothetie(M[k], O, 0.5), arcenciel(k))
+            objetsCorrection.push(s, codageSegments(choixCodage[k], arcenciel(k), s))
+            s = segment(homothetie(M[k], O, 0.5), homothetie(M[k], O, 1), arcenciel(k))
+            s.styleExtremites = '|-'
+            objetsCorrection.push(s, codageSegments(choixCodage[k], arcenciel(k), s))
+            s = segment(homothetie(M[k], O, 1.5), homothetie(M[k], O, 1), arcenciel(k))
+            objetsCorrection.push(s, codageSegments(choixCodage[k], arcenciel(k), s))
+            break
+          case 5 : // rapport = 2
+            s = segment(O, M[k], arcenciel(k))
+            objetsCorrection.push(s, codageSegments(choixCodage[k], arcenciel(k), s))
+            s = segment(M[k], homothetie(M[k], O, 2), arcenciel(k))
+            objetsCorrection.push(s, codageSegments(choixCodage[k], arcenciel(k), s))
+            break
         }
-        s.color = arcenciel(k)
-        objetsCorrection.push(s)
+
         texteCorr += `$${noms[k]}'$, l'image du point $${noms[k]}$ est dans la case ${cellules[k]} de la grille ${plusieursCiblesPourUnPoint ? choixNumGrille[3] : k + 1}.<br>`
         propositionsAMC.push({
           type: 'AMCOpen',
@@ -131,7 +180,6 @@ export default function ConstruireHomothetiePoint3e () {
           objetsEnonce.push(cible)
         }
       }
-      // if (i === 0) {
       for (let k = 0; k < nbpoints; k++) {
         xMin = Math.min(xMin, N[k].x - 3, M[k].x - 3)
         yMin = Math.min(yMin, N[k].y - 3, M[k].y - 3)
@@ -150,11 +198,9 @@ export default function ConstruireHomothetiePoint3e () {
         anim.pointCreer(M[k])
         anim.homothetiePoint(M[k], O, rapport, '', { positionTexte: { x: xMin + 2, y: yMin + 2 } })
       }
-      // }
       texte += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { pixelsParCm: 20, scale: 0.5 }), objetsEnonce)
       propositionsAMC[0].propositions[0].enonce = texte + '<br>' + propositionsAMC[0].propositions[0].enonce
       texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsCorrection), { pixelsParCm: 20, scale: 0.5 }), objetsCorrection)
-      //      if (i === 0) texteCorr += context.isHtml ? anim.html(numeroExercice) : ''
       texteCorr += context.isHtml ? anim.html(numeroExercice, i) : ''
 
       if (context.isAmc) {
