@@ -85,13 +85,13 @@ export default function SujetCAN2022troisieme () {
             c = randint(0, 8)
             d = randint(0, 4)
             if (a === 0) {
-              texte = `Ecris en chiffres le nombre : <br>
+              texte = `Écris en chiffres le nombre : <br>
               ${chiffre2[b][0]}-et-${chiffre[a][0]}-mille-${chiffre[c][0]} `
               reponse = (chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1]
               texteCorr = ` ${chiffre2[b][0]}-et-${chiffre[a][0]}-mille-${chiffre[c][0]}$=
               ${(chiffre2[b][1] + chiffre[a][1]) * 1000} + ${chiffre[c][1]}=${(chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1]}$ `
             } else {
-              texte = `Ecris en chiffres le nombre : <br>
+              texte = `Écris en chiffres le nombre : <br>
                           ${chiffre2[b][0]}-${chiffre[a][0]}-mille-${chiffre[c][0]} `
               reponse = (chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1]
               texteCorr = ` ${chiffre2[b][0]}-${chiffre[a][0]}-mille-${chiffre[c][0]}$=
@@ -99,13 +99,13 @@ export default function SujetCAN2022troisieme () {
             }
           } else {
             if (a === 0) {
-              texte = `Ecris en chiffres le nombre : <br>
+              texte = `Écris en chiffres le nombre : <br>
               ${chiffre2[b][0]}-et-${chiffre[a][0]}-mille-${chiffre2[d][0]} `
               reponse = (chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre2[d][1]
               texteCorr = ` ${chiffre2[b][0]}-et-${chiffre[a][0]}-mille-${chiffre2[d][0]}$=
               ${(chiffre2[b][1] + chiffre[a][1]) * 1000} + ${chiffre2[d][1]}=${(chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre2[d][1]}$ `
             } else {
-              texte = `Ecris en chiffres le nombre : <br>
+              texte = `Écris en chiffres le nombre : <br>
                           ${chiffre2[b][0]}-${chiffre[a][0]}-mille-${chiffre2[d][0]} `
               reponse = (chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre2[d][1]
               texteCorr = ` ${chiffre2[b][0]}-${chiffre[a][0]}-mille-${chiffre2[d][0]}$=
@@ -204,11 +204,11 @@ export default function SujetCAN2022troisieme () {
           reponse = a3.plus(u)
 
           if (choice([true, false])) {
-            texte = `Ecris sous forme décimale : $${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}$ `
+            texte = `Écris sous forme décimale : $${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}$ `
             texteCorr = `$${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}=${u}+${texNombre(a / 10, 1)}+${texNombre(c / 1000, 3)}=
             ${texNombre(reponse, 3)}$`
           } else {
-            texte = `Ecris sous forme décimale : $${u}+\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}$ `
+            texte = `Écris sous forme décimale : $${u}+\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}$ `
             texteCorr = `$${u}+\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}=${u}+${texNombre(c / 1000, 3)}+${texNombre(a / 10, 1)}=
             ${texNombre(reponse, 3)}$
              `
@@ -582,7 +582,7 @@ export default function SujetCAN2022troisieme () {
           a = fraction(fraction23[0], fraction23[1])
           k = randint(3, 9)
           reponse = fraction23[0] / fraction23[1]
-          texte = `Ecriture décimale de $\\dfrac{${fraction23[0] * k}}{${fraction23[1] * k}}$.`
+          texte = `Écriture décimale de $\\dfrac{${fraction23[0] * k}}{${fraction23[1] * k}}$.`
           texteCorr = `En simplifiant, on obtient : $\\dfrac{${fraction23[0] * k}}{${fraction23[1] * k}}=\\dfrac{${fraction23[0]}}{${fraction23[1]}}=${texNombre(reponse, 2)}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })

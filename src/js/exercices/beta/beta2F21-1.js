@@ -788,7 +788,7 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
               texteCorr += `Comme $${b4} < 90$ et $${b1} < 140$, le patient n'est pas en hypertension artérielle.<br>`
             }
             texteCorr += `
-                              ${numAlpha(5)} L'intervalle de temps est $[0\\,;\\, ${a5}]$, le temps d'un battement de coeur est donc $${a5}$ ms.<br>
+                              ${numAlpha(5)} L'intervalle de temps est $[0\\,;\\, ${a5}]$, le temps d'un battement de cœur est donc $${a5}$ ms.<br>
                               Comme $${a5}$ ms $=${texNombre(a5 / 1000, 3)}$ s, en notant $n$ le nombre de battements en $1$ minute, on obtient le tableau de proportionnalité suivant :<br>
                               $\\begin{array}{|c|c|c|}\n`
             texteCorr += '\\hline\n'

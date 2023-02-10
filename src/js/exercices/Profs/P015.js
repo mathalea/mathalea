@@ -10,7 +10,7 @@ export const dateDePublication = '14/03/2022' // La date de publication initiale
 export const titre = 'Puzzles géométriques'
 
 /**
- * Proposisiton des étapes de construction du puzzles géométriques type tangram, oeuf magique ...
+ * Proposisiton des étapes de construction du puzzles géométriques type tangram, œuf magique ...
  * @author Sébastien LOZANO
  * Référence P015
  */
@@ -282,7 +282,7 @@ export default function PuzzlesGeometriques () {
           `Tracer en rouge $[AC]$, $[LG]$, $[GK]$, $[GD]$, $[OH]$, $[AF]$, $[CE]$ et l'arc $${myArcCommand}{AC}$ de centre $O$ situé sous le point $O$.`
         ], 1)
         texte += infoMessage({
-          titre: 'Les oiseaux sortent de l\'oeuf, c\'est bien connu !',
+          titre: 'Les oiseaux sortent de l\'œuf, c\'est bien connu !',
           texte: texteMessage(9, 'oiseau'),
           couleur: 'nombres'
         })

@@ -88,31 +88,31 @@ export default function PlusOuMoins () {
             this.reponse = choix1 ? reponse2 : reponse1
             if (choice([true, false])) {
               this.question = `${prenom1} a $${a}$ ans. Il a $${b}$ ans ${choix1 ? 'de plus' : ' de moins '}
-                  que sa soeur. <br>
+                  que sa sœur. <br>
 
-                  Quel est l'âge de sa soeur ?`
+                  Quel est l'âge de sa sœur ?`
             } else {
               this.question = `${prenom1} a $${a}$ ans soit $${b}$ ans ${choix1 ? 'de plus' : ' de moins '}
-                  que sa soeur. <br>
+                  que sa sœur. <br>
 
-                  Quel est l'âge de sa soeur ?`
+                  Quel est l'âge de sa sœur ?`
             }
-            this.correction = `${prenom1} a $${b}$ ans ${choix1 ? 'de plus' : ' de moins '} que sa soeur donc sa soeur a $${b}$ années ${choix1 ? 'de moins' : ' de plus '} que son frère.<br>
+            this.correction = `${prenom1} a $${b}$ ans ${choix1 ? 'de plus' : ' de moins '} que sa sœur donc sa sœur a $${b}$ années ${choix1 ? 'de moins' : ' de plus '} que son frère.<br>
                   Elle a donc  (${choix1 ? `$${a}-${b}$` : `$${a}+${b}$`}) ans, soit  ${choix1 ? `$${a - b}$` : `$${a + b}$`} ans. `
           } else {
             reponse1 = a + b
             reponse2 = a - b
             this.reponse = choix1 ? reponse1 : reponse2
             if (choice([true, false])) {
-              this.question = `${prenom1} a $${a}$ ans. Sa soeur a $${b}$ ans ${choix1 ? 'de plus' : ' de moins '}
+              this.question = `${prenom1} a $${a}$ ans. Sa sœur a $${b}$ ans ${choix1 ? 'de plus' : ' de moins '}
                             que lui. <br>
 
-                            Quel est l'âge de sa soeur ?`
+                            Quel est l'âge de sa sœur ?`
             } else {
-              this.question = `La soeur de ${prenom1} a $${b}$ ans ${choix1 ? 'de plus' : ' de moins '}
-                            que lui. <br>Sachant que  ${prenom1} a $${a}$ ans, quel est l'âge de sa soeur ?`
+              this.question = `La sœur de ${prenom1} a $${b}$ ans ${choix1 ? 'de plus' : ' de moins '}
+                            que lui. <br>Sachant que  ${prenom1} a $${a}$ ans, quel est l'âge de sa sœur ?`
             }
-            this.correction = `${prenom1} a $${a}$ ans et sa soeur  a $${b}$ ans de ${choix1 ? 'de plus' : ' de moins '}.<br>
+            this.correction = `${prenom1} a $${a}$ ans et sa sœur  a $${b}$ ans de ${choix1 ? 'de plus' : ' de moins '}.<br>
                             Elle a donc  (${choix1 ? `$${a}+${b}$` : `$${a}-${b}$`}) ans, soit  ${choix1 ? `$${a + b}$` : `$${a - b}$`} ans. `
           }
           if (this.interactif) { this.optionsChampTexte = { texteApres: ' ans' } }

@@ -435,7 +435,7 @@ export default function SujetCAN20213ieme () {
           a = fraction(fraction18[0], fraction18[1])
           k = randint(3, 9)
           reponse = arrondi(fraction18[0] / fraction18[1], 2)
-          texte = `Ecriture décimale de $\\dfrac{${fraction18[0] * k}}{${fraction18[1] * k}}$.`
+          texte = `Écriture décimale de $\\dfrac{${fraction18[0] * k}}{${fraction18[1] * k}}$.`
           texteCorr = `En simplifiant, on obtient : $\\dfrac{${fraction18[0] * k}}{${fraction18[1] * k}}=\\dfrac{${fraction18[0]}}{${fraction18[1]}}=${texNombre(reponse, 2)}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -805,7 +805,7 @@ export default function SujetCAN20213ieme () {
             a = arrondi(randint(11, 39, [10, 20, 30]) / 1000, 3)
             truc = arrondi(a * 100, 1)
             reponse = `${stringNombre(truc, 1)}\\times 10^{-2}`
-            texte = `Ecriture  scientifique de $${texNombre(a, 3)}$.`
+            texte = `Écriture  scientifique de $${texNombre(a, 3)}$.`
 
             texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
           Ici : $${texNombre(a, 3)}=\\underbrace{${texNombre(truc, 1)}}_{1\\leqslant ${texNombre(truc, 1)} <10}\\times 10^{-2}$. `
@@ -814,7 +814,7 @@ export default function SujetCAN20213ieme () {
             a = arrondi(randint(111, 399, [200, 300]) / 100000, 5)
             truc = arrondi(a * 1000, 2)
             reponse = `${stringNombre(truc, 2)}\\times 10^{-3}`
-            texte = `Ecriture  scientifique de $${texNombre(a, 5)}$.`
+            texte = `Écriture  scientifique de $${texNombre(a, 5)}$.`
 
             texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
             Ici : $${texNombre(a, 5)}=\\underbrace{${texNombre(truc, 2)}}_{1\\leqslant ${texNombre(truc, 2)} <10}\\times 10^{-3}$. `
@@ -823,7 +823,7 @@ export default function SujetCAN20213ieme () {
             a = arrondi(randint(111, 399, [200, 300]) / 1000000, 6)
             truc = arrondi(a * 10000, 2)
             reponse = `${stringNombre(truc, 2)}\\times 10^{-4}`
-            texte = `Ecriture  scientifique de $${texNombre(a, 6)}$.`
+            texte = `Écriture  scientifique de $${texNombre(a, 6)}$.`
 
             texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
               Ici : $${texNombre(a, 6)}=\\underbrace{${texNombre(truc, 2)}}_{1\\leqslant ${texNombre(truc, 2)} <10}\\times 10^{-4}$. `

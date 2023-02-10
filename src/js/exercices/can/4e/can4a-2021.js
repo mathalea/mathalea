@@ -369,7 +369,7 @@ export default function SujetCAN20214ieme () {
           c = choice([2, 3, 4, 5, 6])
           b = a.d * c
           reponse = arrondi(a.n * c, 0)
-          texte = `Ecris sous la forme d'un entier : $${a.texFraction}\\times ${b}$`
+          texte = `Écris sous la forme d'un entier : $${a.texFraction}\\times ${b}$`
           texteCorr = `$${a.texFraction}\\times ${b}= ${a.n}\\times\\dfrac{${b}}{${a.d}}=${a.n}\\times ${c}=${miseEnEvidence(reponse)}$`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -675,7 +675,7 @@ export default function SujetCAN20214ieme () {
         case 29:
           fraction1 = choice(listeFractions1)
           a = fraction(fraction1[0], fraction1[1])
-          texte = `Ecriture décimale de $${a.texFraction}$. <br>`
+          texte = `Écriture décimale de $${a.texFraction}$. <br>`
           texteCorr = `$\\dfrac{1}{5}=0,2$, ainsi  $${a.texFraction}=${fraction1[0]}\\times\\dfrac{1}{5}=${miseEnEvidence(texNombre(fraction1[0] / fraction1[1]))}$`
           reponse = calcul(fraction1[0] / fraction1[1])
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })

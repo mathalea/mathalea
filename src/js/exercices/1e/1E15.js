@@ -45,7 +45,7 @@ export default function EquationDuSecondDegreAvecUnParametre () {
       // Enoncé
       texte = `$${xcas('expand(P)')}=0$`
       // Corrigé
-      texteCorr = 'Ecrivons l\'équation sous la forme $ax^2+bx+c=0$ :'
+      texteCorr = 'Écrivons l\'équation sous la forme $ax^2+bx+c=0$ :'
       texteCorr += `<br>$${xcas('P')}=0$`
       texteCorr += `<br>On a donc $a=${xcas('a')}$, $b=${xcas('b')}$ et $c=${xcas('c')}$`
       texteCorr += `<br>Le discriminant vaut $\\Delta=b^2-4\\times a\\times c = ${xcas('D')}$`

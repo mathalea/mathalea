@@ -61,7 +61,7 @@ export default function ProblemeCourse () {
       prixAliment2 = calcul(randint(12, 23) + randint(1, 9) / 10)
       masseEnGdeAliment2 = randint(21, 97) * 10
     }
-    const aliment2 = choice(['boeuf', 'veau', 'poulet'])
+    const aliment2 = choice(['bœuf', 'veau', 'poulet'])
     const prixTotalAliment1 = calcul(masseEnKgDeAliment1 * prixAliment1)
     const prixTotalAliment2 = calcul((masseEnGdeAliment2 * prixAliment2) / 1000)
     const prixTotal = calcul(prixTotalAliment1 + prixTotalAliment2)

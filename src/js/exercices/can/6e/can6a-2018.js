@@ -419,17 +419,17 @@ export default function SujetCAN20186ieme () {
 
           a = randint(1, 4) * 12
           if (choice([true, false])) {
-            texte = `Le tiers de $${a}$ oeufs est `
+            texte = `Le tiers de $${a}$ œufs est `
             reponse = Math.round(a / 3)
-            texteCorr = `Le tiers de $${a}$ oeufs est $${a}\\div 3=${miseEnEvidence(a / 3)}$ oeufs. `
+            texteCorr = `Le tiers de $${a}$ œufs est $${a}\\div 3=${miseEnEvidence(a / 3)}$ œufs. `
           } else {
-            texte = `Le quart de $${a}$ oeufs est `
+            texte = `Le quart de $${a}$ œufs est `
             reponse = Math.round(a / 4)
-            texteCorr = `Le quart de $${a}$ oeufs est $${a}\\div 4=${miseEnEvidence(a / 4)}$ oeufs. `
+            texteCorr = `Le quart de $${a}$ œufs est $${a}\\div 4=${miseEnEvidence(a / 4)}$ œufs. `
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' oeufs.' } else { texte += ' ....  oeufs.' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' œufs.' } else { texte += ' ....  œufs.' }
           nbChamps = 1
           break
 
@@ -457,7 +457,7 @@ export default function SujetCAN20186ieme () {
           a = randint(0, 2)
           choix = choice(['a', 'b', 'c', 'd'])
           if (choix === 'a') {
-            texte = `Ecris en chiffres : <br>
+            texte = `Écris en chiffres : <br>
               Deux-millions-${chiffre[a][0]}-cent-${chiffre[a][0]}-mille-${chiffre[a][0]} `
             reponse = 2 * 1000000 + chiffre[a][1] * 100000 + chiffre[a][1] * 1000 + chiffre[a][1]
             texteCorr = `Deux-millions-${chiffre[a][0]}-cent-${chiffre[a][0]}-mille-${chiffre[a][0]} $=
@@ -469,7 +469,7 @@ export default function SujetCAN20186ieme () {
           }
 
           if (choix === 'b') {
-            texte = `Ecris en chiffres : <br>
+            texte = `Écris en chiffres : <br>
               Deux-millions-${chiffre[a][0]}-mille-${chiffre[a][0]} `
             reponse = 2 * 1000000 + chiffre[a][1] * 1000 + chiffre[a][1]
             texteCorr = `Deux-millions-${chiffre[a][0]}-mille-${chiffre[a][0]} $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre[a][1] * 1000)} + ${texNombre(chiffre[a][1])}=${miseEnEvidence(texNombre(2 * 1000000 + chiffre[a][1] * 1000 + chiffre[a][1]))}$. `
@@ -479,7 +479,7 @@ export default function SujetCAN20186ieme () {
           }
 
           if (choix === 'c') {
-            texte = `Ecris en chiffres : <br>
+            texte = `Écris en chiffres : <br>
               Deux-millions-${chiffre2[a][0]}-mille-${chiffre[a][0]} `
             reponse = 2 * 1000000 + chiffre2[a][1] * 1000 + chiffre[a][1]
             texteCorr = `Deux-millions-${chiffre2[a][0]}-mille-${chiffre[a][0]} $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre2[a][1] * 1000)} + ${texNombre(chiffre[a][1])}=${miseEnEvidence(texNombre(2 * 1000000 + chiffre2[a][1] * 1000 + chiffre[a][1]))}$. `
@@ -489,7 +489,7 @@ export default function SujetCAN20186ieme () {
           }
 
           if (choix === 'd') {
-            texte = `Ecris en chiffres : <br>
+            texte = `Écris en chiffres : <br>
               Deux-millions-${chiffre[a][0]}-mille-${chiffre2[a][0]} `
             reponse = 2 * 1000000 + chiffre[a][1] * 1000 + chiffre2[a][1]
             texteCorr = `Deux-millions-${chiffre[a][0]}-mille-${chiffre2[a][0]} $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre[a][1] * 1000)} + ${texNombre(chiffre2[a][1])}=${miseEnEvidence(texNombre(2 * 1000000 + chiffre[a][1] * 1000 + chiffre2[a][1]))}$. `
@@ -578,9 +578,9 @@ export default function SujetCAN20186ieme () {
           b = randint(3, 5)
           reponse = randint(4, 9)
           a = reponse * b
-          texte = `${prenom1} a $${a}$ billes. Elle en a $${b}$ fois plus que sa soeur.<br>
-            Combien de billes sa soeur  a-t-elle ? `
-          texteCorr = `Puisque ${prenom1} en  a $${b}$ fois plus, sa soeur en a $${b}$ fois moins, soit  : $${a}\\div ${b}=${miseEnEvidence(a / b)}$. `
+          texte = `${prenom1} a $${a}$ billes. Elle en a $${b}$ fois plus que sa sœur.<br>
+            Combien de billes sa sœur  a-t-elle ? `
+          texteCorr = `Puisque ${prenom1} en  a $${b}$ fois plus, sa sœur en a $${b}$ fois moins, soit  : $${a}\\div ${b}=${miseEnEvidence(a / b)}$. `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
