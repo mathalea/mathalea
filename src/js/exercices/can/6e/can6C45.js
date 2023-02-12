@@ -26,10 +26,10 @@ export default function ProblemeSoustractionDivision () {
     const res = a * b + c * d
     this.reponse = (res - a * b) / d
     this.question = `Compléter : <br>
-    $${a}$ sachets de $${b}$ ballons et $\\ldots$ sachets de $${d}$ ballons font $${texNombre(res, 0)}$ ballons en tout. `
-    this.correction = `$${a}$ sachets de $${b}$ ballons font $${a * b}$ ballons.<br>
+    $${a}$ sachets de $${b}$ ballons et $\\ldots$ sachets de $${d}$ ballons contiennent $${texNombre(res, 0)}$ ballons en tout. `
+    this.correction = `$${a}$ sachets de $${b}$ ballons contiennent $${a * b}$ ballons.<br>
    Puisque l'on a $${res}$ ballons au total, le nombre de sachets de $${d}$ ballons est donné par $(${res}-${a * b})\\div ${d}=${res - a * b}\\div ${d}=${this.reponse}$.`
     this.canEnonce = 'Compléter.'
-    this.canReponseACompleter = `$${a}$ sachets de $${b}$ ballons et $\\ldots$ sachets de $${d}$ ballons font $${texNombre(res, 0)}$ ballons en tout.`
+    this.canReponseACompleter = `$${a}$ sachets de $${b}$ ballons et $\\ldots$ sachets de $${d}$ ballons contiennent $${texNombre(res, 0)}$ ballons en tout.`
   }
 }
