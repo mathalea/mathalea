@@ -141,8 +141,8 @@ export default function ModelisationProblemes () {
             colonne1 += `<br>Le lendemain, elle en a trouvé ${c1} autres.`
             colonne1 += '<br>Combien cela lui en fait-il ?'
           } else {
-            colonne1 += `${prenomM()} a ${c1} ans de moins que sa soeur ${prenomF()}.`
-            colonne1 += `<br>Sachant qu'il a ${b1} ans, quel âge a sa soeur ?`
+            colonne1 += `${prenomM()} a ${c1} ans de moins que sa sœur ${prenomF()}.`
+            colonne1 += `<br>Sachant qu'il a ${b1} ans, quel âge a sa sœur ?`
           }
           correctionSansSchema = []
           correctionSansSchema[0] = `${b1}+${c1}`

@@ -2236,7 +2236,7 @@ export function prenom (n = 1) {
 * @author Mireille Gain
 */
 export function objetF () {
-  return choice(['boîtes', 'bougies', 'cartes de voeux', 'gommes', 'photos', 'petites peluches'])
+  return choice(['boîtes', 'bougies', 'cartes de vœux', 'gommes', 'photos', 'petites peluches'])
 }
 
 /**
@@ -2252,7 +2252,7 @@ export function objetM () {
 * @author Mireille Gain
 */
 export function objet () {
-  return choice(['billes', 'bonbons', 'bougies', 'cartes de voeux', 'crayons', 'gâteaux', 'gommes', 'photos', 'stickers', 'cahiers'])
+  return choice(['billes', 'bonbons', 'bougies', 'cartes de vœux', 'crayons', 'gâteaux', 'gommes', 'photos', 'stickers', 'cahiers'])
 }
 
 /**

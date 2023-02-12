@@ -44,7 +44,7 @@ export default function FractionDecimaleEcritureDecimale2 () {
 
         this.reponse = calcul(b * 0.01 + c * 0.001)
         if (choice([true, false])) {
-          this.question = `Ecrire sous forme décimale $\\dfrac{${c}}{${texNombre(1000)}}+\\dfrac{${b}}{100}$. `
+          this.question = `Écrire sous forme décimale $\\dfrac{${c}}{${texNombre(1000)}}+\\dfrac{${b}}{100}$. `
           this.correction = `$\\dfrac{${c}}{${texNombre(1000)}}+\\dfrac{${b}}{100}=${texNombrec(c / 1000)}+${texNombrec(b / 100)}=${texNombrec(c / 1000 + b / 100)}$
           <br><br> Ou encore <br><br>
               $\\dfrac{${c}}{${texNombre(1000)}}+\\dfrac{${b}}{100}=\\dfrac{${c}}{${texNombre(1000)}}+\\dfrac{${b}\\times 10}{100\\times 10}=\\dfrac{${c}}{${texNombre(1000)}}+\\dfrac{${b * 10}}{${texNombre(1000)}}=\\dfrac{${b * 10 + c}}{1000}=${texNombrec(c / 1000 + b / 100)}$`

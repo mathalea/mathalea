@@ -200,8 +200,8 @@ export default function CourseAuxNombresCM (numeroExercice) {
               texteCorr = `Le frère de ${d.prenom} a : $${a} - ${b} = ${a - b}$ ans.`
               break
             case 2:
-              texte = `${d.prenom} a $${a}$ ans. Sa soeur a $${b}$ ans.<br>Quelle est leur différence d'âge ?`
-              texteCorr = `La différence d'âge entre ${d.prenom} et sa soeur est : $${a}-${b}=${a - b}$ ans.`
+              texte = `${d.prenom} a $${a}$ ans. Sa sœur a $${b}$ ans.<br>Quelle est leur différence d'âge ?`
+              texteCorr = `La différence d'âge entre ${d.prenom} et sa sœur est : $${a}-${b}=${a - b}$ ans.`
               break
           }
           setReponse(this, i, calcul(a - b), { formatInteractif: 'calcul' })

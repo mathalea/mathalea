@@ -225,16 +225,16 @@ export default function Can10Questions6N1 () {
           a = randint(11, 19)
           b = randint(3, 7)
           if (choice([true, false])) {
-            texte = `${prenom1} a $${a}$ ans. Elle a  $${b}$ ans de moins que sa soeur.<br>
-          Quel est l'âge de sa soeur ? `
-            texteCorr = `Puisque ${prenom1} a $${a}$ ans et qu'elle a $${b}$ ans de moins que sa soeur, 
-          alors sa soeur a $${b}$ ans de plus qu'elle, soit $${a}+${b}=${a + b}$ ans.`
+            texte = `${prenom1} a $${a}$ ans. Elle a  $${b}$ ans de moins que sa sœur.<br>
+          Quel est l'âge de sa sœur ? `
+            texteCorr = `Puisque ${prenom1} a $${a}$ ans et qu'elle a $${b}$ ans de moins que sa sœur, 
+          alors sa sœur a $${b}$ ans de plus qu'elle, soit $${a}+${b}=${a + b}$ ans.`
             reponse = a + b
           } else {
-            texte = `${prenom1} a $${a}$ ans. Elle a  $${b}$ ans de plus que sa soeur.<br>
-          Quel est l'âge de sa soeur ? `
-            texteCorr = `Puisque ${prenom1} a $${a}$ ans et qu'elle a $${b}$ ans de plus que sa soeur, 
-          alors sa soeur a $${b}$ ans de moins qu'elle, soit $${a}-${b}=${a - b}$ ans.`
+            texte = `${prenom1} a $${a}$ ans. Elle a  $${b}$ ans de plus que sa sœur.<br>
+          Quel est l'âge de sa sœur ? `
+            texteCorr = `Puisque ${prenom1} a $${a}$ ans et qu'elle a $${b}$ ans de plus que sa sœur, 
+          alors sa sœur a $${b}$ ans de moins qu'elle, soit $${a}-${b}=${a - b}$ ans.`
             reponse = a - b
           }
 

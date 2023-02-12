@@ -77,7 +77,7 @@ export default function PetitsProblemePartage2 () {
                 Combien de billes a ${prenom1} ? `
           this.correction = `Il faut partager le nombre de billes en $${proportion[1] + 1}$.<br>
         $${nbre}\\div ${proportion[1] + 1}=${nbre / (proportion[1] + 1)}$.<br>
-        ${prenom1} aura donc $${a}$ billes (sa soeur en aura $${a}\\times ${proportion[1]}$, soit $${a * proportion[1]}$).
+        ${prenom1} aura donc $${a}$ billes (sa sœur en aura $${a}\\times ${proportion[1]}$, soit $${a * proportion[1]}$).
         `
         } else {
           proportion = choice(listeProportion2)
@@ -93,7 +93,7 @@ export default function PetitsProblemePartage2 () {
                   Combien de billes a ${prenom1} ? `
           this.correction = `Il faut partager le nombre de billes en $${proportion[1] + 1}$.<br>
           $${nbre}\\div ${proportion[1] + 1}=${nbre / (proportion[1] + 1)}$.<br>
-          ${prenom1} aura donc $${a}\\times ${proportion[1]}=${this.reponse}$ billes (sa soeur en aura $${a}$).
+          ${prenom1} aura donc $${a}\\times ${proportion[1]}=${this.reponse}$ billes (sa sœur en aura $${a}$).
           `
         }
         if (this.interactif) { this.optionsChampTexte = { texteApres: ' billes' } }

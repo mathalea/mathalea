@@ -87,13 +87,13 @@ export default function SujetCAN2022quatrieme () {
             c = randint(0, 8)
             d = randint(0, 4)
             if (a === 0) {
-              texte = `Ecris en chiffres le nombre : <br>
+              texte = `Écris en chiffres le nombre : <br>
               ${chiffre2[b][0]}-et-${chiffre[a][0]}-mille-${chiffre[c][0]} `
               reponse = (chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1]
               texteCorr = ` ${chiffre2[b][0]}-et-${chiffre[a][0]}-mille-${chiffre[c][0]}$=
               ${(chiffre2[b][1] + chiffre[a][1]) * 1000} + ${chiffre[c][1]}=${(chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1]}$ `
             } else {
-              texte = `Ecris en chiffres le nombre : <br>
+              texte = `Écris en chiffres le nombre : <br>
                           ${chiffre2[b][0]}-${chiffre[a][0]}-mille-${chiffre[c][0]} `
               reponse = (chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1]
               texteCorr = ` ${chiffre2[b][0]}-${chiffre[a][0]}-mille-${chiffre[c][0]}$=
@@ -101,13 +101,13 @@ export default function SujetCAN2022quatrieme () {
             }
           } else {
             if (a === 0) {
-              texte = `Ecris en chiffres le nombre : <br>
+              texte = `Écris en chiffres le nombre : <br>
               ${chiffre2[b][0]}-et-${chiffre[a][0]}-mille-${chiffre2[d][0]} `
               reponse = (chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre2[d][1]
               texteCorr = ` ${chiffre2[b][0]}-et-${chiffre[a][0]}-mille-${chiffre2[d][0]}$=
               ${(chiffre2[b][1] + chiffre[a][1]) * 1000} + ${chiffre2[d][1]}=${(chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre2[d][1]}$ `
             } else {
-              texte = `Ecris en chiffres le nombre : <br>
+              texte = `Écris en chiffres le nombre : <br>
                           ${chiffre2[b][0]}-${chiffre[a][0]}-mille-${chiffre2[d][0]} `
               reponse = (chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre2[d][1]
               texteCorr = ` ${chiffre2[b][0]}-${chiffre[a][0]}-mille-${chiffre2[d][0]}$=
@@ -339,7 +339,7 @@ export default function SujetCAN2022quatrieme () {
           a = choice(listeFractions12)
           b = fraction(a[0], a[1])
 
-          texte = `Ecris $\\dfrac{${a[0]}}{${a[1]}}$ sous forme décimale.`
+          texte = `Écris $\\dfrac{${a[0]}}{${a[1]}}$ sous forme décimale.`
 
           texteCorr = `$\\dfrac{${a[0]}}{${a[1]}}=${texNombre(a[0] / a[1], 2)}$`
 
