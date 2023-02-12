@@ -15,7 +15,7 @@ export default function ComparerAvecFonctionRef () {
   // this.nbQuestionsModifiable = false
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-  this.sup = 1
+  this.sup = 6
   this.sup2 = true
   this.sup2 = 1
   this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
@@ -93,7 +93,7 @@ export default function ComparerAvecFonctionRef () {
             Sans effectuer de calcul, comparer $${nom}(${texNombre(x1, 3)})$ et $${nom}(${texNombre(x2, 3)})$. `
             } else { texte = `Sans effectuer de calcul, comparer $${texNombre(x1, 3)}^2$ et $${texNombre(x2, 3)}^2$.` }
 
-            texteCorr = `            La fonction carré étant strictement croissante sur $[0\\,;\\,+\\infty[$, elle conserve l'ordre. Cela signifie que les antécédents et les images sont rangés dans le même ordre.   <br>
+            texteCorr = `            La fonction carré étant strictement croissante sur $[0\\,;\\,+\\infty[$, les antécédents et les images sont rangés dans le même ordre.   <br>
             Ainsi, si $a$ et $b$ sont deux nombres réels positifs tels que $a < b$, alors $a^2 < b^2$.`
 
             if (x1B < x2B) {
@@ -120,7 +120,7 @@ export default function ComparerAvecFonctionRef () {
             Sans effectuer de calcul, comparer $${nom}(${texNombre(x1, 3)})$ et $${nom}(${texNombre(x2, 3)})$. `
             } else { texte = `Sans effectuer de calcul, comparer $(${texNombre(x1, 3)})^2$ et $(${texNombre(x2, 3)})^2$.` }
 
-            texteCorr = `            La fonction carré étant strictement décroissante sur $]-\\infty\\,;\\,0]$, elle change l'ordre. Cela signifie que les antécédents et les images sont rangés dans l'ordre inverse.   <br>
+            texteCorr = `            La fonction carré étant strictement décroissante sur $]-\\infty\\,;\\,0]$, les antécédents et les images sont rangés dans l'ordre inverse.   <br>
             Ainsi, si $a$ et $b$ sont deux nombres réels négatifs tels que $a < b$, alors $a^2 > b^2$.`
 
             if (x1B < x2B) {
@@ -148,7 +148,7 @@ export default function ComparerAvecFonctionRef () {
             Sans effectuer de calcul, comparer $${nom}(${texNombre(x1, 2)})$ et $${nom}(${texNombre(x2, 2)})$. `
             } else { texte = `Sans effectuer de calcul, comparer $\\dfrac{1}{${texNombre(x1, 2)}}$ et $\\dfrac{1}{${texNombre(x2, 2)}}$.` }
 
-            texteCorr = `            La fonction inverse étant strictement décroissante sur $]0\\,;\\,+\\infty[$, elle change l'ordre. Cela signifie que les antécédents et les images sont rangés dans l'ordre inverse.   <br>
+            texteCorr = `            La fonction inverse étant strictement décroissante sur $]0\\,;\\,+\\infty[$, les antécédents et les images sont rangés dans l'ordre inverse.   <br>
             Ainsi, si $a$ et $b$ sont deux nombres réels stritement positifs tels que $a < b$, alors $\\dfrac{1}{a} > \\dfrac{1}{b}$.`
 
             if (x1B < x2B) {
@@ -176,7 +176,7 @@ export default function ComparerAvecFonctionRef () {
             Sans effectuer de calcul, comparer $${nom}(${texNombre(x1, 2)})$ et $${nom}(${texNombre(x2, 2)})$. `
             } else { texte = `Sans effectuer de calcul, comparer $\\dfrac{1}{${texNombre(x1, 2)}}$ et $\\dfrac{1}{${texNombre(x2, 2)}}$.` }
 
-            texteCorr = `            La fonction inverse étant strictement décroissante sur $]-\\infty\\,;\\,0[$, elle change l'ordre. Cela signifie que les antécédents et les images sont rangés dans l'ordre inverse.   <br>
+            texteCorr = `            La fonction inverse étant strictement décroissante sur $]-\\infty\\,;\\,0[$, les antécédents et les images sont rangés dans l'ordre inverse.   <br>
             Ainsi, si $a$ et $b$ sont deux nombres réels stritement négatifs tels que $a < b$, alors $\\dfrac{1}{a} > \\dfrac{1}{b}$.`
 
             if (x1B < x2B) {
@@ -204,7 +204,7 @@ export default function ComparerAvecFonctionRef () {
             Sans effectuer de calcul, comparer $${nom}(${texNombre(x1, 1)})$ et $${nom}(${texNombre(x2, 1)})$. `
             } else { texte = `Sans effectuer de calcul, comparer $\\sqrt{${texNombre(x1, 1)}}$ et $\\sqrt{${texNombre(x2, 1)}}$.` }
 
-            texteCorr = `            La fonction racine carrée étant strictement croissante sur $[0\\,;\\,+\\infty[$, elle conserve l'ordre. Cela signifie que les antécédents et les images sont rangés dans le même ordre.   <br>
+            texteCorr = `            La fonction racine carrée étant strictement croissante sur $[0\\,;\\,+\\infty[$, les antécédents et les images sont rangés dans le même ordre.   <br>
             Ainsi, si $a$ et $b$ sont deux nombres réels positifs tels que $a < b$, alors $\\sqrt{a} < \\sqrt{b}$.`
 
             if (x1B < x2B) {
@@ -230,7 +230,7 @@ export default function ComparerAvecFonctionRef () {
             Sans effectuer de calcul, comparer $${nom}(${texNombre(x1, 1)})$ et $${nom}(${texNombre(x2, 1)})$. `
             } else { texte = `Sans effectuer de calcul, comparer $${ecritureParentheseSiNegatif(x1, 1)}^3$ et $${ecritureParentheseSiNegatif(x2, 1)}^3$.` }
 
-            texteCorr = `            La fonction cube étant strictement croissante sur $\\mathbb{R}$, elle conserve l'ordre. Cela signifie que les antécédents et les images sont rangés dans le même ordre.   <br>
+            texteCorr = `            La fonction cube étant strictement croissante sur $\\mathbb{R}$, les antécédents et les images sont rangés dans le même ordre.   <br>
             Ainsi, si $a$ et $b$ sont deux nombres réels tels que $a < b$, alors $a^3 < b^3$.`
 
             if (x1B < x2B) {
@@ -256,5 +256,5 @@ export default function ComparerAvecFonctionRef () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Choix des questions', 6, '1 : Avec une fonction affine\n2 : Avec la fonction carré\n3 : Avec la fonction inverse\n4 : Avec la fonction racine carrée\n5 : Avec la fonction cube\n6 : Mélange']
-  this.besoinFormulaire2Numerique = ['Choix des énoncés', 2, '1 : Avec la fonction précisée\n2 : Sans la fonction précisée']
+  this.besoinFormulaire2Numerique = ['Choix des énoncés', 2, '1 : Avec la fonction précisée n2 : Sans la fonction précisée (sauf fonction affine)']
 }

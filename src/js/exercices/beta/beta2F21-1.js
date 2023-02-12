@@ -130,9 +130,9 @@ export default function ModeliserParUneFonction () {
           Pour la formule A, on cherche $x$ tel que $f(x)\\leqslant${T}$.<br>
           $\\begin{aligned}
 ${a}+${texPrix(b)}x&\\leqslant${T}\\\\
-${texPrix(b)}x&\\leqslant ${T}-${a}${sp(8)} \\text{(On retranche ${a} dans chaque membre)} \\\\
+${texPrix(b)}x&\\leqslant ${T}-${a}${sp(8)} \\text{(On retranche ${a} à chaque membre)} \\\\
 ${texPrix(b)}x&\\leqslant ${T - a}\\\\
-x&\\leqslant \\dfrac{${T - a}}{${texPrix(b)}}${sp(8)}\\text{(On divise par ${texPrix(b)} dans chaque membre)}
+x&\\leqslant \\dfrac{${T - a}}{${texPrix(b)}}${sp(8)}\\text{(On divise par ${texPrix(b)}  chaque membre)}
 \\end{aligned}$
 <br>
 Le plus grand entier inférieur ou égal à $\\dfrac{${T - a}}{${texPrix(b)}}$ est $${Math.floor((T - a) / b)}$.<br>
@@ -140,16 +140,16 @@ Avec la formule A, ${P} pourra faire au maximum $${Math.floor((T - a) / b)}$ sé
 Pour la formule B, on cherche $x$ tel que $g(x)\\leqslant${T}$.<br>
 $\\begin{aligned}
 ${c}+${texPrix(d)}x&\\leqslant${T}\\\\
-${texPrix(d)}x&\\leqslant ${T}-${c}${sp(8)} \\text{(On retranche ${c} dans chaque membre)} \\\\
+${texPrix(d)}x&\\leqslant ${T}-${c}${sp(8)} \\text{(On retranche ${c} à chaque membre)} \\\\
 ${texPrix(d)}x&\\leqslant ${T - c}\\\\
-x&\\leqslant \\dfrac{${T - c}}{${texPrix(d)}}${sp(8)} \\text{(On divise par ${texPrix(d)} dans chaque membre)}
+x&\\leqslant \\dfrac{${T - c}}{${texPrix(d)}}${sp(8)} \\text{(On divise par ${texPrix(d)} chaque membre)}
 \\end{aligned}$
 <br>
 Le plus grand entier inférieur ou égal à $\\dfrac{${T - c}}{${texPrix(d)}}$ est $${Math.floor((T - c) / d)}$.<br>
 Avec la formule B, ${P} pourra faire au maximum $${Math.floor((T - c) / d)}$ séances.<br><br>`
 
             if (Math.floor((T - c) / d) === Math.floor((T - a) / b)) {
-              texteCorr += `Les deux formules permettent autant de séances avec un budget de $${T}$ €.`
+              texteCorr += `Les deux formules permettent autant de séances avec un budget de $${T}$ €.<br><br>`
             } else {
               texteCorr += ` ${texteGras('Conclusion : ')}  ${Math.floor((T - c) / d) > Math.floor((T - a) / b) ? 'La formule B ' : 'La formule A'} permet de faire plus de séances, elle est plus avanatgeuse pour ${P}.
 
@@ -159,10 +159,10 @@ Avec la formule B, ${P} pourra faire au maximum $${Math.floor((T - c) / d)}$ sé
             texteCorr += `   ${numAlpha(3)} La formule B est plus avantageuse que la formule A lorsque $g(x)$ est strictement inférieure à $f(x)$.<br>
             ${sp(8)} $\\begin{aligned}
             ${c}+${texPrix(d)}x&<${a}+${texPrix(b)}x\\\\
-            ${texPrix(d)}x&< ${a}+${texPrix(b)}x-${c}${sp(8)}\\text{(On retranche ${c} dans chaque membre)} \\\\
-            ${texPrix(d)}x-${texPrix(b)}x&< ${a - c}${sp(8)}\\text{(On retranche ${texPrix(b)}  }x\\text{ dans chaque membre)} \\\\
+            ${texPrix(d)}x&< ${a}+${texPrix(b)}x-${c}${sp(8)}\\text{(On retranche ${c} à chaque membre)} \\\\
+            ${texPrix(d)}x-${texPrix(b)}x&< ${a - c}${sp(8)}\\text{(On retranche ${texPrix(b)}  }x\\text{ à chaque membre)} \\\\
             ${texPrix(d - b)}x&<${a - c}\\\\
-            x&> \\dfrac{${a - c}}{${texPrix(d - b)}}${sp(8)}\\text{(On divise par } ${texNombre(d - b, 2)}   < 0 \\text{ dans chaque membre)}\\\\
+            x&> \\dfrac{${a - c}}{${texPrix(d - b)}}${sp(8)}\\text{(On divise par } ${texNombre(d - b, 2)}   < 0 \\text{  chaque membre)}\\\\
             x&> \\dfrac{${c - a}}{${texPrix(b - d)}} \\end{aligned}$<br>
             Le plus grand entier supérieur  à $\\dfrac{${c - a}}{${texPrix(b - d)}}$ est $${Math.floor((a - c) / (d - b)) + 1}$.<br>
             La formule B est plus intéressante que la formule A à partir de $${Math.floor((a - c) / (d - b)) + 1}$  séances.<br><br>
@@ -250,8 +250,8 @@ Avec la formule B, ${P} pourra faire au maximum $${Math.floor((T - c) / d)}$ sé
           ${numAlpha(2)} On résout l'équation  $T(x)=${texNombre(prix, 2)}$.<br> 
           $\\begin{aligned}
           ${a}+${texNombre(c, 2)}x&=${texNombre(prix, 2)}\\\\
-          ${texNombre(c, 2)}x&= ${texNombre(prix, 2)}-${a}${sp(8)} \\text{(On retranche ${a} dans chaque membre)} \\\\
-x&=\\dfrac{${texNombre(prix - a, 2)}}{${texNombre(c, 2)}}${sp(8)}\\text{(On divise par ${texNombre(c, 2)} dans chaque membre)}\\\\
+          ${texNombre(c, 2)}x&= ${texNombre(prix, 2)}-${a}${sp(8)} \\text{(On retranche ${a} à chaque membre)} \\\\
+x&=\\dfrac{${texNombre(prix - a, 2)}}{${texNombre(c, 2)}}${sp(8)}\\text{(On divise par ${texNombre(c, 2)}  chaque membre)}\\\\
 x&=${texNombre(d, 0)}
 \\end{aligned}$<br>
 L'équation a pour solution $${texNombre(d, 2)}$.<br>
@@ -336,7 +336,7 @@ On retrouve ce résultat graphiquement. Ci-dessous, la droite bleue représente 
                     ${numAlpha(3)}   On cherche $v$ tel que $d(v)=${b}$.<br>
                     $\\begin{aligned}
 \\dfrac{v^2}{${texNombre(a, 1)}}&=${b}\\\\
-v^2&=${b} \\times ${texNombre(a, 2)} ${sp(8)} \\text{(On mutiplie par ${texNombre(a, 1)} dans chaque membre)} \\\\
+v^2&=${b} \\times ${texNombre(a, 2)} ${sp(8)} \\text{(On mutiplie par ${texNombre(a, 1)} chaque membre)} \\\\
 v^2&= ${texNombre(b * a, 2)}\\\\
 v&= -\\sqrt{${texNombre(b * a, 2)}} ${sp(8)} \\text{ou} ${sp(8)} v= \\sqrt{${texNombre(b * a, 2)}}${sp(8)}\\text{(deux nombres ont pour carré } ${texNombre(b * a, 2)} \\text{)}
 \\end{aligned}$<br>
@@ -428,13 +428,13 @@ Voici la courbe représentative de la fonction $d$ avec la solution de la questi
             texteCorr = `${numAlpha(0)} En notant $x$ la variable, l'expression algébrique de $${nom}$ est : $${nom}(x)=${texNombre(a)}-${b}x$.<br>
           ${numAlpha(1)} La relation $${nom}(x)=${texNombre(a)}-${b}x$ montre que lorsque le prix de l'abonnement $x$ augmente, le nombre d'abonnés $${nom}(x)$ diminue. <br>
           Plus précisément, à chaque hausse de $1$ €, le nombre d'abonnés diminue de $${b}$ (coefficient devant $x$). <br>
-          ${numAlpha(2)} Pour un montant de l'abonnement à $${d}$ €, on obtient $${nom}(${d})=${a}-${b}\\times ${d}=${a - b * d}$.<br>
+          ${numAlpha(2)} Pour un montant de $${d}$ € de l'abonnement, on obtient $${nom}(${d})=${texNombre(a, 0)}-${b}\\times ${d}=${texNombre(a - b * d, 0)}$.<br>
           On obtiendrait alors un nombre d'abonnés négatif ce qui est impossible. On ne peut donc pas fixer le montant de l'abonnement à $${d}$ €.<br>
           On cherche la valeur de $x$ donnant un nombre d'abonnés nul en résolvant l'équation $${nom}(x)=0$ :<br>
           $\\begin{aligned}
-          ${a}-${b}x&=0\\\\
-         - ${b}x&= -${a}${sp(8)} \\text{(On retranche ${texNombre(a)} dans chaque membre)} \\\\
-x&=\\dfrac{${texNombre(-a)}}{${-b}}${sp(8)}\\text{(On divise par } ${-b} \\text{ dans chaque membre)}\\\\
+          ${texNombre(a)}-${b}x&=0\\\\
+         - ${b}x&= -${texNombre(a)}${sp(8)} \\text{(On retranche ${texNombre(a)} à chaque membre)} \\\\
+x&=\\dfrac{${texNombre(-a)}}{${-b}}${sp(8)}\\text{(On divise par } ${-b} \\text{ chaque membre)}\\\\
 x&=\\dfrac{${texNombre(a)}}{${b}}\\\\
 x&=${texNombre(a / b, 2)}
 \\end{aligned}$<br>
@@ -446,8 +446,8 @@ Par conséquent l'ensemble de définition de la fonction $${nom}$ est : $[0\\,;\
           ${numAlpha(3)} On cherche la valeur de $x$  afin que $${nom}(x)=${texNombre(c)}$.<br>
           $\\begin{aligned}
           ${texNombre(a)}-${b}x&=${texNombre(c)}\\\\
-         - ${b}x&= ${texNombre(c)}-${a}${sp(8)} \\text{(On retranche ${texNombre(a)} dans chaque membre)} \\\\
-x&=\\dfrac{${texNombre(-a + c)}}{${-b}}${sp(8)}\\text{(On divise par } ${-b} \\text{ dans chaque membre)}\\\\
+         - ${b}x&= ${texNombre(c)}-${a}${sp(8)} \\text{(On retranche ${texNombre(a)} à chaque membre)} \\\\
+x&=\\dfrac{${texNombre(-a + c)}}{${-b}}${sp(8)}\\text{(On divise par } ${-b} \\text{ chaque membre)}\\\\
 x&=\\dfrac{${texNombre(a - c)}}{${b}}\\\\
 x&=${texNombre((a - c) / b, 2)}
 \\end{aligned}$<br>
@@ -553,7 +553,7 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             ${numAlpha(3)}   On cherche $x$ tel que $${nom}(x)=${texNombre(prix, 2)}$.<br>
             $\\begin{aligned}
                       ${texNombre(a, 2)}x&=${texNombre(prix, 2)}\\\\
-  x&=\\dfrac{${texNombre(prix, 2)}}{${texNombre(a, 2)}} ${sp(8)} \\text{(On divise par ${texNombre(a, 2)} dans chaque membre)} \\\\
+  x&=\\dfrac{${texNombre(prix, 2)}}{${texNombre(a, 2)}} ${sp(8)} \\text{(On divise par ${texNombre(a, 2)} chaque membre)} \\\\
   x&= ${d}
     \\end{aligned}$<br>
   Pour $${d}$ litres mis dans le réservoir, le coût est de  $${texNombre(prix, 2)}$ €.<br>
@@ -578,11 +578,11 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
           dépend du prix de son menu.<br>
           L’étude de marché qu’il a fait réaliser a permis de modéliser le lien entre le prix du menu et le nombre de couverts
           de la façon suivante :<br>
-          $\\bullet$ en vendant $${a}$ € son menu (prix initialement proposé), il sert $${b}$ couverts.<br>
-          $\\bullet$ chaque hausse de $1$ € du prix du menu diminue le nombre de couverts de $${c}$.<br>
+          $\\bullet$ En vendant $${a}$ € son menu (prix initialement proposé), il sert $${b}$ couverts.<br>
+          $\\bullet$ Chaque hausse de $1$ € du prix du menu diminue le nombre de couverts de $${c}$.<br>
           On note $x$ le montant de la hausse proposée du prix du menu (en €) par rapport au
           prix initial qui était de $${a}$ €. On admet que $0 \\leqslant x \\leqslant ${d}$.<br>
-            ${numAlpha(0)} Donner l'ensemble de définition de la fonction $${nom}$ <br>
+            ${numAlpha(0)} Donner l'ensemble de définition de la fonction $${nom}$. <br>
             ${numAlpha(1)} Pour une hausse  de $${h}$ €, donner le prix du menu, le nombre de couverts servis et la recette (en €) du restaurateur (obtenu par le produit du prix d'un menu par le nombre de couverts servis).<br>
             ${numAlpha(2)} Exprimer en fonction de $x$ le prix du menu après une hausse de $x$ €.<br>
             ${numAlpha(3)} Exprimer en fonction de $x$ le nombre de couverts servis après une hausse de $x$ €.<br>
@@ -944,12 +944,12 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
 
             if (Math.round(s2 * 10) / 10 === 2 || Math.round(s2 * 10) / 10 === 3 || Math.round(s2 * 10) / 10 === 4 || Math.round(s2 * 10) / 10 === 5 || Math.round(s2 * 10) / 10 === 6) {
               texteCorr += ` ${numAlpha(2)} L'automobiliste peut reprendre la route (sans être en infraction)  $${Math.round(s2 * 10) / 10} \\text{ h }$ après la consommation de l'alcool, 
-            soit à $${Math.round(s2 * 10) / 10 + h} \\text{ h }$.`
+            soit à $${Math.round(s2 * 10) / 10 + h} \\text{ h}$.<br><br>`
             } else {
               texteCorr += ` ${numAlpha(2)} $${texNombre(Math.round(s2 * 10) / 10, 1)}\\text{ h } =${Math.floor(s2)} \\text{ h } +${texNombre(Math.round(s2 * 10) / 10 - Math.floor(s2))}\\text{ h }$.<br>
             Or, $${texNombre(Math.round(s2 * 10) / 10 - Math.floor(s2))}\\text{ h }=${texNombre(Math.round(s2 * 10) / 10 - Math.floor(s2))}\\times 60 \\text{ min }=${texNombre((Math.round(s2 * 10) / 10 - Math.floor(s2)) * 60)} \\text{ min }$.<br>
             L'automobiliste peut reprendre la route (sans être en infraction)  $${Math.floor(s2)} \\text{ h }$ et $${texNombre((Math.round(s2 * 10) / 10 - Math.floor(s2)) * 60)} \\text{ min }$ après la consommation de l'alcool, 
-            soit à $${Math.floor(s2 + h)} \\text{ h }$ et $${texNombre((Math.round(s2 * 10) / 10 - Math.floor(s2)) * 60)} \\text{ min }$.`
+            soit à $${Math.floor(s2 + h)} \\text{ h }$ et $${texNombre((Math.round(s2 * 10) / 10 - Math.floor(s2)) * 60)} \\text{ min}$.<br><br>`
             }
 
             texteCorr += `${graphiqueCorr}

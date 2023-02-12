@@ -26,16 +26,24 @@ export default function VariationsCourbe () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    const listeTypeDeQuestions = combinaisonListes([1, 2, 3, 4, 5, 6, 7], this.nbQuestions)//
-    for (let i = 0, texte, texteCorr, cpt = 0, A0, A1, A2, A3, A4, Tk, x0, y0, x1, y1, x2, y2, x3, y3, x4, y4, o, r1, gr, graphique, nom, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
-      typesDeQuestions = listeTypeDeQuestions[i]
+    let typeDeQuestionsDisponibles
+    if (this.sup === 1) {
+      typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4', 'typeE5', 'typeE6']// 'typeE1', 'typeE2',
+    } else if (this.sup === 2) {
+      typeDeQuestionsDisponibles = ['typeE7']
+    } else if (this.sup === 3) {
+      typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4', 'typeE5', 'typeE6', 'typeE7']
+    }
+    //
+    const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
+    for (let i = 0, texte, texteCorr, A0, A1, A2, A3, A4, Tk, x0, y0, x1, y1, x2, y2, x3, y3, x4, y4, o, r1, gr, graphique, nom, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const nomF = [
         ['f'], ['g'], ['h'], ['u'],
         ['v'], ['w']
       ]
 
-      switch (typesDeQuestions) {
-        case 1:// croissante, décroissante
+      switch (listeTypeQuestions[i]) {
+        case 'typeE1':// croissante, décroissante
           x0 = randint(-6, -3)
           y0 = randint(-4, -2)
           x1 = randint(-2, 2)
@@ -94,7 +102,7 @@ export default function VariationsCourbe () {
           texte += `${graphique}`
 
           texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x2}]$.<br>
-            Son tableau de variations est : <br>`
+            Son tableau de variations est : <br><br>`
           texteCorr += mathalea2d({ xmin: -0.5, ymin: -7.5, xmax: 30, ymax: 0.1, scale: 0.39 }, tableauDeVariation({
             tabInit: [
               [
@@ -115,7 +123,7 @@ export default function VariationsCourbe () {
 
           break
 
-        case 2:// décroissante, croissante
+        case 'typeE2':// décroissante, croissante
           x0 = randint(-6, -3)
           y0 = randint(2, 4)
           x1 = randint(-2, 2)
@@ -173,7 +181,7 @@ export default function VariationsCourbe () {
           texte += `${graphique}`
 
           texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x2}]$.<br>
-        Son tableau de variations est : <br>`
+        Son tableau de variations est : <br><br>`
           texteCorr += mathalea2d({ xmin: -0.5, ymin: -7.5, xmax: 30, ymax: 0.1, scale: 0.39 }, tableauDeVariation({
             tabInit: [
               [
@@ -193,7 +201,7 @@ export default function VariationsCourbe () {
           })) + '<br>'
           break
 
-        case 3:// décroissante, croissante, décroissante
+        case 'typeE3':// décroissante, croissante, décroissante
           x0 = randint(-6, -4)
           y0 = randint(3, 5)
           x1 = randint(-2, 1)
@@ -254,7 +262,7 @@ export default function VariationsCourbe () {
           texte += `${graphique}`
 
           texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x3}]$.<br>
-        Son tableau de variations est : <br>`
+        Son tableau de variations est : <br><br>`
           texteCorr += mathalea2d({ xmin: -0.5, ymin: -7.5, xmax: 30, ymax: 0.1, scale: 0.39 }, tableauDeVariation({
             tabInit: [
               [
@@ -274,7 +282,7 @@ export default function VariationsCourbe () {
           })) + '<br>'
           break
 
-        case 4:// croissante, décroissante, croissante
+        case 'typeE4':// croissante, décroissante, croissante
           x0 = randint(-6, -5)
           y0 = randint(-5, -3)
           x1 = randint(-3, 2)
@@ -335,7 +343,7 @@ export default function VariationsCourbe () {
           texte += `${graphique}`
 
           texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x3}]$.<br>
-        Son tableau de variations est : <br>`
+        Son tableau de variations est : <br><br>`
           texteCorr += mathalea2d({ xmin: -0.5, ymin: -7.5, xmax: 30, ymax: 0.1, scale: 0.39 }, tableauDeVariation({
             tabInit: [
               [
@@ -355,7 +363,7 @@ export default function VariationsCourbe () {
           })) + '<br>'
           break
 
-        case 5:// croissante, décroissante, croissante, décroissante
+        case 'typeE5':// croissante, décroissante, croissante, décroissante
           x0 = randint(-6, -5)
           y0 = randint(-5, -3)
           x1 = randint(-3, -1)
@@ -390,7 +398,7 @@ export default function VariationsCourbe () {
             grilleXDistance: 1,
             grilleYDistance: 1,
             grilleXMin: x0 - 1,
-            grilleYMin: Math.min(y2 - 1, y0 - 1),
+            grilleYMin: Math.min(y2 - 1, y0 - 1, y4 - 1),
             grilleXMax: x4 + 1,
             grilleYMax: Math.max(y1 + 1, y3 + 1)
           })
@@ -419,7 +427,7 @@ export default function VariationsCourbe () {
           texte += `${graphique}`
 
           texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x4}]$.<br>
-        Son tableau de variations est : <br>`
+        Son tableau de variations est : <br><br>`
           texteCorr += mathalea2d({ xmin: -0.5, ymin: -7.5, xmax: 30, ymax: 0.1, scale: 0.39 }, tableauDeVariation({
             tabInit: [
               [
@@ -439,12 +447,12 @@ export default function VariationsCourbe () {
           })) + '<br>'
           break
 
-        case 6:// décroissante, croissante, décroissante, croissante
+        case 'typeE6':// décroissante, croissante, décroissante, croissante
           x0 = randint(-6, -4)
           y0 = randint(3, 5)
           x1 = randint(-2, 1)
           y1 = y0 - randint(5, 8)
-          x2 = randint(1, 3)
+          x2 = randint(2, 3)
           y2 = y1 + randint(2, 7)
           x3 = randint(4, 5)
           y3 = y2 - randint(1, 4)
@@ -503,7 +511,7 @@ export default function VariationsCourbe () {
           texte += `${graphique}`
 
           texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x4}]$.<br>
-        Son tableau de variations est : <br>`
+        Son tableau de variations est : <br><br>`
           texteCorr += mathalea2d({ xmin: -0.5, ymin: -7.5, xmax: 30, ymax: 0.1, scale: 0.39 }, tableauDeVariation({
             tabInit: [
               [
@@ -523,7 +531,7 @@ export default function VariationsCourbe () {
           }))
           break
 
-        case 7:// avec des grandes valeurs
+        case 'typeE7':// avec des grandes valeurs
           if (choice([true, false])) { // croissante, décroissante, croissante
             nom = choice(nomF)
             x0 = randint(0, 10) * 10
@@ -600,7 +608,7 @@ export default function VariationsCourbe () {
             texte += `${graphique}`
 
             texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x3}]$.<br>
-            Son tableau de variations est : <br>`
+            Son tableau de variations est : <br><br>`
             texteCorr += mathalea2d({ xmin: -0.5, ymin: -7.5, xmax: 30, ymax: 0.1, scale: 0.39 }, tableauDeVariation({
               tabInit: [
                 [
@@ -694,7 +702,7 @@ export default function VariationsCourbe () {
             texte += `${graphique}`
 
             texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x3}]$.<br>
-                Son tableau de variations est : <br>`
+                Son tableau de variations est : <br><br>`
             texteCorr += mathalea2d({ xmin: -0.5, ymin: -7.5, xmax: 30, ymax: 0.1, scale: 0.39 }, tableauDeVariation({
               tabInit: [
                 [
@@ -725,4 +733,5 @@ export default function VariationsCourbe () {
     }
     listeQuestionsToContenu(this)
   }
+  this.besoinFormulaireNumerique = ['Choix des questions', 3, '1 : Avec un repère classique\n2 : Avec des grandes valeurs\n3 : Mélange des cas précédents']
 }
