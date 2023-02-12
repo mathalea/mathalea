@@ -335,7 +335,7 @@ export default function SujetCAN20186ieme () {
         case 17 :
           truc = [['dixièmes', 0.1], ['centièmes', 0.01], ['millièmes', 0.001]]
           a = choice([10, 100, 1000])
-          b = randint(1, 9)
+          b = randint(2, 9)
           c = choice([0, 2])
 
           reponse = a * b * truc[c][1]
@@ -589,7 +589,7 @@ export default function SujetCAN20186ieme () {
 
         case 28 :
           a = randint(2, 9)
-          texte = `Complète $${a}$ m$^3=$ `
+          texte = `Complète : $${a}$ m$^3=$ `
           texteCorr = `$1$ m$^3$ est égal à $1000$ litres. Ainsi, $${a}$ m$^3=${a}\\times ${texNombre(1000)} \\text{ L }=${miseEnEvidence(texNombre(1000 * a))}$ L.`
           reponse = a * 1000
 
