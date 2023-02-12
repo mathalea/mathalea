@@ -5,7 +5,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { repere, texteParPosition, point, segment, courbe } from '../../modules/2d.js'
 import { listeQuestionsToContenu, combinaisonListes, arrondi, choice, randint } from '../../modules/outils.js'
 import { sqrt } from 'mathjs'
-
+import { context } from '../../modules/context.js'
 export const titre = 'Résoudre graphiquement $f(x)\\gt k \\quad (\\lt k)$ avec une fonction de référence'
 
 /**
@@ -20,7 +20,7 @@ export default function ResoudreGraphFonctionRef () {
   // this.nbQuestionsModifiable = false
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-  this.sup = 1
+  this.sup = 4
   this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.spacing = 1.5 // Interligne des questions
   this.spacingCorr = 1 // Interligne des réponses
@@ -130,12 +130,14 @@ export default function ResoudreGraphFonctionRef () {
               epaisseur: 2
             })
             , r1, o, sAAx, sBBx, sAxBx, crochet1F, crochet2F, Texte1, Texte2, Texte3, Texte4)
-            texte = `Résoudre graphiquement l'inéquation : $x^2${choix ? '<' : ' \\leqslant '}${a}$.<br>
-            On pourra utiliser le repère suivant.<br>`
-            texte += `    ${graphique}`
+            texte = `Résoudre graphiquement l'inéquation : $x^2${choix ? '<' : ' \\leqslant '}${a}$.<br>`
+            if (!context.isHtml) {
+              texte += 'On pourra utiliser le repère suivant.<br>'
+              texte += `    ${graphique}`
+            }
             texteCorr = `Pour résoudre graphiquement cette inéquation : <br>
-            $\\bullet$ On trace la parabole d'équation $y=x^2$ ; <br>
-            $\\bullet$ On trace la droite horizontale d'équation $y=${a}$. Cette droite coupe la parabole en $-\\sqrt{${a}}$ et $\\sqrt{${a}}$ ; <br>
+            $\\bullet$ On trace la parabole d'équation $y=x^2$. <br>
+            $\\bullet$ On trace la droite horizontale d'équation $y=${a}$. Cette droite coupe la parabole en $-\\sqrt{${a}}$ et $\\sqrt{${a}}$. <br>
             $\\bullet$  Les solutions de l'inéquation sont les abscisses des points de la courbe qui se situent ${choix ? 'strictement en dessous de' : ' sur ou sous '} la droite.<br>`
             if (choix === true) { texteCorr += `${graphiqueCO}<br>` } else { texteCorr += `    ${graphiqueCF}<br>` }
 
@@ -239,12 +241,14 @@ export default function ResoudreGraphFonctionRef () {
               epaisseur: 2
             })
             , r1, o, sAAx, sBBx, sAxAxI, sBxBxI, crochet1F, crochet2F, Texte1, Texte2, Texte3, Texte4)
-            texte = `Résoudre graphiquement l'inéquation : $x^2${choix ? '>' : ' \\geqslant '}${a}$.<br>
-            On pourra utiliser le repère suivant.<br>`
-            texte += `    ${graphique}`
+            texte = `Résoudre graphiquement l'inéquation : $x^2${choix ? '>' : ' \\geqslant '}${a}$.<br>`
+            if (!context.isHtml) {
+              texte += 'On pourra utiliser le repère suivant.<br>'
+              texte += `    ${graphique}`
+            }
             texteCorr = `Pour résoudre graphiquement cette inéquation : <br>
-            $\\bullet$ On trace la parabole d'équation $y=x^2$ ; <br>
-            $\\bullet$ On trace la droite horizontale d'équation $y=${a}$ ; <br>
+            $\\bullet$ On trace la parabole d'équation $y=x^2$. <br>
+            $\\bullet$ On trace la droite horizontale d'équation $y=${a}$. <br>
             $\\bullet$    Les solutions de l'inéquation sont les abscisses des points de la courbe qui se situent ${choix ? 'strictement au dessus de' : ' sur ou au dessus de '} la droite.<br>`
             if (choix === true) { texteCorr += `${graphiqueCO}<br>` } else { texteCorr += `    ${graphiqueCF}<br>` }
 
@@ -397,12 +401,14 @@ export default function ResoudreGraphFonctionRef () {
             })
             , r1, o, crochet1F2, sA2A2x, sA2xO, crochet1O, Texte1B, Texte2, Texte3B)
 
-            texte = `Résoudre graphiquement l'inéquation : $\\dfrac{1}{x}${choix ? '<' : ' \\leqslant '}${a}$.<br>
-            On pourra utiliser le repère suivant.<br>`
-            texte += `    ${graphique}`
+            texte = `Résoudre graphiquement l'inéquation : $\\dfrac{1}{x}${choix ? '<' : ' \\leqslant '}${a}$.<br>`
+            if (!context.isHtml) {
+              texte += 'On pourra utiliser le repère suivant.<br>'
+              texte += `    ${graphique}`
+            }
             texteCorr = `Pour résoudre graphiquement cette inéquation : <br>
-            $\\bullet$ On trace l'hyperbole d'équation $y=\\dfrac{1}{x}$ ; <br>
-            $\\bullet$ On trace la droite horizontale d'équation $y=${a}$. Cette droite coupe l'hyperbole en un point dont l'abscisse est : ${a > 0 ? `$\\dfrac{1}{${a}}$` : `$-\\dfrac{1}{${-a}}$`} ; <br>
+            $\\bullet$ On trace l'hyperbole d'équation $y=\\dfrac{1}{x}$. <br>
+            $\\bullet$ On trace la droite horizontale d'équation $y=${a}$. Cette droite coupe l'hyperbole en un point dont l'abscisse est : ${a > 0 ? `$\\dfrac{1}{${a}}$` : `$-\\dfrac{1}{${-a}}$`}.<br>
             $\\bullet$    Les solutions de l'inéquation sont les abscisses des points de la courbe qui se situent ${choix ? 'strictement en dessous de' : ' sur ou sous '} la droite.<br>`
             if (a > 0) {
               if (choix === true) { texteCorr += `${graphiqueCO1}<br>` } else { texteCorr += `    ${graphiqueCF1}<br>` }
@@ -560,12 +566,14 @@ export default function ResoudreGraphFonctionRef () {
             })
             , r1, o, sA2A2x, sAxIA2x, sAxIPAx, crochet1F2B, crochet1O2B, Texte1B, Texte2, Texte3B)
 
-            texte = `Résoudre graphiquement l'inéquation : $\\dfrac{1}{x}${choix ? '>' : ' \\geqslant '}${a}$.<br>
-            On pourra utiliser le repère suivant.<br>`
-            texte += `    ${graphique}`
+            texte = `Résoudre graphiquement l'inéquation : $\\dfrac{1}{x}${choix ? '>' : ' \\geqslant '}${a}$.<br>`
+            if (!context.isHtml) {
+              texte += 'On pourra utiliser le repère suivant.<br>'
+              texte += `    ${graphique}`
+            }
             texteCorr = `Pour résoudre graphiquement cette inéquation : <br>
-            $\\bullet$ On trace l'hyperbole d'équation $y=\\dfrac{1}{x}$ ; <br>
-            $\\bullet$ On trace la droite horizontale d'équation $y=${a}$. Cette droite coupe l'hyperbole en un point dont l'abscisse est : ${a > 0 ? `$\\dfrac{1}{${a}}$` : `$-\\dfrac{1}{${-a}}$`} ; <br>
+            $\\bullet$ On trace l'hyperbole d'équation $y=\\dfrac{1}{x}$. <br>
+            $\\bullet$ On trace la droite horizontale d'équation $y=${a}$. Cette droite coupe l'hyperbole en un point dont l'abscisse est : ${a > 0 ? `$\\dfrac{1}{${a}}$` : `$-\\dfrac{1}{${-a}}$`}. <br>
             $\\bullet$    Les solutions de l'inéquation sont les abscisses des points de la courbe qui se situent ${choix ? 'strictement au dessus de' : ' sur ou au dessus de '} la droite.<br>`
             if (a > 0) {
               if (choix === true) { texteCorr += `${graphiqueCO1}<br>` } else { texteCorr += `    ${graphiqueCF1}<br>` }
@@ -661,12 +669,14 @@ export default function ResoudreGraphFonctionRef () {
               epaisseur: 2
             })
             , r1, o, sAAx, sAxBx, crochet1F, Texte1, Texte2, Texte3)
-            texte = `Résoudre graphiquement l'inéquation : $\\sqrt{x}${choix ? '<' : ' \\leqslant '}${a}$.<br>
-            On pourra utiliser le repère suivant.<br>`
-            texte += `    ${graphique}`
+            texte = `Résoudre graphiquement l'inéquation : $\\sqrt{x}${choix ? '<' : ' \\leqslant '}${a}$.<br>`
+            if (!context.isHtml) {
+              texte += 'On pourra utiliser le repère suivant.<br>'
+              texte += `    ${graphique}`
+            }
             texteCorr = `Pour résoudre graphiquement cette inéquation : <br>
-            $\\bullet$ On trace la courbe d'équation $y=\\sqrt{x}$ ; <br>
-            $\\bullet$ On trace la droite horizontale d'équation $y=${a}$. Cette droite coupe la courbe en $${a}^2=${a ** 2}$ ; <br>
+            $\\bullet$ On trace la courbe d'équation $y=\\sqrt{x}$. <br>
+            $\\bullet$ On trace la droite horizontale d'équation $y=${a}$. Cette droite coupe la courbe en $${a}^2=${a ** 2}$. <br>
             $\\bullet$  Les solutions de l'inéquation sont les abscisses des points de la courbe qui se situent ${choix ? 'strictement en dessous de' : ' sur ou sous '} la droite.<br>`
             if (choix === true) { texteCorr += `${graphiqueCO}<br>` } else { texteCorr += `    ${graphiqueCF}<br>` }
 
@@ -758,12 +768,14 @@ export default function ResoudreGraphFonctionRef () {
               epaisseur: 2
             })
             , r1, o, sAAx, sAxAInf, crochet2O, Texte1, Texte2, Texte3)
-            texte = `Résoudre graphiquement l'inéquation : $\\sqrt{x}${choix ? '>' : ' \\geqslant '}${a}$.<br>
-            On pourra utiliser le repère suivant.<br>`
-            texte += `    ${graphique}`
+            texte = `Résoudre graphiquement l'inéquation : $\\sqrt{x}${choix ? '>' : ' \\geqslant '}${a}$.<br>`
+            if (!context.isHtml) {
+              texte += 'On pourra utiliser le repère suivant.<br>'
+              texte += `    ${graphique}`
+            }
             texteCorr = `Pour résoudre graphiquement cette inéquation : <br>
-            $\\bullet$ On trace la courbe d'équation $y=\\sqrt{x}$ ; <br>
-            $\\bullet$ On trace la droite horizontale d'équation $y=${a}$. Cette droite coupe la courbe en $${a}^2=${a ** 2}$ ; <br>
+            $\\bullet$ On trace la courbe d'équation $y=\\sqrt{x}$. <br>
+            $\\bullet$ On trace la droite horizontale d'équation $y=${a}$. Cette droite coupe la courbe en $${a}^2=${a ** 2}$. <br>
             $\\bullet$  Les solutions de l'inéquation sont les abscisses des points de la courbe qui se situent ${choix ? 'strictement au dessus de' : ' sur ou au dessus de'} la droite.<br>`
             if (choix === true) { texteCorr += `${graphiqueCO}<br>` } else { texteCorr += `    ${graphiqueCF}<br>` }
 
