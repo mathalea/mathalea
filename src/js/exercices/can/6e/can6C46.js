@@ -17,6 +17,8 @@ export const dateDePublication = '13/02/2023'
  * Référence can6C46
  */
 
+export const uuid = '1cee6'
+export const ref = 'can6C46'
 export default function ProblemeResteFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'
