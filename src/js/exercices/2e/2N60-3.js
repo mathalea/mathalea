@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, texteGras, sp, ecritureParentheseSiNegatif, ecritureAlgebriqueSauf1, rienSi1, abs, choice, texNombre, randint, ecritureAlgebrique } from '../../modules/outils.js'
 export const titre = 'Utiliser les propriétés de conservation du sens d\'une inégalité'
+export const dateDePublication = '14/02/2023'
 /**
  * Description didactique de l'exercice
  * @author Gilles Mora

@@ -5,6 +5,7 @@ import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, combinaisonListes, pgcd, texteGras, prenomF, itemize, sp, reduireAxPlusB, texPrix, ecritureParentheseSiNegatif, miseEnEvidence, rienSi1, abs, choice, texNombre, randint, ecritureAlgebrique } from '../../modules/outils.js'
 import { polygone, codageAngleDroit, milieu, labelPoint, point, segment, texteParPosition } from '../../modules/2d.js'
 export const titre = 'Modéliser un problème par une inéquation.'
+export const dateDePublication = '14/02/2023'
 /**
  * Description didactique de l'exercice
  * @author Gilles Mora
