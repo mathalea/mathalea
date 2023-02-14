@@ -44,7 +44,7 @@ export default function DevelopperIdentitesRemarquables4 () {
     } else if (this.sup === 2) {
       typesDeQuestionsDisponibles = [2] // coef de x > 1
     } else if (this.sup === 3) {
-      typesDeQuestionsDisponibles = [3] // coef de x négatif
+      typesDeQuestionsDisponibles = [3] // coef de x positif, difference au carrée.
     } else if (this.sup === 4) {
       typesDeQuestionsDisponibles = [4] // coefficients rationnels
     } else { typesDeQuestionsDisponibles = [1, 2, 3, 4] } // mélange des questions
@@ -59,7 +59,7 @@ export default function DevelopperIdentitesRemarquables4 () {
       texteCorr = ''
       switch (typesDeQuestions) {
         case 1:
-          texte = `$\\left(x-${a}\\right)^2$` // (x+a)^2
+          texte = `$\\left(x-${a}\\right)^2$` // (x-a)^2
           if (this.correctionDetaillee) {
             texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, <br> avec $\\color{red} a = x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
             texteCorr += `$\\left(\\color{red}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2=\\color{red}x\\color{black}^2-2 \\times \\color{red}x \\color{black}\\times \\color{green}${a} \\color{black}+ \\color{green}${a}\\color{black}^2$ <br>`
@@ -77,12 +77,14 @@ export default function DevelopperIdentitesRemarquables4 () {
           reponse = `${b * b}x^2-${2 * b * a}x+${a * a}`
           break
         case 3:
-          texte = `$\\left(${b}x-${a}\\right)^2$` // b>1
+          b = -b
+          texte = `$\\left(${b}x+${a}\\right)^2$` // b>1
           if (this.correctionDetaillee) {
-            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, <br> avec $\\color{red} a = ${b}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
-            texteCorr += `$\\left(\\color{red}${b}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2 = \\left(\\color{red}${b}x\\color{black}\\right)^2 - 2 \\times \\color{red}${b}x\\color{black} \\times \\color{green}${a} + ${a}\\color{black}^2$ <br>`
-            texteCorr += `$\\phantom{\\left(\\color{red}${b}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2} = ${b * b}x^2 -${2 * b * a}x+${a * a}$`
-          } else { texteCorr = texte + `$= ${b * b}x^2 -${2 * b * a}x+${a * a}$` }
+            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, <br> avec $\\color{red} a = ${a}\\color{black}$ et $\\color{green} b = ${-b}x \\color{black} $ : <br> <br>`
+            texteCorr += `$\\left(\\color{red}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2 = \\left(\\color{red}${a}\\color{black}-\\color{green}${-b}x\\color{black}\\right)^2`
+            texteCorr += `$\\phantom{\\left(\\color{red}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = \\color{red}${a}\\color{black}^2 - 2 \\times \\color{red}${a}\\color{black} \\times \\color{green}${-b}x \\color{black} + \\color{green} \\left(${-b}x\\color{black}^2$ <br>`
+            texteCorr += `$\\phantom{\\left(\\color{red}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${b * b}x^2 -${2 * b * a}x+${a * a}$`
+          } else { texteCorr = texte + `$= ${a * a}-${2 * (-b) * a}x+${b * b}x^2$` }
 
           reponse = `${b * b}x^2-${2 * b * a}x+${a * a}`
           break
