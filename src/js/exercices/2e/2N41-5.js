@@ -61,7 +61,7 @@ export default function DevelopperIdentitesRemarquables4 () {
         case 1:
           texte = `$\\left(x-${a}\\right)^2$` // (x-a)^2
           if (this.correctionDetaillee) {
-            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, <br> avec $\\color{red} a = x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
+            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, avec $\\color{red} a = x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
             texteCorr += `$\\left(\\color{red}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2=\\color{red}x\\color{black}^2-2 \\times \\color{red}x \\color{black}\\times \\color{green}${a} \\color{black}+ \\color{green}${a}\\color{black}^2$ <br>`
             texteCorr += `$\\phantom{\\left(\\color{red}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2} = x^2-${2 * a}x+${a * a}$`
           } else { texteCorr += `$\\left(x+${a} \\right)^2=x^2-${2 * a}x+${a * a}$` }
@@ -70,7 +70,7 @@ export default function DevelopperIdentitesRemarquables4 () {
         case 2:
           texte = `$\\left(${b}x-${a}\\right)^2$` // b>1
           if (this.correctionDetaillee) {
-            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, <br> avec $\\color{red} a = ${b}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
+            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, avec $\\color{red} a = ${b}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
             texteCorr += `$\\left(\\color{red}${b}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2 = \\left(\\color{red}${b}x\\color{black}\\right)^2 - 2 \\times \\color{red}${b}x\\color{black} \\times \\color{green}${a} + ${a}\\color{black}^2$ <br>`
             texteCorr += `$\\phantom{\\left(\\color{red}${b}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2} = ${b * b}x^2-${2 * b * a}x+${a * a}$`
           } else { texteCorr += `$\\left(${b}x+${a}\\right)^2 = ${b * b}x^2-${2 * b * a}x+${a * a}$` }
@@ -80,10 +80,10 @@ export default function DevelopperIdentitesRemarquables4 () {
           b = -b
           texte = `$\\left(${b}x+${a}\\right)^2$` // b>1
           if (this.correctionDetaillee) {
-            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, <br> avec $\\color{red} a = ${a}\\color{black}$ et $\\color{green} b = ${-b}x \\color{black} $ : <br> <br>`
-            texteCorr += `$\\left(\\color{red}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2 = \\left(\\color{red}${a}\\color{black}-\\color{green}${-b}x\\color{black}\\right)^2`
-            texteCorr += `$\\phantom{\\left(\\color{red}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = \\color{red}${a}\\color{black}^2 - 2 \\times \\color{red}${a}\\color{black} \\times \\color{green}${-b}x \\color{black} + \\color{green} \\left(${-b}x\\color{black}^2$ <br>`
-            texteCorr += `$\\phantom{\\left(\\color{red}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${b * b}x^2 -${2 * b * a}x+${a * a}$`
+            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, avec $\\color{red} a = ${a}\\color{black}$ et $\\color{green} b = ${-b}x \\color{black} $ : <br> <br>`
+            texteCorr += `$\\left(\\color{red}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2 = \\left(\\color{red}${a}\\color{black}-\\color{green}${-b}x\\color{black}\\right)^2 $ <br>`
+            texteCorr += `$\\phantom{\\left(\\color{red}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = \\color{red}${a}\\color{black}^2 - 2 \\times \\color{red}${a}\\color{black} \\times \\color{green}${-b}x \\color{black} + \\left(\\color{green} ${-b}x\\color{black}\\right)^2$ <br>`
+            texteCorr += `$\\phantom{\\left(\\color{red}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${a * a} -${2 * (-b) * a}x+${b * b}x^2$`
           } else { texteCorr = texte + `$= ${a * a}-${2 * (-b) * a}x+${b * b}x^2$` }
 
           reponse = `${b * b}x^2-${2 * b * a}x+${a * a}`
@@ -91,7 +91,7 @@ export default function DevelopperIdentitesRemarquables4 () {
         case 4:
           texte = `$\\left(${texFraction(ns, ds)}x-${a}\\right)^2$`
           if (this.correctionDetaillee) {
-            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, <br> avec $\\color{red} a = ${texFraction(ns, ds)}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
+            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, avec $\\color{red} a = ${texFraction(ns, ds)}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
             texteCorr += `$\\left(\\color{red}${texFraction(ns, ds)}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2 = \\left(\\color{red}${texFraction(ns, ds)}x\\color{black}\\right)^2 - 2 \\times \\color{red}${texFraction(ns, ds)}x\\color{black} \\times \\color{green}${a} + ${a}\\color{black}^2 $ <br><br>`
             texteCorr += `$\\phantom{\\left(\\color{red}${texFraction(ns, ds)}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2} = ${texFraction(ns * ns, ds * ds)}x^2-${texFraction(2 * ns * a, ds)}x+${a * a}$`
             if (pgcd(ns, ds) !== 1 || pgcd(2 * ns * a, ds) !== 1) {
