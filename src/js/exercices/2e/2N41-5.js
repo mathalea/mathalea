@@ -8,7 +8,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 /**
  * Développer (a-b)²
-* @author Matthieu Devillers très très largement inspiré par Jean-Claude Lhote
+* @author Matthieu Devillers très largement inspiré par Jean-Claude Lhote
 * 2N41-5, ex 2L12-3
 */
 export const uuid = '5a4ad'
@@ -77,15 +77,14 @@ export default function DevelopperIdentitesRemarquables4 () {
           reponse = `${b * b}x^2-${2 * b * a}x+${a * a}`
           break
         case 3:
-          b = -b
-          texte = `$\\left(${b}x+${a}\\right)^2$` // b<-1
+          texte = `$\\left(${b}x-${a}\\right)^2$` // b>1
           if (this.correctionDetaillee) {
             texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, <br> avec $\\color{red} a = ${b}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
             texteCorr += `$\\left(\\color{red}${b}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2 = \\left(\\color{red}${b}x\\color{black}\\right)^2 - 2 \\times \\color{red}(${b}x)\\color{black} \\times \\color{green}${a} + ${a}\\color{black}^2$ <br>`
-            texteCorr += `$\\phantom{\\left(\\color{red}${b}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2} = ${b * b}x^2 +${-2 * b * a}x+${a * a}$`
-          } else { texteCorr = texte + `$= ${b * b}x^2 +${-2 * b * a}x+${a * a}$` }
+            texteCorr += `$\\phantom{\\left(\\color{red}${b}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2} = ${b * b}x^2 -${2 * b * a}x+${a * a}$`
+          } else { texteCorr = texte + `$= ${b * b}x^2 -${2 * b * a}x+${a * a}$` }
 
-          reponse = `${b * b}x^2+${-2 * b * a}x+${a * a}`
+          reponse = `${b * b}x^2-${2 * b * a}x+${a * a}`
           break
         case 4:
           texte = `$\\left(${texFraction(ns, ds)}x-${a}\\right)^2$`
