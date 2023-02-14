@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js/decimal.mjs'
 import { listeQuestionsToContenu, combinaisonListes, miseEnEvidence, ecritureParentheseSiNegatif, choice, sp, texNombre, randint } from '../../modules/outils.js'
 export const titre = 'Comparer deux images avec une fonction de référence'
-
+export const dateDePublication = '14/02/2023'
 /**
  * Description didactique de l'exercice
  * @author Gilles Mora

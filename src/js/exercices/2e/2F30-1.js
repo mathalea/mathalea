@@ -5,7 +5,7 @@ import { repere, texteParPosition, courbeInterpolee, point, tracePoint } from '.
 import { listeQuestionsToContenu, combinaisonListes, choice, randint } from '../../modules/outils.js'
 import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 export const titre = 'Dresser un tableau de variations à partir d\'une courbe'
-
+export const dateDePublication = '14/02/2023'
 /**
  * Description didactique de l'exercice
  * @author Gilles Mora
