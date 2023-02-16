@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 551 
-- nombre d'exos interactifReady 844 
+- nombre d'exos amcReady 553 
+- nombre d'exos interactifReady 846 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -790,6 +790,8 @@
 |can6C42|Comparer une fraction avec 1|KO|KO|OK|mathLive|
 |can6C43|Comprarer deux fractions (dénominateurs multiples)|OK|qcmMono|OK|qcm|
 |can6C44|Comparer deux fractions*|KO|KO|OK|mathLive|
+|can6C45|Résoudre un problème par soustraction/division|OK|AMCNum|OK|mathLive|
+|can6C46|Résoudre un problème de reste en fraction|OK|AMCNum|OK|mathLive|
 |can6D01|Convertir des Heures/minutes en minutes|OK|AMCNum|OK|mathLive|
 |can6D02|Chercher un reste en minutes|OK|AMCNum|OK|mathLive|
 |can6D03|Calculer une durée en minutes|OK|AMCNum|OK|mathLive|

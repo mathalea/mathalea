@@ -610,6 +610,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "2F11-2": {
+    "titre": "Comparer deux images avec une fonction de référence",
+    "url": "/exercices/2e/2F11-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F11-2",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "2F12-1": {
     "titre": "Résoudre algébriquement une équation f(x)=k avec une fonction de référence",
     "url": "/exercices/2e/2F12-1.js",
@@ -618,6 +633,21 @@ export default {
     "name": "2F12-1",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2F12-2": {
+    "titre": "Résoudre graphiquement $f(x)\\gt k \\quad (\\lt k)$ avec une fonction de référence",
+    "url": "/exercices/2e/2F12-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F12-2",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -655,6 +685,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "2F21-1": {
+    "titre": "Modéliser une situation à l'aide d'une fonction",
+    "url": "/exercices/2e/2F21-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F21-1",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "2F25-1": {
     "titre": "Propriétés graphiques de la parité d'une fonction",
     "url": "/exercices/2e/2F25-1.js",
@@ -682,6 +727,21 @@ export default {
     "name": "2F25-2",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2F30-1": {
+    "titre": "Dresser un tableau de variations à partir d'une courbe",
+    "url": "/exercices/2e/2F30-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F30-1",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -2185,6 +2245,36 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "2N60-1": {
+    "titre": "Modéliser un problème par une inéquation.",
+    "url": "/exercices/2e/2N60-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N60-1",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2N60-3": {
+    "titre": "Utiliser les propriétés de conservation du sens d'une inégalité",
+    "url": "/exercices/2e/2N60-3.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N60-3",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "2N60-4": {
     "titre": "Inéquation du premier degré",
     "url": "/exercices/2e/2N60-4.js",
@@ -3040,7 +3130,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -3059,7 +3149,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -3122,7 +3212,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -5374,7 +5464,7 @@ export default {
     "interactifReady": false,
     "name": "4G20-3",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -6796,7 +6886,7 @@ export default {
     "interactifReady": false,
     "name": "5G31-2",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -9501,7 +9591,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -12359,21 +12449,6 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "beta-2F30-1": {
-    "titre": "Dresser un tableau de variations à partir d'une courbe",
-    "url": "/exercices/beta/beta-2F30-1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta-2F30-1",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
   "beta-CAN6-2022": {
     "titre": "CAN Sixième sujet 2022",
     "url": "/exercices/beta/beta-CAN6-2022.js",
@@ -12406,87 +12481,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "beta2F11-2": {
-    "titre": "Comparer deux images avec une fonction de référence",
-    "url": "/exercices/beta/beta2F11-2.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2F11-2",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "beta2F12-2": {
-    "titre": "Résoudre graphiquement $f(x)\\gt k \\quad (\\lt k)$ avec une fonction de référence",
-    "url": "/exercices/beta/beta2F12-2.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2F12-2",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "beta2F21-1": {
-    "titre": "Modéliser une situation à l'aide d'une fonction",
-    "url": "/exercices/beta/beta2F21-1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2F21-1",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
   "beta2F31": {
     "titre": "Croissance de fonction ?",
     "url": "/exercices/beta/beta2F31.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "beta2F31",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "beta2N60-1": {
-    "titre": "Modéliser un problème par une inéquation.",
-    "url": "/exercices/beta/beta2N60-1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2N60-1",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "beta2N60-3": {
-    "titre": "Utiliser les propriétés de conservation du sens d'une inégalité",
-    "url": "/exercices/beta/beta2N60-3.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2N60-3",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -15872,7 +15872,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can2L11",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -17052,7 +17052,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can4C14",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -19088,6 +19088,44 @@ export default {
     "name": "can6C44",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can6C45": {
+    "titre": "Résoudre un problème par soustraction/division",
+    "url": "/exercices/can/6e/can6C45.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C45",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can6C46": {
+    "titre": "Résoudre un problème de reste en fraction",
+    "url": "/exercices/can/6e/can6C46.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C46",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

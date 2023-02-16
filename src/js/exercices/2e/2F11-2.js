@@ -8,6 +8,8 @@ export const dateDePublication = '14/02/2023'
  * @author Gilles Mora
  * Référence
 */
+export const uuid = '9315e'
+export const ref = '2F11-2'
 export default function ComparerAvecFonctionRef () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

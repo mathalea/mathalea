@@ -11,6 +11,8 @@ export const dateDePublication = '14/02/2023'
  * @author Gilles Mora
  * Référence
 */
+export const uuid = '05b52'
+export const ref = '2F30-1'
 export default function VariationsCourbe () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

@@ -13,6 +13,8 @@ export const dateDePublication = '14/02/2023'
  * @author Gilles Mora
  * Référence
 */
+export const uuid = '277d3'
+export const ref = '2F12-2'
 export default function ResoudreGraphFonctionRef () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
