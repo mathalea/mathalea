@@ -47,7 +47,7 @@ export default function FactoriserIdentitesremarquables2 () {
       b = randint(1, 9)
       k = choice([-1, 1])
       b = b * k
-      c = randint(1, 9)
+      c = randint(2, 9)
       d = randint(1, 9)
       k = choice([-1, 1])
       d = d * k
@@ -79,10 +79,10 @@ export default function FactoriserIdentitesremarquables2 () {
                     avec $a=\\color{red}${a}x${ecritureAlgebrique(b)}$ et $b=\\color{blue}${c}x${ecritureAlgebrique(d)}$ . <br>
                     On applique $a^2-b^2=(\\color{red}a\\color{black}-\\color{blue}b\\color{black})(\\color{red}a\\color{black}+\\color{blue}b\\color{black})$, <br>
                     $(${a}x${ecritureAlgebrique(b)})^2-(${c}x${ecritureAlgebrique(d)})^2=
-                    (\\color{red}${a}x${ecritureAlgebrique(b)}\\color{black})-
-                    (\\color{blue}${c}x${ecritureAlgebrique(d)}\\color{black})
-                    (\\color{red}${a}x${ecritureAlgebrique(b)}\\color{black})+
-                    (\\color{blue}${c}x${ecritureAlgebrique(d)}\\color{black})$<br>
+                    \\left[ (\\color{red}${a}x${ecritureAlgebrique(b)}\\color{black})-
+                    (\\color{blue}${c}x${ecritureAlgebrique(d)}\\color{black})\\right]
+                    \\left[ (\\color{red}${a}x${ecritureAlgebrique(b)}\\color{black})+
+                    (\\color{blue}${c}x${ecritureAlgebrique(d)}\\color{black})\\right]$<br>
                     $\\phantom{(${a}x${ecritureAlgebrique(b)})^2-(${c}x${ecritureAlgebrique(d)})^2}=
                     (${a}x${ecritureAlgebrique(b)}${ecritureAlgebrique(-c)}x${ecritureAlgebrique(-d)})
                     (${a}x${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}x${ecritureAlgebrique(d)})$<br>`
