@@ -58,11 +58,11 @@ export default function FactoriserIdentitesRemarquables2 () {
           break
         case 4:
           texte = `$${b * b}x^2+${2 * b * a}x+${a * a}$` // (bx+a)²  b>1
-          texteCorr = `$${b * b}x^2+${2 * b * a}x+${a * a}=(${b}x)^2+2 \\times ${b}x \\times ${a}$ + ${a}^2=(${b}x+${a})^2$`
+          texteCorr = `$${b * b}x^2+${2 * b * a}x+${a * a}=(${b}x)^2+2 \\times ${b}x \\times ${a} + ${a}^2=(${b}x+${a})^2$`
           break
         case 5:
           texte = `$${b * b}x^2-${2 * b * a}x+${a * a}$` // (bx-a)² b>1
-          texteCorr = `$${b * b}x^2-${2 * b * a}x+${a * a}=(${b}x)^2-2 \\times ${b}x \\times ${a}$ + ${a}^2=(${b}x-${a})^2$`
+          texteCorr = `$${b * b}x^2-${2 * b * a}x+${a * a}=(${b}x)^2-2 \\times ${b}x \\times ${a} + ${a}^2=(${b}x-${a})^2$`
           break
         case 6:
           texte = `$${b * b}x^2-${a * a}$` // (bx-a)(bx+a) b>1
