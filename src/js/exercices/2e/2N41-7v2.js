@@ -50,7 +50,7 @@ export default function FactoriserIdentitesRemarquables2 () {
           break
         case 2:
           texte = `$x^2-${2 * a}x+${a * a}$` // (x-a)²
-          texteCorr = `$x^2-${2 * a}x+${a * a}=(x-${a})^2=x^2-2 \\times ${a} \\times x+${a}^2=(x-${a})^2$`
+          texteCorr = `$x^2-${2 * a}x+${a * a}=x^2-2 \\times ${a} \\times x+${a}^2=(x-${a})^2$`
           break
         case 3:
           texte = `$x^2-${a * a}$` // (x-a)(x+a)
