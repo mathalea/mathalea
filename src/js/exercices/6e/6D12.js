@@ -332,7 +332,7 @@ export default function CalculsDeDureesOuHoraires () {
       }
       if (this.interactif) {
         texte += `<div>${texteInteractif} : <span contenteditable="true" id="saisieEx${numeroExercice}Q${i}" style="display: inline-block;
-        text-align: center; width: 70px; box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px;"></span>
+        text-align: center; width: 70px; box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px;"> &nbsp;</span>
         <span id="feedbackEx${numeroExercice}Q${i}"></span></div>`
       }
 
