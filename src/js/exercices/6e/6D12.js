@@ -1,9 +1,11 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, minToHoraire, minToHour, prenomF, prenom } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
+import Hms from '../../modules/Hms'
 
 export const titre = 'Calculer des durées ou déterminer un horaire'
-
+export const interactifReady = true
+export const interactifType = 'custom'
 export const amcReady = true // pour définir que l'exercice peut servir à AMC
 export const amcType = 'AMCHybride'
 
@@ -32,7 +34,7 @@ export default function CalculsDeDureesOuHoraires () {
   this.nbColsCorr = 1
   this.spacingCorr = 2
 
-  this.nouvelleVersion = function () {
+  this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -50,7 +52,8 @@ export default function CalculsDeDureesOuHoraires () {
       typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)
     }
 
-    for (let i = 0, d1, h1, m1, d2, h2, m2, d, h, m, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const reponses = []
+    for (let i = 0, d1, h1, m1, d2, h2, m2, d, h, m, texte, texteCorr, texteInteractif, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // d1 : heure de début (h1 heures m1 min)
       // d2 : heure de fin (h2 heures m2 min)
       // d : durée
@@ -74,6 +77,8 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += `<br>${d2} $-$ ${d1} = ${d}`
           texteCorr += '<br>'
           texteCorr += `Le film dure ${d}.`
+          texteInteractif = 'Le film dure'
+          reponses[i] = d
         }
         if (typesDeQuestions[i] === 2) {
           texte = `Un film dure ${d} et commence à ${d1}. À quelle heure se terminera-t-il ?`
@@ -81,6 +86,8 @@ export default function CalculsDeDureesOuHoraires () {
           if (m1 + m > 59) texteCorr += `= ${d2}`
           texteCorr += '<br>'
           texteCorr += `Le film terminera à ${d2}.`
+          texteInteractif = 'Le film terminera à'
+          reponses[i] = d2
         }
         if (typesDeQuestions[i] === 3) {
           texte = `Un film de ${d} termine à ${d2}. À quelle heure a-t-il commencé ?`
@@ -90,6 +97,8 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += `<br>${d2} $-$ ${d} = ${d1}`
           texteCorr += '<br>'
           texteCorr += `Le film a commencé à ${d1}.`
+          texteInteractif = 'Le film a commencé à'
+          reponses[i] = d1
         }
       }
 
@@ -122,6 +131,8 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += `<br>${d2} $-$ ${d1} = ${d}`
           texteCorr += '<br>'
           texteCorr += `La série a duré ${d}.`
+          reponses[i] = d
+          texteInteractif = 'La série a duré'
         }
         if (typesDeQuestions[i] === 2) {
           texte = `${prenom()} allume son ordinateur à ${d1} pour regarder une série de ${d}. À quelle heure la série s'achèvera-t-elle ?`
@@ -129,6 +140,8 @@ export default function CalculsDeDureesOuHoraires () {
           if (m1 + m > 59) texteCorr += `= ${d2}`
           texteCorr += '<br>'
           texteCorr += `La série s'achèvera à ${d2}.`
+          reponses[i] = d2
+          texteInteractif = 'La série s\'achèvera à'
         }
         if (typesDeQuestions[i] === 3) {
           texte = `${prenom()} termine de regarder une série de ${d} à ${d2}. À quelle heure la série a-t-elle commencé ?`
@@ -138,6 +151,8 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += `<br>${d2} $-$ ${d} = ${d1}`
           texteCorr += '<br>'
           texteCorr += `Elle a commencé à ${d1}.`
+          reponses[i] = d1
+          texteInteractif = 'La série a commencé à'
         }
       }
 
@@ -161,6 +176,8 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += `<br>${d2} $-$ ${d1} = ${d}`
           texteCorr += '<br>'
           texteCorr += `L'émission dure ${d}.`
+          reponses[i] = d
+          texteInteractif = 'L\'émission dure'
         }
         if (typesDeQuestions[i] === 2) {
           texte = `Une émission télévisée de ${d} commence à ${d1}. À quelle heure s'achèvera-t-elle ?`
@@ -168,6 +185,8 @@ export default function CalculsDeDureesOuHoraires () {
           if (m1 + m > 59) texteCorr += `= ${d2}`
           texteCorr += '<br>'
           texteCorr += `L'émission s'achèvera à ${d2}.`
+          reponses[i] = d2
+          texteInteractif = 'L\'émission s\'achèvera à'
         }
         if (typesDeQuestions[i] === 3) {
           texte = `À ${d2}, ${prenom()} termine de regarder une émission de ${d}. À quelle heure l'émission a-t-elle commencé ?`
@@ -177,6 +196,7 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += `<br>${d2} $-$ ${d} = ${d1}`
           texteCorr += '<br>'
           texteCorr += `L'émission a commencé à ${d1}.`
+          texteInteractif = 'L\'émission a commencé à'
         }
       }
 
@@ -209,6 +229,8 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += `<br>${d2} $-$ ${d1} = ${d}`
           texteCorr += '<br>'
           texteCorr += `La compétition dure ${d}.`
+          reponses[i] = d
+          texteInteractif = 'La compétition dure'
         }
         if (typesDeQuestions[i] === 2) {
           texte = `Une compétition de gymnastique commence à ${d1} et dure ${d}. À quelle heure sera-t-elle terminée ?`
@@ -216,6 +238,8 @@ export default function CalculsDeDureesOuHoraires () {
           if (m1 + m > 59) texteCorr += `= ${d2}`
           texteCorr += '<br>'
           texteCorr += `La compétition terminera à ${d2}.`
+          reponses[i] = d2
+          texteInteractif = 'La compétition terminera à'
         }
         if (typesDeQuestions[i] === 3) {
           texte = `Une compétition de gymnastique qui se termine à ${d2} a duré ${d}. À quelle heure a-t-elle commencé ?`
@@ -225,6 +249,8 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += `<br>${d2} $-$ ${d} = ${d1}`
           texteCorr += '<br>'
           texteCorr += `La compétition a commencé à ${d1}.`
+          reponses[i] = d1
+          texteInteractif = 'La compétition a commencé à'
         }
       }
 
@@ -257,6 +283,8 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += `<br>${d2} $-$ ${d1} = ${d}`
           texteCorr += '<br>'
           texteCorr += `Le trajet dure ${d}.`
+          reponses[i] = d
+          texteInteractif = 'Le trajet dure'
         }
         if (typesDeQuestions[i] === 2) {
           texte = `${prenomF()} monte dans le train à ${d1} pour un trajet qui doit durer ${d}. À quelle heure arrivera-t-elle ?`
@@ -264,6 +292,8 @@ export default function CalculsDeDureesOuHoraires () {
           if (m1 + m > 59) texteCorr += `= ${d2}`
           texteCorr += '<br>'
           texteCorr += `Elle arrivera à ${d2}.`
+          reponses[i] = d2
+          texteInteractif = 'Elle arrivera à'
         }
         if (typesDeQuestions[i] === 3) {
           texte = `Un train arrive en gare à ${d2} après un trajet de ${d}. À quelle heure le voyage a-t-il commencé ?`
@@ -273,6 +303,8 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += `<br>${d2} $-$ ${d} = ${d1}`
           texteCorr += '<br>'
           texteCorr += `Le voyage a commencé à ${d1}.`
+          reponses[i] = d1
+          texteInteractif = 'Le voyage a commencé à'
         }
       }
       if (context.isAmc) {
@@ -298,6 +330,12 @@ export default function CalculsDeDureesOuHoraires () {
             ]
           }
       }
+      if (this.interactif) {
+        texte += `<div>${texteInteractif} : <span contenteditable="true" id="saisieEx${numeroExercice}Q${i}" style="display: inline-block;
+        text-align: center; width: 70px; box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px;"></span>
+        <span id="feedbackEx${numeroExercice}Q${i}"></span></div>`
+      }
+
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
@@ -305,6 +343,18 @@ export default function CalculsDeDureesOuHoraires () {
         i++
       }
       cpt++
+    }
+    this.correctionInteractive = (i) => {
+      const spanSaisie = document.querySelector(`#exercice${numeroExercice} #saisieEx${numeroExercice}Q${i}`)
+      const saisie = Hms.fromString(spanSaisie.innerText)
+      const spanFeedback = document.querySelector(`#exercice${numeroExercice} #feedbackEx${numeroExercice}Q${i}`)
+      if (saisie.isEqual(Hms.fromString(reponses[i]))) {
+        spanFeedback.innerText = '😎'
+        return 'OK'
+      } else {
+        spanFeedback.innerText = '☹️'
+        return 'KO'
+      }
     }
     listeQuestionsToContenu(this)
   }
