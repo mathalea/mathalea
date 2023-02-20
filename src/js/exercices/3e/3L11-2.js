@@ -25,6 +25,7 @@ export default function ReductionSiPossible () {
   this.spacingCorr = context.isHtml ? 3 : 2
   this.tailleDiaporama = 3
   this.sup = false
+  this.sup2 = false
 
   this.nouvelleVersion = function () {
     this.consigne = this.nbQuestions > 1 ? 'Réduire les expressions suivantes, si cela est possible.' : 'Réduire l\'expression suivante, si cela est possible.'
@@ -147,6 +148,16 @@ export default function ReductionSiPossible () {
           constb = b
           break
       }
+      if (this.sup2) {
+        this.spacingCorr = 1
+        // On découpe
+        const etapes = texteCorr.split('=')
+        texteCorr = ''
+        etapes.forEach(function (etape) {
+          etape = etape.replace('$', '')
+          texteCorr += etape === lettreDepuisChiffre(i + 1) ? '' : `$${lettreDepuisChiffre(i + 1)} = ${etape}$ <br>`
+        })
+      }
       if (!context.isAmc) {
         setReponse(this, i, reponse)
         texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')) : ''
@@ -213,4 +224,5 @@ export default function ReductionSiPossible () {
   }
 
   this.besoinFormulaireCaseACocher = ['On peut toujours réduire.']
+  this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
 }
