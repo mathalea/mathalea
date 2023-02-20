@@ -8,6 +8,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcType = 'AMCHybride'
 export const amcReady = true
+export const dateDeModifImportante = '20/02/2023'
 
 /**
 * Réduire des expressions lorsque c'est possible
