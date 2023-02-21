@@ -2,10 +2,12 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, minToHoraire, minToHour, prenomF, prenom } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import Hms from '../../modules/Hms'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
 export const titre = 'Calculer des durées ou déterminer un horaire'
 export const interactifReady = true
-export const interactifType = 'custom'
+export const interactifType = 'mathLive'
 export const amcReady = true // pour définir que l'exercice peut servir à AMC
 export const amcType = 'AMCHybride'
 
@@ -52,7 +54,6 @@ export default function CalculsDeDureesOuHoraires () {
       typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)
     }
 
-    const reponses = []
     for (let i = 0, d1, h1, m1, d2, h2, m2, d, h, m, texte, texteCorr, texteInteractif, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // d1 : heure de début (h1 heures m1 min)
       // d2 : heure de fin (h2 heures m2 min)
@@ -78,7 +79,7 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += '<br>'
           texteCorr += `Le film dure ${d}.`
           texteInteractif = 'Le film dure'
-          reponses[i] = d
+          setReponse(this, i, Hms.fromString(d), { formatInteractif: 'hms' })
         }
         if (typesDeQuestions[i] === 2) {
           texte = `Un film dure ${d} et commence à ${d1}. À quelle heure se terminera-t-il ?`
@@ -87,7 +88,7 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += '<br>'
           texteCorr += `Le film terminera à ${d2}.`
           texteInteractif = 'Le film terminera à'
-          reponses[i] = d2
+          setReponse(this, i, Hms.fromString(d2), { formatInteractif: 'hms' })
         }
         if (typesDeQuestions[i] === 3) {
           texte = `Un film de ${d} termine à ${d2}. À quelle heure a-t-il commencé ?`
@@ -98,7 +99,7 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += '<br>'
           texteCorr += `Le film a commencé à ${d1}.`
           texteInteractif = 'Le film a commencé à'
-          reponses[i] = d1
+          setReponse(this, i, Hms.fromString(d1), { formatInteractif: 'hms' })
         }
       }
 
@@ -131,7 +132,7 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += `<br>${d2} $-$ ${d1} = ${d}`
           texteCorr += '<br>'
           texteCorr += `La série a duré ${d}.`
-          reponses[i] = d
+          setReponse(this, i, Hms.fromString(d), { formatInteractif: 'hms' })
           texteInteractif = 'La série a duré'
         }
         if (typesDeQuestions[i] === 2) {
@@ -140,7 +141,7 @@ export default function CalculsDeDureesOuHoraires () {
           if (m1 + m > 59) texteCorr += `= ${d2}`
           texteCorr += '<br>'
           texteCorr += `La série s'achèvera à ${d2}.`
-          reponses[i] = d2
+          setReponse(this, i, Hms.fromString(d2), { formatInteractif: 'hms' })
           texteInteractif = 'La série s\'achèvera à'
         }
         if (typesDeQuestions[i] === 3) {
@@ -151,7 +152,7 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += `<br>${d2} $-$ ${d} = ${d1}`
           texteCorr += '<br>'
           texteCorr += `Elle a commencé à ${d1}.`
-          reponses[i] = d1
+          setReponse(this, i, Hms.fromString(d1), { formatInteractif: 'hms' })
           texteInteractif = 'La série a commencé à'
         }
       }
@@ -176,7 +177,7 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += `<br>${d2} $-$ ${d1} = ${d}`
           texteCorr += '<br>'
           texteCorr += `L'émission dure ${d}.`
-          reponses[i] = d
+          setReponse(this, i, Hms.fromString(d), { formatInteractif: 'hms' })
           texteInteractif = 'L\'émission dure'
         }
         if (typesDeQuestions[i] === 2) {
@@ -185,7 +186,7 @@ export default function CalculsDeDureesOuHoraires () {
           if (m1 + m > 59) texteCorr += `= ${d2}`
           texteCorr += '<br>'
           texteCorr += `L'émission s'achèvera à ${d2}.`
-          reponses[i] = d2
+          setReponse(this, i, Hms.fromString(d2), { formatInteractif: 'hms' })
           texteInteractif = 'L\'émission s\'achèvera à'
         }
         if (typesDeQuestions[i] === 3) {
@@ -229,7 +230,7 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += `<br>${d2} $-$ ${d1} = ${d}`
           texteCorr += '<br>'
           texteCorr += `La compétition dure ${d}.`
-          reponses[i] = d
+          setReponse(this, i, Hms.fromString(d), { formatInteractif: 'hms' })
           texteInteractif = 'La compétition dure'
         }
         if (typesDeQuestions[i] === 2) {
@@ -238,7 +239,7 @@ export default function CalculsDeDureesOuHoraires () {
           if (m1 + m > 59) texteCorr += `= ${d2}`
           texteCorr += '<br>'
           texteCorr += `La compétition terminera à ${d2}.`
-          reponses[i] = d2
+          setReponse(this, i, Hms.fromString(d2), { formatInteractif: 'hms' })
           texteInteractif = 'La compétition terminera à'
         }
         if (typesDeQuestions[i] === 3) {
@@ -249,7 +250,7 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += `<br>${d2} $-$ ${d} = ${d1}`
           texteCorr += '<br>'
           texteCorr += `La compétition a commencé à ${d1}.`
-          reponses[i] = d1
+          setReponse(this, i, Hms.fromString(d1), { formatInteractif: 'hms' })
           texteInteractif = 'La compétition a commencé à'
         }
       }
@@ -283,7 +284,7 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += `<br>${d2} $-$ ${d1} = ${d}`
           texteCorr += '<br>'
           texteCorr += `Le trajet dure ${d}.`
-          reponses[i] = d
+          setReponse(this, i, Hms.fromString(d), { formatInteractif: 'hms' })
           texteInteractif = 'Le trajet dure'
         }
         if (typesDeQuestions[i] === 2) {
@@ -292,7 +293,7 @@ export default function CalculsDeDureesOuHoraires () {
           if (m1 + m > 59) texteCorr += `= ${d2}`
           texteCorr += '<br>'
           texteCorr += `Elle arrivera à ${d2}.`
-          reponses[i] = d2
+          setReponse(this, i, Hms.fromString(d2), { formatInteractif: 'hms' })
           texteInteractif = 'Elle arrivera à'
         }
         if (typesDeQuestions[i] === 3) {
@@ -303,7 +304,7 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += `<br>${d2} $-$ ${d} = ${d1}`
           texteCorr += '<br>'
           texteCorr += `Le voyage a commencé à ${d1}.`
-          reponses[i] = d1
+          setReponse(this, i, Hms.fromString(d1), { formatInteractif: 'hms' })
           texteInteractif = 'Le voyage a commencé à'
         }
       }
@@ -331,9 +332,8 @@ export default function CalculsDeDureesOuHoraires () {
           }
       }
       if (this.interactif) {
-        texte += `<div>${texteInteractif} : <span contenteditable="true" id="saisieEx${numeroExercice}Q${i}" style="display: inline-block;
-        text-align: center; width: 70px; box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px;"> &nbsp;</span>
-        <span id="feedbackEx${numeroExercice}Q${i}"></span></div>`
+        texte += '<br><br>'
+        texte += ajouteChampTexteMathLive(this, i, 'clavierHms', { texte: texteInteractif })
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
@@ -343,18 +343,6 @@ export default function CalculsDeDureesOuHoraires () {
         i++
       }
       cpt++
-    }
-    this.correctionInteractive = (i) => {
-      const spanSaisie = document.querySelector(`#exercice${numeroExercice} #saisieEx${numeroExercice}Q${i}`)
-      const saisie = Hms.fromString(spanSaisie.innerText)
-      const spanFeedback = document.querySelector(`#exercice${numeroExercice} #feedbackEx${numeroExercice}Q${i}`)
-      if (saisie.isEqual(Hms.fromString(reponses[i]))) {
-        spanFeedback.innerText = '😎'
-        return 'OK'
-      } else {
-        spanFeedback.innerText = '☹️'
-        return 'KO'
-      }
     }
     listeQuestionsToContenu(this)
   }

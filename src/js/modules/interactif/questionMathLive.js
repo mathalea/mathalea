@@ -7,6 +7,7 @@ import { afficheScore } from '../gestionInteractif.js'
 import { gestionCan } from './gestionCan.js'
 import { sp, texteExposant } from '../outils.js'
 import * as pkg from '@cortex-js/compute-engine'
+import Hms from '../Hms'
 const { ComputeEngine } = pkg
 
 export function verifQuestionMathLive (exercice, i, writeResult = true) {
@@ -68,6 +69,12 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
               resultat = 'OK'
             }
           } else if (engine.parse(reponse).canonical.isSame(engine.parse(saisie).canonical)) {
+            resultat = 'OK'
+          }
+          break
+        case 'hms':
+          saisie = Hms.fromString(champTexte.value)
+          if (saisie.isEqual(reponse)) {
             resultat = 'OK'
           }
           break

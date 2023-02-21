@@ -13,6 +13,9 @@ class HMS {
   static fromString (text: string): HMS {
     const hms = new HMS()
     text = text.replaceAll('&nbsp;', '')
+    text = text.replaceAll('{\\:\\text{h}\\:}', 'h')
+    text = text.replaceAll('{\\:\\text{min}\\:}', 'min')
+    text = text.replaceAll('{\\:\\text{s}\\:}', 's')
     if (text.includes('min') && !text.includes('s')) {
       // Format sans le s pour les secondes 4min33, 5h3min15
       const regex = /(?:(?<sign>[+,-]))?(?:(?<hour>\d+)\s*h\s*)?(?:(?<minute>\d+)\s*min\s*)?(?:(?<second>\d+))?/gm
