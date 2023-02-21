@@ -333,7 +333,7 @@ export default function CalculsDeDureesOuHoraires () {
       }
       if (this.interactif) {
         texte += '<br><br>'
-        texte += ajouteChampTexteMathLive(this, i, 'clavierHms', { texte: texteInteractif })
+        texte += ajouteChampTexteMathLive(this, i, 'clavierHms inline', { texte: texteInteractif + ' : ' })
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {

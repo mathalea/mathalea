@@ -2157,7 +2157,7 @@ export function minToHoraire (minutes) {
   if (nbminuteRestante > 9) {
     return (nbHour + sp() + 'h' + sp() + nbminuteRestante)
   } else {
-    return (nbHour + sp() + ' h' + sp() + '0' + nbminuteRestante)
+    return (nbHour + sp() + 'h' + sp() + '0' + nbminuteRestante)
   }
 }
 
