@@ -74,7 +74,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           break
         case 'hms':
           saisie = Hms.fromString(champTexte.value)
-          if (saisie.isEqual(reponse)) {
+          if (saisie.isTheSame(reponse)) {
             resultat = 'OK'
           }
           break

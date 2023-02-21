@@ -1,4 +1,4 @@
-class HMS {
+class Hms {
   hour: number
   minute: number
   second: number
@@ -10,8 +10,8 @@ class HMS {
     this.sign = sign
   }
 
-  static fromString (text: string): HMS {
-    const hms = new HMS()
+  static fromString (text: string): Hms {
+    const hms = new Hms()
     text = text.replaceAll('&nbsp;', '')
     text = text.replaceAll('{\\:\\text{h}\\:}', 'h')
     text = text.replaceAll('{\\:\\text{min}\\:}', 'min')
@@ -75,16 +75,24 @@ class HMS {
     else return this.toString()
   }
 
-  isGreaterThan (time: HMS): boolean {
+  isGreaterThan (time: Hms): boolean {
     return (this.toSeconds() > time.toSeconds())
   }
 
-  isEqual (time: HMS): boolean {
+  /** Durées identiques */
+  isEqual (time: Hms): boolean {
     return (this.toSeconds() === time.toSeconds())
   }
 
+  /** Durées identiques et écrites de la même manière
+  * 1 min et 60 s => false
+  */
+  isTheSame (time: Hms): boolean {
+    return (this.hour === time.hour && this.minute === time.minute && this.second === time.second)
+  }
+
   isEquivalentToString (text: string): boolean {
-    return HMS.fromString(text).toSeconds() === this.toSeconds()
+    return Hms.fromString(text).toSeconds() === this.toSeconds()
   }
 
   toSecondsString (): string {
@@ -105,8 +113,8 @@ class HMS {
     this.minute = this.minute % 60
   }
 
-  add (time: HMS): HMS {
-    const result = new HMS()
+  add (time: Hms): Hms {
+    const result = new Hms()
     result.second = this.toSeconds() + time.toSeconds()
     result.normalize()
     return result
@@ -117,12 +125,12 @@ class HMS {
    * @param time HMS
    * @returns HMS
    */
-  substract (time: HMS): HMS {
-    const result = new HMS()
+  substract (time: Hms): Hms {
+    const result = new Hms()
     result.second = Math.abs(this.toSeconds() - time.toSeconds())
     result.normalize()
     return result
   }
 }
 
-export default HMS
+export default Hms
