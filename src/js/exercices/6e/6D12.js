@@ -63,7 +63,7 @@ export default function CalculsDeDureesOuHoraires () {
         m1 = randint(35, 58)
         d1 = h1 * 60 + m1
         h2 = h1 + 2
-        m2 = randint(1, m1) // pour s'assurer qu'il y a une retenue dans d2-d1
+        m2 = randint(1, m1 - 1) // pour s'assurer qu'il y a une retenue dans d2-d1
         d2 = h2 * 60 + m2
         d = d2 - d1
         d1 = minToHoraire(d1)
