@@ -7,7 +7,7 @@ import { afficheScore } from '../gestionInteractif.js'
 import { gestionCan } from './gestionCan.js'
 import { sp, texteExposant } from '../outils.js'
 import * as pkg from '@cortex-js/compute-engine'
-import Hms from '../Hms'
+import Hms from '../Hms.js'
 const { ComputeEngine } = pkg
 
 export function verifQuestionMathLive (exercice, i, writeResult = true) {

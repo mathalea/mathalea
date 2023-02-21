@@ -50,7 +50,12 @@ class HMS {
   toString (): string {
     let result = ''
     if (this.hour > 0) {
-      result += `${this.hour % 24 ?? 0} h`
+      // Ce code fait buguer le build:dicos de la v2 : this.hour % 24 ?? 0
+      if (this.hour % 24 === 0) {
+        result += '0 h'
+      } else {
+        result += `${this.hour} h`
+      }
       if (this.minute > 0 || this.second > 0) result += ' '
     }
     if (this.minute > 0) {

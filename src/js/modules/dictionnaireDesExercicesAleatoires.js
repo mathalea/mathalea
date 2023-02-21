@@ -8945,11 +8945,16 @@ export default {
     "amcType": {
       "text": "AMCHybride"
     },
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6D12",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6D13": {
@@ -18098,7 +18103,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -18737,7 +18742,7 @@ export default {
     }
   },
   "can6C24": {
-    "titre": "Multiplier par 0,1 ou 0,01 ou 0,001",
+    "titre": "Multiplier ou diviser par 0,1 ou 0,01 ou 0,001",
     "url": "/exercices/can/6e/can6C24.js",
     "amcReady": true,
     "amcType": {
@@ -18751,7 +18756,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
