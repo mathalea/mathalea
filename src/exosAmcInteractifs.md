@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 553 
-- nombre d'exos interactifReady 847 
+- nombre d'exos interactifReady 848 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -313,6 +313,7 @@
 |6C34|Déterminer le dernier chiffre d'un calcul|OK|AMCNum|OK|mathLive|
 |6C35|Modéliser des problèmes|KO|KO|OK|mathLive|
 |6D101|Utiliser les heures décimales|OK|AMCHybride|OK|mathLive|
+|6D11|Additionner des durées|KO|KO|OK|mathLive|
 |6D12|Calculer des durées ou déterminer un horaire|OK|AMCHybride|OK|mathLive|
 |6D13|Convertir en min vers h et min ou en s vers min et s|OK|AMCHybride|OK|mathLive|
 |6G10-3|Choisir la bonne figure|OK|qcmMono|OK|cliqueFigure|
