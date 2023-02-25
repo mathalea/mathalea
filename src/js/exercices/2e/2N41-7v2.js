@@ -50,7 +50,7 @@ export default function FactoriserIdentitesRemarquables2 () {
           break
         case 2:
           texte = `$x^2-${2 * a}x+${a * a}$` // (x-a)²
-          texteCorr = `$x^2-${2 * a}x+${a * a}=(x-${a})^2=x^2-2 \\times ${a} \\times x+${a}^2=(x-${a})^2$`
+          texteCorr = `$x^2-${2 * a}x+${a * a}=x^2-2 \\times ${a} \\times x+${a}^2=(x-${a})^2$`
           break
         case 3:
           texte = `$x^2-${a * a}$` // (x-a)(x+a)
@@ -58,11 +58,11 @@ export default function FactoriserIdentitesRemarquables2 () {
           break
         case 4:
           texte = `$${b * b}x^2+${2 * b * a}x+${a * a}$` // (bx+a)²  b>1
-          texteCorr = `$${b * b}x^2+${2 * b * a}x+${a * a}=(${b}x)^2+2 \\times ${b}x \\times {a} + ${a}^2=(${b}x+${a})^2$`
+          texteCorr = `$${b * b}x^2+${2 * b * a}x+${a * a}=(${b}x)^2+2 \\times ${b}x \\times ${a} + ${a}^2=(${b}x+${a})^2$`
           break
         case 5:
           texte = `$${b * b}x^2-${2 * b * a}x+${a * a}$` // (bx-a)² b>1
-          texteCorr = `$${b * b}x^2-${2 * b * a}x+${a * a}=(${b}x)^2-2 \\times ${b}x \\times {a} + ${a}^2=(${b}x-${a})^2$`
+          texteCorr = `$${b * b}x^2-${2 * b * a}x+${a * a}=(${b}x)^2-2 \\times ${b}x \\times ${a} + ${a}^2=(${b}x-${a})^2$`
           break
         case 6:
           texte = `$${b * b}x^2-${a * a}$` // (bx-a)(bx+a) b>1

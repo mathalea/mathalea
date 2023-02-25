@@ -1,7 +1,12 @@
+import { setReponse } from '../../modules/gestionInteractif.js'
+import Hms from '../../modules/Hms.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { combinaisonListes, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
 export const titre = 'Additionner des durées'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Additions de durées de différents :
@@ -39,12 +44,15 @@ export default function SommeDeDurees () {
         this.nbQuestions
       )
     }
-    for (let i = 0, h1, h2, m1, m2, s1, s2, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, h1, h2, m1, m2, s1, s2, t1, t2, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (typesDeQuestions[i] === 1) {
         s1 = randint(11, 39)
         s2 = randint(1, 20)
         m1 = randint(20, 59)
         m2 = randint(40, 59)
+        t1 = new Hms({ minute: m1, second: s1 })
+        t2 = new Hms({ minute: m2, second: s2 })
+        setReponse(this, i, t1.add(t2), { formatInteractif: 'hms' })
         texte = `$${m1}~\\text{min}~${s1}~\\text{s}+${m2}~\\text{min}~${s2}~\\text{s}=$`
         texteCorr = `$${m1}~\\text{min}~${s1}~\\text{s}+${m2}~\\text{min}~${s2}~\\text{s}= ${m1 + m2}~\\text{min}~${s1 + s2}~\\text{s}= 1~\\text{h}~${m1 + m2 - 60}~\\text{min}~${s1 + s2}~\\text{s}$`
       }
@@ -53,6 +61,9 @@ export default function SommeDeDurees () {
         s2 = randint(40, 59)
         m1 = randint(20, 59)
         m2 = randint(40, 59)
+        t1 = new Hms({ minute: m1, second: s1 })
+        t2 = new Hms({ minute: m2, second: s2 })
+        setReponse(this, i, t1.add(t2), { formatInteractif: 'hms' })
         texte = `$${m1}~\\text{min}~${s1}~\\text{s}+${m2}~\\text{min}~${s2}~\\text{s}=$`
         texteCorr = `$${m1}~\\text{min}~${s1}~\\text{s}+${m2}~\\text{min}~${s2}~\\text{s}= ${m1 + m2}~\\text{min}~${s1 + s2}~\\text{s} = ${m1 + m2 + 1}~\\text{min}~${s1 + s2 - 60}~\\text{s} = 1~\\text{h}~${m1 + m2 + 1 - 60}~\\text{min}~${s1 + s2 - 60}~\\text{s}$`
       }
@@ -61,6 +72,9 @@ export default function SommeDeDurees () {
         h2 = randint(2, 11)
         m1 = randint(30, 50)
         m2 = randint(30, 50)
+        t1 = new Hms({ minute: m1, hour: h1 })
+        t2 = new Hms({ minute: m2, hour: h2 })
+        setReponse(this, i, t1.add(t2), { formatInteractif: 'hms' })
         texte = `$${h1}~\\text{h}~${m1}~\\text{min}+${h2}~\\text{h}~${m2}~\\text{min}=$`
         texteCorr = `$${h1}~\\text{h}~${m1}~\\text{min}+${h2}~\\text{h}~${m2}~\\text{min}= ${h1 + h2}~\\text{h}~${m1 + m2}~\\text{min} = ${h1 + h2 + 1}~\\text{h}~${m1 + m2 - 60}~\\text{min}$`
       }
@@ -71,6 +85,9 @@ export default function SommeDeDurees () {
         m2 = randint(30, 50)
         s1 = randint(2, 55)
         s2 = randint(1, 60 - s1 - 1)
+        t1 = new Hms({ hour: h1, minute: m1, second: s1 })
+        t2 = new Hms({ hour: h2, minute: m2, second: s2 })
+        setReponse(this, i, t1.add(t2), { formatInteractif: 'hms' })
         texte = `$${h1}~\\text{h}~${m1}~\\text{min}~${s1}~\\text{s}+${h2}~\\text{h}~${m2}~\\text{min}~${s2}~\\text{s}=$`
         texteCorr = `$${h1}~\\text{h}~${m1}~\\text{min}~${s1}~\\text{s}+${h2}~\\text{h}~${m2}~\\text{min}~${s2}~\\text{s}= ${h1 + h2}~\\text{h}~${m1 + m2}~\\text{min}~${s1 + s2}~\\text{s} = ${h1 + h2 + 1}~\\text{h}~${m1 + m2 - 60}~\\text{min}~${s1 + s2}~\\text{s}$`
       }
@@ -81,9 +98,16 @@ export default function SommeDeDurees () {
         m2 = randint(30, 50)
         s1 = randint(2, 55)
         s2 = randint(60 - s1, 59)
+        t1 = new Hms({ hour: h1, minute: m1, second: s1 })
+        t2 = new Hms({ hour: h2, minute: m2, second: s2 })
+        setReponse(this, i, t1.add(t2), { formatInteractif: 'hms' })
         texte = `$${h1}~\\text{h}~${m1}~\\text{min}~${s1}~\\text{s}+${h2}~\\text{h}~${m2}~\\text{min}~${s2}~\\text{s}=$`
         texteCorr = `$${h1}~\\text{h}~${m1}~\\text{min}~${s1}~\\text{s}+${h2}~\\text{h}~${m2}~\\text{min}~${s2}~\\text{s}=`
         texteCorr += ` ${h1 + h2}~\\text{h}~${m1 + m2}~\\text{min}~${s1 + s2}~\\text{s} = ${h1 + h2}~\\text{h}~${m1 + m2 + 1}~\\text{min}~${s1 + s2 - 60}~\\text{s} =${h1 + h2 + 1}~\\text{h}~${m1 + m2 + 1 - 60}~\\text{min}~${s1 + s2 - 60}~\\text{s}$`
+      }
+
+      if (this.interactif) {
+        texte += ajouteChampTexteMathLive(this, i, 'inline clavierHms')
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {

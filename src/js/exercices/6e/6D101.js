@@ -1,8 +1,9 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import Hms from '../../modules/Hms.js'
 export const titre = 'Utiliser les heures décimales'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -35,7 +36,7 @@ export default function HeuresDecimales () {
       partieEntiere = randint(1, 12)
       partieDecimale = choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 25, 75])
       texte = `$${partieEntiere},${partieDecimale}~\\text{h}=$`
-      texte += ajouteChampTexteMathLive(this, 2 * i, 'inline largeur25', { texteApres: ' $h$ ' }) + sp(5) + ajouteChampTexteMathLive(this, 2 * i + 1, 'inline largeur25', { texteApres: ' $min$' })
+      texte += ajouteChampTexteMathLive(this, i, 'inline clavierHms')
       texte += '<br>'
 
       if (partieDecimale === 25) {
@@ -56,8 +57,7 @@ export default function HeuresDecimales () {
         minutes = partieDecimale * 6
       }
       if (!context.isAmc) {
-        setReponse(this, 2 * i, partieEntiere)
-        setReponse(this, 2 * i + 1, minutes)
+        setReponse(this, i, new Hms({ hour: partieEntiere, minute: minutes }), { formatInteractif: 'hms' })
       } else {
         this.autoCorrection[i] = {
           enonce: texte,
