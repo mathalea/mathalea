@@ -20,6 +20,8 @@ export const titre = 'Factoriser a²-b²'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
+export const dateDeModifImportante = '26/02/2023'
+
 // FIX ME
 // On a saisi les produits dans les 2 ordres en attendant d'avoir un outil de calcul formel
 
@@ -46,6 +48,7 @@ export default function FactoriserIdentitesRemarquables3 () {
   this.spacingCorr = 1
   this.nbQuestions = 4
   this.sup = 4
+  this.sup2 = false
   this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
@@ -122,6 +125,16 @@ export default function FactoriserIdentitesRemarquables3 () {
           reponse = [`\\left(${texFraction(ns, ds)}x-${a}\\right)\\left(${texFraction(ns, ds)}x+${a}\\right)`, `\\left(${texFraction(ns, ds)}x+${a}\\right)\\left(${texFraction(ns, ds)}x-${a}\\right)`]
           break
       }
+      if (this.sup2) {
+        this.spacingCorr = 1
+        // On découpe
+        const etapes = texteCorr.split('=')
+        texteCorr = ''
+        etapes.forEach(function (etape) {
+          etape = etape.replace('$', '')
+          texteCorr += etape === lettreDepuisChiffre(i + 1) ? '' : `$${lettreDepuisChiffre(i + 1)} = ${etape}$ <br>`
+        })
+      }
       texte += ajouteChampTexteMathLive(this, i)
       setReponse(this, i, reponse)
       if (this.questionJamaisPosee(i, a, typesDeQuestions)) {
@@ -135,4 +148,5 @@ export default function FactoriserIdentitesRemarquables3 () {
     listeQuestionsToContenuSansNumero(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, ' 1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x rationnel\n 4 : Mélange des cas précédents']
+  this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
 }

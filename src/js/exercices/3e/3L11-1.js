@@ -8,6 +8,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcType = 'AMCHybride'
 export const amcReady = true
+export const dateDeModifImportante = '26/02/2023'
 
 /**
 * Développer des expressions de la forme(ax+ou-b)(cx+ou-d)
@@ -28,6 +29,7 @@ export default function DoubleDistributivite () {
   this.spacingCorr = context.isHtml ? 3 : 2
   this.nbQuestions = 5
   this.sup = 1
+  this.sup2 = false
   this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
@@ -95,6 +97,16 @@ export default function DoubleDistributivite () {
           reponse2 = -a * d - b * c
           reponse3 = b * d
           break
+      }
+      if (this.sup2) {
+        this.spacingCorr = 1
+        // On découpe
+        const etapes = texteCorr.split('=')
+        texteCorr = ''
+        etapes.forEach(function (etape) {
+          etape = etape.replace('$', '')
+          texteCorr += etape === lettreDepuisChiffre(i + 1) ? '' : `$${lettreDepuisChiffre(i + 1)} = ${etape}$ <br>`
+        })
       }
       if (!context.isAmc && this.interactif) {
         setReponse(this, i, reponse)
@@ -178,4 +190,5 @@ export default function DoubleDistributivite () {
     listeQuestionsToContenuSansNumero(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, ' 1 : (x+a)(x+b) et (ax+b)(cx+d)\n 2 : (ax-b)(cx+d) et (ax-b)(cx-d)\n 3 : Mélange']
+  this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
 }
