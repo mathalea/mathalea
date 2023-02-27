@@ -9,6 +9,8 @@ export const dateDePublication = '23/02/2023'
 * @author Sébastien LOZANO
 */
 
+export const uuid = 'c8403'
+export const ref = '3L11-10'
 export default function TableDoubleDistributivite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

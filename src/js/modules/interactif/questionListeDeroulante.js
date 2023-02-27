@@ -62,9 +62,10 @@ export function verifQuestionListeDeroulante (exercice, i) {
  * @author Rémi Angot
  * @returns {string} le code html de la liste
  */
-export const choixDeroulant = (exercice, i, c, choix, type = 'nombre') => {
+export const choixDeroulant = (exercice, i, c, choix, type = 'nombre', style = '') => {
   if (!exercice.interactif || !context.isHtml) return ''
-  let result = `<select class="ui fluid dropdown ex${exercice.numeroExercice}" id="ex${exercice.numeroExercice}Q${i}" data-choix="${c}">
+  if (style) style = `style="${style}"`
+  let result = `<select class="ui fluid dropdown ex${exercice.numeroExercice}" id="ex${exercice.numeroExercice}Q${i}" ${style} data-choix="${c}">
       <option> Choisir ${type === 'nombre' ? 'un nombre' : 'une réponse'} </option>`
   for (const a of choix) {
     result += `<option>${a}</option>`
