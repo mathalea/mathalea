@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenuSansNumero, randint, combinaisonListes, numAlpha, rangeMinMax, contraindreValeur, sp } from '../../modules/outils.js'
+import { randint, combinaisonListes, rangeMinMax, contraindreValeur, sp, listeQuestionsToContenu } from '../../modules/outils.js'
 export const titre = 'Vocabulaires liés aux 4 opérations'
 
 /**
@@ -46,88 +46,88 @@ export default function VocabulaireSur4Operations () {
       switch (listeTypeDeQuestions[i]) {
         case 1:
           texte +=
-            numAlpha(i) +
+
             `Dans l'expression «${sp()}$${a} + ${b}$${sp()}», comment s'appellent les nombres $${a}$ et $${b}$ ?`
-          texteCorr += numAlpha(i) + `Dans l'expression «${sp()}$${a} + ${b}$${sp()}», $${a}$ et $${b}$ s'appellent des termes.`
+          texteCorr += `Dans l'expression «${sp()}$${a} + ${b}$${sp()}», $${a}$ et $${b}$ s'appellent des termes.`
           break
         case 2:
           texte +=
-            numAlpha(i) +
+
             `Dans l'expression «${sp()}$${a} + ${b} = ${a + b}$ ${sp()}», comment s'appelle le nombre $${a + b}$ ?`
-          texteCorr += numAlpha(i) + `Dans l'expression «${sp()}$${a} + ${b} = ${a + b}$${sp()}», $${a + b}$ s'appelle la somme de $${a}$ et $${b}$.`
+          texteCorr += `Dans l'expression «${sp()}$${a} + ${b} = ${a + b}$${sp()}», $${a + b}$ s'appelle la somme de $${a}$ et $${b}$.`
           break
         case 3:
           texte +=
-            numAlpha(i) +
+
             `Quelle est la somme de $${a}$ et $${b}$ ?`
-          texteCorr += numAlpha(i) + `La somme de $${a}$ et $${b}$ est $${a + b}$.`
+          texteCorr += `La somme de $${a}$ et $${b}$ est $${a + b}$.`
           break
         case 4:
           texte +=
-            numAlpha(i) +
+
             `Dans l'expression «${sp()}$${a} - ${b}$${sp()}», comment s'appellent les nombres $${a}$ et $${b}$ ?`
-          texteCorr += numAlpha(i) + `Dans l'expression «${sp()}$${a} - ${b}$${sp()}», $${a}$ et $${b}$ s'appellent des termes.`
+          texteCorr += `Dans l'expression «${sp()}$${a} - ${b}$${sp()}», $${a}$ et $${b}$ s'appellent des termes.`
           break
         case 5:
           texte +=
-            numAlpha(i) +
+
             `Dans l'expression «${sp()}$${a} - ${b} = ${a - b}$${sp()}», comment s'appelle le nombre $${a - b}$ ?`
-          texteCorr += numAlpha(i) + `Dans l'expression «${sp()}$${a} - ${b} = ${a - b}$${sp()}», $${a - b}$ s'appelle la différence entre $${a}$ et $${b}$.`
+          texteCorr += `Dans l'expression «${sp()}$${a} - ${b} = ${a - b}$${sp()}», $${a - b}$ s'appelle la différence entre $${a}$ et $${b}$.`
           break
         case 6:
           texte +=
-            numAlpha(i) +
+
             `Quelle est la différence entre $${a}$ et $${b}$ ?`
-          texteCorr += numAlpha(i) + `La différence entre $${a}$ et $${b}$ est $${a - b}$.`
+          texteCorr += `La différence entre $${a}$ et $${b}$ est $${a - b}$.`
           break
         case 7:
           texte +=
-            numAlpha(i) +
+
             `Dans l'expression «${sp()}$${a} \\times ${b}$${sp()}», comment s'appellent les nombres $${a}$ et $${b}$ ?`
-          texteCorr += numAlpha(i) + `Dans l'expression «${sp()}$${a} \\times ${b}$${sp()}», $${a}$ et $${b}$ s'appellent des facteurs.`
+          texteCorr += `Dans l'expression «${sp()}$${a} \\times ${b}$${sp()}», $${a}$ et $${b}$ s'appellent des facteurs.`
           break
         case 8:
           texte +=
-            numAlpha(i) +
+
             `Dans l'expression «${sp()}$${a} \\times ${b} = ${a * b}$${sp()}», comment s'appelle le nombre $${a * b}$ ?`
-          texteCorr += numAlpha(i) + `Dans l'expression «${sp()}$${a} \\times ${b} = ${a * b}$${sp()}», $${a * b}$ s'appelle le produit de $${a}$ et $${b}$.`
+          texteCorr += `Dans l'expression «${sp()}$${a} \\times ${b} = ${a * b}$${sp()}», $${a * b}$ s'appelle le produit de $${a}$ et $${b}$.`
           break
         case 9:
           texte +=
-            numAlpha(i) +
+
             `Quel est le produit de $${a}$ et $${b}$ ?`
-          texteCorr += numAlpha(i) + `Le produit de $${a}$ et $${b}$ est $${a * b}$.`
+          texteCorr += `Le produit de $${a}$ et $${b}$ est $${a * b}$.`
           break
         case 10:
           texte +=
-            numAlpha(i) +
+
             `Dans l'expression «${sp()}$${a * b} \\div ${b}$${sp()}», comment s'appelle le nombre $${a * b}$ ?`
-          texteCorr += numAlpha(i) + `Dans l'expression «${sp()}$${a * b} \\div ${b}$${sp()}», $${a * b}$ s'appelle le dividende.`
+          texteCorr += `Dans l'expression «${sp()}$${a * b} \\div ${b}$${sp()}», $${a * b}$ s'appelle le dividende.`
           break
         case 11:
           texte +=
-            numAlpha(i) +
+
             `Dans l'expression «${sp()}$${a * b} \\div ${b}$${sp()}», comment s'appelle le nombre $${b}$ ?`
-          texteCorr += numAlpha(i) + `Dans l'expression «${sp()}$${a * b} \\div ${b}$${sp()}», $${b}$ s'appelle le diviseur.`
+          texteCorr += `Dans l'expression «${sp()}$${a * b} \\div ${b}$${sp()}», $${b}$ s'appelle le diviseur.`
           break
         case 12:
           texte +=
-            numAlpha(i) +
+
             `Dans l'expression «${sp()}$${a * b} \\div ${b} = ${a}$${sp()}», comment s'appelle le nombre $${a}$ ?`
-          texteCorr += numAlpha(i) + `Dans l'expression «${sp()}$${a * b} \\div ${b} = ${a}$${sp()}», $${a}$ s'appelle le quotient de  $${a * b}$ par $${b}$.`
+          texteCorr += `Dans l'expression «${sp()}$${a * b} \\div ${b} = ${a}$${sp()}», $${a}$ s'appelle le quotient de  $${a * b}$ par $${b}$.`
           break
         case 13:
           reste = randint(1, b, [b])
           texte +=
-            numAlpha(i) +
+
             `Dans l'expression «${sp()}$${a * b + reste} = ${b} \\times ${a} + ${reste} $${sp()}», comment s'appelle le nombre $${reste}$ ?`
-          texteCorr += numAlpha(i) + `Dans l'expression «${sp()}$${a * b + reste} = ${b} \\times ${a} + ${reste} $${sp()}», $${reste}$ s'appelle le reste du quotient de  $${a * b}$ par $${b}$.`
+          texteCorr += `Dans l'expression «${sp()}$${a * b + reste} = ${b} \\times ${a} + ${reste} $${sp()}», $${reste}$ s'appelle le reste du quotient de  $${a * b}$ par $${b}$.`
           break
         case 14:
           texte +=
-            numAlpha(i) +
+
             `Quel est le quotient de $${a * b}$ par $${b}$ ?`
-          texteCorr += numAlpha(i) + `Le quotient de $${a * b}$ par $${b}$ est $${a}$.`
+          texteCorr += `Le quotient de $${a * b}$ par $${b}$ est $${a}$.`
           break
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
@@ -138,7 +138,7 @@ export default function VocabulaireSur4Operations () {
       }
       cpt++
     }
-    listeQuestionsToContenuSansNumero(this)
+    listeQuestionsToContenu(this)
   }
   this.besoinFormulaireTexte = ['Type de question',
     `0 : Mélange
