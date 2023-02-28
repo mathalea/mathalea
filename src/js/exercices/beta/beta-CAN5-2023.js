@@ -492,7 +492,9 @@ export default function SujetCAN2023Cinquieme () {
           c = randint(1, 9, a)
           reponse = c * k
 
-          texte = 'Complète ce tableau de proportionnalité :<br>'
+          texte = 'Complète ce tableau de proportionnalité :'
+          texte += context.isHtml ? '<br>' : '\\par\\smallskip'
+          texte += context.isHtml ? '' : '{\\renewcommand{\\arraystretch}{1}'
           texte += `$
           \\begin{array}{|c|c|}
           \\hline
@@ -502,6 +504,7 @@ export default function SujetCAN2023Cinquieme () {
           \\hline
           \\end{array}
           $`
+          texte += context.isHtml ? '' : '}\\medskip'
           texteCorr = `On constate que $${b}$ s'obtient en multipliant $${a}$ par $${k}$.
             Ainsi, on obtient la quatrième proportionnelle en multipliant $${c}$ par $${k}$.<br>
             La valeur cherchée est donc $${c}\\times ${k}=${k * c}$.`
