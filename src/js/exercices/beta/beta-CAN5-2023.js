@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites.js'
 import FractionX from '../../modules/FractionEtendue.js'
 import {
-  point, droiteGraduee, pave, droite, segment, milieu, codageAngle, rotation, tracePoint, codageAngleDroit, afficheMesureAngle, labelPoint, texteParPosition, polygone
+  point, droiteGraduee, pave, droite, segment, milieu, codageAngle, rotation, tracePoint, codageAngleDroit, texteParPosition, polygone
 } from '../../modules/2d.js'
 import { paveLPH3d } from '../../modules/3d.js'
 import { round, min } from 'mathjs'
@@ -52,7 +52,7 @@ export default function SujetCAN2023Cinquieme () {
     const typeQuestionsDisponiblesNiv2 = shuffle([11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)//
     const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
 
-    for (let i = 0, index = 0, nbChamps, m, n, h, pav, num, den, params, origine, ang1, s3, K, I, J, texte, texteCorr, reponse, prenom1, pol, L, l, E, F, G, H, propositions, choix, a, b, c, d, e, f, k, s1, s2, A, B, C, D, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, index = 0, nbChamps, m, n, h, pav, num, den, params, origine, traceA, traceD, traceB, traceorigine, ang1, s3, K, I, J, texte, texteCorr, reponse, prenom1, pol, L, l, E, F, G, H, propositions, choix, a, b, c, d, e, f, k, s1, s2, A, B, C, D, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typeQuestionsDisponibles[i]) {
         case 1:
           a = randint(4, 9)
@@ -160,30 +160,46 @@ export default function SujetCAN2023Cinquieme () {
             C = rotation(B, origine, ang1)
             s1 = segment(A, B)
             s2 = segment(origine, C)
-
+            traceA = tracePoint(A)
+            traceA.taille = context.isHtml ? 2 : 1
+            traceB = tracePoint(B)
+            traceB.taille = context.isHtml ? 2 : 1
+            traceorigine = tracePoint(origine)
+            traceorigine.taille = context.isHtml ? 2 : 1
             xmin = -1
             ymin = -0.8
             xmax = 6.5
             ymax = 2.5
             objets = []
             reponse = 180 - ang1
-            objets.push(
-              texteParPosition('?', 2.3, 0.4), afficheMesureAngle(B, origine, C, 'black', 1),
-              tracePoint(A, B),
-              s1, s2, labelPoint(A, origine, B), codageAngle(C, origine, A, 0.6))
+            objets.push(texteParPosition('$A$', 0, -0.55, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              texteParPosition('$B$', 6, -0.55, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              texteParPosition('$O$', 3, -0.55, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              s1, s2, traceA, traceorigine, traceB, codageAngle(C, origine, A, 0.6), codageAngle(B, origine, C, 0.5)
+            )
+            if (ang1 < 50) {
+              objets.push(texteParPosition('?', 2.2, 0.6, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+                texteParPosition(`${stringNombre(ang1)}°`, 3.8, 0.2, 'milieu', 'black', context.isHtml ? 1 : 0.7))
+            } else { objets.push(texteParPosition('?', 2.2, 0.2, 'milieu', 'black', context.isHtml ? 1 : 0.7), texteParPosition(`${stringNombre(ang1)}°`, 3.8, 0.5, 'milieu', 'black', context.isHtml ? 1 : 0.7)) }
             reponse = 180 - ang1
             texte = '$A$, $O$ et $B$ sont alignés.<br>'
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.6, style: 'margin: auto' }, objets) + '<br>'
-            texte += ' <br>? $=$'
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.6, style: 'margin: auto' }, objets)
+            texte += '? $=$'
             texteCorr = `Un angle plat a une mesure de  $180°$.<br>
              Ainsi, ?$=180-${ang1}=${miseEnEvidence(180 - ang1)}°$.`
           } else {
-            ang1 = choice([20, 30, 40, 60, 70, 110, 120, 130, 140, 150, 160])
+            ang1 = choice([30, 40, 60, 70, 110, 120, 130, 140, 150, 160])
             A = point(0, 0, 'A', 'below')
-            B = point(3, 0, 'B', 'below')
+            B = point(2, 0, 'B', 'below')
             origine = point(0, 0, 'O', 'below')
+            D = point(0, 2, 'D', 'right')
             C = rotation(B, origine, ang1)
-            D = rotation(B, origine, 90)
+            traceD = tracePoint(D)
+            traceD.taille = context.isHtml ? 2 : 1
+            traceB = tracePoint(B)
+            traceB.taille = context.isHtml ? 2 : 1
+            traceorigine = tracePoint(origine)
+            traceorigine.taille = context.isHtml ? 2 : 1
             s1 = segment(origine, B)
             s2 = segment(origine, C)
             s3 = segment(origine, D)
@@ -193,25 +209,32 @@ export default function SujetCAN2023Cinquieme () {
             ymax = 2.5
             objets = []
             reponse = 180 - ang1
+            objets.push(
+              traceD, traceB, texteParPosition('$D$', 0.2, 1.8, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              texteParPosition('$B$', 2, -0.55, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              texteParPosition('$O$', 0, -0.55, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              s1, s2, s3, traceorigine, codageAngleDroit(B, origine, D, 'black', 0.3), codageAngle(B, origine, C, 0.8),
+              codageAngle(D, origine, C, 0.4))
+
             if (ang1 < 90) {
               objets.push(
-                texteParPosition('?', 0.1, 0.7), afficheMesureAngle(B, origine, C, 'black', 1),
-                tracePoint(D, B),
-                s1, s2, s3, labelPoint(D, origine, B), codageAngleDroit(B, origine, D), codageAngle(D, origine, C, 0.6))
+                texteParPosition('?', 0.2, 0.8, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+                texteParPosition(`${stringNombre(ang1)}°`, 1.2, 0.3, 'milieu', 'black', context.isHtml ? 1 : 0.5))
+
               reponse = 90 - ang1
               texte = 'L\'angle $\\widehat{BOD}$ est un angle droit.<br>'
-              texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.6, style: 'margin: auto' }, objets) + '<br>'
-              texte += ' <br>? $=$'
+              texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
+              texte += '? $=$'
               texteCorr = `
                ?$=90-${ang1}=${miseEnEvidence(90 - ang1)}°$.`
             } else {
-              objets.push(texteParPosition('?', -0.2, 0.7), afficheMesureAngle(B, origine, C, 'black', 1),
-                tracePoint(D, B),
-                s1, s2, s3, labelPoint(D, origine, B), codageAngleDroit(B, origine, D), codageAngle(D, origine, C, 0.6))
+              objets.push(texteParPosition('?', -0.15, 0.6, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+                texteParPosition(`${stringNombre(ang1)}°`, 1, 0.8, 'milieu', 'black', context.isHtml ? 1 : 0.7))
+
               reponse = ang1 - 90
               texte = 'L\'angle $\\widehat{BOD}$ est un angle droit.<br>'
-              texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.6, style: 'margin: auto' }, objets) + '<br>'
-              texte += ' <br>? $=$'
+              texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.6, style: 'margin: auto' }, objets)
+              texte += '? $=$'
               texteCorr = `?$=${ang1}-90=${miseEnEvidence(ang1 - 90)}°$.  `
             }
           }
@@ -293,7 +316,7 @@ export default function SujetCAN2023Cinquieme () {
           f = new FractionX(num, den)
           reponse = f
           texte = 'Quelle fraction du disque représente l\'aire grisée ?<br>'
-          texte += mathalea2d(params, f.representation(0, 0, 2, randint(0, den - 1), 'gateau', 'lightgray' ))
+          texte += mathalea2d(params, f.representation(0, 0, 2, randint(0, den - 1), 'gateau', 'gray'))
           texteCorr = `L'aire grisée représente $${f.texFraction}$ de l'aire du disque.`
 
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
@@ -477,7 +500,7 @@ export default function SujetCAN2023Cinquieme () {
           c = new Decimal(randint(21, 28)).div(10)
           reponse = new Decimal(a).mul(b).add(c)
           texte = `J'achète $${a}$ croissants à $${texPrix(b)}$ € l'unité et un pain à $${texPrix(c)}$ €. <br>
-          Comben cela me coûte-t-il ?`
+          Combien cela me coûte-t-il ?`
           texteCorr = `$${a}$ croissants à $${texPrix(b)}$ € l'unité coûtent $${a}\\times ${texPrix(b)}$ € $=${texPrix(new Decimal(a).mul(b))}$ €.<br>
           En ajoutant le prix du pain, on obtient : $${texPrix(new Decimal(a).mul(b))}$ € $ + ${texPrix(c)}$ € $= ${miseEnEvidence(texPrix(reponse))}$ €.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -507,7 +530,7 @@ export default function SujetCAN2023Cinquieme () {
           texte += context.isHtml ? '' : '}\\medskip'
           texteCorr = `On constate que $${b}$ s'obtient en multipliant $${a}$ par $${k}$.
             Ainsi, on obtient la quatrième proportionnelle en multipliant $${c}$ par $${k}$.<br>
-            La valeur cherchée est donc $${c}\\times ${k}=${k * c}$.`
+            La valeur cherchée est donc $${c}\\times ${k}=${miseEnEvidence(k * c)}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -562,10 +585,10 @@ export default function SujetCAN2023Cinquieme () {
             ymax = 2.5
             objets = []
             objets.push(
-              texteParPosition(`${stringNombre(a)}°`, 3.8, 0.8),
-              texteParPosition(`${stringNombre(b)}°`, 1.3, 0.25),
-              texteParPosition('?', 5.3, 0.3),
-              s1, s2, s3, codageAngle(B, C, A, 0.8, '|'), codageAngle(C, A, B, 0.8, '||'))
+              texteParPosition(`${stringNombre(a)}°`, 3.8, 1.4, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              texteParPosition(`${stringNombre(b)}°`, 1, 0.2, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              texteParPosition('?', 5.3, 0.3, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              s1, s2, s3, codageAngle(B, C, A, 0.3), codageAngle(C, A, B, 0.5))//
           } else {
             b = randint(41, 45)
             a = choice([140, 145, 150, 155, 160]) - b
@@ -584,15 +607,15 @@ export default function SujetCAN2023Cinquieme () {
             ymax = 2.5
             objets = []
             objets.push(
-              texteParPosition(`${stringNombre(a)}°`, 2.1, 0.8),
-              texteParPosition(`${stringNombre(b)}°`, 1.3, 0.25),
-              texteParPosition('?', 5, 0.3),
-              s1, s2, s3, codageAngle(B, C, A, 0.8, '|'), codageAngle(C, A, B, 0.8, '||'))
+              texteParPosition(`${stringNombre(a)}°`, 2.1, 1.4, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              texteParPosition(`${stringNombre(b)}°`, 1, 0.2, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              texteParPosition('?', 5, 0.3, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              s1, s2, s3, codageAngle(B, C, A, 0.3), codageAngle(C, A, B, 0.5))
           }
           reponse = 180 - a - b
           texte = 'On donne la figure suivante :<br>'
-          texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
-          texte += '<br>? $=$'
+          texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.6, style: 'margin: auto' }, objets)
+          texte += '? $=$'
           texteCorr = `Dans un triangle, la somme des angles vaut $180°$.<br>
          ?$=180-${a}-${b}=${miseEnEvidence(180 - a - b)}°$.`
 
@@ -719,7 +742,7 @@ export default function SujetCAN2023Cinquieme () {
 
             reponse = 4
             texte = 'Quel est le nombre d\'axe(s) de symétrie  ?<br>'
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, pol)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.4, style: 'margin: auto' }, pol)
             texteCorr = `La figure a $${miseEnEvidence(4)}$ axes de symétrie. <br> ` +
 mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.4, style: 'margin: auto' }, pol, a, b, c, d)
           }
@@ -737,7 +760,7 @@ mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitud
 
             reponse = 1
             texte = 'Quel est le nombre d\'axe(s) de symétrie  ?<br>'
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, pol)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.4, style: 'margin: auto' }, pol)
             texteCorr = `La figure a $${miseEnEvidence(1)}$ axe de symétrie. <br> ` +
 mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.4, style: 'margin: auto' }, pol, a)
           }
@@ -763,7 +786,7 @@ mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitud
 
             reponse = 2
             texte = 'Quel est le nombre d\'axe(s) de symétrie  ?<br>'
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, pol)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.4, style: 'margin: auto' }, pol)
             texteCorr = `La figure a $${miseEnEvidence(2)}$ axes de symétrie. <br> ` +
 mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.4, style: 'margin: auto' }, pol, a, b)
           }
@@ -820,18 +843,28 @@ mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitud
           nbChamps = 1
           break
         case 26:
-          m = choice([1])
+          m = choice([1, 2])
           if (m === 1) {
             b = randint(10, 22) * 100
 
             texte = `Un avion parcourt $${texNombre(b)}$ km en $3$ h. <br>
             Quelle durée met-il pour parcourir $${texNombre(1.5 * b, 0)}$ km ? `
-            texteCorr = `En 1h 30 min, l'avion parcourt $${texNombre(0.5 * b, 0)}$ km, donc il met $4$ h $30$ min pour parcourir $${texNombre(1.5 * b, 0)}$ km. `
+            texteCorr = `En 1h 30 min, l'avion parcourt $${texNombre(0.5 * b, 0)}$ km, donc il met $${miseEnEvidence(4)}$ h $${miseEnEvidence(30)}$ min pour parcourir $${texNombre(1.5 * b, 0)}$ km. `
             setReponse(this, index, [new Hms({ hour: 4, minute: 30 }), new Hms({ minute: 270 })], { formatInteractif: 'hms' })
 
             if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'clavierHms inline') }
           }
+          if (m === 2) {
+            b = choice([900, 1200, 1500, 1800, 2100, 2400])
 
+            texte = `Un avion parcourt $${texNombre(b)}$ km en $3$ h. <br>
+            Quelle durée met-il pour parcourir $${texNombre(b + b / 6, 0)}$ km ? `
+            texteCorr = `En $1$ h , l'avion parcourt $${texNombre(b / 3, 0)}$ km, donc en $30$ min, il parcourt  $${texNombre(b / 6, 0)}$ km. <br>
+            Ainsi, il met $${miseEnEvidence(3)}$ h $${miseEnEvidence(30)}$ min pour parcourir $${texNombre(b + b / 6, 0)}$ km`
+            setReponse(this, index, [new Hms({ hour: 3, minute: 30 }), new Hms({ minute: 210 })], { formatInteractif: 'hms' })
+
+            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'clavierHms inline') }
+          }
           nbChamps = 1
 
           break
@@ -842,9 +875,8 @@ mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitud
           b = randint(2, 6)
           c = choice([2, 4, 5])
           d = paveLPH3d(0, 0, 0, 1, a, c, b, 'black')
-          texte = `Combien y a-t-il de petits cubes ?`
-          texte +=`<br>${mathalea2d(Object.assign(fixeBordures(d.c2d), { pixelsParCm: 20, scale: 0.5 }), d.c2d)}
-       `
+          texte = 'Combien y a-t-il de petits cubes ?'
+          texte += `<br>${mathalea2d(Object.assign(fixeBordures(d.c2d), { pixelsParCm: 20, scale: 0.4 }), d.c2d)}`
 
           texteCorr = `Le nombre de petits cubes est donné par le produit :<br>
         $${a}\\times ${b}\\times ${c} = ${a * b * c}$
@@ -863,7 +895,7 @@ mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitud
             h = randint(2, 5, [l, L])
             pav = pave(L, l, h)
             texte = `Quel est le volume du pavé droit ci-dessous ?<br>
-        ${mathalea2d({ xmin: -2, ymin: -2, xmax: 10, ymax: 0.5 * h + l, scale: 0.5 }, pav)}`
+        ${mathalea2d({ xmin: -2, ymin: -2, xmax: 10, ymax: 0.5 * h + l, scale: 0.4 }, pav)}`
             reponse = L * l * h
             texteCorr = `Le volume de ce pavé droit est : $${L}\\text{ cm}\\times ${l} \\text{ cm}\\times ${h}\\text{ cm}=${reponse}$ cm$^3$.`
           } else {
@@ -872,7 +904,7 @@ mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitud
             h = l
             pav = pave(l, l, l)
             texte = `Quel est le volume de ce cube ?<br>
-          ${mathalea2d({ xmin: -2, ymin: -2, xmax: 10, ymax: 0.5 * h + l, scale:0.5 }, pav)}`
+          ${mathalea2d({ xmin: -2, ymin: -2, xmax: 10, ymax: 0.5 * h + l, scale: 0.4 }, pav)}`
             reponse = L * l * h
             texteCorr = `Le volume de ce cube est : $${L}\\text{ cm}\\times ${l} \\text{ cm}\\times ${h}\\text{ cm}=${reponse}$ cm$^3$.`
           }
