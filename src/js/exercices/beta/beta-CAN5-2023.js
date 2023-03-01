@@ -293,10 +293,10 @@ export default function SujetCAN2023Cinquieme () {
             texteCorr = `$${a}$ classeurs coûtent $${b}$ €.<br>
               $${a / 2}$ ${a / 2 === 1 ? 'classeur coûte' : 'classeurs coûtent'}  $${texPrix(b / 2)}$ €.<br>
               Ainsi,   $${b}$ classeurs coûtent ${k > 2 ? `$2\\times ${b}+ ${texPrix(b / 2)} =${miseEnEvidence(texPrix(reponse))}$ €.` : `$${b}+ ${texPrix(b / 2)} =${miseEnEvidence(texPrix(reponse))}$ €.`}`
-            }
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') +
+          }
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') +
             '€'
           }
           nbChamps = 1
@@ -308,7 +308,7 @@ export default function SujetCAN2023Cinquieme () {
           params = {
             xmin: -2.2,
             ymin: -2.2,
-            xmax: 6,
+            xmax: 5,
             ymax: 3,
             pixelsParCm: 20,
             scale: 0.4,
@@ -316,7 +316,7 @@ export default function SujetCAN2023Cinquieme () {
           }
           f = new FractionX(num, den)
           reponse = f
-          texte = `Quelle fraction du disque représente l\'aire grisée ?<br>
+          texte = `Quelle fraction du disque représente l'aire grisée ?<br>
           
           `
           texte += mathalea2d(params, f.representation(0, 0, 2, randint(0, den - 1), 'gateau', 'gray'))
