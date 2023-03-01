@@ -471,7 +471,7 @@ export default function ExercicesAnglesAIC () {
           <br>
           Donc ils sont de même mesure.
           <br>De plus,
-          ${calculs !== undefined ? calculs : 'De plus, les angles bleu et vert sont opposés par le sommet.<br> Donc ils sont de même mesure.'}
+          ${calculs !== undefined ? calculs : ' les angles bleu et vert sont opposés par le sommet.<br> Donc ils sont de même mesure.'}
           <br>
           Donc l'angle bleu mesure ${mesure}.
           `
@@ -1066,7 +1066,7 @@ export default function ExercicesAnglesAIC () {
           <br>
           Donc ils sont de même mesure.
           <br>De plus, 
-          ${calculs !== undefined ? calculs : String.raw`De plus, les angles $\widehat{${anglesB[a].nom}}$ et $\widehat{${anglesB[b].nom}}$ et vert sont opposés par le sommet.<br> Donc ils sont de même mesure.`}
+          ${calculs !== undefined ? calculs : String.raw` les angles $\widehat{${anglesB[a].nom}}$ et $\widehat{${anglesB[b].nom}}$ et vert sont opposés par le sommet.<br> Donc ils sont de même mesure.`}
           <br>
           Donc l'angle $\widehat{${anglesB[b].nom}}$ mesure ${mesure}.
           `
