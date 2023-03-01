@@ -700,6 +700,9 @@ export function exportQcmAmc (exercice, idExo) {
                 if (rep.param.vhead !== undefined && rep.param.vhead) {
                   texQr += `vhead=${rep.param.vhead},`
                 }
+                if (rep.param.aussiCorrect !== undefined && rep.param.aussiCorrect) {
+                  texQr += `alsocorrect=${rep.param.aussiCorrect},`
+                }
                 if (rep.param.tpoint !== undefined && rep.param.tpoint) {
                   texQr += `Tpoint={${rep.param.tpoint}},`
                 } else {
