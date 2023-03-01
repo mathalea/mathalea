@@ -15,7 +15,7 @@ export default function UtiliserLeCodagePourDecrire () {
     let typesDeQuestionsDisponibles
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let nom; let sommets = []; let paramsEnonce; let paramsCorrection; let objetsEnonce; let objetsCorrection
+    let nom; let paramsEnonce; let paramsCorrection; let objetsEnonce; let objetsCorrection
     let A, B, C, D, E, F, s1, s2, s3, s4, s5, s6, s7, s8, medAC, medBC, dBD, dBC, dAC, dAF
     if (this.classe === 6) { typesDeQuestionsDisponibles = [1, 2, 3] } else { typesDeQuestionsDisponibles = [1, 2, 3, 4] }
     let listeTypeDeQuestions = []
@@ -44,6 +44,7 @@ export default function UtiliserLeCodagePourDecrire () {
       if (i % 3 === 0) listeDeNomsDePolygones = ['PQD']
       nom = creerNomDePolygone(6, listeDeNomsDePolygones)
       listeDeNomsDePolygones.push(nom)
+      let sommets = []
       for (let i = 0; i < 6; i++) { sommets.push(nom[i]) }
       sommets = shuffle(sommets)
 
@@ -73,7 +74,7 @@ export default function UtiliserLeCodagePourDecrire () {
           s4 = segment(B, C)
           paramsEnonce = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 1, D.x - 1, E.x - 1, F.x - 1), ymin: Math.min(A.y - 1, B.y - 1, C.y - 1, D.y - 1, E.y - 1, F.y - 1), xmax: Math.max(A.x + 1, B.x + 1, C.x + 1, D.x + 1, E.x + 1, F.x + 1), ymax: Math.max(A.y + 1, B.y + 1, C.y + 1, D.y + 1, E.y + 1, F.y + 1.5), pixelsParCm: 30, scale: 1, mainlevee: true, amplitude: 1 }
           objetsEnonce.push(s1, s2, s4, s8, s7, s3, s6, s5, codageAngleDroit(B, A, C), codageSegments('//', 'black', A, F, F, C), codageSegments('|||', 'black', A, E, E, C), codageSegments('O', 'black', B, D, D, C), labelPoint(A, B, C, D, E, F), codageAngleDroit(A, E, F))
-          texte = '<br>À l\'aide du schéma ci-dessous, déterminer :<br>'
+          texte = 'À l\'aide du schéma ci-dessous, déterminer :<br>'
           texte += '- deux segments de même longueur ;<br>'
           texte += '- le milieu d\'un segment ;<br>'
           texte += '- un triangle rectangle ;<br>'
@@ -142,9 +143,7 @@ export default function UtiliserLeCodagePourDecrire () {
           objetsEnonce.push(codageAngle(B, A, F, 2, '///', 'green', 3), codageAngle(B, F, A, 2, '///', 'green', 3))
 
           objetsEnonce.push(codageSegments('||', 'black', B, E, E, D), codageSegments('O', 'black', A, E, E, C))
-          texte = `$${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$ est un rectangle. Ses diagonales se coupent en $${sommets[4]}$.<br>`
-          texte += `$${sommets[4] + sommets[1] + sommets[5] + sommets[2]}$ est un losange.<br>`
-          texte = '<br>À l\'aide du schéma ci-dessous, déterminer :<br>'
+          texte = 'À l\'aide du schéma ci-dessous, déterminer :<br>'
           texte += `- la nature du triangle $${sommets[0] + sommets[1] + sommets[5]}$ ;<br>`
           texte += `- la nature du quadrilatère $${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$ ;<br>`
           texte += `- la nature de l'angle $\\widehat{${sommets[5] + sommets[1] + sommets[2]}}$.<br>`
