@@ -258,5 +258,5 @@ export default function ComparerAvecFonctionRef () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Choix des questions', 6, '1 : Avec une fonction affine\n2 : Avec la fonction carré\n3 : Avec la fonction inverse\n4 : Avec la fonction racine carrée\n5 : Avec la fonction cube\n6 : Mélange']
-  this.besoinFormulaire2Numerique = ['Choix des énoncés', 2, '1 : Avec la fonction précisée n2 : Sans la fonction précisée (sauf fonction affine)']
+  this.besoinFormulaire2Numerique = ['Choix des énoncés', 2, '1 : Avec la fonction précisée \n2 : Sans la fonction précisée (sauf fonction affine)']
 }
