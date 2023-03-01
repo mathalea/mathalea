@@ -208,6 +208,8 @@ export default class anglesTrianglesTableau extends Exercice {
           break
       }
 
+      texte += '<br>'
+
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

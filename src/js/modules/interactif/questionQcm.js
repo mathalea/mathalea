@@ -125,7 +125,7 @@ export function propositionsQcm (exercice, i) {
       texte += '<td>\n'
       texteCorr += '<td>\n'
       if (exercice.interactif) {
-        texte += `<div class="ui checkbox ex${exercice.numeroExercice} monQcm">
+        texte += `<div class="ui checkbox ex${exercice.numeroExercice} monQcm" style="display:inline;">
             <input type="checkbox" tabindex="0" class="hidden" id="checkEx${exercice.numeroExercice}Q${i}R${rep}">
             <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}">${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>
           </div>`
@@ -168,15 +168,15 @@ export function propositionsQcm (exercice, i) {
 
   // GESTION DE LA V3
   if (context.isHtml && context.versionMathalea === 3 && exercice.interactif) {
-    texte = ''
+    texte = '<div>'
     for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
-      texte += `<div class="ex${exercice.numeroExercice} my-3">
+      texte += `<div class="ex${exercice.numeroExercice} my-3 ${vertical ? '' : 'inline'}">
       <input type="checkbox" tabindex="0"  id="checkEx${exercice.numeroExercice}Q${i}R${rep}">
       <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}" class="ml-2 text-base">${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>
-      <div id="feedbackEx${exercice.numeroExercice}Q${i}"></div>
+      <div id="feedbackEx${exercice.numeroExercice}Q${i}" ${vertical ? '' : 'class="inline"'}></div>
       </div>`
     }
-    texte += `<div class="m-2" id="resultatCheckEx${exercice.numeroExercice}Q${i}"></div>`
+    texte += `</div><div class="m-2" id="resultatCheckEx${exercice.numeroExercice}Q${i}"></div>`
   }
   return { texte, texteCorr }
 }

@@ -5,13 +5,15 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
+
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
+ * Ajout du paramètre Déterminer/calculer/mélange par Guillaume Valmont le 17/02/2023
  * Référence
  * Date de publication
 */
-export const dateDeModifImportante = '19/12/2021'
+export const dateDeModifImportante = '17/02/2023'
 export const uuid = 'bd5d1'
 export const ref = 'can5P02'
 export default function PoucentageP2 () {
@@ -20,12 +22,19 @@ export default function PoucentageP2 () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
+
+  this.besoinFormulaireNumerique = ['Déterminer ou Calculer', 3, '1 : Déterminer\n2 : Calculer\n3 : Mélange']
+  this.sup = 3
   this.nouvelleVersion = function () {
     const listeCarac = [['filles', 'Elles'], ['garçons', 'Ils'], ['sportifs', 'Ils'], ['musiciens', 'Ils']]
     const listeCarac2 = [['maisons', 'T2'], ['maisons', 'T3'], ['appartements', 'T2'], ['appartements', 'T3']
     ]
     let a, b, c, n, d, carac, carac2, choix
-    switch (choice(['a', 'b', 'c', 'd'])) {
+    let enonces = []
+    if (this.sup === 1) enonces = ['a', 'c']
+    else if (this.sup === 2) enonces = ['b', 'd']
+    else enonces = ['a', 'b', 'c', 'd']
+    switch (choice(enonces)) {
       case 'a':
         if (choice([true, false])) {
           a = choice([20, 40])

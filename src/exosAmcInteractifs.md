@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 553 
-- nombre d'exos interactifReady 846 
+- nombre d'exos interactifReady 848 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -313,7 +313,8 @@
 |6C34|Déterminer le dernier chiffre d'un calcul|OK|AMCNum|OK|mathLive|
 |6C35|Modéliser des problèmes|KO|KO|OK|mathLive|
 |6D101|Utiliser les heures décimales|OK|AMCHybride|OK|mathLive|
-|6D12|Calculer des durées ou déterminer un horaire|OK|AMCHybride|KO|KO|
+|6D11|Additionner des durées|KO|KO|OK|mathLive|
+|6D12|Calculer des durées ou déterminer un horaire|OK|AMCHybride|OK|mathLive|
 |6D13|Convertir en min vers h et min ou en s vers min et s|OK|AMCHybride|OK|mathLive|
 |6G10-3|Choisir la bonne figure|OK|qcmMono|OK|cliqueFigure|
 |6G10-4|Connaître le vocabulaire du cercle|KO|KO|OK|qcm,mathLive|
@@ -770,7 +771,7 @@
 |can6C21|Trouver le complément à 1*|OK|AMCNum|OK|mathLive|
 |can6C22|Déterminer la valeur décimale d’une fraction|OK|AMCNum|OK|mathLive|
 |can6C23|Calculer avec +/-99 ou +/-999|OK|AMCNum|OK|mathLive|
-|can6C24|Multiplier par 0,1 ou 0,01 ou 0,001|OK|AMCNum|OK|mathLive|
+|can6C24|Multiplier ou diviser par 0,1 ou 0,01 ou 0,001|OK|AMCNum|OK|mathLive|
 |can6C25|Rechercher un prix unitaire|KO|KO|OK|mathLive|
 |can6C26|Multiplier ou diviser par 10, 100,  1000 ou 0,1 ou 0,01|OK|AMCNum|OK|mathLive|
 |can6C27|Résoudre un problème de rendu de monnaie|KO|KO|OK|mathLive|

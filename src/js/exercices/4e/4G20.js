@@ -109,19 +109,23 @@ export default function Pythagore2D () {
       if (!context.isHtml && !context.isAmc && i !== this.nbQuestions - 1) { texte += '\\columnbreak' } // pour la sortie LaTeX sauf la dernière question
 
       let redaction
+      let nomCote = ''
       if (this.typeDeQuestion === 'Calculer :') {
         if (listeTypeDeQuestions[i] === 'AB') {
+          nomCote = A.nom + B.nom
           reponse = arrondi(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1)
           redaction = RedactionPythagore(A.nom, B.nom, C.nom, 2, reponse, longueurAC, longueurBC)
         } else if (listeTypeDeQuestions[i] === 'BC') {
+          nomCote = B.nom + C.nom
           reponse = arrondi(Math.sqrt(longueurAB ** 2 + longueurAC ** 2), 1)
           redaction = RedactionPythagore(A.nom, B.nom, C.nom, 1, longueurAB, longueurAC, reponse)
         } else { // listeTypeDeQuestions[i] === 'AC'
+          nomCote = A.nom + C.nom
           reponse = arrondi(Math.sqrt(longueurBC ** 2 - longueurAB ** 2), 1)
           redaction = RedactionPythagore(A.nom, C.nom, B.nom, 2, reponse, longueurAB, longueurBC)
         }
         texteCorr = redaction[0]
-        texte += this.interactif ? (`$${A.nom + C.nom} ${redaction[1]}$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore unites[longueurs]')) : ''
+        texte += this.interactif ? (`$${nomCote} ${redaction[1]}$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore unites[longueurs]')) : ''
         context.isAmc ? setReponse(this, i, reponse) : setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'unites', precision: 0.001 })
 
         if (context.isAmc) {

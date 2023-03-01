@@ -2155,9 +2155,9 @@ export function minToHoraire (minutes) {
   }
   const nbminuteRestante = (minutes % 60)
   if (nbminuteRestante > 9) {
-    return (nbHour + sp() + 'h' + sp() + nbminuteRestante)
+    return (nbHour + sp() + 'h' + sp() + nbminuteRestante + sp() + 'min')
   } else {
-    return (nbHour + sp() + ' h' + sp() + '0' + nbminuteRestante)
+    return (nbHour + sp() + 'h' + sp() + '0' + nbminuteRestante + sp() + 'min')
   }
 }
 
@@ -2176,9 +2176,9 @@ export function minToHour (minutes) {
     return (nbminuteRestante + sp() + 'min')
   } else {
     if (nbminuteRestante > 9) {
-      return (nbHour + sp() + 'h' + sp() + nbminuteRestante)
+      return (nbHour + sp() + 'h' + sp() + nbminuteRestante + sp() + 'min')
     } else {
-      return (nbHour + sp() + ' h' + sp() + '0' + nbminuteRestante)
+      return (nbHour + sp() + 'h' + sp() + '0' + nbminuteRestante + sp() + 'min')
     }
   }
 }
