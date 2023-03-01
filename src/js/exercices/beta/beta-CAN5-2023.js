@@ -96,12 +96,14 @@ export default function SujetCAN2023Cinquieme () {
           texteCorr = `Le chiffre des ${m} est $${miseEnEvidence(reponse)}$.<br>$
               \\begin{array}{|c|c|c|c|c|c|c|}
               \\hline
-              \\text{\\small{Centaine}} &  \\text{\\small{Dizaine}} & \\text{\\small{Unité}}&  \\Large{\\textbf{,}}& \\text{\\small{Dixième}} & \\text{\\small{Centième}} & \\text{\\small{Millième}}${context.isHtml ? '\\\\' : '\\tabularnewline'}
+              \\text{\\small{C}} &  \\text{\\small{D}} & \\text{\\small{U}}&  \\Large{\\textbf{,}}& \\text{\\small{Dixièmes}} & \\text{\\small{Centièmes}} & \\text{\\small{Millièmes}}${context.isHtml ? '\\\\' : '\\tabularnewline'}
               \\hline
               ${a}&${b}&${c} & \\Large{\\textbf{,}}& ${d}&${e}& ${f}${context.isHtml ? '\\\\' : '\\tabularnewline'}
               \\hline
               \\end{array}
-              $
+              $<br>
+              Dans ce tableau : <br>
+              U : unités, D : dizaines, C : centaines
               `
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'largeur15 inline')
@@ -291,12 +293,11 @@ export default function SujetCAN2023Cinquieme () {
             texteCorr = `$${a}$ classeurs coûtent $${b}$ €.<br>
               $${a / 2}$ ${a / 2 === 1 ? 'classeur coûte' : 'classeurs coûtent'}  $${texPrix(b / 2)}$ €.<br>
               Ainsi,   $${b}$ classeurs coûtent ${k > 2 ? `$2\\times ${b}+ ${texPrix(b / 2)} =${miseEnEvidence(texPrix(reponse))}$ €.` : `$${b}+ ${texPrix(b / 2)} =${miseEnEvidence(texPrix(reponse))}$ €.`}`
-
+            }
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') +
             '€'
-            }
           }
           nbChamps = 1
           break
@@ -307,7 +308,7 @@ export default function SujetCAN2023Cinquieme () {
           params = {
             xmin: -2.2,
             ymin: -2.2,
-            xmax: 18,
+            xmax: 6,
             ymax: 3,
             pixelsParCm: 20,
             scale: 0.4,
@@ -315,7 +316,9 @@ export default function SujetCAN2023Cinquieme () {
           }
           f = new FractionX(num, den)
           reponse = f
-          texte = 'Quelle fraction du disque représente l\'aire grisée ?<br>'
+          texte = `Quelle fraction du disque représente l\'aire grisée ?<br>
+          
+          `
           texte += mathalea2d(params, f.representation(0, 0, 2, randint(0, den - 1), 'gateau', 'gray'))
           texteCorr = `L'aire grisée représente $${f.texFraction}$ de l'aire du disque.`
 
@@ -849,7 +852,8 @@ mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitud
 
             texte = `Un avion parcourt $${texNombre(b)}$ km en $3$ h. <br>
             Quelle durée met-il pour parcourir $${texNombre(1.5 * b, 0)}$ km ? `
-            texteCorr = `En 1h 30 min, l'avion parcourt $${texNombre(0.5 * b, 0)}$ km, donc il met $${miseEnEvidence(4)}$ h $${miseEnEvidence(30)}$ min pour parcourir $${texNombre(1.5 * b, 0)}$ km. `
+            texteCorr = `En 1h 30 min, l'avion parcourt $${texNombre(0.5 * b, 0)}$ km.<br>
+            Comme il met $3$ h pour parcourir $${texNombre(b)}$ km,  il mettra $${miseEnEvidence(4)}$ h $${miseEnEvidence(30)}$ min pour parcourir $${texNombre(1.5 * b, 0)}$ km. `
             setReponse(this, index, [new Hms({ hour: 4, minute: 30 }), new Hms({ minute: 270 })], { formatInteractif: 'hms' })
 
             if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'clavierHms inline') }
@@ -879,7 +883,7 @@ mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitud
           texte += `<br>${mathalea2d(Object.assign(fixeBordures(d.c2d), { pixelsParCm: 20, scale: 0.4 }), d.c2d)}`
 
           texteCorr = `Le nombre de petits cubes est donné par le produit :<br>
-        $${a}\\times ${b}\\times ${c} = ${a * b * c}$
+        $${a}\\times ${b}\\times ${c} = ${miseEnEvidence(a * b * c)}$
         `
 
           reponse = a * b * c
