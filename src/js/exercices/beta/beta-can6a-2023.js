@@ -460,7 +460,7 @@ export default function SujetCAN2023Sixieme () {
           b = new Decimal(randint(1, 9)).add(a)
           res = choice([10, 20])
           reponse = new Decimal(res).sub(b)
-          texte = `Complète : <br>
+          texte = `Complète : ${sp(3)}
           $${texNombre(b, 1)}+\\ldots =${res}$ `
           texteCorr = `Le nombre cherché est donné par : $${res}-${texNombre(b, 1)}=${miseEnEvidence(texNombre(reponse, 2))}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -574,7 +574,7 @@ export default function SujetCAN2023Sixieme () {
             ymax = 4
             objets = []
             objets.push(
-              texteParPosition('1 unité', milieu(C, D).x, milieu(C, D).y + 0.6, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              texteParPosition('1 unité', milieu(C, D).x, milieu(C, D).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
               a, s1, s2, labelPoint(A, B), point(A, B))
             reponse = fraction(b, 4)
             texte = `Quelle est la longueur du segment $[AB]$ ? <br>
@@ -600,7 +600,7 @@ export default function SujetCAN2023Sixieme () {
             ymax = 4
             objets = []
             objets.push(
-              texteParPosition('1 unité', milieu(C, D).x, milieu(C, D).y + 0.6, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              texteParPosition('1 unité', milieu(C, D).x, milieu(C, D).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
               a, s1, s2, labelPoint(A, B), point(A, B))
             reponse = fraction(b, 5)
             texte = `Quelle est la longueur du segment $[AB]$ ? <br>
