@@ -29,7 +29,7 @@ export default function DoubleDistributivite () {
   this.spacingCorr = context.isHtml ? 3 : 2
   this.nbQuestions = 5
   this.sup = 1
-  this.sup2 = false
+  this.sup2 = true
   this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
@@ -100,6 +100,8 @@ export default function DoubleDistributivite () {
       }
       if (this.sup2) {
         this.spacingCorr = 1
+        // On enlève la première égalité pour ne pas avoir A = A en première ligne
+        texteCorr = texteCorr.slice(4)
         // On découpe
         const etapes = texteCorr.split('=')
         texteCorr = ''

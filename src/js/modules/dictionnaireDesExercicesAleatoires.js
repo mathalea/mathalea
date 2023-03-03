@@ -3231,7 +3231,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -3246,7 +3246,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -9839,6 +9839,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "6G51-2": {
+    "titre": "Utiliser les symboles ∈ et ∉",
+    "url": "/exercices/6e/6G51-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6G51-2",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "6G52-2": {
     "titre": "Utiliser les propriétés des droites perpendiculaires",
     "url": "/exercices/6e/6G52-2.js",
@@ -9861,6 +9876,21 @@ export default {
     "name": "6G52",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "6G53": {
+    "titre": "Mesurer la distance d'un point à une droite",
+    "url": "/exercices/6e/6G53.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6G53",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
