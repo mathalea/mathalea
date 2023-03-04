@@ -259,7 +259,7 @@ export default function ExerciceAnglesTriangles () {
         const ymin = Math.min(A.y, B.y, C.y) - 2
         const ymax = Math.max(A.y, B.y, C.y) + 2
         const paramsEnonce = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 1 }
-        texte += mathalea2d(paramsEnonce, objetsEnonce)
+        texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
