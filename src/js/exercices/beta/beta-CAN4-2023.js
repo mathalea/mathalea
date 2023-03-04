@@ -1,13 +1,15 @@
 import Exercice from '../Exercice.js'
-import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites.js'
+import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGeneralites.js'
 import FractionX from '../../modules/FractionEtendue.js'
+import { obtenirListeFractionsIrreductibles } from '../../modules/fractions.js'
+import { scratchblock } from '../../modules/scratchblock.js'
 import {
-  point, droiteGraduee, pave, droite, segment, milieu, codageAngle, rotation, tracePoint, codageAngleDroit, texteParPosition, polygone
+  point, droiteGraduee, pave, droite, segment, milieu, codageAngle, rotation, labelPoint, tracePoint, codageAngleDroit, texteParPosition, polygone
 } from '../../modules/2d.js'
 import { paveLPH3d } from '../../modules/3d.js'
 import { round, min } from 'mathjs'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, miseEnEvidence, stringNombre, randint, texNombre, prenomF, texPrix, shuffle, choice, sp, arrondi } from '../../modules/outils.js'
+import { listeQuestionsToContenu, miseEnEvidence, texFractionReduite, printlatex, stringNombre, randint, texNombre, prenomF, simplificationDeFractionAvecEtapes, texPrix, shuffle, choice, sp, arrondi, texteEnCouleur, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import Hms from '../../modules/Hms.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -48,11 +50,11 @@ export default function SujetCAN2023Quatrieme () {
     this.listeCorrections = [] // Liste de questions corrigées
     const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
     const nbQ2 = min(this.nbQuestions - nbQ1, 20)
-    const typeQuestionsDisponiblesNiv1 = shuffle([12]).slice(-nbQ1).sort(compareNombres)// 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-    const typeQuestionsDisponiblesNiv2 = shuffle([12]).slice(-nbQ2).sort(compareNombres)// 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
+    const typeQuestionsDisponiblesNiv1 = shuffle([23]).slice(-nbQ1).sort(compareNombres)// 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+    const typeQuestionsDisponiblesNiv2 = shuffle([23]).slice(-nbQ2).sort(compareNombres)// 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
     const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
 
-    for (let i = 0, index = 0, nbChamps, m, listeFraction, maFraction, n, h, pav, num, den, params, origine, traceA, traceD, traceB, traceorigine, ang1, s3, K, I, J, texte, texteCorr, reponse, prenom1, pol, L, l, E, F, G, H, propositions, choix, a, b, c, d, e, f, k, s1, s2, A, B, C, D, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, index = 0, nbChamps, m, listeFraction, poly, maFraction, n, lettre, listeTriplet, triplet, choix1, h, pav, num, den, params, origine, traceA, traceD, traceB, traceorigine, ang1, s3, K, I, J, texte, texteCorr, reponse, prenom1, pol, L, l, E, F, G, H, propositions, choix, a, b, c, d, e, f, k, s1, s2, A, B, C, D, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typeQuestionsDisponibles[i]) {
         case 1:
           a = randint(4, 9)
@@ -416,6 +418,285 @@ export default function SujetCAN2023Quatrieme () {
             texte = `Que vaut $${a}x-${b}$ si $x=${c}$ ?`
             texteCorr = `Pour $x=${c}$, on a  $${a}x-${b}=${a}\\times ${c}-${b}=${a * c}-${b}=${miseEnEvidence(a * c - b)}$.`
           }
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          nbChamps = 1
+          break
+        case 13:
+
+          a = new Decimal(randint(21, 69, [30, 40, 50, 60])).div(10)
+          choix = choice(['a', 'b'])
+
+          if (choix === 'a') {
+            reponse = a
+            texte = `$${texNombre(a, 1)}$ dm$^3=$`
+            texteCorr = `$1$ dm$^3= 1$ L, donc $${texNombre(a, 1)}$ dm$^3=${miseEnEvidence(texNombre(a, 1))}$ L.`
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'L' } else { texte += ' $\\ldots$ L' }
+          }
+          if (choix === 'b') {
+            reponse = new Decimal(a).mul(1000)
+            texte = `$${texNombre(a, 1)}$ m$^3$ $=$`
+            texteCorr = `$1$ m$^3= ${texNombre(1000)}$ L, donc $${texNombre(a, 1)}$ m$^3= ${miseEnEvidence(texNombre(a * 1000))}$ L.`
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'L' } else { texte += ' $\\ldots$ L' }
+          }
+
+          nbChamps = 1
+          break
+        case 14:
+          a = randint(3, 10)
+          b = a - randint(-1, 1, 0)
+          choix1 = choice([true, false])
+          reponse = choix1 ? `${a};${a + b}` : `${b};${a + b}`
+          texte = `Une urne contient $${a}$ boules rouges et $${b}$ boules vertes. <br>
+            On tire une boule au hasard. <br>
+            Compléte : « On a $\\ldots$ chances sur $\\ldots$ de tirer une boule ${choix1 ? 'rouge' : 'verte'} ». `
+          texteCorr = `Dans l'urne, il y a $${a}$ boules rouges et $${b}$ boules vertes, soit un total de $${a + b}$ boules. <br>
+            On a donc $${miseEnEvidence(choix1 ? `${a}` : `${b}`)}$ chances sur $${miseEnEvidence(a + b)}$ de tirer une boule ${choix1 ? 'rouge' : 'verte'}.`
+
+          setReponse(this, index, reponse, { formatInteractif: 'texte' })
+          if (this.interactif) {
+            texte += '<br>Écrire les deux nombres  séparés par un point virgule.'
+            texte += ajouteChampTexteMathLive(this, index, 'largeur15 inline')
+          }
+          nbChamps = 1
+          break
+
+        case 15:
+
+          reponse = 5
+          texte = 'Le nombre de faces de ce solide est : '
+          texteCorr = ''
+
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          nbChamps = 1
+          break
+
+        case 16:
+          a = choice(obtenirListeFractionsIrreductibles())
+          c = choice([2, 3])
+          b = new FractionX(1, a.d * c)
+          if (choice([true, false])) {
+            texte = `Calculer $${a.texFraction} - ${b.texFraction}$.`
+            texteCorr = `$${a.texFraction} - ${b.texFraction}=
+   \\dfrac{${a.n}\\times ${c}}{${a.d}\\times ${c}}- ${b.texFraction}
+    =${a.reduire(c).texFraction} - ${b.texFraction}=\\dfrac{${a.n * c}-${b.n}}{${b.d}}=\\dfrac{${miseEnEvidence(a.n * c - b.n)}}{${miseEnEvidence(b.d)}}${simplificationDeFractionAvecEtapes(a.n * c - b.n, b.d)}$`
+            reponse = a.differenceFraction(b).simplifie()
+          } else {
+            texte = `Calculer $${a.texFraction} + ${b.texFraction}$.`
+            texteCorr = `$${a.texFraction} + ${b.texFraction}=
+   \\dfrac{${a.n}\\times ${c}}{${a.d}\\times ${c}}+ ${b.texFraction}
+    =${a.reduire(c).texFraction} + ${b.texFraction}=\\dfrac{${a.n * c}+${b.n}}{${b.d}}=\\dfrac{${miseEnEvidence(a.n * c + b.n)}}{${miseEnEvidence(b.d)}}${simplificationDeFractionAvecEtapes(a.n * c + b.n, b.d)}$`
+            reponse = a.sommeFraction(b).simplifie()
+          }
+          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          nbChamps = 1
+          break
+
+        case 17:
+
+          a = randint(2, 10)
+          b = randint(2, 10)
+          reponse = a * b
+          texte = '\\begin{scratch}[print,fill,blocks,scale=0.8]\n \\blockinit{quand \\greenflag est cliqué}\n '
+          texte += "\\blockpen{stylo en position d'écriture}\n"
+          texte += `\\blockrepeat{répéter \\ovalnum{${a}} fois}\n`
+          texte += `\\blockmove{avancer de \\ovalnum{${b}} pas}\n`
+          texte += '} \n'
+          texte += '\\end{scratch}'
+          texteCorr = `Le stylo avance de $${a}\\times ${b}}=${a * b}$ pas.`
+
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          nbChamps = 1
+          break
+
+        case 18:
+          if (choice([true, false])) {
+            a = randint(3, 6)
+            b = randint(4, 5)
+            c = a * b
+            b = b * 2
+            A = point(0, 0, 'A', 'below')
+            B = point(0, 4, 'B', 'above')
+            C = point(6, 0, 'C', 'below')
+            poly = polygone([A, B, C], 'black')
+            poly.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
+            d = texteParPosition(`${stringNombre(c)} cm²`, 1.5, 1.5, 'milieu', 'black', context.isHtml ? 1 : 0.7)
+            e = texteParPosition(`${stringNombre(a)} cm`, -0.7, 2, 'milieu', 'black', context.isHtml ? 1 : 0.7)
+            poly.epaisseur = 1
+            reponse = b
+            texte = 'On donne la figure suivante :<br>'
+
+            texte += mathalea2d({ xmin: -1.5, ymin: -1, xmax: 7.1, ymax: 5, scale: 0.5 }, poly, labelPoint(A, B, C), codageAngleDroit(B, A, C), d, e) + '<br>'
+            texteCorr = `L'aire du triangle est $\\dfrac{\\text{AB}\\times \\text{AC}}{2}=\\dfrac{${a}\\times \\text{AC}}{2}$.<br>
+          On obtient ainsi,  $\\dfrac{${a}\\times \\text{AC}}{2}=${c}$ soit $${a}\\times AC=2\\times ${c}$, soit $AC=\\dfrac{${c * 2}}{${a}}=${reponse}$ cm.`
+            texte += '$AC= $'
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
+            } else { texte += ' $\\ldots$ cm' }
+          } else {
+            listeTriplet = [[3, 4, 5], [6, 8, 10], [5, 12, 13]]
+            triplet = choice(listeTriplet)
+            a = triplet[0]
+            b = triplet[1]
+            c = triplet[2]
+            A = point(0, 0, 'A', 'below')
+            B = point(4, 0.5, 'B', 'below')
+            C = point(1, 2, 'C', 'above')
+            poly = polygone([A, B, C], 'black')
+            poly.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
+            d = texteParPosition(`${stringNombre(a)} cm`, milieu(A, C).x - 0.5, milieu(A, C).y, 'milieu', 'black', context.isHtml ? 1 : 0.7)
+            e = texteParPosition(`${stringNombre(b)} cm`, milieu(B, C).x + 0.5, milieu(B, C).y + 0.2, 'milieu', 'black', context.isHtml ? 1 : 0.7)
+            f = texteParPosition(`${stringNombre(c)} cm`, milieu(B, A).x, milieu(B, A).y - 0.3, 'milieu', 'black', context.isHtml ? 1 : 0.7)
+
+            poly.epaisseur = 1
+            reponse = arrondi(a * b / 2, 0)
+            texte = 'L\'aire du triangle $ABC$ est :<br>'
+
+            texte += mathalea2d({ xmin: -1.5, ymin: -1, xmax: 5, ymax: 2.5, scale: 1, pixelsParCm: 40 }, poly, labelPoint(A, B, C), codageAngleDroit(A, C, B), d, e, f)
+            texteCorr = `L'aire du triangle est $\\dfrac{\\text{AC}\\times \\text{CB}}{2}=\\dfrac{${a}\\times ${a}}{2}=${miseEnEvidence(reponse)}$ cm$^2$.`
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm$^2$'
+            }
+          }
+
+          nbChamps = 1
+          break
+
+        case 19:
+
+          a = randint(2, 10)
+          b = randint(2, 4)
+          c = randint(2, 5)
+          reponse = (a + b) * c
+
+          if (context.isHtml) {
+            texte = `Quel est le résultat de ce programme de calcul lorsque le nombre de départ est $${a}$.`
+            texte += '<br> Nombre de départ <br>'
+            texte += `${sp(8)}$\\downarrow$<br>`
+            texte += '$\\begin{array}{|l|}\n'
+            texte += '\\hline\n'
+            texte += `\\\n \\text{Ajouter } ${b} \\\n`
+            texte += `\\\\\n \\text{Multiplier par } ${c}\\\\\n `
+            texte += '\\hline\n'
+            texte += '\\end{array}\n$<br>'
+            texte += `${sp(8)}$\\downarrow$<br>
+         `
+            texte += 'Résultat'
+          } else {
+            texte = `Quel est le résultat de ce programme de calcul lorsque le nombre de départ est $${a}$.<br>
+          
+          `
+            texte += `Nombre de départ <br>
+          
+          `
+            texte += `
+          ${sp(8)}$\\downarrow$<br>
+          
+          `
+            texte += '\\medskip'
+            texte += '\\fbox{'
+            texte += '\\parbox{0.35\\linewidth}{'
+            texte += '\\setlength{\\parskip}{.5cm}'
+            texte += ` Ajouter $${b}$\\newline`
+            texte += ` Multiplier par $${c}$`
+            texte += '}'
+            texte += '}'
+            texte += '<br>'
+            texte += `<br>${sp(8)}$\\downarrow$<br>
+          
+          `
+            texte += 'Résultat'
+          }
+
+          texteCorr = `Le résultat est donné par : $(${a}+ ${b})\\times ${c}=${miseEnEvidence(reponse)}$.`
+
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          nbChamps = 1
+          break
+
+        case 20:
+          a = choice(obtenirListeFractionsIrreductibles())
+          c = a.d
+
+          if (choice([true, false])) {
+            b = a.n
+            d = new FractionX(b, c)
+            texte = `L'opposé de $\\dfrac{${b}}{${c}}$ `
+            texteCorr = `Deux nombres sont opposés lorsque leur somme est nulle.<br>
+              Ainsi, l'opposé de $\\dfrac{${b}}{${c}}$ est $${miseEnEvidence('-')}${miseEnEvidence(d.texFraction)}$ car $\\dfrac{${b}}{${c}}+\\left(-${d.texFraction}\\right)=0$.`
+            reponse = d.oppose()
+          } else {
+            b = a.n
+            d = new FractionX(b, c)
+            e = new FractionX(c, b)
+            texte = `L'inverse de $\\dfrac{${b}}{${c}}$`
+            texteCorr = `Deux nombres sont inverses l'un de l'autre lorsque leur produit vaut $1$.<br>
+                Ainsi, l'inverse de $\\dfrac{${b}}{${c}}$ est $${miseEnEvidence(texFractionReduite(c, b))}$ car $\\dfrac{${b}}{${c}}\\times ${texFractionReduite(c, b)}=1$.`
+            reponse = e
+          }
+
+          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          nbChamps = 1
+          break
+
+        case 21:
+          if (choice([true, false])) {
+            a = randint(2, 10)
+            b = randint(2, 3)
+            c = 2
+          } else {
+            a = randint(2, 3)
+            b = randint(2, 3)
+            c = 3
+          }
+          reponse = a * (b ** c)
+          texte = `$${a}\\times ${b}^${c}$`
+
+          texteCorr = `$${a}\\times ${b}^${c}=${a}\\times ${b ** c}=${miseEnEvidence(reponse)}$`
+
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          nbChamps = 1
+          break
+
+        case 22:
+          a = randint(2, 6)
+          b = randint(8, 15)
+          d = choice([27, 30, 33, 36, 39, 42, 45, 48])
+
+          c = d - a - b
+
+          texte = `Quelle est la moyenne de ces $3$ nombres ? <br>
+                $${a}$ ${sp(4)} ; ${sp(4)} $${b}$ ${sp(4)} ; ${sp(4)} $${c}$ 
+                `
+
+          texteCorr = `La somme des $3$ nombres est : $${a}+${b}+${c} =${d}$.<br>
+                La moyenne est donc $\\dfrac{${d}}{3}=${texNombre(d / 3, 0)}$.`
+
+          reponse = arrondi(d / 3, 0)
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          nbChamps = 1
+          break
+        case 23:
+          lettre = choice(['a', 'b', 'x', 'y'])
+          a = randint(2, 9)
+          b = randint(2, 9)
+          c = randint(2, 9)
+          d = randint(2, 9)
+          texte = `Simplifie l'expression : <br>
+          $${a}${lettre}+${b}+${c}${lettre}+${d}$`
+          texteCorr = ` $${a}${lettre}+${b}+${c}${lettre}+${d}=${a}${lettre}+${c}${lettre}+${b}+${d}=${miseEnEvidence(a + c)}${miseEnEvidence(lettre)}$ ${texteEnCouleurEtGras('+')} $${miseEnEvidence(b + d)}$`
+          reponse = printlatex(`${a + c}*${lettre}+(${b + d})`)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
