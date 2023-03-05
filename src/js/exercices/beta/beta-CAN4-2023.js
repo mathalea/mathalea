@@ -1,12 +1,11 @@
 import Exercice from '../Exercice.js'
-import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGeneralites.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import FractionX from '../../modules/FractionEtendue.js'
 import { obtenirListeFractionsIrreductibles } from '../../modules/fractions.js'
 import { scratchblock } from '../../modules/scratchblock.js'
 import {
-  point, droiteGraduee, pave, droite, segment, milieu, codageAngle, rotation, labelPoint, tracePoint, codageAngleDroit, texteParPosition, polygone
+  point, segment, milieu, codageAngle, rotation, labelPoint, tracePoint, codageAngleDroit, texteParPosition, polygone
 } from '../../modules/2d.js'
-import { paveLPH3d } from '../../modules/3d.js'
 import { round, min } from 'mathjs'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, miseEnEvidence, texFractionReduite, printlatex, stringNombre, randint, texNombre, prenomF, simplificationDeFractionAvecEtapes, texPrix, shuffle, choice, sp, arrondi, texteEnCouleur, texteEnCouleurEtGras } from '../../modules/outils.js'
@@ -39,6 +38,7 @@ export default function SujetCAN2023Quatrieme () {
   this.nbQuestions = 30
   this.nbCols = 1
   this.nbColsCorr = 1
+  this.listePackages = 'scratch3'
   this.comment = `Cet exercice fait partie des annales des Courses aux nombres.<br>
   Il est composé de 30 questions réparties de la façon suivante :<br>
   les 10 premières questions parfois communes à plusieurs niveaux font appels à des questions automatisées élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
@@ -50,11 +50,11 @@ export default function SujetCAN2023Quatrieme () {
     this.listeCorrections = [] // Liste de questions corrigées
     const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
     const nbQ2 = min(this.nbQuestions - nbQ1, 20)
-    const typeQuestionsDisponiblesNiv1 = shuffle([23]).slice(-nbQ1).sort(compareNombres)// 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-    const typeQuestionsDisponiblesNiv2 = shuffle([23]).slice(-nbQ2).sort(compareNombres)// 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
+    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).slice(-nbQ1).sort(compareNombres)// 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+    const typeQuestionsDisponiblesNiv2 = shuffle([11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)// 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
     const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
 
-    for (let i = 0, index = 0, nbChamps, m, listeFraction, poly, maFraction, n, lettre, listeTriplet, triplet, choix1, h, pav, num, den, params, origine, traceA, traceD, traceB, traceorigine, ang1, s3, K, I, J, texte, texteCorr, reponse, prenom1, pol, L, l, E, F, G, H, propositions, choix, a, b, c, d, e, f, k, s1, s2, A, B, C, D, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, index = 0, nbChamps, m, listeFraction, poly, poly1, poly2, poly3, v, maFraction, n, p, lettre, listeTriplet, triplet, choix1, num, den, params, origine, traceA, traceD, traceB, traceorigine, ang1, s3, K, I, J, texte, texteCorr, reponse, prenom1, L, E, choix, a, b, c, d, e, f, k, s1, s2, A, B, C, D, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typeQuestionsDisponibles[i]) {
         case 1:
           a = randint(4, 9)
@@ -95,10 +95,12 @@ export default function SujetCAN2023Quatrieme () {
               break
           }
 
-          texteCorr = `Le chiffre des ${m} est $${miseEnEvidence(reponse)}$.<br>$
-              \\begin{array}{|c|c|c|c|c|c|c|}
+          texteCorr = `Le chiffre des ${m} est $${miseEnEvidence(reponse)}$.<br>
+          Dans le tableau suivant : C : centaines<br>
+          $D$ : dizaines et $U$ : unités. <br>
+          $\\begin{array}{|c|c|c|c|c|c|c|}
               \\hline
-              \\text{\\small{Centaine}} &  \\text{\\small{Dizaine}} & \\text{\\small{Unité}}&  \\Large{\\textbf{,}}& \\text{\\small{Dixième}} & \\text{\\small{Centième}} & \\text{\\small{Millième}}${context.isHtml ? '\\\\' : '\\tabularnewline'}
+              \\text{\\small{C}} &  \\text{\\small{D}} & \\text{\\small{U}}&  \\Large{\\textbf{,}}& \\text{\\small{Dixièmes}} & \\text{\\small{Centièmes}} & \\text{\\small{Millièmes}}${context.isHtml ? '\\\\' : '\\tabularnewline'}
               \\hline
               ${a}&${b}&${c} & \\Large{\\textbf{,}}& ${d}&${e}& ${f}${context.isHtml ? '\\\\' : '\\tabularnewline'}
               \\hline
@@ -309,7 +311,7 @@ export default function SujetCAN2023Quatrieme () {
           params = {
             xmin: -2.2,
             ymin: -2.2,
-            xmax: 18,
+            xmax: 8,
             ymax: 3,
             pixelsParCm: 20,
             scale: 0.4,
@@ -464,13 +466,51 @@ export default function SujetCAN2023Quatrieme () {
           break
 
         case 15:
+          if (choice([true, false])) {
+            A = point(0, 0, 'A', 'above')
+            B = point(1, -1, 'B', 'above')
+            C = point(2, -0.5, 'C', 'above')
+            D = point(2.3, 0.8, 'D', 'above')
+            E = point(1, 4, 'E', 'above')
+            s1 = segment(A, D)
 
-          reponse = 5
-          texte = 'Le nombre de faces de ce solide est : '
-          texteCorr = ''
+            s1.pointilles = 2
+
+            poly1 = polygone([A, B, E], 'black')
+            poly2 = polygone([E, B, C], 'black')
+            poly3 = polygone([C, D, E], 'black')
+
+            reponse = 5
+            texte = 'Le nombre de faces de ce solide est : <br>'
+
+            texte += '<br>' + mathalea2d({ xmin: -1.5, ymin: -1.2, xmax: 7.1, ymax: 4.2, scale: 0.4 }, poly1, s1, poly2, poly3) + '<br>'
+            texteCorr = `Ce solide a $${miseEnEvidence(5)} faces.`
+          } else {
+            A = point(0, 0, 'A', 'above')
+            B = point(3, 0, 'B', 'above')
+            C = point(1, 1, 'C', 'above')
+            D = point(2, 4, 'D', 'above')
+
+            s1 = segment(C, D)
+            s2 = segment(A, C)
+            s3 = segment(C, B)
+            s1.pointilles = 2
+            s2.pointilles = 2
+            s3.pointilles = 2
+            poly1 = polygone([A, B, D], 'black')
+
+            reponse = 4
+            texte = 'Le nombre de faces de ce solide est : <br>'
+
+            texte += '<br>' + mathalea2d({ xmin: -1.5, ymin: -0.5, xmax: 7.1, ymax: 4.5, scale: 0.5 }, poly1, s1, s2, s3) + '<br>'
+            texteCorr = `Ce solide a $${miseEnEvidence(4)} faces.`
+          }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
+
           nbChamps = 1
           break
 
@@ -501,16 +541,30 @@ export default function SujetCAN2023Quatrieme () {
           a = randint(2, 10)
           b = randint(2, 10)
           reponse = a * b
-          texte = '\\begin{scratch}[print,fill,blocks,scale=0.8]\n \\blockinit{quand \\greenflag est cliqué}\n '
-          texte += "\\blockpen{stylo en position d'écriture}\n"
-          texte += `\\blockrepeat{répéter \\ovalnum{${a}} fois}\n`
-          texte += `\\blockmove{avancer de \\ovalnum{${b}} pas}\n`
-          texte += '} \n'
-          texte += '\\end{scratch}'
+          texte = `De combien de pas avance le stylo ? <br>
+          <br>
+          Figure scratch
+          <br>
+          <br>
+          Figure scratch<br>
+          <br>
+          Figure scratch<br>
+          <br>
+          Figure scratch
+          <br>
+          <br>
+          Figure scratch<br>
+          `
+          //  texte = '\\begin{scratch}[print,fill,blocks,scale=0.8]\n \\blockinit{quand \\greenflag est cliqué}\n '
+          //  texte += "\\blockpen{stylo en position d'écriture}\n"
+          //  texte += `\\blockrepeat{répéter \\ovalnum{${a}} fois}\n`
+          //  texte += `\\blockmove{avancer de \\ovalnum{${b}} pas}\n`
+          //  texte += '} \n'
+          //  texte += '\\end{scratch}'
           texteCorr = `Le stylo avance de $${a}\\times ${b}}=${a * b}$ pas.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' pas' } else { texte += '$\\ldots$ pas' }
           nbChamps = 1
           break
 
@@ -675,12 +729,13 @@ export default function SujetCAN2023Quatrieme () {
 
           c = d - a - b
 
-          texte = `Quelle est la moyenne de ces $3$ nombres ? <br>
-                $${a}$ ${sp(4)} ; ${sp(4)} $${b}$ ${sp(4)} ; ${sp(4)} $${c}$ 
-                `
+          texte = `Quelle est la moyenne de ces $3$ nombres ?<br>
+
+          $${a}$ ${sp(4)} ; ${sp(4)} $${b}$ ${sp(4)} ; ${sp(4)} $${c}$`
 
           texteCorr = `La somme des $3$ nombres est : $${a}+${b}+${c} =${d}$.<br>
-                La moyenne est donc $\\dfrac{${d}}{3}=${texNombre(d / 3, 0)}$.`
+
+                La moyenne est donc $\\dfrac{${d}}{3}=${miseEnEvidence(texNombre(d / 3, 0))}$.`
 
           reponse = arrondi(d / 3, 0)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -693,12 +748,202 @@ export default function SujetCAN2023Quatrieme () {
           b = randint(2, 9)
           c = randint(2, 9)
           d = randint(2, 9)
-          texte = `Simplifie l'expression : <br>
+          if (choice([true, false])) {
+            texte = `Simplifie l'expression : <br>
           $${a}${lettre}+${b}+${c}${lettre}+${d}$`
-          texteCorr = ` $${a}${lettre}+${b}+${c}${lettre}+${d}=${a}${lettre}+${c}${lettre}+${b}+${d}=${miseEnEvidence(a + c)}${miseEnEvidence(lettre)}$ ${texteEnCouleurEtGras('+')} $${miseEnEvidence(b + d)}$`
-          reponse = printlatex(`${a + c}*${lettre}+(${b + d})`)
+            texteCorr = ` $${a}${lettre}+${b}+${c}${lettre}+${d}=${a}${lettre}+${c}${lettre}+${b}+${d}=${miseEnEvidence(a + c)}${miseEnEvidence(lettre)}$ ${texteEnCouleurEtGras('+')} $${miseEnEvidence(b + d)}$`
+            reponse = printlatex(`${a + c}*${lettre}+(${b + d})`)
+          } else {
+            texte = `Simplifie l'expression : <br>
+          $${a}${lettre}+${b}+${c}${lettre}$`
+            texteCorr = ` $${a}${lettre}+${b}+${c}${lettre}=${a}${lettre}+${c}${lettre}+${b}=${miseEnEvidence(a + c)}${miseEnEvidence(lettre)}$ ${texteEnCouleurEtGras('+')} $${miseEnEvidence(b)}$`
+            reponse = printlatex(`${a + c}*${lettre}+${b}`)
+          }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          nbChamps = 1
+          break
+
+        case 24:
+          if (choice([true, false])) {
+            a = choice([75, 33, 60, 45, 90])
+            reponse = arrondi(2 * a / 3, 0)
+            texte = `Je bois le tiers d'une bouteille d'eau de $${a}$ cL.<br>
+              Quelle quantité d'eau reste-t-il ?`
+            texteCorr = `J'ai bu $\\dfrac{${a}}{3}=${texNombre(a / 3, 0)}$ cL. Il reste donc 
+              $${a}$ cL $-${texNombre(a / 3, 0)}$ cL $=${miseEnEvidence(reponse)}$ cL.`
+          } else {
+            a = choice([75, 90, 100, 60, 50])
+            reponse = arrondi(4 * a / 5, 0)
+            texte = `Je bois le cinquième  d'une bouteille d'eau de $${a}$ cL.<br>
+              Quelle quantité d'eau reste-t-il ?`
+            texteCorr = `J'ai bu $\\dfrac{${a}}{5}=${texNombre(a / 5, 0)}$ cL. Il reste donc 
+              $${a}$ cL $-${texNombre(a / 5, 0)}$ cL $=${miseEnEvidence(reponse)}$ cL.`
+          }
+
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cL' }
+          nbChamps = 1
+          break
+
+        case 25:
+          a = randint(1, 9, 5)
+          b = choice([1, 3, 5, 9, 11])
+          if (choice([true, false])) {
+            maFraction = new FractionX(a, 5)
+            reponse = arrondi(a / 5, 2)
+            texte = `L'écriture décimale de  $${maFraction.texFraction}$ est : `
+            texteCorr = `$${maFraction.texFraction}=${miseEnEvidence(texNombre(reponse))}$`
+          } else {
+            maFraction = new FractionX(b, 4)
+            reponse = arrondi(b / 4, 2)
+            texte = `L'écriture décimale de   $${maFraction.texFraction}$  est : `
+            texteCorr = `$${maFraction.texFraction}=${miseEnEvidence(texNombre(reponse))}$`
+          }
+
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          nbChamps = 1
+          break
+
+        case 26:
+          a = randint(1, 5)
+          b = choice([0.25, 0.5, 0.75])
+          d = b * 60
+          if (!this.interactif) {
+            texte = `$${texNombre(a + b)}$ h $=$ ..... h ..... min`
+          } else {
+            texte = `Convertir en heures/minutes : <br>$${texNombre(a + b)}$ h $=$`
+            texte += ajouteChampTexteMathLive(this, i, 'clavierHms inline')
+            setReponse(this, i, new Hms({ hour: a, minute: d }), { formatInteractif: 'hms' })
+          }
+          texteCorr = `$${texNombre(a + b)}$ h $ = ${a}$ h $ +$ $ ${texNombre(b)} \\times 60$ min $  = ${miseEnEvidence(a)}$ h $${miseEnEvidence(d)}$ min`
+          nbChamps = 1
+          break
+
+        case 27:
+          a = randint(6, 19, [10, 20, 30])
+          b = choice([15, 25]) / 10
+
+          texte = `$${a}\\times ${texNombre(b, 1)}$ `
+          texteCorr = `$${a}\\times ${texNombre(b, 1)}=${miseEnEvidence(texNombre(a * b, 1))}$`
+          reponse = arrondi(a * b, 1)
+          texteCorr += texteEnCouleur(`
+             <br> Mentalement : <br>
+             $${a}\\times ${texNombre(b, 1)}=${a}\\times ${Math.floor(b)}+\\underbrace{${a}\\times 0,5}_{\\text{La moitié de }${a}}
+             =${a * Math.floor(b)}+${texNombre(a / 2, 1)}=${texNombre(reponse, 1)}$  `)
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) { texte += '$=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          nbChamps = 1
+
+          break
+
+        case 28:
+          a = randint(1, 9) * choice([10, 100])
+          p = randint(1, 2) * 10
+          reponse = a * p / 100
+          texte = `$${p}${sp(1)}\\%$ de $${a}$ `
+          texteCorr = `$${p}${sp(1)}\\%$ de $${a} = ${miseEnEvidence(reponse)}$`
+          if (a === 10) {
+            texteCorr += `$10${sp(1)}\\%$ de $${a} = 0,1 \\times ${a}=${texNombre(this.reponse)}$.`
+            this.correction += texteEnCouleur(`<br> Mentalement : <br>
+        Prendre $10${sp(1)}\\%$  d'une quantité revient à la diviser par $10$.<br>
+        Ainsi, $10${sp(1)}\\%$ de $${a} = \\dfrac{${a}}{10}=${texNombre(this.reponse)}$.`)
+          } else {
+            texteCorr += texteEnCouleur(`<br> Mentalement : <br>
+             Prendre $${p}${sp(1)}\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10${sp(1)}\\%$  de $${a}$.<br>
+             Comme $10${sp(1)}\\%$  de $${a}$ vaut $${a / 10}$ (pour prendre $10${sp(1)}\\%$  d'une quantité, on la divise par $10$), alors 
+             $${p}${sp(1)}\\%$ de $${a}=${p / 10}\\times ${a / 10}=${reponse}$.
+            `)
+          }
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) { texte += '$=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          nbChamps = 1
+          break
+
+        case 29:
+
+          a = randint(6, 7)
+          b = randint(2, 3)
+          c = randint(4, 5)
+          v = a * b * c
+          A = point(0, 3, 'A', 'above')
+          B = point(1, 4, 'B', 'above')
+          C = point(6, 4, 'C', 'above')
+          D = point(5, 3, 'D', 'above')
+          I = point(0, 0, 'I', 'below')
+          J = point(1, 1, 'J', 'above right')
+          K = point(6, 1, 'K', 'above right')
+          L = point(5, 0, 'L', 'below')
+          s1 = segment(I, J)
+          s2 = segment(J, K)
+          s3 = segment(J, B)
+          s1.pointilles = 2
+          s2.pointilles = 2
+          s3.pointilles = 2
+          poly1 = polygone([A, B, C, D], 'black')
+          poly2 = polygone([A, D, L, I], 'black')
+          poly3 = polygone([L, K, C, D], 'black')
+          d = texteParPosition(`${stringNombre(a)} cm`, milieu(I, L).x, milieu(I, L).y - 0.5, 'milieu', 'black', context.isHtml ? 1 : 0.7)
+          e = texteParPosition(`${stringNombre(b)} cm`, milieu(K, L).x + 0.8, milieu(K, L).y, 'milieu', 'black', context.isHtml ? 1 : 0.7)
+          f = texteParPosition('?', milieu(A, I).x - 0.5, milieu(A, I).y, 'milieu', 'black', context.isHtml ? 1 : 0.7)
+          reponse = c
+          texte = `Ce pavé droit a un volume de $${v}$ cm$^3$.<br>
+            Quelle est sa hauteur ? <br>`
+
+          texte += '<br>' + mathalea2d({ xmin: -1.5, ymin: -1, xmax: 7.1, ymax: 5, scale: 0.5 }, labelPoint(A, B, C, D, I, J, K, L), d, e, f, poly1, poly2, poly3, s1, s2, s3) + '<br>'
+          texteCorr = `Le volume d'un pavé droit est donné par le produit  longueur $\\times$ largeur $\\times$ hauteur.<br>
+            Ainsi, $AI=\\dfrac{${v}}{${a}\\times ${b}}=${miseEnEvidence(c)}$.`
+          texte += '$AI= $'
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
+          } else { texte += ' $\\ldots$ cm' }
+
+          nbChamps = 1
+          break
+
+        case 30:
+          a = randint(1, 9)
+          b = randint(1, 9, a)
+          c = randint(1, 9, [a, b])
+
+          m = choice([1, 2, 3, 4, 5])//, 2, 3, 4
+          if (m === 1) {
+            d = a + b * 0.1 + c * 0.01
+            reponse = arrondi(100 * d, 0)
+            texte = ` $40 \\times ${texNombre(d)}\\times 2,5$`
+            texteCorr = `$40 \\times ${texNombre(d)}\\times 2,5 = \\underbrace{40 \\times 2,5}_{=100}\\times ${texNombre(d)} =100 \\times ${texNombre(d)} = ${miseEnEvidence(texNombre(100 * d, 0))}$`
+          }
+          if (m === 2) {
+            d = a + b * 0.1
+            reponse = arrondi(100 * d, 1)
+            texte = ` $40 \\times ${texNombre(d)}\\times 2,5$`
+            texteCorr = `$40 \\times ${texNombre(d)}\\times 2,5 = \\underbrace{40 \\times 2,5}_{=100}\\times ${texNombre(d)} =100 \\times ${texNombre(d)} = ${miseEnEvidence(texNombre(100 * d, 0))}$`
+          }
+          if (m === 3) {
+            d = a + b * 0.1 + c * 0.01
+            reponse = arrondi(10 * d, 1)
+            texte = ` $40 \\times ${texNombre(d)}\\times 0,25$`
+            texteCorr = `$40 \\times ${texNombre(d)}\\times 0,25 = \\underbrace{40 \\times 0,25}_{=10}\\times ${texNombre(d)} =10 \\times ${texNombre(d)} = ${miseEnEvidence(texNombre(10 * d, 1))}$`
+          }
+          if (m === 4) {
+            d = a + b * 0.1
+            reponse = arrondi(10 * d, 0)
+            texte = ` $40 \\times ${texNombre(d)}\\times 0,25$`
+            texteCorr = `$40 \\times ${texNombre(d)}\\times 0,25 = \\underbrace{40 \\times 0,25}_{=10}\\times ${texNombre(d)} =10 \\times ${texNombre(d)} = ${miseEnEvidence(texNombre(10 * d, 0))}$`
+          }
+
+          if (m === 5) {
+            d = a + b * 0.1
+            reponse = arrondi(d, 1)
+            texte = ` $4 \\times ${texNombre(d)}\\times 0,25$`
+            texteCorr = `$4 \\times ${texNombre(d)}\\times 0,25 = \\underbrace{4 \\times 0,25}_{=1}\\times ${texNombre(d)} =1 \\times ${texNombre(d, 1)} = ${miseEnEvidence(texNombre(d, 1))}$`
+          }
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) {
+            texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
           nbChamps = 1
           break
       }
