@@ -4456,8 +4456,8 @@ export function katexPopup2 (numero, type, texte, titrePopup, textePopup) {
  * @author Sébastien Lozano (Rajout par EE, l'opportunité d'enlever l'espace final qui est par défaut)
  */
 export function numAlpha (k, nospace = false) {
-  if (context.isHtml) return '<span style="color:#f15929; font-weight:bold">' + String.fromCharCode(97 + k) + ')' + (nospace ? '' : '&nbsp;') + '</span>'
-  else return '\\textbf {' + String.fromCharCode(97 + k) + '.}' + (nospace ? '' : ' ')
+  if (context.isHtml) return '<span style="color:#f15929; font-weight:bold">' + String.fromCharCode(97 + k % 26) + ')' + (nospace ? '' : '&nbsp;') + '</span>'
+  else return '\\textbf {' + String.fromCharCode(97 + k % 26) + '.}' + (nospace ? '' : ' ')
 }
 
 /**
