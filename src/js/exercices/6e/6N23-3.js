@@ -536,7 +536,7 @@ export default function LireUneAbscisseAvecZoom () {
         this.autoCorrection[i] = {
           enonce: texte,
           // melange: false, // EE : ce champ est facultatif et permet (si false) de ne pas provoquer le mélange des questions.
-          options: { multicols: true, barreseparation: false },
+          options: { multicols: true, barreseparation: false, numerotationEnonce: true },
           propositions: [
             {
               type: 'AMCNum', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen

@@ -454,6 +454,12 @@ export function exportQcmAmc (exercice, idExo) {
             texQr += 'pt}\\begin{multicols}{2}\n'
           }
         }
+        if (typeof autoCorrection[j].options !== 'undefined') {
+          if (autoCorrection[j].options.numerotationEnonce) {
+            texQr += `\\begin{question}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}Enonce} `
+          }
+        }
+
         if (autoCorrection[j].enonceAGauche) {
           texQr += `\\noindent\\fbox{\\begin{minipage}{${autoCorrection[j].enonceAGauche[0]}\\linewidth}\n`
         }
@@ -477,6 +483,12 @@ export function exportQcmAmc (exercice, idExo) {
         if (autoCorrection[j].enonceAGauche) {
           texQr += `\\end{minipage}}\n\\noindent\\begin{minipage}[t]{${autoCorrection[j].enonceAGauche[1]}\\linewidth}\n`
         }
+        if (typeof autoCorrection[j].options !== 'undefined') {
+          if (autoCorrection[j].options.numerotationEnonce) {
+            texQr += '\\end{question}'
+          }
+        }
+
         if (typeof autoCorrection[j].options !== 'undefined') {
           if (autoCorrection[j].options.multicols && !autoCorrection[j].options.multicolsAll) {
             texQr += '\\setlength{\\columnseprule}{'
