@@ -114,9 +114,9 @@ export default class NomExercice extends Exercice {
       const ymin = Math.min(A.y, B.y, C.y, D.y) - 2
       const ymax = Math.max(A.y, B.y, C.y, D.y) + 2
       // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
-      paramsEnonce = { xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 20, scale: 1 }
+      paramsEnonce = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 1 }
       // paramètres de la fenêtre Mathalea2d pour l'énoncé main levée
-      paramsEnonceml = { xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 20, scale: 1, mainlevee: true, amplitude: 1 }
+      paramsEnonceml = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 1, mainlevee: true, amplitude: 1 }
       // paramètres de la fenêtre Mathalea2d pour la correction
       paramsCorrection = paramsEnonce
       // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
