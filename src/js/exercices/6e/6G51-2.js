@@ -12,6 +12,8 @@ export const dateDePublication = '27/02/2023'
  * @author Guillaume Valmont
  * Référence 6G51-2
 */
+export const uuid = 'a8f1f'
+export const ref = '6G51-2'
 export default class UtilerAppartientA extends Exercice {
   constructor () {
     super()

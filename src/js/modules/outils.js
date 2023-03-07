@@ -44,7 +44,7 @@ export function listeQuestionsToContenu (exercice) {
       vspace = `\\vspace{${exercice.vspace} cm}\n`
     }
     if (!context.isAmc) {
-      if (document.getElementById('supprimer_reference').checked === true) {
+      if (document.getElementById('supprimer_reference') && document.getElementById('supprimer_reference').checked === true) {
         exercice.contenu = texConsigne(exercice.consigne) + vspace + texIntroduction(exercice.introduction) + texMulticols(texEnumerate(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
       } else {
         exercice.contenu = texConsigne(exercice.consigne) + `\n\\marginpar{\\footnotesize ${exercice.id}}` + vspace + texIntroduction(exercice.introduction) + texMulticols(texEnumerate(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
@@ -125,7 +125,7 @@ export function listeQuestionsToContenuSansNumero (exercice, retourCharriot = tr
       }
       exercice.contenuCorrection = htmlParagraphe(exercice.consigneCorrection) + htmlEnumerate(exercice.listeCorrections, exercice.spacingCorr, 'correction', `correction${exercice.numeroExercice}Q`, exercice.tailleDiaporama, 'sansNumero')
     } else {
-      if (document.getElementById('supprimer_reference').checked === true) {
+      if (document.getElementById('supprimer_reference') && document.getElementById('supprimer_reference').checked === true) {
         exercice.contenu = texConsigne(exercice.consigne) + texIntroduction(exercice.introduction) + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing, retourCharriot), exercice.nbCols)
       } else {
         exercice.contenu = texConsigne(exercice.consigne) + `\n\\marginpar{\\footnotesize ${exercice.id}}` + texIntroduction(exercice.introduction) + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing, retourCharriot), exercice.nbCols)
@@ -4456,8 +4456,8 @@ export function katexPopup2 (numero, type, texte, titrePopup, textePopup) {
  * @author Sébastien Lozano (Rajout par EE, l'opportunité d'enlever l'espace final qui est par défaut)
  */
 export function numAlpha (k, nospace = false) {
-  if (context.isHtml) return '<span style="color:#f15929; font-weight:bold">' + String.fromCharCode(97 + k % 26) + ')' + (nospace ? '' : '&nbsp;') + '</span>'
-  else return '\\textbf {' + String.fromCharCode(97 + k % 26) + '.}' + (nospace ? '' : ' ')
+  if (context.isHtml) return '<span style="color:#f15929; font-weight:bold">' + String.fromCharCode(97 + k) + ')' + (nospace ? '' : '&nbsp;') + '</span>'
+  else return '\\textbf {' + String.fromCharCode(97 + k) + '.}' + (nospace ? '' : ' ')
 }
 
 /**

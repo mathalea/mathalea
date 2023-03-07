@@ -125,7 +125,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
           break
         case 4:
           if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
-          this.consigne = 'Calculer.'
+          this.consigne = '.'
           if (!this.litteral) texte = `${expn}`
           else if (nbval === 2) texte = `Pour $x=${val1}$ et $y=${val2}$, calculer ${expn}.`
           else texte = `Pour $x=${val1}$, calculer ${expn}.`
