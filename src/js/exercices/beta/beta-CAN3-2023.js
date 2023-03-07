@@ -50,11 +50,11 @@ export default function SujetCAN2023troisieme () {
     this.listeCorrections = [] // Liste de questions corrigées
     const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
     const nbQ2 = min(this.nbQuestions - nbQ1, 20)
-    const typeQuestionsDisponiblesNiv1 = shuffle([20]).slice(-nbQ1).sort(compareNombres)// 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-    const typeQuestionsDisponiblesNiv2 = shuffle([20]).slice(-nbQ2).sort(compareNombres)// 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
+    const typeQuestionsDisponiblesNiv1 = shuffle([21]).slice(-nbQ1).sort(compareNombres)// 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+    const typeQuestionsDisponiblesNiv2 = shuffle([21]).slice(-nbQ2).sort(compareNombres)// 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
     const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
 
-    for (let i = 0, index = 0, nbChamps, m, nom, pol, n, g, poly1, poly2, poly3, F, G, H, I, num, den, params, inconnue, triplet, origine, traceA, traceD, traceB, traceorigine, ang1, s3, J, texte, texteCorr, reponse, prenom1, L, E, choix, a, b, c, d, e, f, k, s1, s2, A, B, C, D, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, index = 0, nbChamps, m, nom, pol, n, listeFraction, maFraction, g, poly1, poly2, poly3, poly4, K, F, G, H, I, num, den, params, inconnue, triplet, origine, traceA, traceD, traceB, traceorigine, ang1, s3, J, texte, texteCorr, reponse, prenom1, L, E, choix, a, b, c, d, e, f, k, s1, s2, A, B, C, D, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typeQuestionsDisponibles[i]) {
         case 1:
           a = randint(4, 9)
@@ -656,34 +656,33 @@ export default function SujetCAN2023troisieme () {
 
         case 20:
 
-          b = randint(2, 4)
-          a = randint(5, 9)
-          c = 2 * a + b
-          A = point(0, 0)
-          B = point(10, 0)
-          C = point(10, 0.7)
-          D = point(0, 0.7)
-          E = point(4, 0.7)
-          F = point(4, 0)
-          G = point(8, 0.7)
-          H = point(8, 0)
-          I = point(0, 1)
-          J = point(10, 1)
+          if (choice([true, false])) {
+            b = randint(2, 4)
+            a = randint(5, 9)
+            c = 2 * a + b
+            A = point(0, 0)
+            B = point(10, 0)
+            C = point(10, 0.7)
+            D = point(0, 0.7)
+            E = point(4, 0.7)
+            F = point(4, 0)
+            G = point(8, 0.7)
+            H = point(8, 0)
+            I = point(0, 1)
+            J = point(10, 1)
 
-          s1 = segmentAvecExtremites(I, J)
-          s1.styleExtremites = '<->'
-          xmin = -1
-          ymin = -1
-          xmax = 11
-          ymax = 1.5
-          poly1 = polygone(A, F, E, D)
-          poly2 = polygone(E, F, H, G)
-          poly3 = polygone(G, H, B, C)
-          poly1.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
-          poly2.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
-          objets = []
-          choix = choice(['a'])//, 'b', 'c'
-          if (choix === 'a') {
+            s1 = segmentAvecExtremites(I, J)
+            s1.styleExtremites = '<->'
+            xmin = -1
+            ymin = -0.5
+            xmax = 11
+            ymax = 2
+            poly1 = polygone(A, F, E, D)
+            poly2 = polygone(E, F, H, G)
+            poly3 = polygone(G, H, B, C)
+            poly1.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
+            poly2.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
+            objets = []
             objets.push(poly1, poly2, poly3, s1)
             objets.push(
               context.isHtml ? texteParPosition('$a$', milieu(A, F).x, milieu(A, F).y, 'milieu', 'black') : texteParPosition('$a$', milieu(A, F).x, milieu(A, F).y + 0.3, 'milieu', 'black', 0.7)
@@ -700,46 +699,89 @@ export default function SujetCAN2023troisieme () {
             $a=$`
 
             texteCorr = `$a=\\dfrac{${c}-${b}}{2}=${miseEnEvidence(a)}$.`
-          }
-          if (choix === 'b') {
-            objets.push(pol[0])
+          } else {
+            b = randint(7, 9)
+            a = randint(2, 5)
+            c = 3 * a + b
+            A = point(0, 0)
+            B = point(10, 0)
+            C = point(10, 0.7)
+            D = point(0, 0.7)
+            E = point(2, 0.7)
+            F = point(2, 0)
+            G = point(4, 0.7)
+            H = point(4, 0)
+            I = point(6, 0.7)
+            J = point(6, 0)
+            K = point(0, 1)
+            L = point(10, 1)
+            s1 = segmentAvecExtremites(K, L)
+            s1.styleExtremites = '<->'
+            xmin = -1
+            ymin = -0.5
+            xmax = 11
+            ymax = 2
+            poly1 = polygone(A, F, E, D)
+            poly2 = polygone(E, F, H, G)
+            poly3 = polygone(G, H, J, I)
+            poly4 = polygone(G, H, B, C)
+            poly1.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
+            poly2.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
+            poly3.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
+            objets = []
+            objets.push(poly1, poly2, poly3, poly4, s1)
             objets.push(
-              texteParPosition(`${stringNombre(a[1])} cm`, milieu(A, B).x + 0.6, milieu(A, B).y, 'milieu', 'black', context.isHtml ? 1 : 0.7)
-              , texteParPosition(`${stringNombre(a[2])} cm`, milieu(B, C).x - 0.8, milieu(B, C).y, 'milieu', 'black', context.isHtml ? 1 : 0.7)
-              , labelPoint(A, B, C), codageAngleDroit(B, A, C))
-            reponse = a[0]
-            texte = `Calcule la longueur $AC$.
-              `
+              context.isHtml ? texteParPosition('$a$', milieu(A, F).x, milieu(A, F).y, 'milieu', 'black') : texteParPosition('$a$', milieu(A, F).x, milieu(A, F).y + 0.3, 'milieu', 'black', 0.7)
+              , context.isHtml ? texteParPosition('$a$', milieu(F, H).x, milieu(F, H).y, 'milieu', 'black') : texteParPosition('$a$', milieu(F, H).x, milieu(F, H).y + 0.3, 'milieu', 'black', 0.7)
+              , context.isHtml ? texteParPosition('$a$', milieu(H, J).x, milieu(H, J).y, 'milieu', 'black') : texteParPosition('$a$', milieu(H, J).x, milieu(H, J).y + 0.3, 'milieu', 'black', 0.7), context.isHtml ? texteParPosition(`$${b}$`, milieu(B, J).x, milieu(B, J).y, 'milieu', 'black') : texteParPosition(`$${b}$`, milieu(B, J).x, milieu(B, J).y + 0.3, 'milieu', 'black', 0.7)
+              , context.isHtml ? texteParPosition(`$${c}$`, milieu(K, L).x, milieu(K, L).y + 0.1, 'milieu', 'black') : texteParPosition(`$${c}$`, milieu(K, L).x, milieu(K, L).y + 0.3, 'milieu', 'black', 0.7))
+            reponse = a
+            texte = `Loïs a représenté un problème : 
+                            `
 
-            texte += '<br>' + mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.3, scale: 0.6, style: 'margin: auto' }, objets)
-            texte += '<br>$AC=$'
+            texte += '<br>' + mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.3, scale: 0.6, style: 'margin: auto' }, objets)
+            texte += `<br>
+            
+            $a=$`
 
-            texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
-                  On a $AC^2=BC^2-AB^2$, soit $AC^2=${a[2]}^2-${a[1]}^2=${a[2] ** 2 - a[1] ** 2}$.<br>
-                  Par conséquent, $AC=${miseEnEvidence(a[0])}$ cm.`
-          }
-          if (choix === 'c') {
-            objets.push(pol[0])
-            objets.push(
-              texteParPosition(`${stringNombre(a[1])} cm`, milieu(A, B).x + 0.8, milieu(A, B).y, 'milieu', 'black', context.isHtml ? 1 : 0.7)
-              , texteParPosition(`${stringNombre(a[0])} cm`, milieu(A, C).x, milieu(A, C).y - 0.4, 'milieu', 'black', context.isHtml ? 1 : 0.7)
-              , labelPoint(A, B, C), codageAngleDroit(B, A, C))
-            reponse = a[2]
-            texte = `Calcule la longueur $BC$.
-              `
-
-            texte += '<br>' + mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.3, scale: 0.6, style: 'margin: auto' }, objets)
-            texte += '<br>$BC=$'
-
-            texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
-                    On a $BC^2=AB^2+AC^2$, soit $BC^2=${a[0]}^2+${a[1]}^2=${a[0] ** 2 + a[1] ** 2}$.<br>
-                    Par conséquent, $BC=${miseEnEvidence(a[2])}$ cm.`
+            texteCorr = `$a=\\dfrac{${c}-${b}}{2}=${miseEnEvidence(a)}$.`
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += ' $\\ldots$ ' }
           nbChamps = 1
           break
+
+          case 21:
+
+          listeFraction = [
+            [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5]
+          ]
+          maFraction = choice(listeFraction)
+          a = randint(1, 4)
+          b = maFraction[0]
+          c = maFraction[1]
+          f = new FractionX(b, c)
+          d = new FractionX(a * c + b, c).simplifie()
+          e = new FractionX(a * c - b, c).simplifie()
+
+          if (choice([true, false])) {
+            texte = `$${a}+${f.texFraction}$`
+            texteCorr = `$${a}+${f.texFraction} = \\dfrac{${a} \\times ${c}}{${c}} + \\dfrac{${b}}{${c}} = \\dfrac{${a * c}}{${c}} + \\dfrac{${b}}{${c}}  =${miseEnEvidence(d.texFraction)}$`
+            reponse = d
+          } else {
+            texte = `$${a}-${f.texFraction}$`
+            texteCorr = `$${a}-${f.texFraction} = \\dfrac{${a} \\times ${c}}{${c}} - \\dfrac{${b}}{${c}} = \\dfrac{${a * c}}{${c}} - \\dfrac{${b}}{${c}}  =${miseEnEvidence(e.texFraction)}$`
+            reponse = e
+          }
+          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          nbChamps = 1
+
+          break
+
+
+
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
