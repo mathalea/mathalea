@@ -165,7 +165,7 @@ export default function AntecedentEtImageGraphique () {
             {
               texte: '', // Facultatif. la proposition de Qcm ou ce qui est affiché dans le corrigé pour cette question quand ce n'est pas un Qcm
               reponse: { // utilisé si type = 'AMCNum'
-                texte: `${numAlpha(2)} Déterminer un antécédent de $${c}$.`, // facultatif
+                texte: `${numAlpha(3)} Déterminer un antécédent de $${c}$.`, // facultatif
                 valeur: x0 + 2, // obligatoire (la réponse numérique à comparer à celle de l'élève). EE : Si une fraction est la réponse, mettre un tableau sous la forme [num,den]
                 alignement: 'center', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
                 param: {
