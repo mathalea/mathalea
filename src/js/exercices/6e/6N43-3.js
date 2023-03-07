@@ -7,9 +7,12 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const titre = 'Reconnaître diviseur, multiple, divisible'
 
+export const dateDeModifImportante = '07/03/2023'
+
 /**
  * Vrai ou faux sur les notions de diviseur ou multiple
  * @author Rémi Angot
+ * Ajout du critère de divisibilité par 10 par Guillaume Valmont le 07/03/2022
  * Référence 6N43-3
 */
 export const uuid = 'bbdd6'
@@ -33,6 +36,8 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
         result = ', car son chiffre des unités est $0$, ou $5$.'
       } else if (N === 3 || N === 9) {
         result = `, car la somme de ses chiffres est $${sommeDesChiffres(a)[1]}=${sommeDesChiffres(a)[0]}$ qui est divisible par $${N}$.`
+      } else if (N === 10) {
+        result = ', car son chiffre des unités est $0$.'
       } else {
         result = `, car $${texNombre(a)} = ${N}\\times ${calcul(a / N)}$.`
       }
@@ -44,6 +49,8 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
         result = ", car son chiffre des unités n'est pas $0$, ou $5$."
       } else if (N === 3 || N === 9) {
         result = `, car la somme de ses chiffres est $${sommeDesChiffres(a)[1]}=${sommeDesChiffres(a)[0]}$ qui n'est pas divisible par $${N}$.`
+      } else if (N === 10) {
+        result = ', car son chiffre des unités n\'est pas $0$.'
       } else {
         result = `, car $${texNombre(a)} = ${N}\\times ${Math.floor(a / N)}+ ${a % N}$.`
       }
@@ -72,6 +79,9 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
     }
     if (this.sup === 3) {
       listeDeNDisponibles = [7, 11, 13, 20, 30, 25]
+    }
+    if (this.sup === 4) {
+      listeDeNDisponibles = [10]
     }
     const listeDeN = combinaisonListes(listeDeNDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, N, a, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -171,7 +181,7 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Critères de divisibilité par 2 et 5\n2 : Critères de divisibilité par 2, 3, 5 et 9\n3 : Sans critère de divisibilité']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Critères de divisibilité par 2 et 5\n2 : Critères de divisibilité par 2, 3, 5 et 9\n3 : Sans critère de divisibilité\n4 : Critère de divisibilité par 10']
 }
 
 // python3 list-to-js.py pour faire apparaître l'exercice dans le menu
