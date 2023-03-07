@@ -7040,7 +7040,7 @@ ${preambulePersonnalise(listePackages)}
   \\newcommand{\\structureTableauCan}[1]{
     % #1 --> corps de tableau
     \\renewcommand*{\\arraystretch}{2.5}
-    \\begin{spacing}{1.1}
+    \\begin{spacing}{1}
         \\begin{longtable}{|>{\\columncolor{gray!20}\\centering}m{0.05\\textwidth}|>{\\centering}m{0.45\\textwidth}|>{\\centering}m{0.35\\textwidth}|>{\\centering}p{0.1\\textwidth}|}%
             \\hline
             \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline
