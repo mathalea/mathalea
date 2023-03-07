@@ -38,6 +38,7 @@ export default function SujetCAN2023Quatrieme () {
   this.nbQuestions = 30
   this.nbCols = 1
   this.nbColsCorr = 1
+  this.typeExercice = 'Scratch'
   this.listePackages = 'scratch3'
   this.comment = `Cet exercice fait partie des annales des Courses aux nombres.<br>
   Il est composé de 30 questions réparties de la façon suivante :<br>
@@ -484,7 +485,7 @@ export default function SujetCAN2023Quatrieme () {
             texte = 'Le nombre de faces de ce solide est : <br>'
 
             texte += '<br>' + mathalea2d({ xmin: -1.5, ymin: -1.2, xmax: 7.1, ymax: 4.2, scale: 0.4 }, poly1, s1, poly2, poly3) + '<br>'
-            texteCorr = `Ce solide a $${miseEnEvidence(5)} faces.`
+            texteCorr = `Ce solide a $${miseEnEvidence(5)}$ faces.`
           } else {
             A = point(0, 0, 'A', 'above')
             B = point(3, 0, 'B', 'above')
@@ -503,7 +504,7 @@ export default function SujetCAN2023Quatrieme () {
             texte = 'Le nombre de faces de ce solide est : <br>'
 
             texte += '<br>' + mathalea2d({ xmin: -1.5, ymin: -0.5, xmax: 7.1, ymax: 4.5, scale: 0.5 }, poly1, s1, s2, s3) + '<br>'
-            texteCorr = `Ce solide a $${miseEnEvidence(4)} faces.`
+            texteCorr = `Ce solide a $${miseEnEvidence(4)}$ faces.`
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -536,36 +537,30 @@ export default function SujetCAN2023Quatrieme () {
           nbChamps = 1
           break
 
-        case 17:
-
+        case 17:{
           a = randint(2, 10)
           b = randint(2, 10)
           reponse = a * b
+
+          let prog = '\\begin{scratch}[print,fill,blocks,scale=0.8]\n'
+          prog += '\\blockinit{quand \\greenflag est cliqué}\n'
+          prog += '\\blockpen{stylo en position d\'écriture} \n'
+          prog += `\\blockrepeat{répéter \\ovalnum{${a}} fois}\n`
+          prog += '{\n'
+          prog += `\\blockmove{avancer de \\ovalnum{${b}} pas}\n`
+          prog += '}\n'
+          prog += '\\end{scratch}'
+
           texte = `De combien de pas avance le stylo ? <br>
-          <br>
-          Figure scratch
-          <br>
-          <br>
-          Figure scratch<br>
-          <br>
-          Figure scratch<br>
-          <br>
-          Figure scratch
-          <br>
-          <br>
-          Figure scratch<br>
+          ${scratchblock(prog)}
           `
-          //  texte = '\\begin{scratch}[print,fill,blocks,scale=0.8]\n \\blockinit{quand \\greenflag est cliqué}\n '
-          //  texte += "\\blockpen{stylo en position d'écriture}\n"
-          //  texte += `\\blockrepeat{répéter \\ovalnum{${a}} fois}\n`
-          //  texte += `\\blockmove{avancer de \\ovalnum{${b}} pas}\n`
-          //  texte += '} \n'
-          //  texte += '\\end{scratch}'
-          texteCorr = `Le stylo avance de $${a}\\times ${b}}=${a * b}$ pas.`
+          texteCorr = `Le stylo avance de $${a}\\times ${b}=${a * b}$ pas.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' pas' } else { texte += '$\\ldots$ pas' }
+          // if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' pas' } else { texte += '$\\ldots$ pas' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' pas' }
           nbChamps = 1
+        }
           break
 
         case 18:

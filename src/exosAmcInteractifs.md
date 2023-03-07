@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 553 
-- nombre d'exos interactifReady 848 
+- nombre d'exos interactifReady 849 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -451,6 +451,7 @@
 |CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|mathLive|
 |CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
 |HPC102|Calculs de probabilité avec la loi normale|KO|KO|OK|mathLive|
+|beta-CAN4-2023|CAN 4ième sujet 2023|KO|KO|OK|mathLive|
 |beta-CAN6-2022|CAN Sixième sujet 2022|KO|KO|OK|mathLive|
 |beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
 |beta5N20bis|Additionner ou soustraire deux fractions (dénominateurs multiples)|OK|qcmMono|OK|mathLive|

@@ -3231,7 +3231,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -3246,7 +3246,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -9839,6 +9839,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "6G51-2": {
+    "titre": "Utiliser les symboles ∈ et ∉",
+    "url": "/exercices/6e/6G51-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6G51-2",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "6G52-2": {
     "titre": "Utiliser les propriétés des droites perpendiculaires",
     "url": "/exercices/6e/6G52-2.js",
@@ -9868,6 +9883,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "6G53": {
+    "titre": "Mesurer la distance d'un point à une droite",
+    "url": "/exercices/6e/6G53.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6G53",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "6I10-1": {
     "titre": "Programmer des déplacements relatifs (Scratch)",
     "url": "/exercices/6e/6I10-1.js",
@@ -9878,7 +9908,7 @@ export default {
     "interactifReady": false,
     "name": "6I10-1",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     }
   },
@@ -12478,6 +12508,22 @@ export default {
     "name": "P020",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "beta-CAN4-2023": {
+    "titre": "CAN 4ième sujet 2023",
+    "url": "/exercices/beta/beta-CAN4-2023.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "beta-CAN4-2023",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
