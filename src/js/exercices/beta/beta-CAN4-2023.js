@@ -554,7 +554,7 @@ export default function SujetCAN2023Quatrieme () {
           texte = `De combien de pas avance le stylo ? <br>
           ${scratchblock(prog)}
           `
-          texteCorr = `Le stylo avance de $${a}\\times ${b}=${a * b}$ pas.`
+          texteCorr = `Le stylo avance de $${a}\\times ${b}=${miseEnEvidence(a * b)}$ pas.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           // if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' pas' } else { texte += '$\\ldots$ pas' }
@@ -575,15 +575,14 @@ export default function SujetCAN2023Quatrieme () {
             poly = polygone([A, B, C], 'black')
             poly.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
             d = texteParPosition(`${stringNombre(c)} cm²`, 1.5, 1.5, 'milieu', 'black', context.isHtml ? 1 : 0.7)
-            e = texteParPosition(`${stringNombre(a)} cm`, -0.7, 2, 'milieu', 'black', context.isHtml ? 1 : 0.7)
+            e = texteParPosition(`${stringNombre(a)} cm`, -0.9, 2, 'milieu', 'black', context.isHtml ? 1 : 0.7)
             poly.epaisseur = 1
             reponse = b
             texte = 'On donne la figure suivante :<br>'
-
-            texte += mathalea2d({ xmin: -1.5, ymin: -1, xmax: 7.1, ymax: 5, scale: 0.5 }, poly, labelPoint(A, B, C), codageAngleDroit(B, A, C), d, e) + '<br>'
+            texte += mathalea2d({ xmin: -1.8, ymin: -1.1, xmax: 7.1, ymax: 5.1, scale: 0.4 }, poly, labelPoint(A, B, C), codageAngleDroit(B, A, C), d, e)
             texteCorr = `L'aire du triangle est $\\dfrac{\\text{AB}\\times \\text{AC}}{2}=\\dfrac{${a}\\times \\text{AC}}{2}$.<br>
           On obtient ainsi,  $\\dfrac{${a}\\times \\text{AC}}{2}=${c}$ soit $${a}\\times AC=2\\times ${c}$, soit $AC=\\dfrac{${c * 2}}{${a}}=${reponse}$ cm.`
-            texte += '$AC= $'
+            texte += `${sp(4)}$AC= $`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
@@ -607,7 +606,7 @@ export default function SujetCAN2023Quatrieme () {
             reponse = arrondi(a * b / 2, 0)
             texte = 'L\'aire du triangle $ABC$ est :<br>'
 
-            texte += mathalea2d({ xmin: -1.5, ymin: -1, xmax: 5, ymax: 2.5, scale: 1, pixelsParCm: 40 }, poly, labelPoint(A, B, C), codageAngleDroit(A, C, B), d, e, f)
+            texte += mathalea2d({ xmin: -1.8, ymin: -1, xmax: 5, ymax: 2.5, scale: 0.8, pixelsParCm: 40 }, poly, labelPoint(A, B, C), codageAngleDroit(A, C, B), d, e, f)
             texteCorr = `L'aire du triangle est $\\dfrac{\\text{AC}\\times \\text{CB}}{2}=\\dfrac{${a}\\times ${a}}{2}=${miseEnEvidence(reponse)}$ cm$^2$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
@@ -642,26 +641,17 @@ export default function SujetCAN2023Quatrieme () {
             texte = `Quel est le résultat de ce programme de calcul lorsque le nombre de départ est $${a}$.<br>
           
           `
-            texte += `Nombre de départ <br>
-          
-          `
-            texte += `
-          ${sp(8)}$\\downarrow$<br>
-          
-          `
             texte += '\\medskip'
             texte += '\\fbox{'
-            texte += '\\parbox{0.35\\linewidth}{'
+            texte += '\\parbox{0.45\\linewidth}{'
             texte += '\\setlength{\\parskip}{.5cm}'
-            texte += ` Ajouter $${b}$\\newline`
-            texte += ` Multiplier par $${c}$`
+            texte += ' \\texttt{Nombre de départ}\\newline'
+            texte += ` \\texttt{Ajouter $${b}$}\\newline`
+            texte += ` \\texttt{Multiplier par $${c}$}\\newline`
+            texte += '\\texttt{Résultat}'
             texte += '}'
             texte += '}'
             texte += '<br>'
-            texte += `<br>${sp(8)}$\\downarrow$<br>
-          
-          `
-            texte += 'Résultat'
           }
 
           texteCorr = `Le résultat est donné par : $(${a}+ ${b})\\times ${c}=${miseEnEvidence(reponse)}$.`
@@ -886,10 +876,10 @@ export default function SujetCAN2023Quatrieme () {
           texte = `Ce pavé droit a un volume de $${v}$ cm$^3$.<br>
             Quelle est sa hauteur ? <br>`
 
-          texte += '<br>' + mathalea2d({ xmin: -1.5, ymin: -1, xmax: 7.1, ymax: 5, scale: 0.5 }, labelPoint(A, B, C, D, I, J, K, L), d, e, f, poly1, poly2, poly3, s1, s2, s3) + '<br>'
+          texte += '<br>' + mathalea2d({ xmin: -1.5, ymin: -1, xmax: 7.1, ymax: 5, scale: 0.5 }, labelPoint(A, B, C, D, I, J, K, L), d, e, f, poly1, poly2, poly3, s1, s2, s3)
           texteCorr = `Le volume d'un pavé droit est donné par le produit  longueur $\\times$ largeur $\\times$ hauteur.<br>
             Ainsi, $AI=\\dfrac{${v}}{${a}\\times ${b}}=${miseEnEvidence(c)}$.`
-          texte += '$AI= $'
+          texte += `${sp(4)}$AI= $`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
