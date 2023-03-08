@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, combinaisonListes, choice, randint, quotientier, rangeMinMax, nombreDeChiffresDe } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, choice, randint, quotientier, rangeMinMax, nombreDeChiffresDe, contraindreValeur, compteOccurences } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 
 import { fractionCliquable } from '../../modules/2dinteractif.js'
@@ -13,10 +13,11 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
+export const dateDeModifImportante = '07/03/2023' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  * Calculs avec des fractions que l'on peut faire à partir de schémas
- * @author Rémi Angot
+ * @author Rémi Angot (Modifié par EE : rajout d'un paramètre)
  * Référence 6N22
 */
 export const uuid = 'c75b6'
@@ -25,6 +26,7 @@ export default function FractionsCalculsSimples () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Calculer.'
   this.sup = true
+  this.sup2 = 5
   this.nbQuestions = 6 // Nombre de questions par défaut
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
@@ -45,7 +47,20 @@ export default function FractionsCalculsSimples () {
       this.consigne = 'Calculer.'
     }
 
-    const typeQuestionsDisponibles = ['a/b+c/b', 'n+a/b', 'n+a/b', 'n*a/b', 'n-a/b']//, 'a/b+c/nb']
+    let typeQuestionsDisponibles = []
+    if (!this.sup2) { // Si aucune liste n'est saisie
+      typeQuestionsDisponibles = rangeMinMax(1, 4)
+    } else {
+      if (typeof (this.sup2) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
+        typeQuestionsDisponibles[0] = contraindreValeur(1, 5, this.sup, 5)
+      } else {
+        typeQuestionsDisponibles = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+        for (let i = 0; i < typeQuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+          typeQuestionsDisponibles[i] = contraindreValeur(1, 5, parseInt(typeQuestionsDisponibles[i]), 5) // parseInt en fait un tableau d'entiers
+        }
+      }
+    }
+    if (compteOccurences(typeQuestionsDisponibles, 5) > 0) typeQuestionsDisponibles = rangeMinMax(1, 4) // Teste si l'utilisateur a choisi tout
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, reponseAMC, texte, texteCorr, schema, schemaCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
@@ -56,7 +71,7 @@ export default function FractionsCalculsSimples () {
       let scale
       context.isHtml ? scale = 0.5 : scale = 0.4
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
-        case 'a/b+c/b':
+        case 1 : // 'a/b+c/b':
           c = randint(1, b + 4, [b, 2 * b, 3 * b, 4 * b])
           f1 = new FractionEtendue(a, b)
           f2 = new FractionEtendue(c, b)
@@ -69,7 +84,7 @@ export default function FractionsCalculsSimples () {
           if (this.correctionDetaillee) texteCorr += '<br>' + mathalea2d({ scale, xmin: -0.2, xmax, ymin: -1, ymax: 2 }, schemaCorr)
           reponseAMC = new FractionEtendue(a + c, b)
           break
-        case 'n+a/b':
+        case 2 : // 'n+a/b':
           n = randint(1, 3)
           f1 = new FractionEtendue(a, b)
           f2 = new FractionEtendue(n * b, b)
@@ -82,7 +97,7 @@ export default function FractionsCalculsSimples () {
           if (this.correctionDetaillee) texteCorr += '<br>' + mathalea2d({ scale, xmin: -0.2, xmax, ymin: -1, ymax: 2 }, schemaCorr)
           reponseAMC = new FractionEtendue(n * b + a, b)
           break
-        case 'n*a/b':
+        case 4 : // 'n*a/b':
           n = randint(2, 5, b)
           f1 = new FractionEtendue(a, b)
           f3 = new FractionEtendue(n * a, b)
@@ -104,7 +119,7 @@ export default function FractionsCalculsSimples () {
           if (this.sup) texte += '<br>' + mathalea2d({ scale, xmin: -0.2, xmax, ymin: -1, ymax: 2, style: 'display: inline' }, schema)
           reponseAMC = new FractionEtendue(n * a, b)
           break
-        case 'n-a/b':
+        case 3 : // 'n-a/b':
           n = randint(1, 3)
           f1 = new FractionEtendue(a, b)
           f2 = new FractionEtendue(n * b, b)
@@ -153,4 +168,5 @@ export default function FractionsCalculsSimples () {
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
   this.besoinFormulaireCaseACocher = ['Avec un schéma interactif']
+  this.besoinFormulaire2Texte = ['Type d\'opérations', 'Nombres séparés par des tirets\n1 : Additions entre deux fractions de même dénominateur\n2 : Additions entre un entier et une fraction\n3 : Soustractions entre un entier et une fraction\n4 : Multiplications entre un entier et une fraction\n5 : Mélange']
 }

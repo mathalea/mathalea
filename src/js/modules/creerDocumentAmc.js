@@ -456,7 +456,7 @@ export function exportQcmAmc (exercice, idExo) {
         }
         if (typeof autoCorrection[j].options !== 'undefined') {
           if (autoCorrection[j].options.numerotationEnonce) {
-            texQr += `\\begin{question}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}Enonce} `
+            texQr += `\\begin{question}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}Enonce} \\QuestionIndicative `
           }
         }
 
@@ -1146,6 +1146,7 @@ export function creerDocumentAmc ({
     if (!melangeQuestion[i]) {
       contenuCopie += `\\setgroupmode{${g}}{cyclic}\n\n`
     }
+    // contenuCopie += `\\melangegroupe{${g}}\n` Pour Eric, ne pas effacer
     if (nbQuestions[i] > 0) {
       contenuCopie += `\\restituegroupe[${nbQuestions[i]}]{${g}}\n\n`
     } else {

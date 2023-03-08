@@ -22,7 +22,6 @@ export const ref = '6N33-0'
 export default function FractionDuneQuantite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 5
-  this.consigne = 'Calculer.'
   context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2)
   context.isHtml ? (this.spacing = 2) : (this.spacing = 2)
   this.sup = 1
@@ -60,7 +59,7 @@ export default function FractionDuneQuantite () {
           frac = fraction(num, den)
           texte = `À combien de minutes correspondent $${frac.texFraction}$ d'heure ? ${ajouteChampTexteMathLive(this, index, 'largeur15 inline', { texteApres: ' minutes' })}<br>`
           if (this.sup2) {
-            texte += 'cette fraction est représentée ci dessous :<br>'
+            texte += 'Cette fraction est représentée ci-dessous :<br>'
             texte += mathalea2d({ xmin: 0, ymin: 0, xmax: 15, ymax: 5 }, frac.representation(2.5, 2.5, 2, 0, 'gateau', 'blue'))
           }
           texteCorr = `Comme l'heure est partagée en ${den} parts égales, chaque part représente $${texFraction(1, den)}$ d'heure, soit $${calcul(60 / den, 0)}$ minutes.<br>`
@@ -75,7 +74,7 @@ export default function FractionDuneQuantite () {
           frac = fraction(num, den)
           texte = `À combien de minutes correspondent $${frac.texFraction}$ d'heure ? ${ajouteChampTexteMathLive(this, index, 'largeur15 inline', { texteApres: ' minutes' })}<br>`
           if (this.sup2) {
-            texte += 'Cette fraction est représentée ci dessous :<br>'
+            texte += 'Cette fraction est représentée ci-dessous :<br>'
             texte += mathalea2d({ xmin: 0, ymin: 0, xmax: 15, ymax: 5 }, frac.representation(2.5, 2.5, 2, 0, 'gateau', 'blue'))
           }
           texteCorr = `Comme l'heure est partagée en ${den} parts égales, chaque part représente $${texFraction(1, den)}$ d'heure, soit $${calcul(60 / den, 0)}$ minutes.<br>`
@@ -94,10 +93,10 @@ export default function FractionDuneQuantite () {
           }
           frac = fraction(numIrred, denIrred)
           frac2 = frac.entierMoinsFraction(1)
-          texte = `Voici une tablette de chocolat dont la masse totale est de $${masse}$ grammes. Quelqu'un en a déjà consommé les $${frac.texFractionSimplifiee}$.<br>`
+          texte = `Une tablette de chocolat a une masse totale de $${masse}$ grammes. Quelqu'un en a déjà consommé les $${frac.texFractionSimplifiee}$.<br>`
           choix = randint(1, 2)
           if (choix === 1) {
-            texte += `Quelle masse de chocoloat a-t-elle été consommée ? ${ajouteChampTexteMathLive(this, index, 'largeur15 inline', { texteApres: ' g' })}<br>`
+            texte += `Quelle masse de chocolat a été consommée ? ${ajouteChampTexteMathLive(this, index, 'largeur15 inline', { texteApres: ' g' })}<br>`
             texteCorr = `Comme la tablette a une masse de $${masse}$ grammes, $${texFraction(1, denIrred)}$ de la tablette représente une masse de $${texNombre(masse / denIrred, 2)}$ grammes.<br>`
             texteCorr += `Ici, il y a $${frac.texFractionSimplifiee}$ de la tablette qui a été consommé, ce qui représente $${numIrred}$ fois plus, soit $${numIrred}\\times${texNombre(masse / denIrred, 2)}=${texNombre(numIrred * masse / denIrred, 2)}$.<br>`
             texteCorr += `La masse de chocolat consommée est $${texNombre(numIrred * masse / denIrred, 2)}$ grammes.`
@@ -114,7 +113,7 @@ export default function FractionDuneQuantite () {
             setReponse(this, index, arrondi((denIrred - numIrred) * masse / denIrred, 2))
           }
           if (this.sup2) {
-            texte += 'La tablette de chocolat est représentée ci dessous :<br>'
+            texte += 'La tablette de chocolat est représentée ci-dessous :<br>'
             texte += mathalea2d({ xmin: -0.5, ymin: -0.5, xmax: 5, ymax: 7 }, frac2.representationIrred(0, 0, 4, 0, 'baton', 'brown'))
           }
           break
@@ -141,7 +140,7 @@ export default function FractionDuneQuantite () {
           setReponse(this, index, calcul(numIrred * longueur / 100 / denIrred, 3))
           setReponse(this, index + 1, calcul(longueur / 100 - numIrred * longueur / 100 / denIrred, 3))
           if (this.sup2) {
-            texte += 'Ce bâton est représenté ci dessous :<br>'
+            texte += 'Ce bâton est représenté ci-dessous :<br>'
             texte += mathalea2d({ xmin: -0.5, ymin: 0, xmax: 10, ymax: 2 }, frac.representationIrred(0, 1, 8, 0, 'segment', 'blue', '0', `${stringNombre(calcul(longueur / 100, 1))}`))
           }
           texteCorr = `$${texFraction(1, denIrred)}$ de $${texNombrec(longueur / 100, 1)}$ représente $${texNombrec(longueur / 100, 1)} \\div ${denIrred} = ${texNombrec(longueur / 100 / denIrred, 3)}$.<br>`

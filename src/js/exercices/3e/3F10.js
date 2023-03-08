@@ -62,9 +62,9 @@ export default function ImageAntecedentDepuisTableauOuFleche () {
           propositions: []
         }
       }
-      texteAMC = numAlpha(i * 6) + `Quelle est l'image de $${a}$ par la fonction $f$ ?`
+      texteAMC = numAlpha(0) + `Quelle est l'image de $${a}$ par la fonction $f$ ?`
       texte += '<br>' + texteAMC
-      texteCorr = numAlpha(i * 6) + `L'image de $${a}$ par la fonction $f$ est $${b}$, on note $f(${a})=${b}$.<br>`
+      texteCorr = numAlpha(0) + `L'image de $${a}$ par la fonction $f$ est $${b}$, on note $f(${a})=${b}$.<br>`
       setReponse(this, 6 * i, b)
       texte += ajouteChampTexteMathLive(this, 6 * i)
       if (context.isAmc) {
@@ -91,9 +91,9 @@ export default function ImageAntecedentDepuisTableauOuFleche () {
         )
       }
 
-      texteAMC = numAlpha(i * 6 + 1) + `Quelle est l'image de $${c}$ par la fonction $f$ ?`
+      texteAMC = numAlpha(1) + `Quelle est l'image de $${c}$ par la fonction $f$ ?`
       texte += '<br>' + texteAMC
-      texteCorr += numAlpha(i * 6 + 1) + `L'image de $${c}$ par la fonction $f$ est $${d}$, on note $f(${c})=${d}$.`
+      texteCorr += numAlpha(1) + `L'image de $${c}$ par la fonction $f$ est $${d}$, on note $f(${c})=${d}$.`
       texte += ajouteChampTexteMathLive(this, i * 6 + 1)
       setReponse(this, i * 6 + 1, d)
       if (context.isAmc) {
@@ -132,7 +132,7 @@ export default function ImageAntecedentDepuisTableauOuFleche () {
               {
                 texte: '', // Facultatif. la proposition de Qcm ou ce qui est affiché dans le corrigé pour cette question quand ce n'est pas un Qcm
                 reponse: { // utilisé si type = 'AMCNum'
-                  texte: numAlpha(i * 6 + 2) + `Déterminer un antécédent de $${a}$ par la fonction $f$.`, // facultatif
+                  texte: numAlpha(2) + `Déterminer un antécédent de $${a}$ par la fonction $f$.`, // facultatif
                   valeur: d, // obligatoire (la réponse numérique à comparer à celle de l'élève). EE : Si une fraction est la réponse, mettre un tableau sous la forme [num,den]
                   alignement: 'center', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
                   param: {
@@ -160,7 +160,7 @@ export default function ImageAntecedentDepuisTableauOuFleche () {
               {
                 texte: '', // Facultatif. la proposition de Qcm ou ce qui est affiché dans le corrigé pour cette question quand ce n'est pas un Qcm
                 reponse: { // utilisé si type = 'AMCNum'
-                  texte: numAlpha(i * 6 + 3) + `Déterminer un antécédent de $${d}$ par la fonction $f$.`, // facultatif
+                  texte: numAlpha(3) + `Déterminer un antécédent de $${d}$ par la fonction $f$.`, // facultatif
                   valeur: c, // obligatoire (la réponse numérique à comparer à celle de l'élève). EE : Si une fraction est la réponse, mettre un tableau sous la forme [num,den]
                   alignement: 'center', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
                   param: {
@@ -178,16 +178,16 @@ export default function ImageAntecedentDepuisTableauOuFleche () {
       }
 
       if (choice([true, false])) { // Une fois sur 2 on inverse les questions 3 et 4
-        texte += '<br>' + numAlpha(i * 6 + 2) + texte3 + '<br>' + numAlpha(i * 6 + 3) + texte4
-        texteCorr += '<br>' + numAlpha(i * 6 + 2) + texteCorr3 + '<br>' + numAlpha(i * 6 + 3) + texteCorr4
+        texte += '<br>' + numAlpha(2) + texte3 + '<br>' + numAlpha(3) + texte4
+        texteCorr += '<br>' + numAlpha(2) + texteCorr3 + '<br>' + numAlpha(3) + texteCorr4
       } else {
-        texte += '<br>' + numAlpha(i * 6 + 2) + texte4 + '<br>' + numAlpha(i * 6 + 3) + texte3
-        texteCorr += '<br>' + numAlpha(i * 6 + 2) + texteCorr4 + '<br>' + numAlpha(i * 6 + 3) + texteCorr3
+        texte += '<br>' + numAlpha(2) + texte4 + '<br>' + numAlpha(3) + texte3
+        texteCorr += '<br>' + numAlpha(2) + texteCorr4 + '<br>' + numAlpha(3) + texteCorr3
       }
 
-      texteAMC = numAlpha(i * 6 + 4) + `Recopier et compléter : $f(${c})=\\ldots$`
+      texteAMC = numAlpha(4) + `Recopier et compléter : $f(${c})=\\ldots$`
       texte += '<br>' + texteAMC
-      texteCorr += '<br>' + numAlpha(i * 6 + 4) + `$f(${c})=${d}$`
+      texteCorr += '<br>' + numAlpha(4) + `$f(${c})=${d}$`
       texte += ajouteChampTexteMathLive(this, i * 6 + 4)
       setReponse(this, i * 6 + 4, [`f(${c})=${d}`, `${d}`], { formatInteractif: 'texte' })
       if (context.isAmc) {
@@ -198,7 +198,7 @@ export default function ImageAntecedentDepuisTableauOuFleche () {
               {
                 texte: '', // Facultatif. la proposition de Qcm ou ce qui est affiché dans le corrigé pour cette question quand ce n'est pas un Qcm
                 reponse: { // utilisé si type = 'AMCNum'
-                  texte: numAlpha(i * 6 + 4) + `Compléter : $f(${c})=\\ldots$`, // facultatif
+                  texte: numAlpha(4) + `Compléter : $f(${c})=\\ldots$`, // facultatif
                   valeur: d, // obligatoire (la réponse numérique à comparer à celle de l'élève). EE : Si une fraction est la réponse, mettre un tableau sous la forme [num,den]
                   alignement: 'center', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
                   param: {
@@ -214,9 +214,9 @@ export default function ImageAntecedentDepuisTableauOuFleche () {
         )
       }
 
-      texteAMC = numAlpha(i * 6 + 5) + `Recopier et compléter : $f(\\ldots)=${c}$`
+      texteAMC = numAlpha(5) + `Recopier et compléter : $f(\\ldots)=${c}$`
       texte += '<br>' + texteAMC
-      texteCorr += '<br>' + numAlpha(i * 6 + 5) + `$f(${f})=${c}$`
+      texteCorr += '<br>' + numAlpha(5) + `$f(${f})=${c}$`
       texte += ajouteChampTexteMathLive(this, i * 6 + 5)
       setReponse(this, i * 6 + 5, [`f(${f})=${c}`, `${f}`], { formatInteractif: 'texte' })
       if (context.isAmc) {
@@ -227,7 +227,7 @@ export default function ImageAntecedentDepuisTableauOuFleche () {
               {
                 texte: '', // Facultatif. la proposition de Qcm ou ce qui est affiché dans le corrigé pour cette question quand ce n'est pas un Qcm
                 reponse: { // utilisé si type = 'AMCNum'
-                  texte: numAlpha(i * 6 + 5) + `Compléter : $f(\\ldots)=${c}$`, // facultatif
+                  texte: numAlpha(5) + `Compléter : $f(\\ldots)=${c}$`, // facultatif
                   valeur: f, // obligatoire (la réponse numérique à comparer à celle de l'élève). EE : Si une fraction est la réponse, mettre un tableau sous la forme [num,den]
                   alignement: 'center', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
                   param: {
