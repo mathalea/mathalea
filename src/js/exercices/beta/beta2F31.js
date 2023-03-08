@@ -41,10 +41,10 @@ export default function CroissanceDeFonction () {
           }
           texteCorr = 'La fonction représentée est une fonction affine. Toute fonction affine est monotone.'
           if (a < 0) {
-            texteCorr += '<br>Nous pouvons voir sur le zoom ci dessous que le coefficient de cette fonction est négatif.<br>'
+            texteCorr += '<br>Nous pouvons voir sur le zoom ci-dessous que le coefficient de cette fonction est négatif.<br>'
             texteCorr += `La fonction est donc décroissante sur  $\\mathbb{R}$ et donc en particulier sur $[${x0};${x1}]$.<br>`
           } else {
-            texteCorr += '<br>Nous pouvons voir sur le zoom ci dessous que le coefficient de cette fonction est positif.<br>'
+            texteCorr += '<br>Nous pouvons voir sur le zoom ci-dessous que le coefficient de cette fonction est positif.<br>'
             texteCorr += `La fonction est donc croissante sur  $\\mathbb{R}$ et donc en particulier sur $[${x0};${x1}]$.<br>`
           }
           f = x => a * x + b

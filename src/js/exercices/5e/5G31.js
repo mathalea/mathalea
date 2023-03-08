@@ -1,8 +1,11 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texNombrec, lettreDepuisChiffre } from '../../modules/outils.js'
+import { codageAngle, nommePolygone, point, triangle2points2angles } from '../../modules/2d.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 
 export const titre = 'Somme des angles dans un triangle'
+export const dateDeModifImportante = '04/03/2023'
 
 /**
 * Déterminer la valeur d'un angle dans un triangle.
@@ -19,6 +22,7 @@ export const titre = 'Somme des angles dans un triangle'
 * * Un triangle a 3 angles égaux.
 * * Dans un triangle rectangle, un angle mesure le tiers de l'autre.
 * @author Jean-Claude Lhote
+* Ajout de schémas aux questions "faciles" par Guillaume Valmont le 04/03/2023
 * Référence 5G31
 */
 export const uuid = 'dc8c9'
@@ -26,6 +30,7 @@ export const ref = '5G31'
 export default function ExerciceAnglesTriangles () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1
+  this.sup2 = false
   this.titre = titre
   this.consigne = ''
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5
@@ -47,23 +52,32 @@ export default function ExerciceAnglesTriangles () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     if (this.sup === 1) { typesDeQuestionsDisponibles = [1, 2, 4, 5, 9] } else if (this.sup === 2) { typesDeQuestionsDisponibles = [3, 6, 7, 8, 10, 11, 12] } else { typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] }
-
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     this.consigne = 'Calculer l\'angle demandé dans les triangles suivants.'
     let lettre1, lettre2, lettre3, s1, s2, s3, angle1, angle2
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const objetsEnonce = []
       lettre1 = randint(1, 26) // aleatoirisation du nom des points
       lettre2 = randint(1, 26, [lettre1])
       s1 = lettreDepuisChiffre(lettre1)
       s2 = lettreDepuisChiffre(lettre2)
       lettre3 = randint(1, 24, [lettre1, lettre2])
       s3 = lettreDepuisChiffre(lettre3)
+      const A = point(0, 0, s1)
+      const B = point(4, 0, s2)
+      let triangle, C, angleA, angleB, angleC
       if (this.correctionDetaillee) { texteCorr = 'Dans un triangle, la somme des angles est égale à $180\\degree$.<br>' } else { texteCorr = '' }
       switch (listeTypeDeQuestions[i]) {
         case 1: // triangle quelconque 2 angles connus
           angle1 = randint(10, 40)
           angle2 = randint(20, 100)
           texte = `$${s1 + s2 + s3}$ est un triangle quelconque. L'angle $\\widehat{${s1 + s2 + s3}}$ mesure $${angle1}\\degree$ et l'angle $\\widehat{${s2 + s1 + s3}}$ mesure $${angle2}\\degree$.<br>Quelle est la mesure de l'angle $\\widehat{${s2 + s3 + s1}}$ ?`
+          triangle = triangle2points2angles(A, B, angle2, angle1)
+          C = triangle.listePoints[2]
+          C.nom = s3
+          angleA = codageAngle(B, A, angle2, 0.8, '', 'black', 1, 1, 'none', 0.2, true)
+          angleB = codageAngle(A, B, -angle1, 0.8, '', 'black', 1, 1, 'none', 0.2, true)
+          objetsEnonce.push(triangle, angleA, angleB)
           if (this.correctionDetaillee) {
             texteCorr += `$\\widehat{${s1 + s2 + s3}} + \\widehat{${s2 + s3 + s1}} + \\widehat{${s2 + s1 + s3}}=180\\degree$<br>`
             texteCorr += `Donc $\\widehat{${s2 + s3 + s1}}=180- \\left(\\widehat{${s1 + s2 + s3}} + \\widehat{${s2 + s1 + s3}}\\right)$.<br>D'où `
@@ -75,6 +89,12 @@ export default function ExerciceAnglesTriangles () {
           angle1 = 90
           angle2 = randint(5, 85)
           texte = `$${s1 + s2 + s3}$ est un triangle rectangle en $${s2}$ et l'angle $\\widehat{${s2 + s1 + s3}}$ mesure $${angle2}\\degree$.<br>Quelle est la mesure de l'angle $\\widehat{${s2 + s3 + s1}}$ ?`
+          triangle = triangle2points2angles(A, B, angle2, angle1)
+          C = triangle.listePoints[2]
+          C.nom = s3
+          angleA = codageAngle(B, A, angle2, 0.8, '', 'black', 1, 1, 'none', 0.2, true)
+          angleB = codageAngle(A, B, -angle1, 0.8, '', 'black', 1, 1, 'none', 0.2, true)
+          objetsEnonce.push(triangle, angleA, angleB)
           if (this.correctionDetaillee) {
             texteCorr += `Comme l'angle $\\widehat{${s1 + s2 + s3}}$ est droit, les angles $\\widehat{${s2 + s3 + s1}}$ et $\\widehat{${s2 + s1 + s3}}$ sont complémentaires.<br>`
             texteCorr += `On a donc : $\\widehat{${s2 + s3 + s1}}+ \\widehat{${s2 + s1 + s3}}=90\\degree$<br>D'où `
@@ -86,7 +106,13 @@ export default function ExerciceAnglesTriangles () {
           angle1 = randint(10, 170)
           angle2 = (180 - angle1) / 2
           texte = `$${s1 + s2 + s3}$ est un triangle isocèle en $${s1}$. L'angle $\\widehat{${s2 + s1 + s3}}$ mesure $${angle1}\\degree$.<br>Quelle est la mesure de l'angle $\\widehat{${s2 + s3 + s1}}$ ?`
-
+          triangle = triangle2points2angles(A, B, angle1, angle2)
+          C = triangle.listePoints[2]
+          C.nom = s3
+          angleA = codageAngle(B, A, angle1, 0.8, '', 'black', 1, 1, 'none', 0.2, true)
+          angleB = codageAngle(A, B, -angle2, 0.8, '|', 'black', 1, 1, 'none', 0.2, false)
+          angleC = codageAngle(A, C, angle2, 0.8, '|', 'black', 1, 1, 'none', 0.2, false)
+          objetsEnonce.push(triangle, angleA, angleB, angleC)
           if (this.correctionDetaillee) {
             texteCorr += 'Les angles à la base d\'un triangle isocèle sont de même mesure.<br>'
             texteCorr += `D'où $\\widehat{${s1 + s2 + s3}}=\\widehat{${s2 + s3 + s1}}$.<br>`
@@ -101,7 +127,12 @@ export default function ExerciceAnglesTriangles () {
           angle2 = randint(10, 80)
           angle1 = 180 - angle2 * 2
           texte = `$${s1 + s2 + s3}$ est un triangle isocèle en $${s1}$. L'angle $\\widehat{${s1 + s2 + s3}}$ mesure $${angle2}\\degree$.<br>Quelle est la mesure de l'angle $\\widehat{${s2 + s1 + s3}}$ ?`
-
+          triangle = triangle2points2angles(A, B, angle1, angle2)
+          C = triangle.listePoints[2]
+          C.nom = s3
+          angleB = codageAngle(A, B, -angle2, 0.8, '|', 'black', 1, 1, 'none', 0.2, true)
+          angleC = codageAngle(A, C, angle2, 0.8, '|', 'black', 1, 1, 'none', 0.2, false)
+          objetsEnonce.push(triangle, angleB, angleC)
           if (this.correctionDetaillee) {
             texteCorr += 'Les deux angles à la base d\'un triangle isocèle sont égaux.<br>'
             texteCorr += `Donc $\\widehat{${s1 + s2 + s3}}=\\widehat{${s2 + s3 + s1}}=${angle2}\\degree$.<br>D'où `
@@ -113,7 +144,13 @@ export default function ExerciceAnglesTriangles () {
           angle1 = 90
           angle2 = 45
           texte = `$${s1 + s2 + s3}$ est un triangle rectangle en $${s2}$ et $\\widehat{${s2 + s1 + s3}}=\\widehat{${s2 + s3 + s1}}$.<br>Quelle est la mesure de l'angle $\\widehat{${s2 + s3 + s1}}$ ?`
-
+          triangle = triangle2points2angles(A, B, angle2, angle1)
+          C = triangle.listePoints[2]
+          C.nom = s3
+          angleA = codageAngle(B, A, angle2, 0.8, '|', 'black', 1, 1, 'none', 0.2, false)
+          angleB = codageAngle(A, B, -angle1, 0.8, '|', 'black', 1, 1, 'none', 0.2, false)
+          angleC = codageAngle(A, C, angle2, 0.8, '|', 'black', 1, 1, 'none', 0.2, false)
+          objetsEnonce.push(triangle, angleA, angleB, angleC)
           if (this.correctionDetaillee) {
             texteCorr += `Comme $\\widehat{${s2 + s1 + s3}}=\\widehat{${s2 + s3 + s1}}$,<br>`
             texteCorr += `on a : $2 \\times  \\widehat{${s2 + s1 + s3}} + 90\\degree=180\\degree$.<br>D'où `
@@ -160,6 +197,13 @@ export default function ExerciceAnglesTriangles () {
           break
         case 9: // cas non aléatoire triangle équilatéral
           texte = `$${s1 + s2 + s3}$ est un triangle dont les trois angles sont égaux. Quelles sont les mesures de ses angles ?`
+          triangle = triangle2points2angles(A, B, 60, 60)
+          C = triangle.listePoints[2]
+          C.nom = s3
+          angleA = codageAngle(B, A, 60, 0.8, '|', 'black', 1, 1, 'none', 0.2, false)
+          angleB = codageAngle(A, B, -60, 0.8, '|', 'black', 1, 1, 'none', 0.2, false)
+          angleC = codageAngle(A, C, 60, 0.8, '|', 'black', 1, 1, 'none', 0.2, false)
+          objetsEnonce.push(triangle, angleA, angleB, angleC)
           if (this.correctionDetaillee) {
             texteCorr += `De plus, $\\widehat{${s1 + s2 + s3}}=\\widehat{${s1 + s3 + s2}}=\\widehat{${s2 + s1 + s3}}$<br>`
             texteCorr += `D'où $3\\times \\widehat{${s1 + s2 + s3}}=180\\degree$.<br>`
@@ -207,7 +251,16 @@ export default function ExerciceAnglesTriangles () {
           texteCorr += `L'angle $\\widehat{${s1 + s3 + s2}}$ mesure $72\\degree$, l'angle $\\widehat{${s1 + s2 + s3}}$ mesure $72\\degree$ et l'angle $\\widehat{${s2 + s1 + s3}}$ mesure $36\\degree$`
           break
       }
-
+      if (this.sup2 && (this.sup === 1 || (this.sup === 3 && (listeTypeDeQuestions[i] < 6 || listeTypeDeQuestions[i] === 9)))) {
+        const nom = nommePolygone(triangle)
+        objetsEnonce.push(nom)
+        const xmin = Math.min(A.x, B.x, C.x) - 2
+        const xmax = Math.max(A.x, B.x, C.x) + 2
+        const ymin = Math.min(A.y, B.y, C.y) - 2
+        const ymax = Math.max(A.y, B.y, C.y) + 2
+        const paramsEnonce = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 1 }
+        texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
+      }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -218,4 +271,5 @@ export default function ExerciceAnglesTriangles () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficuté', 3, ' 1 : Facile \n 2 : Difficile \n 3 : Mélange']
+  this.besoinFormulaire2CaseACocher = ['Ajouter un schéma aux questions "faciles"']
 }

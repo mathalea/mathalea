@@ -12,6 +12,8 @@ export const dateDePublication = '01/03/2023'
  * @author Guillaume Valmont
  * Référence 6G53
 */
+export const uuid = '29c3b'
+export const ref = '6G53'
 export default class MesurerDistancePointDroite extends Exercice {
   constructor () {
     super()

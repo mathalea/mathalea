@@ -21,8 +21,6 @@ export const ref = '3F13-1'
 export default function AntecedentEtImageGraphique () {
   Exercice.call(this)
   this.titre = titre
-  // this.interactifReady = interactifReady
-  // this.interactifType = interactifType
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.nbCols = 1
@@ -39,12 +37,18 @@ export default function AntecedentEtImageGraphique () {
     let a = randint(1, 3)
     let b = a - 4
     let c = a - 2
-    const x0 = randint(-4, -2)
+    let x0 = randint(-4, -2)
+    while ((x0 === a) || (x0 + 4 === b) || (x0 + 6 === c)) { // Pour éviter d'avoir une image égale à un antécédent
+      a = randint(1, 3)
+      b = a - 4
+      c = a - 2
+      x0 = randint(-4, -2)
+    }
     let gr = graphiqueInterpole([[randint(-8, -5), a - 1], [x0, a], [x0 + 4, b], [x0 + 6, c], [randint(6, 10), c - 1]] // Coordonnées des "sommets"
       ,
       { repere: r, color: 'blue', step: 0.15, epaisseur: 2 })
 
-    if (randint(1, 2) === 1) {
+    if (randint(false, true)) {
       a *= -1
       b *= -1
       c *= -1
@@ -59,7 +63,7 @@ export default function AntecedentEtImageGraphique () {
         enonceAvant: false, // EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question.
         enonceAvantUneFois: true, // EE : ce champ est facultatif et permet (si true) d'afficher l'énoncé ci-dessus une seule fois avant la numérotation de la première question de l'exercice. Ne fonctionne correctement que si l'option melange est à false.
         enonceCentre: true, // EE : ce champ est facultatif et permet (si true) de centrer le champ 'enonce' ci-dessus.}
-        options: { multicols: true, barreseparation: true },
+        options: { multicols: true, barreseparation: true, numerotationEnonce: true },
         propositions: []
       }
     }
@@ -94,7 +98,7 @@ export default function AntecedentEtImageGraphique () {
       )
     }
     const enonceAMC = `${numAlpha(1)} Quelle est l'image de $${x0 + 5}$ ?`
-    cont1 = '<br' + enonceAMC
+    cont1 += '<br>' + enonceAMC
     cont1 += ajouteChampTexteMathLive(this, 1)
     if (context.isAmc) {
       this.autoCorrection[0].propositions.push(
@@ -161,7 +165,7 @@ export default function AntecedentEtImageGraphique () {
             {
               texte: '', // Facultatif. la proposition de Qcm ou ce qui est affiché dans le corrigé pour cette question quand ce n'est pas un Qcm
               reponse: { // utilisé si type = 'AMCNum'
-                texte: `${numAlpha(2)} Déterminer un antécédent de $${c}$.`, // facultatif
+                texte: `${numAlpha(3)} Déterminer un antécédent de $${c}$.`, // facultatif
                 valeur: x0 + 2, // obligatoire (la réponse numérique à comparer à celle de l'élève). EE : Si une fraction est la réponse, mettre un tableau sous la forme [num,den]
                 alignement: 'center', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
                 param: {

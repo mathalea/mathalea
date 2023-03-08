@@ -43,7 +43,7 @@ export default function TrouverOppose () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
-    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
+    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
     const listeSignesPositifs = combinaisonListes(['+', ''], 6 * this.nbQuestions)
     const listeSignes = combinaisonListes(['+', '-'], 6 * this.nbQuestions)
 
