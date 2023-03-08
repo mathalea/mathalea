@@ -4,7 +4,7 @@ import FractionX from '../../modules/FractionEtendue.js'
 import { obtenirListeFractionsIrreductibles } from '../../modules/fractions.js'
 import { scratchblock } from '../../modules/scratchblock.js'
 import {
-  point, segment, milieu, codageAngle, rotation, polygoneAvecNom, labelPoint, codageSegments, segmentAvecExtremites, tracePoint, codageAngleDroit, texteParPosition, polygone
+  point, segment, milieu, codageAngle, rotation, polygoneAvecNom, labelPoint, demiDroite, codageSegments, segmentAvecExtremites, tracePoint, codageAngleDroit, texteParPosition, polygone
 } from '../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { context } from '../../modules/context.js'
@@ -50,11 +50,11 @@ export default function SujetCAN2023troisieme () {
     this.listeCorrections = [] // Liste de questions corrigées
     const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
     const nbQ2 = min(this.nbQuestions - nbQ1, 20)
-    const typeQuestionsDisponiblesNiv1 = shuffle([21]).slice(-nbQ1).sort(compareNombres)// 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-    const typeQuestionsDisponiblesNiv2 = shuffle([21]).slice(-nbQ2).sort(compareNombres)// 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
+    const typeQuestionsDisponiblesNiv1 = shuffle([23]).slice(-nbQ1).sort(compareNombres)// 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+    const typeQuestionsDisponiblesNiv2 = shuffle([23]).slice(-nbQ2).sort(compareNombres)// 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
     const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
 
-    for (let i = 0, index = 0, nbChamps, m, nom, pol, n, listeFraction, maFraction, g, poly1, poly2, poly3, poly4, K, F, G, H, I, num, den, params, inconnue, triplet, origine, traceA, traceD, traceB, traceorigine, ang1, s3, J, texte, texteCorr, reponse, prenom1, L, E, choix, a, b, c, d, e, f, k, s1, s2, A, B, C, D, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, index = 0, nbChamps, m, nom, pol, n, listeFraction, maFraction, sCote1, sCote2,g, poly1, poly2, poly3, poly4, K, F, G, H, I, num, den, params, inconnue, triplet, origine, traceA, traceD, traceB, traceorigine, ang1, s3, J, texte, texteCorr, reponse, prenom1, L, E, choix, a, b, c, d, e, f, k, s1, s2, A, B, C, D, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typeQuestionsDisponibles[i]) {
         case 1:
           a = randint(4, 9)
@@ -752,7 +752,7 @@ export default function SujetCAN2023troisieme () {
           nbChamps = 1
           break
 
-          case 21:
+        case 21:
 
           listeFraction = [
             [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5]
@@ -777,11 +777,63 @@ export default function SujetCAN2023troisieme () {
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
-
+          break
+        case 22:
+          a = randint(2, 6)
+          b = randint(8, 15)
+          c = randint(7, 11)
+          e = choice([36, 40, 44, 48, 52 ,60])
+          d = e - a - b - c
+          texte = `$${a}$ ${sp(2)} ; ${sp(2)} $${b}$ ${sp(2)} ; ${sp(2)} $${c}$${sp(2)} ; ${sp(2)} $${d}$<br>
+Quelle est la moyenne de ces nombres ?`
+          texteCorr = `La somme des $4$ valeurs est : $${a}+${b}+${c}+${d} =${e}$.<br>
+ La moyenne est donc $\\dfrac{${e}}{4}=${miseEnEvidence(texNombre(e/4, 0))}$.`
+          reponse = arrondi(e / 4,0)
+          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          nbChamps = 1
           break
 
-
-
+          case 23:
+            a = randint(1, 9)// longueur BE
+            k = randint(2, 4)
+            b = k * a // longueur DC
+            c = a + 1// longueur AE
+            d = k * c// longueur AD
+            A = point(0, 0, 'A', 'below')
+            B = point(2, -0.4, 'B', 'below')
+            C = point(5, -1, 'C', 'below')
+            D = point(4, 2, 'D', 'above')
+            E = point(1.6, 0.8, 'E', 'above')
+            xmin = -1
+            ymin = -2
+            xmax = 6
+            ymax = 4.5
+            sCote1 = segment(point(A.x - 0.3, A.y + 0.5), point(E.x - 0.2, E.y + 0.5))
+            sCote2 = segment(point(A.x - 0.8, A.y + 1.3), point(D.x - 0.8, D.y + 1.3))
+            sCote1.styleExtremites = '<->'
+            sCote2.styleExtremites = '<->'
+            objets = []
+            objets.push(
+              texteParPosition(`${stringNombre(a)} `, milieu(B, E).x + 0.4, milieu(B, E).y),
+              texteParPosition('?', milieu(A, E).x - 0.4, milieu(A, E).y + 0.7, 'milieu', 'black', 1, 'middle', true),
+              texteParPosition(`${stringNombre(b)} `, milieu(D, C).x + 0.5, milieu(D, C).y),
+              texteParPosition(`${stringNombre(d)} `, milieu(A, D).x - 1, milieu(A, D).y + 1.5),
+              demiDroite(A, C), demiDroite(A, D), labelPoint(A, B, C, D, E), segment(A, D), segment(A, C), segment(B, E), segment(D, C), sCote1, sCote2)
+            reponse = c
+            texte = '$(BE)//(DC)$.  Détermine la longueur $AE$.<br>'
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texteCorr = `Le triangle $ADC$ est un agrandissement du triangle $ABE$. Le coefficient d'agrandissement est donné par : $\\dfrac{${b}}{${a}}=${texNombre(b / a)}$.<br>
+            On obtient donc la longueur $AE$ en divisant par $${k}$ la longueur $AD$.<br>
+            $AE=\\dfrac{${d}}{${k}}=${c}$.<br>`
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) {
+              texte += '<br>$AE=$'
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            }
+            nbChamps = 1
+            break
+  
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
