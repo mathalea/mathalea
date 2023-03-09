@@ -2918,9 +2918,12 @@ export default {
     }
   },
   "3F10": {
-    "titre": "Lectures d'images et d'antécédents depuis un tableau de valeurs",
+    "titre": "Lire images et antécédents depuis un tableau de valeurs",
     "url": "/exercices/3e/3F10.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "3F10",
@@ -2936,7 +2939,10 @@ export default {
   "3F12-2": {
     "titre": "Déterminer l'image d'un nombre par une fonction d'après sa forme algébrique",
     "url": "/exercices/3e/3F12-2.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "3F12-2",
@@ -3003,9 +3009,12 @@ export default {
     }
   },
   "3F13-1": {
-    "titre": "Lecture graphique d'images et d'antécédents",
+    "titre": "Lire graphiquement images et antécédents",
     "url": "/exercices/3e/3F13-1.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "3F13-1",
@@ -4171,8 +4180,12 @@ export default {
   "3L14-1": {
     "titre": "Résoudre une équation produit nul (niveau 2)",
     "url": "/exercices/3e/3L14-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3L14-1",
     "newEx": {
       "isNew": false,
@@ -4186,7 +4199,10 @@ export default {
   "3L14": {
     "titre": "Résoudre une équation produit nul",
     "url": "/exercices/3e/3L14.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "3L14",
@@ -6695,7 +6711,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -6920,7 +6936,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -9908,7 +9924,7 @@ export default {
     "interactifReady": false,
     "name": "6I10-1",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     }
   },
@@ -10747,7 +10763,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -11152,16 +11168,15 @@ export default {
   "6N32": {
     "titre": "Représenter une fraction de l'unité",
     "url": "/exercices/6e/6N32.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": false,
     "name": "6N32",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N33-0": {
@@ -11281,16 +11296,15 @@ export default {
   "6N41-1": {
     "titre": "Parcourir un labyrinthe de fractions égales",
     "url": "/exercices/6e/6N41-1.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": false,
     "name": "6N41-1",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N41": {
@@ -11346,7 +11360,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },

@@ -1,5 +1,5 @@
 // Export de Mathalea pour Moodle au format GIFT
-// Créé le 01/03/2023
+// Créé le 07/03/2023
 
 $CATEGORY: Mathalea/1e
 
@@ -894,7 +894,7 @@ $CATEGORY: Mathalea/3e
 
 $CATEGORY: Mathalea/3e
 
-:: Mathalea - Lectures d'images et d'antécédents depuis un tableau de valeurs (3F10) ::
+:: Mathalea - Lire images et antécédents depuis un tableau de valeurs (3F10) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="3F10" />
 {
@@ -938,7 +938,7 @@ $CATEGORY: Mathalea/3e
 
 $CATEGORY: Mathalea/3e
 
-:: Mathalea - Lecture graphique d'images et d'antécédents (3F13-1) ::
+:: Mathalea - Lire graphiquement images et antécédents (3F13-1) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="3F13-1" />
 {
