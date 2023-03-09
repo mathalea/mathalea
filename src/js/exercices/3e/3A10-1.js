@@ -34,7 +34,6 @@ export default function PremierOuPas () {
   // this.nbQuestionsModifiable = false (EE : bloquant pour AMC sinon)
   this.listePackages = 'bclogo'
   const prems = cribleEratostheneN(529) // constante contenant tous les nombres premiers jusqu'à 529...
-
   this.nouvelleVersion = function () {
     let typesDeQuestions
     if (context.isHtml) { // les boutons d'aide uniquement pour la version html
@@ -89,7 +88,7 @@ export default function PremierOuPas () {
       } else this.introduction += ''
       switch (typesDeQuestions) {
         case 1: // nombre pair
-          N = 2 * randint(51, 4999)
+          N = 2 * randint(51, 499)
           texte = nombreAvecEspace(N)
           texteCorr = `Comme ${nombreAvecEspace(N)} est pair, il admet donc au moins trois diviseurs qui sont 1, 2 et lui-même, `
           texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier.')
@@ -97,9 +96,9 @@ export default function PremierOuPas () {
           break
         case 2: // Multiple de 3
           sum = 0 // pour la valeur de la somme;
-          N = 3 * randint(34, 3333) // on initialise avant la boucle car on a peut être de la chance
+          N = 3 * randint(34, 333) // on initialise avant la boucle car on a peut être de la chance
           while ((N % 2 === 0) || (N % 5 === 0)) {
-            N = 3 * randint(34, 3333)
+            N = 3 * randint(34, 333)
           };
           texte = nombreAvecEspace(N)
           texteCorr = 'Comme ' + N.toString().charAt(0)
@@ -113,7 +112,7 @@ export default function PremierOuPas () {
           bonneReponse = 'non'
           break
         case 3: // Multiple de 5
-          N = 5 * randint(20, 1999)
+          N = 5 * randint(20, 200)
           texte = nombreAvecEspace(N)
           texteCorr = `Comme le dernier chiffre de ${nombreAvecEspace(N)} est un ${N.toString().charAt(N.toString().length - 1)}, alors ${nombreAvecEspace(N)} est divisible par 5, `
           texteCorr += 'il admet donc au moins trois diviseurs qui sont 1, 5 et lui-même, '
@@ -121,7 +120,10 @@ export default function PremierOuPas () {
           bonneReponse = 'non'
           break
         case 4: // Multiple de 7
-          N = 7 * randint(15, 1428)
+          N = 7 * randint(15, 143)
+          while ((N % 2 === 0) || (N % 3 === 0) || (N % 5 === 0)) {
+            N = 7 * randint(15, 143)
+          };
           texte = nombreAvecEspace(N)
           Nlongueur = N.toString().length
           texteCorr = ` 7 divise ${nombreAvecEspace(N)}, en effet : `
@@ -143,7 +145,10 @@ export default function PremierOuPas () {
           bonneReponse = 'non'
           break
         case 5: // multiple de 11
-          N = 11 * randint(10, 909)
+          N = 11 * randint(10, 91)
+          while ((N % 2 === 0) || (N % 3 === 0) || (N % 5 === 0) || (N % 7 === 0)) {
+            N = 11 * randint(10, 91)
+          };
           texte = nombreAvecEspace(N)
           texteCorr = `D'une part, la somme des chiffres de rang impair de ${nombreAvecEspace(N)} vaut `
           if (Number(N.toString().length) % 2 === 0) { // si N a un nombre pair de chiffres
@@ -220,7 +225,7 @@ export default function PremierOuPas () {
           break
         case 7: // nombre premier inférieur à 529, si le nombre premier dépasse 100 on affiche le coup de pouce
           // rang du nombre premier choisi
-          r = randint(6, prems.length - 1)
+          r = randint(25, prems.length - 1)
           N = prems[r] // on choisit un nombre premier inférieur à 529
 
           if (N > 100) {
