@@ -633,12 +633,25 @@ export function exportQcmAmc (exercice, idExo) {
                 }
                 let reponseF
                 let reponseAlsoCorrect
-                if (valeurAMCNum.num > 0) {
-                  reponseF = arrondi(valeurAMCNum.num + valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)), 8)
-                  reponseAlsoCorrect = arrondi(valeurAMCNum.num + valeurAMCNum.den / (10 ** digitsDen), 8)
+                if (rep.param.aussiCorrect !== null && rep.param.aussiCorrect.num !== null && rep.param.aussiCorrect.den !== null) {
+                  if (valeurAMCNum.num > 0) {
+                    reponseF = arrondi(valeurAMCNum.num + valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)), 8)
+                  } else {
+                    reponseF = arrondi(valeurAMCNum.num - valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)), 8)
+                  }
+                  if (rep.param.aussiCorrect.num > 0) {
+                    reponseAlsoCorrect = arrondi(rep.param.aussiCorrect.num + rep.param.aussiCorrect.den / (10 ** nombreDeChiffresDansLaPartieEntiere(rep.param.aussiCorrect.den)), 8)
+                  } else {
+                    reponseAlsoCorrect = arrondi(rep.param.aussiCorrect.num - rep.param.aussiCorrect.den / (10 ** nombreDeChiffresDansLaPartieEntiere(rep.param.aussiCorrect.den)), 8)
+                  }
                 } else {
-                  reponseF = arrondi(valeurAMCNum.num - valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)), 8)
-                  reponseAlsoCorrect = arrondi(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen), 8)
+                  if (valeurAMCNum.num > 0) {
+                    reponseF = arrondi(valeurAMCNum.num + valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)), 8)
+                    reponseAlsoCorrect = arrondi(valeurAMCNum.num + valeurAMCNum.den / (10 ** digitsDen), 8)
+                  } else {
+                    reponseF = arrondi(valeurAMCNum.num - valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)), 8)
+                    reponseAlsoCorrect = arrondi(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen), 8)
+                  }
                 }
                 texQr += `\\AMCnumericChoices{${reponseF}}{digits=${digitsNum + digitsDen},decimals=${digitsDen},sign=${signeNum},approx=0,`
                 texQr += `borderwidth=0pt,backgroundcol=lightgray,scoreexact=1,Tpoint={\\vspace{0.5cm} \\vrule height 0.4pt width 5.5cm },alsocorrect=${reponseAlsoCorrect}}\n`
