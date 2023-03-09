@@ -11628,6 +11628,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "beta-CAN4-2023": {
+    "titre": "CAN 4ième sujet 2023",
+    "url": "/exercices/beta/beta-CAN4-2023.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "beta-CAN4-2023",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "beta-CAN6-2022": {
     "titre": "CAN Sixième sujet 2022",
     "url": "/exercices/beta/beta-CAN6-2022.js",
