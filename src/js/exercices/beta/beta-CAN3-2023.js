@@ -1,16 +1,13 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import FractionX from '../../modules/FractionEtendue.js'
-import { obtenirListeFractionsIrreductibles } from '../../modules/fractions.js'
-import { scratchblock } from '../../modules/scratchblock.js'
 import {
-  point, segment, milieu, codageAngle, rotation, polygoneAvecNom, labelPoint, demiDroite, codageSegments, segmentAvecExtremites, tracePoint, codageAngleDroit, texteParPosition, polygone
+  point, segment, milieu, repere, codageAngle, rotation, polygoneAvecNom, labelPoint, demiDroite, codageSegments, droite, segmentAvecExtremites, tracePoint, codageAngleDroit, texteParPosition, polygone, droiteGraduee
 } from '../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, miseEnEvidence, ecritureParentheseSiNegatif, ecritureAlgebrique, signe, texFractionReduite, creerNomDePolygone, printlatex, stringNombre, randint, texNombre, prenomF, simplificationDeFractionAvecEtapes, texPrix, shuffle, choice, sp, arrondi, texteEnCouleur, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { listeQuestionsToContenu, miseEnEvidence, ecritureParentheseSiNegatif, ecritureAlgebrique, signe, creerNomDePolygone, printlatex, stringNombre, randint, texNombre, prenomF, texPrix, shuffle, choice, sp, arrondi } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
-import Hms from '../../modules/Hms.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
 export const titre = 'CAN 3ième sujet 2023'
@@ -50,11 +47,11 @@ export default function SujetCAN2023troisieme () {
     this.listeCorrections = [] // Liste de questions corrigées
     const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
     const nbQ2 = min(this.nbQuestions - nbQ1, 20)
-    const typeQuestionsDisponiblesNiv1 = shuffle([23]).slice(-nbQ1).sort(compareNombres)// 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-    const typeQuestionsDisponiblesNiv2 = shuffle([23]).slice(-nbQ2).sort(compareNombres)// 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
+    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).slice(-nbQ1).sort(compareNombres)//
+    const typeQuestionsDisponiblesNiv2 = shuffle([11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)// 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
     const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
 
-    for (let i = 0, index = 0, nbChamps, m, nom, pol, n, listeFraction, maFraction, sCote1, sCote2,g, poly1, poly2, poly3, poly4, K, F, G, H, I, num, den, params, inconnue, triplet, origine, traceA, traceD, traceB, traceorigine, ang1, s3, J, texte, texteCorr, reponse, prenom1, L, E, choix, a, b, c, d, e, f, k, s1, s2, A, B, C, D, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, index = 0, nbChamps, m, nom, pol, n, xA, yA, xB, yB, xC, yC, reponse1, reponse2, traceC, choix1, r, o, listeFraction, maFraction, sCote1, sCote2, poly1, poly2, poly3, poly4, K, F, G, H, I, num, den, params, inconnue, triplet, origine, traceA, traceD, traceB, traceorigine, ang1, s3, J, texte, texteCorr, reponse, prenom1, L, E, choix, a, b, c, d, e, f, k, s1, s2, A, B, C, D, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typeQuestionsDisponibles[i]) {
         case 1:
           a = randint(4, 9)
@@ -295,13 +292,13 @@ export default function SujetCAN2023troisieme () {
             texteCorr = `$${a}$ classeurs coûtent $${b}$ €.<br>
               $${a / 2}$ ${a / 2 === 1 ? 'classeur coûte' : 'classeurs coûtent'}  $${texPrix(b / 2)}$ €.<br>
               Ainsi,   $${b}$ classeurs coûtent ${k > 2 ? `$2\\times ${b}+ ${texPrix(b / 2)} =${miseEnEvidence(texPrix(reponse))}$ €.` : `$${b}+ ${texPrix(b / 2)} =${miseEnEvidence(texPrix(reponse))}$ €.`}`
-
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') +
-            '€'
-            }
           }
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') +
+            '€'
+          }
+
           nbChamps = 1
           break
 
@@ -327,7 +324,7 @@ export default function SujetCAN2023troisieme () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           }
-
+          nbChamps = 1
           break
 
         case 9:
@@ -782,19 +779,20 @@ export default function SujetCAN2023troisieme () {
           a = randint(2, 6)
           b = randint(8, 15)
           c = randint(7, 11)
-          e = choice([36, 40, 44, 48, 52 ,60])
+          e = choice([36, 40, 44, 48, 52, 60])
           d = e - a - b - c
           texte = `$${a}$ ${sp(2)} ; ${sp(2)} $${b}$ ${sp(2)} ; ${sp(2)} $${c}$${sp(2)} ; ${sp(2)} $${d}$<br>
 Quelle est la moyenne de ces nombres ?`
           texteCorr = `La somme des $4$ valeurs est : $${a}+${b}+${c}+${d} =${e}$.<br>
- La moyenne est donc $\\dfrac{${e}}{4}=${miseEnEvidence(texNombre(e/4, 0))}$.`
-          reponse = arrondi(e / 4,0)
-          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+ La moyenne est donc $\\dfrac{${e}}{4}=${miseEnEvidence(texNombre(e / 4, 0))}$.`
+          reponse = arrondi(e / 4, 0)
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
           break
 
-          case 23:
+        case 23:
+          if (choice([true, false])) {
             a = randint(1, 9)// longueur BE
             k = randint(2, 4)
             b = k * a // longueur DC
@@ -815,25 +813,257 @@ Quelle est la moyenne de ces nombres ?`
             sCote2.styleExtremites = '<->'
             objets = []
             objets.push(
-              texteParPosition(`${stringNombre(a)} `, milieu(B, E).x + 0.4, milieu(B, E).y),
-              texteParPosition('?', milieu(A, E).x - 0.4, milieu(A, E).y + 0.7, 'milieu', 'black', 1, 'middle', true),
-              texteParPosition(`${stringNombre(b)} `, milieu(D, C).x + 0.5, milieu(D, C).y),
-              texteParPosition(`${stringNombre(d)} `, milieu(A, D).x - 1, milieu(A, D).y + 1.5),
+              texteParPosition(`${stringNombre(a)} `, milieu(B, E).x + 0.4, milieu(B, E).y, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              texteParPosition('?', milieu(A, E).x - 0.4, milieu(A, E).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              texteParPosition(`${stringNombre(b)} `, milieu(D, C).x + 0.5, milieu(D, C).y, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              texteParPosition(`${stringNombre(d)} `, milieu(A, D).x - 1, milieu(A, D).y + 1.5, 'milieu', 'black', context.isHtml ? 1 : 0.7),
               demiDroite(A, C), demiDroite(A, D), labelPoint(A, B, C, D, E), segment(A, D), segment(A, C), segment(B, E), segment(D, C), sCote1, sCote2)
             reponse = c
             texte = '$(BE)//(DC)$.  Détermine la longueur $AE$.<br>'
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.6, style: 'margin: auto' }, objets)
             texteCorr = `Le triangle $ADC$ est un agrandissement du triangle $ABE$. Le coefficient d'agrandissement est donné par : $\\dfrac{${b}}{${a}}=${texNombre(b / a)}$.<br>
             On obtient donc la longueur $AE$ en divisant par $${k}$ la longueur $AD$.<br>
-            $AE=\\dfrac{${d}}{${k}}=${c}$.<br>`
+            $AE=\\dfrac{${d}}{${k}}=${miseEnEvidence(c)}$.<br>`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += '<br>$AE=$'
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
             }
-            nbChamps = 1
-            break
-  
+          } else {
+            a = randint(1, 4)// AB
+            k = randint(2, 3)// coeff
+            b = k * a// BE
+            c = randint(b, 22)// DC
+            d = k * c// AD
+            A = point(6, 0, 'A', 'right', 'below')
+            D = point(0.46, 2.92, 'D', 'above left')
+            E = point(4, 1, 'E', 'below')
+            B = point(6.22, 2, 'B', 'above right')
+            C = point(0, -1, 'C', 'left')
+            xmin = -1
+            ymin = -1.5
+            xmax = 7.5
+            ymax = 4
+            objets = []
+            objets.push(
+              texteParPosition(`${a}`, milieu(A, B).x + 0.3, milieu(A, B).y - 0.2, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              texteParPosition('?', milieu(C, E).x, milieu(C, E).y - 0.5, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              texteParPosition(`${b}`, milieu(B, E).x, milieu(B, E).y + 0.2, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              texteParPosition(`${c}`, milieu(D, C).x - 0.3, milieu(C, B).y + 0.5, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              labelPoint(A, B, C, D, E), droite(B, C), droite(D, A), droite(C, D), droite(A, B))
+            reponse = k * c
+            texte = `$(AB)//(CD)$<br><br>
+          `
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.6, style: 'margin: auto' }, objets)
+            texteCorr = `Le triangle $ECD$ est un agrandissement du triangle $EAB$. La longueur $BE$ est $${k}$ fois plus grande que la longueur $AB$. 
+          On en déduit que la longueur $EC$ est $${k}$ fois plus grande que la longueur $CD$.<br>
+          Ainsi, $CE=${k}\\times ${c}=${miseEnEvidence(reponse)}$.`
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) {
+              texte += '<br>$CE=$'
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            } else { texte += ' $CE=\\ldots$ ' }
+          }
+          nbChamps = 1
+          break
+        case 24:
+          a = randint(-4, 1, -2)
+          b = randint(-1, 0)
+          xA = 2 + a
+          yA = 2 + b
+          xB = 2 + a
+          yB = -1 + b
+          xC = -1 + a
+          yC = -1 + b
+          r = repere({
+            xMin: -6,
+            xMax: 5,
+            xUnite: 1,
+            yMin: -3,
+            yMax: 3,
+            thickHauteur: 0.1,
+            xLabelMin: -4,
+            xLabelMax: 3,
+            yLabelMax: 2,
+            yLabelMin: -2,
+            axeXStyle: '->',
+            axeYStyle: '->',
+            yLabelDistance: 1,
+            yLabelEcart: 0.6,
+            grilleSecondaire: true,
+            grilleSecondaireYDistance: 1,
+            grilleSecondaireXDistance: 1,
+            grilleSecondaireYMin: -3,
+            grilleSecondaireYMax: 3,
+            grilleSecondaireXMin: -5,
+            grilleSecondaireXMax: 5
+            //   labelPointTaille: context.isHtml ? 10 : 7
+          })
+          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          A = point(xA, yA, 'A', 'above')
+          B = point(xB, yB, 'B', 'below')
+          C = point(xC, yC, 'C', 'below left')
+          traceA = tracePoint(A) // Variable qui trace les points avec une croix
+          traceB = tracePoint(B)
+          traceC = tracePoint(C)
+          texte = `$ABCD$ est un carré.<br>
+            Quelles sont les coordonnées du point $D$ ?<br>
+            
+            `
+          texte += mathalea2d({ xmin: -6, xmax: 5, ymin: -3, ymax: 3, pixelsParCm: 25, scale: 0.7 },
+            r, o, traceA, traceB, traceC, labelPoint(A, B, C))
+          texteCorr = `L'abscisse du point $D$ est l'abscisse du point $C$ et l'ordonnée du point $D$ est l'ordonnée du point $A$.<br>
+            Ainsi : $D(${miseEnEvidence(xC)};${miseEnEvidence(yA)})$.
+              `
+          reponse = `${xC};${yA}`
+          setReponse(this, index, reponse, { formatInteractif: 'texte' })
+          if (this.interactif) {
+            texte += '$D($' + ajouteChampTexteMathLive(this, index, 'inline largeur12') + '$)$'
+          }
+          nbChamps = 1
+
+          break
+        case 25:
+          a = randint(3, 99, [4, 9, 16, 25, 36, 49, 64, 81])
+          reponse = `${Math.floor(Math.sqrt(a))};${Math.floor(Math.sqrt(a)) + 1}`
+          texte = 'Complète avec deux entiers consécutifs.<br>'
+          texte += `$\\ldots < \\sqrt{${a}} < \\ldots$<br>`
+
+          texteCorr = ` On cherche le carré parfait le plus proche de $${a}$ inférieur à $${a}$.<br>
+         Comme $${Math.floor(Math.sqrt(a)) ** 2}=${Math.floor(Math.sqrt(a))}^2$, alors :
+       $${Math.floor(Math.sqrt(a))}< \\sqrt{${a}} < ${Math.floor(Math.sqrt(a)) + 1}$.`
+          setReponse(this, index, reponse, { formatInteractif: 'texte' })
+          if (this.interactif) {
+            texte += 'Écrire les entiers dans l’ordre croissant, séparés par un point virgule'
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
+          nbChamps = 1
+          break
+        case 26:
+          a = randint(3, 10)
+          b = a - randint(-1, 1, 0)
+          choix1 = choice([true, false])
+          reponse1 = new FractionX(a, a + b)
+          reponse2 = new FractionX(b, a + b)
+          if (choix1 === true) { reponse = reponse1 } else { reponse = reponse2 }
+          texte = `Une urne contient $${a}$ boules rouges et $${b}$ boules bleues. <br>
+                On tire une boule au hasard. <br>
+              La probabilité de tirer une boule ${choix1 ? 'rouge' : 'bleue'} est : `
+          texteCorr = `Dans l'urne, il y a $${a}$ boules rouges et $${b}$ boules bleues, soit un total de $${a + b}$ boules. <br>
+                On a donc $${miseEnEvidence(choix1 ? `${a}` : `${b}`)}$ chances sur $${miseEnEvidence(a + b)}$ de tirer une boule ${choix1 ? 'rouge' : 'bleue'}.<br>
+                Ainsi, la probabilité de tirer une boule ${choix1 ? 'rouge' : 'bleue'} est $\\dfrac{${miseEnEvidence(choix1 ? `${a}` : `${b}`)}}{${miseEnEvidence(a + b)}}$.`
+
+          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'largeur15 inline')
+          }
+          nbChamps = 1
+          break
+
+        case 27:
+          a = randint(3, 6)
+          b = choice([a ** 2 + 1, a ** 2 - 1])
+          reponse = new FractionX(b, a)// .simplifie()
+          texte = 'Quelle  fraction repère le point d’interrogation ?<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 21, ymax: 1.5, scale: 0.6, style: 'margin: auto' }, droiteGraduee({
+            Unite: 2.5,
+            Min: 2,
+            Max: 7,
+            x: 0,
+            y: 0,
+            thickSecDist: 1 / a,
+            thickSec: true,
+            thickoffset: 0,
+            axeStyle: '|->',
+            pointListe: [[b / a, '?']],
+            labelPointTaille: 15,
+            pointCouleur: 'blue',
+            pointStyle: 'x',
+            labelsPrincipaux: true,
+            step1: 1,
+            step2: 1
+          }))
+          texteCorr = `L'unité est divisée en $${a}$. Ainsi, le point d'interrogation est   $\\dfrac{${miseEnEvidence(b)}}{${miseEnEvidence(a)}}$.`
+          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          nbChamps = 1
+
+          break
+        case 28:
+          a = randint(-5, 5, [0, -1, 1])
+          reponse = randint(-9, 9, [-1, 0, 1])
+          c = randint(-9, 9, [0])
+          b = c - a * reponse
+          texte = `Solution de l'équation : <br>$${a}x${ecritureAlgebrique(b)}=${c}$`
+          texteCorr = `On procède par étapes successives :<br>
+          On commence par isoler $${a}x$ dans le membre de gauche en ajoutant 
+          $${ecritureAlgebrique(-b)}$ dans chacun des membres, puis on divise 
+          par $${a}$ pour obtenir la solution : <br>
+           $\\begin{aligned}
+           ${a}x${ecritureAlgebrique(b)}&=${c}\\\\
+          ${a}x&=${c}${ecritureAlgebrique(-b)}\\\\
+          ${a}x&=${c - b}\\\\
+          x&=\\dfrac{${c - b}}{${a}}\\\\
+          x&=${reponse}
+          \\end{aligned}$<br>
+          La solution de l'équation est : $${miseEnEvidence(reponse)}$.
+          `
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          nbChamps = 1
+          break
+
+        case 29:
+          choix = choice(['a', 'b', 'b', 'c', 'c', 'c'])//
+          if (choix === 'a') {
+            a = randint(2, 9) * 4
+            texte = `Un article à $${texPrix(a)}$ € est soldé à $${texPrix(a * 0.75)}$ €.<br>
+          Quel est le pourcentage de réduction ?`
+            texteCorr = `La réduction est de $${texPrix(a)}-${texPrix(a * 0.75, 2)}=${texPrix(0.25 * a)}$.<br>
+          Le prix de départ était de $${texPrix(a)}$  €. Le pourcentage de réduction est donné par : $\\dfrac{${texPrix(0.25 * a)}}{${texPrix(a)}}=0,25=${miseEnEvidence(25)}\\,\\%$. `
+            reponse = 25
+          }
+          if (choix === 'b') {
+            a = randint(2, 7) * 10
+            b = randint(1, 4) * 10
+            c = arrondi(1 - b / 100, 2)
+            texte = `Un article à $${texPrix(a)}$ € est soldé à $${texPrix(a * c)}$ €.<br>
+            Quel est le pourcentage de réduction ?`
+            texteCorr = `La réduction est de $${texPrix(a)}-${texPrix(a * c)}=${texPrix(a - a * c)}$.<br>
+            Le prix de départ était de $${texPrix(a)}$  €. Le pourcentage de réduction est donné par : $\\dfrac{${texPrix(a - a * c)}}{${texPrix(a)}}=${texNombre(b / 100, 2)}=${miseEnEvidence(b)}\\,\\%$. `
+            reponse = b
+          }
+          if (choix === 'c') {
+            a = randint(2, 5) * 100
+            b = randint(1, 4) * 10
+            c = arrondi(1 - b / 100, 2)
+            texte = `Une montre valant $${texPrix(a)}$ € est soldée à $${texPrix(a * c)}$ €.<br>
+            Quel est le pourcentage de réduction ?`
+            texteCorr = `La réduction est de $${texPrix(a)}-${texPrix(a * c)}=${texPrix(a - a * c)}$.<br>
+            Le prix de départ était de $${texPrix(a)}$  €. Le pourcentage de réduction est donné par : $\\dfrac{${texPrix(a - a * c)}}{${texPrix(a)}}=${texNombre(b / 100, 2)}=${miseEnEvidence(b)}\\,\\%$. `
+            reponse = b
+          }
+
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '%' }
+          nbChamps = 1
+          break
+
+        case 30:
+
+          a = randint(1, 6) * 1000
+          b = choice([6, 12, 15, 20, 10])
+          reponse = new Decimal(60 * a).div(1000 * b)
+          texte = `Zoé a parcouru $${texNombre(a)}$ m en $${b}$ minutes.<br>
+              Quelle est sa vitesse moyenne en km/h ?`
+          texteCorr = `$1$ heure $=${texNombre(new Decimal(60).div(b))}\\times ${b}$ min. <br>
+              Donc en une heure, Zoé parcourt $${texNombre(new Decimal(60).div(b))}\\times ${texNombre(a)}$ m $= ${miseEnEvidence(texNombre(reponse * 1000, 0))}$ m, soit $${texNombre(reponse, 0)}$ km.<br>
+              Sa vitesse moyenne est donc $${miseEnEvidence(texNombre(reponse))}$ km/h.
+              `
+
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'km/h' }
+          nbChamps = 1
+          break
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
