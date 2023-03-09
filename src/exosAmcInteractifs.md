@@ -1,5 +1,4 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 553 
 - nombre d'exos interactifReady 849 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
@@ -86,11 +85,11 @@
 |3F10-1|Vocabulaire et notations des fonctions (généralités)|OK|qcmMult|OK|qcm|
 |3F10-2|Fonction : calculs d'images (et d'antécédents)|OK|AMCNum|OK|mathLive|
 |3F10-3|Vocabulaire et notations des fonctions|OK|qcmMult|OK|qcm|
-|3F10|Lectures d'images et d'antécédents depuis un tableau de valeurs|KO|KO|OK|mathLive|
-|3F12-2|Déterminer l'image d'un nombre par une fonction d'après sa forme algébrique|KO|KO|OK|mathLive|
+|3F10|Lire images et antécédents depuis un tableau de valeurs|OK|AMCHybride|OK|mathLive|
+|3F12-2|Déterminer l'image d'un nombre par une fonction d'après sa forme algébrique|OK|AMCNum|OK|mathLive|
 |3F12-3|Compléter un tableau de valeurs|OK|AMCHybride|OK|mathLive|
 |3F12-4|Lire l'image d'un nombre à partir d'un graphique|OK|AMCHybride|OK|mathLive|
-|3F13-1|Lecture graphique d'images et d'antécédents|KO|KO|OK|mathLive|
+|3F13-1|Lire graphiquement images et antécédents|OK|AMCHybride|OK|mathLive|
 |3F13-2|Spécial escape game|KO|KO|OK|mathLive|
 |3F21-1|Déterminer une fonction affine|OK|AMCOpenNum✖︎2|OK|mathLive|
 |3F21-2|Déterminer une fonction affine par la donnée des images de deux nombres|KO|KO|OK|mathLive|
@@ -144,7 +143,8 @@
 |3L13-2|Résoudre une equation résolvante pour le théorème de Thalès|OK|AMCNum|OK|mathLive|
 |3L13-3|Mettre en équation un problème et le résoudre|OK|AMCNum|OK|mathLive|
 |3L13|Résoudre une equation du premier degré|OK|AMCHybride|OK|mathLive|
-|3L14|Résoudre une équation produit nul|KO|KO|OK|mathLive|
+|3L14-1|Résoudre une équation produit nul (niveau 2)|OK|AMCOpen|OK|mathLive|
+|3L14|Résoudre une équation produit nul|OK|AMCOpen|OK|mathLive|
 |3L15-1|Résoudre une équation $x^2 = a$|KO|KO|OK|mathLive|
 |3P10-1|Coefficient multiplicateur d'une variation en pourcentage|KO|KO|OK|mathLive|
 |3P10|Variations en pourcentage|KO|KO|OK|mathLive|
@@ -409,12 +409,14 @@
 |6N31-5|Encadrer un décimal|OK|AMCHybride|OK|mathLive|
 |6N31-6|Trouver une valeur approchée ou un arrondi d'un décimal|KO|KO|OK|mathLive|
 |6N31|Comparer des nombres décimaux|OK|AMCOpen|KO|KO|
+|6N32|Représenter une fraction de l'unité|OK|AMCHybride|KO|KO|
 |6N33-0|Calculer la fraction d'une quantité|OK|AMCNum|OK|mathLive|
 |6N33-1|Calculer mentalement le pourcentage d'un nombre|OK|AMCNum|OK|mathLive|
 |6N33-2|Résoudre des problèmes de calcul de pourcentage par complément à 100%|OK|AMCNum|OK|mathLive|
 |6N33-3|Résoudre des problèmes avec des calculs de pourcentages|OK|AMCNum|OK|mathLive|
 |6N33|Calculer la fraction d'un nombre|OK|AMCNum|OK|mathLive|
 |6N34|Effectuer des conversions avec tous les préfixes de milli à tera|OK|AMCNum|OK|mathLive|
+|6N41-1|Parcourir un labyrinthe de fractions égales|OK|AMCHybride|KO|KO|
 |6N41|Compléter les égalités entre fractions simples|OK|qcmMono|OK|mathLive|
 |6N43-2|Utiliser les critères de divisibilité (plusieurs possibles)|OK|qcmMult|OK|qcm|
 |6N43-3|Reconnaître diviseur, multiple, divisible|OK|qcmMono|OK|qcm|

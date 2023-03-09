@@ -10,6 +10,6 @@ export const uuid = '64422'
 export const ref = '6C23'
 export default function ExerciceAdditionnerFractions6e () {
   CalculsFractionsSimples.call(this)
-  this.version = '6'
+  this.sup = 4
   this.besoinFormulaireNumerique = ['Opérations', 5, '1 : Additions uniquement\n2 : Soustractions uniquement\n3: Multiplications par un entier uniquement\n4: Additions et soustractions\n5: Additions, soustractions ou multiplications par un entier']
 }

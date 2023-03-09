@@ -31,6 +31,10 @@ export default function DeterminerDesMedianes () {
   this.nbColsCorr = 1
   this.sup = 1
   this.listePackages = 'bclogo'
+  if (context.isHtml) {
+    this.spacing = 2
+    this.spacingCorr = 2
+  }
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -63,9 +67,9 @@ export default function DeterminerDesMedianes () {
           nombreNotes = choice([7, 9, 11])
         }
         notes = listeDeNotes(nombreNotes, randint(0, 7), randint(13, 20)) // on récupère une liste de notes (série brute)
-        texte = OutilsStats.texteNotes(nombreNotes, notes)
+        texte = OutilsStats.texteNotes(notes)
         const [mediane, medianeCorr] = OutilsStats.computeMediane(notes)
-        texteCorr = OutilsStats.texteCorrMedianeNotes(nombreNotes, notes, medianeCorr, mediane)
+        texteCorr = OutilsStats.texteCorrMedianeNotes(notes, medianeCorr, mediane)
         repInteractive = mediane
       } else { // ici on relève des températures
         const annee = randint(1980, 2019)

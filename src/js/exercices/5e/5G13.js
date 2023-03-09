@@ -1,12 +1,12 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, choisitLettresDifferentes } from '../../modules/outils.js'
 import { point, tracePoint, labelPoint, symetrieAxiale, translation, vecteur, triangle2points2longueurs, droite, pointAdistance, rotation, afficheLongueurSegment, segment, afficheMesureAngle, longueur, droiteParPointEtParallele, angle, polygoneAvecNom, texteParPoint, positionLabelDroite, distancePointDroite, translation2Points } from '../../modules/2d.js'
 import { getVueFromUrl } from '../../modules/gestionUrl.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles'
 
-export const dateDeModifImportante = '16/05/2022'
+export const dateDeModifImportante = '06/03/2023'
 
 /**
  * Compléter le symétrique d'une figure en utilisant les propriétés de conservation de la symétrie et de la translation et en justifiant ses démarches
@@ -14,6 +14,7 @@ export const dateDeModifImportante = '16/05/2022'
  * Référence 5G13
  * Date de publication 05/08/2021
  * Ajout de la translation par Guillaume Valmont le 16/05/2022
+ * Les noms des points sont maintenant aléatoires par Guillaume Valmont le 06/03/2023
 */
 export const uuid = '07d1a'
 export const ref = '5G13'
@@ -70,10 +71,11 @@ export default function ConservationTransformation () {
       objetsEnonceOnly = []
       objetsCorrectionOnly = []
       objetsEnonceEtCorr = []
-      A = point(0, 0, 'A', 'below')
-      B = pointAdistance(A, randint(30, 60) / 10, randint(0, 45), 'B')
+      const lettres = choisitLettresDifferentes(5, 'O')
+      A = point(0, 0, lettres[0], 'below')
+      B = pointAdistance(A, randint(30, 60) / 10, randint(0, 45), lettres[1])
       C = triangle2points2longueurs(A, B, randint(40, 60) / 10, randint(30, 50) / 10).listePoints[2]
-      C.nom = 'C'
+      C.nom = lettres[2]
       D = point(0, 0)
       E = point(0, 0)
       d1 = droiteParPointEtParallele(C, droite(A, B))
@@ -87,9 +89,9 @@ export default function ConservationTransformation () {
           d = droite(translation(A, vecteur(-randint(30, 40) / 10, 0)), translation(C, vecteur(-randint(30, 40) / 10, 0)))
           d.angleAvecHorizontale = d.angleAvecHorizontale + randint(-10, 10)
           objetsEnonceEtCorr.push(d)
-          imageA = symetrieAxiale(A, d, 'A\'')
-          imageB = symetrieAxiale(B, d, 'B\'')
-          imageC = symetrieAxiale(C, d, 'C\'')
+          imageA = symetrieAxiale(A, d, `${A.nom}'`)
+          imageB = symetrieAxiale(B, d, `${B.nom}'`)
+          imageC = symetrieAxiale(C, d, `${C.nom}'`)
           if (listeTypeDeQuestions[i] === 'parallelisme') {
             objetsCorrectionOnly.push(droite(symetrieAxiale(point(d1.x1, d1.y1), d), symetrieAxiale(point(d1.x2, d1.y2), d), '$(d_1\')$'))
           }
@@ -100,9 +102,9 @@ export default function ConservationTransformation () {
           enonceTransformation = 'par la symétrie de centre $O$'
           do {
             O = point(randint(25, 45) / 10, randint(35, 65) / 10, 'O')
-            imageA = rotation(A, O, 180, 'A\'')
-            imageB = rotation(B, O, 180, 'B\'')
-            imageC = rotation(C, O, 180, 'C\'')
+            imageA = rotation(A, O, 180, `${A.nom}'`)
+            imageB = rotation(B, O, 180, `${B.nom}'`)
+            imageC = rotation(C, O, 180, `${C.nom}'`)
           } while (distancePointDroite(O, d1) < 1 || longueur(O, B) < 1 || Math.abs(Math.round(angle(B, A, imageC)) - 90) > 85)
           objetsEnonceEtCorr.push(tracePoint(O), labelPoint(O))
           if (listeTypeDeQuestions[i] === 'parallelisme') {
@@ -112,12 +114,12 @@ export default function ConservationTransformation () {
           break
         case 'translation':
           transformation = 'translation'
-          enonceTransformation = 'par la translation qui transforme $D$ en $E$'
-          D = point(B.x + 1, B.y + 8 + randint(-10, 10) / 10, 'D')
-          E = point(B.x + 8, B.y + 8 + randint(-20, 20) / 10, 'E')
-          imageA = translation2Points(A, D, E, 'A\'')
-          imageB = translation2Points(B, D, E, 'B\'')
-          imageC = translation2Points(C, D, E, 'C\'')
+          D = point(B.x + 1, B.y + 8 + randint(-10, 10) / 10, lettres[3])
+          E = point(B.x + 8, B.y + 8 + randint(-20, 20) / 10, lettres[4])
+          enonceTransformation = `par la translation qui transforme $${D.nom}$ en $${E.nom}$`
+          imageA = translation2Points(A, D, E, `${A.nom}'`)
+          imageB = translation2Points(B, D, E, `${B.nom}'`)
+          imageC = translation2Points(C, D, E, `${C.nom}'`)
           objetsEnonceEtCorr.push(vecteur(D, E).representant(D), tracePoint(D, E), labelPoint(D, E))
           if (listeTypeDeQuestions[i] === 'parallelisme') {
             objetsCorrectionOnly.push(droite(translation2Points(point(d1.x1, d1.y1), D, E), translation2Points(point(d1.x2, d1.y2), D, E)))
@@ -129,25 +131,25 @@ export default function ConservationTransformation () {
           objetsEnonceEtCorr.push(tracePoint(A, B, C))
           objetsEnonceEtCorr.push(d1)
           texte = `Les points $${A.nom}'$, $${B.nom}'$ et $${C.nom}'$ sont les images respectives de $${A.nom}$, $${B.nom}$ et $${C.nom}$ ${enonceTransformation}.<br>`
-          texte += 'La droite $(d_1)$ est parallèle au segment [$AB$] et passe par le point $C$.<br>'
+          texte += `La droite $(d_1)$ est parallèle au segment [$${A.nom + B.nom}$] et passe par le point $${C.nom}$.<br>`
           figure = 'de la droite $(d_1)$'
           texteCorr = texte
           texteCorr += `Or, la ${transformation} conserve le parallélisme.<br>`
-          texteCorr += 'Donc la droite $(d_1\')$ est parallèle au segment [$A\'B\'$] et passe par le point $C\'$.<br>'
+          texteCorr += `Donc la droite $(d_1')$ est parallèle au segment [$${A.nom}'${B.nom}'$] et passe par le point $${C.nom}'$.<br>`
           break
         case 'longueurEtAngle':
           objetsEnonceEtCorr.push(segment(A, C), segment(B, C))
           objetsEnonceEtCorr.push(afficheLongueurSegment(C, B))
           objetsEnonceEtCorr.push(afficheMesureAngle(A, B, C, 'black', 1, Math.round(angle(A, B, C)) + '°'))
           texte = `Les points $${A.nom}'$ et $${B.nom}'$ sont les images respectives de $${A.nom}$ et $${B.nom}$ ${enonceTransformation}.<br>`
-          texte += `L'angle $\\widehat{ABC}$ mesure $${texNombre(Math.round(angle(A, B, C)))}$ °.<br>`
-          figure = 'du triangle $ABC$'
+          texte += `L'angle $\\widehat{${A.nom + B.nom + C.nom}}$ mesure $${texNombre(Math.round(angle(A, B, C)))}$ °.<br>`
+          figure = `du triangle $${A.nom + B.nom + C.nom}$`
           texteCorr = texte
           texteCorr += `Or, la ${transformation} conserve les angles.<br>`
-          texteCorr += `Donc l'angle $\\widehat{A'B'C'}$ mesure lui aussi $${texNombre(Math.round(angle(A, B, C)))}$ °.<br><br>`
-          texteCorr += `Le segment [BC] mesure $${texNombre(longueur(B, C, 1))}$ cm.<br>`
+          texteCorr += `Donc l'angle $\\widehat{${A.nom}'${B.nom}'${C.nom}'}$ mesure lui aussi $${texNombre(Math.round(angle(A, B, C)))}$ °.<br><br>`
+          texteCorr += `Le segment [$${B.nom + C.nom}$] mesure $${texNombre(longueur(B, C, 1))}$ cm.<br>`
           texteCorr += `Or, la ${transformation} conserve les longueurs.<br>`
-          texteCorr += `Donc le segment [B'C'] mesure lui aussi $${texNombre(longueur(B, C, 1))}$ cm.<br>`
+          texteCorr += `Donc le segment [$${B.nom}'${C.nom}'$] mesure lui aussi $${texNombre(longueur(B, C, 1))}$ cm.<br>`
           break
       }
       texte += `Compléter l'image ${figure} ${enonceTransformation} en utilisant les propriétés de${getVueFromUrl() === 'multi' ? '<br>' : ' '}conservation de la ${transformation} et en justifiant ses démarches.<br>`
@@ -182,7 +184,7 @@ export default function ConservationTransformation () {
       const ymin = Math.min(A.y, B.y, C.y, D.x, E.x, imageA.y, imageB.y, imageC.y) - 2
       const ymax = Math.max(A.y, B.y, C.y, D.x, E.x, imageA.y, imageB.y, imageC.y) + 2
       // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
-      paramsEnonce = { xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 20, scale: 1 }
+      paramsEnonce = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 1 }
       // paramètres de la fenêtre Mathalea2d pour la correction
       paramsCorrection = paramsEnonce
       // On ajoute les noms des droites si besoin

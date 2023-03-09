@@ -110,7 +110,7 @@ export default function VocabulaireNotationsFonctions () {
       }
       if (!context.isHtml) enonce += '<br>'
       this.autoCorrection[i] = {
-        enonce: enonce,
+        enonce,
         options: { ordered: false, vertical: true },
         propositions: []
       }

@@ -419,6 +419,19 @@ export default function ModelisationProblemes () {
         colonne2 += schemas[j]
       }
     }
+    if (context.versionMathalea > 2) {
+      // this.contenu n'est plus utilisé après la version 2
+      // On ne met pas les schéma en mode diaporama
+      if (context.isDiaporama) {
+        this.sup3 = 1
+      }
+      this.introduction = ''
+      if (this.sup3 === 3) {
+        for (let j = 0; j < listeTypeDeQuestions.length; j++) {
+          this.introduction += schemas[j]
+        }
+      }
+    }
     if (context.isHtml & this.sup3) {
       this.contenu = deuxColonnes(this.contenu, colonne2, 35)
     } else {
