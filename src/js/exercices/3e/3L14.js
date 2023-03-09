@@ -6,7 +6,7 @@ import {
   randint,
   combinaisonListes,
   texFractionReduite,
-  texFraction, choice
+  texFraction, choice, texteEnCouleurEtGras, contraindreValeur
 } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -17,7 +17,7 @@ export const interactifType = 'mathLive'
 export const amcType = 'AMCHybride'
 export const amcReady = true
 
-export const dateDeModifImportante = '18/03/2022'
+export const dateDeModifImportante = '09/03/2023'
 
 /**
  * Résolution d'équations de type (ax+b)(cx+d)=0
@@ -45,50 +45,67 @@ export default function ResoudreUneEquationProduitNul () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     let listeTypeDeQuestions = []
-    switch (parseInt(this.sup)) {
-      case 1: listeTypeDeQuestions = combinaisonListes([1, 2], this.nbQuestions)
+    switch (contraindreValeur(1, 8, this.sup, 1)) {
+      case 1: listeTypeDeQuestions = combinaisonListes([1, 2], this.nbQuestions) // coefficients à 1
         break
-      case 2: listeTypeDeQuestions = combinaisonListes([3, 13, 4, 42], this.nbQuestions)
+      case 2: listeTypeDeQuestions = combinaisonListes([13, 42], this.nbQuestions) // 1 coef 1 et pas l'autre
         break
-      case 3: listeTypeDeQuestions = combinaisonListes([5, 6], this.nbQuestions)
+      case 3: listeTypeDeQuestions = combinaisonListes([3, 4], this.nbQuestions) // coefficients > 1 solutions entières
         break
-      case 4: listeTypeDeQuestions = combinaisonListes([1, 2, 13, 3, 42, 4, 5, 6], this.nbQuestions)
+      case 4: listeTypeDeQuestions = combinaisonListes([5, 6], this.nbQuestions) // coefficients > 1 solutions rationnelles (simplifiables ou pas)
+        break
+      case 5: listeTypeDeQuestions = combinaisonListes([1, 2, 13, 42], this.nbQuestions) // Mélange cas 1 et 2
+        break
+      case 6: listeTypeDeQuestions = combinaisonListes([13, 42, 3, 4], this.nbQuestions) // Mélange cas 2 et 3
+        break
+      case 7: listeTypeDeQuestions = combinaisonListes([3, 4, 5, 6], this.nbQuestions) // Mélange cas 3 et 4
+        break
+      case 8: listeTypeDeQuestions = combinaisonListes([1, 2, 3, 4, 5, 6, 13, 42], this.nbQuestions)
+        break
     }
     for (let i = 0, a, b, c, d, solution1, solution2, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeDeQuestions[i]) {
-        case 1: b = randint(1, 9) // (x+a)(x+b)=0 avec a et b entiers
-          d = randint(1, 9, [b])
+        case 1: // (x+a)(x+b)=0 avec a et b entiers
+          b = randint(1, context.isAmc ? 9 : 20)
+          d = randint(1, context.isAmc ? 9 : 20, [b])
           texte = `$(x+${b})(x+${d})=0$`
           texteCorr = 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
           texteCorr += '<br>' + `$(x+${b})(x+${d})=0$`
-          texteCorr += '<br> Soit ' + `$x+${b}=0$` + ' ou ' + `$x+${d}=0$`
-          texteCorr += '<br> Donc ' + `$x=${0 - b}$` + ' ou ' + `$x=${0 - d}$`
+          texteCorr += '<br> Soit ' + `$x+${b}=0$` + ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$x+${d}=0$`
+          texteCorr += '<br> Donc ' + `$x=${0 - b}$` + ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$x=${0 - d}$`
           setReponse(this, i, [`${-b};${-d}`, `${-d};${-b}`])
           solution1 = Math.min(-b, -d)
           solution2 = Math.max(-b, -d)
           break
-        case 2: b = randint(1, 9) // (x-a)(x+b)=0 avec a et b entiers
-          d = randint(1, 9, [b])
-          texte = `$(x-${b})(x+${d})=0$`
+        case 2: // (x-b)(x+d)=0  ou (x+d)(x-b)=0 avec b et d entiers
+        {
+          b = randint(1, context.isAmc ? 9 : 20)
+          d = randint(1, context.isAmc ? 9 : 20, [b])
+          const choix = choice([0, 1])
+          texte = [`$(x-${b})(x+${d})=0$`, `$(x+${d})(x-${b})=0$`][choix]
           texteCorr = 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
-          texteCorr += '<br>' + `$(x-${b})(x+${d})=0$`
-          texteCorr += '<br> Soit ' + `$x-${b}=0$` + ' ou  ' + `$x+${d}=0$`
-          texteCorr += '<br> Donc ' + `$x=${b}$` + ' ou ' + `$x=${-d}$`
+          texteCorr += '<br>' + texte
+          texteCorr += '<br> Soit ' + (choix === 0 ? `$x-${b}=0$` : `$x+${d}=0$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x+${d}=0$` : `$x-${b}=0$`)
+          texteCorr += '<br> Donc ' + (choix === 0 ? `$x=${b}$` : `$x=${-d}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x=${-d}$` : `$x=${b}$`)
           setReponse(this, i, [`${b};${-d}`, `${-d};${b}`])
           solution1 = Math.min(b, -d)
           solution2 = Math.max(b, -d)
           break
-        case 13: a = randint(2, 6) // (x+b)(cx+d)=0  avec b/a et d/c entiers.
+        }
+        case 13: // (x+b)(cx+d)=0  avec b/a et d/c entiers.
+        {
+          a = randint(2, 6)
           b = Math.round(randint(1, 5) * a)
           c = randint(2, 6, [a])
           d = Math.round(randint(1, 5) * c)
-          texte = choice([`$(x+${b})(${c}x+${d})=0$`, `$(${c}x+${d})(x+${b})=0$`])
+          const choix = choice([0, 1])
+          texte = [`$(x+${b})(${c}x+${d})=0$`, `$(${c}x+${d})(x+${b})=0$`][choix]
           texteCorr = 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
           texteCorr += '<br>' + texte
-          texteCorr += '<br> Soit ' + `$x+${b}=0$` + ' ou ' + `$${c}x+${d}=0$`
-          texteCorr += '<br> Donc ' + `$x=${-b}$` + ' ou ' + `$${c}x=${-d}$`
-          texteCorr += '<br> Donc ' + `$x=${-b}$` + ' ou ' + `$x=-${texFraction(d, c)}$`
-          texteCorr += '<br> Donc ' + `$x=${-b}$` + ' ou ' + `$x=${-d / c}$`
+          texteCorr += '<br> Soit ' + (choix === 0 ? `$x+${b}=0$` : `$${c}x+${d}=0$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$${c}x+${d}=0$` : `$x+${b}=0$`)
+          texteCorr += '<br> Donc ' + (choix === 0 ? `$x=${-b}$` : `$${c}x=${-d}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$${c}x=${-d}$` : `$x=${-b}$`)
+          texteCorr += '<br> Donc ' + (choix === 0 ? `$x=${-b}$` : `$x=-${texFraction(d, c)}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x=-${texFraction(d, c)}$` : `$x=${-b}$`)
+          texteCorr += '<br> Donc ' + (choix === 0 ? `$x=${-b}$` : `$x=${-d / c}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x=${-d / c}$` : `$x=${-b}$`)
           if (-b * c === -d) {
             setReponse(this, i, `${-b}`)
             solution1 = -b
@@ -99,33 +116,38 @@ export default function ResoudreUneEquationProduitNul () {
             solution2 = Math.max(-b, -d / c)
           }
           break
-        case 42: // (x-b)(cx+d)=0  avec b/a et d/c entiers.
-          b = Math.round(randint(1, 9))
+        }
+        case 42: // (x-b)(cx+d)=0  ou (cx+d)(x-b)=0 avec d/c entiers.
+        {
+          b = Math.round(randint(1, context.isAmc ? 9 : 20))
           c = randint(2, 8, [b])
           d = Math.round(randint(1, 6) * c)
-          texte = choice([`$(x-${b})(${c}x+${d})=0$`, `$(${c}x+${d})(x-${b})=0$`])
+          const choix = choice([0, 1])
+          texte = [`$(x-${b})(${c}x+${d})=0$`, `$(${c}x+${d})(x-${b})=0$`][choix]
           texteCorr = 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
           texteCorr += '<br>' + texte
-          texteCorr += '<br> Soit ' + `$x-${b}=0$` + ' ou ' + `$${c}x+${d}=0$`
-          texteCorr += '<br> Donc ' + `$x=${b}$` + ' ou ' + `$${c}x=${-d}$`
-          texteCorr += '<br> Donc ' + `$x=${b}$` + ' ou ' + `$x=-${texFraction(d, c)}$`
-          texteCorr += '<br> Donc ' + `$x=${b}$` + ' ou ' + `$x=${-d / c}$`
+          texteCorr += '<br> Soit ' + (choix === 0 ? `$x-${b}=0$` : `$${c}x+${d}=0$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$${c}x+${d}=0$` : `$x-${b}=0$`)
+          texteCorr += '<br> Donc ' + (choix === 0 ? `$x=${b}$` : `$${c}x=${-d}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$${c}x=${-d}$` : `$x=${b}$`)
+          texteCorr += '<br> Donc ' + (choix === 0 ? `$x=${b}$` : `$x=-${texFraction(d, c)}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x=-${texFraction(d, c)}$` : `$x=${b}$`)
+          texteCorr += '<br> Donc ' + (choix === 0 ? `$x=${b}$` : `$x=${-d / c}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x=${-d / c}$` : `$x=${b}$`)
           // il ne peut y avoir de solution double, il y a un positif et un négatif
           setReponse(this, i, [`${b};${-d / c}`, `${-d / c};${b}`])
           solution1 = -d / c // la négative en premier
           solution2 = b
           break
-        case 3: a = randint(2, 6) // (ax+b)(cx+d)=0  avec b/a et d/c entiers.
+        }
+        case 3: // (ax+b)(cx+d)=0  avec b/a et d/c entiers.
+          a = randint(2, 6)
           b = Math.round(randint(1, 5) * a)
           c = randint(2, 6, [a])
           d = Math.round(randint(1, 5) * c)
           texte = `$(${a}x+${b})(${c}x+${d})=0$`
           texteCorr = 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
           texteCorr += '<br>' + `$(${a}x+${b})(${c}x+${d})=0$`
-          texteCorr += '<br> Soit ' + `$${a}x+${b}=0$` + ' ou ' + `$${c}x+${d}=0$`
-          texteCorr += '<br> Donc ' + `$${a}x=${-b}$` + ' ou ' + `$${c}x=${-d}$`
-          texteCorr += '<br> Donc ' + `$x=-${texFraction(b, a)}$` + ' ou ' + `$x=-${texFraction(d, c)}$`
-          texteCorr += '<br> Donc ' + `$x=${-b / a}$` + ' ou ' + `$x=${-d / c}$`
+          texteCorr += '<br> Soit ' + `$${a}x+${b}=0$` + ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$${c}x+${d}=0$`
+          texteCorr += '<br> Donc ' + `$${a}x=${-b}$` + ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$${c}x=${-d}$`
+          texteCorr += '<br> Donc ' + `$x=-${texFraction(b, a)}$` + ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$x=-${texFraction(d, c)}$`
+          texteCorr += '<br> Donc ' + `$x=${-b / a}$` + ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$x=${-d / c}$`
           if (-b * c === -d * a) {
             setReponse(this, i, `${-b / a}`)
             solution1 = -b / a
@@ -136,35 +158,39 @@ export default function ResoudreUneEquationProduitNul () {
             solution2 = Math.max(-b / a, -d / c)
           }
           break
-        case 4: a = randint(2, 6) // (ax+b)(cx-d)=0  avec b/a et d/c entiers.
+        case 4: // (ax+b)(cx-d)=0  avec b/a et d/c entiers.
+        {
+          a = randint(2, 6)
           b = Math.round(randint(1, 5) * a)
           c = randint(2, 6, [a])
           d = Math.round(randint(1, 5) * c)
-          texte = choice([`$(${a}x+${b})(${c}x-${d})=0$`, `$(${c}x-${d})(${a}x+${b})=0$`])
+          const choix = choice([0, 1])
+          texte = [`$(${a}x+${b})(${c}x-${d})=0$`, `$(${c}x-${d})(${a}x+${b})=0$`][choix]
           texteCorr = 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
           texteCorr += '<br>' + texte
-          texteCorr += '<br> Soit ' + `$${a}x+${b}=0$` + ' ou ' + `$${c}x-${d}=0$`
-          texteCorr += '<br> Donc ' + `$${a}x=${-b}$` + ' ou ' + `$${c}x=${d}$`
-          texteCorr += '<br> Donc ' + `$x=-${texFraction(b, a)}$` + ' ou ' + `$x=${texFraction(d, c)}$`
-          texteCorr += '<br> Donc ' + `$x=${-b / a}$` + ' ou ' + `$x=${d / c}$`
+          texteCorr += '<br> Soit ' + (choix === 0 ? `$${a}x+${b}=0$` : `$${c}x-${d}=0$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$${c}x-${d}=0$` : `$${a}x+${b}=0$`)
+          texteCorr += '<br> Donc ' + (choix === 0 ? `$${a}x=${-b}$` : `$${c}x=${d}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$${c}x=${d}$` : `$${a}x=${-b}$`)
+          texteCorr += '<br> Donc ' + (choix === 0 ? `$x=-${texFraction(b, a)}$` : `$x=${texFraction(d, c)}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x=${texFraction(d, c)}$` : `$x=-${texFraction(b, a)}$`)
+          texteCorr += '<br> Donc ' + (choix === 0 ? `$x=${-b / a}$` : `$x=${d / c}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x=${d / c}$` : `$x=${-b / a}$`)
           // il ne peut y avoir de solution double, il y a un positif et un négatif
           setReponse(this, i, [`${-b / a};${d / c}`, `${d / c};${-b / a}`])
           solution1 = -b / a // la négative en premier
           solution2 = d / c
           break
+        }
         case 5:
           a = randint(2, 9) // (ax+b)(cx+d)=0 avec b/a et d/c quelconques.
-          b = randint(1, 9, [a])
+          b = randint(1, context.isAmc ? 9 : 20, [a])
           c = randint(2, 9, [a])
-          d = randint(1, 9, [b, c])
+          d = randint(1, context.isAmc ? 9 : 20, [b, c])
           texte = `$(${a}x+${b})(${c}x+${d})=0$`
           texteCorr = 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
           texteCorr += '<br>' + `$(${a}x+${b})(${c}x+${d})=0$`
-          texteCorr += '<br> Soit ' + `$${a}x+${b}=0$` + ' ou ' + `$${c}x+${d}=0$`
-          texteCorr += '<br> Donc ' + `$${a}x=${0 - b}$` + ' ou ' + `$${c}x=${0 - d}$`
+          texteCorr += '<br> Soit ' + `$${a}x+${b}=0$` + ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$${c}x+${d}=0$`
+          texteCorr += '<br> Donc ' + `$${a}x=${0 - b}$` + ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$${c}x=${0 - d}$`
           texteCorr += '<br> Donc ' + `$x=-${texFraction(b, a)}$`
           if (texFraction(b, a) !== texFractionReduite(b, a)) { texteCorr += `$=-${texFractionReduite(b, a)}$` }
-          texteCorr += ' ou ' + `$x=-${texFraction(d, c)}$`
+          texteCorr += ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$x=-${texFraction(d, c)}$`
           if (texFraction(d, c) !== texFractionReduite(d, c)) { texteCorr += `$=-${texFractionReduite(d, c)}$` }
           if (b * c === d * a) {
             setReponse(this, i, `$=-${texFractionReduite(d, c)}$`)
@@ -181,27 +207,44 @@ export default function ResoudreUneEquationProduitNul () {
             }
           }
           break
-        case 6:
+        case 6: {
           a = randint(2, 9) // (ax+b)(cx-d)=0 avec b/a et d/c quelconques.
-          b = randint(1, 9, [a])
+          b = randint(1, context.isAmc ? 9 : 20, [a])
           c = randint(2, 9, [a])
-          d = randint(1, 9, [b, c])
-          texte = choice([`$(${a}x+${b})(${c}x-${d})=0$`, `$(${c}x-${d})(${a}x+${b})=0$`])
+          d = randint(1, context.isAmc ? 9 : 20, [b, c])
+          const choix = choice([0, 1])
+          texte = [`$(${a}x+${b})(${c}x-${d})=0$`, `$(${c}x-${d})(${a}x+${b})=0$`][choix]
           texteCorr = 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
           texteCorr += '<br>' + texte
-          texteCorr += '<br> Soit ' + `$${a}x+${b}=0$` + ' ou ' + `$${c}x-${d}=0$`
-          texteCorr += '<br> Donc ' + `$${a}x=${0 - b}$` + ' ou ' + `$${c}x=${d}$`
-          texteCorr += '<br> Donc ' + `$x=-${texFraction(b, a)}$`
-          if (texFraction(b, a) !== texFractionReduite(b, a)) { texteCorr += `$=-${texFractionReduite(b, a)}$` }
-          texteCorr += ' ou ' + `$x=${texFraction(d, c)}$`
-          if (texFraction(d, c) !== texFractionReduite(d, c)) { texteCorr += `$=${texFractionReduite(d, c)}$` }
-          // il ne peut y avoir de solution double, il y a un positif et un négatif
+          texteCorr += '<br> Soit ' + (choix === 0 ? `$${a}x+${b}=0$` : `$${c}x-${d}=0$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$${c}x-${d}=0$` : `$${a}x+${b}=0$`)
+          texteCorr += '<br> Donc ' + (choix === 0 ? `$${a}x=${0 - b}$` : `$${c}x=${d}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$${c}x=${d}$` : `$${a}x=${0 - b}$`)
+          texteCorr += '<br> Donc ' + (choix === 0 ? `$x=-${texFraction(b, a)}$` : `$x=${texFraction(d, c)}$`)
+          if (choix === 0) {
+            if (texFraction(b, a) !== texFractionReduite(b, a)) {
+              texteCorr += `$=-${texFractionReduite(b, a)}$`
+            }
+          } else {
+            if (texFraction(d, c) !== texFractionReduite(d, c)) {
+              texteCorr += `$=${texFractionReduite(d, c)}$`
+            }
+          }
+          texteCorr += ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x=${texFraction(d, c)}$` : `$x=-${texFraction(b, a)}$`)
+          if (choix === 1) {
+            if (texFraction(b, a) !== texFractionReduite(b, a)) {
+              texteCorr += `$=-${texFractionReduite(b, a)}$`
+            }
+          } else {
+            if (texFraction(d, c) !== texFractionReduite(d, c)) {
+              texteCorr += `$=${texFractionReduite(d, c)}$`
+            }
+          }
 
+          // il ne peut y avoir de solution double, il y a un positif et un négatif
           setReponse(this, i, FractionX.texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees(-b, a, d, c))
           solution1 = fraction(-b, a).simplifie() // la négative en premier
           solution2 = fraction(d, c).simplifie()
-
           break
+        }
       }
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, i, 'inline largeur25')
@@ -212,7 +255,7 @@ export default function ResoudreUneEquationProduitNul () {
         this.listeCorrections.push(texteCorr)
         if (context.isAmc) {
           this.autoCorrection[i] = {
-            enonce: 'Résoudre l\'équation : ' + texte,
+            enonce: 'Résoudre l\'équation : ' + texte + '\\\\\nSi il n\'y a qu\'une solution double, il faut la coder dans solution1 et solution2.\\\\\nLes fractions doivent être simplifiées au maximum.',
             enonceAvant: true, // EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question.
             enonceAvantUneFois: true, // EE : ce champ est facultatif et permet (si true) d'afficher l'énoncé ci-dessus une seule fois avant la numérotation de la première question de l'exercice. Ne fonctionne correctement que si l'option melange est à false.
             enonceCentre: false, // EE : ce champ est facultatif et permet (si true) de centrer le champ 'enonce' ci-dessus.
@@ -292,5 +335,5 @@ export default function ResoudreUneEquationProduitNul () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, ' 1 : Coefficient de x = 1\n 2 : Coefficient de x>=1 et solutions entières\n 3 : Solutions rationnelles\n 4 : Mélange']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 8, '1 : Coefficients de x = 1\n2 : Un coefficient de x >1 et l\'autre =1\n3 : Coefficient de x>1 et solutions entières\n4 : Solutions rationnelles\n5 : Mélange 1 et 2\n6 : Mélange 2 et 3\n7 : Mélange 3 et 4\n8 : Mélange de tout']
 }
