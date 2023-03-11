@@ -33,7 +33,11 @@ export default function FactoriserIdentitesRemarquables2 () {
       typesDeQuestionsDisponibles = [1, 2, 3] // coef de x = 1
     } else if (this.sup === 2) {
       typesDeQuestionsDisponibles = [4, 5, 6] // coef de x > 1
-    } else { typesDeQuestionsDisponibles = [7, 8, 9] } // coef de x rationnel
+    } else if (this.sup === 3) {
+      typesDeQuestionsDisponibles = [7, 8, 9] // coef de x rationnel
+    } else {
+      typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    }
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0, a, b, fraction = [], ns, ds, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
@@ -93,5 +97,5 @@ export default function FactoriserIdentitesRemarquables2 () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x rationnel']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x rationnel\n 4 : Mélange']
 }

@@ -1,5 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos interactifReady 849 
+- nombre d'exos amcReady 561 
+- nombre d'exos interactifReady 853 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -143,8 +144,8 @@
 |3L13-2|Résoudre une equation résolvante pour le théorème de Thalès|OK|AMCNum|OK|mathLive|
 |3L13-3|Mettre en équation un problème et le résoudre|OK|AMCNum|OK|mathLive|
 |3L13|Résoudre une equation du premier degré|OK|AMCHybride|OK|mathLive|
-|3L14-1|Résoudre une équation produit nul (niveau 2)|OK|AMCOpen|OK|mathLive|
-|3L14|Résoudre une équation produit nul|OK|AMCOpen|OK|mathLive|
+|3L14-1|Résoudre une équation produit nul (niveau 2)|OK|AMCHybride|OK|mathLive|
+|3L14|Résoudre une équation produit nul|OK|AMCHybride|OK|mathLive|
 |3L15-1|Résoudre une équation $x^2 = a$|KO|KO|OK|mathLive|
 |3P10-1|Coefficient multiplicateur d'une variation en pourcentage|KO|KO|OK|mathLive|
 |3P10|Variations en pourcentage|KO|KO|OK|mathLive|
@@ -184,6 +185,7 @@
 |4C24|Simplifier des fractions à l'aide des nombres premiers|OK|AMCHybride|OK|mathLive|
 |4C30-1|Encadrer avec des puissances de 10|KO|KO|OK|mathLive|
 |4C30-2|Écriture décimale d'une puissance de 10|OK|AMCNum|OK|mathLive|
+|4C30-3|Écriture décimale ou fractionnaire d'une puissance|OK|AMCNum|OK|mathLive|
 |4C30-4|Puissances de 10 et préfixes|KO|KO|OK|listeDeroulante|
 |4C30|Puissances de 10 : Le sens des règles de calculs|KO|KO|OK|mathLive|
 |4C32-0|Écriture décimale d'un calcul avec des puissances de 10|KO|KO|OK|mathLive|
@@ -431,7 +433,6 @@
 |6P14|Agrandir ou réduire des figures, d'après une situation de proportionnalité|OK|AMCHybride|OK|mathLive|
 |6S10-1|Représenter des données par un diagramme|OK|AMCHybride|OK|qcm|
 |6S10|Lire un diagramme en barres|OK|AMCHybride|OK|mathLive|
-|FichierDeTests|Bonne année...|KO|KO|OK|mathLive|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|mathLive|
 |CM001|Tables de multiplication|OK|AMCNum|OK|mathLive|
 |CM002|Tables de divisions|OK|AMCNum|OK|mathLive|
@@ -453,7 +454,6 @@
 |CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|mathLive|
 |CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
 |HPC102|Calculs de probabilité avec la loi normale|KO|KO|OK|mathLive|
-|beta-CAN4-2023|CAN 4ième sujet 2023|KO|KO|OK|mathLive|
 |beta-CAN6-2022|CAN Sixième sujet 2022|KO|KO|OK|mathLive|
 |beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
 |beta5N20bis|Additionner ou soustraire deux fractions (dénominateurs multiples)|OK|qcmMono|OK|mathLive|
@@ -621,6 +621,7 @@
 |can2P02|Dénombrer dans une situation concrète|KO|KO|OK|mathLive|
 |can2a-2021|CAN Seconde sujet 2021|KO|KO|OK|mathLive|
 |can2a-2022|CAN seconde sujet 2022|KO|KO|OK|mathLive|
+|beta-can3a-2023|CAN 3ième sujet 2023|KO|KO|OK|mathLive|
 |can3C01|Calculer avec des puissances|OK|AMCNum|OK|mathLive|
 |can3C02|Calculer une moyenne avec des décimaux|OK|AMCNum|OK|mathLive|
 |can3C03|Rendre irréductible une fraction|OK|AMCNum|OK|mathLive|
@@ -668,6 +669,7 @@
 |can3S06|Déterminer le rang d’une médiane|KO|KO|OK|mathLive|
 |can3a-2021|CAN 3ième sujet 2021|KO|KO|OK|mathLive|
 |can3a-2022|CAN 3ième sujet 2022|KO|KO|OK|mathLive|
+|beta-can4a-2023|CAN 4ième sujet 2023|KO|KO|OK|mathLive|
 |can4C01|Utiliser les priorités opératoires avec des relatifs|OK|AMCNum|OK|mathLive|
 |can4C02|Trouver l’opposé ou l’inverse d’une fraction|OK|AMCNum|OK|mathLive|
 |can4C03|Effectuer une division avec une fraction|OK|AMCNum|OK|mathLive|
@@ -705,6 +707,7 @@
 |can4P05|Reconnaître sur un graphique une situation de proportionnalité ou de non proportionnalité|KO|KO|OK|mathLive|
 |can4a-2021|CAN 4ième sujet 2021|KO|KO|OK|mathLive|
 |can4a-2022|CAN 4ième sujet 2022|KO|KO|OK|mathLive|
+|beta-can5a-2023|CAN 5ième sujet 2023|KO|KO|OK|mathLive|
 |can5A01|Travailler les répétitions (Scratch)|OK|AMCNum|OK|mathLive|
 |can5C01|Calculer un produit d’entiers|OK|AMCNum|OK|mathLive|
 |can5C02|Calculer une somme d’entiers|OK|AMCNum|OK|mathLive|
@@ -751,6 +754,7 @@
 |can5a-2021|CAN 5ième sujet 2021|KO|KO|OK|mathLive|
 |can5a-2022|CAN 5ième sujet 2022|KO|KO|OK|mathLive|
 |can5a-xxxx|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
+|beta-can6a-2023|CAN 6ième sujet 2023|KO|KO|OK|mathLive|
 |can6C01|Trouver un ordre de grandeur (QCM)|OK|qcmMono|OK|qcm|
 |can6C02|Multiplier un nombre pair par 5|OK|AMCNum|OK|mathLive|
 |can6C03|Rechercher un terme dans une somme|OK|AMCNum|OK|mathLive|

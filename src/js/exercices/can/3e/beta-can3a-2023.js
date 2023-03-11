@@ -1,14 +1,14 @@
-import Exercice from '../Exercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import FractionX from '../../modules/FractionEtendue.js'
+import Exercice from '../../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
+import FractionX from '../../../modules/FractionEtendue.js'
 import {
   point, segment, milieu, repere, codageAngle, rotation, polygoneAvecNom, labelPoint, demiDroite, codageSegments, droite, segmentAvecExtremites, tracePoint, codageAngleDroit, texteParPosition, polygone, droiteGraduee
-} from '../../modules/2d.js'
+} from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, miseEnEvidence, ecritureParentheseSiNegatif, ecritureAlgebrique, signe, creerNomDePolygone, printlatex, stringNombre, randint, texNombre, prenomF, texPrix, shuffle, choice, sp, arrondi } from '../../modules/outils.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { context } from '../../../modules/context.js'
+import { listeQuestionsToContenu, miseEnEvidence, ecritureParentheseSiNegatif, ecritureAlgebrique, signe, creerNomDePolygone, printlatex, stringNombre, randint, texNombre, prenomF, texPrix, shuffle, choice, sp, arrondi } from '../../../modules/outils.js'
+import { setReponse } from '../../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
 export const titre = 'CAN 3ième sujet 2023'
 export const interactifReady = true
@@ -16,7 +16,7 @@ export const interactifType = 'mathLive'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '05/03/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 // export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-
+export const uuid = '798ec'
 /**
  * Aléatoirisation du sujet 2023 de CAN 5e
  * Gilles Mora

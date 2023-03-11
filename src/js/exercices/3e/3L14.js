@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { fraction } from '../../modules/fractions'
+import { fraction } from '../../modules/fractions.js'
 import {
   listeQuestionsToContenu,
   randint,
