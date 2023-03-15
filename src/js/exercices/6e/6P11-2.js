@@ -68,7 +68,7 @@ export default function ProportionnaliteParLineariteTableau () {
     for (let i = 0, texte, texteCorr, monTableau, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       a = choice([1, 2, 3])
       // Boucle principale où i+1 correspond au numéro de la question
-      listeTypeQuestions[i] = 4
+
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 1: // multiplication
           if (a === 1) {

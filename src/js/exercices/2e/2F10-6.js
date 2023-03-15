@@ -52,11 +52,11 @@ export default function Variationsfonctionaffine () {
           if (t > 1) {
             texteCorr = 'On reconnaît que $f$ est une fonction affine, de la forme $f(x)=ax+b$, '
             texteCorr += `avec $a=${a}~$ et $b=${b}$. <br>`
-            texteCorr += `On a donc : $f(x)=${reduireAxPlusB(a, b)}$ .<br>`
+            texteCorr += `On a donc : $f(x)=${reduireAxPlusB(a, b)}$.<br>`
           }
-          if (t === 1) { texte += `$f(x)=${reduireAxPlusB(a, b)}$ .<br>` }
+          if (t === 1) { texte += `$f(x)=${reduireAxPlusB(a, b)}$.<br>` }
         } else {
-          texte += `$f(x)=${reduireAxPlusB(a, b)}$ .<br>`
+          texte += `$f(x)=${reduireAxPlusB(a, b)}$.<br>`
           texteCorr = 'On reconnaît que $f$ est une fonction affine, de la forme $f(x)=ax+b$, '
           texteCorr += `avec $a=${a}~$ et $b=${b}$. <br>`
         }

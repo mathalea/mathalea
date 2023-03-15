@@ -115,7 +115,7 @@ export default function Lecturefonctionaffine () {
         texteCorr += 'Le premier coefficient qu\'on peut facilement lire graphiquement est $b$, l\'ordonnée à l\'origine de la droite.<br>'
         texteCorr += `On lit ici que le point $(0;${b}) \\in \\mathcal{C_f}$.<br>`
         texteCorr += `On peut alors conclure que l'ordonnée à l'origine est : $${b}$. <br>`
-        texteCorr += 'On peut lire le coefficient directeur de la droite, en lisant le déplacement vertical correspondant à un déplacement horizontal d\'une unité .<br>'
+        texteCorr += 'On peut lire le coefficient directeur de la droite, en lisant le déplacement vertical correspondant à un déplacement horizontal d\'une unité.<br>'
         texteCorr += `On lit alors que le coefficient directeur de la droite est : $${a}$.<br>`
         texteCorr += ' On peut en déduire que l\'expression de la fonction $f$ est'
 

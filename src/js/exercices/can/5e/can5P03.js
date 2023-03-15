@@ -1,4 +1,5 @@
 import Exercice from '../../Exercice.js'
+import { context } from '../../../modules/context.js'
 import { calcul, choice, texNombrec, randint, texPrix } from '../../../modules/outils.js'
 export const titre = 'Résoudre un problème de proportionnalité'
 export const interactifReady = true
@@ -83,14 +84,15 @@ export default function PoucentageP2 () {
           b = randint(2, 5, a) * n
           c = a * n
           this.reponse = calcul(b / n)
-          this.question = `Déterminer la valeur qui manque dans ce tableau de proportionnalité : <br>
-          $\\begin{array}{|l|c|}\n`
-          this.question += '\\hline\n'
-          this.question += `\\\\\n\\phantom{-5}? \\phantom{-5}& \\phantom{-5}${a} \\phantom{-5} \\\\\n \\\\\n`
-          this.question += '\\hline\n'
-          this.question += `\\\\\n\\phantom{-5}${b}\\phantom{-5} & \\phantom{-5}${c}\\phantom{-5}  \\\\\n \\\\\n`
-          this.question += '\\hline\n'
-          this.question += '\\end{array}\n$'
+          this.question = 'Déterminer la valeur qui manque dans ce tableau de proportionnalité : <br>'
+          this.question += context.isHtml ? '' : '\\renewcommand{\\arraystretch}{1}'
+          this.question += `$\\begin{array}{|l|c|}
+      \\hline
+       ? & ${a}  ${context.isHtml ? '\\\\' : '\\tabularnewline'}
+          \\hline
+        ${b} & ${c} ${context.isHtml ? '\\\\' : '\\tabularnewline'}
+         \\hline
+        \\end{array}$`
 
           this.correction = `On passe de la première ligne à la deuxième en multipliant par $${n}$, ainsi, ?$=\\dfrac{${b}}{${n}}=${calcul(b / n)}$`
         } else {
@@ -101,14 +103,15 @@ export default function PoucentageP2 () {
           c = a * n
 
           this.reponse = calcul(a + b)
-          this.question = `Déterminer la valeur qui manque dans ce tableau de proportionnalité : <br>
-$\\begin{array}{|l|c|c|}\n`
-          this.question += '\\hline\n'
-          this.question += `\\\\\n\\phantom{-5}${texNombrec(a)} \\phantom{-5}& \\phantom{-5}${texNombrec(b)} \\phantom{-5}& \\phantom{-5}? \\phantom{-5} \\\\\n \\\\\n`
-          this.question += '\\hline\n'
-          this.question += `\\\\\n\\phantom{-5}${texNombrec(c)}\\phantom{-5} & \\phantom{-5}${texNombrec(d)}\\phantom{-5} & \\phantom{-5}${texNombrec(c + d)} \\phantom{-5} \\\\\n \\\\\n`
-          this.question += '\\hline\n'
-          this.question += '\\end{array}\n$'
+          this.question = 'Déterminer la valeur qui manque dans ce tableau de proportionnalité : <br>'
+          this.question += context.isHtml ? '' : '\\renewcommand{\\arraystretch}{1}'
+          this.question += `$\\begin{array}{|l|c|c|}
+          \\hline
+          ${texNombrec(a)} & ${texNombrec(b)} & ? ${context.isHtml ? '\\\\' : '\\tabularnewline'}
+          \\hline
+        ${texNombrec(c)} &${texNombrec(d)} & ${texNombrec(c + d)} ${context.isHtml ? '\\\\' : '\\tabularnewline'}
+         \\hline
+         \\end{array}$`
 
           this.correction = `La valeur cherchée est donnée par la somme $${a}+${b}=${a + b}$.`
         }

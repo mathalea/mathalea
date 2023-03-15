@@ -60,9 +60,11 @@ export default function HeuresFractionHeuresMinutes2 () {
           this.canReponseACompleter = `$${a}$ min  $= \\ldots$ h`
           break
       }
-      if (this.questionJamaisPosee(i, a, b, d)) {
+      if (this.questionJamaisPosee(i, a, b)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        this.listeCanEnonces.push(this.canEnonce)
+        this.listeCanReponsesACompleter.push(this.canReponseACompleter)
         i++
       }
       cpt++

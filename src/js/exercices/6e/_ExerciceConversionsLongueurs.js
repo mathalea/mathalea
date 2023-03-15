@@ -1,4 +1,3 @@
-/* global jQuery */
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, arrondi, texNombre, texTexte, calcul, deuxColonnesResp } from '../../modules/outils.js'
@@ -122,8 +121,12 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
           texNombre(resultat) +
           texTexte(unite) +
           '$'
-        if (this.sup3 && context.vue === 'diap') texte += '<br>' + buildTab(0, '', 0, '', 2, true)
-        texteCorr += '<br>' + buildTab(a, prefixeMulti[k][0] + 'm', resultat, unite)
+        if (this.sup3 && context.vue === 'diap') {
+          texte += '<br>' + buildTab(0, '', 0, '', 2, true)
+        }
+        if (this.sup3) {
+          texteCorr += '<br>' + buildTab(a, prefixeMulti[k][0] + 'm', resultat, unite)
+        }
       } else if (div && typesDeQuestions < 4) {
         resultat = calcul(a / prefixeDiv[k][1]).toString() // Attention aux notations scientifiques pour 10e-8
         texte = `$${texNombre(a)} ${texTexte(prefixeDiv[k][0] + unite)} = `
@@ -141,8 +144,12 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
           texNombre(resultat) +
           texTexte(unite) +
           '$'
-        if (this.sup3 && context.vue === 'diap') texte += '<br>' + buildTab(0, '', 0, '', 2, true)
-        texteCorr += '<br>' + buildTab(a, prefixeDiv[k][0] + 'm', resultat, unite)
+        if (this.sup3 && context.vue === 'diap') {
+          texte += '<br>' + buildTab(0, '', 0, '', 2, true)
+        }
+        if (this.sup3) {
+          texteCorr += '<br>' + buildTab(a, prefixeDiv[k][0] + 'm', resultat, unite)
+        }
       } else {
         // pour type de question = 4
         let unite1 = listeUnite1[i]
@@ -168,8 +175,12 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
             texNombre(resultat) +
             texTexte(listeUnite[unite1]) +
             '$'
-          if (this.sup3 && context.vue === 'diap') texte += '<br>' + buildTab(0, '', 0, '', 2, true)
-          texteCorr += '<br>' + buildTab(a, listeUnite[unite2], resultat, listeUnite[unite1])
+          if (this.sup3 && context.vue === 'diap') {
+            texte += '<br>' + buildTab(0, '', 0, '', 2, true)
+          }
+          if (this.sup3) {
+            texteCorr += '<br>' + buildTab(a, listeUnite[unite2], resultat, listeUnite[unite1])
+          }
         } else {
           resultat = calcul(a / Math.pow(10, ecart))
           texte = `$${texNombre(a)} ${texTexte(listeUnite[unite1])} = `
@@ -187,8 +198,12 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
             texNombre(resultat) +
             texTexte(listeUnite[unite2]) +
             '$'
-          if (this.sup3 && context.vue === 'diap') texte += '<br>' + buildTab(0, '', 0, '', 2, true)
-          texteCorr += '<br>' + buildTab(a, listeUnite[unite1], resultat, listeUnite[unite2])
+          if (this.sup3 && context.vue === 'diap') {
+            texte += '<br>' + buildTab(0, '', 0, '', 2, true)
+          }
+          if (this.sup3) {
+            texteCorr += '<br>' + buildTab(a, listeUnite[unite1], resultat, listeUnite[unite2])
+          }
         }
       }
 
@@ -211,72 +226,13 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
       }
       cpt++
     }
-    function insertInDom () {
-      const div = document.getElementById('exercice' + numeroExercice)
-      if (div) {
-        const button1 = document.createElement('button')
-        button1.setAttribute('data-tooltip', 'Moins d\'espace vertical')
-        button1.innerText = '- ⇕'
-        button1.onclick = function () { jQuery('#exercice' + numeroExercice + ' ol > li').css({ 'margin-top': '-=5px', 'margin-bottom': '-=5px' }) }
-        div.appendChild(button1)
-        const button2 = document.createElement('button')
-        button2.innerText = '+ ⇕'
-        button2.setAttribute('data-tooltip', 'Plus d\'espace vertical')
-        button2.onclick = function () { jQuery('#exercice' + numeroExercice + ' ol > li').css({ 'margin-top': '+=5px', 'margin-bottom': '+=5px' }) }
-        div.appendChild(button2)
-        button1.classList.add('btn', 'ui', 'icon', 'button')
-        button2.classList.add('btn', 'ui', 'icon', 'button')
-        document.removeEventListener('exercicesAffiches', insertInDom)
-      }
-    }
-    if (context.vue !== 'diap' && context.isHtml) {
-      document.addEventListener('exercicesAffiches', insertInDom)
-    }
+
     listeQuestionsToContenu(this)
     if (context.vue === 'latex' && this.sup3) {
       this.contenu += '\n\n' + buildTab(0, '', 0, '', Math.min(10, this.nbQuestions), true)
     } else if (context.vue !== 'diap' && context.isHtml && this.sup3) {
       const options = { eleId: numeroExercice, widthmincol1: '350px', widthmincol2: '200px' }
       this.contenu = deuxColonnesResp(this.contenu, buildTab(0, '', 0, '', Math.min(10, this.nbQuestions), true), options)
-
-      // listener
-      const reportWindowSize = function () {
-        const element = document.getElementById('cols-responsive1-' + options.eleId)
-        const element2 = document.getElementById('cols-responsive2-' + options.eleId)
-        if (element !== null &&
-          element !== undefined &&
-          element2 !== null &&
-          element2 !== undefined &&
-          element.clientWidth !== 0) {
-          // console.log('ele1:' + element.clientWidth + ': ' + element.offsetWidth)
-          // console.log('ele2:' + element2.clientWidth + ': ' + element2.offsetWidth)
-          // console.log('parent:' + element.parentElement.clientWidth + ': ' + element.parentElement.offsetWidth)
-          const col2 = element2.children[0].offsetWidth
-          const diff = element.parentElement.clientWidth - parseInt(options.widthmincol1.replaceAll('px', ''))
-          if (diff > col2) {
-            element.parentElement.style.gridTemplateColumns = 'repeat(2, 1fr)'
-          } else {
-            element.parentElement.style.gridTemplateColumns = 'auto'
-          }
-        }
-      }
-
-      const removelistener = function () {
-        document.removeEventListener('exercicesAffiches', reportWindowSize)
-        document.removeEventListener('zoominOrout', reportWindowSize)
-        document.removeEventListener('pleinEcran', reportWindowSize)
-        window.removeEventListener('resize', reportWindowSize)
-        document.removeEventListener('buildex', removelistener)
-      }
-
-      const createlistener = function () {
-        document.addEventListener('exercicesAffiches', reportWindowSize)
-        document.addEventListener('zoominOrout', reportWindowSize)
-        document.addEventListener('pleinEcran', reportWindowSize)
-        window.addEventListener('resize', reportWindowSize)
-        document.addEventListener('buildex', removelistener)
-      }
-      createlistener()
     }
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, ' 1 : De dam, hm, km vers m\n 2 : De dm, cm, mm vers m\n 3 : Conversions en mètres\n4 : Mélange']

@@ -1,4 +1,3 @@
-/* global jQuery */
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import Decimal from 'decimal.js'
@@ -346,27 +345,6 @@ export default function ExerciceConversionsAires (niveau = 1) {
       }
       cpt++
     }
-    function insertInDom () {
-      const div = document.getElementById('exercice' + numeroExercice)
-      if (div) {
-        const button1 = document.createElement('button')
-        button1.setAttribute('data-tooltip', 'Moins d\'espace vertical')
-        button1.innerText = '- ⇕'
-        button1.onclick = function () { jQuery('#exercice' + numeroExercice + ' ol > li').css({ 'margin-top': '-=5px', 'margin-bottom': '-=5px' }) }
-        div.appendChild(button1)
-        const button2 = document.createElement('button')
-        button2.innerText = '+ ⇕'
-        button2.setAttribute('data-tooltip', 'Plus d\'espace vertical')
-        button2.onclick = function () { jQuery('#exercice' + numeroExercice + ' ol > li').css({ 'margin-top': '+=5px', 'margin-bottom': '+=5px' }) }
-        div.appendChild(button2)
-        button1.classList.add('btn', 'ui', 'icon', 'button')
-        button2.classList.add('btn', 'ui', 'icon', 'button')
-        document.removeEventListener('exercicesAffiches', insertInDom)
-      }
-    }
-    if (context.vue !== 'diap' && context.isHtml) {
-      document.addEventListener('exercicesAffiches', insertInDom)
-    }
     if (context.vue === 'latex') this.listePackages = ['arydshln'] // pour les lignes en pointillés
     listeQuestionsToContenu(this)
 
@@ -375,45 +353,6 @@ export default function ExerciceConversionsAires (niveau = 1) {
     } else if (context.vue !== 'diap' && context.isHtml && this.sup4) {
       const options = { eleId: numeroExercice, widthmincol1: '300px', widthmincol2: '200px' }
       this.contenu = deuxColonnesResp(this.contenu, buildTab(0, '', 0, '', Math.min(10, this.nbQuestions), true), options)
-
-      // listener
-      const reportWindowSize = function () {
-        const element = document.getElementById('cols-responsive1-' + options.eleId)
-        const element2 = document.getElementById('cols-responsive2-' + options.eleId)
-        if (element !== null &&
-          element !== undefined &&
-          element2 !== null &&
-          element2 !== undefined &&
-          element.clientWidth !== 0) {
-          // console.log('ele1:' + element.clientWidth + ': ' + element.offsetWidth)
-          // console.log('ele2:' + element2.clientWidth + ': ' + element2.offsetWidth)
-          // console.log('parent:' + element.parentElement.clientWidth + ': ' + element.parentElement.offsetWidth)
-          const col2 = element2.children[0].offsetWidth
-          const diff = element.parentElement.clientWidth - parseInt(options.widthmincol1.replaceAll('px', ''))
-          if (diff > col2) {
-            element.parentElement.style.gridTemplateColumns = 'repeat(2, 1fr)'
-          } else {
-            element.parentElement.style.gridTemplateColumns = 'auto'
-          }
-        }
-      }
-
-      const removelistener = function () {
-        document.removeEventListener('exercicesAffiches', reportWindowSize)
-        document.removeEventListener('zoominOrout', reportWindowSize)
-        document.removeEventListener('pleinEcran', reportWindowSize)
-        window.removeEventListener('resize', reportWindowSize)
-        document.removeEventListener('buildex', removelistener)
-      }
-
-      const createlistener = function () {
-        document.addEventListener('exercicesAffiches', reportWindowSize)
-        document.addEventListener('zoominOrout', reportWindowSize)
-        document.addEventListener('pleinEcran', reportWindowSize)
-        window.addEventListener('resize', reportWindowSize)
-        document.addEventListener('buildex', removelistener)
-      }
-      createlistener()
     }
   }
   this.besoinFormulaireNumerique = [

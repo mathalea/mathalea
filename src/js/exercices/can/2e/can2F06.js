@@ -28,185 +28,193 @@ export default function TableauSignes () {
     this.listeQuestions = []
     this.listeCorrections = []
     let texte, texteCorr, a, b, ligne1
-    if (a === 0 && b === 0) { // On évite la fonction nulle
-      a = 1
-    }
-    if (this.interactif) {
-      a = randint(1, 6) * choice([-1, 1])// coefficient a de la fonction affine
-      b = randint(1, 6) * choice([-1, 1])// coefficient b de la fonction affine
-      texte = `Quel est le tableau de signes de la fonction $f$ définie sur  $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$ ? `
-      if (a > 0) {
-        this.autoCorrection[0] = {
-          enonce: texte,
-          options: { vertical: true },
-          propositions: [
-            {
-              texte: mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
-                tabInit: [
-                  [
-                  // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                    ['$x$', 2, 30], ['$f(x)$', 2, 50]
-                  ],
-                  // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-                  ['$-\\infty$', 30, `$${texFractionReduite(-b, a)}$`, 20, '$+\\infty$', 30]
-                ],
-                // tabLines ci-dessous contient les autres lignes du tableau.
-                tabLines: [['Line', 30, '', 0, '-', 20, 'z', 20, '+']],
-                colorBackground: '',
-                espcl: 3.5, // taille en cm entre deux antécédents
-                deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-                lgt: 5, // taille de la première colonne en cm
-                hauteurLignes: [15, 15]
-              })),
-              statut: true
-            },
-            {
-              texte: mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
-                tabInit: [
-                  [
-                  // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                    ['$x$', 2, 30], ['$f(x)$', 2, 50]
-                  ],
-                  // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-                  ['$-\\infty$', 30, `$${texFractionReduite(b, a)}$`, 20, '$+\\infty$', 30]
-                ],
-                // tabLines ci-dessous contient les autres lignes du tableau.
-                tabLines: [['Line', 30, '', 0, '-', 20, 'z', 20, '+']],
-                colorBackground: '',
-                espcl: 3.5, // taille en cm entre deux antécédents
-                deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-                lgt: 5, // taille de la première colonne en cm
-                hauteurLignes: [15, 15]
-              })),
-              statut: false
-            },
-            {
-              texte: mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
-                tabInit: [
-                  [
-                  // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                    ['$x$', 2, 30], ['$f(x)$', 2, 50]
-                  ],
-                  // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-                  ['$-\\infty$', 30, `$${texFractionReduite(-b, a)}$`, 20, '$+\\infty$', 30]
-                ],
-                // tabLines ci-dessous contient les autres lignes du tableau.
-                tabLines: [['Line', 30, '', 0, '+', 20, 'z', 20, '-']],
-                colorBackground: '',
-                espcl: 3.5, // taille en cm entre deux antécédents
-                deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-                lgt: 5, // taille de la première colonne en cm
-                hauteurLignes: [15, 15]
-              })),
-              statut: false
-            }
-          ]
-        }
-      } else {
-        this.autoCorrection[0] = {
-          enonce: texte,
-          options: { vertical: true },
-          propositions: [
-            {
-              texte: mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
-                tabInit: [
-                  [
-                    // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                    ['$x$', 2, 30], ['$f(x)$', 2, 50]
-                  ],
-                  // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-                  ['$-\\infty$', 30, `$${texFractionReduite(-b, a)}$`, 20, '$+\\infty$', 30]
-                ],
-                // tabLines ci-dessous contient les autres lignes du tableau.
-                tabLines: [['Line', 30, '', 0, '+', 20, 'z', 20, '-']],
-                colorBackground: '',
-                espcl: 3.5, // taille en cm entre deux antécédents
-                deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-                lgt: 5, // taille de la première colonne en cm
-                hauteurLignes: [15, 15]
-              })),
-              statut: true
-            },
-            {
-              texte: mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
-                tabInit: [
-                  [
-                    // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                    ['$x$', 2, 30], ['$f(x)$', 2, 50]
-                  ],
-                  // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-                  ['$-\\infty$', 30, `$${texFractionReduite(b, a)}$`, 20, '$+\\infty$', 30]
-                ],
-                // tabLines ci-dessous contient les autres lignes du tableau.
-                tabLines: [['Line', 30, '', 0, '+', 20, 'z', 20, '-']],
-                colorBackground: '',
-                espcl: 3.5, // taille en cm entre deux antécédents
-                deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-                lgt: 5, // taille de la première colonne en cm
-                hauteurLignes: [15, 15]
-              })),
-              statut: false
-            },
-            {
-              texte: mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
-                tabInit: [
-                  [
-                    // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                    ['$x$', 2, 30], ['$f(x)$', 2, 50]
-                  ],
-                  // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-                  ['$-\\infty$', 30, `$${texFractionReduite(-b, a)}$`, 20, '$+\\infty$', 30]
-                ],
-                // tabLines ci-dessous contient les autres lignes du tableau.
-                tabLines: [['Line', 30, '', 0, '-', 20, 'z', 20, '+']],
-                colorBackground: '',
-                espcl: 3.5, // taille en cm entre deux antécédents
-                deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-                lgt: 5, // taille de la première colonne en cm
-                hauteurLignes: [15, 15]
-              })),
-              statut: false
-            }
-          ]
-        }
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      if (a === 0 && b === 0) { // On évite la fonction nulle
+        a = 1
       }
-      texte += propositionsQcm(this, 0).texte
-    } else {
-      a = randint(1, 6) * choice([-1, 1])// coefficient a de la fonction affine
-      b = randint(0, 6) * choice([-1, 1])// coefficient b de la fonction affine
-      texte = `Dresser le tableau de signes de la fonction $f$ définie sur  $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$. `
-    }
+      if (this.interactif) {
+        a = randint(1, 6) * choice([-1, 1])// coefficient a de la fonction affine
+        b = randint(1, 6) * choice([-1, 1])// coefficient b de la fonction affine
+        texte = `Quel est le tableau de signes de la fonction $f$ définie sur  $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$ ? `
+        if (a > 0) {
+          this.autoCorrection[i] = {
+            enonce: texte,
+            options: { vertical: true },
+            propositions: [
+              {
+                texte: mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
+                  tabInit: [
+                    [
+                    // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                      ['$x$', 2, 30], ['$f(x)$', 2, 50]
+                    ],
+                    // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+                    ['$-\\infty$', 30, `$${texFractionReduite(-b, a)}$`, 20, '$+\\infty$', 30]
+                  ],
+                  // tabLines ci-dessous contient les autres lignes du tableau.
+                  tabLines: [['Line', 30, '', 0, '-', 20, 'z', 20, '+']],
+                  colorBackground: '',
+                  espcl: 3.5, // taille en cm entre deux antécédents
+                  deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
+                  lgt: 5, // taille de la première colonne en cm
+                  hauteurLignes: [15, 15]
+                })),
+                statut: true
+              },
+              {
+                texte: mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
+                  tabInit: [
+                    [
+                    // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                      ['$x$', 2, 30], ['$f(x)$', 2, 50]
+                    ],
+                    // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+                    ['$-\\infty$', 30, `$${texFractionReduite(b, a)}$`, 20, '$+\\infty$', 30]
+                  ],
+                  // tabLines ci-dessous contient les autres lignes du tableau.
+                  tabLines: [['Line', 30, '', 0, '-', 20, 'z', 20, '+']],
+                  colorBackground: '',
+                  espcl: 3.5, // taille en cm entre deux antécédents
+                  deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
+                  lgt: 5, // taille de la première colonne en cm
+                  hauteurLignes: [15, 15]
+                })),
+                statut: false
+              },
+              {
+                texte: mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
+                  tabInit: [
+                    [
+                    // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                      ['$x$', 2, 30], ['$f(x)$', 2, 50]
+                    ],
+                    // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+                    ['$-\\infty$', 30, `$${texFractionReduite(-b, a)}$`, 20, '$+\\infty$', 30]
+                  ],
+                  // tabLines ci-dessous contient les autres lignes du tableau.
+                  tabLines: [['Line', 30, '', 0, '+', 20, 'z', 20, '-']],
+                  colorBackground: '',
+                  espcl: 3.5, // taille en cm entre deux antécédents
+                  deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
+                  lgt: 5, // taille de la première colonne en cm
+                  hauteurLignes: [15, 15]
+                })),
+                statut: false
+              }
+            ]
+          }
+        } else {
+          this.autoCorrection[i] = {
+            enonce: texte,
+            options: { vertical: true },
+            propositions: [
+              {
+                texte: mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
+                  tabInit: [
+                    [
+                      // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                      ['$x$', 2, 30], ['$f(x)$', 2, 50]
+                    ],
+                    // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+                    ['$-\\infty$', 30, `$${texFractionReduite(-b, a)}$`, 20, '$+\\infty$', 30]
+                  ],
+                  // tabLines ci-dessous contient les autres lignes du tableau.
+                  tabLines: [['Line', 30, '', 0, '+', 20, 'z', 20, '-']],
+                  colorBackground: '',
+                  espcl: 3.5, // taille en cm entre deux antécédents
+                  deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
+                  lgt: 5, // taille de la première colonne en cm
+                  hauteurLignes: [15, 15]
+                })),
+                statut: true
+              },
+              {
+                texte: mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
+                  tabInit: [
+                    [
+                      // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                      ['$x$', 2, 30], ['$f(x)$', 2, 50]
+                    ],
+                    // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+                    ['$-\\infty$', 30, `$${texFractionReduite(b, a)}$`, 20, '$+\\infty$', 30]
+                  ],
+                  // tabLines ci-dessous contient les autres lignes du tableau.
+                  tabLines: [['Line', 30, '', 0, '+', 20, 'z', 20, '-']],
+                  colorBackground: '',
+                  espcl: 3.5, // taille en cm entre deux antécédents
+                  deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
+                  lgt: 5, // taille de la première colonne en cm
+                  hauteurLignes: [15, 15]
+                })),
+                statut: false
+              },
+              {
+                texte: mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1 }, tableauDeVariation({
+                  tabInit: [
+                    [
+                      // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                      ['$x$', 2, 30], ['$f(x)$', 2, 50]
+                    ],
+                    // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+                    ['$-\\infty$', 30, `$${texFractionReduite(-b, a)}$`, 20, '$+\\infty$', 30]
+                  ],
+                  // tabLines ci-dessous contient les autres lignes du tableau.
+                  tabLines: [['Line', 30, '', 0, '-', 20, 'z', 20, '+']],
+                  colorBackground: '',
+                  espcl: 3.5, // taille en cm entre deux antécédents
+                  deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
+                  lgt: 5, // taille de la première colonne en cm
+                  hauteurLignes: [15, 15]
+                })),
+                statut: false
+              }
+            ]
+          }
+        }
+        texte += propositionsQcm(this, i).texte
+      } else {
+        a = randint(1, 6) * choice([-1, 1])// coefficient a de la fonction affine
+        b = randint(0, 6) * choice([-1, 1])// coefficient b de la fonction affine
+        texte = `Dresser le tableau de signes de la fonction $f$ définie sur  $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$. `
+      }
 
-    texteCorr = `$f$ est une fonction affine. Elle s’annule en $x_0=${texFractionReduite(-b, a)}$. `
-    if (a > 0) {
-      texteCorr += `<br>Comme $${a}>0~$, $~f(x)$ est positif pour $~x>${texFractionReduite(-b, a)} ~$ et négatif pour $~x<${texFractionReduite(-b, a)} $.<br>`
-      ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+']
-    } else {
-      texteCorr += `<br>Comme $${a}<0$,  $f(x)~$ est négatif pour $~x>${texFractionReduite(-b, a)} ~$ et positif pour $~x<${texFractionReduite(-b, a)} $.<br>`
-      ligne1 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-']
-    }
-    texteCorr += mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
-      tabInit: [
-        [
-          // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-          ['$x$', 2, 30], ['$f(x)$', 2, 50]
+      texteCorr = `$f$ est une fonction affine. Elle s’annule en $x_0=${texFractionReduite(-b, a)}$. `
+      if (a > 0) {
+        texteCorr += `<br>Comme $${a}>0~$, $~f(x)$ est positif pour $~x>${texFractionReduite(-b, a)} ~$ et négatif pour $~x<${texFractionReduite(-b, a)} $.<br>`
+        ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+']
+      } else {
+        texteCorr += `<br>Comme $${a}<0$,  $f(x)~$ est négatif pour $~x>${texFractionReduite(-b, a)} ~$ et positif pour $~x<${texFractionReduite(-b, a)} $.<br>`
+        ligne1 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-']
+      }
+      texteCorr += mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+        tabInit: [
+          [
+            // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+            ['$x$', 2, 30], ['$f(x)$', 2, 50]
+          ],
+          // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+          ['$-\\infty$', 30, `$${texFractionReduite(-b, a)}$`, 20, '$+\\infty$', 30]
         ],
-        // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-        ['$-\\infty$', 30, `$${texFractionReduite(-b, a)}$`, 20, '$+\\infty$', 30]
-      ],
-      // tabLines ci-dessous contient les autres lignes du tableau.
-      tabLines: [ligne1],
-      colorBackground: '',
-      espcl: 3.5, // taille en cm entre deux antécédents
-      deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-      lgt: 5, // taille de la première colonne en cm
-      hauteurLignes: [15, 15]
-    }))
-
-    this.listeQuestions.push(texte)
-    this.listeCorrections.push(texteCorr)
+        // tabLines ci-dessous contient les autres lignes du tableau.
+        tabLines: [ligne1],
+        colorBackground: '',
+        espcl: 3.5, // taille en cm entre deux antécédents
+        deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
+        lgt: 5, // taille de la première colonne en cm
+        hauteurLignes: [15, 15]
+      }))
+      if (this.questionJamaisPosee(i, a, b)) {
+        // Si la question n'a jamais été posée, on la stocke dans la liste des questions
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        this.canEnonce = `Dresser le tableau de signes de la fonction $f$ définie sur  $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$. `
+        this.canReponseACompleter = ''
+        this.listeCanEnonces.push(this.canEnonce)
+        this.listeCanReponsesACompleter.push(this.canReponseACompleter)
+        i++
+      }
+      cpt++
+    }
     listeQuestionsToContenu(this)
-    this.canEnonce = `Dresser le tableau de signes de la fonction $f$ définie sur  $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$. `
-    this.canReponseACompleter = ''
   }
 }

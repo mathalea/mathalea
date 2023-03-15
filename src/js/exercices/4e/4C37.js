@@ -1,7 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
-import { context } from '../../modules/context.js'
 export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC
 export const titre = 'Déterminer le signe d\'une puissance'
@@ -146,20 +145,18 @@ export default class SignePuissance extends Exercice {
           }
           break
       }
+      this.autoCorrection[i].options = { ordered: true }
       monQcm = propositionsQcm(this, i)
-      texte += monQcm.texte
       if (this.questionJamaisPosee(i, n)) {
-        this.listeQuestions.push(texte)
+        this.listeQuestions.push(texte + monQcm.texte)
         this.listeCorrections.push(texteCorr)
-        if (i === 0) this.canReponseACompleter = monQcm.texte // FIXME Dans un exercice permettant plusieurs questions il n'y a qu'un this.canReponseACompleter ???
+        this.listeCanReponsesACompleter[i] = monQcm.texte
+        this.listeCanEnonces[i] = 'Quel est le signe de ' + texte + '?'
+        this.correction = this.listeCorrections[i]
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
-    if (!context.isHtml) {
-      this.canEnonce = 'Quel est le signe de ' + this.listeQuestions[0] + '?'
-      this.correction = this.listeCorrections[0]
-    }
   }
 }

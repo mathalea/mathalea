@@ -23,55 +23,64 @@ export default function EcritureDeNombreEntier () {
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
-    const a = randint(1, 9)
-    const b = randint(1, 9, a)
-    const c = randint(1, 9, [a, b])
-    let N1, N2, N3
-    switch (choice([1, 2, 3])) {
-      case 1:
-        N1 = a * 1000 + b * 100 + c
-        N2 = a * 1000 + b * 10 + c
-        N3 = a * 1000 + b * 100 + c * 10
-        break
-      case 2:
-        N1 = a * 1000 + b * 10 + c
-        N2 = a * 1000 + b * 100 + c
-        N3 = a * 1000 + b * 100 + c * 10
-        break
-      case 3:
-        N1 = a * 1000 + b * 100 + c * 10
-        N2 = a * 1000 + b * 100 + c
-        N3 = a * 1000 + b * 10 + c
-        break
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const a = randint(1, 9)
+      const b = randint(1, 9, a)
+      const c = randint(1, 9, [a, b])
+      let N1, N2, N3
+      switch (choice([1, 2, 3])) {
+        case 1:
+          N1 = a * 1000 + b * 100 + c
+          N2 = a * 1000 + b * 10 + c
+          N3 = a * 1000 + b * 100 + c * 10
+          break
+        case 2:
+          N1 = a * 1000 + b * 10 + c
+          N2 = a * 1000 + b * 100 + c
+          N3 = a * 1000 + b * 100 + c * 10
+          break
+        case 3:
+          N1 = a * 1000 + b * 100 + c * 10
+          N2 = a * 1000 + b * 100 + c
+          N3 = a * 1000 + b * 10 + c
+          break
+      }
+      let texte = `Le nombre $${texNombre(N1)}$ s'écrit (coche la bonne réponse) :<br>`
+      this.canEnonce = `Quelle est l'écriture du nombre $${texNombre(N1)}$ ?`
+      this.autoCorrection[i] = {
+        enonce: texte,
+        options: { vertical: true },
+        propositions: [
+          {
+            texte: nombreEnLettres(N1),
+            statut: true
+          },
+          {
+            texte: nombreEnLettres(N2),
+            statut: false
+          },
+          {
+            texte: nombreEnLettres(N3),
+            statut: false
+          }
+        ]
+      }
+      const monQcm = propositionsQcm(this, i)
+      if (!context.isAmc) {
+        texte += monQcm.texte
+      }
+      const texteCorr = `$${texNombre(N1)}$ s'écrit ${nombreEnLettres(N1)}.`
+      if (this.listeQuestions.indexOf(texte) === -1) {
+      // Si la question n'a jamais été posée, on en crée une autre
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+      }
+      this.canReponseACompleter = monQcm.texte
+      this.listeCanEnonces.push(this.canEnonce)
+      this.listeCanReponsesACompleter.push(this.canReponseACompleter)
+      cpt++
     }
-    let texte = `Le nombre $${texNombre(N1)}$ s'écrit (coche la bonne réponse) :<br>`
-    this.canEnonce = `Quelle est l'écriture du nombre $${texNombre(N1)}$ ?`
-    this.autoCorrection[0] = {
-      enonce: texte,
-      options: { vertical: true },
-      propositions: [
-        {
-          texte: nombreEnLettres(N1),
-          statut: true
-        },
-        {
-          texte: nombreEnLettres(N2),
-          statut: false
-        },
-        {
-          texte: nombreEnLettres(N3),
-          statut: false
-        }
-      ]
-    }
-    const monQcm = propositionsQcm(this, 0)
-    if (!context.isAmc) {
-      texte += monQcm.texte
-    }
-    const texteCorr = `$${texNombre(N1)}$ s'écrit ${nombreEnLettres(N1)}.`
-    this.listeQuestions.push(texte)
-    this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
-    this.canReponseACompleter = monQcm.texte
   }
 }

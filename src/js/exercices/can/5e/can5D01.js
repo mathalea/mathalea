@@ -63,12 +63,14 @@ export default function ConversionHeuresDecimalesMinutes () {
             nbChamps = 1
           }
           this.canEnonce = 'Compléter par un nombre décimal.'
-          this.canReponseACompleter = `$${texNombrec(a)}$ h $${texNombrec(b * 60)}$ min  $= \\ldots$`
+          this.canReponseACompleter = `$${texNombrec(a)}$ h $${texNombrec(b * 60)}$ min  $= \\ldots\\ldots$ h`
           break
       }
       if (this.questionJamaisPosee(i, a, b)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        this.listeCanEnonces.push(this.canEnonce)
+        this.listeCanReponsesACompleter.push(this.canReponseACompleter)
         i++
         index += nbChamps
       }

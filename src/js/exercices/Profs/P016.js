@@ -29,7 +29,7 @@ export default function SimulateurDes () {
     } else {
       liste = this.sup.split('-')
       for (let i = 0; i < liste.length; i++) {
-        liste[i] = isNaN(liste[i]) ? 6 : parseInt(liste[i])
+        liste[i] = isNaN(Number(liste[i])) ? 6 : parseInt(liste[i])
       }
     }
     texte = 'Vous jetez les dés et vous obtenez : <br><br>'

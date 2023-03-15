@@ -44,11 +44,11 @@ export default function ReconnaitreExpL () {
             options: { horizontal: true },
             propositions: [
               {
-                texte: 'Une somme',
+                texte: 'Somme',
                 statut: false
               },
               {
-                texte: 'Un produit',
+                texte: 'Produit',
                 statut: true
               }
             ]
@@ -75,12 +75,12 @@ export default function ReconnaitreExpL () {
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: 'Une somme',
+                  texte: 'Somme',
                   statut: true
                 },
 
                 {
-                  texte: 'Un produit',
+                  texte: 'Produit',
                   statut: false
                 }
               ]
@@ -108,12 +108,12 @@ export default function ReconnaitreExpL () {
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: 'Une somme',
+                  texte: 'Somme',
                   statut: true
                 },
 
                 {
-                  texte: 'Un produit',
+                  texte: 'Produit',
                   statut: false
                 }
               ]
@@ -145,11 +145,11 @@ export default function ReconnaitreExpL () {
             options: { horizontal: true },
             propositions: [
               {
-                texte: 'Une somme',
+                texte: 'Somme',
                 statut: true
               },
               {
-                texte: 'Un produit',
+                texte: 'Produit',
                 statut: false
               }
             ]
@@ -182,12 +182,12 @@ export default function ReconnaitreExpL () {
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: 'Une somme',
+                  texte: 'Somme',
                   statut: true
                 },
 
                 {
-                  texte: 'Un produit',
+                  texte: 'Produit',
                   statut: false
                 }
               ]
@@ -210,12 +210,12 @@ export default function ReconnaitreExpL () {
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: 'Une somme',
+                  texte: 'Somme',
                   statut: true
                 },
 
                 {
-                  texte: 'Un produit',
+                  texte: 'Produit',
                   statut: false
                 }
               ]
@@ -244,12 +244,12 @@ export default function ReconnaitreExpL () {
             options: { horizontal: true },
             propositions: [
               {
-                texte: 'Une somme',
+                texte: 'Somme',
                 statut: false
               },
 
               {
-                texte: 'Un produit',
+                texte: 'Produit',
                 statut: true
               }
             ]
@@ -276,12 +276,12 @@ export default function ReconnaitreExpL () {
             options: { horizontal: true },
             propositions: [
               {
-                texte: 'Une somme',
+                texte: 'Somme',
                 statut: true
               },
 
               {
-                texte: 'Un produit',
+                texte: 'Produit',
                 statut: false
               }
             ]
@@ -308,12 +308,12 @@ export default function ReconnaitreExpL () {
             options: { horizontal: true },
             propositions: [
               {
-                texte: 'Une somme',
+                texte: 'Somme',
                 statut: true
               },
 
               {
-                texte: 'Un produit',
+                texte: 'Produit',
                 statut: false
               }
             ]
@@ -343,12 +343,12 @@ export default function ReconnaitreExpL () {
             options: { horizontal: true },
             propositions: [
               {
-                texte: 'Une somme',
+                texte: 'Somme',
                 statut: true
               },
 
               {
-                texte: 'Un produit',
+                texte: 'Produit',
                 statut: false
               }
             ]
@@ -378,12 +378,12 @@ export default function ReconnaitreExpL () {
             options: { horizontal: true },
             propositions: [
               {
-                texte: 'Une somme',
+                texte: 'Somme',
                 statut: false
               },
 
               {
-                texte: 'Un produit',
+                texte: 'Produit',
                 statut: true
               }
             ]
@@ -403,9 +403,11 @@ export default function ReconnaitreExpL () {
         this.listeCorrections.push(texteCorr)
         i++
       }
+      this.canReponseACompleter = monQcm.texte
+      this.listeCanEnonces.push(this.canEnonce)
+      this.listeCanReponsesACompleter.push(this.canReponseACompleter)
       cpt++
     }
     listeQuestionsToContenu(this)
-    this.canReponseACompleter = monQcm.texte
   }
 }

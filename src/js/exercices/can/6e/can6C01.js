@@ -29,11 +29,11 @@ export default function OrdreDeGrandeur () {
       const d = randint(5, 9)
       const resultat = calcul((a * 100 + b * 10 + c) * d)
       let texte = `$${texNombrec(a * 100 + b * 10 + c)}\\times ${d}$<br> 
-    Choisir la bonne réponse sans effectuer précisément le calcul.<br>`
+    Choisir la bonne réponse sans effectuer précisément le calcul.`
       // Ajout avant l'ajout des propositions de réponse
       // ça serait mieux en uniformisant avec this.question pour tous les exos can
       this.canEnonce = texte
-      this.autoCorrection[0] = {
+      this.autoCorrection[i] = {
         enonce: texte,
         propositions: [
           {
@@ -50,7 +50,7 @@ export default function OrdreDeGrandeur () {
           }
         ]
       }
-      const monQcm = propositionsQcm(this, 0)
+      const monQcm = propositionsQcm(this, i)
       if (!context.isAmc) {
         texte += monQcm.texte
       }
@@ -60,25 +60,27 @@ export default function OrdreDeGrandeur () {
         texteCorr += texteEnCouleur(`
     Mentalement : <br>
 On remplace le premier facteur $${a * 100 + b * 10 + c}$ par $${(a + 1) * 100}$, on calcule
-$${(a + 1) * 100}\\times ${d}=${((a + 1) * 100) * d}$ et on sélectionne le résultat qui s'en rapproche le plus. 
+$${(a + 1) * 100}\\times ${d}=${texNombre(((a + 1) * 100) * d)}$ et on sélectionne le résultat qui s'en rapproche le plus. 
     `)
       } else {
         texteCorr += texteEnCouleur(`
     Mentalement : <br>
     On remplace le premier facteur $${a * 100 + b * 10 + c}$ par $${a * 100}$, on calcule
-    $${a * 100}\\times ${d}=${a * 100 * d}$ et on sélectionne le résultat qui s'en rapproche le plus. 
+    $${a * 100}\\times ${d}=${texNombre(a * 100 * d)}$ et on sélectionne le résultat qui s'en rapproche le plus. 
            `)
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
       // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        if (i === 0) this.canReponseACompleter = monQcm.texte // FIXME Dans un exercice permettant plusieurs questions il n'y a qu'un this.canReponseACompleter ???
         i++
       }
-      cpt++
       this.canReponseACompleter = monQcm.texte
+      this.listeCanEnonces.push(this.canEnonce)
+      this.listeCanReponsesACompleter.push(this.canReponseACompleter)
+      cpt++
     }
     listeQuestionsToContenu(this)
+    console.log(this)
   }
 }

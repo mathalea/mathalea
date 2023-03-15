@@ -49,15 +49,17 @@ export default function ConversionHeuresMinutesOuMinutesEtSecondes (can = false)
       if (can) {
         if (listeTypeQuestions[i] === 'min vers h et min') {
           texteCorr = texteEnCouleur(`
-    <br> Mentalement : <br>
+    Mentalement : <br>
 On cherche le multiple de $60$ inférieur à $${d}$ le plus grand possible. C'est $${Math.floor(d / 60)}\\times 60 = ${Math.floor(d / 60) * 60}$.<br>
 Ainsi $${d} = ${Math.floor(d / 60) * 60} + ${d % 60}$ donc $${d}$min $= ${Math.floor(d / 60)}$${sp(1)}h${sp(1)}$${d % 60}$${sp(1)}min.`) + '<br>'
         } else {
           texteCorr = texteEnCouleur(`
-          <br> Mentalement : <br>
+           Mentalement : <br>
       On cherche le multiple de $60$ inférieur à $${d}$ le plus grand possible. C'est $${Math.floor(d / 60)}\\times 60 = ${Math.floor(d / 60) * 60}$.<br>
       Ainsi $${d} = ${Math.floor(d / 60) * 60} + ${d % 60}$ donc $${d}$s $= ${Math.floor(d / 60)}$${sp(1)}min${sp(1)}$${d % 60}$${sp(1)}s.`) + '<br>'
         }
+        this.listeCanEnonces.push(this.canEnonce)
+        this.listeCanReponsesACompleter.push(this.canReponseACompleter)
       } else {
         if (this.correctionDetaillee) {
           texteCorr = `On doit effectuer la division euclidienne de ${d} par 60 car il y a 60 minutes dans une heure.<br>Le quotient entier donne le nombre d'heures et le reste enter donne le nombre de minutes.<br>`
@@ -164,6 +166,7 @@ Ainsi $${d} = ${Math.floor(d / 60) * 60} + ${d % 60}$ donc $${d}$min $= ${Math.f
             setReponse(this, i, new Hms({ minute: a, second: b }), { formatInteractif: 'hms' })
           }
         }
+
         i++
       }
       cpt++

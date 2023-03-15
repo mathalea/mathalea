@@ -29,37 +29,44 @@ export default function LaBonneUnite () {
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
-    const unites = [' cm', ' dm', ' m']
-    const a = randint(0, 4)
-    const b = randint(hauteurs[a][1], hauteurs[a][2])
-    enleveElement(unites, hauteurs[a][3])
-    let texte = `Choisir parmi les propositions suivantes la hauteur d'une ${hauteurs[a][0]}.<br>`
-    this.canEnonce = texte
-    this.autoCorrection[0] = {
-      enonce: texte,
-      propositions: [
-        {
-          texte: `$${b}$${hauteurs[a][3]}`,
-          statut: true
-        },
-        {
-          texte: `$${b}$${unites[0]}`,
-          statut: false
-        },
-        {
-          texte: `$${b}$${unites[1]}`,
-          statut: false
-        }
-      ]
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const unites = [' cm', ' dm', ' m']
+      const a = randint(0, 4)
+      const b = randint(hauteurs[a][1], hauteurs[a][2])
+      enleveElement(unites, hauteurs[a][3])
+      let texte = `Choisir parmi les propositions suivantes la hauteur d'une ${hauteurs[a][0]}.<br>`
+      this.canEnonce = texte
+      this.autoCorrection[i] = {
+        enonce: texte,
+        propositions: [
+          {
+            texte: `$${b}$${hauteurs[a][3]}`,
+            statut: true
+          },
+          {
+            texte: `$${b}$${unites[0]}`,
+            statut: false
+          },
+          {
+            texte: `$${b}$${unites[1]}`,
+            statut: false
+          }
+        ]
+      }
+      const monQcm = propositionsQcm(this, i)
+      if (!context.isAmc) {
+        texte += monQcm.texte
+      }
+      const texteCorr = `La hauteur d'une ${hauteurs[a][0]} est ${b} ${hauteurs[a][3]}.`
+      if (this.questionJamaisPosee(i, a, b)) {
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        this.listeCanEnonces.push(this.canEnonce)
+        this.listeCanReponsesACompleter.push(monQcm.texte)
+        i++
+      }
+      cpt++
     }
-    const monQcm = propositionsQcm(this, 0)
-    if (!context.isAmc) {
-      texte += monQcm.texte
-    }
-    const texteCorr = `La hauteur d'une ${hauteurs[a][0]} est ${b} ${hauteurs[a][3]}.`
-    this.listeQuestions.push(texte)
-    this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
-    this.canReponseACompleter = monQcm.texte
   }
 }

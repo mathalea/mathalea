@@ -68,25 +68,24 @@ export default function CalculsHomothetie () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    let typeQuestionsDisponibles = []
-    let typesDeQuestionsDisponibles = []
-    typeQuestionsDisponibles = ['rapport', 'image', 'antécédent', 'image2etapes', 'antecendent2etapes', 'aireImage', 'aireAntécédent', 'aireRapport', 'rapport2', 'encadrerk', 'encadrerk2']
+    const typeQuestionsDisponibles = ['rapport', 'image', 'antécédent', 'image2etapes', 'antecendent2etapes', 'aireImage', 'aireAntécédent', 'aireRapport', 'rapport2', 'encadrerk', 'encadrerk2']
+    let typesDeQuestionsDisponiblesNumbers = []
     if (!this.sup) { // Si aucune liste n'est saisie
-      typesDeQuestionsDisponibles = [12]
+      typesDeQuestionsDisponiblesNumbers = [12]
     } else {
       if (typeof (this.sup) === 'number') {
-        typesDeQuestionsDisponibles[0] = typeQuestionsDisponibles[contraindreValeur(1, 12, this.sup, 12) - 1]
+        typesDeQuestionsDisponiblesNumbers[0] = typeQuestionsDisponibles[contraindreValeur(1, 12, this.sup, 12) - 1]
       } else {
-        typesDeQuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          typesDeQuestionsDisponibles[i] = typeQuestionsDisponibles[contraindreValeur(1, 12, typesDeQuestionsDisponibles[i], 12) - 1]
+        typesDeQuestionsDisponiblesNumbers = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+        for (let i = 0; i < typesDeQuestionsDisponiblesNumbers.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+          typesDeQuestionsDisponiblesNumbers[i] = typeQuestionsDisponibles[contraindreValeur(1, 12, typesDeQuestionsDisponiblesNumbers[i], 12) - 1]
         }
       }
     }
-    if (compteOccurences(typesDeQuestionsDisponibles, 12) > 0) typesDeQuestionsDisponibles = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
+    if (compteOccurences(typesDeQuestionsDisponiblesNumbers, 12) > 0) typesDeQuestionsDisponiblesNumbers = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     // typesDeQuestionsDisponibles = combinaisonListes(typesDeQuestionsDisponibles, 3)
 
-    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeQuestions = combinaisonListes(typesDeQuestionsDisponiblesNumbers, this.nbQuestions)
     const kEstEntier = this.sup3 > 1
     const valeursSimples = this.sup3 === 3
     for (let i = 0, approx, environ, melange, donnee1, donnee2, donnee3, donnees, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question

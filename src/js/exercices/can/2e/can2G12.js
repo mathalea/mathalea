@@ -24,38 +24,37 @@ export default function VecteursColineairesVF () {
     let ux, uy, vx, vy, k
     this.listeQuestions = []
     this.listeCorrections = []
-    let texte, texteCorr, monQcm
-
-    switch (choice([1, 2, 3, 4, 5])) { //
-      case 1 :
-        ux = calcul(randint(-3, 3, 0) * 2)
-        uy = calcul(randint(-3, 3, [0, ux / 2]) * 2)
-        k = calcul(choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1]))
-        vx = k * ux
-        vy = k * uy
-        texte = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$<br>
+    for (let i = 0, texte, texteCorr, monQcm, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      switch (choice([1, 2, 3, 4, 5])) { //
+        case 1 :
+          ux = calcul(randint(-3, 3, 0) * 2)
+          uy = calcul(randint(-3, 3, [0, ux / 2]) * 2)
+          k = calcul(choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1]))
+          vx = k * ux
+          vy = k * uy
+          texte = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$<br>
         Les vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont colinéaires. `
-        this.canEnonce = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}(${ux}\\;;\\; ${uy})$ et $\\overrightarrow{v}(${vx}\\;;\\;${vy})$.<br>
+          this.canEnonce = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}(${ux}\\;;\\; ${uy})$ et $\\overrightarrow{v}(${vx}\\;;\\;${vy})$.<br>
 
         Les vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont colinéaires. `
-        this.autoCorrection[0] = {
-          enonce: texte,
-          propositions: [
-            {
-              texte: 'V',
-              statut: ux * vy === uy * vx
-            },
-            {
-              texte: 'F',
-              statut: ux === 50
-            }
-          ],
-          options: { ordered: true }
-        }
-        monQcm = propositionsQcm(this, 0)
-        texte += monQcm.texte
+          this.autoCorrection[i] = {
+            enonce: texte,
+            propositions: [
+              {
+                texte: 'V',
+                statut: ux * vy === uy * vx
+              },
+              {
+                texte: 'F',
+                statut: ux === 50
+              }
+            ],
+            options: { ordered: true }
+          }
+          monQcm = propositionsQcm(this, i)
+          texte += monQcm.texte
 
-        texteCorr = monQcm.texteCorr + `<br>Deux vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$
+          texteCorr = monQcm.texteCorr + `<br>Deux vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$
         sont colinéaires si et seulement si leur déterminant det($\\overrightarrow{u};\\overrightarrow{v})=0$.<br>
         Si  $\\overrightarrow{u}\\begin{pmatrix}x_{\\overrightarrow{u}} \\\\ x_{\\overrightarrow{v}} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}x_{\\overrightarrow{v}} \\\\ y_{\\overrightarrow{v}} \\end{pmatrix}$, 
         alors det$(\\overrightarrow{u};\\overrightarrow{v})=x_{\\overrightarrow{u}}\\times y_{\\overrightarrow{v}}-y_{\\overrightarrow{u}}\\times x_{\\overrightarrow{v}}$.<br>
@@ -65,41 +64,41 @@ export default function VecteursColineairesVF () {
         =${ux * vy}-${ecritureParentheseSiNegatif(uy * vx)}=${ux * vy - uy * vx}
         $.<br>
         On en déduit que les vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont colinéaires.`
-        texteCorr += texteEnCouleur(`
+          texteCorr += texteEnCouleur(`
         <br> Mentalement : <br>
         On compare les produits en croix : $${ecritureParentheseSiNegatif(ux)}\\times ${ecritureParentheseSiNegatif(vy)}=${ux * vy}$ et $${ecritureParentheseSiNegatif(uy)}\\times ${ecritureParentheseSiNegatif(vx)}=${uy * vx}$.<br>
         Ils sont égaux, donc les vecteurs sont colinéaires.
          `)
-        break
-      case 2 :
-        vx = calcul(randint(-3, 3, 0) * 2)
-        vy = calcul(randint(-3, 3, [0, vx / 2]) * 2)
-        k = calcul(choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1]))
-        ux = k * vx
-        uy = k * vy
-        texte = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$<br>
+          break
+        case 2 :
+          vx = calcul(randint(-3, 3, 0) * 2)
+          vy = calcul(randint(-3, 3, [0, vx / 2]) * 2)
+          k = calcul(choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1]))
+          ux = k * vx
+          uy = k * vy
+          texte = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$<br>
         Les vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont colinéaires. `
-        this.canEnonce = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}(${ux}\\;;\\; ${uy})$ et $\\overrightarrow{v}(${vx}\\;;\\;${vy})$.<br>
+          this.canEnonce = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}(${ux}\\;;\\; ${uy})$ et $\\overrightarrow{v}(${vx}\\;;\\;${vy})$.<br>
        
         Les vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont colinéaires. `
-        this.autoCorrection[0] = {
-          enonce: texte,
-          propositions: [
-            {
-              texte: 'V',
-              statut: ux * vy === uy * vx
-            },
-            {
-              texte: 'F',
-              statut: ux === 50
-            }
-          ],
-          options: { ordered: true }
-        }
-        monQcm = propositionsQcm(this, 0)
-        texte += monQcm.texte
+          this.autoCorrection[i] = {
+            enonce: texte,
+            propositions: [
+              {
+                texte: 'V',
+                statut: ux * vy === uy * vx
+              },
+              {
+                texte: 'F',
+                statut: ux === 50
+              }
+            ],
+            options: { ordered: true }
+          }
+          monQcm = propositionsQcm(this, i)
+          texte += monQcm.texte
 
-        texteCorr = monQcm.texteCorr + `<br>Deux vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$
+          texteCorr = monQcm.texteCorr + `<br>Deux vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$
         sont colinéaires si et seulement si leur déterminant det($\\overrightarrow{u};\\overrightarrow{v})=0$.<br>
         Si  $\\overrightarrow{u}\\begin{pmatrix}x_{\\overrightarrow{u}} \\\\ x_{\\overrightarrow{v}} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}x_{\\overrightarrow{v}} \\\\ y_{\\overrightarrow{v}} \\end{pmatrix}$, 
         alors det$(\\overrightarrow{u};\\overrightarrow{v})=x_{\\overrightarrow{u}}\\times y_{\\overrightarrow{v}}-y_{\\overrightarrow{u}}\\times x_{\\overrightarrow{v}}$.<br>
@@ -109,42 +108,42 @@ export default function VecteursColineairesVF () {
         =${ux * vy}-${ecritureParentheseSiNegatif(uy * vx)}=${ux * vy - uy * vx}
         $.<br>
         On en déduit que les vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont colinéaires.`
-        texteCorr += texteEnCouleur(`
+          texteCorr += texteEnCouleur(`
         <br> Mentalement : <br>
         On compare les produits en croix : $${ecritureParentheseSiNegatif(ux)}\\times ${ecritureParentheseSiNegatif(vy)}=${ux * vy}$ et $${ecritureParentheseSiNegatif(uy)}\\times ${ecritureParentheseSiNegatif(vx)}=${uy * vx}$.<br>
         Ils sont égaux, donc les vecteurs sont colinéaires.
          `)
-        break
+          break
 
-      case 3 :
-        ux = calcul(randint(-3, 3, 0) * 2)
-        uy = calcul(randint(-3, 3, [0, ux / 2]) * 2)
-        k = calcul(choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1]))
-        vx = k * ux
-        vy = k * uy + 1
-        texte = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$<br>
+        case 3 :
+          ux = calcul(randint(-3, 3, 0) * 2)
+          uy = calcul(randint(-3, 3, [0, ux / 2]) * 2)
+          k = calcul(choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1]))
+          vx = k * ux
+          vy = k * uy + 1
+          texte = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$<br>
             Les vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont colinéaires. `
-        this.canEnonce = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}(${ux}\\;;\\; ${uy})$ et $\\overrightarrow{v}(${vx}\\;;\\;${vy})$.<br>
+          this.canEnonce = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}(${ux}\\;;\\; ${uy})$ et $\\overrightarrow{v}(${vx}\\;;\\;${vy})$.<br>
 
             Les vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont colinéaires. `
-        this.autoCorrection[0] = {
-          enonce: texte,
-          propositions: [
-            {
-              texte: 'V',
-              statut: ux === 100
-            },
-            {
-              texte: 'F',
-              statut: ux * vy !== uy * vx
-            }
-          ],
-          options: { ordered: true }
-        }
-        monQcm = propositionsQcm(this, 0)
-        texte += monQcm.texte
+          this.autoCorrection[i] = {
+            enonce: texte,
+            propositions: [
+              {
+                texte: 'V',
+                statut: ux === 100
+              },
+              {
+                texte: 'F',
+                statut: ux * vy !== uy * vx
+              }
+            ],
+            options: { ordered: true }
+          }
+          monQcm = propositionsQcm(this, i)
+          texte += monQcm.texte
 
-        texteCorr = monQcm.texteCorr + `<br>Deux vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$
+          texteCorr = monQcm.texteCorr + `<br>Deux vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$
             sont colinéaires si et seulement si leur déterminant det($\\overrightarrow{u};\\overrightarrow{v})=0$.<br>
             Si  $\\overrightarrow{u}\\begin{pmatrix}x_{\\overrightarrow{u}} \\\\ x_{\\overrightarrow{v}} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}x_{\\overrightarrow{v}} \\\\ y_{\\overrightarrow{v}} \\end{pmatrix}$, 
             alors det$(\\overrightarrow{u};\\overrightarrow{v})=x_{\\overrightarrow{u}}\\times y_{\\overrightarrow{v}}-y_{\\overrightarrow{u}}\\times x_{\\overrightarrow{v}}$.<br>
@@ -154,42 +153,42 @@ export default function VecteursColineairesVF () {
             =${ux * vy}-${ecritureParentheseSiNegatif(uy * vx)}=${ux * vy - uy * vx}
             $.<br>
             On en déduit que les vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$ ne sont pas colinéaires.`
-        texteCorr += texteEnCouleur(`
+          texteCorr += texteEnCouleur(`
             <br> Mentalement : <br>
             On compare les produits en croix : $${ecritureParentheseSiNegatif(ux)}\\times ${ecritureParentheseSiNegatif(vy)}=${ux * vy}$ et $${ecritureParentheseSiNegatif(uy)}\\times ${ecritureParentheseSiNegatif(vx)}=${uy * vx}$.<br>
             Ils ne sont pas égaux, donc les vecteurs ne sont pas colinéaires.
              `)
-        break
+          break
 
-      case 4 :
-        ux = calcul(randint(-3, 3, 0) * 2)
-        uy = calcul(randint(-3, 3, [0, ux / 2]) * 2)
-        k = calcul(choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1]))
-        vx = k * ux + 1
-        vy = k * uy
-        texte = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$<br>
+        case 4 :
+          ux = calcul(randint(-3, 3, 0) * 2)
+          uy = calcul(randint(-3, 3, [0, ux / 2]) * 2)
+          k = calcul(choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1]))
+          vx = k * ux + 1
+          vy = k * uy
+          texte = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$<br>
             Les vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont colinéaires. `
-        this.canEnonce = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}(${ux}\\;;\\; ${uy})$ et $\\overrightarrow{v}(${vx}\\;;\\;${vy})$.<br>
+          this.canEnonce = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}(${ux}\\;;\\; ${uy})$ et $\\overrightarrow{v}(${vx}\\;;\\;${vy})$.<br>
 
             Les vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont colinéaires. `
-        this.autoCorrection[0] = {
-          enonce: texte,
-          propositions: [
-            {
-              texte: 'V',
-              statut: ux === 100
-            },
-            {
-              texte: 'F',
-              statut: ux * vy !== uy * vx
-            }
-          ],
-          options: { ordered: true }
-        }
-        monQcm = propositionsQcm(this, 0)
-        texte += monQcm.texte
+          this.autoCorrection[i] = {
+            enonce: texte,
+            propositions: [
+              {
+                texte: 'V',
+                statut: ux === 100
+              },
+              {
+                texte: 'F',
+                statut: ux * vy !== uy * vx
+              }
+            ],
+            options: { ordered: true }
+          }
+          monQcm = propositionsQcm(this, i)
+          texte += monQcm.texte
 
-        texteCorr = monQcm.texteCorr + `<br>Deux vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$
+          texteCorr = monQcm.texteCorr + `<br>Deux vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$
             sont colinéaires si et seulement si leur déterminant det($\\overrightarrow{u};\\overrightarrow{v})=0$.<br>
             Si  $\\overrightarrow{u}\\begin{pmatrix}x_{\\overrightarrow{u}} \\\\ x_{\\overrightarrow{v}} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}x_{\\overrightarrow{v}} \\\\ y_{\\overrightarrow{v}} \\end{pmatrix}$, 
             alors det$(\\overrightarrow{u};\\overrightarrow{v})=x_{\\overrightarrow{u}}\\times y_{\\overrightarrow{v}}-y_{\\overrightarrow{u}}\\times x_{\\overrightarrow{v}}$.<br>
@@ -199,41 +198,41 @@ export default function VecteursColineairesVF () {
             =${ux * vy}-${ecritureParentheseSiNegatif(uy * vx)}=${ux * vy - uy * vx}
             $.<br>
             On en déduit que les vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$ ne sont pas colinéaires.`
-        texteCorr += texteEnCouleur(`
+          texteCorr += texteEnCouleur(`
             <br> Mentalement : <br>
             On compare les produits en croix : $${ecritureParentheseSiNegatif(ux)}\\times ${ecritureParentheseSiNegatif(vy)}=${ux * vy}$ et $${ecritureParentheseSiNegatif(uy)}\\times ${ecritureParentheseSiNegatif(vx)}=${uy * vx}$.<br>
             Ils ne sont pas égaux, donc les vecteurs ne sont pas colinéaires.
              `)
-        break
-      case 5 :
-        ux = calcul(randint(-3, 3, 0) * 2)
-        uy = calcul(randint(-3, 3, [0, ux / 2]) * 2)
-        k = calcul(choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1]))
-        vx = k * ux
-        vy = k * uy * (-1)
-        texte = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$<br>
+          break
+        case 5 :
+          ux = calcul(randint(-3, 3, 0) * 2)
+          uy = calcul(randint(-3, 3, [0, ux / 2]) * 2)
+          k = calcul(choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1]))
+          vx = k * ux
+          vy = k * uy * (-1)
+          texte = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$<br>
             Les vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont colinéaires. `
-        this.canEnonce = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}(${ux}\\;;\\; ${uy})$ et $\\overrightarrow{v}(${vx}\\;;\\;${vy})$.<br>
+          this.canEnonce = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}(${ux}\\;;\\; ${uy})$ et $\\overrightarrow{v}(${vx}\\;;\\;${vy})$.<br>
         
             Les vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont colinéaires. `
-        this.autoCorrection[0] = {
-          enonce: texte,
-          propositions: [
-            {
-              texte: 'V',
-              statut: ux === 100
-            },
-            {
-              texte: 'F',
-              statut: ux * vy !== uy * vx
-            }
-          ],
-          options: { ordered: true }
-        }
-        monQcm = propositionsQcm(this, 0)
-        texte += monQcm.texte
+          this.autoCorrection[i] = {
+            enonce: texte,
+            propositions: [
+              {
+                texte: 'V',
+                statut: ux === 100
+              },
+              {
+                texte: 'F',
+                statut: ux * vy !== uy * vx
+              }
+            ],
+            options: { ordered: true }
+          }
+          monQcm = propositionsQcm(this, i)
+          texte += monQcm.texte
 
-        texteCorr = monQcm.texteCorr + `<br>Deux vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$
+          texteCorr = monQcm.texteCorr + `<br>Deux vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$
             sont colinéaires si et seulement si leur déterminant det($\\overrightarrow{u};\\overrightarrow{v})=0$.<br>
             Si  $\\overrightarrow{u}\\begin{pmatrix}x_{\\overrightarrow{u}} \\\\ x_{\\overrightarrow{v}} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}x_{\\overrightarrow{v}} \\\\ y_{\\overrightarrow{v}} \\end{pmatrix}$, 
             alors det$(\\overrightarrow{u};\\overrightarrow{v})=x_{\\overrightarrow{u}}\\times y_{\\overrightarrow{v}}-y_{\\overrightarrow{u}}\\times x_{\\overrightarrow{v}}$.<br>
@@ -243,16 +242,24 @@ export default function VecteursColineairesVF () {
             =${ux * vy}-${ecritureParentheseSiNegatif(uy * vx)}=${ux * vy - uy * vx}
             $.<br>
             On en déduit que les vecteurs $\\overrightarrow{u}$ et $\\overrightarrow{v}$ ne sont pas colinéaires.`
-        texteCorr += texteEnCouleur(`
+          texteCorr += texteEnCouleur(`
             <br> Mentalement : <br>
             On compare les produits en croix : $${ecritureParentheseSiNegatif(ux)}\\times ${ecritureParentheseSiNegatif(vy)}=${ux * vy}$ et $${ecritureParentheseSiNegatif(uy)}\\times ${ecritureParentheseSiNegatif(vx)}=${uy * vx}$.<br>
             Ils ne sont pas égaux, donc les vecteurs ne sont pas colinéaires.
              `)
-        break
+          break
+      }
+      if (this.listeQuestions.indexOf(texte) === -1) {
+      // Si la question n'a jamais été posée, on en crée une autre
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+      }
+      this.canReponseACompleter = monQcm.texte
+      this.listeCanEnonces.push(this.canEnonce)
+      this.listeCanReponsesACompleter.push(this.canReponseACompleter)
+      cpt++
     }
-    this.listeQuestions.push(texte)
-    this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
-    this.canREponseACompleter = monQcm.texte
   }
 }

@@ -28,6 +28,8 @@ export default function Exercice () {
   this.introduction = '' // Texte qui n'est pas forcément en gras et qui apparaît entre la consigne et les questions.
   this.listeQuestions = [] // Liste de chaînes de caractères avec chacune correspondant à une question. Chaque question est définie par la méthode this.nouvelleVersion puis `listeDeQuestionToContenu(this)` mettra en forme `this.contenu` et `this.contenuCorrection` suivant `context` (sortie HTML ?...)
   this.listeCorrections = [] // Idem avec la correction.
+  this.listeCanEnonces = []
+  this.listeCanReponsesACompleter = []
   this.contenu = '' // Chaîne de caractères avec tout l'énoncé de l'exercice construit à partir de `this.listeQuestions` suivant le `context`
   this.contenuCorrection = '' // Idem avec la correction
   this.autoCorrection = [] // Liste des objets par question pour correction interactive || export AMC.

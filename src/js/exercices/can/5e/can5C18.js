@@ -43,19 +43,19 @@ export default function ReconnaitreExp () {
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: 'Une somme',
+                  texte: 'Somme',
                   statut: true
                 },
                 {
-                  texte: 'Une différence',
+                  texte: 'Différence',
                   statut: false
                 },
                 {
-                  texte: 'Un produit',
+                  texte: 'Produit',
                   statut: false
                 },
                 {
-                  texte: 'Un quotient',
+                  texte: 'Quotient',
                   statut: false
                 }
               ]
@@ -79,19 +79,19 @@ export default function ReconnaitreExp () {
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: 'Une somme',
+                  texte: 'Somme',
                   statut: true
                 },
                 {
-                  texte: 'Une différence',
+                  texte: 'Différence',
                   statut: false
                 },
                 {
-                  texte: 'Un produit',
+                  texte: 'Produit',
                   statut: false
                 },
                 {
-                  texte: 'Un quotient',
+                  texte: 'Quotient',
                   statut: false
                 }
               ]
@@ -115,19 +115,19 @@ export default function ReconnaitreExp () {
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: 'Une somme',
+                  texte: 'Somme',
                   statut: false
                 },
                 {
-                  texte: 'Une différence',
+                  texte: 'Différence',
                   statut: true
                 },
                 {
-                  texte: 'Un produit',
+                  texte: 'Produit',
                   statut: false
                 },
                 {
-                  texte: 'Un quotient',
+                  texte: 'Quotient',
                   statut: false
                 }
               ]
@@ -156,19 +156,19 @@ export default function ReconnaitreExp () {
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: 'Une somme',
+                  texte: 'Somme',
                   statut: true
                 },
                 {
-                  texte: 'Une différence',
+                  texte: 'Différence',
                   statut: false
                 },
                 {
-                  texte: 'Un produit',
+                  texte: 'Produit',
                   statut: false
                 },
                 {
-                  texte: 'Un quotient',
+                  texte: 'Quotient',
                   statut: false
                 }
               ]
@@ -192,19 +192,19 @@ export default function ReconnaitreExp () {
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: 'Une somme',
+                  texte: 'Somme',
                   statut: false
                 },
                 {
-                  texte: 'Une différence',
+                  texte: 'Différence',
                   statut: true
                 },
                 {
-                  texte: 'Un produit',
+                  texte: 'Produit',
                   statut: false
                 },
                 {
-                  texte: 'Un quotient',
+                  texte: 'Quotient',
                   statut: false
                 }
               ]
@@ -233,19 +233,19 @@ export default function ReconnaitreExp () {
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: 'Une somme',
+                  texte: 'Somme',
                   statut: false
                 },
                 {
-                  texte: 'Une différence',
+                  texte: 'Différence',
                   statut: false
                 },
                 {
-                  texte: 'Un produit',
+                  texte: 'Produit',
                   statut: true
                 },
                 {
-                  texte: 'Un quotient',
+                  texte: 'Quotient',
                   statut: false
                 }
               ]
@@ -270,19 +270,19 @@ export default function ReconnaitreExp () {
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: 'Une somme',
+                  texte: 'Somme',
                   statut: false
                 },
                 {
-                  texte: 'Une différence',
+                  texte: 'Différence',
                   statut: false
                 },
                 {
-                  texte: 'Un produit',
+                  texte: 'Produit',
                   statut: true
                 },
                 {
-                  texte: 'Un quotient',
+                  texte: 'Quotient',
                   statut: false
                 }
               ]
@@ -306,19 +306,19 @@ export default function ReconnaitreExp () {
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: 'Une somme',
+                  texte: 'Somme',
                   statut: false
                 },
                 {
-                  texte: 'Une différence',
+                  texte: 'Différence',
                   statut: false
                 },
                 {
-                  texte: 'Un produit',
+                  texte: 'Produit',
                   statut: false
                 },
                 {
-                  texte: 'Un quotient',
+                  texte: 'Quotient',
                   statut: true
                 }
               ]
@@ -344,19 +344,19 @@ export default function ReconnaitreExp () {
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: 'Une somme',
+                  texte: 'Somme',
                   statut: false
                 },
                 {
-                  texte: 'Une différence',
+                  texte: 'Différence',
                   statut: false
                 },
                 {
-                  texte: 'Un produit',
+                  texte: 'Produit',
                   statut: true
                 },
                 {
-                  texte: 'Un quotient',
+                  texte: 'Quotient',
                   statut: false
                 }
               ]
@@ -381,19 +381,19 @@ export default function ReconnaitreExp () {
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: 'Une somme',
+                  texte: 'Somme',
                   statut: true
                 },
                 {
-                  texte: 'Une différence',
+                  texte: 'Différence',
                   statut: false
                 },
                 {
-                  texte: 'Un produit',
+                  texte: 'Produit',
                   statut: false
                 },
                 {
-                  texte: 'Un quotient',
+                  texte: 'Quotient',
                   statut: false
                 }
               ]
@@ -418,19 +418,19 @@ export default function ReconnaitreExp () {
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: 'Une somme',
+                  texte: 'Somme',
                   statut: false
                 },
                 {
-                  texte: 'Une différence',
+                  texte: 'Différence',
                   statut: true
                 },
                 {
-                  texte: 'Un produit',
+                  texte: 'Produit',
                   statut: false
                 },
                 {
-                  texte: 'Un quotient',
+                  texte: 'Quotient',
                   statut: false
                 }
               ]
@@ -463,19 +463,19 @@ export default function ReconnaitreExp () {
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: 'Une somme',
+                  texte: 'Somme',
                   statut: true
                 },
                 {
-                  texte: 'Une différence',
+                  texte: 'Différence',
                   statut: false
                 },
                 {
-                  texte: 'Un produit',
+                  texte: 'Produit',
                   statut: false
                 },
                 {
-                  texte: 'Un quotient',
+                  texte: 'Quotient',
                   statut: false
                 }
               ]
@@ -505,19 +505,19 @@ export default function ReconnaitreExp () {
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: 'Une somme',
+                  texte: 'Somme',
                   statut: false
                 },
                 {
-                  texte: 'Une différence',
+                  texte: 'Différence',
                   statut: true
                 },
                 {
-                  texte: 'Un produit',
+                  texte: 'Produit',
                   statut: false
                 },
                 {
-                  texte: 'Un quotient',
+                  texte: 'Quotient',
                   statut: false
                 }
               ]
@@ -547,19 +547,19 @@ export default function ReconnaitreExp () {
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: 'Une somme',
+                  texte: 'Somme',
                   statut: false
                 },
                 {
-                  texte: 'Une différence',
+                  texte: 'Différence',
                   statut: true
                 },
                 {
-                  texte: 'Un produit',
+                  texte: 'Produit',
                   statut: false
                 },
                 {
-                  texte: 'Un quotient',
+                  texte: 'Quotient',
                   statut: false
                 }
               ]
@@ -585,19 +585,19 @@ export default function ReconnaitreExp () {
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: 'Une somme',
+                  texte: 'Somme',
                   statut: false
                 },
                 {
-                  texte: 'Une différence',
+                  texte: 'Différence',
                   statut: false
                 },
                 {
-                  texte: 'Un produit',
+                  texte: 'Produit',
                   statut: false
                 },
                 {
-                  texte: 'Un quotient',
+                  texte: 'Quotient',
                   statut: true
                 }
               ]
@@ -616,9 +616,12 @@ export default function ReconnaitreExp () {
         this.listeCorrections.push(texteCorr)
         i++
       }
+      this.canReponseACompleter = monQcm.texte
+      this.listeCanEnonces.push(this.canEnonce)
+      this.listeCanReponsesACompleter.push(this.canReponseACompleter)
       cpt++
     }
     listeQuestionsToContenu(this)
-    this.canReponseACompleter = monQcm.texte
+    console.log(this)
   }
 }

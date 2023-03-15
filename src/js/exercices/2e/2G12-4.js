@@ -435,7 +435,7 @@ export default function NaturePolygone () {
           texteCorr += '<br>On observe que $I$ et $J$ ont les mêmes coordonnées, donc les deux diagonales du quadrilatère se coupent en leur milieu.'
           texteCorr += '<br>$ABDC$ est donc un parallélogramme.'
           texteCorr += '<br><B>2. On prouve que $ABDC$ est un rectangle :</B>'
-          texteCorr += '<br>On calcule maintenant les diagonales de $ABDC$ : $AD$ et $BC$ .'
+          texteCorr += '<br>On calcule maintenant les diagonales de $ABDC$ : $AD$ et $BC$.'
           texteCorr += '<br>On sait d\'après le cours, que si $A(x_A;y_A)$ et $D(x_D;y_D)$ sont deux points d\'un repère orthonormé,'
           texteCorr += ' alors on a : $AD=\\sqrt{\\left(x_D-x_A\\right)^{2}+\\left(y_D-y_A\\right)^{2}}.$<br>'
           texteCorr += `On applique la relation à l'énoncé : $AD=\\sqrt{\\left(${xD}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yD}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`

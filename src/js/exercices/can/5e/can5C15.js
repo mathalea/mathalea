@@ -24,7 +24,7 @@ export default function NombreATrouver () {
     const b = randint(1, 8)
     const c = a - b
 
-    this.question = `Quel nombre doit-on ajouter à $${a}$ pour obtenir $${c}$ ? <br>
+    this.question = `Quel nombre doit-on ajouter à $${a}$ pour obtenir $${c}$ ? 
     `
     this.correction = `Le nombre $n$ à ajouter vérifie $${a}+n=${c}$, soit
     $n=${c}-${ecritureParentheseSiNegatif(a)}=${c - a}$. <br>

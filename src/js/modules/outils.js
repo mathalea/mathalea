@@ -4782,11 +4782,22 @@ export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLi
  */
 export function warnMessage (texte, couleur, titre) {
   'use strict'
+  const timeStamp = Date.now()
   if (typeof (titre) === 'undefined') {
     titre = ''
   }
   if (context.isHtml) {
-    return `
+    if (context.versionMathalea === 3) {
+      return `
+      <div id="warnMessage-${timeStamp}">
+        <div id="title-warnMessage-${timeStamp}">
+        ${titre}
+        </div>
+        ${texte}
+      </div>
+      `
+    } else {
+      return `
     <br>
     <div class="ui compact warning message">
     <h4><i class="lightbulb outline icon"></i>${titre}</h4>
@@ -4794,6 +4805,7 @@ export function warnMessage (texte, couleur, titre) {
     </p>
     </div>
     `
+    }
   } else {
     // return texCadreParOrange(texte);
     return `
@@ -4812,8 +4824,19 @@ export function warnMessage (texte, couleur, titre) {
 
 export function infoMessage ({ titre, texte, couleur }) {
   // 'use strict';
+  const timeStamp = Date.now()
   if (context.isHtml) {
-    return `
+    if (context.versionMathalea === 3) {
+      return `
+      <div id="infoMessage-${timeStamp}">
+        <div id="title-infoMessage-${timeStamp}">
+        ${titre}
+        </div>
+        ${texte}
+      </div>
+      `
+    } else {
+      return `
     <div class="ui compact icon message">
       <i class="info circle icon"></i>
       <div class="content">
@@ -4824,6 +4847,7 @@ export function infoMessage ({ titre, texte, couleur }) {
       </div>
       </div>
     `
+    }
   } else {
     return `
     \\begin{bclogo}[couleurBarre=` + couleur + ',couleurBord=' + couleur + ',epBord=2,couleur=gray!10,logo=\\bcinfo,arrondi=0.1]{\\bf ' + titre + `}

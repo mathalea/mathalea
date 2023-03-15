@@ -1,5 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { fraction } from '../../../modules/fractions.js'
+import { context } from '../../../modules/context.js'
 import { randint, listeQuestionsToContenu, texteEnCouleur, reduireAxPlusB, sp, ecritureParentheseSiNegatif, choice } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
 export const titre = 'Résoudre une inéquation (QCM)'
@@ -22,286 +23,293 @@ export default function SolutionInequationQCM () {
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
-    this.date = 1635094684684
-    let texte, texteCorr, a, b, maFraction, n, N, monQcm
-    switch (choice([1, 2])) { //, 'b'
-      case 1 :// cas a>0
-        a = randint(2, 6)
-        n = randint(2, 7) * choice([-1, 1])
-        b = n * a
-        maFraction = fraction(-b, a)
-        N = choice(['a', 'b', 'c', 'd'])//, 'a', 'b'
-        if (N === 'a') {
-          texte = `L'inéquation ${sp(1)} $${reduireAxPlusB(a, b)}>0$ a pour ensemble de solutions :`
-          this.canEnonce = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}>0$ ?`
-          this.autoCorrection[0] = {
-            enonce: texte,
-            options: { horizontal: true },
-            propositions: [
-              {
-                texte: `$\\bigg]${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                statut: true
-              },
-              {
-                texte: `$\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                statut: false
-              },
-              {
-                texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)} ${maFraction.texFractionSimplifiee} \\bigg[$ `,
-                statut: false
-              }
-            ]
-          }
-          monQcm = propositionsQcm(this, 0)
-          texte += monQcm.texte
+    for (let i = 0, texte, texteCorr, a, b, maFraction, n, N, monQcm, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      switch (choice([1, 2])) { //, 'b'
+        case 1 :// cas a>0
+          a = randint(2, 6)
+          n = randint(2, 7) * choice([-1, 1])
+          b = n * a
+          maFraction = fraction(-b, a)
+          N = choice(['a', 'b', 'c', 'd'])//, 'a', 'b'
+          if (N === 'a') {
+            texte = `L'inéquation ${sp(1)} $${reduireAxPlusB(a, b)}>0$ a pour ensemble de solutions :`
+            this.canEnonce = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}>0$ ?`
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `$\\bigg]${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$${context.isHtml ? '' : '\\\\'}`,
+                  statut: true
+                },
+                {
+                  texte: `$\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$${context.isHtml ? '' : '\\\\'}`,
+                  statut: false
+                },
+                {
+                  texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)} ${maFraction.texFractionSimplifiee} \\bigg[$${context.isHtml ? '' : '\\\\'}`,
+                  statut: false
+                }
+              ]
+            }
+            monQcm = propositionsQcm(this, i)
+            texte += monQcm.texte
 
-          texteCorr = `L'ensemble de solutions est : $\\bigg]${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$<br>
+            texteCorr = `L'ensemble de solutions est : $\\bigg]${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$<br>
             En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
             $${a}x>${-b}$<br>
             En divisant par $${a}$ dans chaque membre, on obtient :<br>
             $x>${maFraction.texFractionSimplifiee}$<br>
             Les solutions sont les nombres strictement supérieurs à $${maFraction.texFractionSimplifiee}$.   `
-        }
-        if (N === 'b') {
-          texte = `L'inéquation ${sp(1)} $${reduireAxPlusB(a, b)}\\geqslant 0$ a pour ensemble de solutions :`
-          this.canEnonce = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}\\geqslant 0$ ?`
-          this.autoCorrection[0] = {
-            enonce: texte,
-            options: { horizontal: true },
-            propositions: [
-              {
-                texte: `$\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                statut: true
-              },
-              {
-                texte: `$\\bigg]${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                statut: false
-              },
-              {
-                texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)} ${maFraction.texFractionSimplifiee} \\bigg]$ `,
-                statut: false
-              }
-            ]
           }
+          if (N === 'b') {
+            texte = `L'inéquation ${sp(1)} $${reduireAxPlusB(a, b)}\\geqslant 0$ a pour ensemble de solutions :`
+            this.canEnonce = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}\\geqslant 0$ ?`
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `$\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$${context.isHtml ? '' : '\\\\'}`,
+                  statut: true
+                },
+                {
+                  texte: `$\\bigg]${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$${context.isHtml ? '' : '\\\\'}`,
+                  statut: false
+                },
+                {
+                  texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)} ${maFraction.texFractionSimplifiee} \\bigg]$${context.isHtml ? '' : '\\\\'}`,
+                  statut: false
+                }
+              ]
+            }
 
-          monQcm = propositionsQcm(this, 0)
-          texte += monQcm.texte
+            monQcm = propositionsQcm(this, i)
+            texte += monQcm.texte
 
-          texteCorr = `L'ensemble de solutions est : $\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$.<br>
+            texteCorr = `L'ensemble de solutions est : $\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$.<br>
                     En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
                     $${a}x\\geqslant${-b}$<br>
                     En divisant par $${a}$ dans chaque membre, on obtient :<br>
                     $x\\geqslant${maFraction.texFractionSimplifiee}$<br>
                     Les solutions sont les nombres  supérieurs ou égaux  à $${maFraction.texFractionSimplifiee}$.   `
-        }
-        if (N === 'c') {
-          texte = `L'inéquation ${sp(1)} $${reduireAxPlusB(a, b)}\\leqslant 0$ a pour ensemble de solutions :`
-          this.canEnonce = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}\\leqslant 0$ ?`
-          this.autoCorrection[0] = {
-            enonce: texte,
-            options: { horizontal: true },
-            propositions: [
-              {
-                texte: `$\\bigg]-\\infty${sp(1)} ; ${sp(1)}${maFraction.texFractionSimplifiee} \\bigg]$ `,
-                statut: true
-              },
-              {
-                texte: `$\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                statut: false
-              },
-              {
-                texte: `$\\bigg]-\\infty${sp(1)} ; ${sp(1)}${maFraction.texFractionSimplifiee} \\bigg[$ `,
-                statut: false
-              }
-            ]
           }
-          monQcm = propositionsQcm(this, 0)
-          texte += monQcm.texte
-          texteCorr = `L'ensemble de solutions est : $\\bigg]-\\infty${sp(1)} ; ${sp(1)}${maFraction.texFractionSimplifiee} \\bigg]$.<br>
+          if (N === 'c') {
+            texte = `L'inéquation ${sp(1)} $${reduireAxPlusB(a, b)}\\leqslant 0$ a pour ensemble de solutions :`
+            this.canEnonce = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}\\leqslant 0$ ?`
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `$\\bigg]-\\infty${sp(1)} ; ${sp(1)}${maFraction.texFractionSimplifiee} \\bigg]$${context.isHtml ? '' : '\\\\'}`,
+                  statut: true
+                },
+                {
+                  texte: `$\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$${context.isHtml ? '' : '\\\\'}`,
+                  statut: false
+                },
+                {
+                  texte: `$\\bigg]-\\infty${sp(1)} ; ${sp(1)}${maFraction.texFractionSimplifiee} \\bigg[$${context.isHtml ? '' : '\\\\'}`,
+                  statut: false
+                }
+              ]
+            }
+            monQcm = propositionsQcm(this, i)
+            texte += monQcm.texte
+            texteCorr = `L'ensemble de solutions est : $\\bigg]-\\infty${sp(1)} ; ${sp(1)}${maFraction.texFractionSimplifiee} \\bigg]$.<br>
                       En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
                       $${a}x\\leqslant${-b}$<br>
                       En divisant par $${a}$ dans chaque membre, on obtient :<br>
                       $x\\leqslant${maFraction.texFractionSimplifiee}$<br>
                       Les solutions sont les nombres  inférieurs ou égaux  à $${maFraction.texFractionSimplifiee}$.   `
-        }
-        if (N === 'd') {
-          texte = `L'inéquation ${sp(1)} $${reduireAxPlusB(a, b)}< 0$ a pour ensemble de solutions :`
-          this.canEnonce = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}< 0$ ?`
-          this.autoCorrection[0] = {
-            enonce: texte,
-            options: { horizontal: true },
-            propositions: [
-              {
-                texte: `$\\bigg]-\\infty${sp(1)} ; ${sp(1)}${maFraction.texFractionSimplifiee} \\bigg[$ `,
-                statut: true
-              },
-              {
-                texte: `$\\bigg]${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                statut: false
-              },
-              {
-                texte: `$\\bigg]-\\infty${sp(1)} ; ${sp(1)}${maFraction.texFractionSimplifiee} \\bigg]$ `,
-                statut: false
-              }
-            ]
           }
+          if (N === 'd') {
+            texte = `L'inéquation ${sp(1)} $${reduireAxPlusB(a, b)}< 0$ a pour ensemble de solutions :`
+            this.canEnonce = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}< 0$ ?`
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `$\\bigg]-\\infty${sp(1)} ; ${sp(1)}${maFraction.texFractionSimplifiee} \\bigg[$${context.isHtml ? '' : '\\\\'}`,
+                  statut: true
+                },
+                {
+                  texte: `$\\bigg]${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$${context.isHtml ? '' : '\\\\'}`,
+                  statut: false
+                },
+                {
+                  texte: `$\\bigg]-\\infty${sp(1)} ; ${sp(1)}${maFraction.texFractionSimplifiee} \\bigg]$${context.isHtml ? '' : '\\\\'}`,
+                  statut: false
+                }
+              ]
+            }
 
-          monQcm = propositionsQcm(this, 0)
-          texte += monQcm.texte
+            monQcm = propositionsQcm(this, i)
+            texte += monQcm.texte
 
-          texteCorr = `L'ensemble de solutions est : $\\bigg]-\\infty${sp(1)} ; ${sp(1)}${maFraction.texFractionSimplifiee} \\bigg[$.<br>
+            texteCorr = `L'ensemble de solutions est : $\\bigg]-\\infty${sp(1)} ; ${sp(1)}${maFraction.texFractionSimplifiee} \\bigg[$.<br>
                       En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
                       $${a}x<${-b}$<br>
                       En divisant par $${a}$ dans chaque membre, on obtient :<br>
                       $x<${maFraction.texFractionSimplifiee}$<br>
                       Les solutions sont les nombres strictement inférieurs   à $${maFraction.texFractionSimplifiee}$.   `
-        }
-
-        break
-
-      case 2:// cas a<0
-        a = randint(-6, -2)
-        n = randint(2, 7) * choice([-1, 1])
-        b = n * a
-        maFraction = fraction(-b, a)
-        N = choice(['a', 'b', 'c', 'd'])//
-        if (N === 'a') {
-          texte = `L'inéquation ${sp(1)} $${reduireAxPlusB(a, b)}>0$ a pour ensemble de solutions :`
-          this.canEnonce = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}>0$ ?`
-          this.autoCorrection[0] = {
-            enonce: texte,
-            options: { horizontal: true },
-            propositions: [
-              {
-                texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)}${maFraction.texFractionSimplifiee} \\bigg[$ `,
-                statut: true
-              },
-              {
-                texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)}${maFraction.texFractionSimplifiee} \\bigg]$ `,
-                statut: false
-              },
-              {
-                texte: `$\\bigg]${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                statut: false
-              }
-            ]
           }
 
-          monQcm = propositionsQcm(this, 0)
-          texte += monQcm.texte
+          break
 
-          texteCorr = `L'ensemble de solutions est : $\\bigg]-\\infty${sp(1)} ;${sp(1)}${maFraction.texFractionSimplifiee} \\bigg[$.<br>
+        case 2:// cas a<0
+          a = randint(-6, -2)
+          n = randint(2, 7) * choice([-1, 1])
+          b = n * a
+          maFraction = fraction(-b, a)
+          N = choice(['a', 'b', 'c', 'd'])//
+          if (N === 'a') {
+            texte = `L'inéquation ${sp(1)} $${reduireAxPlusB(a, b)}>0$ a pour ensemble de solutions :`
+            this.canEnonce = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}>0$ ?`
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)}${maFraction.texFractionSimplifiee} \\bigg[$${context.isHtml ? '' : '\\\\'}`,
+                  statut: true
+                },
+                {
+                  texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)}${maFraction.texFractionSimplifiee} \\bigg]$${context.isHtml ? '' : '\\\\'}`,
+                  statut: false
+                },
+                {
+                  texte: `$\\bigg]${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$${context.isHtml ? '' : '\\\\'}`,
+                  statut: false
+                }
+              ]
+            }
+
+            monQcm = propositionsQcm(this, i)
+            texte += monQcm.texte
+
+            texteCorr = `L'ensemble de solutions est : $\\bigg]-\\infty${sp(1)} ;${sp(1)}${maFraction.texFractionSimplifiee} \\bigg[$.<br>
             En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
             $${a}x>${-b}$<br>
             En divisant par $(${a})$ dans chaque membre, on obtient :<br>
-            $x$${texteEnCouleur('$<$')}$${maFraction.texFractionSimplifiee}$ ${sp(3)} 
+            $x$${texteEnCouleur('$<$')}$${maFraction.texFractionSimplifiee}$ ${sp(3)}
             ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l’inégalité).')}<br>
             Les solutions sont les nombres strictement inférieurs   à $${maFraction.texFractionSimplifiee}$. `
-        }
-        if (N === 'b') {
-          texte = `L'inéquation ${sp(1)} $${reduireAxPlusB(a, b)}\\geqslant 0$ a pour ensemble de solutions :`
-          this.canEnonce = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}\\geqslant 0$ ?`
-          this.autoCorrection[0] = {
-            enonce: texte,
-            options: { horizontal: true },
-            propositions: [
-              {
-                texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)} ${maFraction.texFractionSimplifiee} \\bigg]$ `,
-                statut: true
-              },
-              {
-                texte: `$\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                statut: false
-              },
-              {
-                texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)} ${maFraction.texFractionSimplifiee} \\bigg[$ `,
-                statut: false
-              }
-            ]
           }
+          if (N === 'b') {
+            texte = `L'inéquation ${sp(1)} $${reduireAxPlusB(a, b)}\\geqslant 0$ a pour ensemble de solutions :`
+            this.canEnonce = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}\\geqslant 0$ ?`
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)} ${maFraction.texFractionSimplifiee} \\bigg]$${context.isHtml ? '' : '\\\\'}`,
+                  statut: true
+                },
+                {
+                  texte: `$\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$${context.isHtml ? '' : '\\\\'}`,
+                  statut: false
+                },
+                {
+                  texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)} ${maFraction.texFractionSimplifiee} \\bigg[$${context.isHtml ? '' : '\\\\'}`,
+                  statut: false
+                }
+              ]
+            }
 
-          monQcm = propositionsQcm(this, 0)
-          texte += monQcm.texte
+            monQcm = propositionsQcm(this, i)
+            texte += monQcm.texte
 
-          texteCorr = `L'ensemble de solutions est : $\\bigg]-\\infty${sp(1)} ;${sp(1)} ${maFraction.texFractionSimplifiee} \\bigg]$.<br>
+            texteCorr = `L'ensemble de solutions est : $\\bigg]-\\infty${sp(1)} ;${sp(1)} ${maFraction.texFractionSimplifiee} \\bigg]$.<br>
           En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
           $${a}x\\geqslant${-b}$<br>
           En divisant par $(${a})$ dans chaque membre, on obtient :<br>
-          $x$${texteEnCouleur('$\\leqslant$')}$${maFraction.texFractionSimplifiee}$ ${sp(3)} 
+          $x$${texteEnCouleur('$\\leqslant$')}$${maFraction.texFractionSimplifiee}$ ${sp(3)}
           ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l’inégalité).')}<br>
           Les solutions sont les nombres  inférieurs ou égaux  à $${maFraction.texFractionSimplifiee}$. `
-        }
-        if (N === 'c') {
-          texte = `L'inéquation ${sp(1)} $${reduireAxPlusB(a, b)}\\leqslant 0$ a pour ensemble de solutions :`
-          this.canEnonce = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}\\leqslant 0$ ?`
-          this.autoCorrection[0] = {
-            enonce: texte,
-            options: { vertical: true },
-            propositions: [
-              {
-                texte: `$\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                statut: true
-              },
-              {
-                texte: `$\\bigg]-\\infty${sp(1)} ; ${sp(1)}${maFraction.texFractionSimplifiee} \\bigg]$ `,
-                statut: false
-              },
-              {
-                texte: `$\\bigg]${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                statut: false
-              }
-            ]
           }
+          if (N === 'c') {
+            texte = `L'inéquation ${sp(1)} $${reduireAxPlusB(a, b)}\\leqslant 0$ a pour ensemble de solutions :`
+            this.canEnonce = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}\\leqslant 0$ ?`
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { vertical: true },
+              propositions: [
+                {
+                  texte: `$\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$${context.isHtml ? '' : '\\\\'}`,
+                  statut: true
+                },
+                {
+                  texte: `$\\bigg]-\\infty${sp(1)} ; ${sp(1)}${maFraction.texFractionSimplifiee} \\bigg]$${context.isHtml ? '' : '\\\\'}`,
+                  statut: false
+                },
+                {
+                  texte: `$\\bigg]${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$${context.isHtml ? '' : '\\\\'}`,
+                  statut: false
+                }
+              ]
+            }
 
-          monQcm = propositionsQcm(this, 0)
-          texte += monQcm.texte
+            monQcm = propositionsQcm(this, i)
+            texte += monQcm.texte
 
-          texteCorr = `L'ensemble de solutions est : $\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$.<br>
+            texteCorr = `L'ensemble de solutions est : $\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$.<br>
           En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
           $${a}x\\leqslant${-b}$<br>
           En divisant par $(${a})$ dans chaque membre, on obtient :<br>
-          $x$${texteEnCouleur('$\\geqslant$')}$${maFraction.texFractionSimplifiee}$ ${sp(3)} 
+          $x$${texteEnCouleur('$\\geqslant$')}$${maFraction.texFractionSimplifiee}$ ${sp(3)}
           ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l’inégalité).')}<br>
           Les solutions sont les nombres  supérieurs ou égaux  à $${maFraction.texFractionSimplifiee}$. `
-        }
-        if (N === 'd') {
-          texte = `L'inéquation ${sp(1)} $${reduireAxPlusB(a, b)}< 0$ a pour ensemble de solutions :`
-          this.canEnonce = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}< 0$ ?`
-          this.autoCorrection[0] = {
-            enonce: texte,
-            options: { vertical: true },
-            propositions: [
-              {
-                texte: `$\\bigg]${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                statut: true
-              },
-              {
-                texte: `$\\bigg]-\\infty${sp(1)} ; ${sp(1)}${maFraction.texFractionSimplifiee} \\bigg[$ `,
-                statut: false
-              },
-              {
-                texte: `$\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                statut: false
-              }
-            ]
           }
+          if (N === 'd') {
+            texte = `L'inéquation ${sp(1)} $${reduireAxPlusB(a, b)}< 0$ a pour ensemble de solutions :`
+            this.canEnonce = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}< 0$ ?`
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { vertical: true },
+              propositions: [
+                {
+                  texte: `$\\bigg]${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$${context.isHtml ? '' : '\\\\'}`,
+                  statut: true
+                },
+                {
+                  texte: `$\\bigg]-\\infty${sp(1)} ; ${sp(1)}${maFraction.texFractionSimplifiee} \\bigg[$${context.isHtml ? '' : '\\\\'}`,
+                  statut: false
+                },
+                {
+                  texte: `$\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$${context.isHtml ? '' : '\\\\'}`,
+                  statut: false
+                }
+              ]
+            }
 
-          monQcm = propositionsQcm(this, 0)
-          texte += monQcm.texte
+            monQcm = propositionsQcm(this, i)
+            texte += monQcm.texte
 
-          texteCorr = `L'ensemble de solutions est : $\\bigg]${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$.<br>
+            texteCorr = `L'ensemble de solutions est : $\\bigg]${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$.<br>
                       En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
                       $${a}x<${-b}$<br>
                       En divisant par $(${a})$ dans chaque membre, on obtient :<br>
-          $x$${texteEnCouleur('$>$')}$${maFraction.texFractionSimplifiee}$ ${sp(3)} 
+          $x$${texteEnCouleur('$>$')}$${maFraction.texFractionSimplifiee}$ ${sp(3)}
           ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l’inégalité).')}<br>
           Les solutions sont les nombres strictement supérieurs   à $${maFraction.texFractionSimplifiee}$. `
-        }
-        break
+          }
+          break
+      }
+      if (this.listeQuestions.indexOf(texte) === -1) {
+      // Si la question n'a jamais été posée, on en crée une autre
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+      }
+      this.canReponseACompleter = monQcm.texte
+      this.listeCanEnonces.push(this.canEnonce)
+      this.listeCanReponsesACompleter.push(this.canReponseACompleter)
+      cpt++
     }
-    this.listeQuestions.push(texte)
-    this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
-    this.canReponseACompleter = monQcm.texte
   }
 }

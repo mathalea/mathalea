@@ -84,6 +84,8 @@ export default function CoordonneesSommetParabole () {
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        this.listeCanEnonces.push(this.canEnonce)
+        this.listeCanReponsesACompleter.push(this.canReponseACompleter)
         i++
       }
       cpt++

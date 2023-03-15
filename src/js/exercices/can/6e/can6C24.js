@@ -22,7 +22,7 @@ export default function MultiplierParPuissanceDixNeg () {
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.besoinFormulaireNumerique = ['Multiplier ou diviser', 3, '1 : Multiplier\n2 : Diviser\n3 : Mélange']
-  this.sup = 1
+  this.sup = 3
   this.nouvelleVersion = function () {
     const a = randint(1, 9)
     const b = randint(1, 9, a)
