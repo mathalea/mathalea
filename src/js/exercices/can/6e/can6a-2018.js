@@ -335,7 +335,7 @@ export default function SujetCAN20186ieme () {
         case 17 :
           truc = [['dixièmes', 0.1], ['centièmes', 0.01], ['millièmes', 0.001]]
           a = choice([10, 100, 1000])
-          b = randint(1, 9)
+          b = randint(2, 9)
           c = choice([0, 2])
 
           reponse = a * b * truc[c][1]
@@ -419,17 +419,17 @@ export default function SujetCAN20186ieme () {
 
           a = randint(1, 4) * 12
           if (choice([true, false])) {
-            texte = `Le tiers de $${a}$ oeufs est `
+            texte = `Le tiers de $${a}$ œufs est `
             reponse = Math.round(a / 3)
-            texteCorr = `Le tiers de $${a}$ oeufs est $${a}\\div 3=${miseEnEvidence(a / 3)}$ oeufs. `
+            texteCorr = `Le tiers de $${a}$ œufs est $${a}\\div 3=${miseEnEvidence(a / 3)}$ œufs. `
           } else {
-            texte = `Le quart de $${a}$ oeufs est `
+            texte = `Le quart de $${a}$ œufs est `
             reponse = Math.round(a / 4)
-            texteCorr = `Le quart de $${a}$ oeufs est $${a}\\div 4=${miseEnEvidence(a / 4)}$ oeufs. `
+            texteCorr = `Le quart de $${a}$ œufs est $${a}\\div 4=${miseEnEvidence(a / 4)}$ œufs. `
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' oeufs.' } else { texte += ' ....  oeufs.' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' œufs.' } else { texte += ' ....  œufs.' }
           nbChamps = 1
           break
 
@@ -457,7 +457,7 @@ export default function SujetCAN20186ieme () {
           a = randint(0, 2)
           choix = choice(['a', 'b', 'c', 'd'])
           if (choix === 'a') {
-            texte = `Ecris en chiffres : <br>
+            texte = `Écris en chiffres : <br>
               Deux-millions-${chiffre[a][0]}-cent-${chiffre[a][0]}-mille-${chiffre[a][0]} `
             reponse = 2 * 1000000 + chiffre[a][1] * 100000 + chiffre[a][1] * 1000 + chiffre[a][1]
             texteCorr = `Deux-millions-${chiffre[a][0]}-cent-${chiffre[a][0]}-mille-${chiffre[a][0]} $=
@@ -469,7 +469,7 @@ export default function SujetCAN20186ieme () {
           }
 
           if (choix === 'b') {
-            texte = `Ecris en chiffres : <br>
+            texte = `Écris en chiffres : <br>
               Deux-millions-${chiffre[a][0]}-mille-${chiffre[a][0]} `
             reponse = 2 * 1000000 + chiffre[a][1] * 1000 + chiffre[a][1]
             texteCorr = `Deux-millions-${chiffre[a][0]}-mille-${chiffre[a][0]} $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre[a][1] * 1000)} + ${texNombre(chiffre[a][1])}=${miseEnEvidence(texNombre(2 * 1000000 + chiffre[a][1] * 1000 + chiffre[a][1]))}$. `
@@ -479,7 +479,7 @@ export default function SujetCAN20186ieme () {
           }
 
           if (choix === 'c') {
-            texte = `Ecris en chiffres : <br>
+            texte = `Écris en chiffres : <br>
               Deux-millions-${chiffre2[a][0]}-mille-${chiffre[a][0]} `
             reponse = 2 * 1000000 + chiffre2[a][1] * 1000 + chiffre[a][1]
             texteCorr = `Deux-millions-${chiffre2[a][0]}-mille-${chiffre[a][0]} $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre2[a][1] * 1000)} + ${texNombre(chiffre[a][1])}=${miseEnEvidence(texNombre(2 * 1000000 + chiffre2[a][1] * 1000 + chiffre[a][1]))}$. `
@@ -489,7 +489,7 @@ export default function SujetCAN20186ieme () {
           }
 
           if (choix === 'd') {
-            texte = `Ecris en chiffres : <br>
+            texte = `Écris en chiffres : <br>
               Deux-millions-${chiffre[a][0]}-mille-${chiffre2[a][0]} `
             reponse = 2 * 1000000 + chiffre[a][1] * 1000 + chiffre2[a][1]
             texteCorr = `Deux-millions-${chiffre[a][0]}-mille-${chiffre2[a][0]} $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre[a][1] * 1000)} + ${texNombre(chiffre2[a][1])}=${miseEnEvidence(texNombre(2 * 1000000 + chiffre[a][1] * 1000 + chiffre2[a][1]))}$. `
@@ -578,9 +578,9 @@ export default function SujetCAN20186ieme () {
           b = randint(3, 5)
           reponse = randint(4, 9)
           a = reponse * b
-          texte = `${prenom1} a $${a}$ billes. Elle en a $${b}$ fois plus que sa soeur.<br>
-            Combien de billes sa soeur  a-t-elle ? `
-          texteCorr = `Puisque ${prenom1} en  a $${b}$ fois plus, sa soeur en a $${b}$ fois moins, soit  : $${a}\\div ${b}=${miseEnEvidence(a / b)}$. `
+          texte = `${prenom1} a $${a}$ billes. Elle en a $${b}$ fois plus que sa sœur.<br>
+            Combien de billes sa sœur  a-t-elle ? `
+          texteCorr = `Puisque ${prenom1} en  a $${b}$ fois plus, sa sœur en a $${b}$ fois moins, soit  : $${a}\\div ${b}=${miseEnEvidence(a / b)}$. `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -589,7 +589,7 @@ export default function SujetCAN20186ieme () {
 
         case 28 :
           a = randint(2, 9)
-          texte = `Complète $${a}$ m$^3=$ `
+          texte = `Complète : $${a}$ m$^3=$ `
           texteCorr = `$1$ m$^3$ est égal à $1000$ litres. Ainsi, $${a}$ m$^3=${a}\\times ${texNombre(1000)} \\text{ L }=${miseEnEvidence(texNombre(1000 * a))}$ L.`
           reponse = a * 1000
 
@@ -621,7 +621,7 @@ export default function SujetCAN20186ieme () {
           c = randint(2, 3)
           texte = `À la cantine, il y a toujours $${a}$ entrées différentes, $${b}$ plats différents et $${c}$ desserts différents.<br>
             Combien de menus (composés d'une entrée, d'un plat et d'un dessert) différents peut-on avoir dans cette cantine ?`
-          texteCorr = `On peut avoir : $${a}\\times ${b}\\times ${c} =${miseEnEvidence(a * b * c)}$ menus diférents.`
+          texteCorr = `On peut avoir : $${a}\\times ${b}\\times ${c} =${miseEnEvidence(a * b * c)}$ menus différents.`
           reponse = a * b * c
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }

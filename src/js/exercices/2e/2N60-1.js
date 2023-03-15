@@ -5,11 +5,14 @@ import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, combinaisonListes, pgcd, texteGras, prenomF, itemize, sp, reduireAxPlusB, texPrix, ecritureParentheseSiNegatif, miseEnEvidence, rienSi1, abs, choice, texNombre, randint, ecritureAlgebrique } from '../../modules/outils.js'
 import { polygone, codageAngleDroit, milieu, labelPoint, point, segment, texteParPosition } from '../../modules/2d.js'
 export const titre = 'Modéliser un problème par une inéquation.'
+export const dateDePublication = '14/02/2023'
 /**
  * Description didactique de l'exercice
  * @author Gilles Mora
  * Référence
 */
+export const uuid = 'd2084'
+export const ref = '2N60-1'
 export default function ModeliseInequations () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
@@ -83,7 +86,7 @@ export default function ModeliseInequations () {
             Forfait de $${b}$ € quelque soit le nombre de km parcourus, puis un supplément par kilomètre parcouru de $${texNombre(a, 2)}$ €. <br>
             
             ${quidam} loue une voiture à cette société. Elle a un budget de $${budget}$ € et ne veut pas le dépasser.<br>
-                      Quel est le nombre maximum de km qu'elle peut pourra parcourir pour ne pas dépasser son budget ?
+                      Quel est le nombre maximum de km qu'elle pourra parcourir sans dépasser son budget ?
                                    `
             texteCorr = `En notant $x$, le nombre de km parcourus, le coût pour la location mensuelle est donné par : $${reduireAxPlusB(a, b)}$.<br>
             Le budget de ${quidam} étant de  $${budget}$ €, le nombre de km $x$ qu'elle pourra parcourir doit vérifier $${reduireAxPlusB(a, b)}<${budget}$.<br>
@@ -103,7 +106,7 @@ export default function ModeliseInequations () {
             const EM = randint(70, 150) // nombre entrée matin
             const RT = randint(200, 400) * 10 // recette totale
             texte = ` À la mi-journée la recette d'un musée s'élève à $${texNombre(PB * EM, 2)}$ € pour $${EM}$ entrées. Le prix de l'entrée est unique.<br>
-                Quel doit être le minimum d'entrées en deuxième partie de journée pour que la recette de la journée soit au moins égale à celle de la veille qui s'élevait à $${texNombre(RT)}$ € ?<br>
+                Quel doit être le minimum d'entrées en deuxième partie de journée pour que la recette de la journée soit au moins égale à  $${texNombre(RT)}$ € ?<br>
                 Résoudre ce problème en écrivant et résolvant une inéquation modélisant la situation.
                                        `
             texteCorr = `Le montant du billet d'entrée est donné par $${texNombre(PB * EM, 2)}${sp(1)} € \\div ${EM}=${texPrix(PB, 2)}$ €.<br>
@@ -117,7 +120,7 @@ export default function ModeliseInequations () {
                 x&\\geqslant \\dfrac{${texNombre(RT - PB * EM, 2)}}{${texNombre(PB, 2)}}\\\\        
     \\end{aligned}$<br>
   Comme  $\\dfrac{${texNombre(RT - PB * EM, 2)}}{${texNombre(PB, 2)}}${Math.round((RT - PB * EM) / PB) === (RT - PB * EM) / PB ? '=' : '\\simeq'} ${texNombre((RT - PB * EM) / PB, 1)}$, 
-  il faudra au minimum ${Math.round((RT - PB * EM) / PB) === (RT - PB * EM) / PB ? `$${texNombre((RT - PB * EM) / PB, 0)}$` : `$${texNombre((RT - PB * EM) / PB + 1, 0)}$`} entrées pour que la recette de la journée soit au moins égale à celle de la veille.  
+  il faudra au minimum ${Math.round((RT - PB * EM) / PB) === (RT - PB * EM) / PB ? `$${texNombre((RT - PB * EM) / PB, 0)}$` : `$${texNombre((RT - PB * EM) / PB + 1, 0)}$`} entrées pour que la recette de la journée soit au moins égale à  $${texNombre(RT)}$ €.
                
               `
           }
@@ -211,7 +214,7 @@ export default function ModeliseInequations () {
               texteParPosition(`${texNombre(a)}`, milieu(A, B).x, milieu(A, B).y - 0.5, 'milieu', 'black', 1, 'middle', true)
             )
 
-            texte = ` On considère la figure ci-dessous. <br>
+            texte = ` On considère la figure ci-dessous (l'unité est le centimètre). <br>
             Quelles sont les valeurs possibles de $x$ pour que le périmètre de la figure soit supérieur à $${P}$ cm.<br>
               `
             texte += mathalea2d({ xmin: -3, ymin: -1, xmax: 12, ymax: 8, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets)
@@ -226,7 +229,7 @@ export default function ModeliseInequations () {
             x&>\\dfrac{${P - 2 * b - 2 * a}}{4}`
             texteCorr += '\\end{aligned}$<br>'
 
-            texteCorr += `Comme $\\dfrac{${P - 2 * b - 2 * a}}{4}=${texNombre((P - 2 * b - 2 * a) / 4, 2)}$, $x$ doit être supérieur à $${texNombre((P - 2 * b - 2 * a) / 4, 2)}$ pour que le périmètre de la figure soit supérieur à $${P}$.
+            texteCorr += `Comme $\\dfrac{${P - 2 * b - 2 * a}}{4}=${texNombre((P - 2 * b - 2 * a) / 4, 2)}$, $x$ doit être supérieur à $${texNombre((P - 2 * b - 2 * a) / 4, 2)}$ cm pour que le périmètre de la figure soit supérieur à $${P}$ cm.
 
              `
           }
@@ -265,14 +268,14 @@ export default function ModeliseInequations () {
 
             texte = ` On considère la figure ci-dessous sur laquelle les longueurs sont en cm. <br>
             Quelles sont les valeurs possibles de $x$ pour que l'aire de cette  figure dépasse  $${Aire}$ cm$^2$ ?<br>
-            Résoudre ce problème en le modélisant par une inéquation.
+            Résoudre ce problème en le modélisant par une inéquation.<br>
               `
             texte += mathalea2d({ xmin: -3, ymin: -1, xmax: 12, ymax: 9, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets)
             texteCorr = `La figure est constituée d'un rectangle, d'un carré et d'un triangle.<br>
            $\\bullet$  L'aire du rectangle est : $${a}\\times x=${rienSi1(a)}x$.<br>
            $\\bullet$  L'aire du carré est : $${a}\\times ${a}=${a ** 2}$.<br>
            $\\bullet$  L'aire du triangle est : $\\dfrac{${b}\\times x}{2}=${texNombre(b / 2, 0)}x$.<br>
-Le problème revient donc à trouver les valeurs de $x$ vérifiant : $${rienSi1(a)}x+${a ** 2}+${texNombre(b / 2, 0)}x>${Aire}$, soit $${texNombre(a + b / 2, 0)}x+${a ** 2}>${Aire}$.
+Le problème revient donc à trouver les valeurs de $x$ vérifiant : $${rienSi1(a)}x+${a ** 2}+${texNombre(b / 2, 0)}x>${Aire}$, soit $${texNombre(a + b / 2, 0)}x+${a ** 2}>${Aire}$.<br>
 
              `
             texteCorr += `$\\begin{aligned}

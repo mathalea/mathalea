@@ -32,7 +32,7 @@ export default function FonctionsProbabilite2 () {
     const Initiale = []
     const Couleurs = ['red', 'green', 'blue', 'gray', 'brown', '#f15929', 'magenta', 'pink', 'black', 'lightgray']
     qualites[0] = ['à la fraise', 'à la vanille', 'à l\'abricot', 'à la cerise', 'à la banane']
-    qualites[1] = ['trèfle', 'carreau', 'coeur', 'pique']
+    qualites[1] = ['trèfle', 'carreau', 'cœur', 'pique']
     qualites[2] = ['rouges', 'vertes', 'bleues', 'noires', 'blanches']
     qualites[3] = ['gris', 'cyans', 'roses', 'jaunes', 'violets']
     qualites[4] = ['rouges', 'verts', 'bleus', 'noirs', 'jaunes']
@@ -74,7 +74,7 @@ export default function FonctionsProbabilite2 () {
           }
           texteCorr += '<br>'
           if (n[0] === n[1] && n[1] === n[2]) {
-            texteCorr += numAlpha(1) + ` Comme le nombre de yaourts de chaque sorte est le même, alors ${quidame} a la même probabilité de choisir n'importe quel parfum, mais ensuite son frère aura un yaourt de moins de l'un des parfums. Il est donc moins probable qu'il choisisse le même parfum que sa soeur que l'un des deux autres parfums.<br>`
+            texteCorr += numAlpha(1) + ` Comme le nombre de yaourts de chaque sorte est le même, alors ${quidame} a la même probabilité de choisir n'importe quel parfum, mais ensuite son frère aura un yaourt de moins de l'un des parfums. Il est donc moins probable qu'il choisisse le même parfum que sa sœur que l'un des deux autres parfums.<br>`
             texteCorr += `l'issue (${Initiale[p]},${Initiale[p]}) est donc moins probable que l'issue (${Initiale[p]},${Initiale[q]}). Ce n'est donc pas une situation d'équiprobabilité.`
           } else {
             texteCorr += numAlpha(1) + ` Comme le nombre de yaourts est différent d'un parfum à l'autre, ${quidame} n'a pas la même probabilité de choisir n'importe quel parfum. On en déduit qu'il est impossible que les issues (${Initiale[p]},${Initiale[p]}), (${Initiale[q]},${Initiale[q]}) et (${Initiale[r]},${Initiale[r]}) aient la même probabilité.<br>`

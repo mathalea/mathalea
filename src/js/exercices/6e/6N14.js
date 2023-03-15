@@ -7,10 +7,11 @@ import { fraction } from '../../modules/fractions.js'
 export const titre = 'Représenter des fractions'
 export const amcReady = true
 export const amcType = 'AMCHybride'
+export const dateDeModifImportante = '07/03/2023' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  * Représenter des fractions simples avec des disques partagés de façon adéquate.
- * @author Jean-Claude Lhote
+ * @author Jean-Claude Lhote (Modifié par EE : rajout d'un paramètre)
  * 6N14
  * Relecture : Novembre 2021 par EE
  */
@@ -22,6 +23,7 @@ export default function RepresenterUneFraction () {
   this.nbQuestions = 4
   this.nbCols = 2
   this.nbColsCorr = 2
+  this.sup = 3
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -48,6 +50,17 @@ export default function RepresenterUneFraction () {
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       den = liste[i]
+      switch (this.sup) {
+        case 1 :
+          num = randint(1, den - 1)
+          break
+        case 2 :
+          num = randint(den + 1, den * 3)
+          break
+        default :
+          num = randint(1, den * 3)
+          break
+      }
       num = randint(1, den * 3)
       f = fraction(num, den)
       texte = `Sachant qu'un disque représente une unité, représenter la fraction $${f.texFraction}$ en coloriant la part correspondante.<br>`
@@ -84,4 +97,5 @@ export default function RepresenterUneFraction () {
     }
     listeQuestionsToContenu(this)
   }
+  this.besoinFormulaireNumerique = ['Type de fractions', 6, '1 : Inférieures à 1\n2 : Supérieures à 1\n3 : Peu importe']
 }

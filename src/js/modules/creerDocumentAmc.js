@@ -454,6 +454,12 @@ export function exportQcmAmc (exercice, idExo) {
             texQr += 'pt}\\begin{multicols}{2}\n'
           }
         }
+        if (typeof autoCorrection[j].options !== 'undefined') {
+          if (autoCorrection[j].options.numerotationEnonce) {
+            texQr += `\\begin{question}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}Enonce} \\QuestionIndicative `
+          }
+        }
+
         if (autoCorrection[j].enonceAGauche) {
           texQr += `\\noindent\\fbox{\\begin{minipage}{${autoCorrection[j].enonceAGauche[0]}\\linewidth}\n`
         }
@@ -477,6 +483,12 @@ export function exportQcmAmc (exercice, idExo) {
         if (autoCorrection[j].enonceAGauche) {
           texQr += `\\end{minipage}}\n\\noindent\\begin{minipage}[t]{${autoCorrection[j].enonceAGauche[1]}\\linewidth}\n`
         }
+        if (typeof autoCorrection[j].options !== 'undefined') {
+          if (autoCorrection[j].options.numerotationEnonce) {
+            texQr += '\\end{question}'
+          }
+        }
+
         if (typeof autoCorrection[j].options !== 'undefined') {
           if (autoCorrection[j].options.multicols && !autoCorrection[j].options.multicolsAll) {
             texQr += '\\setlength{\\columnseprule}{'
@@ -621,12 +633,25 @@ export function exportQcmAmc (exercice, idExo) {
                 }
                 let reponseF
                 let reponseAlsoCorrect
-                if (valeurAMCNum.num > 0) {
-                  reponseF = arrondi(valeurAMCNum.num + valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)), 8)
-                  reponseAlsoCorrect = arrondi(valeurAMCNum.num + valeurAMCNum.den / (10 ** digitsDen), 8)
+                if (rep.param.aussiCorrect !== null && rep.param.aussiCorrect.num !== null && rep.param.aussiCorrect.den !== null) {
+                  if (valeurAMCNum.num > 0) {
+                    reponseF = arrondi(valeurAMCNum.num + valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)), 8)
+                  } else {
+                    reponseF = arrondi(valeurAMCNum.num - valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)), 8)
+                  }
+                  if (rep.param.aussiCorrect.num > 0) {
+                    reponseAlsoCorrect = arrondi(rep.param.aussiCorrect.num + rep.param.aussiCorrect.den / (10 ** nombreDeChiffresDansLaPartieEntiere(rep.param.aussiCorrect.den)), 8)
+                  } else {
+                    reponseAlsoCorrect = arrondi(rep.param.aussiCorrect.num - rep.param.aussiCorrect.den / (10 ** nombreDeChiffresDansLaPartieEntiere(rep.param.aussiCorrect.den)), 8)
+                  }
                 } else {
-                  reponseF = arrondi(valeurAMCNum.num - valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)), 8)
-                  reponseAlsoCorrect = arrondi(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen), 8)
+                  if (valeurAMCNum.num > 0) {
+                    reponseF = arrondi(valeurAMCNum.num + valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)), 8)
+                    reponseAlsoCorrect = arrondi(valeurAMCNum.num + valeurAMCNum.den / (10 ** digitsDen), 8)
+                  } else {
+                    reponseF = arrondi(valeurAMCNum.num - valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)), 8)
+                    reponseAlsoCorrect = arrondi(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen), 8)
+                  }
                 }
                 texQr += `\\AMCnumericChoices{${reponseF}}{digits=${digitsNum + digitsDen},decimals=${digitsDen},sign=${signeNum},approx=0,`
                 texQr += `borderwidth=0pt,backgroundcol=lightgray,scoreexact=1,Tpoint={\\vspace{0.5cm} \\vrule height 0.4pt width 5.5cm },alsocorrect=${reponseAlsoCorrect}}\n`
@@ -699,6 +724,9 @@ export function exportQcmAmc (exercice, idExo) {
                 }
                 if (rep.param.vhead !== undefined && rep.param.vhead) {
                   texQr += `vhead=${rep.param.vhead},`
+                }
+                if (rep.param.aussiCorrect !== undefined && rep.param.aussiCorrect) {
+                  texQr += `alsocorrect=${rep.param.aussiCorrect},`
                 }
                 if (rep.param.tpoint !== undefined && rep.param.tpoint) {
                   texQr += `Tpoint={${rep.param.tpoint}},`
@@ -1131,6 +1159,7 @@ export function creerDocumentAmc ({
     if (!melangeQuestion[i]) {
       contenuCopie += `\\setgroupmode{${g}}{cyclic}\n\n`
     }
+    // contenuCopie += `\\melangegroupe{${g}}\n` Pour Eric, ne pas effacer
     if (nbQuestions[i] > 0) {
       contenuCopie += `\\restituegroupe[${nbQuestions[i]}]{${g}}\n\n`
     } else {

@@ -6400,7 +6400,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2020/tex/dnb_2020_09_metropole_3.tex',
     urlcor: '/dnb/2020/tex/dnb_2020_09_metropole_3_cor.tex',
-    tags: ['Pythagore', 'Thalès', 'Pourcentages', "Recherche d'informations"]
+    tags: ['Pythagore', 'Thalès', 'Pourcentages', 'Trigonométrie', "Recherche d'informations"]
   },
   dnb_2020_09_metropole_4: {
     annee: '2020',

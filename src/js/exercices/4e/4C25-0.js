@@ -44,7 +44,7 @@ export default function ProblemesAdditifsFractionsBis () {
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(
       typesDeQuestionsDisponibles,
       this.nbQuestions
-    ) // Tous les types de questions sont posées --> à remettre comme ci dessus
+    ) // Tous les types de questions sont posées --> à remettre comme ci-dessus
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

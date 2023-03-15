@@ -23,7 +23,7 @@ export default class NomExercice extends Exercice {
     let b = choice(nbPremiers)
     let c = choice(nbPremiers, a)
     ;[a, b, c] = [a, b, c].sort((a, b) => a - b)
-    this.question = `Trois soeurs sont dans une maison. Le produit de leurs âges est égal à $${a * b * c}$. Deux d'entre elles peuvent être jumelles. Quel est l'âge de l'aînée ?`
+    this.question = `Trois sœurs sont dans une maison. Le produit de leurs âges est égal à $${a * b * c}$. Deux d'entre elles peuvent être jumelles. Quel est l'âge de l'aînée ?`
     this.correction = `On peut utiliser la décomposition en produit de facteurs premiers : $${a * b * c} = ${a} \\times ${b} \\times ${c}$.`
     this.correction += `<br><br>Il n'y a qu'un seul produit de trois facteurs égal à $${a * b * c}$ donc l'aînée a ${c} ans.`
     this.reponse = c

@@ -8,6 +8,7 @@ import { clavierCollege } from './interactif/claviers/college.js'
 import { clavierLycee } from './interactif/claviers/lycee.js'
 import { clavierConfiguration } from './interactif/claviers/claviersUnites.js'
 import { clavierCollege6eme } from './interactif/claviers/college6eme.js'
+import { clavierHms } from './interactif/claviers/clavierHms.js'
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
  * @type {Object}
@@ -186,6 +187,9 @@ export async function loadMathLive () {
       if (mf.classList.contains('longueur')) {
         mf.setOptions(clavierLongueur)
       }
+      if (mf.classList.contains('clavierHms')) {
+        mf.setOptions(clavierHms)
+      }
       if (mf.classList.contains('grecTrigo')) {
         mf.setOptions(clavierTrigo)
       }
@@ -215,6 +219,9 @@ export async function loadMathLive () {
       }
       if (mf.classList.contains('largeur75')) {
         style += ' width: 75%;'
+      }
+      if (context.versionMathalea > 2) {
+        style += ' min-width: 200px'
       }
       mf.style = style
     }

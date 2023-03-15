@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 551 
-- nombre d'exos interactifReady 844 
+- nombre d'exos amcReady 561 
+- nombre d'exos interactifReady 853 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -86,11 +86,11 @@
 |3F10-1|Vocabulaire et notations des fonctions (généralités)|OK|qcmMult|OK|qcm|
 |3F10-2|Fonction : calculs d'images (et d'antécédents)|OK|AMCNum|OK|mathLive|
 |3F10-3|Vocabulaire et notations des fonctions|OK|qcmMult|OK|qcm|
-|3F10|Lectures d'images et d'antécédents depuis un tableau de valeurs|KO|KO|OK|mathLive|
-|3F12-2|Déterminer l'image d'un nombre par une fonction d'après sa forme algébrique|KO|KO|OK|mathLive|
+|3F10|Lire images et antécédents depuis un tableau de valeurs|OK|AMCHybride|OK|mathLive|
+|3F12-2|Déterminer l'image d'un nombre par une fonction d'après sa forme algébrique|OK|AMCNum|OK|mathLive|
 |3F12-3|Compléter un tableau de valeurs|OK|AMCHybride|OK|mathLive|
 |3F12-4|Lire l'image d'un nombre à partir d'un graphique|OK|AMCHybride|OK|mathLive|
-|3F13-1|Lecture graphique d'images et d'antécédents|KO|KO|OK|mathLive|
+|3F13-1|Lire graphiquement images et antécédents|OK|AMCHybride|OK|mathLive|
 |3F13-2|Spécial escape game|KO|KO|OK|mathLive|
 |3F21-1|Déterminer une fonction affine|OK|AMCOpenNum✖︎2|OK|mathLive|
 |3F21-2|Déterminer une fonction affine par la donnée des images de deux nombres|KO|KO|OK|mathLive|
@@ -144,7 +144,8 @@
 |3L13-2|Résoudre une equation résolvante pour le théorème de Thalès|OK|AMCNum|OK|mathLive|
 |3L13-3|Mettre en équation un problème et le résoudre|OK|AMCNum|OK|mathLive|
 |3L13|Résoudre une equation du premier degré|OK|AMCHybride|OK|mathLive|
-|3L14|Résoudre une équation produit nul|KO|KO|OK|mathLive|
+|3L14-1|Résoudre une équation produit nul (niveau 2)|OK|AMCHybride|OK|mathLive|
+|3L14|Résoudre une équation produit nul|OK|AMCHybride|OK|mathLive|
 |3L15-1|Résoudre une équation $x^2 = a$|KO|KO|OK|mathLive|
 |3P10-1|Coefficient multiplicateur d'une variation en pourcentage|KO|KO|OK|mathLive|
 |3P10|Variations en pourcentage|KO|KO|OK|mathLive|
@@ -184,6 +185,7 @@
 |4C24|Simplifier des fractions à l'aide des nombres premiers|OK|AMCHybride|OK|mathLive|
 |4C30-1|Encadrer avec des puissances de 10|KO|KO|OK|mathLive|
 |4C30-2|Écriture décimale d'une puissance de 10|OK|AMCNum|OK|mathLive|
+|4C30-3|Écriture décimale ou fractionnaire d'une puissance|OK|AMCNum|OK|mathLive|
 |4C30-4|Puissances de 10 et préfixes|KO|KO|OK|listeDeroulante|
 |4C30|Puissances de 10 : Le sens des règles de calculs|KO|KO|OK|mathLive|
 |4C32-0|Écriture décimale d'un calcul avec des puissances de 10|KO|KO|OK|mathLive|
@@ -313,7 +315,8 @@
 |6C34|Déterminer le dernier chiffre d'un calcul|OK|AMCNum|OK|mathLive|
 |6C35|Modéliser des problèmes|KO|KO|OK|mathLive|
 |6D101|Utiliser les heures décimales|OK|AMCHybride|OK|mathLive|
-|6D12|Calculer des durées ou déterminer un horaire|OK|AMCHybride|KO|KO|
+|6D11|Additionner des durées|KO|KO|OK|mathLive|
+|6D12|Calculer des durées ou déterminer un horaire|OK|AMCHybride|OK|mathLive|
 |6D13|Convertir en min vers h et min ou en s vers min et s|OK|AMCHybride|OK|mathLive|
 |6G10-3|Choisir la bonne figure|OK|qcmMono|OK|cliqueFigure|
 |6G10-4|Connaître le vocabulaire du cercle|KO|KO|OK|qcm,mathLive|
@@ -408,12 +411,14 @@
 |6N31-5|Encadrer un décimal|OK|AMCHybride|OK|mathLive|
 |6N31-6|Trouver une valeur approchée ou un arrondi d'un décimal|KO|KO|OK|mathLive|
 |6N31|Comparer des nombres décimaux|OK|AMCOpen|KO|KO|
+|6N32|Représenter une fraction de l'unité|OK|AMCHybride|KO|KO|
 |6N33-0|Calculer la fraction d'une quantité|OK|AMCNum|OK|mathLive|
 |6N33-1|Calculer mentalement le pourcentage d'un nombre|OK|AMCNum|OK|mathLive|
 |6N33-2|Résoudre des problèmes de calcul de pourcentage par complément à 100%|OK|AMCNum|OK|mathLive|
 |6N33-3|Résoudre des problèmes avec des calculs de pourcentages|OK|AMCNum|OK|mathLive|
 |6N33|Calculer la fraction d'un nombre|OK|AMCNum|OK|mathLive|
 |6N34|Effectuer des conversions avec tous les préfixes de milli à tera|OK|AMCNum|OK|mathLive|
+|6N41-1|Parcourir un labyrinthe de fractions égales|OK|AMCHybride|KO|KO|
 |6N41|Compléter les égalités entre fractions simples|OK|qcmMono|OK|mathLive|
 |6N43-2|Utiliser les critères de divisibilité (plusieurs possibles)|OK|qcmMult|OK|qcm|
 |6N43-3|Reconnaître diviseur, multiple, divisible|OK|qcmMono|OK|qcm|
@@ -428,7 +433,6 @@
 |6P14|Agrandir ou réduire des figures, d'après une situation de proportionnalité|OK|AMCHybride|OK|mathLive|
 |6S10-1|Représenter des données par un diagramme|OK|AMCHybride|OK|qcm|
 |6S10|Lire un diagramme en barres|OK|AMCHybride|OK|mathLive|
-|FichierDeTests|Bonne année...|KO|KO|OK|mathLive|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|mathLive|
 |CM001|Tables de multiplication|OK|AMCNum|OK|mathLive|
 |CM002|Tables de divisions|OK|AMCNum|OK|mathLive|
@@ -617,6 +621,7 @@
 |can2P02|Dénombrer dans une situation concrète|KO|KO|OK|mathLive|
 |can2a-2021|CAN Seconde sujet 2021|KO|KO|OK|mathLive|
 |can2a-2022|CAN seconde sujet 2022|KO|KO|OK|mathLive|
+|beta-can3a-2023|CAN 3ième sujet 2023|KO|KO|OK|mathLive|
 |can3C01|Calculer avec des puissances|OK|AMCNum|OK|mathLive|
 |can3C02|Calculer une moyenne avec des décimaux|OK|AMCNum|OK|mathLive|
 |can3C03|Rendre irréductible une fraction|OK|AMCNum|OK|mathLive|
@@ -664,6 +669,7 @@
 |can3S06|Déterminer le rang d’une médiane|KO|KO|OK|mathLive|
 |can3a-2021|CAN 3ième sujet 2021|KO|KO|OK|mathLive|
 |can3a-2022|CAN 3ième sujet 2022|KO|KO|OK|mathLive|
+|beta-can4a-2023|CAN 4ième sujet 2023|KO|KO|OK|mathLive|
 |can4C01|Utiliser les priorités opératoires avec des relatifs|OK|AMCNum|OK|mathLive|
 |can4C02|Trouver l’opposé ou l’inverse d’une fraction|OK|AMCNum|OK|mathLive|
 |can4C03|Effectuer une division avec une fraction|OK|AMCNum|OK|mathLive|
@@ -701,6 +707,7 @@
 |can4P05|Reconnaître sur un graphique une situation de proportionnalité ou de non proportionnalité|KO|KO|OK|mathLive|
 |can4a-2021|CAN 4ième sujet 2021|KO|KO|OK|mathLive|
 |can4a-2022|CAN 4ième sujet 2022|KO|KO|OK|mathLive|
+|beta-can5a-2023|CAN 5ième sujet 2023|KO|KO|OK|mathLive|
 |can5A01|Travailler les répétitions (Scratch)|OK|AMCNum|OK|mathLive|
 |can5C01|Calculer un produit d’entiers|OK|AMCNum|OK|mathLive|
 |can5C02|Calculer une somme d’entiers|OK|AMCNum|OK|mathLive|
@@ -747,6 +754,7 @@
 |can5a-2021|CAN 5ième sujet 2021|KO|KO|OK|mathLive|
 |can5a-2022|CAN 5ième sujet 2022|KO|KO|OK|mathLive|
 |can5a-xxxx|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
+|beta-can6a-2023|CAN 6ième sujet 2023|KO|KO|OK|mathLive|
 |can6C01|Trouver un ordre de grandeur (QCM)|OK|qcmMono|OK|qcm|
 |can6C02|Multiplier un nombre pair par 5|OK|AMCNum|OK|mathLive|
 |can6C03|Rechercher un terme dans une somme|OK|AMCNum|OK|mathLive|
@@ -770,7 +778,7 @@
 |can6C21|Trouver le complément à 1*|OK|AMCNum|OK|mathLive|
 |can6C22|Déterminer la valeur décimale d’une fraction|OK|AMCNum|OK|mathLive|
 |can6C23|Calculer avec +/-99 ou +/-999|OK|AMCNum|OK|mathLive|
-|can6C24|Multiplier par 0,1 ou 0,01 ou 0,001|OK|AMCNum|OK|mathLive|
+|can6C24|Multiplier ou diviser par 0,1 ou 0,01 ou 0,001|OK|AMCNum|OK|mathLive|
 |can6C25|Rechercher un prix unitaire|KO|KO|OK|mathLive|
 |can6C26|Multiplier ou diviser par 10, 100,  1000 ou 0,1 ou 0,01|OK|AMCNum|OK|mathLive|
 |can6C27|Résoudre un problème de rendu de monnaie|KO|KO|OK|mathLive|
@@ -790,6 +798,8 @@
 |can6C42|Comparer une fraction avec 1|KO|KO|OK|mathLive|
 |can6C43|Comprarer deux fractions (dénominateurs multiples)|OK|qcmMono|OK|qcm|
 |can6C44|Comparer deux fractions*|KO|KO|OK|mathLive|
+|can6C45|Résoudre un problème par soustraction/division|OK|AMCNum|OK|mathLive|
+|can6C46|Résoudre un problème de reste en fraction|OK|AMCNum|OK|mathLive|
 |can6D01|Convertir des Heures/minutes en minutes|OK|AMCNum|OK|mathLive|
 |can6D02|Chercher un reste en minutes|OK|AMCNum|OK|mathLive|
 |can6D03|Calculer une durée en minutes|OK|AMCNum|OK|mathLive|

@@ -28,7 +28,7 @@ export default function ReconnaitreFonctionDegre2 () {
     ]
     let texte, texteCorr, monQcm, a, b, c, d, nom, x1, x2, choix, alpha, beta, r1, r2
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (choice([1, 2, 3, 4, 5, 62])) { //
+      switch (choice([1, 2, 3, 4, 5, 6])) { //
         case 1:// forme developpee ok
 
           a = randint(-3, 3, 0)

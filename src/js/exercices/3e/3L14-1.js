@@ -1,6 +1,7 @@
 import ResoudreUneEquationProduitNul from './3L14.js'
 
 // 3L14-1
+export { interactifReady, interactifType, amcReady, amcType } from './3L14.js'
 export const titre = 'Résoudre une équation produit nul (niveau 2)'
 
 export const uuid = 'a8e6c'

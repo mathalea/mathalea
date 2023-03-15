@@ -141,8 +141,8 @@ export default function ModelisationProblemes () {
             colonne1 += `<br>Le lendemain, elle en a trouvé ${c1} autres.`
             colonne1 += '<br>Combien cela lui en fait-il ?'
           } else {
-            colonne1 += `${prenomM()} a ${c1} ans de moins que sa soeur ${prenomF()}.`
-            colonne1 += `<br>Sachant qu'il a ${b1} ans, quel âge a sa soeur ?`
+            colonne1 += `${prenomM()} a ${c1} ans de moins que sa sœur ${prenomF()}.`
+            colonne1 += `<br>Sachant qu'il a ${b1} ans, quel âge a sa sœur ?`
           }
           correctionSansSchema = []
           correctionSansSchema[0] = `${b1}+${c1}`
@@ -417,6 +417,19 @@ export default function ModelisationProblemes () {
       colonne2 += context.isHtml ? '<br>' : '\\\\\n'
       for (let j = 4; j < Math.min(8, listeTypeDeQuestions.length); j++) {
         colonne2 += schemas[j]
+      }
+    }
+    if (context.versionMathalea > 2) {
+      // this.contenu n'est plus utilisé après la version 2
+      // On ne met pas les schéma en mode diaporama
+      if (context.isDiaporama) {
+        this.sup3 = 1
+      }
+      this.introduction = ''
+      if (this.sup3 === 3) {
+        for (let j = 0; j < listeTypeDeQuestions.length; j++) {
+          this.introduction += schemas[j]
+        }
       }
     }
     if (context.isHtml & this.sup3) {

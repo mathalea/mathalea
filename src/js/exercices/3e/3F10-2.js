@@ -296,6 +296,6 @@ export default function CalculsImagesFonctions () {
     5,
     '1 : Fonction linéaire\n2 : Fonction affine \n3 : Polynome de degré 2 \n4 : Fonction rationnelle \n5 : Mélange'
   ]
-  this.besoinFormulaire2Numerique = ['Choix des questions', 3, "1 : Calcul d'image\n2 : Calcul d'antécédent (uniquement pour linéaire et affine)\n3 : Mélange"]
-  this.besoinFormulaire3Numerique = ['Niveau de difficulté', 5, '1 : Que des entiers positifs\n2 : Avec des entiers relatifs\n3 : Avec des fractions dans les coefficients (antécédents positifs)\n4 : Avec des antécédents tous négatifs (pas de fraction)\n5 Mélange']
+  this.besoinFormulaire2Numerique = ['Image ou antécédent', 3, "1 : Calcul d'image\n2 : Calcul d'antécédent (uniquement pour linéaire et affine)\n3 : Mélange"]
+  this.besoinFormulaire3Numerique = ['Niveau de difficulté', 5, '1 : Que des entiers positifs\n2 : Avec des entiers relatifs\n3 : Avec des fractions dans les coefficients (antécédents positifs)\n4 : Avec des antécédents tous négatifs (pas de fraction)\n5 : Mélange']
 }

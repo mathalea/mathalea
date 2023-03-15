@@ -72,40 +72,42 @@ export default function ExerciceEquationASolutionEntiere () {
       switch (listeTypeDeQuestions[i]) {
         case 'ax+b=0':
         case 'ax+b=c':
-          if (listeTypeDeQuestions[i] === 'ax+b=0') {
-            c = 0
-          } else {
-            c = randint(-9, 9, [0])
-          }
-          reponse = randint(-5, 5, [0, -1, 1])
-          a = randint(-5, 5, [-1, 0, 1])
-          if (!this.sup) {
-            reponse = Math.abs(reponse)
-            a = Math.abs(a)
-            c = Math.abs(c)
-          }
-          b = c - a * reponse // b peut être négatif, ça sera une équation du type x-b=c
-          texte = `$${a}x${ecritureAlgebrique(b)}=${c}$`
-          texteCorr = texte + '<br>'
-          if (this.correctionDetaillee) {
-            if (b > 0) {
-              texteCorr += `On soustrait $${b}$ aux deux membres.<br>`
+          do {
+            if (listeTypeDeQuestions[i] === 'ax+b=0') {
+              c = 0
             } else {
-              texteCorr += `On ajoute $${-1 * b}$ aux deux membres.<br>`
+              c = randint(-9, 9, [0])
             }
-          }
-          texteCorr += `$${a}x${ecritureAlgebrique(b)}${miseEnEvidence(
-          ecritureAlgebrique(-1 * b)
-        )}=${c}${miseEnEvidence(ecritureAlgebrique(-1 * b))}$<br>`
-          texteCorr += `$${a}x=${c - b}$<br>`
-          if (this.correctionDetaillee) {
-            texteCorr += `On divise les deux membres par $${a}$.<br>`
-          }
-          texteCorr += `$${a}x${miseEnEvidence(
-          '\\div' + ecritureParentheseSiNegatif(a)
-        )}=${c - b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a))}$<br>`
-          texteCorr += `$x=${texFraction(c - b, a)}=${reponse}$`
-          texteCorr += `<br> La solution est $${reponse}$.`
+            reponse = randint(-5, 5, [0, -1, 1])
+            a = randint(-5, 5, [-1, 0, 1])
+            if (!this.sup) {
+              reponse = Math.abs(reponse)
+              a = Math.abs(a)
+              c = Math.abs(c)
+            }
+            b = c - a * reponse // b peut être négatif, ça sera une équation du type x-b=c
+            texte = `$${a}x${ecritureAlgebrique(b)}=${c}$`
+            texteCorr = texte + '<br>'
+            if (this.correctionDetaillee) {
+              if (b > 0) {
+                texteCorr += `On soustrait $${b}$ aux deux membres.<br>`
+              } else {
+                texteCorr += `On ajoute $${-1 * b}$ aux deux membres.<br>`
+              }
+            }
+            texteCorr += `$${a}x${ecritureAlgebrique(b)}${miseEnEvidence(
+              ecritureAlgebrique(-1 * b)
+            )}=${c}${miseEnEvidence(ecritureAlgebrique(-1 * b))}$<br>`
+            texteCorr += `$${a}x=${c - b}$<br>`
+            if (this.correctionDetaillee) {
+              texteCorr += `On divise les deux membres par $${a}$.<br>`
+            }
+            texteCorr += `$${a}x${miseEnEvidence(
+              '\\div' + ecritureParentheseSiNegatif(a)
+            )}=${c - b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a))}$<br>`
+            texteCorr += `$x=${texFraction(c - b, a)}=${reponse}$`
+            texteCorr += `<br> La solution est $${reponse}$.`
+          } while (b === 0)
           break
         case 'x+b=c':
           b = randint(-9, 9, [0]) // b peut être négatif, ça sera une équation du type x-b=c
@@ -144,8 +146,8 @@ export default function ExerciceEquationASolutionEntiere () {
             texteCorr += `On divise les deux membres par $${a}$.<br>`
           }
           texteCorr += `$${a}x${miseEnEvidence(
-          '\\div' + ecritureParentheseSiNegatif(a)
-        )}=${b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a))}$<br>`
+              '\\div' + ecritureParentheseSiNegatif(a)
+            )}=${b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a))}$<br>`
           texteCorr += `$x=${texFraction(b, a)}=${reponse}$`
           texteCorr += `<br> La solution est $${reponse}$.`
           break

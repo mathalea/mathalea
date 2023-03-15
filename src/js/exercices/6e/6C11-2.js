@@ -61,8 +61,8 @@ export default function VocabulaireDivisionEuclidienne () {
       Nbutilises[1] = randint(5, 99)
       switch (this.sup4) {
         case 1 :
-          Nbutilises[2] = randint(4, Nbutilises[1] - 1)
-          Nbutilises[3] = randint(Nbutilises[2], Nbutilises[1] - 1)
+          Nbutilises[2] = randint(3, Nbutilises[1] - 2)
+          Nbutilises[3] = randint(Nbutilises[2] + 1, Nbutilises[1] - 1)
           break
         case 2 :
           Nbutilises[2] = randint(5, 99, [Nbutilises[1]])
@@ -70,8 +70,8 @@ export default function VocabulaireDivisionEuclidienne () {
           break
         default :
           if (randint(0, 1) === 0) {
-            Nbutilises[2] = randint(4, Nbutilises[1] - 1)
-            Nbutilises[3] = randint(Nbutilises[2], Nbutilises[1] - 1)
+            Nbutilises[2] = randint(3, Nbutilises[1] - 2)
+            Nbutilises[3] = randint(Nbutilises[2] + 1, Nbutilises[1] - 1)
           } else {
             Nbutilises[2] = randint(5, 99, [Nbutilises[1]])
             Nbutilises[3] = randint(4, min(Nbutilises[2], Nbutilises[1]) - 1)

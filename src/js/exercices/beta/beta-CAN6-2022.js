@@ -392,7 +392,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           reponse = b / 2
           texte = `Le périmètre de cette figure est $${a + b}$ cm. <br>
             `
-          texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
+          texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
           texteCorr = `Puisque le périmètre du rectangle est $${a + b}$ cm, alors $\\text{?}=(${a + b}-2\\times ${texNombre(a / 2)})\\div 2=${texNombre(b / 2)}$ cm.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -436,7 +436,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           a = randint(0, 2)
           choix = choice(['a', 'b', 'c', 'd'])
           if (choix === 'a') {
-            texte = `Ecris en chiffres : <br>
+            texte = `Écris en chiffres : <br>
               Deux-millions-${chiffre[a][0]}-cent-${chiffre[a][0]}-mille `
             reponse = 2 * 1000000 + chiffre[a][1] * 100000 + chiffre[a][1] * 1000
             texteCorr = `Deux-millions-${chiffre[a][0]}-cent-${chiffre[a][0]}-mille$=
@@ -448,7 +448,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           }
 
           if (choix === 'b') {
-            texte = `Ecris en chiffres : <br>
+            texte = `Écris en chiffres : <br>
               Deux-millions-${chiffre[a][0]}-mille `
             reponse = calcul(2 * 1000000 + chiffre[a][1] * 1000)
             texteCorr = `Deux-millions-${chiffre[a][0]}-mille-${chiffre[a][0]} $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre[a][1] * 1000)} + ${texNombre(chiffre[a][1])}=${texNombre(2 * 1000000 + chiffre[a][1] * 1000)}$. `
@@ -458,7 +458,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           }
 
           if (choix === 'c') {
-            texte = `Ecris en chiffres : <br>
+            texte = `Écris en chiffres : <br>
               Deux-millions-${chiffre2[a][0]}-mille `
             reponse = calcul(2 * 1000000 + chiffre2[a][1] * 1000)
             texteCorr = `Deux-millions-${chiffre2[a][0]}-mille $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre2[a][1] * 1000)} =${texNombre(2 * 1000000 + chiffre2[a][1] * 1000)}$. `
@@ -468,7 +468,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           }
 
           if (choix === 'd') {
-            texte = `Ecris en chiffres : <br>
+            texte = `Écris en chiffres : <br>
               Deux-millions-${chiffre[a][0]}-mille `
             reponse = calcul(2 * 1000000 + chiffre[a][1] * 1000)
             texteCorr = `Deux-millions-${chiffre[a][0]}-mille-${chiffre2[a][0]} $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre[a][1] * 1000)} =${texNombre(2 * 1000000 + chiffre[a][1] * 1000)}$. `
@@ -503,7 +503,7 @@ $${a + 1}$ h et $${reponse}$ min.`
             reponse = fraction(b, 4)
             texte = `Quelle est la longueur du segment $[AB]$ ? <br>
             `
-            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
             texteCorr = `Une unité correspond à $4$ carreaux, le segment $[AB]$ mesure $${b}$ carreaux, soit $\\dfrac{${b}}{4}=${texNombre(b / 4)}$ unité. `
           } else {
             a = grille(-2, -2, 10, 4, 'gray', 1, 1)
@@ -529,7 +529,7 @@ $${a + 1}$ h et $${reponse}$ min.`
             reponse = fraction(b, 5)
             texte = `Quelle est la longueur du segment $[AB]$ ? <br>
             `
-            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
             texteCorr = `Une unité correspond à $5$ carreaux, le segment $[AB]$ mesure $${b}$ carreaux, soit $\\dfrac{${b}}{5}=${texNombre(b / 5)}$ unité. `
           }
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })

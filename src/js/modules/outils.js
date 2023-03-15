@@ -44,7 +44,7 @@ export function listeQuestionsToContenu (exercice) {
       vspace = `\\vspace{${exercice.vspace} cm}\n`
     }
     if (!context.isAmc) {
-      if (document.getElementById('supprimer_reference').checked === true) {
+      if (document.getElementById('supprimer_reference') && document.getElementById('supprimer_reference').checked === true) {
         exercice.contenu = texConsigne(exercice.consigne) + vspace + texIntroduction(exercice.introduction) + texMulticols(texEnumerate(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
       } else {
         exercice.contenu = texConsigne(exercice.consigne) + `\n\\marginpar{\\footnotesize ${exercice.id}}` + vspace + texIntroduction(exercice.introduction) + texMulticols(texEnumerate(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
@@ -125,7 +125,7 @@ export function listeQuestionsToContenuSansNumero (exercice, retourCharriot = tr
       }
       exercice.contenuCorrection = htmlParagraphe(exercice.consigneCorrection) + htmlEnumerate(exercice.listeCorrections, exercice.spacingCorr, 'correction', `correction${exercice.numeroExercice}Q`, exercice.tailleDiaporama, 'sansNumero')
     } else {
-      if (document.getElementById('supprimer_reference').checked === true) {
+      if (document.getElementById('supprimer_reference') && document.getElementById('supprimer_reference').checked === true) {
         exercice.contenu = texConsigne(exercice.consigne) + texIntroduction(exercice.introduction) + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing, retourCharriot), exercice.nbCols)
       } else {
         exercice.contenu = texConsigne(exercice.consigne) + `\n\\marginpar{\\footnotesize ${exercice.id}}` + texIntroduction(exercice.introduction) + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing, retourCharriot), exercice.nbCols)
@@ -2155,9 +2155,9 @@ export function minToHoraire (minutes) {
   }
   const nbminuteRestante = (minutes % 60)
   if (nbminuteRestante > 9) {
-    return (nbHour + sp() + 'h' + sp() + nbminuteRestante)
+    return (nbHour + sp() + 'h' + sp() + nbminuteRestante + sp() + 'min')
   } else {
-    return (nbHour + sp() + ' h' + sp() + '0' + nbminuteRestante)
+    return (nbHour + sp() + 'h' + sp() + '0' + nbminuteRestante + sp() + 'min')
   }
 }
 
@@ -2176,9 +2176,9 @@ export function minToHour (minutes) {
     return (nbminuteRestante + sp() + 'min')
   } else {
     if (nbminuteRestante > 9) {
-      return (nbHour + sp() + 'h' + sp() + nbminuteRestante)
+      return (nbHour + sp() + 'h' + sp() + nbminuteRestante + sp() + 'min')
     } else {
-      return (nbHour + sp() + ' h' + sp() + '0' + nbminuteRestante)
+      return (nbHour + sp() + 'h' + sp() + '0' + nbminuteRestante + sp() + 'min')
     }
   }
 }
@@ -2236,7 +2236,7 @@ export function prenom (n = 1) {
 * @author Mireille Gain
 */
 export function objetF () {
-  return choice(['boîtes', 'bougies', 'cartes de voeux', 'gommes', 'photos', 'petites peluches'])
+  return choice(['boîtes', 'bougies', 'cartes de vœux', 'gommes', 'photos', 'petites peluches'])
 }
 
 /**
@@ -2252,7 +2252,7 @@ export function objetM () {
 * @author Mireille Gain
 */
 export function objet () {
-  return choice(['billes', 'bonbons', 'bougies', 'cartes de voeux', 'crayons', 'gâteaux', 'gommes', 'photos', 'stickers', 'cahiers'])
+  return choice(['billes', 'bonbons', 'bougies', 'cartes de vœux', 'crayons', 'gâteaux', 'gommes', 'photos', 'stickers', 'cahiers'])
 }
 
 /**
@@ -7040,7 +7040,7 @@ ${preambulePersonnalise(listePackages)}
   \\newcommand{\\structureTableauCan}[1]{
     % #1 --> corps de tableau
     \\renewcommand*{\\arraystretch}{2.5}
-    \\begin{spacing}{1.1}
+    \\begin{spacing}{1}
         \\begin{longtable}{|>{\\columncolor{gray!20}\\centering}m{0.05\\textwidth}|>{\\centering}m{0.45\\textwidth}|>{\\centering}m{0.35\\textwidth}|>{\\centering}p{0.1\\textwidth}|}%
             \\hline
             \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline

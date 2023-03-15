@@ -28,7 +28,7 @@ export default function Denombrement () {
         this.question = `À la cantine, il y a toujours $${a}$ entrées différentes, $${b}$ plats différents et $${c}$ desserts différents.<br>
         Combien de menus (composés d'une entrée, d'un plat et d'un dessert) différents peut-on avoir dans cette cantine ?`
         this.optionsChampTexte = { texteApres: '' }
-        this.correction = `On peut avoir : $${a}\\times ${b}\\times ${c} =${a * b * c}$ menus diférents.`
+        this.correction = `On peut avoir : $${a}\\times ${b}\\times ${c} =${a * b * c}$ menus différents.`
         this.reponse = calcul(a * b * c)
         break
       case 'b' :

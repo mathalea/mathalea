@@ -6125,7 +6125,7 @@ export function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, la
     if (label !== '') {
       mesureAngleString = label
     } else {
-      mesureAngleString = Math.round(mesureAngle).toString() + '°'
+      mesureAngleString = Math.round(Math.abs(mesureAngle)).toString() + '°'
     }
     const mesure = texteParPoint(mesureAngleString, N, 'milieu', color, 1, 'middle', true)
     const marque = arc(M, B, mesureAngle, rayon, couleurDeRemplissage, colorArc, opaciteDeRemplissage)
@@ -10657,7 +10657,7 @@ export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = 
         } else if (typeof (nombres[a - 1][b]) === 'string') { // écriture mode Maths
           objets.push(texteParPositionEchelle(nombres[a - 1][b], -1.5 + a * 3, 2.5 + b * 3, 'milieu', 'black', taille, 0, true, scaleFigure))
         } else {
-          objets.push(latexParCoordonnees(nombres[a - 1][b].texFraction, -1.5 + a * 3, 2.5 + b * 3, 'black', 20, 20, 'white', 6))
+          objets.push(latexParCoordonnees(nombres[a - 1][b].texFraction, -1.5 + a * 3, 2.5 + b * 3, 'black', 20, 20, 'white', Math.max(6, 9 * taille)))
         }
       }
     }

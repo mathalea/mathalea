@@ -43,7 +43,7 @@ export default function OrdreDeGrandeurOperationsDecimaux () {
     this.autoCorrection = []
 
     // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
+    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const ligneEntete = ['\\text{Opération}', '\\phantom{000}' + texNombre('1') + '\\phantom{000}', '\\phantom{00}' + texNombre('10') + '\\phantom{00}', '\\phantom{00}' + texNombre('100') + '\\phantom{00}', '\\phantom{0}' + texNombre('1000') + '\\phantom{0}', texNombre('10000'), texNombre('100000')]

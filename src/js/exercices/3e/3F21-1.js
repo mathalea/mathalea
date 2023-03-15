@@ -101,7 +101,7 @@ export default function LectureExpressionFonctionsAffines () {
     }
     if (context.isAmc) {
       this.autoCorrection[0] = {
-        enonce: "Déterminer l'expression  de la fonction représentée ci dessous : <br>" + mathalea2d({ xmin: -5.5, ymin: -5.5, xmax: 5.5, ymax: 5.5, pixelsParCm: 30, scale: 0.5 }, objets2d) + '<br>',
+        enonce: "Déterminer l'expression  de la fonction représentée ci-dessous : <br>" + mathalea2d({ xmin: -5.5, ymin: -5.5, xmax: 5.5, ymax: 5.5, pixelsParCm: 30, scale: 0.5 }, objets2d) + '<br>',
         propositions: [{ texte: explain, statut: 2 }],
         reponse: { texte: 'coefficient', valeur: pente[0], param: { digits: 1, decimals: 0, signe: true, exposantNbChiffres: 0, exposantSigne: false, approx: 0 } },
         reponse2: { texte: "ordonnée \\\\\nà l'origine", valeur: listeDroites[0][0], param: { digits: 1, decimals: 0, signe: true, exposantNbChiffres: 0, exposantSigne: false, approx: 0 } }

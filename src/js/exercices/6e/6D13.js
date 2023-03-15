@@ -1,5 +1,6 @@
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
+import Hms from '../../modules/Hms.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
 import { calcul, combinaisonListes, contraindreValeur, listeQuestionsToContenu, randint, sp, texteEnCouleur } from '../../modules/outils.js'
@@ -39,13 +40,11 @@ export default function ConversionHeuresMinutesOuMinutesEtSecondes (can = false)
       b = randint(10, 59)
       d = calcul(a * 60 + b)
       if (listeTypeQuestions[i] === 'min vers h et min') {
-        texte = `Convertir $${d}$ minutes en heures (h) et minutes (min).` + ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: sp(5), texteApres: ' h ' }) +
-        ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texte: sp(5), texteApres: ' min ' })
+        texte = `Convertir $${d}$ minutes en heures (h) et minutes (min).` + ajouteChampTexteMathLive(this, i, 'inline clavierHms')
         this.canEnonce = `Convertir $${d}$ minutes en heures et minutes.`
         this.canReponseACompleter = '$\\ldots$ h $\\ldots$ min'
       } else {
-        texte = `Convertir $${d}$ secondes en minutes (min) et secondes (s).` + ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: sp(5), texteApres: ' min ' }) +
-        ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texte: sp(5), texteApres: ' s ' })
+        texte = `Convertir $${d}$ secondes en minutes (min) et secondes (s).` + ajouteChampTexteMathLive(this, i, 'inline clavierHms')
       }
       if (can) {
         if (listeTypeQuestions[i] === 'min vers h et min') {
@@ -159,8 +158,11 @@ Ainsi $${d} = ${Math.floor(d / 60) * 60} + ${d % 60}$ donc $${d}$min $= ${Math.f
             }
           }
         } else {
-          setReponse(this, 2 * i, a)
-          setReponse(this, 2 * i + 1, b)
+          if (listeTypeQuestions[i] === 'min vers h et min') {
+            setReponse(this, i, new Hms({ hour: a, minute: b }), { formatInteractif: 'hms' })
+          } else {
+            setReponse(this, i, new Hms({ minute: a, second: b }), { formatInteractif: 'hms' })
+          }
         }
         i++
       }

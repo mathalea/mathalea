@@ -369,7 +369,7 @@ export default function SujetCAN20214ieme () {
           c = choice([2, 3, 4, 5, 6])
           b = a.d * c
           reponse = arrondi(a.n * c, 0)
-          texte = `Ecris sous la forme d'un entier : $${a.texFraction}\\times ${b}$`
+          texte = `Écris sous la forme d'un entier : $${a.texFraction}\\times ${b}$`
           texteCorr = `$${a.texFraction}\\times ${b}= ${a.n}\\times\\dfrac{${b}}{${a.d}}=${a.n}\\times ${c}=${miseEnEvidence(reponse)}$`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -449,7 +449,7 @@ export default function SujetCAN20214ieme () {
               texteParPosition(`${stringNombre(L)} cm`, milieu(C, D).x + 0.5, milieu(C, D).y)
               , segment(B, D), labelPoint(A, B, C, D))
             reponse = calcul(L * L / 2)
-            texte = `$ABCD$ est un rectangle. <br>
+            texte = `$ABCD$ est un carré. <br>
             Calcule l'aire du triangle $ABD$.<br>
             
             `
@@ -675,7 +675,7 @@ export default function SujetCAN20214ieme () {
         case 29:
           fraction1 = choice(listeFractions1)
           a = fraction(fraction1[0], fraction1[1])
-          texte = `Ecriture décimale de $${a.texFraction}$. <br>`
+          texte = `Donne l'écriture décimale de $${a.texFraction}$. <br>`
           texteCorr = `$\\dfrac{1}{5}=0,2$, ainsi  $${a.texFraction}=${fraction1[0]}\\times\\dfrac{1}{5}=${miseEnEvidence(texNombre(fraction1[0] / fraction1[1]))}$`
           reponse = calcul(fraction1[0] / fraction1[1])
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -693,7 +693,7 @@ export default function SujetCAN20214ieme () {
           if (b === 5) {
             texteCorr = `
 
-       $10\\,\\%$  de $${a}$ est égal à $${a}\\div 10=${a / 10}$.<br>
+       $10\\,\\%$  de $${a}$ est égal à $0,1\\times ${a}=${texNombre(a / 10, 1)}$.<br>
       Puisque $5\\,\\%$  est deux fois plus petit  que $10\\,\\%$ ,  $5\\,\\%$  de $${a}$ est égal à $ ${a / 10}\\div 2=${a / 20}$.<br>
                    La réduction est donc de : $${texNombre(b * a / 100)}$ €.<br>
            Le nouveau prix est :   $${a}-${texNombre(b * a / 100)}= ${miseEnEvidence(texNombre(a - (b * a) / 100))}$  €.
@@ -701,7 +701,7 @@ export default function SujetCAN20214ieme () {
     `
           } else {
             texteCorr = `
-           $10\\,\\%$  de $${a}$ est égal à $${a}\\div 10=${a / 10}$.<br>
+                      $10\\,\\%$  de $${a}$ est égal à $0,1\\times ${a}=${texNombre(a / 10, 1)}$.<br>
        $5\\,\\%$  de $${a}$  est égal à la moitié de $10\\,\\%$  de $${a}$, soit
       $${a / 10}\\div 2=${a / 20}$.<br>
       Puisque $15\\,\\%$  est égal à $10\\%$  $+5\\,\\%$ ,  $15\\,\\%$  de $${a}$ est égal à $${a / 10}+${a / 20}=${3 * a / 20}$.<br>

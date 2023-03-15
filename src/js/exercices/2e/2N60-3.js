@@ -1,11 +1,14 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, texteGras, sp, ecritureParentheseSiNegatif, ecritureAlgebriqueSauf1, rienSi1, abs, choice, texNombre, randint, ecritureAlgebrique } from '../../modules/outils.js'
 export const titre = 'Utiliser les propriétés de conservation du sens d\'une inégalité'
+export const dateDePublication = '14/02/2023'
 /**
  * Description didactique de l'exercice
  * @author Gilles Mora
  * Référence
 */
+export const uuid = 'e32f3'
+export const ref = '2N60-3'
 export default function ProprietesInegalites () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

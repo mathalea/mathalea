@@ -9,7 +9,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcType = 'AMCHybride'
 export const amcReady = true
-export const dateDeModifImportante = '27/12/2022' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '26/02/2023' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  * Développer (ax-b)(ax+b)
@@ -29,6 +29,7 @@ export default function DevelopperIdentitesRemarquables3 () {
   this.spacingCorr = context.isHtml ? 3 : 2
   this.nbQuestions = 5
   this.sup = 2
+  this.sup2 = true
   this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
@@ -66,7 +67,18 @@ export default function DevelopperIdentitesRemarquables3 () {
         reponse = `${texFraction(ns * ns, ds * ds)}${choixLettre}^2-${a * a}`
         reponse1 = new FractionX(ns * ns, ds * ds)
       }
-
+      if (this.sup2) {
+        this.spacingCorr = 1
+        // On enlève la première égalité pour ne pas avoir A = A en première ligne
+        texteCorr = texteCorr.slice(4)
+        // On découpe
+        const etapes = texteCorr.split('=')
+        texteCorr = ''
+        etapes.forEach(function (etape) {
+          etape = etape.replace('$', '')
+          texteCorr += etape === lettreDepuisChiffre(i + 1) ? '' : `$${lettreDepuisChiffre(i + 1)} = ${etape}$ <br>`
+        })
+      }
       if (!context.isAmc) {
         setReponse(this, i, reponse)
         texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')) : ''
@@ -149,4 +161,5 @@ export default function DevelopperIdentitesRemarquables3 () {
     listeQuestionsToContenuSansNumero(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, ' 1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x rationnel\n 4 : Mélange']
+  this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
 }
