@@ -158,7 +158,8 @@ export default function ExerciceEquationASolutionEntiere () {
           if (!this.sup) {
             reponse = Math.abs(reponse)
             c = Math.abs(c)
-            a = randint(2, 5) + c
+            // contrainte supplémentaire pour éviter d'avoir b = 0
+            a = randint(2, 5, [Math.floor((c * reponse + d) / reponse - c)]) + c
           } else {
             a = randint(-5, 5, [-c, -c + 1, -c - 1, 0]) + c
           }
