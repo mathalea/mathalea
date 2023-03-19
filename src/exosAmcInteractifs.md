@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 561 
-- nombre d'exos interactifReady 853 
+- nombre d'exos amcReady 562 
+- nombre d'exos interactifReady 855 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -431,6 +431,7 @@
 |6P12|Résoudre des problèmes de proportionnalité en utilisant la proportionnalité simple|OK|AMCNum|OK|mathLive|
 |6P13|Augmenter ou diminuer d'un pourcentage|OK|AMCHybride|OK|mathLive|
 |6P14|Agrandir ou réduire des figures, d'après une situation de proportionnalité|OK|AMCHybride|OK|mathLive|
+|6P15|Calculer le coefficient de proportionnalité|OK|AMCHybride|OK|mathLive|
 |6S10-1|Représenter des données par un diagramme|OK|AMCHybride|OK|qcm|
 |6S10|Lire un diagramme en barres|OK|AMCHybride|OK|mathLive|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|mathLive|
@@ -857,7 +858,7 @@
 |canc3C01|Déterminer un nombre à partir d’une phrase|OK|AMCNum|OK|mathLive|
 |canc3C02|Calculer à partir d’une décomposition|OK|AMCNum|OK|mathLive|
 |canc3C03|Trouver le nombre dans une table de multiplication |OK|AMCNum|OK|mathLive|
-|canc3C04|Calculer le double ou moitié|OK|AMCNum|OK|mathLive|
+|canc3C04|Calculer le double ou la moitié|OK|AMCNum|OK|mathLive|
 |canc3C05|Déterminer si un nombre est pair (V/F)|OK|qcmMono|OK|qcm|
 |canc3C06|Trouver le nombre manquant dans une somme|OK|AMCNum|OK|mathLive|
 |canc3C07|Résoudre un problème avec "de plus", "de moins"|OK|AMCNum|OK|mathLive|
@@ -882,6 +883,7 @@
 |canc3N05|Calculer une somme (partie entière/décimale)|OK|AMCNum|OK|mathLive|
 |canc3N06|Comparer deux nombres sur une droite graduée (QCM)|OK|qcmMono|OK|qcm|
 |canc3N07|Décomposer un nombre|KO|KO|OK|mathLive|
+|canc3a-2023|CAN CM2 sujet 2023|KO|KO|OK|mathLive|
 |canc3a|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
 |techno1E2|Associer évolution en pourcentage et coefficient|KO|KO|OK|mathLive|
 |techno1P1|Écriture fractionnaire, écriture décimale, pourcentage|KO|KO|OK|mathLive|
