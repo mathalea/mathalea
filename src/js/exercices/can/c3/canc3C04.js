@@ -1,6 +1,6 @@
 import { choice, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
-export const titre = 'Calculer le double ou moitié'
+export const titre = 'Calculer le double ou la moitié'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

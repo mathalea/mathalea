@@ -52,6 +52,8 @@ export function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', in
 
 export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0, aussiCorrect, digitsNum, digitsDen, basePuissance, exposantPuissance, baseNbChiffres, milieuIntervalle, formatInteractif = 'calcul', precision = null } = {}) {
   let reponses = []
+  const url = new URL(window.location.href)
+  if (url.hostname === 'localhost' && url.searchParams.has('triche')) console.log(`Réponses de l'exercice ${exercice.numeroExercice + 1} - question ${i + 1} : `, valeurs)
 
   if (Array.isArray(valeurs)) {
     reponses = valeurs // reponses contient donc directement le tableau valeurs

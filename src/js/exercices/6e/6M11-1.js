@@ -92,7 +92,8 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
         case 1 :
           texte = `Calculer l'aire du carré en cm${texteExposant(2)}.`
 
-          texteCorr += `<br>$\\mathcal{A}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}~\\text{cm}\\times${c}~\\text{cm}=${c * c}~\\text{cm}^2$`
+          texteCorr += context.isHtml ? '<br>' : ''
+          texteCorr += `$\\mathcal{A}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}~\\text{cm}\\times${c}~\\text{cm}=${c * c}~\\text{cm}^2$`
           setReponse(this, i, new Grandeur(c * c, 'cm^2'), { formatInteractif: 'unites' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
@@ -108,7 +109,8 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
           break
         case 2 :
           texte = 'Calculer le périmètre du rectangle en cm.'
-          texteCorr += `<br>$\\mathcal{P}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}~\\text{cm}+${l}~\\text{cm}+${L}~\\text{cm}+${l}~\\text{cm}=${2 * L + 2 * l
+          texteCorr += context.isHtml ? '<br>' : ''
+          texteCorr += `$\\mathcal{P}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}~\\text{cm}+${l}~\\text{cm}+${L}~\\text{cm}+${l}~\\text{cm}=${2 * L + 2 * l
             }~\\text{cm}$`
           setReponse(this, i, new Grandeur((L + l) * 2, 'cm'), { formatInteractif: 'unites' })
           if (context.isAmc) {
@@ -125,7 +127,8 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
           break
         case 3 :
           texte = `Calculer l'aire du rectangle en cm${texteExposant(2)}.`
-          texteCorr += `<br>$\\mathcal{A}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}~\\text{cm}\\times${l}~\\text{cm}=${L * l
+          texteCorr += context.isHtml ? '<br>' : ''
+          texteCorr += `$\\mathcal{A}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}~\\text{cm}\\times${l}~\\text{cm}=${L * l
           }~\\text{cm}^2$`
           setReponse(this, i, new Grandeur(L * l, 'cm^2'), { formatInteractif: 'unites' })
           if (context.isAmc) {
@@ -142,7 +145,8 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
           break
         case 4 :
           texte = 'Calculer le périmètre du triangle rectangle en cm.'
-          texteCorr += `<br>$\\mathcal{P}_{${nom[8] + nom[9] + nom[10]}}=${a}~\\text{cm}+${b}~\\text{cm}+${texNombre(c2.toFixed(1))}~\\text{cm}=${pIJK}~\\text{cm}$`
+          texteCorr += context.isHtml ? '<br>' : ''
+          texteCorr += `$\\mathcal{P}_{${nom[8] + nom[9] + nom[10]}}=${a}~\\text{cm}+${b}~\\text{cm}+${texNombre(c2.toFixed(1))}~\\text{cm}=${pIJK}~\\text{cm}$`
           setReponse(this, i, new Grandeur(pIJK, 'cm'), { formatInteractif: 'unites' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
@@ -158,7 +162,8 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
           break
         case 5 :
           texte = `Calculer l'aire du triangle rectangle en cm${texteExposant(2)}.`
-          texteCorr += `<br>$\\mathcal{A}_{${nom[8] + nom[9] + nom[10]}}=${a}~\\text{cm}\\times${b}~\\text{cm}\\div2=${texNombre(calcul((a * b) / 2))}~\\text{cm}^2$`
+          texteCorr += context.isHtml ? '<br>' : ''
+          texteCorr += `$\\mathcal{A}_{${nom[8] + nom[9] + nom[10]}}=${a}~\\text{cm}\\times${b}~\\text{cm}\\div2=${texNombre(calcul((a * b) / 2))}~\\text{cm}^2$`
           setReponse(this, i, new Grandeur(calcul((a * b) / 2), 'cm^2'), { formatInteractif: 'unites' })
           if (context.isAmc) {
             this.autoCorrection[i] = {

@@ -185,8 +185,8 @@ export default function ImageAntecedentDepuisTableauOuFleche () {
         texteCorr += '<br>' + numAlpha(2) + texteCorr4 + '<br>' + numAlpha(3) + texteCorr3
       }
 
-      texteAMC = numAlpha(4) + `Recopier et compléter : $f(${c})=\\ldots$`
-      texte += '<br>' + texteAMC
+      texte += '<br>' + numAlpha(4)
+      texte += this.interactif ? `Compléter : $f(${c})=\\ldots$` : `Recopier et compléter : $f(${c})=\\ldots$`
       texteCorr += '<br>' + numAlpha(4) + `$f(${c})=${d}$`
       texte += ajouteChampTexteMathLive(this, i * 6 + 4)
       setReponse(this, i * 6 + 4, [`f(${c})=${d}`, `${d}`], { formatInteractif: 'texte' })
@@ -214,8 +214,9 @@ export default function ImageAntecedentDepuisTableauOuFleche () {
         )
       }
 
-      texteAMC = numAlpha(5) + `Recopier et compléter : $f(\\ldots)=${c}$`
-      texte += '<br>' + texteAMC
+      texte += '<br>' + numAlpha(5)
+      texte += this.interactif ? `Compléter : $f(\\ldots)=${c}$` : `Recopier et compléter : $f(\\ldots)=${c}$`
+
       texteCorr += '<br>' + numAlpha(5) + `$f(${f})=${c}$`
       texte += ajouteChampTexteMathLive(this, i * 6 + 5)
       setReponse(this, i * 6 + 5, [`f(${f})=${c}`, `${f}`], { formatInteractif: 'texte' })

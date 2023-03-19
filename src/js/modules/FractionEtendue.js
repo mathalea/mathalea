@@ -376,11 +376,11 @@ class FractionX extends Fraction {
  * Convertit la FractionX en Fraction
  * @returns un objet Fraction (mathjs)
  */
-  valeurAbsolue () { return fraction(abs(this.n), abs(this.d)) }
+  valeurAbsolue () { return new FractionX(abs(this.n), abs(this.d)) }
   /**
  * @returns l'opposé de la FractionX
  */
-  oppose () { return fraction(-1 * this.num, this.den) }
+  oppose () { return new FractionX(-1 * this.num, this.den) }
   /**
  * On pourra utiliser k = 0.5 pour simplifier par 2 la fraction par exemple.
  * @param {coefficient} k
@@ -389,7 +389,7 @@ class FractionX extends Fraction {
   reduire (k) {
     const num = multiply(this.num, k)
     const den = multiply(this.den, k)
-    return fraction(num, den)
+    return new FractionX(num, den)
   }
 
   /**
@@ -401,31 +401,31 @@ class FractionX extends Fraction {
  * @param {FractionX | Fraction} f
  * @returns la fractionX - f résultat simplifié
  */
-  differenceFraction (f) { return fraction(subtract(this, f)) }
+  differenceFraction (f) { return new FractionX(subtract(this, f)) }
 
   /**
  * @param {coefficient} n
  * @returns La fractionX multipliée par n (numérateur n fois plus grand)
  */
-  multiplieEntier (n) { return fraction(this.num * n, this.den) }
+  multiplieEntier (n) { return new FractionX(this.num * n, this.den) }
 
   /**
   * @param {coefficient} n
   * @returns La FractionX divisée par n (denominateur n fois plus grand)
   */
-  entierDivise (n) { return fraction(this.num, n * this.den) }
+  entierDivise (n) { return new FractionX(this.num, n * this.den) }
   /**
   *
   * @param {number} n
   * @returns n + la FractionX
   */
-  ajouteEntier (n) { return fraction(this.num + n * this.den, this.den) }
+  ajouteEntier (n) { return new FractionX(this.num + n * this.den, this.den) }
 
   /**
   * @param {number} n
   * @returns n - la FractionX
   */
-  entierMoinsFraction (n) { return fraction(n * this.den - this.num, this.den) }
+  entierMoinsFraction (n) { return new FractionX(n * this.den - this.num, this.den) }
 
   /**
   *
@@ -475,15 +475,15 @@ class FractionX extends Fraction {
   */
   sommeFraction (f2) {
     if (this.den === f2.den) { // on ajoute 2 fractions de même dénominateur
-      return fraction(this.num + f2.num, f2.den)
+      return new FractionX(this.num + f2.num, f2.den)
     } else if ([this.den, f2.den].indexOf(lcm(this.den, f2.den)) !== -1) { // un dénominateur est multiple de l'autre
       if (this.den === lcm(this.den, f2.den)) { // c'est this qui a le dénominateur commun.
-        return fraction(this.num + f2.num * round(this.den / f2.den), this.den) // on transforme f2
+        return new FractionX(this.num + f2.num * round(this.den / f2.den), this.den) // on transforme f2
       } else { // c'est f2 qui a le dénominateur commun
-        return fraction(f2.num + this.num * round(f2.den / this.den), f2.den) // on transforme this
+        return new FractionX(f2.num + this.num * round(f2.den / this.den), f2.den) // on transforme this
       }
     } else { // besoin d'établir le dénominateur commun.
-      return fraction(this.num * round(lcm(this.den, f2.den) / this.den) + f2.num * round(lcm(this.den, f2.den) / f2.den), lcm(this.den, f2.den))
+      return new FractionX(this.num * round(lcm(this.den, f2.den) / this.den) + f2.num * round(lcm(this.den, f2.den) / f2.den), lcm(this.den, f2.den))
     }
   }
 
@@ -600,7 +600,7 @@ class FractionX extends Fraction {
     * @return {FractionX} La puissance n de la fraction
     */
   puissanceFraction (n) {
-    return fraction(this.num ** n, this.den ** n)
+    return new FractionX(this.num ** n, this.den ** n)
   }
 
   /**
@@ -751,11 +751,11 @@ class FractionX extends Fraction {
       }
     }
     if (n5 === n2) {
-      return fraction(num * signe, den)
+      return new FractionX(num * signe, den)
     } else if (n5 > n2) {
-      return fraction(signe * num * 2 ** (n5 - n2), den * 2 ** (n5 - n2))
+      return new FractionX(signe * num * 2 ** (n5 - n2), den * 2 ** (n5 - n2))
     } else {
-      return fraction(signe * num * 5 ** (n2 - n5), den * 5 ** (n2 - n5))
+      return new FractionX(signe * num * 5 ** (n2 - n5), den * 5 ** (n2 - n5))
     }
   }
 
