@@ -24,7 +24,7 @@ import { abs, ceil, floor, Fraction, fraction, isNumeric, max, random, round } f
 import earcut from 'earcut'
 import FractionX from './FractionEtendue.js'
 import Decimal from 'decimal.js'
-import { colorToLatexOrHTML, mathalea2d, ObjetMathalea2D, vide2d } from './2dGeneralites.js'
+import { colorToLatexOrHTML, mathalea2d, ObjetMathalea2D, vide2d, fixeBordures } from './2dGeneralites.js'
 import { apparitionAnimee, translationAnimee } from './2dAnimation.js'
 
 /*
@@ -4582,7 +4582,7 @@ export function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCente
     \\foreach \\i in {1,2,...,${this.nbDents}}{
                   \\pgfmathparse{360*(\\i-1)/${this.nbDents}}\\let\\angle\\pgfmathresult
                   \\begin{scope}[shift={(${this.xCenter},${this.yCenter})}]
-                      \\pgfmathparse{${this.rayon}*cos(${this.angleStart}+90/${this.nbDents})}\\let\\Ax\\pgfmathresult 
+                      \\pgfmathparse{${this.rayon}*cos(${this.angleStart}+90/${this.nbDents})}\\let\\Ax\\pgfmathresult
                   \\pgfmathparse{${R1}*sin(${this.angleStart}+90/${this.nbDents})}\\let\\Ay\\pgfmathresult
                   \\pgfmathparse{${R1}*cos(${this.angleStart}-90/${this.nbDents})}\\let\\Bx\\pgfmathresult
                   \\pgfmathparse{${R1}*sin(${this.angleStart}-90/${this.nbDents})}\\let\\By\\pgfmathresult
@@ -4592,8 +4592,8 @@ export function Engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCente
                   \\pgfmathparse{${R2}*sin(${this.angleStart}-45/${this.nbDents})}\\let\\Dy\\pgfmathresult
                   \\pgfmathparse{${this.angleStart}-90/${this.nbDents}}\\let\\a\\pgfmathresult
                   \\pgfmathparse{${this.angleStart}-270/${this.nbDents}}\\let\\b\\pgfmathresult
-                  \\fill[${this.couleurDeRemplissage[1]},draw,rotate=\\angle] (0,0) -- (\\Ax,\\Ay) to[bend left=15] (\\Cx,\\Cy) -- (\\Dx,\\Dy) to[bend left=15] (\\Bx,\\By) arc (\\a:\\b:${R1}cm) -- cycle; 
-                  \\draw[${this.color[1]},rotate=\\angle] (\\Ax,\\Ay) to[bend left=15] (\\Cx,\\Cy) -- (\\Dx,\\Dy) to[bend left=15] (\\Bx,\\By) arc (\\a:\\b:${R1}cm); 
+                  \\fill[${this.couleurDeRemplissage[1]},draw,rotate=\\angle] (0,0) -- (\\Ax,\\Ay) to[bend left=15] (\\Cx,\\Cy) -- (\\Dx,\\Dy) to[bend left=15] (\\Bx,\\By) arc (\\a:\\b:${R1}cm) -- cycle;
+                  \\draw[${this.color[1]},rotate=\\angle] (\\Ax,\\Ay) to[bend left=15] (\\Cx,\\Cy) -- (\\Dx,\\Dy) to[bend left=15] (\\Bx,\\By) arc (\\a:\\b:${R1}cm);
                   \\end{scope}}
               \\fill[${this.couleurDuTrou[1]},draw=${this.color[1]}] (${this.xCenter},${this.yCenter}) circle (${R0});
   `
@@ -10042,7 +10042,7 @@ ${cadran()}
   <circle r="10" cx="0" cy="0" fill="white"/>
   <path d="M -6 3 h 7 v 3 l 5 -6 l -5 -6 v 3 h -7 v 6 z" fill="#4c97ff" />
   </g>
- </defs> 
+ </defs>
  <use href="#direction" x="165" y="115" />
  <use href="#direction" transform="rotate(-90 115 65)" x="115" y="65" />
  <use href="#direction" transform="rotate(-180 65 115)" x="65" y="115" />
@@ -10713,10 +10713,12 @@ function flecheH (D, A, texte, h = 1) {
  * @param {Point} A
  * @param {string} texte
  * @param {number} h
+ * @param {boolean} flip Pour pouvoir faire des flèches à gauche et pas à droite
  * @returns {array} (Polyline|Segment|TexteParPoint)[]
  * @author Rémi Angot
  */
-function flecheV (D, A, texte, h = 1) {
+function flecheV (D, A, texte, h = 1, flip = false) {
+  if (flip) h = -h
   const D1 = point(D.x + h, D.y)
   const A1 = point(A.x + h, A.y)
   const fleche = polyline(D, D1, A1)
@@ -10725,14 +10727,27 @@ function flecheV (D, A, texte, h = 1) {
   const M = milieu(D1, A1)
   const objets = [fleche, eFleche]
   if (texte) {
-    objets.push(texteParPoint(texte, point(M.x + h, M.y - 0.6), 'milieu', 'black', 'middle', true))
+    objets.push(texteParPoint(texte, point(M.x + h, M.y - 0.6), flip ? 'droite' : 'milieu', 'black', 1, 'middle', true))
   }
   return objets
 }
 
 /**
  * Réalise un tableau typique des exercices de proportionnalité avec d'éventuelles flèches
- *
+ * @param { number } largeurTitre
+ * @param { number } largeur
+ * @param { number } hauteur
+ * @param { number } nbColonnes
+ * @param { Point } origine
+ * @param { string[] } ligne1
+ * @param { string[] } ligne2
+ * @param { [number, number, string] } flecheHaut
+ * @param { [number, number, string] } flecheBas
+ * @param { string | boolean } flecheDroite
+ * @param { string } flecheDroiteSens
+ * @param { string | boolean } flecheGauche
+ * @param { string } flecheGaucheSens
+ * @constructor
  * @author Rémi Angot
  */
 export function Tableau ({
@@ -10741,12 +10756,14 @@ export function Tableau ({
   hauteur = 2,
   nbColonnes = 3,
   origine = point(0, 0),
-  ligne1 = [],
-  ligne2 = [],
+  ligne1 = [], // des strings contenant du latex sans les $ $
+  ligne2 = [], // des strings contenant du latex sans les $ $
   flecheHaut = [], // [[1, 2, '\\times 6,4', 3], [2, 3, '\\div 6']]
   flecheBas = [],
   flecheDroite = false, // à remplacer par un string
-  flecheDroiteSens = 'bas'
+  flecheDroiteSens = 'bas',
+  flecheGauche = false,
+  flecheGaucheSens = 'haut'
 } = {}) {
   ObjetMathalea2D.call(this, { })
   if (ligne1 && ligne2) {
@@ -10772,18 +10789,10 @@ export function Tableau ({
   }
   // Ecrit les titres
   if (ligne1[0]) {
-    if (context.isHtml) {
-      objets.push(latexParCoordonnees(ligne1[0], A.x + largeurTitre / 4, A.y + 1.4 * hauteur))
-    } else {
-      objets.push(latexParCoordonnees(ligne1[0], A.x + largeurTitre / 2, A.y + 1.4 * hauteur))// sortie LaTeX
-    };
+    objets.push(latexParCoordonnees(ligne1[0], A.x + largeurTitre / 2, A.y + 1.4 * hauteur, 'black', largeurTitre * 10))
   }
   if (ligne2[0]) {
-    if (context.isHtml) {
-      objets.push(latexParCoordonnees(ligne2[0], A.x + largeurTitre / 4, A.y + 0.4 * hauteur))
-    } else {
-      objets.push(latexParCoordonnees(ligne2[0], A.x + largeurTitre / 2, A.y + 0.4 * hauteur))// sortie LaTeX
-    };
+    objets.push(latexParCoordonnees(ligne2[0], A.x + largeurTitre / 2, A.y + 0.4 * hauteur, 'black', largeurTitre * 10))
   }
   for (const fleche of flecheHaut) {
     const Depart = point(A.x + largeurTitre + fleche[0] * largeur - 0.4 * largeur, A.y + 2.1 * hauteur)
@@ -10813,6 +10822,19 @@ export function Tableau ({
     } else {
       objets.push(...flecheV(Arrivee, Depart, flecheDroite))
     }
+    const { xmin, ymin, xmax, ymax } = fixeBordures(objets)
+    this.bordures = [xmin, ymin, xmax, ymax]
+  }
+  if (flecheGauche) {
+    const Depart = point(A.x, A.y + 1.5 * hauteur)
+    const Arrivee = point(A.x, A.y + 0.5 * hauteur)
+    if (flecheGaucheSens === 'bas') {
+      objets.push(...flecheV(Depart, Arrivee, flecheGauche, 1, true))
+    } else {
+      objets.push(...flecheV(Arrivee, Depart, flecheGauche, 1, true))
+    }
+    const { xmin, ymin, xmax, ymax } = fixeBordures(objets)
+    this.bordures = [xmin, ymin, xmax, ymax]
   }
 
   this.svg = function (coeff) {

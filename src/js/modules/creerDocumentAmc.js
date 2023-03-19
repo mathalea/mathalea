@@ -4,7 +4,7 @@ import {
   decimalToScientifique,
   lettreDepuisChiffre,
   nombreDeChiffresDansLaPartieDecimale,
-  nombreDeChiffresDansLaPartieEntiere,
+  nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDe,
   randint
 } from './outils'
 
@@ -188,7 +188,7 @@ export function exportQcmAmc (exercice, idExo) {
           }
           let digitsDen = 0
           if (autoCorrection[j].reponse.param.digitsDen !== undefined) {
-            digitsDen = Math.max(autoCorrection[j].reponse.param.digitsDen, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den))
+            digitsDen = Math.max(autoCorrection[j].reponse.param.digitsDen ?? 0, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den))
           } else if (autoCorrection[j].reponse.param.digits !== undefined) {
             digitsDen = Math.max(autoCorrection[j].reponse.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den))
           } else {
@@ -203,11 +203,11 @@ export function exportQcmAmc (exercice, idExo) {
           let reponseF
           let reponseAlsoCorrect
           if (valeurAMCNum.num > 0) {
-            reponseF = arrondi(valeurAMCNum.num + valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)), 8)
-            reponseAlsoCorrect = arrondi(valeurAMCNum.num + valeurAMCNum.den / (10 ** digitsDen), 8)
+            reponseF = arrondi(valeurAMCNum.num + valeurAMCNum.den / (10 ** digitsDen), 8)
+            reponseAlsoCorrect = arrondi(valeurAMCNum.num + valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)), 8)
           } else {
-            reponseF = arrondi(valeurAMCNum.num - valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)), 8)
-            reponseAlsoCorrect = arrondi(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen), 8)
+            reponseF = arrondi(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen), 8)
+            reponseAlsoCorrect = arrondi(valeurAMCNum.num - valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)), 8)
           }
           texQr += `\\AMCnumericChoices{${reponseF}}{digits=${digitsNum + digitsDen},decimals=${digitsDen},sign=${signeNum},approx=0,`
           texQr += `borderwidth=0pt,backgroundcol=lightgray,scoreexact=1,Tpoint={\\vspace{0.5cm} \\vrule height 0.4pt width 5.5cm },alsocorrect=${reponseAlsoCorrect}}\n`
@@ -216,12 +216,12 @@ export function exportQcmAmc (exercice, idExo) {
         } else {
           let nbChiffresExpo
           if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres !== 0) {
-            nbChiffresPd = Math.max(nombreDeChiffresDansLaPartieDecimale(decimalToScientifique(valeurAMCNum)[0]), autoCorrection[j].reponse.param.decimals)
-            nbChiffresPe = Math.max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(valeurAMCNum)[0]), autoCorrection[j].reponse.param.digits - nbChiffresPd)
-            nbChiffresExpo = Math.max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(valeurAMCNum)[1]), autoCorrection[j].reponse.param.exposantNbChiffres)
+            nbChiffresPd = Math.max(nombreDeChiffresDansLaPartieDecimale(decimalToScientifique(valeurAMCNum)[0]), autoCorrection[j].reponse.param.decimals ?? 0)
+            nbChiffresPe = Math.max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(valeurAMCNum)[0]), (isNaN(autoCorrection[j].reponse.param.digits - nbChiffresPd) ? 0 : autoCorrection[j].reponse.param.digits - nbChiffresPd))
+            nbChiffresExpo = Math.max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(valeurAMCNum)[1]), autoCorrection[j].reponse.param.exposantNbChiffres ?? 1)
           } else {
-            nbChiffresPd = Math.max(nombreDeChiffresDansLaPartieDecimale(valeurAMCNum), autoCorrection[j].reponse.param.decimals)
-            nbChiffresPe = Math.max(nombreDeChiffresDansLaPartieEntiere(valeurAMCNum), autoCorrection[j].reponse.param.digits - nbChiffresPd)
+            nbChiffresPd = Math.max(nombreDeChiffresDansLaPartieDecimale(valeurAMCNum), autoCorrection[j].reponse.param.decimals ?? 0)
+            nbChiffresPe = Math.max(nombreDeChiffresDansLaPartieEntiere(valeurAMCNum), (isNaN(autoCorrection[j].reponse.param.digits - nbChiffresPd) ? 0 : autoCorrection[j].reponse.param.digits - nbChiffresPd))
           }
           if (autoCorrection[j].reponse.param.milieuIntervalle !== undefined) {
             const demiMediane = autoCorrection[j].reponse.param.milieuIntervalle - valeurAMCNum
@@ -300,13 +300,14 @@ export function exportQcmAmc (exercice, idExo) {
         }
         texQr += '\n\t\\end{question}\n\\end{minipage}\n'
         if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres === 0) {
-          if (autoCorrection[j].reponse.param.digits === 0) {
-            nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(valeurAMCNum)
+          nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(valeurAMCNum)
+          nbChiffresPe = nombreDeChiffresDansLaPartieEntiere(valeurAMCNum)
+          if (autoCorrection[j].reponse.param.digits == null || autoCorrection[j].reponse.param.digits === 0) {
             autoCorrection[j].reponse.param.decimals = nbChiffresPd
-            nbChiffresPe = nombreDeChiffresDansLaPartieEntiere(valeurAMCNum)
             autoCorrection[j].reponse.param.digits = nbChiffresPd + nbChiffresPe
           } else if (autoCorrection[j].reponse.param.decimals === undefined) {
-            autoCorrection[j].reponse.param.decimals = 0
+            autoCorrection[j].reponse.param.decimals = nbChiffresPd
+            autoCorrection[j].reponse.param.digits = Math.max(autoCorrection[j].reponse.param.digits, nbChiffresPd + nbChiffresPe)
           }
           if (autoCorrection[j].reponse.param.exposantSigne === undefined) {
             autoCorrection[j].reponse.param.exposantSigne = false
@@ -343,12 +344,13 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\\end{questionmultx}\n\\end{minipage}}\n'
         id++
         break
-      case 'AMCOpenNum✖︎2': // AMCOpen + deux AMCnumeric Choices. (Nouveau ! en test)
+      case 'AMCOpenNum✖︎2': // AMCOpen + deux AMCnumeric Choices. à ne plus utiliser au profit de l'AMCHybride
         /********************************************************************/
         // /!\/!\/!\/!\ ATTENTION /!\/!\/!\/!\
         // Pour ce type :
         // =======autoCorrection[j].enonce contient toujours le texte de l'énoncé
         // les réponses à évaluer sont dans autoCorrection[j].reponse et autoCorrection[j].reponse2
+        // Ce type n'est plus maintenu ! beaucoup plus d'options sont disponibles avec le type AMCHybride à utiliser de préférence
         /********************************************************************/
         if (exercice.autoCorrection[j].enonce === undefined) {
           exercice.autoCorrection[j].enonce = exercice.listeQuestions[j]
@@ -378,13 +380,14 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\\end{question}\n\\end{minipage}\n'
         texQr += '\\begin{minipage}[b]{0.05 \\linewidth}\\hspace{6pt}\\end{minipage}'
         reponse = autoCorrection[j].reponse.valeur[0]
-        if (autoCorrection[j].reponse.param.digits === 0) {
-          nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse)
+        nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse)
+        nbChiffresPe = nombreDeChiffresDansLaPartieEntiere(reponse)
+        if (autoCorrection[j].reponse.param.digits === 0 || autoCorrection[j].reponse.param.digits == null) {
           autoCorrection[j].reponse.param.decimals = nbChiffresPd
-          nbChiffresPe = nombreDeChiffresDansLaPartieEntiere(reponse)
           autoCorrection[j].reponse.param.digits = nbChiffresPd + nbChiffresPe
         } else if (autoCorrection[j].reponse.param.decimals === undefined) {
-          autoCorrection[j].reponse.param.decimals = 0
+          autoCorrection[j].reponse.param.decimals = nbChiffresPd
+          autoCorrection[j].reponse.param.digits = Math.max(autoCorrection[j].reponse.param.digits, nbChiffresPd + nbChiffresPe)
         }
         // deuxième champ de codage numérique
         texQr += '\\begin{minipage}[b]{0.15 \\linewidth}\n'
@@ -406,13 +409,14 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
         texQr += `\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}c} \n `
         reponse2 = autoCorrection[j].reponse2.valeur[0]
-        if (autoCorrection[j].reponse2.param.digits === 0) {
-          nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse2)
+        nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse2)
+        nbChiffresPe = nombreDeChiffresDansLaPartieEntiere(reponse2)
+        if (autoCorrection[j].reponse2.param.digits === 0 || autoCorrection[j].reponse2.param.digits == null) {
           autoCorrection[j].reponse2.param.decimals = nbChiffresPd
-          nbChiffresPe = nombreDeChiffresDansLaPartieEntiere(reponse2)
           autoCorrection[j].reponse2.param.digits = nbChiffresPd + nbChiffresPe
         } else if (autoCorrection[j].reponse2.param.decimals === undefined) {
-          autoCorrection[j].reponse2.param.decimals = 0
+          autoCorrection[j].reponse2.param.decimals = nbChiffresPd
+          autoCorrection[j].reponse2.param.digits = Math.max(autoCorrection[j].reponse2.param.digits, nbChiffresPd + nbChiffresPe)
         }
         texQr += `${autoCorrection[j].reponse2.texte}\n` // pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
         texQr += `\\AMCnumericChoices{${autoCorrection[j].reponse2.valeur}}{digits=${autoCorrection[j].reponse2.param.digits},decimals=${autoCorrection[j].reponse2.param.decimals},sign=${autoCorrection[j].reponse2.param.signe},`
@@ -633,24 +637,24 @@ export function exportQcmAmc (exercice, idExo) {
                 }
                 let reponseF
                 let reponseAlsoCorrect
-                if (rep.param.aussiCorrect !== null && rep.param.aussiCorrect.num !== null && rep.param.aussiCorrect.den !== null) {
+                if (rep.param.aussiCorrect != null && rep.param.aussiCorrect.num != null && rep.param.aussiCorrect.den != null) {
                   if (valeurAMCNum.num > 0) {
-                    reponseF = arrondi(valeurAMCNum.num + valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)), 8)
+                    reponseF = arrondi(valeurAMCNum.num + valeurAMCNum.den / (10 ** digitsDen), digitsDen)
                   } else {
-                    reponseF = arrondi(valeurAMCNum.num - valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)), 8)
+                    reponseF = arrondi(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen), digitsDen)
                   }
                   if (rep.param.aussiCorrect.num > 0) {
-                    reponseAlsoCorrect = arrondi(rep.param.aussiCorrect.num + rep.param.aussiCorrect.den / (10 ** nombreDeChiffresDansLaPartieEntiere(rep.param.aussiCorrect.den)), 8)
+                    reponseAlsoCorrect = arrondi(rep.param.aussiCorrect.num + rep.param.aussiCorrect.den / (10 ** digitsDen), digitsDen)
                   } else {
-                    reponseAlsoCorrect = arrondi(rep.param.aussiCorrect.num - rep.param.aussiCorrect.den / (10 ** nombreDeChiffresDansLaPartieEntiere(rep.param.aussiCorrect.den)), 8)
+                    reponseAlsoCorrect = arrondi(rep.param.aussiCorrect.num - rep.param.aussiCorrect.den / (10 ** digitsDen))
                   }
                 } else {
                   if (valeurAMCNum.num > 0) {
-                    reponseF = arrondi(valeurAMCNum.num + valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)), 8)
-                    reponseAlsoCorrect = arrondi(valeurAMCNum.num + valeurAMCNum.den / (10 ** digitsDen), 8)
+                    reponseF = arrondi(valeurAMCNum.num + valeurAMCNum.den / (10 ** digitsDen), digitsDen)
+                    reponseAlsoCorrect = arrondi(valeurAMCNum.num + valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)), 8)
                   } else {
-                    reponseF = arrondi(valeurAMCNum.num - valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)), 8)
-                    reponseAlsoCorrect = arrondi(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen), 8)
+                    reponseF = arrondi(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen), digitsDen)
+                    reponseAlsoCorrect = arrondi(valeurAMCNum.num - valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)), 8)
                   }
                 }
                 texQr += `\\AMCnumericChoices{${reponseF}}{digits=${digitsNum + digitsDen},decimals=${digitsDen},sign=${signeNum},approx=0,`
@@ -664,12 +668,12 @@ export function exportQcmAmc (exercice, idExo) {
               } else { // Ni puissances, ni fractions
                 let nbChiffresExpo
                 if (rep.param.exposantNbChiffres !== undefined && rep.param.exposantNbChiffres !== 0) {
-                  nbChiffresPd = Math.max(nombreDeChiffresDansLaPartieDecimale(decimalToScientifique(rep.valeur[0])[0]), rep.param.decimals)
-                  nbChiffresPe = Math.max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(rep.valeur[0])[0]), rep.param.digits - nbChiffresPd)
-                  nbChiffresExpo = Math.max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(rep.valeur[0])[1]), rep.param.exposantNbChiffres)
+                  nbChiffresPd = Math.max(nombreDeChiffresDansLaPartieDecimale(decimalToScientifique(rep.valeur[0])[0]), rep.param.decimals ?? 0)
+                  nbChiffresPe = Math.max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(rep.valeur[0])[0]), (isNaN(rep.param.digits - nbChiffresPd) ? 0 : rep.param.digits - nbChiffresPd))
+                  nbChiffresExpo = Math.max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(rep.valeur[0])[1]), rep.param.exposantNbChiffres ?? 0)
                 } else {
-                  nbChiffresPd = Math.max(nombreDeChiffresDansLaPartieDecimale(rep.valeur[0]), rep.param.decimals)
-                  nbChiffresPe = Math.max(nombreDeChiffresDansLaPartieEntiere(rep.valeur[0]), rep.param.digits - nbChiffresPd)
+                  nbChiffresPd = Math.max(nombreDeChiffresDansLaPartieDecimale(rep.valeur[0]), rep.param.decimals ?? 0)
+                  nbChiffresPe = Math.max(nombreDeChiffresDansLaPartieEntiere(rep.valeur[0]), (isNaN(rep.param.digits - nbChiffresPd) ? nombreDeChiffresDe(rep.valeur[0] - nbChiffresPd) : rep.param.digits - nbChiffresPd))
                 }
                 if (rep.param.milieuIntervalle !== undefined) {
                   const demiMediane = rep.param.milieuIntervalle - valeurAMCNum
@@ -890,26 +894,27 @@ export function creerDocumentAmc ({
   }
 
   preambule += `\t
-  %%%%%% EE : Le mettre le plus tôt possible pour éviter un Warning à la compilation 
+  %%%%%% EE : Le mettre le plus tôt possible pour éviter un Warning à la compilation
   \\RequirePackage{etex}\t  % pour avoir plus de "registres" mémoires / tikz...
-  %%%%% PACKAGES LANGUE %%%%%  
+  %%%%% PACKAGES LANGUE %%%%%
   \\usepackage{babel} % sans option => langue définie dans la classe du document
-   \\usepackage[T1]{fontenc} 
+   \\usepackage[T1]{fontenc}
    \\usepackage[utf8x]{inputenc}
    \\usepackage{lmodern}\t        \t% Choix de la fonte (Latin Modern de D. Knuth)
    \\usepackage{fp}
+   \\usepackage{ProfCollege}
   
   %%%%%%%%%%%%%%%%%%%%% SPÉCIFICITÉS A.M.C. %%%%%%%%%%%%%%%%%%%%%%
-  %\\usepackage[francais,bloc,completemulti]{automultiplechoice} 
+  %\\usepackage[francais,bloc,completemulti]{automultiplechoice}
   %   remarque : avec completmulti => "aucune réponse ne convient" en +
    \\usepackage[francais,bloc,insidebox,nowatermark]{automultiplechoice} %//,insidebox
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   
   %%%%% PACKAGES MISE EN PAGE %%%%%
-   \\usepackage{multicol} 
-   \\usepackage{wrapfig}  
+   \\usepackage{multicol}
+   \\usepackage{wrapfig}
    \\usepackage{fancybox}  % pour \\doublebox \\shadowbox  \\ovalbox \\Ovalbox
-   \\usepackage{calc} \t% Calculs 
+   \\usepackage{calc} \t% Calculs
    \\usepackage{enumerate}\t% Pour modifier les numérotations
    \\usepackage{enumitem}
    \\usepackage{tabularx}\t% Pour faire des tableaux
@@ -975,28 +980,28 @@ export function creerDocumentAmc ({
   %\\usepackage{tasks}\t% Pour les listes horizontales
 \\usepackage{csvsimple}
   
-  %%%%% Librairies utilisées par Mathgraphe32 %%%% 
+  %%%%% Librairies utilisées par Mathgraphe32 %%%%
   \\usepackage{fix-cm}
   \\usepackage{textcomp}
   
   %%%%% PERSONNALISATION %%%%%
-  \\renewcommand{\\multiSymbole}{$\\begin{smallmatrix}\\circ\\bullet\\bullet \\\\ 
+  \\renewcommand{\\multiSymbole}{$\\begin{smallmatrix}\\circ\\bullet\\bullet \\\\
            \\circ\\bullet\\circ \\end{smallmatrix}$\\noindent} % par défaut $\\clubsuit$
   %\\renewcommand{\\multiSymbole}{\\textbf{(! Évent. plusieurs réponses !)}\\noindent} % par défaut $\\clubsuit$
   \\renewcommand{\\AMCbeginQuestion}[2]{\\noindent{\\colorbox{gray!20}{\\bf#1}}#2}
-  %\\renewcommand{\\AMCIntervalFormat}[2]{\\texttt{[}#1\\,;\\,#2\\texttt{[}} 
+  %\\renewcommand{\\AMCIntervalFormat}[2]{\\texttt{[}#1\\,;\\,#2\\texttt{[}}
                            % Crochets plus nets, virgule...
   %\\AMCboxDimensions{size=1.7ex,down=.2ex} %% taille des cases à cocher diminuée
   \\newcommand{\\collerVertic}{\\vspace{-3mm}} % évite un trop grand espace vertical
-  \\newcommand{\\TT}{\\sout{\\textbf{Tiers Temps}} \\noindent} % 
-  \\newcommand{\\Prio}{\\fbox{\\textbf{PRIORITAIRE}} \\noindent} % 
+  \\newcommand{\\TT}{\\sout{\\textbf{Tiers Temps}} \\noindent} %
+  \\newcommand{\\Prio}{\\fbox{\\textbf{PRIORITAIRE}} \\noindent} %
   \\newcommandx{\\notation}[3][2=false,3=true]{
     \\AMCOpen{lines=#1,lineup=#2,lineuptext=\\hspace{1cm},dots=#3}{\\mauvaise[{\\tiny NR}]{NR}\\scoring{0}\\mauvaise[{\\tiny RR}]{RR}\\scoring{0.01}\\mauvaise[{\\tiny R}]{R}\\scoring{0.33}\\mauvaise[{\\tiny V}]{V}\\scoring{0.67}\\bonne[{\\tiny VV}]{VV}\\scoring{1}}
   }
   %%\\newcommand{\\notation}[1]{
   %%\\AMCOpen{lines=#1}{\\mauvaise[{\\tiny NR}]{NR}\\scoring{0}\\mauvaise[{\\tiny RR}]{RR}\\scoring{0.01}\\mauvaise[{\\tiny R}]{R}\\scoring{0.33}\\mauvaise[{\\tiny V}]{V}\\scoring{0.67}\\bonne[{\\tiny VV}]{VV}\\scoring{1}}
   %%}
-    
+  
   %%pour afficher ailleurs que dans une question
   \\makeatletter
   \\newcommand{\\AffichageSiCorrige}[1]{\\ifAMC@correc #1\\fi}
@@ -1004,26 +1009,26 @@ export function creerDocumentAmc ({
   
   
   %%%%% TAILLES %%%%%
-   \\usepackage{geometry} 
+   \\usepackage{geometry}
    \\geometry{headsep=0.3cm, left=1.5cm,right=1.5cm,top=2.4cm,bottom=1.5cm}
-   \\DecimalMathComma 
+   \\DecimalMathComma
   
    \\AMCcodeHspace=.3em % réduction de la taille des cases pour le code élève
-   \\AMCcodeVspace=.3em 
+   \\AMCcodeVspace=.3em
   % \\AMCcodeBoxSep=.1em
    
    \\def\\AMCotextReserved{\\emph{Ne rien cocher, réservé au prof !}}
    
-  %%%%%% Définition des barèmes 
+  %%%%%% Définition des barèmes
   \\baremeDefautS{
     e=0.0001,% incohérence (plusieurs réponses données à 0,0001 pour définir des manquements au respect de consignes)
     b=1,% bonne réponse 1
-    m=-0.01,% mauvaise réponse 0,01 pour différencier de la 
+    m=-0.01,% mauvaise réponse 0,01 pour différencier de la
     v=0} % non réponse qui reste à 0
   
   \\baremeDefautM{formula=((NBC-NMC)/NB)*((NBC-NMC)/NB>0)} % nombre de bonnes réponses cochées minorées des mauvaises réponses cochées, ramenées à 1, et ramenée à 0 si résultat négatif.
   
-  %%%%%%%%% Paramètres pour réponses à construire 
+  %%%%%%%%% Paramètres pour réponses à construire
   \\AMCinterIrep=0pt \\AMCinterBrep=.5ex \\AMCinterIquest=0pt \\AMCinterBquest=3ex \\AMCpostOquest=7mm \\setlength{\\AMChorizAnswerSep}{3em plus 4em} \\setlength{\\AMChorizBoxSep}{1em}
   %%%%% Fin du préambule %%%%%%%
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1043,7 +1048,7 @@ export function creerDocumentAmc ({
 %%%%% -II-a. CONCEPTION DU QCM %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  %%% préparation des groupes 
+  %%% préparation des groupes
   \\setdefaultgroupmode{cyclic}\n`
 
   for (const g of groupeDeQuestions) {
@@ -1054,7 +1059,7 @@ export function creerDocumentAmc ({
   // Variable qui contient l'entête d'une copie
   // A faire : Proposer différent type d'entête en fonction d'un paramètre ?
   const enteteTypeCodeGrid = `\\begin{minipage}{10cm}
-  \\champnom{\\fbox{\\parbox{10cm}{    
+  \\champnom{\\fbox{\\parbox{10cm}{
     Écrivez vos nom, prénom et classe : \\\\
   }}}
   \\end{minipage}
@@ -1073,7 +1078,7 @@ export function creerDocumentAmc ({
   ABCDEFGHIJKLMNOPQRSTUVWXYZ}
   `
   const enteteTypeChampnomSimple = `\\begin{minipage}{10cm}
-  \\champnom{\\fbox{\\parbox{10cm}{    
+  \\champnom{\\fbox{\\parbox{10cm}{
     Écrivez vos nom, prénom et classe : \\\\
    \\\\
   }}}
@@ -1084,7 +1089,7 @@ export function creerDocumentAmc ({
   `
   const enteteTypePreremplie = `\\begin{center}
   \\noindent{}\\fbox{\\vspace*{3mm}
-       \\Large\\bf\\nom{}~\\prenom{}\\normalsize{}% 
+       \\Large\\bf\\nom{}~\\prenom{}\\normalsize{}%
         \\vspace*{3mm}
       }
   \\end{center}\n`
@@ -1093,7 +1098,7 @@ export function creerDocumentAmc ({
   if (typeEntete === 'AMCassociation') {
     enteteCopie += '\\newcommand{\\sujet}{\n'
   }
-  enteteCopie += ` 
+  enteteCopie += `
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   %%%% -II-b. MISE EN PAGE DU QCM %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1116,10 +1121,10 @@ export function creerDocumentAmc ({
   %\\noindent\\AMCcode{num.etud}{8}\\hspace*{\\fill} % Pour la version "verticale"
   %\\noindent\\AMCcodeH{num.etud}{8}\t % version "horizontale"
   \\begin{minipage}{7cm}
-  \\begin{center} 
+  \\begin{center}
     \\textbf{${matiere}}
     
-    \\textbf{${titre}} 
+    \\textbf{${titre}}
   \\end{center}
   \\end{minipage}
   \\hfill\n`
