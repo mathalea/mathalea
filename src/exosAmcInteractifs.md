@@ -471,8 +471,8 @@
 |betaPatronSolide|Compléter des patrons de solides|KO|KO|OK|mathLive|
 |betaProblemeAge|Problème : produit de 3 âges|KO|KO|OK|mathLive|
 |betaTestFraction|Tester la classe FractionX|KO|KO|OK|mathLive|
-|betaTestcanPredef6_10qN1|CAN 6ième 10 questions (niveau 1)|KO|KO|OK|mathLive|
-|betaTestcanPredef6_10qN2|CAN 6ième 10 questions (niveau 2)|KO|KO|OK|mathLive|
+|betaTestcanPredef6_10qN1|CAN 6e 10 questions (niveau 1)|KO|KO|OK|mathLive|
+|betaTestcanPredef6_10qN2|CAN 6e 10 questions (niveau 2)|KO|KO|OK|mathLive|
 |betaTexNombre|Somme de deux entier|KO|KO|OK|mathLive|
 |c3C10-1|Tables de multiplication|OK|AMCNum|OK|mathLive|
 |c3C10-3|Multiplier un nombre entier (ou décimal) par 10, 100 ou 1 000|OK|AMCNum|OK|mathLive|
@@ -621,7 +621,6 @@
 |can2P02|Dénombrer dans une situation concrète|KO|KO|OK|mathLive|
 |can2a-2021|CAN Seconde sujet 2021|KO|KO|OK|mathLive|
 |can2a-2022|CAN seconde sujet 2022|KO|KO|OK|mathLive|
-|beta-can3a-2023|CAN 3ième sujet 2023|KO|KO|OK|mathLive|
 |can3C01|Calculer avec des puissances|OK|AMCNum|OK|mathLive|
 |can3C02|Calculer une moyenne avec des décimaux|OK|AMCNum|OK|mathLive|
 |can3C03|Rendre irréductible une fraction|OK|AMCNum|OK|mathLive|
@@ -667,9 +666,9 @@
 |can3S04|Calculer une étendue|KO|KO|OK|mathLive|
 |can3S05|Calculer une moyenne|KO|KO|OK|mathLive|
 |can3S06|Déterminer le rang d’une médiane|KO|KO|OK|mathLive|
-|can3a-2021|CAN 3ième sujet 2021|KO|KO|OK|mathLive|
-|can3a-2022|CAN 3ième sujet 2022|KO|KO|OK|mathLive|
-|beta-can4a-2023|CAN 4ième sujet 2023|KO|KO|OK|mathLive|
+|can3a-2021|CAN 3e sujet 2021|KO|KO|OK|mathLive|
+|can3a-2022|CAN 3e sujet 2022|KO|KO|OK|mathLive|
+|can3a-2023|CAN 3e sujet 2023|KO|KO|OK|mathLive|
 |can4C01|Utiliser les priorités opératoires avec des relatifs|OK|AMCNum|OK|mathLive|
 |can4C02|Trouver l’opposé ou l’inverse d’une fraction|OK|AMCNum|OK|mathLive|
 |can4C03|Effectuer une division avec une fraction|OK|AMCNum|OK|mathLive|
@@ -705,9 +704,9 @@
 |can4P03|Calculer une quatrième proportionnelle|OK|AMCNum|OK|mathLive|
 |can4P04|Résoudre un problème avec la proportionnalité|KO|KO|OK|mathLive|
 |can4P05|Reconnaître sur un graphique une situation de proportionnalité ou de non proportionnalité|KO|KO|OK|mathLive|
-|can4a-2021|CAN 4ième sujet 2021|KO|KO|OK|mathLive|
-|can4a-2022|CAN 4ième sujet 2022|KO|KO|OK|mathLive|
-|beta-can5a-2023|CAN 5ième sujet 2023|KO|KO|OK|mathLive|
+|can4a-2021|CAN 4e sujet 2021|KO|KO|OK|mathLive|
+|can4a-2022|CAN 4e sujet 2022|KO|KO|OK|mathLive|
+|can4a-2023|CAN 4e sujet 2023|KO|KO|OK|mathLive|
 |can5A01|Travailler les répétitions (Scratch)|OK|AMCNum|OK|mathLive|
 |can5C01|Calculer un produit d’entiers|OK|AMCNum|OK|mathLive|
 |can5C02|Calculer une somme d’entiers|OK|AMCNum|OK|mathLive|
@@ -750,11 +749,11 @@
 |can5P07|Résoudre un problème de proportionnalité*|OK|AMCNum|OK|mathLive|
 |can5P08|Résoudre un problème de proportionnalité**|OK|AMCNum|OK|mathLive|
 |can5P09|Calculer un prix à partir d'un prix au kg|OK|AMCNum|OK|mathLive|
-|can5a-2020|CAN 5ième sujet 2020|KO|KO|OK|mathLive|
-|can5a-2021|CAN 5ième sujet 2021|KO|KO|OK|mathLive|
-|can5a-2022|CAN 5ième sujet 2022|KO|KO|OK|mathLive|
+|can5a-2020|CAN 5e sujet 2020|KO|KO|OK|mathLive|
+|can5a-2021|CAN 5e sujet 2021|KO|KO|OK|mathLive|
+|can5a-2022|CAN 5e sujet 2022|KO|KO|OK|mathLive|
+|can5a-2023|CAN 5e sujet 2023|KO|KO|OK|mathLive|
 |can5a-xxxx|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
-|beta-can6a-2023|CAN 6ième sujet 2023|KO|KO|OK|mathLive|
 |can6C01|Trouver un ordre de grandeur (QCM)|OK|qcmMono|OK|qcm|
 |can6C02|Multiplier un nombre pair par 5|OK|AMCNum|OK|mathLive|
 |can6C03|Rechercher un terme dans une somme|OK|AMCNum|OK|mathLive|
@@ -848,9 +847,10 @@
 |can6P05|Appliquer un pourcentage (bis)|OK|AMCNum|OK|mathLive|
 |can6P06|Résoudre un problème de calcul de pourcentage par complément à 100%|OK|AMCNum|OK|mathLive|
 |can6S01|Lire un diagramme en barres|OK|AMCNum|OK|mathLive|
-|can6a-2018|CAN 6ième sujet 2018|KO|KO|OK|mathLive|
-|can6a-2021|CAN 6ième sujet 2021|KO|KO|OK|mathLive|
-|can6a-2022|CAN 6ième sujet 2022|KO|KO|OK|mathLive|
+|can6a-2018|CAN 6e sujet 2018|KO|KO|OK|mathLive|
+|can6a-2021|CAN 6e sujet 2021|KO|KO|OK|mathLive|
+|can6a-2022|CAN 6e sujet 2022|KO|KO|OK|mathLive|
+|can6a-2023|CAN 6e sujet 2023|KO|KO|OK|mathLive|
 |can6a-xxxx|Course aux nombres fin de 6e|OK|AMCNum|OK|mathLive|
 |canExC01|Somme de nombres complexes|OK|AMCHybride|OK|mathLive|
 |canExC02|produit de nombres complexes|OK|AMCHybride|OK|mathLive|
