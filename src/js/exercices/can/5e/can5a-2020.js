@@ -8,7 +8,7 @@ import { round, min } from 'mathjs'
 import { listeQuestionsToContenu, stringNombre, sp, randint, prenomM, texNombre, miseEnEvidence, shuffle, choice, calcul, texPrix } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-export const titre = 'CAN 5ième sujet 2020'
+export const titre = 'CAN 5e sujet 2020'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -233,7 +233,7 @@ export default function SujetCAN20205ieme () {
             pointListe: [[a, 'A']]
           })
           reponse = x1
-          texte = 'Determine l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 1.5, pixelsParCm: 30, scale: 0.8 }, d)
+          texte = 'Détermine l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 1.5, pixelsParCm: 30, scale: 0.8 }, d)
           texteCorr = `Entre $${texNombre(abs0, 0)}$ et $${texNombre(abs1, 0)}$, il y a $3$ intervalles.<br>
        Une graduation correspond donc à $\\dfrac{${texNombre(abs1, 0)}-${texNombre(abs0, 0)}}{3}=${k}$. Ainsi, l'abscisse du point $A$ est $${texNombre(reponse, 0)}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -280,7 +280,7 @@ export default function SujetCAN20205ieme () {
           reponse = new Decimal(a).mul(2)
           texte = 'La figure $B$ est un agrandissement de la figure $A$. <br>'
 
-          texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1.2, style: 'margin: auto' }, objets)
+          texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1.2, style: 'margin: auto' }, objets)
           texte += '<br>? $=$'
           texteCorr = `Les longueurs de la figure $B$ sont le double de celles de la figure $A$.<br>
           Ainsi, ?$=2\\times ${texNombre(a, 1)}\\text{ cm}= ${texNombre(reponse, 1)}$ cm.

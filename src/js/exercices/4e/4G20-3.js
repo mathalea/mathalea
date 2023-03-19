@@ -31,7 +31,7 @@ export default class calculsDeCarre extends Exercice {
     this.besoinFormulaireNumerique = ['Type de nombre', 4, ' 1 : Entier relatif\n 2 : Décimal relatif \n 3 : Fractionnaire relatif \n 4 : Mélange']
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

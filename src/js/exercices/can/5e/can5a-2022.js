@@ -11,7 +11,7 @@ import { listeQuestionsToContenu, arrondi, tableauColonneLigne, stringNombre, ra
 import { setReponse } from '../../../modules/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-export const titre = 'CAN 5ième sujet 2022'
+export const titre = 'CAN 5e sujet 2022'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -566,7 +566,7 @@ export default function SujetCAN2022cinquieme () {
             a = randint(21, 28)
             k = randint(1, 4)
             reponse = arrondi(a + k / 5, 1)
-            texte = 'Determine l\'abscisse du point A  :<br> ' + mathalea2d({ xmin: -0.8, ymin: -1, xmax: 15, ymax: 1.5, scale: 0.7, style: 'margin: auto' }, droiteGraduee({
+            texte = 'Détermine l\'abscisse du point A  :<br> ' + mathalea2d({ xmin: -0.8, ymin: -1, xmax: 15, ymax: 1.5, scale: 0.7, style: 'margin: auto' }, droiteGraduee({
               Unite: 10,
               Min: a - 0.2,
               Max: a + 1.2,
@@ -791,8 +791,8 @@ export default function SujetCAN2022cinquieme () {
           reponse = arrondi(c / (d + 1), 1)
           texte = `Quelle est la distance du point $A$ à la droite $(BC)$ ? <br>
             `
-          texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
-          texteCorr = mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 15, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets, s2, traceH, droite(B, C),
+          texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
+          texteCorr = mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 15, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets, s2, traceH, droite(B, C),
             texteParPosition(`${reponse}  cm`, milieu(A, H).x - 0.9, milieu(A, H).y, 'milieu', 'black', 1, 'middle', true), labelPoint(H))
           texteCorr += `<br>La distance du point $A$ à la droite $(BC)$ est donnée par la longueur $AH$ : $${texNombre(reponse, 1)}$ cm`
 

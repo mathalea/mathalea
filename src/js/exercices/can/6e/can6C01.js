@@ -81,6 +81,5 @@ $${(a + 1) * 100}\\times ${d}=${texNombre(((a + 1) * 100) * d)}$ et on sélectio
       cpt++
     }
     listeQuestionsToContenu(this)
-    console.log(this)
   }
 }

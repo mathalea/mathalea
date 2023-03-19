@@ -616,7 +616,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           if (choice([true, false])) {
             a = choice([1, 2, 3, 4, 6, 7, 8, 9]) // numérateur
             reponse = calcul(a / 5)
-            texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee({
+            texte = 'Détermine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee({
               Unite: 3,
               Min: 0,
               Max: 3.2,
@@ -637,7 +637,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           } else {
             a = choice([1, 3, 5, 7, 9]) // numérateur
             reponse = calcul(a / 4)
-            texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee({
+            texte = 'Détermine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee({
               Unite: 3,
               Min: 0,
               Max: 3.2,

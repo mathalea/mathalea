@@ -7,7 +7,7 @@ import { listeQuestionsToContenu, randint, stringNombre, texNombre, texPrix, mis
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { round, min } from 'mathjs'
-export const titre = 'CAN 6ième sujet 2018'
+export const titre = 'CAN 6e sujet 2018'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -316,7 +316,7 @@ export default function SujetCAN20186ieme () {
         case 13 :
           a = choice([1, 2, 3, 4, 6, 7, 8, 9]) // numérateur
           reponse = arrondi(a / 5, 1)
-          texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({
+          texte = 'Détermine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({
             xmin: -1,
             ymin: -1,
             xmax: 14,
@@ -579,7 +579,7 @@ export default function SujetCAN20186ieme () {
               Deux-millions-${chiffre[a][0]}-cent-${chiffre[a][0]}-mille-${chiffre[a][0]} `
             reponse = 2 * 1000000 + chiffre[a][1] * 100000 + chiffre[a][1] * 1000 + chiffre[a][1]
             texteCorr = `Deux-millions-${chiffre[a][0]}-cent-${chiffre[a][0]}-mille-${chiffre[a][0]} $=
-            ${texNombre(2 * 1000000)} + ${texNombre(chiffre[a][1] * 100000)} + ${texNombre(chiffre[a][1] * 1000)} + ${texNombre(chiffre[a][1])}
+            ${texNombre(2 * 1000000)} + ${texNombre(chiffre[a][1] * 100000 + chiffre[a][1] * 1000)}  + ${texNombre(chiffre[a][1])}
                         =${miseEnEvidence(texNombre(2 * 1000000 + chiffre[a][1] * 100000 + chiffre[a][1] * 1000 + chiffre[a][1]))}$. `
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -630,7 +630,7 @@ export default function SujetCAN20186ieme () {
             Combien coûte $1$ sucette ?
              `
 
-          texteCorr = `$${k}$ sucettes couûtent $${texPrix(k * a)}$ €, donc $1$ sucette coûte $${k}$ fois moins, c'est-à-dire :
+          texteCorr = `$${k}$ sucettes coûtent $${texPrix(k * a)}$ €, donc $1$ sucette coûte $${k}$ fois moins, c'est-à-dire :
             $${texPrix(k * a)} \\text{ € }\\div ${k}=${miseEnEvidence(texPrix(a))}$ €.  `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -696,7 +696,7 @@ export default function SujetCAN20186ieme () {
           b = randint(1, 9) / 10
           reponse = Math.round((a + b) * 1000)
           texte = `$${texNombre(a + b, 1)}$ milliers $=$ `
-          texteCorr = `$${texNombre(a + b, 1)}$ milliers $=${texNombre(a + b, 1)}\\times 1000=${miseEnEvidence(texNombre(reponse))}$`
+          texteCorr = `$${texNombre(a + b, 1)}$ milliers $=${texNombre(a + b, 1)}\\times ${texNombre(1000)}=${miseEnEvidence(texNombre(reponse))}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
@@ -729,7 +729,7 @@ export default function SujetCAN20186ieme () {
         case 28 :
           a = randint(2, 9)
           texte = `Complète : $${a}$ m$^3=$ `
-          texteCorr = `$1$ m$^3$ est égal à $1000$ litres. Ainsi, $${a}$ m$^3=${a}\\times ${texNombre(1000)} \\text{ L }=${miseEnEvidence(texNombre(1000 * a))}$ L.`
+          texteCorr = `$1$ m$^3$ est égal à $${texNombre(1000)}$ litres. Ainsi, $${a}$ m$^3=${a}\\times ${texNombre(1000)} \\text{ L }=${miseEnEvidence(texNombre(1000 * a))}$ L.`
           reponse = a * 1000
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })

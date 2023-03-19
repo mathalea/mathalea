@@ -71,7 +71,7 @@ export default function CalculDeVolumes () {
     const listeUnites = [
       [sp(2) + '\\text{m}', sp(2) + '\\text{m}^3', 'm^3'],
       [sp(2) + '\\text{dm}', sp(2) + '\\text{dm}^3', 'dm^3'],
-      [sp(2) + '\\text{cm}', sp(2) + '\\text{cm}^3', 'mm^3'],
+      [sp(2) + '\\text{cm}', sp(2) + '\\text{cm}^3', 'cm^3'],
       [sp(2) + '\\text{mm}', sp(2) + '\\text{mm}^3', 'mm^3']
     ]
     let partieDecimale1, partieDecimale2, partieDecimale3
@@ -198,7 +198,7 @@ export default function CalculDeVolumes () {
             c = partieDecimale3.plus(randint(2, 10))
             h = new Decimal(randint(30, 50))
             l = new Decimal(randint(5, 15)).div(10)
-            volume = volume = c.mul(h).mul(l).div(2)
+            volume = c.mul(h).mul(l).div(2)
             texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
             texte += `, arrondi à l'unité, d'un prisme droit de hauteur $${texNombre(l, 1)}${listeUnites[j - 1][0]}$ et dont les bases sont des triangles de base $${texNombre(c, 1)}${listeUnites[j][0]}$ et de hauteur correspondante $${h}${listeUnites[j + 1][0]}$.`
             texteCorr = `$\\mathcal{V}=\\mathcal{B} \\times h=\\dfrac{${texNombre(c, 1)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\times${h}${listeUnites[j + 1][0]}}{2}\\times${texNombre(l, 1)}${listeUnites[j - 1][0]}=\\dfrac{${texNombre(c, 1)}${context.isAmc ? listeUnites[j][3] : listeUnites[j][0]}\\times${texNombre(h.div(10), 1)
@@ -363,7 +363,7 @@ export default function CalculDeVolumes () {
                   texte: '',
                   statut: '',
                   reponse: {
-                    texte: texte,
+                    texte,
                     valeur: [Math.round(volume)],
                     param: {
                       digits: nombreDeChiffresDansLaPartieEntiere(Math.round(volume)) + randint(0, 2),

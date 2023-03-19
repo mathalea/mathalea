@@ -9,7 +9,7 @@ import { listeQuestionsToContenu, arrondi, randint, texNombre, stringNombre, shu
 import { setReponse } from '../../../modules/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-export const titre = 'CAN 4ième sujet 2022'
+export const titre = 'CAN 4e sujet 2022'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle

@@ -11,7 +11,7 @@ import { setReponse } from '../../../modules/gestionInteractif.js'
 import Grandeur from '../../../modules/Grandeur.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
-export const titre = 'CAN 6ième sujet 2022'
+export const titre = 'CAN 6e sujet 2022'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -619,7 +619,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           if (choice([true, false])) {
             a = choice([1, 2, 3, 4, 6, 7, 8, 9]) // numérateur
             reponse = arrondi(a / 5, 1)
-            texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee({
+            texte = 'Détermine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee({
               Unite: 3,
               Min: 0,
               Max: 3.2,
@@ -640,7 +640,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           } else {
             a = choice([1, 3, 5, 7, 9]) // numérateur
             reponse = arrondi(a / 4, 2)
-            texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee({
+            texte = 'Détermine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee({
               Unite: 3,
               Min: 0,
               Max: 3.2,

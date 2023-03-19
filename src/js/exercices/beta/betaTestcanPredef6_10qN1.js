@@ -4,7 +4,7 @@ import { droiteGraduee } from '../../modules/2d.js'
 import { listeQuestionsToContenu, randint, texNombrec, range1, combinaisonListesSansChangerOrdre, prenomF, choice, texteEnCouleur, calcul } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-export const titre = 'CAN 6ième 10 questions (niveau 1)'
+export const titre = 'CAN 6e 10 questions (niveau 1)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

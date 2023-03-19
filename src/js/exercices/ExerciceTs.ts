@@ -5,24 +5,24 @@
  * @author Rémi Angot
  */
 export default class Exercice {
-titre: string
-sup: any
-sup2: any
-sup3: any
-sup4: any
-boutonAide: boolean | HTMLButtonElement
-consigne: string
-consigneCorrection: string
-introduction: string
-listeQuestions: string[]
-listeCorrections: string[]
-contenu: string
-contenuCorrection: string
-autoCorrection: object[]
-tableauSolutionsDuQcm: object[]
-spacing: number
-spacingCorr: number
-pasDeVersionLatex: boolean
+  titre: string
+  sup: any
+  sup2: any
+  sup3: any
+  sup4: any
+  boutonAide: boolean | HTMLButtonElement
+  consigne: string
+  consigneCorrection: string
+  introduction: string
+  listeQuestions: string[]
+  listeCorrections: string[]
+  contenu: string
+  contenuCorrection: string
+  autoCorrection: object[]
+  tableauSolutionsDuQcm: object[]
+  spacing: number
+  spacingCorr: number
+  pasDeVersionLatex: boolean
   listePackages: string[]
   consigneModifiable: boolean
   nbQuestionsModifiable: boolean
@@ -172,7 +172,7 @@ pasDeVersionLatex: boolean
    */
   }
 
-  questionJamaisPosee (i, ...args) {
+  questionJamaisPosee (i: number, ...args:(string|number)[]) {
     if (i === 0) this.listeArguments = []
     let argsConcatenes = ''
     for (const arg of args) {

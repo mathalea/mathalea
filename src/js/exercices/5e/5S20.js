@@ -114,9 +114,9 @@ export default function PlacerProbabilites () {
         lstObjet.push(texteParPosition(lstEchelle[j][0], L * lstEchelle[j][1], y, angle, 'black', 1, 'gauche'))
       }
     } else {
-      lstObjet.push(latexParCoordonnees('\\dfrac{1}{2}', L / 2, -1, 'black', 20, 20, 'white', 6))
-      lstObjet.push(texteParPosition('0', 0, y - 0.25, 0, 'black', 1, 'middle')) // abscisse 0
-      lstObjet.push(texteParPosition('1', L, y - 0.25, 0, 'black', 1, 'middle')) // abscisse 1
+      lstObjet.push(latexParCoordonnees('\\dfrac{1}{2}', L / 2, -1, 'black', 20, 40, 'white', 6))
+      lstObjet.push(latexParCoordonnees('0', 0, y - 0.25, 'black', 20, 20, 'white', 6)) // abscisse 0
+      lstObjet.push(latexParCoordonnees('1', L, y - 0.25, 'black', 20, 20, 'white', 6)) // abscisse 1
     }
 
     if (context.isHtml) {
