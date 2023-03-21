@@ -67,60 +67,65 @@ export default function CalculerCoeffPropo () {
       /** @type Array<{ nombre: number, visible: boolean }> */
       const deuxiemeLigne = []
       const colonneReference = randint(0, 2) // La colonne qui contiendra deux valeurs visibles pour faire le calcul
-      switch (listeTypesDeCoefficient[i]) {
-        case 'Entier': // On choisit un coefficient dans les listes => tout est entier
-          coefficient = choice(tableauxCoefficientsEntiers[i % 4])
-          for (let colonne = 0; colonne < 3; colonne++) {
-            const contenuVisible = choice([true, false])
-            premiereLigne[colonne] = {
-              nombre: choice(choice(tableauxEntiers), premiereLigne.map(elt => elt.nombre)),
-              visible: colonne === colonneReference ? true : contenuVisible
-            }
-            deuxiemeLigne[colonne] = {
-              nombre: premiereLigne[colonne].nombre * coefficient,
-              visible: colonne === colonneReference ? true : !contenuVisible
-            }
-          }
-          break
-        case 'Decimal': // On construit un coefficient... on pourrait le choisir dans une liste
-          coefficient = new Decimal(randint(1, 9) + randint(0, 2) * 10).div(10)
-          for (let colonne = 0; colonne < 3; colonne++) {
-            const contenuVisible = choice([true, false])
-            premiereLigne[colonne] = {
-              nombre: choice(choice(tableauxEntiers), premiereLigne.map(elt => elt.nombre)),
-              visible: colonne === colonneReference ? true : contenuVisible
-            }
-            deuxiemeLigne[colonne] = {
-              nombre: coefficient.mul(premiereLigne[colonne].nombre),
-              visible: colonne === colonneReference ? true : !contenuVisible
-            }
-          }
-          break
-        case 'Fraction': { // construction de la fraction => prévoir une liste simplifiera le code
-          let allNumberAreGood
-          do {
-            allNumberAreGood = true
-            const [numerateur, denominateur] = choice(choice(tableauxCoefficientsFractions))
-            coefficient = new FractionX(numerateur, denominateur)
+      do {
+        switch (listeTypesDeCoefficient[i]) {
+          case 'Entier': // On choisit un coefficient dans les listes => tout est entier
+            coefficient = choice(tableauxCoefficientsEntiers[i % 4])
             for (let colonne = 0; colonne < 3; colonne++) {
               const contenuVisible = choice([true, false])
-              let unNombre
-              let antiBoucleInfinie = 0
-              do { // On choisit un nombre à multiplier par une fraction => on veut un résultat entier obligatoirement !
-                unNombre = choice(choice(tableauxEntiers), premiereLigne.map(elt => elt.nombre))
-                antiBoucleInfinie++
-              } while (!coefficient.multiplieEntier(unNombre).estEntiere && antiBoucleInfinie < 20)
-              if (antiBoucleInfinie === 20) allNumberAreGood = false
-              premiereLigne[colonne] = { nombre: unNombre, visible: colonne === colonneReference ? true : contenuVisible }
+              premiereLigne[colonne] = {
+                nombre: choice(choice(tableauxEntiers), premiereLigne.map(elt => elt.nombre)),
+                visible: colonne === colonneReference ? true : contenuVisible
+              }
               deuxiemeLigne[colonne] = {
                 nombre: premiereLigne[colonne].nombre * coefficient,
                 visible: colonne === colonneReference ? true : !contenuVisible
               }
             }
-          } while (!allNumberAreGood || isBetterWithLinearity(premiereLigne.map(elt => elt.nombre)))
+            break
+          case 'Decimal': // On construit un coefficient... on pourrait le choisir dans une liste
+            coefficient = new Decimal(randint(1, 9) + randint(0, 2) * 10).div(10)
+            for (let colonne = 0; colonne < 3; colonne++) {
+              const contenuVisible = choice([true, false])
+              premiereLigne[colonne] = {
+                nombre: choice(choice(tableauxEntiers), premiereLigne.map(elt => elt.nombre)),
+                visible: colonne === colonneReference ? true : contenuVisible
+              }
+              deuxiemeLigne[colonne] = {
+                nombre: coefficient.mul(premiereLigne[colonne].nombre),
+                visible: colonne === colonneReference ? true : !contenuVisible
+              }
+            }
+            break
+          case 'Fraction': { // construction de la fraction => prévoir une liste simplifiera le code
+            let allNumberAreGood
+            do {
+              allNumberAreGood = true
+              const [numerateur, denominateur] = choice(choice(tableauxCoefficientsFractions))
+              coefficient = new FractionX(numerateur, denominateur)
+              for (let colonne = 0; colonne < 3; colonne++) {
+                const contenuVisible = choice([true, false])
+                let unNombre
+                let antiBoucleInfinie = 0
+                do { // On choisit un nombre à multiplier par une fraction => on veut un résultat entier obligatoirement !
+                  unNombre = choice(choice(tableauxEntiers), premiereLigne.map(elt => elt.nombre))
+                  antiBoucleInfinie++
+                } while (!coefficient.multiplieEntier(unNombre).estEntiere && antiBoucleInfinie < 20)
+                if (antiBoucleInfinie === 20) allNumberAreGood = false
+                premiereLigne[colonne] = {
+                  nombre: unNombre,
+                  visible: colonne === colonneReference ? true : contenuVisible
+                }
+                deuxiemeLigne[colonne] = {
+                  nombre: premiereLigne[colonne].nombre * coefficient,
+                  visible: colonne === colonneReference ? true : !contenuVisible
+                }
+              }
+            } while (!allNumberAreGood)
+            break
+          }
         }
-          break
-      }
+      } while (isBetterWithLinearity(premiereLigne.map(elt => elt.nombre)))
       const coefficientRationnel = coefficient instanceof FractionX
       const coefficientDecimal = coefficient instanceof Decimal
       const coefficientTex = coefficientRationnel ? coefficient.texFraction : texNombre(coefficient)

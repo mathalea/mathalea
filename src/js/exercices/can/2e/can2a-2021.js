@@ -372,7 +372,7 @@ export default function SujetCAN2021Seconde () {
           break
 
         case 17:
-          a = randint(5, 99) / 10
+          a = randint(5, 99, 10) / 10
           b = randint(2, 9) * 5
           c = 100 - b
           texte = `$${b}\\times${texNombre(a, 1)} + ${texNombre(a, 1)}\\times${c}=$ 

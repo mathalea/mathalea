@@ -4431,7 +4431,9 @@ export function katexPopupTest (texte, titrePopup, textePopup) {
 **/
 
 export function katexPopup2 (numero, type, texte, titrePopup, textePopup) {
-  'use strict'
+  // ToDo : gérer les popu avec la version 3
+  // Pour l'instant, ils sont supprimés
+  if (context.versionMathalea > 2) return texte
   switch (type) {
     case 0:
       return katexPopupTest(texte, titrePopup, textePopup)

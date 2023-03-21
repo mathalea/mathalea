@@ -22,6 +22,13 @@ const collegeKeyboardLayer = {
           latex: '\\sqrt{#0}',
           insert: '$$\\sqrt{#0}$$'
         },
+        /* Proposition Daniel Caillibaud en lieu et place de la puissance 2 actuelle
+        {
+          class: 'tex small',
+          latex: 'x^2', // Puissance 2
+          insert: '#@^{2}'
+        },
+        */
         {
           class: 'tex small',
           label: '<span><i>x</i>&thinsp;²</span>', // Puissance 2
@@ -133,9 +140,10 @@ export const clavierCollege = {
     '²': { mode: 'math', value: '^2' },
     '³': { mode: 'math', value: '^3' },
     pi: { mode: 'math', value: '\\pi' },
-    ang: { mode: 'math', value: '\\widehat{#0}' },
-    rac: { mode: 'math', value: '\\sqrt{#0}' },
-    frac: { mode: 'math', value: '\\frac{#0}{#1}' },
+    ang: { mode: 'math', value: '\\widehat{#@}' },
+    rac: { mode: 'math', value: '\\sqrt{#@}' },
+    frac: { mode: 'math', value: '\\frac{#@}{#1}' },
+    '/': { mode: 'math', value: '\\frac{#@}{#1}' },
     '<': '<',
     '>': '>',
     '>=': '\\geq',

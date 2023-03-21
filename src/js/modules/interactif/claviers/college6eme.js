@@ -97,8 +97,9 @@ export const clavierCollege6eme = {
     '*': { mode: 'math', value: '\\times' },
     '.': { mode: 'math', value: ',' },
     pi: { mode: 'math', value: '\\pi' },
-    ang: { mode: 'math', value: '\\widehat{#0}' },
-    frac: { mode: 'math', value: '\\frac{#0}{#1}' }
+    ang: { mode: 'math', value: '\\widehat{#@}' },
+    frac: { mode: 'math', value: '\\frac{#@}{#1}' },
+    '/': { mode: 'math', value: '\\frac{#@}{#1}' }
   },
   // virtualKeyboards: 'numeric roman',
   virtualKeyboardMode: 'manual'
