@@ -1,3 +1,4 @@
+import FractionX from '../../modules/FractionEtendue.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureParentheseSiNegatif, pgcd, simplificationDeFractionAvecEtapes, calcul, miseEnEvidence, texFraction, ppcm, lettreDepuisChiffre } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -16,7 +17,7 @@ export const interactifType = 'mathLive'
 *
 * * Niveau 1 : 4 fois sur 5 un dénominateur est un multiple de l'autre et une fois sur 5 il faut additionner une fraction et un entier
 * * Niveau 2 : 2 fois sur 5, il faut trouver le ppcm, 1 fois sur 5 le ppcm correspond à leur produit, 1 fois sur 5 un dénominateur est multiple de l'autre, 1 fois sur 5 il faut additionner une fraction et un entier
-* * Paramètre supplémentaire : utiliser des nommbres relatifs (par défaut tous les nombres sont positifs)
+* * Paramètre supplémentaire : utiliser des nombres relatifs (par défaut tous les nombres sont positifs)
 * * 2 fois sur 4 il faut faire une soustraction
 * @author Rémi Angot
 * 4C21
@@ -174,13 +175,14 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
         den = b
       }
 
-      if (this.sup3) {
-        texteCorr += `=${texFraction(num, den)}`
-        texteCorr += simplificationDeFractionAvecEtapes(num, den) + '$'
-      } else {
-        texteCorr += `=${texFraction(num, den)}`
-        texteCorr += '$'
-      }
+      // if (this.sup3) {
+      texteCorr += `=${texFraction(num, den)}`
+      texteCorr += simplificationDeFractionAvecEtapes(num, den) + '$'
+      if (!(new FractionX(num, den).estIrreductible)) texteCorr += ' (On a réduit le plus possible la fraction)'
+      // } else {
+      //   texteCorr += `=${texFraction(num, den)}`
+      //   texteCorr += '$'
+      // }
 
       const myTexteCorrCol = texteCorr
       if (this.sup4) {
@@ -207,7 +209,7 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore', { texte: '=' })
       }
       reponse = fraction(num, den).simplifie()
-      setReponse(this, i, reponse, { digits: 4, digitsNum: 2, digitsDen: 2, formatInteractif: 'fraction' })
+      setReponse(this, i, reponse, { digits: 4, digitsNum: 2, digitsDen: 2, formatInteractif: this.sup3 ? 'fraction' : 'fractionEgale' })
       if (context.isAmc) texte = 'Calculer et donner le résultat sous forme irréductible\\\\\n' + texte
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)

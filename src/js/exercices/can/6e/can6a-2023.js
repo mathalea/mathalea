@@ -1,9 +1,8 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d, fixeBordures, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 import FractionX from '../../../modules/FractionEtendue.js'
-import { fraction } from '../../../modules/fractions.js'
 import {
-  point, grille, droiteGraduee, plot, segment, milieu, labelPoint, texteParPosition, polygoneAvecNom, polygone
+  point, grille, droiteGraduee, plot, segment, milieu, segmentAvecExtremites, texteParPosition, polygoneAvecNom, polygone
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { context } from '../../../modules/context.js'
@@ -51,20 +50,23 @@ export default function SujetCAN2023Sixieme () {
     this.listeCorrections = [] // Liste de questions corrigées
     const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
     const nbQ2 = min(this.nbQuestions - nbQ1, 20)
-    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).slice(-nbQ1).sort(compareNombres)//
-    const typeQuestionsDisponiblesNiv2 = shuffle([11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)//
+    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).slice(-nbQ1).sort(compareNombres)// 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+    const typeQuestionsDisponiblesNiv2 = shuffle([11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)// 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
     const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
 
-    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, prenom1, prenom2, m, prix, pol, pol2, L, l, l2, E, F, G, H, maListe, taille1, res, chiffre, chiffre2, propositions, choix, a, b, c, d, e, f, k, s1, s2, A, B, C, D, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, prenom1, prenom2, m, prix, pol, pol2, L, l, l2, E, F, G, H, maListe, taille1, res, chiffre, chiffre2, propositions, choix, a, b, c, d, e, f, k, s1, s2, s3, s4, s5, A, B, C, D, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typeQuestionsDisponibles[i]) {
         case 1:
           a = randint(4, 9)
           b = randint(4, 9)
-          texte = `$${a} \\times ${b}=$ `
+          texte = `$${a} \\times ${b}$`
           texteCorr = `$${a} \\times ${b}=${miseEnEvidence(a * b)}$`
           reponse = a * b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) { texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
 
           break
@@ -73,13 +75,16 @@ export default function SujetCAN2023Sixieme () {
           a = randint(23, 38, [20, 30, 31, 29])
           b = choice([19, 29, 39])
 
-          texte = `$${a}+${b}=$`
+          texte = `$${a}+${b}$`
           reponse = a + b
           if (b === 19) { texteCorr = `$${a}+${b}=${a}+20-1=${a + 20}-1=${miseEnEvidence(reponse)}$` }
           if (b === 29) { texteCorr = `$${a}+${b}=${a}+30-1=${a + 30}-1=${miseEnEvidence(reponse)}$` }
           if (b === 39) { texteCorr = `$${a}+${b}=${a}+40-1=${a + 40}-1=${miseEnEvidence(reponse)}$` }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) { texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
 
           break
@@ -99,12 +104,14 @@ export default function SujetCAN2023Sixieme () {
           texte = `Combien y a-t-il de boules noires ?
           <br>`
 
-          texte += `${mathalea2d(Object.assign({ scale: 0.3 }, fixeBordures(d)), d)}`
+          texte += `${mathalea2d(Object.assign({ scale: 0.3, style: 'margin: auto' }, fixeBordures(d)), d)}`
           reponse = b
           texteCorr = `Le nombre de boules noires est donné par : $${k}\\times ${texNombre(b / k, 0)}=${miseEnEvidence(b)}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('$\\ldots$ boules noires')
           nbChamps = 1
           break
 
@@ -112,23 +119,25 @@ export default function SujetCAN2023Sixieme () {
           if (choice([true, false])) {
             a = randint(11, 25, 20) * 2
             reponse = a / 2
-            texte = `La moitié de $${a}$ est : `
+            texte = `La moitié de $${a}$`
             texteCorr = `La moitié de $${a}$ est $${a}\\div 2=${miseEnEvidence(a / 2)}$.`
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '\\ldots' }
+            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
             nbChamps = 1
           } else {
             a = randint(16, 45, [20, 30, 40])
             reponse = 2 * a
-            texte = `Le double de $${a}$ est : `
+            texte = `Le double de $${a}$`
             texteCorr = `Le double  de $${a}$ est $${a}\\times 2=${miseEnEvidence(a * 2)}$.`
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '\\ldots' }
+            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
             nbChamps = 1
           }
 
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           break
         case 5:
           if (choice([true, false])) {
@@ -173,15 +182,17 @@ export default function SujetCAN2023Sixieme () {
             })
           }
           reponse = a
-          texte = 'Quel est le nombre écrit sous le point d\'interrogation ?<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 1.5, scale: 0.6, style: 'margin: auto' }, d)
+          texte = 'Quel est le nombre écrit sous le point d\'interrogation ?<br>' + mathalea2d({ xmin: -1, ymin: -1.4, xmax: 15, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, d)
           texteCorr = `Le nombre écrit sous le point d'interrogation est : $${miseEnEvidence(a)}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('? $=\\ldots$')
           nbChamps = 1
           break
 
         case 6:
-          m = choice([1, 2, 3, 4])
+          m = choice([1, 2, 3, 4, 5])
           if (m === 1) {
             texte = `Complète : ${sp(3)}
             $\\ldots \\times \\ldots =18$`
@@ -190,6 +201,8 @@ export default function SujetCAN2023Sixieme () {
           $${miseEnEvidence(3)}\\times ${miseEnEvidence(6)}=18$<br>
           $${miseEnEvidence(2)}\\times ${miseEnEvidence(9)}=18$<br>
           $${miseEnEvidence(1)}\\times ${miseEnEvidence(18)}=18$ `
+            this.canEnonce = 'Complète.'
+            this.canReponseACompleter = '$\\ldots \\times \\ldots =18$'
           }
           if (m === 2) {
             texte = `Complète : ${sp(3)}
@@ -198,6 +211,8 @@ export default function SujetCAN2023Sixieme () {
             texteCorr = `Deux réponses possibles (avec des entiers) : <br>
             $${miseEnEvidence(3)}\\times ${miseEnEvidence(7)}=21$<br>
             $${miseEnEvidence(1)}\\times ${miseEnEvidence(21)}=21$ `
+            this.canEnonce = 'Complète.'
+            this.canReponseACompleter = '$\\ldots \\times \\ldots =21$'
           }
 
           if (m === 3) {
@@ -207,16 +222,21 @@ export default function SujetCAN2023Sixieme () {
             texteCorr = `Deux réponses possibles (avec des entiers) : <br>
               $${miseEnEvidence(5)}\\times ${miseEnEvidence(7)}=35$<br>
               $${miseEnEvidence(1)}\\times ${miseEnEvidence(35)}=35$ `
-          }
-          if (m === 3) {
-            texte = `Complète : ${sp(3)}
-                  $\\ldots \\times \\ldots =35$`
-            reponse = ['5;7', '1;35']
-            texteCorr = `Deux réponses possibles (avec des entiers) : <br>
-                $${miseEnEvidence(5)}\\times ${miseEnEvidence(7)}=35$<br>
-                $${miseEnEvidence(1)}\\times ${miseEnEvidence(35)}=35$ `
+            this.canEnonce = 'Complète.'
+            this.canReponseACompleter = '$\\ldots \\times \\ldots =35$'
           }
           if (m === 4) {
+            texte = `Complète : ${sp(3)}
+                  $\\ldots \\times \\ldots =28$`
+            reponse = ['4;7', '1;28', '2;14']
+            texteCorr = `Trois réponses possibles (avec des entiers) : <br>
+                $${miseEnEvidence(4)}\\times ${miseEnEvidence(7)}=28$<br>
+                $${miseEnEvidence(1)}\\times ${miseEnEvidence(28)}=28$<br>
+                $${miseEnEvidence(2)}\\times ${miseEnEvidence(14)}=28$`
+            this.canEnonce = 'Complète.'
+            this.canReponseACompleter = '$\\ldots \\times \\ldots =28$'
+          }
+          if (m === 5) {
             texte = `Complète : ${sp(3)}
                     $\\ldots \\times \\ldots =42$`
             reponse = ['6;7', '1;42', '2;21', '3;14']
@@ -225,37 +245,54 @@ export default function SujetCAN2023Sixieme () {
                   $${miseEnEvidence(2)}\\times ${miseEnEvidence(21)}=42$ <br>
                   $${miseEnEvidence(3)}\\times ${miseEnEvidence(14)}=42$<br>
                   $${miseEnEvidence(1)}\\times ${miseEnEvidence(42)}=42$`
+            this.canEnonce = 'Complète.'
+            this.canReponseACompleter = '$\\ldots \\times \\ldots =35$'
           }
           setReponse(this, index, reponse, { formatInteractif: 'texte' })
           if (this.interactif) {
-            texte += '<br>Écrire le deux nombres dans l\'ordre croissant séparés par un point virgule.'
+            texte += '<br>Écrire les deux nombres dans l\'ordre croissant séparés par un point virgule.'
             texte += ajouteChampTexteMathLive(this, index, 'largeur12 inline')
           }
+
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
           break
 
         case 7:
           if (choice([true, false])) {
-            a = randint(6, 10)
             b = choice([35, 40, 45, 50, 55])
             c = choice([30, 35, 40, 45])
-            texte = `$${b}$ min $+$ $${a}$ h $${c}$ min $=$`
+            if (!this.interactif) {
+              texte = `$${b}\\text{ min}+ ${c}\\text{ min}=$ ${context.isHtml ? '..... h ..... min' : ''}`
+            } else {
+              texte = `$${b} \\text{ min}+${c} \\text{ min}=$`
+            }
             reponse = b + c - 60
-            texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter, ce qui donne 
-                $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           } else {
             a = randint(6, 10)
             b = choice([20, 25, 30, 35])
             c = choice([45, 50, 55])
-            texte = `$${b}$ min $+$ $${a}$ h $${c}$ min $=$`
+            if (!this.interactif) {
+              texte = `$${b}\\text{ min}+${c}\\text{ min}=$ ${context.isHtml ? '..... h ..... min' : ''}`
+            } else {
+              texte = `$${b}\\text{ min}+${c}\\text{ min}=$`
+            }
             reponse = b + c - 60
-            texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter, ce qui donne 
-    $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           }
+          if (b > c) {
+            texteCorr = `De $${b} \\text{ min }$ pour aller à $1$ h, il faut $${60 - b}$ min, et il reste $${b - 60 + c}$ min à ajouter.<br>
+            On obtient  $${miseEnEvidence(1)}$ h et $${miseEnEvidence(reponse)}$ min.`
+          } else {
+            texteCorr = `De $${c} \\text{ min }$ pour aller à $1$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter.<br>
+            On obtient  $${miseEnEvidence(1)}$ h et $${miseEnEvidence(reponse)}$ min.`
+          }
+
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'clavierHms inline') }
 
-          setReponse(this, index, new Hms({ hour: a + 1, minute: reponse }), { formatInteractif: 'hms' })
-
+          setReponse(this, index, new Hms({ hour: 1, minute: reponse }), { formatInteractif: 'hms' })
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('$\\ldots\\text{ h }\\ldots \\text{ min}$')
           nbChamps = 1
 
           break
@@ -266,29 +303,32 @@ export default function SujetCAN2023Sixieme () {
             a = randint(9, 15) * 3
 
             reponse = Math.round(a / 3)
-            texte = `Pour partager $${a}$ oeufs, combien de boites de  $3$ oeufs dois-je utiliser ? `
+            texte = `Pour partager $${a}$ œufs, combien de boites de  $3$ œufs dois-je utiliser ? `
             texteCorr = `Le nombre de boites est donné par $${a}\\div 3=${miseEnEvidence(a / 3)}$.`
           }
           if (choix === 'b') {
             reponse = randint(8, 12)
             a = reponse * 4
-            texte = `Pour partager $${a}$ oeufs, combien de boites de  $4$ oeufs dois-je utiliser ? `
+            texte = `Pour partager $${a}$ œufs, combien de boites de  $4$ œufs dois-je utiliser ? `
             texteCorr = `Le nombre de boites est donné par $${a}\\div 4=${miseEnEvidence(a / 4)}$.`
           }
           if (choix === 'c') {
             reponse = randint(6, 10)
             a = reponse * 5
-            texte = `Pour partager $${a}$ oeufs, combien de boites de  $5$ oeufs dois-je utiliser ? `
+            texte = `Pour partager $${a}$ œufs, combien de boites de  $5$ œufs dois-je utiliser ? `
             texteCorr = `Le nombre de boites est donné par $${a}\\div 5=${miseEnEvidence(reponse)}$.`
           }
           if (choix === 'd') {
             reponse = randint(4, 8)
             a = reponse * 6
-            texte = `Pour partager $${a}$ oeufs, combien de boites de  $6$ oeufs dois-je utiliser ? `
+            texte = `Pour partager $${a}$ œufs, combien de boites de  $6$ œufs dois-je utiliser ? `
             texteCorr = `Le nombre de boites est donné par $${a}\\div 6=${miseEnEvidence(reponse)}$.`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' boîtes' }
+
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('Je dois utiliser $\\ldots$ boîtes.')
           nbChamps = 1
           break
 
@@ -300,12 +340,14 @@ export default function SujetCAN2023Sixieme () {
           b = randint(taille1[a][1], taille1[a][2])
           propositions = shuffle([`$${b}$ m`, `$${b}$ dm`, `$${b}$ cm`, `$${b}$ mm`])
 
-          texte = `Choisis parmi les propositions suivantes la hauteur d'une ${taille1[a][0]}<br>
+          texte = `Choisis parmi les propositions suivantes la hauteur d'une ${taille1[a][0]}.<br>
           `
           texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}${sp(4)} ${propositions[3]}`
           texteCorr = `La taille d'une ${taille1[a][0]} est $${miseEnEvidence(b)}$ ${taille1[a][3]}.`
           setReponse(this, index, new Grandeur(b, taille1[a][3]), { formatInteractif: 'unites' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15 longueur') }
+          this.listeCanEnonces.push(`Entoure la réponse possible.<br> La hauteur d'une ${taille1[a][0]} est :`)
+          this.listeCanReponsesACompleter.push(`${propositions[0]} ${sp(8)} ${propositions[1]} \\\\ ${propositions[2]}${sp(8)} ${propositions[3]}`)
           nbChamps = 1
           break
 
@@ -354,6 +396,8 @@ export default function SujetCAN2023Sixieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
 
           nbChamps = 1
 
@@ -370,15 +414,22 @@ export default function SujetCAN2023Sixieme () {
             Elle en a $${b}$ fois plus que sa sœur. Combien de billes sa sœur  a-t-elle ? `
             texteCorr = `Puisque ${prenom1} en  a $${b}$ fois plus, sa sœur en a $${b}$ fois moins, soit  : $${a}\\div ${b}=${miseEnEvidence(a / b)}$. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15', { texteApres: sp(5) + 'billes.' }) }
+
+            this.listeCanEnonces.push(`${prenom1} a $${a}$ billes. <br>
+            Elle en a $${b}$ fois plus que sa sœur.`)
+            this.listeCanReponsesACompleter.push('Sa sœur a $\\ldots$ billes.')
           } else {
             b = randint(6, 15)
             reponse = 2 * b
             texte = `${prenom1} a $${b}$ ans. <br>
-            ${prenom2} est deux fois plus âgé que ${prenom1}. ${prenom1} a  `
+            ${prenom2} est deux fois plus âgé que ${prenom1}. ${prenom2} a  `
             texteCorr = `Puisque ${prenom2} est deux fois plus âgé que ${prenom1}, son âge est  : $${b}\\times 2=${miseEnEvidence(2 * b)}$ ${texteEnCouleur('ans')}. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'largeur12 inline', { texteApres: sp(5) + 'ans.' }) } else { texte += '$\\ldots$ ans' }
+            this.listeCanEnonces.push(`${prenom1} a $${b}$ ans. <br>
+              ${prenom2} est deux fois plus âgé que ${prenom1}.`)
+            this.listeCanReponsesACompleter.push(`${prenom1} a $\\ldots$ ans.`)
           }
 
           nbChamps = 1
@@ -393,23 +444,27 @@ export default function SujetCAN2023Sixieme () {
             c = new Decimal('0.1')
             reponse = new Decimal(a).mul(b).mul(c)
             texte = `Donne l'écriture décimale de  $${a}\\times ${b}$ dixièmes.`
-            texteCorr = `$1$ dixième $=0,1$, d'où $${a}\\times ${b}$ dixièmes $=${a}\\times ${b}\\times 0,1=${miseEnEvidence(texNombre(reponse, 1))}$.`
+            texteCorr = ` $${a}\\times ${b}$ dixièmes $=${a * b}$ dixièmes $=${miseEnEvidence(texNombre(reponse, 1))}$`
           } else {
             a = randint(2, 5)
             b = randint(6, 9)
             c = new Decimal('0.01')
             reponse = new Decimal(a).mul(b).mul(c)
             texte = `Donne l'écriture décimale de  $${a}\\times ${b}$ centièmes.`
-            texteCorr = `$1$ centième $=0,01$, d'où $${a}\\times ${b}$ centièmes $=${a}\\times ${b}\\times 0,01=${miseEnEvidence(texNombre(reponse, 2))}$.`
+            texteCorr = ` $${a}\\times ${b}$ centièmes $=${a * b}$ centièmes $=${miseEnEvidence(texNombre(reponse, 2))}$`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
           break
 
         case 13:
           if (choice([true, false])) {
             a = choice([new Decimal('1.5'), new Decimal('2'), new Decimal('2.5'), new Decimal('3'), new Decimal('4'), new Decimal('4.5')])
+            b = texteParPosition(`${stringNombre(0.5, 2)}`, 1, -0.5, 'milieu', 'black', context.isHtml ? 1 : 0.7)
             d = droiteGraduee({
               Unite: 2,
               Min: 0,
@@ -422,7 +477,7 @@ export default function SujetCAN2023Sixieme () {
               thickOffset: 0,
               axeStyle: '->',
               pointListe: [[a, '?']],
-              labelListe: [[0, `${stringNombre(0)}`], [0.5, `${stringNombre(0.5, 1)}`]],
+              labelListe: [[0, `${stringNombre(0)}`]],
               pointCouleur: 'blue',
               pointStyle: 'x',
               labelsPrincipaux: true
@@ -431,6 +486,7 @@ export default function SujetCAN2023Sixieme () {
             a = choice([new Decimal('1.25'), new Decimal('1.5'), new Decimal('1.75'),
               new Decimal('2'), new Decimal('2.25'), new Decimal('2.5'), new Decimal('2.75'), new Decimal('0.75'), new Decimal('1'),
               new Decimal('1.25'), new Decimal('1.5'), new Decimal('1.75')])
+            b = texteParPosition(`${stringNombre(0.25, 2)}`, 1, -0.5, 'milieu', 'black', context.isHtml ? 1 : 0.7)
             d = droiteGraduee({
               Unite: 4,
               Min: 0,
@@ -443,17 +499,20 @@ export default function SujetCAN2023Sixieme () {
               thickOffset: 0,
               axeStyle: '->',
               pointListe: [[a, '?']],
-              labelListe: [[0, `${stringNombre(0)}`], [0.25, `${stringNombre(0.25, 2)}`]],
+              labelListe: [[0, `${stringNombre(0)}`]],
               pointCouleur: 'blue',
               pointStyle: 'x',
               labelsPrincipaux: true
             })
           }
           reponse = a
-          texte = 'Quel est le nombre sous le point d\'interrogation ?<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, d)
+          texte = 'Quel est le nombre sous le point d\'interrogation ?<br>' + mathalea2d({ xmin: -1, ymin: -1.5, xmax: 15, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, d, b)
           texteCorr = `Le nombre écrit sous le point d'interrogation est : $${miseEnEvidence(texNombre(a, 2))}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('? $=\\ldots$')
           nbChamps = 1
           break
 
@@ -467,6 +526,9 @@ export default function SujetCAN2023Sixieme () {
           texteCorr = `Le nombre cherché est donné par : $${res}-${texNombre(b, 1)}=${miseEnEvidence(texNombre(reponse, 2))}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+
+          this.listeCanEnonces.push('Complète.')
+          this.listeCanReponsesACompleter.push(`$${texNombre(b, 1)}+\\ldots =${res}$`)
           nbChamps = 1
 
           break
@@ -475,10 +537,13 @@ export default function SujetCAN2023Sixieme () {
           a = new Decimal(2 * randint(2, 39, [10, 20, 30])).div(100)
 
           reponse = new Decimal(a).div(2)
-          texte = `La moitié de  $${texNombre(a, 2)}$ est `
-          texteCorr = `La moitié de $${texNombre(a, 2)}$ est $ ${texNombre(a, 2)}\\div 2=${texNombre(reponse, 2)}$.`
+          texte = `La moitié de  $${texNombre(a, 2)}$`
+          texteCorr = `La moitié de $${texNombre(a, 2)}$ est $ ${texNombre(a, 2)}\\div 2=${miseEnEvidence(texNombre(reponse, 2))}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) { texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
 
           break
@@ -498,11 +563,13 @@ export default function SujetCAN2023Sixieme () {
 
           texte = `Quelle fraction de la surface totale représente la surface grisée ?
           <br>`
-          texte += mathalea2d({ xmin: -1, ymin: -0.1, xmax: 12.1, ymax: b + 1, scale: 0.3 }, A, C)
+          texte += mathalea2d({ xmin: -0.5, ymin: -0.1, xmax: 6.1, ymax: b + 0.5, scale: 0.7, style: 'margin: auto' }, A, C)
           texteCorr = `Il y a $${c * d + e * f - e * d}$ ${c * d + e * f - e * d > 1 ? 'carrés' : 'carré'} gris sur un total de $${a * b}$ carrés, la surface grisée représente donc $\\dfrac{${miseEnEvidence(c * d + e * f - e * d)}}{${miseEnEvidence(a * b)}}$ de la surface totale.`
           reponse = new FractionX(c * d + e * f - e * d, a * b)
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
           break
 
@@ -511,11 +578,14 @@ export default function SujetCAN2023Sixieme () {
           b = randint(4, 9)
           c = a * b
           reponse = b
-          texte = `Calcule $${c}\\div ${a}$.`
+          texte = `$${c}\\div ${a}$`
           texteCorr = `$${c}\\div ${a}=${miseEnEvidence(reponse)}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) { texte += '$=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+
+          this.listeCanEnonces.push('Complète.')
+          this.listeCanReponsesACompleter.push(`$${c}\\div ${a} =\\ldots$`)
           nbChamps = 1
           break
         case 18:
@@ -525,7 +595,7 @@ export default function SujetCAN2023Sixieme () {
 
             reponse = arrondi(2 * b, 0)
             texte = `Si une pile de $${a}$ pièces de monnaie a une hauteur de $${2 * a}$ mm, alors une pile de 
-          $${texNombre(b, 0)}$ pièces a une hauteur de`
+          $${texNombre(b, 0)}$ pièces a une hauteur de `
 
             texteCorr = `Une pile de $${a}$ pièces de monnaie a une hauteur de $2\\times ${a}=${2 * a}$ mm.<br>
             Donc une pile de  $${texNombre(b, 0)}$ pièces aura une hauteur de $2\\times ${b}=${miseEnEvidence(2 * b)}$ mm.`
@@ -533,88 +603,144 @@ export default function SujetCAN2023Sixieme () {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') +
-            'mm'
-            } else { texte += '$\\ldots$ mm' }
+            'mm.'
+            } else { texte += ' $\\ldots$ mm.' }
+            this.listeCanEnonces.push(`Si une pile de $${a}$ pièces de monnaie a une hauteur de $${2 * a}$ mm, `)
+            this.listeCanReponsesACompleter.push(`alors une pile de $${texNombre(b, 0)}$ pièces a une hauteur de $\\ldots$ mm.`)
           } else {
             a = randint(2, 6)
             k = randint(2, 4)
             b = k * a
             reponse = k * b
-            texte = `$${a}$ cahiers coûtent $${b}$ €.<br>
-               $${b}$ cahiers coûtent `
+            texte = `Si $${a}$ cahiers coûtent $${b}$ €, alors $${b}$ cahiers coûtent `
 
             texteCorr = `$${a}$ cahiers coûtent $${b}$ €.<br>
-              $${k}\\times${a}=${k * a}$ cahiers coûtent $${k}\\times${b}=${k * b}$ €.`
+              $${k}\\times${a}=${k * a}$ cahiers coûtent $${k}\\times${b}=${miseEnEvidence(k * b)}$ €.`
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            this.listeCanEnonces.push(`Si $${a}$ cahiers coûtent $${b}$ €,`)
+            this.listeCanReponsesACompleter.push(`alors $${b}$ cahiers coûtent $\\ldots$ €.`)
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') +
-              '€'
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '€'
             } else { texte += '$\\ldots$ €' }
           }
+
           nbChamps = 1
 
           break
 
         case 19:
-          if (choice([true, false])) {
-            a = grille(-2, -2, 9, 4, 'gray', 1, 1)
-
-            b = randint(1, 6, 4)
-
-            A = point(0, 0, 'A', 'below')
-            B = point(b, 0, 'B', 'below')
-            C = point(0, 2, 'C', 'above')
-            D = point(4, 2, 'D', 'above')
-            s1 = segment(C, D)
-            s1.epaisseur = 4
+          choix = choice(['a', 'b', 'c'])//, 'b', 'd', 'e'
+          texte = 'Quelle est la longueur de la ligne en pointillé ? <br>'
+          if (choix === 'a') {
+            a = grille(-2, 0, 7, 4, 'gray', 1, 1)
+            b = choice([3, 4, 5, 6])
+            A = point(0, 2, 'A', 'below')
+            B = point(1, 2, 'B', 'below')
+            C = point(1, 1, 'C', 'above')
+            G = point(0, 4, 'C', 'above')
+            H = point(b, 4, 'D', 'above')
+            s1 = segmentAvecExtremites(G, H)
+            s1.epaisseur = 2
             s2 = segment(A, B)
-            s2.epaisseur = 4
+            s2.pointilles = 2
+            s2.epaisseur = 2
+
+            s3 = segment(B, C)
+            s3.pointilles = 2
+            s3.epaisseur = 2
             xmin = -1
-            ymin = -2
-            xmax = 9
-            ymax = 4
+            ymin = -0.2
+            xmax = 7
+            ymax = 5
             objets = []
             objets.push(
-              texteParPosition('1 unité', milieu(C, D).x, milieu(C, D).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
-              a, s1, s2, labelPoint(A, B))
-            reponse = fraction(b, 4)
-            texte = `Quelle est la longueur du segment $[AB]$ ? <br>
-            `
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.3, style: 'margin: auto' }, objets)
-            texteCorr = `Une unité correspond à $4$ carreaux, le segment $[AB]$ mesure $${b}$ carreaux, soit $\\dfrac{${b}}{4}=${miseEnEvidence(texNombre(b / 4))}$ unité. `
-          } else {
-            a = grille(-2, -2, 10, 4, 'gray', 1, 1)
-
-            b = randint(1, 9, 5)
-
-            A = point(0, 0, 'A', 'below')
-            B = point(b, 0, 'B', 'below')
-            C = point(0, 2, 'C', 'above')
-            D = point(5, 2, 'D', 'above')
-            s1 = segment(C, D)
-            s1.epaisseur = 4
-            s2 = segment(A, B)
-            s2.epaisseur = 4
-            xmin = -1
-            ymin = -2
-            xmax = 10
-            ymax = 4
-            objets = []
-            objets.push(
-              texteParPosition('1 unité', milieu(C, D).x, milieu(C, D).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
-              a, s1, s2, labelPoint(A, B))
-            reponse = fraction(b, 5)
-            texte = `Quelle est la longueur du segment $[AB]$ ? <br>
-            `
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.3, style: 'margin: auto' }, objets)
-            texteCorr = `Une unité correspond à $5$ carreaux, le segment $[AB]$ mesure $${b}$ carreaux, soit $\\dfrac{${b}}{5}=${miseEnEvidence(texNombre(b / 5))}$ unité. `
+              texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              a, s1, s2, s3)
+            reponse = new FractionX(2, b)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
+            texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne en pointillé mesure $2$ carreaux, soit $\\dfrac{${miseEnEvidence(2)}}{${miseEnEvidence(b)}}$ u.l. `
           }
+          if (choix === 'b') {
+            a = grille(-2, 0, 7, 4, 'gray', 1, 1)
+            b = choice([2, 4, 5, 6])
+            A = point(0, 2, 'A', 'below')
+            B = point(1, 2, 'B', 'below')
+            C = point(1, 1, 'C', 'above')
+            D = point(2, 1, 'C', 'above')
+            G = point(0, 4, 'C', 'above')
+            H = point(b, 4, 'D', 'above')
+            s1 = segmentAvecExtremites(G, H)
+            s1.epaisseur = 2
+            s2 = segment(A, B)
+            s2.pointilles = 2
+            s2.epaisseur = 2
+
+            s3 = segment(B, C)
+            s3.pointilles = 2
+            s3.epaisseur = 2
+            s4 = segment(D, C)
+            s4.pointilles = 2
+            s4.epaisseur = 2
+            xmin = -1
+            ymin = -0.2
+            xmax = 7
+            ymax = 5
+            objets = []
+            objets.push(
+              texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              a, s1, s2, s3, s4)
+            reponse = new FractionX(3, b)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
+            texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne en pointillé mesure $3$ carreaux, soit $\\dfrac{${miseEnEvidence(3)}}{${miseEnEvidence(b)}}$ u.l. `
+          }
+          if (choix === 'c') {
+            a = grille(-2, 0, 7, 4, 'gray', 1, 1)
+            b = choice([3, 5, 6])
+            A = point(0, 2, 'A', 'below')
+            B = point(1, 2, 'B', 'below')
+            C = point(1, 1, 'C', 'above')
+            D = point(2, 1, 'C', 'above')
+            E = point(2, 2, 'C', 'above')
+            G = point(0, 4, 'C', 'above')
+            H = point(b, 4, 'D', 'above')
+            s1 = segmentAvecExtremites(G, H)
+            s1.epaisseur = 2
+            s2 = segment(A, B)
+            s2.pointilles = 2
+            s2.epaisseur = 2
+
+            s3 = segment(B, C)
+            s3.pointilles = 2
+            s3.epaisseur = 2
+            s4 = segment(D, C)
+            s4.pointilles = 2
+            s4.epaisseur = 2
+            s5 = segment(D, E)
+            s5.pointilles = 2
+            s5.epaisseur = 2
+            xmin = -1
+            ymin = -0.2
+            xmax = 7
+            ymax = 5
+            objets = []
+            objets.push(
+              texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              a, s1, s2, s3, s4, s5)
+            reponse = new FractionX(4, b)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
+            texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne en pointillé mesure $4$ carreaux, soit $\\dfrac{${miseEnEvidence(4)}}{${miseEnEvidence(b)}}$ u.l. `
+          }
+
+          this.canEnonce = texte
+          this.canReponseACompleter = '$\\ldots$ u.l.'
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'unité'
-          } else { texte += ' <br>$\\ldots$ unité' }
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'u.l.'
+          }
 
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
           break
         case 20:
@@ -622,11 +748,14 @@ export default function SujetCAN2023Sixieme () {
           b = randint(2, 7) * 100
 
           reponse = a * b
-          texte = ` $${a}\\times ${b}=$`
+          texte = ` $${a}\\times ${b}$`
           texteCorr = `$${a}\\times ${b}=${a}\\times ${texNombre(b / 100)}\\times 100=${miseEnEvidence(texNombre(reponse))}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) { texte += '$=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
 
           break
@@ -639,12 +768,15 @@ export default function SujetCAN2023Sixieme () {
           reponse = arrondi(c / a, 0)
           texte = `Une voiture roule à $${c}$ km/h. <br>Combien de kilomètres 
         parcourt-elle en $${b}$ min à cette vitesse ?`
-          texteCorr = `La voiture parcourt $${texNombre(c / a, 0)}$ km.<br>
+          texteCorr = `En $1$ h la voiture parcourt $${c}$ km.<br>
        En $${b}$ minutes, elle parcourt $${a}$ fois moins de km qu'en $1$ heure, soit $\\dfrac{${c}}{${a}}=
         ${miseEnEvidence(texNombre(c / a, 0))}$ km.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'km' }
+
+          this.listeCanEnonces.push(`Une voiture roule à $${c}$ km/h.`)
+          this.listeCanReponsesACompleter.push(`Elle parcourt $\\ldots$ km en $${b}$ min à cette vitesse.`)
           nbChamps = 1
 
           break
@@ -666,6 +798,8 @@ export default function SujetCAN2023Sixieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'km' }
+          this.listeCanEnonces.push(`Une voiture roule à $${c}$ km/h.`)
+          this.listeCanReponsesACompleter.push(`Elle parcourt $\\ldots$ km en $${d}$ h et $${b * e}$ min à cette vitesse.`)
           nbChamps = 1
           break
 
@@ -676,10 +810,13 @@ export default function SujetCAN2023Sixieme () {
 
           reponse = b
           texte = `Dans $${c}$ combien de fois $${a}$ ?`
-          texteCorr = `Dans $${c}$, il y a $${miseEnEvidence(b)}$ fois $${a}$ car $${a}\\times ${b}=${c}$.`
+          texteCorr = `Dans $${c}$, il y a $${miseEnEvidence(b)}$ fois $${a}$ car $${b}\\times ${a}=${c}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
 
           break
@@ -697,6 +834,8 @@ export default function SujetCAN2023Sixieme () {
                $${a}$ centaines $=${a * 100}$.<br>
                $${texNombre(d, 1)}= ${texNombre(d * 10, 0)}$ dixièmes. <br>
                Ainsi, $${a}$ centaines et $${miseEnEvidence(texNombre(d * 10, 0))}$ dixièmes font $${texNombre(c, 1)}$.`
+            this.listeCanEnonces.push('Complète.')
+            this.listeCanReponsesACompleter.push(`$${a}$ centaines et $\\ldots$ dixièmes font $${texNombre(c, 1)}$.`)
           } else {
             a = randint(2, 9)
             d = new Decimal(randint(21, 99, [30, 40, 50, 60, 70, 80, 90])).div(100)
@@ -709,10 +848,13 @@ export default function SujetCAN2023Sixieme () {
                      $${a}$ dizaines $=${a * 10}$.<br>
                      $${texNombre(d, 2)}= ${texNombre(d * 100, 0)}$ centièmes. <br>
                      Ainsi, $${a}$ dizaines et $${miseEnEvidence(texNombre(d * 100, 0))}$ centièmes font $${texNombre(c, 2)}$.`
+            this.listeCanEnonces.push('Complète.')
+            this.listeCanReponsesACompleter.push(`$${a}$ dizaines et $\\ldots$ centièmes font $${texNombre(c, 1)}$.`)
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+
           nbChamps = 1
 
           break
@@ -735,7 +877,7 @@ export default function SujetCAN2023Sixieme () {
             <br>
 
         `
-            texte += mathalea2d({ xmin: -1, ymin: -0.1, xmax: 12.1, ymax: 5.5, scale: 0.3 }, C, A, B)
+            texte += mathalea2d({ xmin: -1, ymin: -0.1, xmax: 12.1, ymax: 5.5, scale: 1, style: 'margin: auto' }, C, A, B)
             texteCorr = '$1$ uA est représentée par $10$ petits carreaux. <br>'
             texteCorr += `$\\dfrac{1}{${f[a][1]}}$ d'unité d'aire est donc rerésentée par $${texNombre(10 / f[a][1], 0)}$ petits carreaux. <br>
           Ainsi, une figure de $\\dfrac{${f[a][0]}}{${f[a][1]}}$ d'unité d'aire se représente par une figure de $${texNombre(10 / f[a][1] * f[a][0], 0)}$ petits carreaux.`
@@ -756,21 +898,24 @@ export default function SujetCAN2023Sixieme () {
             Combien de petits carreux doit-elle contenir ?<br>
 
           `
-            texte += mathalea2d({ xmin: -1, ymin: -0.1, xmax: 12.1, ymax: 6, scale: 0.3 }, A, C, B)
+            texte += mathalea2d({ xmin: -1, ymin: -0.1, xmax: 12.1, ymax: 6, scale: 1, style: 'margin: auto' }, A, C, B)
             if (f[a][1] === 4) {
               texteCorr = '$1$ uA est représentée par  $4$ petits carreaux. <br>'
-              texteCorr += `$\\dfrac{1}{${f[a][1]}}$ d'unité d'aire est donc rerésentée par un petit carreau. <br>
+              texteCorr += `$\\dfrac{1}{${f[a][1]}}$ d'unité d'aire est donc rerésenté par un petit carreau. <br>
           Ainsi, une figure de $\\dfrac{${f[a][0]}}{${f[a][1]}}$ d'unité d'aire se représente par une figure de $${miseEnEvidence(f[a][0])}$ petits carreaux.`
               reponse = f[a][0]
             } else {
               texteCorr = '$1$ uA est représentée par $4$ petits carreaux. <br>'
-              texteCorr += `$\\dfrac{1}{${f[a][1]}}$ d'unité d'aire est donc rerésentée par deux petits carreaux. <br>
+              texteCorr += `$\\dfrac{1}{${f[a][1]}}$ d'unité d'aire est donc rerésenté par deux petits carreaux. <br>
           Ainsi, une figure de $\\dfrac{${f[a][0]}}{${f[a][1]}}$ d'unité d'aire se représente par une figure de $${miseEnEvidence(2 * f[a][0])}$ petits carreaux.`
               reponse = 2 * f[a][0]
             }
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'petits carreaux.' }
+          this.listeCanEnonces.push(`${prenom1} veut construire une figure d'aire $\\dfrac{${f[a][0]}}{${f[a][1]}}$ ${f[a][0] / f[a][1] > 2 ? 'unités' : 'unité'} d'aire (uA).<br>` +
+         mathalea2d({ xmin: -1, ymin: -0.1, xmax: 12.1, ymax: 6, scale: 0.3 }, A, C, B))
+          this.listeCanReponsesACompleter.push('La figure doit contenir $\\ldots$ petits carreaux.')
           nbChamps = 1
           break
 
@@ -780,7 +925,7 @@ export default function SujetCAN2023Sixieme () {
             reponse = a / 5
             texte = 'Quel est le nombre écrit sous le point d\'interrogation ?<br>'
 
-            texte += mathalea2d({ xmin: -1, ymin: -1.5, xmax: 14, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, texteParPosition('?', 3 * a / 5, 0.9, 'milieu', 'blue', 2), droiteGraduee({
+            texte += mathalea2d({ xmin: -1, ymin: -1.5, xmax: 14, ymax: 1.5, scale: 0.6, style: 'margin: auto' }, texteParPosition('?', 3 * a / 5, 0.9, 'milieu', 'blue', context.isHtml ? 1 : 0.7), droiteGraduee({
               Unite: 3,
               Min: 0,
               Max: 3.2,
@@ -803,30 +948,35 @@ export default function SujetCAN2023Sixieme () {
             reponse = a
             texte = 'Quel est le nombre écrit sous le point d\'interrogation ?<br>'
 
-            texte += mathalea2d({ xmin: -1, ymin: -1.5, xmax: 14, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, droiteGraduee({
-              Unite: 50,
-              Min: 1.2,
-              Max: 1.4,
-              x: 0,
-              y: 0,
-              thickDistance: 0.1,
-              thickSecDist: 1 / 100,
-              thickSec: true,
-              thickoffset: 0,
-              axeStyle: '|->',
-              pointListe: [[a, '?']],
-              pointCouleur: 'blue',
-              pointStyle: 'x',
-              labelsPrincipaux: true,
-              labelListe: [[1.2, `${stringNombre(1.2, 1)}`], [1.3, `${stringNombre(1.3, 1)}`]],
-              step1: 1,
-              step2: 1
-            }))
+            texte += mathalea2d({ xmin: -1, ymin: -1.5, xmax: 14, ymax: 1.5, scale: 0.5, style: 'margin: auto' },
+              texteParPosition('?', 50 * a, 0.9, 'milieu', 'blue', context.isHtml ? 1 : 0.7),
+              droiteGraduee({
+                Unite: 50,
+                Min: 1.2,
+                Max: 1.4,
+                x: 0,
+                y: 0,
+                thickDistance: 0.1,
+                thickSecDist: 1 / 100,
+                thickSec: true,
+                thickoffset: 0,
+                axeStyle: '|->',
+                pointListe: [[a, '?']],
+                pointCouleur: 'blue',
+                pointStyle: 'x',
+                labelsPrincipaux: true,
+                labelListe: [[1.2, `${stringNombre(1.2, 1)}`], [1.3, `${stringNombre(1.3, 1)}`]],
+                step1: 1,
+                step2: 1
+              }))
             texteCorr = `Le nombre écrit sous le point d'interrogation est : $${miseEnEvidence(texNombre(reponse, 2))}$.`
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('? $=\\ldots$')
           nbChamps = 1
           break
 
@@ -835,14 +985,14 @@ export default function SujetCAN2023Sixieme () {
             a = randint(2, 6)
             prix = new Decimal(2 + randint(1, 3) / 10).add(0.05)
             k = randint(2, 4)
-            reponse = new Decimal(prix).mul(k)
+            reponse = new Decimal(prix).mul(100 * k)
             texte = `$${a}$ stylos identiques coûtent  $${texPrix(prix)}$ €. <br>
               Combien coûtent $${k * a}$ de ces mêmes stylos ?`
 
             texteCorr = `$${a}$ stylos identiques coûtent  $${texPrix(prix)}$ €, donc $${k * a}$
-             de ces mêmes stylos coûtent  $${k}$ fois plus, soit $${k}\\times ${texPrix(prix)}=${miseEnEvidence(texNombre(k * prix))}$ €.`
+             de ces mêmes stylos coûtent  $${k}$ fois plus, soit $${k}\\times ${texPrix(prix)}=${texNombre(k * prix)}$ € $=${miseEnEvidence(texNombre(k * prix * 100))}$ centimes.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' €' }
+            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' centimes' }
           } else {
             prix = choice([new Decimal('1.20'), new Decimal('1.80'), new Decimal('2.40')])
             k = randint(3, 4)
@@ -856,7 +1006,8 @@ export default function SujetCAN2023Sixieme () {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' centimes' }
           }
-
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('$\\ldots$ centimes')
           nbChamps = 1
           break
 
@@ -939,6 +1090,8 @@ export default function SujetCAN2023Sixieme () {
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('$\\ldots$ cm')
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm' }
           nbChamps = 1
           break
@@ -948,11 +1101,14 @@ export default function SujetCAN2023Sixieme () {
           b = new Decimal(randint(4, 9)).div(10)
 
           reponse = new Decimal(a).add(b)
-          texte = `$${texNombre(a, 2)}+ ${texNombre(b, 1)}=$`
+          texte = `$${texNombre(a, 2)}+ ${texNombre(b, 1)}$`
           texteCorr = `$${texNombre(a, 2)}+ ${texNombre(b, 1)}=${miseEnEvidence(texNombre(reponse))}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) { texte += ' $ =$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
           break
 
@@ -975,7 +1131,10 @@ export default function SujetCAN2023Sixieme () {
             reponse = a * b
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('$\\ldots$ repas')
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'repas' } else { texte += '' }
           nbChamps = 1
           break
       }
