@@ -5,16 +5,16 @@ export const dictionnaireCrpeCoop = {
     lieu: 'Groupement 1',
     numeroInitial: 'Ex 1',
     png: [
-      '/alea/static/cpre/2022/2022-g1-ex1.png'
+      '/alea/static/crpe/2022/2022-g1-ex1.png'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g1-ex1-corr.png'
+      '/alea/static/crpe/2022/2022-g1-ex1-corr.png'
     ],
     url: [
-      '/alea/static/cpre/2022/2022-g1-ex1.tex'
+      '/alea/static/crpe/2022/2022-g1-ex1.tex'
     ],
     urlcor: [
-      '/alea/static/cpre/2022/2022-g1-ex1-corr.tex'
+      '/alea/static/crpe/2022/2022-g1-ex1-corr.tex'
     ],
     tags: ['Vitesses', 'Nombre π', 'Durées', 'Tableur']
 
@@ -25,16 +25,16 @@ export const dictionnaireCrpeCoop = {
     lieu: 'Groupement 1',
     numeroInitial: 'Ex 2',
     png: [
-      '/alea/static/cpre/2022/2022-g1-ex2.png'
+      '/alea/static/crpe/2022/2022-g1-ex2.png'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g1-ex2-corr.png'
+      '/alea/static/crpe/2022/2022-g1-ex2-corr.png'
     ],
     url: [
-      '/alea/static/cpre/2022/2022-g1-ex2.tex'
+      '/alea/static/crpe/2022/2022-g1-ex2.tex'
     ],
     urlcor: [
-      '/alea/static/cpre/2022/2022-g1-ex2-corr.tex'
+      '/alea/static/crpe/2022/2022-g1-ex2-corr.tex'
     ],
     tags: ['Probabilités']
   },
@@ -44,16 +44,16 @@ export const dictionnaireCrpeCoop = {
     lieu: 'Groupement 1',
     numeroInitial: 'Ex 3',
     png: [
-      '/alea/static/cpre/2022/2022-g1-ex3.png'
+      '/alea/static/crpe/2022/2022-g1-ex3.png'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g1-ex3-corr.png'
+      '/alea/static/crpe/2022/2022-g1-ex3-corr.png'
     ],
     url: [
-      '/alea/static/cpre/2022/2022-g1-ex3.tex'
+      '/alea/static/crpe/2022/2022-g1-ex3.tex'
     ],
     urlcor: [
-      '/alea/static/cpre/2022/2022-g1-ex3-corr.tex'
+      '/alea/static/crpe/2022/2022-g1-ex3-corr.tex'
     ],
     tags: ['Résolution de problème', 'Équations']
   },
@@ -63,16 +63,16 @@ export const dictionnaireCrpeCoop = {
     lieu: 'Groupement 1',
     numeroInitial: 'Ex 4',
     png: [
-      '/alea/static/cpre/2022/2022-g1-ex4.png'
+      '/alea/static/crpe/2022/2022-g1-ex4.png'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g1-ex4-corr.png'
+      '/alea/static/crpe/2022/2022-g1-ex4-corr.png'
     ],
     url: [
-      '/alea/static/cpre/2022/2022-g1-ex4.tex'
+      '/alea/static/crpe/2022/2022-g1-ex4.tex'
     ],
     urlcor: [
-      '/alea/static/cpre/2022/2022-g1-ex4-corr.tex'
+      '/alea/static/crpe/2022/2022-g1-ex4-corr.tex'
     ],
     tags: ['Volumes', 'Aires latérales', 'Pythagore', 'Agrandissement-réduction', 'Fonctions affines et linéaires', 'Inéquations']
   },
@@ -82,16 +82,16 @@ export const dictionnaireCrpeCoop = {
     lieu: 'Groupement 1',
     numeroInitial: 'Ex 5',
     png: [
-      '/alea/static/cpre/2022/2022-g1-ex5.png'
+      '/alea/static/crpe/2022/2022-g1-ex5.png'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g1-ex5-corr.png'
+      '/alea/static/crpe/2022/2022-g1-ex5-corr.png'
     ],
     url: [
-      '/alea/static/cpre/2022/2022-g1-ex5.tex'
+      '/alea/static/crpe/2022/2022-g1-ex5.tex'
     ],
     urlcor: [
-      '/alea/static/cpre/2022/2022-g1-ex5-corr.tex'
+      '/alea/static/crpe/2022/2022-g1-ex5-corr.tex'
     ],
     tags: ['Volumes', 'Pythagore', 'Agrandissement-réduction', 'Fonctions linéaires et affines', 'Inéquations']
   },
@@ -101,16 +101,16 @@ export const dictionnaireCrpeCoop = {
     lieu: 'Groupement 2',
     numeroInitial: 'Ex 1',
     png: [
-      '/alea/static/cpre/2022/2022-g2-ex1.png'
+      '/alea/static/crpe/2022/2022-g2-ex1.png'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g2-ex1-corr.png'
+      '/alea/static/crpe/2022/2022-g2-ex1-corr.png'
     ],
     url: [
-      '/alea/static/cpre/2022/2022-g2-ex1.tex'
+      '/alea/static/crpe/2022/2022-g2-ex1.tex'
     ],
     urlcor: [
-      '/alea/static/cpre/2022/2022-g2-ex1-corr.tex'
+      '/alea/static/crpe/2022/2022-g2-ex1-corr.tex'
     ],
     tags: ['Probabilités']
   },
@@ -120,16 +120,16 @@ export const dictionnaireCrpeCoop = {
     lieu: 'Groupement 2',
     numeroInitial: 'Ex 2',
     png: [
-      '/alea/static/cpre/2022/2022-g2-ex2.png'
+      '/alea/static/crpe/2022/2022-g2-ex2.png'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g2-ex2-corr.png'
+      '/alea/static/crpe/2022/2022-g2-ex2-corr.png'
     ],
     url: [
-      '/alea/static/cpre/2022/2022-g2-ex2.tex'
+      '/alea/static/crpe/2022/2022-g2-ex2.tex'
     ],
     urlcor: [
-      '/alea/static/cpre/2022/2022-g2-ex2-corr.tex'
+      '/alea/static/crpe/2022/2022-g2-ex2-corr.tex'
     ],
     tags: ['Vitesses', 'Agrandissement-réduction']
   },
@@ -139,16 +139,16 @@ export const dictionnaireCrpeCoop = {
     lieu: 'Groupement 2',
     numeroInitial: 'Ex 3',
     png: [
-      '/alea/static/cpre/2022/2022-g2-ex3.png'
+      '/alea/static/crpe/2022/2022-g2-ex3.png'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g2-ex3-corr.png'
+      '/alea/static/crpe/2022/2022-g2-ex3-corr.png'
     ],
     url: [
-      '/alea/static/cpre/2022/2022-g2-ex3.tex'
+      '/alea/static/crpe/2022/2022-g2-ex3.tex'
     ],
     urlcor: [
-      '/alea/static/cpre/2022/2022-g2-ex3-corr.tex'
+      '/alea/static/crpe/2022/2022-g2-ex3-corr.tex'
     ],
     tags: ['Géométrie plane', 'Pythagore', 'Volumes', 'Agrandissement-réduction', 'Équations', 'Fonctions affines et linéaires', 'Inéquations']
   },
@@ -158,16 +158,16 @@ export const dictionnaireCrpeCoop = {
     lieu: 'Groupement 2',
     numeroInitial: 'Ex 4',
     png: [
-      '/alea/static/cpre/2022/2022-g2-ex4.png'
+      '/alea/static/crpe/2022/2022-g2-ex4.png'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g2-ex4-corr.png'
+      '/alea/static/crpe/2022/2022-g2-ex4-corr.png'
     ],
     url: [
-      '/alea/static/cpre/2022/2022-g2-ex4.tex'
+      '/alea/static/crpe/2022/2022-g2-ex4.tex'
     ],
     urlcor: [
-      '/alea/static/cpre/2022/2022-g2-ex4-corr.tex'
+      '/alea/static/crpe/2022/2022-g2-ex4-corr.tex'
     ],
     tags: ['Programmes de calculs', 'Calcul littéral', 'Équations']
   },
@@ -177,16 +177,16 @@ export const dictionnaireCrpeCoop = {
     lieu: 'Groupement 2',
     numeroInitial: 'Ex 5',
     png: [
-      '/alea/static/cpre/2022/2022-g2-ex5.png'
+      '/alea/static/crpe/2022/2022-g2-ex5.png'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g2-ex5-corr.png'
+      '/alea/static/crpe/2022/2022-g2-ex5-corr.png'
     ],
     url: [
-      '/alea/static/cpre/2022/2022-g2-ex5.tex'
+      '/alea/static/crpe/2022/2022-g2-ex5.tex'
     ],
     urlcor: [
-      '/alea/static/cpre/2022/2022-g2-ex5-corr.tex'
+      '/alea/static/crpe/2022/2022-g2-ex5-corr.tex'
     ],
     tags: ['Numération']
   },
@@ -196,16 +196,16 @@ export const dictionnaireCrpeCoop = {
     lieu: 'Groupement 3',
     numeroInitial: 'Ex 1',
     png: [
-      '/alea/static/cpre/2022/2022-g3-ex1.png'
+      '/alea/static/crpe/2022/2022-g3-ex1.png'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g3-ex1-corr.png'
+      '/alea/static/crpe/2022/2022-g3-ex1-corr.png'
     ],
     url: [
-      '/alea/static/cpre/2022/2022-g3-ex1.tex'
+      '/alea/static/crpe/2022/2022-g3-ex1.tex'
     ],
     urlcor: [
-      '/alea/static/cpre/2022/2022-g3-ex1-corr.tex'
+      '/alea/static/crpe/2022/2022-g3-ex1-corr.tex'
     ],
     tags: ['QCM', 'Volumes', 'Puissances', 'Pourcentages', 'Fractions', 'Pythagore']
   },
@@ -215,16 +215,16 @@ export const dictionnaireCrpeCoop = {
     lieu: 'Groupement 3',
     numeroInitial: 'Ex 2',
     png: [
-      '/alea/static/cpre/2022/2022-g3-ex2.png'
+      '/alea/static/crpe/2022/2022-g3-ex2.png'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g3-ex2-corr.png'
+      '/alea/static/crpe/2022/2022-g3-ex2-corr.png'
     ],
     url: [
-      '/alea/static/cpre/2022/2022-g3-ex2.tex'
+      '/alea/static/crpe/2022/2022-g3-ex2.tex'
     ],
     urlcor: [
-      '/alea/static/cpre/2022/2022-g3-ex2-corr.tex'
+      '/alea/static/crpe/2022/2022-g3-ex2-corr.tex'
     ],
     tags: ['Statistiques', 'Agrandissement-réduction', 'Nombre π', 'Durées', 'Vitesses', 'Proportionnalité']
   },
@@ -234,16 +234,16 @@ export const dictionnaireCrpeCoop = {
     lieu: 'Groupement 3',
     numeroInitial: 'Ex 3',
     png: [
-      '/alea/static/cpre/2022/2022-g3-ex3.png'
+      '/alea/static/crpe/2022/2022-g3-ex3.png'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g3-ex3-corr.png'
+      '/alea/static/crpe/2022/2022-g3-ex3-corr.png'
     ],
     url: [
-      '/alea/static/cpre/2022/2022-g3-ex3.tex'
+      '/alea/static/crpe/2022/2022-g3-ex3.tex'
     ],
     urlcor: [
-      '/alea/static/cpre/2022/2022-g3-ex3-corr.tex'
+      '/alea/static/crpe/2022/2022-g3-ex3-corr.tex'
     ],
     tags: ['Pythagore', 'Thalès', 'Calcul littéral', 'Lecture graphique', 'Volumes', 'Pourcentages', 'Proportionnalité']
   },
@@ -253,16 +253,16 @@ export const dictionnaireCrpeCoop = {
     lieu: 'Groupement 3',
     numeroInitial: 'Ex 4',
     png: [
-      '/alea/static/cpre/2022/2022-g3-ex4.png'
+      '/alea/static/crpe/2022/2022-g3-ex4.png'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g3-ex4-corr.png'
+      '/alea/static/crpe/2022/2022-g3-ex4-corr.png'
     ],
     url: [
-      '/alea/static/cpre/2022/2022-g3-ex4.tex'
+      '/alea/static/crpe/2022/2022-g3-ex4.tex'
     ],
     urlcor: [
-      '/alea/static/cpre/2022/2022-g3-ex4-corr.tex'
+      '/alea/static/crpe/2022/2022-g3-ex4-corr.tex'
     ],
     tags: ['Algorithmique et programmation']
   }
@@ -276,10 +276,10 @@ export const garderPourTagsEx4 =
     lieu: 'Groupement 1',
     numeroInitial: 'Ex 1',
     png: [
-      '/alea/static/cpre/2022/2022-g1-ex1.tex'
+      '/alea/static/crpe/2022/2022-g1-ex1.tex'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g1-ex1-corr.tex'
+      '/alea/static/crpe/2022/2022-g1-ex1-corr.tex'
     ]
   },
   'crpe-2022-g1-ex2': {
@@ -288,10 +288,10 @@ export const garderPourTagsEx4 =
     lieu: 'Groupement 1',
     numeroInitial: 'Ex 2',
     png: [
-      '/alea/static/cpre/2022/2022-g1-ex2.tex'
+      '/alea/static/crpe/2022/2022-g1-ex2.tex'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g1-ex2-corr.tex'
+      '/alea/static/crpe/2022/2022-g1-ex2-corr.tex'
     ],
     tags: []
   },
@@ -301,10 +301,10 @@ export const garderPourTagsEx4 =
     lieu: 'Groupement 1',
     numeroInitial: 'Ex 3',
     png: [
-      '/alea/static/cpre/2022/2022-g1-ex3.tex'
+      '/alea/static/crpe/2022/2022-g1-ex3.tex'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g1-ex3-corr.tex'
+      '/alea/static/crpe/2022/2022-g1-ex3-corr.tex'
     ],
     tags: []
   },
@@ -314,10 +314,10 @@ export const garderPourTagsEx4 =
     lieu: 'Groupement 1',
     numeroInitial: 'Ex 4',
     png: [
-      '/alea/static/cpre/2022/2022-g1-ex4.tex'
+      '/alea/static/crpe/2022/2022-g1-ex4.tex'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g1-ex4-corr.tex'
+      '/alea/static/crpe/2022/2022-g1-ex4-corr.tex'
     ],
     tags: ['Algorithmique et programmation', 'Géométrie plane']
   },
@@ -327,10 +327,10 @@ export const garderPourTagsEx4 =
     lieu: 'Groupement 1',
     numeroInitial: 'Ex 5',
     png: [
-      '/alea/static/cpre/2022/2022-g1-ex5.tex'
+      '/alea/static/crpe/2022/2022-g1-ex5.tex'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g1-ex5-corr.tex'
+      '/alea/static/crpe/2022/2022-g1-ex5-corr.tex'
     ],
     tags: []
   },
@@ -340,10 +340,10 @@ export const garderPourTagsEx4 =
     lieu: 'Groupement 2',
     numeroInitial: 'Ex 1',
     png: [
-      '/alea/static/cpre/2022/2022-g2-ex1.tex'
+      '/alea/static/crpe/2022/2022-g2-ex1.tex'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g2-ex1-corr.tex'
+      '/alea/static/crpe/2022/2022-g2-ex1-corr.tex'
     ],
     tags: ['Probabilités']
   },
@@ -353,10 +353,10 @@ export const garderPourTagsEx4 =
     lieu: 'Groupement 2',
     numeroInitial: 'Ex 2',
     png: [
-      '/alea/static/cpre/2022/2022-g2-ex2.tex'
+      '/alea/static/crpe/2022/2022-g2-ex2.tex'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g2-ex2-corr.tex'
+      '/alea/static/crpe/2022/2022-g2-ex2-corr.tex'
     ],
     tags: ['Vitesses', 'Agrandissement-réduction']
   },
@@ -366,10 +366,10 @@ export const garderPourTagsEx4 =
     lieu: 'Groupement 2',
     numeroInitial: 'Ex 3',
     png: [
-      '/alea/static/cpre/2022/2022-g2-ex3.tex'
+      '/alea/static/crpe/2022/2022-g2-ex3.tex'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g2-ex3-corr.tex'
+      '/alea/static/crpe/2022/2022-g2-ex3-corr.tex'
     ],
     tags: ['Géométrie plane', 'Pythagore', 'Volumes', 'Agrandissement-réduction', 'Équations', 'Fonctions affines et linéaires', 'Inéquations']
   },
@@ -379,10 +379,10 @@ export const garderPourTagsEx4 =
     lieu: 'Groupement 2',
     numeroInitial: 'Ex 4',
     png: [
-      '/alea/static/cpre/2022/2022-g2-ex4.tex'
+      '/alea/static/crpe/2022/2022-g2-ex4.tex'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g2-ex4-corr.tex'
+      '/alea/static/crpe/2022/2022-g2-ex4-corr.tex'
     ],
     tags: ['Programmes de calculs', 'Calcul littéral', 'Équations']
   },
@@ -392,10 +392,10 @@ export const garderPourTagsEx4 =
     lieu: 'Groupement 2',
     numeroInitial: 'Ex 5',
     png: [
-      '/alea/static/cpre/2022/2022-g2-ex5.tex'
+      '/alea/static/crpe/2022/2022-g2-ex5.tex'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g2-ex5-corr.tex'
+      '/alea/static/crpe/2022/2022-g2-ex5-corr.tex'
     ],
     tags: ['Numération']
   },
@@ -405,10 +405,10 @@ export const garderPourTagsEx4 =
     lieu: 'Groupement 3',
     numeroInitial: 'Ex 1',
     png: [
-      '/alea/static/cpre/2022/2022-g3-ex1.tex'
+      '/alea/static/crpe/2022/2022-g3-ex1.tex'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g3-ex1-corr.tex'
+      '/alea/static/crpe/2022/2022-g3-ex1-corr.tex'
     ],
     tags: ['QCM', 'Volumes', 'Puissances', 'Pourcentages', 'Fractions', 'Pythagore']
   },
@@ -418,10 +418,10 @@ export const garderPourTagsEx4 =
     lieu: 'Groupement 3',
     numeroInitial: 'Ex 2',
     png: [
-      '/alea/static/cpre/2022/2022-g3-ex2.tex'
+      '/alea/static/crpe/2022/2022-g3-ex2.tex'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g3-ex2-corr.tex'
+      '/alea/static/crpe/2022/2022-g3-ex2-corr.tex'
     ],
     tags: ['Statistiques', 'Agrandissement-réduction', 'Nombre π', 'Durées', 'Vitesses', 'Proportionnalité']
   },
@@ -431,10 +431,10 @@ export const garderPourTagsEx4 =
     lieu: 'Groupement 3',
     numeroInitial: 'Ex 3',
     png: [
-      '/alea/static/cpre/2022/2022-g3-ex3.tex'
+      '/alea/static/crpe/2022/2022-g3-ex3.tex'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g3-ex3-corr.tex'
+      '/alea/static/crpe/2022/2022-g3-ex3-corr.tex'
     ],
     tags: ['Pythagore', 'Thalès', 'Calcul littéral', 'Lecture graphique', 'Volumes', 'Pourcentages', 'Proportionnalité']
   },
@@ -444,10 +444,10 @@ export const garderPourTagsEx4 =
     lieu: 'Groupement 3',
     numeroInitial: 'Ex 4',
     png: [
-      '/alea/static/cpre/2022/2022-g3-ex4.tex'
+      '/alea/static/crpe/2022/2022-g3-ex4.tex'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g3-ex4-corr.tex'
+      '/alea/static/crpe/2022/2022-g3-ex4-corr.tex'
     ],
     tags: ['Algorithmique et programmation']
   },
@@ -457,10 +457,10 @@ export const garderPourTagsEx4 =
     lieu: 'Groupement 4',
     numeroInitial: 'Ex 1',
     png: [
-      '/alea/static/cpre/2022/2022-g4-ex1.tex'
+      '/alea/static/crpe/2022/2022-g4-ex1.tex'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g4-ex1-corr.tex'
+      '/alea/static/crpe/2022/2022-g4-ex1-corr.tex'
     ],
     tags: ['Probabilités', 'Équations']
   },
@@ -470,10 +470,10 @@ export const garderPourTagsEx4 =
     lieu: 'Groupement 4',
     numeroInitial: 'Ex 2',
     png: [
-      '/alea/static/cpre/2022/2022-g4-ex2.tex'
+      '/alea/static/crpe/2022/2022-g4-ex2.tex'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g4-ex2-corr.tex'
+      '/alea/static/crpe/2022/2022-g4-ex2-corr.tex'
     ],
     tags: ['Pourcentages', 'Proportionnalité', 'Fonctions linéaires et affines', 'Volumes']
   },
@@ -483,10 +483,10 @@ export const garderPourTagsEx4 =
     lieu: 'Groupement 4',
     numeroInitial: 'Ex 3',
     png: [
-      '/alea/static/cpre/2022/2022-g4-ex3.tex'
+      '/alea/static/crpe/2022/2022-g4-ex3.tex'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g4-ex3-corr.tex'
+      '/alea/static/crpe/2022/2022-g4-ex3-corr.tex'
     ],
     tags: ['Tableur', 'Résolution de problèmes', 'Équations']
   },
@@ -496,10 +496,10 @@ export const garderPourTagsEx4 =
     lieu: 'Groupement 4',
     numeroInitial: 'Ex 4',
     png: [
-      '/alea/static/cpre/2022/2022-g4-ex4.tex'
+      '/alea/static/crpe/2022/2022-g4-ex4.tex'
     ],
     pngCor: [
-      '/alea/static/cpre/2022/2022-g4-ex4-corr.tex'
+      '/alea/static/crpe/2022/2022-g4-ex4-corr.tex'
     ],
     tags: ['Algorithmique et programmation']
   }
