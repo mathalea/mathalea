@@ -4,6 +4,7 @@ import { listeQuestionsToContenu, randint, choice, combinaisonListes, pgcd, prod
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
+import FractionX from '../../modules/FractionEtendue.js'
 export const titre = 'Fractions et priorités opératoires'
 export const amcReady = true
 export const amcType = 'AMCNum' // type de question AMC
@@ -70,184 +71,197 @@ export default function ExerciceAdditionnerFractionProduit () {
         break
     }
 
-    const listeTypeDeQuestions = combinaisonListes(
-      typesDeQuestionsDisponibles,
-      this.nbQuestions
-    )
+    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 
-    for (
-      let i = 0,
-        ab = Array(2),
-        cd = Array(2),
-        ef = Array(2),
-        a,
-        b,
-        c,
-        d,
-        e,
-        f,
-        p,
-        k1,
-        k2,
-        reponse,
-        operation1,
-        operation2,
-        texteOperation1,
-        texteOperation2,
-        texte,
-        texteCorr,
-        produit = Array(3),
-        typesDeQuestions,
-        cpt = 0;
-      i < this.nbQuestions && cpt < 50;
+    const texFractionND = function (a) {
+      return `\\dfrac{${(a.num)}}{${a.den}}`
+    }
 
-    ) {
-      typesDeQuestions = listeTypeDeQuestions[i]
+    const texProduitFraction = function (f1, f2) {
+      // sans gérer les parenthèses et les nombres entiers...
+      return `${texFractionND(f1)}\\times ${texFractionND(f2)}=\\dfrac{${f1.num + '\\times' + ecritureParentheseSiNegatif(f2.num)}}{${f1.den + '\\times' + ecritureParentheseSiNegatif(f2.den)}} = \\dfrac{ ${f1.num * f2.num} }{${f1.den * f2.den}}`
+    }
+
+    const differenceFraction = function (f1, f2) {
+      if (f1.den === f2.den) { // on ajoute 2 fractions de même dénominateur
+        return new FractionX(f1.num - f2.num, f2.den)
+      } else {
+        window.notify('differenceFraction seulement avec le même dénominateur : division par zéro', { f1, f2 })
+        return NaN
+      }
+    }
+
+    const simplifySign = function (f1) {
+      if (f1.s > 0 && f1.num < 0) return [new FractionX(f1.num * -1, f1.den * -1), true]
+      else if (f1.s < 0 && f1.den < 0) return [new FractionX(f1.num * -1, f1.den * -1), true]
+      else {
+        return [new FractionX(f1.num, f1.den), false]
+      }
+    }
+
+    for (let i = 0, a, b, c, d, e, f, reponse, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const typesDeQuestions = listeTypeDeQuestions[i]
 
       if (this.sup === 1) {
-        ab = choice(listeFractionsFaciles); cd = choice(listeFractionsFaciles); ef = choice(listeFractionsFaciles)
+        [a, b] = choice(listeFractionsFaciles); [c, d] = choice(listeFractionsFaciles); [e, f] = choice(listeFractionsFaciles)
       } else {
-        ab = choice(listeFractions); cd = choice(listeFractions); ef = choice(listeFractions)
+        [a, b] = choice(listeFractions); [c, d] = choice(listeFractions); [e, f] = choice(listeFractions)
       }
-
-      [a, b] = ab;
-      [c, d] = cd;
-      [e, f] = ef
 
       if (this.sup2) { [a, b, c, d, e, f] = [a, b, c, d, e, f].map(e => e * randint(-1, 1, [0])) }
 
-      operation1 = randint(0, 1) // Pioche la soustraction (0) ou l'addition (1)
-      operation2 = this.sup3 ? randint(0, 1) : 1 // Si l'option est cochée, Pioche la division (0) ou la multiplication (1)
-      texteOperation1 = operation1 ? '+' : '-'
-      texteOperation2 = operation2 ? ' \\times ' : ' \\div '
+      const operation1 = randint(0, 1) // Pioche la soustraction (0) ou l'addition (1)
+      const operation2 = this.sup3 ? randint(0, 1) : 1 // Si l'option est cochée, Pioche la division (0) ou la multiplication (1)
+      const texteOperation1 = operation1 ? '+' : '-'
+      const texteOperation2 = operation2 ? ' \\times ' : ' \\div '
       texte = ''
 
       switch (typesDeQuestions) {
-        case 1: // De la forme : « a⁄b ± c⁄d ×÷ e⁄f »
+        case 1: { // De la forme : « a⁄b ± c⁄d ×÷ e⁄f »
           if (piegeObligatoire) { d = b };
 
-          texte += `$${texFraction(a, b)} ${texteOperation1} ${texFraction(c, d)} ${texteOperation2} ${texFraction(e, f)}$`
+          let f1 = new FractionX(a, b)
+          const f2 = new FractionX(c, d)
+          let f3 = new FractionX(e, f)
+          texteCorr = `$${f1.texFraction} ${texteOperation1} ${f2.texFraction} ${texteOperation2} ${f3.texFraction}$`
 
-          texteCorr = `$${texFraction(a, b)} ${texteOperation1} ${texFraction(c, d)} ${texteOperation2} ${texFraction(e, f)}$`
+          texte += texteCorr
           if (!operation2) { // Si il y a division, multiplier par l'inverse du diviseur
-            [e, f] = [f, e]
-            texteCorr += `$=${texFraction(a, b)} ${texteOperation1} ${texFraction(c, d)} \\times ${texFraction(e, f)}$`
+            f3 = f3.inverse()
+            texteCorr += `$=${f1.texFraction} ${texteOperation1} ${f2.texFraction} \\times ${texFractionND(f3)}$`
           }
-          produit = produitDeDeuxFractions(c, d, e, f)
+
+          let produit = f2.produitFraction(f3)
           if (this.correctionDetaillee) {
-            texteCorr += `$=${texFraction(a, b)} ${texteOperation1} ${texFraction(c + '\\times' + ecritureParentheseSiNegatif(e), d + '\\times' + ecritureParentheseSiNegatif(f))}$`
-            texteCorr += `$=${texFraction(a, b)} ${texteOperation1} ${texFraction(c * e, d * f)}$`
+            texteCorr += '$'
+            const pdt = texProduitFraction(f2, f3)
+            const etapes = pdt.split('=')
+            etapes.forEach(function (etape, index) {
+              if (index > 0) texteCorr += `=${f1.texFraction} ${texteOperation1}  ${etape}`
+            })
+            texteCorr += '$'
           } else {
-            texteCorr += `$=${texFraction(a, b)} ${texteOperation1} ${produit[1]}$`
-            texteCorr += `$=${texFraction(a, b)} ${texteOperation1} ${produit[0]}$`
+            texteCorr += `$=${f1.texFraction} ${texteOperation1} ${produit.texFraction}$`
+          }
+
+          // on gere les signes
+          const modify1 = simplifySign(f1)
+          const modify2 = simplifySign(produit)
+          if (modify1[1] || modify2[1]) {
+            f1 = modify1[0]
+            produit = modify2[0]
+            texteCorr += `$=${f1.texFraction} ${texteOperation1} ${produit.texFraction}$`
           }
 
           // faut-il simplifier c×e⁄d×f ?
-          if (!this.correctionDetaillee) {
-            [c, d, e, f] = produit[2]
+          let p = pgcd(produit.num, produit.den)
+          if (p !== 1 && ppcm(f1.den, produit.den) > ppcm(f1.den, (produit.den) / p)) {
+            texteCorr += `$=${f1.texFraction} ${texteOperation1} ${texFraction((produit.num) / p + '\\times\\cancel{' + ecritureParentheseSiNegatif(p) + '}', (produit.den) / p + '\\times\\cancel{' + ecritureParentheseSiNegatif(p) + '}')}$`
+            produit = new FractionX(produit.num / p, produit.den / p)
           }
-          p = pgcd(c * e, d * f)
-          if (p !== 1 && ppcm(b, d * f) > ppcm(b, (d * f) / p)) {
-            texteCorr += `$=${texFraction(a, b)} ${texteOperation1} ${texFraction((e * c) / p + '\\times\\cancel{' + ecritureParentheseSiNegatif(p) + '}', (f * d) / p + '\\times\\cancel{' + ecritureParentheseSiNegatif(p) + '}'
-            )}$`
-            c = (e * c) / p
-            d = (f * d) / p
-          } else {
-            c = e * c
-            d = f * d
-          }
-          p = ppcm(b, d) // p = dénominateur commun
-          k1 = p / b
-          k2 = p / d
+
+          p = ppcm(f1.den, produit.den) // p = dénominateur commun
+          const k1 = p / f1.den
+          const k2 = p / produit.den
           if (k1 !== 1) {
-            texteCorr += `$=${texFraction(a + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k1)), b + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k1)))}$`
+            texteCorr += `$=${texFraction(f1.num + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k1)), f1.den + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k1)))}$`
+            f1 = new FractionX(f1.num * k1, f1.den * k1)
           } else {
             if (k2 !== 1) {
-              texteCorr += `$=${texFraction(a, b)}$`
+              texteCorr += `$=${f1.texFraction}$`
             }
           }
           if (k2 !== 1) {
-            texteCorr += `$ ${texteOperation1} ${texFraction(c + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k2)), d + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k2)))}$`
+            texteCorr += `$ ${texteOperation1} ${texFraction(produit.num + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k2)), produit.den + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k2)))}$`
+            produit = new FractionX(produit.num * k2, produit * k2)
           } else {
             if (k1 !== 1) {
-              texteCorr += `$ ${texteOperation1} ${texFraction(c, d)}$`
+              texteCorr += `$ ${texteOperation1} ${produit.texFraction}$`
             }
           }
-
-          texteCorr += `$=${texFraction(a * k1, p)} ${texteOperation1} ${texFraction(c * k2, p)}$`
-          e = operation1 ? a * k1 + c * k2 : a * k1 - c * k2
-          f = p
-          texteCorr += `$=${texFraction(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$`
-          reponse = fraction(e, f).simplifie()
+          if (k1 !== 1 || k2 !== 1) {
+            texteCorr += `$=${f1.texFraction} ${texteOperation1} ${produit.texFraction}$`
+          }
+          texteCorr += `$=\\dfrac{${f1.num} ${texteOperation1} ${ecritureParentheseSiNegatif(produit.num)}}{${f1.den}}$`
+          f1 = operation1 ? f1.sommeFraction(produit) : differenceFraction(f1, produit)
+          texteCorr += `$=${f1.texFraction}${f1.texSimplificationAvecEtapes(true)}$`
+          reponse = f1.simplifie()
           break
-
-        case 2: // De la forme : « c⁄d ×÷ e⁄f ± a⁄b »
+        }
+        case 2: { // De la forme : « c⁄d ×÷ e⁄f ± a⁄b »
           if (piegeObligatoire) { f = b };
-          texte += `$${texFraction(c, d)} ${texteOperation2} ${texFraction(e, f)} ${texteOperation1} ${texFraction(a, b)}$`
 
-          texteCorr = `$${texFraction(c, d)} ${texteOperation2} ${texFraction(e, f)} ${texteOperation1} ${texFraction(a, b)}$`
+          let f3 = new FractionX(a, b)
+          const f1 = new FractionX(c, d)
+          let f2 = new FractionX(e, f)
+
+          texteCorr = `$${f1.texFraction} ${texteOperation2} ${f2.texFraction} ${texteOperation1} ${f3.texFraction}$`
+          texte += texteCorr
           if (!operation2) { // Si il y a division, multiplier par l'inverse du diviseur
-            [e, f] = [f, e]
-            texteCorr += `$=${texFraction(c, d)} \\times ${texFraction(e, f)} ${texteOperation1} ${texFraction(a, b)}$`
+            f2 = f2.inverse()
+            texteCorr += `$=${f1.texFraction} \\times ${texFractionND(f2)} ${texteOperation1} ${f3.texFraction}$`
           }
 
-          produit = produitDeDeuxFractions(c, d, e, f)
-          texteCorr += `$=${texFraction(c, d)}\\times ${texFraction(e, f)} ${texteOperation1} ${texFraction(a, b)}$`
+          let produit = f1.produitFraction(f2)
           if (this.correctionDetaillee) {
-            texteCorr += `$=${texFraction(c + '\\times' + ecritureParentheseSiNegatif(e), d + '\\times' + ecritureParentheseSiNegatif(f))} ${texteOperation1} ${texFraction(a, b)}$`
-            texteCorr += `$=${texFraction(c * e, d * f)} ${texteOperation1} ${texFraction(a, b)}$`
+            texteCorr += '$'
+            const pdt = texProduitFraction(f1, f2)
+            const etapes = pdt.split('=')
+            etapes.forEach(function (etape, index) {
+              if (index > 0) texteCorr += `= ${etape} ${texteOperation1} ${f3.texFraction}`
+            })
+            texteCorr += '$'
           } else {
-            texteCorr += `$=${produit[1]} ${texteOperation1} ${texFraction(a, b)}$`
-            texteCorr += `$=${produit[0]} ${texteOperation1} ${texFraction(a, b)}$`
+            texteCorr += `$=${produit.texFraction} ${texteOperation1} ${f3.texFraction}$`
+          }
+
+          // on gere les signes
+          const modify1 = simplifySign(f3)
+          const modify2 = simplifySign(produit)
+          if (modify1[1] || modify2[1]) {
+            f3 = modify1[0]
+            produit = modify2[0]
+            texteCorr += `$=${produit.texFraction} ${texteOperation1} ${f3.texFraction}$`
           }
 
           // faut-il simplifier c×e⁄d×f ?
-          if (!this.correctionDetaillee) {
-            [c, d, e, f] = produit[2]
+          let p = pgcd(produit.num, produit.den)
+          if (p !== 1 && ppcm(f3.den, produit.den) > ppcm(f3.den, (produit.den) / p)) {
+            texteCorr += `$=${texFraction((produit.num) / p + '\\times\\cancel{' + ecritureParentheseSiNegatif(p) + '}', (f * d) / p + '\\times\\cancel{' + ecritureParentheseSiNegatif(p) + '}')} ${texteOperation1} ${f3.texFraction}$`
+            produit = new FractionX(produit.num / p, produit.den / p)
           }
-          p = pgcd(c * e, d * f)
-          if (p !== 1 && ppcm(b, d * f) > ppcm(b, (d * f) / p)) {
-            texteCorr += `$=${texFraction((e * c) / p + '\\times\\cancel{' + ecritureParentheseSiNegatif(p) + '}', (f * d) / p + '\\times\\cancel{' + ecritureParentheseSiNegatif(p) + '}')} ${texteOperation1} ${texFraction(a, b)}$`
-            c = (e * c) / p
-            d = (f * d) / p
-          } else {
-            c = e * c
-            d = f * d
-          }
-          p = ppcm(b, d) // p = dénominateur commun
-          k1 = p / b
-          k2 = p / d
+
+          p = ppcm(f3.den, produit.den) // p = dénominateur commun
+          const k1 = p / f3.den
+          const k2 = p / produit.den
           if (k2 !== 1) {
-            texteCorr += `$=${texFraction(
-            c + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k2)),
-            d + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k2))
-          )}$`
+            texteCorr += `$=${texFraction(produit.num + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k2)), produit.den + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k2)))}$`
+            produit = new FractionX(produit.num * k2, produit.den * k2)
           } else {
             if (k1 !== 1) {
-              texteCorr += `$=${texFraction(c, d)}$`
+              texteCorr += `$=${produit.texFraction}$`
             }
           }
 
           if (k1 !== 1) {
-            texteCorr += `$ ${texteOperation1} ${texFraction(
-            a + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k1)),
-            b + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k1))
-          )}$`
+            texteCorr += `$ ${texteOperation1} ${texFraction(f3.num + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k1)), f3.den + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k1)))}$`
+            f3 = new FractionX(f3.num * k1, f3.den * k1)
           } else {
             if (k2 !== 1) {
-              texteCorr += `$ ${texteOperation1} ${texFraction(a, b)}$`
+              texteCorr += `$ ${texteOperation1} ${f3.texFraction}$`
             }
           }
 
-          if (this.correctionDetaillee) {
-            texteCorr += `$=${texFraction(c * k2, p)} ${texteOperation1} ${texFraction(a * k1, p)}$`
+          if (k1 !== 1 || k2 !== 1) {
+            texteCorr += `$=${produit.texFraction} ${texteOperation1} ${f3.texFraction}$`
           }
-          e = operation1 ? c * k2 + a * k1 : c * k2 - a * k1
-          f = p
 
-          texteCorr += `$=${texFraction(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$`
-          reponse = fraction(e, f).simplifie()
+          texteCorr += `$=\\dfrac{${produit.num} ${texteOperation1} ${ecritureParentheseSiNegatif(f3.num)}}{${f3.den}}$`
+          f3 = operation1 ? produit.sommeFraction(f3) : differenceFraction(produit, f3)
+          texteCorr += `$=${f3.texFraction}${f3.texSimplificationAvecEtapes(true)}$`
+          reponse = f3.simplifie()
           break
+        }
       }
 
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
