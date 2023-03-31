@@ -5,6 +5,10 @@ MathALEA est un générateur d'exercices à données aléatoires codé en JavaSc
 
 Pour une présentation plus détaillée, vous pouvez vous rendre  sur cet <a href="http://revue.sesamath.net/spip.php?article1352" target="_blank">article de MathémaTICE</a> (écrit en juin 2020).
 
+### NOUVELLE VERSION
+
+À partir d'avril 2023, ce dépôt n'est plus utilisé avec le passage à la version 3 que vous pouvez suivre sur https://github.com/mathalea/mathaleaV3.
+
 
 ### Soutiens
 
