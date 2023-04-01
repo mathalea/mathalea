@@ -3,6 +3,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, creerNomDePolygone, texNombre, stringNombre, texteEnCouleur } from '../../modules/outils.js'
 import { point, tracePoint, labelPoint, polygoneRegulier, codageAngleDroit, pointAdistance, droiteParPointEtPerpendiculaire, droite, pointIntersectionLC, polygone, segment, texteSurSegment, milieu, afficheLongueurSegment, cercle, pointIntersectionCC } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Tracer des carrés et des rectangles de longueurs données'
 
 export const dateDePublication = '10/09/2022'
@@ -43,6 +44,12 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
     if (this.sup === 11) typesDeQuestionsDisponibles = ['Carré', 'Rectangle', 'Carré1diag', 'Rectangle1diag', 'Losange', 'Losange2diag', 'Parallélogramme']
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const egalenv = function () {
+      if (!context.isHtml) {
+        return '$\\approx$'
+      }
+      return '≈'
+    }
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const objetsCorrection = []
       const nomPoly = creerNomDePolygone(4)
@@ -291,7 +298,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
       objetsCorrection.push(traces2, labels2, figure, aA, aB, aC, aD, aE, segmentAC, segmentBC)
       if (listeTypeDeQuestions[i] === 'Rectangle' || listeTypeDeQuestions[i] === 'Carré') {
         objetsCorrection.push(afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), afficheLongueurSegment(D, C), afficheLongueurSegment(A, D))
-        const txt = texteSurSegment(`${A.nom}${C.nom}≃${stringNombre(segment(A, C).longueur, 2)} cm`, milieu(A, C), C, 'blue')
+        const txt = texteSurSegment(`${A.nom}${C.nom}${egalenv()}${stringNombre(segment(A, C).longueur, 2, true)} cm`, milieu(A, C), C, 'blue')
         txt.mathOn = false
         txt.scale = 1.2
         objetsCorrection.push(txt)
@@ -301,7 +308,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
         txt.mathOn = false
         const txt2 = texteSurSegment(`${B.nom}${D.nom}=${stringNombre(segment(B, D).longueur, 1)} cm`, milieu(B, D), D)
         txt2.mathOn = false
-        const txt3 = texteSurSegment(`${D.nom}${C.nom}≃${stringNombre(segment(D, C).longueur, 2)} cm`, D, C, 'blue')
+        const txt3 = texteSurSegment(`${D.nom}${C.nom}${egalenv()}${stringNombre(segment(D, C).longueur, 2, true)} cm`, D, C, 'blue')
         txt3.mathOn = false
         txt3.scale = 1.2
         objetsCorrection.push(txt, txt2, txt3)
@@ -310,7 +317,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
         objetsCorrection.push(afficheLongueurSegment(B, A))
         const txt = texteSurSegment(`${A.nom}${C.nom}=${stringNombre(segment(A, C).longueur, 1)} cm`, milieu(A, C), C)
         txt.mathOn = false
-        const txt3 = texteSurSegment(`${B.nom}${C.nom}≃${stringNombre(segment(B, C).longueur, 2)} cm`, C, B, 'blue')
+        const txt3 = texteSurSegment(`${B.nom}${C.nom}${egalenv()}${stringNombre(segment(B, C).longueur, 2, true)} cm`, C, B, 'blue')
         txt3.mathOn = false
         txt3.scale = 1.2
         objetsCorrection.push(txt, txt3)
@@ -319,7 +326,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
         objetsCorrection.push(afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), afficheLongueurSegment(D, C), afficheLongueurSegment(A, D))
         const txt = texteSurSegment(`${A.nom}${C.nom}=${stringNombre(segment(A, C).longueur, 1)} cm`, milieu(A, C), C)
         txt.mathOn = false
-        const txt2 = texteSurSegment(`${B.nom}${D.nom}≃${stringNombre(segment(B, D).longueur, 2)} cm`, milieu(B, D), D, 'blue')
+        const txt2 = texteSurSegment(`${B.nom}${D.nom}${egalenv()}${stringNombre(segment(B, D).longueur, 2, true)} cm`, milieu(B, D), D, 'blue')
         txt2.mathOn = false
         txt2.scale = 1.2
         objetsCorrection.push(txt, txt2)
@@ -329,7 +336,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
         txt.mathOn = false
         const txt2 = texteSurSegment(`${B.nom}${D.nom}=${stringNombre(segment(B, D).longueur, 1)} cm`, milieu(B, D), D)
         txt2.mathOn = false
-        const txt3 = texteSurSegment(`${D.nom}${C.nom}≃${stringNombre(segment(D, C).longueur, 2)} cm`, D, C, 'blue')
+        const txt3 = texteSurSegment(`${D.nom}${C.nom}${egalenv()}${stringNombre(segment(D, C).longueur, 2, true)} cm`, D, C, 'blue')
         txt3.mathOn = false
         txt3.scale = 1.2
         objetsCorrection.push(txt, txt2, txt3)
@@ -337,7 +344,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
       if (listeTypeDeQuestions[i] === 'Parallélogramme') {
         const txt = texteSurSegment(`${A.nom}${C.nom}=${stringNombre(segment(A, C).longueur, 1)} cm`, milieu(A, C), C)
         txt.mathOn = false
-        const txt2 = texteSurSegment(`${B.nom}${D.nom}≃${stringNombre(segment(B, D).longueur, 2)} cm`, milieu(A, C), B, 'blue')
+        const txt2 = texteSurSegment(`${B.nom}${D.nom}${egalenv()}${stringNombre(segment(B, D).longueur, 2, true)} cm`, milieu(A, C), B, 'blue')
         txt2.mathOn = false
         txt2.scale = 1.2
         objetsCorrection.push(txt, afficheLongueurSegment(A, D), afficheLongueurSegment(D, C), txt2)

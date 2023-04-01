@@ -63,9 +63,9 @@ export default function GraphiquesEtProportionnalite2 () {
       const xscale = 1
       const yscale = choice([1, 2, 5])
       // pour aléatoiriser un peu le pas sur l'axe des prix
-      let stepAxeSecondaire
-      if (yscale === 1) stepAxeSecondaire = choice([0.5, 0.2, 0.25])
-      else stepAxeSecondaire = choice([0.5, 0.2, 0.25])
+      // let stepAxeSecondaire
+      // if (yscale === 1) stepAxeSecondaire = choice([0.5, 0.2, 0.25])
+      // else stepAxeSecondaire = choice([0.5, 0.2, 0.25])
       // on finit les appels
       const mesAppels = [
         r = repere({
@@ -150,7 +150,7 @@ export default function GraphiquesEtProportionnalite2 () {
           xmin: -xscale,
           ymin: -1,
           xmax: situation.qte_max / xscale + 3,
-          ymax: (situation.qte_max * situation.prix_unitaire + 4) / yscale + 1,
+          ymax: ((situation.qte_max + 1) * situation.prix_unitaire + yscale) / yscale + 2,
           pixelsParCm: 30
         },
         mesAppelsCorr
@@ -178,10 +178,10 @@ export default function GraphiquesEtProportionnalite2 () {
         <br> ${situation.figureCorr}
         <br> ${numAlpha(kCorr++)} Pour $${situation.qte2}$ ${situation.unite}  ${situation.articles}, la lecture graphique est moins facile, nous allons détailler deux méthodes.
         <br><br> ${texteGras('Première méthode par lecture graphique :')} 
-        <br> Il faut prendre en compte que chaque petit carreau représente $${texPrix(stepAxeSecondaire * yscale)}$ € et utiliser les pointillés bleus.
+        <br> Il faut prendre en compte que chaque petit carreau représente $${texPrix(yscale / 5)}$ € et utiliser les pointillés bleus.
         <br><br> ${texteGras('Seconde méthode en calculant une quatrième proportionnelle :')}
         <br> $${situation.qte_max}$ ${situation.unite}  ${situation.articles} coûtent $${texPrix(calcul(situation.qte_max * situation.prix_unitaire))}$ €
-        donc $${situation.qte2}$ ${situation.unite}  ${situation.articles} coûtent : <br> $(${texPrix(calcul(situation.qte_max * situation.prix_unitaire))}$ € $\\div ${situation.qte_max}$ ${situation.articles} $)\\times (${situation.qte2}$ ${situation.articles})  $= ${texPrix(calcul(situation.qte2 * situation.prix_unitaire))}$ €
+        donc $${situation.qte2}$ ${situation.unite}  ${situation.articles} coûtent : <br> $(${texPrix(calcul(situation.qte_max * situation.prix_unitaire))}$ € $\\div ${situation.qte_max}$ ${situation.unite} ${situation.articles} $)\\times (${situation.qte2}$ ${situation.unite} ${situation.articles})  $= ${texPrix(calcul(situation.qte2 * situation.prix_unitaire))}$ €
         <br><br>${texteEnCouleur(`Quelle que soit la méthode utilisée, ${situation.qte2} ${situation.unite}  ${situation.articles} coûtent $${texPrix(calcul(situation.qte2 * situation.prix_unitaire))}$ €.`)}
         `
       })

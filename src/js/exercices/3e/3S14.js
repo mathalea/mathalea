@@ -24,7 +24,7 @@ export default function CalculerCaracteristiques () {
   this.spacingCorr = 1
   this.nbColsCorr = 1
   this.nbCols = 1
-  this.sup = '4'
+  this.sup = '1-2-3-4'
   this.sup2 = '4'
   this.listePackages = 'bclogo'
 

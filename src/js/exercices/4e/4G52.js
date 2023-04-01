@@ -149,7 +149,7 @@ export default function ReperagePaveDroit () {
       texteCorr = mathalea2d({ xmin: -1, xmax: 1 + largeur + profondeur * Math.cos(radians(context.anglePerspective)), ymin: -1, ymax: hauteur + profondeur * context.coeffPerspective * degSin(context.anglePerspective), scale: 0.6, style: 'display: block; margin-top:20px;' }, objetsAtracerCorr)
       texteCorr += `<br>$${lettreDepuisChiffre(i + 12)}$ de coordonnées $(${miseEnEvidence(pointCoord[0], 'blue')};${miseEnEvidence(pointCoord[1], '#f15929')};${miseEnEvidence(pointCoord[2], 'red')})$.<br>`
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, x, y, z)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
