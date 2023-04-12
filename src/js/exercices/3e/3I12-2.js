@@ -27,7 +27,7 @@ export default function ComprendreScriptMultiples () {
   this.nbQuestions = 1
   this.titre = titre
   this.typeExercice = 'Scratch'
-  this.nbCols = 2
+  this.nbCols = 1
   this.nbColsCorr = 1
   this.nbQuestionsModifiable = false
   this.listePackages = 'scratch3'
@@ -162,8 +162,10 @@ export default function ComprendreScriptMultiples () {
     choixQuestions = combinaisonListes(choixQuestions, choixQuestions.length)
 
     this.introduction = lampeMessage({
-      titre: `${scratchblock('\\begin{scratch}[print,fill,blocks,scale=0.5]\n\\ovaloperator{\\ovalnum{ } modulo \\ovalnum{ }}\\end{scratch}')}`,
-      texte: 'Cette brique donne le reste de la division euclidienne du nombre de gauche par le nombre de droite.',
+      titre: context.isHtml ? `${scratchblock('\\begin{scratch}[print,fill,blocks,scale=0.5]\n\\ovaloperator{\\ovalnum{ } modulo \\ovalnum{ }}\\end{scratch}')}` : 'Information',
+      texte: (context.isHtml
+        ? ''
+        : '$\\setscratch{print}\\ovaloperator{\\ovalnum{ } modulo \\ovalnum{ }}$<br>') + 'Cette brique donne le reste de la division euclidienne du nombre de gauche par le nombre de droite.',
       couleur: 'nombres'
     })
     if (context.isAmc) {
@@ -199,7 +201,7 @@ export default function ComprendreScriptMultiples () {
           ]
         }
       }
-      colonne2 += enonceAMC
+      colonne2 += '<br>' + enonceAMC
     }
     // Multicolonnage abandonné à cause de la non-optimation de la fonction deuxColonnes() (septembre 2022) sur SmartPhone
     // const texte = deuxColonnes(colonne1, colonne2)

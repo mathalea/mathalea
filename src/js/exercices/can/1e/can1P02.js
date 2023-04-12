@@ -103,7 +103,7 @@ export default function LectureProbabilite () {
 
       omega.setTailles() // On calcule les tailles des arbres.
       objets = omega.represente(0, 7, 0, 1.5, true, 1) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
-      texte = `On donne l'arbre de probabilités ci-dessous :<br>
+      texte = `On donne l'arbre de probabilités :<br>
       
       `
       texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline', scale: 0.5 }, ...objets)
@@ -113,11 +113,11 @@ export default function LectureProbabilite () {
       } else { texte += `${sp(7)}$\\ldots\\ldots $` }
       texte += ` $= ${texNombre(choix, 2)}$`
       texteCorr = `Les probabilités conditionnelles se lisent sur la deuxième partie de l'arbre :<br>
-      $\\bullet$ $P(${nom1})=${texNombre(pA, 2)}$, <br>
-      $\\bullet$ $P(\\overline{${nom1}})=${texNombre(pB, 2)}$, <br>
-      $\\bullet$  $P_{${nom1}}(${nom2})=${texNombre(pAC, 2)}$, <br>
-      $\\bullet$ $P_{${nom1}}(\\overline{${nom2}})=${texNombre(1 - pAC, 2)}$, <br>
-      $\\bullet$ $P_{\\overline{${nom1}}}(${nom2})=${texNombre(pBC, 2)}$, <br>
+      $\\bullet$ $P(${nom1})=${texNombre(pA, 2)}$
+      $\\bullet$ $P(\\overline{${nom1}})=${texNombre(pB, 2)}$
+      $\\bullet$  $P_{${nom1}}(${nom2})=${texNombre(pAC, 2)}$ 
+      $\\bullet$ $P_{${nom1}}(\\overline{${nom2}})=${texNombre(1 - pAC, 2)}$ 
+      $\\bullet$ $P_{\\overline{${nom1}}}(${nom2})=${texNombre(pBC, 2)}$
       $\\bullet$ $P_{\\overline{${nom1}}}(\\overline{${nom2}})=${texNombre(1 - pBC, 2)}$.
       `
 
@@ -143,18 +143,19 @@ export default function LectureProbabilite () {
           `p_{\\overline{${nom1}}}(\\overline{{${nom2}}})`, `P_{\\overline{${nom1}}}(\\overline{{${nom2}}})`,
           `p\\overline{_${nom1}}({\\overline{${nom2}}})`, `P\\overline{_${nom1}}({\\overline{${nom2}}})`])
       }
-      this.canEnonce = `On donne l'arbre de probabilités ci-dessous :<br>
+      this.canEnonce = `On donne l'arbre de probabilités :<br>
       
       `
       this.canEnonce += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline', scale: 0.5 }, ...objets)
-      this.canEnonce += `
-      Compléter avec la notation qui convient.`
-      this.canReponseACompleter = ` $\\ldots= ${texNombre(choix, 2)}$`
+      this.canReponseACompleter = `Compléter avec la notation qui convient.<br><br>
+       $\\ldots= ${texNombre(choix, 2)}$`
       if (this.questionJamaisPosee(i, pA, pAC, pBC)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
       }
+      this.listeCanEnonces.push(this.canEnonce)
+      this.listeCanReponsesACompleter.push(this.canReponseACompleter)
       cpt++
     }
     listeQuestionsToContenu(this)

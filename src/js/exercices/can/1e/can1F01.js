@@ -75,7 +75,7 @@ export default function CoordonneesSommetParabole () {
         }
         this.canEnonce = `Déterminer les coordonnées du sommet de la parabole représentant 
         la fonction $f$ définie sur $\\mathbb{R}$ 
-        par  $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}.`
+        par  $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$.`
         this.canReponseACompleter = ''
       }
       setReponse(this, 2 * i, -b)

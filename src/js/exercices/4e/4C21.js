@@ -40,7 +40,7 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
     if (!this.sup3 && !context.isAmc) {
       this.consigne = 'Calculer.'
     } else {
-      this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée."
+      this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée au maximum."
     }
     this.sup = parseInt(this.sup)
     this.autoCorrection = []

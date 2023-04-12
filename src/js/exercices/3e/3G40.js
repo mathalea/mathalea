@@ -1,9 +1,25 @@
-import Exercice from '../Exercice.js'
-import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGeneralites.js'
+import { labelLatexPoint, labelPoint, texteParPoint, tracePoint } from '../../modules/2d.js'
+import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
+import {
+  arete3d,
+  demicercle3d,
+  droite3d,
+  point3d,
+  rotation3d,
+  rotationV3d,
+  sensDeRotation3d,
+  sphere3d,
+  vecteur3d
+} from '../../modules/3d.js'
 import { context } from '../../modules/context.js'
-import { numAlpha, combinaisonListes, randint, choisitLettresDifferentes, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
-import { tracePoint, labelPoint, labelLatexPoint } from '../../modules/2d.js'
-import { point3d, droite3d, vecteur3d, arete3d, rotation3d, rotationV3d, sensDeRotation3d, demicercle3d, sphere3d } from '../../modules/3d.js'
+import {
+  choisitLettresDifferentes,
+  combinaisonListes,
+  listeQuestionsToContenuSansNumero,
+  numAlpha,
+  randint
+} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
 
 export const dateDeModifImportante = '02/11/2022' // EE : Mise en place de this.sup2, des unités et du grossissement des points
 export const titre = 'Repérage sur la sphère'
@@ -13,7 +29,6 @@ export const amcType = 'AMCHybride'
 export const uuid = '75ea2'
 export const ref = '3G40'
 export default function ReperageSurLaSphere () {
-  'use strict'
   Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 4
@@ -27,30 +42,40 @@ export default function ReperageSurLaSphere () {
   this.sup2 = false
   this.sup3 = false
   this.sup4 = false
+  const inclinaison = 5
+  const O = point3d(0, 0, 0, false, 'O')
+
+  const Sph = sphere3d(O, 10, (context.isAmc ? 'darkgray' : 'red'), 'black', 18, 'black', 36, 'black', false, 'black', inclinaison)
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
     this.autoCorrection = []
-    let listeTypeDeQuestions = []
+    let listeTypeDeQuestions
     if (this.sup === 1) listeTypeDeQuestions = combinaisonListes([1], this.nbQuestions)
     else if (this.sup === 2) listeTypeDeQuestions = combinaisonListes([2], this.nbQuestions)
     else listeTypeDeQuestions = combinaisonListes([1, 2], this.nbQuestions)
-    let texte = ''
+    let texte
     let texteCorrection = ''
-    const O = point3d(0, 0, 0, false, 'O')
-    let M = point3d(10, 0, 0, true, 'M')
-    const PoleNord = point3d(0, 0, 11, false, 'Nord')
-    const PoleSud = point3d(0, 0, -11.5, false, 'Sud')
-    const Pn = labelPoint(PoleNord, 'brown')
-    const Ps = labelPoint(PoleSud, 'brown')
+
+    const normalRot = vecteur3d(0, 1, 0)
+    const droiteRot = droite3d(point3d(0, 0, 0), normalRot)
+    let M = rotation3d(point3d(10, 0, 0, true, 'M'), droiteRot, inclinaison)
+    const PoleNord = rotation3d(point3d(0, 0, 11), droiteRot, inclinaison)
+    PoleNord.c2d.visible = false
+    PoleNord.c2d.nom = 'Nord'
+    const PoleSud = rotation3d(point3d(0, 0, -11.5), droiteRot, inclinaison)
+    PoleSud.c2d.visible = false
+    PoleSud.c2d.nom = 'Sud'
+    const Pn = texteParPoint('Nord', PoleNord.c2d, 'milieu', 'brown')
+    const Ps = texteParPoint('Sud', PoleSud.c2d, 'milieu', 'brown')
     Pn.taille = 15
     Pn.positionLabel = 'above'
     Ps.taille = 15
     Ps.positionLabel = 'below'
 
-    const normalV = vecteur3d(0, 0, 1)
+    const normalV = rotation3d(vecteur3d(0, 0, 1), droiteRot, inclinaison)
     M = rotationV3d(M, normalV, context.anglePerspective)
     const R = vecteur3d(O, M)
     let origine = rotation3d(point3d(0, -10, 0), droite3d(O, normalV), context.anglePerspective)
@@ -76,22 +101,30 @@ export default function ReperageSurLaSphere () {
     uniteLattitudeNegative.visible = true
     uniteLattitudeNegative.c2d.nom = (this.sup2 ? '-' : '') + '10 \\degree'
     uniteLattitudeNegative.c2d.positionLabel = 'above left'
-    const labelUnites = labelLatexPoint({ points: [origine, uniteLattitudePositive, uniteLattitudeNegative, uniteLongitudePositive, uniteLongitudeNegative], color: 'black', taille: 10 })
+    const labelUnites = labelLatexPoint({
+      points: [origine, uniteLattitudePositive, uniteLattitudeNegative, uniteLongitudePositive, uniteLongitudeNegative],
+      color: 'black',
+      taille: 10
+    })
 
     if (context.isAmc) origine = rotation3d(origine, droite3d(O, normalH), 2) // Parce qu'il existe un décalage en Latex
 
-    const Sph = sphere3d(O, 10, (context.isAmc ? 'darkgray' : 'red'), 'black', 18, 'black', 36, 'black')
-    const greenwich = demicercle3d(O, normalH, vecteur3d(0, 0, -10), 'indirect', false, context.isAmc ? 'darkgray' : 'green', 0)
+    const greenwich = demicercle3d(O, normalH, rotation3d(vecteur3d(0, 0, -10), droiteRot, inclinaison), 'indirect', false, context.isAmc ? 'darkgray' : 'green', 0)
     greenwich.epaisseur = context.isAmc ? 1.5 : 3
 
     greenwich.opacite = 1
-    const objetsEnonce = []; const objetsCorrection = []// on initialise les tableaux des objets Mathalea2d
-    const latitudes = []; const longitudes = []; const P = []; const EstouOuest = []; const NordouSud = []; let nom = []
-    const E = labelPoint(point3d(13.2, 0, 0, true, 'Est'))
+    const objetsEnonce = []
+    const objetsCorrection = []// on initialise les tableaux des objets Mathalea2d
+    const latitudes = []
+    const longitudes = []
+    const P = []
+    const EstouOuest = []
+    const NordouSud = []
+    const E = texteParPoint('Est', rotation3d(point3d(13.2, 0, 0, true, 'Est'), droiteRot, inclinaison).c2d, 'milieu', 'brown')
     E.taille = 15
     E.color = colorToLatexOrHTML('brown')
     E.positionLabel = 'above'
-    const W = labelPoint(point3d(-12, 0, 0, true, 'Ouest'))
+    const W = texteParPoint('Ouest', rotation3d(point3d(-12, 0, 0, true, 'Ouest'), droiteRot, inclinaison).c2d, 'milieu', 'brown')
     W.taille = 15
     W.color = colorToLatexOrHTML('brown')
     W.positionLabel = 'below left'
@@ -110,7 +143,7 @@ export default function ReperageSurLaSphere () {
     }
 
     if (this.sup2) {
-      const rotationTerre = sensDeRotation3d(droite3d(O, normalV), vecteur3d(8, -8, 0), 60, 3, 'purple')
+      const rotationTerre = sensDeRotation3d(droite3d(O, normalV), rotation3d(vecteur3d(8, -8, 0), droiteRot, inclinaison), 60, 3, 'purple')
       objetsEnonce.push(...rotationTerre.c2d)
       objetsCorrection.push(...rotationTerre.c2d)
     }
@@ -123,16 +156,16 @@ export default function ReperageSurLaSphere () {
       EstouOuest.push('O')
       NordouSud.push('N')
     }
-    nom = choisitLettresDifferentes(this.nbQuestions, 'QX')
+    const nom = choisitLettresDifferentes(this.nbQuestions, 'QX')
     texte = ''
 
     if (context.isAmc) {
       this.autoCorrection[0] =
-    {
-      enonceAvant: false,
-      enonceAvantUneFois: true,
-      propositions: []
-    }
+        {
+          enonceAvant: false,
+          enonceAvantUneFois: true,
+          propositions: []
+        }
     }
     let iAMC = 0
     for (let i = 0, latitude, longitude, M, lab, croix, texteAMC; i < this.nbQuestions;) {
@@ -239,7 +272,7 @@ export default function ReperageSurLaSphere () {
     if (context.isAmc) this.autoCorrection[0].enonce = mathalea2d(paramsEnonce, objetsEnonce) + '<br>'
 
     texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
-    // texteCorrection += '<br>' + mathalea2d(paramsEnonce, objetsCorrection)
+    texteCorrection += '<br>' + mathalea2d(paramsEnonce, objetsCorrection)
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorrection)
     listeQuestionsToContenuSansNumero(this)

@@ -80,7 +80,7 @@ export default function FonctionsProbabilite2 () {
             texteCorr += numAlpha(1) + ` Comme le nombre de yaourts est différent d'un parfum à l'autre, ${quidame} n'a pas la même probabilité de choisir n'importe quel parfum. On en déduit qu'il est impossible que les issues (${Initiale[p]},${Initiale[p]}), (${Initiale[q]},${Initiale[q]}) et (${Initiale[r]},${Initiale[r]}) aient la même probabilité.<br>`
           }
           texteCorr += numAlpha(2) + ` Il y a ${n[p]} yaourts ${qualites[0][p]}, et ${somme1} yaourts en tout, la probabilité que ${quidame} choisisse un yaourt ${qualites[0][p]} est : $${texFraction(n[p], somme1)}${simplificationDeFractionAvecEtapes(n[p], somme1)}$.<br>`
-          texteCorr += `Ensuite il reste ${n[p] - 1} yaourts ${qualites[0][p]} pour ${quidam} sur un total de ${somme1 - 1} yaourts.<br> La probabilité qu'il choisisse à son tour et dans ces conditions ce parfum est ; $${texFraction(n[p] - 1, somme1 - 1)}${simplificationDeFractionAvecEtapes(n[p] - 1, somme1 - 1)}$.<br>`
+          texteCorr += `Ensuite il reste ${n[p] - 1} yaourts ${qualites[0][p]} pour ${quidam} sur un total de ${somme1 - 1} yaourts.<br> La probabilité qu'il choisisse à son tour et dans ces conditions ce parfum est : $${texFraction(n[p] - 1, somme1 - 1)}${simplificationDeFractionAvecEtapes(n[p] - 1, somme1 - 1)}$.<br>`
           texteCorr += `La probabilité de l'issue (${Initiale[p]},${Initiale[p]}) est le produit de ces deux probabilités, donc : $${texFraction(n[p], somme1)}\\times${texFraction(n[p] - 1, somme1 - 1)}=${texFraction(n[p] * (n[p] - 1), somme1 * (somme1 - 1))}${simplificationDeFractionAvecEtapes(n[p] * (n[p] - 1), somme1 * (somme1 - 1))}$.<br>`
           texteCorr += numAlpha(3) + ` Les probabilités des issues (${Initiale[q]},${Initiale[q]}) et (${Initiale[r]},${Initiale[r]}) peuvent être calculées de la même façon qu'à la question c) :<br>`
           texteCorr += `$${texFraction(n[q], somme1)}\\times${texFraction(n[q] - 1, somme1 - 1)}=${texFraction(n[q] * (n[q] - 1), somme1 * (somme1 - 1))}$.<br>`
@@ -175,7 +175,7 @@ export default function FonctionsProbabilite2 () {
           fra1 = fractionSimplifiee(n[p], somme1)
           fra2 = fractionSimplifiee(m[p], somme2)
           texteCorr += numAlpha(1) + ` La probabilité de choisir une paire de chaussettes ${qualites[2][p]} est : $${texFraction(n[p], somme1)}${simplificationDeFractionAvecEtapes(n[p], somme1)}$ et `
-          texteCorr += `La probabilité de choisir l'un des T-shirt ${qualites[5][p]} est : $${texFraction(m[p], somme2)}${simplificationDeFractionAvecEtapes(m[p], somme2)}$.<br>`
+          texteCorr += `la probabilité de choisir l'un des T-shirt ${qualites[5][p]} est : $${texFraction(m[p], somme2)}${simplificationDeFractionAvecEtapes(m[p], somme2)}$.<br>`
           texteCorr += `Donc la probabilité de choisir des chaussettes et un T-shirt ${qualites[5][p]} est : $${texFractionReduite(m[p], somme2)}\\times${texFractionReduite(n[p], somme1)}=\\dfrac{${fra2[0]}\\times${fra1[0]}}{${fra2[1]}\\times${fra1[1]}}=${texFraction(fra1[0] * fra2[0], fra1[1] * fra2[1])}${simplificationDeFractionAvecEtapes(fra1[0] * fra2[0], fra1[1] * fra2[1])}$.<br>`
           p2 = fractionSimplifiee(fra1[0] * fra2[0], fra1[1] * fra2[1])
           fra1 = fractionSimplifiee(n[q], somme1)

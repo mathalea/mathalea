@@ -660,7 +660,7 @@ export function aleaEquation (equation = 'a*x+b=c*x-d', variables = { a: false, 
   const leftNode = expressionLitterale(sides[0], assignations, debug).toString()
   const rightNode = expressionLitterale(sides[1], assignations, debug).toString()
   if (debug) {
-    console.log('Equation à résoudre : ', `${leftNode}${comparator}${rightNode}`)
+    console.log('Équation à résoudre : ', `${leftNode}${comparator}${rightNode}`)
   }
   return `${leftNode}${comparator}${rightNode}`
 }

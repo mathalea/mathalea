@@ -855,7 +855,7 @@ export default function ProblemesTrigoLongueur () {
           texte += mathalea2d({ xmin: min(-sensH, absS + sensH), ymin: -1, xmax: max(-sensH, absS + sensH), ymax: ordA + 1, pixelsParCm: 20, scale: 0.5 }, objets)
           enonceInit = texte
           if (this.sup) {
-            enonceAMC = `${numAlpha(j)}Exprimer la mesure de l'angle $\\widehat{CAS}$ en fonction de $${baita}$.`
+            enonceAMC = `${numAlpha(j)}Exprimer la mesure de l'angle $\\widehat{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numS)}}$ en fonction de $${baita}$.`
             texte += '<br>' + enonceAMC
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texte: `$${sp(20)}\\widehat{CAS}=$` })
@@ -1174,7 +1174,7 @@ export default function ProblemesTrigoLongueur () {
           break
       }
       if (context.isAmc) {
-        enonceAMC = this.nbQuestions > 1 ? '\\begin{Large}\\textbf{Problème n° ' + (i + 1) + '}\\end{Large}' : 'Peu importe'
+        // enonceAMC = this.nbQuestions > 1 ? '\\begin{Large}\\textbf{Problème n° ' + (i + 1) + '}\\end{Large}' : 'Peu importe'
         this.autoCorrection[i] = {
           enonce: enonceAMC,
           enonceCentre: true,

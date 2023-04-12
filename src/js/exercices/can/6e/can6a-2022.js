@@ -566,7 +566,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           texte = `Complète : <br>
           $${a}$ heures $=$`
           reponse = 60 * a
-          texteCorr = `Dans une heure, il y a $60$ minutes, donc dans $${a}$ heures, il y a $${a}\\times 60=${a * 60}$ heures.`
+          texteCorr = `Dans une heure, il y a $60$ minutes, donc dans $${a}$ heures, il y a $${a}\\times 60=${a * 60}$ minutes.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {

@@ -27,7 +27,7 @@ export default function SommeOuProduitFractions () {
   this.consigne = 'Effectuer les calculs suivants.'
   this.nbQuestions = 8 // Nombre de questions par défaut
   this.nbCols = 4 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
+  this.nbColsCorr = 4 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.sup = 1
@@ -68,12 +68,6 @@ export default function SommeOuProduitFractions () {
       texte = ''
       texteCorr = ''
 
-      if (!context.isHtml) {
-        if (i % 4 === 0) {
-          texteCorr += '\\begin{multicols}{4}'
-        }
-      }
-
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'type1': // Somme de fractions de dénominateurs égaux ou multiples
 
@@ -86,13 +80,7 @@ export default function SommeOuProduitFractions () {
               }
               texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 * k, den2)}+${texFraction(num2, den2)}$<br>`
             }
-            if (!context.isHtml) {
-              if (i !== (this.nbQuestions - 1)) {
-                if (i % 4 !== 3) {
-                  texteCorr += '\\columnbreak\n'
-                }
-              }
-            }
+
             texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * k + num2, den2)}$ `
             num = num1 * k + num2
             den = den2
@@ -105,13 +93,7 @@ export default function SommeOuProduitFractions () {
               }
               texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}+${texFraction(num2 * k, den2)}$<br>`
             }
-            if (!context.isHtml) {
-              if (i !== (this.nbQuestions - 1)) {
-                if (i % 4 !== 3) {
-                  texteCorr += '\\columnbreak\n'
-                }
-              }
-            }
+
             texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 + num2 * k, den2)}$ `
             num = num1 + num2 * k
             den = den2
@@ -124,25 +106,13 @@ export default function SommeOuProduitFractions () {
             texte += `$${lettreDepuisChiffre(i + 1)} = ${k} + ${texFraction(num1, den1)} $ `
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${k} + ${texFraction(num1, den1)} $<br>`
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(k * den1, den1)} + ${texFraction(num1, den1)}$<br>`
-            if (!context.isHtml) {
-              if (i !== (this.nbQuestions - 1)) {
-                if (i % 4 !== 3) {
-                  texteCorr += '\\columnbreak\n'
-                }
-              }
-            }
+
             texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 + k * den1, den1)}$`
           } else {
             texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} + ${k} $`
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}+${k}$<br>`
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}+${texFraction(k * den1, den1)}$<br>`
-            if (!context.isHtml) {
-              if (i !== (this.nbQuestions - 1)) {
-                if (i % 4 !== 3) {
-                  texteCorr += '\\columnbreak\n'
-                }
-              }
-            }
+
             texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 + k * den1, den1)}$`
           }
           num = num1 + k * den1
@@ -159,13 +129,7 @@ export default function SommeOuProduitFractions () {
               }
               texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 * k, den1 * k)}-${texFraction(num2, den2)}$<br>`
             }
-            if (!context.isHtml) {
-              if (i !== (this.nbQuestions - 1)) {
-                if (i % 4 !== 3) {
-                  texteCorr += '\\columnbreak\n'
-                }
-              }
-            }
+
             texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * k - num2, den2)}$ `
             num = num1 * k - num2
             den = den2
@@ -178,13 +142,7 @@ export default function SommeOuProduitFractions () {
               }
               texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den2)}-${texFraction(num2 * k, den2)}$<br>`
             }
-            if (!context.isHtml) {
-              if (i !== (this.nbQuestions - 1)) {
-                if (i % 4 !== 3) {
-                  texteCorr += '\\columnbreak\n'
-                }
-              }
-            }
+
             texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 - num2 * k, den2)}$`
             num = num1 - num2 * k
             den = den2
@@ -197,13 +155,7 @@ export default function SommeOuProduitFractions () {
             texte += `$${lettreDepuisChiffre(i + 1)} = ${k} - ${texFraction(num1, den1)} $`
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${k} - ${texFraction(num1, den1)}$<br>`
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(k * den1, den1)} - ${texFraction(num1, den1)}$<br>`
-            if (!context.isHtml) {
-              if (i !== (this.nbQuestions - 1)) {
-                if (i % 4 !== 3) {
-                  texteCorr += '\\columnbreak\n'
-                }
-              }
-            }
+
             texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(k * den1 - num1, den1)}$`
             num = k * den1 - num1
             den = den1
@@ -213,13 +165,7 @@ export default function SommeOuProduitFractions () {
             if (k > 1) {
               texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)}-${texFraction(k * den1, den1)}$<br>`
             }
-            if (!context.isHtml) {
-              if (i !== (this.nbQuestions - 1)) {
-                if (i % 4 !== 3) {
-                  texteCorr += '\\columnbreak\n'
-                }
-              }
-            }
+
             texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 - k * den1, den1)}$ `
             num = num1 - k * den1
             den = den1
@@ -230,13 +176,7 @@ export default function SommeOuProduitFractions () {
         case 'type5': // Produit de fractions
           texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} \\times ${texFraction(num2, den3)}$`
           texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} \\times ${texFraction(num2, den3)}$<br>`
-          if (!context.isHtml) {
-            if (i !== (this.nbQuestions - 1)) {
-              if (i % 4 !== 3) {
-                texteCorr += '\\columnbreak\n'
-              }
-            }
-          } texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * num2, den1 * den3)}$`
+          texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * num2, den1 * den3)}$`
           num = num1 * num2
           den = den1 * den3
           break
@@ -246,25 +186,13 @@ export default function SommeOuProduitFractions () {
             texte += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} \\times ${k2}$`
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} \\times ${k2}$<br>`
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} \\times ${texFraction(k2, '1')}$<br>`
-            if (!context.isHtml) {
-              if (i !== (this.nbQuestions - 1)) {
-                if (i % 4 !== 3) {
-                  texteCorr += '\\columnbreak\n'
-                }
-              }
-            }
+
             texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * k2, den1)}$`
           } else {
             texte += `$${lettreDepuisChiffre(i + 1)} = ${k2} \\times ${texFraction(num1, den1)} $`
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${k2} \\times ${texFraction(num1, den1)}$<br>`
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(k2, '1')} \\times  ${texFraction(num1, den1)}$<br>`
-            if (!context.isHtml) {
-              if (i !== (this.nbQuestions - 1)) {
-                if (i % 4 !== 3) {
-                  texteCorr += '\\columnbreak\n'
-                }
-              }
-            }
+
             texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * k2, den1)}$`
           }
           num = num1 * k2
@@ -278,13 +206,7 @@ export default function SommeOuProduitFractions () {
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} + ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)}$<br>`
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} + ${texFraction(num2 * k2, den1 * den3)}$<br>`
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 * den3, den1 * den3)} + ${texFraction(num2 * k2, den1 * den3)}$<br>`
-            if (!context.isHtml) {
-              if (i !== (this.nbQuestions - 1)) {
-                if (i % 4 !== 3) {
-                  texteCorr += '\\columnbreak\n'
-                }
-              }
-            }
+
             texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * den3 + num2 * k2, den1 * den3)}$`
             num = num1 * den3 + num2 * k2
             den = den1 * den3
@@ -293,13 +215,7 @@ export default function SommeOuProduitFractions () {
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} - ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)}$<br>`
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1, den1)} - ${texFraction(num2 * k2, den1 * den3)}$<br>`
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num1 * den3, den1 * den3)} - ${texFraction(num2 * k2, den1 * den3)}$<br>`
-            if (!context.isHtml) {
-              if (i !== (this.nbQuestions - 1)) {
-                if (i % 4 !== 3) {
-                  texteCorr += '\\columnbreak\n'
-                }
-              }
-            }
+
             texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num1 * den3 - num2 * k2, den1 * den3)}$`
             num = num1 * den3 - num2 * k2
             den = den1 * den3
@@ -313,13 +229,7 @@ export default function SommeOuProduitFractions () {
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)} + ${texFraction(num1, den1)}$<br>`
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2 * k2, den1 * den3)} + ${texFraction(num1, den1)}$<br>`
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2 * k2, den1 * den3)} + ${texFraction(num1 * den3, den1 * den3)}$<br>`
-            if (!context.isHtml) {
-              if (i !== (this.nbQuestions - 1)) {
-                if (i % 4 !== 3) {
-                  texteCorr += '\\columnbreak\n'
-                }
-              }
-            }
+
             texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num2 * k2 + num1 * den3, den1 * den3)}$`
             num = num2 * k2 + num1 * den3
             den = den1 * den3
@@ -328,13 +238,7 @@ export default function SommeOuProduitFractions () {
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2, den1)} \\times ${texFraction(k2, den3)} - ${texFraction(num1, den1)}$<br>`
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2 * k2, den1 * den3)} - ${texFraction(num1, den1)}$<br>`
             texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFraction(num2 * k2, den1 * den3)} - ${texFraction(num1 * den3, den1 * den3)}$<br>`
-            if (!context.isHtml) {
-              if (i !== (this.nbQuestions - 1)) {
-                if (i % 4 !== 3) {
-                  texteCorr += '\\columnbreak\n'
-                }
-              }
-            }
+
             texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFraction(num2 * k2 - num1 * den3, den1 * den3)}$`
             num = num2 * k2 - num1 * den3
             den = den1 * den3
@@ -346,13 +250,6 @@ export default function SommeOuProduitFractions () {
       }
       texte += '<br>'
       texteCorr += '\n'
-      if (!context.isHtml) {
-        if (i % 4 === 3) {
-          texteCorr += '\\end{multicols}'
-        } else if (i === this.nbQuestions - 1) {
-          texteCorr += '\\end{multicols}'
-        }
-      }
 
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)

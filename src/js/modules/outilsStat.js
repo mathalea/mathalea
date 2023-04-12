@@ -1,4 +1,15 @@
-import { choice, prenom, texFraction, arrondi, ecritureParentheseSiNegatif, nomDuMois, stringNombre, texNombre, texteGras, lampeMessage } from './outils.js'
+import {
+  arrondi,
+  choice,
+  ecritureParentheseSiNegatif,
+  lampeMessage,
+  nomDuMois,
+  prenom,
+  stringNombre,
+  texFraction,
+  texNombre,
+  texteGras
+} from './outils.js'
 
 function underbraceMediane (nbVal) {
   let sortie
@@ -16,62 +27,94 @@ function desTabEffCumul (tirages, effCumulBool, categories = [], lignes = ['Cat�
     sortie = ''
     if (tirages.length > 12) {
       sortie += '$\\def\\arraystretch{1.5}\\begin{array}{|c' // construction du tableau des effectifs 1/2
-      for (let j = 0; j <= Math.round(tirages.length / 2); j++) { sortie += '|c' }
+      for (let j = 0; j <= Math.round(tirages.length / 2); j++) {
+        sortie += '|c'
+      }
       sortie += '}'
       if (categories.length > 0) {
         sortie += '\\hline ' + `\\text{${lignes[0]}} `
-        for (let j = 0; j < Math.round(tirages.length / 2); j++) { sortie += '&\\text{' + categories[j] + '}' }
+        for (let j = 0; j < Math.round(tirages.length / 2); j++) {
+          sortie += '&\\text{' + categories[j] + '}'
+        }
         sortie += '\\\\'
       }
       sortie += '\\hline  ' + `\\text{${lignes[1]}} `
-      for (let j = 0; j < Math.round(tirages.length / 2); j++) { sortie += '&' + tirages[j][0] }
+      for (let j = 0; j < Math.round(tirages.length / 2); j++) {
+        sortie += '&' + tirages[j][0]
+      }
       sortie += '\\\\\\hline ' + `\\text{${lignes[2]}} `
-      for (let j = 0; j < Math.round(tirages.length / 2); j++) { sortie += '&' + tirages[j][1] }
+      for (let j = 0; j < Math.round(tirages.length / 2); j++) {
+        sortie += '&' + tirages[j][1]
+      }
       sortie += '\\\\\\hline\\end{array}$<br><br>'
 
       sortie += '$\\def\\arraystretch{1.5}\\begin{array}{|c' // construction du tableau des effectifs 2/2
-      for (let j = Math.round(tirages.length / 2); j <= tirages.length; j++) { sortie += '|c' }
+      for (let j = Math.round(tirages.length / 2); j <= tirages.length; j++) {
+        sortie += '|c'
+      }
       sortie += '}'
       if (categories.length > 0) {
         sortie += '\\hline ' + `\\text{${lignes[0]}} `
-        for (let j = Math.round(tirages.length / 2); j < tirages.length; j++) { sortie += '&\\text{' + categories[j] + '}' }
+        for (let j = Math.round(tirages.length / 2); j < tirages.length; j++) {
+          sortie += '&\\text{' + categories[j] + '}'
+        }
         sortie += '\\\\'
       }
       sortie += '\\hline ' + `\\text{${lignes[1]}} `
-      for (let j = Math.round(tirages.length / 2); j < tirages.length; j++) { sortie += '&' + tirages[j][0] }
+      for (let j = Math.round(tirages.length / 2); j < tirages.length; j++) {
+        sortie += '&' + tirages[j][0]
+      }
       sortie += '\\\\\\hline ' + `\\text{${lignes[2]}} `
-      for (let j = Math.round(tirages.length / 2); j < tirages.length; j++) { sortie += '&' + tirages[j][1] }
+      for (let j = Math.round(tirages.length / 2); j < tirages.length; j++) {
+        sortie += '&' + tirages[j][1]
+      }
       sortie += '\\\\\\hline\\end{array}$'
     } else {
       sortie += '$\\def\\arraystretch{1.5}\\begin{array}{|c' // construction du tableau des effectifs en un seul morceau
-      for (let j = 0; j <= tirages.length; j++) { sortie += '|c' }
+      for (let j = 0; j <= tirages.length; j++) {
+        sortie += '|c'
+      }
       sortie += '}'
       if (categories.length > 0) {
         sortie += '\\hline  ' + `\\text{${lignes[0]}} `
-        for (let j = 0; j < tirages.length; j++) { sortie += '&\\text{' + categories[j] + '}' }
+        for (let j = 0; j < tirages.length; j++) {
+          sortie += '&\\text{' + categories[j] + '}'
+        }
         sortie += '\\\\'
       }
       sortie += '\\hline  ' + `\\text{${lignes[1]}} `
-      for (let j = 0; j < tirages.length; j++) { sortie += '&' + tirages[j][0] }
+      for (let j = 0; j < tirages.length; j++) {
+        sortie += '&' + tirages[j][0]
+      }
       sortie += '\\\\\\hline ' + `\\text{${lignes[2]}} `
-      for (let j = 0; j < tirages.length; j++) { sortie += '&' + tirages[j][1] }
+      for (let j = 0; j < tirages.length; j++) {
+        sortie += '&' + tirages[j][1]
+      }
       sortie += '\\\\\\hline\\end{array}$'
-    };
+    }
   } else {
     sortie = ''
     if (tirages.length > 12) {
       sortie += '$\\def\\arraystretch{1.5}\\begin{array}{|c' // construction du tableau des effectifs 1/2
-      for (let j = 0; j <= Math.round(tirages.length / 2); j++) { sortie += '|c' }
+      for (let j = 0; j <= Math.round(tirages.length / 2); j++) {
+        sortie += '|c'
+      }
       sortie += '}'
       if (categories.length > 0) {
         sortie += '\\hline ' + `\\text{${lignes[0]}} `
-        for (let j = 0; j < Math.round(tirages.length / 2); j++) { sortie += '&\\text{' + categories[j] + '}' }
+        for (let j = 0; j < Math.round(tirages.length / 2); j++) {
+          sortie += '&\\text{' + categories[j] + '}'
+        }
         sortie += '\\\\'
       }
       sortie += '\\hline  ' + `\\text{${lignes[1]}} `
-      for (let j = 0; j < Math.round(tirages.length / 2); j++) { sortie += '&' + tirages[j][0] }
+      for (let j = 0; j < Math.round(tirages.length / 2); j++) {
+        sortie += '&' + tirages[j][0]
+      }
       sortie += '\\\\\\hline  ' + `\\text{${lignes[2]}} `
-      for (let j = 0; j < Math.round(tirages.length / 2); j++) { sortie += '&' + tirages[j][1] }
+      for (let j = 0; j < Math.round(tirages.length / 2); j++) {
+        sortie += '&' + tirages[j][1]
+      }
       sortie += '\\\\\\hline ' + `\\text{${lignes[3]}} `
       for (let j = 0; j < Math.round(tirages.length / 2); j++) {
         let cumul = 0
@@ -83,17 +126,25 @@ function desTabEffCumul (tirages, effCumulBool, categories = [], lignes = ['Cat�
       sortie += '\\\\\\hline\\end{array}$<br><br>'
 
       sortie += '$\\def\\arraystretch{1.5}\\begin{array}{|c' // construction du tableau des effectifs 2/2
-      for (let j = Math.round(tirages.length / 2); j <= tirages.length; j++) { sortie += '|c' }
+      for (let j = Math.round(tirages.length / 2); j <= tirages.length; j++) {
+        sortie += '|c'
+      }
       sortie += '}'
       if (categories.length > 0) {
         sortie += '\\hline ' + `\\text{${lignes[0]}} `
-        for (let j = Math.round(tirages.length / 2); j < tirages.length; j++) { sortie += '&\\text{' + categories[j] + '}' }
+        for (let j = Math.round(tirages.length / 2); j < tirages.length; j++) {
+          sortie += '&\\text{' + categories[j] + '}'
+        }
         sortie += '\\\\'
       }
       sortie += '\\hline  ' + `\\text{${lignes[1]}} `
-      for (let j = Math.round(tirages.length / 2); j < tirages.length; j++) { sortie += '&' + tirages[j][0] }
+      for (let j = Math.round(tirages.length / 2); j < tirages.length; j++) {
+        sortie += '&' + tirages[j][0]
+      }
       sortie += '\\\\\\hline ' + `\\text{${lignes[2]}} `
-      for (let j = Math.round(tirages.length / 2); j < tirages.length; j++) { sortie += '&' + tirages[j][1] }
+      for (let j = Math.round(tirages.length / 2); j < tirages.length; j++) {
+        sortie += '&' + tirages[j][1]
+      }
       sortie += '\\\\\\hline ' + `\\text{${lignes[3]}} `
       for (let j = Math.round(tirages.length / 2); j < tirages.length; j++) {
         let cumul = 0
@@ -105,17 +156,25 @@ function desTabEffCumul (tirages, effCumulBool, categories = [], lignes = ['Cat�
       sortie += '\\\\\\hline\\end{array}$'
     } else {
       sortie += '$\\def\\arraystretch{1.5}\\begin{array}{|c' // construction du tableau des effectifs en un seul morceau
-      for (let j = 0; j <= tirages.length; j++) { sortie += '|c' }
+      for (let j = 0; j <= tirages.length; j++) {
+        sortie += '|c'
+      }
       sortie += '}'
       if (categories.length > 0) {
         sortie += '\\hline ' + `\\text{${lignes[0]}} `
-        for (let j = 0; j < tirages.length; j++) { sortie += '&\\text{' + categories[j] + '}' }
+        for (let j = 0; j < tirages.length; j++) {
+          sortie += '&\\text{' + categories[j] + '}'
+        }
         sortie += '\\\\'
       }
       sortie += '\\hline  ' + `\\text{${lignes[1]}} `
-      for (let j = 0; j < tirages.length; j++) { sortie += '&' + tirages[j][0] }
+      for (let j = 0; j < tirages.length; j++) {
+        sortie += '&' + tirages[j][0]
+      }
       sortie += '\\\\\\hline ' + `\\text{${lignes[2]}} `
-      for (let j = 0; j < tirages.length; j++) { sortie += '&' + tirages[j][1] }
+      for (let j = 0; j < tirages.length; j++) {
+        sortie += '&' + tirages[j][1]
+      }
       sortie += '\\\\\\hline ' + `\\text{${lignes[3]}} `
       for (let j = 0; j < tirages.length; j++) {
         let cumul = 0
@@ -125,14 +184,17 @@ function desTabEffCumul (tirages, effCumulBool, categories = [], lignes = ['Cat�
         sortie += '&' + cumul// tirages[j][1];
       }
       sortie += '\\\\\\hline\\end{array}$'
-    };
-  };
+    }
+  }
+
   return sortie
 }
 
 function computeMoyenne (notes) {
   let somme = 0
-  for (let j = 0; j < notes.length; j++) { somme += notes[j] }
+  for (let j = 0; j < notes.length; j++) {
+    somme += notes[j]
+  }
 
   return [texFraction(somme, notes.length), somme]
 }
@@ -183,7 +245,8 @@ function computeMedianeTirages2D (nombreTirages, tirages) {
     while (effCumulCroiss < nombreTirages / 2) {
       cpt += 1
       effCumulCroiss += tirages[cpt][1]
-    };
+    }
+
     scoresMedians.push(tirages[cpt][0])
     // On récupère le second score médian
     cpt = 0
@@ -191,7 +254,8 @@ function computeMedianeTirages2D (nombreTirages, tirages) {
     while (effCumulCroiss < nombreTirages / 2 + 1) {
       cpt += 1
       effCumulCroiss += tirages[cpt][1]
-    };
+    }
+
     scoresMedians.push(tirages[cpt][0])
     scoresMedians[0] === scoresMedians[1] ? medianeCorr = scoresMedians[0] : medianeCorr = (scoresMedians[0] + scoresMedians[1]) / 2
   } else { // Le nombre de lancers est impair ici
@@ -204,7 +268,8 @@ function computeMedianeTirages2D (nombreTirages, tirages) {
     while (effCumulCroiss <= nombreTirages / 2) {
       cpt += 1
       effCumulCroiss += tirages[cpt][1]
-    };
+    }
+
     scoresMedians.push(tirages[cpt][0])
     medianeCorr = scoresMedians[0]
   }
@@ -241,7 +306,7 @@ function texteCorrMoyenneNotes (notesSeries, somme, nombreNotes, notes = 'notes'
         if (j + 3 >= notesSeries.length) eff += `+ ${notesSeries[j][1]}`
       }
     }
-    texteCorr += `}{${eff}}=\\dfrac{${texNombre(somme)}}{${texNombre(nombreNotes)}}$. <br>`
+    texteCorr += `}{${eff}}=\\dfrac{${texNombre(somme, 0)}}{${texNombre(nombreNotes, 0)}}$. <br>`
   } else {
     // tableau à une entrée
     texteCorr += '$\\text{Moyenne} = '
@@ -255,14 +320,14 @@ function texteCorrMoyenneNotes (notesSeries, somme, nombreNotes, notes = 'notes'
         if (j + 3 >= notesSeries.length) texteCorr += `+ ${notesSeries[j]}`
       }
     }
-    texteCorr += `}{${notesSeries.length}}=\\dfrac{${texNombre(somme)}}{${texNombre(nombreNotes)}}$. <br>`
+    texteCorr += `}{${notesSeries.length}}=\\dfrac{${texNombre(somme, 0)}}{${texNombre(nombreNotes, 0)}}$. <br>`
   }
-  texteCorr += `La somme des ${notes} est : $${texNombre(somme)}$.<br> Il y a $${texNombre(nombreNotes)}$ ${notes}.<br>`
-  texteCorr += `Donc ${texteGras(`${noteStr[1]} est `)} $\\mathbf{${texFraction(texNombre(somme), texNombre(nombreNotes))}`
-  if (arrondi(somme / nombreNotes, 2) === somme / nombreNotes) { // moyenne exacte
-    texteCorr += `=${texNombre(somme / nombreNotes, 2)}}$${noteStr[2]}.<br>`
+  texteCorr += `La somme des ${notes} est : $${texNombre(somme, 0)}$.<br> Il y a $${texNombre(nombreNotes, 0)}$ ${notes}.<br>`
+  texteCorr += `Donc ${texteGras(`${noteStr[1]} est `)} $\\mathbf{${texFraction(texNombre(somme, 0), texNombre(nombreNotes, 0))}`
+  if (arrondi(somme / nombreNotes, 1) === somme / nombreNotes) { // moyenne exacte
+    texteCorr += `=${texNombre(somme / nombreNotes, 1)}}$${noteStr[2]}.<br>`
   } else { // moyenne arrondie
-    texteCorr += ` \\approx${texNombre(somme / nombreNotes, 2)}}$${noteStr[2]}.<br>`
+    texteCorr += ` \\approx${texNombre(somme / nombreNotes, 1)}}$${noteStr[2]}.<br>`
   }
   return texteCorr
 }
@@ -277,7 +342,7 @@ function texteCorrEtendueNotes (min, max, note = 'note') {
   ]
   const notes = data.find(el => el[0] === note) || ['', '', '', '']
   let texteCorr = `${notes[1]} est $${min}$${notes[3]}.<br>${notes[2]} est $${max}$${notes[3]}.<br>`
-  texteCorr += `Donc ${texteGras(`l'étendue des ${note}s est  $\\mathbf{${texNombre(max)}-${ecritureParentheseSiNegatif(min)}=${texNombre(max - min)}}$ ${notes[3]}`)}.`
+  texteCorr += `Donc ${texteGras(`l'étendue des ${note}s est  $\\mathbf{${texNombre(max, 1)}-${ecritureParentheseSiNegatif(min)}=${texNombre(max - min, 1)}}$ ${notes[3]}`)}.`
   return texteCorr
 }
 
@@ -296,7 +361,7 @@ function texteCorrMedianeNotes (notes, medianeCorr, scoresMedians, note = 'note'
     texteCorr += `Le nombre de ${noteStr[0]}s est pair.<br>`
   } else {
     texteCorr += `Le nombre de ${noteStr[0]}s est impair.<br>`
-  };
+  }
 
   texteCorr += `Les ${noteStr[0]}s sont rangées dans l'ordre croissant : <br> $${notes[0]}$`
   for (let j = 1; j < notes.length - 1; j++) {
@@ -322,24 +387,25 @@ function texteCorrMedianeNotes (notes, medianeCorr, scoresMedians, note = 'note'
   if (notes.length % 2 === 0) {
     texteCorr += `Les valeurs centrales sont la $${notes.length / 2}^{e}$ valeur et la $${notes.length / 2 + 1}^{e}$ valeur.<br>
     En effet, ${underbraceMediane(notes.length)}<br>
-    La médiane est la demi-somme des deux valeurs centrales. <br> 
+    Une médiane peut être la demi-somme des deux valeurs centrales. <br>
     La $${notes.length / 2}^{e}$ valeur est $${scoresMedians[0]}$ et la $${notes.length / 2 + 1}^{e}$ valeur est $${scoresMedians[1]}$.<br>`
   } else {
     texteCorr += `La valeur centrale est donc la $${(notes.length + 1) / 2}^{e}$ valeur.<br>
     En effet, ${underbraceMediane(notes.length)}<br>
     La médiane est donc la $${(notes.length + 1) / 2}^{e}$ ${noteStr[0]}.<br>`
-  };
+  }
+
   texteCorr += `D'où ${texteGras(`la médiane des ${noteStr[0]}s est ${scoresMedians[0] === scoresMedians[1] ? '' : `$\\mathbf{(${scoresMedians[0]} + ${scoresMedians[1]}) \\div 2=}$`} ${stringNombre(medianeCorr)}${noteStr[1]}`)}.<br>`
   if (notes.length % 2 === 0) {
     texteCorr += lampeMessage({
       titre: 'Interprétation',
-      texte: `Il y a bien $${notes.length / 2}$ ${noteStr[0]}s inférieures ou égales à  $${texNombre(medianeCorr)}$ et $${notes.length / 2}$ ${noteStr[0]}s supérieures ou égales à  $${texNombre(medianeCorr)}$.`,
+      texte: `Il y a bien $${notes.length / 2}$ ${noteStr[0]}s inférieures ou égales à  $${texNombre(medianeCorr, 1)}$ et $${notes.length / 2}$ ${noteStr[0]}s supérieures ou égales à  $${texNombre(medianeCorr, 1)}$.`,
       couleur: 'nombres'
     })
   } else {
     texteCorr += lampeMessage({
       titre: 'Interprétation',
-      texte: `Il y a bien $${(notes.length - 1) / 2}$ ${noteStr[0]}s inférieures ou égales à  $${texNombre(medianeCorr)}$ et $${(notes.length - 1) / 2}$ ${noteStr[0]}s supérieures ou égales à  $${texNombre(medianeCorr)}$.`,
+      texte: `Il y a bien $${(notes.length - 1) / 2}$ ${noteStr[0]}s inférieures ou égales à  $${texNombre(medianeCorr, 1)}$ et $${(notes.length - 1) / 2}$ ${noteStr[0]}s supérieures ou égales à  $${texNombre(medianeCorr, 1)}$.`,
       couleur: 'nombres'
     })
   }
@@ -348,9 +414,9 @@ function texteCorrMedianeNotes (notes, medianeCorr, scoresMedians, note = 'note'
 
 function texteCorrMedianeTirages2DSalaires (nombreTirages, medianeCorr, scoresMedians, salaires, categories, salaire = 'salaire') {
   const data = [
-    ['note', 'F', 'la médiane des notes', '', `En comptant les coefficients, le nombre équivalent de notes est $${nombreTirages}$.<br> Par exemple, un coefficient de 3 revient à avoir 3 fois la note correspondante.`, ['', 'Note', 'Coefficient (Effectif)', 'Effectifs cumulés']],
+    ['note', 'F', 'la médiane des notes', '', `Le nombre de notes est $${nombreTirages}$.`, ['', 'Note', 'Coefficient (Effectif)', 'Effectifs cumulés']],
     ['salaire', 'M', 'le salaire médian', ' €', `Dans l'entreprise, le nombre de salariés est $${nombreTirages}$.`, ['Catégories', 'Salaires en €', 'Effectif', 'Effectifs cumulés']],
-    ['pointure', 'M', 'la pointure médianne', '', `Le nombre de pointures relevées est $${nombreTirages}$.`, ['', 'Pointure', 'Effectif', 'Effectifs cumulés']]
+    ['pointure', 'M', 'la pointure médiane', '', `Le nombre de pointures relevées est $${nombreTirages}$.`, ['', 'Pointure', 'Effectif', 'Effectifs cumulés']]
   ]
   const salairesStr = data.find(el => el[0] === salaire) || ['', '', '', '', '', '']
 
@@ -359,14 +425,14 @@ function texteCorrMedianeTirages2DSalaires (nombreTirages, medianeCorr, scoresMe
     texteCorr += `Ce nombre est pair, les ${salairesStr[0]}s sont rangé${salairesStr[0] === 'M' ? '' : 'e'}s dans l'ordre croissant.<br>
               Les deux valeurs centrales sont la $${nombreTirages / 2}^{e}$ valeur et la $${nombreTirages / 2 + 1}^{e}$ valeur.<br>
               En effet, ${underbraceMediane(nombreTirages)} <br>
-              La médiane est la demi-somme des deux valeurs centrales. <br>              
+              Une médiane peut être la demi-somme des deux valeurs centrales. <br>
               On peut ajouter une ligne avec les effectifs cumulés pour trouver ces deux valeurs.<br><br>
               ${desTabEffCumul(salaires, true, categories, salairesStr[5])}<br><br>
               La $${nombreTirages / 2}^{e}$ valeur est $${scoresMedians[0]}$ et la $${nombreTirages / 2 + 1}^{e}$ valeur est $${scoresMedians[1]}$.<br>`
     texteCorr += `D'où ${texteGras(`${salairesStr[2]} est ${scoresMedians[0] === scoresMedians[1] ? '' : `$(${scoresMedians[0]} + ${scoresMedians[1]}) \\div 2=$`} ${stringNombre(medianeCorr)}`)}${salairesStr[3]}.<br>`
     texteCorr += lampeMessage({
       titre: 'Interprétation',
-      texte: `Il y a bien $${(nombreTirages) / 2}$ ${salairesStr[0]}s dont la valeure est inférieure ou égale à  $${texNombre(medianeCorr)}$${salairesStr[3]} et $${(nombreTirages) / 2}$ ${salairesStr[0]}s dont la valeur est supérieure ou égale à  $${texNombre(medianeCorr)}$${salairesStr[3]}.`,
+      texte: `Il y a bien $${(nombreTirages) / 2}$ ${salairesStr[0]}s dont la valeur est inférieure ou égale à  $${texNombre(medianeCorr, 1)}$${salairesStr[3]} et $${(nombreTirages) / 2}$ ${salairesStr[0]}s dont la valeur est supérieure ou égale à  $${texNombre(medianeCorr, 1)}$${salairesStr[3]}.`,
       couleur: 'nombres'
     })
   } else { // Le nombre de tirages est impair
@@ -379,7 +445,7 @@ function texteCorrMedianeTirages2DSalaires (nombreTirages, medianeCorr, scoresMe
     texteCorr += `D'où ${texteGras(`${salairesStr[2]} est ${stringNombre(medianeCorr)}`)}${salairesStr[3]}.<br>`
     texteCorr += lampeMessage({
       titre: 'Interprétation',
-      texte: `Il y a bien $${(nombreTirages - 1) / 2}$ ${salairesStr[0]}s dont la valeure est inférieure ou égale à  $${texNombre(medianeCorr)}$${salairesStr[3]} et $${(nombreTirages - 1) / 2}$ ${salairesStr[0]}s dont la valeur est supérieure ou égale à  $${texNombre(medianeCorr)}$${salairesStr[3]}.`,
+      texte: `Il y a bien $${(nombreTirages - 1) / 2}$ ${salairesStr[0]}s dont la valeur est inférieure ou égale à  $${texNombre(medianeCorr, 1)}$${salairesStr[3]} et $${(nombreTirages - 1) / 2}$ ${salairesStr[0]}s dont la valeur est supérieure ou égale à  $${texNombre(medianeCorr, 1)}$${salairesStr[3]}.`,
       couleur: 'nombres'
     })
   }
@@ -392,14 +458,14 @@ function texteCorrMedianeTirages2D (nombreTirages, medianeCorr, scoresMedians, t
     texteCorr += `Le nombre de lancers est pair, les scores sont rangés dans l'ordre croissant.<br>
               Les deux valeurs centrales sont la $${nombreTirages / 2}^{e}$ et la $${nombreTirages / 2 + 1}^{e}$ valeur.<br>
               En effet, ${underbraceMediane(nombreTirages)} <br>
-              La médiane est la demi-somme des deux valeurs centrales. <br>  
+              Une médiane peut être la demi-somme des deux valeurs centrales. <br>
               On peut ajouter une ligne avec les effectifs cumulés pour trouver ces deux valeurs.<br><br>
               ${desTabEffCumul(tirages, true)}<br><br>
               La $${nombreTirages / 2}^{e}$ valeur est $${scoresMedians[0]}$ et la $${nombreTirages / 2 + 1}^{e}$ valeur est $${scoresMedians[1]}$.<br>`
     texteCorr += `D'où ${texteGras(`le score médian est ${scoresMedians[0] === scoresMedians[1] ? '' : `$(${scoresMedians[0]} + ${scoresMedians[1]}) \\div 2=$`} ${stringNombre(medianeCorr)}`)}.<br>`
     texteCorr += lampeMessage({
       titre: 'Interprétation',
-      texte: `Il y a bien $${(nombreTirages) / 2}$ lancers dont le score est inférieur ou égal à  $${texNombre(medianeCorr)}$ et $${(nombreTirages) / 2}$ lancers dont le score est supérieur ou égal à  $${texNombre(medianeCorr)}$.`,
+      texte: `Il y a bien $${(nombreTirages) / 2}$ lancers dont le score est inférieur ou égal à  $${texNombre(medianeCorr, 1)}$ et $${(nombreTirages) / 2}$ lancers dont le score est supérieur ou égal à  $${texNombre(medianeCorr, 1)}$.`,
       couleur: 'nombres'
     })
   } else { // Le nombre de lancers est impair ici
@@ -412,7 +478,7 @@ function texteCorrMedianeTirages2D (nombreTirages, medianeCorr, scoresMedians, t
     texteCorr += `D'où ${texteGras(`le score médian est ${stringNombre(medianeCorr)}`)}.<br>`
     texteCorr += lampeMessage({
       titre: 'Interprétation',
-      texte: `Il y a bien $${(nombreTirages - 1) / 2}$ lancers dont le score est inférieur ou égal à  $${texNombre(medianeCorr)}$ et $${(nombreTirages - 1) / 2}$ lancers dont le score est supérieur ou égal à  $${texNombre(medianeCorr)}$.`,
+      texte: `Il y a bien $${(nombreTirages - 1) / 2}$ lancers dont le score est inférieur ou égal à  $${texNombre(medianeCorr, 1)}$ et $${(nombreTirages - 1) / 2}$ lancers dont le score est supérieur ou égal à  $${texNombre(medianeCorr, 1)}$.`,
       couleur: 'nombres'
     })
   }
@@ -422,45 +488,60 @@ function texteCorrMedianeTirages2D (nombreTirages, medianeCorr, scoresMedians, t
 function texteNotes (notes) {
   let texte = `${prenom()} a obtenu ces notes ce trimestre-ci en mathématiques :<br>`
   texte += `$${notes[0]}$`
-  for (let j = 1; j < notes.length - 1; j++) { texte += `; $${notes[j]}$ ` } // On liste les notes (série brute)
+  for (let j = 1; j < notes.length - 1; j++) {
+    texte += `; $${notes[j]}$ `
+  } // On liste les notes (série brute)
   texte += `et $${notes[notes.length - 1]}$.`
   return texte
 }
 
 function texteTemperatures (annee, mois, temperatures) {
-  let texte = `En ${nomDuMois(mois)} ${annee}, à ${choice(['Moscou', 'Berlin', 'Paris', 'Bruxelles', 'Rome', 'Belgrade'])}, on a relevé les températures suivantes<br>`
-  texte += '$\\def\\arraystretch{1.5}\\begin{array}{|c' // On construit le tableau des températures
+  let texte = `En ${nomDuMois(mois)} ${annee}, à ${choice(['Moscou', 'Berlin', 'Paris', 'Bruxelles', 'Rome', 'Belgrade'])}, on a relevé les températures suivantes : <br>`
+  texte += '<br>$\\def\\arraystretch{1.5}\\begin{array}{|c' // On construit le tableau des températures
   texte += '|c'
-  for (let j = 0; j < Math.round(temperatures.length / 2); j++) { texte += '|c' }
+  for (let j = 0; j < Math.round(temperatures.length / 2); j++) {
+    texte += '|c'
+  }
   texte += '}\\hline  \\text{Jour}'
-  for (let j = 0; j < Math.round(temperatures.length / 2); j++) { texte += '&' + texNombre(j + 1) }
+  for (let j = 0; j < Math.round(temperatures.length / 2); j++) {
+    texte += '&' + texNombre(j + 1, 1)
+  }
   texte += '\\\\\\hline \\text{Température en}  ^\\circ\\text{C}'
-  for (let j = 0; j < Math.round(temperatures.length / 2); j++) { texte += '&' + temperatures[j] }
+  for (let j = 0; j < Math.round(temperatures.length / 2); j++) {
+    texte += '&' + temperatures[j]
+  }
   texte += '\\\\\\hline\\end{array}$<br><br>'
   texte += '$\\def\\arraystretch{1.5}\\begin{array}{|c' // On construit le tableau des températures
   texte += '|c'
-  for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++) { texte += '|c' }
+  for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++) {
+    texte += '|c'
+  }
   texte += '}\\hline  \\text{Jour}'
-  for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++) { texte += '&' + texNombre(j + 1) }
+  for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++) {
+    texte += '&' + texNombre(j + 1, 1)
+  }
   texte += '\\\\\\hline \\text{Température en}  ^\\circ\\text{C}'
-  for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++) { texte += '&' + temperatures[j] }
+  for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++) {
+    texte += '&' + temperatures[j]
+  }
   texte += '\\\\\\hline\\end{array}$'
+  texte += '<br>'
   return texte
 }
 
 function texteSalaires (salaires, categoriesCol, salaire = 'salaires') {
   const data = [
     ['salaires', 'La grille des salaires des employés d\'une PME est donnée par le tableau ci-dessous', ['Catégories', 'Salaires en €', 'Effectif']],
-    ['notes', `Voici les notes obtenues par ${prenom()} en mathématiques ce trimestre`, ['', 'Note', 'Coefficient']],
+    ['notes', `Voici les notes obtenues par ${prenom()} en mathématiques cette année`, ['', 'Note', 'Effectif']],
     ['pointures', `Pour passer une commande de chaussures de foot, ${prenom()} a noté les pointures des membres de son club dans un tableau`, ['', 'Pointure', 'Effectif']]
   ]
   const salairesStr = data.find(el => el[0] === salaire) || ['', '', '', '']
   let texte = salairesStr[1] + ' :<br> '
-  texte += desTabEffCumul(salaires, false, categoriesCol, salairesStr[2])
+  texte += '<br>' + desTabEffCumul(salaires, false, categoriesCol, salairesStr[2]) + '<br>'
   return texte
 }
 
-function texteTirages2D (nombreDes, nombreTirages, nombreFaces, tirages) {
+function texteTirages2D (nombreDes, nombreTirages, nombreFaces, tirages, aveclampeMessage = true) {
   let texte = ''
   if (nombreDes > 1) {
     texte = `On a réalisé $${nombreTirages}$ lancers de $${nombreDes}$ dés à $${nombreFaces}$ faces.<br>
@@ -468,11 +549,13 @@ function texteTirages2D (nombreDes, nombreTirages, nombreFaces, tirages) {
   } else {
     texte = `On a réalisé $${nombreTirages}$ lancers d'un dé à $${nombreFaces}$ faces.<br>`
   }
-  texte += lampeMessage({
-    titre: 'Vocabulaire',
-    texte: `Le solide qui correspond à ce type de dé s'appelle ${texteGras(solidName(nombreFaces))}.`,
-    couleur: 'nombres'
-  }) + '<br>'
+  texte += aveclampeMessage
+    ? lampeMessage({
+      titre: 'Vocabulaire',
+      texte: `Le solide qui correspond à ce type de dé s'appelle ${texteGras(solidName(nombreFaces))}.`,
+      couleur: 'nombres'
+    }) + '<br>'
+    : ''
   texte += 'Les résultats sont inscrits dans le tableau ci-dessous :<br><br>'
   texte += desTabEffCumul(tirages, false) + '<br>'
   return texte
@@ -487,7 +570,7 @@ function solidName (nbCot) {
     case 8:
       return 'octaèdre'
     case 10:
-      return 'decaèdre'
+      return 'décaèdre'
     default:
       return 'cas non prévu'
   }

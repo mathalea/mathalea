@@ -1,16 +1,41 @@
-import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
 import Decimal from 'decimal.js'
+import {
+  barycentre,
+  codageAngle,
+  codageAngleDroit,
+  homothetie,
+  latexParPoint,
+  longueur,
+  milieu,
+  nommePolygone,
+  point,
+  polygone,
+  rotation,
+  segment
+} from '../../modules/2d.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { homothetie, codageAngle, longueur, barycentre, milieu, latexParPoint, point, polygone, rotation, codageAngleDroit, nommePolygone, segment } from '../../modules/2d.js'
-import { texFraction, quatriemeProportionnelle, texNombre, texteEnCouleurEtGras, listeQuestionsToContenu, randint, creerNomDePolygone, combinaisonListes, choice } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import Grandeur from '../../modules/Grandeur.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import {
+  choice,
+  combinaisonListes,
+  creerNomDePolygone,
+  listeQuestionsToContenu,
+  numAlpha,
+  quatriemeProportionnelle,
+  randint,
+  texFraction,
+  texNombre,
+  texteEnCouleurEtGras
+} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 'AMCOpenNum' // type de question AMC
+export const amcType = 'AMCHybride' // type de question AMC
 export const dateDeModifImportante = '21/03/2022'
 
 export const titre = 'Calculer une longueur dans un triangle rectangle en utilisant la trigonométrie'
@@ -59,61 +84,75 @@ export default function CalculDeLongueur () {
       if (i % 3 === 0) listeDeNomsDePolygones = ['QD']
       const nom = creerNomDePolygone(3, listeDeNomsDePolygones)
       listeDeNomsDePolygones.push(nom)
-      let texte = ''; let texteCorr = ''; const objetsEnonce = []; const objetsCorrection = []
+      let texte = ''
+      let texteAMC = ''
+      let q2AMC = ''
+      let nom1, nom2
+      let texteCorr = ''
+      const objetsEnonce = []
+      const objetsCorrection = []
       let ab, bc, ac
 
       const angleABC = randint(35, 55)
       const angleABCr = Decimal.acos(-1).div(180).mul(angleABC)
       if (!context.isHtml && this.sup) {
-        texte += '\\begin{minipage}{.7\\linewidth}\n'
+        // texte += '\\begin{minipage}{.7\\linewidth}\n'
       }
       switch (listeTypeQuestions[i]) {
         case 'cosinus': // AB=BCxcos(B)
           bc = new Decimal(randint(10, 15))
           ab = Decimal.cos(angleABCr).mul(bc)
           ac = Decimal.sin(angleABCr).mul(bc)
-          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-          texte += `Calculer $${nom[0] + nom[1]}$ à $0,1$ ${unite} près.`
+          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
+          nom1 = nom[0]
+          nom2 = nom[1]
           break
         case 'sinus':
           bc = new Decimal(randint(10, 15))
           ab = Decimal.cos(angleABCr).mul(bc)
           ac = Decimal.sin(angleABCr).mul(bc)
-          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-          texte += `Calculer $${nom[0] + nom[2]}$ à $0,1$ ${unite} près.`
+          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
+          nom1 = nom[0]
+          nom2 = nom[2]
           break
         case 'tangente':
           ab = new Decimal(randint(7, 10))
           ac = Decimal.tan(angleABCr).mul(ab)
           bc = new Decimal(ab).div(Decimal.cos(angleABCr))
-          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-          texte += `Calculer $${nom[0] + nom[2]}$ à $0,1$ ${unite} près.`
+          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
+          nom1 = nom[0]
+          nom2 = nom[2]
           break
         case 'invCosinus':
           ab = new Decimal(randint(7, 10))
           bc = new Decimal(ab).div(Decimal.cos(angleABCr))
           ac = Decimal.sin(angleABCr).mul(bc)
-          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-          texte += `Calculer $${nom[1] + nom[2]}$ à $0,1$ ${unite} près.`
+          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
+          nom1 = nom[1]
+          nom2 = nom[2]
           break
         case 'invSinus':
           ac = new Decimal(randint(7, 10))
           bc = new Decimal(ac).div(Decimal.sin(angleABCr))
           ab = Decimal.cos(angleABCr).mul(bc)
-          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-          texte += `Calculer $${nom[1] + nom[2]}$ à $0,1$ ${unite} près.`
+          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
+          nom1 = nom[1]
+          nom2 = nom[2]
           break
         case 'invTangente':
           ac = new Decimal(randint(7, 10))
           bc = new Decimal(ac).div(Decimal.sin(angleABCr))
           ab = Decimal.cos(angleABCr).mul(bc)
-          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-          texte += `Calculer $${nom[0] + nom[1]}$ à $0,1$ ${unite} près.`
+          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
+          nom1 = nom[0]
+          nom2 = nom[1]
           break
       }
+      texte += texteAMC + `Calculer $${nom1 + nom2}$ à $0,1$ ${unite} près.`
+      q2AMC = `Calculer $${nom1 + nom2}$ au dixième de ${unite}.`
 
       if (!context.isHtml && this.sup) {
-        texte += '\n\\end{minipage}\n'
+        // texte += '\n\\end{minipage}\n'
       }
       const a = point(0, 0)
       const b = point(ab, 0)
@@ -141,6 +180,9 @@ export default function CalculDeLongueur () {
       const m2 = homothetie(M2, M3, 1 + 1.5 / longueur(M3, M2), 'm2', 'center')
       let m4
       let t1, t2, t3
+      let nomLongueur // la longueur à déterminer
+      let calcul0, calcul1, calcul2, calcul3, calcul4, calcul5 // les propsitions de calcul pour AMC
+      let calculTrue
       switch (listeTypeQuestions[i]) {
         case 'cosinus': // AB=BCxcos(B)
           t3 = latexParPoint(`${bc} \\text{ ${unite}}`, m3, 'black', 120, 12, '')
@@ -182,10 +224,27 @@ export default function CalculDeLongueur () {
       objetsEnonce.push(p2, codage, nomme, t1, t2, t3, codageDeAngle)
       objetsCorrection.push(p2, codage, nomme, t1, t2, t3, hypo, codageDeAngle)
 
-      const paramsEnonce = { xmin: Math.min(A.x, B.x, C.x) - 4, ymin: Math.min(A.y, B.y, C.y) - 4, xmax: Math.max(A.x, B.x, C.x) + 2, ymax: Math.max(A.y, B.y, C.y) + 2, pixelsParCm: 20, scale: 0.37, mainlevee: true, amplitude: context.isHtml ? 0.4 : 1 }
-      const paramsCorrection = { xmin: Math.min(A.x, B.x, C.x) - 4, ymin: Math.min(A.y, B.y, C.y) - 4, xmax: Math.max(A.x, B.x, C.x) + 2, ymax: Math.max(A.y, B.y, C.y) + 2, pixelsParCm: 20, scale: 0.35, mainlevee: false }
+      const paramsEnonce = {
+        xmin: Math.min(A.x, B.x, C.x) - 4,
+        ymin: Math.min(A.y, B.y, C.y) - 4,
+        xmax: Math.max(A.x, B.x, C.x) + 2,
+        ymax: Math.max(A.y, B.y, C.y) + 2,
+        pixelsParCm: 20,
+        scale: 0.37,
+        mainlevee: true,
+        amplitude: context.isHtml ? 0.4 : 1
+      }
+      const paramsCorrection = {
+        xmin: Math.min(A.x, B.x, C.x) - 4,
+        ymin: Math.min(A.y, B.y, C.y) - 4,
+        xmax: Math.max(A.x, B.x, C.x) + 2,
+        ymax: Math.max(A.y, B.y, C.y) + 2,
+        pixelsParCm: 20,
+        scale: 0.35,
+        mainlevee: false
+      }
       if (!context.isHtml && this.sup) {
-        texte += '\\begin{minipage}{.3\\linewidth}\n'
+        texte += '\\\\' // \\begin{minipage}{.3\\linewidth}\n'
       }
       if (this.sup) {
         texte += mathalea2d(paramsEnonce, objetsEnonce) + '<br>'
@@ -194,7 +253,7 @@ export default function CalculDeLongueur () {
         texteCorr += '\\begin{minipage}{.4\\linewidth}\n' + mathalea2d(paramsCorrection, objetsCorrection) + '\n\\end{minipage}\n' + '\\begin{minipage}{.7\\linewidth}\n'
       }
       if (!context.isHtml && this.sup) {
-        texte += '\n\\end{minipage}\n'
+        // texte += '\n\\end{minipage}\n'
       }
       switch (listeTypeQuestions[i]) {
         case 'cosinus': // AB=BCxcos(B)
@@ -206,6 +265,14 @@ export default function CalculDeLongueur () {
           texteCorr += `$${nom[0] + nom[1]}=${quatriemeProportionnelle('\\color{red}{1}', bc, `\\cos\\left(${angleABC}\\degree\\right)`)}$`
           texteCorr += `soit $${nom[0] + nom[1]}\\approx${texNombre(ab, 1)}$ ${unite}.`
           reponse = ab.toDP(1)
+          nomLongueur = `$${nom[0] + nom[1]}$`
+          calcul0 = `$${nom[1] + nom[2]}\\times\\cos\\left(${angleABC}\\degree\\right)$`
+          calcul1 = `$${nom[1] + nom[2]}\\times\\sin\\left(${angleABC}\\degree\\right)$`
+          calcul2 = `$${nom[1] + nom[2]}\\times\\tan\\left(${angleABC}\\degree\\right)$`
+          calcul3 = `$\\dfrac{${nom[1] + nom[2]}}{\\cos\\left(${angleABC}\\degree\\right)}$`
+          calcul4 = `$\\dfrac{${nom[1] + nom[2]}}{\\sin\\left(${angleABC}\\degree\\right)}$`
+          calcul5 = `$\\dfrac{${nom[1] + nom[2]}}{\\tan\\left(${angleABC}\\degree\\right)}$`
+          calculTrue = 0
           break
         case 'sinus':
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le sinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
@@ -216,6 +283,14 @@ export default function CalculDeLongueur () {
           texteCorr += `$${nom[0] + nom[2]}=${quatriemeProportionnelle('\\color{red}{1}', bc, `\\sin\\left(${angleABC}\\degree\\right)`)}$`
           texteCorr += `soit $${nom[0] + nom[2]}\\approx${texNombre(ac, 1)}$ ${unite}.`
           reponse = ac.toDP(1)
+          nomLongueur = `$${nom[0] + nom[2]}$`
+          calcul0 = `$${nom[1] + nom[2]}\\times\\cos\\left(${angleABC}\\degree\\right)$`
+          calcul1 = `$${nom[1] + nom[2]}\\times\\sin\\left(${angleABC}\\degree\\right)$`
+          calcul2 = `$${nom[1] + nom[2]}\\times\\tan\\left(${angleABC}\\degree\\right)$`
+          calcul3 = `$\\dfrac{${nom[1] + nom[2]}}{\\cos\\left(${angleABC}\\degree\\right)}$`
+          calcul4 = `$\\dfrac{${nom[1] + nom[2]}}{\\sin\\left(${angleABC}\\degree\\right)}$`
+          calcul5 = `$\\dfrac{${nom[1] + nom[2]}}{\\tan\\left(${angleABC}\\degree\\right)}$`
+          calculTrue = 1
           break
         case 'tangente':
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> la tangente de l'angle $\\widehat{${nom}}$ est défini par :<br>`
@@ -226,6 +301,14 @@ export default function CalculDeLongueur () {
           texteCorr += `$${nom[0] + nom[2]}=${quatriemeProportionnelle('\\color{red}{1}', ab, `\\tan\\left(${angleABC}\\degree\\right)`)}$`
           texteCorr += `soit $${nom[0] + nom[2]}\\approx${texNombre(ac, 1)}$ ${unite}.`
           reponse = ac.toDP(1)
+          nomLongueur = `$${nom[0] + nom[2]}$`
+          calcul0 = `$${nom[0] + nom[1]}\\times\\cos\\left(${angleABC}\\degree\\right)$`
+          calcul1 = `$${nom[0] + nom[1]}\\times\\sin\\left(${angleABC}\\degree\\right)$`
+          calcul2 = `$${nom[0] + nom[1]}\\times\\tan\\left(${angleABC}\\degree\\right)$`
+          calcul3 = `$\\dfrac{${nom[0] + nom[1]}}{\\cos\\left(${angleABC}\\degree\\right)}$`
+          calcul4 = `$\\dfrac{${nom[0] + nom[1]}}{\\sin\\left(${angleABC}\\degree\\right)}$`
+          calcul5 = `$\\dfrac{${nom[0] + nom[1]}}{\\tan\\left(${angleABC}\\degree\\right)}$`
+          calculTrue = 2
           break
         case 'invCosinus':
           texteCorr = `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le cosinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
@@ -236,6 +319,14 @@ export default function CalculDeLongueur () {
           texteCorr += `$${nom[1] + nom[2]}=${quatriemeProportionnelle(`\\cos\\left(${angleABC}\\degree\\right)`, ab, '\\color{red}{1}')}$`
           texteCorr += `soit $${nom[1] + nom[2]}\\approx${texNombre(bc, 1)}$ ${unite}.`
           reponse = bc.toDP(1)
+          nomLongueur = `$${nom[1] + nom[2]}$`
+          calcul0 = `$${nom[0] + nom[1]}\\times\\cos\\left(${angleABC}\\degree\\right)$`
+          calcul1 = `$${nom[0] + nom[1]}\\times\\sin\\left(${angleABC}\\degree\\right)$`
+          calcul2 = `$${nom[0] + nom[1]}\\times\\tan\\left(${angleABC}\\degree\\right)$`
+          calcul3 = `$\\dfrac{${nom[0] + nom[1]}}{\\cos\\left(${angleABC}\\degree\\right)}$`
+          calcul4 = `$\\dfrac{${nom[0] + nom[1]}}{\\sin\\left(${angleABC}\\degree\\right)}$`
+          calcul5 = `$\\dfrac{${nom[0] + nom[1]}}{\\tan\\left(${angleABC}\\degree\\right)}$`
+          calculTrue = 3
           break
         case 'invSinus':
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le sinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
@@ -246,6 +337,14 @@ export default function CalculDeLongueur () {
           texteCorr += `$${nom[1] + nom[2]}=${quatriemeProportionnelle(`\\sin\\left(${angleABC}\\degree\\right)`, ac, '\\color{red}{1}')}$`
           texteCorr += `soit $${nom[1] + nom[2]}\\approx${texNombre(bc, 1)}$ ${unite}.`
           reponse = bc.toDP(1)
+          nomLongueur = `$${nom[1] + nom[2]}$`
+          calcul0 = `$${nom[0] + nom[2]}\\times\\cos\\left(${angleABC}\\degree\\right)$`
+          calcul1 = `$${nom[0] + nom[2]}\\times\\sin\\left(${angleABC}\\degree\\right)$`
+          calcul2 = `$${nom[0] + nom[2]}\\times\\tan\\left(${angleABC}\\degree\\right)$`
+          calcul3 = `$\\dfrac{${nom[0] + nom[2]}}{\\cos\\left(${angleABC}\\degree\\right)}$`
+          calcul4 = `$\\dfrac{${nom[0] + nom[2]}}{\\sin\\left(${angleABC}\\degree\\right)}$`
+          calcul5 = `$\\dfrac{${nom[0] + nom[2]}}{\\tan\\left(${angleABC}\\degree\\right)}$`
+          calculTrue = 4
           break
         case 'invTangente':
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> la tangente de l'angle $\\widehat{${nom}}$ est défini par :<br>`
@@ -256,6 +355,14 @@ export default function CalculDeLongueur () {
           texteCorr += `$${nom[0] + nom[1]}=${quatriemeProportionnelle(`\\tan\\left(${angleABC}\\degree\\right)`, ac, '\\color{red}{1}')}$`
           texteCorr += `soit $${nom[0] + nom[1]}\\approx${texNombre(ab, 1)}$ ${unite}.`
           reponse = ab.toDP(1)
+          nomLongueur = `$${nom[0] + nom[1]}$`
+          calcul0 = `$${nom[0] + nom[2]}\\times\\cos\\left(${angleABC}\\degree\\right)$`
+          calcul1 = `$${nom[0] + nom[2]}\\times\\sin\\left(${angleABC}\\degree\\right)$`
+          calcul2 = `$${nom[0] + nom[2]}\\times\\tan\\left(${angleABC}\\degree\\right)$`
+          calcul3 = `$\\dfrac{${nom[0] + nom[2]}}{\\cos\\left(${angleABC}\\degree\\right)}$`
+          calcul4 = `$\\dfrac{${nom[0] + nom[2]}}{\\sin\\left(${angleABC}\\degree\\right)}$`
+          calcul5 = `$\\dfrac{${nom[0] + nom[2]}}{\\tan\\left(${angleABC}\\degree\\right)}$`
+          calculTrue = 5
           break
       }
       if (!context.isHtml && this.correctionDetaillee) {
@@ -265,29 +372,77 @@ export default function CalculDeLongueur () {
       // Pour AMC
       if (context.isAmc) {
         this.autoCorrection[i] = {
-          enonce: texte,
+          enonce: texteAMC + (this.sup ? mathalea2d(paramsEnonce, objetsEnonce) + '<br>La figure ci-dessus ne respecte pas les dimensions.' : ''), // + '\\\\\n',
+          enonceAvantUneFois: true,
+          // enonceApresNumQuestion: true,
+          options: {
+            multicols: false,
+            barreseparation: true,
+            multicolsAll: true,
+            numerotationEnonce: true
+          },
           propositions: [
             {
-              texte: texteCorr,
-              statut: 4,
-              feedback: ''
+              type: 'qcmMono',
+              enonce: numAlpha(0) + `Quel calcul effectuer pour calculer ${nomLongueur} ?`, // \\\\\n`,
+              options: {
+                ordered: true
+              },
+              propositions: [
+                {
+                  texte: calcul0,
+                  statut: calculTrue === 0,
+                  feedback: ''
+                },
+                {
+                  texte: calcul1,
+                  statut: calculTrue === 1,
+                  feedback: ''
+                },
+                {
+                  texte: calcul2,
+                  statut: calculTrue === 2,
+                  feedback: ''
+                },
+                {
+                  texte: calcul3,
+                  statut: calculTrue === 3,
+                  feedback: ''
+                },
+                {
+                  texte: calcul4,
+                  statut: calculTrue === 4,
+                  feedback: ''
+                },
+                {
+                  texte: calcul5,
+                  statut: calculTrue === 5,
+                  feedback: ''
+                }
+              ]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [
+                {
+                  reponse: {
+                    texte: numAlpha(1) + q2AMC, // `${nomLongueur} arrondie au dixième de ${unite}:\\\\\n`,
+                    valeur: [reponse],
+                    param: {
+                      digits: 3,
+                      decimals: 1,
+                      signe: false,
+                      exposantNbChiffres: 0,
+                      exposantSigne: false,
+                      approx: 1
+                    }
+                  }
+                }]
             }
-          ],
-          reponse: {
-            texte: 'résultat',
-            valeur: [ab.toDP(1)],
-            param: {
-              digits: 3,
-              decimals: 1,
-              signe: false,
-              exposantNbChiffres: 0,
-              exposantSigne: false,
-              approx: 1
-            }
-          }
+          ]
         }
       }
-      if (context.isHtml) {
+      if (context.isHtml && !context.isAmc) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline longueur')
         setReponse(this, i, new Grandeur(reponse, unite), { formatInteractif: 'unites' })
       }

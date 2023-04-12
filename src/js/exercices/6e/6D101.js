@@ -26,6 +26,7 @@ export default function HeuresDecimales () {
   this.nbQuestions = 5
   this.nbColsCorr = 1
   this.tailleDiaporama = 3
+  this.comment = 'La partie décimale peut être 0,1 ; 0,2 ; 0,3 ; 0,4 ; 0,5 ; 0,6 ; 0,7 ; 0,8 ; 0,9 ; 0,25 ou 0,75 de manière équiprobable.'
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

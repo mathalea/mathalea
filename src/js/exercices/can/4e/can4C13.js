@@ -3,7 +3,7 @@ import { choice, randint, texNombre, arrondi } from '../../../modules/outils.js'
 import FractionX from '../../../modules/FractionEtendue.js'
 import Exercice from '../../Exercice.js'
 import Decimal from 'decimal.js'
-export const titre = 'Passer d\'une fraction à un décimal'
+export const titre = 'Calculer une fraction de dénomiteur un décimal'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

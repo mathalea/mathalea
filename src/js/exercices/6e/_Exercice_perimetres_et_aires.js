@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, troncature, stringNombre, texTexte, combinaisonListesSansChangerOrdre, texNombre, calcul, texNombrec, creerNomDePolygone, arrondi, sp, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, rangeMinMax, contraindreValeur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, troncature, stringNombre, texTexte, combinaisonListesSansChangerOrdre, texNombre, calcul, texNombrec, creerNomDePolygone, sp, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, rangeMinMax, contraindreValeur, miseEnEvidence, arrondi } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
@@ -10,35 +10,35 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const dateDeModificationImportante = '05/04/2022'
+export const dateDeModificationImportante = '11/04/2023'
 
 /**
- * Déterminer le périmètre et l'aire d'un carré, d'un rectangle, d'un triangle rectangle, d'un cercle
+ * Déterminer le périmètre et l'aire d'un carré, d'un rectangle, d'un triangle rectangle, d'un disque
  *
  * * 1 : Carré, rectangle et triangle rectangle
- * * 2: Uniquement des cercles
+ * * 2 : Uniquement des disques
  * * 3 : Les 4 sont demandés
- * @author Rémi Angot// modifié par Mireille Gain pour le support des décimaux
+ * @author Rémi Angot// modifié par Mireille Gain pour le support des décimaux // modifié par EE : Correction de nombreuses coquilles
  * * Relecture EE : Décembre 2021
  */
-export default function ExercicePerimetresEtAires (difficulte = '1-2') {
+export default function ExercicePerimetresEtAires () {
   // Calculer le périmètre et l'aire de figures
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.sup = difficulte
+  this.sup = '1-2'
   this.titre = "Calculs de périmètres et d'aires"
-  this.consigne =
-    'Pour chacune des figures, calculer son périmètre puis son aire (valeur exacte et si nécessaire, valeur approchée au dixième près).'
+  this.consigne = ''
   this.spacing = 1
   this.nbQuestions = 4
   this.sup2 = false // décimaux ou pas
   this.sup3 = false // avec figure
   this.sup4 = false // Avec une approximation de π
+  this.exo = 'NoDisk'
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const reponses = []
-    let resultat1, resultat2
+    let resultat1 = []; let resultat2 = []
     const tripletsPythagoriciens = [
       [3, 4, 5],
       [6, 8, 10],
@@ -54,24 +54,23 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
       'rectangle',
       'triangle_rectangle',
       'cercle',
-      'demi-cercle'
+      'demi-disque'
     ]
     let QuestionsDisponibles
     if (!this.sup) { // Si aucune liste n'est saisie
-      QuestionsDisponibles = rangeMinMax(1, 4)
+      QuestionsDisponibles = rangeMinMax(this.exo === 'NoDisk' ? 1 : 4, this.exo === 'NoDisk' ? 3 : 5)
     } else {
       if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        QuestionsDisponibles = [contraindreValeur(1, 5, this.sup, 2)]
+        QuestionsDisponibles = [contraindreValeur(this.exo === 'NoDisk' ? 1 : 4, this.exo === 'NoDisk' ? 3 : 5, this.sup, this.exo === 'NoDisk' ? 2 : 4)]
       } else {
         QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          QuestionsDisponibles[i] = contraindreValeur(1, 5, parseInt(QuestionsDisponibles[i]), 2) // parseInt en fait un tableau d'entiers
+          QuestionsDisponibles[i] = contraindreValeur(this.exo === 'NoDisk' ? 1 : 4, this.exo === 'NoDisk' ? 3 : 5, parseInt(QuestionsDisponibles[i]), this.exo === 'NoDisk' ? 2 : 4) // parseInt en fait un tableau d'entiers
         }
-        this.nbQuestions = Math.max(this.nbQuestions, QuestionsDisponibles.length)
+        // this.nbQuestions = Math.max(this.nbQuestions, QuestionsDisponibles.length)
       }
     }
     const typesDeQuestions = combinaisonListesSansChangerOrdre(QuestionsDisponibles, this.nbQuestions)
-
     let listeDeNomsDePolygones
     for (let i = 0, texte, texteCorr, cote, nomCarre, L, l, nomRectangle, a, b, c, nomTriangle, triplet, R, donneLeDiametre, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (i % 4 === 0) listeDeNomsDePolygones = ['QD']
@@ -85,13 +84,14 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
         partieDecimale1 = 0
         partieDecimale2 = 0
       }
+      texte = 'Calculer le périmètre et l\'aire '
       switch (typesDeQuestionsDisponibles[typesDeQuestions[i] - 1]) {
         case 'carre':
           cote = calcul(randint(2, 8) + partieDecimale1)
           nomCarre = creerNomDePolygone(4, listeDeNomsDePolygones)
           listeDeNomsDePolygones.push(nomCarre)
           if (this.sup3) {
-            texte = 'Calculer le périmètre et l\'aire de ce carré.'
+            texte += 'de ce carré.'
             const A = point(0, 0, nomCarre.charAt(0), 'below left')
             const B = pointAdistance(A, cote, randint(-5, 5, [0]), nomCarre.charAt(1), 'below right')
             const figure = polygoneRegulier(A, B, 4)
@@ -115,15 +115,16 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
           } else {
             if (choice([true, false])) {
               // 2 énoncés possibles équiprobables
-              texte = `Un carré $${nomCarre}$ de $${texNombre(cote)}$ cm de côté.<br>` + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
+              texte += `d'un carré $${nomCarre}$ de $${texNombre(cote)}$ cm de côté.<br>`
             } else {
-              texte = `Un carré $${nomCarre}$ tel que $${nomCarre[0] + nomCarre[1]} = ${texNombre(cote)}$ cm.` + '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
+              texte += `d'un carré $${nomCarre}$ tel que $${nomCarre[0] + nomCarre[1]} = ${texNombre(cote)}$ cm.` + '<br>'
             }
           }
-          texteCorr = `$\\mathcal{P}_{${nomCarre}}=4\\times${texNombre(cote)}~\\text{cm}=${texNombrec(4 * cote)}~\\text{cm}$<br>`
-          texteCorr += `$\\mathcal{A}_{${nomCarre}}=${texNombre(cote)}~\\text{cm}\\times${texNombre(cote)}~\\text{cm}=${texNombrec(cote * cote)}~\\text{cm}^2$`
-          resultat1 = calcul(4 * cote)
-          resultat2 = calcul(cote * cote)
+          texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
+          texteCorr = `$\\mathcal{P}_{${nomCarre}}=4\\times${texNombre(cote)}${sp()}\\text{cm}=${texNombrec(4 * cote)}${sp()}\\text{cm}$<br>`
+          texteCorr += `$\\mathcal{A}_{${nomCarre}}=${texNombre(cote)}${sp()}\\text{cm}\\times${texNombre(cote)}${sp()}\\text{cm}=${texNombrec(cote * cote)}${sp()}\\text{cm}^2$`
+          resultat1 = [calcul(4 * cote)]
+          resultat2 = [calcul(cote * cote)]
           break
         case 'rectangle':
           L = randint(3, 11)
@@ -133,7 +134,7 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
           nomRectangle = creerNomDePolygone(4, listeDeNomsDePolygones)
           listeDeNomsDePolygones.push(nomRectangle)
           if (this.sup3) {
-            texte = 'Calculer le périmètre et l\'aire de ce rectangle.'
+            texte += 'de ce rectangle.'
             const A = point(0, 0, nomRectangle.charAt(0), 'below left')
             const B = pointAdistance(A, L, randint(-5, 5, [0]), nomRectangle.charAt(1), 'below right')
             const C = pointIntersectionLC(droiteParPointEtPerpendiculaire(B, droite(A, B)), cercle(B, l), nomRectangle.charAt(2), 1)
@@ -158,15 +159,16 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
           } else {
             if (choice([true, false])) {
               // 2 énoncés possibles équiprobables
-              texte = `Un rectangle $${nomRectangle}$ de $${texNombre(L)}$ cm de longueur et de $${l}$ cm de largeur.<br>` + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
+              texte += `d'un rectangle $${nomRectangle}$ de $${texNombre(L)}$ cm de longueur et de $${l}$ cm de largeur.<br>`
             } else {
-              texte = `Un rectangle $${nomRectangle}$ tel que $${nomRectangle[0] + nomRectangle[1] + ' = ' + texNombre(L)}$ cm et $${nomRectangle[1] + nomRectangle[2] + ' = ' + l}$ cm.` + '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
+              texte += `d'un rectangle $${nomRectangle}$ tel que $${nomRectangle[0] + nomRectangle[1] + ' = ' + texNombre(L)}$ cm et $${nomRectangle[1] + nomRectangle[2] + ' = ' + l}$ cm.` + '<br>'
             }
           }
-          texteCorr = `$\\mathcal{P}_{${nomRectangle}}=(${texNombre(L)}~\\text{cm}+${l}~\\text{cm})\\times2=${texNombrec((L + l) * 2)}~\\text{cm}$<br>`
-          texteCorr += `$\\mathcal{A}_{${nomRectangle}}=${texNombre(L)}~\\text{cm}\\times${l}~\\text{cm}=${texNombrec(L * l)}~\\text{cm}^2$`
-          resultat1 = calcul(2 * L + 2 * l)
-          resultat2 = calcul(L * l)
+          texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
+          texteCorr = `$\\mathcal{P}_{${nomRectangle}}=(${texNombre(L)}${sp()}\\text{cm}+${l}${sp()}\\text{cm})\\times2=${texNombrec((L + l) * 2)}${sp()}\\text{cm}$<br>`
+          texteCorr += `$\\mathcal{A}_{${nomRectangle}}=${texNombre(L)}${sp()}\\text{cm}\\times${l}${sp()}\\text{cm}=${texNombrec(L * l)}${sp()}\\text{cm}^2$`
+          resultat1 = [calcul(2 * L + 2 * l)]
+          resultat2 = [calcul(L * l)]
           break
         case 'triangle_rectangle': {
           triplet = choice(tripletsPythagoriciens)
@@ -178,7 +180,7 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
           nomTriangle = creerNomDePolygone(3, listeDeNomsDePolygones)
           listeDeNomsDePolygones.push(nomTriangle)
           if (this.sup3) {
-            texte = 'Calculer le périmètre et l\'aire de ce triangle rectangle.'
+            texte += 'de ce triangle rectangle.'
             const zoom = (randint(4, 8) + randint(4, 8) * 0.1) / Math.max(a, b, c)
             const A = point(0, 0, nomTriangle.charAt(0), 'below left')
             const B = pointAdistance(A, a * zoom, randint(-5, 5, [0]), nomTriangle.charAt(1), 'below right')
@@ -210,24 +212,24 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
             texteCorr = ''
           } else {
             if (choice([true, false])) {
-              texte = `Un triangle $${nomTriangle}$ rectangle en $${nomTriangle[1]}$ tel que $${nomTriangle[0] + nomTriangle[1] + ' = ' + texNombre(a)}$ cm, $${nomTriangle[1] + nomTriangle[2] + ' = ' + texNombre(b)}$ cm\
-   et $${nomTriangle[0] + nomTriangle[2] + ' = ' + texNombre(c)}$ cm.` + '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
+              texte += `d'un triangle $${nomTriangle}$ rectangle en $${nomTriangle[1]}$ tel que $${nomTriangle[0] + nomTriangle[1] + ' = ' + texNombre(a)}$ cm, $${nomTriangle[1] + nomTriangle[2] + ' = ' + texNombre(b)}$ cm\
+   et $${nomTriangle[0] + nomTriangle[2] + ' = ' + texNombre(c)}$ cm.` + '<br>'
             } else {
-              texte = `Un triangle rectangle $${nomTriangle}$ a pour côtés : $${texNombre(a)}$ cm, $${texNombre(c)}$ cm et $${texNombre(b)}$ cm.` + '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
+              texte += `d'un triangle rectangle $${nomTriangle}$ qui a pour côtés : $${texNombre(a)}$ cm, $${texNombre(c)}$ cm et $${texNombre(b)}$ cm.` + '<br>'
             }
           }
-
-          texteCorr = `$\\mathcal{P}_{${nomTriangle}}=${texNombre(a)}~\\text{cm}+${texNombre(b)}
-          ~\\text{cm}+${texNombre(c)}~\\text{cm}=${texNombre(a + b + c)}~\\text{cm}$<br>`
-          texteCorr += `$\\mathcal{A}_{${nomTriangle}}=${texNombre(a)}~\\text{cm}\\times${texNombre(b)}~\\text{cm}\\div2=${texNombrec(a * b / 2)}~\\text{cm}^2$`
-          resultat1 = calcul(a + b + c)
-          resultat2 = calcul(a * b / 2)
+          texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
+          texteCorr = `$\\mathcal{P}_{${nomTriangle}}=${texNombre(a)}${sp()}\\text{cm}+${texNombre(b)}
+          ${sp()}\\text{cm}+${texNombre(c)}${sp()}\\text{cm}=${texNombre(a + b + c)}${sp()}\\text{cm}$<br>`
+          texteCorr += `$\\mathcal{A}_{${nomTriangle}}=${texNombre(a)}${sp()}\\text{cm}\\times${texNombre(b)}${sp()}\\text{cm}\\div2=${texNombrec(a * b / 2)}${sp()}\\text{cm}^2$`
+          resultat1 = [calcul(a + b + c)]
+          resultat2 = [calcul(a * b / 2)]
           break
         }
         case 'cercle':
           R = (this.sup2 ? calcul(randint(4, 5) + randint(1, 9) / 10) : calcul(randint(4, 10)))
           if (this.sup3) {
-            texte = 'Calculer le périmètre et l\'aire de ce cercle. Donner une valeur approchée au dixième.'
+            texte += 'de ce disque. Donner une valeur approchée au dixième de cm pour l\'un et au dixième de cm$^2$ pour l\'autre.'
             const nomCercle = creerNomDePolygone(4, listeDeNomsDePolygones)
             listeDeNomsDePolygones.push(nomCercle)
             const A = point(0, 0, nomCercle.charAt(0), 'below left')
@@ -256,37 +258,35 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
           } else {
             donneLeDiametre = choice([true, false])
             if (donneLeDiametre) {
-              texte = `Un cercle de $${texNombre(2 * R)}$ cm de diamètre.`
-              if (this.interactif) {
-                texte += '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
-              }
+              texte += `d'un disque de $${texNombre(2 * R)}$ cm de diamètre. Donner une valeur approchée au dixième de cm pour l'un et au dixième de cm$^2$ pour l'autre.`
               texteCorr = `Le diamètre est de $${texNombre(2 * R)}$ cm donc le rayon est de $${texNombre(R)}$ cm.<br>`
             } else {
-              texte = `Un cercle de $${R}$ cm de rayon.` + sp(2) + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
+              texte += `d'un disque de $${texNombre(R)}$ cm de rayon. Donner une valeur approchée au dixième de cm pour l'un et au dixième de cm$^2$ pour l'autre.`
               texteCorr = ''
             }
           }
+          if (this.interactif) {
+            texte += '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
+          }
 
           if (this.sup4) {
-            texteCorr += `<br>Si on utilise $\\pi \\approx 3,14$, alors <br> $\\mathcal{P}\\approx 2 \\times ${texNombre(R)} \\times 3,14 \\approx ${texNombrec(2 * R * 3.14, 3)}~${texTexte('cm')}$.<br>`
-            texteCorr += `$\\mathcal{A}\\approx ${texNombre(R)}\\times${texNombre(R)}\\times 3,14\\approx ${texNombre(R * R * 3.14, 3)}~${texTexte('cm')}^2$.`
-            texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{P}\\approx ${texNombrec(troncature(2 * R * 3.14, 1))}~${texTexte('cm')}$.`
-            texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{A}\\approx ${texNombre(troncature(R * R * 3.14, 1))}~${texTexte('cm')}^2$.<br>`
-            resultat1 = arrondi(2 * R * Math.PI, 1)
-            resultat2 = arrondi(R * R * Math.PI, 1)
+            texteCorr += `<br>Si on utilise $\\pi \\approx 3,14$, alors <br> $\\mathcal{P}\\approx 2 \\times ${texNombre(R)} \\times 3,14 \\approx ${texNombrec(2 * R * Math.PI, 3)}${sp()}${texTexte('cm')}$.<br>`
+            texteCorr += `$\\mathcal{A}\\approx ${texNombre(R)}\\times${texNombre(R)}\\times 3,14\\approx ${texNombre(R * R * Math.PI, 3)}${sp()}${texTexte('cm')}^2$.`
           } else {
-            texteCorr += `$\\mathcal{P}=2\\times${texNombre(R)}\\times\\pi~\\text{cm}=${texNombre(2 * R)}\\pi~\\text{cm}\\approx${texNombre(
-              2 * R * Math.PI, 3)}~\\text{cm}$<br>`
-            texteCorr += `$\\mathcal{A}=${texNombre(R)}\\times${texNombre(R)}\\times\\pi~\\text{cm}^2=${texNombre(R * R)}\\pi~\\text{cm}^2\\approx${texNombre(
-              R * R * Math.PI, 3)}~\\text{cm}^2$`
-            texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{P}\\approx ${texNombrec(troncature(2 * R * Math.PI, 1))}~${texTexte('cm')}$.`
-            texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{A}\\approx ${texNombre(troncature(R * R * Math.PI, 1))}~${texTexte('cm')}^2$.<br>`
+            texteCorr += `$\\mathcal{P}=2\\times${texNombre(R)}\\times\\pi${sp()}\\text{cm}=${texNombre(2 * R)}\\pi${sp()}\\text{cm}\\approx${texNombre(
+              2 * R * Math.PI, 3)}${sp()}\\text{cm}$<br>`
+            texteCorr += `$\\mathcal{A}=${texNombre(R)}\\times${texNombre(R)}\\times\\pi${sp()}\\text{cm}^2=${texNombre(R * R)}\\pi${sp()}\\text{cm}^2\\approx${texNombre(
+              R * R * Math.PI, 3)}${sp()}\\text{cm}^2$`
           }
+          texteCorr += `<br>Les deux valeurs approchées au dixième de cm du périmètre de ce disque sont donc  $${miseEnEvidence(texNombrec(troncature(2 * R * Math.PI, 1)))}$ $${miseEnEvidence('cm')}$ et $${miseEnEvidence(texNombrec(0.1 + troncature(2 * R * Math.PI, 1)))}$ $${miseEnEvidence('cm')}$, sachant que la valeur la plus proche ($${miseEnEvidence(texNombrec(2 * R * Math.PI, 1))}$ $${miseEnEvidence('cm')}$) est la valeur arrondie.`
+          texteCorr += `<br>Les deux valeurs approchées au dixième de cm$^2$ de l'aire de ce disque sont donc  $${miseEnEvidence(texNombre(troncature(R * R * Math.PI, 1)))}$ $${miseEnEvidence('cm^2')}$ et $${miseEnEvidence(texNombre(0.1 + troncature(R * R * Math.PI, 1)))}$ $${miseEnEvidence('cm^2')}$, sachant que la valeur la plus proche ($${miseEnEvidence(texNombrec(R * R * Math.PI, 1))}$ $${miseEnEvidence('cm^2')}$) est la valeur arrondie.<br>`
+          resultat1 = [troncature(2 * R * Math.PI, 1), arrondi(troncature(2 * R * Math.PI, 1) + 0.1)]
+          resultat2 = [troncature(R * R * Math.PI, 1), arrondi(troncature(R * R * Math.PI, 1) + 0.1, 1)]
           break
-        case 'demi-cercle':
+        case 'demi-disque':
           R = (this.sup2 ? calcul(randint(4, 5) + randint(1, 9) / 10) : calcul(randint(4, 10)))
           if (this.sup3) {
-            texte = 'Calculer le périmètre et l\'aire de ce demi-cercle. Donner une valeur approchée au dixième.'
+            texte += 'de ce demi-disque. Donner une valeur approchée au dixième de cm pour l\'un et au dixième de cm$^2$ pour l\'autre.'
             const nomCercle = creerNomDePolygone(4, listeDeNomsDePolygones)
             listeDeNomsDePolygones.push(nomCercle)
             const A = point(0, 0, nomCercle.charAt(0), 'below left')
@@ -315,38 +315,44 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
           } else {
             donneLeDiametre = choice([true, false])
             if (donneLeDiametre) {
-              texte = `Un cercle de $${texNombre(2 * R)}$ cm de diamètre.` + '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
+              texte += `d'un demi-disque de $${texNombre(2 * R)}$ cm de diamètre. Donner une valeur approchée au dixième de cm pour l'un et au dixième de cm$^2$ pour l'autre.` + '<br>'
               texteCorr = `Le diamètre est de $${texNombre(2 * R)}$ cm donc le rayon est de $${texNombre(R)}$ cm.<br>`
             } else {
-              texte = `Un cercle de $${texNombre(R)}$ cm de rayon.` + sp(2) + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
+              texte += `d'un demi-disque de $${texNombre(R)}$ cm de rayon. Donner une valeur approchée au dixième de cm pour l'un et au dixième de cm$^2$ pour l'autre.` + sp(2) + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
               texteCorr = ''
             }
           }
-          if (this.sup4) {
-            texteCorr += `<br>Si on utilise $\\pi \\approx 3,14$, alors <br> $\\mathcal{P}\\approx 2 \\times ${texNombre(R)} \\times 3,14 \\div 2 + 2 \\times ${texNombre(R)} \\approx ${texNombrec(2 * R * 3.14 / 2 + 2 * R, 3)}~${texTexte('cm')}$.<br>`
-            texteCorr += `$\\mathcal{A}\\approx ${texNombre(R)}\\times${texNombre(R)}\\times 3,14 \\div 2\\approx ${texNombre(R * R * 3.14 / 2, 3)}~${texTexte('cm')}^2$.`
-            texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{P}\\approx ${texNombrec(troncature(2 * R * 3.14 / 2 + 2 * R, 1))}~${texTexte('cm')}$.`
-            texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{A}\\approx ${texNombre(troncature(R * R * 3.14 / 2, 1))}~${texTexte('cm')}^2$.<br>`
-          } else {
-            texteCorr += `$\\mathcal{P}=2\\times${texNombre(R)}\\times\\pi\\div 2 + 2\\times${texNombre(R)}~\\text{cm}\\approx${texNombre(2 * R * Math.PI / 2 + 2 * R, 3)}~\\text{cm}$<br>`
-            texteCorr += `$\\mathcal{A}=${texNombre(R)}\\times${texNombre(R)}\\times\\pi \\div 2~\\text{cm}^2\\approx${texNombre(R * R * Math.PI / 2, 3)}~\\text{cm}^2$`
-            texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{P}\\approx ${texNombrec(troncature(2 * R * Math.PI / 2 + 2 * R, 1))}~${texTexte('cm')}$.`
-            texteCorr += `<br>Une valeur approchée au dixième est donc $\\mathcal{A}\\approx ${texNombre(troncature(R * R * Math.PI / 2, 1))}~${texTexte(' cm')}^2$.<br>`
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
           }
+          if (this.sup4) {
+            texteCorr += `<br>Si on utilise $\\pi \\approx 3,14$, alors <br> $\\mathcal{P}\\approx 2 \\times ${texNombre(R)} \\times 3,14 \\div 2 + 2 \\times ${texNombre(R)} \\approx ${texNombrec(2 * R * Math.PI / 2 + 2 * R, 3)}${sp()}${texTexte('cm')}$.<br>`
+            texteCorr += `$\\mathcal{A}\\approx ${texNombre(R)}\\times${texNombre(R)}\\times 3,14 \\div 2\\approx ${texNombre(R * R * Math.PI / 2, 3)}${sp()}${texTexte('cm')}^2$.`
+          } else {
+            texteCorr += `$\\mathcal{P}=2\\times${texNombre(R)}\\times\\pi\\div 2 + 2\\times${texNombre(R)}${sp()}\\text{cm}\\approx${texNombre(2 * R * Math.PI / 2 + 2 * R, 3)}${sp()}\\text{cm}$<br>`
+            texteCorr += `$\\mathcal{A}=${texNombre(R)}\\times${texNombre(R)}\\times\\pi \\div 2${sp()}\\text{cm}^2\\approx${texNombre(R * R * Math.PI / 2, 3)}${sp()}\\text{cm}^2$`
+          }
+          texteCorr += `<br>Les deux valeurs approchées au dixième de cm du périmètre de ce disque sont donc  $${miseEnEvidence(texNombrec(troncature(2 * R * Math.PI / 2 + 2 * R, 1)))}$ $${miseEnEvidence('cm')}$ et $${miseEnEvidence(texNombrec(0.1 + troncature(2 * R * Math.PI / 2 + 2 * R, 1)))}$ $${miseEnEvidence('cm')}$, sachant que la valeur la plus proche ($${miseEnEvidence(texNombrec(2 * R * Math.PI / 2 + 2 * R, 1))}$ $${miseEnEvidence('cm')}$) est la valeur arrondie.`
+          texteCorr += `<br>Les deux valeurs approchées au dixième de cm$^2$ de l'aire de ce disque sont donc  $${miseEnEvidence(texNombre(troncature(R * R * Math.PI / 2, 1)))}$ $${miseEnEvidence('cm^2')}$ et $${miseEnEvidence(texNombre(0.1 + troncature(R * R * Math.PI / 2, 1)))}$ $${miseEnEvidence('cm^2')}$, sachant que la valeur la plus proche ($${miseEnEvidence(texNombrec(R * R * Math.PI / 2, 1))}$ $${miseEnEvidence('cm^2')}$) est la valeur arrondie.<br>`
 
-          resultat1 = arrondi(2 * R * Math.PI / 2 + 2 * R, 1)
-          resultat2 = arrondi(R * R * Math.PI / 2, 1)
+          resultat1 = [troncature(2 * R * Math.PI / 2 + 2 * R, 1), arrondi(troncature(2 * R * Math.PI / 2 + 2 * R, 1) + 0.1, 1)]
+          resultat2 = [troncature(R * R * Math.PI / 2, 1), arrondi(troncature(R * R * Math.PI / 2, 1) + 0.1, 1)]
           break
       }
-
-      if (reponses.indexOf(resultat1 * resultat2) === -1) {
-        reponses.push(resultat1 * resultat2)
+      if (reponses.indexOf(resultat1[0] * resultat2[0]) === -1) {
+        reponses.push(resultat1[0] * resultat2[0])
         if (!context.isAmc) {
-          setReponse(this, 2 * i, new Grandeur(resultat1, 'cm'), { formatInteractif: 'unites' })
-          setReponse(this, 2 * i + 1, new Grandeur(resultat2, 'cm^2'), { formatInteractif: 'unites' })
+          if (resultat1.length === 1) {
+            setReponse(this, 2 * i, new Grandeur(resultat1[0], 'cm'), { formatInteractif: 'unites' })
+            setReponse(this, 2 * i + 1, new Grandeur(resultat2[0], 'cm^2'), { formatInteractif: 'unites' })
+          } else {
+            setReponse(this, 2 * i, [new Grandeur(resultat1[0], 'cm'), new Grandeur(resultat1[1], 'cm')], { formatInteractif: 'unites' })
+            setReponse(this, 2 * i + 1, [new Grandeur(resultat2[0], 'cm^2'), new Grandeur(resultat2[1], 'cm^2')], { formatInteractif: 'unites' })
+          }
         } else {
           this.autoCorrection[i] = {
             enonce: texte,
+            options: { multicols: true, barreseparation: true, numerotationEnonce: true },
             propositions: [
               {
                 type: 'AMCNum',
@@ -354,13 +360,15 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
                   texte: texteCorr,
                   statut: '',
                   reponse: {
-                    texte: 'Périmètre',
-                    valeur: resultat1,
+                    texte: 'Périmètre en cm :',
+                    valeur: resultat1[0],
+                    alignement: 'center',
                     param: {
-                      digits: nombreDeChiffresDe(resultat1),
-                      decimals: nombreDeChiffresDansLaPartieDecimale(resultat1),
+                      digits: resultat1.length === 1 ? nombreDeChiffresDe(resultat1[0]) : Math.max(nombreDeChiffresDe(resultat1[0]), nombreDeChiffresDe(resultat1[1])),
+                      decimals: resultat1.length === 1 ? nombreDeChiffresDansLaPartieDecimale(resultat1[0]) : Math.max(nombreDeChiffresDansLaPartieDecimale(resultat1[0]), nombreDeChiffresDansLaPartieDecimale(resultat1[1])),
                       signe: false,
-                      approx: 0
+                      approx: 0,
+                      aussiCorrect: resultat1.length === 1 ? resultat1[0] : resultat1[1]
                     }
                   }
                 }]
@@ -371,18 +379,21 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
                   texte: '',
                   statut: '',
                   reponse: {
-                    texte: 'Aire',
-                    valeur: resultat2,
+                    texte: 'Aire en cm$^2$ :',
+                    valeur: resultat2[0],
+                    alignement: 'center',
                     param: {
-                      digits: nombreDeChiffresDe(resultat2),
-                      decimals: nombreDeChiffresDansLaPartieDecimale(resultat2),
+                      digits: resultat1.length === 1 ? nombreDeChiffresDe(resultat2[0]) : Math.max(nombreDeChiffresDe(resultat2[0]), nombreDeChiffresDe(resultat2[1])),
+                      decimals: resultat1.length === 1 ? nombreDeChiffresDansLaPartieDecimale(resultat2[0]) : Math.max(nombreDeChiffresDansLaPartieDecimale(resultat2[0]), nombreDeChiffresDansLaPartieDecimale(resultat2[1])),
                       signe: false,
-                      approx: 0
+                      approx: 0,
+                      aussiCorrect: resultat1.length === 1 ? resultat2[0] : resultat2[1]
                     }
                   }
                 }]
               }]
           }
+          //          console.log(this.autoCorrection[i])
         }
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
@@ -395,7 +406,7 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
   }
   this.besoinFormulaireTexte = [
     'Types de figures (nombres séparés par des tirets)',
-    '1 : carré\n2 : rectangle\n3 : triangle rectangle\n4 : cercle\n5 : demi-cercle'
+    '1 : Carré\n2 : Rectangle\n3 : Triangle rectangle\n4 : Disque\n5 : Demi-disque'
   ]
   this.besoinFormulaire2CaseACocher = ['Avec des décimaux', false]
   this.besoinFormulaire3CaseACocher = ['Avec figure']

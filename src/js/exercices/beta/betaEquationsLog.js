@@ -1,7 +1,7 @@
 import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, calcul, texRacineCarree, ecritureParentheseSiNegatif, texNombre, fractionSimplifiee, texFraction } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import Exercice from '../Exercice.js'
-export const titre = 'Equations avec logarithmes'
+export const titre = 'Résoudre des équations avec logarithmes'
 const drteParab = l => l.length === 2 ? `${l[0]}x${ecritureAlgebrique(l[1])}` : `${l[0]}x^2${ecritureAlgebrique(l[1])}x${ecritureAlgebrique(l[2])}`
 const EgalEnviron = (v, d = 3) => ((Math.abs(v) * 10 ** d) % 1 > 0 ? '\\approx' : '=') + texNombre(calcul(v, 3))
 

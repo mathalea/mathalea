@@ -1,5 +1,6 @@
 // valeurs par défaut
 export const context = {
+  isInEditor: false,
   isHtml: true,
   isAmc: false,
   issortieNB: false,
@@ -20,27 +21,32 @@ export const context = {
   zoom: 1,
   seedSpecial: false, // Change le numéro de série si une correction est cachée
   son: 0, // pour ajouter du son au changement de diapo dans le diaporama
-  versionMathalea: undefined
+  versionMathalea: undefined,
+  vue: '' // context.vue = 'diaporama' est utilisé pour modifier l'affichage d'un exercice en mode diaporama
 }
 
-export function setOutputHtml () {
+export function setOutputHtml() {
   context.isHtml = true
   context.isAmc = false
 }
-export function setOutputMoodle () {
+
+export function setOutputMoodle() {
   context.isHtml = true
   context.isAmc = false
   context.isMoodle = true
 }
-export function setOutputLatex () {
+
+export function setOutputLatex() {
   context.isHtml = false
   context.isAmc = false
 }
-export function setOutputAmc () {
+
+export function setOutputAmc() {
   context.isHtml = false
   context.isAmc = true
 }
-export function setOutputAlc () {
+
+export function setOutputAlc() {
   context.isHtml = false
   context.isAmc = false
   context.isAlc = true

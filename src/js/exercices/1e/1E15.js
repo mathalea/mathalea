@@ -3,7 +3,7 @@
 import { xcas, listeQuestionsToContenu, randint, texteGras } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-export const titre = 'Equation du second degré avec paramètre'
+export const titre = 'Déterminer le nombre de solutions d\'une équation du second degré avec paramètre'
 export const dateDePublication = '30/10/2021'
 
 /**
@@ -15,7 +15,7 @@ export const uuid = 'fe4df'
 export const ref = '1E15'
 export default function EquationDuSecondDegreAvecUnParametre () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = `Discuter, suivant la valeur du paramètre $m$, le ${texteGras('nombre de solutions')} de l'équation du second degré.`
+  this.consigne = `Déterminer, suivant la valeur du paramètre $m$, le ${texteGras('nombre de solutions')} de l'équation du second degré.`
   this.nbQuestions = 2
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX

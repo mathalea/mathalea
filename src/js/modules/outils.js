@@ -3205,19 +3205,16 @@ export function href (texte, lien) {
 * @author Rémi Angot
 */
 export function texPrix (nb) {
-  // Remplace le . par la ,
   if (nb instanceof Decimal) {
     if (nb.isInteger()) return texNombre(nb, 0)
     else return texNombre(nb, 2, true)
   }
   const nombre = Number(nb)
-  let result
   if (nombre.toString() === nombre.toFixed(0)) {
-    result = nombre
+    return texNombre(nb, 0)
   } else {
-    result = nombre.toFixed(2).toString().replace('.', '{,}') // Ne gère pas l'espace des milliers
+    return texNombre(nb, 2)
   }
-  return result
 }
 
 /**
@@ -4013,10 +4010,20 @@ export function ordreDeGrandeur (x, type) {
 */
 export function creerModal (numeroExercice, contenu, labelBouton, icone) {
   if (context.isHtml) {
-    const HTML = `<button class="ui right floated mini compact button" onclick="$('#modal${numeroExercice}').modal('show');"><i class="large ${icone} icon"></i>${labelBouton}</button>
+    let HTML = ''
+    if (context.versionMathalea === 2) {
+      HTML = `<button class="ui right floated mini compact button" onclick="$('#modal${numeroExercice}').modal('show');"><i class="large ${icone} icon"></i>${labelBouton}</button>
       <div class="ui modal" id="modal${numeroExercice}">
       ${contenu}
       </div>`
+    } else if (context.versionMathalea > 2) {
+      HTML = `<div id="aide-${numeroExercice}" class="group">
+      <div id="aide-trigger-${numeroExercice}">?</div>
+      <div id="aide-content-${numeroExercice}">
+      ${contenu}
+      </div>
+      </div>`
+    }
     return HTML
   } else {
     return ''
@@ -4088,8 +4095,14 @@ export function modalYoutube (numeroExercice, idYoutube, titre, labelBouton = 'A
 * @author Rémi Angot
 */
 export function modalTexteLong (numeroExercice, titre, texte, labelBouton = 'Aide', icone = 'info circle') {
-  let contenu = `<div class="header">${titre}</div>`
-  contenu += `<div class="content">${texte}</div>`
+  let contenu = ''
+  if (context.versionMathalea === 2) {
+    contenu = `<div class="header">${titre}</div>`
+    contenu += `<div class="content">${texte}</div>`
+  } else if (context.versionMathalea > 2) {
+    contenu = `<div class="aide-header">${titre}</div>`
+    contenu += `<div class="aide-content">${texte}</div>`
+  }
   return creerModal(numeroExercice, contenu, labelBouton, icone)
 }
 
@@ -4433,7 +4446,7 @@ export function katexPopupTest (texte, titrePopup, textePopup) {
 export function katexPopup2 (numero, type, texte, titrePopup, textePopup) {
   // ToDo : gérer les popu avec la version 3
   // Pour l'instant, ils sont supprimés
-  if (context.versionMathalea > 2) return texte
+  // if (context.versionMathalea > 2) return texte
   switch (type) {
     case 0:
       return katexPopupTest(texte, titrePopup, textePopup)

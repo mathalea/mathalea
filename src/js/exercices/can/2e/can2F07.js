@@ -52,7 +52,7 @@ export default function ExtremumsTableau () {
         ligne1 = ['Var', 10, `-/$${-y1}$`, 10, `+/$${-y2}$`, 10, `-/$${-y3}$`, 10, `+/$${-y4}$`, 10]
       }
 
-      texte = `Voici le tableau de variations d'une fonction $f$ définie sur $[${x1};${x4}]$ :<br>
+      texte = `Voici le tableau de variations d'une fonction $f$ définie sur $[${x1}\\,;\\,${x4}]$ :<br>
       `
 
       texte += mathalea2d({ xmin: -0.5, ymin: -7.5, xmax: 30, ymax: 0.1, scale: 0.39 }, tableauDeVariation({
@@ -79,12 +79,12 @@ export default function ExtremumsTableau () {
         texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline')
         texte += '<br> Il est atteint en $x=$ '
         texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline')
-        this.canEnonce += `<br>
-        Déterminer le maximum de $f$ et la valeur en laquelle il est atteint.`
-        this.canReponseACompleter = 'Max $=\\ldots$ atteint en $x=\\ldots$'
+        // this.canEnonce += 'Déterminer le maximum de $f$ et la valeur en laquelle il est atteint.'
+        this.canReponseACompleter = `Le maximum de $f$ est $\\ldots$. <br>
+        Il est atteint en $x=\\ldots$`
         if (choix === 1) {
           if (M === y1) {
-            texteCorr = `Pour tout réel $x$ de $[${x1};${x4}]$, on a  $f(x)\\leqslant ${y1}$, c'est-à-dire  $f(x)\\leqslant f(${x1})$.<br>
+            texteCorr = `Pour tout réel $x$ de $[${x1}\\,;\\,${x4}]$, on a  $f(x)\\leqslant ${y1}$, c'est-à-dire  $f(x)\\leqslant f(${x1})$.<br>
       Ainsi, le maximum de $f$ est $${y1}$. Il est atteint en $x=${x1}$.`
 
             if (!context.isAmc) {
@@ -132,7 +132,7 @@ export default function ExtremumsTableau () {
               }
             }
           } else {
-            texteCorr = `Pour tout réel $x$ de $[${x1};${x4}]$, on a  $f(x)\\leqslant ${y3}$, c'est-à-dire  $f(x)\\leqslant f(${x3})$.<br>
+            texteCorr = `Pour tout réel $x$ de $[${x1}\\,;\\,${x4}]$, on a  $f(x)\\leqslant ${y3}$, c'est-à-dire  $f(x)\\leqslant f(${x3})$.<br>
       Ainsi, le maximum de $f$ est $${y3}$. Il est atteint en $x=${x3}$.  `
 
             if (!context.isAmc) {
@@ -182,7 +182,7 @@ export default function ExtremumsTableau () {
           }
         } else {
           if (m === y2) {
-            texteCorr = `<br>Pour tout réel $x$ de $[${x1};${x4}]$, on a  $f(x)\\leqslant ${-y2}$, c'est-à-dire  $f(x)\\leqslant f(${x2})$.<br>
+            texteCorr = `Pour tout réel $x$ de $[${x1}\\,;\\,${x4}]$, on a  $f(x)\\leqslant ${-y2}$, c'est-à-dire  $f(x)\\leqslant f(${x2})$.<br>
         Ainsi, le maximum de $f$ est $${-y2}$. Il est atteint en $x=${x2}$. `
             if (!context.isAmc) {
               setReponse(this, 2 * i, -y2)
@@ -229,7 +229,7 @@ export default function ExtremumsTableau () {
               }
             }
           } else {
-            texteCorr = `<br>Pour tout réel $x$ de $[${x1};${x4}]$, on a  $f(x)\\leqslant ${-y4}$, c'est-à-dire  $f(x)\\leqslant f(${x4})$.<br>
+            texteCorr = `Pour tout réel $x$ de $[${x1}\\,;\\,${x4}]$, on a  $f(x)\\leqslant ${-y4}$, c'est-à-dire  $f(x)\\leqslant f(${x4})$.<br>
         Ainsi, le maximum de $f$ est $${-y4}$. Il est atteint en $x=${x4}$.  `
             if (!context.isAmc) {
               setReponse(this, 2 * i, -y4)
@@ -278,11 +278,11 @@ export default function ExtremumsTableau () {
           }
         }
       } else {
-        texte += '   Le minimum de $f$ est  : '
-        this.canEnonce += `<br>
-        Déterminer le minimum de $f$ et la valeur en laquelle il est atteint.`
-        this.canReponseACompleter = 'Min $=\\ldots$ atteint en $x=\\ldots$'
-
+        texte += 'Le minimum de $f$ est  : '
+        // this.canEnonce += 'Déterminer le minimum de $f$ et la valeur en laquelle il est atteint.'
+        // this.canReponseACompleter = 'Min $=\\ldots$ atteint en $x=\\ldots$'
+        this.canReponseACompleter = `Le minimum de $f$ est $\\ldots$. <br>
+        Il est atteint en $x=\\ldots$`
         texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline')
         texte += '<br> Il est atteint en $x=$ '
 
@@ -290,7 +290,7 @@ export default function ExtremumsTableau () {
 
         if (choix === 1) {
           if (m === y2) {
-            texteCorr = `Pour tout réel $x$ de $[${x1};${x4}]$, on a  $f(x)\\geqslant ${y2}$, c'est-à-dire  $f(x)\\geqslant f(${x2})$.<br>
+            texteCorr = `Pour tout réel $x$ de $[${x1}\\,;\\,${x4}]$, on a  $f(x)\\geqslant ${y2}$, c'est-à-dire  $f(x)\\geqslant f(${x2})$.<br>
           Ainsi, le minimum de $f$ est $${y2}$. Il est atteint en $x=${x2}$.`
             if (!context.isAmc) {
               setReponse(this, 2 * i, y2)
@@ -337,7 +337,7 @@ export default function ExtremumsTableau () {
               }
             }
           } else {
-            texteCorr = `Pour tout réel $x$ de $[${x1};${x4}]$, on a  $f(x)\\geqslant ${y4}$, c'est-à-dire  $f(x)\\geqslant f(${x4})$.<br>
+            texteCorr = `Pour tout réel $x$ de $[${x1}\\,;\\,${x4}]$, on a  $f(x)\\geqslant ${y4}$, c'est-à-dire  $f(x)\\geqslant f(${x4})$.<br>
           Ainsi, le minimum de $f$ est $${y4}$. Il est atteint en $x=${x4}$.  `
             if (!context.isAmc) {
               setReponse(this, 2 * i, y4)
@@ -386,7 +386,7 @@ export default function ExtremumsTableau () {
           }
         } else {
           if (M === y1) {
-            texteCorr = `Pour tout réel $x$ de $[${x1};${x4}]$, on a  $f(x)\\geqslant ${-y1}$, c'est-à-dire  $f(x)\\geqslant f(${x1})$.<br>
+            texteCorr = `Pour tout réel $x$ de $[${x1}\\,;\\,${x4}]$, on a  $f(x)\\geqslant ${-y1}$, c'est-à-dire  $f(x)\\geqslant f(${x1})$.<br>
           Ainsi, le minimum de $f$ est $${-y1}$. Il est atteint en $x=${x1}$. `
             if (!context.isAmc) {
               setReponse(this, 2 * i, -y1)
@@ -433,7 +433,7 @@ export default function ExtremumsTableau () {
               }
             }
           } else {
-            texteCorr = `Pour tout réel $x$ de $[${x1};${x4}]$, on a  $f(x)\\geqslant ${-y3}$, c'est-à-dire  $f(x)\\geqslant f(${x3})$.<br>
+            texteCorr = `Pour tout réel $x$ de $[${x1}\\,;\\,${x4}]$, on a  $f(x)\\geqslant ${-y3}$, c'est-à-dire  $f(x)\\geqslant f(${x3})$.<br>
           Ainsi, le minimum de $f$ est $${-y3}$. Il est atteint en $x=${x3}$.  `
             if (!context.isAmc) {
               setReponse(this, 2 * i, -y3)
@@ -485,6 +485,8 @@ export default function ExtremumsTableau () {
       if (this.questionJamaisPosee(i, x1, x2, x3, x4)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        this.listeCanEnonces.push(this.canEnonce)
+        this.listeCanReponsesACompleter.push(this.canReponseACompleter)
         i++
       }
       cpt++

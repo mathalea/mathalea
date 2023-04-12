@@ -76,7 +76,7 @@ export default class constructionElementaire extends Exercice {
         `Placer $${E.nom}$ le point d'intersection de $(${A.nom}${B.nom})$ et $[${C.nom}${D.nom})$.<br>`
       enonce +=
         numAlpha(questind++) +
-        `Placer le point $${F.nom}$ tel que ${F.nom}$ \\notin [${A.nom}${B.nom}]$ et $${F.nom} \\in (${A.nom}${B.nom})$.<br>`
+        `Placer un point $${F.nom}$ tel que $${F.nom} \\notin [${A.nom}${B.nom}]$ et $${F.nom} \\in (${A.nom}${B.nom})$.<br>`
       const Xmin = Math.floor(Math.min(A.x, B.x, C.x, D.x, E.x, F.x) - 1)
       const Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, E.x, F.x) + 1)
       const Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, E.y, F.y) - 1)

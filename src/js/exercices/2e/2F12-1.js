@@ -667,5 +667,5 @@ Ainsi,   $S=\\emptyset$.<br>
     5,
     '1 : x^2=k\n2 : sqrt{x}=k \n3 : 1/x=k \n4 : x^3=k \n5 : Mélange'
   ]
-  this.besoinFormulaire2Numerique = ['Choix des questions', 3, '1 : Equation directe\n2 : Equation indirecte\n3 : Mélange']
+  this.besoinFormulaire2Numerique = ['Choix des questions', 3, '1 : Équation directe\n2 : Équation indirecte\n3 : Mélange']
 }

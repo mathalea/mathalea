@@ -13,5 +13,5 @@ export const uuid = 'b259a'
 export const ref = 'c3C11'
 export default function DivisionCycle3 () {
   DivisionsEuclidiennes.call(this)
-  this.sup = 0
+  this.sup = 1
 }

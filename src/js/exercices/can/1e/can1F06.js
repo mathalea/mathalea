@@ -64,7 +64,7 @@ export default function LectureGraphiqueParaboleaEtb () {
 
             f = x => a * x ** 2 + b
 
-            texte = ` $f$ est définie par $f(x)=ax^2+bx$ .<br>
+            texte = ` $f$ est définie par $f(x)=ax^2+b$ .<br>
                         `
             texte += `Déterminer les valeurs de $a$ et $b$.<br>
             

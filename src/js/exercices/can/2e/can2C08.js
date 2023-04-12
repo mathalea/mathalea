@@ -47,8 +47,8 @@ export default function CalculAvecRacineCarree3 () {
     &=  ${(reduction[0] + 1) ** 2 * reduction[1]}
     \\end{aligned}$ 
   `
-          this.canEnonce = 'Compléter.'
-          this.canReponseACompleter = `Le carré de $\\sqrt{${a}}+\\sqrt{${b}}$ est égal à : $\\ldots$`
+          this.canEnonce = `Calculer le carré de $\\sqrt{${a}}+\\sqrt{${b}}$.`
+          this.canReponseACompleter = ''
         } else {
           this.question = `Le carré de $\\sqrt{${b}}+\\sqrt{${a}}$ est égal à : `
           this.correction = `On simpifie $\\sqrt{${b}}$ en $${reduction[0]}\\sqrt{${reduction[1]}}$, car
@@ -65,8 +65,8 @@ export default function CalculAvecRacineCarree3 () {
    &=  ${(reduction[0] + 1) ** 2 * reduction[1]}
   \\end{aligned}$ 
 `
-          this.canEnonce = 'Compléter.'
-          this.canReponseACompleter = `Le carré de $\\sqrt{${b}}+\\sqrt{${a}}$ est égal à : $\\ldots$`
+          this.canEnonce = `Calculer le carré de $\\sqrt{${b}}+\\sqrt{${a}}$.`
+          this.canReponseACompleter = ''
         }
         this.reponse = a + b + 2 * Math.sqrt(a * b)
 
@@ -93,8 +93,8 @@ export default function CalculAvecRacineCarree3 () {
       &=  ${(1 - reduction[0]) ** 2 * reduction[1]}
     \\end{aligned}$ 
   `
-          this.canEnonce = 'Compléter.'
-          this.canReponseACompleter = `Le carré de $\\sqrt{${a}}-\\sqrt{${b}}$ est égal à :  $\\ldots$`
+          this.canEnonce = `Calculer le carré de $\\sqrt{${a}}-\\sqrt{${b}}$.`
+          this.canReponseACompleter = ''
         } else {
           this.question = `Le carré de $\\sqrt{${b}}-\\sqrt{${a}}$ est égal à : `
           this.correction = `On simpifie $\\sqrt{${b}}$ en $${reduction[0]}\\sqrt{${reduction[1]}}$, car
@@ -111,8 +111,8 @@ export default function CalculAvecRacineCarree3 () {
        &=  ${(reduction[0] - 1) ** 2 * reduction[1]}
   \\end{aligned}$ 
 `
-          this.canEnonce = 'Compléter.'
-          this.canReponseACompleter = `Le carré de $\\sqrt{${b}}-\\sqrt{${a}}$ est égal à :  $\\ldots$`
+          this.canEnonce = `Calculer le carré de $\\sqrt{${b}}-\\sqrt{${a}}$.`
+          this.canReponseACompleter = ''
         }
         this.reponse = a + b - 2 * Math.sqrt(a * b)
         break

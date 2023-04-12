@@ -26,14 +26,16 @@ export default function ComprendreScriptListeMultiples () {
   this.nbQuestions = 1
   this.titre = titre
   this.typeExercice = 'Scratch'
-  this.nbCols = 2
+  this.nbCols = 1
   this.nbColsCorr = 1
   this.nbQuestionsModifiable = false
   this.listePackages = 'scratch3'
   this.nouvelleVersion = function () {
     this.introduction = lampeMessage({
-      titre: `${scratchblock('\\begin{scratch}[print,fill,blocks,scale=0.5]\n\\ovaloperator{\\ovalnum{ } modulo \\ovalnum{ }}\\end{scratch}')}`,
-      texte: 'Cette brique donne le reste de la division euclidienne du nombre de gauche par le nombre de droite.',
+      titre: context.isHtml ? `${scratchblock('\\begin{scratch}[print,fill,blocks,scale=0.5]\n\\ovaloperator{\\ovalnum{ } modulo \\ovalnum{ }}\\end{scratch}')}` : 'Information',
+      texte: (context.isHtml
+        ? ''
+        : '$\\setscratch{print}\\ovaloperator{\\ovalnum{ } modulo \\ovalnum{ }}$<br>') + 'Cette brique donne le reste de la division euclidienne du nombre de gauche par le nombre de droite.',
       couleur: 'nombres'
     })
 
@@ -193,7 +195,7 @@ export default function ComprendreScriptListeMultiples () {
           ]
         }
       }
-      texte += enonceAMC + '<br>'
+      texte += '<br>' + enonceAMC + '<br>'
     }
 
     this.listeQuestions.push(texte)

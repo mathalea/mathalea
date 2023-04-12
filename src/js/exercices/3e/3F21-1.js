@@ -12,9 +12,17 @@ export const amcType = 'AMCOpenNum✖︎2'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
+export const dateDeModifImportante = '31/03/2023'
+
 /**
- * Trace 5 droites et demande l'expression de la fonction affine ou linéaire correspondante
+ * Trace jusqu'à 5 droites et demande l'expression de la fonction affine ou linéaire correspondante
  * @author Jean-Claude Lhote
+ * MAJ de Guillaume Valmont le 31/03/2023 :
+ * - Suppression des retours à la ligne en fin de question si non interactif
+ * - Suppression des Math.round inutiles
+ * - Réduction de la plage des pentes possibles dans le cas d'un coefficient directeur 'en quart' pour que les droites passent par un point de coordonnées entières visible
+ * - Factorisation des dimensions de la grille
+ * - Ajout d'un paramètre Mélange
  * Référence : 3F21-1
  */
 export const uuid = 'e5ddd'
@@ -39,7 +47,11 @@ export default function LectureExpressionFonctionsAffines () {
 
   this.nouvelleVersion = function (numeroExercice) {
     let explain = ''
-    let k = Math.pow(2, parseInt(this.sup) - 1)
+    let preK = this.sup
+    if (this.sup === 4) {
+      preK = randint(1, 3)
+    }
+    let k = Math.pow(2, preK - 1)
     let nbDroites = parseInt(this.sup2)
     this.listeQuestions = []
     this.listeCorrections = []
@@ -50,37 +62,44 @@ export default function LectureExpressionFonctionsAffines () {
     const listeDroites = []
     const posLab = []
     const nomDroite = []
-    context.fenetreMathalea2d = [-5.5, -5.5, 5.5, 5.5]
+    const xmin = -5.5; const ymin = -5.5; const xmax = 5.5; const ymax = 5.5
+    context.fenetreMathalea2d = [xmin, ymin, xmax, ymax]
     const pente = []
     let OrdX0
     if (context.isAmc) {
       nbDroites = 1
       k = 1
     }
-    pente.push(randint(Math.round(-3 * k), Math.round(3 * k), 0))
-    pente.push(randint(Math.round(-3 * k), Math.round(3 * k), [pente[0], 0]))
-    pente.push(randint(Math.round(-3 * k), Math.round(3 * k), [pente[0], pente[1], 0]))
-    pente.push(randint(Math.round(-3 * k), Math.round(3 * k), [pente[0], pente[1], pente[2], 0]))
-    pente.push(randint(Math.round(-3 * k), Math.round(3 * k), [pente[0], pente[1], pente[2], pente[3], 0]))
+    let penteMin = -3
+    let penteMax = 3
+    if (this.lineaire && k === 4) {
+      penteMin = -1
+      penteMax = 1
+    }
+    pente.push(randint(penteMin * k, penteMax * k, 0))
+    pente.push(randint(penteMin * k, penteMax * k, [pente[0], 0]))
+    pente.push(randint(penteMin * k, penteMax * k, [pente[0], pente[1], 0]))
+    pente.push(randint(penteMin * k, penteMax * k, [pente[0], pente[1], pente[2], 0]))
+    pente.push(randint(penteMin * k, penteMax * k, [pente[0], pente[1], pente[2], pente[3], 0]))
     const d = []
     for (let i = 0; i < 5; i++) {
       if (this.lineaire) { OrdX0 = 0 } else { OrdX0 = randint(Math.round(-1 + pente[i] / k), Math.round(1 + pente[i] / k), [pente[i], 0]) }
       listeDroites.push([OrdX0, pente[i] / k])
     }
-    const r = repere({ xMin: -6, yMin: -6, xMax: 6, yMax: 6 })
+    const r = repere({ xMin: xmin - 0.5, yMin: ymin - 0.5, xMax: xmax + 0.5, yMax: ymax + 0.5 })
     const objets2d = []
     objets2d.push(r)
     for (let i = 0; i < nbDroites; i++) {
       d[i] = droiteParPointEtPente(point(0, listeDroites[i][0]), listeDroites[i][1], '', colors[i])
-      posLab[i] = positionLabelDroite(d[i], { xmin: -5.5, ymin: -5.5, xmax: 5.5, ymax: 5.5 })
+      posLab[i] = positionLabelDroite(d[i], { xmin, ymin, xmax, ymax })
       posLab[i].positionLabel = 'center'
       nomDroite[i] = latexParPoint(`(d_${i + 1})`, posLab[i], colors[i], 20, 10, '', 6)
       objets2d.push(d[i], nomDroite[i])
     }
 
-    this.introduction = mathalea2d({ xmin: -5.5, ymin: -5.5, xmax: 5.5, ymax: 5.5, pixelsParCm: 30, scale: 0.75 }, objets2d)
+    this.introduction = mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, scale: 0.75 }, objets2d)
     for (let i = 0; i < nbDroites; i++) {
-      this.listeQuestions.push(`Déterminer l'expression de la fonction $f_${i + 1}$ représentée par la droite $(d_${i + 1})$.<br>` + ajouteChampTexteMathLive(this, i, 'inline largeur 50', { texte: `$f_${i + 1}(x)=$` }))
+      this.listeQuestions.push(`Déterminer l'expression de la fonction $f_${i + 1}$ représentée par la droite $(d_${i + 1})$.${this.interactif ? '<br>' : ''}` + ajouteChampTexteMathLive(this, i, 'inline largeur 50', { texte: `$f_${i + 1}(x)=$` }))
       if (this.lineaire || listeDroites[i][0] === 0) {
         explain += `La droite $(d_${i + 1})$ passe par l'origine. Elle représente donc la fonction linéaire $f_${i + 1}(x)=ax$ dont il faut déterminer le coefficient a.<br>$(d_${i + 1})$ passe par le point de coordonnées $(1;${texNombre(listeDroites[i][1])})$ donc $f_${i + 1}(1)=${texNombre(listeDroites[i][1])}$ c'est-à-dire $a\\times 1=${texNombre(listeDroites[i][1])}$ donc $a=${texNombre(listeDroites[i][1])}\\div 1$ d'où $a=${texNombre(listeDroites[i][1])}$. Ainsi $f_${i + 1}(x)=${reduireAxPlusB(listeDroites[i][1], 0)}$.`
         this.listeCorrections.push(`La droite $(d_${i + 1})$ passe par l'origine. Elle représente donc la fonction linéaire $f_${i + 1}(x)=ax$ dont il faut déterminer le coefficient a.<br>$(d_${i + 1})$ passe par le point de coordonnées $(1;${texNombre(listeDroites[i][1])})$ donc $f_${i + 1}(1)=${texNombre(listeDroites[i][1])}$ c'est-à-dire $a\\times 1=${texNombre(listeDroites[i][1])}$ donc $a=${texNombre(listeDroites[i][1])}\\div 1$ d'où $a=${texNombre(listeDroites[i][1])}$. Ainsi $f_${i + 1}(x)=${reduireAxPlusB(listeDroites[i][1], 0)}$.`)
@@ -101,13 +120,13 @@ export default function LectureExpressionFonctionsAffines () {
     }
     if (context.isAmc) {
       this.autoCorrection[0] = {
-        enonce: "Déterminer l'expression  de la fonction représentée ci-dessous : <br>" + mathalea2d({ xmin: -5.5, ymin: -5.5, xmax: 5.5, ymax: 5.5, pixelsParCm: 30, scale: 0.5 }, objets2d) + '<br>',
+        enonce: "Déterminer l'expression  de la fonction représentée ci-dessous : <br>" + mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, scale: 0.5 }, objets2d) + '<br>',
         propositions: [{ texte: explain, statut: 2 }],
         reponse: { texte: 'coefficient', valeur: pente[0], param: { digits: 1, decimals: 0, signe: true, exposantNbChiffres: 0, exposantSigne: false, approx: 0 } },
         reponse2: { texte: "ordonnée \\\\\nà l'origine", valeur: listeDroites[0][0], param: { digits: 1, decimals: 0, signe: true, exposantNbChiffres: 0, exposantSigne: false, approx: 0 } }
       }
     }
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, "1 : Coefficient directeur entier\n2 : Coefficient directeur 'en demis'\n3 : Coefficient directeur 'en quarts'"]
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, "1 : Coefficient directeur entier\n2 : Coefficient directeur 'en demis'\n3 : Coefficient directeur 'en quarts'\n4 : Mélange"]
   this.besoinFormulaire2Numerique = ['Nombre de droites (1 à 5)', 5]
 }

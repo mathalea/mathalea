@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, lampeMessage, texteEnCouleur, texteEnCouleurEtGras, calcul, texPrix, prenomF, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, lampeMessage, texteEnCouleur, texteEnCouleurEtGras, calcul, texPrix, prenomF, sp, miseEnEvidence } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -89,20 +89,20 @@ export default function ProblemesDePlusEtDeMoins () {
 
           texte = `${prenom2} dit à ${prenom1}  : «${sp()}J'ai $${texPrix(r)}$ €, soit $${texPrix(e)}$ € de plus que toi.${sp()}»<br>`
           if (this.interactif && !context.isAmc) {
-            texte += 'Combien d\'argent en tout possèdent les deux filles ?'
-            texte += '<br>Les deux filles possèdent en tout : '
-            texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline') + '   €.'
+            texte += 'Combien d\'argent,  en tout, possèdent les deux filles ?'
+            texte += '<br>Les deux filles possèdent,  en tout, '
+            texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline nospacebefore', { texteApres: ' €' })
             setReponse(this, i, somme)
           } else {
-            texte += 'Combien d\'argent en euros possèdent en tout les deux filles ?<br>'
+            texte += 'Combien d\'argent en euros possèdent,  en tout, les deux filles ?<br>'
           }
-          texteCorr = `D'après l'énoncé, ${prenom2} a $${texPrix(r)}$ €<br>${prenom2}  a $${texPrix(e)}$ €.`
+          texteCorr = `D'après l'énoncé, ${prenom2} a $${texPrix(r)}$ €.<br>${prenom2}  a $${texPrix(e)}$ €`
           texteCorr += texteEnCouleurEtGras(' de plus ')
           texteCorr += `que ${prenom1} signifie que ${prenom1} a $${texPrix(e)}$ € `
           texteCorr += texteEnCouleurEtGras(' de moins ')
-          texteCorr += `que ${prenom2}. <br>${prenom1} a donc : $${texPrix(r)}$ € - $${texPrix(e)}$ € = $${texPrix(m)}$ €`
-          texteCorr += `<br>$${texPrix(r)}$ € + $${texPrix(m)}$ € = $${texPrix(somme)}$ €. `
-          texteCorr += texteEnCouleur(`<br>Les deux filles possèdent en tout $${texPrix(somme)}$ €.`)
+          texteCorr += `que ${prenom2}. <br>${prenom1} a donc : $${texPrix(r)}$ € - $${texPrix(e)}$ € = $${texPrix(m)}$ €.`
+          texteCorr += `<br>$${texPrix(r)}$ € + $${texPrix(m)}$ € = $${texPrix(somme)}$ € `
+          texteCorr += texteEnCouleur(`<br>Les deux filles possèdent,  en tout, $${miseEnEvidence(texPrix(somme))}$ €.`)
 
           break
         case 'demoins':
@@ -111,19 +111,19 @@ export default function ProblemesDePlusEtDeMoins () {
 
           texte = `${prenom2} dit à ${prenom1} : «${sp()}J'ai $${texPrix(r)}$ €, soit $${texPrix(e)}$ € de moins que toi.${sp()}»<br>`
           if (this.interactif && !context.isAmc) {
-            texte += 'Combien d\'argent en tout possèdent les deux filles ?<br>Les deux filles possèdent en tout :'
-            texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline') + '   €.'
+            texte += 'Combien d\'argent,  en tout, possèdent les deux filles ?<br>Les deux filles possèdent,  en tout, :'
+            texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline nospacebefore', { texteApres: ' €' })
             setReponse(this, i, somme)
           } else {
-            texte += 'Combien d\'argent en euros possèdent en tout les deux filles ?<br>'
+            texte += 'Combien d\'argent en euros possèdent,  en tout, les deux filles ?<br>'
           }
-          texteCorr = `D'après l'énoncé, ${prenom2} a $${texPrix(r)}$ €<br>${prenom2}  a $${texPrix(e)}$ €.`
+          texteCorr = `D'après l'énoncé, ${prenom2} a $${texPrix(r)}$ €.<br>${prenom2}  a $${texPrix(e)}$ €`
           texteCorr += texteEnCouleurEtGras(' de moins ')
           texteCorr += `que ${prenom1} signifie que ${prenom1} a $${texPrix(e)}$ € `
           texteCorr += texteEnCouleurEtGras(' de plus ')
-          texteCorr += `que ${prenom2}. <br>${prenom1} a donc : $${texPrix(r)}$ € + $${texPrix(e)}$ € = $${texPrix(m)}$ €`
-          texteCorr += `<br>$${texPrix(r)}$ € + $${texPrix(m)}$ € = $${texPrix(somme)}$ €. `
-          texteCorr += texteEnCouleur(`<br>Les deux filles possèdent en tout $${texPrix(somme)}$ €.`)
+          texteCorr += `que ${prenom2}. <br>${prenom1} a donc : $${texPrix(r)}$ € + $${texPrix(e)}$ € = $${texPrix(m)}$ €.`
+          texteCorr += `<br>$${texPrix(r)}$ € + $${texPrix(m)}$ € = $${texPrix(somme)}$ € `
+          texteCorr += texteEnCouleur(`<br>Les deux filles possèdent,  en tout, $${miseEnEvidence(texPrix(somme))}$ €.`)
 
           break
       }

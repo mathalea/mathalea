@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureA
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
-export const titre = 'Résoudre une equation du premier degré (utilisant la distributivité)'
+export const titre = 'Résoudre une équation du premier degré (utilisant la distributivité)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = false // AMC : pour l'instant on ne peut pas tester une réponse parfois décimale parfois fractionnaire
@@ -23,7 +23,7 @@ export const uuid = '1802d'
 export const ref = '3L13-1'
 export default function ExerciceEquation1Tiret2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
+  this.comment = 'Les équations sont de la forme :<br>$ax+b=cx+d$<br>$k(ax+b)=cx+d$<br>$k-(ax+b)=cx+d$<br>avec des nombres à un chiffre.'
   this.spacing = 2
   this.interactifType = 'mathLive'
   context.isHtml ? this.spacingCorr = 3 : this.spacingCorr = 2

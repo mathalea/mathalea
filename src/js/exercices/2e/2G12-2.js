@@ -154,5 +154,5 @@ export default function Milieu () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Application directe 2 : Application indirecte.']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Application directe \n2 : Application indirecte.']
 }

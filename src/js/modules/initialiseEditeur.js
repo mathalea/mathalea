@@ -26,6 +26,7 @@ function carreIndirect (A, B, color) {
  */
 export default function InitialiseEditeur () {
   context.objets2D = [] // Initialise la liste qui se met à jour à chaque création d'objet 2D
+  context.isInEditor = true
   window.randint = randint
   window.texNombre = texNombre
   window.nombreDecimal = nombreDecimal

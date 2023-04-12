@@ -55,7 +55,8 @@ export default function AireDeTriangles () {
     let triH; const A = point(0, 0); let B; let C; let H; let triangle; let polynom; let hauteurpoly; let d
     const objetsEnonce = []; const objetsCorrection = []; let xmin; let xmax; let ymin; let ymax
 
-    const nom = creerNomDePolygone(20, 'QD')
+    const NB_LETTRES = 20
+    const nom = creerNomDePolygone(NB_LETTRES, 'QD')
 
     const typeQuestionsDisponibles = ['intérieur', 'extérieur']
 
@@ -63,19 +64,19 @@ export default function AireDeTriangles () {
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       objetsEnonce.length = 0
       objetsCorrection.length = 0
-      A.nom = nom[i * 4]
-      B = rotation(point(cotes[i], 0), A, randint(-60, 60), nom[i * 4 + 1])
+      A.nom = nom[(i * 4) % NB_LETTRES]
+      B = rotation(point(cotes[i], 0), A, randint(-60, 60), nom[(i * 4 + 1) % NB_LETTRES])
       if (listeTypeQuestions[i] === 'extérieur') {
         d = longueur(A, B) + randint(6, 9) / 3
       } else {
-        d = calcul(randint(6, longueur(A, B) * 10 - 6) / 10)
+        d = calcul(randint(6, Math.round(longueur(A, B) * 10 - 6)) / 10)
       }
       triH = triangle2points1hauteur(A, B, hauteurs[i], d, 2)
       H = triH.pied
-      H.nom = nom[i * 4 + 3]
+      H.nom = nom[(i * 4 + 3) % NB_LETTRES]
       triangle = triH.triangle
       C = triangle.listePoints[2]
-      C.nom = nom[i * 4 + 2]
+      C.nom = nom[(i * 4 + 2) % NB_LETTRES]
       polynom = polygoneAvecNom(A, H, B, C)
       hauteurpoly = segment(C, H)
       hauteurpoly.pointilles = 2

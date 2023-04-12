@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, lettreDepuisChiffre, numAlpha, combinaisonListes, shuffle } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, lettreDepuisChiffre, numAlpha, combinaisonListes, shuffle, contraindreValeur } from '../../modules/outils.js'
 import { point, tracePoint, rotation, labelPoint, homothetie, droite, grille, seyes, angle, codageSegment, codageAngleDroit, pointIntersectionDD, droiteParPointEtPerpendiculaire, pointSurDroite, milieu } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 export const titre = 'Tracer des perpendiculaires'
@@ -50,6 +50,8 @@ export default class constructionPerpendiculaires extends Exercice {
     let listeTypeDeQuestions = []
     if (!this.sup2) { // Si aucune liste n'est saisie ou mélange demandé
       listeTypeDeQuestions = combinaisonListes([1, 2, 3, 4], this.nbQuestions)
+    } else if (typeof (this.sup2) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
+      listeTypeDeQuestions[0] = contraindreValeur(1, 4, this.sup2, 1)
     } else {
       const quests = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
       for (let i = 0; i < quests.length; i++) {

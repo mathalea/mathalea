@@ -1,5 +1,4 @@
-
-import { context } from './context.js'
+import {context} from './context.js'
 
 /*
   MathALEA2D
@@ -22,7 +21,7 @@ let numId = 0 // Créer un identifiant numérique unique par objet SVG
  *
  * @author Rémi Angot
  */
-export function ObjetMathalea2D ({ classe = true } = {}) {
+export function ObjetMathalea2D({classe = true} = {}) {
   this.positionLabel = 'above'
   this.isVisible = true
   this.color = colorToLatexOrHTML('black')
@@ -33,7 +32,7 @@ export function ObjetMathalea2D ({ classe = true } = {}) {
   this.pointilles = ''
   this.id = numId
   numId++
-  if (classe) context.objets2D.push(this)
+  if (classe && context.isInEditor) context.objets2D.push(this)
 }
 
 /**
@@ -48,15 +47,28 @@ export function ObjetMathalea2D ({ classe = true } = {}) {
  * de cette manière d'autres options Tikz pourront aussi être ajoutées
  * si il n'y a qu'une optionsTikz on peut passer un string
  */
-export function mathalea2d (
-  { xmin = 0, ymin = 0, xmax = 15, ymax = 6, pixelsParCm = 20, scale = 1, zoom = 1, optionsTikz, mainlevee = false, amplitude = 1, style = 'display: block', id = '' } = {},
+export function mathalea2d(
+  {
+    xmin = 0,
+    ymin = 0,
+    xmax = 15,
+    ymax = 6,
+    pixelsParCm = 20,
+    scale = 1,
+    zoom = 1,
+    optionsTikz,
+    mainlevee = false,
+    amplitude = 1,
+    style = 'display: block',
+    id = ''
+  } = {},
   ...objets
 ) {
   let code = ''
   if (context.isHtml) {
     code = `<svg class="mathalea2d" id="${id}" width="${(xmax - xmin) * pixelsParCm * zoom}" height="${(ymax - ymin) * pixelsParCm * zoom
-      }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${(xmax - xmin) * pixelsParCm
-      } ${(ymax - ymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg" ${style ? `style="${style}"` : ''}>\n`
+    }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${(xmax - xmin) * pixelsParCm
+    } ${(ymax - ymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg" ${style ? `style="${style}"` : ''}>\n`
     for (const objet of objets) {
       if (Array.isArray(objet)) {
         for (let i = 0; i < objet.length; i++) {
@@ -65,26 +77,36 @@ export function mathalea2d (
               try {
                 if (objet[i][j].isVisible) {
                   if ((!mainlevee) || typeof (objet[i][j].svgml) === 'undefined') code += '\t' + objet[i][j].svg(pixelsParCm) + '\n'
-                  else { code += '\t' + objet[i][j].svgml(pixelsParCm, amplitude) + '\n' }
+                  else {
+                    code += '\t' + objet[i][j].svgml(pixelsParCm, amplitude) + '\n'
+                  }
                 }
-              } catch (error) { }
+              } catch (error) {
+              }
             }
           } else {
             try {
               if (objet[i].isVisible) {
                 if ((!mainlevee) || typeof (objet[i].svgml) === 'undefined') code += '\t' + objet[i].svg(pixelsParCm) + '\n'
-                else { code += '\t' + objet[i].svgml(pixelsParCm, amplitude) + '\n' }
+                else {
+                  code += '\t' + objet[i].svgml(pixelsParCm, amplitude) + '\n'
+                }
               }
-            } catch (error) { }// console.log('premiere boucle', error.message, objet[i], i) }
+            } catch (error) {
+            }// console.log('premiere boucle', error.message, objet[i], i) }
           }
         }
       } else {
         try {
           if (objet.isVisible) {
             if ((!mainlevee) || typeof (objet.svgml) === 'undefined') code += '\t' + objet.svg(pixelsParCm) + '\n'
-            else { code += '\t' + objet.svgml(pixelsParCm, amplitude) + '\n' }
+            else {
+              code += '\t' + objet.svgml(pixelsParCm, amplitude) + '\n'
+            }
           }
-        } catch (error) { console.log('le try tout seul', error.message, objet) }
+        } catch (error) {
+          console.log('le try tout seul', error.message, objet)
+        }
       }
     }
     code += '\n</svg>'
@@ -101,7 +123,8 @@ export function mathalea2d (
         listeOptionsTikz.push(optionsTikz)
       } else {
         optionsTikz.forEach(e => listeOptionsTikz.push(e))
-      };
+      }
+      
     }
     if (scale === 1) {
       code = '\\begin{tikzpicture}[baseline'
@@ -117,7 +140,7 @@ export function mathalea2d (
       code += `,scale = ${scale}`
       code += ']\n'
     }
-
+    
     code += `
     \\tikzset{
       point/.style={
@@ -142,7 +165,8 @@ export function mathalea2d (
               if (!mainlevee || typeof (objet[i].tikzml) === 'undefined') code += '\t' + objet[i].tikz(scale) + '\n'
               else code += '\t' + objet[i].tikzml(amplitude, scale) + '\n'
             }
-          } catch (error) { }
+          } catch (error) {
+          }
         }
       }
       try {
@@ -150,7 +174,8 @@ export function mathalea2d (
           if (!mainlevee || typeof (objet.tikzml) === 'undefined') code += '\t' + objet.tikz(scale) + '\n'
           else code += '\t' + objet.tikzml(amplitude, scale) + '\n'
         }
-      } catch (error) { }
+      } catch (error) {
+      }
     }
     code += '\n\\end{tikzpicture}'
   }
@@ -158,7 +183,7 @@ export function mathalea2d (
 }
 
 class Vide2d {
-  constructor (x, y) {
+  constructor(x, y) {
     this.bordures = [x, y, x, y]
     this.tikz = function () {
       return ''
@@ -168,7 +193,8 @@ class Vide2d {
     }
   }
 }
-export function vide2d (x = 0, y = 0) {
+
+export function vide2d(x = 0, y = 0) {
   return new Vide2d(x, y)
 }
 
@@ -206,7 +232,7 @@ export function fondEcran (url, x = 0, y = 0, largeur = context.fenetreMathalea2
  * @return {number[]}
  */
 // JSDOC Validee par EE Juin 2022
-function convertHexToRGB (couleur = '000000') {
+function convertHexToRGB(couleur = '000000') {
   const hexDecoupe = couleur.match(/.{1,2}/g)
   const hexToRGB = [
     parseInt(hexDecoupe[0], 16),
@@ -217,20 +243,20 @@ function convertHexToRGB (couleur = '000000') {
 }
 
 /**
-   * colorToLatexOrHTML prend en paramètre une couleur sous forme prédéfinie ('red','yellow',...) ou sous forme HTML en hexadécimal (avec #, genre '#f15929')
-   * La sortie de cette fonction est un tableau où :
-   * - le premier élément est cette couleur exploitable en SVG, donc en HTML.
-   * - le second élément est cette couleur exploitable en TikZ, donc en Latex.
-   * @param {string} couleur Une couleur du type 'blue' ou du type '#f15929'
-   * @example colorToLatexOrHTML('red')=['red','{red}']
-   * @example colorToLatexOrHTML('#f15929')=['#f15929','{rgb,255:red,241;green,89;blue,41}']
-   * @example colorToLatexOrHTML('')=''
-   * @example colorToLatexOrHTML('none')=['none','none']
-   * @author Eric Elter
-   * @return {string[]}
-   */
+ * colorToLatexOrHTML prend en paramètre une couleur sous forme prédéfinie ('red','yellow',...) ou sous forme HTML en hexadécimal (avec #, genre '#f15929')
+ * La sortie de cette fonction est un tableau où :
+ * - le premier élément est cette couleur exploitable en SVG, donc en HTML.
+ * - le second élément est cette couleur exploitable en TikZ, donc en Latex.
+ * @param {string} couleur Une couleur du type 'blue' ou du type '#f15929'
+ * @example colorToLatexOrHTML('red')=['red','{red}']
+ * @example colorToLatexOrHTML('#f15929')=['#f15929','{rgb,255:red,241;green,89;blue,41}']
+ * @example colorToLatexOrHTML('')=''
+ * @example colorToLatexOrHTML('none')=['none','none']
+ * @author Eric Elter
+ * @return {string[]}
+ */
 // JSDOC Validee par EE Juin 2022
-export function colorToLatexOrHTML (couleur) {
+export function colorToLatexOrHTML(couleur) {
   const tabCouleur = []
   let rgb = []
   if (Array.isArray(couleur)) return couleur // Si jamais une fonction rappelle une couleur qui aurait déjà été transformée par cette même fonction
@@ -249,14 +275,14 @@ export function colorToLatexOrHTML (couleur) {
 }
 
 /**
-   * Convertit un code couleur en sa valeur hexadecimale
-   * @param {string} color Une couleur du type 'blue' et uniquement de ce type
-   * @example convertCodeCouleurToHex('beige')='#f5f5dc'
-   * @author Eric Elter
-   * @return {boolean||string} Retourne false si le code couleur ne peut pas être converti car non trouvé dans la liste
-   */
+ * Convertit un code couleur en sa valeur hexadecimale
+ * @param {string} color Une couleur du type 'blue' et uniquement de ce type
+ * @example convertCodeCouleurToHex('beige')='#f5f5dc'
+ * @author Eric Elter
+ * @return {boolean||string} Retourne false si le code couleur ne peut pas être converti car non trouvé dans la liste
+ */
 // JSDOC Validee par EE Novembre 2022
-export function convertCodeCouleurToHex (color) {
+export function convertCodeCouleurToHex(color) {
   const colours = {
     aliceblue: '#f0f8ff',
     antiquewhite: '#faebd7',
@@ -401,21 +427,23 @@ export function convertCodeCouleurToHex (color) {
     yellow: '#ffff00',
     yellowgreen: '#9acd32'
   }
-  if (typeof colours[color.toLowerCase()] !== 'undefined') { return colours[color.toLowerCase()] }
+  if (typeof colours[color.toLowerCase()] !== 'undefined') {
+    return colours[color.toLowerCase()]
+  }
   return false
 }
 
 /**
-   * Assombrit ou éclaircit une couleur
-   * @param {string} couleur Une couleur du type 'blue' ou du type '#f15929'
-   * @param {number} coefficient Plus grand est un coefficient positif et plus on éclaircit. Plus petit est un coefficient négatif et plus on assombrit.
-   * @example assombrirOuEclaircir('beige',20) renvoie une couleur beige plus claire.
-   * @example assombrirOuEclaircir('f15929',-30) renvoie une couleur orange plus foncée.
-   * @author Eric Elter
-   * @return {string} Retourne le code hexadecimal de la nouvelle couleur
-   */
+ * Assombrit ou éclaircit une couleur
+ * @param {string} couleur Une couleur du type 'blue' ou du type '#f15929'
+ * @param {number} coefficient Plus grand est un coefficient positif et plus on éclaircit. Plus petit est un coefficient négatif et plus on assombrit.
+ * @example assombrirOuEclaircir('beige',20) renvoie une couleur beige plus claire.
+ * @example assombrirOuEclaircir('f15929',-30) renvoie une couleur orange plus foncée.
+ * @author Eric Elter
+ * @return {string} Retourne le code hexadecimal de la nouvelle couleur
+ */
 // JSDOC Validee par EE Novembre 2022
-export function assombrirOuEclaircir (couleur, coefficient) {
+export function assombrirOuEclaircir(couleur, coefficient) {
   const convertCodeCouleur = convertCodeCouleurToHex(couleur)
   if (convertCodeCouleur !== false) couleur = convertCodeCouleur
   couleur = couleur.replace('#', '')
@@ -449,13 +477,13 @@ export function assombrirOuEclaircir (couleur, coefficient) {
  * @private
  */
 // JSDOC Validee par EE Juin 2022
-export function codeSvg (fenetreMathalea2d, pixelsParCm, mainlevee, ...objets) {
+export function codeSvg(fenetreMathalea2d, pixelsParCm, mainlevee, ...objets) {
   let code = ''
   const fenetrexmin = fenetreMathalea2d[0]
   const fenetreymin = fenetreMathalea2d[3] * -(1)
   const fenetrexmax = fenetreMathalea2d[2]
   const fenetreymax = fenetreMathalea2d[1] * (-1)
-
+  
   code = `<svg width="${(fenetrexmax - fenetrexmin) * pixelsParCm}" height="${(fenetreymax - fenetreymin) * pixelsParCm}" viewBox="${fenetrexmin * pixelsParCm} ${fenetreymin * pixelsParCm} ${(fenetrexmax - fenetrexmin) * pixelsParCm} ${(fenetreymax - fenetreymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg">\n`
   for (const objet of objets) {
     if (Array.isArray(objet)) {
@@ -467,7 +495,8 @@ export function codeSvg (fenetreMathalea2d, pixelsParCm, mainlevee, ...objets) {
               code += '\t' + objet[i].svgml(pixelsParCm, context.amplitude) + '\n'
             }
           }
-        } catch (error) { }
+        } catch (error) {
+        }
       }
     }
     try {
@@ -475,7 +504,8 @@ export function codeSvg (fenetreMathalea2d, pixelsParCm, mainlevee, ...objets) {
         if (!mainlevee || typeof (objet.svgml) === 'undefined') code += '\t' + objet.svg(pixelsParCm) + '\n'
         else code += '\t' + objet.svgml(pixelsParCm, context.amplitude) + '\n'
       }
-    } catch (error) { }
+    } catch (error) {
+    }
   }
   code += '</svg>'
   return code
@@ -488,7 +518,7 @@ export function codeSvg (fenetreMathalea2d, pixelsParCm, mainlevee, ...objets) {
  * @private
  */
 // JSDOC Validee par EE Juin 2022
-export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
+export function codeTikz(fenetreMathalea2d, scale, mainlevee, ...objets) {
   let code = ''
   const fenetrexmin = fenetreMathalea2d[0]
   const fenetreymin = fenetreMathalea2d[3] * -(1)
@@ -515,7 +545,7 @@ export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
   \\clip (${fenetrexmin},${fenetreymin}) rectangle (${fenetrexmax},${fenetreymax});
 
   \n\n`
-
+  
   for (const objet of objets) {
     if (Array.isArray(objet)) {
       for (let i = 0; i < objet.length; i++) {
@@ -524,7 +554,8 @@ export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
             if (!mainlevee || typeof (objet[i].tikzml) === 'undefined') code += '\t' + objet[i].tikz(scale) + '\n'
             else code += '\t' + objet[i].tikzml(context.amplitude) + '\n'
           }
-        } catch (error) { }
+        } catch (error) {
+        }
       }
     }
     try {
@@ -532,7 +563,8 @@ export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
         if (!mainlevee || typeof (objet.tikzml) === 'undefined') code += '\t' + objet.tikz(scale) + '\n'
         else code += '\t' + objet.tikzml(context.amplitude) + '\n'
       }
-    } catch (error) { }
+    } catch (error) {
+    }
   }
   code += '\\end{tikzpicture}\n'
   // eslint-disable-next-line no-global-assign
@@ -552,8 +584,17 @@ export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
  * Si aucun objet passé en argument n'a de "bordures" alors la fonction retourne une zone inaffichable et un message d'erreur est créé
  * @return {object} {xmin, ymin, xmax, ymax}
  */
-export function fixeBordures (objets, { rxmin = undefined, rymin = undefined, rxmax = undefined, rymax = undefined, rzoom = 1 } = {}) {
-  let xmin = 1000; let ymin = 1000; let xmax = -1000; let ymax = -1000
+export function fixeBordures(objets, {
+  rxmin = undefined,
+  rymin = undefined,
+  rxmax = undefined,
+  rymax = undefined,
+  rzoom = 1
+} = {}) {
+  let xmin = 1000;
+  let ymin = 1000;
+  let xmax = -1000;
+  let ymax = -1000
   let bordures = false
   rxmin = rxmin !== undefined ? rxmin : -0.5
   rymin = rymin !== undefined ? rymin : -0.5
@@ -568,6 +609,11 @@ export function fixeBordures (objets, { rxmin = undefined, rymin = undefined, rx
       bordures = true
     }
   }
-  if (!bordures) window.notify('fixeBordures : aucun objet ne définit de bordures valides', { ...objets })
-  return { xmin: xmin + rxmin * rzoom, xmax: xmax + rxmax * rzoom, ymin: ymin + rymin * rzoom, ymax: ymax + rymax * rzoom }
+  if (!bordures) window.notify('fixeBordures : aucun objet ne définit de bordures valides', {...objets})
+  return {
+    xmin: xmin + rxmin * rzoom,
+    xmax: xmax + rxmax * rzoom,
+    ymin: ymin + rymin * rzoom,
+    ymax: ymax + rymax * rzoom
+  }
 }

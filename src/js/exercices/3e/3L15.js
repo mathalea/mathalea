@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, ecritureAlgebriqueSauf1, ecritureAlgebrique, rienSi1, texFraction, texFractionReduite, randint, pgcd, choice } from '../../modules/outils.js'
-export const titre = 'Résoudre une equation du second degré se ramenant au premier degré'
+export const titre = 'Résoudre une équation du second degré se ramenant au premier degré'
 
 /**
  *

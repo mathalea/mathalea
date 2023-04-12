@@ -110,12 +110,12 @@ export default function CalculsDeDerives () {
           break
         case 'racine(x)':
           expression = 'sqrt(x)'
-          ensembleDerivation = '[0,+\\infty['
+          ensembleDerivation = ']0,+\\infty['
           break
         case 'racine(ax)':
           a = randint(2, 10, [4, 9])
           expression = `sqrt(${rienSi1(a)}x)`
-          ensembleDerivation = '[0,+\\infty['
+          ensembleDerivation = ']0,+\\infty['
           break
       }
 
