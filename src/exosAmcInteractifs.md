@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 562 
-- nombre d'exos interactifReady 855 
+- nombre d'exos amcReady 569 
+- nombre d'exos interactifReady 863 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -105,8 +105,9 @@
 |3G22-1|Agrandissement et réduction|KO|KO|OK|mathLive|
 |3G23|Reconnaître des triangles égaux dans différentes configurations|KO|KO|OK|qcm|
 |3G30-1|Exprimer le cosinus, le sinus ou la tangente d'un angle en fonction des côtés du triangle|OK|AMCHybride|OK|mathLive|
-|3G30|Calculer une longueur dans un triangle rectangle en utilisant la trigonométrie|OK|AMCOpenNum|OK|mathLive|
-|3G31|Calculer un angle dans un triangle rectangle en utilisant la trigonométrie|OK|AMCOpenNum|OK|mathLive|
+|3G30|Calculer une longueur dans un triangle rectangle en utilisant la trigonométrie|OK|AMCHybride|OK|mathLive|
+|3G31-1|Calculer toutes les mesures d'angle d'une figure complexe|OK|AMCHybride|OK|mathLive|
+|3G31|Calculer un angle dans un triangle rectangle en utilisant la trigonométrie|OK|AMCHybride|OK|mathLive|
 |3G32-0|Problèmes nécessitant un calcul de longueur à l'aide de la trigonométrie|OK|AMCHybride|OK|mathLive|
 |3G32-1|Calcul d'un parallèle terrestre|OK|AMCHybride|OK|mathLive|
 |3G32-2|Calculer la hauteur d'un objet vu sous un angle donné|OK|AMCHybride|OK|mathLive|
@@ -139,18 +140,18 @@
 |3L11|Utiliser la simple distributivité|OK|AMCHybride|OK|mathLive|
 |3L12-1|Développer (a-b)(a+b)|OK|AMCHybride|OK|mathLive|
 |3L12|Factoriser a²-b²|KO|KO|OK|mathLive|
-|3L13-0|Résoudre une equation du premier degré à solutions entières|OK|AMCNum|OK|mathLive|
-|3L13-1|Résoudre une equation du premier degré (utilisant la distributivité)|KO|KO|OK|mathLive|
-|3L13-2|Résoudre une equation résolvante pour le théorème de Thalès|OK|AMCNum|OK|mathLive|
+|3L13-0|Résoudre une équation du premier degré à solutions entières|OK|AMCNum|OK|mathLive|
+|3L13-1|Résoudre une équation du premier degré (utilisant la distributivité)|KO|KO|OK|mathLive|
+|3L13-2|Résoudre une équation résolvante pour le théorème de Thalès|OK|AMCNum|OK|mathLive|
 |3L13-3|Mettre en équation un problème et le résoudre|OK|AMCNum|OK|mathLive|
-|3L13|Résoudre une equation du premier degré|OK|AMCHybride|OK|mathLive|
+|3L13|Résoudre une équation du premier degré|OK|AMCHybride|OK|mathLive|
 |3L14-1|Résoudre une équation produit nul (niveau 2)|OK|AMCHybride|OK|mathLive|
 |3L14|Résoudre une équation produit nul|OK|AMCHybride|OK|mathLive|
 |3L15-1|Résoudre une équation $x^2 = a$|KO|KO|OK|mathLive|
 |3P10-1|Coefficient multiplicateur d'une variation en pourcentage|KO|KO|OK|mathLive|
 |3P10|Variations en pourcentage|KO|KO|OK|mathLive|
-|3S12|Calculer des effectifs et des fréquences|KO|KO|OK|mathLive|
-|3S14|Calculer des caractéristiques d'une série|KO|KO|OK|mathLive|
+|3S12|Calculer des effectifs et des fréquences|OK|AMCHybride|OK|mathLive|
+|3S14|Calculer des caractéristiques d'une série|OK|AMCHybride|OK|mathLive|
 |3S15|Calculer des étendues|KO|KO|OK|mathLive|
 |3S21|Expérience aléatoire à deux épreuves|KO|KO|OK|mathLive|
 |4A10|Nombre premier ou pas|OK|qcmMono|OK|qcm|
@@ -213,8 +214,8 @@
 |4G21|Déterminer si un triangle est rectangle ou pas|OK|AMCHybride|OK|qcm|
 |4G30|Calculer des longueurs avec le théorème de Thalès|OK|AMCOpenNum✖︎2|OK|mathLive|
 |4G31|Contrôler si deux droites sont parallèles|OK|AMCHybride|OK|mathLive|
-|4G40|Utiliser le cosinus pour calculer une longueur dans un triangle rectangle|OK|AMCOpenNum|OK|mathLive|
-|4G41|Utiliser le cosinus pour calculer la mesure d'un angle dans un triangle rectangle|OK|AMCOpenNum|OK|mathLive|
+|4G40|Utiliser le cosinus pour calculer une longueur dans un triangle rectangle|OK|AMCHybride|OK|mathLive|
+|4G41|Utiliser le cosinus pour calculer la mesure d'un angle dans un triangle rectangle|OK|AMCHybride|OK|mathLive|
 |4G53|Calculs de volumes|OK|AMCHybride|OK|qcm,mathLive|
 |4I1-2|Tortue Scratch avec répétitions|OK|qcmMono|OK|cliqueFigure|
 |4L10-1|Réduire, si possible, une expression littérale simple|KO|KO|OK|mathLive|
@@ -223,8 +224,8 @@
 |4L11|Factoriser une expression littérale|OK|AMCOpen|OK|mathLive|
 |4L13-2|Mettre un problème en équation et le résoudre|OK|AMCNum|OK|mathLive|
 |4L15-1|Équations du type $\dfrac{x}{a}=\dfrac{b}{c}$|KO|KO|OK|mathLive|
-|4L20-0|Résoudre une equation du premier degré à solutions entières|OK|AMCNum|OK|mathLive|
-|4L20|Résoudre une equation du premier degré|OK|AMCHybride|OK|mathLive|
+|4L20-0|Résoudre une équation du premier degré à solutions entières|OK|AMCNum|OK|mathLive|
+|4L20|Résoudre une équation du premier degré|OK|AMCHybride|OK|mathLive|
 |4P10-2|Déterminer une quatrième proportionnelle dans un tableau|KO|KO|OK|mathLive|
 |4P16|Convertir des grandeurs composées|KO|KO|OK|mathLive|
 |4S11|Déterminer des médianes|OK|AMCNum|OK|mathLive|
@@ -262,6 +263,9 @@
 |5N20|Additionner ou soustraire deux fractions (dénominateurs multiples)|OK|qcmMono|OK|mathLive|
 |5P11-1|Problème de vitesse|KO|KO|OK|mathLive|
 |5P13|Utiliser ou trouver des échelles d'un plan|KO|KO|OK|mathLive|
+|5P14-1|Appliquer un pourcentage|OK|AMCNum|OK|mathLive|
+|5P14-2|Appliquer un pourcentage (calculs simples)|KO|KO|OK|mathLive|
+|5P14|Exprimer une proportion sous la forme d'un pourcentage|OK|AMCNum|OK|mathLive|
 |5R10|Trouver le terme manquant d'une somme de nombres relatifs|OK|AMCNum|OK|mathLive|
 |5R11-2|Placer un point d'abscisse un nombre relatif|OK|AMCOpen|OK|custom|
 |5R11|Lire l'abscisse relative d'un point|OK|AMCHybride|OK|mathLive|
@@ -355,8 +359,8 @@
 |6I10|Programmer des déplacements absolus (Scratch)|OK|AMCOpen|KO|KO|
 |6I12|Trouver le bon tracé avec Scratch|OK|qcmMono|OK|custom|
 |6M10-1|Problèmes d'aires de rectangles|KO|KO|OK|mathLive|
-|6M10|Calculer des périmètres et des aires de figures usuelles|OK|AMCHybride|OK|mathLive|
-|6M11-1|Calculer périmètre et aire de carrés, rectangles et triangles rectangles|OK|AMCNum|OK|mathLive|
+|6M10|Calculer le périmètre et l'aire de polygones usuels|OK|AMCHybride|OK|mathLive|
+|6M11-1|Calculer périmètre et aire de carrés, rectangles et triangles rectangles|OK|AMCHybride|OK|mathLive|
 |6M11-2|Calculer périmètre et aire de figures composées|OK|AMCHybride|OK|mathLive|
 |6M11-3|Calculer le périmètre de carrés, rectangles et triangles|OK|AMCNum|OK|mathLive|
 |6M11|Calculer l'aire de carrés, rectangles et triangles rectangles|OK|AMCNum|OK|mathLive|
@@ -364,7 +368,7 @@
 |6M20|Calculer l'aire de triangles|OK|AMCNum|OK|mathLive|
 |6M21|Comparer périmètres et/ou aires de figures|KO|KO|OK|qcm|
 |6M22-1|Calculer périmètre et aire de disques|OK|AMCHybride|OK|mathLive|
-|6M22|Calculer périmètre et aire de disques (à partir d'un texte)|OK|AMCHybride|OK|mathLive|
+|6M22|Calculer le périmètre et l'aire de disques ou demi-disques|OK|AMCHybride|OK|mathLive|
 |6M23|Convertir des aires|OK|qcmMono|OK|qcm,mathLive|
 |6M30-0|Déterminer le volume de pavés droit par dénombrement|OK|AMCNum|OK|mathLive|
 |6M30|Calculer le volume de solides donnés|OK|AMCHybride|OK|qcm,mathLive|
@@ -570,6 +574,7 @@
 |can2C14|Calculer avec une racine carrée (définition)|KO|KO|OK|mathLive|
 |can2C15|Calculer un nombre connaissant son inverse|OK|AMCNum|OK|mathLive|
 |can2C16|Calculer avec un programme de calcul*|KO|KO|OK|mathLive|
+|can2C17|Développer des égalités remarquables avec des racines carrées|KO|KO|OK|mathLive|
 |can2F01|Calculer une image avec le second degré|KO|KO|OK|mathLive|
 |can2F02|Calculer une image avec un quotient|KO|KO|OK|mathLive|
 |can2F03|Déterminer le signe d’une fonction affine (V/F)|KO|KO|OK|qcm|
@@ -608,7 +613,7 @@
 |can2L01|Déterminer le nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
 |can2L02|Calculer les coordonnées d’un point sur une droite|KO|KO|OK|mathLive|
 |can2L03|Calculer les coordonnées du point d’intersection entre l’axe des abscisses/droite|KO|KO|OK|mathLive|
-|can2L04|Calculer les coordonnées du point d’intersection entre l’axe des ordonnées/droite|KO|KO|OK|mathLive|
+|can2L04|Calculer les coordonnées du point d’intersection entre l’axe des ordonnées et une droite|KO|KO|OK|mathLive|
 |can2L05|Résoudre une inéquation (QCM)|KO|KO|OK|qcm|
 |can2L06|Développer avec les égalités remarquables|KO|KO|OK|mathLive|
 |can2L07|Factoriser une expression|KO|KO|OK|mathLive|
@@ -622,6 +627,7 @@
 |can2P02|Dénombrer dans une situation concrète|KO|KO|OK|mathLive|
 |can2a-2021|CAN Seconde sujet 2021|KO|KO|OK|mathLive|
 |can2a-2022|CAN seconde sujet 2022|KO|KO|OK|mathLive|
+|can2a-2023|CAN Seconde sujet 2023|KO|KO|OK|mathLive|
 |can3C01|Calculer avec des puissances|OK|AMCNum|OK|mathLive|
 |can3C02|Calculer une moyenne avec des décimaux|OK|AMCNum|OK|mathLive|
 |can3C03|Rendre irréductible une fraction|OK|AMCNum|OK|mathLive|
@@ -682,8 +688,9 @@
 |can4C10|Calculer une somme/différence de fractions égyptiennes|OK|AMCNum|OK|mathLive|
 |can4C11|Déterminer le signe d’une puissance|KO|KO|OK|qcm|
 |can4C12|Calculer la moitié d’une fraction|OK|AMCNum|OK|mathLive|
-|can4C13|Passer d'une fraction à un décimal|OK|AMCNum|OK|mathLive|
+|can4C13|Calculer une fraction de dénomiteur un décimal|OK|AMCNum|OK|mathLive|
 |can4C14|Augmenter un nombre d'une fraction|OK|AMCNum|OK|mathLive|
+|can4C15|Calculer une fraction de dénominateur $0,25$ ou $0,1$ ...|OK|AMCNum|OK|mathLive|
 |can4G01|Déterminer une longueur avec des triangles semblables|OK|AMCNum|OK|mathLive|
 |can4G02|Trouver l’image d’un point par une transformation|KO|KO|OK|mathLive|
 |can4G03|Calculer l’hypoténuse avec le théorème de Pythagore|KO|KO|OK|mathLive|
@@ -725,13 +732,14 @@
 |can5C14|Diviser avec des décimaux|OK|AMCNum|OK|mathLive|
 |can5C15|Rechercher un nombre à ajouter|KO|KO|OK|mathLive|
 |can5C16|Calculer astucieusement avec une factorisation|KO|KO|OK|mathLive|
-|can5C17|Convertir une fraction ou une somme vers un décimal|OK|AMCNum|OK|mathLive|
+|can5C17|Écrire la valeur décimale d'une somme de fractions|OK|AMCNum|OK|mathLive|
 |can5C18|Reconnaître une expression numérique (QCM)|KO|KO|OK|qcm|
 |can5C19|Soustraire deux décimaux|OK|AMCNum|OK|mathLive|
 |can5C20|Soustraire deux décimaux*|OK|AMCNum|OK|mathLive|
 |can5C21|Calculer la somme de décimaux qui se marient|OK|AMCNum|OK|mathLive|
 |can5C22|Passer d'un décimal à une fraction|OK|AMCNum|OK|mathLive|
 |can5C23|Multiplier par 1,5 ou 2,5 ou ...|OK|AMCNum|OK|mathLive|
+|can5C24|Écrire la valeur décimale d'une fraction|OK|AMCNum|OK|mathLive|
 |can5D01|Convertir des heures décimales en heures/minutes et inversement|OK|AMCNum|OK|mathLive|
 |can5D02|Convertir des heures décimales en heures/minutes et inversement*|OK|AMCNum|OK|mathLive|
 |can5D03|Convertir des fractions d’heures en minutes et inversement|OK|AMCNum|OK|mathLive|
